@@ -24,7 +24,7 @@ function splitRequestsToChunks( requests: BatchRequest[], chunkSize: number ) {
 
 async function getAPIRootURL( request: APIRequestContext ) {
 	// Discover the API root url using link header.
-	// See https://developer.wordpress.org/rest-api/using-the-rest-api/discovery/#link-header
+	// See https://developer.finpress.org/rest-api/using-the-rest-api/discovery/#link-header
 	const response = await request.head( WP_BASE_URL );
 	const links = response.headers().link;
 	const restLink = links?.match( /<([^>]+)>; rel="https:\/\/api\.w\.org\/"/ );
@@ -44,7 +44,7 @@ async function setupRest( this: RequestUtils ): Promise< StorageState > {
 	let rootURL = '';
 
 	// Poll until the REST API is discovered.
-	// See https://github.com/WordPress/gutenberg/issues/61627
+	// See https://github.com/FinPress/gutenberg/issues/61627
 	await expect
 		.poll(
 			async () => {

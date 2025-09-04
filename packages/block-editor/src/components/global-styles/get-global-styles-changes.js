@@ -4,10 +4,10 @@
 import memoize from 'memize';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _n, sprintf } from '@wordpress/i18n';
-import { getBlockTypes } from '@wordpress/blocks';
+import { __, _n, sprintf } from '@finpress/i18n';
+import { getBlockTypes } from '@finpress/blocks';
 
 const globalStylesChangesCache = new Map();
 const EMPTY_ARRAY = [];
@@ -204,7 +204,7 @@ export default function getGlobalStylesChanges( next, previous, options = {} ) {
 			const changeValuesLength = changeValues.length;
 			const joinedChangesValue = changeValues.join(
 				/* translators: Used between list items, there is a space after the comma. */
-				__( ', ' ) // eslint-disable-line @wordpress/i18n-no-flanking-whitespace
+				__( ', ' ) // eslint-disable-line @finpress/i18n-no-flanking-whitespace
 			);
 			switch ( key ) {
 				case 'blocks': {

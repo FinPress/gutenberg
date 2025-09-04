@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ToggleControl } from '@wordpress/components';
+import { ToggleControl } from '@finpress/components';
 
 function BaseOption( { help, label, isChecked, onChange, children } ) {
 	return (

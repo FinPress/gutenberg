@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks, RichText, useBlockProps } from '@finpress/block-editor';
 
 export default function save( { attributes } ) {
 	const { textAlign, citation } = attributes;

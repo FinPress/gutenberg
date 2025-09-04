@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { displayShortcut } from '@wordpress/keycodes';
-import { undo as undoIcon, redo as redoIcon } from '@wordpress/icons';
-import { forwardRef } from '@wordpress/element';
+import { __, isRTL } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { displayShortcut } from '@finpress/keycodes';
+import { undo as undoIcon, redo as redoIcon } from '@finpress/icons';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ function EditorHistoryUndo( props, ref ) {
 			shortcut={ displayShortcut.primary( 'z' ) }
 			// If there are no undo levels we don't want to actually disable this
 			// button, because it will remove focus for keyboard users.
-			// See: https://github.com/WordPress/gutenberg/issues/3486
+			// See: https://github.com/FinPress/gutenberg/issues/3486
 			aria-disabled={ ! hasUndo }
 			onClick={ hasUndo ? undo : undefined }
 			className="editor-history__undo"

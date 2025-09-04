@@ -4,10 +4,10 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { useConvertUnitToMobile } from '@wordpress/components';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { useConvertUnitToMobile } from '@finpress/components';
 
 /**
  * Internal dependencies

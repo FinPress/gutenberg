@@ -5,21 +5,21 @@ import RouteRecognizer from 'route-recognizer';
 import { createBrowserHistory } from 'history';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createContext,
 	useContext,
 	useSyncExternalStore,
 	useMemo,
-} from '@wordpress/element';
+} from '@finpress/element';
 import {
 	addQueryArgs,
 	getQueryArgs,
 	getPath,
 	buildQueryString,
-} from '@wordpress/url';
-import { useEvent } from '@wordpress/compose';
+} from '@finpress/url';
+import { useEvent } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -114,7 +114,7 @@ export function useHistory() {
 
 			/*
 			 * Skip transition in mobile, otherwise it crashes the browser.
-			 * See: https://github.com/WordPress/gutenberg/pull/63002.
+			 * See: https://github.com/FinPress/gutenberg/pull/63002.
 			 */
 			const isMediumOrBigger =
 				window.matchMedia( '(min-width: 782px)' ).matches;

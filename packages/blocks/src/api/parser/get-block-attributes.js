@@ -5,10 +5,10 @@ import { parse as hpqParse } from 'hpq';
 import memoize from 'memize';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { applyFilters } from '@wordpress/hooks';
-import { RichTextData } from '@wordpress/rich-text';
+import { applyFilters } from '@finpress/hooks';
+import { RichTextData } from '@finpress/rich-text';
 
 /**
  * Internal dependencies

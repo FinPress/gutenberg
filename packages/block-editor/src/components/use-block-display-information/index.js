@@ -1,21 +1,21 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 import {
 	store as blocksStore,
 	isReusableBlock,
 	isTemplatePart,
 	__experimentalGetBlockLabel as getBlockLabel,
-} from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/blocks';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
  */
 import { store as blockEditorStore } from '../../store';
 
-/** @typedef {import('@wordpress/blocks').WPIcon} WPIcon */
+/** @typedef {import('@finpress/blocks').WPIcon} WPIcon */
 
 /**
  * Contains basic block's information for display reasons.

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
 import {
 	serialize,
 	createBlock,
@@ -9,7 +9,7 @@ import {
 	findTransform,
 	getBlockTransforms,
 	store as blocksStore,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies

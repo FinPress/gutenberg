@@ -4,9 +4,9 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

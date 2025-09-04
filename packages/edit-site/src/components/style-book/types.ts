@@ -67,7 +67,7 @@ export type MultiOriginPalettes = {
 };
 
 /*
- * Typing the items from getBlockTypes from '@wordpress/blocks'
+ * Typing the items from getBlockTypes from '@finpress/blocks'
  * to appease the TS linter.
  */
 export type BlockType = {

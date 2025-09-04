@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useRef, useEffect, useReducer } from '@wordpress/element';
-import isShallowEqual from '@wordpress/is-shallow-equal';
+import { useState, useRef, useEffect, useReducer } from '@finpress/element';
+import isShallowEqual from '@finpress/is-shallow-equal';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector, createRegistrySelector } from '@wordpress/data';
-import { addQueryArgs } from '@wordpress/url';
-import deprecated from '@wordpress/deprecated';
+import { createSelector, createRegistrySelector } from '@finpress/data';
+import { addQueryArgs } from '@finpress/url';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -23,13 +23,13 @@ import {
 	getUserPermissionCacheKey,
 } from './utils';
 import type * as ET from './entity-types';
-import type { UndoManager } from '@wordpress/undo-manager';
+import type { UndoManager } from '@finpress/undo-manager';
 import logEntityDeprecation from './utils/log-entity-deprecation';
 
 // This is an incomplete, high-level approximation of the State type.
 // It makes the selectors slightly more safe, but is intended to evolve
 // into a more detailed representation over time.
-// See https://github.com/WordPress/gutenberg/pull/40025#discussion_r865410589 for more context.
+// See https://github.com/FinPress/gutenberg/pull/40025#discussion_r865410589 for more context.
 export interface State {
 	autosaves: Record< string | number, Array< unknown > >;
 	blockPatterns: Array< unknown >;
@@ -159,7 +159,7 @@ export const isRequestingEmbedPreview = createRegistrySelector(
  *
  * @param      state Data state.
  * @param      query Optional object of query parameters to
- *                   include with request. For valid query parameters see the [Users page](https://developer.wordpress.org/rest-api/reference/users/) in the REST API Handbook and see the arguments for [List Users](https://developer.wordpress.org/rest-api/reference/users/#list-users) and [Retrieve a User](https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user).
+ *                   include with request. For valid query parameters see the [Users page](https://developer.finpress.org/rest-api/reference/users/) in the REST API Handbook and see the arguments for [List Users](https://developer.finpress.org/rest-api/reference/users/#list-users) and [Retrieve a User](https://developer.finpress.org/rest-api/reference/users/#retrieve-a-user).
  * @return Authors list.
  */
 export function getAuthors(
@@ -212,7 +212,7 @@ export const getUserQueryResults = createSelector(
 /**
  * Returns the loaded entities for the given kind.
  *
- * @deprecated since WordPress 6.0. Use getEntitiesConfig instead
+ * @deprecated since FinPress 6.0. Use getEntitiesConfig instead
  * @param      state Data state.
  * @param      kind  Entity kind.
  *
@@ -244,7 +244,7 @@ export const getEntitiesConfig = createSelector(
 /**
  * Returns the entity config given its kind and name.
  *
- * @deprecated since WordPress 6.0. Use getEntityConfig instead
+ * @deprecated since FinPress 6.0. Use getEntityConfig instead
  * @param      state Data state.
  * @param      kind  Entity kind.
  * @param      name  Entity name.
@@ -302,7 +302,7 @@ export function getEntityConfig(
  * The signature without the state parameter shipped as CurriedSignature
  * is used in the return value of `select( coreStore )`.
  *
- * See https://github.com/WordPress/gutenberg/pull/41578 for more details.
+ * See https://github.com/FinPress/gutenberg/pull/41578 for more details.
  */
 export interface GetEntityRecord {
 	<
@@ -340,7 +340,7 @@ export interface GetEntityRecord {
  * @param name  Entity name.
  * @param key   Optional record's key. If requesting a global record (e.g. site settings), the key can be omitted. If requesting a specific item, the key must always be included.
  * @param query Optional query. If requesting specific
- *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available "Retrieve a [Entity kind]".
+ *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available "Retrieve a [Entity kind]".
  *
  * @return Record.
  */
@@ -509,7 +509,7 @@ export const getRawEntityRecord = createSelector(
  * @param state State tree
  * @param kind  Entity kind.
  * @param name  Entity name.
- * @param query Optional terms query. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+ * @param query Optional terms query. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
  *
  * @return  Whether entity records have been received.
  */
@@ -529,7 +529,7 @@ export function hasEntityRecords(
  * allow currying generic functions.
  *
  * @see GetEntityRecord
- * @see https://github.com/WordPress/gutenberg/pull/41578
+ * @see https://github.com/FinPress/gutenberg/pull/41578
  */
 export interface GetEntityRecords {
 	<
@@ -561,7 +561,7 @@ export interface GetEntityRecords {
  * @param kind  Entity kind.
  * @param name  Entity name.
  * @param query Optional terms query. If requesting specific
- *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+ *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
  *
  * @return Records.
  */
@@ -594,7 +594,7 @@ export const getEntityRecords = ( <
  * @param kind  Entity kind.
  * @param name  Entity name.
  * @param query Optional terms query. If requesting specific
- *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+ *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
  *
  * @return number | null.
  */
@@ -623,7 +623,7 @@ export const getEntityRecordsTotalItems = (
  * @param kind  Entity kind.
  * @param name  Entity name.
  * @param query Optional terms query. If requesting specific
- *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+ *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
  *
  * @return number | null.
  */
@@ -1137,7 +1137,7 @@ export function getEmbedPreview( state: State, url: string ): any {
 /**
  * Determines if the returned preview is an oEmbed link fallback.
  *
- * WordPress can be configured to return a simple link to a URL if it is not embeddable.
+ * FinPress can be configured to return a simple link to a URL if it is not embeddable.
  * We need to be able to determine if a URL is embeddable or not, based on what we
  * get back from the oEmbed preview API.
  *
@@ -1162,7 +1162,7 @@ export function isPreviewEmbedFallback( state: State, url: string ): boolean {
  * Calling this may trigger an OPTIONS request to the REST API via the
  * `canUser()` resolver.
  *
- * https://developer.wordpress.org/rest-api/reference/
+ * https://developer.finpress.org/rest-api/reference/
  *
  * @param state    Data state.
  * @param action   Action to check. One of: 'create', 'read', 'update', 'delete'.
@@ -1198,7 +1198,7 @@ export function canUser(
  * Calling this may trigger an OPTIONS request to the REST API via the
  * `canUser()` resolver.
  *
- * https://developer.wordpress.org/rest-api/reference/
+ * https://developer.finpress.org/rest-api/reference/
  *
  * @param state    Data state.
  * @param kind     Entity kind.
@@ -1386,7 +1386,7 @@ export function getUserPatternCategories(
 /**
  * Returns the revisions of the current global styles theme.
  *
- * @deprecated since WordPress 6.5.0. Callers should use `select( 'core' ).getRevisions( 'root', 'globalStyles', ${ recordKey } )` instead, where `recordKey` is the id of the global styles parent post.
+ * @deprecated since FinPress 6.5.0. Callers should use `select( 'core' ).getRevisions( 'root', 'globalStyles', ${ recordKey } )` instead, where `recordKey` is the id of the global styles parent post.
  *
  * @param      state Data state.
  *
@@ -1433,7 +1433,7 @@ export function getDefaultTemplateId(
  * @param name      Entity name.
  * @param recordKey The key of the entity record whose revisions you want to fetch.
  * @param query     Optional query. If requesting specific
- *                  fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.wordpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [Entity kind]".
+ *                  fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.finpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [Entity kind]".
  *
  * @return Record.
  */
@@ -1463,7 +1463,7 @@ export const getRevisions = (
  * @param recordKey   The key of the entity record whose revisions you want to fetch.
  * @param revisionKey The revision's key.
  * @param query       Optional query. If requesting specific
- *                    fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.wordpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [entity kind]".
+ *                    fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.finpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [entity kind]".
  *
  * @return Record.
  */

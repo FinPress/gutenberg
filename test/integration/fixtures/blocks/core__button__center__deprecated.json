@@ -3,7 +3,7 @@
 		"name": "core/button",
 		"isValid": true,
 		"attributes": {
-			"url": "https://github.com/WordPress/gutenberg",
+			"url": "https://github.com/FinPress/gutenberg",
 			"text": "Help build Gutenberg",
 			"className": "aligncenter"
 		},

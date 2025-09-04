@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { memo, useMemo } from '@wordpress/element';
-import { SandBox } from '@wordpress/components';
+import { memo, useMemo } from '@finpress/element';
+import { SandBox } from '@finpress/components';
 
 /**
- * Checks for WordPress embed events signaling the height change when iframe
+ * Checks for FinPress embed events signaling the height change when iframe
  * content loads or iframe's window is resized.  The event is sent from
- * WordPress core via the window.postMessage API.
+ * FinPress core via the window.postMessage API.
  *
  * References:
  * window.postMessage: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
- * WordPress core embed-template on load: https://github.com/WordPress/WordPress/blob/HEAD/wp-includes/js/wp-embed-template.js#L143
- * WordPress core embed-template on resize: https://github.com/WordPress/WordPress/blob/HEAD/wp-includes/js/wp-embed-template.js#L187
+ * FinPress core embed-template on load: https://github.com/FinPress/FinPress/blob/HEAD/wp-includes/js/wp-embed-template.js#L143
+ * FinPress core embed-template on resize: https://github.com/FinPress/FinPress/blob/HEAD/wp-includes/js/wp-embed-template.js#L187
  */
 const observeAndResizeJS = `
     ( function() {

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import type { DataViewRenderFieldProps } from '@wordpress/dataviews';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import type { DataViewRenderFieldProps } from '@finpress/dataviews';
 
 /**
  * Internal dependencies

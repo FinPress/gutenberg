@@ -11,9 +11,9 @@ import {
 } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component, createRef } from '@wordpress/element';
+import { Component, createRef } from '@finpress/element';
 import {
 	BACKSPACE,
 	DELETE,
@@ -24,7 +24,7 @@ import {
 	RIGHT,
 	SPACE,
 	UP,
-} from '@wordpress/keycodes';
+} from '@finpress/keycodes';
 
 /**
  * Internal dependencies
@@ -267,7 +267,7 @@ class AztecView extends Component {
 		// spreading from inadvertently introducing focus loops. The user-facing
 		// focus of the element is handled by `onPress` instead.
 		//
-		// See: https://github.com/wordpress-mobile/gutenberg-mobile/issues/302
+		// See: https://github.com/finpress-mobile/gutenberg-mobile/issues/302
 		//
 		// iOS: Programmatic focus from the native Aztec module is required to
 		// ensure the React-based `TextStateInput` ref is properly set when focus
@@ -275,14 +275,14 @@ class AztecView extends Component {
 		// is not updated, attempts to dismiss the keyboard via the `ToolbarButton`
 		// will fail.
 		//
-		// See: https://github.com/wordpress-mobile/gutenberg-mobile/issues/702
+		// See: https://github.com/finpress-mobile/gutenberg-mobile/issues/702
 		if (
 			// The Android keyboard is, likely erroneously, already dismissed in the
 			// contexts where programmatic focus may be required on iOS.
 			//
-			// - https://github.com/WordPress/gutenberg/issues/28748
-			// - https://github.com/WordPress/gutenberg/issues/29048
-			// - https://github.com/wordpress-mobile/WordPress-Android/issues/16167
+			// - https://github.com/FinPress/gutenberg/issues/28748
+			// - https://github.com/FinPress/gutenberg/issues/29048
+			// - https://github.com/finpress-mobile/FinPress-Android/issues/16167
 			Platform.OS === 'ios'
 		) {
 			this.updateCaretData( event );
@@ -294,7 +294,7 @@ class AztecView extends Component {
 				// ref. To mitigate this, the below updates the focused element ref, but
 				// does not call the native focus methods.
 				//
-				// See: https://github.com/wordpress-mobile/WordPress-iOS/issues/18783
+				// See: https://github.com/finpress-mobile/FinPress-iOS/issues/18783
 				AztecInputState.focusInput( this.aztecViewRef.current );
 
 				// Calling _onFocus is needed to trigger provided onFocus callbacks
@@ -308,7 +308,7 @@ class AztecView extends Component {
 	render() {
 		const { onActiveFormatsChange, ...otherProps } = this.props;
 		// `style` has to be destructured separately, without `otherProps`, because of:
-		// https://github.com/WordPress/gutenberg/issues/23611
+		// https://github.com/FinPress/gutenberg/issues/23611
 		const { style } = this.props;
 
 		if ( style.hasOwnProperty( 'lineHeight' ) ) {
@@ -328,7 +328,7 @@ class AztecView extends Component {
 
 		// We need to use `Pressable` on iOS to avoid issues with VoiceOver and assistive
 		// input like the Braille Screen Input.
-		// More information about this can be found in https://github.com/WordPress/gutenberg/pull/53895.
+		// More information about this can be found in https://github.com/FinPress/gutenberg/pull/53895.
 		const TouchableComponent =
 			Platform.OS === 'ios' ? Pressable : TouchableWithoutFeedback;
 

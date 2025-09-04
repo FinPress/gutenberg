@@ -4,11 +4,11 @@
 import { capitalCase, pascalCase } from 'change-case';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
-import { __ } from '@wordpress/i18n';
-import { RichTextData } from '@wordpress/rich-text';
+import apiFetch from '@finpress/api-fetch';
+import { __ } from '@finpress/i18n';
+import { RichTextData } from '@finpress/rich-text';
 
 export const DEFAULT_ENTITY_KEY = 'id';
 const POST_RAW_ATTRIBUTES = [ 'title', 'excerpt', 'content' ];
@@ -21,7 +21,7 @@ export const rootEntitiesConfig = [
 		baseURL: '/',
 		baseURLParams: {
 			// Please also change the preload path when changing this.
-			// @see lib/compat/wordpress-6.8/preload.php
+			// @see lib/compat/finpress-6.8/preload.php
 			_fields: [
 				'description',
 				'gmt_offset',

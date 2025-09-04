@@ -6,9 +6,9 @@ import userEvent from '@testing-library/user-event';
 import { click } from '@ariakit/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

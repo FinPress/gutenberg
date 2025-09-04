@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
-import { BlockBreadcrumb } from '@wordpress/block-editor';
-import { useEffect } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useViewportMatch } from '@finpress/compose';
+import { BlockBreadcrumb } from '@finpress/block-editor';
+import { useEffect } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
 import {
 	InterfaceSkeleton,
 	ComplementaryArea,
 	store as interfaceStore,
-} from '@wordpress/interface';
-import { __ } from '@wordpress/i18n';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/interface';
+import { __ } from '@finpress/i18n';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies

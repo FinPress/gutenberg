@@ -4,9 +4,9 @@
 import { render, act } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RegistryProvider, createRegistry } from '@wordpress/data';
+import { RegistryProvider, createRegistry } from '@finpress/data';
 
 /**
  * Internal dependencies

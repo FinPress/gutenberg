@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useMemo } from '@wordpress/element';
+import { useCallback, useMemo } from '@finpress/element';
 import {
 	applyFormat,
 	removeFormat,
 	getActiveFormat,
-} from '@wordpress/rich-text';
+} from '@finpress/rich-text';
 import {
 	getColorClassName,
 	getColorObjectByColorValue,
 	useMultipleOriginColorsAndGradients,
 	useMobileGlobalStylesColors,
-} from '@wordpress/block-editor';
-import { BottomSheet, ColorSettings } from '@wordpress/components';
+} from '@finpress/block-editor';
+import { BottomSheet, ColorSettings } from '@finpress/components';
 
 /**
  * Internal dependencies

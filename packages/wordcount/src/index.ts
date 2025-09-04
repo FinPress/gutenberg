@@ -108,7 +108,7 @@ function countCharacters(
  *
  * @example
  * ```ts
- * import { count } from '@wordpress/wordcount';
+ * import { count } from '@finpress/wordcount';
  * const numberOfWords = count( 'Words to count', 'words', {} )
  * ```
  *

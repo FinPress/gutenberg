@@ -1,3 +1,3 @@
-declare module '@wordpress/data' {
-	export * from '@wordpress/data/build-types/index';
+declare module '@finpress/data' {
+	export * from '@finpress/data/build-types/index';
 }

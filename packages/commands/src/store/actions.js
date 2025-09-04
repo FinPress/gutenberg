@@ -1,4 +1,4 @@
-/** @typedef {import('@wordpress/keycodes').WPKeycodeModifier} WPKeycodeModifier */
+/** @typedef {import('@finpress/keycodes').WPKeycodeModifier} WPKeycodeModifier */
 
 /**
  * Configuration of a registered keyboard shortcut.

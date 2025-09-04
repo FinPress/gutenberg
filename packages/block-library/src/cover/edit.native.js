@@ -13,15 +13,15 @@ import Video from 'react-native-video';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	requestImageFailedRetryDialog,
 	requestImageUploadCancelDialog,
 	requestImageFullscreenPreview,
 	mediaUploadSync,
-} from '@wordpress/react-native-bridge';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/react-native-bridge';
+import { __ } from '@finpress/i18n';
 import {
 	Icon,
 	Image,
@@ -33,7 +33,7 @@ import {
 	ColorPicker,
 	BottomSheetConsumer,
 	useConvertUnitToMobile,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	BlockControls,
 	InnerBlocks,
@@ -48,20 +48,20 @@ import {
 	store as blockEditorStore,
 	useGlobalStyles,
 	useMobileGlobalStylesColors,
-} from '@wordpress/block-editor';
-import { compose, withPreferredColorScheme } from '@wordpress/compose';
-import { useDispatch, withSelect, withDispatch } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { compose, withPreferredColorScheme } from '@finpress/compose';
+import { useDispatch, withSelect, withDispatch } from '@finpress/data';
 import {
 	useEffect,
 	useState,
 	useRef,
 	useCallback,
 	useMemo,
-} from '@wordpress/element';
-import { cover as icon, replace, image, cautionFilled } from '@wordpress/icons';
-import { getProtocol } from '@wordpress/url';
+} from '@finpress/element';
+import { cover as icon, replace, image, cautionFilled } from '@finpress/icons';
+import { getProtocol } from '@finpress/url';
 // eslint-disable-next-line no-restricted-imports
-import { store as editPostStore } from '@wordpress/edit-post';
+import { store as editPostStore } from '@finpress/edit-post';
 
 /**
  * Internal dependencies

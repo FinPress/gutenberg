@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Rect, SVG } from '@wordpress/primitives';
+import { Rect, SVG } from '@finpress/primitives';
 
 /**
  * Internal dependencies

@@ -1,5 +1,5 @@
 /**
- * wordpress/private-apis – the utilities to enable private cross-package
+ * finpress/private-apis – the utilities to enable private cross-package
  * exports of private APIs.
  *
  * This "implementation.ts" file is needed for the sake of the unit tests. It
@@ -10,29 +10,29 @@
  * The list of core modules allowed to opt-in to the private APIs.
  */
 const CORE_MODULES_USING_PRIVATE_APIS = [
-	'@wordpress/block-directory',
-	'@wordpress/block-editor',
-	'@wordpress/block-library',
-	'@wordpress/blocks',
-	'@wordpress/commands',
-	'@wordpress/components',
-	'@wordpress/core-commands',
-	'@wordpress/core-data',
-	'@wordpress/customize-widgets',
-	'@wordpress/data',
-	'@wordpress/edit-post',
-	'@wordpress/edit-site',
-	'@wordpress/edit-widgets',
-	'@wordpress/editor',
-	'@wordpress/format-library',
-	'@wordpress/patterns',
-	'@wordpress/preferences',
-	'@wordpress/reusable-blocks',
-	'@wordpress/router',
-	'@wordpress/dataviews',
-	'@wordpress/fields',
-	'@wordpress/media-utils',
-	'@wordpress/upload-media',
+	'@finpress/block-directory',
+	'@finpress/block-editor',
+	'@finpress/block-library',
+	'@finpress/blocks',
+	'@finpress/commands',
+	'@finpress/components',
+	'@finpress/core-commands',
+	'@finpress/core-data',
+	'@finpress/customize-widgets',
+	'@finpress/data',
+	'@finpress/edit-post',
+	'@finpress/edit-site',
+	'@finpress/edit-widgets',
+	'@finpress/editor',
+	'@finpress/format-library',
+	'@finpress/patterns',
+	'@finpress/preferences',
+	'@finpress/reusable-blocks',
+	'@finpress/router',
+	'@finpress/dataviews',
+	'@finpress/fields',
+	'@finpress/media-utils',
+	'@finpress/upload-media',
 ];
 
 /**
@@ -44,11 +44,11 @@ const registeredPrivateApis: Array< string > = [];
 /*
  * Warning for theme and plugin developers.
  *
- * The use of private developer APIs is intended for use by WordPress Core
+ * The use of private developer APIs is intended for use by FinPress Core
  * and the Gutenberg plugin exclusively.
  *
  * Dangerously opting in to using these APIs is NOT RECOMMENDED. Furthermore,
- * the WordPress Core philosophy to strive to maintain backward compatibility
+ * the FinPress Core philosophy to strive to maintain backward compatibility
  * for third-party developers DOES NOT APPLY to private APIs.
  *
  * THE CONSENT STRING FOR OPTING IN TO THESE APIS MAY CHANGE AT ANY TIME AND
@@ -56,13 +56,13 @@ const registeredPrivateApis: Array< string > = [];
  * CHANGE MAY OCCUR IN EITHER A MAJOR OR MINOR RELEASE.
  */
 const requiredConsent =
-	'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of WordPress.';
+	'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of FinPress.';
 
-// The safety measure is meant for WordPress core where IS_WORDPRESS_CORE is set to true.
+// The safety measure is meant for FinPress core where IS_WORDPRESS_CORE is set to true.
 const allowReRegistration = globalThis.IS_WORDPRESS_CORE ? false : true;
 
 /**
- * Called by a @wordpress package wishing to opt-in to accessing or exposing
+ * Called by a @finpress package wishing to opt-in to accessing or exposing
  * private private APIs.
  *
  * @param consent    The consent string.
@@ -76,10 +76,10 @@ export const __dangerousOptInToUnstableAPIsOnlyForCoreModules = (
 	if ( ! CORE_MODULES_USING_PRIVATE_APIS.includes( moduleName ) ) {
 		throw new Error(
 			`You tried to opt-in to unstable APIs as module "${ moduleName }". ` +
-				'This feature is only for JavaScript modules shipped with WordPress core. ' +
+				'This feature is only for JavaScript modules shipped with FinPress core. ' +
 				'Please do not use it in plugins and themes as the unstable APIs will be removed ' +
 				'without a warning. If you ignore this error and depend on unstable features, ' +
-				'your product will inevitably break on one of the next WordPress releases.'
+				'your product will inevitably break on one of the next FinPress releases.'
 		);
 	}
 	if (
@@ -88,22 +88,22 @@ export const __dangerousOptInToUnstableAPIsOnlyForCoreModules = (
 	) {
 		// This check doesn't play well with Story Books / Hot Module Reloading
 		// and isn't included in the Gutenberg plugin. It only matters in the
-		// WordPress core release.
+		// FinPress core release.
 		throw new Error(
 			`You tried to opt-in to unstable APIs as module "${ moduleName }" which is already registered. ` +
-				'This feature is only for JavaScript modules shipped with WordPress core. ' +
+				'This feature is only for JavaScript modules shipped with FinPress core. ' +
 				'Please do not use it in plugins and themes as the unstable APIs will be removed ' +
 				'without a warning. If you ignore this error and depend on unstable features, ' +
-				'your product will inevitably break on one of the next WordPress releases.'
+				'your product will inevitably break on one of the next FinPress releases.'
 		);
 	}
 	if ( consent !== requiredConsent ) {
 		throw new Error(
 			`You tried to opt-in to unstable APIs without confirming you know the consequences. ` +
-				'This feature is only for JavaScript modules shipped with WordPress core. ' +
+				'This feature is only for JavaScript modules shipped with FinPress core. ' +
 				'Please do not use it in plugins and themes as the unstable APIs will removed ' +
 				'without a warning. If you ignore this error and depend on unstable features, ' +
-				'your product will inevitably break on the next WordPress release.'
+				'your product will inevitably break on the next FinPress release.'
 		);
 	}
 	registeredPrivateApis.push( moduleName );

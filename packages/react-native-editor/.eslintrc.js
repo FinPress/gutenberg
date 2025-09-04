@@ -7,7 +7,7 @@ module.exports = {
 		__DEV__: true,
 	},
 	plugins: [ 'react', 'jest' ],
-	extends: [ 'plugin:@wordpress/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@finpress/eslint-plugin/recommended' ],
 	settings: {
 		react: {
 			pragma: 'React',
@@ -26,9 +26,9 @@ module.exports = {
 			// here. That's why we use \\u002F in the regexes below.
 			{
 				selector:
-					'ImportDeclaration[source.value=/^@wordpress\\u002F.+\\u002F/]',
+					'ImportDeclaration[source.value=/^@finpress\\u002F.+\\u002F/]',
 				message:
-					'Path access on WordPress dependencies is not allowed.',
+					'Path access on FinPress dependencies is not allowed.',
 			},
 			{
 				selector:

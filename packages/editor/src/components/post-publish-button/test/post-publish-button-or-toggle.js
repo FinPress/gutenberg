@@ -4,18 +4,18 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
+import { useViewportMatch } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
  */
 import PostPublishButtonOrToggle from '../post-publish-button-or-toggle';
 
-jest.mock( '@wordpress/compose/src/hooks/use-viewport-match' );
-jest.mock( '@wordpress/data/src/components/use-select', () => jest.fn() );
+jest.mock( '@finpress/compose/src/hooks/use-viewport-match' );
+jest.mock( '@finpress/data/src/components/use-select', () => jest.fn() );
 
 describe( 'PostPublishButtonOrToggle should render a', () => {
 	afterEach( () => {

@@ -2,7 +2,7 @@
 /**
  * Adds the wp-block-list class to the rendered list block.
  *
- * @package WordPress
+ * @package FinPress
  */
 
 /**
@@ -12,7 +12,7 @@
  *
  * @since 6.6.0
  *
- * @see https://github.com/WordPress/gutenberg/issues/12420
+ * @see https://github.com/FinPress/gutenberg/issues/12420
  *
  * @param array  $attributes Attributes of the block being rendered.
  * @param string $content Content of the block being rendered.

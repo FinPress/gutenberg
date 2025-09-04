@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter, removeFilter } from '@wordpress/hooks';
+import { addFilter, removeFilter } from '@finpress/hooks';
 import {
 	useEffect,
 	useLayoutEffect,
 	useRef,
 	useState,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies

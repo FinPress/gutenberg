@@ -4,8 +4,8 @@ The sync package is part of an ongoing research effort to lay the groundwork of 
 
 Relevant docs:
 
-- https://make.wordpress.org/core/2023/07/13/real-time-collaboration-architecture/
-- https://github.com/WordPress/gutenberg/issues/52593
+- https://make.finpress.org/core/2023/07/13/real-time-collaboration-architecture/
+- https://github.com/FinPress/gutenberg/issues/52593
 - https://docs.yjs.dev/
 
 ## Enable the experiment

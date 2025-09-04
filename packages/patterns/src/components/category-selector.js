@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
-import { FormTokenField } from '@wordpress/components';
-import { useDebounce } from '@wordpress/compose';
-import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@finpress/i18n';
+import { useMemo, useState } from '@finpress/element';
+import { FormTokenField } from '@finpress/components';
+import { useDebounce } from '@finpress/compose';
+import { decodeEntities } from '@finpress/html-entities';
 
 const unescapeString = ( arg ) => {
 	return decodeEntities( arg );

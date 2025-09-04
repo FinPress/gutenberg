@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId, useMergeRefs } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
-import { Icon, search, closeSmall } from '@wordpress/icons';
-import { forwardRef, useMemo, useRef } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+import { useInstanceId, useMergeRefs } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
+import { Icon, search, closeSmall } from '@finpress/icons';
+import { forwardRef, useMemo, useRef } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
  */
 import Button from '../button';
-import type { WordPressComponentProps } from '../context/wordpress-component';
+import type { WordPressComponentProps } from '../context/finpress-component';
 import type { SearchControlProps, SuffixItemProps } from './types';
 import type { ForwardedRef } from 'react';
 import { ContextSystemProvider } from '../context';
@@ -73,7 +73,7 @@ function UnforwardedSearchControl(
 	forwardedRef: ForwardedRef< HTMLInputElement >
 ) {
 	// @ts-expect-error The `disabled` prop is not yet supported in the SearchControl component.
-	// Work with the design team (@WordPress/gutenberg-design) if you need this feature.
+	// Work with the design team (@FinPress/gutenberg-design) if you need this feature.
 	const { disabled, ...filteredRestProps } = restProps;
 
 	const searchRef = useRef< HTMLInputElement >( null );
@@ -134,8 +134,8 @@ function UnforwardedSearchControl(
  * SearchControl components let users display a search control.
  *
  * ```jsx
- * import { SearchControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { SearchControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * function MySearchControl( { className, setState } ) {
  *   const [ searchInput, setSearchInput ] = useState( '' );

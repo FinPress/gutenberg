@@ -1,25 +1,25 @@
 {
-	"name": "@wordpress/postcss-plugins-preset",
+	"name": "@finpress/postcss-plugins-preset",
 	"version": "5.29.0",
-	"description": "PostCSS sharable plugins preset for WordPress development.",
-	"author": "The WordPress Contributors",
+	"description": "PostCSS sharable plugins preset for FinPress development.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"postcss",
 		"css",
 		"plugins",
 		"preset"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/postcss-plugins-preset/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/postcss-plugins-preset/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/postcss-plugins-preset"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -30,7 +30,7 @@
 	],
 	"main": "lib/index.js",
 	"dependencies": {
-		"@wordpress/base-styles": "file:../base-styles",
+		"@finpress/base-styles": "file:../base-styles",
 		"autoprefixer": "^10.4.20"
 	},
 	"peerDependencies": {

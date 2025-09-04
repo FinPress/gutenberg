@@ -4,16 +4,16 @@
 import { renderHook } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { dispatch, select } from '@wordpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { dispatch, select } from '@finpress/data';
 import {
 	createBlock,
 	getBlockTypes,
 	unregisterBlockType,
-} from '@wordpress/blocks';
-import { registerCoreBlocks } from '@wordpress/block-library';
+} from '@finpress/blocks';
+import { registerCoreBlocks } from '@finpress/block-library';
 
 /**
  * Internal dependencies

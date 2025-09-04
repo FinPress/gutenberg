@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import warning from '@wordpress/warning';
+import deprecated from '@finpress/deprecated';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies
@@ -57,7 +57,7 @@ function useResourcePermissions< IdType = void >(
 /**
  * Resolves resource permissions.
  *
- * @since 6.1.0 Introduced in WordPress core.
+ * @since 6.1.0 Introduced in FinPress core.
  *
  * @param    resource Entity resource to check. Accepts entity object `{ kind: 'postType', name: 'attachment', id: 1 }`
  *                    or REST base as a string - `media`.
@@ -66,7 +66,7 @@ function useResourcePermissions< IdType = void >(
  *
  * @example
  * ```js
- * import { useResourcePermissions } from '@wordpress/core-data';
+ * import { useResourcePermissions } from '@finpress/core-data';
  *
  * function PagesList() {
  *   const { canCreate, isResolving } = useResourcePermissions( { kind: 'postType', name: 'page' } );
@@ -89,7 +89,7 @@ function useResourcePermissions< IdType = void >(
  *
  * @example
  * ```js
- * import { useResourcePermissions } from '@wordpress/core-data';
+ * import { useResourcePermissions } from '@finpress/core-data';
  *
  * function Page({ pageId }) {
  *   const {

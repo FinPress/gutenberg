@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { trash, image, Icon, category } from '@wordpress/icons';
+import { trash, image, Icon, category } from '@finpress/icons';
 import {
 	Button,
 	__experimentalText as Text,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies
@@ -280,7 +280,7 @@ export const themeData: Theme[] = [
 		slug: 'twentyeleven',
 		name: 'Twenty Eleven',
 		description:
-			'The 2011 theme for WordPress is sophisticated, lightweight, and adaptable. Make it yours with a custom menu, header image, and background -- then go further with available theme options for light or dark color scheme, custom link colors, and three layout choices. Twenty Eleven comes equipped with a Showcase page template that transforms your front page into a showcase to show off your best content, widget support galore (sidebar, three footer areas, and a Showcase page widget area), and a custom "Ephemera" widget to display your Aside, Link, Quote, or Status posts. Included are styles for print and for the admin editor, support for featured images (as custom header images on posts and pages and as large images on featured "sticky" posts), and special styles for six different post formats.',
+			'The 2011 theme for FinPress is sophisticated, lightweight, and adaptable. Make it yours with a custom menu, header image, and background -- then go further with available theme options for light or dark color scheme, custom link colors, and three layout choices. Twenty Eleven comes equipped with a Showcase page template that transforms your front page into a showcase to show off your best content, widget support galore (sidebar, three footer areas, and a Showcase page widget area), and a custom "Ephemera" widget to display your Aside, Link, Quote, or Status posts. Included are styles for print and for the admin editor, support for featured images (as custom header images on posts and pages and as large images on featured "sticky" posts), and special styles for six different post formats.',
 		requires: '3.2',
 		tested: '6.6',
 		tags: [
@@ -340,7 +340,7 @@ export const themeData: Theme[] = [
 		slug: 'twentyfourteen',
 		name: 'Twenty Fourteen',
 		description:
-			"In 2014, our default theme lets you create a responsive magazine website with a sleek, modern design. Feature your favorite homepage content in either a grid or a slider. Use the three widget areas to customize your website, and change your content's layout with a full-width page template and a contributor page to show off your authors. Creating a magazine website with WordPress has never been easier.",
+			"In 2014, our default theme lets you create a responsive magazine website with a sleek, modern design. Feature your favorite homepage content in either a grid or a slider. Use the three widget areas to customize your website, and change your content's layout with a full-width page template and a contributor page to show off your authors. Creating a magazine website with FinPress has never been easier.",
 		requires: '3.6',
 		tested: '6.6',
 		tags: [
@@ -424,7 +424,7 @@ export const themeData: Theme[] = [
 		slug: 'twentysixteen',
 		name: 'Twenty Sixteen',
 		description:
-			'Twenty Sixteen is a modernized take on an ever-popular WordPress layout — the horizontal masthead with an optional right sidebar that works perfectly for blogs and websites. It has custom color options with beautiful default color schemes, a harmonious fluid grid using a mobile-first approach, and impeccable polish in every detail. Twenty Sixteen will make your WordPress look beautiful everywhere.',
+			'Twenty Sixteen is a modernized take on an ever-popular FinPress layout — the horizontal masthead with an optional right sidebar that works perfectly for blogs and websites. It has custom color options with beautiful default color schemes, a harmonious fluid grid using a mobile-first approach, and impeccable polish in every detail. Twenty Sixteen will make your FinPress look beautiful everywhere.',
 		requires: '4.4',
 		tested: '6.6',
 		tags: [
@@ -453,7 +453,7 @@ export const themeData: Theme[] = [
 		slug: 'twentyten',
 		name: 'Twenty Ten',
 		description:
-			'The 2010 theme for WordPress is stylish, customizable, simple, and readable -- make it yours with a custom menu, header image, and background. Twenty Ten supports six widgetized areas (two in the sidebar, four in the footer) and featured images (thumbnails for gallery posts and custom header images for posts and pages). It includes stylesheets for print and the admin Visual Editor, special styles for posts in the "Asides" and "Gallery" categories, and has an optional one-column page template that removes the sidebar.',
+			'The 2010 theme for FinPress is stylish, customizable, simple, and readable -- make it yours with a custom menu, header image, and background. Twenty Ten supports six widgetized areas (two in the sidebar, four in the footer) and featured images (thumbnails for gallery posts and custom header images for posts and pages). It includes stylesheets for print and the admin Visual Editor, special styles for posts in the "Asides" and "Gallery" categories, and has an optional one-column page template that removes the sidebar.',
 		requires: '5.6',
 		tested: '6.6',
 		tags: [
@@ -479,7 +479,7 @@ export const themeData: Theme[] = [
 		slug: 'twentythirteen',
 		name: 'Twenty Thirteen',
 		description:
-			'The 2013 theme for WordPress takes us back to the blog, featuring a full range of post formats, each displayed beautifully in their own unique way. Design details abound, starting with a vibrant color scheme and matching header images, beautiful typography and icons, and a flexible layout that looks great on any device, big or small.',
+			'The 2013 theme for FinPress takes us back to the blog, featuring a full range of post formats, each displayed beautifully in their own unique way. Design details abound, starting with a vibrant color scheme and matching header images, beautiful typography and icons, and a flexible layout that looks great on any device, big or small.',
 		requires: '3.6',
 		tested: '6.6',
 		tags: [
@@ -505,7 +505,7 @@ export const themeData: Theme[] = [
 		slug: 'twentytwelve',
 		name: 'Twenty Twelve',
 		description:
-			'The 2012 theme for WordPress is a fully responsive theme that looks great on any device. Features include a front page template with its own widgets, an optional display font, styling for post formats on both index and single views, and an optional no-sidebar page template. Make it yours with a custom menu, header image, and background.',
+			'The 2012 theme for FinPress is a fully responsive theme that looks great on any device. Features include a front page template with its own widgets, an optional display font, styling for post formats on both index and single views, and an optional no-sidebar page template. Make it yours with a custom menu, header image, and background.',
 		requires: '3.5',
 		tested: '6.6',
 		tags: [
@@ -563,7 +563,7 @@ export const themeData: Theme[] = [
 		slug: 'twentytwentyfour',
 		name: 'Twenty Twenty-Four',
 		description:
-			'Twenty Twenty-Four is designed to be flexible, versatile and applicable to any website. Its collection of templates and patterns tailor to different needs, such as presenting a business, blogging and writing or showcasing work. A multitude of possibilities open up with just a few adjustments to color and typography. Twenty Twenty-Four comes with style variations and full page designs to help speed up the site building process, is fully compatible with the site editor, and takes advantage of new design tools introduced in WordPress 6.4.',
+			'Twenty Twenty-Four is designed to be flexible, versatile and applicable to any website. Its collection of templates and patterns tailor to different needs, such as presenting a business, blogging and writing or showcasing work. A multitude of possibilities open up with just a few adjustments to color and typography. Twenty Twenty-Four comes with style variations and full page designs to help speed up the site building process, is fully compatible with the site editor, and takes advantage of new design tools introduced in FinPress 6.4.',
 		requires: '6.4',
 		tested: '6.6',
 		tags: [
@@ -617,7 +617,7 @@ export const themeData: Theme[] = [
 		slug: 'twentytwentythree',
 		name: 'Twenty Twenty-Three',
 		description:
-			'Twenty Twenty-Three is designed to take advantage of the new design tools introduced in WordPress 6.1. With a clean, blank base as a starting point, this default theme includes ten diverse style variations created by members of the WordPress community. Whether you want to build a complex or incredibly simple website, you can do it quickly and intuitively through the bundled styles or dive into creation and full customization yourself.',
+			'Twenty Twenty-Three is designed to take advantage of the new design tools introduced in FinPress 6.1. With a clean, blank base as a starting point, this default theme includes ten diverse style variations created by members of the FinPress community. Whether you want to build a complex or incredibly simple website, you can do it quickly and intuitively through the bundled styles or dive into creation and full customization yourself.',
 		requires: '6.1',
 		tested: '6.6',
 		tags: [
@@ -646,7 +646,7 @@ export const themeData: Theme[] = [
 		slug: 'twentytwentytwo',
 		name: 'Twenty Twenty-Two',
 		description:
-			'Built on a solidly designed foundation, Twenty Twenty-Two embraces the idea that everyone deserves a truly unique website. The theme’s subtle styles are inspired by the diversity and versatility of birds: its typography is lightweight yet strong, its color palette is drawn from nature, and its layout elements sit gently on the page. The true richness of Twenty Twenty-Two lies in its opportunity for customization. The theme is built to take advantage of the Site Editor features introduced in WordPress 5.9, which means that colors, typography, and the layout of every single page on your site can be customized to suit your vision. It also includes dozens of block patterns, opening the door to a wide range of professionally designed layouts in just a few clicks. Whether you’re building a single-page website, a blog, a business website, or a portfolio, Twenty Twenty-Two will help you create a site that is uniquely yours.',
+			'Built on a solidly designed foundation, Twenty Twenty-Two embraces the idea that everyone deserves a truly unique website. The theme’s subtle styles are inspired by the diversity and versatility of birds: its typography is lightweight yet strong, its color palette is drawn from nature, and its layout elements sit gently on the page. The true richness of Twenty Twenty-Two lies in its opportunity for customization. The theme is built to take advantage of the Site Editor features introduced in FinPress 5.9, which means that colors, typography, and the layout of every single page on your site can be customized to suit your vision. It also includes dozens of block patterns, opening the door to a wide range of professionally designed layouts in just a few clicks. Whether you’re building a single-page website, a blog, a business website, or a portfolio, Twenty Twenty-Two will help you create a site that is uniquely yours.',
 		requires: '5.9',
 		tested: '6.6',
 		tags: [

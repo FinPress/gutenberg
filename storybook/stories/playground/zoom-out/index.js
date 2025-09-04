@@ -1,30 +1,30 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
-import { registerCoreBlocks } from '@wordpress/block-library';
-import { useDispatch } from '@wordpress/data';
+import { useEffect, useState } from '@finpress/element';
+import { registerCoreBlocks } from '@finpress/block-library';
+import { useDispatch } from '@finpress/data';
 import {
 	BlockEditorProvider,
 	BlockCanvas,
 	store as blockEditorStore,
 	BlockList,
-} from '@wordpress/block-editor';
-import { __dangerousOptInToUnstableAPIsOnlyForCoreModules } from '@wordpress/private-apis';
-import { parse } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { __dangerousOptInToUnstableAPIsOnlyForCoreModules } from '@finpress/private-apis';
+import { parse } from '@finpress/blocks';
 
 /**
  * Internal dependencies
  */
 import { editorStyles } from '../editor-styles';
-// eslint-disable-next-line @wordpress/dependency-group
+// eslint-disable-next-line @finpress/dependency-group
 import contentCss from '!!raw-loader!../../../../packages/block-editor/build-style/content.css';
 import { pattern } from './pattern';
 
 // Temporary hack to access private APIs before stabilizing zoom level.
 const { unlock } = __dangerousOptInToUnstableAPIsOnlyForCoreModules(
-	'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of WordPress.',
-	'@wordpress/edit-site'
+	'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of FinPress.',
+	'@finpress/edit-site'
 );
 
 function EnableZoomOut( { zoomLevel } ) {

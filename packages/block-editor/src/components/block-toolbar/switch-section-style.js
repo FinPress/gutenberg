@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	ToolbarButton,
@@ -7,10 +7,10 @@ import {
 	Icon,
 	Path,
 	SVG,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useContext } from '@wordpress/element';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

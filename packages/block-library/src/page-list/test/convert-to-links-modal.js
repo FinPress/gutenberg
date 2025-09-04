@@ -6,8 +6,8 @@ import { convertToNavigationLinks } from '../use-convert-to-navigation-links';
 
 // Mock createBlock to avoid creating the blocks in test environment
 // as convertToNavigationLinks calls this method internally.
-jest.mock( '@wordpress/blocks', () => {
-	const blocks = jest.requireActual( '@wordpress/blocks' );
+jest.mock( '@finpress/blocks', () => {
+	const blocks = jest.requireActual( '@finpress/blocks' );
 
 	return {
 		...blocks,
@@ -32,7 +32,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 2,
 					parent: 0,
-					link: 'http://wordpress.local/sample-page/',
+					link: 'http://finpress.local/sample-page/',
 					type: 'page',
 				},
 				{
@@ -42,7 +42,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 34,
 					parent: 0,
-					link: 'http://wordpress.local/about/',
+					link: 'http://finpress.local/about/',
 					type: 'page',
 				},
 				{
@@ -52,7 +52,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 37,
 					parent: 0,
-					link: 'http://wordpress.local/contact-page/',
+					link: 'http://finpress.local/contact-page/',
 					type: 'page',
 				},
 				{
@@ -62,7 +62,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 229,
 					parent: 0,
-					link: 'http://wordpress.local/test/',
+					link: 'http://finpress.local/test/',
 					type: 'page',
 				},
 				{
@@ -72,7 +72,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 738,
 					parent: 34,
-					link: 'http://wordpress.local/about/about-sub-1/',
+					link: 'http://finpress.local/about/about-sub-1/',
 					type: 'page',
 				},
 				{
@@ -82,7 +82,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 740,
 					parent: 34,
-					link: 'http://wordpress.local/about/about-sub-2/',
+					link: 'http://finpress.local/about/about-sub-2/',
 					type: 'page',
 				},
 				{
@@ -92,7 +92,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 742,
 					parent: 229,
-					link: 'http://wordpress.local/test/test-sub/',
+					link: 'http://finpress.local/test/test-sub/',
 					type: 'page',
 				},
 				{
@@ -102,7 +102,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 744,
 					parent: 742,
-					link: 'http://wordpress.local/test/test-sub/test-sub-sub/',
+					link: 'http://finpress.local/test/test-sub/test-sub-sub/',
 					type: 'page',
 				},
 			];
@@ -116,7 +116,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'Sample Page',
 						type: 'page',
-						url: 'http://wordpress.local/sample-page/',
+						url: 'http://finpress.local/sample-page/',
 					},
 					innerBlocks: [],
 					name: 'core/navigation-link',
@@ -127,7 +127,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'About',
 						type: 'page',
-						url: 'http://wordpress.local/about/',
+						url: 'http://finpress.local/about/',
 					},
 					innerBlocks: [
 						{
@@ -136,7 +136,7 @@ describe( 'page list convert to links', () => {
 								kind: 'post-type',
 								label: 'About Sub 1',
 								type: 'page',
-								url: 'http://wordpress.local/about/about-sub-1/',
+								url: 'http://finpress.local/about/about-sub-1/',
 							},
 							innerBlocks: [],
 							name: 'core/navigation-link',
@@ -147,7 +147,7 @@ describe( 'page list convert to links', () => {
 								kind: 'post-type',
 								label: 'About Sub 2',
 								type: 'page',
-								url: 'http://wordpress.local/about/about-sub-2/',
+								url: 'http://finpress.local/about/about-sub-2/',
 							},
 							innerBlocks: [],
 							name: 'core/navigation-link',
@@ -161,7 +161,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'Contact Page',
 						type: 'page',
-						url: 'http://wordpress.local/contact-page/',
+						url: 'http://finpress.local/contact-page/',
 					},
 					innerBlocks: [],
 					name: 'core/navigation-link',
@@ -172,7 +172,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'Test',
 						type: 'page',
-						url: 'http://wordpress.local/test/',
+						url: 'http://finpress.local/test/',
 					},
 					innerBlocks: [
 						{
@@ -181,7 +181,7 @@ describe( 'page list convert to links', () => {
 								kind: 'post-type',
 								label: 'Test Sub',
 								type: 'page',
-								url: 'http://wordpress.local/test/test-sub/',
+								url: 'http://finpress.local/test/test-sub/',
 							},
 							innerBlocks: [
 								{
@@ -190,7 +190,7 @@ describe( 'page list convert to links', () => {
 										kind: 'post-type',
 										label: 'Test Sub Sub',
 										type: 'page',
-										url: 'http://wordpress.local/test/test-sub/test-sub-sub/',
+										url: 'http://finpress.local/test/test-sub/test-sub-sub/',
 									},
 									innerBlocks: [],
 									name: 'core/navigation-link',
@@ -212,7 +212,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 738,
 					parent: 34,
-					link: 'http://wordpress.local/about/about-sub-1/',
+					link: 'http://finpress.local/about/about-sub-1/',
 					type: 'page',
 				},
 				{
@@ -222,7 +222,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 740,
 					parent: 34,
-					link: 'http://wordpress.local/about/about-sub-2/',
+					link: 'http://finpress.local/about/about-sub-2/',
 					type: 'page',
 				},
 				{
@@ -232,7 +232,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 744,
 					parent: 742,
-					link: 'http://wordpress.local/test/test-sub/test-sub-sub/',
+					link: 'http://finpress.local/test/test-sub/test-sub-sub/',
 					type: 'page',
 				},
 				{
@@ -242,7 +242,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 742,
 					parent: 229,
-					link: 'http://wordpress.local/test/test-sub/',
+					link: 'http://finpress.local/test/test-sub/',
 					type: 'page',
 				},
 				{
@@ -252,7 +252,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 2,
 					parent: 0,
-					link: 'http://wordpress.local/sample-page/',
+					link: 'http://finpress.local/sample-page/',
 					type: 'page',
 				},
 				{
@@ -262,7 +262,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 34,
 					parent: 0,
-					link: 'http://wordpress.local/about/',
+					link: 'http://finpress.local/about/',
 					type: 'page',
 				},
 				{
@@ -272,7 +272,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 37,
 					parent: 0,
-					link: 'http://wordpress.local/contact-page/',
+					link: 'http://finpress.local/contact-page/',
 					type: 'page',
 				},
 				{
@@ -282,7 +282,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 229,
 					parent: 0,
-					link: 'http://wordpress.local/test/',
+					link: 'http://finpress.local/test/',
 					type: 'page',
 				},
 			];
@@ -296,7 +296,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'Sample Page',
 						type: 'page',
-						url: 'http://wordpress.local/sample-page/',
+						url: 'http://finpress.local/sample-page/',
 					},
 					innerBlocks: [],
 					name: 'core/navigation-link',
@@ -307,7 +307,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'About',
 						type: 'page',
-						url: 'http://wordpress.local/about/',
+						url: 'http://finpress.local/about/',
 					},
 					innerBlocks: [
 						{
@@ -316,7 +316,7 @@ describe( 'page list convert to links', () => {
 								kind: 'post-type',
 								label: 'About Sub 1',
 								type: 'page',
-								url: 'http://wordpress.local/about/about-sub-1/',
+								url: 'http://finpress.local/about/about-sub-1/',
 							},
 							innerBlocks: [],
 							name: 'core/navigation-link',
@@ -327,7 +327,7 @@ describe( 'page list convert to links', () => {
 								kind: 'post-type',
 								label: 'About Sub 2',
 								type: 'page',
-								url: 'http://wordpress.local/about/about-sub-2/',
+								url: 'http://finpress.local/about/about-sub-2/',
 							},
 							innerBlocks: [],
 							name: 'core/navigation-link',
@@ -341,7 +341,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'Contact Page',
 						type: 'page',
-						url: 'http://wordpress.local/contact-page/',
+						url: 'http://finpress.local/contact-page/',
 					},
 					innerBlocks: [],
 					name: 'core/navigation-link',
@@ -352,7 +352,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'Test',
 						type: 'page',
-						url: 'http://wordpress.local/test/',
+						url: 'http://finpress.local/test/',
 					},
 					innerBlocks: [
 						{
@@ -361,7 +361,7 @@ describe( 'page list convert to links', () => {
 								kind: 'post-type',
 								label: 'Test Sub',
 								type: 'page',
-								url: 'http://wordpress.local/test/test-sub/',
+								url: 'http://finpress.local/test/test-sub/',
 							},
 							innerBlocks: [
 								{
@@ -370,7 +370,7 @@ describe( 'page list convert to links', () => {
 										kind: 'post-type',
 										label: 'Test Sub Sub',
 										type: 'page',
-										url: 'http://wordpress.local/test/test-sub/test-sub-sub/',
+										url: 'http://finpress.local/test/test-sub/test-sub-sub/',
 									},
 									innerBlocks: [],
 									name: 'core/navigation-link',
@@ -393,7 +393,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 2,
 					parent: 0,
-					link: 'http://wordpress.local/sample-page/',
+					link: 'http://finpress.local/sample-page/',
 					type: 'page',
 				},
 				{
@@ -403,7 +403,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 34,
 					parent: 0,
-					link: 'http://wordpress.local/about/',
+					link: 'http://finpress.local/about/',
 					type: 'page',
 				},
 				{
@@ -413,7 +413,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 37,
 					parent: 0,
-					link: 'http://wordpress.local/contact-page/',
+					link: 'http://finpress.local/contact-page/',
 					type: 'page',
 				},
 				{
@@ -423,7 +423,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 229,
 					parent: 0,
-					link: 'http://wordpress.local/test/',
+					link: 'http://finpress.local/test/',
 					type: 'page',
 				},
 				{
@@ -433,7 +433,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 738,
 					parent: 34,
-					link: 'http://wordpress.local/about/about-sub-1/',
+					link: 'http://finpress.local/about/about-sub-1/',
 					type: 'page',
 				},
 				{
@@ -443,7 +443,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 740,
 					parent: 34,
-					link: 'http://wordpress.local/about/about-sub-2/',
+					link: 'http://finpress.local/about/about-sub-2/',
 					type: 'page',
 				},
 				{
@@ -453,7 +453,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 742,
 					parent: 229,
-					link: 'http://wordpress.local/test/test-sub/',
+					link: 'http://finpress.local/test/test-sub/',
 					type: 'page',
 				},
 				{
@@ -463,7 +463,7 @@ describe( 'page list convert to links', () => {
 					},
 					id: 744,
 					parent: 742,
-					link: 'http://wordpress.local/test/test-sub/test-sub-sub/',
+					link: 'http://finpress.local/test/test-sub/test-sub-sub/',
 					type: 'page',
 				},
 			];
@@ -480,7 +480,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'About Sub 1',
 						type: 'page',
-						url: 'http://wordpress.local/about/about-sub-1/',
+						url: 'http://finpress.local/about/about-sub-1/',
 					},
 					innerBlocks: [],
 					name: 'core/navigation-link',
@@ -491,7 +491,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'About Sub 2',
 						type: 'page',
-						url: 'http://wordpress.local/about/about-sub-2/',
+						url: 'http://finpress.local/about/about-sub-2/',
 					},
 					innerBlocks: [],
 					name: 'core/navigation-link',
@@ -510,7 +510,7 @@ describe( 'page list convert to links', () => {
 						kind: 'post-type',
 						label: 'Test Sub Sub',
 						type: 'page',
-						url: 'http://wordpress.local/test/test-sub/test-sub-sub/',
+						url: 'http://finpress.local/test/test-sub/test-sub-sub/',
 					},
 					innerBlocks: [],
 					name: 'core/navigation-link',

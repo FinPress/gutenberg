@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __unstableGetInnerBlocksProps as getInnerBlocksProps } from '@wordpress/blocks';
-import { useRef } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { __unstableGetInnerBlocksProps as getInnerBlocksProps } from '@finpress/blocks';
+import { useRef } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -35,7 +35,7 @@ import { MAX_NESTING_DEPTH } from './constants';
  * returns. Optionally, you can also pass any other props through this hook, and
  * they will be merged and returned.
  *
- * @see https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/master/packages/block-editor/src/components/inner-blocks/README.md
  *
  * @param {Object} props   Optional. Props to pass to the element. Must contain
  *                         the ref if one is defined.
@@ -216,6 +216,6 @@ useInnerBlocksProps.save = getInnerBlocksProps;
 InnerBlocks.Content = () => useInnerBlocksProps.save().children;
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md
  */
 export default InnerBlocks;

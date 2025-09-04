@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useInstanceId,
 	useMergeRefs,
 	__experimentalUseFixedWindowList as useFixedWindowList,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 import {
 	__experimentalTreeGrid as TreeGrid,
 	VisuallyHidden,
-} from '@wordpress/components';
-import { AsyncModeProvider, useSelect } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/components';
+import { AsyncModeProvider, useSelect } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
 import {
 	useCallback,
 	useEffect,
@@ -25,8 +25,8 @@ import {
 	useReducer,
 	forwardRef,
 	useState,
-} from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -322,7 +322,7 @@ function ListViewComponent(
 
 	// List View renders a fixed number of items and relies on each having a fixed item height of 36px.
 	// If this value changes, we should also change the itemHeight value set in useFixedWindowList.
-	// See: https://github.com/WordPress/gutenberg/pull/35230 for additional context.
+	// See: https://github.com/FinPress/gutenberg/pull/35230 for additional context.
 	const [ fixedListWindow ] = useFixedWindowList(
 		elementRef,
 		BLOCK_LIST_ITEM_HEIGHT,

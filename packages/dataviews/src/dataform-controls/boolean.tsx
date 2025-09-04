@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+import { privateApis } from '@finpress/components';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

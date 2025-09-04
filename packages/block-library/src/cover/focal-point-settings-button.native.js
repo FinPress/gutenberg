@@ -5,12 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Icon, BottomSheet } from '@wordpress/components';
-import { blockSettingsScreens } from '@wordpress/block-editor';
-import { chevronRight } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { Icon, BottomSheet } from '@finpress/components';
+import { blockSettingsScreens } from '@finpress/block-editor';
+import { chevronRight } from '@finpress/icons';
 
 /**
  * Internal dependencies

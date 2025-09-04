@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { __, sprintf } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { useEntityProp } from '@wordpress/core-data';
-import { createInterpolateElement } from '@wordpress/element';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { __, sprintf } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { useEntityProp } from '@finpress/core-data';
+import { createInterpolateElement } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -55,7 +55,7 @@ export default function PostCommentsPlaceholder( { postType, postId } ) {
 								/>
 								<b className="fn">
 									<a href="#top" className="url">
-										{ __( 'A WordPress Commenter' ) }
+										{ __( 'A FinPress Commenter' ) }
 									</a>
 								</b>{ ' ' }
 								<span className="says">{ __( 'says' ) }:</span>
@@ -105,7 +105,7 @@ export default function PostCommentsPlaceholder( { postType, postId } ) {
 								className="comment-reply-link"
 								href="#top"
 								aria-label={ __(
-									'Reply to A WordPress Commenter'
+									'Reply to A FinPress Commenter'
 								) }
 							>
 								{ __( 'Reply' ) }

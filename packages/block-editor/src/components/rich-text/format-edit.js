@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getActiveFormat, getActiveObject } from '@wordpress/rich-text';
-import { useContext, useMemo } from '@wordpress/element';
+import { getActiveFormat, getActiveObject } from '@finpress/rich-text';
+import { useContext, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

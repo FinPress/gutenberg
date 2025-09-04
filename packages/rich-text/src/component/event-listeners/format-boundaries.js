@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { LEFT, RIGHT } from '@wordpress/keycodes';
+import { LEFT, RIGHT } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

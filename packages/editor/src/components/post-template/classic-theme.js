@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { SelectControl, Dropdown, Button, Notice } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
-import { useState, useMemo } from '@wordpress/element';
-import { addTemplate } from '@wordpress/icons';
-import { store as noticesStore } from '@wordpress/notices';
+import { __ } from '@finpress/i18n';
+import { SelectControl, Dropdown, Button, Notice } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@finpress/block-editor';
+import { useState, useMemo } from '@finpress/element';
+import { addTemplate } from '@finpress/icons';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

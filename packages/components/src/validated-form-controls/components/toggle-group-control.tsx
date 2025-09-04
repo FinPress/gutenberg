@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useId, useRef } from '@wordpress/element';
+import { forwardRef, useId, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

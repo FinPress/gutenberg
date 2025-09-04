@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x } from '@wordpress/i18n';
-import { RawHTML } from '@wordpress/element';
-import { Disabled } from '@wordpress/components';
-import { useEntityProp } from '@wordpress/core-data';
+import { _x } from '@finpress/i18n';
+import { RawHTML } from '@finpress/element';
+import { Disabled } from '@finpress/components';
+import { useEntityProp } from '@finpress/core-data';
 import {
 	AlignmentControl,
 	BlockControls,
 	useBlockProps,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 /**
  * Renders the `core/comment-content` block on the editor.

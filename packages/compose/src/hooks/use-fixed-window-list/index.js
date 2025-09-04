@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useLayoutEffect } from '@wordpress/element';
-import { getScrollContainer } from '@wordpress/dom';
-import { PAGEUP, PAGEDOWN, HOME, END } from '@wordpress/keycodes';
+import { useState, useLayoutEffect } from '@finpress/element';
+import { getScrollContainer } from '@finpress/dom';
+import { PAGEUP, PAGEDOWN, HOME, END } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

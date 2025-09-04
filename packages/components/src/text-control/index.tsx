@@ -5,10 +5,10 @@ import type { ChangeEvent, ForwardedRef } from 'react';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { forwardRef } from '@wordpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -75,8 +75,8 @@ function UnforwardedTextControl(
  * TextControl components let users enter and edit text.
  *
  * ```jsx
- * import { TextControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { TextControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyTextControl = () => {
  *   const [ className, setClassName ] = useState( '' );

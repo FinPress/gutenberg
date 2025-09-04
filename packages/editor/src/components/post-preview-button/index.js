@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { renderToString } from '@wordpress/element';
-import { Button, Path, SVG, VisuallyHidden } from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { applyFilters } from '@wordpress/hooks';
-import { store as coreStore } from '@wordpress/core-data';
+import { renderToString } from '@finpress/element';
+import { Button, Path, SVG, VisuallyHidden } from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { applyFilters } from '@finpress/hooks';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -156,7 +156,7 @@ export default function PostPreviewButton( {
 		// purposes. Unfortunately, though, we can't rely on the default 'click'
 		// handler since sometimes it incorrectly opens a new tab instead of reusing
 		// the existing one.
-		// https://github.com/WordPress/gutenberg/pull/8330
+		// https://github.com/FinPress/gutenberg/pull/8330
 		event.preventDefault();
 
 		// Open up a Preview tab if needed. This is where we'll show the preview.

@@ -5,13 +5,13 @@ import { removeNonDigit, toFixed } from '../';
 import { alignmentHelpers } from '../alignments.native.js';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getBlockTypes,
 	registerBlockType,
 	unregisterBlockType,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 const { isContainerRelated } = alignmentHelpers;
 
@@ -80,7 +80,7 @@ describe( 'isContainerRelated', () => {
 
 	beforeAll( () => {
 		const registerCoreBlocks =
-			require( '@wordpress/block-library' ).registerCoreBlocks;
+			require( '@finpress/block-library' ).registerCoreBlocks;
 		registerCoreBlocks();
 	} );
 

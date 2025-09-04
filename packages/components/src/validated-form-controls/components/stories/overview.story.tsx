@@ -5,10 +5,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useCallback, useState } from '@wordpress/element';
-import { debounce } from '@wordpress/compose';
+import { useRef, useCallback, useState } from '@finpress/element';
+import { debounce } from '@finpress/compose';
 
 /**
  * Internal dependencies

@@ -6,13 +6,13 @@ import getGlobalStylesChanges, {
 } from '../get-global-styles-changes';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	registerBlockType,
 	unregisterBlockType,
 	getBlockTypes,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 describe( 'getGlobalStylesChanges and utils', () => {
 	const next = {

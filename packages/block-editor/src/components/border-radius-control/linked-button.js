@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
-import { link, linkOff } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+import { Button } from '@finpress/components';
+import { link, linkOff } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 
 export default function LinkedButton( { isLinked, ...props } ) {
 	const label = isLinked ? __( 'Unlink radii' ) : __( 'Link radii' );

@@ -5,10 +5,10 @@ import { SafeAreaView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { memo, useContext, useState, useCallback } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { memo, useContext, useState, useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

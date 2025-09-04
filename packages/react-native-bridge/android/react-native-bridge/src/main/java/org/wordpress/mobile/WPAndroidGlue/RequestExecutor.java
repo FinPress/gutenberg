@@ -1,4 +1,4 @@
-package org.wordpress.mobile.WPAndroidGlue;
+package org.finpress.mobile.WPAndroidGlue;
 
 import android.os.Bundle;
 

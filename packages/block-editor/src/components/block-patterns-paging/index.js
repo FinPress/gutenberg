@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalVStack as VStack,
 	__experimentalHStack as HStack,
 	__experimentalText as Text,
 	Button,
-} from '@wordpress/components';
-import { __, _x, _n, sprintf } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __, _x, _n, sprintf } from '@finpress/i18n';
 
 export default function Pagination( {
 	currentPage,

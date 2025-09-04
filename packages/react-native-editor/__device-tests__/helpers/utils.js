@@ -46,7 +46,7 @@ let appiumProcess;
 
 const backspace = '\u0008';
 
-const IOS_BUNDLE_ID = 'org.wordpress.gutenberg.development';
+const IOS_BUNDLE_ID = 'org.finpress.gutenberg.development';
 const ANDROID_COMPONENT_NAME = 'com.gutenberg/.MainActivity';
 const SAUCE_LABS_TIMEOUT = 240;
 
@@ -597,7 +597,7 @@ const isEditorVisible = async ( driver ) => {
 
 const waitForMediaLibrary = async ( driver ) => {
 	const accessibilityIdXPathAttrib = isAndroid() ? 'content-desc' : 'name';
-	const accessibilityId = 'WordPress Media Library';
+	const accessibilityId = 'FinPress Media Library';
 	const locator = `//*[@${ accessibilityIdXPathAttrib }="${ accessibilityId }"]`;
 	await waitForVisible( driver, locator );
 };

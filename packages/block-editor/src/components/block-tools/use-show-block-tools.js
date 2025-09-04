@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { isUnmodifiedDefaultBlock } from '@wordpress/blocks';
+import { useSelect } from '@finpress/data';
+import { isUnmodifiedDefaultBlock } from '@finpress/blocks';
 
 /**
  * Internal dependencies
@@ -42,7 +42,7 @@ export function useShowBlockTools() {
 			clientId &&
 			! isTyping() &&
 			// Hide the block inserter on the navigation mode.
-			// See https://github.com/WordPress/gutenberg/pull/66636#discussion_r1824728483.
+			// See https://github.com/FinPress/gutenberg/pull/66636#discussion_r1824728483.
 			editorMode !== 'navigation' &&
 			isEmptyDefaultBlock;
 		const _showBlockToolbarPopover =

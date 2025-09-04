@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -43,13 +43,13 @@ describe( 'Setup locale', () => {
 			pluginTranslations
 		);
 
-		/* eslint-disable @wordpress/i18n-text-domain */
+		/* eslint-disable @finpress/i18n-text-domain */
 		expect( __( 'domain-1-string', domain ) ).toBe(
 			'domain-1-string-translation'
 		);
 		expect( __( 'extra-string', domain ) ).toBe(
 			'extra-string-translation'
 		);
-		/* eslint-enable @wordpress/i18n-text-domain */
+		/* eslint-enable @finpress/i18n-text-domain */
 	} );
 } );

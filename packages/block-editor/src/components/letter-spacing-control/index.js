@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalUnitControl as UnitControl,
 	__experimentalUseCustomUnits as useCustomUnits,
-} from '@wordpress/components';
-import deprecated from '@wordpress/deprecated';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import deprecated from '@finpress/deprecated';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

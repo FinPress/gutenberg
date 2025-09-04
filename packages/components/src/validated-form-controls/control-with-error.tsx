@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { usePrevious } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+import { usePrevious } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
 import {
 	cloneElement,
 	forwardRef,
 	useEffect,
 	useState,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies

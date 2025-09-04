@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -46,11 +46,11 @@
 
 ### Enhancements
 
--   Detection of magic comments is now done before minification ([#65582](https://github.com/WordPress/gutenberg/pull/65582)).
+-   Detection of magic comments is now done before minification ([#65582](https://github.com/FinPress/gutenberg/pull/65582)).
 
 ### Bug Fixes
 
--   Fix a bug where cycles in dependent modules could enter infinite recursion ([#65291](https://github.com/WordPress/gutenberg/pull/65291)).
+-   Fix a bug where cycles in dependent modules could enter infinite recursion ([#65291](https://github.com/FinPress/gutenberg/pull/65291)).
 
 ## 6.8.0 (2024-09-19)
 
@@ -72,10 +72,10 @@
 
 ### Breaking Changes
 
-**Note** If you're using @wordpress/scripts for building JS scripts to target WordPress 6.5 or earlier, you should not upgrade to this version and continue using @wordpress/dependency-extraction-webpack-plugin@5.
+**Note** If you're using @finpress/scripts for building JS scripts to target FinPress 6.5 or earlier, you should not upgrade to this version and continue using @finpress/dependency-extraction-webpack-plugin@5.
 
--   Use React's automatic runtime to transform JSX ([#61692](https://github.com/WordPress/gutenberg/pull/61692)).
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Use React's automatic runtime to transform JSX ([#61692](https://github.com/FinPress/gutenberg/pull/61692)).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 5.9.0 (2024-05-16)
 
@@ -95,7 +95,7 @@
 
 ### Bug Fixes
 
--   Fix import type field in script module asset files ([#58770](https://github.com/WordPress/gutenberg/pull/58770)).
+-   Fix import type field in script module asset files ([#58770](https://github.com/FinPress/gutenberg/pull/58770)).
 
 ## 5.1.0 (2024-01-24)
 
@@ -108,7 +108,7 @@
 
 ### New Features
 
--   Add support for producing module-compatible asset files ([#57199](https://github.com/WordPress/gutenberg/pull/57199)).
+-   Add support for producing module-compatible asset files ([#57199](https://github.com/FinPress/gutenberg/pull/57199)).
 
 ## 4.31.0 (2023-12-13)
 
@@ -156,7 +156,7 @@
 
 ### Bug Fixes
 
--   The bundled `json2php` dependency has been upgraded from requiring `^0.0.5` to `^0.0.7` ([#47831](https://github.com/WordPress/gutenberg/pull/47831)).
+-   The bundled `json2php` dependency has been upgraded from requiring `^0.0.5` to `^0.0.7` ([#47831](https://github.com/FinPress/gutenberg/pull/47831)).
 
 ## 4.9.0 (2023-02-01)
 
@@ -178,37 +178,37 @@
 
 ### New Features
 
--   Include `@wordpress/style-engine` on the list of external dependencies to allow using `wp.styleEngine` global with WordPress 6.1 and beyond ([#43840](https://github.com/WordPress/gutenberg/pull/43840)).
+-   Include `@finpress/style-engine` on the list of external dependencies to allow using `wp.styleEngine` global with FinPress 6.1 and beyond ([#43840](https://github.com/FinPress/gutenberg/pull/43840)).
 
 ## 4.0.0 (2022-08-24)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ## 3.7.0 (2022-07-13)
 
 ### New Features
 
--   Output asset files for shared chunks, too ([#41002](https://github.com/WordPress/gutenberg/pull/41002)).
+-   Output asset files for shared chunks, too ([#41002](https://github.com/FinPress/gutenberg/pull/41002)).
 
 ## 3.5.0 (2022-05-18)
 
 ### Bug Fixes
 
--   Use OpenSSL provider supported in Node 17+ when calling `crypto.createHash` ([#40503](https://github.com/WordPress/gutenberg/pull/40503)).
--   Add new line at the end of generated `*.asset.php` files ([#40753](https://github.com/WordPress/gutenberg/pull/40753)).
--   Calculate version hashes based on output file contents rather than input files and other Webpack internal state ([#34969](https://github.com/WordPress/gutenberg/pull/34969)).
+-   Use OpenSSL provider supported in Node 17+ when calling `crypto.createHash` ([#40503](https://github.com/FinPress/gutenberg/pull/40503)).
+-   Add new line at the end of generated `*.asset.php` files ([#40753](https://github.com/FinPress/gutenberg/pull/40753)).
+-   Calculate version hashes based on output file contents rather than input files and other Webpack internal state ([#34969](https://github.com/FinPress/gutenberg/pull/34969)).
 
 ## 3.3.0 (2022-01-27)
 
--   Add the optional `externalizedReportFile` option ([#35106](https://github.com/WordPress/gutenberg/pull/35106)).
+-   Add the optional `externalizedReportFile` option ([#35106](https://github.com/FinPress/gutenberg/pull/35106)).
 
 ## 3.0.0 (2021-01-21)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ## 2.9.0 (2020-12-17)
 
@@ -220,25 +220,25 @@
 
 ### New Features
 
--   Include TypeScript type declarations ([#22498](https://github.com/WordPress/gutenberg/pull/22498))
+-   Include TypeScript type declarations ([#22498](https://github.com/FinPress/gutenberg/pull/22498))
 
 ## 2.5.0 (2020-04-01)
 
 ### New Features
 
--   The plugin now supports an optional `combinedOutputFile` option that is useful only when another `combineAssets` option is enabled. It allows providing a custom output file for the generated single assets file ([#20844](https://github.com/WordPress/gutenberg/pull/20844)).
+-   The plugin now supports an optional `combinedOutputFile` option that is useful only when another `combineAssets` option is enabled. It allows providing a custom output file for the generated single assets file ([#20844](https://github.com/FinPress/gutenberg/pull/20844)).
 
 ## 2.3.0 (2020-02-21)
 
 ### New Features
 
--   The plugin now supports optional `combineAssets` option. When this flag is set to `true`, all information about assets is combined into a single `assets.(json|php)` file generated in the output directory ([#20330](https://github.com/WordPress/gutenberg/pull/20330)).
+-   The plugin now supports optional `combineAssets` option. When this flag is set to `true`, all information about assets is combined into a single `assets.(json|php)` file generated in the output directory ([#20330](https://github.com/FinPress/gutenberg/pull/20330)).
 
 ## 2.0.0 (2019-09-16)
 
 ### Breaking Changes
 
--   The plugin now adds, for each entry point, an asset file saved by default in PHP format that declares an object with the list of WordPress script dependencies for the entry point ([#17298](https://github.com/WordPress/gutenberg/pull/17298)). There is also an option to use JSON as the output format. The shape of metadata is also different from the previous version. Note that the file name has also changed from `*.deps.json` to `*.asset.json` or `*.asset.php`. References to the `*.deps.json` filename will need to be updated, even if you choose to use the JSON formatted file. Read more in the [README](./README.md) file.
+-   The plugin now adds, for each entry point, an asset file saved by default in PHP format that declares an object with the list of FinPress script dependencies for the entry point ([#17298](https://github.com/FinPress/gutenberg/pull/17298)). There is also an option to use JSON as the output format. The shape of metadata is also different from the previous version. Note that the file name has also changed from `*.deps.json` to `*.asset.json` or `*.asset.php`. References to the `*.deps.json` filename will need to be updated, even if you choose to use the JSON formatted file. Read more in the [README](./README.md) file.
 
 ## 1.0.1 (2019-05-22)
 
@@ -250,4 +250,4 @@
 
 ### New Features
 
--   Introduce the `@wordpress/dependency-extraction-webpack-plugin` package.
+-   Introduce the `@finpress/dependency-extraction-webpack-plugin` package.

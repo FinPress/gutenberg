@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState, flushSync } from '@wordpress/element';
-import { createQueue } from '@wordpress/priority-queue';
+import { useEffect, useState, flushSync } from '@finpress/element';
+import { createQueue } from '@finpress/priority-queue';
 
 const blockPreviewQueue = createQueue();
 
@@ -25,7 +25,7 @@ export function Async( { children, placeholder } ) {
 		const context = {};
 		blockPreviewQueue.add( context, () => {
 			// Synchronously run all renders so it consumes timeRemaining.
-			// See https://github.com/WordPress/gutenberg/pull/48238
+			// See https://github.com/FinPress/gutenberg/pull/48238
 			flushSync( () => {
 				setShouldRender( true );
 			} );

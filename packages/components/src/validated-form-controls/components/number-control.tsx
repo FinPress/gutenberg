@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useRef } from '@wordpress/element';
-import { useMergeRefs } from '@wordpress/compose';
+import { forwardRef, useRef } from '@finpress/element';
+import { useMergeRefs } from '@finpress/compose';
 
 /**
  * Internal dependencies

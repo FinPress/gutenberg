@@ -4,9 +4,9 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Path, SVG } from '@wordpress/primitives';
+import { Path, SVG } from '@finpress/primitives';
 
 /**
  * Internal dependencies

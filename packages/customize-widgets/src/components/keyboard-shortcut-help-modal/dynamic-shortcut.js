@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
+import { useSelect } from '@finpress/data';
+import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
 
 /**
  * Internal dependencies

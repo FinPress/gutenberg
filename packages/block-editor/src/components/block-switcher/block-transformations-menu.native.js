@@ -4,13 +4,13 @@
 import { findNodeHandle, Platform } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { switchToBlockType } from '@wordpress/blocks';
-import { Picker } from '@wordpress/components';
-import { useDispatch } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
+import { __, sprintf } from '@finpress/i18n';
+import { switchToBlockType } from '@finpress/blocks';
+import { Picker } from '@finpress/components';
+import { useDispatch } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

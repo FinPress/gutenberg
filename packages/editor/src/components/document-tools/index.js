@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __, _x } from '@wordpress/i18n';
-import { NavigableToolbar, ToolSelector } from '@wordpress/block-editor';
-import { ToolbarButton, ToolbarItem } from '@wordpress/components';
-import { listView, plus } from '@wordpress/icons';
-import { useCallback } from '@wordpress/element';
-import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
-import { store as preferencesStore } from '@wordpress/preferences';
+import { useViewportMatch } from '@finpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __, _x } from '@finpress/i18n';
+import { NavigableToolbar, ToolSelector } from '@finpress/block-editor';
+import { ToolbarButton, ToolbarItem } from '@finpress/components';
+import { listView, plus } from '@finpress/icons';
+import { useCallback } from '@finpress/element';
+import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies

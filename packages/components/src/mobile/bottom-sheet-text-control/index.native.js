@@ -5,11 +5,11 @@ import { TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { Icon, chevronRight } from '@wordpress/icons';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { useState } from '@finpress/element';
+import { Icon, chevronRight } from '@finpress/icons';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies

@@ -1,4 +1,4 @@
-package org.wordpress.mobile.ReactNativeGutenbergBridge
+package org.finpress.mobile.ReactNativeGutenbergBridge
 
 import com.facebook.react.bridge.WritableMap
 

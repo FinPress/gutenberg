@@ -3,7 +3,7 @@
  * Gutenberg Coding Standards.
  *
  * @package gutenberg/gutenberg-coding-standards
- * @link    https://github.com/WordPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
+ * @link    https://github.com/FinPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
  */
 
 namespace GutenbergCS\Gutenberg\Sniffs\CodeAnalysis;

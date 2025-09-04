@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
-import { useInstanceId } from '@wordpress/compose';
-import { useCallback } from '@wordpress/element';
+import { __, isRTL } from '@finpress/i18n';
+import { useInstanceId } from '@finpress/compose';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -87,8 +87,8 @@ function UnforwardedAlignmentMatrixControl( {
  * AlignmentMatrixControl components enable adjustments to horizontal and vertical alignments for UI.
  *
  * ```jsx
- * import { AlignmentMatrixControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { AlignmentMatrixControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const Example = () => {
  * 	const [ alignment, setAlignment ] = useState( 'center center' );
@@ -109,7 +109,7 @@ export const AlignmentMatrixControl = Object.assign(
 		 * Render an alignment matrix as an icon.
 		 *
 		 * ```jsx
-		 * import { AlignmentMatrixControl } from '@wordpress/components';
+		 * import { AlignmentMatrixControl } from '@finpress/components';
 		 *
 		 * <Icon icon={<AlignmentMatrixControl.Icon value="top left" />} />
 		 * ```

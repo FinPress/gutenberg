@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useEffect } from '@wordpress/element';
-import { Spinner } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import { useRef, useEffect } from '@finpress/element';
+import { Spinner } from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

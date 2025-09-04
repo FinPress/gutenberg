@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { CustomSelectControl } from '@wordpress/components';
-import deprecated from '@wordpress/deprecated';
-import { useMemo } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { CustomSelectControl } from '@finpress/components';
+import deprecated from '@finpress/deprecated';
+import { useMemo } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

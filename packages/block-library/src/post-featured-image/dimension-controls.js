@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
+import { __, _x } from '@finpress/i18n';
 import {
 	SelectControl,
 	__experimentalUnitControl as UnitControl,
@@ -9,8 +9,8 @@ import {
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { useSettings } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { useSettings } from '@finpress/block-editor';
 
 const SCALE_OPTIONS = (
 	<>

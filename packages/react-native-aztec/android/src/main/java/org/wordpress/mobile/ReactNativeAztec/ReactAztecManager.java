@@ -1,4 +1,4 @@
-package org.wordpress.mobile.ReactNativeAztec;
+package org.finpress.mobile.ReactNativeAztec;
 
 
 import android.graphics.Color;
@@ -46,18 +46,18 @@ import com.facebook.react.views.textinput.ReactTextInputEvent;
 import com.facebook.react.views.textinput.ReactTextInputManager;
 import com.facebook.react.views.textinput.ScrollWatcher;
 
-import org.wordpress.aztec.Constants;
-import org.wordpress.aztec.formatting.LinkFormatter;
-import org.wordpress.aztec.glideloader.GlideImageLoader;
-import org.wordpress.aztec.glideloader.GlideVideoThumbnailLoader;
-import org.wordpress.aztec.plugins.CssUnderlinePlugin;
-import org.wordpress.aztec.plugins.MarkPlugin;
-import org.wordpress.aztec.plugins.shortcodes.AudioShortcodePlugin;
-import org.wordpress.aztec.plugins.shortcodes.CaptionShortcodePlugin;
-import org.wordpress.aztec.plugins.shortcodes.VideoShortcodePlugin;
-import org.wordpress.aztec.plugins.wpcomments.HiddenGutenbergPlugin;
-import org.wordpress.aztec.plugins.wpcomments.WordPressCommentsPlugin;
-import org.wordpress.aztec.plugins.wpcomments.toolbar.MoreToolbarButton;
+import org.finpress.aztec.Constants;
+import org.finpress.aztec.formatting.LinkFormatter;
+import org.finpress.aztec.glideloader.GlideImageLoader;
+import org.finpress.aztec.glideloader.GlideVideoThumbnailLoader;
+import org.finpress.aztec.plugins.CssUnderlinePlugin;
+import org.finpress.aztec.plugins.MarkPlugin;
+import org.finpress.aztec.plugins.shortcodes.AudioShortcodePlugin;
+import org.finpress.aztec.plugins.shortcodes.CaptionShortcodePlugin;
+import org.finpress.aztec.plugins.shortcodes.VideoShortcodePlugin;
+import org.finpress.aztec.plugins.wpcomments.HiddenGutenbergPlugin;
+import org.finpress.aztec.plugins.wpcomments.WordPressCommentsPlugin;
+import org.finpress.aztec.plugins.wpcomments.toolbar.MoreToolbarButton;
 
 import java.util.Map;
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class ReactAztecManager extends BaseViewManager<ReactAztecText, LayoutSha
 
     // we define the same codes in ReactAztecText as they have for ReactNative's TextInput, so
     // it's easier to handle focus between Aztec and TextInput instances on the same screen.
-    // see https://github.com/wordpress-mobile/react-native-aztec/pull/79
+    // see https://github.com/finpress-mobile/react-native-aztec/pull/79
     private int mFocusTextInputCommandCode = FOCUS_TEXT_INPUT; // pre-init
     private int mBlurTextInputCommandCode = BLUR_TEXT_INPUT; // pre-init
 
@@ -119,7 +119,7 @@ public class ReactAztecManager extends BaseViewManager<ReactAztecText, LayoutSha
         aztecText.setCalypsoMode(false);
         aztecText.setPadding(0, 0, 0, 0);
         // This is a temporary hack that sets the correct GB link color and underline
-        // see: https://github.com/wordpress-mobile/gutenberg-mobile/pull/1109
+        // see: https://github.com/finpress-mobile/gutenberg-mobile/pull/1109
         aztecText.setLinkFormatter(new LinkFormatter(aztecText,
                 new LinkFormatter.LinkStyle(
                         Color.parseColor("#016087"), true)
@@ -283,7 +283,7 @@ public class ReactAztecManager extends BaseViewManager<ReactAztecText, LayoutSha
     }
 
     private float getHeadingScale(String scale) {
-        // Values from https://github.com/wordpress-mobile/AztecEditor-Android/blob/trunk/aztec/src/main/kotlin/org/wordpress/aztec/spans/AztecHeadingSpan.kt#L94-L100
+        // Values from https://github.com/finpress-mobile/AztecEditor-Android/blob/trunk/aztec/src/main/kotlin/org/finpress/aztec/spans/AztecHeadingSpan.kt#L94-L100
         switch (scale) {
             case "h1":
                 return 1.73f;
@@ -642,7 +642,7 @@ public class ReactAztecManager extends BaseViewManager<ReactAztecText, LayoutSha
     public void receiveCommand(final ReactAztecText parent, String commandType, @Nullable ReadableArray args) {
         Assertions.assertNotNull(parent);
         if (commandType.equals("focus")) {
-            // schedule a request to focus in the next layout, to fix https://github.com/wordpress-mobile/gutenberg-mobile/issues/1870
+            // schedule a request to focus in the next layout, to fix https://github.com/finpress-mobile/gutenberg-mobile/issues/1870
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {

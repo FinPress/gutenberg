@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createSlotFill,
 	ToolbarButton,
 	ToolbarGroup,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { withDispatch } from '@wordpress/data';
-import { cog } from '@wordpress/icons';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { withDispatch } from '@finpress/data';
+import { cog } from '@finpress/icons';
 
 const { Fill, Slot } = createSlotFill( 'SettingsToolbarButton' );
 

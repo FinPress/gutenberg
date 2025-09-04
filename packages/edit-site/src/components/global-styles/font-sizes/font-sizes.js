@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { __, sprintf, isRTL } from '@wordpress/i18n';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { __, sprintf, isRTL } from '@finpress/i18n';
 import {
 	privateApis as componentsPrivateApis,
 	__experimentalSpacer as Spacer,
@@ -12,15 +12,15 @@ import {
 	__experimentalHStack as HStack,
 	FlexItem,
 	Button,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	Icon,
 	plus,
 	moreVertical,
 	chevronLeft,
 	chevronRight,
-} from '@wordpress/icons';
-import { useState } from '@wordpress/element';
+} from '@finpress/icons';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

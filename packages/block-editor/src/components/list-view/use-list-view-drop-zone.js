@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useState, useCallback, useEffect } from '@wordpress/element';
+import { useSelect } from '@finpress/data';
+import { useState, useCallback, useEffect } from '@finpress/element';
 import {
 	useThrottle,
 	__experimentalUseDropZone as useDropZone,
 	usePrevious,
-} from '@wordpress/compose';
-import { isRTL } from '@wordpress/i18n';
+} from '@finpress/compose';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies

@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { RawHTML, useEffect, renderToString } from '@wordpress/element';
-import { speak } from '@wordpress/a11y';
-import { close } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { RawHTML, useEffect, renderToString } from '@finpress/element';
+import { speak } from '@finpress/a11y';
+import { close } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -69,7 +69,7 @@ function getStatusLabel( status: NoticeProps[ 'status' ] ) {
  * `Notice` is a component used to communicate feedback to the user.
  *
  *```jsx
- * import { Notice } from `@wordpress/components`;
+ * import { Notice } from `@finpress/components`;
  *
  * const MyNotice = () => (
  *   <Notice status="error">An unknown error occurred.</Notice>

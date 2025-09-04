@@ -4,9 +4,9 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { shortcutAriaLabel } from '@wordpress/keycodes';
+import { shortcutAriaLabel } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

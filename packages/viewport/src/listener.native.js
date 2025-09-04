@@ -4,9 +4,9 @@
 import { Dimensions } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { dispatch } from '@wordpress/data';
+import { dispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

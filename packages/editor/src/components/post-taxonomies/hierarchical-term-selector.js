@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _n, _x, sprintf } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
-import { store as noticesStore } from '@wordpress/notices';
+import { __, _n, _x, sprintf } from '@finpress/i18n';
+import { useMemo, useState } from '@finpress/element';
+import { store as noticesStore } from '@finpress/notices';
 import {
 	Button,
 	CheckboxControl,
@@ -14,12 +14,12 @@ import {
 	FlexItem,
 	SearchControl,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useDebounce } from '@wordpress/compose';
-import { store as coreStore } from '@wordpress/core-data';
-import { speak } from '@wordpress/a11y';
-import { decodeEntities } from '@wordpress/html-entities';
+} from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useDebounce } from '@finpress/compose';
+import { store as coreStore } from '@finpress/core-data';
+import { speak } from '@finpress/a11y';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies

@@ -5,7 +5,7 @@ $footer-height: 70px;
 .font-library-modal {
 	// @todo If a new prop is added to the Modal component that constrains
 	// the content width, we should use that prop instead of this style.
-	// see https://github.com/WordPress/gutenberg/issues/54471.
+	// see https://github.com/FinPress/gutenberg/issues/54471.
 	&.font-library-modal {
 		@include break-medium() {
 			width: 65vw;
@@ -97,7 +97,7 @@ $footer-height: 70px;
 	width: 100%;
 
 	// Override the default 40px height set by the Button component.
-	// Ref - https://github.com/WordPress/gutenberg/pull/65258#discussion_r1756147260
+	// Ref - https://github.com/FinPress/gutenberg/pull/65258#discussion_r1756147260
 	height: auto !important;
 
 	padding: $grid-unit-20;
@@ -160,7 +160,7 @@ $footer-height: 70px;
 	justify-content: center;
 
 	// Override the default 40px height set by the Button component.
-	// Ref - https://github.com/WordPress/gutenberg/pull/65258#discussion_r1756155039
+	// Ref - https://github.com/FinPress/gutenberg/pull/65258#discussion_r1756155039
 	height: $grid-unit-80 * 4 !important; // 256px
 
 	width: 100%;

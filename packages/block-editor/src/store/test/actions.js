@@ -4,15 +4,15 @@
 import deepFreeze from 'deep-freeze';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRegistry } from '@wordpress/data';
+import { createRegistry } from '@finpress/data';
 import {
 	getBlockTypes,
 	unregisterBlockType,
 	registerBlockType,
 	createBlock,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies

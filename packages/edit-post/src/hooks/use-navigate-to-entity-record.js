@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useReducer } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
+import { useCallback, useReducer } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
 
 /**
  * A hook that records the 'entity' history in the post editor as a user

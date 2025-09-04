@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { useRefEffect } from '@finpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

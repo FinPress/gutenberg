@@ -4,14 +4,14 @@
 import { Pressable, View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { RichText } from '@wordpress/block-editor';
-import { compose } from '@wordpress/compose';
-import { decodeEntities } from '@wordpress/html-entities';
-import { withSelect, withDispatch } from '@wordpress/data';
-import { getDefaultBlockName } from '@wordpress/blocks';
+import { __ } from '@finpress/i18n';
+import { RichText } from '@finpress/block-editor';
+import { compose } from '@finpress/compose';
+import { decodeEntities } from '@finpress/html-entities';
+import { withSelect, withDispatch } from '@finpress/data';
+import { getDefaultBlockName } from '@finpress/blocks';
 
 /**
  * Internal dependencies

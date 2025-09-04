@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
-import { privateApis as preferencesPrivateApis } from '@wordpress/preferences';
-import { getPathAndQueryString } from '@wordpress/url';
+import { useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
+import { privateApis as preferencesPrivateApis } from '@finpress/preferences';
+import { getPathAndQueryString } from '@finpress/url';
 
 /**
  * Internal dependencies

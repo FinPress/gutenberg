@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as editorStore } from '@wordpress/editor';
-import { useSelect } from '@wordpress/data';
-import { store as blocksStore } from '@wordpress/blocks';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { store as editorStore } from '@finpress/editor';
+import { useSelect } from '@finpress/data';
+import { store as blocksStore } from '@finpress/blocks';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

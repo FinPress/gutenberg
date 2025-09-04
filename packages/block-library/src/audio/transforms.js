@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlobURL } from '@wordpress/blob';
-import { createBlock } from '@wordpress/blocks';
+import { createBlobURL } from '@finpress/blob';
+import { createBlock } from '@finpress/blocks';
 
 const transforms = {
 	from: [

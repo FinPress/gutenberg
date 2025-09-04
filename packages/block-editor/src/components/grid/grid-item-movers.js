@@ -4,22 +4,22 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
+import { __, isRTL } from '@finpress/i18n';
 import {
 	VisuallyHidden,
 	ToolbarButton,
 	ToolbarGroup,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	chevronLeft,
 	chevronUp,
 	chevronDown,
 	chevronRight,
-} from '@wordpress/icons';
-import { useDispatch } from '@wordpress/data';
-import { useInstanceId } from '@wordpress/compose';
+} from '@finpress/icons';
+import { useDispatch } from '@finpress/data';
+import { useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies

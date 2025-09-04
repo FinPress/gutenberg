@@ -65,7 +65,7 @@ export type {
  * Example:
  *
  * ```ts
- * import type { Context } from '@wordpress/core-data';
+ * import type { Context } from '@finpress/core-data';
  * // ...
  *
  * interface Client {
@@ -80,7 +80,7 @@ export type {
  *   // ...
  * }
  *
- * declare module '@wordpress/core-data' {
+ * declare module '@finpress/core-data' {
  *     export interface PerPackageEntityRecords< C extends Context > {
  *         myPlugin: Client | Order<C>>
  *     }

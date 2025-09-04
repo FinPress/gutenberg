@@ -4,18 +4,18 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	AlignmentControl,
 	BlockControls,
 	Warning,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { useState, useEffect } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
-import { addQueryArgs } from '@wordpress/url';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { useState, useEffect } from '@finpress/element';
+import apiFetch from '@finpress/api-fetch';
+import { addQueryArgs } from '@finpress/url';
+import { __ } from '@finpress/i18n';
 
 export default function PostCommentsCountEdit( {
 	attributes,

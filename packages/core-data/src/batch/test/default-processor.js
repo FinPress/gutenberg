@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from '@finpress/api-fetch';
 
 /**
  * Internal dependencies
  */
 import defaultProcessor from '../default-processor';
 
-jest.mock( '@wordpress/api-fetch' );
+jest.mock( '@finpress/api-fetch' );
 
 describe( 'defaultProcessor', () => {
 	const preflightResponse = {

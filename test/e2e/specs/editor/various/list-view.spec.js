@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'List View', () => {
 	test.use( {
@@ -71,7 +71,7 @@ test.describe( 'List View', () => {
 		// Without the `force: true` option, the `hover` action will fail
 		// as playwright will complain that pointer-events are intercepted.
 		// https://bugs.webkit.org/show_bug.cgi?id=66547
-		// See: https://github.com/WordPress/gutenberg/pull/56625
+		// See: https://github.com/FinPress/gutenberg/pull/56625
 
 		// Hover over each block to mimic moving up the list view.
 		// Also, hover twice to ensure a dragover event is dispatched.
@@ -98,7 +98,7 @@ test.describe( 'List View', () => {
 			] );
 	} );
 
-	// Check for regressions of https://github.com/WordPress/gutenberg/issues/38763.
+	// Check for regressions of https://github.com/FinPress/gutenberg/issues/38763.
 	test( 'shows the correct amount of blocks after a block is removed in the canvas', async ( {
 		editor,
 		page,

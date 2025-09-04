@@ -4,9 +4,9 @@
 import { render } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { image } from '@wordpress/icons';
+import { image } from '@finpress/icons';
 
 /**
  * Internal dependencies

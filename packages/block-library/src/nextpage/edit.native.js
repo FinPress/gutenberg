@@ -4,11 +4,11 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { withPreferredColorScheme } from '@wordpress/compose';
-import { HorizontalRule } from '@wordpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { withPreferredColorScheme } from '@finpress/compose';
+import { HorizontalRule } from '@finpress/components';
 
 /**
  * Internal dependencies

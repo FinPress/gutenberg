@@ -5,7 +5,7 @@
 ## Usage
 
 ```jsx
-import { Card, CardFooter } from '@wordpress/components';
+import { Card, CardFooter } from '@finpress/components';
 
 const Example = () => (
 	<Card>
@@ -26,7 +26,7 @@ import {
 	CardFooter,
 	FlexItem,
 	FlexBlock,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 const Example = () => (
 	<Card>

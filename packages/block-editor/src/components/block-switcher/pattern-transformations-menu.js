@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-import { useInstanceId, useViewportMatch } from '@wordpress/compose';
-import { chevronRight } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { useState } from '@finpress/element';
+import { useInstanceId, useViewportMatch } from '@finpress/compose';
+import { chevronRight } from '@finpress/icons';
 
 import {
 	Composite,
@@ -12,7 +12,7 @@ import {
 	MenuItem,
 	Popover,
 	VisuallyHidden,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

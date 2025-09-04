@@ -50,7 +50,7 @@ async function activateTheme(
 	await response.dispose();
 }
 
-// https://developer.wordpress.org/rest-api/reference/themes/#definition
+// https://developer.finpress.org/rest-api/reference/themes/#definition
 async function getCurrentThemeGlobalStylesPostId( this: RequestUtils ) {
 	type ThemeItem = {
 		stylesheet: string;

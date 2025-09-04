@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { MenuItem } from '@wordpress/components';
-import { usePluginContext } from '@wordpress/plugins';
-import { ActionItem } from '@wordpress/interface';
+import { MenuItem } from '@finpress/components';
+import { usePluginContext } from '@finpress/plugins';
+import { ActionItem } from '@finpress/interface';
 
 /**
  * Renders a menu item in the Preview dropdown, which can be used as a button or link depending on the props provided.
@@ -18,9 +18,9 @@ import { ActionItem } from '@wordpress/interface';
  *
  * @example
  * ```jsx
- * import { __ } from '@wordpress/i18n';
- * import { PluginPreviewMenuItem } from '@wordpress/editor';
- * import { external } from '@wordpress/icons';
+ * import { __ } from '@finpress/i18n';
+ * import { PluginPreviewMenuItem } from '@finpress/editor';
+ * import { external } from '@finpress/icons';
  *
  * function onPreviewClick() {
  *   // Handle preview action

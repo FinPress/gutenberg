@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Composite } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
+import { Composite } from '@finpress/components';
+import { Fragment } from '@finpress/element';
 
 /**
  * Internal dependencies

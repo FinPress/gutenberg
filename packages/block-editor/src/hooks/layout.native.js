@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { removeFilter } from '@wordpress/hooks';
+import { removeFilter } from '@finpress/hooks';
 
 /**
  * Internal dependencies

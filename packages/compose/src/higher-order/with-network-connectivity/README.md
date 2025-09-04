@@ -6,9 +6,9 @@
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withNetworkConnectivity } from '@wordpress/compose';
+import { withNetworkConnectivity } from '@finpress/compose';
 
 export class MyComponent extends Component {
 	if ( this.props.isConnected !== true ) {

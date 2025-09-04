@@ -43,7 +43,7 @@ function getPackageManifest( packageFolderNames ) {
 
 		// First add any README files to the TOC
 		manifest.push( {
-			title: `@wordpress/${ folderName }`,
+			title: `@finpress/${ folderName }`,
 			slug: `packages-${ folderName }`,
 			markdown_source: path,
 			parent: 'packages',
@@ -140,7 +140,7 @@ function generateRootManifestFromTOCItems( items, parent = null ) {
 			`${ FgRed } The handbook generation setup creates pages based on their slug, so each slug has to be unique. ${ Reset }`
 		);
 		console.error(
-			`${ FgRed } More info at https://github.com/WordPress/gutenberg/issues/61206#issuecomment-2085361154 ${ Reset }\n`
+			`${ FgRed } More info at https://github.com/FinPress/gutenberg/issues/61206#issuecomment-2085361154 ${ Reset }\n`
 		);
 		throw new Error(
 			`${ FgRed } Duplicate slugs found in the TOC: ${ duplicatedSlugs.join(

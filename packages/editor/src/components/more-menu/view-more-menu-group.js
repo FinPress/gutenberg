@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSlotFill } from '@wordpress/components';
-import { Platform } from '@wordpress/element';
+import { createSlotFill } from '@finpress/components';
+import { Platform } from '@finpress/element';
 
 const { Fill: ViewMoreMenuGroup, Slot } = createSlotFill(
 	Platform.OS === 'web' ? Symbol( 'ViewMoreMenuGroup' ) : 'ViewMoreMenuGroup'

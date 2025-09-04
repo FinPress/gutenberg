@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { share as icon } from '@wordpress/icons';
+import { share as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

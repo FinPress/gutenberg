@@ -4,11 +4,11 @@
 import { View, AccessibilityInfo, Platform, Text } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useEffect, useState, useRef } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __, _x } from '@wordpress/i18n';
+import { useCallback, useEffect, useState, useRef } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __, _x } from '@finpress/i18n';
 import {
 	RichText,
 	InspectorControls,
@@ -18,7 +18,7 @@ import {
 	getGradientValueBySlug,
 	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
 	useMobileGlobalStylesColors,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	PanelBody,
 	ToolbarGroup,
@@ -29,10 +29,10 @@ import {
 	BottomSheetSelectControl,
 	CSS_UNITS,
 	filterUnitsWithSettings,
-} from '@wordpress/components';
-import { link } from '@wordpress/icons';
+} from '@finpress/components';
+import { link } from '@finpress/icons';
 // eslint-disable-next-line no-restricted-imports
-import { store as editPostStore } from '@wordpress/edit-post';
+import { store as editPostStore } from '@finpress/edit-post';
 
 /**
  * Internal dependencies

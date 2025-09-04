@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	BlockPreview,
 	privateApis as blockEditorPrivateApis,
 	// @ts-ignore
-} from '@wordpress/block-editor';
-import type { BasePost } from '@wordpress/fields';
-import { useSelect } from '@wordpress/data';
-import { useEntityBlockEditor, store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import type { BasePost } from '@finpress/fields';
+import { useSelect } from '@finpress/data';
+import { useEntityBlockEditor, store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

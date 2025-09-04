@@ -29,13 +29,13 @@ function UnconnectedSpacer(
  * or a literal CSS value string.
  *
  * ```jsx
- * import { Spacer } from `@wordpress/components`
+ * import { Spacer } from `@finpress/components`
  *
  * function Example() {
  *   return (
  *     <View>
  *       <Spacer>
- *         <Heading>WordPress.org</Heading>
+ *         <Heading>FinPress.org</Heading>
  *       </Spacer>
  *       <Text>
  *         Code is Poetry

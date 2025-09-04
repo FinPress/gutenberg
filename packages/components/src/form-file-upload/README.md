@@ -2,12 +2,12 @@
 
 <!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->
 
-<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-formfileupload--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
+<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-formfileupload--docs">FinPress Storybook</a> for more detailed, interactive documentation.</p>
 
 FormFileUpload allows users to select files from their local device.
 
 ```jsx
-import { FormFileUpload } from '@wordpress/components';
+import { FormFileUpload } from '@finpress/components';
 
 const MyFormFileUpload = () => (
   <FormFileUpload

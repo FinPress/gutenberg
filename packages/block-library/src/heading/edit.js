@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useEffect, Platform } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { useEffect, Platform } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
 import {
 	AlignmentControl,
 	BlockControls,
@@ -17,7 +17,7 @@ import {
 	store as blockEditorStore,
 	HeadingLevelDropdown,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 /**
  * Internal dependencies

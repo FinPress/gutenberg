@@ -4,12 +4,12 @@
 import { act, renderHook } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	requestConnectionStatus,
 	subscribeConnectionStatus,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies

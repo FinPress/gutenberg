@@ -5,8 +5,8 @@
 import { isEmpty } from 'lodash';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isBlobURL } from '@wordpress/blob';
+import { isBlobURL } from '@finpress/blob';
 
 isEmpty( isBlobURL( '' ) );

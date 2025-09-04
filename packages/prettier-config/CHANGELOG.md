@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,7 +64,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 3.15.0 (2024-05-16)
 
@@ -100,7 +100,7 @@
 
 ### Breaking Changes
 
--   Change the required major version of Prettier from v2 to v3 ([#54775](https://github.com/WordPress/gutenberg/pull/54775)).
+-   Change the required major version of Prettier from v2 to v3 ([#54775](https://github.com/FinPress/gutenberg/pull/54775)).
 
 ## 2.25.0 (2023-09-20)
 
@@ -161,30 +161,30 @@
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ### Bug Fixes
 
--   Packages: Replace `is-plain-obj` with native functionality ([#43511](https://github.com/WordPress/gutenberg/pull/43511)).
+-   Packages: Replace `is-plain-obj` with native functionality ([#43511](https://github.com/FinPress/gutenberg/pull/43511)).
 
 ## 1.2.0 (2022-04-21)
 
 ### Enhancements
 
--   Add additional configuration for CSS styles to better align with [CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/) ([#40479](https://github.com/WordPress/gutenberg/pull/40479)).
+-   Add additional configuration for CSS styles to better align with [CSS Coding Standards](https://developer.finpress.org/coding-standards/finpress-coding-standards/css/) ([#40479](https://github.com/FinPress/gutenberg/pull/40479)).
 
 ### Bug Fixes
 
--   Ensure that the config can work with both `prettier` and `wp-prettier` without reporting warnings ([#40479](https://github.com/WordPress/gutenberg/pull/40479)).
+-   Ensure that the config can work with both `prettier` and `wp-prettier` without reporting warnings ([#40479](https://github.com/FinPress/gutenberg/pull/40479)).
 
 ## 1.0.0 (2021-01-21)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ## 0.1.0 (2020-04-01)
 
 ### Initial Release
 
--   The config was extracted from `@wordpress/scripts` package ([#20026](https://github.com/WordPress/gutenberg/pull/20026)).
+-   The config was extracted from `@finpress/scripts` package ([#20026](https://github.com/FinPress/gutenberg/pull/20026)).

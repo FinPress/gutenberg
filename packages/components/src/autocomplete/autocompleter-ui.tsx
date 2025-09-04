@@ -4,18 +4,18 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useLayoutEffect,
 	useRef,
 	useEffect,
 	useState,
-} from '@wordpress/element';
-import { useAnchor } from '@wordpress/rich-text';
-import { useDebounce, useMergeRefs, useRefEffect } from '@wordpress/compose';
-import { speak } from '@wordpress/a11y';
-import { __, _n, sprintf } from '@wordpress/i18n';
+} from '@finpress/element';
+import { useAnchor } from '@finpress/rich-text';
+import { useDebounce, useMergeRefs, useRefEffect } from '@finpress/compose';
+import { speak } from '@finpress/a11y';
+import { __, _n, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -167,7 +167,7 @@ export function getAutoCompleterUI( autocompleter: WPCompleter ) {
 			onChangeOptions( items );
 			announce( items );
 			// We want to avoid introducing unexpected side effects.
-			// See https://github.com/WordPress/gutenberg/pull/41820
+			// See https://github.com/FinPress/gutenberg/pull/41820
 		}, [ items ] );
 
 		if ( items.length === 0 ) {

@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/rich-text",
+	"name": "@finpress/rich-text",
 	"version": "7.29.0",
 	"description": "Rich text value and manipulation API.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"rich-text"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/rich-text/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/rich-text/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/rich-text"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -33,14 +33,14 @@
 	],
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/a11y": "file:../a11y",
-		"@wordpress/compose": "file:../compose",
-		"@wordpress/data": "file:../data",
-		"@wordpress/deprecated": "file:../deprecated",
-		"@wordpress/element": "file:../element",
-		"@wordpress/escape-html": "file:../escape-html",
-		"@wordpress/i18n": "file:../i18n",
-		"@wordpress/keycodes": "file:../keycodes",
+		"@finpress/a11y": "file:../a11y",
+		"@finpress/compose": "file:../compose",
+		"@finpress/data": "file:../data",
+		"@finpress/deprecated": "file:../deprecated",
+		"@finpress/element": "file:../element",
+		"@finpress/escape-html": "file:../escape-html",
+		"@finpress/i18n": "file:../i18n",
+		"@finpress/keycodes": "file:../keycodes",
 		"colord": "2.9.3",
 		"memize": "^2.1.0"
 	},

@@ -1,9 +1,9 @@
 /* eslint-disable jsdoc/require-param */
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useLayoutEffect, useRef, useState } from '@wordpress/element';
-import { useEvent, useResizeObserver } from '@wordpress/compose';
+import { useLayoutEffect, useRef, useState } from '@finpress/element';
+import { useEvent, useResizeObserver } from '@finpress/compose';
 
 /**
  * The position and dimensions of an element, relative to its offset parent.

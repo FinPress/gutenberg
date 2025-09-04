@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { DropdownMenu } from '@wordpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { DropdownMenu } from '@finpress/components';
 
 /**
  * Internal dependencies

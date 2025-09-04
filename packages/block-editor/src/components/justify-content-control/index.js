@@ -12,6 +12,6 @@ const JustifyToolbar = ( props ) => {
 };
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/justify-content-control/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/justify-content-control/README.md
  */
 export { JustifyContentControl, JustifyToolbar };

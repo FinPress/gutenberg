@@ -4,15 +4,15 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createRegistry,
 	createReduxStore,
 	useSuspenseSelect,
 	RegistryProvider,
-} from '@wordpress/data';
-import { Component, Suspense } from '@wordpress/element';
+} from '@finpress/data';
+import { Component, Suspense } from '@finpress/element';
 
 function createRegistryWithStore() {
 	const initialState = {

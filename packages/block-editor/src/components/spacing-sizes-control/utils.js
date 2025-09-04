@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	sidesAll,
 	sidesBottom,
@@ -10,7 +10,7 @@ import {
 	sidesRight,
 	sidesTop,
 	sidesVertical,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 export const RANGE_CONTROL_MAX_SIZE = 8;
 

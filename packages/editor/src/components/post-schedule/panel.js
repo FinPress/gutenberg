@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, Dropdown } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { useState, useMemo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { Button, Dropdown } from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useState, useMemo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

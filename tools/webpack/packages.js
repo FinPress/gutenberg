@@ -11,8 +11,8 @@ const { readdirSync } = require( 'node:fs' );
  */
 const {
 	camelCaseDash,
-} = require( '@wordpress/dependency-extraction-webpack-plugin/lib/util' );
-const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
+} = require( '@finpress/dependency-extraction-webpack-plugin/lib/util' );
+const DependencyExtractionWebpackPlugin = require( '@finpress/dependency-extraction-webpack-plugin' );
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ const packageDirs = readdirSync(
 ).flatMap( ( dirent ) => ( dirent.isDirectory() ? [ dirent.name ] : [] ) );
 const { baseConfig, plugins, stylesTransform } = require( './shared' );
 
-const WORDPRESS_NAMESPACE = '@wordpress/';
+const WORDPRESS_NAMESPACE = '@finpress/';
 
 // Experimental or other packages that should be private are bundled when used.
 // That way, we can iterate on these package without making them part of the public API.
@@ -35,14 +35,14 @@ const WORDPRESS_NAMESPACE = '@wordpress/';
 // This list must be kept in sync with the matching list in packages/dependency-extraction-webpack-plugin/lib/util.js
 // !!
 const BUNDLED_PACKAGES = [
-	'@wordpress/dataviews',
-	'@wordpress/dataviews/wp',
-	'@wordpress/icons',
-	'@wordpress/interface',
-	'@wordpress/sync',
-	'@wordpress/undo-manager',
-	'@wordpress/upload-media',
-	'@wordpress/fields',
+	'@finpress/dataviews',
+	'@finpress/dataviews/wp',
+	'@finpress/icons',
+	'@finpress/interface',
+	'@finpress/sync',
+	'@finpress/undo-manager',
+	'@finpress/upload-media',
+	'@finpress/fields',
 ];
 
 // PHP files in packages that have to be copied during build.
@@ -149,9 +149,9 @@ module.exports = {
 		filename: './build/[name]/index.min.js',
 		path: join( __dirname, '..', '..' ),
 		devtoolModuleFilenameTemplate: ( info ) => {
-			if ( info.resourcePath.includes( '/@wordpress/' ) ) {
+			if ( info.resourcePath.includes( '/@finpress/' ) ) {
 				const resourcePath =
-					info.resourcePath.split( '/@wordpress/' )[ 1 ];
+					info.resourcePath.split( '/@finpress/' )[ 1 ];
 				return `../../packages/${ resourcePath }`;
 			}
 			return `webpack://${ info.namespace }/${ info.resourcePath }`;

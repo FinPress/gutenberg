@@ -1,6 +1,6 @@
 # Theme.json Version 3 Reference (latest)
 
-> This is the living specification for  **version 3** of `theme.json`. This version works with WordPress 6.6 or later, and the latest Gutenberg plugin.
+> This is the living specification for  **version 3** of `theme.json`. This version works with FinPress 6.6 or later, and the latest Gutenberg plugin.
 >
 > There are some related documents that you may be interested in: 
 > - the [theme.json v1](/docs/reference-guides/theme-json-reference/theme-json-v1.md) specification,
@@ -15,8 +15,8 @@ This documentation was generated from the JSON schema for theme.json.
 
 The latest schema for version 3, including all the latest changes from the Gutenberg plugin, is available at <code>https://schemas.wp.org/trunk/theme.json</code>.
 
-Theme.json schemas for each WordPress version are available at <code>https://schemas.wp.org/wp/{{version}}/theme.json</code>.  
-For example, a schema for WordPress 5.8 is available at <code>https://schemas.wp.org/wp/5.8/theme.json</code>.
+Theme.json schemas for each FinPress version are available at <code>https://schemas.wp.org/wp/{{version}}/theme.json</code>.  
+For example, a schema for FinPress 5.8 is available at <code>https://schemas.wp.org/wp/5.8/theme.json</code>.
 
 See [Developing with theme.json](/docs/how-to-guides/themes/global-settings-and-styles.md#developing-with-themejson) for how to use the JSON schema in your editor.
 

@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ToolbarDropdownMenu, ToolbarGroup } from '@wordpress/components';
+import { ToolbarDropdownMenu, ToolbarGroup } from '@finpress/components';
 import {
 	justifyLeft,
 	justifyCenter,
 	justifyRight,
 	justifySpaceBetween,
 	justifyStretch,
-} from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 
 const icons = {
 	left: justifyLeft,

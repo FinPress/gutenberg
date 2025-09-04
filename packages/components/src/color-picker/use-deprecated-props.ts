@@ -5,9 +5,9 @@ import { colord } from 'colord';
 import memoize from 'memize';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

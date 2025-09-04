@@ -6,9 +6,9 @@
 const Benchmark = require( 'benchmark' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const lazyImport = require( '@wordpress/lazy-import' );
+const lazyImport = require( '@finpress/lazy-import' );
 
 const suite = new Benchmark.Suite();
 
@@ -39,11 +39,11 @@ Promise.all( [
 	] ) => {
 		[
 			[
-				'@wordpress/is-shallow-equal (type specific)',
+				'@finpress/is-shallow-equal (type specific)',
 				require( '..' ).isShallowEqualObjects,
 				require( '..' ).isShallowEqualArrays,
 			],
-			[ '@wordpress/is-shallow-equal', require( '..' ).default ],
+			[ '@finpress/is-shallow-equal', require( '..' ).default ],
 			[ 'shallowequal', shallowequal ],
 			[
 				'shallow-equal (type specific)',

@@ -4,9 +4,9 @@
 import type { ReactNode, RefObject } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { ObservableMap } from '@wordpress/compose';
+import type { ObservableMap } from '@finpress/compose';
 
 export type DistributiveOmit< T, K extends keyof any > = T extends any
 	? Omit< T, K >

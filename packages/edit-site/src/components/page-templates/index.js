@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useState, useMemo, useCallback, useEffect } from '@wordpress/element';
-import { privateApis as corePrivateApis } from '@wordpress/core-data';
-import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
-import { addQueryArgs } from '@wordpress/url';
+import { __ } from '@finpress/i18n';
+import { useState, useMemo, useCallback, useEffect } from '@finpress/element';
+import { privateApis as corePrivateApis } from '@finpress/core-data';
+import { DataViews, filterSortAndPaginate } from '@finpress/dataviews';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ import {
 import { unlock } from '../../lock-unlock';
 import { useEditPostAction } from '../dataviews-actions';
 import { authorField, descriptionField, previewField } from './fields';
-import { useEvent } from '@wordpress/compose';
+import { useEvent } from '@finpress/compose';
 
 const { usePostActions, templateTitleField } = unlock( editorPrivateApis );
 const { useHistory, useLocation } = unlock( routerPrivateApis );

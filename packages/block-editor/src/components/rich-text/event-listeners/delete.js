@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { DELETE, BACKSPACE } from '@wordpress/keycodes';
-import { isCollapsed, isEmpty } from '@wordpress/rich-text';
+import { DELETE, BACKSPACE } from '@finpress/keycodes';
+import { isCollapsed, isEmpty } from '@finpress/rich-text';
 
 export default ( props ) => ( element ) => {
 	function onKeyDown( event ) {

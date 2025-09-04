@@ -8,7 +8,7 @@ Declare scroll locking as part of modal UI.
 
 ```jsx
 import { useState } from 'react';
-import { ScrollLock, Button } from '@wordpress/components';
+import { ScrollLock, Button } from '@finpress/components';
 
 const MyScrollLock = () => {
 	const [ isScrollLocked, setIsScrollLocked ] = useState( false );

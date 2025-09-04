@@ -1,6 +1,6 @@
 /** @type {import('stylelint').Config} */
 module.exports = {
-	extends: '@wordpress/stylelint-config/scss-stylistic',
+	extends: '@finpress/stylelint-config/scss-stylistic',
 	rules: {
 		'at-rule-empty-line-before': null,
 		'at-rule-no-unknown': null,

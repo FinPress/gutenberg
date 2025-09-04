@@ -12,7 +12,7 @@ This feature is still experimental. “Experimental” means this is an early im
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 function Example() {
 	return (

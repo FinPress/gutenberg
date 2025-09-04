@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo } from '@finpress/element';
 import {
 	ExternalLink,
 	FocalPointPicker,
@@ -13,8 +13,8 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalUnitControl as UnitControl,
 	__experimentalParseQuantityAndUnitFromRawValue as parseQuantityAndUnitFromRawValue,
-} from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
+} from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
 import {
 	InspectorControls,
 	useSettings,
@@ -23,10 +23,10 @@ import {
 	__experimentalUseGradient,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

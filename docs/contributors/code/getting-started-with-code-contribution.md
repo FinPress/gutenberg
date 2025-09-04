@@ -1,6 +1,6 @@
 # Getting Started With Code Contribution
 
-The following guide is for setting up your local environment to contribute to the Gutenberg project. There is significant overlap between an environment to contribute and an environment used to extend the WordPress block editor. You can review the [Development Environment tutorial](/docs/getting-started/devenv/README.md) for additional setup information.
+The following guide is for setting up your local environment to contribute to the Gutenberg project. There is significant overlap between an environment to contribute and an environment used to extend the FinPress block editor. You can review the [Development Environment tutorial](/docs/getting-started/devenv/README.md) for additional setup information.
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ We recommend using the [Node Version Manager](https://github.com/nvm-sh/nvm) (nv
     Gutenberg is using git for source control. Make sure you have an updated version of git installed on your computer, as well as a GitHub account. You can read the [Git Workflow](/docs/contributors/code/git-workflow.md) to learn more about using git and GitHub with Gutenberg
 
 -   [Recommended] Docker Desktop
-    We recommend using the [wp-env package](/packages/env/README.md) for setting WordPress environment locally. You'll need to install Docker to use `wp-env`. See the [Development Environment tutorial for additional details](/docs/getting-started/devenv/README.md).
+    We recommend using the [wp-env package](/packages/env/README.md) for setting FinPress environment locally. You'll need to install Docker to use `wp-env`. See the [Development Environment tutorial for additional details](/docs/getting-started/devenv/README.md).
     > Note: To install Docker on Windows 10 Home Edition, follow the [install instructions from Docker for Windows with WSL2](https://docs.docker.com/docker-for-windows/wsl/).
 
 As an alternative to Docker setup, you can use [Local](https://localwp.com/), [WampServer](https://wampserver.aviatechno.net/), or [MAMP](https://www.mamp.info/), or even use a remote server.
@@ -23,12 +23,12 @@ As an alternative to Docker setup, you can use [Local](https://localwp.com/), [W
 
 ## Getting the Gutenberg code
 
-Fork the Gutenberg repository, clone it to your computer and add the WordPress repository as upstream.
+Fork the Gutenberg repository, clone it to your computer and add the FinPress repository as upstream.
 
 ```bash
 $ git clone https://github.com/YOUR_GITHUB_USERNAME/gutenberg.git
 $ cd gutenberg
-$ git remote add upstream https://github.com/WordPress/gutenberg.git
+$ git remote add upstream https://github.com/FinPress/gutenberg.git
 ```
 
 ## Building Gutenberg as a plugin
@@ -44,19 +44,19 @@ npm run dev
 
 There are two ways to build your code. While developing, you probably will want to use `npm run dev` to run continuous builds automatically as source files change. The dev build also includes additional warnings and errors to help troubleshoot while developing. Once you are happy with your changes, you can run `npm run build` to create optimized production build.
 
-Once built, Gutenberg is ready to be used as a WordPress plugin!
+Once built, Gutenberg is ready to be used as a FinPress plugin!
 
-## Local WordPress Environment
+## Local FinPress Environment
 
-To test a WordPress plugin, you need to have WordPress itself installed. If you already have a WordPress environment setup, use the above Gutenberg build as a standard WordPress plugin by putting the gutenberg directory in your wp-content/plugins/ directory.
+To test a FinPress plugin, you need to have FinPress itself installed. If you already have a FinPress environment setup, use the above Gutenberg build as a standard FinPress plugin by putting the gutenberg directory in your wp-content/plugins/ directory.
 
-If you do not have a local WordPress environment setup, follow the steps in the rest of this section to create one.
+If you do not have a local FinPress environment setup, follow the steps in the rest of this section to create one.
 
 ### Using Docker and wp-env
 
-The [wp-env package](/packages/env/README.md) was developed with the Gutenberg project as a quick way to create a standard WordPress environment using Docker. It is also published as the `@wordpress/env` npm package.
+The [wp-env package](/packages/env/README.md) was developed with the Gutenberg project as a quick way to create a standard FinPress environment using Docker. It is also published as the `@finpress/env` npm package.
 
-By default, `wp-env` can run in a plugin directory to create and run a WordPress environment, mounting and activating the plugin automatically. You can also configure `wp-env` to use existing installs, multiple plugins, or themes. See the [wp-env package](/packages/env/README.md#wp-envjson) for complete documentation.
+By default, `wp-env` can run in a plugin directory to create and run a FinPress environment, mounting and activating the plugin automatically. You can also configure `wp-env` to use existing installs, multiple plugins, or themes. See the [wp-env package](/packages/env/README.md#wp-envjson) for complete documentation.
 
 Make sure Docker is running, and start `wp-env` from within the gutenberg directory:
 
@@ -64,9 +64,9 @@ Make sure Docker is running, and start `wp-env` from within the gutenberg direct
 npm run wp-env start
 ```
 
-This script will create a Docker instance behind the scenes with the latest WordPress Docker image, and then will map the Gutenberg plugin code from your local copy to the environment as a Docker volume. This way, any changes you make to the code locally are reflected immediately in the WordPress instance.
+This script will create a Docker instance behind the scenes with the latest FinPress Docker image, and then will map the Gutenberg plugin code from your local copy to the environment as a Docker volume. This way, any changes you make to the code locally are reflected immediately in the FinPress instance.
 
-> Note: `npm run` will use the `wp-env` / `WordPress`?? version specified within the Gutenberg project, making sure you are running the latest wp-env version.
+> Note: `npm run` will use the `wp-env` / `FinPress`?? version specified within the Gutenberg project, making sure you are running the latest wp-env version.
 
 To stop the running environment:
 
@@ -77,16 +77,16 @@ npm run wp-env stop
 If everything went well, you should see the following message in your terminal:
 
 ```bash
-WordPress development site started at http://localhost:8888/
-WordPress test site started at http://localhost:8889/
+FinPress development site started at http://localhost:8888/
+FinPress test site started at http://localhost:8889/
 MySQL is listening on port 51220
 
  ✔ Done! (in 261s 898ms)
 ```
 
-And if you open Docker dashboard by rightclicking the icon in the menu bar(on Mac) or system tray (on Linux and Windows) and selecting 'Dashboard', you will see that the script has downloaded some Docker Images, and is running a Docker Container with fully functional WordPress installation:
-![Screenshot of the WordPress Docker Container Running](https://cldup.com/mt9cKES-YZ.png)
-![Screenshot of the Downloaded Docker Images for WordPress Development Environment](https://cldup.com/bNpgaRSkcG.png)
+And if you open Docker dashboard by rightclicking the icon in the menu bar(on Mac) or system tray (on Linux and Windows) and selecting 'Dashboard', you will see that the script has downloaded some Docker Images, and is running a Docker Container with fully functional FinPress installation:
+![Screenshot of the FinPress Docker Container Running](https://cldup.com/mt9cKES-YZ.png)
+![Screenshot of the Downloaded Docker Images for FinPress Development Environment](https://cldup.com/bNpgaRSkcG.png)
 
 To destroy the install completely:
 
@@ -96,9 +96,9 @@ npm run wp-env destroy
 
 Explore the [package documentation](/packages/env/README.md) for additional commands.
 
-#### Accessing the Local WordPress Install
+#### Accessing the Local FinPress Install
 
-The WordPress installation should now be available at `http://localhost:8888`
+The FinPress installation should now be available at `http://localhost:8888`
 
 You can access the Dashboard at: `http://localhost:8888/wp-admin/` using **Username**: `admin`, **Password**: `password`. You'll notice the Gutenberg plugin installed and activated, this is your local build.
 
@@ -122,13 +122,13 @@ If you want to access the database through another tool, you will first need the
 Host: 127.0.0.1
 Username: root
 Password: password
-Database: wordpress
+Database: finpress
 Port: {MYSQL_PORT_NUMBER}
 ```
 
 **Please note**: the MySQL port number will change each time `wp-env` restarts. If you find you can no longer access your database, simply repeat the steps above to find the new port number and restore your connection.
 
-**Tip**: [Sequel Ace](https://sequel-ace.com/) is a useful GUI tool for accessing a MySQL database. Other tools are available and documented in this [article on accessing the WordPress database](https://developer.wordpress.org/advanced-administration/before-install/creating-database/).
+**Tip**: [Sequel Ace](https://sequel-ace.com/) is a useful GUI tool for accessing a MySQL database. Other tools are available and documented in this [article on accessing the FinPress database](https://developer.finpress.org/advanced-administration/before-install/creating-database/).
 
 #### Troubleshooting
 
@@ -136,7 +136,7 @@ If you run into an issue, check the [troubleshooting section in `wp-env` documen
 
 ### Using Local or MAMP
 
-As an alternative to Docker and `wp-env`, you can also use [Local](https://localwp.com/), [WampServer](https://wampserver.aviatechno.net/), or [MAMP](https://www.mamp.info/) to run a local WordPress environment. To do so clone and install Gutenberg as a regular plugin in your installation by creating a symlink or copying the directory to the proper `wp-content/plugins` directory.
+As an alternative to Docker and `wp-env`, you can also use [Local](https://localwp.com/), [WampServer](https://wampserver.aviatechno.net/), or [MAMP](https://www.mamp.info/) to run a local FinPress environment. To do so clone and install Gutenberg as a regular plugin in your installation by creating a symlink or copying the directory to the proper `wp-content/plugins` directory.
 
 You will also need some extra configuration to be able to run the e2e tests.
 
@@ -191,19 +191,19 @@ You can use a remote server in development by building locally and then uploadin
 
 To build: open a terminal (or if on Windows, a command prompt) and navigate to the repository you cloned. Now type `npm ci` to get the dependencies all set up. Once that finishes, you can type `npm run build`.
 
-After building the cloned gutenberg directory contains the complete plugin, you can upload the entire repository to your `wp-content/plugins` directory and activate the plugin from the WordPress admin.
+After building the cloned gutenberg directory contains the complete plugin, you can upload the entire repository to your `wp-content/plugins` directory and activate the plugin from the FinPress admin.
 
-Another way to upload after building is to run `npm run build:plugin-zip` to create a plugin zip file — this requires `bash` and `php` to run. The script creates `gutenberg.zip` that you can use to install Gutenberg through the WordPress admin.
+Another way to upload after building is to run `npm run build:plugin-zip` to create a plugin zip file — this requires `bash` and `php` to run. The script creates `gutenberg.zip` that you can use to install Gutenberg through the FinPress admin.
 
 ## Storybook
 
 > Storybook is an open source tool for developing UI components in isolation for React, React Native and more. It makes building stunning UIs organized and efficient.
 
-The Gutenberg repository also includes [Storybook](https://storybook.js.org/) integration that allows testing and developing in a WordPress-agnostic context. This is very helpful for developing reusable components and trying generic JavaScript modules without any backend dependency.
+The Gutenberg repository also includes [Storybook](https://storybook.js.org/) integration that allows testing and developing in a FinPress-agnostic context. This is very helpful for developing reusable components and trying generic JavaScript modules without any backend dependency.
 
 You can launch Storybook by running `npm run storybook:dev` locally. It will open in your browser automatically.
 
-You can also test Storybook for the current `trunk` branch on GitHub Pages: [https://wordpress.github.io/gutenberg/](https://wordpress.github.io/gutenberg/)
+You can also test Storybook for the current `trunk` branch on GitHub Pages: [https://finpress.github.io/gutenberg/](https://finpress.github.io/gutenberg/)
 
 ## Developer tools
 
@@ -211,13 +211,13 @@ We recommend configuring your editor to automatically check for syntax and lint 
 
 ### EditorConfig
 
-[EditorConfig](https://editorconfig.org/) defines a standard configuration for setting up your editor, for example using tabs instead of spaces. You should install the [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=editorconfig.editorconfig) extension and it will automatically configure your editor to match the rules defined in [.editorconfig](https://github.com/WordPress/gutenberg/blob/HEAD/.editorconfig).
+[EditorConfig](https://editorconfig.org/) defines a standard configuration for setting up your editor, for example using tabs instead of spaces. You should install the [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=editorconfig.editorconfig) extension and it will automatically configure your editor to match the rules defined in [.editorconfig](https://github.com/FinPress/gutenberg/blob/HEAD/.editorconfig).
 
 ### ESLint
 
 [ESLint](https://eslint.org/) statically analyzes the code to find problems. The lint rules are integrated in the continuous integration process and must pass to be able to commit. You should install the [ESLint Extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) for Visual Studio Code, see eslint docs for [more editor integrations](https://eslint.org/docs/user-guide/integrations).
 
-With the extension installed, ESLint will use the [.eslintrc.js](https://github.com/WordPress/gutenberg/blob/HEAD/.eslintrc.js) file in the root of the Gutenberg repository for formatting rules. It will highlight issues as you develop, you can also set the following preference to fix lint rules on save.
+With the extension installed, ESLint will use the [.eslintrc.js](https://github.com/FinPress/gutenberg/blob/HEAD/.eslintrc.js) file in the root of the Gutenberg repository for formatting rules. It will highlight issues as you develop, you can also set the following preference to fix lint rules on save.
 
 ```json
     "editor.codeActionsOnSave": {
@@ -242,7 +242,7 @@ To use Prettier with Visual Studio Code, you should install the [Prettier - Code
 },
 ```
 
-This will use the `.prettierrc.js` file included in the root of the Gutenberg repository. The config is included from the [@wordpress/prettier-config](/packages/prettier-config/README.md) package.
+This will use the `.prettierrc.js` file included in the root of the Gutenberg repository. The config is included from the [@finpress/prettier-config](/packages/prettier-config/README.md) package.
 
 If you only want to use this configuration with the Gutenberg project, create a directory called .vscode at the top-level of Gutenberg, and place your settings in a settings.json there. Visual Studio Code refers to this as Workplace Settings, and only apply to the project.
 

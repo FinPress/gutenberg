@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockSupport } from '@wordpress/blocks';
+import { getBlockSupport } from '@finpress/blocks';
 
 export default function useBlockRename( name ) {
 	return {

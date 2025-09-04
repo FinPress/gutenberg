@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, memo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { useState, memo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 import {
 	BlockContextProvider,
 	useBlockProps,
 	useInnerBlocksProps,
 	store as blockEditorStore,
 	__experimentalUseBlockPreview as useBlockPreview,
-} from '@wordpress/block-editor';
-import { Spinner } from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { Spinner } from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

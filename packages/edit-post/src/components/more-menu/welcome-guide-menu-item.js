@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { PreferenceToggleMenuItem } from '@wordpress/preferences';
-import { __ } from '@wordpress/i18n';
-import { store as editorStore } from '@wordpress/editor';
+import { useSelect } from '@finpress/data';
+import { PreferenceToggleMenuItem } from '@finpress/preferences';
+import { __ } from '@finpress/i18n';
+import { store as editorStore } from '@finpress/editor';
 
 export default function WelcomeGuideMenuItem() {
 	const isEditingTemplate = useSelect(

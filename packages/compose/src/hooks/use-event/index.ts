@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useInsertionEffect, useCallback } from '@wordpress/element';
+import { useRef, useInsertionEffect, useCallback } from '@finpress/element';
 
 /**
  * Any function.

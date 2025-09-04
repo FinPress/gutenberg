@@ -1,15 +1,15 @@
 {
-	"title": "JSON schema for WordPress wp-env configuration files",
+	"title": "JSON schema for FinPress wp-env configuration files",
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"definitions": {
 		"//": {
-			"reference": "https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/"
+			"reference": "https://developer.finpress.org/block-editor/reference-guides/packages/packages-env/"
 		},
 		"wpEnvProperties": {
 			"type": "object",
 			"properties": {
 				"core": {
-					"description": "The WordPress installation to use. If null is specified, wp-env will use the latest production release of WordPress.",
+					"description": "The FinPress installation to use. If null is specified, wp-env will use the latest production release of FinPress.",
 					"oneOf": [
 						{
 							"type": "string"
@@ -21,7 +21,7 @@
 					"default": null
 				},
 				"phpVersion": {
-					"description": "The PHP version to use. If null is specified, wp-env will use the default version used with production release of WordPress.",
+					"description": "The PHP version to use. If null is specified, wp-env will use the default version used with production release of FinPress.",
 					"oneOf": [
 						{
 							"type": "string"
@@ -59,7 +59,7 @@
 					"default": {}
 				},
 				"mappings": {
-					"description": "Mapping of WordPress directories to local directories to be mounted in the WordPress instance.",
+					"description": "Mapping of FinPress directories to local directories to be mounted in the FinPress instance.",
 					"type": "object",
 					"default": {}
 				},

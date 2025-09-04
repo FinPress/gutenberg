@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	ToolbarButton,
@@ -7,10 +7,10 @@ import {
 	ToolbarGroup,
 	SVG,
 	Path,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { DOWN } from '@wordpress/keycodes';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { DOWN } from '@finpress/keycodes';
+import deprecated from '@finpress/deprecated';
 
 const ColorSelectorSVGIcon = () => (
 	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/stylelint-config",
+	"name": "@finpress/stylelint-config",
 	"version": "23.21.0",
-	"description": "stylelint config for WordPress development.",
-	"author": "The WordPress Contributors",
+	"description": "stylelint config for FinPress development.",
+	"author": "The FinPress Contributors",
 	"license": "MIT",
 	"keywords": [
 		"stylelint",
 		"stylelint-config",
-		"stylelint-config-wordpress",
-		"wordpress"
+		"stylelint-config-finpress",
+		"finpress"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/stylelint-config/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/stylelint-config/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/stylelint-config"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -43,7 +43,7 @@
 		"stylelint-scss": "^6.4.0"
 	},
 	"npmpackagejsonlint": {
-		"extends": "@wordpress/npm-package-json-lint-config",
+		"extends": "@finpress/npm-package-json-lint-config",
 		"rules": {
 			"valid-values-license": [
 				"error",

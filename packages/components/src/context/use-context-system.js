@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import warn from '@wordpress/warning';
+import warn from '@finpress/warning';
 
 /**
  * Internal dependencies

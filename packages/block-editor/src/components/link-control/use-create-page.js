@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useEffect, useState, useRef } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useEffect, useState, useRef } from '@finpress/element';
 
 export default function useCreatePage( handleCreatePage ) {
 	const cancelableCreateSuggestion = useRef();

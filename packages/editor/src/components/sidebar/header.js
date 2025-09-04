@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as componentsPrivateApis } from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { forwardRef } from '@wordpress/element';
+import { privateApis as componentsPrivateApis } from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies

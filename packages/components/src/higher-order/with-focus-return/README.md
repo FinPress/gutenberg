@@ -8,7 +8,7 @@
 
 ```jsx
 import { useState } from 'react';
-import { withFocusReturn, TextControl, Button } from '@wordpress/components';
+import { withFocusReturn, TextControl, Button } from '@finpress/components';
 
 const EnhancedComponent = withFocusReturn( () => (
 	<div>

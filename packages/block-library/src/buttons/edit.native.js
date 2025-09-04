@@ -4,19 +4,19 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockControls,
 	InnerBlocks,
 	JustifyContentControl,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { createBlock, getBlockSupport } from '@wordpress/blocks';
-import { debounce, useResizeObserver } from '@wordpress/compose';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useState, useEffect, useRef, useCallback } from '@wordpress/element';
-import { alignmentHelpers } from '@wordpress/components';
+} from '@finpress/block-editor';
+import { createBlock, getBlockSupport } from '@finpress/blocks';
+import { debounce, useResizeObserver } from '@finpress/compose';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useState, useEffect, useRef, useCallback } from '@finpress/element';
+import { alignmentHelpers } from '@finpress/components';
 
 /**
  * Internal dependencies

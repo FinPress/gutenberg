@@ -3,15 +3,15 @@
  */
 import { View } from 'react-native';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	InnerBlocks,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { useRef, useEffect, useState } from '@wordpress/element';
-import { compose, usePreferredColorSchemeStyle } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { withDispatch, withSelect } from '@finpress/data';
+import { useRef, useEffect, useState } from '@finpress/element';
+import { compose, usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -21,8 +21,8 @@ import styles from './editor.scss';
 // Template contains the links that show when start.
 const TEMPLATE = [
 	[
-		'core/social-link-wordpress',
-		{ service: 'wordpress', url: 'https://wordpress.org' },
+		'core/social-link-finpress',
+		{ service: 'finpress', url: 'https://finpress.org' },
 	],
 	[ 'core/social-link-facebook', { service: 'facebook' } ],
 	[ 'core/social-link-twitter', { service: 'twitter' } ],

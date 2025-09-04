@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	SVG,
@@ -8,10 +8,10 @@ import {
 	MenuGroup,
 	MenuItemsChoice,
 	ExternalLink,
-} from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
-import { Icon } from '@wordpress/icons';
-import { useMemo, createInterpolateElement } from '@wordpress/element';
+} from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
+import { Icon } from '@finpress/icons';
+import { useMemo, createInterpolateElement } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -161,13 +161,13 @@ export function PatternsFilter( {
 						<div className="block-editor-inserter__patterns-filter-help">
 							{ createInterpolateElement(
 								__(
-									'Patterns are available from the <Link>WordPress.org Pattern Directory</Link>, bundled in the active theme, or created by users on this site. Only patterns created on this site can be synced.'
+									'Patterns are available from the <Link>FinPress.org Pattern Directory</Link>, bundled in the active theme, or created by users on this site. Only patterns created on this site can be synced.'
 								),
 								{
 									Link: (
 										<ExternalLink
 											href={ __(
-												'https://wordpress.org/patterns/'
+												'https://finpress.org/patterns/'
 											) }
 										/>
 									),

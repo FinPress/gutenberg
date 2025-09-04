@@ -27,7 +27,7 @@ type SiteSettings = {
 /**
  * Get the site settings.
  *
- * @see https://developer.wordpress.org/rest-api/reference/settings/#retrieve-a-site-setting
+ * @see https://developer.finpress.org/rest-api/reference/settings/#retrieve-a-site-setting
  *
  * @param this RequestUtils.
  */
@@ -41,7 +41,7 @@ export async function getSiteSettings( this: RequestUtils ) {
 /**
  * Update the site settings.
  *
- * @see https://developer.wordpress.org/rest-api/reference/settings/#update-a-site-setting
+ * @see https://developer.finpress.org/rest-api/reference/settings/#update-a-site-setting
  *
  * @param this         RequestUtils.
  * @param siteSettings The partial settings payload to update.

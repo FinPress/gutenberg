@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
-import { addQueryArgs } from '@wordpress/url';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __ } from '@wordpress/i18n';
+import apiFetch from '@finpress/api-fetch';
+import { addQueryArgs } from '@finpress/url';
+import { decodeEntities } from '@finpress/html-entities';
+import { __ } from '@finpress/i18n';
 
 export type SearchOptions = {
 	/**
@@ -82,9 +82,9 @@ export type SearchResult = {
 };
 
 /**
- * Fetches link suggestions from the WordPress API.
+ * Fetches link suggestions from the FinPress API.
  *
- * WordPress does not support searching multiple tables at once, e.g. posts and terms, so we
+ * FinPress does not support searching multiple tables at once, e.g. posts and terms, so we
  * perform multiple queries at the same time and then merge the results together.
  *
  * @param search
@@ -93,7 +93,7 @@ export type SearchResult = {
  *
  * @example
  * ```js
- * import { __experimentalFetchLinkSuggestions as fetchLinkSuggestions } from '@wordpress/core-data';
+ * import { __experimentalFetchLinkSuggestions as fetchLinkSuggestions } from '@finpress/core-data';
  *
  * //...
  *

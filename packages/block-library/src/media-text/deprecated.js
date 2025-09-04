@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	InnerBlocks,
 	getColorClassName,
 	useInnerBlocksProps,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { compose } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { compose } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -280,7 +280,7 @@ const v7Supports = {
 };
 
 // Version with 'none' as the default alignment.
-// See: https://github.com/WordPress/gutenberg/pull/64981
+// See: https://github.com/FinPress/gutenberg/pull/64981
 const v7 = {
 	attributes: v7Attributes,
 	supports: v7Supports,
@@ -394,7 +394,7 @@ const v7 = {
 };
 
 // Version with wide as the default alignment.
-// See: https://github.com/WordPress/gutenberg/pull/48404
+// See: https://github.com/FinPress/gutenberg/pull/48404
 const v6 = {
 	attributes: v6Attributes,
 	supports: v6Supports,
@@ -523,7 +523,7 @@ const v6 = {
 };
 
 // Version with non-rounded background position attribute for focal point.
-// See: https://github.com/WordPress/gutenberg/pull/33915
+// See: https://github.com/FinPress/gutenberg/pull/33915
 const v5 = {
 	attributes: v4ToV5BlockAttributes,
 	supports: v4ToV5Supports,
@@ -637,7 +637,7 @@ const v5 = {
 };
 
 // Version with CSS grid
-// See: https://github.com/WordPress/gutenberg/pull/40806
+// See: https://github.com/FinPress/gutenberg/pull/40806
 const v4 = {
 	attributes: v4ToV5BlockAttributes,
 	supports: v4ToV5Supports,
@@ -735,7 +735,7 @@ const v4 = {
 };
 
 // Version with ad-hoc color attributes
-// See: https://github.com/WordPress/gutenberg/pull/21169
+// See: https://github.com/FinPress/gutenberg/pull/21169
 const v3 = {
 	attributes: {
 		...v0Attributes,
@@ -887,7 +887,7 @@ const v3 = {
 };
 
 // Version with stack on mobile off by default
-// See: https://github.com/WordPress/gutenberg/pull/14364
+// See: https://github.com/FinPress/gutenberg/pull/14364
 const v2 = {
 	attributes: {
 		...v0Attributes,
@@ -989,7 +989,7 @@ const v2 = {
 };
 
 // Version without the wp-image-#### class on image
-// See: https://github.com/WordPress/gutenberg/pull/11922
+// See: https://github.com/FinPress/gutenberg/pull/11922
 const v1 = {
 	attributes: {
 		...v0Attributes,

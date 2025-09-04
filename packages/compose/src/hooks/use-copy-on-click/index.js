@@ -4,10 +4,10 @@
 import Clipboard from 'clipboard';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useEffect, useState } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+import { useRef, useEffect, useState } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /* eslint-disable jsdoc/no-undefined-types */
 /**

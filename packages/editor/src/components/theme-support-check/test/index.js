@@ -4,16 +4,16 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
  */
 import ThemeSupportCheck from '../';
 
-jest.mock( '@wordpress/data/src/components/use-select', () => jest.fn() );
+jest.mock( '@finpress/data/src/components/use-select', () => jest.fn() );
 
 function setupUseSelectMock( themeSupports = {}, postType = 'post' ) {
 	useSelect.mockImplementation( ( cb ) => {

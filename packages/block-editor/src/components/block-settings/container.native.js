@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BottomSheet,
 	ColorSettings,
 	FocalPointSettingsPanel,
 	LinkPickerScreen,
-} from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

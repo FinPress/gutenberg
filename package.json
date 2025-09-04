@@ -2,17 +2,17 @@
 	"name": "gutenberg",
 	"version": "21.5.0",
 	"private": true,
-	"description": "A new WordPress editor experience.",
-	"author": "The WordPress Contributors",
+	"description": "A new FinPress editor experience.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"WordPress",
+		"FinPress",
 		"editor"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/",
-	"repository": "git+https://github.com/WordPress/gutenberg.git",
+	"homepage": "https://github.com/FinPress/gutenberg/",
+	"repository": "git+https://github.com/FinPress/gutenberg.git",
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=20.10.0",
@@ -258,10 +258,10 @@
 		"test:unit:profile": "wp-scripts --cpu-prof test-unit-js --runInBand --no-cache --verbose --config test/unit/jest.config.js ",
 		"test:unit:php:setup": "wp-env start",
 		"test:unit:php:setup:debug": "wp-env start --xdebug",
-		"test:unit:php:base": "wp-env run --env-cwd='wp-content/plugins/gutenberg' tests-wordpress vendor/bin/phpunit -c phpunit.xml.dist --verbose",
+		"test:unit:php:base": "wp-env run --env-cwd='wp-content/plugins/gutenberg' tests-finpress vendor/bin/phpunit -c phpunit.xml.dist --verbose",
 		"test:unit:php": "npm-run-all test:unit:php:setup test:unit:php:base",
 		"test:unit:php:debug": "npm-run-all test:unit:php:setup:debug test:unit:php:base",
-		"test:unit:php:multisite:base": "wp-env run --env-cwd='wp-content/plugins/gutenberg' tests-wordpress vendor/bin/phpunit -c phpunit/multisite.xml --verbose",
+		"test:unit:php:multisite:base": "wp-env run --env-cwd='wp-content/plugins/gutenberg' tests-finpress vendor/bin/phpunit -c phpunit/multisite.xml --verbose",
 		"test:unit:php:multisite": "npm-run-all test:unit:php:setup test:unit:php:multisite:base",
 		"test:unit:php:multisite:debug": "npm-run-all test:unit:php:setup:debug test:unit:php:multisite:base",
 		"test:unit:update": "npm run test:unit -- --updateSnapshot",

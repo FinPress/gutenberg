@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { useState } from '@wordpress/element';
-import { DataForm, isItemValid } from '@wordpress/dataviews';
+import { useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { __ } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { useState } from '@finpress/element';
+import { DataForm, isItemValid } from '@finpress/dataviews';
 import {
 	Button,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import type { Action, RenderModalProps } from '@wordpress/dataviews';
+} from '@finpress/components';
+import type { Action, RenderModalProps } from '@finpress/dataviews';
 
 /**
  * Internal dependencies

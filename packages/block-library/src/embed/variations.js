@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ import {
 	embedBlueskyIcon,
 } from './icons';
 
-/** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
+/** @typedef {import('@finpress/blocks').WPBlockVariation} WPBlockVariation */
 
 function getTitle( providerName ) {
 	return sprintf(
@@ -96,13 +96,13 @@ const variations = [
 		attributes: { providerNameSlug: 'instagram', responsive: true },
 	},
 	{
-		name: 'wordpress',
-		title: getTitle( 'WordPress' ),
+		name: 'finpress',
+		title: getTitle( 'FinPress' ),
 		icon: embedWordPressIcon,
 		keywords: [ __( 'post' ), __( 'blog' ) ],
-		description: __( 'Embed a WordPress post.' ),
+		description: __( 'Embed a FinPress post.' ),
 		attributes: {
-			providerNameSlug: 'wordpress',
+			providerNameSlug: 'finpress',
 		},
 	},
 	{
@@ -315,12 +315,12 @@ const variations = [
 		attributes: { providerNameSlug: 'videopress', responsive: true },
 	},
 	{
-		name: 'wordpress-tv',
-		title: getTitle( 'WordPress.tv' ),
+		name: 'finpress-tv',
+		title: getTitle( 'FinPress.tv' ),
 		icon: embedVideoIcon,
-		description: __( 'Embed a WordPress.tv video.' ),
-		patterns: [ /^https?:\/\/wordpress\.tv\/.+/i ],
-		attributes: { providerNameSlug: 'wordpress-tv', responsive: true },
+		description: __( 'Embed a FinPress.tv video.' ),
+		patterns: [ /^https?:\/\/finpress\.tv\/.+/i ],
+		attributes: { providerNameSlug: 'finpress-tv', responsive: true },
 	},
 	{
 		name: 'amazon-kindle',

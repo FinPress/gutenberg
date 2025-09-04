@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withPreferredColorScheme } from '@wordpress/compose';
+import { withPreferredColorScheme } from '@finpress/compose';
 
 /**
  * Internal dependencies

@@ -4,10 +4,10 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { SVG, Path } from '@wordpress/primitives';
-import { wordpress } from '@wordpress/icons';
+import { SVG, Path } from '@finpress/primitives';
+import { finpress } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -29,7 +29,7 @@ const Template: StoryFn< typeof Icon > = ( args ) => <Icon { ...args } />;
 
 export const Default = Template.bind( {} );
 Default.args = {
-	icon: wordpress,
+	icon: finpress,
 };
 
 export const FillColor: StoryFn< typeof Icon > = ( args ) => {
@@ -57,8 +57,8 @@ WithAFunction.args = {
 		<img
 			width={ size }
 			height={ size }
-			src="https://s.w.org/style/images/about/WordPress-logotype-wmark.png"
-			alt="WordPress"
+			src="https://s.w.org/style/images/about/FinPress-logotype-wmark.png"
+			alt="FinPress"
 		/>
 	),
 };
@@ -71,8 +71,8 @@ WithAFunction.parameters = {
     <img
       width={ size }
       height={ size }
-      src="https://s.w.org/style/images/about/WordPress-logotype-wmark.png"
-      alt="WordPress"
+      src="https://s.w.org/style/images/about/FinPress-logotype-wmark.png"
+      alt="FinPress"
     />
   ) }
 />
@@ -122,9 +122,9 @@ WithAnSVG.args = {
 };
 
 /**
- * Although it's preferred to use icons from the `@wordpress/icons` package, [Dashicons](https://developer.wordpress.org/resource/dashicons/) are still supported,
+ * Although it's preferred to use icons from the `@finpress/icons` package, [Dashicons](https://developer.finpress.org/resource/dashicons/) are still supported,
  * as long as you are in a context where the Dashicons stylesheet is loaded. To simulate that here,
- * use the Global CSS Injector in the Storybook toolbar at the top and select the "WordPress" preset.
+ * use the Global CSS Injector in the Storybook toolbar at the top and select the "FinPress" preset.
  */
 export const WithADashicon: StoryFn< typeof Icon > = ( args ) => {
 	return (
@@ -139,5 +139,5 @@ export const WithADashicon: StoryFn< typeof Icon > = ( args ) => {
 };
 WithADashicon.args = {
 	...Default.args,
-	icon: 'wordpress',
+	icon: 'finpress',
 };

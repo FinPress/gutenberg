@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCopyToClipboard } from '@wordpress/compose';
-import { useState, useEffect, useRef } from '@wordpress/element';
-import { copy, check } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+import { useCopyToClipboard } from '@finpress/compose';
+import { useState, useEffect, useRef } from '@finpress/element';
+import { copy, check } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

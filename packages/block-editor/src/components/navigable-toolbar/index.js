@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { NavigableMenu, Toolbar } from '@wordpress/components';
+import { NavigableMenu, Toolbar } from '@finpress/components';
 import {
 	useState,
 	useRef,
 	useLayoutEffect,
 	useEffect,
 	useCallback,
-} from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
-import { focus } from '@wordpress/dom';
-import { useShortcut } from '@wordpress/keyboard-shortcuts';
-import { ESCAPE } from '@wordpress/keycodes';
+} from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
+import { focus } from '@finpress/dom';
+import { useShortcut } from '@finpress/keyboard-shortcuts';
+import { ESCAPE } from '@finpress/keycodes';
 
 /**
  * Internal dependencies
@@ -60,7 +60,7 @@ function useIsAccessibleToolbar( toolbarRef ) {
 	 * E2E tests.
 	 *
 	 * This was initial discovered in this pull-request:
-	 * https://github.com/WordPress/gutenberg/pull/23425
+	 * https://github.com/FinPress/gutenberg/pull/23425
 	 */
 	const initialAccessibleToolbarState = true;
 
@@ -80,7 +80,7 @@ function useIsAccessibleToolbar( toolbarRef ) {
 				since: '5.6',
 				alternative:
 					'ToolbarItem, ToolbarButton or ToolbarDropdownMenu components',
-				link: 'https://developer.wordpress.org/block-editor/components/toolbar-button/#inside-blockcontrols',
+				link: 'https://developer.finpress.org/block-editor/components/toolbar-button/#inside-blockcontrols',
 			} );
 		}
 		setIsAccessibleToolbar( onlyToolbarItem );
@@ -144,7 +144,7 @@ function useToolbarFocus( {
 		let raf = 0;
 
 		// If the toolbar already had focus before the render, we don't want to move it.
-		// https://github.com/WordPress/gutenberg/issues/58511
+		// https://github.com/FinPress/gutenberg/issues/58511
 		if (
 			! initialFocusOnMount &&
 			! hasFocusWithin( navigableToolbarRef )

@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	privateApis as blockEditorPrivateApis,
 	store as blockEditorStore,
 	BlockList,
-} from '@wordpress/block-editor';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { createBlock } from '@wordpress/blocks';
-import { useCallback } from '@wordpress/element';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { useDispatch, useSelect } from '@finpress/data';
+import { createBlock } from '@finpress/blocks';
+import { useCallback } from '@finpress/element';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -27,7 +27,7 @@ const PAGES_QUERY = [
 	{
 		per_page: MAX_PAGE_COUNT,
 		_fields: [ 'id', 'link', 'menu_order', 'parent', 'title', 'type' ],
-		// TODO: When https://core.trac.wordpress.org/ticket/39037 REST API support for multiple orderby
+		// TODO: When https://core.trac.finpress.org/ticket/39037 REST API support for multiple orderby
 		// values is resolved, update 'orderby' to [ 'menu_order', 'post_title' ] to provide a consistent
 		// sort.
 		orderby: 'menu_order',

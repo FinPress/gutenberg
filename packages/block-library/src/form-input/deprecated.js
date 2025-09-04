@@ -5,15 +5,15 @@ import clsx from 'clsx';
 import removeAccents from 'remove-accents';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
 	useBlockProps,
 	__experimentalGetBorderClassesAndStyles as getBorderClassesAndStyles,
 	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
-} from '@wordpress/block-editor';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+} from '@finpress/block-editor';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
 
 const getNameFromLabelV1 = ( content ) => {
 	return (
@@ -140,7 +140,7 @@ const v2 = {
 };
 
 // Version without wrapper div in saved markup
-// See: https://github.com/WordPress/gutenberg/pull/56507
+// See: https://github.com/FinPress/gutenberg/pull/56507
 const v1 = {
 	attributes: {
 		type: {

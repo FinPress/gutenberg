@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -60,7 +60,7 @@
 
 ### Internal
 
--   Upgrade `@octokit/webhooks` dependency ([#62666](https://github.com/WordPress/gutenberg/pull/62666)).
+-   Upgrade `@octokit/webhooks` dependency ([#62666](https://github.com/FinPress/gutenberg/pull/62666)).
 
 ## 2.1.0 (2024-06-15)
 
@@ -68,7 +68,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 1.57.0 (2024-05-16)
 
@@ -156,8 +156,8 @@
 
 ### New Features
 
--   Include TypeScript type declarations ([#18942](https://github.com/WordPress/gutenberg/pull/18942))
--   The "Add First Time Contributor Label" task now prompts the user to link their GitHub account to their WordPress.org profile if necessary for props credit. The task has been renamed "First Time Contributor".
+-   Include TypeScript type declarations ([#18942](https://github.com/FinPress/gutenberg/pull/18942))
+-   The "Add First Time Contributor Label" task now prompts the user to link their GitHub account to their FinPress.org profile if necessary for props credit. The task has been renamed "First Time Contributor".
 
 ### Enhancements
 

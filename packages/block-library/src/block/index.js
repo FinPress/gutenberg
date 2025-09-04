@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { symbol as icon } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { select } from '@wordpress/data';
-import { decodeEntities } from '@wordpress/html-entities';
+import { symbol as icon } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { select } from '@finpress/data';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies

@@ -11,9 +11,9 @@ import { StyledSpinner, SpinnerTrack, SpinnerIndicator } from './styles';
 import type { WordPressComponentProps } from '../context';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 export function UnforwardedSpinner(
 	{ className, ...props }: WordPressComponentProps< {}, 'svg', false >,
@@ -51,7 +51,7 @@ export function UnforwardedSpinner(
  * `Spinner` is a component used to notify users that their action is being processed.
  *
  * ```jsx
- * import { Spinner } from '@wordpress/components';
+ * import { Spinner } from '@finpress/components';
  *
  * function Example() {
  * 	return <Spinner />;

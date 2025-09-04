@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isBlobURL } from '@wordpress/blob';
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { isBlobURL } from '@finpress/blob';
+import { useEntityProp, store as coreStore } from '@finpress/core-data';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	ToggleControl,
 	Placeholder,
@@ -17,7 +17,7 @@ import {
 	TextControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	InspectorControls,
 	BlockControls,
@@ -29,11 +29,11 @@ import {
 	useBlockEditingMode,
 	privateApis as blockEditorPrivateApis,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useMemo, useEffect, useState } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { upload } from '@wordpress/icons';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/block-editor';
+import { useMemo, useEffect, useState } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { upload } from '@finpress/icons';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

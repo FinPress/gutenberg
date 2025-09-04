@@ -7,7 +7,7 @@ import {
 } from '../categories';
 import { STYLE_BOOK_CATEGORIES } from '../constants';
 
-jest.mock( '@wordpress/blocks', () => {
+jest.mock( '@finpress/blocks', () => {
 	return {
 		getCategories() {
 			return [

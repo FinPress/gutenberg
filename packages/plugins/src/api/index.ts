@@ -5,11 +5,11 @@
 import type { ComponentType } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { applyFilters, doAction } from '@wordpress/hooks';
-import { plugins as pluginsIcon } from '@wordpress/icons';
-import type { IconType } from '@wordpress/components';
+import { applyFilters, doAction } from '@finpress/hooks';
+import { plugins as pluginsIcon } from '@finpress/icons';
+import type { IconType } from '@finpress/components';
 
 /**
  * Defined behavior of a plugin type.
@@ -94,9 +94,9 @@ const plugins = {} as Record< string, WPPlugin >;
  * @example
  * ```js
  * // Using ESNext syntax
- * import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/editor';
- * import { registerPlugin } from '@wordpress/plugins';
- * import { more } from '@wordpress/icons';
+ * import { PluginSidebar, PluginSidebarMoreMenuItem } from '@finpress/editor';
+ * import { registerPlugin } from '@finpress/plugins';
+ * import { more } from '@finpress/icons';
  *
  * const Component = () => (
  * 	<>
@@ -201,7 +201,7 @@ export function registerPlugin(
  * @example
  * ```js
  * // Using ESNext syntax
- * import { unregisterPlugin } from '@wordpress/plugins';
+ * import { unregisterPlugin } from '@finpress/plugins';
  *
  * unregisterPlugin( 'plugin-name' );
  * ```

@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { useState } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	TextControl,
 	Button,
 	Modal,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 export default function TitleModal( { areaLabel, onClose, onSubmit } ) {
 	// Restructure onCreate to set the blocks on local state.

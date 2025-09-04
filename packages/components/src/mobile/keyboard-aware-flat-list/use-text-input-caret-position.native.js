@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import RCTAztecView from '@wordpress/react-native-aztec';
-import { useCallback, useEffect, useState } from '@wordpress/element';
+import RCTAztecView from '@finpress/react-native-aztec';
+import { useCallback, useEffect, useState } from '@finpress/element';
 
 /**
  * Hook that listens to caret changes from AztecView TextInputs.

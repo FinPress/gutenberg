@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockMenuDefaultClassName } from '@wordpress/blocks';
-import { useInstanceId } from '@wordpress/compose';
+import { getBlockMenuDefaultClassName } from '@finpress/blocks';
+import { useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies

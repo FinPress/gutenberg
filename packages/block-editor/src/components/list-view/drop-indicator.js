@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
 	__experimentalTruncate as Truncate,
 	Popover,
-} from '@wordpress/components';
+} from '@finpress/components';
 
-import { getScrollContainer } from '@wordpress/dom';
-import { useCallback, useMemo } from '@wordpress/element';
-import { isRTL } from '@wordpress/i18n';
+import { getScrollContainer } from '@finpress/dom';
+import { useCallback, useMemo } from '@finpress/element';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies

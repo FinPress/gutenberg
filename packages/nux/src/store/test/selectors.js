@@ -54,7 +54,7 @@ describe( 'selectors', () => {
 
 	describe( 'isTipVisible', () => {
 		it( 'is tolerant to individual preferences being undefined', () => {
-			// See: https://github.com/WordPress/gutenberg/issues/14580
+			// See: https://github.com/FinPress/gutenberg/issues/14580
 			const state = {
 				guides: [],
 				preferences: {},
@@ -63,7 +63,7 @@ describe( 'selectors', () => {
 		} );
 
 		it( 'is tolerant to undefined dismissedTips', () => {
-			// See: https://github.com/WordPress/gutenberg/issues/14580
+			// See: https://github.com/FinPress/gutenberg/issues/14580
 			const state = {
 				guides: [],
 				preferences: {

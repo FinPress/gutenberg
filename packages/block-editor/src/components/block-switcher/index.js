@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _n, sprintf, _x } from '@wordpress/i18n';
+import { __, _n, sprintf, _x } from '@finpress/i18n';
 import {
 	DropdownMenu,
 	ToolbarButton,
@@ -9,16 +9,16 @@ import {
 	ToolbarItem,
 	__experimentalText as Text,
 	MenuGroup,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	switchToBlockType,
 	store as blocksStore,
 	isReusableBlock,
 	isTemplatePart,
-} from '@wordpress/blocks';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { copy } from '@wordpress/icons';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/blocks';
+import { useSelect, useDispatch } from '@finpress/data';
+import { copy } from '@finpress/icons';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies

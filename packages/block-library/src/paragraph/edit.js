@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x, isRTL } from '@wordpress/i18n';
+import { __, _x, isRTL } from '@finpress/i18n';
 import {
 	ToolbarButton,
 	ToggleControl,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	AlignmentControl,
 	BlockControls,
@@ -20,9 +20,9 @@ import {
 	useBlockProps,
 	useSettings,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { getBlockSupport } from '@wordpress/blocks';
-import { formatLtr } from '@wordpress/icons';
+} from '@finpress/block-editor';
+import { getBlockSupport } from '@finpress/blocks';
+import { formatLtr } from '@finpress/icons';
 /**
  * Internal dependencies
  */

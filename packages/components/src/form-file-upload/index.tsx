@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef } from '@wordpress/element';
+import { useRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
  * FormFileUpload allows users to select files from their local device.
  *
  * ```jsx
- * import { FormFileUpload } from '@wordpress/components';
+ * import { FormFileUpload } from '@finpress/components';
  *
  * const MyFormFileUpload = () => (
  *   <FormFileUpload

@@ -1,6 +1,6 @@
 # Data
 
-WordPress' data module serves as a hub to manage application state for both plugins and WordPress itself, providing tools to manage data within and between distinct modules. It is designed as a modular pattern for organizing and sharing data: simple enough to satisfy the needs of a small plugin, while scalable to serve the requirements of a complex single-page application.
+FinPress' data module serves as a hub to manage application state for both plugins and FinPress itself, providing tools to manage data within and between distinct modules. It is designed as a modular pattern for organizing and sharing data: simple enough to satisfy the needs of a small plugin, while scalable to serve the requirements of a complex single-page application.
 
 The data module is built upon and shares many of the same core principles of [Redux](https://redux.js.org/), but shouldn't be mistaken as merely _Redux for WordPress_, as it includes a few of its own [distinguishing characteristics](#comparison-with-redux). As you read through this guide, you may find it useful to reference the Redux documentation — particularly [its glossary](https://redux.js.org/glossary) — for more detail on core concepts.
 
@@ -9,18 +9,18 @@ The data module is built upon and shares many of the same core principles of [Re
 Install the module
 
 ```bash
-npm install @wordpress/data --save
+npm install @finpress/data --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## Registering a Store
 
 Use the `register` function to add your own store to the centralized data registry. This function accepts one argument – a store descriptor that can be created with `createReduxStore` factory function. `createReduxStore` accepts two arguments: a name to identify the module, and a configuration object with values describing how your state is represented, modified, and accessed. At a minimum, you must provide a reducer function describing the shape of your state and how it changes in response to actions dispatched to the store.
 
 ```js
-import apiFetch from '@wordpress/api-fetch';
-import { createReduxStore, register } from '@wordpress/data';
+import apiFetch from '@finpress/api-fetch';
+import { createReduxStore, register } from '@finpress/data';
 
 const DEFAULT_STATE = {
 	prices: {},
@@ -120,20 +120,20 @@ A **resolver** is a side-effect for a selector. If your selector result may need
 
 The `resolvers` option should be passed as an object where each key is the name of the selector to act upon, the value a function which receives the same arguments passed to the selector, excluding the state argument. It can then dispatch as necessary to fulfill the requirements of the selector, taking advantage of the fact that most data consumers will subscribe to subsequent state changes (by `subscribe` or `withSelect`).
 
-Resolvers, in combination with [thunks](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async), can be used to implement asynchronous data flows for your store.
+Resolvers, in combination with [thunks](https://github.com/FinPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async), can be used to implement asynchronous data flows for your store.
 
 #### `controls` (deprecated)
 
-To handle asynchronous data flows, it is recommended to use [thunks](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async) instead of `controls`.
+To handle asynchronous data flows, it is recommended to use [thunks](https://github.com/FinPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async) instead of `controls`.
 
 <details>
   <summary>View <em>controls</em> explanation</summary>
 <br>
-A <em>control</em> defines the execution flow behavior associated with a specific action type. Before <a href="https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async">thunks</a>, controls were used to implement asynchronous data flows for your store. By defining your action creator or resolvers as a generator which yields specific controlled action types, the execution will proceed as defined by the control handler.
+A <em>control</em> defines the execution flow behavior associated with a specific action type. Before <a href="https://github.com/FinPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async">thunks</a>, controls were used to implement asynchronous data flows for your store. By defining your action creator or resolvers as a generator which yields specific controlled action types, the execution will proceed as defined by the control handler.
 <br><br>
 The <em>controls</em> option should be passed as an object where each key is the name of the action type to act upon, the value a function which receives the original action object. It should returns either a promise which is to resolve when evaluation of the action should continue, or a value. The value or resolved promise value is assigned on the return value of the yield assignment. If the control handler returns undefined, the execution is not continued.
 <br><br>
-Refer to the <a href="https://github.com/WordPress/gutenberg/tree/HEAD/packages/redux-routine/README.md">documentation of <em>@wordpress/redux-routine</em></a> for more information.
+Refer to the <a href="https://github.com/FinPress/gutenberg/tree/HEAD/packages/redux-routine/README.md">documentation of <em>@finpress/redux-routine</em></a> for more information.
 </details>
 
 #### `initialState`
@@ -142,7 +142,7 @@ An optional preloaded initial state for the store. You may use this to restore s
 
 ## Generic Stores
 
-The `@wordpress/data` module offers a more advanced and generic interface for the purposes of integrating other data systems and situations where more direct control over a data system is needed. In this case, a data store will need to be implemented outside of `@wordpress/data` and then plugged in via three functions:
+The `@finpress/data` module offers a more advanced and generic interface for the purposes of integrating other data systems and situations where more direct control over a data system is needed. In this case, a data store will need to be implemented outside of `@finpress/data` and then plugged in via three functions:
 
 -   `getSelectors()`: Returns an object of selector functions, pre-mapped to the store.
 -   `getActions()`: Returns an object of action functions, pre-mapped to the store.
@@ -159,7 +159,7 @@ Integrating an existing redux store with its own reducers, store enhancers and m
 _Example:_
 
 ```js
-import { register } from '@wordpress/data';
+import { register } from '@finpress/data';
 import existingSelectors from './existing-app/selectors';
 import existingActions from './existing-app/actions';
 import createStore from './existing-app/store';
@@ -206,7 +206,7 @@ It is also possible to implement a completely custom store from scratch:
 _Example:_
 
 ```js
-import { register } from '@wordpress/data';
+import { register } from '@finpress/data';
 
 function customStore() {
 	return {
@@ -255,18 +255,18 @@ register( customStore );
 
 The data module shares many of the same [core principles](https://redux.js.org/introduction/three-principles) and [API method naming](https://redux.js.org/api/api-reference) of [Redux](https://redux.js.org/). In fact, it is implemented atop Redux. Where it differs is in establishing a modularization pattern for creating separate but interdependent stores, and in codifying conventions such as selector functions as the primary entry point for data access.
 
-The [higher-order components](#higher-order-components) were created to complement this distinction. The intention with splitting `withSelect` and `withDispatch` — where in React Redux they are combined under `connect` as `mapStateToProps` and `mapDispatchToProps` arguments — is to more accurately reflect that dispatch is not dependent upon a subscription to state changes, and to allow for state-derived values to be used in `withDispatch` (via [higher-order component composition](https://github.com/WordPress/gutenberg/tree/HEAD/packages/compose/README.md)).
+The [higher-order components](#higher-order-components) were created to complement this distinction. The intention with splitting `withSelect` and `withDispatch` — where in React Redux they are combined under `connect` as `mapStateToProps` and `mapDispatchToProps` arguments — is to more accurately reflect that dispatch is not dependent upon a subscription to state changes, and to allow for state-derived values to be used in `withDispatch` (via [higher-order component composition](https://github.com/FinPress/gutenberg/tree/HEAD/packages/compose/README.md)).
 
-The data module also has built-in solutions for handling asynchronous side-effects, through [resolvers](#resolvers) and [thunks](https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async). These differ slightly from [standard redux async solutions](https://redux.js.org/advanced/async-actions) like [`redux-thunk`](https://github.com/gaearon/redux-thunk) or [`redux-saga`](https://redux-saga.js.org/).
+The data module also has built-in solutions for handling asynchronous side-effects, through [resolvers](#resolvers) and [thunks](https://github.com/FinPress/gutenberg/blob/trunk/docs/how-to-guides/thunks.md#thunks-can-be-async). These differ slightly from [standard redux async solutions](https://redux.js.org/advanced/async-actions) like [`redux-thunk`](https://github.com/gaearon/redux-thunk) or [`redux-saga`](https://redux-saga.js.org/).
 
 Specific implementation differences from Redux and React Redux:
 
 -   In Redux, a `subscribe` listener is called on every dispatch, regardless of whether the value of state has changed.
-    -   In `@wordpress/data`, a subscriber is only called when state has changed.
+    -   In `@finpress/data`, a subscriber is only called when state has changed.
 -   In React Redux, a `mapStateToProps` function must return an object.
-    -   In `@wordpress/data`, a `withSelect` mapping function can return `undefined` if it has no props to inject.
+    -   In `@finpress/data`, a `withSelect` mapping function can return `undefined` if it has no props to inject.
 -   In React Redux, the `mapDispatchToProps` argument can be defined as an object or a function.
-    -   In `@wordpress/data`, the `withDispatch` higher-order component creator must be passed a function.
+    -   In `@finpress/data`, the `withDispatch` higher-order component creator must be passed a function.
 
 ## API
 
@@ -279,8 +279,8 @@ Context Provider Component used to switch the data module component rerendering 
 _Usage_
 
 ```js
-import { useSelect, AsyncModeProvider } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { useSelect, AsyncModeProvider } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 function BlockCount() {
 	const count = useSelect( ( select ) => {
@@ -319,7 +319,7 @@ The combineReducers helper function turns an object whose values are different r
 _Usage_
 
 ```js
-import { combineReducers, createReduxStore, register } from '@wordpress/data';
+import { combineReducers, createReduxStore, register } from '@finpress/data';
 
 const prices = ( state = {}, action ) => {
 	return action.type === 'SET_PRICE'
@@ -366,7 +366,7 @@ Creates a data store descriptor for the provided Redux store configuration conta
 _Usage_
 
 ```js
-import { createReduxStore } from '@wordpress/data';
+import { createReduxStore } from '@finpress/data';
 
 const store = createReduxStore( 'demo', {
 	reducer: ( state = 'OK' ) => state,
@@ -445,8 +445,8 @@ that supports also selecting from other registered stores.
 _Usage_
 
 ```js
-import { store as coreStore } from '@wordpress/core-data';
-import { store as editorStore } from '@wordpress/editor';
+import { store as coreStore } from '@finpress/core-data';
+import { store as editorStore } from '@finpress/editor';
 
 const getCurrentPostId = createRegistrySelector( ( select ) => ( state ) => {
 	return select( editorStore ).getCurrentPostId();
@@ -494,7 +494,7 @@ Note: Action creators returned by the dispatch will return a promise when they a
 _Usage_
 
 ```js
-import { dispatch } from '@wordpress/data';
+import { dispatch } from '@finpress/data';
 import { store as myCustomStore } from 'my-custom-store';
 
 dispatch( myCustomStore ).setPrice( 'hammer', 9.75 );
@@ -522,12 +522,12 @@ _Type_
 
 ### register
 
-Registers a standard `@wordpress/data` store descriptor.
+Registers a standard `@finpress/data` store descriptor.
 
 _Usage_
 
 ```js
-import { createReduxStore, register } from '@wordpress/data';
+import { createReduxStore, register } from '@finpress/data';
 
 const store = createReduxStore( 'demo', {
 	reducer: ( state = 'OK' ) => state,
@@ -557,7 +557,7 @@ _Parameters_
 
 > **Deprecated** Use `register` instead.
 
-Registers a standard `@wordpress/data` store.
+Registers a standard `@finpress/data` store.
 
 _Parameters_
 
@@ -581,7 +581,7 @@ import {
   RegistryProvider,
   RegistryConsumer,
   createRegistry
-} from '@wordpress/data';
+} from '@finpress/data';
 
 const registry = createRegistry( {} );
 
@@ -612,7 +612,7 @@ Given a store descriptor, returns an object containing the store's selectors pre
 _Usage_
 
 ```js
-import { resolveSelect } from '@wordpress/data';
+import { resolveSelect } from '@finpress/data';
 import { store as myCustomStore } from 'my-custom-store';
 
 resolveSelect( myCustomStore ).getPrice( 'hammer' ).then( console.log );
@@ -633,7 +633,7 @@ Given a store descriptor, returns an object of the store's selectors. The select
 _Usage_
 
 ```js
-import { select } from '@wordpress/data';
+import { select } from '@finpress/data';
 import { store as myCustomStore } from 'my-custom-store';
 
 select( myCustomStore ).getPrice( 'hammer' );
@@ -656,7 +656,7 @@ This function returns an `unsubscribe` function used to stop the subscription.
 _Usage_
 
 ```js
-import { subscribe } from '@wordpress/data';
+import { subscribe } from '@finpress/data';
 
 const unsubscribe = subscribe( () => {
 	// You could use this opportunity to test whether the derived result of a
@@ -706,7 +706,7 @@ action.
 
 ```jsx
 import { useCallback } from 'react';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@finpress/data';
 import { store as myCustomStore } from 'my-custom-store';
 
 function Button( { onClick, children } ) {
@@ -751,12 +751,12 @@ This exposes the `registry` value provided via the <a href="#RegistryProvider">R
 
 It acts similarly to the `useContext` react hook.
 
-Note: Generally speaking, `useRegistry` is a low level hook that in most cases won't be needed for implementation. Most interactions with the `@wordpress/data` API can be performed via the `useSelect` hook, or the `withSelect` and `withDispatch` higher order components.
+Note: Generally speaking, `useRegistry` is a low level hook that in most cases won't be needed for implementation. Most interactions with the `@finpress/data` API can be performed via the `useSelect` hook, or the `withSelect` and `withDispatch` higher order components.
 
 _Usage_
 
 ```js
-import { RegistryProvider, createRegistry, useRegistry } from '@wordpress/data';
+import { RegistryProvider, createRegistry, useRegistry } from '@finpress/data';
 
 const registry = createRegistry( {} );
 
@@ -787,7 +787,7 @@ In general, this custom React hook follows the [rules of hooks](https://react.de
 _Usage_
 
 ```js
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 import { store as myCustomStore } from 'my-custom-store';
 
 function HammerPriceDisplay( { currency } ) {
@@ -821,7 +821,7 @@ on render, so it may be useful to get the selectors function instead.
 function because your component won't re-render on a data change.**
 
 ```js
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 import { store as myCustomStore } from 'my-custom-store';
 
 function Paste( { children } ) {
@@ -871,7 +871,7 @@ function Button( { onClick, children } ) {
 	);
 }
 
-import { withDispatch } from '@wordpress/data';
+import { withDispatch } from '@finpress/data';
 import { store as myCustomStore } from 'my-custom-store';
 
 const SaleButton = withDispatch( ( dispatch, ownProps ) => {
@@ -912,7 +912,7 @@ function Button( { onClick, children } ) {
 	);
 }
 
-import { withDispatch } from '@wordpress/data';
+import { withDispatch } from '@finpress/data';
 import { store as myCustomStore } from 'my-custom-store';
 
 const SaleButton = withDispatch( ( dispatch, ownProps, { select } ) => {
@@ -963,7 +963,7 @@ Higher-order component used to inject state-derived props using registered selec
 _Usage_
 
 ```js
-import { withSelect } from '@wordpress/data';
+import { withSelect } from '@finpress/data';
 import { store as myCustomStore } from 'my-custom-store';
 
 function PriceDisplay( { price, currency } ) {
@@ -1006,7 +1006,7 @@ _Returns_
 
 The `batch` method allows multiple store updates to occur simultaneously, reducing unnecessary executions of selectors and component re-renders during sequential state changes.
 
-In WordPress data applications, dispatching consecutive actions typically triggers store listeners and runs selectors, which can lead to re-renders. The `batch` method pauses these listeners and only activates them once at the end, ensuring selectors run only once with the final state.
+In FinPress data applications, dispatching consecutive actions typically triggers store listeners and runs selectors, which can lead to re-renders. The `batch` method pauses these listeners and only activates them once at the end, ensuring selectors run only once with the final state.
 
 This method is particularly effective for optimizing performance with expensive selectors, ensuring atomic operations across multiple stores, and creating single undo/redo entries for several synchronous updates.
 
@@ -1015,7 +1015,7 @@ Unlike React’s built-in batching or React Redux’s `batch` function, `registr
 _Usage_
 
 ```js
-import { useRegistry } from '@wordpress/data';
+import { useRegistry } from '@finpress/data';
 
 function Component() {
 	const registry = useRegistry();
@@ -1041,8 +1041,8 @@ The following selectors are available on the object returned by `wp.data.select(
 _Example_
 
 ```js
-import { store as coreDataStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
 
 function Component() {
 	const result = useSelect( ( select ) => {
@@ -1137,11 +1137,11 @@ _Returns_
 
 In specific circumstances it may be necessary to normalize the arguments passed to a given _call_ of a selector/resolver pairing.
 
-Each resolver has [its resolution status cached in an internal state](https://github.com/WordPress/gutenberg/blob/e244388d8669618b76c966cc33d48df9156c2db6/packages/data/src/redux-store/metadata/reducer.ts#L39) where the [key is the arguments supplied to the selector](https://github.com/WordPress/gutenberg/blob/e244388d8669618b76c966cc33d48df9156c2db6/packages/data/src/redux-store/metadata/utils.ts#L48) at _call_ time.
+Each resolver has [its resolution status cached in an internal state](https://github.com/FinPress/gutenberg/blob/e244388d8669618b76c966cc33d48df9156c2db6/packages/data/src/redux-store/metadata/reducer.ts#L39) where the [key is the arguments supplied to the selector](https://github.com/FinPress/gutenberg/blob/e244388d8669618b76c966cc33d48df9156c2db6/packages/data/src/redux-store/metadata/utils.ts#L48) at _call_ time.
 
 For example for a selector with a single argument, the related resolver would generate a cache key of: `[ 123 ]`.
 
-[This cache is used to determine the resolution status of a given resolver](https://github.com/WordPress/gutenberg/blob/e244388d8669618b76c966cc33d48df9156c2db6/packages/data/src/redux-store/metadata/selectors.js#L22-L29) which is used to [avoid unwanted additional invocations of resolvers](https://github.com/WordPress/gutenberg/blob/e244388d8669618b76c966cc33d48df9156c2db6/packages/data/src/redux-store/index.js#L469-L474) (which often undertake "expensive" operations such as network requests).
+[This cache is used to determine the resolution status of a given resolver](https://github.com/FinPress/gutenberg/blob/e244388d8669618b76c966cc33d48df9156c2db6/packages/data/src/redux-store/metadata/selectors.js#L22-L29) which is used to [avoid unwanted additional invocations of resolvers](https://github.com/FinPress/gutenberg/blob/e244388d8669618b76c966cc33d48df9156c2db6/packages/data/src/redux-store/index.js#L469-L474) (which often undertake "expensive" operations such as network requests).
 
 As a result it's important that arguments remain _consistent_ when calling the selector. For example, by _default_ these two calls will not be cached using the same key, even though they are likely identical:
 
@@ -1211,16 +1211,16 @@ registry.select( 'store' ).getItems( 'foo', 'bar', 54 );
 registry.select( 'store' ).getItems( 'foo', 'bar', '54' );
 ```
 
-Ensuring consistency of arguments for a given selector call is [an important optimization to help improve performance in the data layer](https://github.com/WordPress/gutenberg/pull/52120). However, this type of problem can be usually be avoided by ensuring selectors don't use variable types for their arguments.
+Ensuring consistency of arguments for a given selector call is [an important optimization to help improve performance in the data layer](https://github.com/FinPress/gutenberg/pull/52120). However, this type of problem can be usually be avoided by ensuring selectors don't use variable types for their arguments.
 
 ## Going further
 
--   [What is WordPress Data?](https://unfoldingneurons.com/2020/what-is-wordpress-data/)
+-   [What is FinPress Data?](https://unfoldingneurons.com/2020/what-is-finpress-data/)
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

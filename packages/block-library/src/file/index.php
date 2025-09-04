@@ -2,7 +2,7 @@
 /**
  * Server-side rendering of the `core/file` block.
  *
- * @package WordPress
+ * @package FinPress
  */
 
 /**
@@ -21,7 +21,7 @@ function render_block_core_file( $attributes, $content ) {
 	}
 
 	// If it's interactive, enqueue the script module and add the directives.
-	wp_enqueue_script_module( '@wordpress/block-library/file/view' );
+	wp_enqueue_script_module( '@finpress/block-library/file/view' );
 
 	$processor = new WP_HTML_Tag_Processor( $content );
 	if ( $processor->next_tag() ) {

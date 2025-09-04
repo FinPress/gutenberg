@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityRecords } from '@wordpress/core-data';
-import { useMemo } from '@wordpress/element';
-import { __experimentalItemGroup as ItemGroup } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { addQueryArgs } from '@wordpress/url';
+import { useEntityRecords } from '@finpress/core-data';
+import { useMemo } from '@finpress/element';
+import { __experimentalItemGroup as ItemGroup } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies
  */
 import SidebarNavigationItem from '../sidebar-navigation-item';
 import { useAddedBy } from '../page-templates/hooks';
-import { layout } from '@wordpress/icons';
+import { layout } from '@finpress/icons';
 import { TEMPLATE_POST_TYPE } from '../../utils/constants';
 import { unlock } from '../../lock-unlock';
 

@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Notice,
 	__experimentalConfirmDialog as ConfirmDialog,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useState } from '@finpress/element';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 export default function TemplateValidationNotice() {
 	const [ showConfirmDialog, setShowConfirmDialog ] = useState( false );

@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isTextField } from '@wordpress/dom';
-import { ENTER, BACKSPACE, DELETE } from '@wordpress/keycodes';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useRefEffect } from '@wordpress/compose';
-import { createRoot } from '@wordpress/element';
-import { store as blocksStore } from '@wordpress/blocks';
+import { isTextField } from '@finpress/dom';
+import { ENTER, BACKSPACE, DELETE } from '@finpress/keycodes';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useRefEffect } from '@finpress/compose';
+import { createRoot } from '@finpress/element';
+import { store as blocksStore } from '@finpress/blocks';
 
 /**
  * Internal dependencies

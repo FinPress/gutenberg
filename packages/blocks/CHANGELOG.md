@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -10,7 +10,7 @@
 
 ### Breaking changes
 
--   `registerBlockType`: Set default `apiVersion` when none is provided during client-side block registration ([#70750](https://github.com/WordPress/gutenberg/pull/70750)).
+-   `registerBlockType`: Set default `apiVersion` when none is provided during client-side block registration ([#70750](https://github.com/FinPress/gutenberg/pull/70750)).
 
 ## 14.15.0 (2025-06-25)
 
@@ -46,7 +46,7 @@
 
 ### Breaking changes
 
-- Normalize `blockType.parent` to be an array. While string values were never supported, they appeared to work with some unintended side-effects that have been fixed by [#66250](https://github.com/WordPress/gutenberg/pull/66250). For that reason, we've added some code that automatically migrates strings to arrays — though it still raises a warning.
+- Normalize `blockType.parent` to be an array. While string values were never supported, they appeared to work with some unintended side-effects that have been fixed by [#66250](https://github.com/FinPress/gutenberg/pull/66250). For that reason, we've added some code that automatically migrates strings to arrays — though it still raises a warning.
 
 ## 13.10.0 (2024-10-16)
 
@@ -72,8 +72,8 @@
 
 ### Breaking Changes
 
--   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/WordPress/gutenberg/pull/61486)).
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 12.35.0 (2024-05-16)
 
@@ -149,7 +149,7 @@
 
 ### Breaking Changes
 
--   Updated dependencies to require React 18 ([45235](https://github.com/WordPress/gutenberg/pull/45235))
+-   Updated dependencies to require React 18 ([45235](https://github.com/FinPress/gutenberg/pull/45235))
 
 ## 11.21.0 (2022-11-16)
 
@@ -161,11 +161,11 @@
 
 ### Deprecations
 
--   Deprecate non-string descriptions ([#44455](https://github.com/WordPress/gutenberg/pull/44455)).
+-   Deprecate non-string descriptions ([#44455](https://github.com/FinPress/gutenberg/pull/44455)).
 
 ## 11.17.0 (2022-09-21)
 
--   The block attribute sources `children` and `node` have been deprecated. Please use the `html` source instead. See https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/ and the core blocks for examples.
+-   The block attribute sources `children` and `node` have been deprecated. Please use the `html` source instead. See https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/ and the core blocks for examples.
 
 ## 11.16.0 (2022-09-13)
 
@@ -173,7 +173,7 @@
 
 ### Bug Fixes
 
--   Packages: Replace `is-plain-obj` with `is-plain-object` ([#43511](https://github.com/WordPress/gutenberg/pull/43511)).
+-   Packages: Replace `is-plain-obj` with `is-plain-object` ([#43511](https://github.com/FinPress/gutenberg/pull/43511)).
 
 ## 11.14.0 (2022-08-10)
 
@@ -183,11 +183,11 @@
 
 ### Deprecations
 
--   `withBlockContentContext` is no longer used by the block editor and therefore got deprecated ([#41395](https://github.com/WordPress/gutenberg/pull/41395)).
+-   `withBlockContentContext` is no longer used by the block editor and therefore got deprecated ([#41395](https://github.com/FinPress/gutenberg/pull/41395)).
 
 ### New Features
 
--   The shortcode transformer now accepts a `transform` method to allow advanced controls over the transformed result. For instance, it's now possible to define custom `innerBlocks` for the transformed block. ([#42001](https://github.com/WordPress/gutenberg/pull/42001))
+-   The shortcode transformer now accepts a `transform` method to allow advanced controls over the transformed result. For instance, it's now possible to define custom `innerBlocks` for the transformed block. ([#42001](https://github.com/FinPress/gutenberg/pull/42001))
 
 ## 11.11.0 (2022-06-29)
 
@@ -213,7 +213,7 @@
 
 ### Bug Fixes
 
--   Register a block even when an invalid value provided for the icon setting ([#34350](https://github.com/WordPress/gutenberg/pull/34350)).
+-   Register a block even when an invalid value provided for the icon setting ([#34350](https://github.com/FinPress/gutenberg/pull/34350)).
 
 ### New Features
 
@@ -223,52 +223,52 @@
 
 ### Breaking Changes
 
--   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
+-   Upgraded React components to work with v17.0 ([#29118](https://github.com/FinPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
 ## 10.0.0 (2021-07-21)
 
 ### Breaking Changes
 
--   The deprecated `registerBlockTypeFromMetadata` function was removed. Please use `registerBlockType` that covers the same functionality ([#32030](https://github.com/WordPress/gutenberg/pull/32030)).
+-   The deprecated `registerBlockTypeFromMetadata` function was removed. Please use `registerBlockType` that covers the same functionality ([#32030](https://github.com/FinPress/gutenberg/pull/32030)).
 
 ## 9.1.0 (2021-05-20)
 
 ### New Features
 
--   `registerBlockType` method can be used to register a block type using the metadata loaded from `block.json` file ([#32030](https://github.com/WordPress/gutenberg/pull/32030)).
+-   `registerBlockType` method can be used to register a block type using the metadata loaded from `block.json` file ([#32030](https://github.com/FinPress/gutenberg/pull/32030)).
 
 ### Deprecations
 
--   `registerBlockTypeFromMetadata` was deprecated in favor of `registerBlockType` that support now the same functionality ([#32030](https://github.com/WordPress/gutenberg/pull/32030)).
+-   `registerBlockTypeFromMetadata` was deprecated in favor of `registerBlockType` that support now the same functionality ([#32030](https://github.com/FinPress/gutenberg/pull/32030)).
 
 ## 9.0.0 (2021-05-14)
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ### New Features
 
--   `registerBlockTypeFromMetadata` method can be used to register a block type using the metadata loaded from `block.json` file ([#30293](https://github.com/WordPress/gutenberg/pull/30293)).
+-   `registerBlockTypeFromMetadata` method can be used to register a block type using the metadata loaded from `block.json` file ([#30293](https://github.com/FinPress/gutenberg/pull/30293)).
 
 ## 8.0.0 (2021-03-17)
 
 ### Breaking Changes
 
--   Reverted `cloneBlock` back to its original logic that doesn't sanitize block's attributes. [#28379](https://github.com/WordPress/gutenberg/pull/29111)
+-   Reverted `cloneBlock` back to its original logic that doesn't sanitize block's attributes. [#28379](https://github.com/FinPress/gutenberg/pull/29111)
 
 ## 7.0.0 (2021-02-01)
 
 ### Breaking Changes
 
--   `cloneBlock` now sanitizes the attributes to match the same logic `createBlock` has. [#28379](https://github.com/WordPress/gutenberg/pull/28379)
+-   `cloneBlock` now sanitizes the attributes to match the same logic `createBlock` has. [#28379](https://github.com/FinPress/gutenberg/pull/28379)
 
 ## 6.25.0 (2020-12-17)
 
 ### New Features
 
--   Added a store definition `store` for the blocks namespace to use with `@wordpress/data` API ([#26655](https://github.com/WordPress/gutenberg/pull/26655)).
+-   Added a store definition `store` for the blocks namespace to use with `@finpress/data` API ([#26655](https://github.com/FinPress/gutenberg/pull/26655)).
 
 ## 6.13.0 (2020-04-01)
 
@@ -301,7 +301,7 @@
 
 ### Bug Fixes
 
--   Block validation will now correctly validate character references, resolving some issues where a standalone ampersand `&` followed later in markup by a character reference (e.g. `&amp;`) could wrongly mark a block as being invalid. ([#13512](https://github.com/WordPress/gutenberg/pull/13512))
+-   Block validation will now correctly validate character references, resolving some issues where a standalone ampersand `&` followed later in markup by a character reference (e.g. `&amp;`) could wrongly mark a block as being invalid. ([#13512](https://github.com/FinPress/gutenberg/pull/13512))
 
 ## 6.0.5 (2019-01-03)
 
@@ -329,13 +329,13 @@
 
 ### New Features
 
--   `getBlockAttributes`, `getBlockTransforms`, `getSaveContent`, `getSaveElement` and `isValidBlockContent` methods can now take also block's name as the first param ([#11490](https://github.com/WordPress/gutenberg/pull/11490)). Passing a block's type object continues to work as before.
+-   `getBlockAttributes`, `getBlockTransforms`, `getSaveContent`, `getSaveElement` and `isValidBlockContent` methods can now take also block's name as the first param ([#11490](https://github.com/FinPress/gutenberg/pull/11490)). Passing a block's type object continues to work as before.
 -   `registerBlockStyles` and `unregisterBlockStyles` can be triggered at any moment (before or after block registration).
 
 ## 5.2.0 (2018-11-09)
 
 -   Paste: Google Docs: fix nested formatting, sub, sup and del.
--   Expose @wordpress/editor to Gutenberg mobile.
+-   Expose @finpress/editor to Gutenberg mobile.
 -   Separate Paste Handler.
 
 ## 5.1.2 (2018-11-03)
@@ -346,11 +346,11 @@
 
 ### New Features
 
--   `isValidBlockContent` function has been added ([#10891](https://github.com/WordPress/gutenberg/pull/10891)).
+-   `isValidBlockContent` function has been added ([#10891](https://github.com/FinPress/gutenberg/pull/10891)).
 
 ### Deprecations
 
--   `isValidBlock` function has been deprecated ([#10891](https://github.com/WordPress/gutenberg/pull/10891)). Use `isValidBlockContent` instead.
+-   `isValidBlock` function has been deprecated ([#10891](https://github.com/FinPress/gutenberg/pull/10891)). Use `isValidBlockContent` instead.
 
 ## 5.0.0 (2018-10-29)
 
@@ -379,7 +379,7 @@
 ### Breaking Changes
 
 -   The `isSharedBlock` function is removed. Use `isReusableBlock` instead.
--   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
+-   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
 
 ### Deprecations
 

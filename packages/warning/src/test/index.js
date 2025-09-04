@@ -5,7 +5,7 @@ import warning from '..';
 import { logged } from '../utils';
 
 // eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable @wordpress/wp-global-usage */
+/* eslint-disable @finpress/wp-global-usage */
 
 describe( 'warning', () => {
 	const initialScriptDebug = globalThis.SCRIPT_DEBUG;

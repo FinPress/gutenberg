@@ -4,7 +4,7 @@ TabPanel is a React component to render an ARIA-compliant TabPanel.
 
 TabPanels organize content across different screens, data sets, and interactions. It has two sections: a list of tabs, and the view to show when tabs are chosen.
 
-![The “Document” tab selected in the sidebar TabPanel.](https://wordpress.org/gutenberg/files/2019/01/s_E36D9C9B8FFA15A1A8CE224E422535A12B016F88884089575F9998E52016A49F_1541785098230_TabPanel.png)
+![The “Document” tab selected in the sidebar TabPanel.](https://finpress.org/gutenberg/files/2019/01/s_E36D9C9B8FFA15A1A8CE224E422535A12B016F88884089575F9998E52016A49F_1541785098230_TabPanel.png)
 
 ## Design guidelines
 
@@ -18,7 +18,7 @@ As a set, all tabs are unified by a shared topic. For clarity, each tab should c
 
 ### Anatomy
 
-![](https://wordpress.org/gutenberg/files/2019/01/s_E36D9C9B8FFA15A1A8CE224E422535A12B016F88884089575F9998E52016A49F_1541787297310_TabPanelAnatomy.png)
+![](https://finpress.org/gutenberg/files/2019/01/s_E36D9C9B8FFA15A1A8CE224E422535A12B016F88884089575F9998E52016A49F_1541787297310_TabPanelAnatomy.png)
 
 1. Container
 2. Active text label
@@ -36,7 +36,7 @@ Tab labels can wrap to a second line, but do not add a second row of tabs.
 
 To differentiate an active tab from an inactive tab, apply an underline and color change to the active tab’s text and icon.
 
-![An underline and color change differentiate an active tab from the inactive ones.](https://wordpress.org/gutenberg/files/2019/01/s_E36D9C9B8FFA15A1A8CE224E422535A12B016F88884089575F9998E52016A49F_1541787691601_TabPanelActiveTab.png)
+![An underline and color change differentiate an active tab from the inactive ones.](https://finpress.org/gutenberg/files/2019/01/s_E36D9C9B8FFA15A1A8CE224E422535A12B016F88884089575F9998E52016A49F_1541787691601_TabPanelActiveTab.png)
 
 ### Behavior
 
@@ -51,7 +51,7 @@ Place tabs above content. Tabs control the UI region displayed below them.
 ### Usage
 
 ```jsx
-import { TabPanel } from '@wordpress/components';
+import { TabPanel } from '@finpress/components';
 
 const onSelect = ( tabName ) => {
 	console.log( 'Selecting tab', tabName );

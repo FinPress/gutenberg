@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
  */
 import type { TabProps } from './types';
-import warning from '@wordpress/warning';
+import warning from '@finpress/warning';
 import { useTabsContext } from './context';
 import {
 	Tab as StyledTab,
@@ -16,7 +16,7 @@ import {
 	TabChevron as StyledTabChevron,
 } from './styles';
 import type { WordPressComponentProps } from '../context';
-import { chevronRight } from '@wordpress/icons';
+import { chevronRight } from '@finpress/icons';
 
 export const Tab = forwardRef<
 	HTMLButtonElement,

@@ -13,7 +13,7 @@ See the Navigation block for an example usage.
 Renders an justification control with options.
 
 ```jsx
-import { JustifyContentControl } from '@wordpress/block-editor';
+import { JustifyContentControl } from '@finpress/block-editor';
 
 const MyJustifyToolbar = ( { attributes, setAttributes } ) => (
 	<BlockControls group="block">
@@ -71,4 +71,4 @@ The current value of the alignment setting. You may only choose from the `Option
 
 ## Related components
 
-Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.
+Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.

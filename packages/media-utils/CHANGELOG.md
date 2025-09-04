@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -68,7 +68,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 4.49.0 (2024-05-16)
 
@@ -172,7 +172,7 @@
 
 ### Breaking Changes
 
--   The `onError` now always receives the `message` as a string ([#39448](https://github.com/WordPress/gutenberg/pull/39448)).
+-   The `onError` now always receives the `message` as a string ([#39448](https://github.com/FinPress/gutenberg/pull/39448)).
 
 ## 3.6.0 (2022-05-04)
 
@@ -190,7 +190,7 @@
 
 ### Breaking Changes
 
--   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
+-   Upgraded React components to work with v17.0 ([#29118](https://github.com/FinPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
 ## 2.2.0 (2021-07-21)
 
@@ -200,8 +200,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ## 1.20.0 (2021-03-17)
 

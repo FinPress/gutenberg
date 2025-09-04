@@ -15,7 +15,7 @@ invoked when the iframe receives focus, or on an ancestor component since the
 event will bubble.
 
 ```jsx
-import { useFocusableIframe } from '@wordpress/compose';
+import { useFocusableIframe } from '@finpress/compose';
 
 const MyFocusableIframe = () => {
     return(

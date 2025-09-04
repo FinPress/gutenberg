@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalConfirmDialog as ConfirmDialog } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
+import { __experimentalConfirmDialog as ConfirmDialog } from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
 
 function ConfirmDeleteFontSizeDialog( {
 	fontSize,

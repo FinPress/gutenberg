@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { addQueryArgs } from '@wordpress/url';
-import { store as editorStore } from '@wordpress/editor';
+import { useEffect, useState } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { addQueryArgs } from '@finpress/url';
+import { store as editorStore } from '@finpress/editor';
 
 /**
  * Returns the Post's Edit URL.

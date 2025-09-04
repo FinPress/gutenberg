@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BaseControl,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import { _x, sprintf } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useState } from '@finpress/element';
+import { _x, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -30,12 +30,12 @@ import {
  * and separated input controls for different spacing configurations with automatic view selection
  * based on current values and available sides.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/spacing-sizes-control/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/spacing-sizes-control/README.md
  *
  * @example
  * ```jsx
- * import { __experimentalSpacingSizesControl as SpacingSizesControl } from '@wordpress/block-editor';
- * import { useState } from '@wordpress/element';
+ * import { __experimentalSpacingSizesControl as SpacingSizesControl } from '@finpress/block-editor';
+ * import { useState } from '@finpress/element';
  *
  * function Example() {
  *   const [ sides, setSides ] = useState( {

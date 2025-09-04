@@ -9,7 +9,7 @@ This feature is still experimental. “Experimental” means this is an early im
 ## Usage
 
 ```jsx
-import { __experimentalTruncate as Truncate } from '@wordpress/components';
+import { __experimentalTruncate as Truncate } from '@finpress/components';
 
 function Example() {
 	return (
@@ -66,7 +66,7 @@ Clamps the text content to the specified `numberOfLines`, adding an ellipsis at 
 -   Default: `0`
 
 ```jsx
-import { __experimentalTruncate as Truncate } from '@wordpress/components';
+import { __experimentalTruncate as Truncate } from '@finpress/components';
 
 function Example() {
 	return (

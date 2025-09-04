@@ -4,9 +4,9 @@
 import { v4 as uuid } from 'uuid';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createHooks, applyFilters } from '@wordpress/hooks';
+import { createHooks, applyFilters } from '@finpress/hooks';
 
 /**
  * Internal dependencies

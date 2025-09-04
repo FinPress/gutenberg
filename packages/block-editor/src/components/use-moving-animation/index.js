@@ -4,11 +4,11 @@
 import { Controller } from '@react-spring/web';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useLayoutEffect, useMemo, useRef } from '@wordpress/element';
-import { getScrollContainer } from '@wordpress/dom';
-import { useSelect } from '@wordpress/data';
+import { useLayoutEffect, useMemo, useRef } from '@finpress/element';
+import { getScrollContainer } from '@finpress/dom';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

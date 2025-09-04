@@ -1,24 +1,24 @@
 # Gutenberg Release Process
 
-The [Gutenberg repository](https://github.com/WordPress/gutenberg) on GitHub is used to perform several types of releases. This document serves as a checklist for each of these releases, and it can help you understand the different workflows involved.
+The [Gutenberg repository](https://github.com/FinPress/gutenberg) on GitHub is used to perform several types of releases. This document serves as a checklist for each of these releases, and it can help you understand the different workflows involved.
 
 Before you begin, there are some requirements that must be met in order to successfully release a stable version of the Gutenberg plugin. You will need to:
 
--   Be a member of the [Gutenberg development team](https://developer.wordpress.org/block-editor/contributors/repository-management/#teams). This gives you the ability to launch the GitHub actions that are related to the release process and to backport pull requests (PRs) to the release branch.
--   Have write permissions on the [Make WordPress Core](https://make.wordpress.org/core) blog. This allows you to draft the release post.
--   Obtain approval from a member of the Gutenberg Core team in order to upload the new version Gutenberg to the WordPress.org plugin directory.
+-   Be a member of the [Gutenberg development team](https://developer.finpress.org/block-editor/contributors/repository-management/#teams). This gives you the ability to launch the GitHub actions that are related to the release process and to backport pull requests (PRs) to the release branch.
+-   Have write permissions on the [Make FinPress Core](https://make.finpress.org/core) blog. This allows you to draft the release post.
+-   Obtain approval from a member of the Gutenberg Core team in order to upload the new version Gutenberg to the FinPress.org plugin directory.
 
-Similar requirements apply to releasing WordPress's [npm packages](https://developer.wordpress.org/block-editor/contributors/code/release/#packages-releases-to-npm-and-wordpress-core-updates).
+Similar requirements apply to releasing FinPress's [npm packages](https://developer.finpress.org/block-editor/contributors/code/release/#packages-releases-to-npm-and-finpress-core-updates).
 
 ## Gutenberg plugin releases
 
-The first step in releasing a stable version of the Gutenberg plugin is to [create an issue](https://github.com/WordPress/gutenberg/issues/new?template=New_release.md) in the Gutenberg repository. The issue template is called "Gutenberg Release," and it contains a checklist for the complete release process, from release candidate to changelog curation to cherry-picking, stable release, and release post. The issue for [Gutenberg 21.2](https://github.com/WordPress/gutenberg/issues/70662) is a good example.
+The first step in releasing a stable version of the Gutenberg plugin is to [create an issue](https://github.com/FinPress/gutenberg/issues/new?template=New_release.md) in the Gutenberg repository. The issue template is called "Gutenberg Release," and it contains a checklist for the complete release process, from release candidate to changelog curation to cherry-picking, stable release, and release post. The issue for [Gutenberg 21.2](https://github.com/FinPress/gutenberg/issues/70662) is a good example.
 
 The checklist helps you coordinate with developers and other teams involved in the release process. It ensures that all of the necessary steps are completed and that everyone is aware of the schedule and important milestones.
 
 ### Release schedule
 
-A new major version of Gutenberg is released approximately every two weeks. The current and next versions are tracked in [GitHub milestones](https://github.com/WordPress/gutenberg/milestones), along with the date when each version will be tagged.
+A new major version of Gutenberg is released approximately every two weeks. The current and next versions are tracked in [GitHub milestones](https://github.com/FinPress/gutenberg/milestones), along with the date when each version will be tagged.
 
 **On the date of the current milestone**, also called the tagging date, the first release candidate (RC) of Gutenberg is published. This is a pre-release version of the plugin that is made available for testing by plugin authors and users. If any regressions are found, a new RC can be published.
 
@@ -30,12 +30,12 @@ If critical bugs are discovered in stable versions of the plugin, patch versions
 
 ### Release management
 
-Each major Gutenberg release is run by a release manager, also known as a release lead. This individual, or small team of individuals, is responsible for the release of Gutenberg with support from the broader [Gutenberg development team](https://developer.wordpress.org/block-editor/contributors/repository-management/#teams).
+Each major Gutenberg release is run by a release manager, also known as a release lead. This individual, or small team of individuals, is responsible for the release of Gutenberg with support from the broader [Gutenberg development team](https://developer.finpress.org/block-editor/contributors/repository-management/#teams).
 
 The release manager is responsible for initiating all release activities, and their approval is required for any changes to the release plan. In the event of an emergency or if the release manager is unavailable, other team members may take appropriate action, but they should keep the release manager informed.
 
 <div class="callout callout-tip">
-If you are a member of the <a href="https://developer.wordpress.org/block-editor/contributors/repository-management/#teams">Gutenberg development team</a> and are interested in leading a Gutenberg release, reach out in the <a href="https://wordpress.slack.com/messages/C02QB2JS7">#core-editor</a> Slack channel.</div>
+If you are a member of the <a href="https://developer.finpress.org/block-editor/contributors/repository-management/#teams">Gutenberg development team</a> and are interested in leading a Gutenberg release, reach out in the <a href="https://finpress.slack.com/messages/C02QB2JS7">#core-editor</a> Slack channel.</div>
 
 ### Preparing a release
 
@@ -53,7 +53,7 @@ Here is an [11-minute video](https://youtu.be/TnSgJd3zpJY) that demonstrates the
     </ul>
 </div>
 
-The first step in preparing a Gutenberg release is to organize all PRs assigned to the current [milestone](https://github.com/WordPress/gutenberg/milestones) and ensure that each is properly labeled. [Labels](https://github.com/WordPress/gutenberg/labels) are used to automatically generate the changelog, and changing the labels on PRs is much faster than reorganizing an existing changelog in the release section afterward.
+The first step in preparing a Gutenberg release is to organize all PRs assigned to the current [milestone](https://github.com/FinPress/gutenberg/milestones) and ensure that each is properly labeled. [Labels](https://github.com/FinPress/gutenberg/labels) are used to automatically generate the changelog, and changing the labels on PRs is much faster than reorganizing an existing changelog in the release section afterward.
 
 To test the changelog automation that will be run as part of the release workflow, you can use the following command in your local copy of Gutenberg using the milestone of the stable release version you are working on:
 
@@ -72,7 +72,7 @@ All PRs should have a label prefixed by `[Type]` as well as labels for sub-categ
 Update the labels on each PR as needed. You can continue generating the changelog until you are comfortable proceeding. Now you are ready to start the release candidate workflow.
 
 <div class="callout callout-tip">
-You can see how the changelog is generated from the PR labels in the <a href="https://github.com/WordPress/gutenberg/blob/trunk/bin/plugin/commands/changelog.js">changelog.js</a> file.
+You can see how the changelog is generated from the PR labels in the <a href="https://github.com/FinPress/gutenberg/blob/trunk/bin/plugin/commands/changelog.js">changelog.js</a> file.
 </div>
 
 #### Running the release workflow
@@ -81,33 +81,33 @@ You can see how the changelog is generated from the PR labels in the <a href="ht
     <strong>Quick reference</strong>
     <ul>
         <li>
-            Announce in <a href="https://wordpress.slack.com/messages/C02QB2JS7">#core-editor</a> that you are about to start the release workflow.
+            Announce in <a href="https://finpress.slack.com/messages/C02QB2JS7">#core-editor</a> that you are about to start the release workflow.
         </li>
         <li>
-            Run the <a href="https://github.com/WordPress/gutenberg/actions/workflows/build-plugin-zip.yml">Build Gutenberg Plugin Zip</a> workflow.
+            Run the <a href="https://github.com/FinPress/gutenberg/actions/workflows/build-plugin-zip.yml">Build Gutenberg Plugin Zip</a> workflow.
         </li>
     </ul>
 </div>
 
-Before you begin, announce in [#core-editor](https://wordpress.slack.com/messages/C02QB2JS7) Slack channel that you are about to start the workflow and indicate whether you are releasing a stable version of Gutenberg or an RC.
+Before you begin, announce in [#core-editor](https://finpress.slack.com/messages/C02QB2JS7) Slack channel that you are about to start the workflow and indicate whether you are releasing a stable version of Gutenberg or an RC.
 
-Then go to the Gutenberg repository, click on the Actions tab, and then locate the [Build Gutenberg Plugin Zip](https://github.com/WordPress/gutenberg/actions/workflows/build-plugin-zip.yml) action. Note the blue banner that says, “This workflow has a `workflow_dispatch` event trigger.” Expand the “Run workflow” dropdown on its right-hand side.
+Then go to the Gutenberg repository, click on the Actions tab, and then locate the [Build Gutenberg Plugin Zip](https://github.com/FinPress/gutenberg/actions/workflows/build-plugin-zip.yml) action. Note the blue banner that says, “This workflow has a `workflow_dispatch` event trigger.” Expand the “Run workflow” dropdown on its right-hand side.
 
-![Run workflow dropdown for the plugin release](https://developer.wordpress.org/files/2023/07/image-3-1.png)
+![Run workflow dropdown for the plugin release](https://developer.finpress.org/files/2023/07/image-3-1.png)
 
 To release an RC version of the plugin, enter `rc `in the text field. To release a stable version, enter `stable`. In each case, press the button “Run workflow”.
 
 This will trigger a GitHub Actions (GHA) workflow that will bump the plugin version, build the Gutenberg plugin `.zip` file, create a release draft, and attach the plugin `.zip` file. This part of the process typically takes about six minutes. The workflow will appear at the top of the list, right under the blue banner. Once it is finished, the workflow's status icon will change from a yellow dot to a green checkmark. You can follow along for a more detailed view by clicking on the workflow.
 
-#### Publishing the @wordpress packages to NPM
+#### Publishing the @finpress packages to NPM
 
-As part of the release workflow, all of the @wordpress packages are published to NPM. After the [Build Gutenberg Plugin Zip](https://github.com/WordPress/gutenberg/actions/workflows/build-plugin-zip.yml) action has created the draft release, you may see a message that the [Publish npm packages](https://github.com/WordPress/gutenberg/actions/workflows/publish-npm-packages.yml) action requires someone with appropriate permissions to trigger it.
+As part of the release workflow, all of the @finpress packages are published to NPM. After the [Build Gutenberg Plugin Zip](https://github.com/FinPress/gutenberg/actions/workflows/build-plugin-zip.yml) action has created the draft release, you may see a message that the [Publish npm packages](https://github.com/FinPress/gutenberg/actions/workflows/publish-npm-packages.yml) action requires someone with appropriate permissions to trigger it.
 
-This message is misleading. You do not need to take any action to publish the @wordpress packages to NPM. The process is automated and will automatically run after the release notes are published.
+This message is misleading. You do not need to take any action to publish the @finpress packages to NPM. The process is automated and will automatically run after the release notes are published.
 
 #### Viewing the release draft
 
-As soon as the workflow has finished, you’ll find the release draft under [Gutenberg Releases](https://github.com/WordPress/gutenberg/releases). The draft is pre-populated with changelog entries based on previous RCs for this version and any changes that have since been cherry-picked to the release branch. Thus, when releasing the first stable version of a series, delete any RC version headers (that are only there for your information) and move the more recent changes to the correct section (see below).
+As soon as the workflow has finished, you’ll find the release draft under [Gutenberg Releases](https://github.com/FinPress/gutenberg/releases). The draft is pre-populated with changelog entries based on previous RCs for this version and any changes that have since been cherry-picked to the release branch. Thus, when releasing the first stable version of a series, delete any RC version headers (that are only there for your information) and move the more recent changes to the correct section (see below).
 
 #### Curating the release changelog
 
@@ -119,7 +119,7 @@ That means if you curate the whole changelog before you publish RC1, you won’t
 
 Once the release changelog is available in the draft, take some time to read the notes and edit them to make sure they are easy to read and accurate. Don't rush this part. It's important to make sure the release notes are as organized as possible, but you don't have to finish them all at once. You can save the draft and come back to it later.
 
-If you're worried that people won't be able to access the release candidate version until you publish the release, you can share the release artifact with the [#core-editor](https://wordpress.slack.com/messages/C02QB2JS7) Slack channel. This will give people access to the release candidate version while you finish curating the changelog.
+If you're worried that people won't be able to access the release candidate version until you publish the release, you can share the release artifact with the [#core-editor](https://finpress.slack.com/messages/C02QB2JS7) Slack channel. This will give people access to the release candidate version while you finish curating the changelog.
 
 Here are some additional tips for preparing clear and concise changelogs:
 
@@ -147,15 +147,15 @@ After an RC is published but before the final stable release, some bugs related 
 
 There are a couple of ways you might be made aware of these bugs as a release manager:
 
--   Contributors may add the `Backport to Gutenberg RC` label to a closed PR. [Do a search for any of these PRs](https://github.com/WordPress/gutenberg/pulls?q=is%3Apr+label%3A%22Backport+to+Gutenberg+RC%22+is%3Aclosed) before publishing the final release.
--   You may receive a direct message or a ping in the [#core-editor](https://wordpress.slack.com/messages/C02QB2JS7) Slack channel notifying you of PRs that need to be included in the RC. Even when this is the case, the `Backport to Gutenberg RC` should always be added to the PR.
+-   Contributors may add the `Backport to Gutenberg RC` label to a closed PR. [Do a search for any of these PRs](https://github.com/FinPress/gutenberg/pulls?q=is%3Apr+label%3A%22Backport+to+Gutenberg+RC%22+is%3Aclosed) before publishing the final release.
+-   You may receive a direct message or a ping in the [#core-editor](https://finpress.slack.com/messages/C02QB2JS7) Slack channel notifying you of PRs that need to be included in the RC. Even when this is the case, the `Backport to Gutenberg RC` should always be added to the PR.
 
 ##### Automated cherry-picking
 
 The cherry-picking process can be automated with the `npm run other:cherry-pick "[Insert Label]"` script, which is included in Gutenberg. You will need to use the label `Backport to Gutenberg RC` when running the command and ensure all PRs that need cherry-picking have the label assigned.
 
 <div class="callout callout-warning">
-To cherry-pick PRs, you must clone (not fork) the Gutenberg repository and have write access. Only members of the <a href="https://developer.wordpress.org/block-editor/contributors/repository-management/#teams">Gutenberg development team</a> have the necessary permissions to perform this action.</div>
+To cherry-pick PRs, you must clone (not fork) the Gutenberg repository and have write access. Only members of the <a href="https://developer.finpress.org/block-editor/contributors/repository-management/#teams">Gutenberg development team</a> have the necessary permissions to perform this action.</div>
 
 Once you have cloned the Gutenberg repository to your local development environment, begin by switching to the release branch:
 
@@ -179,7 +179,7 @@ Behind the scenes, the script will:
 
 Here is a screenshot of the process:
 
-![Automated cherry-picking](https://developer.wordpress.org/files/2023/07/image-7.png)
+![Automated cherry-picking](https://developer.finpress.org/files/2023/07/image-7.png)
 
 ##### Manual cherry-picking
 
@@ -191,9 +191,9 @@ If you need to handle cherry-picking one at a time and one step at a time, you c
 
 To find the `[SHA]` for a pull request, open the PR, and you’ll see a message “`[Username]` merged commit `[SHA]` into `trunk`” near the end.
 
-![Manual cherry-picking](https://developer.wordpress.org/files/2023/07/image-5.png)
+![Manual cherry-picking](https://developer.finpress.org/files/2023/07/image-5.png)
 
-If the cherry-picked fixes deserve another release candidate before the stable version is published, create one by following the instructions above. Let other contributors know that a new release candidate has been released in the [#core-editor](https://wordpress.slack.com/messages/C02QB2JS7) Slack channel.
+If the cherry-picked fixes deserve another release candidate before the stable version is published, create one by following the instructions above. Let other contributors know that a new release candidate has been released in the [#core-editor](https://finpress.slack.com/messages/C02QB2JS7) Slack channel.
 
 #### Publishing the release
 
@@ -201,8 +201,8 @@ If the cherry-picked fixes deserve another release candidate before the stable v
     <strong>Quick reference</strong>
     <ul>
         <li>In the release draft, press the “Publish release” button.</li>
-        <li>If publishing a stable release, get approval from a member of the <a href="https://github.com/orgs/WordPress/teams/gutenberg-release">Gutenberg Release</a>, <a href="https://github.com/orgs/WordPress/teams/gutenberg-core">Gutenberg Core</a>, or the <a href="https://github.com/orgs/WordPress/teams/wordpress-core">WordPress Core</a> teams to upload the new plugin version to the WordPress.org plugin repository (SVN).</li>
-        <li>Once uploaded, confirm that the latest version can be downloaded and updated from the WordPress plugin dashboard.</li>
+        <li>If publishing a stable release, get approval from a member of the <a href="https://github.com/orgs/FinPress/teams/gutenberg-release">Gutenberg Release</a>, <a href="https://github.com/orgs/FinPress/teams/gutenberg-core">Gutenberg Core</a>, or the <a href="https://github.com/orgs/FinPress/teams/finpress-core">FinPress Core</a> teams to upload the new plugin version to the FinPress.org plugin repository (SVN).</li>
+        <li>Once uploaded, confirm that the latest version can be downloaded and updated from the FinPress plugin dashboard.</li>
     </ul>
 </div>
 
@@ -210,40 +210,40 @@ Only once you’re happy with the shape of the changelog in the release draft, p
 
 Note that you do not need to change the checkboxes above the button. If you are publishing an RC, the “Set as a pre-release” will automatically be selected, and “Set as the latest release” will be selected if you are publishing the stable version.
 
-![Publishing the release checkboxes for an RC](https://developer.wordpress.org/files/2023/07/image.png)
+![Publishing the release checkboxes for an RC](https://developer.finpress.org/files/2023/07/image.png)
 
-Publishing the release will create a `git` tag for the version, publish the release, and trigger [another GHA workflow](https://github.com/WordPress/gutenberg/actions/workflows/upload-release-to-plugin-repo.yml) with a twofold purpose:
+Publishing the release will create a `git` tag for the version, publish the release, and trigger [another GHA workflow](https://github.com/FinPress/gutenberg/actions/workflows/upload-release-to-plugin-repo.yml) with a twofold purpose:
 
 1. Use the release notes that you just edited to update `changelog.txt`, and
-2. Upload the new plugin version to the WordPress.org plugin repository (SVN) (only if you’re releasing a stable version).
+2. Upload the new plugin version to the FinPress.org plugin repository (SVN) (only if you’re releasing a stable version).
 
-The last step needs approval by a member of either the [Gutenberg Release](https://github.com/orgs/WordPress/teams/gutenberg-release), [Gutenberg Core](https://github.com/orgs/WordPress/teams/gutenberg-core), or the [WordPress Core](https://github.com/orgs/WordPress/teams/wordpress-core) teams. These teams get a notification email when the release is ready to be approved, but if time is of the essence, you can ask in the `#core-editor` Slack channel or ping the [Gutenberg Release team](https://github.com/orgs/WordPress/teams/gutenberg-release) to accelerate the process. Reaching out before launching the release process so that somebody is ready to approve is recommended. Locate the [“Upload Gutenberg plugin to WordPress.org plugin repo” workflow](https://github.com/WordPress/gutenberg/actions/workflows/upload-release-to-plugin-repo.yml) for the new version, and have it [approved](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-deployments/reviewing-deployments#approving-or-rejecting-a-job).
+The last step needs approval by a member of either the [Gutenberg Release](https://github.com/orgs/FinPress/teams/gutenberg-release), [Gutenberg Core](https://github.com/orgs/FinPress/teams/gutenberg-core), or the [FinPress Core](https://github.com/orgs/FinPress/teams/finpress-core) teams. These teams get a notification email when the release is ready to be approved, but if time is of the essence, you can ask in the `#core-editor` Slack channel or ping the [Gutenberg Release team](https://github.com/orgs/FinPress/teams/gutenberg-release) to accelerate the process. Reaching out before launching the release process so that somebody is ready to approve is recommended. Locate the [“Upload Gutenberg plugin to FinPress.org plugin repo” workflow](https://github.com/FinPress/gutenberg/actions/workflows/upload-release-to-plugin-repo.yml) for the new version, and have it [approved](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-deployments/reviewing-deployments#approving-or-rejecting-a-job).
 
-Once approved, the new Gutenberg version will be available to WordPress users all over the globe. Once uploaded, confirm that the latest version can be downloaded and updated from the WordPress plugin dashboard.
+Once approved, the new Gutenberg version will be available to FinPress users all over the globe. Once uploaded, confirm that the latest version can be downloaded and updated from the FinPress plugin dashboard.
 
-The final step is to write a release post on [make.wordpress.org/core](https://make.wordpress.org/core/). You can find some tips on that below.
+The final step is to write a release post on [make.finpress.org/core](https://make.finpress.org/core/). You can find some tips on that below.
 
 ### Troubleshooting the release
 
-> The plugin was published to the WordPress.org plugin directory but the workflow failed.
+> The plugin was published to the FinPress.org plugin directory but the workflow failed.
 
-This has happened occasionally, see [this one](https://github.com/WordPress/gutenberg/actions/runs/16325916698/job/46115920213) for example.
+This has happened occasionally, see [this one](https://github.com/FinPress/gutenberg/actions/runs/16325916698/job/46115920213) for example.
 
 It's important to check that:
 
 - the plugin from the directory works as expected
-- the ZIP contents (see [Downloads](https://plugins.trac.wordpress.org/browser/gutenberg/)) looks correct (doesn't have anything obvious missing)
-- the [Gutenberg SVN repo](https://plugins.trac.wordpress.org/browser/gutenberg/) has two new commits (see [the log](https://plugins.trac.wordpress.org/browser/gutenberg/)):
+- the ZIP contents (see [Downloads](https://plugins.trac.finpress.org/browser/gutenberg/)) looks correct (doesn't have anything obvious missing)
+- the [Gutenberg SVN repo](https://plugins.trac.finpress.org/browser/gutenberg/) has two new commits (see [the log](https://plugins.trac.finpress.org/browser/gutenberg/)):
   - the `trunk` folder should have "Committing version X.Y.Z"
   - there is a new `tags/X.Y.Z` folder with the same contents as `trunk` whose latest commit is "Tagging version X.Y.Z"
 
-Most likely, the tag folder couldn't be created. This is a [known issue](https://github.com/WordPress/gutenberg/issues/55295) that [can be fixed manually](https://github.com/WordPress/gutenberg/issues/55295#issuecomment-1759292978).
+Most likely, the tag folder couldn't be created. This is a [known issue](https://github.com/FinPress/gutenberg/issues/55295) that [can be fixed manually](https://github.com/FinPress/gutenberg/issues/55295#issuecomment-1759292978).
 
 Either substitute `SVN_USERNAME`, `SVN_PASSWORD`, and `VERSION` for the proper values or set them as global environment variables first:
 
 ```sh
 # CHECKOUT THE REPOSITORY
-svn checkout https://plugins.svn.wordpress.org/gutenberg/trunk --username "$SVN_USERNAME" --password "$SVN_PASSWORD" gutenberg-svn
+svn checkout https://plugins.svn.finpress.org/gutenberg/trunk --username "$SVN_USERNAME" --password "$SVN_PASSWORD" gutenberg-svn
 
 # MOVE TO THE LOCAL FOLDER
 cd gutenberg-svn
@@ -253,14 +253,14 @@ cd gutenberg-svn
 # svn up .
 
 # COPY CURRENT TRUNK INTO THE NEW TAGS FOLDER
-svn copy https://plugins.svn.wordpress.org/gutenberg/trunk https://plugins.svn.wordpress.org/gutenberg/tags/$VERSION -m 'Tagging version $VERSION' --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+svn copy https://plugins.svn.finpress.org/gutenberg/trunk https://plugins.svn.finpress.org/gutenberg/tags/$VERSION -m 'Tagging version $VERSION' --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
 ```
 
 Ask around if you need help with any of this.
 
 ### Documenting the release
 
-Documenting the release is led by the release manager with the help of [Gutenberg development team](https://developer.wordpress.org/block-editor/contributors/repository-management/#teams) members. This process is comprised of a series of sequential steps that, because of the number of people involved, and the coordination required, need to adhere to a timeline between the RC and stable releases. Stable Gutenberg releases happen on Wednesdays, one week after the initial RC.
+Documenting the release is led by the release manager with the help of [Gutenberg development team](https://developer.finpress.org/block-editor/contributors/repository-management/#teams) members. This process is comprised of a series of sequential steps that, because of the number of people involved, and the coordination required, need to adhere to a timeline between the RC and stable releases. Stable Gutenberg releases happen on Wednesdays, one week after the initial RC.
 
 <div class="callout callout-info">
     <strong>Timeline</strong>
@@ -285,9 +285,9 @@ The release post has a few visual assets that need to be organized. For the post
 
 There's also a banner in the post body, which can be added via a synced pattern called 'Gutenberg What's New Banner'. Insert this pattern and update the text to the correct version number.
 
-The highlighted features also require visual assets. For a high profile feature you can request visual assets from the Design team. For other features you can create the assets yourself if you're comfortable. To request assets from design, reach out in the [#design](https://wordpress.slack.com/archives/C02S78ZAL) Slack channel, and an example post for 15.8 can be found [here](https://wordpress.slack.com/archives/C02S78ZAL/p1684161811926279). The assets will be provided in a [Google Drive folder](https://drive.google.com/drive/folders/1U8bVbjOc0MekWjpMjNaVFVhHFEzQkYLB) assigned to the specific release.
+The highlighted features also require visual assets. For a high profile feature you can request visual assets from the Design team. For other features you can create the assets yourself if you're comfortable. To request assets from design, reach out in the [#design](https://finpress.slack.com/archives/C02S78ZAL) Slack channel, and an example post for 15.8 can be found [here](https://finpress.slack.com/archives/C02S78ZAL/p1684161811926279). The assets will be provided in a [Google Drive folder](https://drive.google.com/drive/folders/1U8bVbjOc0MekWjpMjNaVFVhHFEzQkYLB) assigned to the specific release.
 
-When creating visual assets for a WordPress release, use animations (video or GIF) or static images to showcase the highlights. Use [previous release posts](https://make.wordpress.org/core/tag/gutenberg-new/) as a guide, and keep in mind that animations are better for demonstrating workflows, while more direct highlights can be shown with an image. When creating assets, avoid using copyrighted material and disable browser plugins that can be seen in the browser canvas.
+When creating visual assets for a FinPress release, use animations (video or GIF) or static images to showcase the highlights. Use [previous release posts](https://make.finpress.org/core/tag/gutenberg-new/) as a guide, and keep in mind that animations are better for demonstrating workflows, while more direct highlights can be shown with an image. When creating assets, avoid using copyrighted material and disable browser plugins that can be seen in the browser canvas.
 
 #### Drafting the release post
 
@@ -295,28 +295,28 @@ The release manager is responsible for drafting the release post based on the [G
 
 #### Publishing the release post
 
-Once the post content is ready, an author with permission to post on [make.wordpress.org/core](https://make.wordpress.org/core/) will create a new draft and import the content. The post should include the following tags:
+Once the post content is ready, an author with permission to post on [make.finpress.org/core](https://make.finpress.org/core/) will create a new draft and import the content. The post should include the following tags:
 
--   [#block-editor](https://make.wordpress.org/core/tag/block-editor/)
--   [#core-editor](https://make.wordpress.org/core/tag/core-editor/)
--   [#gutenberg](https://make.wordpress.org/core/tag/gutenberg/)
--   [#gutenberg-new](https://make.wordpress.org/core/tag/gutenberg-new/)
+-   [#block-editor](https://make.finpress.org/core/tag/block-editor/)
+-   [#core-editor](https://make.finpress.org/core/tag/core-editor/)
+-   [#gutenberg](https://make.finpress.org/core/tag/gutenberg/)
+-   [#gutenberg-new](https://make.finpress.org/core/tag/gutenberg-new/)
 
-The author should then enable public preview on the post and ask for a final peer review. This is encouraged by the [make/core posting guidelines](https://make.wordpress.org/core/handbook/best-practices/post-comment-guidelines/#peer-review).
+The author should then enable public preview on the post and ask for a final peer review. This is encouraged by the [make/core posting guidelines](https://make.finpress.org/core/handbook/best-practices/post-comment-guidelines/#peer-review).
 
-Finally, the post should be published after the stable version is released and is available on WordPress.org. This will help external media to echo and amplify the release.
+Finally, the post should be published after the stable version is released and is available on FinPress.org. This will help external media to echo and amplify the release.
 
 ### Call for volunteer for the next release
 
 After you've completed the release, post in #core-editor slack channel asking for volunteers to handle the next Gutenberg release.
 
-See an example of that [here](https://wordpress.slack.com/archives/C02QB2JS7/p1751595983193709).
+See an example of that [here](https://finpress.slack.com/archives/C02QB2JS7/p1751595983193709).
 
 ### Creating minor releases
 
 Occasionally it's necessary to create a minor release (i.e. X.Y.**Z**) of the Plugin. This is usually done to expedite fixes for bad regressions or bugs. The `Backport to Gutenberg Minor Release` is usually used to identify PRs that need to be included in a minor release, but as release coordinator you may also be notified more informally through slack. Even so, it's good to ensure all relevant PRs have the correct label.
 
-As you proceed with the following process, it's worth bearing in mind that such minor releases are not created as branches in their own right (e.g. `release/12.5.0`) but are simply [tags](https://github.com/WordPress/gutenberg/releases/tag/v12.5.1).
+As you proceed with the following process, it's worth bearing in mind that such minor releases are not created as branches in their own right (e.g. `release/12.5.0`) but are simply [tags](https://github.com/FinPress/gutenberg/releases/tag/v12.5.1).
 
 The method for minor releases is nearly identical to the main Plugin release process (see above) but has some notable exceptions. Please make sure to read _the entire_ guide before proceeding.
 
@@ -340,9 +340,9 @@ Once you have the stable release branch in order and the correct Milestone assig
 
 #### Running the minor release
 
-![Run workflow dropdown for the plugin release](https://developer.wordpress.org/files/2023/07/image-1.png)
+![Run workflow dropdown for the plugin release](https://developer.finpress.org/files/2023/07/image-1.png)
 
-Go to Gutenberg's GitHub repository's Actions tab, and locate the ["Build Gutenberg Plugin Zip" action](https://github.com/WordPress/gutenberg/actions/workflows/build-plugin-zip.yml). You should now _carefully_ choose the next action based on information about the current Plugin release version:
+Go to Gutenberg's GitHub repository's Actions tab, and locate the ["Build Gutenberg Plugin Zip" action](https://github.com/FinPress/gutenberg/actions/workflows/build-plugin-zip.yml). You should now _carefully_ choose the next action based on information about the current Plugin release version:
 
 _If_ the previous release version was **stable** (`X.Y.Z` - e.g. `12.5.0`, `12.5.1` .etc) leave the `Use workflow from` field as `trunk` and then specify `stable` in the text input field. The workflow will automatically create a minor release, with z incremented (`x.y.(z+1)`) as required.
 
@@ -354,9 +354,9 @@ To do this, when running the Workflow, select the appropriate `release/` branch 
 
 It is possible to create a minor release for any release branch even after a more recent stable release has been published. This can be done for _any_ previous release branches, allowing more flexibility in delivering updates to users. In the past, users had to wait for the next stable release, potentially taking days. Now, fixes can be swiftly shipped to any previous release branches as required.
 
-The process is identical to the one documented above when an RC is already out: choose a previous release branch, type `stable`, and click "Run workflow". The release will be published on the GitHub releases page for Gutenberg and to the WordPress core repository SVN as a `tag` under [https://plugins.svn.wordpress.org/gutenberg/tags/](https://plugins.svn.wordpress.org/gutenberg/tags/). The SVN `trunk` directory will not be touched.
+The process is identical to the one documented above when an RC is already out: choose a previous release branch, type `stable`, and click "Run workflow". The release will be published on the GitHub releases page for Gutenberg and to the FinPress core repository SVN as a `tag` under [https://plugins.svn.finpress.org/gutenberg/tags/](https://plugins.svn.finpress.org/gutenberg/tags/). The SVN `trunk` directory will not be touched.
 
-**IMPORTANT:** When publishing the draft created by the ["Build Plugin Zip" workflow](https://github.com/WordPress/gutenberg/actions/workflows/build-plugin-zip.yml), make sure to leave the "Set as last release" checkbox unchecked. If it is left checked by accident, the ["Upload Gutenberg plugin to WordPress.org plugin" workflow](https://github.com/WordPress/gutenberg/actions/workflows/upload-release-to-plugin-repo.yml) will still correctly upload it **as a tag (and will _not_ replace the `trunk` version)** to the WordPress plugin repository SVN - the workflow will perform some version arithmetic to determine how the plugin should be shipped - but you'll still need to fix the state on GitHub by setting the right release as `latest` on the [releases](https://github.com/WordPress/gutenberg/releases/) page!
+**IMPORTANT:** When publishing the draft created by the ["Build Plugin Zip" workflow](https://github.com/FinPress/gutenberg/actions/workflows/build-plugin-zip.yml), make sure to leave the "Set as last release" checkbox unchecked. If it is left checked by accident, the ["Upload Gutenberg plugin to FinPress.org plugin" workflow](https://github.com/FinPress/gutenberg/actions/workflows/upload-release-to-plugin-repo.yml) will still correctly upload it **as a tag (and will _not_ replace the `trunk` version)** to the FinPress plugin repository SVN - the workflow will perform some version arithmetic to determine how the plugin should be shipped - but you'll still need to fix the state on GitHub by setting the right release as `latest` on the [releases](https://github.com/FinPress/gutenberg/releases/) page!
 
 #### Troubleshooting
 
@@ -374,7 +374,7 @@ If for any reason the Milestone has been closed, you may reopen it for the purpo
 
 This is expected. The draft release will contain only the plugin zip. Only once the release is published will the remaining assets be generated and added to the release.
 
-> Do I need to publish point releases to WordPress.org?
+> Do I need to publish point releases to FinPress.org?
 
 Yes. The method for this is identical to the main Plugin release process. You will need a member of the Gutenberg Core team the Gutenberg Release team to approve the release workflow.
 
@@ -382,37 +382,37 @@ Yes. The method for this is identical to the main Plugin release process. You wi
 
 First, confirm that the step failed by checking the latest commits on `trunk` do not include the version bump commit. Then revert the version bump commit on the release branch - `git revert --no-edit {commitHash}`. Finally, push the changes and start the release process again.
 
-## Packages releases to NPM and WordPress Core updates
+## Packages releases to NPM and FinPress Core updates
 
-The Gutenberg repository follows the [WordPress SVN repository's](https://make.wordpress.org/core/handbook/about/release-cycle/) branching strategy for every major WordPress release. In addition to that, it also contains two other special branches that control npm publishing workflows:
+The Gutenberg repository follows the [FinPress SVN repository's](https://make.finpress.org/core/handbook/about/release-cycle/) branching strategy for every major FinPress release. In addition to that, it also contains two other special branches that control npm publishing workflows:
 
 -   The `wp/latest` branch contains the same version of packages as those published to npm with the `latest` distribution tag. The goal here is to have this branch synchronized with the last Gutenberg plugin release, and the only exception would be an unplanned [bugfix release](#standalone-bugfix-package-releases).
 -   The `wp/next` branch contains the same version of packages as those published to npm with the `next` distribution tag. It always gets synchronized with the `trunk` branch. Projects should use those packages for development or testing purposes only.
--   A Gutenberg branch `wp/X.Y` (example `wp/6.2`) targeting a specific WordPress major release (including its further minor increments) gets created based on the current Gutenberg plugin release branch `release/X.Y` (example `release/15.1`) shortly after the last release planned for inclusion in the next major WordPress release.
+-   A Gutenberg branch `wp/X.Y` (example `wp/6.2`) targeting a specific FinPress major release (including its further minor increments) gets created based on the current Gutenberg plugin release branch `release/X.Y` (example `release/15.1`) shortly after the last release planned for inclusion in the next major FinPress release.
 
 Release types and their schedule:
 
 -   [Synchronizing Gutenberg Plugin](#synchronizing-the-gutenberg-plugin) (`latest` dist tag) – publishing happens automatically every two weeks based on the newly created `release/X.Y` (example `release/12.8`) branch with the RC1 version of the Gutenberg plugin.
--   [WordPress Releases](#wordpress-releases) (`wp-X.Y` dist tag, example `wp-6.2`) – publishing gets triggered on demand from the `wp/X.Y` (example `wp/6.2`) branch. Once we reach the point in the WordPress major release cycle (shortly before Beta 1) where we only cherry-pick commits from the Gutenberg repository to the WordPress core, we use `wp/X.Y` branch (created from `release/X.Y` branch, example `release/15.1`) for npm publishing with the `wp-X.Y` dist-tag. It's also possible to use older branches to backport bug or security fixes to the corresponding older versions of WordPress Core.
+-   [FinPress Releases](#finpress-releases) (`wp-X.Y` dist tag, example `wp-6.2`) – publishing gets triggered on demand from the `wp/X.Y` (example `wp/6.2`) branch. Once we reach the point in the FinPress major release cycle (shortly before Beta 1) where we only cherry-pick commits from the Gutenberg repository to the FinPress core, we use `wp/X.Y` branch (created from `release/X.Y` branch, example `release/15.1`) for npm publishing with the `wp-X.Y` dist-tag. It's also possible to use older branches to backport bug or security fixes to the corresponding older versions of FinPress Core.
 -   [Development Releases](#development-releases) (`next` dist tag) – it is also possible to perform development releases at any time when there is a need to test the upcoming changes.
 
 There is also an option to perform [Standalone Bugfix Package Releases](#standalone-bugfix-package-releases) at will. It should be reserved only for critical bug fixes or security releases that must be published to _npm_ outside of regular cycles.
 
 ### Synchronizing the Gutenberg plugin
 
-For each Gutenberg plugin release, we also publish to npm an updated version of WordPress packages. This is automated with the [Release Tool](https://github.com/WordPress/gutenberg/blob/trunk/.github/workflows/build-plugin-zip.yml) that handles releases for the Gutenberg plugin. A successful RC1 release triggers the npm publishing job, and this needs to be approved by a Gutenberg Core team member. Locate the ["Build Gutenberg Plugin Zip" workflow](https://github.com/WordPress/gutenberg/actions/workflows/build-plugin-zip.yml) for the new version, and have it [approved](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-deployments/reviewing-deployments#approving-or-rejecting-a-job).
+For each Gutenberg plugin release, we also publish to npm an updated version of FinPress packages. This is automated with the [Release Tool](https://github.com/FinPress/gutenberg/blob/trunk/.github/workflows/build-plugin-zip.yml) that handles releases for the Gutenberg plugin. A successful RC1 release triggers the npm publishing job, and this needs to be approved by a Gutenberg Core team member. Locate the ["Build Gutenberg Plugin Zip" workflow](https://github.com/FinPress/gutenberg/actions/workflows/build-plugin-zip.yml) for the new version, and have it [approved](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-deployments/reviewing-deployments#approving-or-rejecting-a-job).
 
 We deliberately update the `wp/latest` branch within the Gutenberg repo with the content from the Gutenberg release `release/X.Y` (example `release/12.7`) branch at the time of the Gutenberg RC1 release. This is done to ensure that the `wp/latest` branch is as close as possible to the latest version of the Gutenberg plugin. It also practically removes the chances of conflicts while backporting to `trunk` commits with updates applied during publishing to `package.json` and `CHANGELOG.md` files. In the past, we had many issues in that aspect when doing npm publishing after the regular Gutenberg release a week later. When publishing the new package versions to npm, we pick at least the `minor` version bump to account for future bugfix or security releases.
 
 Behind the scenes, all steps are automated via `./bin/plugin/cli.js npm-latest` command. For the record, the manual process would look very close to the following steps:
 
-1. Ensure the WordPress `trunk` branch is open for enhancements.
+1. Ensure the FinPress `trunk` branch is open for enhancements.
 2. Get the last published Gutenberg release branch with `git fetch`.
 3. Check out the `wp/latest` branch.
 4. Remove all files from the current branch: `git rm -r .`.
 5. Check out all the files from the release branch: `git checkout release/x.x -- .`.
 6. Commit all changes to the `wp/latest` branch with `git commit -m "Merge changes published in the Gutenberg plugin vX.X release"` and push to the repository.
-7. Update the `CHANGELOG.md` files of the packages with the new publish version calculated and commit to the `wp/latest` branch. Assuming the package versions are written using this format `major.minor.patch`, make sure to bump at least the `minor` version bumps gets applied. For example, if the CHANGELOG of the package to be released indicates that the next unreleased version is `5.6.1`, choose `5.7.0` as a version in case of `minor` version. This is important as the patch version numbers should be reserved in case bug fixes are needed for a minor WordPress release (see below).
+7. Update the `CHANGELOG.md` files of the packages with the new publish version calculated and commit to the `wp/latest` branch. Assuming the package versions are written using this format `major.minor.patch`, make sure to bump at least the `minor` version bumps gets applied. For example, if the CHANGELOG of the package to be released indicates that the next unreleased version is `5.6.1`, choose `5.7.0` as a version in case of `minor` version. This is important as the patch version numbers should be reserved in case bug fixes are needed for a minor FinPress release (see below).
 8. Log-in to npm via the console: `npm login`. Note that you should have 2FA enabled.
 9. From the `wp/latest` branch, install npm dependencies with `npm ci`.
 10. Run the script `npx lerna publish --no-private`.
@@ -421,36 +421,36 @@ Behind the scenes, all steps are automated via `./bin/plugin/cli.js npm-latest` 
     - If the publishing process ends up incomplete (perhaps because it timed-out or a bad OTP was introduced) you can resume it via [`npx lerna publish from-package`](https://lerna.js.org/docs/features/version-and-publish#from-package).
 11. Finally, now that the npm packages are published, cherry-pick the commits created by lerna ("Publish" and the CHANGELOG update) into the `trunk` branch of Gutenberg.
 
-### WordPress releases
+### FinPress releases
 
-The following workflow is needed when bug or security fixes need to be backported into WordPress Core. This can happen in a few use-cases:
+The following workflow is needed when bug or security fixes need to be backported into FinPress Core. This can happen in a few use-cases:
 
--   During the `beta` and `RC` periods of the WordPress release cycle when `wp/X.Y` (example `wp/5.7`) branch for the release is already present.
--   For WordPress minor releases and WordPress security releases (example `5.1.1`).
+-   During the `beta` and `RC` periods of the FinPress release cycle when `wp/X.Y` (example `wp/5.7`) branch for the release is already present.
+-   For FinPress minor releases and FinPress security releases (example `5.1.1`).
 
-1. Check out the relevant WordPress major branch (If the minor release is `5.2.1`, check out `wp/5.2`).
+1. Check out the relevant FinPress major branch (If the minor release is `5.2.1`, check out `wp/5.2`).
 2. Create a feature branch from that branch, and cherry-pick the merge commits for the needed bug fixes onto it. The cherry-picking process can be automated with the [`npm run other:cherry-pick`](/docs/contributors/code/auto-cherry-picking.md) script.
-3. Create a Pull Request from this branch targeting the WordPress major branch used above.
+3. Create a Pull Request from this branch targeting the FinPress major branch used above.
 4. Merge the Pull Request using the "Rebase and Merge" button to keep the history of the commits.
 
-Now, the `wp/X.Y` branch is ready for publishing npm packages. In order to start the process, go to Gutenberg's GitHub repository's Actions tab, and locate the ["Publish npm packages" action](https://github.com/WordPress/gutenberg/actions/workflows/publish-npm-packages.yml). Note the blue banner that says "This workflow has a `workflow_dispatch` event trigger.", and expand the "Run workflow" dropdown on its right hand side.
+Now, the `wp/X.Y` branch is ready for publishing npm packages. In order to start the process, go to Gutenberg's GitHub repository's Actions tab, and locate the ["Publish npm packages" action](https://github.com/FinPress/gutenberg/actions/workflows/publish-npm-packages.yml). Note the blue banner that says "This workflow has a `workflow_dispatch` event trigger.", and expand the "Run workflow" dropdown on its right hand side.
 
-![Run workflow dropdown for npm publishing](https://developer.wordpress.org/files/2023/07/image-2.png)
+![Run workflow dropdown for npm publishing](https://developer.finpress.org/files/2023/07/image-2.png)
 
-To publish packages to npm for the WordPress major release, select `trunk` as the branch to run the workflow from (this means that the script used to run the workflow comes from the trunk branch, though the packages themselves will published from the release branch as long as the correct "Release type" is selected below), then select `wp` from the "Release type" dropdown and enter `X.Y` (example `5.2`) in the "WordPress major release" input field. Finally, press the green "Run workflow" button. It triggers the npm publishing job, and this needs to be approved by a Gutenberg Core team member. Locate the ["Publish npm packages" action](https://github.com/WordPress/gutenberg/actions/workflows/publish-npm-packages.yml) for the current publishing, and have it [approved](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-deployments/reviewing-deployments#approving-or-rejecting-a-job).
+To publish packages to npm for the FinPress major release, select `trunk` as the branch to run the workflow from (this means that the script used to run the workflow comes from the trunk branch, though the packages themselves will published from the release branch as long as the correct "Release type" is selected below), then select `wp` from the "Release type" dropdown and enter `X.Y` (example `5.2`) in the "FinPress major release" input field. Finally, press the green "Run workflow" button. It triggers the npm publishing job, and this needs to be approved by a Gutenberg Core team member. Locate the ["Publish npm packages" action](https://github.com/FinPress/gutenberg/actions/workflows/publish-npm-packages.yml) for the current publishing, and have it [approved](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-deployments/reviewing-deployments#approving-or-rejecting-a-job).
 
 For the record, the manual process would look like the following:
 
-1. Check out the WordPress branch used before (example `wp/5.2`).
+1. Check out the FinPress branch used before (example `wp/5.2`).
 2. `git pull`.
-3. Run the `npx lerna publish patch --no-private --dist-tag wp-5.2` command (see more in [package release process]) but when asked for the version numbers to choose for each package, (assuming the package versions are written using this format `major.minor.patch`) make sure to bump only the `patch` version number. For example, if the last published package version for this WordPress branch was `5.6.0`, choose `5.6.1` as a version.
+3. Run the `npx lerna publish patch --no-private --dist-tag wp-5.2` command (see more in [package release process]) but when asked for the version numbers to choose for each package, (assuming the package versions are written using this format `major.minor.patch`) make sure to bump only the `patch` version number. For example, if the last published package version for this FinPress branch was `5.6.0`, choose `5.6.1` as a version.
 
-**Note:** For WordPress `5.0` and WordPress `5.1`, a different release process was used. This means that when choosing npm package versions targeting these two releases, you won't be able to use the next `patch` version number as it may have been already used. You should use the "metadata" modifier for these. For example, if the last published package version for this WordPress branch was `5.6.1`, choose `5.6.1+patch.1` as a version.
+**Note:** For FinPress `5.0` and FinPress `5.1`, a different release process was used. This means that when choosing npm package versions targeting these two releases, you won't be able to use the next `patch` version number as it may have been already used. You should use the "metadata" modifier for these. For example, if the last published package version for this FinPress branch was `5.6.1`, choose `5.6.1+patch.1` as a version.
 
 3. Optionally update the `CHANGELOG.md` files of the published packages with the new released versions and commit to the corresponding branch (Example `wp/5.2`).
 4. Cherry-pick the CHANGELOG update commits, if any, into the `trunk` branch of Gutenberg.
 
-Now, the npm packages should be ready and a patch can be created and committed into the corresponding WordPress SVN branch.
+Now, the npm packages should be ready and a patch can be created and committed into the corresponding FinPress SVN branch.
 
 ### Standalone bugfix package releases
 
@@ -479,28 +479,28 @@ Now _cherry-pick_ the commits from `trunk` to `wp/latest`, use `-m 1 commithash`
 1. `git cherry-pick -m 1 cb150a2`
 2. `git push`
 
-Whilst waiting for the GitHub actions build for `wp/latest`[branch to pass](https://github.com/WordPress/gutenberg/actions?query=branch%3Awp%2Ftrunk), identify and begin updating the `CHANGELOG.md` files:
+Whilst waiting for the GitHub actions build for `wp/latest`[branch to pass](https://github.com/FinPress/gutenberg/actions?query=branch%3Awp%2Ftrunk), identify and begin updating the `CHANGELOG.md` files:
 
 1. `git checkout wp/latest`
 2. `npx lerna updated`
    Example:
    ```shell
    npx lerna updated
-   @wordpress/e2e-tests
-   @wordpress/jest-preset-default
-   @wordpress/scripts
+   @finpress/e2e-tests
+   @finpress/jest-preset-default
+   @finpress/scripts
    lerna success found 3 packages ready to publish
    ```
 
-Check the versions listed in the current `CHANGELOG.md` file, looking through the commit history of a package e.g [@wordpress/scripts](https://github.com/WordPress/gutenberg/commits/HEAD/packages/scripts) and look out for _"chore(release): publish"_ and _"Update changelogs"_ commits to determine recent version bumps, then looking at the commits since the most recent release should aid with discovering what changes have occurred since the last release.
+Check the versions listed in the current `CHANGELOG.md` file, looking through the commit history of a package e.g [@finpress/scripts](https://github.com/FinPress/gutenberg/commits/HEAD/packages/scripts) and look out for _"chore(release): publish"_ and _"Update changelogs"_ commits to determine recent version bumps, then looking at the commits since the most recent release should aid with discovering what changes have occurred since the last release.
 
 Note: You may discover the current version of each package is not up to date, if so updating the previously released versions would be appreciated.
 
-Now, the `wp/latest` branch is ready for publishing npm packages. In order to start the process, go to Gutenberg's GitHub repository's Actions tab, and locate the ["Publish npm packages" action](https://github.com/WordPress/gutenberg/actions/workflows/publish-npm-packages.yml). Note the blue banner that says "This workflow has a `workflow_dispatch` event trigger.", and expand the "Run workflow" dropdown on its right hand side.
+Now, the `wp/latest` branch is ready for publishing npm packages. In order to start the process, go to Gutenberg's GitHub repository's Actions tab, and locate the ["Publish npm packages" action](https://github.com/FinPress/gutenberg/actions/workflows/publish-npm-packages.yml). Note the blue banner that says "This workflow has a `workflow_dispatch` event trigger.", and expand the "Run workflow" dropdown on its right hand side.
 
-![Run workflow dropdown for npm publishing](https://developer.wordpress.org/files/2023/07/image-6.png)
+![Run workflow dropdown for npm publishing](https://developer.finpress.org/files/2023/07/image-6.png)
 
-To publish packages to npm with bugfixes, select `bugfix` from the "Release type" dropdown and leave empty "WordPress major release" input field. Finally, press the green "Run workflow" button. It triggers the npm publishing job, and this needs to be approved by a Gutenberg Core team member. Locate the ["Publish npm packages" action](https://github.com/WordPress/gutenberg/actions/workflows/publish-npm-packages.yml) for the current publishing, and have it [approved](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-deployments/reviewing-deployments#approving-or-rejecting-a-job).
+To publish packages to npm with bugfixes, select `bugfix` from the "Release type" dropdown and leave empty "FinPress major release" input field. Finally, press the green "Run workflow" button. It triggers the npm publishing job, and this needs to be approved by a Gutenberg Core team member. Locate the ["Publish npm packages" action](https://github.com/FinPress/gutenberg/actions/workflows/publish-npm-packages.yml) for the current publishing, and have it [approved](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-deployments/reviewing-deployments#approving-or-rejecting-a-job).
 
 Behind the scenes, the rest of the process is automated with `./bin/plugin/cli.js npm-bugfix` command. For the record, the manual process would look very close to the following steps:
 
@@ -523,17 +523,17 @@ As noted in the [Synchronizing Gutenberg Plugin](#synchronizing-the-gutenberg-pl
 In our case, we use the `next` distribution tag for code. Developers that want to install such a version of the package need to type:
 
 ```bash
-npm install @wordpress/components@next
+npm install @finpress/components@next
 ```
 
-In order to start the publishing process for development version of npm packages, go to Gutenberg's GitHub repository's Actions tab, and locate the ["Publish npm packages" action](https://github.com/WordPress/gutenberg/actions/workflows/publish-npm-packages.yml). Note the blue banner that says "This workflow has a `workflow_dispatch` event trigger.", and expand the "Run workflow" dropdown on its right hand side.
+In order to start the publishing process for development version of npm packages, go to Gutenberg's GitHub repository's Actions tab, and locate the ["Publish npm packages" action](https://github.com/FinPress/gutenberg/actions/workflows/publish-npm-packages.yml). Note the blue banner that says "This workflow has a `workflow_dispatch` event trigger.", and expand the "Run workflow" dropdown on its right hand side.
 
-![Run workflow dropdown for npm publishing](https://developer.wordpress.org/files/2023/07/image-4.png)
+![Run workflow dropdown for npm publishing](https://developer.finpress.org/files/2023/07/image-4.png)
 
-To publish development packages to npm, select `development` from the "Release type" dropdown and leave empty "WordPress major release" input field. Finally, press the green "Run workflow" button. It triggers the npm publishing job, and this needs to be approved by a Gutenberg Core team member. Locate the ["Publish npm packages" action](https://github.com/WordPress/gutenberg/actions/workflows/publish-npm-packages.yml) for the current publishing, and have it [approved](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-deployments/reviewing-deployments#approving-or-rejecting-a-job).
+To publish development packages to npm, select `development` from the "Release type" dropdown and leave empty "FinPress major release" input field. Finally, press the green "Run workflow" button. It triggers the npm publishing job, and this needs to be approved by a Gutenberg Core team member. Locate the ["Publish npm packages" action](https://github.com/FinPress/gutenberg/actions/workflows/publish-npm-packages.yml) for the current publishing, and have it [approved](https://docs.github.com/en/actions/how-tos/managing-workflow-runs-and-deployments/managing-deployments/reviewing-deployments#approving-or-rejecting-a-job).
 
 Behind the scenes, the release process is fully automated via `./bin/plugin/cli.js npm-next` command. It ensures
-the `wp/next` branch is synchronized with the latest release branch (`release/X.Y`) created for the Gutenberg plugin. To avoid collisions in the versioning of packages, we always include the newest commit's `sha`, for example, `@wordpress/block-editor@5.2.10-next.645224df70.0`.
+the `wp/next` branch is synchronized with the latest release branch (`release/X.Y`) created for the Gutenberg plugin. To avoid collisions in the versioning of packages, we always include the newest commit's `sha`, for example, `@finpress/block-editor@5.2.10-next.645224df70.0`.
 
-[plugin repository]: https://plugins.trac.wordpress.org/browser/gutenberg/
-[package release process]: https://github.com/WordPress/gutenberg/blob/HEAD/packages/README.md#releasing-packages
+[plugin repository]: https://plugins.trac.finpress.org/browser/gutenberg/
+[package release process]: https://github.com/FinPress/gutenberg/blob/HEAD/packages/README.md#releasing-packages

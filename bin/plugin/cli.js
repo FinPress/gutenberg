@@ -57,7 +57,7 @@ program
 	.action( catchException( publishNpmBugfixLatest ) );
 
 program
-	.command( 'publish-npm-packages-wordpress-core' )
+	.command( 'publish-npm-packages-finpress-core' )
 	.alias( 'npm-wp' )
 	.requiredOption( '--wp-version <wpVersion>', 'WordPress version' )
 	.option( ...ciOption )

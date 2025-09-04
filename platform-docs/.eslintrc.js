@@ -1,7 +1,7 @@
 module.exports = {
 	root: true,
 	plugins: [ 'react' ],
-	extends: [ 'plugin:@wordpress/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@finpress/eslint-plugin/recommended' ],
 	settings: {
 		react: {
 			pragma: 'React',

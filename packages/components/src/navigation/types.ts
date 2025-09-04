@@ -244,7 +244,7 @@ export type NavigationMenuTitleSearchProps = Pick<
 	NavigationMenuProps,
 	'onSearch' | 'search' | 'title'
 > & {
-	// @see `speak` function from `@wordpress/a11y`
+	// @see `speak` function from `@finpress/a11y`
 	debouncedSpeak: (
 		message: string,
 		ariaLive?: 'off' | 'polite' | 'assertive'

@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { compose } from '@wordpress/compose';
-import { Popover, Button } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { withSelect, withDispatch } from '@wordpress/data';
-import { useCallback, useRef } from '@wordpress/element';
-import { close } from '@wordpress/icons';
+import { compose } from '@finpress/compose';
+import { Popover, Button } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { withSelect, withDispatch } from '@finpress/data';
+import { useCallback, useRef } from '@finpress/element';
+import { close } from '@finpress/icons';
 
 /**
  * Internal dependencies

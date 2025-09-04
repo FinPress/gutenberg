@@ -11,10 +11,10 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
-import fetchRequest from '@wordpress/api-fetch';
+import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
+import fetchRequest from '@finpress/api-fetch';
 
 /**
  * Internal dependencies
@@ -29,7 +29,7 @@ const getMockedReusableBlock = ( id ) => ( {
     <!-- /wp:heading -->
 
     <!-- wp:paragraph -->
-    <p><strong>Bold</strong> <em>Italic</em> <s>Striked</s> Superscript<sup>(1)</sup> Subscript<sub>(2)</sub> <a href="http://www.wordpress.org" target="_blank" rel="noreferrer noopener">Link</a></p>
+    <p><strong>Bold</strong> <em>Italic</em> <s>Striked</s> Superscript<sup>(1)</sup> Subscript<sub>(2)</sub> <a href="http://www.finpress.org" target="_blank" rel="noreferrer noopener">Link</a></p>
     <!-- /wp:paragraph -->
 
     !-- wp:heading {"level":4} -->

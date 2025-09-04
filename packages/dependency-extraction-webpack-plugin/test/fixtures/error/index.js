@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import $ from 'jquery';
-const apiFetch = await import( '@wordpress/api-fetch' );
+const apiFetch = await import( '@finpress/api-fetch' );
 
 $( () => {
 	apiFetch( { path: '/' } );

@@ -4,9 +4,9 @@
 import type { ReactNode } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { Icon } from '@wordpress/icons';
+import type { Icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

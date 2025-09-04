@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useRef } from '@wordpress/element';
+import { useState, useRef } from '@finpress/element';
 import {
 	createHigherOrderComponent,
 	useRefEffect,
 	useMergeRefs,
-} from '@wordpress/compose';
-import { isKeyboardEvent } from '@wordpress/keycodes';
-import type { WPKeycodeModifier } from '@wordpress/keycodes';
+} from '@finpress/compose';
+import { isKeyboardEvent } from '@finpress/keycodes';
+import type { WPKeycodeModifier } from '@finpress/keycodes';
 
 const defaultShortcuts = {
 	previous: [
@@ -120,7 +120,7 @@ export function useNavigateRegions( shortcuts: Shortcuts = defaultShortcuts ) {
  * and "Landmark Regions" in the [ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/).
  *
  * ```jsx
- * import { navigateRegions } from '@wordpress/components';
+ * import { navigateRegions } from '@finpress/components';
  *
  * const MyComponentWithNavigateRegions = navigateRegions( () => (
  * 	<div>

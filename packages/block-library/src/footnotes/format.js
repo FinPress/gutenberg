@@ -4,19 +4,19 @@
 import { v4 as createId } from 'uuid';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { formatListNumbered as icon } from '@wordpress/icons';
-import { insertObject } from '@wordpress/rich-text';
+import { __ } from '@finpress/i18n';
+import { formatListNumbered as icon } from '@finpress/icons';
+import { insertObject } from '@finpress/rich-text';
 import {
 	RichTextToolbarButton,
 	store as blockEditorStore,
 	privateApis,
-} from '@wordpress/block-editor';
-import { useSelect, useDispatch, useRegistry } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
-import { createBlock, store as blocksStore } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { useSelect, useDispatch, useRegistry } from '@finpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
+import { createBlock, store as blocksStore } from '@finpress/blocks';
 
 /**
  * Internal dependencies

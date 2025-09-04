@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BlockSettingsMenuControls } from '@wordpress/block-editor';
+import { BlockSettingsMenuControls } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

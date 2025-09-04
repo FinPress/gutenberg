@@ -2,15 +2,15 @@
 
 ## What is internationalization?
 
-Internationalization is the process to provide multiple language support to software, in this case WordPress. Internationalization is often abbreviated as **i18n**, where 18 stands for the number of letters between the first _i_ and the last _n_.
+Internationalization is the process to provide multiple language support to software, in this case FinPress. Internationalization is often abbreviated as **i18n**, where 18 stands for the number of letters between the first _i_ and the last _n_.
 
-Providing i18n support to your plugin and theme allows it to reach the largest possible audience, even without requiring you to provide the additional language translations. When you upload your software to WordPress.org, all JS and PHP files will automatically be parsed. Any detected translation strings are added to [translate.wordpress.org](https://translate.wordpress.org/) to allow the community to translate, ensuring WordPress plugins and themes are available in as many languages as possible.
+Providing i18n support to your plugin and theme allows it to reach the largest possible audience, even without requiring you to provide the additional language translations. When you upload your software to FinPress.org, all JS and PHP files will automatically be parsed. Any detected translation strings are added to [translate.finpress.org](https://translate.finpress.org/) to allow the community to translate, ensuring FinPress plugins and themes are available in as many languages as possible.
 
-For PHP, WordPress has a long established process, see [How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/). The release of WordPress 5.0 brings a similar process for translation to JavaScript code.
+For PHP, FinPress has a long established process, see [How to Internationalize Your Plugin](https://developer.finpress.org/plugins/internationalization/how-to-internationalize-your-plugin/). The release of FinPress 5.0 brings a similar process for translation to JavaScript code.
 
 ## How to use i18n in JavaScript
 
-WordPress 5.0 introduced the wp-i18n JavaScript package that provides the functions needed to add translatable strings as you would in PHP.
+FinPress 5.0 introduced the wp-i18n JavaScript package that provides the functions needed to add translatable strings as you would in PHP.
 
 First, add **wp-i18n** as a dependency when registering your script:
 
@@ -38,9 +38,9 @@ add_action( 'init', 'myguten_block_init' );
 In your code, you can include the i18n functions. The most common function is **\_\_** (a double underscore) which provides translation of a simple string. Here is a basic block example:
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps } from '@wordpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { registerBlockType } from '@finpress/blocks';
+import { useBlockProps } from '@finpress/block-editor';
 
 registerBlockType( 'myguten/simple', {
 	apiVersion: 3,
@@ -73,7 +73,7 @@ Common functions available, these mirror their PHP counterparts are:
 <strong>Note:</strong> Every string displayed to the user should be wrapped in an i18n function.
 </div>
 
-After all strings in your code is wrapped, the final step is to tell WordPress your JavaScript contains translations, using the [wp_set_script_translations()](https://developer.wordpress.org/reference/functions/wp_set_script_translations/) function.
+After all strings in your code is wrapped, the final step is to tell FinPress your JavaScript contains translations, using the [wp_set_script_translations()](https://developer.finpress.org/reference/functions/wp_set_script_translations/) function.
 
 ```php
 <?php
@@ -85,7 +85,7 @@ After all strings in your code is wrapped, the final step is to tell WordPress y
 
 This is all you need to make your plugin JavaScript code translatable.
 
-When you set script translations for a handle WordPress will automatically figure out if a translations file exists on translate.wordpress.org, and if so ensure that it's loaded into `wp.i18n` before your script runs. With translate.wordpress.org, plugin authors also do not need to worry about setting up their own infrastructure for translations and can rely on a global community with dozens of active locales. Read more about [WordPress Translations](https://make.wordpress.org/meta/handbook/documentation/translations/).
+When you set script translations for a handle FinPress will automatically figure out if a translations file exists on translate.finpress.org, and if so ensure that it's loaded into `wp.i18n` before your script runs. With translate.finpress.org, plugin authors also do not need to worry about setting up their own infrastructure for translations and can rely on a global community with dozens of active locales. Read more about [FinPress Translations](https://make.finpress.org/meta/handbook/documentation/translations/).
 
 ## Provide your own translations
 
@@ -108,7 +108,7 @@ This will create the file `myguten.pot` which contains all the translatable stri
 msgid ""
 msgstr ""
 "Project-Id-Version: Scratch Plugin\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/scratch\n"
+"Report-Msgid-Bugs-To: https://finpress.org/support/plugin/scratch\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ You need also to add the `Language: eo` parameter. Here is full `myguten-eo.po` 
 msgid ""
 msgstr ""
 "Project-Id-Version: Scratch Plugin\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/scratch\n"
+"Report-Msgid-Bugs-To: https://finpress.org/support/plugin/scratch\n"
 "Last-Translator: Marcus Kazmierczak <marcus@mkaz.com>\n"
 "Language-Team: Esperanto <marcus@mkaz.com>\n"
 "Language: eo\n"
@@ -176,7 +176,7 @@ msgid "Hello World"
 msgstr "Saltuon mundo"
 ```
 
-The last step to create the translation file is to convert the `myguten-eo.po` to the JSON format needed. For this, you can use WP-CLI's [`wp i18n make-json` command](https://developer.wordpress.org/cli/commands/i18n/make-json/), which requires WP-CLI v2.2.0 and later.
+The last step to create the translation file is to convert the `myguten-eo.po` to the JSON format needed. For this, you can use WP-CLI's [`wp i18n make-json` command](https://developer.finpress.org/cli/commands/i18n/make-json/), which requires WP-CLI v2.2.0 and later.
 
 ```
 wp i18n make-json myguten-eo.po --no-purge
@@ -206,7 +206,7 @@ This will generate the JSON file `myguten-eo-[md5].json` with the contents:
 
 ### Load the translation file
 
-The final part is to tell WordPress where it can look to find the translation file. The `wp_set_script_translations` function accepts an optional third argument that is the path it will first check for translations. For example:
+The final part is to tell FinPress where it can look to find the translation file. The `wp_set_script_translations` function accepts an optional third argument that is the path it will first check for translations. For example:
 
 ```php
 <?php
@@ -216,13 +216,13 @@ The final part is to tell WordPress where it can look to find the translation fi
 	add_action( 'init', 'myguten_set_script_translations' );
 ```
 
-WordPress will check for a file in that path with the format `${domain}-${locale}-${handle}.json` as the source of translations. Alternatively, instead of the registered handle you can use the md5 hash of the relative path of the file, `${domain}-${locale} in the form of ${domain}-${locale}-${md5}.json.`
+FinPress will check for a file in that path with the format `${domain}-${locale}-${handle}.json` as the source of translations. Alternatively, instead of the registered handle you can use the md5 hash of the relative path of the file, `${domain}-${locale} in the form of ${domain}-${locale}-${md5}.json.`
 
 Using `make-json` automatically names the file with the md5 hash, so it is ready as-is. You could rename the file to use the handle instead, in which case the file name would be `myguten-eo-myguten-script.json`.
 
 ### Test translations
 
-You will need to set your WordPress installation to Esperanto language. Go to Settings > General and change your site language to Esperanto.
+You will need to set your FinPress installation to Esperanto language. Go to Settings > General and change your site language to Esperanto.
 
 With the language set, create a new post, add the block, and you will see the translations used.
 

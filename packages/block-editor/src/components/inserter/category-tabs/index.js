@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { usePrevious, useReducedMotion } from '@wordpress/compose';
+import { usePrevious, useReducedMotion } from '@finpress/compose';
 import {
 	privateApis as componentsPrivateApis,
 	__unstableMotion as motion,
-} from '@wordpress/components';
-import { useState } from '@wordpress/element';
+} from '@finpress/components';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

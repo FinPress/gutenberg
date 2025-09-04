@@ -5,13 +5,13 @@ This feature is still experimental. “Experimental” means this is an early im
 </div>
 <br />
 
-![TextDecorationControl Element in Inspector Control](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/text-decoration-component.png?raw=true)
+![TextDecorationControl Element in Inspector Control](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/assets/text-decoration-component.png?raw=true)
 
 
 ## Usage
 
 ```jsx
-import { __experimentalTextDecorationControl as TextDecorationControl } from '@wordpress/block-editor';
+import { __experimentalTextDecorationControl as TextDecorationControl } from '@finpress/block-editor';
 ```
 
 Then, you can use the component in your block editor UI:

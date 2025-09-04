@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Editor - Multi-entity save flow', () => {
 	let originalSiteTitle, originalBlogDescription;
@@ -176,7 +176,7 @@ test.describe( 'Editor - Multi-entity save flow', () => {
 			.getByRole( 'document', {
 				name: 'Block: Site Tagline',
 			} )
-			.fill( 'Just another WordPress site' );
+			.fill( 'Just another FinPress site' );
 
 		const topBar = page.getByRole( 'region', { name: 'Editor top bar' } );
 		const publishPanel = page.getByRole( 'region', {

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { setBlockTypeImpressions } from '@wordpress/react-native-bridge';
+import { useSelect, useDispatch } from '@finpress/data';
+import { setBlockTypeImpressions } from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createHigherOrderComponent } from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
+import { createHigherOrderComponent } from '@finpress/compose';
+import { withSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

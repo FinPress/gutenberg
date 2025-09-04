@@ -4,9 +4,9 @@
 const { request } = require( '@playwright/test' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { RequestUtils } = require( '@wordpress/e2e-test-utils-playwright' );
+const { RequestUtils } = require( '@finpress/e2e-test-utils-playwright' );
 
 /**
  *

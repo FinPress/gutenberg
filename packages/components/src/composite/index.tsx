@@ -14,10 +14,10 @@
 import * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isRTL } from '@wordpress/i18n';
-import { useMemo, forwardRef } from '@wordpress/element';
+import { isRTL } from '@finpress/i18n';
+import { useMemo, forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ import type { CompositeProps } from './types';
  *
  * @example
  * ```jsx
- * import { Composite } from '@wordpress/components';
+ * import { Composite } from '@finpress/components';
  *
  * <Composite>
  *   <Composite.Item>Item 1</Composite.Item>
@@ -116,7 +116,7 @@ export const Composite = Object.assign(
 		 *
 		 * @example
 		 * ```jsx
-		 * import { Composite } from '@wordpress/components';
+		 * import { Composite } from '@finpress/components';
 		 *
 		 * <Composite>
 		 *   <Composite.Group>
@@ -137,7 +137,7 @@ export const Composite = Object.assign(
 		 *
 		 * @example
 		 * ```jsx
-		 * import { Composite } from '@wordpress/components';
+		 * import { Composite } from '@finpress/components';
 		 *
 		 * <Composite>
 		 *   <Composite.Group>
@@ -156,7 +156,7 @@ export const Composite = Object.assign(
 		 *
 		 * @example
 		 * ```jsx
-		 * import { Composite } from '@wordpress/components';
+		 * import { Composite } from '@finpress/components';
 		 *
 		 * <Composite>
 		 *   <Composite.Item>Item 1</Composite.Item>
@@ -173,7 +173,7 @@ export const Composite = Object.assign(
 		 *
 		 * @example
 		 * ```jsx
-		 * import { Composite } from '@wordpress/components';
+		 * import { Composite } from '@finpress/components';
 		 *
 		 * <Composite>
 		 *   <Composite.Row>
@@ -197,7 +197,7 @@ export const Composite = Object.assign(
 		 *
 		 * @example
 		 * ```jsx
-		 * import { Composite } from '@wordpress/components';
+		 * import { Composite } from '@finpress/components';
 		 *
 		 * <Composite>
 		 *   <Composite.Hover render={ <Composite.Item /> }>
@@ -219,7 +219,7 @@ export const Composite = Object.assign(
 		 *
 		 * @example
 		 * ```jsx
-		 * import { Composite } from '@wordpress/components';
+		 * import { Composite } from '@finpress/components';
 		 *
 		 * <Composite render={ <CompositeTypeahead /> }>
 		 *   <Composite.Item>Item 1</Composite.Item>
@@ -238,8 +238,8 @@ export const Composite = Object.assign(
 		 *
 		 * @example
 		 * ```jsx
-		 * import { Composite } from '@wordpress/components';
-		 * import { useContext } from '@wordpress/element';
+		 * import { Composite } from '@finpress/components';
+		 * import { useContext } from '@finpress/element';
 		 *
 		 * const compositeContext = useContext( Composite.Context );
 		 * ```

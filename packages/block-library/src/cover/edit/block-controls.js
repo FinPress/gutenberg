@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 import {
 	BlockControls,
@@ -9,8 +9,8 @@ import {
 	__experimentalBlockAlignmentMatrixControl as BlockAlignmentMatrixControl,
 	__experimentalBlockFullHeightAligmentControl as FullHeightAlignmentControl,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

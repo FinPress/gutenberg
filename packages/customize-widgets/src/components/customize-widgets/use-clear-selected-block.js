@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { useEffect } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * We can't just use <BlockSelectionClearer> because the customizer has

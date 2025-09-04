@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 async function getOptionsValues( selector, admin, page ) {
 	await admin.visitAdminPage( 'options.php' );
@@ -15,7 +15,7 @@ async function getOptionsValues( selector, admin, page ) {
 }
 
 // It might make sense to include a similar test in WP core (or move this one over).
-// See discussion here: https://github.com/WordPress/gutenberg/pull/32797#issuecomment-864192088.
+// See discussion here: https://github.com/FinPress/gutenberg/pull/32797#issuecomment-864192088.
 test.describe( 'Settings', () => {
 	test( 'Regression: updating a specific option will only change its value and will not corrupt others', async ( {
 		page,

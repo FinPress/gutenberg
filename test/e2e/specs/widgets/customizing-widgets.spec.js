@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 const {
 	test,
 	expect,
 	Admin,
-} = require( '@wordpress/e2e-test-utils-playwright' );
+} = require( '@finpress/e2e-test-utils-playwright' );
 
 /**
  * @typedef {import('@playwright/test').Page} Page
  * @typedef {import('@playwright/test').FrameLocator} FrameLocator
- * @typedef {import('@wordpress/e2e-test-utils-playwright').PageUtils} PageUtils
- * @typedef {import('@wordpress/e2e-test-utils-playwright').RequestUtils} RequestUtils
- * @typedef {import('@wordpress/e2e-test-utils-playwright').Editor} Editor
+ * @typedef {import('@finpress/e2e-test-utils-playwright').PageUtils} PageUtils
+ * @typedef {import('@finpress/e2e-test-utils-playwright').RequestUtils} RequestUtils
+ * @typedef {import('@finpress/e2e-test-utils-playwright').Editor} Editor
  */
 
 test.use( {
@@ -573,7 +573,7 @@ test.describe( 'Widgets Customizer', () => {
 		).toBeVisible();
 	} );
 
-	// Check for regressions of https://github.com/WordPress/gutenberg/issues/33832.
+	// Check for regressions of https://github.com/FinPress/gutenberg/issues/33832.
 	test( 'preserves content in the Custom HTML block', async ( {
 		page,
 		widgetsCustomizerPage,

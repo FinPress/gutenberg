@@ -4,7 +4,7 @@
 import { Animated, View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useCallback,
@@ -12,9 +12,9 @@ import {
 	useMemo,
 	useRef,
 	useState,
-} from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { SegmentedControl } from '@wordpress/components';
+} from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { SegmentedControl } from '@finpress/components';
 
 /**
  * Internal dependencies

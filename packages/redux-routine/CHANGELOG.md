@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,7 +64,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 4.58.0 (2024-05-16)
 
@@ -152,13 +152,13 @@
 
 ### Internal
 
--   Lodash: Remove completely from `@wordpress/redux-routine` package ([#43741](https://github.com/WordPress/gutenberg/pull/43741)).
+-   Lodash: Remove completely from `@finpress/redux-routine` package ([#43741](https://github.com/FinPress/gutenberg/pull/43741)).
 
 ## 4.16.0 (2022-08-24)
 
 ### Bug Fixes
 
--   Packages: Replace `is-plain-obj` with `is-plain-object` ([#43511](https://github.com/WordPress/gutenberg/pull/43511)).
+-   Packages: Replace `is-plain-obj` with `is-plain-object` ([#43511](https://github.com/FinPress/gutenberg/pull/43511)).
 
 ## 4.15.0 (2022-08-10)
 
@@ -198,8 +198,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ## 3.14.0 (2021-03-17)
 
@@ -207,16 +207,16 @@
 
 ### Bug Fixes
 
--   Change the `isGenerator` check for better compatibility with generator helper libraries ([#19666](https://github.com/WordPress/gutenberg/pull/19666)).
+-   Change the `isGenerator` check for better compatibility with generator helper libraries ([#19666](https://github.com/FinPress/gutenberg/pull/19666)).
 
 ## 3.1.0 (2019-03-06)
 
 ### Bug Fixes
 
--   Fix unhandled promise rejection error caused by returning null from registered generator ([#13314](https://github.com/WordPress/gutenberg/pull/13314))
+-   Fix unhandled promise rejection error caused by returning null from registered generator ([#13314](https://github.com/FinPress/gutenberg/pull/13314))
 -   The middleware will no longer attempt to coerce an error to an instance of `Error`, and instead passes through the thrown value directly. This resolves issues where an `Error` would be thrown when the underlying values were not of type `Error` or `string` (e.g. a thrown object) and the message would end up not being useful (e.g. `[Object object]`).
-    ([#13315](https://github.com/WordPress/gutenberg/pull/13315))
--   Fix unintended recursion when invoking sync routine ([#13818](https://github.com/WordPress/gutenberg/pull/13818))
+    ([#13315](https://github.com/FinPress/gutenberg/pull/13315))
+-   Fix unintended recursion when invoking sync routine ([#13818](https://github.com/FinPress/gutenberg/pull/13818))
 
 ## 3.0.3 (2018-10-19)
 
@@ -241,4 +241,4 @@
 
 ### Breaking Changes
 
--   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
+-   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.

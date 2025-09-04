@@ -5,13 +5,13 @@ import clsx from 'clsx';
 import type { ForwardedRef, KeyboardEvent, MouseEvent } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, forwardRef } from '@wordpress/element';
-import { isRTL, __ } from '@wordpress/i18n';
-import { plus as plusIcon, reset as resetIcon } from '@wordpress/icons';
-import { useMergeRefs } from '@wordpress/compose';
-import deprecated from '@wordpress/deprecated';
+import { useRef, forwardRef } from '@finpress/element';
+import { isRTL, __ } from '@finpress/i18n';
+import { plus as plusIcon, reset as resetIcon } from '@finpress/icons';
+import { useMergeRefs } from '@finpress/compose';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import { Input, SpinButton, styles } from './styles/number-control-styles';
 import * as inputControlActionTypes from '../input-control/reducer/actions';
 import { add, subtract, clamp, ensureValidStep } from '../utils/math';
 import { ensureNumber, isValueEmpty } from '../utils/values';
-import type { WordPressComponentProps } from '../context/wordpress-component';
+import type { WordPressComponentProps } from '../context/finpress-component';
 import type { NumberControlProps } from './types';
 import { HStack } from '../h-stack';
 import { Spacer } from '../spacer';

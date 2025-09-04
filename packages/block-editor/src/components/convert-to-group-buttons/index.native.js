@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { switchToBlockType } from '@wordpress/blocks';
-import { useDispatch } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
+import { __, _x } from '@finpress/i18n';
+import { switchToBlockType } from '@finpress/blocks';
+import { useDispatch } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

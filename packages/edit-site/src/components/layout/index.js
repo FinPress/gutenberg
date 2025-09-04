@@ -4,34 +4,34 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__unstableMotion as motion,
 	__unstableAnimatePresence as AnimatePresence,
 	__unstableUseNavigateRegions as useNavigateRegions,
 	SlotFillProvider,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	useReducedMotion,
 	useViewportMatch,
 	useResizeObserver,
 	usePrevious,
-} from '@wordpress/compose';
-import { __, sprintf } from '@wordpress/i18n';
-import { useState, useRef, useEffect } from '@wordpress/element';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+} from '@finpress/compose';
+import { __, sprintf } from '@finpress/i18n';
+import { useState, useRef, useEffect } from '@finpress/element';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 import {
 	EditorSnackbars,
 	UnsavedChangesWarning,
 	ErrorBoundary,
 	privateApis as editorPrivateApis,
-} from '@wordpress/editor';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { PluginArea } from '@wordpress/plugins';
-import { store as noticesStore } from '@wordpress/notices';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/editor';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { PluginArea } from '@finpress/plugins';
+import { store as noticesStore } from '@finpress/notices';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies

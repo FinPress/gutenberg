@@ -4,7 +4,7 @@
 import { Platform, findNodeHandle } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getClipboard,
@@ -12,7 +12,7 @@ import {
 	ToolbarGroup,
 	ToolbarButton,
 	Picker,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	getBlockType,
 	getDefaultBlockName,
@@ -22,17 +22,17 @@ import {
 	createBlock,
 	isUnmodifiedDefaultBlock,
 	isReusableBlock,
-} from '@wordpress/blocks';
-import { __, sprintf } from '@wordpress/i18n';
-import { withDispatch, withSelect, useSelect } from '@wordpress/data';
-import { withInstanceId, compose } from '@wordpress/compose';
-import { moreHorizontal } from '@wordpress/icons';
-import { useRef, useState } from '@wordpress/element';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as reusableBlocksStore } from '@wordpress/reusable-blocks';
+} from '@finpress/blocks';
+import { __, sprintf } from '@finpress/i18n';
+import { withDispatch, withSelect, useSelect } from '@finpress/data';
+import { withInstanceId, compose } from '@finpress/compose';
+import { moreHorizontal } from '@finpress/icons';
+import { useRef, useState } from '@finpress/element';
+import { store as noticesStore } from '@finpress/notices';
+import { store as reusableBlocksStore } from '@finpress/reusable-blocks';
 // Disable Reason: Needs to be refactored.
 // eslint-disable-next-line no-restricted-imports
-import { store as coreStore } from '@wordpress/core-data';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

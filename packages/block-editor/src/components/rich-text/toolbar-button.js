@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Fill, ToolbarButton } from '@wordpress/components';
-import { displayShortcut } from '@wordpress/keycodes';
+import { Fill, ToolbarButton } from '@finpress/components';
+import { displayShortcut } from '@finpress/keycodes';
 
 export function RichTextToolbarButton( {
 	name,

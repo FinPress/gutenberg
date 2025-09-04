@@ -4,11 +4,11 @@
 import { TouchableWithoutFeedback, View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { useState } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

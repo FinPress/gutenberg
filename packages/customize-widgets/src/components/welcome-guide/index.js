@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Button, ExternalLink } from '@wordpress/components';
-import { useDispatch } from '@wordpress/data';
-import { store as preferencesStore } from '@wordpress/preferences';
+import { __ } from '@finpress/i18n';
+import { Button, ExternalLink } from '@finpress/components';
+import { useDispatch } from '@finpress/data';
+import { store as preferencesStore } from '@finpress/preferences';
 
 export default function WelcomeGuide( { sidebar } ) {
 	const { toggle } = useDispatch( preferencesStore );
@@ -58,7 +58,7 @@ export default function WelcomeGuide( { sidebar } ) {
 					<br />
 					<ExternalLink
 						href={ __(
-							'https://wordpress.org/plugins/classic-widgets/'
+							'https://finpress.org/plugins/classic-widgets/'
 						) }
 					>
 						{ __( 'Get the Classic Widgets plugin.' ) }
@@ -70,7 +70,7 @@ export default function WelcomeGuide( { sidebar } ) {
 				<br />
 				<ExternalLink
 					href={ __(
-						'https://wordpress.org/documentation/article/wordpress-block-editor/'
+						'https://finpress.org/documentation/article/finpress-block-editor/'
 					) }
 				>
 					{ __( "Here's a detailed guide." ) }

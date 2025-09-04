@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	category,
@@ -7,7 +7,7 @@ import {
 	postList,
 	tag,
 	customPostType,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 function getIcon( variationName ) {
 	switch ( variationName ) {

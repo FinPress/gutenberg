@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useRef,
@@ -12,17 +12,17 @@ import {
 	forwardRef,
 	createContext,
 	useContext,
-} from '@wordpress/element';
-import { useDispatch, useRegistry, useSelect } from '@wordpress/data';
-import { useMergeRefs, useInstanceId } from '@wordpress/compose';
+} from '@finpress/element';
+import { useDispatch, useRegistry, useSelect } from '@finpress/data';
+import { useMergeRefs, useInstanceId } from '@finpress/compose';
 import {
 	__unstableUseRichText as useRichText,
 	removeFormat,
-} from '@wordpress/rich-text';
-import { Popover } from '@wordpress/components';
-import { getBlockBindingsSource } from '@wordpress/blocks';
-import deprecated from '@wordpress/deprecated';
-import { __, sprintf } from '@wordpress/i18n';
+} from '@finpress/rich-text';
+import { Popover } from '@finpress/components';
+import { getBlockBindingsSource } from '@finpress/blocks';
+import deprecated from '@finpress/deprecated';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -521,7 +521,7 @@ PrivateRichText.isEmpty = ( value ) => {
 // This is the public API for the RichText component.
 // We wrap the PrivateRichText component to hide some props from the public API.
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md
  */
 const PublicForwardedRichTextContainer = forwardRef( ( props, ref ) => {
 	const context = useBlockEditContext();

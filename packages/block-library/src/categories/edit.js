@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Placeholder,
@@ -14,19 +14,19 @@ import {
 	VisuallyHidden,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
+} from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
 import {
 	InspectorControls,
 	useBlockProps,
 	RichText,
-} from '@wordpress/block-editor';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __, sprintf } from '@wordpress/i18n';
-import { pin } from '@wordpress/icons';
-import { useEntityRecords } from '@wordpress/core-data';
-import { useDispatch } from '@wordpress/data';
-import { store as noticeStore } from '@wordpress/notices';
+} from '@finpress/block-editor';
+import { decodeEntities } from '@finpress/html-entities';
+import { __, sprintf } from '@finpress/i18n';
+import { pin } from '@finpress/icons';
+import { useEntityRecords } from '@finpress/core-data';
+import { useDispatch } from '@finpress/data';
+import { store as noticeStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

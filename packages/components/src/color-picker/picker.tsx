@@ -5,9 +5,9 @@ import { RgbStringColorPicker, RgbaStringColorPicker } from 'react-colorful';
 import { colord } from 'colord';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo } from '@finpress/element';
 /**
  * Internal dependencies
  */

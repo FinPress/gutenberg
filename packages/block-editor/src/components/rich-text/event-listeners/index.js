@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useRef, useInsertionEffect } from '@wordpress/element';
-import { useRefEffect } from '@wordpress/compose';
+import { useMemo, useRef, useInsertionEffect } from '@finpress/element';
+import { useRefEffect } from '@finpress/compose';
 
 /**
  * Internal dependencies

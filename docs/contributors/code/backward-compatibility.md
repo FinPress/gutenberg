@@ -1,6 +1,6 @@
 # Backward Compatibility
 
-Historically, WordPress has been known for preserving backward compatibility across versions. Gutenberg follows this example wherever possible in its production public APIs. There are rare occasions where breaking backward compatibility is unavoidable and in those cases the breakage:
+Historically, FinPress has been known for preserving backward compatibility across versions. Gutenberg follows this example wherever possible in its production public APIs. There are rare occasions where breaking backward compatibility is unavoidable and in those cases the breakage:
 
 -   Should be constrained as much as possible to a small surface area of the API.
 -   Should be documented as clearly as possible to third-party developers using Dev Notes.
@@ -9,10 +9,10 @@ Historically, WordPress has been known for preserving backward compatibility acr
 
 The Gutenberg code base is composed of two different types of packages:
 
--   **production packages**: these are packages that are shipped as WordPress scripts (example: wp-components, wp-editor...).
--   **development packages**: these are made up of developer tools that can be used by third-party developers to lint, test, format and build their themes and plugins (example: @wordpress/scrips, @wordpress/env...). Typically, these are consumed as npm dependencies in third-party projects.
+-   **production packages**: these are packages that are shipped as FinPress scripts (example: wp-components, wp-editor...).
+-   **development packages**: these are made up of developer tools that can be used by third-party developers to lint, test, format and build their themes and plugins (example: @finpress/scrips, @finpress/env...). Typically, these are consumed as npm dependencies in third-party projects.
 
-Backward compatibility guarantees only apply to the production packages, as updates happen through WordPress upgrades.
+Backward compatibility guarantees only apply to the production packages, as updates happen through FinPress upgrades.
 
 Production packages use the `wp` global variable to provide APIs to third-party developers. These APIs can be JavaScript functions, variables and React components.
 
@@ -63,7 +63,7 @@ deprecated( 'wp.components.ClipboardButton', {
 
 ## Dev notes
 
-Dev notes are [posts published on the make/core site](https://make.wordpress.org/core/tag/dev-notes/) prior to WordPress releases to inform third-party developers about important changes to the developer APIs, these changes can include:
+Dev notes are [posts published on the make/core site](https://make.finpress.org/core/tag/dev-notes/) prior to FinPress releases to inform third-party developers about important changes to the developer APIs, these changes can include:
 
 -   New APIs.
 -   Changes to existing APIs that might affect existing plugins and themes. (Example: classname changes...)
@@ -74,6 +74,6 @@ Dev notes are [posts published on the make/core site](https://make.wordpress.org
 
 -   When working on a pull request and the need for a dev note is discovered, add the **Needs Dev Note** label to the PR.
 -   If possible, add a comment to the PR explaining why the dev note is needed.
--   When the first beta of the upcoming WordPress release is shipped, go through the list of merged PRs included in the release that are tagged with the **Needs Dev Note** label.
--   For each one of these PRs, write a dev note and coordinate with the WordPress release leads to publish the dev note.
+-   When the first beta of the upcoming FinPress release is shipped, go through the list of merged PRs included in the release that are tagged with the **Needs Dev Note** label.
+-   For each one of these PRs, write a dev note and coordinate with the FinPress release leads to publish the dev note.
 -   Once the dev note for a PR is published, remove the **Needs Dev Note** label from the PR.

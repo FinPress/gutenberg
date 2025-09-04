@@ -4,18 +4,18 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Icon, __experimentalHStack as HStack } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useState, useMemo } from '@wordpress/element';
-import { decodeEntities } from '@wordpress/html-entities';
-import { parse } from '@wordpress/blocks';
+import { Icon, __experimentalHStack as HStack } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useState, useMemo } from '@finpress/element';
+import { decodeEntities } from '@finpress/html-entities';
+import { parse } from '@finpress/blocks';
 import {
 	BlockPreview,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { EditorProvider } from '@wordpress/editor';
+} from '@finpress/block-editor';
+import { EditorProvider } from '@finpress/editor';
 
 /**
  * Internal dependencies

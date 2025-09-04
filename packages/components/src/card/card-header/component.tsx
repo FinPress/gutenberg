@@ -25,7 +25,7 @@ function UnconnectedCardHeader(
  * `CardHeader` renders an optional header within a `Card`.
  *
  * ```jsx
- * import { Card, CardBody, CardHeader } from `@wordpress/components`;
+ * import { Card, CardBody, CardHeader } from `@finpress/components`;
  *
  * <Card>
  * 	<CardHeader>...</CardHeader>

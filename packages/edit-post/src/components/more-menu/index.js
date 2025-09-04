@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useViewportMatch } from '@wordpress/compose';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
-import { displayShortcut } from '@wordpress/keycodes';
-import { PreferenceToggleMenuItem } from '@wordpress/preferences';
+import { __ } from '@finpress/i18n';
+import { useViewportMatch } from '@finpress/compose';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
+import { displayShortcut } from '@finpress/keycodes';
+import { PreferenceToggleMenuItem } from '@finpress/preferences';
 
 /**
  * Internal dependencies

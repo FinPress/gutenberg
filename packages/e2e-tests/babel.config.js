@@ -2,6 +2,6 @@ module.exports = ( api ) => {
 	api.cache( true );
 
 	return {
-		presets: [ '@wordpress/babel-preset-default' ],
+		presets: [ '@finpress/babel-preset-default' ],
 	};
 };

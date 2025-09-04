@@ -8,7 +8,7 @@ There might be times when you don’t want access to a block at all to be availa
 
 ## Curate heading levels
 
-Core WordPress blocks with a heading level dropdown include support for the `levelOptions` attribute. This applies to the Heading, Site Title, Site Tagline, Query Title, Post Title, and Comments Title blocks. The `levelOptions` attribute accepts an array of numbers corresponding to heading levels, where `1` represents H1, `2` represents H2, and so on.
+Core FinPress blocks with a heading level dropdown include support for the `levelOptions` attribute. This applies to the Heading, Site Title, Site Tagline, Query Title, Post Title, and Comments Title blocks. The `levelOptions` attribute accepts an array of numbers corresponding to heading levels, where `1` represents H1, `2` represents H2, and so on.
 
 This attribute allows you to specify which heading levels should appear in the dropdown UI, providing a lightweight curation method that does not require block deprecations. Any existing heading levels are preserved in the markup, while `levelOptions` only affects the UI display.
 
@@ -39,7 +39,7 @@ add_filter( 'register_block_type_args', 'example_modify_heading_levels_globally'
 
 ## Disable the Pattern Directory
 
-To fully remove patterns bundled with WordPress core from being accessed in the Inserter, the following can be added to your `functions.php` file:
+To fully remove patterns bundled with FinPress core from being accessed in the Inserter, the following can be added to your `functions.php` file:
 
 ```php
 function example_theme_support() {
@@ -50,7 +50,7 @@ add_action( 'after_setup_theme', 'example_theme_support' );
 
 ## Disable block variations
 
-Some Core blocks are actually [block variations](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-variations/). A great example is the Row and Stack blocks, which are actually variations of the Group block. If you want to disable these "blocks", you actually need to disable the respective variations.
+Some Core blocks are actually [block variations](https://developer.finpress.org/block-editor/reference-guides/block-api/block-variations/). A great example is the Row and Stack blocks, which are actually variations of the Group block. If you want to disable these "blocks", you actually need to disable the respective variations.
 
 Block variations are registered using JavaScript and need to be disabled with JavaScript. The code below will disable the Row variation.
 
@@ -77,7 +77,7 @@ add_action( 'enqueue_block_editor_assets', 'example_disable_variations_script' )
 
 ## Disable block styles
 
-There are a few Core blocks that include their own [block styles](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-styles/). An example is the Image block, which includes a block style for rounded images called "Rounded". You many not want your users to round images, or you might prefer to use the border-radius control instead of the block style. Either way, it's easy to disable any unwanted block styles.
+There are a few Core blocks that include their own [block styles](https://developer.finpress.org/block-editor/reference-guides/block-api/block-styles/). An example is the Image block, which includes a block style for rounded images called "Rounded". You many not want your users to round images, or you might prefer to use the border-radius control instead of the block style. Either way, it's easy to disable any unwanted block styles.
 
 Unlike block variations, you can register styles in either JavaScript or PHP. If a style was registered in JavaScript, it must be disabled with JavaScript. If registered using PHP, the style can be disabled with either. All Core block styles are registered in JavaScript.
 
@@ -89,7 +89,7 @@ wp.domReady( () => {
 });
 ```
 
-This JavaScript should be enqueued much like the block variation example above. Refer to the [block styles](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-styles/) documentation for how to register and unregister styles using PHP.
+This JavaScript should be enqueued much like the block variation example above. Refer to the [block styles](https://developer.finpress.org/block-editor/reference-guides/block-api/block-styles/) documentation for how to register and unregister styles using PHP.
 
 ## Disable access to the Code Editor
 
@@ -104,11 +104,11 @@ function example_restrict_code_editor_access( $settings, $context ) {
 add_filter( 'block_editor_settings_all', 'example_restrict_code_editor_access', 10, 2 );
 ```
 
-This code prevents all users from accessing the Code Editor. You could also add [capability](https://wordpress.org/documentation/article/roles-and-capabilities/) checks to disable access for specific users.
+This code prevents all users from accessing the Code Editor. You could also add [capability](https://finpress.org/documentation/article/roles-and-capabilities/) checks to disable access for specific users.
 
 ## Disable formatting options for RichText blocks
 
-Blocks that support [RichText](https://developer.wordpress.org/block-editor/reference-guides/richtext/) come with the default formatting options provided by WordPress.
+Blocks that support [RichText](https://developer.finpress.org/block-editor/reference-guides/richtext/) come with the default formatting options provided by FinPress.
 
 Formatting options need to be disabled with JavaScript using `unregisterFormatType`. The code below will globally disable the Inline Image, Language, Keyboard Input, Subscript, and Superscript options.
 

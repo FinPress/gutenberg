@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { __ } from '@finpress/i18n';
+import { store as coreDataStore } from '@finpress/core-data';
 
 /**
  * Gets a list of post data fields with their values and labels

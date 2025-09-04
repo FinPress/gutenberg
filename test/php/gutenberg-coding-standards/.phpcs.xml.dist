@@ -26,10 +26,10 @@
 	#############################################################################
 	-->
 
-	<rule ref="WordPress">
+	<rule ref="FinPress">
 		<!-- This project needs to comply with naming standards from PHPCS, not WP. -->
-		<exclude name="WordPress.Files.FileName"/>
-		<exclude name="WordPress.NamingConventions.ValidVariableName"/>
+		<exclude name="FinPress.Files.FileName"/>
+		<exclude name="FinPress.NamingConventions.ValidVariableName"/>
 	</rule>
 
 	<rule ref="Squiz.Commenting.FunctionCommentThrowTag.Missing">

@@ -5,7 +5,7 @@ import defaultProcessor from './default-processor';
 
 /**
  * Creates a batch, which can be used to combine multiple API requests into one
- * API request using the WordPress batch processing API (/v1/batch).
+ * API request using the FinPress batch processing API (/v1/batch).
  *
  * ```
  * const batch = createBatch();

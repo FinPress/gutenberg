@@ -1,6 +1,6 @@
-# No WordPress process.env (no-wp-process-env)
+# No FinPress process.env (no-wp-process-env)
 
-WordPress globals were accessed via `process.env` in the past. This practice created difficulty for
+FinPress globals were accessed via `process.env` in the past. This practice created difficulty for
 package consumers and was removed.
 
 The correct way to access these globals is now via `globalThis`, e.g. `globalThis.SCRIPT_DEBUG`.

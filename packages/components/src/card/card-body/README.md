@@ -5,7 +5,7 @@
 ## Usage
 
 ```jsx
-import { Card, CardBody } from '@wordpress/components';
+import { Card, CardBody } from '@finpress/components';
 
 const Example = () => (
 	<Card>

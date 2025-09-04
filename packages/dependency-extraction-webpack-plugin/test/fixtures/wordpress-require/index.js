@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { isBlobURL } = require( '@wordpress/blob' );
+const { isBlobURL } = require( '@finpress/blob' );
 
 /**
  * External dependencies

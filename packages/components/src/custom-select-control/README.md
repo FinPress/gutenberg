@@ -12,7 +12,7 @@ These are the same as [the ones for `SelectControl`s](/packages/components/src/s
 
 ```jsx
 import { useState } from 'react';
-import { CustomSelectControl } from '@wordpress/components';
+import { CustomSelectControl } from '@finpress/components';
 
 const options = [
 	{

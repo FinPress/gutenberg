@@ -6,11 +6,11 @@ import namesPlugin from 'colord/plugins/names';
 import a11yPlugin from 'colord/plugins/a11y';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { SVG } from '@wordpress/components';
-import { useCallback, useMemo, memo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { SVG } from '@finpress/components';
+import { useCallback, useMemo, memo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

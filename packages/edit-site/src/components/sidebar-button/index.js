@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
+import { Button } from '@finpress/components';
 
 export default function SidebarButton( props ) {
 	return (

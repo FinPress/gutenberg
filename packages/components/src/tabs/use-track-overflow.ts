@@ -1,9 +1,9 @@
 /* eslint-disable jsdoc/require-param */
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
-import { useEvent } from '@wordpress/compose';
+import { useState, useEffect } from '@finpress/element';
+import { useEvent } from '@finpress/compose';
 
 /**
  * Tracks if an element contains overflow and on which end by tracking the

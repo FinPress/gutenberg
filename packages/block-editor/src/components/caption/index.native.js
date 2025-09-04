@@ -4,11 +4,11 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
-import { RichText } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
+import { createBlock } from '@finpress/blocks';
+import { RichText } from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
 
 const Caption = ( {
 	accessibilityLabelCreator,

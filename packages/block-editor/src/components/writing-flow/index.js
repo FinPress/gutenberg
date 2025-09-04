@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { useMergeRefs, useRefEffect } from '@wordpress/compose';
-import { forwardRef } from '@wordpress/element';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { useMergeRefs, useRefEffect } from '@finpress/compose';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies

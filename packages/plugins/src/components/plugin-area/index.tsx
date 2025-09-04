@@ -4,11 +4,11 @@
 import memoize from 'memize';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useSyncExternalStore } from '@wordpress/element';
-import { addAction, removeAction } from '@wordpress/hooks';
-import isShallowEqual from '@wordpress/is-shallow-equal';
+import { useMemo, useSyncExternalStore } from '@finpress/element';
+import { addAction, removeAction } from '@finpress/hooks';
+import isShallowEqual from '@finpress/is-shallow-equal';
 
 /**
  * Internal dependencies
@@ -51,7 +51,7 @@ const getPluginContext = memoize(
  * @example
  * ```js
  * // Using ESNext syntax
- * import { PluginArea } from '@wordpress/plugins';
+ * import { PluginArea } from '@finpress/plugins';
  *
  * const Layout = () => (
  * 	<div>

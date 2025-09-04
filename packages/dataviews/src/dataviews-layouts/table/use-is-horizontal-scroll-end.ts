@@ -4,11 +4,11 @@
 import type { MutableRefObject } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDebounce } from '@wordpress/compose';
-import { useCallback, useEffect, useState } from '@wordpress/element';
-import { isRTL } from '@wordpress/i18n';
+import { useDebounce } from '@finpress/compose';
+import { useCallback, useEffect, useState } from '@finpress/element';
+import { isRTL } from '@finpress/i18n';
 
 const isScrolledToEnd = ( element: Element ) => {
 	if ( isRTL() ) {

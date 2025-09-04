@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addQueryArgs, hasQueryArg } from '@wordpress/url';
+import { addQueryArgs, hasQueryArg } from '@finpress/url';
 
 /**
  * Internal dependencies

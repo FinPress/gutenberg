@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 import {
 	useMemo,
 	createContext,
 	useReducer,
 	useLayoutEffect,
-} from '@wordpress/element';
-import { Popover } from '@wordpress/components';
-import { isRTL } from '@wordpress/i18n';
+} from '@finpress/element';
+import { Popover } from '@finpress/components';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies

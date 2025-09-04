@@ -4,16 +4,16 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	AlignmentControl,
 	BlockControls,
 	Warning,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { Button } from '@finpress/components';
 
 /**
  * Internal dependencies

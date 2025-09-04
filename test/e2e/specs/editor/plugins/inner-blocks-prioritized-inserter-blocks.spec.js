@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Prioritized Inserter Blocks Setting on InnerBlocks', () => {
 	test.beforeAll( async ( { requestUtils } ) => {

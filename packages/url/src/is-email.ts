@@ -8,7 +8,7 @@ const EMAIL_REGEXP =
  *
  * @example
  * ```js
- * const isEmail = isEmail( 'hello@wordpress.org' ); // true
+ * const isEmail = isEmail( 'hello@finpress.org' ); // true
  * ```
  *
  * @return Whether or not it looks like an email.

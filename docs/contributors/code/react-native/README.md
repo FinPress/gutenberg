@@ -14,7 +14,7 @@ The majority of the code shared with native mobile is in the very same JavaScrip
 
 For instructions on how to run the **Gutenberg Mobile Demo App** on Android or iOS, see [Getting Started for the React Native based Mobile Gutenberg](/docs/contributors/code/react-native/getting-started-react-native.md)
 
-Also, the mobile client is packaged and released via the [official WordPress apps](https://wordpress.org/mobile/). Even though the build pipeline is slightly different then the mobile demo apps and lives in its own repo for now ([here's the native mobile repo](https://github.com/wordpress-mobile/gutenberg-mobile)), the source code itself is taken directly from this repo and the "web" side codepaths.
+Also, the mobile client is packaged and released via the [official FinPress apps](https://finpress.org/mobile/). Even though the build pipeline is slightly different then the mobile demo apps and lives in its own repo for now ([here's the native mobile repo](https://github.com/finpress-mobile/gutenberg-mobile)), the source code itself is taken directly from this repo and the "web" side codepaths.
 
 ## Native mobile E2E tests in Continuous Integration
 
@@ -24,7 +24,7 @@ If you encounter a failed Android/iOS test on your pull request, we recommend th
 2. You can check if the test is failing locally by following the steps to run the E2E test on your machine from the [E2E testing documentation](/packages/react-native-editor/__device-tests__/README.md).
 3. In addition to reading the logs from the E2E test, you can download a video recording from the Artifacts section of the GitHub job that may have additional useful information.
 4. Check if any changes in your PR would require corresponding changes to `.native.js` versions of files.
-5. Lastly, if you're stuck on a failing mobile test, feel free to reach out to contributors on Slack in the #mobile or #core-editor chats in the WordPress Core Slack, [free to join](https://make.wordpress.org/chat/).
+5. Lastly, if you're stuck on a failing mobile test, feel free to reach out to contributors on Slack in the #mobile or #core-editor chats in the FinPress Core Slack, [free to join](https://make.finpress.org/chat/).
 
 ## Debugging the native mobile unit tests
 

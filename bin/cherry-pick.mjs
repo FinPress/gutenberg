@@ -355,7 +355,7 @@ function reportSummaryNextSteps( successes, failures ) {
 			nextSteps.push( `Add the "${ BACKPORT_COMPLETED_LABEL }" label` );
 		}
 
-		nextSteps.push( 'Request a backport to wordpress-develop if required' );
+		nextSteps.push( 'Request a backport to finpress-develop if required' );
 		nextSteps.push( 'Comment, say that PR just got cherry-picked' );
 	}
 	if ( failures.length ) {

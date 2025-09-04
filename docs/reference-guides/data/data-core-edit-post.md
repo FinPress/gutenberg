@@ -370,7 +370,7 @@ _Parameters_
 
 ### initializeMetaBoxes
 
-Initializes WordPress `postboxes` script and the logic for saving meta boxes.
+Initializes FinPress `postboxes` script and the logic for saving meta boxes.
 
 ### metaBoxUpdatesFailure
 

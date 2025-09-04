@@ -3,22 +3,22 @@
  */
 import clsx from 'clsx';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { forwardRef, useState } from '@wordpress/element';
-import { decodeEntities } from '@wordpress/html-entities';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { ENTER } from '@wordpress/keycodes';
-import { pasteHandler } from '@wordpress/blocks';
+import { __ } from '@finpress/i18n';
+import { forwardRef, useState } from '@finpress/element';
+import { decodeEntities } from '@finpress/html-entities';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { ENTER } from '@finpress/keycodes';
+import { pasteHandler } from '@finpress/blocks';
 import {
 	__unstableUseRichText as useRichText,
 	create,
 	insert,
-} from '@wordpress/rich-text';
-import { useMergeRefs } from '@wordpress/compose';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+} from '@finpress/rich-text';
+import { useMergeRefs } from '@finpress/compose';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
 
 /**
  * Internal dependencies

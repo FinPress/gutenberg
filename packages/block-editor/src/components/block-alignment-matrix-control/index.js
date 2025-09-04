@@ -1,20 +1,20 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { DOWN } from '@wordpress/keycodes';
+import { __ } from '@finpress/i18n';
+import { DOWN } from '@finpress/keycodes';
 import {
 	ToolbarButton,
 	Dropdown,
 	AlignmentMatrixControl,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 const noop = () => {};
 
 /**
  * The alignment matrix control allows users to quickly adjust inner block alignment.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-alignment-matrix-control/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-alignment-matrix-control/README.md
  *
  * @example
  * ```jsx

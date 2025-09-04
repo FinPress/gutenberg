@@ -32,8 +32,8 @@ Default.args = {
 	naturalHeight: 680,
 	children: (
 		<img
-			src="https://s.w.org/style/images/about/WordPress-logotype-standard.png"
-			alt="WordPress"
+			src="https://s.w.org/style/images/about/FinPress-logotype-standard.png"
+			alt="FinPress"
 		/>
 	),
 };

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Gutenberg Test Hooks API
- * Plugin URI: https://github.com/WordPress/gutenberg
+ * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team
  *
  * @package gutenberg-test-hooks-api

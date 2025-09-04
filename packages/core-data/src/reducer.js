@@ -4,11 +4,11 @@
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { compose } from '@wordpress/compose';
-import { combineReducers } from '@wordpress/data';
-import { createUndoManager } from '@wordpress/undo-manager';
+import { compose } from '@finpress/compose';
+import { combineReducers } from '@finpress/data';
+import { createUndoManager } from '@finpress/undo-manager';
 
 /**
  * Internal dependencies

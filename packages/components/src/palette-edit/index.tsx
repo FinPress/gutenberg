@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useState,
@@ -12,10 +12,10 @@ import {
 	useEffect,
 	useCallback,
 	useMemo,
-} from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { lineSolid, moreVertical, plus } from '@wordpress/icons';
-import { useDebounce } from '@wordpress/compose';
+} from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { lineSolid, moreVertical, plus } from '@finpress/icons';
+import { useDebounce } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -358,7 +358,7 @@ const EMPTY_ARRAY: Color[] = [];
  * Allows editing a palette of colors or gradients.
  *
  * ```jsx
- * import { PaletteEdit } from '@wordpress/components';
+ * import { PaletteEdit } from '@finpress/components';
  * const MyPaletteEdit = () => {
  *   const [ controlledColors, setControlledColors ] = useState( colors );
  *

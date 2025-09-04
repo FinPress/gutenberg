@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { serialize } from '@wordpress/blocks';
-import { store as coreStore } from '@wordpress/core-data';
-import { useDispatch } from '@wordpress/data';
-import { useState, useCallback } from '@wordpress/element';
+import { serialize } from '@finpress/blocks';
+import { store as coreStore } from '@finpress/core-data';
+import { useDispatch } from '@finpress/data';
+import { useState, useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

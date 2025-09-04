@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { keyboardReturn } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { keyboardReturn } from '@finpress/icons';
 
 /**
  * Internal dependencies

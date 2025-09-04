@@ -4,22 +4,22 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useRef, useMemo } from '@wordpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useRef, useMemo } from '@finpress/element';
 import {
 	useEntityRecord,
 	store as coreStore,
 	useEntityBlockEditor,
-} from '@wordpress/core-data';
+} from '@finpress/core-data';
 import {
 	Placeholder,
 	Spinner,
 	ToolbarButton,
 	ToolbarGroup,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
 import {
 	useInnerBlocksProps,
 	RecursionProvider,
@@ -30,9 +30,9 @@ import {
 	store as blockEditorStore,
 	BlockControls,
 	InnerBlocks,
-} from '@wordpress/block-editor';
-import { privateApis as patternsPrivateApis } from '@wordpress/patterns';
-import { getBlockBindingsSource } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { privateApis as patternsPrivateApis } from '@finpress/patterns';
+import { getBlockBindingsSource } from '@finpress/blocks';
 
 /**
  * Internal dependencies

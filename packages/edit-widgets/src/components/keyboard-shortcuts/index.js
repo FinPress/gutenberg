@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from '@finpress/element';
 import {
 	useShortcut,
 	store as keyboardShortcutsStore,
-} from '@wordpress/keyboard-shortcuts';
-import { isAppleOS } from '@wordpress/keycodes';
-import { useDispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/keyboard-shortcuts';
+import { isAppleOS } from '@finpress/keycodes';
+import { useDispatch } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

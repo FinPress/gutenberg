@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { MenuItem } from '@wordpress/components';
-import { createInterpolateElement } from '@wordpress/element';
-import { plus } from '@wordpress/icons';
+import { __, sprintf } from '@finpress/i18n';
+import { MenuItem } from '@finpress/components';
+import { createInterpolateElement } from '@finpress/element';
+import { plus } from '@finpress/icons';
 
 export const LinkControlSearchCreate = ( {
 	searchTerm,

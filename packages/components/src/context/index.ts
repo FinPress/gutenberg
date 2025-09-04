@@ -9,4 +9,4 @@ export {
 	getConnectNamespace,
 } from './context-connect';
 export { useContextSystem } from './use-context-system';
-export * from './wordpress-component';
+export * from './finpress-component';

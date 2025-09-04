@@ -1,4 +1,4 @@
-package org.wordpress.mobile.ReactNativeGutenbergBridge;
+package org.finpress.mobile.ReactNativeGutenbergBridge;
 
 import androidx.core.util.Consumer;
 
@@ -6,9 +6,9 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 
-import org.wordpress.mobile.WPAndroidGlue.GutenbergJsException;
-import org.wordpress.mobile.WPAndroidGlue.MediaOption;
-import org.wordpress.mobile.WPAndroidGlue.RequestExecutor;
+import org.finpress.mobile.WPAndroidGlue.GutenbergJsException;
+import org.finpress.mobile.WPAndroidGlue.MediaOption;
+import org.finpress.mobile.WPAndroidGlue.RequestExecutor;
 
 import java.util.ArrayList;
 import java.util.List;

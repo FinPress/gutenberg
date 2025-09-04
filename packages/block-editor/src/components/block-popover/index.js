@@ -4,16 +4,16 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMergeRefs } from '@wordpress/compose';
-import { Popover } from '@wordpress/components';
+import { useMergeRefs } from '@finpress/compose';
+import { Popover } from '@finpress/components';
 import {
 	forwardRef,
 	useMemo,
 	useReducer,
 	useLayoutEffect,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -150,6 +150,6 @@ const PublicBlockPopover = (
 );
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-popover/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-popover/README.md
  */
 export default forwardRef( PublicBlockPopover );

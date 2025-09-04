@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 const TEST_PAGE_TITLE = 'Test Page for Block Style Variations';
 test.use( {
 	siteEditorBlockStyleVariations: async ( { page, editor }, use ) => {

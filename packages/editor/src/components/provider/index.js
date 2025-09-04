@@ -1,22 +1,22 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useLayoutEffect, useMemo } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { useEffect, useLayoutEffect, useMemo } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 import {
 	EntityProvider,
 	useEntityBlockEditor,
 	store as coreStore,
-} from '@wordpress/core-data';
+} from '@finpress/core-data';
 import {
 	BlockEditorProvider,
 	BlockContextProvider,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { store as noticesStore } from '@wordpress/notices';
-import { privateApis as editPatternsPrivateApis } from '@wordpress/patterns';
-import { createBlock } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { store as noticesStore } from '@finpress/notices';
+import { privateApis as editPatternsPrivateApis } from '@finpress/patterns';
+import { createBlock } from '@finpress/blocks';
 
 /**
  * Internal dependencies
@@ -397,7 +397,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
  * It supports a large number of post types, including post, page, templates,
  * custom post types, patterns, template parts.
  *
- * All modification and changes are performed to the `@wordpress/core-data` store.
+ * All modification and changes are performed to the `@finpress/core-data` store.
  *
  * @param {Object}          props                      The component props.
  * @param {Object}          [props.post]               The post object to edit. This is required.

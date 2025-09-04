@@ -5,10 +5,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { press, click, hover, sleep } from '@ariakit/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { formatLowercase, formatUppercase } from '@wordpress/icons';
+import { useState } from '@finpress/element';
+import { formatLowercase, formatUppercase } from '@finpress/icons';
 
 /**
  * Internal dependencies

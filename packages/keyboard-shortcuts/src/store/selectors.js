@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector } from '@wordpress/data';
+import { createSelector } from '@finpress/data';
 import {
 	displayShortcut,
 	shortcutAriaLabel,
 	rawShortcut,
-} from '@wordpress/keycodes';
+} from '@finpress/keycodes';
 
 /** @typedef {import('./actions').WPShortcutKeyCombination} WPShortcutKeyCombination */
 
-/** @typedef {import('@wordpress/keycodes').WPKeycodeHandlerByModifier} WPKeycodeHandlerByModifier */
+/** @typedef {import('@finpress/keycodes').WPKeycodeHandlerByModifier} WPKeycodeHandlerByModifier */
 
 /**
  * Shared reference to an empty array for cases where it is important to avoid
@@ -63,10 +63,10 @@ function getKeyCombinationRepresentation( shortcut, representation ) {
  * @example
  *
  *```js
- * import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
- * import { useSelect } from '@wordpress/data';
- * import { createInterpolateElement } from '@wordpress/element';
- * import { sprintf } from '@wordpress/i18n';
+ * import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+ * import { useSelect } from '@finpress/data';
+ * import { createInterpolateElement } from '@finpress/element';
+ * import { sprintf } from '@finpress/i18n';
  * const ExampleComponent = () => {
  *     const {character, modifier} = useSelect(
  *         ( select ) =>
@@ -109,9 +109,9 @@ export function getShortcutKeyCombination( state, name ) {
  * @example
  *
  *```js
- * import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
- * import { useSelect } from '@wordpress/data';
- * import { sprintf } from '@wordpress/i18n';
+ * import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+ * import { useSelect } from '@finpress/data';
+ * import { sprintf } from '@finpress/i18n';
  *
  * const ExampleComponent = () => {
  *     const {display, raw, ariaLabel} = useSelect(
@@ -155,9 +155,9 @@ export function getShortcutRepresentation(
  * @example
  *
  *```js
- * import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
- * import { useSelect } from '@wordpress/data';
- * import { __ } from '@wordpress/i18n';
+ * import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+ * import { useSelect } from '@finpress/data';
+ * import { __ } from '@finpress/i18n';
  * const ExampleComponent = () => {
  *     const shortcutDescription = useSelect(
  *         ( select ) =>
@@ -186,10 +186,10 @@ export function getShortcutDescription( state, name ) {
  * @example
  *
  *```js
- * import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
- * import { useSelect } from '@wordpress/data';
- * import { createInterpolateElement } from '@wordpress/element';
- * import { sprintf } from '@wordpress/i18n';
+ * import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+ * import { useSelect } from '@finpress/data';
+ * import { createInterpolateElement } from '@finpress/element';
+ * import { sprintf } from '@finpress/i18n';
  * const ExampleComponent = () => {
  *     const shortcutAliases = useSelect(
  *         ( select ) =>
@@ -238,10 +238,10 @@ export function getShortcutAliases( state, name ) {
  * @example
  *
  *```js
- * import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
- * import { useSelect } from '@wordpress/data';
- * import { createInterpolateElement } from '@wordpress/element';
- * import { sprintf } from '@wordpress/i18n';
+ * import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+ * import { useSelect } from '@finpress/data';
+ * import { createInterpolateElement } from '@finpress/element';
+ * import { sprintf } from '@finpress/i18n';
  *
  * const ExampleComponent = () => {
  *     const allShortcutKeyCombinations = useSelect(
@@ -298,10 +298,10 @@ export const getAllShortcutKeyCombinations = createSelector(
  * @example
  *
  *```js
- * import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
- * import { useSelect } from '@wordpress/data';
- * import { createInterpolateElement } from '@wordpress/element';
- * import { sprintf } from '@wordpress/i18n';
+ * import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+ * import { useSelect } from '@finpress/data';
+ * import { createInterpolateElement } from '@finpress/element';
+ * import { sprintf } from '@finpress/i18n';
  *
  * const ExampleComponent = () => {
  *     const allShortcutRawKeyCombinations = useSelect(
@@ -356,8 +356,8 @@ export const getAllShortcutRawKeyCombinations = createSelector(
  * @example
  *
  *```js
- * import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
- * import { useSelect } from '@wordpress/data';
+ * import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+ * import { useSelect } from '@finpress/data';
  *
  * const ExampleComponent = () => {
  *     const categoryShortcuts = useSelect(

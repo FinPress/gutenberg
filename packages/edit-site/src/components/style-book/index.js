@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Disabled,
 	Composite,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { __, _x, sprintf } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __, _x, sprintf } from '@finpress/i18n';
 import {
 	BlockList,
 	privateApis as blockEditorPrivateApis,
@@ -21,9 +21,9 @@ import {
 	__unstableEditorStyles as EditorStyles,
 	__unstableIframe as Iframe,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
-} from '@wordpress/block-editor';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
-import { useSelect, dispatch } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
+import { useSelect, dispatch } from '@finpress/data';
 import {
 	useMemo,
 	useState,
@@ -32,10 +32,10 @@ import {
 	useRef,
 	useLayoutEffect,
 	useEffect,
-} from '@wordpress/element';
-import { ENTER, SPACE } from '@wordpress/keycodes';
-import { uploadMedia } from '@wordpress/media-utils';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/element';
+import { ENTER, SPACE } from '@finpress/keycodes';
+import { uploadMedia } from '@finpress/media-utils';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -161,7 +161,7 @@ function useMultiOriginPalettes() {
 			result.duotones.push( {
 				name: _x(
 					'Default',
-					'Indicates these duotone filters come from WordPress.'
+					'Indicates these duotone filters come from FinPress.'
 				),
 				slug: 'default',
 				duotones: defaultDuotones,

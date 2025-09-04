@@ -1,20 +1,20 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __ } from '@wordpress/i18n';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
+import { store as coreStore } from '@finpress/core-data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { decodeEntities } from '@finpress/html-entities';
+import { __ } from '@finpress/i18n';
 import {
 	cloneBlock,
 	getBlockSupport,
 	store as blocksStore,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
-/** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
-/** @typedef {import('@wordpress/components/build-types/query-controls/types').OrderByOption} OrderByOption */
+/** @typedef {import('@finpress/blocks').WPBlockVariation} WPBlockVariation */
+/** @typedef {import('@finpress/components/build-types/query-controls/types').OrderByOption} OrderByOption */
 
 /**
  * @typedef IHasNameAndId

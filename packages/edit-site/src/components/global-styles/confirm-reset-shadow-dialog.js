@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalConfirmDialog as ConfirmDialog } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { __experimentalConfirmDialog as ConfirmDialog } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 function ConfirmResetShadowDialog( {
 	text,

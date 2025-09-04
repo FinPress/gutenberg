@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/dependency-extraction-webpack-plugin",
+	"name": "@finpress/dependency-extraction-webpack-plugin",
 	"version": "6.29.0",
-	"description": "Extract WordPress script dependencies from webpack bundles.",
-	"author": "The WordPress Contributors",
+	"description": "Extract FinPress script dependencies from webpack bundles.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"webpack",
 		"dependency"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/dependency-extraction-webpack-plugin/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/dependency-extraction-webpack-plugin/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/dependency-extraction-webpack-plugin"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",

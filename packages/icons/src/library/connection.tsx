@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { SVG, Path } from '@wordpress/primitives';
+import { SVG, Path } from '@finpress/primitives';
 
 const connection = (
 	<SVG

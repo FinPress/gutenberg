@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useEffect } from '@wordpress/element';
+import { useRef, useEffect } from '@finpress/element';
 
 /**
  * A component specifically designed to be used as an element referenced
@@ -17,7 +17,7 @@ export default function AriaReferencedText( { children, ...props } ) {
 		if ( ref.current ) {
 			// This seems like a no-op, but it fixes a bug in Firefox where
 			// it fails to recompute the text when only the text node changes.
-			// @see https://github.com/WordPress/gutenberg/pull/51035
+			// @see https://github.com/FinPress/gutenberg/pull/51035
 			ref.current.textContent = ref.current.textContent;
 		}
 	}, [ children ] );

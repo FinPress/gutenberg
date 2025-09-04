@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react';
 import { click, type } from '@ariakit/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { focus, isFormElement } from '@wordpress/dom';
-import { TAB } from '@wordpress/keycodes';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useRefEffect, useMergeRefs } from '@wordpress/compose';
-import { useRef } from '@wordpress/element';
+import { focus, isFormElement } from '@finpress/dom';
+import { TAB } from '@finpress/keycodes';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useRefEffect, useMergeRefs } from '@finpress/compose';
+import { useRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -127,7 +127,7 @@ export default function useTabNav() {
 			if (
 				// Bails in case the focus capture elements aren’t present. They
 				// may be omitted to avoid silent tab stops in preview mode.
-				// See: https://github.com/WordPress/gutenberg/pull/59317
+				// See: https://github.com/FinPress/gutenberg/pull/59317
 				! focusCaptureAfterRef.current ||
 				! focusCaptureBeforeRef.current
 			) {

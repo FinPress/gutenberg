@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BaseControl,
@@ -7,9 +7,9 @@ import {
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalVStack as VStack,
 	__experimentalHStack as HStack,
-} from '@wordpress/components';
-import { useState, useMemo } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useState, useMemo } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

@@ -5,9 +5,9 @@ import type { SerializedStyles } from '@emotion/react';
 import { css } from '@emotion/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, Children, cloneElement } from '@wordpress/element';
+import { useMemo, Children, cloneElement } from '@finpress/element';
 
 /**
  * Internal dependencies

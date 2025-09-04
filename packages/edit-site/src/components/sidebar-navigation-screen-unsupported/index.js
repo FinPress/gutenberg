@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Notice, __experimentalSpacer as Spacer } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { Notice, __experimentalSpacer as Spacer } from '@finpress/components';
 
 export default function SidebarNavigationScreenUnsupported() {
 	return (

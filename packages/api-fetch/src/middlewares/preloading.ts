@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addQueryArgs, getQueryArgs, normalizePath } from '@wordpress/url';
+import { addQueryArgs, getQueryArgs, normalizePath } from '@finpress/url';
 
 /**
  * Internal dependencies
@@ -90,7 +90,7 @@ function prepareResponse(
 			} )
 		);
 	} catch {
-		// See: https://github.com/WordPress/gutenberg/issues/67358#issuecomment-2621163926.
+		// See: https://github.com/FinPress/gutenberg/issues/67358#issuecomment-2621163926.
 		Object.entries(
 			responseData.headers as Record< string, string >
 		).forEach( ( [ key, value ] ) => {

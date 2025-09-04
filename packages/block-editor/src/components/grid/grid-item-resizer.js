@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ResizableBox } from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
+import { ResizableBox } from '@finpress/components';
+import { useState, useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -4,20 +4,20 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, Flex, FlexItem } from '@wordpress/components';
-import { __, _n, sprintf } from '@wordpress/i18n';
+import { Button, Flex, FlexItem } from '@finpress/components';
+import { __, _n, sprintf } from '@finpress/i18n';
 import {
 	useCallback,
 	useRef,
 	createInterpolateElement,
-} from '@wordpress/element';
+} from '@finpress/element';
 import {
 	__experimentalUseDialog as useDialog,
 	useInstanceId,
-} from '@wordpress/compose';
-import { useDispatch } from '@wordpress/data';
+} from '@finpress/compose';
+import { useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

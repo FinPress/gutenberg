@@ -14,7 +14,7 @@ export async function getAllBlocks() {
 		 * To avoid returning `undefined`, we turn the result into a JSON string and back,
 		 * which results in a serializable value every time.
 		 *
-		 * For more information see: https://github.com/WordPress/gutenberg/pull/31199
+		 * For more information see: https://github.com/FinPress/gutenberg/pull/31199
 		 */
 		return JSON.parse( JSON.stringify( blocks ) );
 	} );

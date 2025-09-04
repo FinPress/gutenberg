@@ -4,16 +4,16 @@
 import { paramCase as kebabCase } from 'change-case';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect, useRef } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { useState, useEffect, useRef } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 import {
 	Button,
 	TextControl,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 function AddCustomGenericTemplateModalContent( { createTemplate, onBack } ) {
 	const [ title, setTitle ] = useState( '' );

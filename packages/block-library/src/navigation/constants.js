@@ -8,7 +8,7 @@ export const PRIORITIZED_INSERTER_BLOCKS = [
 ];
 
 // These parameters must be kept aligned with those in
-// lib/compat/wordpress-6.3/navigation-block-preloading.php
+// lib/compat/finpress-6.3/navigation-block-preloading.php
 // and
 // edit-site/src/components/sidebar-navigation-screen-navigation-menus/constants.js
 export const PRELOADED_NAVIGATION_MENUS_QUERY = {

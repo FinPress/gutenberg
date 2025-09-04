@@ -1,7 +1,7 @@
 /**
  * This source is a local copy of the use-lilius library, since the original
  * library is not actively maintained.
- * @see https://github.com/WordPress/gutenberg/discussions/64968
+ * @see https://github.com/FinPress/gutenberg/discussions/64968
  *
  * use-lilius@2.0.5
  * https://github.com/Avarios/use-lilius
@@ -54,9 +54,9 @@ import {
 } from 'date-fns';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useMemo, useState } from '@wordpress/element';
+import { useCallback, useMemo, useState } from '@finpress/element';
 
 export enum Month {
 	JANUARY,

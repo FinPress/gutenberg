@@ -3,9 +3,9 @@
  */
 import { Platform, UIManager } from 'react-native';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext } from '@wordpress/element';
+import { createContext } from '@finpress/element';
 
 // It's needed to set the following flags via UIManager
 // to have `LayoutAnimation` working on Android

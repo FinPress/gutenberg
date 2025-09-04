@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useContext } from '@wordpress/element';
-import { isRTL } from '@wordpress/i18n';
+import { useRefEffect } from '@finpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useContext } from '@finpress/element';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -131,7 +131,7 @@ export function useInBetweenInserter() {
 				}
 
 				// Don't show the insertion point if a parent block has an "overlay"
-				// See https://github.com/WordPress/gutenberg/pull/34012#pullrequestreview-727762337
+				// See https://github.com/FinPress/gutenberg/pull/34012#pullrequestreview-727762337
 				const clientId = element.id.slice( 'block-'.length );
 				if (
 					! clientId ||

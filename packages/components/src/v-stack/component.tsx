@@ -31,7 +31,7 @@ function UnconnectedVStack(
  * import {
  * 	__experimentalText as Text,
  * 	__experimentalVStack as VStack,
- * } from `@wordpress/components`;
+ * } from `@finpress/components`;
  *
  * function Example() {
  * 	return (

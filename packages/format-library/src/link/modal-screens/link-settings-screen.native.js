@@ -4,12 +4,12 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useState, useContext, useEffect, useMemo } from '@wordpress/element';
-import { prependHTTP } from '@wordpress/url';
-import { BottomSheet, BottomSheetContext } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { useState, useContext, useEffect, useMemo } from '@finpress/element';
+import { prependHTTP } from '@finpress/url';
+import { BottomSheet, BottomSheetContext } from '@finpress/components';
 import {
 	create,
 	insert,
@@ -17,8 +17,8 @@ import {
 	applyFormat,
 	getTextContent,
 	slice,
-} from '@wordpress/rich-text';
-import { external, textColor } from '@wordpress/icons';
+} from '@finpress/rich-text';
+import { external, textColor } from '@finpress/icons';
 
 /**
  * Internal dependencies

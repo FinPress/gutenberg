@@ -35,16 +35,16 @@ describe( 'defaultRequestToExternal', () => {
 		expect( defaultRequestToExternal( 'lodash-es' ) ).toBe( 'lodash' );
 	} );
 
-	test( 'Handles known @wordpress request', () => {
-		expect( defaultRequestToExternal( '@wordpress/i18n' ) ).toEqual( [
+	test( 'Handles known @finpress request', () => {
+		expect( defaultRequestToExternal( '@finpress/i18n' ) ).toEqual( [
 			'wp',
 			'i18n',
 		] );
 	} );
 
-	test( 'Handles future @wordpress namespace packages', () => {
+	test( 'Handles future @finpress namespace packages', () => {
 		expect(
-			defaultRequestToExternal( '@wordpress/some-future-package' )
+			defaultRequestToExternal( '@finpress/some-future-package' )
 		).toEqual( [ 'wp', 'someFuturePackage' ] );
 	} );
 } );
@@ -54,13 +54,13 @@ describe( 'defaultRequestToHandle', () => {
 		expect( defaultRequestToHandle( 'lodash-es' ) ).toBe( 'lodash' );
 	} );
 
-	test( 'Handles known @wordpress request', () => {
-		expect( defaultRequestToHandle( '@wordpress/i18n' ) ).toBe( 'wp-i18n' );
+	test( 'Handles known @finpress request', () => {
+		expect( defaultRequestToHandle( '@finpress/i18n' ) ).toBe( 'wp-i18n' );
 	} );
 
-	test( 'Handles  @wordpress request', () => {
+	test( 'Handles  @finpress request', () => {
 		expect(
-			defaultRequestToHandle( '@wordpress/some-future-package' )
+			defaultRequestToHandle( '@finpress/some-future-package' )
 		).toBe( 'wp-some-future-package' );
 	} );
 } );

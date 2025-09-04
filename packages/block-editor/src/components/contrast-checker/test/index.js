@@ -4,16 +4,16 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { speak } from '@wordpress/a11y';
+import { speak } from '@finpress/a11y';
 
 /**
  * Internal dependencies
  */
 import ContrastChecker from '../';
 
-jest.mock( '@wordpress/a11y', () => ( { speak: jest.fn() } ) );
+jest.mock( '@finpress/a11y', () => ( { speak: jest.fn() } ) );
 
 describe( 'ContrastChecker', () => {
 	const backgroundColor = '#ffffff';

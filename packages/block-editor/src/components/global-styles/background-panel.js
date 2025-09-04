@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { useCallback, Platform } from '@wordpress/element';
+} from '@finpress/components';
+import { useCallback, Platform } from '@finpress/element';
 /**
  * Internal dependencies
  */
 import BackgroundImageControl from '../background-image-control';
 import { useToolsPanelDropdownMenuProps } from './utils';
 import { setImmutably } from '../../utils/object';
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 const DEFAULT_CONTROLS = {
 	backgroundImage: true,

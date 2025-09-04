@@ -10,14 +10,14 @@ import {
 	waitForElementToBeRemoved,
 } from 'test/helpers';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerCoreBlocks } from '@wordpress/block-library';
-import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
+import { registerCoreBlocks } from '@finpress/block-library';
+import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
+import { __ } from '@finpress/i18n';
 
 // Mock debounce to prevent potentially belated state updates.
-jest.mock( '@wordpress/compose/src/utils/debounce', () => ( {
+jest.mock( '@finpress/compose/src/utils/debounce', () => ( {
 	debounce: ( fn ) => {
 		fn.cancel = jest.fn();
 		return fn;
@@ -25,7 +25,7 @@ jest.mock( '@wordpress/compose/src/utils/debounce', () => ( {
 } ) );
 // Mock link suggestions that are fetched by the link picker
 // when typing a search query.
-jest.mock( '@wordpress/core-data/src/fetch', () => ( {
+jest.mock( '@finpress/core-data/src/fetch', () => ( {
 	__experimentalFetchLinkSuggestions: jest.fn().mockResolvedValue( [ {} ] ),
 } ) );
 
@@ -63,7 +63,7 @@ describe.each( [
 			initialHtml: `
 				<!-- wp:image {"id":20,"sizeSlug":"large","linkDestination":"custom"} -->
 				<figure class="wp-block-image size-large">
-					<img class="wp-image-20" src="https://tonytahmouchtest.files.wordpress.com/2021/10/img_0111-2.jpg?w=1024" alt="" />
+					<img class="wp-image-20" src="https://tonytahmouchtest.files.finpress.com/2021/10/img_0111-2.jpg?w=1024" alt="" />
 				</figure>
 				<!-- /wp:image -->
 			`,
@@ -86,7 +86,7 @@ describe.each( [
 	 */
 	it( 'should display the LINK SETTINGS with an EMPTY LINK TO field.', async () => {
 		// Arrange.
-		const url = 'https://tonytahmouchtest.files.wordpress.com';
+		const url = 'https://tonytahmouchtest.files.finpress.com';
 		const subject = await initializeEditor( { initialHtml } );
 		Clipboard.getString.mockReturnValue( url );
 
@@ -117,7 +117,7 @@ describe.each( [
 			 */
 			it( 'should display the LINK PICKER with NO FROM CLIPBOARD CELL.', async () => {
 				// Arrange.
-				const url = 'tonytahmouchtest.files.wordpress.com';
+				const url = 'tonytahmouchtest.files.finpress.com';
 				const subject = await initializeEditor( { initialHtml } );
 				Clipboard.getString.mockReturnValue( url );
 
@@ -158,7 +158,7 @@ describe.each( [
 			 */
 			it( 'should display the LINK PICKER with NO FROM CLIPBOARD CELL.', async () => {
 				// Arrange.
-				const url = 'https://tonytahmouchtest.files.wordpress.com';
+				const url = 'https://tonytahmouchtest.files.finpress.com';
 				const subject = await initializeEditor( { initialHtml } );
 				Clipboard.getString.mockReturnValue( url );
 
@@ -225,7 +225,7 @@ describe.each( [
 					' with the URL from the CLIPBOARD.',
 				async () => {
 					// Arrange.
-					const url = 'https://tonytahmouchtest.files.wordpress.com';
+					const url = 'https://tonytahmouchtest.files.finpress.com';
 					const subject = await initializeEditor( { initialHtml } );
 					Clipboard.getString.mockReturnValue( url );
 
@@ -278,7 +278,7 @@ describe.each( [
 					' populated in the LINK TO field.',
 				async () => {
 					// Arrange.
-					const url = 'https://tonytahmouchtest.files.wordpress.com';
+					const url = 'https://tonytahmouchtest.files.finpress.com';
 					const subject = await initializeEditor( { initialHtml } );
 					Clipboard.getString.mockReturnValue( url );
 

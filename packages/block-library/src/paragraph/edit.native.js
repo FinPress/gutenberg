@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { createBlock } from '@wordpress/blocks';
+import { __ } from '@finpress/i18n';
+import { createBlock } from '@finpress/blocks';
 import {
 	AlignmentControl,
 	BlockControls,
 	RichText,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useCallback } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { useCallback } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 
 const name = 'core/paragraph';
 

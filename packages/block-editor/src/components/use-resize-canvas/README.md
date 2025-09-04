@@ -13,7 +13,7 @@ Note that this is currently experimental, and is available as `__experimentalUse
 The hook returns a style object which can be applied to a container. It is passed the current device type, which can be obtained from `getDeviceType`.
 
 ```jsx
-import { __experimentalUseResizeCanvas as useResizeCanvas } from '@wordpress/block-editor';
+import { __experimentalUseResizeCanvas as useResizeCanvas } from '@finpress/block-editor';
 
 function ResizedContainer() {
 	const deviceType = useSelect( ( select ) => {

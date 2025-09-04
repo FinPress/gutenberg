@@ -5,16 +5,16 @@ import { extend } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getBlockSupport,
 	getBlockType,
 	hasBlockSupport,
-} from '@wordpress/blocks';
-import { useInstanceId } from '@wordpress/compose';
-import { addFilter } from '@wordpress/hooks';
-import { useMemo, useEffect } from '@wordpress/element';
+} from '@finpress/blocks';
+import { useInstanceId } from '@finpress/compose';
+import { addFilter } from '@finpress/hooks';
+import { useMemo, useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

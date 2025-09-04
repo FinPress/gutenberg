@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { layout } from '@wordpress/icons';
+import { layout } from '@finpress/icons';
 
 /**
  * Internal dependencies

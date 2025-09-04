@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	getBlockType,
 	getUnregisteredTypeHandlerName,
 	store as blocksStore,
-} from '@wordpress/blocks';
-import { PanelBody, __unstableMotion as motion } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/blocks';
+import { PanelBody, __unstableMotion as motion } from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -312,6 +312,6 @@ const BlockInspectorSingleBlock = ( {
 };
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-inspector/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-inspector/README.md
  */
 export default BlockInspector;

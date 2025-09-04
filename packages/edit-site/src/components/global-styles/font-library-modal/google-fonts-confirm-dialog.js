@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	Button,
 	Card,
@@ -9,7 +9,7 @@ import {
 	__experimentalHeading as Heading,
 	__experimentalText as Text,
 	__experimentalSpacer as Spacer,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 function GoogleFontsConfirmDialog() {
 	const handleConfirm = () => {

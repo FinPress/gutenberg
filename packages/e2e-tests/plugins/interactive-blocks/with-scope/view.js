@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store, getContext, withScope } from '@wordpress/interactivity';
+import { store, getContext, withScope } from '@finpress/interactivity';
 
 store( 'with-scope', {
 	callbacks: {

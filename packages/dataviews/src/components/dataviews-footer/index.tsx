@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalHStack as HStack } from '@wordpress/components';
-import { useContext } from '@wordpress/element';
+import { __experimentalHStack as HStack } from '@finpress/components';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

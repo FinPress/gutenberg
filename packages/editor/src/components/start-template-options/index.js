@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Modal, Flex, FlexItem, Button } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useState, useMemo, useEffect } from '@wordpress/element';
-import { __experimentalBlockPatternsList as BlockPatternsList } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { parse } from '@wordpress/blocks';
-import { store as coreStore, useEntityBlockEditor } from '@wordpress/core-data';
+import { Modal, Flex, FlexItem, Button } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useState, useMemo, useEffect } from '@finpress/element';
+import { __experimentalBlockPatternsList as BlockPatternsList } from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { parse } from '@finpress/blocks';
+import { store as coreStore, useEntityBlockEditor } from '@finpress/core-data';
 
 /**
  * Internal dependencies

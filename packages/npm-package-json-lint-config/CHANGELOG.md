@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -40,7 +40,7 @@
 
 ### Enhancement
 
--   Include `exports`, `wpScript`, `wpScriptModuleExports` and `sideEffects` in the `prefer-property-order` rule ([#66239](https://github.com/WordPress/gutenberg/pull/66239)).
+-   Include `exports`, `wpScript`, `wpScriptModuleExports` and `sideEffects` in the `prefer-property-order` rule ([#66239](https://github.com/FinPress/gutenberg/pull/66239)).
 
 ## 5.11.0 (2024-10-30)
 
@@ -68,7 +68,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 4.43.0 (2024-05-16)
 
@@ -110,7 +110,7 @@
 
 ### Enhancements
 
--   Updated `npm-package-json-lint` peer dependency to require v6.0.0 [#53636](https://github.com/WordPress/gutenberg/pull/53636)
+-   Updated `npm-package-json-lint` peer dependency to require v6.0.0 [#53636](https://github.com/FinPress/gutenberg/pull/53636)
 
 ## 4.24.0 (2023-08-10)
 
@@ -160,23 +160,23 @@
 
 ### Bug Fixes
 
--   Packages: Replace `is-plain-obj` with native functionality ([#43511](https://github.com/WordPress/gutenberg/pull/43511)).
+-   Packages: Replace `is-plain-obj` with native functionality ([#43511](https://github.com/FinPress/gutenberg/pull/43511)).
 
 ## 4.0.0 (2021-01-21)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ## 3.0.0 (2020-04-15)
 
 ### Breaking Changes
 
--   Add `types` to the order of preferred properties. ([#18942](https://github.com/WordPress/gutenberg/pull/18942))
+-   Add `types` to the order of preferred properties. ([#18942](https://github.com/FinPress/gutenberg/pull/18942))
 
 ## 2.0.0 (2019-06-12)
 
@@ -188,26 +188,26 @@
 
 ### Internal
 
--   Updated `npm-package-json-lint` dependency [#14200](https://github.com/WordPress/gutenberg/pull/14200)
+-   Updated `npm-package-json-lint` dependency [#14200](https://github.com/FinPress/gutenberg/pull/14200)
 
 ## 1.1.3 (2018-09-05)
 
 ### Bug Fixes
 
--   Resolves an issue where npm package lint script did not work in Windows environments ([#9321](https://github.com/WordPress/gutenberg/pull/9321)
+-   Resolves an issue where npm package lint script did not work in Windows environments ([#9321](https://github.com/FinPress/gutenberg/pull/9321)
 
 ## 1.1.0 (2018-07-12)
 
 ### New Features
 
--   Updated build to work with Babel 7 ([#7832](https://github.com/WordPress/gutenberg/pull/7832))
+-   Updated build to work with Babel 7 ([#7832](https://github.com/FinPress/gutenberg/pull/7832))
 
 ### Internal
 
--   Moved `@WordPress/packages` repository to `@WordPress/gutenberg` ([#7805](https://github.com/WordPress/gutenberg/pull/7805))
+-   Moved `@FinPress/packages` repository to `@FinPress/gutenberg` ([#7805](https://github.com/FinPress/gutenberg/pull/7805))
 
 ## 1.0.0 (2018-05-18)
 
 ### New Features
 
--   Initial release `@wordpress/npm-package-json-lint-config` ([#119](https://github.com/WordPress/packages/pull/119))
+-   Initial release `@finpress/npm-package-json-lint-config` ([#119](https://github.com/FinPress/packages/pull/119))

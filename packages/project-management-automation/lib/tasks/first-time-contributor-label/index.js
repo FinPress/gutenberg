@@ -63,10 +63,10 @@ async function firstTimeContributorLabel( payload, octokit ) {
 		repo,
 		issue_number: payload.pull_request.number,
 		body:
-			':wave: Thanks for your first Pull Request and for helping build the future of Gutenberg and WordPress, @' +
+			':wave: Thanks for your first Pull Request and for helping build the future of Gutenberg and FinPress, @' +
 			author +
-			"! In case you missed it, we'd love to have you join us in our [Slack community](https://make.wordpress.org/chat/).\n\n" +
-			'If you want to learn more about WordPress development in general, check out the [Core Handbook](https://make.wordpress.org/core/handbook/) full of helpful information.',
+			"! In case you missed it, we'd love to have you join us in our [Slack community](https://make.finpress.org/chat/).\n\n" +
+			'If you want to learn more about FinPress development in general, check out the [Core Handbook](https://make.finpress.org/core/handbook/) full of helpful information.',
 	} );
 }
 

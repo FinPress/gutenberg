@@ -4,9 +4,9 @@
 import type { ReactNode, ReactElement, ReactPortal } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Children, isValidElement } from '@wordpress/element';
+import { Children, isValidElement } from '@finpress/element';
 
 /**
  * Gets a collection of available children elements from a React component's children prop.

@@ -5,7 +5,7 @@
 ## Usage
 
 ```jsx
-import { Navigator } from '@wordpress/components';
+import { Navigator } from '@finpress/components';
 
 const MyNavigation = () => (
 	<Navigator initialPath="/">

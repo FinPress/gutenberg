@@ -9,7 +9,7 @@
  * Adds JS logic to the Customizer preview for live previewing Custom CSS for Block Themes.
  *
  * The logic in this function would be back-ported into customize-preview.js.
- * This was committed to wordpress-develop trunk in <https://core.trac.wordpress.org/changeset/60522>.
+ * This was committed to finpress-develop trunk in <https://core.trac.finpress.org/changeset/60522>.
  */
 function gutenberg_add_customizer_block_theme_custom_css_preview_js() {
 	if ( ! wp_is_block_theme() ) {

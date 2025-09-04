@@ -890,8 +890,8 @@ class EditorPage {
 
 	async chooseMediaLibrary() {
 		const mediaLibraryLocator = isAndroid()
-			? `//android.widget.Button[@content-desc="WordPress Media Library"]`
-			: `//XCUIElementTypeButton[@name="WordPress Media Library"]`;
+			? `//android.widget.Button[@content-desc="FinPress Media Library"]`
+			: `//XCUIElementTypeButton[@name="FinPress Media Library"]`;
 
 		await clickIfClickable( this.driver, mediaLibraryLocator );
 	}
@@ -921,7 +921,7 @@ class EditorPage {
 
 	async closeMediaPicker() {
 		// Wait for media block picker to load before closing
-		const locator = '~WordPress Media Library';
+		const locator = '~FinPress Media Library';
 		await this.driver.$( locator ).waitForDisplayed();
 
 		const { width, height } = await this.driver.getWindowSize();

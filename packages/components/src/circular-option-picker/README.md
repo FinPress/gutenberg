@@ -1,7 +1,7 @@
 # `CircularOptionPicker`
 
 <div class="callout callout-alert">
-This component is not exported, and therefore can only be used internally to the `@wordpress/components` package.
+This component is not exported, and therefore can only be used internally to the `@finpress/components` package.
 </div>
 
 `CircularOptionPicker` is a component that displays a set of options as circular buttons.

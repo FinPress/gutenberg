@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { speak } from '@wordpress/a11y';
+import { forwardRef, useEffect, useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { speak } from '@finpress/a11y';
 
 function InserterListboxGroup( props, ref ) {
 	const [ shouldSpeak, setShouldSpeak ] = useState( false );

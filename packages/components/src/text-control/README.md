@@ -2,7 +2,7 @@
 
 TextControl components let users enter and edit text.
 
-![Unfilled and filled TextControl components](https://make.wordpress.org/design/files/2019/03/TextControl.png)
+![Unfilled and filled TextControl components](https://make.finpress.org/design/files/2019/03/TextControl.png)
 
 ## Design guidelines
 
@@ -23,7 +23,7 @@ TextControls should:
 
 ### Anatomy
 
-![Features of a TextControl component with numbered labels](https://make.wordpress.org/design/files/2019/03/TextControl-Anatomy.png)
+![Features of a TextControl component with numbered labels](https://make.finpress.org/design/files/2019/03/TextControl-Anatomy.png)
 
 1. Label
 2. Input container
@@ -37,12 +37,12 @@ Label text is used to inform users as to what information is requested for a tex
 
 Containers improve the discoverability of text fields by creating contrast between the text field and surrounding content.
 
-![A TextControl with a stroke around the container to clearly indicate the input area](https://make.wordpress.org/design/files/2019/03/TextControl-Do.png)
+![A TextControl with a stroke around the container to clearly indicate the input area](https://make.finpress.org/design/files/2019/03/TextControl-Do.png)
 
 **Do**
 A stroke around the container clearly indicates that users can input information.
 
-![A TextControl without a clear visual marker to indicate the input area](https://make.wordpress.org/design/files/2019/03/TextControl-Dont.png)
+![A TextControl without a clear visual marker to indicate the input area](https://make.finpress.org/design/files/2019/03/TextControl-Dont.png)
 
 **Don’t**
 Don’t use unclear visual markers to indicate a text field.
@@ -55,7 +55,7 @@ Render a user interface to input the name of an additional css class.
 
 ```js
 import { useState } from 'react';
-import { TextControl } from '@wordpress/components';
+import { TextControl } from '@finpress/components';
 
 const MyTextControl = () => {
 	const [ className, setClassName ] = useState( '' );

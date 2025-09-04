@@ -9,9 +9,9 @@ import type { Meta, StoryFn } from '@storybook/react';
 import ResizableBox from '..';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 const meta: Meta< typeof ResizableBox > = {
 	title: 'Components/Utilities/ResizableBox',

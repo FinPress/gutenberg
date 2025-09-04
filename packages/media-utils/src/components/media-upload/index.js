@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { Component } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 const DEFAULT_EMPTY_GALLERY = [];
 

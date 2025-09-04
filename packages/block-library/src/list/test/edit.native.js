@@ -16,11 +16,11 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
-import { registerCoreBlocks } from '@wordpress/block-library';
-import { BACKSPACE, ENTER } from '@wordpress/keycodes';
+import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
+import { registerCoreBlocks } from '@finpress/block-library';
+import { BACKSPACE, ENTER } from '@finpress/keycodes';
 
 describe( 'List block', () => {
 	beforeAll( () => {

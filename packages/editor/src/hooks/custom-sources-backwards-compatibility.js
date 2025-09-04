@@ -1,25 +1,25 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useEntityProp } from '@wordpress/core-data';
-import { useMemo } from '@wordpress/element';
-import { createHigherOrderComponent } from '@wordpress/compose';
-import { addFilter } from '@wordpress/hooks';
+import { useSelect } from '@finpress/data';
+import { useEntityProp } from '@finpress/core-data';
+import { useMemo } from '@finpress/element';
+import { createHigherOrderComponent } from '@finpress/compose';
+import { addFilter } from '@finpress/hooks';
 
 /**
  * Internal dependencies
  */
 import { store as editorStore } from '../store';
 
-/** @typedef {import('@wordpress/compose').WPHigherOrderComponent} WPHigherOrderComponent */
-/** @typedef {import('@wordpress/blocks').WPBlockSettings} WPBlockSettings */
+/** @typedef {import('@finpress/compose').WPHigherOrderComponent} WPHigherOrderComponent */
+/** @typedef {import('@finpress/blocks').WPBlockSettings} WPBlockSettings */
 
 /**
  * Object whose keys are the names of block attributes, where each value
  * represents the meta key to which the block attribute is intended to save.
  *
- * @see https://developer.wordpress.org/reference/functions/register_meta/
+ * @see https://developer.finpress.org/reference/functions/register_meta/
  *
  * @typedef {Object<string,string>} WPMetaAttributeMapping
  */

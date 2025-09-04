@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'RichText (@firefox, @webkit)', () => {
 	test.beforeEach( async ( { admin } ) => {
@@ -17,7 +17,7 @@ test.describe( 'RichText (@firefox, @webkit)', () => {
 		// because the Editable component prevents rerenders, so React cannot
 		// update the element by itself.
 		//
-		// See: https://github.com/WordPress/gutenberg/issues/3091
+		// See: https://github.com/FinPress/gutenberg/issues/3091
 		await editor.insertBlock( { name: 'core/heading' } );
 		await editor.clickBlockToolbarButton( 'Change level' );
 		await page.locator( 'role=menuitemradio[name="Heading 3"]' ).click();

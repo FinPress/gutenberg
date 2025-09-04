@@ -1,9 +1,9 @@
 /* eslint-disable jsdoc/require-param */
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEvent } from '@wordpress/compose';
-import { useRef, useLayoutEffect } from '@wordpress/element';
+import { useEvent } from '@finpress/compose';
+import { useRef, useLayoutEffect } from '@finpress/element';
 
 /**
  * Context object for the `onUpdate` callback of `useOnValueUpdate`.

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { RequestUtils } from '@wordpress/e2e-test-utils-playwright';
+import type { RequestUtils } from '@finpress/e2e-test-utils-playwright';
 
 type AddPostWithBlockOptions = {
 	alias?: string;

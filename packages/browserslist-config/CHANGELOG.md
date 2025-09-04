@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,7 +64,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 5.41.0 (2024-05-16)
 
@@ -152,63 +152,63 @@
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ## 4.0.0 (2021-05-14)
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ## 3.0.0 (2021-01-21)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ## 2.2.0 (2018-07-12)
 
 ### Internal
 
--   Moved `@WordPress/packages` repository to `@WordPress/gutenberg` ([#7805](https://github.com/WordPress/gutenberg/pull/7805))
+-   Moved `@FinPress/packages` repository to `@FinPress/gutenberg` ([#7805](https://github.com/FinPress/gutenberg/pull/7805))
 
 ## 2.1.4 (2018-05-18)
 
 ### Internal
 
--   Fix: Standardized `package.json` format ([#119](https://github.com/WordPress/packages/pull/119))
+-   Fix: Standardized `package.json` format ([#119](https://github.com/FinPress/packages/pull/119))
 
 ## 2.1.3 (2018-05-18)
 
 ### Internal
 
--   Docs update of the Browserslist example repo URL ([#98](https://github.com/WordPress/packages/pull/98))
+-   Docs update of the Browserslist example repo URL ([#98](https://github.com/FinPress/packages/pull/98))
 
 ## 2.1.2 (2018-02-28)
 
 ### Internal
 
--   Removed `package-lock.json` file, lockfiles for apps, not packages ([#88](https://github.com/WordPress/packages/pull/88))
+-   Removed `package-lock.json` file, lockfiles for apps, not packages ([#88](https://github.com/FinPress/packages/pull/88))
 
 ## 2.1.1 (2018-02-21)
 
 ### Internal
 
--   Added "Code is Poetry" footer to README.md ([#82](https://github.com/WordPress/packages/pull/82))
+-   Added "Code is Poetry" footer to README.md ([#82](https://github.com/FinPress/packages/pull/82))
 
 ## 2.1.0 (2018-02-15)
 
 ### New Features
 
--   Updated Browserslist to v3.1.0 ([#81](https://github.com/WordPress/packages/pull/81))
+-   Updated Browserslist to v3.1.0 ([#81](https://github.com/FinPress/packages/pull/81))
 
 ## 2.0.0
 
 ### Breaking Changes
 
--   Transfer to @wordpress npm organization.
--   Published as @wordpress/browserslist-config.
+-   Transfer to @finpress npm organization.
+-   Published as @finpress/browserslist-config.
 
 ## 1.1.0
 

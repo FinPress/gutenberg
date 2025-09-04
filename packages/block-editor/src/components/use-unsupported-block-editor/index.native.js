@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { serialize } from '@wordpress/blocks';
+import { useSelect } from '@finpress/data';
+import { serialize } from '@finpress/blocks';
 
 /**
  * Internal dependencies

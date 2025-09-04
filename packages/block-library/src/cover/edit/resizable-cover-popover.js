@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+import { useState } from '@finpress/element';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

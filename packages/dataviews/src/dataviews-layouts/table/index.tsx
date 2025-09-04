@@ -5,18 +5,18 @@ import clsx from 'clsx';
 import type { ComponentProps, ReactElement } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { Spinner } from '@wordpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { Spinner } from '@finpress/components';
 import {
 	useContext,
 	useEffect,
 	useId,
 	useRef,
 	useState,
-} from '@wordpress/element';
-import { isAppleOS } from '@wordpress/keycodes';
+} from '@finpress/element';
+import { isAppleOS } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

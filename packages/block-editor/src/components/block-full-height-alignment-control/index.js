@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { ToolbarButton } from '@wordpress/components';
-import { fullscreen } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { ToolbarButton } from '@finpress/components';
+import { fullscreen } from '@finpress/icons';
 
 function BlockFullHeightAlignmentControl( {
 	isActive,

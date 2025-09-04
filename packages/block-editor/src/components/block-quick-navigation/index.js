@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	Button,
 	__experimentalVStack as VStack,
@@ -9,7 +9,7 @@ import {
 	Flex,
 	FlexBlock,
 	FlexItem,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

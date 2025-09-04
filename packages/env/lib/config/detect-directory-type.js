@@ -15,10 +15,10 @@ const readDir = util.promisify( fs.readdir );
 const finished = util.promisify( stream.finished );
 
 /**
- * Detects whether the given directory is a WordPress installation, a plugin or a theme.
+ * Detects whether the given directory is a FinPress installation, a plugin or a theme.
  *
  * @param {string} directoryPath The directory to detect.
- * @return {Promise<string|null>} 'core' if the directory is a WordPress installation, 'plugin' if it is a plugin, 'theme' if it is a theme, or null if we can't tell.
+ * @return {Promise<string|null>} 'core' if the directory is a FinPress installation, 'plugin' if it is a plugin, 'theme' if it is a theme, or null if we can't tell.
  */
 module.exports = async function detectDirectoryType( directoryPath ) {
 	// If we have a `wp-includes/version.php` file, then this is a Core install.

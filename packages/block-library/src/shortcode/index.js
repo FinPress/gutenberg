@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { shortcode as icon } from '@wordpress/icons';
+import { shortcode as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

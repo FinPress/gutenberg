@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as coreStore } from '@wordpress/core-data';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { addQueryArgs } from '@wordpress/url';
-import apiFetch from '@wordpress/api-fetch';
-import { parse, __unstableSerializeAndClean } from '@wordpress/blocks';
-import { decodeEntities } from '@wordpress/html-entities';
+import { store as coreStore } from '@finpress/core-data';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { store as preferencesStore } from '@finpress/preferences';
+import { addQueryArgs } from '@finpress/url';
+import apiFetch from '@finpress/api-fetch';
+import { parse, __unstableSerializeAndClean } from '@finpress/blocks';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies

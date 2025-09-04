@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	useBlockProps,
 	BlockControls,
 	AlignmentControl,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 export default function TermDescriptionEdit( {
 	attributes,

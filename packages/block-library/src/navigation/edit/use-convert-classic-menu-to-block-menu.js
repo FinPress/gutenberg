@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRegistry, useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { useState, useCallback } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { useRegistry, useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useState, useCallback } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

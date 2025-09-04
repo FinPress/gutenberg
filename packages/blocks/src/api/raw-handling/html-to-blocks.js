@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Platform } from '@wordpress/element';
+import { Platform } from '@finpress/element';
 
 /**
  * Internal dependencies

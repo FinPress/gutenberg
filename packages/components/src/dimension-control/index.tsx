@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import sizesTable, { findSizeBySlug } from './sizes';
 import type { DimensionControlProps, Size } from './types';
 import type { SelectControlSingleSelectionProps } from '../select-control/types';
 import { ContextSystemProvider } from '../context';
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const CONTEXT_VALUE = {
@@ -34,8 +34,8 @@ const CONTEXT_VALUE = {
  * @deprecated
  *
  * ```jsx
- * import { __experimentalDimensionControl as DimensionControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { __experimentalDimensionControl as DimensionControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * export default function MyCustomDimensionControl() {
  * 	const [ paddingSize, setPaddingSize ] = useState( '' );

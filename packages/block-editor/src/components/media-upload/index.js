@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withFilters } from '@wordpress/components';
+import { withFilters } from '@finpress/components';
 
 /**
  * This is a placeholder for the media upload component necessary to make it possible to provide
@@ -13,6 +13,6 @@ import { withFilters } from '@wordpress/components';
 const MediaUpload = () => null;
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/media-upload/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/media-upload/README.md
  */
 export default withFilters( 'editor.MediaUpload' )( MediaUpload );

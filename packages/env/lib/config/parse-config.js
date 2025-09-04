@@ -22,7 +22,7 @@ const {
 } = require( './validate-config' );
 const getConfigFromEnvironmentVars = require( './get-config-from-environment-vars' );
 const detectDirectoryType = require( './detect-directory-type' );
-const { getLatestWordPressVersion } = require( '../wordpress' );
+const { getLatestWordPressVersion } = require( '../finpress' );
 const mergeConfigs = require( './merge-configs' );
 
 /**
@@ -46,7 +46,7 @@ const mergeConfigs = require( './merge-configs' );
  * The environment-specific configuration options. (development/tests/etc)
  *
  * @typedef WPEnvironmentConfig
- * @property {WPSource}                  coreSource     The WordPress installation to load in the environment.
+ * @property {WPSource}                  coreSource     The FinPress installation to load in the environment.
  * @property {WPSource[]}                pluginSources  Plugins to load in the environment.
  * @property {WPSource[]}                themeSources   Themes to load in the environment.
  * @property {number}                    port           The port to use.
@@ -54,7 +54,7 @@ const mergeConfigs = require( './merge-configs' );
  * @property {number}                    phpmyadminPort The port to use for phpMyAdmin. If empty, disabled phpMyAdmin.
  * @property {boolean}                   multisite      Whether to set up a multisite installation.
  * @property {Object}                    config         Mapping of wp-config.php constants to their desired values.
- * @property {Object.<string, WPSource>} mappings       Mapping of WordPress directories to local directories which should be mounted.
+ * @property {Object.<string, WPSource>} mappings       Mapping of FinPress directories to local directories which should be mounted.
  * @property {string|null}               phpVersion     Version of PHP to use in the environments, of the format 0.0.
  */
 
@@ -65,14 +65,14 @@ const mergeConfigs = require( './merge-configs' );
  */
 
 /**
- * A WordPress installation, plugin or theme to be loaded into the environment.
+ * A FinPress installation, plugin or theme to be loaded into the environment.
  *
  * @typedef WPSource
  * @property {'local'|'git'|'zip'} type     The source type.
- * @property {string}              path     The path to the WordPress installation, plugin or theme.
+ * @property {string}              path     The path to the FinPress installation, plugin or theme.
  * @property {?string}             url      The URL to the source download if the source type is not local.
  * @property {?string}             ref      The git ref for the source if the source type is 'git'.
- * @property {string}              basename Name that identifies the WordPress installation, plugin or theme.
+ * @property {string}              basename Name that identifies the FinPress installation, plugin or theme.
  */
 
 /**
@@ -561,23 +561,23 @@ async function parseEnvironmentConfig(
 }
 
 /**
- * Parses a WordPress Core source string or defaults to the latest version.
+ * Parses a FinPress Core source string or defaults to the latest version.
  *
- * @param {string|null} coreSource The WordPress course source string to parse.
+ * @param {string|null} coreSource The FinPress course source string to parse.
  * @param {Object}      options    Options to use while parsing.
  * @return {Promise<Object>} The parsed source object.
  */
 async function parseCoreSource( coreSource, options ) {
-	// An empty source means we should use the latest version of WordPress.
+	// An empty source means we should use the latest version of FinPress.
 	if ( ! coreSource ) {
 		const wpVersion = await getLatestWordPressVersion( options );
 		if ( ! wpVersion ) {
 			throw new ValidationError(
-				'Could not find the latest WordPress version. There may be a network issue.'
+				'Could not find the latest FinPress version. There may be a network issue.'
 			);
 		}
 
-		coreSource = `WordPress/WordPress#${ wpVersion }`;
+		coreSource = `FinPress/FinPress#${ wpVersion }`;
 	}
 	return parseSourceString( coreSource, options );
 }

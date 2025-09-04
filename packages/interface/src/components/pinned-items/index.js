@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Slot, Fill } from '@wordpress/components';
+import { Slot, Fill } from '@finpress/components';
 
 function PinnedItems( { scope, ...props } ) {
 	return <Fill name={ `PinnedItems/${ scope }` } { ...props } />;

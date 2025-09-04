@@ -2,14 +2,14 @@
 
 This webpack plugin serves two purposes:
 
--   Externalize dependencies that are available as shared scripts or modules on WordPress sites.
--   Add an asset file for each entry point that declares an object with the list of WordPress script or module dependencies for the entry point. The asset file also contains the current version calculated for the current source code.
+-   Externalize dependencies that are available as shared scripts or modules on FinPress sites.
+-   Add an asset file for each entry point that declares an object with the list of FinPress script or module dependencies for the entry point. The asset file also contains the current version calculated for the current source code.
 
-This allows JavaScript bundles produced by webpack to leverage WordPress style dependency sharing without an error-prone process of manually maintaining a dependency list.
+This allows JavaScript bundles produced by webpack to leverage FinPress style dependency sharing without an error-prone process of manually maintaining a dependency list.
 
 Version 5 of this plugin adds support for module bundling. [Webpack's `output.module` option](https://webpack.js.org/configuration/output/#outputmodule) should
 be used to opt-in to this behavior. This plugin will adapt it's behavior based on the
-`output.module` option, producing an asset file suitable for use with the WordPress Module API.
+`output.module` option, producing an asset file suitable for use with the FinPress Module API.
 
 Consult the [webpack website](https://webpack.js.org) for additional information on webpack concepts.
 
@@ -18,7 +18,7 @@ Consult the [webpack website](https://webpack.js.org) for additional information
 Install the module
 
 ```bash
-npm install @wordpress/dependency-extraction-webpack-plugin --save-dev
+npm install @finpress/dependency-extraction-webpack-plugin --save-dev
 ```
 
 **Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It also requires webpack 5.0.0 or newer. It is not compatible with older versions.
@@ -31,7 +31,7 @@ Use this plugin as you would other webpack plugins:
 
 ```js
 // webpack.config.js
-const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
+const DependencyExtractionWebpackPlugin = require( '@finpress/dependency-extraction-webpack-plugin' );
 
 module.exports = {
 	// …snip
@@ -39,10 +39,10 @@ module.exports = {
 };
 ```
 
-**Note:** Multiple instances of the plugin are not supported and may produced unexpected results. If you plan to extend the webpack configuration from `@wordpress/scripts` with your own `DependencyExtractionWebpackPlugin`, be sure to remove the default instance of the plugin:
+**Note:** Multiple instances of the plugin are not supported and may produced unexpected results. If you plan to extend the webpack configuration from `@finpress/scripts` with your own `DependencyExtractionWebpackPlugin`, be sure to remove the default instance of the plugin:
 
 ```js
-const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const defaultConfig = require( '@finpress/scripts/config/webpack.config' );
 const webpackConfig = {
 	...defaultConfig,
 	plugins: [
@@ -62,7 +62,7 @@ const webpackConfig = {
 
 ### Behavior with scripts
 
-Each entry point in the webpack bundle will include an asset file that declares the WordPress script dependencies that should be enqueued. This file also contains the unique version hash calculated based on the file content.
+Each entry point in the webpack bundle will include an asset file that declares the FinPress script dependencies that should be enqueued. This file also contains the unique version hash calculated based on the file content.
 
 For example:
 
@@ -82,7 +82,7 @@ By default, the following module requests are handled:
 | Request                      | Global               | Script handle |
 | ---------------------------- | -------------------- | ------------- |
 | `@babel/runtime/regenerator` | `regeneratorRuntime` | `wp-polyfill` |
-| `@wordpress/*`               | `wp['*']`            | `wp-*`        |
+| `@finpress/*`               | `wp['*']`            | `wp-*`        |
 | `jquery`                     | `jQuery`             | `jquery`      |
 | `lodash-es`                  | `lodash`             | `lodash`      |
 | `lodash`                     | `lodash`             | `lodash`      |
@@ -92,14 +92,14 @@ By default, the following module requests are handled:
 
 **Note:** This plugin overlaps with the functionality provided by [webpack `externals`](https://webpack.js.org/configuration/externals). This plugin is intended to extract script handles from bundle compilation so that a list of script dependencies does not need to be manually maintained. If you don't need to extract a list of script dependencies, use the `externals` option directly.
 
-This plugin is compatible with `externals`, but they may conflict. For example, adding `{ externals: { '@wordpress/blob': 'wp.blob' } }` to webpack configuration will effectively hide the `@wordpress/blob` module from the plugin and it will not be included in dependency lists.
+This plugin is compatible with `externals`, but they may conflict. For example, adding `{ externals: { '@finpress/blob': 'wp.blob' } }` to webpack configuration will effectively hide the `@finpress/blob` module from the plugin and it will not be included in dependency lists.
 
 ### Behavior with script modules
 
 **Warning:** Script modules support is considered experimental at this time.
 
 This section describes the behavior of this package to bundle ECMAScript modules and generate asset
-files suitable for use with the WordPress Script Modules API.
+files suitable for use with the FinPress Script Modules API.
 
 Some of this plugin's options change, and webpack requires configuration to output script modules. Refer to
 [webpack's documentation](https://webpack.js.org/configuration/output/#outputmodule) for up-to-date details.
@@ -129,32 +129,32 @@ const webpackConfig = {
 };
 ```
 
-Each entry point in the webpack bundle will include an asset file that declares the WordPress script module dependencies that should be enqueued. This file also contains the unique version hash calculated based on the file content.
+Each entry point in the webpack bundle will include an asset file that declares the FinPress script module dependencies that should be enqueued. This file also contains the unique version hash calculated based on the file content.
 
 For example:
 
 ```
 // Source file entrypoint.js
-import { store, getContext } from '@wordpress/interactivity';
+import { store, getContext } from '@finpress/interactivity';
 
 // Webpack will produce the output output/entrypoint.js
 /* bundled JavaScript output */
 
 // Webpack will also produce output/entrypoint.asset.php declaring script dependencies
-<?php return array('dependencies' => array('@wordpress/interactivity'), 'version' => 'dd4c2dc50d046ed9d4c063a7ca95702f');
+<?php return array('dependencies' => array('@finpress/interactivity'), 'version' => 'dd4c2dc50d046ed9d4c063a7ca95702f');
 ```
 
 By default, the following script module requests are handled:
 
 | Request                      |
 | ---------------------------- |
-| `@wordpress/interactivity  ` |
+| `@finpress/interactivity  ` |
 
-(`@wordpress/interactivity` is currently the only available WordPress script module.)
+(`@finpress/interactivity` is currently the only available FinPress script module.)
 
 **Note:** This plugin overlaps with the functionality provided by [webpack `externals`](https://webpack.js.org/configuration/externals). This plugin is intended to extract script module identifiers from bundle compilation so that a list of script module dependencies does not need to be manually maintained. If you don't need to extract a list of script module dependencies, use the `externals` option directly.
 
-This plugin is compatible with `externals`, but they may conflict. For example, adding `{ externals: { '@wordpress/blob': 'wp.blob' } }` to webpack configuration will effectively hide the `@wordpress/blob` module from the plugin and it will not be included in dependency lists.
+This plugin is compatible with `externals`, but they may conflict. For example, adding `{ externals: { '@finpress/blob': 'wp.blob' } }` to webpack configuration will effectively hide the `@finpress/blob` module from the plugin and it will not be included in dependency lists.
 
 #### Options
 
@@ -208,7 +208,7 @@ Pass `useDefaults: false` to disable the default request handling.
 -   Type: boolean
 -   Default: `false`
 
-Force `wp-polyfill` to be included in each entry point's dependency list. This would be the same as adding `import '@wordpress/polyfill';` to each entry point.
+Force `wp-polyfill` to be included in each entry point's dependency list. This would be the same as adding `import '@finpress/polyfill';` to each entry point.
 
 **Note**: This option is not available with script modules.
 
@@ -293,7 +293,7 @@ module.exports = {
 
 -   Type: function
 
-All of the external modules handled by the plugin are expected to be WordPress script dependencies
+All of the external modules handled by the plugin are expected to be FinPress script dependencies
 and will be added to the dependency list. `requestToHandle` allows the script handle included in the dependency list to be customized.
 
 If no string is returned, the script handle is assumed to be the same as the request.
@@ -329,7 +329,7 @@ The functions `requestToExternal` and `requestToHandle` allow this module to han
 
 `requestToHandle` maps the same module request to a script handle, the strings that will be included in the `entrypoint.asset.php` files.
 
-### WordPress
+### FinPress
 
 Enqueue your script as usual and read the script dependencies dynamically:
 
@@ -343,7 +343,7 @@ $script_url = plugins_url( $script_path, __FILE__ );
 wp_enqueue_script( 'script', $script_url, $script_asset['dependencies'], $script_asset['version'] );
 ```
 
-Or with modules (the Script Module API is only available in WordPress > 6.5):
+Or with modules (the Script Module API is only available in FinPress > 6.5):
 
 ```php
 $module_path       = 'path/to/module.js';
@@ -358,8 +358,8 @@ wp_enqueue_script_module( 'my-module' );
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

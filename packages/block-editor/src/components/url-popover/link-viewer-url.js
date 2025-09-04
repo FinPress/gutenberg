@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ExternalLink } from '@wordpress/components';
-import { safeDecodeURI, filterURLForDisplay } from '@wordpress/url';
+import { ExternalLink } from '@finpress/components';
+import { safeDecodeURI, filterURLForDisplay } from '@finpress/url';
 
 export default function LinkViewerURL( { url, urlLabel, className } ) {
 	const linkClassName = clsx(

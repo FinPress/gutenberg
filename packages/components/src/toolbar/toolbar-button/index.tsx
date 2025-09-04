@@ -5,9 +5,9 @@ import clsx from 'clsx';
 import type { ForwardedRef, MouseEvent as ReactMouseEvent } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext, forwardRef } from '@wordpress/element';
+import { useContext, forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -115,8 +115,8 @@ function UnforwardedToolbarButton(
  * or ToolbarGroup when used to create general interfaces.
  *
  * ```jsx
- * import { Toolbar, ToolbarButton } from '@wordpress/components';
- * import { edit } from '@wordpress/icons';
+ * import { Toolbar, ToolbarButton } from '@finpress/components';
+ * import { edit } from '@finpress/icons';
  *
  * function MyToolbar() {
  *   return (

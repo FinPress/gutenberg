@@ -4,14 +4,14 @@
 import { AccessibilityInfo, Platform } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { Dropdown, ToolbarButton, Picker } from '@wordpress/components';
-import { Component } from '@wordpress/element';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { compose, withPreferredColorScheme } from '@wordpress/compose';
-import { isUnmodifiedDefaultBlock } from '@wordpress/blocks';
+import { __, _x } from '@finpress/i18n';
+import { Dropdown, ToolbarButton, Picker } from '@finpress/components';
+import { Component } from '@finpress/element';
+import { withDispatch, withSelect } from '@finpress/data';
+import { compose, withPreferredColorScheme } from '@finpress/compose';
+import { isUnmodifiedDefaultBlock } from '@finpress/blocks';
 import {
 	Icon,
 	plus,
@@ -19,8 +19,8 @@ import {
 	plusCircleFilled,
 	insertAfter,
 	insertBefore,
-} from '@wordpress/icons';
-import { setBlockTypeImpressions } from '@wordpress/react-native-bridge';
+} from '@finpress/icons';
+import { setBlockTypeImpressions } from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ const defaultRenderToggle = ( {
 			extraProps={ {
 				hint: __( 'Double tap to add a block' ),
 				// testID is present to disambiguate this element for native UI tests. It's not
-				// usually required for components. See: https://github.com/WordPress/gutenberg/pull/18832#issuecomment-561411389.
+				// usually required for components. See: https://github.com/FinPress/gutenberg/pull/18832#issuecomment-561411389.
 				testID: 'add-block-button',
 				onLongPress,
 				hitSlop: { top: 10, bottom: 10, left: 10, right: 10 },

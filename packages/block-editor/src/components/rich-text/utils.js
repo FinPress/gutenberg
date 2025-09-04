@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { renderToString } from '@wordpress/element';
-import { createBlock } from '@wordpress/blocks';
+import { renderToString } from '@finpress/element';
+import { createBlock } from '@finpress/blocks';
 
 export function addActiveFormats( value, activeFormats ) {
 	if ( activeFormats?.length ) {

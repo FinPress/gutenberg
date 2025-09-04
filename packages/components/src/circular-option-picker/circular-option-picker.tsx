@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { isRTL } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { isRTL } from '@finpress/i18n';
+import { useMemo, useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ import {
  *
  * ```jsx
  * import { CircularOptionPicker } from '../circular-option-picker';
- * import { useState } from '@wordpress/element';
+ * import { useState } from '@finpress/element';
  *
  * const Example = () => {
  * 	const [ currentColor, setCurrentColor ] = useState();

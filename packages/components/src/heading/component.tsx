@@ -25,7 +25,7 @@ function UnconnectedHeading(
  * `Heading` renders headings and titles using the library's typography system.
  *
  * ```jsx
- * import { __experimentalHeading as Heading } from "@wordpress/components";
+ * import { __experimentalHeading as Heading } from "@finpress/components";
  *
  * function Example() {
  *   return <Heading>Code is Poetry</Heading>;

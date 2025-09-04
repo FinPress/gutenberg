@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { next, previous } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { next, previous } from '@finpress/icons';
 
 const variations = [
 	{

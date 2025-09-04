@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
@@ -16,8 +16,8 @@ import {
 	__experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles,
 	__experimentalGetShadowClassesAndStyles as getShadowClassesAndStyles,
 	__experimentalGetElementClassName,
-} from '@wordpress/block-editor';
-import { compose } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { compose } from '@finpress/compose';
 
 /**
  * Internal dependencies

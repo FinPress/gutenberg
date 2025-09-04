@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDisabled, useMergeRefs } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { memo, useMemo } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+import { useDisabled, useMergeRefs } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { memo, useMemo } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -94,7 +94,7 @@ MemoizedBlockPreview.Async = Async;
 /**
  * BlockPreview renders a preview of a block or array of blocks.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-preview/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-preview/README.md
  *
  * @param {Object}       preview               options for how the preview should be shown
  * @param {Array|Object} preview.blocks        A block instance (object) or an array of blocks to be previewed.

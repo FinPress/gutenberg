@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BlockControls, store } from '@wordpress/block-editor';
+import { BlockControls, store } from '@finpress/block-editor';
 import {
 	ToolbarGroup,
 	ToolbarButton,
@@ -9,12 +9,12 @@ import {
 	Button,
 	Flex,
 	FlexItem,
-} from '@wordpress/components';
-import { useEffect, useState, RawHTML } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { fullscreen } from '@wordpress/icons';
-import { useViewportMatch } from '@wordpress/compose';
+} from '@finpress/components';
+import { useEffect, useState, RawHTML } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { fullscreen } from '@finpress/icons';
+import { useViewportMatch } from '@finpress/compose';
 
 function ModalAuxiliaryActions( { onClick, isModalFullScreen } ) {
 	// 'small' to match the rules in editor.scss.

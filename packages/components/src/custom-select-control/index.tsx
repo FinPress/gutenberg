@@ -5,10 +5,10 @@ import * as Ariakit from '@ariakit/react';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { __, sprintf } from '@wordpress/i18n';
+import { useInstanceId } from '@finpress/compose';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ function useDeprecatedProps< T extends CustomSelectOption >( {
 
 // The removal of `__experimentalHint` in favour of `hint` doesn't happen in
 // the `useDeprecatedProps` hook in order not to break consumers that rely
-// on object identity (see https://github.com/WordPress/gutenberg/pull/63248#discussion_r1672213131)
+// on object identity (see https://github.com/FinPress/gutenberg/pull/63248#discussion_r1672213131)
 function applyOptionDeprecations( {
 	__experimentalHint,
 	...rest

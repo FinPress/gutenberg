@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/wordcount",
+	"name": "@finpress/wordcount",
 	"version": "4.29.0",
-	"description": "WordPress word count utility.",
-	"author": "The WordPress Contributors",
+	"description": "FinPress word count utility.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"wordcount"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/wordcount/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/wordcount/README.md",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/WordPress/gutenberg.git",
+		"url": "git+https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/wordcount"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",

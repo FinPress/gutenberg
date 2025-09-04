@@ -4,11 +4,11 @@
 import { camelCase } from 'change-case';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addQueryArgs } from '@wordpress/url';
-import { decodeEntities } from '@wordpress/html-entities';
-import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@finpress/url';
+import { decodeEntities } from '@finpress/html-entities';
+import apiFetch from '@finpress/api-fetch';
 
 /**
  * Internal dependencies
@@ -147,7 +147,7 @@ export const getEntityRecord =
 				// modifications are relevant to how the data is tracked in state, and not
 				// for how the request is made to the REST API.
 
-				// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+				// eslint-disable-next-line @finpress/no-unused-vars-before-return
 				const path = addQueryArgs(
 					entityConfig.baseURL + ( key ? '/' + key : '' ),
 					{
@@ -370,9 +370,9 @@ export const getEntityRecords =
 
 				// When requesting all fields, the list of results can be used to resolve
 				// the `getEntityRecord` and `canUser` selectors in addition to `getEntityRecords`.
-				// See https://github.com/WordPress/gutenberg/pull/26575
-				// See https://github.com/WordPress/gutenberg/pull/64504
-				// See https://github.com/WordPress/gutenberg/pull/70738
+				// See https://github.com/FinPress/gutenberg/pull/26575
+				// See https://github.com/FinPress/gutenberg/pull/64504
+				// See https://github.com/FinPress/gutenberg/pull/70738
 				if ( ! query.context ) {
 					const targetHints = records
 						.filter(

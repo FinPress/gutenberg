@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useReducer } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useReducer } from '@finpress/element';
 import {
 	Button,
 	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
-} from '@wordpress/components';
-import { link, keyboardReturn, arrowLeft } from '@wordpress/icons';
+} from '@finpress/components';
+import { link, keyboardReturn, arrowLeft } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -78,6 +78,6 @@ function URLInputButton( { url, onChange } ) {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/url-input/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/url-input/README.md
  */
 export default URLInputButton;

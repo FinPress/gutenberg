@@ -106,7 +106,7 @@ export type CurriedSelectorsOf< S > = S extends StoreDescriptor<
  * This is useful because TypeScript does not correctly remove
  * arguments from complex function signatures constrained by
  * interdependent generic parameters.
- * For more context, see https://github.com/WordPress/gutenberg/pull/41578
+ * For more context, see https://github.com/FinPress/gutenberg/pull/41578
  */
 type CurriedState< F > = F extends SelectorWithCustomCurrySignature
 	? F[ 'CurriedSignature' ]
@@ -150,7 +150,7 @@ type CurriedState< F > = F extends SelectorWithCustomCurrySignature
  * type CorrectlyInferredSignature = CurriedState<MySelectorSignature>
  * // <K extends string | number>(kind: K, key: K extends string ? 'one value' : false): K;
  *
- * For even more context, see https://github.com/WordPress/gutenberg/pull/41578
+ * For even more context, see https://github.com/FinPress/gutenberg/pull/41578
  * ```
  */
 export interface SelectorWithCustomCurrySignature {

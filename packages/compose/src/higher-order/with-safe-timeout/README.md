@@ -6,9 +6,9 @@
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withSafeTimeout } from '@wordpress/compose';
+import { withSafeTimeout } from '@finpress/compose';
 
 function MyEffectfulComponent( { setTimeout } ) {
 	return (

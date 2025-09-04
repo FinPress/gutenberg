@@ -16,7 +16,7 @@ builder( {
 	modules: [ 'es.', 'web.' ],
 	exclude: exclusions,
 	summary: { console: { size: true, modules: true } },
-	targets: require( '@wordpress/browserslist-config' ),
+	targets: require( '@finpress/browserslist-config' ),
 	filename: './build/polyfill.js',
 } )
 	.then( ( code ) =>

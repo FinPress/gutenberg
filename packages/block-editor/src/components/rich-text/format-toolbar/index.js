@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { ToolbarItem, DropdownMenu, Slot } from '@wordpress/components';
-import { chevronDown } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { ToolbarItem, DropdownMenu, Slot } from '@finpress/components';
+import { chevronDown } from '@finpress/icons';
 
 /**
  * Internal dependencies

@@ -1,6 +1,6 @@
 // Block Creation Components.
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockControls,
@@ -22,7 +22,7 @@ import {
 	URLInput,
 	withColors,
 	withFontSizes,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 export {
 	BlockControls,

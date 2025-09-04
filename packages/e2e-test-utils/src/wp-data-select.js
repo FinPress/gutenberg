@@ -1,5 +1,5 @@
 /**
- * Queries the WordPress data module.
+ * Queries the FinPress data module.
  *
  * `page.evaluate` - used in the function - returns `undefined`
  * when it encounters a non-serializable value.
@@ -10,7 +10,7 @@
  * functions, DOM element handles, etc.
  *
  * @see https://pptr.dev/#?product=Puppeteer&version=v9.0.0&show=api-pageevaluatepagefunction-args
- * @see https://github.com/WordPress/gutenberg/pull/31199
+ * @see https://github.com/FinPress/gutenberg/pull/31199
  *
  * @param {string}    store      Store to query e.g: core/editor, core/blocks...
  * @param {string}    selector   Selector to execute e.g: getBlocks.

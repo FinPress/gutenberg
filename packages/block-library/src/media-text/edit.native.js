@@ -4,9 +4,9 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	BlockControls,
 	BlockVerticalAlignmentToolbar,
@@ -16,17 +16,17 @@ import {
 	MEDIA_TYPE_IMAGE,
 	MEDIA_TYPE_VIDEO,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { Component } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { Component } from '@finpress/element';
 import {
 	Button,
 	ToolbarGroup,
 	PanelBody,
 	ToggleControl,
-} from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
-import { pullLeft, pullRight, replace } from '@wordpress/icons';
+} from '@finpress/components';
+import { withSelect } from '@finpress/data';
+import { compose } from '@finpress/compose';
+import { pullLeft, pullRight, replace } from '@finpress/icons';
 
 /**
  * Internal dependencies

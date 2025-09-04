@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { postCategories, postTerms } from '@wordpress/icons';
+import { postCategories, postTerms } from '@finpress/icons';
 
 const variationIconMap = {
 	category: postCategories,

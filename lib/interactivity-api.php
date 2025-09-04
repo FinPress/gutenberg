@@ -13,12 +13,12 @@
  * to ensure that the conditional registration happens after Core and correctly determine whether
  * the filter should be added.
  *
- * @see https://github.com/WordPress/wordpress-develop/pull/7304
+ * @see https://github.com/WordPress/finpress-develop/pull/7304
  */
 function gutenberg_register_interactivity_script_module_data_hooks() {
-	if ( ! has_filter( 'script_module_data_@wordpress/interactivity-router', array( wp_interactivity(), 'filter_script_module_interactivity_router_data' ) ) ) {
+	if ( ! has_filter( 'script_module_data_@finpress/interactivity-router', array( wp_interactivity(), 'filter_script_module_interactivity_router_data' ) ) ) {
 		add_filter(
-			'script_module_data_@wordpress/interactivity-router',
+			'script_module_data_@finpress/interactivity-router',
 			function ( $data ) {
 				if ( ! isset( $data['i18n'] ) ) {
 					$data['i18n'] = array();

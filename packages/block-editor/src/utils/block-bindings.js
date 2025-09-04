@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useRegistry } from '@wordpress/data';
+import { useDispatch, useRegistry } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -126,7 +126,7 @@ export function replacePatternOverridesDefaultBinding( blockName, bindings ) {
  * - `updateBlockBindings`: Updates the value of the bindings connected to block attributes. It can be used to remove a specific binding by setting the value to `undefined`.
  * - `removeAllBlockBindings`: Removes the bindings property of the `metadata` attribute.
  *
- * @since 6.7.0 Introduced in WordPress core.
+ * @since 6.7.0 Introduced in FinPress core.
  *
  * @param {?string} clientId Optional block client ID. If not set, it will use the current block client ID from the context.
  *
@@ -134,7 +134,7 @@ export function replacePatternOverridesDefaultBinding( blockName, bindings ) {
  *
  * @example
  * ```js
- * import { useBlockBindingsUtils } from '@wordpress/block-editor'
+ * import { useBlockBindingsUtils } from '@finpress/block-editor'
  * const { updateBlockBindings, removeAllBlockBindings } = useBlockBindingsUtils();
  *
  * // Update url and alt attributes.
@@ -176,7 +176,7 @@ export function useBlockBindingsUtils( clientId ) {
 	 *
 	 * @example
 	 * ```js
-	 * import { useBlockBindingsUtils } from '@wordpress/block-editor'
+	 * import { useBlockBindingsUtils } from '@finpress/block-editor'
 	 *
 	 * const { updateBlockBindings } = useBlockBindingsUtils();
 	 * updateBlockBindings( {
@@ -227,7 +227,7 @@ export function useBlockBindingsUtils( clientId ) {
 	 *
 	 * @example
 	 * ```js
-	 * import { useBlockBindingsUtils } from '@wordpress/block-editor'
+	 * import { useBlockBindingsUtils } from '@finpress/block-editor'
 	 *
 	 * const { removeAllBlockBindings } = useBlockBindingsUtils();
 	 * removeAllBlockBindings();

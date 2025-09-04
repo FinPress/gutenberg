@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { expect } from '@wordpress/e2e-test-utils-playwright';
+import { expect } from '@finpress/e2e-test-utils-playwright';
 
 /**
  * External dependencies

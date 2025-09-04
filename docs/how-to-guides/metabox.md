@@ -16,17 +16,17 @@ This guide shows how to create a block that prompts a user for a single value, a
 
 ## Before you start
 
-This guide assumes you are already familiar with WordPress plugins, post meta, and basic JavaScript. Review the [Getting started with JavaScript tutorial](/docs/getting-started/fundamentals/javascript-in-the-block-editor.md) for an introduction.
+This guide assumes you are already familiar with FinPress plugins, post meta, and basic JavaScript. Review the [Getting started with JavaScript tutorial](/docs/getting-started/fundamentals/javascript-in-the-block-editor.md) for an introduction.
 
 The guide will walk through creating a basic block, but recommended to go through the [Create Block tutorial](/docs/getting-started/tutorial.md) for a deeper understanding of creating custom blocks.
 
 You will need:
 
--   WordPress development environment,
+-   FinPress development environment,
 -   A minimal plugin activated and ready to edit
 -   JavaScript setup for building and enqueuing
 
-A [complete meta-block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/meta-block-bb1e55) is available that you can use as a reference for your setup.
+A [complete meta-block example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/meta-block-bb1e55) is available that you can use as a reference for your setup.
 
 ## Step-by-step guide
 
@@ -37,9 +37,9 @@ A [complete meta-block example](https://github.com/WordPress/block-development-e
 
 ### Step 1: Register meta field
 
-A post meta field is a WordPress object used to store extra data about a post. You need to first register a new meta field prior to use. See Managing [Post Metadata](https://developer.wordpress.org/plugins/metadata/managing-post-metadata/) to learn more about post meta.
+A post meta field is a FinPress object used to store extra data about a post. You need to first register a new meta field prior to use. See Managing [Post Metadata](https://developer.finpress.org/plugins/metadata/managing-post-metadata/) to learn more about post meta.
 
-When registering the field, note the `show_in_rest` parameter. This ensures the data will be included in the REST API, which the block editor uses to load and save meta data. See the [`register_post_meta`](https://developer.wordpress.org/reference/functions/register_post_meta/) function definition for extra information.
+When registering the field, note the `show_in_rest` parameter. This ensures the data will be included in the REST API, which the block editor uses to load and save meta data. See the [`register_post_meta`](https://developer.finpress.org/reference/functions/register_post_meta/) function definition for extra information.
 
 Additionally, your post type needs to support `custom-fields` for `register_post_meta` function to work
 
@@ -67,11 +67,11 @@ The hook `useEntityProp` can be used by the blocks to get or change meta values.
 Add this code to the JavaScript `src/index.js`:
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import { TextControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { useEntityProp } from '@wordpress/core-data';
-import { useBlockProps } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { TextControl } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { useEntityProp } from '@finpress/core-data';
+import { useBlockProps } from '@finpress/block-editor';
 
 registerBlockType( 'myguten/meta-block', {
 	edit: ( { setAttributes, attributes } ) => {
@@ -139,7 +139,7 @@ add_filter( 'the_content', 'myguten_content_filter' );
 
 You can also use the post meta data in other blocks. For this example the data is loaded at the end of every Paragraph block when it is rendered, ie. shown to the user. You can replace this for any core or custom block types as needed.
 
-In PHP, use the [register_block_type](https://developer.wordpress.org/reference/functions/register_block_type/) function to set a callback when the block is rendered to include the meta value.
+In PHP, use the [register_block_type](https://developer.finpress.org/reference/functions/register_block_type/) function to set a callback when the block is rendered to include the meta value.
 
 ```php
 function myguten_render_paragraph( $block_attributes, $content ) {
@@ -199,7 +199,7 @@ add_meta_box( 'my-meta-box', 'My Meta Box', 'my_meta_box_callback',
 );
 ```
 
-WordPress won't show the meta box but a message saying that it isn't compatible with the block editor, including a link to the Classic Editor plugin. By default, `__block_editor_compatible_meta_box` is `true`.
+FinPress won't show the meta box but a message saying that it isn't compatible with the block editor, including a link to the Classic Editor plugin. By default, `__block_editor_compatible_meta_box` is `true`.
 
 After a meta box is converted to a block, it can be declared as existing for backward compatibility:
 
@@ -218,7 +218,7 @@ When the block editor is used, this meta box will no longer be displayed in the 
 
 On each block editor page load, we register an action that collects the meta box data to determine if an area is empty. The original global state is reset upon collection of meta box data.
 
-See [`register_and_do_post_meta_boxes`](https://developer.wordpress.org/reference/functions/register_and_do_post_meta_boxes/).
+See [`register_and_do_post_meta_boxes`](https://developer.finpress.org/reference/functions/register_and_do_post_meta_boxes/).
 
 It will run through the functions and hooks that `post.php` runs to register meta boxes; namely `add_meta_boxes`, `add_meta_boxes_{$post->post_type}`, and `do_meta_boxes`.
 
@@ -263,4 +263,4 @@ Please also note that if your plugin triggers a PHP warning or notice to be outp
 
 ## Additional resources
 
-- [Creating a custom block that stores post meta](https://developer.wordpress.org/news/2023/03/03/creating-a-custom-block-that-stores-post-meta/)
+- [Creating a custom block that stores post meta](https://developer.finpress.org/news/2023/03/03/creating-a-custom-block-that-stores-post-meta/)

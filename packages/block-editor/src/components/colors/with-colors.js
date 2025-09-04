@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, Component } from '@wordpress/element';
-import { compose, createHigherOrderComponent } from '@wordpress/compose';
-import { privateApis as componentsPrivateApis } from '@wordpress/components';
+import { useMemo, Component } from '@finpress/element';
+import { compose, createHigherOrderComponent } from '@finpress/compose';
+import { privateApis as componentsPrivateApis } from '@finpress/components';
 
 /**
  * Internal dependencies

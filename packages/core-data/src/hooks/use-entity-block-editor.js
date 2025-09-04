@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useMemo } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { parse, __unstableSerializeAndClean } from '@wordpress/blocks';
+import { useCallback, useMemo } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { parse, __unstableSerializeAndClean } from '@finpress/blocks';
 
 /**
  * Internal dependencies

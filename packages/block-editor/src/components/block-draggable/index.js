@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blocksStore } from '@wordpress/blocks';
-import { Draggable } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useRef } from '@wordpress/element';
-import { throttle } from '@wordpress/compose';
+import { store as blocksStore } from '@finpress/blocks';
+import { Draggable } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useEffect, useRef } from '@finpress/element';
+import { throttle } from '@finpress/compose';
 
 /**
  * Internal dependencies

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RadioControl } from '@wordpress/components';
-import { useCallback } from '@wordpress/element';
+import { RadioControl } from '@finpress/components';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -12,7 +12,7 @@ import type {
 } from '../../dropdown-menu/types';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import type { Props as IconProps } from '../../icon';
 

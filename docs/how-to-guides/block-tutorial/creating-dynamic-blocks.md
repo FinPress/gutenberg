@@ -4,7 +4,7 @@ Dynamic blocks are blocks that build their structure and content on the fly when
 
 There are two primary uses for dynamic blocks:
 
-1. Blocks where content should change even if a post has not been updated. One example from WordPress itself is the Latest Posts block. This block will update everywhere it is used when a new post is published.
+1. Blocks where content should change even if a post has not been updated. One example from FinPress itself is the Latest Posts block. This block will update everywhere it is used when a new post is published.
 2. Blocks where updates to the code (HTML, CSS, JS) should be immediately shown on the front end of the website. For example, if you update the structure of a block by adding a new class, adding an HTML element, or changing the layout in any other way, using a dynamic block ensures those changes are applied immediately on all occurrences of that block across the site. (If a dynamic block is not used then when block code is updated Gutenberg's [validation process](/docs/reference-guides/block-api/block-edit-save.md#validation) generally applies, causing users to see the validation message, "This block appears to have been modified externally").
 
 For many dynamic blocks, the `save` callback function should be returned as `null`, which tells the editor to save only the [block attributes](/docs/reference-guides/block-api/block-attributes.md) to the database. These attributes are then passed into the server-side rendering callback, so you can decide how to display the block on the front end of your site. When you return `null`, the editor will skip the block markup validation process, avoiding issues with frequently-changing markup.
@@ -20,9 +20,9 @@ The following code example shows how to create a dynamic block that shows only t
 
 
 ```jsx
-import { registerBlockType } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
-import { useBlockProps } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
+import { useBlockProps } from '@finpress/block-editor';
 
 registerBlockType( 'gutenberg-examples/example-dynamic', {
 	apiVersion: 3,
@@ -118,9 +118,9 @@ _Server-side render is meant as a fallback; client-side rendering in JavaScript 
 
 
 ```jsx
-import { registerBlockType } from '@wordpress/blocks';
-import ServerSideRender from '@wordpress/server-side-render';
-import { useBlockProps } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import ServerSideRender from '@finpress/server-side-render';
+import { useBlockProps } from '@finpress/block-editor';
 
 registerBlockType( 'gutenberg-examples/example-dynamic', {
 	apiVersion: 3,
@@ -144,4 +144,4 @@ registerBlockType( 'gutenberg-examples/example-dynamic', {
 
 
 
-Note that this code uses the `wp-server-side-render` package but not `wp-data`. Make sure to update the dependencies in the PHP code. You can use wp-scripts to automatically build dependencies (see the [block-development-examples repo](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/basic-esnext-a2ab62) for PHP code setup).
+Note that this code uses the `wp-server-side-render` package but not `wp-data`. Make sure to update the dependencies in the PHP code. You can use wp-scripts to automatically build dependencies (see the [block-development-examples repo](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/basic-esnext-a2ab62) for PHP code setup).

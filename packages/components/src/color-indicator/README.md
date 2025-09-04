@@ -13,7 +13,7 @@ ColorIndicator is a React component that renders a specific color in a circle. I
 ## Usage
 
 ```jsx
-import { ColorIndicator } from '@wordpress/components';
+import { ColorIndicator } from '@finpress/components';
 
 const MyColorIndicator = () => <ColorIndicator colorValue="#0073aa" />;
 ```

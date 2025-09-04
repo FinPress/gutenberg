@@ -132,7 +132,7 @@ function getFixes( fixer, context, callNode ) {
 	const storeName = callNode.arguments[ 0 ].value;
 	const storeDefinitions = {
 		core: {
-			import: '@wordpress/core-data',
+			import: '@finpress/core-data',
 			variable: 'coreStore',
 		},
 	};
@@ -140,7 +140,7 @@ function getFixes( fixer, context, callNode ) {
 	if ( ! storeDefinition && storeName.startsWith( 'core/' ) ) {
 		const storeNameWithoutCore = storeName.substring( 5 );
 		storeDefinition = {
-			import: `@wordpress/${ storeNameWithoutCore }`,
+			import: `@finpress/${ storeNameWithoutCore }`,
 			variable: storeNameToVariableNames( storeNameWithoutCore ),
 		};
 	}
@@ -176,7 +176,7 @@ function getFixes( fixer, context, callNode ) {
 		}
 	} else {
 		const wpImports = imports.filter( ( node ) =>
-			node.source.value.startsWith( '@wordpress/' )
+			node.source.value.startsWith( '@finpress/' )
 		);
 		const lastImport =
 			wpImports.length > 0
@@ -200,13 +200,13 @@ module.exports = {
 		hasSuggestions: true,
 		schema: [],
 		messages: {
-			doNotUseStringLiteral: `Do not use string literals ( '{{ argument }}' ) for accessing @wordpress/data stores. Pass the store definition instead`,
+			doNotUseStringLiteral: `Do not use string literals ( '{{ argument }}' ) for accessing @finpress/data stores. Pass the store definition instead`,
 		},
 	},
 	create( context ) {
 		return {
 			ImportDeclaration( node ) {
-				if ( node.source.value !== '@wordpress/data' ) {
+				if ( node.source.value !== '@finpress/data' ) {
 					return;
 				}
 

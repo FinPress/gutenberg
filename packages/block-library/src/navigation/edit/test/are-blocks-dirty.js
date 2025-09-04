@@ -43,7 +43,7 @@ describe( 'areBlocksDirty', () => {
 						innerBlocks: [
 							{
 								name: 'core/social-link',
-								url: 'www.wordpress.org',
+								url: 'www.finpress.org',
 							},
 						],
 					},
@@ -54,13 +54,13 @@ describe( 'areBlocksDirty', () => {
 						innerBlocks: [
 							{
 								name: 'core/social-link',
-								service: 'wordpress',
-								url: 'www.wordpress.org',
+								service: 'finpress',
+								url: 'www.finpress.org',
 							},
 							{
 								name: 'core/social-link',
-								service: 'wordpress',
-								url: 'make.wordpress.org',
+								service: 'finpress',
+								url: 'make.finpress.org',
 							},
 						],
 					},

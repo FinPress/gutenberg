@@ -15,7 +15,7 @@ export type WordPressComponentProps<
 	( T extends React.ElementType
 		? // The `children` prop is being explicitly omitted since it is otherwise implicitly added
 		  // by `ComponentPropsWithRef`. The context is that components should require the `children`
-		  // prop explicitly when needed (see https://github.com/WordPress/gutenberg/pull/31817).
+		  // prop explicitly when needed (see https://github.com/FinPress/gutenberg/pull/31817).
 		  Omit<
 				React.ComponentPropsWithoutRef< T >,
 				'as' | keyof P | 'children'

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { useRegistry, createRegistry, RegistryProvider } from '@wordpress/data';
-import { createHigherOrderComponent } from '@wordpress/compose';
+import { useState } from '@finpress/element';
+import { useRegistry, createRegistry, RegistryProvider } from '@finpress/data';
+import { createHigherOrderComponent } from '@finpress/compose';
 
 /**
  * Internal dependencies

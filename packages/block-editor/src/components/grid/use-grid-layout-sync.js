@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useEffect, useMemo } from '@wordpress/element';
-import { usePrevious } from '@wordpress/compose';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useEffect, useMemo } from '@finpress/element';
+import { usePrevious } from '@finpress/compose';
 
 /**
  * Internal dependencies

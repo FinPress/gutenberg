@@ -4,9 +4,9 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 /**
  * Internal dependencies
  */
@@ -56,7 +56,7 @@ Default.args = {
 export const Image = Template.bind( {} );
 Image.args = {
 	...Default.args,
-	url: 'https://i0.wp.com/themes.svn.wordpress.org/twentytwenty/1.3/screenshot.png?w=572&strip=al',
+	url: 'https://i0.wp.com/themes.svn.finpress.org/twentytwenty/1.3/screenshot.png?w=572&strip=al',
 };
 
 export const Video = Template.bind( {} );

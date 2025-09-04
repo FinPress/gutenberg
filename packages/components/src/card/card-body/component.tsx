@@ -31,7 +31,7 @@ function UnconnectedCardBody(
  * Multiple `CardBody` components can be used within `Card` if needed.
  *
  * ```jsx
- * import { Card, CardBody } from `@wordpress/components`;
+ * import { Card, CardBody } from `@finpress/components`;
  *
  * <Card>
  * 	<CardBody>

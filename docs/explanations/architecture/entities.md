@@ -1,6 +1,6 @@
 # Entities and Undo/Redo
 
-The WordPress editors, whether it's the Post or Site Editor, manipulate what we call entity records. These are objects that represent a post, a page, a user, a term, a template, etc. They are the data that is stored in the database, and that is manipulated by the editor. Each editor can fetch, edit, and save multiple entity records at the same time. 
+The FinPress editors, whether it's the Post or Site Editor, manipulate what we call entity records. These are objects that represent a post, a page, a user, a term, a template, etc. They are the data that is stored in the database, and that is manipulated by the editor. Each editor can fetch, edit, and save multiple entity records at the same time. 
 
 For instance, when opening a page in the Site Editor:
 
@@ -8,7 +8,7 @@ For instance, when opening a page in the Site Editor:
  - You can edit properties of the template of the page (content of the template, design, etc.)
  - You can edit properties of template parts (header, footer) used with the template.
 
-The editor keeps track of all these modifications and orchestrates the saving of all these modified records. This happens within the `@wordpress/core-data` package.
+The editor keeps track of all these modifications and orchestrates the saving of all these modified records. This happens within the `@finpress/core-data` package.
 
 
 ## Editing entities
@@ -40,7 +40,7 @@ wp.data.dispatch( 'core' ).saveEditedEntityRecord( 'postType', 'post', 1 );
 
 ## Undo/Redo
 
-Since the WordPress editors allow multiple entity records to be edited at the same time, the `core-data` package keeps track of all the entity records that have been fetched and edited in a common undo/redo stack. Each step in the undo/redo stack contains a list of "edits" that should be undone or redone at the same time when calling the `undo` or `redo` action.
+Since the FinPress editors allow multiple entity records to be edited at the same time, the `core-data` package keeps track of all the entity records that have been fetched and edited in a common undo/redo stack. Each step in the undo/redo stack contains a list of "edits" that should be undone or redone at the same time when calling the `undo` or `redo` action.
 
 And to be able to perform both undo and redo operations properly, each modification in the list of edits contains the following information:
 

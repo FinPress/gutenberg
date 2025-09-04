@@ -7,7 +7,7 @@
 			"displayExcerpt": true,
 			"displayAuthor": true,
 			"excerptLength": 20,
-			"feedURL": "https://wordpress.org/news/",
+			"feedURL": "https://finpress.org/news/",
 			"itemsToShow": 4
 		},
 		"innerBlocks": [],

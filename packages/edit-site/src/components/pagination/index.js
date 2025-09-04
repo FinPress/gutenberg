@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
 	__experimentalText as Text,
 	Button,
-} from '@wordpress/components';
-import { __, _x, _n, sprintf, isRTL } from '@wordpress/i18n';
-import { previous, chevronLeft, chevronRight, next } from '@wordpress/icons';
+} from '@finpress/components';
+import { __, _x, _n, sprintf, isRTL } from '@finpress/i18n';
+import { previous, chevronLeft, chevronRight, next } from '@finpress/icons';
 
 export default function Pagination( {
 	currentPage,

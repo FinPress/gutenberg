@@ -5,9 +5,9 @@ import { buildTermsTree } from './terms';
 import TreeSelect from '../tree-select';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo } from '@finpress/element';
 import type { CategorySelectProps } from './types';
 
 export default function CategorySelect( {

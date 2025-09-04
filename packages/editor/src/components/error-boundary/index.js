@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { Component } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 import {
 	Button,
 	__experimentalHStack as HStack,
 	__experimentalText as Text,
-} from '@wordpress/components';
-import { select } from '@wordpress/data';
-import { useCopyToClipboard } from '@wordpress/compose';
-import { doAction } from '@wordpress/hooks';
+} from '@finpress/components';
+import { select } from '@finpress/data';
+import { useCopyToClipboard } from '@finpress/compose';
+import { doAction } from '@finpress/hooks';
 
 /**
  * Internal dependencies

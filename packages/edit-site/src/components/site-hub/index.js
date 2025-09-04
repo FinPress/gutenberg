@@ -4,23 +4,23 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	Button,
 	__experimentalHStack as HStack,
 	VisuallyHidden,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
-import { decodeEntities } from '@wordpress/html-entities';
-import { memo, forwardRef, useContext } from '@wordpress/element';
-import { search } from '@wordpress/icons';
-import { store as commandsStore } from '@wordpress/commands';
-import { displayShortcut } from '@wordpress/keycodes';
-import { filterURLForDisplay } from '@wordpress/url';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
+import { decodeEntities } from '@finpress/html-entities';
+import { memo, forwardRef, useContext } from '@finpress/element';
+import { search } from '@finpress/icons';
+import { store as commandsStore } from '@finpress/commands';
+import { displayShortcut } from '@finpress/keycodes';
+import { filterURLForDisplay } from '@finpress/url';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

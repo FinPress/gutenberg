@@ -18,8 +18,8 @@ export default {
 			desc: 'We do not yet recommend using this outside of the Gutenberg codebase.',
 			links: [
 				{
-					title: 'About @wordpress/private-apis',
-					href: 'https://developer.wordpress.org/block-editor/reference-guides/packages/packages-private-apis/',
+					title: 'About @finpress/private-apis',
+					href: 'https://developer.finpress.org/block-editor/reference-guides/packages/packages-private-apis/',
 				},
 			],
 		},
@@ -30,7 +30,7 @@ export default {
 		styles: { backgroundColor: '#FFF0BD' },
 		tooltip: {
 			title: 'Component is a work in progress',
-			desc: 'This component is not ready for use in production, including the Gutenberg codebase. DO NOT export outside of @wordpress/components.',
+			desc: 'This component is not ready for use in production, including the Gutenberg codebase. DO NOT export outside of @finpress/components.',
 		},
 	},
 	experimental: {

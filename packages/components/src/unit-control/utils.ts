@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { Platform } from '@wordpress/element';
+import { __, _x } from '@finpress/i18n';
+import { Platform } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -404,7 +404,7 @@ export function filterUnitsWithSettings(
 /**
  * Custom hook to retrieve and consolidate units setting from add_theme_support().
  * TODO: ideally this hook shouldn't be needed
- * https://github.com/WordPress/gutenberg/pull/31822#discussion_r633280823
+ * https://github.com/FinPress/gutenberg/pull/31822#discussion_r633280823
  *
  * @param args                An object containing units, settingPath & defaultUnits.
  * @param args.units          Collection of all potentially available units.

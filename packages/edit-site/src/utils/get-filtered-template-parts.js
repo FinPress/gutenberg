@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isTemplatePart } from '@wordpress/blocks';
+import { isTemplatePart } from '@finpress/blocks';
 
 const EMPTY_ARRAY = [];
 

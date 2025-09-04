@@ -4,10 +4,10 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withPreferredColorScheme } from '@wordpress/compose';
-import { useMemo } from '@wordpress/element';
+import { withPreferredColorScheme } from '@finpress/compose';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

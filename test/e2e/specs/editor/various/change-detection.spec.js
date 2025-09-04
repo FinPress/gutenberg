@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 const {
 	test: base,
 	expect,
-} = require( '@wordpress/e2e-test-utils-playwright' );
+} = require( '@finpress/e2e-test-utils-playwright' );
 
 /**
  * @typedef {import('@playwright/test').Page} Page

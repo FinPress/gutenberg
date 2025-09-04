@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { useFocusOnMount } from '@wordpress/compose';
+import type { useFocusOnMount } from '@finpress/compose';
 
 export type ModalProps = {
 	aria?: {

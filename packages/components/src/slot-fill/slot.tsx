@@ -4,9 +4,9 @@
 import type { ReactElement, ReactNode, Key } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useObservableValue } from '@wordpress/compose';
+import { useObservableValue } from '@finpress/compose';
 import {
 	useContext,
 	useLayoutEffect,
@@ -14,7 +14,7 @@ import {
 	Children,
 	cloneElement,
 	isEmptyElement,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -8,7 +8,7 @@ Render a ImageSizeControl.
 
 ```jsx
 import { useState } from 'react';
-import { __experimentalImageSizeControl as ImageSizeControl } from '@wordpress/block-editor';
+import { __experimentalImageSizeControl as ImageSizeControl } from '@finpress/block-editor';
 
 const MyImageSizeControl = () => {
 	const [ size, setSize ] = useState( { width: null, height: null } );

@@ -8,12 +8,12 @@ const { v2: dockerCompose } = require( 'docker-compose' );
  * Internal dependencies
  */
 const initConfig = require( '../init-config' );
-const { configureWordPress, resetDatabase } = require( '../wordpress' );
+const { configureWordPress, resetDatabase } = require( '../finpress' );
 const { executeLifecycleScript } = require( '../execute-lifecycle-script' );
 
 /**
- * @typedef {import('../wordpress').WPEnvironment} WPEnvironment
- * @typedef {import('../wordpress').WPEnvironmentSelection} WPEnvironmentSelection
+ * @typedef {import('../finpress').WPEnvironment} WPEnvironment
+ * @typedef {import('../finpress').WPEnvironmentSelection} WPEnvironmentSelection
  */
 
 /**

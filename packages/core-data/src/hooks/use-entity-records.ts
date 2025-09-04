@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addQueryArgs } from '@wordpress/url';
-import deprecated from '@wordpress/deprecated';
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
+import { addQueryArgs } from '@finpress/url';
+import deprecated from '@finpress/deprecated';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -49,7 +49,7 @@ const EMPTY_ARRAY = [];
 /**
  * Resolves the specified entity records.
  *
- * @since 6.1.0 Introduced in WordPress core.
+ * @since 6.1.0 Introduced in FinPress core.
  *
  * @param    kind      Kind of the entity, e.g. `root` or a `postType`. See rootEntitiesConfig in ../entities.ts for a list of available kinds.
  * @param    name      Name of the entity, e.g. `plugin` or a `post`. See rootEntitiesConfig in ../entities.ts for a list of available names.
@@ -57,7 +57,7 @@ const EMPTY_ARRAY = [];
  * @param    options   Optional hook options.
  * @example
  * ```js
- * import { useEntityRecords } from '@wordpress/core-data';
+ * import { useEntityRecords } from '@finpress/core-data';
  *
  * function PageTitlesList() {
  *   const { records, isResolving } = useEntityRecords( 'postType', 'page' );

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useCallback, useEffect, useRef, useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -138,7 +138,7 @@ const UnconnectedConfirmDialog = (
  * Activating this mode is as simple as omitting the `isOpen` prop. The only mandatory prop, in this case, is the `onConfirm` callback. The message is passed as the `children`. You can pass any JSX you'd like, which allows to further format the message or include sub-component if you'd like:
  *
  * ```jsx
- * import { __experimentalConfirmDialog as ConfirmDialog } from '@wordpress/components';
+ * import { __experimentalConfirmDialog as ConfirmDialog } from '@finpress/components';
  *
  * function Example() {
  * 	return (
@@ -158,8 +158,8 @@ const UnconnectedConfirmDialog = (
  * -   You'll want to update the state that controls `isOpen` by updating it from the `onCancel` and `onConfirm` callbacks.
  *
  *```jsx
- * import { __experimentalConfirmDialog as ConfirmDialog } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { __experimentalConfirmDialog as ConfirmDialog } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * function Example() {
  * 	const [ isOpen, setIsOpen ] = useState( true );

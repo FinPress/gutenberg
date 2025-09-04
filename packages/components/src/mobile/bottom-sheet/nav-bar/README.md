@@ -5,7 +5,7 @@ BottomSheet NavBar components provide styled elements for composing a NavBar UI 
 ## Usage
 
 ```jsx
-import { BottomSheet } from '@wordpress/components';
+import { BottomSheet } from '@finpress/components';
 
 export default = () => (
 	<BottomSheet>

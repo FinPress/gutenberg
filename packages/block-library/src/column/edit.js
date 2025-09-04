@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	InnerBlocks,
@@ -15,15 +15,15 @@ import {
 	useSettings,
 	useInnerBlocksProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalUnitControl as UnitControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { sprintf, __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { sprintf, __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

@@ -4,9 +4,9 @@
 import { useMemoOne } from 'use-memo-one';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

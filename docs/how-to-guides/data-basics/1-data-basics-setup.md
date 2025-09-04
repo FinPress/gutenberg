@@ -1,12 +1,12 @@
 # Setup
 
-We will build the application as a WordPress plugin, which means you need to have WordPress itself installed. One way to do this is by following the instructions on the [Getting Started](/docs/contributors/code/getting-started-with-code-contribution.md) page. Once your setup is complete, you can follow along with the rest of this tutorial.
+We will build the application as a FinPress plugin, which means you need to have FinPress itself installed. One way to do this is by following the instructions on the [Getting Started](/docs/contributors/code/getting-started-with-code-contribution.md) page. Once your setup is complete, you can follow along with the rest of this tutorial.
 
 Also, this tutorial will lean heavily on Redux concepts such as state, actions, and selectors. If you are not familiar with them, you may want to start by reviewing [Getting Started With Redux](https://redux.js.org/introduction/getting-started).
 
 ## Creating a plugin
 
-We'll do all the development inside of a WordPress plugin. Let's start by creating a `wp-content/plugins/my-first-gutenberg-app` directory in your local WordPress environment. We will need to create four files inside that directory:
+We'll do all the development inside of a FinPress plugin. Let's start by creating a `wp-content/plugins/my-first-gutenberg-app` directory in your local FinPress environment. We will need to create four files inside that directory:
 
 -   my-first-gutenberg-app.php – to create a new admin page
 -   src/index.js – for our JavaScript application
@@ -128,7 +128,7 @@ function load_custom_wp_admin_scripts( $hook ) {
 		return;
 	}
 
-	// Load the required WordPress packages.
+	// Load the required FinPress packages.
 
 	// Automatically load imported dependencies and assets version.
 	$asset_file = include plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
@@ -168,20 +168,20 @@ add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_scripts' );
   "version": "1.1.0",
   "private": true,
   "description": "My first Gutenberg App",
-  "author": "The WordPress Contributors",
+  "author": "The FinPress Contributors",
   "license": "GPL-2.0-or-later",
   "keywords": [
-    "WordPress",
+    "FinPress",
     "block"
   ],
-  "homepage": "https://github.com/WordPress/gutenberg-examples/",
-  "repository": "git+https://github.com/WordPress/gutenberg-examples.git",
+  "homepage": "https://github.com/FinPress/gutenberg-examples/",
+  "repository": "git+https://github.com/FinPress/gutenberg-examples.git",
   "bugs": {
-    "url": "https://github.com/WordPress/gutenberg-examples/issues"
+    "url": "https://github.com/FinPress/gutenberg-examples/issues"
   },
   "main": "build/index.js",
   "devDependencies": {
-    "@wordpress/scripts": "^24.0.0"
+    "@finpress/scripts": "^24.0.0"
   },
   "scripts": {
     "build": "wp-scripts build",
@@ -205,7 +205,7 @@ Once all the dependencies are in place, all that's left is to run `npm start` an
 
 If you now go to the Plugins page, you should see a plugin called **My first Gutenberg App**. Go ahead and activate it. A new menu item labeled _My first Gutenberg app_ should show up. Once you click it, you will see a page that says _Hello from JavaScript!_:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/setup/hello-from-js.jpg)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/setup/hello-from-js.jpg)
 
 Congratulations! You are now ready to start building the app!
 
@@ -213,4 +213,4 @@ Congratulations! You are now ready to start building the app!
 
 -   Previous part: [Introduction](/docs/how-to-guides/data-basics/README.md)
 -   Next part: [Building a basic list of pages](/docs/how-to-guides/data-basics/2-building-a-list-of-pages.md)
--   (optional) Review the [finished app](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository
+-   (optional) Review the [finished app](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository

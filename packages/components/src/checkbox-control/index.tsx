@@ -5,12 +5,12 @@ import clsx from 'clsx';
 import type { ChangeEvent } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { useInstanceId, useRefEffect } from '@wordpress/compose';
-import deprecated from '@wordpress/deprecated';
-import { Icon, check, reset } from '@wordpress/icons';
+import { useState } from '@finpress/element';
+import { useInstanceId, useRefEffect } from '@finpress/compose';
+import deprecated from '@finpress/deprecated';
+import { Icon, check, reset } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -24,8 +24,8 @@ import type { WordPressComponentProps } from '../context';
  * Checkboxes allow the user to select one or more items from a set.
  *
  * ```jsx
- * import { CheckboxControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { CheckboxControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyCheckboxControl = () => {
  *   const [ isChecked, setChecked ] = useState( true );

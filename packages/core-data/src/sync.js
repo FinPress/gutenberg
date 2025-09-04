@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createSyncProvider,
 	connectIndexDb,
 	createWebRTCConnection,
-} from '@wordpress/sync';
+} from '@finpress/sync';
 
 let syncProvider;
 

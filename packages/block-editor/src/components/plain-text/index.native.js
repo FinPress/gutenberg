@@ -4,10 +4,10 @@
 import { TextInput, Platform, Dimensions } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { getPxFromCssUnit } from '@wordpress/components';
+import { Component } from '@finpress/element';
+import { getPxFromCssUnit } from '@finpress/components';
 
 /**
  * Internal dependencies

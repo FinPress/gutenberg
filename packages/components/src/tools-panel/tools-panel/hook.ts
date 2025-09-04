@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useCallback,
@@ -7,7 +7,7 @@ import {
 	useMemo,
 	useReducer,
 	useRef,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies

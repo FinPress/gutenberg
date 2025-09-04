@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store, getContext } from '@wordpress/interactivity';
+import { store, getContext } from '@finpress/interactivity';
 
 store( 'directive-context', {
 	state: {
@@ -85,7 +85,7 @@ const { actions } = store( 'directive-context-navigate', {
 			ctx.text2 = 'some new text';
 		},
 		navigate() {
-			return import( '@wordpress/interactivity-router' ).then(
+			return import( '@finpress/interactivity-router' ).then(
 				( { actions: routerActions } ) => {
 					const url = new URL( window.location.href );
 					url.searchParams.set( 'next_page', 'true' );

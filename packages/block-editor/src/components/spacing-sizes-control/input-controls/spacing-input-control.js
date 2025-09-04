@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
@@ -10,12 +10,12 @@ import {
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalParseQuantityAndUnitFromRawValue as parseQuantityAndUnitFromRawValue,
 	CustomSelectControl,
-} from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { useState, useMemo } from '@wordpress/element';
-import { usePrevious } from '@wordpress/compose';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { settings } from '@wordpress/icons';
+} from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { useState, useMemo } from '@finpress/element';
+import { usePrevious } from '@finpress/compose';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { settings } from '@finpress/icons';
 
 /**
  * Internal dependencies

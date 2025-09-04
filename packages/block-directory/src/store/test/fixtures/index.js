@@ -2,7 +2,7 @@ export const downloadableBlock = {
 	name: 'boxer/boxer',
 	title: 'Boxer',
 	description:
-		'Boxer is a Block that puts your WordPress posts into boxes on a page.',
+		'Boxer is a Block that puts your FinPress posts into boxes on a page.',
 	id: 'boxer-block',
 	rating: 5,
 	ratingCount: 1,
@@ -12,8 +12,8 @@ export const downloadableBlock = {
 	author: 'CK Lee',
 	icon: 'block-default',
 	assets: [
-		'https://plugins.svn.wordpress.org/boxer-block/trunk/build/index.js',
-		'https://plugins.svn.wordpress.org/boxer-block/trunk/build/view.js',
+		'https://plugins.svn.finpress.org/boxer-block/trunk/build/index.js',
+		'https://plugins.svn.finpress.org/boxer-block/trunk/build/view.js',
 	],
 	humanizedUpdated: '3 months ago',
 };

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x, __ } from '@wordpress/i18n';
-import { dateI18n, humanTimeDiff } from '@wordpress/date';
-import { useState, createInterpolateElement } from '@wordpress/element';
+import { _x, __ } from '@finpress/i18n';
+import { dateI18n, humanTimeDiff } from '@finpress/date';
+import { useState, createInterpolateElement } from '@finpress/element';
 import {
 	TextControl,
 	ExternalLink,
@@ -11,7 +11,7 @@ import {
 	ToggleControl,
 	__experimentalVStack as VStack,
 	CustomSelectControl,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 // So that we illustrate the different formats in the dropdown properly, show a date that is
 // somewhat recent, has a day greater than 12, and a month with more than three letters.
@@ -27,7 +27,7 @@ if ( exampleDate.getMonth() === 4 ) {
  * The `DateFormatPicker` component renders controls that let the user choose a
  * _date format_. That is, how they want their dates to be formatted.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/date-format-picker/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/date-format-picker/README.md
  *
  * @param {Object}      props
  * @param {string|null} props.format        The selected date format. If `null`, _Default_ is selected.
@@ -155,7 +155,7 @@ function NonDefaultControls( { format, onChange } ) {
 							Link: (
 								<ExternalLink
 									href={ __(
-										'https://wordpress.org/documentation/article/customize-date-and-time-format/'
+										'https://finpress.org/documentation/article/customize-date-and-time-format/'
 									) }
 								/>
 							),

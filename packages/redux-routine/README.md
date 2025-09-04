@@ -1,4 +1,4 @@
-# @wordpress/redux-routine
+# @finpress/redux-routine
 
 Redux middleware for generator coroutines.
 
@@ -9,20 +9,20 @@ Install Node if you do not already have it available.
 Install the module to your project using `npm`:
 
 ```bash
-npm install @wordpress/redux-routine
+npm install @finpress/redux-routine
 ```
 
-`@wordpress/redux-routine` leverages both Promises and Generators, two modern features of the JavaScript language. If you need to support older browsers (Internet Explorer 11 or earlier), you will need to provide your own polyfills.
+`@finpress/redux-routine` leverages both Promises and Generators, two modern features of the JavaScript language. If you need to support older browsers (Internet Explorer 11 or earlier), you will need to provide your own polyfills.
 
 ## Usage
 
-The default export of `@wordpress/redux-routine` is a function which, given an object of control handlers, returns a Redux middleware function.
+The default export of `@finpress/redux-routine` is a function which, given an object of control handlers, returns a Redux middleware function.
 
 For example, consider a common case where we need to issue a network request. We can define the network request as a control handler when creating our middleware.
 
 ```js
 import { combineReducers, createStore, applyMiddleware } from 'redux';
-import createMiddleware from '@wordpress/redux-routine';
+import createMiddleware from '@finpress/redux-routine';
 
 const middleware = createMiddleware( {
 	async FETCH_JSON( action ) {
@@ -75,7 +75,7 @@ _Returns_
 
 ## Motivation
 
-`@wordpress/redux-routine` shares many of the same motivations as other similar generator-based Redux side effects solutions, including `redux-saga`. Where it differs is in being less opinionated by virtue of its minimalism. It includes no default controls, offers no tooling around splitting logic flows, and does not include any error handling out of the box. This is intended in promoting approachability to developers who seek to bring asynchronous or conditional continuation flows to their applications without a steep learning curve.
+`@finpress/redux-routine` shares many of the same motivations as other similar generator-based Redux side effects solutions, including `redux-saga`. Where it differs is in being less opinionated by virtue of its minimalism. It includes no default controls, offers no tooling around splitting logic flows, and does not include any error handling out of the box. This is intended in promoting approachability to developers who seek to bring asynchronous or conditional continuation flows to their applications without a steep learning curve.
 
 The primary motivations include, among others:
 
@@ -119,8 +119,8 @@ If your action creator does not assign the yielded result into a variable, you c
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

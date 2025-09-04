@@ -7,7 +7,7 @@ module.exports = {
 	plugins: [
 		new DependencyExtractionWebpackPlugin( {
 			requestToExternalModule( request ) {
-				return request.startsWith( '@wordpress/' );
+				return request.startsWith( '@finpress/' );
 			},
 		} ),
 	],

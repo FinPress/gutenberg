@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Icon,
@@ -7,12 +7,12 @@ import {
 	__experimentalVStack as VStack,
 	__experimentalText as Text,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+} from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
 
 /**
  * Internal dependencies

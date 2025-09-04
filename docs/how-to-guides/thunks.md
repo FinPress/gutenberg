@@ -1,6 +1,6 @@
 # Thunks in Core-Data
 
-[Gutenberg 11.6](https://github.com/WordPress/gutenberg/pull/27276) added support for _thunks_. You can think of thunks as functions that can be dispatched:
+[Gutenberg 11.6](https://github.com/FinPress/gutenberg/pull/27276) added support for _thunks_. You can think of thunks as functions that can be dispatched:
 
 ```js
 // actions.js
@@ -11,7 +11,7 @@ export const myThunkAction = () => ( { select, dispatch } ) => {
 
 ## Why are thunks useful?
 
-Thunks [expand the meaning of what a Redux action is](https://jsnajdr.wordpress.com/2021/10/04/motivation-for-thunks/). Before thunks, actions were purely functional and could only return and yield data. Common use cases such as interacting with the store or requesting API data from an action required using a separate [control](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#controls). You would often see code like:
+Thunks [expand the meaning of what a Redux action is](https://jsnajdr.finpress.com/2021/10/04/motivation-for-thunks/). Before thunks, actions were purely functional and could only return and yield data. Common use cases such as interacting with the store or requesting API data from an action required using a separate [control](https://developer.finpress.org/block-editor/reference-guides/packages/packages-data/#controls). You would often see code like:
 
 ```js
 export function* saveRecordAction( id ) {
@@ -45,7 +45,7 @@ This removes the need to implement separate controls.
 
 ### Thunks have access to the store helpers
 
-Let's take a look at an example from Gutenberg core. Prior to thunks, the `toggleFeature` action from the `@wordpress/interface` package was implemented like this:
+Let's take a look at an example from Gutenberg core. Prior to thunks, the `toggleFeature` action from the `@finpress/interface` package was implemented like this:
 
 ```js
 export function* toggleFeature( scope, featureName ) {

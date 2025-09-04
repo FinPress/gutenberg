@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect, useMergeRefs } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { isTextField } from '@wordpress/dom';
+import { useRefEffect, useMergeRefs } from '@finpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
+import { isTextField } from '@finpress/dom';
 import {
 	UP,
 	RIGHT,
@@ -13,7 +13,7 @@ import {
 	BACKSPACE,
 	ESCAPE,
 	TAB,
-} from '@wordpress/keycodes';
+} from '@finpress/keycodes';
 
 /**
  * Internal dependencies
@@ -253,6 +253,6 @@ function ObserveTyping( { children } ) {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/observe-typing/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/observe-typing/README.md
  */
 export default ObserveTyping;

@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { sprintf, _n } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { copy } from '@wordpress/icons';
-import { __experimentalHStack as HStack } from '@wordpress/components';
+import { sprintf, _n } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { copy } from '@finpress/icons';
+import { __experimentalHStack as HStack } from '@finpress/components';
 
 /**
  * Internal dependencies

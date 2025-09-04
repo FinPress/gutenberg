@@ -1,29 +1,29 @@
 # Managing Packages
 
-This repository uses [npm workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces) to manage WordPress packages and [lerna](https://lerna.js.org/) to publish them with to [npm](https://www.npmjs.com/).
+This repository uses [npm workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces) to manage FinPress packages and [lerna](https://lerna.js.org/) to publish them with to [npm](https://www.npmjs.com/).
 
 ## Creating a New Package
 
-When creating a new package, you need to provide at least the following. Packages bundled in Gutenberg or WordPress must include a `wpScript` and or `wpScriptModuleExports` field in their `package.json` file. See the details below.
+When creating a new package, you need to provide at least the following. Packages bundled in Gutenberg or FinPress must include a `wpScript` and or `wpScriptModuleExports` field in their `package.json` file. See the details below.
 
 1. `package.json` based on the template:
 
     ```jsonc
     {
-    	"name": "@wordpress/package-name",
+    	"name": "@finpress/package-name",
     	"version": "1.0.0-prerelease",
     	"description": "Package description.",
-    	"author": "The WordPress Contributors",
+    	"author": "The FinPress Contributors",
     	"license": "GPL-2.0-or-later",
-    	"keywords": [ "wordpress" ],
-    	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/package-name/README.md",
+    	"keywords": [ "finpress" ],
+    	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/package-name/README.md",
     	"repository": {
     		"type": "git",
-    		"url": "https://github.com/WordPress/gutenberg.git",
+    		"url": "https://github.com/FinPress/gutenberg.git",
     		"directory": "packages/package-name"
     	},
     	"bugs": {
-    		"url": "https://github.com/WordPress/gutenberg/issues"
+    		"url": "https://github.com/FinPress/gutenberg/issues"
     	},
     	"engines": {
     		"node": ">=18.12.0",
@@ -32,9 +32,9 @@ When creating a new package, you need to provide at least the following. Package
     	"main": "build/index.js",
     	"module": "build-module/index.js",
     	"react-native": "src/index",
-    	// Include this line to include the package as a WordPress script.
+    	// Include this line to include the package as a FinPress script.
     	"wpScript": true,
-    	// Include this line to include the package as a WordPress script module.
+    	// Include this line to include the package as a FinPress script module.
     	"wpScriptModuleExports": "./build-module/index.js",
     	"types": "build-types",
     	"sideEffects": false,
@@ -49,28 +49,28 @@ When creating a new package, you need to provide at least the following. Package
 
     This assumes that your code is located in the `src` folder and will be transpiled with `Babel`.
 
-    For production packages that will ship as a WordPress script, include `wpScript: true` in the `package.json` file. This tells the build system to bundle the package for use as a WordPress script.
+    For production packages that will ship as a FinPress script, include `wpScript: true` in the `package.json` file. This tells the build system to bundle the package for use as a FinPress script.
 
-    For production packages that will ship as a WordPress script module, include a `wpScriptModuleExports` field in the `package.json` file. The value of this field can be a string to expose a single script module, or an object with a [shape like the standard `exports` object](https://nodejs.org/docs/latest-v20.x/api/packages.html#subpath-exports) to expose multiple script modules from a single package:
+    For production packages that will ship as a FinPress script module, include a `wpScriptModuleExports` field in the `package.json` file. The value of this field can be a string to expose a single script module, or an object with a [shape like the standard `exports` object](https://nodejs.org/docs/latest-v20.x/api/packages.html#subpath-exports) to expose multiple script modules from a single package:
 
     ```jsonc
     {
-    	"name": "@wordpress/example",
+    	"name": "@finpress/example",
 
-    	// The string form exposes the `@wordpress/example` script module.
+    	// The string form exposes the `@finpress/example` script module.
     	"wpScriptModuleExports": "./build-module/index.js",
 
     	// Multiple sub-modules can be exposed by providing an object:
     	"wpScriptModuleExports": {
-    		// Exposed as `@wordpress/example` script module.
+    		// Exposed as `@finpress/example` script module.
     		".": "./build-module/index.js",
-    		// Exposed as `@wordpress/example/demo-block/view` script module.
+    		// Exposed as `@finpress/example/demo-block/view` script module.
     		"./demo-block/view": "./build-module/index.js"
     	}
     }
     ```
 
-    Both `wpScript` and `wpScriptModuleExports` may be included if the package exposes both a script and a script module. These fields are also essential when performing a license check for all their dependencies, because they trigger strict validation against compatibility with GPL v2. All remaining dependencies WordPress doesn't distribute but uses for development purposes can contain also a few other OSS compatible licenses.
+    Both `wpScript` and `wpScriptModuleExports` may be included if the package exposes both a script and a script module. These fields are also essential when performing a license check for all their dependencies, because they trigger strict validation against compatibility with GPL v2. All remaining dependencies FinPress doesn't distribute but uses for development purposes can contain also a few other OSS compatible licenses.
 
 1. `README.md` file containing at least:
     - Package name
@@ -78,12 +78,12 @@ When creating a new package, you need to provide at least the following. Package
     - Installation details
     - Usage example
     - API documentation, if applicable ([more info](#maintaining-api-documentation))
-    - A link to the contributing guidelines ([here's an example](https://github.com/WordPress/gutenberg/tree/HEAD/packages/a11y/README.md#contributing-to-this-package) from the a11y package)
+    - A link to the contributing guidelines ([here's an example](https://github.com/FinPress/gutenberg/tree/HEAD/packages/a11y/README.md#contributing-to-this-package) from the a11y package)
     - `Code is Poetry` logo (`<br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>`)
 1. `CHANGELOG.md` file containing at least:
 
     ```
-    <!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+    <!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
     ## Unreleased
 
@@ -94,7 +94,7 @@ To ensure your package is recognized in npm workspaces, you should run `npm inst
 
 ## Managing Dependencies
 
-There are two types of dependencies that you might want to add to one of the existing WordPress packages.
+There are two types of dependencies that you might want to add to one of the existing FinPress packages.
 
 ### Production Dependencies
 
@@ -110,7 +110,7 @@ _Example:_
 npm install change-case -w packages/a11y
 ```
 
-This command adds the `change-case` as a dependency to the `@wordpress/a11y` package, which is located in `packages/a11y` folder. If there was the same dependency installed then the version specified in the `package-lock.json` file is going to be reused. If you want to enforce a different version, you can do so by adding the `@` suffix to the package name.
+This command adds the `change-case` as a dependency to the `@finpress/a11y` package, which is located in `packages/a11y` folder. If there was the same dependency installed then the version specified in the `package-lock.json` file is going to be reused. If you want to enforce a different version, you can do so by adding the `@` suffix to the package name.
 
 _Example:_
 
@@ -120,7 +120,7 @@ npm install change-case@latest -w packages/a11y
 
 #### Removing Existing Dependencies
 
-Removing a dependency from one of the WordPress packages is similar to installation. You need to run a command like the following from the root of the project.
+Removing a dependency from one of the FinPress packages is similar to installation. You need to run a command like the following from the root of the project.
 
 _Example:_
 
@@ -137,7 +137,7 @@ This is the most confusing part of working with [monorepo] which causes a lot of
 
 ### Development Dependencies
 
-In contrast to production dependencies, development dependencies shouldn't be stored in individual WordPress packages. Instead they should be installed in the project's `package.json` file using the usual `npm install` command. In effect, all development tools are configured to work with every package at the same time to ensure they share the same characteristics and integrate correctly with each other.
+In contrast to production dependencies, development dependencies shouldn't be stored in individual FinPress packages. Instead they should be installed in the project's `package.json` file using the usual `npm install` command. In effect, all development tools are configured to work with every package at the same time to ensure they share the same characteristics and integrate correctly with each other.
 
 _Example:_
 
@@ -177,7 +177,7 @@ Content within the HTML comment will be replaced by the generated documentation.
 
 ## Maintaining a Public API
 
-It's very important to have a good plan for what a new package will include. All constants, methods, and components exposed from the package will ultimately become part of the public API in WordPress core (exposed via the `wp` global - eg: `wp.blockEditor`) and as such will need to be supported indefinitely. You should be very selective in what is exposed by your package and [ensure it is well documented](#maintaining-api-documentation).
+It's very important to have a good plan for what a new package will include. All constants, methods, and components exposed from the package will ultimately become part of the public API in FinPress core (exposed via the `wp` global - eg: `wp.blockEditor`) and as such will need to be supported indefinitely. You should be very selective in what is exposed by your package and [ensure it is well documented](#maintaining-api-documentation).
 
 ## Maintaining Changelogs
 
@@ -188,7 +188,7 @@ For each pull request, you should always include relevant changes under an "Unre
 _Example:_
 
 ```md
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -210,7 +210,7 @@ While other section naming can be used when appropriate, it's important that are
 
 When in doubt, refer to [Semantic Versioning specification](https://semver.org/).
 
-If you are publishing new versions of packages, note that there are versioning recommendations outlined in the [Gutenberg Release Process document](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/code/release.md) which prescribe _minimum_ version bumps for specific types of releases. The chosen version should be the greater of the two between the semantic versioning and Gutenberg release minimum version bumps.
+If you are publishing new versions of packages, note that there are versioning recommendations outlined in the [Gutenberg Release Process document](https://github.com/FinPress/gutenberg/blob/HEAD/docs/contributors/code/release.md) which prescribe _minimum_ version bumps for specific types of releases. The chosen version should be the greater of the two between the semantic versioning and Gutenberg release minimum version bumps.
 
 ## TypeScript
 
@@ -249,8 +249,8 @@ A `tsconfig.json` file should look like the following (comments are not necessar
 	// Which source files should be included
 	"include": [ "src/**/*" ],
 
-	// Other WordPress package dependencies that have opted-in to TypeScript should be listed
-	// here. In this case, our package depends on `@wordpress/dom-ready`.
+	// Other FinPress package dependencies that have opted-in to TypeScript should be listed
+	// here. In this case, our package depends on `@finpress/dom-ready`.
 	"references": [ { "path": "../dom-ready" } ]
 }
 ```
@@ -270,7 +270,7 @@ Ensure that the `build-types` directory will be included in the published packag
 
 ## Supported Node.js and npm versions
 
-WordPress packages adhere the [Node.js Release Schedule](https://nodejs.org/en/about/previous-releases/). Consequently, the minimum required versions of Node.js and npm are specified using the `engines` field in `package.json` for all packages. This ensures that production applications run only on Active LTS or Maintenance LTS releases on Node.js. LTS release status is "long-term support", which typically guarantees that critical bugs will be fixed for a total of 30 months.
+FinPress packages adhere the [Node.js Release Schedule](https://nodejs.org/en/about/previous-releases/). Consequently, the minimum required versions of Node.js and npm are specified using the `engines` field in `package.json` for all packages. This ensures that production applications run only on Active LTS or Maintenance LTS releases on Node.js. LTS release status is "long-term support", which typically guarantees that critical bugs will be fixed for a total of 30 months.
 
 ## Optimizing for bundlers
 
@@ -297,8 +297,8 @@ If your package includes a few files with side effects, you can list them instea
 }
 ```
 
-Please consult the [side effects documentation](https://github.com/WordPress/gutenberg/blob/HEAD/packages/side-effects.md) for more information on identifying and declaring side effects.
+Please consult the [side effects documentation](https://github.com/FinPress/gutenberg/blob/HEAD/packages/side-effects.md) for more information on identifying and declaring side effects.
 
 ## Publishing to npm
 
-Publishing WordPress packages to npm is automated by synchronizing it with the bi-weekly Gutenberg plugin RC1 release. You can learn more about this process and other ways to publish new versions of npm packages in the [Gutenberg Release Process document](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/code/release.md#packages-releases-to-npm-and-wordpress-core-updates).
+Publishing FinPress packages to npm is automated by synchronizing it with the bi-weekly Gutenberg plugin RC1 release. You can learn more about this process and other ways to publish new versions of npm packages in the [Gutenberg Release Process document](https://github.com/FinPress/gutenberg/blob/HEAD/docs/contributors/code/release.md#packages-releases-to-npm-and-finpress-core-updates).

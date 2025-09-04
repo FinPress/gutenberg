@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,7 +64,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 4.58.0 (2024-05-16)
 
@@ -186,8 +186,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ## 3.1.0 (2021-03-17)
 
@@ -195,57 +195,57 @@
 
 ### Breaking Changes
 
--   Re-write using ES Modules causing CJS default import to change from `require('@wordpress/is-shallow-equal)` to `require('@wordpress/is-shallow-equal).default`. ([#26833](https://github.com/WordPress/gutenberg/pull/26833))
+-   Re-write using ES Modules causing CJS default import to change from `require('@finpress/is-shallow-equal)` to `require('@finpress/is-shallow-equal).default`. ([#26833](https://github.com/FinPress/gutenberg/pull/26833))
 
 ## 2.0.0 (2020-04-15)
 
 ### Breaking Changes
 
 -   Restructure package moving source files into `lib` directory. Direct imports of
-    `@wordpress/is-shallow-equal/arrays` and `@wordpress/is-shallow-equal/objects` were never
-    officially supported and have been removed. ([#18942](https://github.com/WordPress/gutenberg/pull/18942))
+    `@finpress/is-shallow-equal/arrays` and `@finpress/is-shallow-equal/objects` were never
+    officially supported and have been removed. ([#18942](https://github.com/FinPress/gutenberg/pull/18942))
 
 ### New Features
 
--   Include TypeScript type declarations ([#18942](https://github.com/WordPress/gutenberg/pull/18942))
+-   Include TypeScript type declarations ([#18942](https://github.com/FinPress/gutenberg/pull/18942))
 
 ## 1.5.0 (2019-08-05)
 
 ### Bug Fixes
 
--   Resolved an issue where an explicit `undefined` value in the first object may wrongly report as being shallow equal when the two objects are otherwise of equal length. ([#16329](https://github.com/WordPress/gutenberg/pull/16329))
+-   Resolved an issue where an explicit `undefined` value in the first object may wrongly report as being shallow equal when the two objects are otherwise of equal length. ([#16329](https://github.com/FinPress/gutenberg/pull/16329))
 
 ## 1.2.0 (2019-03-06)
 
 ### New Features
 
--   Type-specific variants are now exposed from the module root. In a WordPress context, this has the effect of making them available as `wp.isShallowEqual.isShallowEqualObjects` and `wp.isShallowEqual.isShallowEqualArrays`.
+-   Type-specific variants are now exposed from the module root. In a FinPress context, this has the effect of making them available as `wp.isShallowEqual.isShallowEqualObjects` and `wp.isShallowEqual.isShallowEqualArrays`.
 
 ### Internal
 
--   Development source code linting extends the `@wordpress/eslint-plugin/es5` ruleset.
+-   Development source code linting extends the `@finpress/eslint-plugin/es5` ruleset.
 
 ## 1.1.0 (2018-07-12)
 
 ### New Features
 
--   Updated build to work with Babel 7 ([#7832](https://github.com/WordPress/gutenberg/pull/7832))
+-   Updated build to work with Babel 7 ([#7832](https://github.com/FinPress/gutenberg/pull/7832))
 
 ### Internal
 
--   Moved `@WordPress/packages` repository to `@WordPress/gutenberg` ([#7805](https://github.com/WordPress/gutenberg/pull/7805))
+-   Moved `@FinPress/packages` repository to `@FinPress/gutenberg` ([#7805](https://github.com/FinPress/gutenberg/pull/7805))
 
 ## 1.0.2 (2018-05-08)
 
 ### Bug Fixes
 
--   Fix: Use implicit `index.js` for main entry ([#124](https://github.com/WordPress/packages/pull/124))
+-   Fix: Use implicit `index.js` for main entry ([#124](https://github.com/FinPress/packages/pull/124))
 
 ## 1.0.1 (2018-05-01)
 
 ### Bug Fixes
 
--   Fix: Passing a null-ish value as one of the arguments now correctly falls back to a strict equality comparison. ([#116](https://github.com/WordPress/packages/pull/116))
+-   Fix: Passing a null-ish value as one of the arguments now correctly falls back to a strict equality comparison. ([#116](https://github.com/FinPress/packages/pull/116))
 
 ## 1.0.0 (2018-04-25)
 

@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-import { commentAuthorAvatar as authorIcon } from '@wordpress/icons';
-import { __experimentalHStack as HStack, Icon } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import type { User } from '@wordpress/core-data';
+import { __ } from '@finpress/i18n';
+import { useState } from '@finpress/element';
+import { commentAuthorAvatar as authorIcon } from '@finpress/icons';
+import { __experimentalHStack as HStack, Icon } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import type { User } from '@finpress/core-data';
 
 /**
  * Internal dependencies

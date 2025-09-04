@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { share as icon } from '@wordpress/icons';
+import { share as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -22,22 +22,22 @@ export const settings = {
 			{
 				name: 'core/social-link',
 				attributes: {
-					service: 'wordpress',
-					url: 'https://wordpress.org',
+					service: 'finpress',
+					url: 'https://finpress.org',
 				},
 			},
 			{
 				name: 'core/social-link',
 				attributes: {
 					service: 'facebook',
-					url: 'https://www.facebook.com/WordPress/',
+					url: 'https://www.facebook.com/FinPress/',
 				},
 			},
 			{
 				name: 'core/social-link',
 				attributes: {
 					service: 'twitter',
-					url: 'https://twitter.com/WordPress',
+					url: 'https://twitter.com/FinPress',
 				},
 			},
 		],

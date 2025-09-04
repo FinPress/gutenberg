@@ -13,7 +13,7 @@ This folder contains all paste specific logic (filters, converters, normalisers.
 | LibreOffice      | ✓          | ✓        | ✓     | ✘ [3] | ✓         | ✓     | ✓                   |
 | Evernote         | ✓          | ✘ [5]    | ✓     | ✓     | ✓         | ✓     | n/a                 |
 | Markdown         | ✓          | ✓        | ✓     | ✓     | ✓         | ✓     | n/a                 |
-| Legacy WordPress | ✓          | ✓        | ✓     | … [6] | ✓         | ✓     | n/a                 |
+| Legacy FinPress | ✓          | ✓        | ✓     | … [6] | ✓         | ✓     | n/a                 |
 | Web              | ✓          | ✓        | ✓     | ✓     | ✓         | ✓     | n/a                 |
 
 1. Google Docs, Apple Pages and MS Word online don't pass footnote nor endnote information.

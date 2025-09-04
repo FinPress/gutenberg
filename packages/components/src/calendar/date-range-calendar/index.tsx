@@ -5,9 +5,9 @@ import { differenceInCalendarDays } from 'date-fns';
 import { DayPicker, rangeContainsModifiers } from 'react-day-picker';
 import { enUS } from 'react-day-picker/locale';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useState, useCallback } from '@wordpress/element';
+import { useMemo, useState, useCallback } from '@finpress/element';
 /**
  * Internal dependencies
  */

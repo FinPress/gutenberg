@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/date",
+	"name": "@finpress/date",
 	"version": "5.29.0",
-	"description": "Date module for WordPress.",
-	"author": "The WordPress Contributors",
+	"description": "Date module for FinPress.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"date"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/date/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/date/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/date"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -29,7 +29,7 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/deprecated": "file:../deprecated",
+		"@finpress/deprecated": "file:../deprecated",
 		"moment": "^2.29.4",
 		"moment-timezone": "^0.5.40"
 	},

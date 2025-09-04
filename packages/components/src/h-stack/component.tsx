@@ -25,7 +25,7 @@ function UnconnectedHStack(
  * import {
  * 	__experimentalHStack as HStack,
  * 	__experimentalText as Text,
- * } from `@wordpress/components`;
+ * } from `@finpress/components`;
  *
  * function Example() {
  * 	return (

@@ -6,9 +6,9 @@ import { fileURLToPath } from 'url';
 import { defineConfig } from '@playwright/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import baseConfig from '@wordpress/scripts/config/playwright.config.js';
+import baseConfig from '@finpress/scripts/config/playwright.config.js';
 
 process.env.ASSETS_PATH = path.join( __dirname, 'assets' );
 

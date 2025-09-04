@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { sprintf, __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { backup } from '@wordpress/icons';
-import { addQueryArgs } from '@wordpress/url';
+import { sprintf, __ } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { backup } from '@finpress/icons';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies

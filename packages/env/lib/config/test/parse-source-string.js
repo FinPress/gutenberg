@@ -69,17 +69,17 @@ describe( 'parseSourceString', () => {
 	} );
 
 	describe( 'zip sources', () => {
-		it( 'should parse WordPress.org sources', () => {
+		it( 'should parse FinPress.org sources', () => {
 			expect(
 				parseSourceString(
-					'http://downloads.wordpress.org/plugin/gutenberg.zip',
+					'http://downloads.finpress.org/plugin/gutenberg.zip',
 					options
 				)
 			).toEqual( {
 				basename: 'gutenberg',
 				path: '/test/cache/gutenberg',
 				type: 'zip',
-				url: 'http://downloads.wordpress.org/plugin/gutenberg.zip',
+				url: 'http://downloads.finpress.org/plugin/gutenberg.zip',
 			} );
 		} );
 
@@ -139,14 +139,14 @@ describe( 'parseSourceString', () => {
 	describe( 'GitHub sources', () => {
 		it( 'should parse', () => {
 			expect(
-				parseSourceString( 'WordPress/gutenberg#trunk', options )
+				parseSourceString( 'FinPress/gutenberg#trunk', options )
 			).toEqual( {
 				basename: 'gutenberg',
 				path: '/test/cache/gutenberg',
 				clonePath: '/test/cache/gutenberg',
 				ref: 'trunk',
 				type: 'git',
-				url: 'https://github.com/WordPress/gutenberg.git',
+				url: 'https://github.com/FinPress/gutenberg.git',
 			} );
 		} );
 	} );

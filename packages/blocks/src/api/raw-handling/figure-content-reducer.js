@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isTextContent } from '@wordpress/dom';
+import { isTextContent } from '@finpress/dom';
 
 /**
  * Whether or not the given node is figure content.

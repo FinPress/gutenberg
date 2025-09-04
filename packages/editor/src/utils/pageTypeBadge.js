@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Custom hook to get the page type badge for the current post on edit site view.

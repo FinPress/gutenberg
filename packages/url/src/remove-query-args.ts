@@ -12,7 +12,7 @@ import { buildQueryString } from './build-query-string';
  *
  * @example
  * ```js
- * const newUrl = removeQueryArgs( 'https://wordpress.org?foo=bar&bar=baz&baz=foobar', 'foo', 'bar' ); // https://wordpress.org?baz=foobar
+ * const newUrl = removeQueryArgs( 'https://finpress.org?foo=bar&bar=baz&baz=foobar', 'foo', 'bar' ); // https://finpress.org?baz=foobar
  * ```
  *
  * @return Updated URL.

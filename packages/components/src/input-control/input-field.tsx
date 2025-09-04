@@ -12,9 +12,9 @@ import type {
 } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useRef } from '@wordpress/element';
+import { forwardRef, useRef } from '@finpress/element';
 /**
  * Internal dependencies
  */
@@ -202,7 +202,7 @@ function InputField(
 			ref={ ref }
 			inputSize={ size }
 			// Fallback to `''` to avoid "uncontrolled to controlled" warning.
-			// See https://github.com/WordPress/gutenberg/pull/47250 for details.
+			// See https://github.com/FinPress/gutenberg/pull/47250 for details.
 			value={ value ?? '' }
 			type={ type }
 		/>

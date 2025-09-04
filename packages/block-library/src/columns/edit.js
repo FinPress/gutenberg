@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	Notice,
 	RangeControl,
@@ -14,7 +14,7 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 import {
 	InspectorControls,
@@ -24,13 +24,13 @@ import {
 	__experimentalBlockVariationPicker,
 	useBlockProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useDispatch, useSelect, useRegistry } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { useDispatch, useSelect, useRegistry } from '@finpress/data';
 import {
 	createBlock,
 	createBlocksFromInnerBlocksTemplate,
 	store as blocksStore,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies

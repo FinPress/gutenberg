@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { createBlock, getBlockType, parse } from '@wordpress/blocks';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { __, sprintf } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { createBlock, getBlockType, parse } from '@finpress/blocks';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

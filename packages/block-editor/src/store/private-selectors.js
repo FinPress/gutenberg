@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector, createRegistrySelector } from '@wordpress/data';
-import { privateApis as blocksPrivateApis } from '@wordpress/blocks';
+import { createSelector, createRegistrySelector } from '@finpress/data';
+import { privateApis as blocksPrivateApis } from '@finpress/blocks';
 
 /**
  * Internal dependencies

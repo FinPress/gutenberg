@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ToolbarButton } from '@wordpress/components';
-import { NavigableToolbar } from '@wordpress/block-editor';
-import { createPortal, useEffect, useState } from '@wordpress/element';
-import { displayShortcut, isAppleOS } from '@wordpress/keycodes';
-import { __, _x, isRTL } from '@wordpress/i18n';
-import { plus, undo as undoIcon, redo as redoIcon } from '@wordpress/icons';
+import { ToolbarButton } from '@finpress/components';
+import { NavigableToolbar } from '@finpress/block-editor';
+import { createPortal, useEffect, useState } from '@finpress/element';
+import { displayShortcut, isAppleOS } from '@finpress/keycodes';
+import { __, _x, isRTL } from '@finpress/i18n';
+import { plus, undo as undoIcon, redo as redoIcon } from '@finpress/icons';
 
 /**
  * Internal dependencies

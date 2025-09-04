@@ -3,10 +3,10 @@
  */
 import type { Meta, StoryFn } from '@storybook/react';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { closeSmall, Icon, link, seen, unseen } from '@wordpress/icons';
-import { useState } from '@wordpress/element';
+import { closeSmall, Icon, link, seen, unseen } from '@finpress/icons';
+import { useState } from '@finpress/element';
 /**
  * Internal dependencies
  */

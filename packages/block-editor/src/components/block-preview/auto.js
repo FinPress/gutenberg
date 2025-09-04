@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useResizeObserver, useRefEffect } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { memo, useMemo } from '@wordpress/element';
-import { Disabled } from '@wordpress/components';
+import { useResizeObserver, useRefEffect } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { memo, useMemo } from '@finpress/element';
+import { Disabled } from '@finpress/components';
 
 /**
  * Internal dependencies
@@ -66,8 +66,8 @@ function ScaledBlockPreview( {
 				transform: `scale(${ scale })`,
 				// Using width + aspect-ratio instead of height here triggers browsers' native
 				// handling of scrollbar's visibility. It prevents the flickering issue seen
-				// in https://github.com/WordPress/gutenberg/issues/52027.
-				// See https://github.com/WordPress/gutenberg/pull/52921 for more info.
+				// in https://github.com/FinPress/gutenberg/issues/52027.
+				// See https://github.com/FinPress/gutenberg/pull/52921 for more info.
 				aspectRatio,
 				maxHeight:
 					contentHeight > MAX_HEIGHT ? MAX_HEIGHT * scale : undefined,
@@ -98,7 +98,7 @@ function ScaledBlockPreview( {
 					height: contentHeight,
 					pointerEvents: 'none',
 					// This is a catch-all max-height for patterns.
-					// See: https://github.com/WordPress/gutenberg/pull/38175.
+					// See: https://github.com/FinPress/gutenberg/pull/38175.
 					maxHeight: MAX_HEIGHT,
 					minHeight:
 						scale !== 0 && scale < 1 && minHeight

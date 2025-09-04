@@ -5,21 +5,21 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { TransitionPresets } from '@react-navigation/stack';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BottomSheet,
 	BottomSheetConsumer,
 	PanelBody,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { helpFilled, plusCircleFilled, trash, cog } from '@wordpress/icons';
-import { useSelect } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { helpFilled, plusCircleFilled, trash, cog } from '@finpress/icons';
+import { useSelect } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
 import {
 	requestContactCustomerSupport,
 	requestGotoCustomerSupportOptions,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies

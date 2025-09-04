@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blocksStore } from '@wordpress/blocks';
-import { __, sprintf } from '@wordpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	Button,
 	DropdownMenu,
@@ -11,10 +11,10 @@ import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 	VisuallyHidden,
-} from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
-import { chevronDown } from '@wordpress/icons';
+} from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useMemo } from '@finpress/element';
+import { chevronDown } from '@finpress/icons';
 
 /**
  * Internal dependencies

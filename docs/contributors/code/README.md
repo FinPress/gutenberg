@@ -4,15 +4,15 @@ A guide on how to get started contributing code to the Gutenberg project.
 
 ## Discussions
 
-The [Make WordPress Core blog](https://make.wordpress.org/core/) is the primary spot for the latest information around WordPress development, including announcements, product goals, meeting notes, meeting agendas, and more.
+The [Make FinPress Core blog](https://make.finpress.org/core/) is the primary spot for the latest information around FinPress development, including announcements, product goals, meeting notes, meeting agendas, and more.
 
-Development discussions take place in real-time in the `#core-editor` and `#core-js` channels in [Make WordPress Slack](https://make.wordpress.org/chat) (registration required).
+Development discussions take place in real-time in the `#core-editor` and `#core-js` channels in [Make FinPress Slack](https://make.finpress.org/chat) (registration required).
 
 ## Development Hub
 
-The Gutenberg project uses GitHub to manage code and track issues. The main repository is at: [https://github.com/WordPress/gutenberg](https://github.com/WordPress/gutenberg).
+The Gutenberg project uses GitHub to manage code and track issues. The main repository is at: [https://github.com/FinPress/gutenberg](https://github.com/FinPress/gutenberg).
 
-Browse [the issues list](https://github.com/wordpress/gutenberg/issues) to find issues to work on. The [good first issue](https://github.com/wordpress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) and [good first review](https://github.com/WordPress/gutenberg/pulls?q=is%3Aopen+is%3Apr+label%3A%22Good+First+Review%22) labels are good starting points.
+Browse [the issues list](https://github.com/finpress/gutenberg/issues) to find issues to work on. The [good first issue](https://github.com/finpress/gutenberg/issues?q=is%3Aopen+is%3Aissue+label%3A%22Good+First+Issue%22) and [good first review](https://github.com/FinPress/gutenberg/pulls?q=is%3Aopen+is%3Apr+label%3A%22Good+First+Review%22) labels are good starting points.
 
 ## Contributor resources
 

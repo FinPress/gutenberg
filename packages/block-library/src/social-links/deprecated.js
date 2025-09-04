@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks, useBlockProps } from '@finpress/block-editor';
 
 /**
  * The specific handling by `className` below is needed because `itemsJustification`
- * was introduced in https://github.com/WordPress/gutenberg/pull/28980/files and wasn't
+ * was introduced in https://github.com/FinPress/gutenberg/pull/28980/files and wasn't
  * declared in block.json.
  *
  * @param {Object} attributes Block's attributes.

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { MenuItem, __experimentalText as Text } from '@wordpress/components';
-import { check } from '@wordpress/icons';
+import { MenuItem, __experimentalText as Text } from '@finpress/components';
+import { check } from '@finpress/icons';
 
 /**
  * Internal dependencies

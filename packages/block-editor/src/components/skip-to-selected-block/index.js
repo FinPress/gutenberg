@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { useRef } from '@wordpress/element';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { useRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import { store as blockEditorStore } from '../../store';
 import { useBlockElementRef } from '../block-list/use-block-props/use-block-refs';
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/skip-to-selected-block/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/skip-to-selected-block/README.md
  */
 export default function SkipToSelectedBlock() {
 	const selectedBlockClientId = useSelect(

@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect, useCallback } from '@wordpress/element';
-import { usePrevious } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+import { useState, useEffect, useCallback } from '@finpress/element';
+import { usePrevious } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
 import {
 	BlockControls,
 	__experimentalGetElementClassName,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { ToolbarButton } from '@wordpress/components';
-import { caption as captionIcon } from '@wordpress/icons';
-import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { ToolbarButton } from '@finpress/components';
+import { caption as captionIcon } from '@finpress/icons';
+import { createBlock, getDefaultBlockName } from '@finpress/blocks';
 
 /**
  * Internal dependencies

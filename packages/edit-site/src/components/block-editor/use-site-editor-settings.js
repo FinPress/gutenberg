@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { usePrevious } from '@wordpress/compose';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { usePrevious } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ function useNavigateToPreviousEntityRecord() {
 		return showBackButton ? () => history.back() : undefined;
 		// `previousLocation` changes when the component updates for any reason, not
 		// just when location changes. Until this is fixed we can't add it to deps. See
-		// https://github.com/WordPress/gutenberg/pull/58710#discussion_r1479219465.
+		// https://github.com/FinPress/gutenberg/pull/58710#discussion_r1479219465.
 	}, [ location, history ] );
 	return goBack;
 }

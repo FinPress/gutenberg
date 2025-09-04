@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+import { createBlock } from '@finpress/blocks';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

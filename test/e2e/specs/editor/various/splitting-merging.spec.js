@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 	test.beforeEach( async ( { admin, editor } ) => {
@@ -115,7 +115,7 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// line has no text, pressing backspace at the start of the second line
 		// should remove the first.
 		//
-		// See: https://github.com/WordPress/gutenberg/issues/8388
+		// See: https://github.com/FinPress/gutenberg/issues/8388
 
 		// First paragraph.
 		await editor.insertBlock( { name: 'core/paragraph' } );
@@ -156,7 +156,7 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Regression Test: When all of a paragraph is selected, pressing
 		// backspace should delete the contents, not merge to previous.
 		//
-		// See: https://github.com/WordPress/gutenberg/issues/8268
+		// See: https://github.com/FinPress/gutenberg/issues/8268
 		await editor.insertBlock( { name: 'core/paragraph' } );
 		await page.keyboard.type( 'Foo' );
 		await editor.insertBlock( { name: 'core/paragraph' } );
@@ -190,7 +190,7 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Regression Test: placeCaretAtHorizontalEdge previously did not
 		// account for contentEditables which have no children.
 		//
-		// See: https://github.com/WordPress/gutenberg/issues/8676
+		// See: https://github.com/FinPress/gutenberg/issues/8676
 		await editor.insertBlock( { name: 'core/paragraph' } );
 		await page.keyboard.type( 'Foo' );
 
@@ -226,7 +226,7 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Regression test: Bogus nodes in a RichText container can interfere
 		// with isHorizontalEdge detection, preventing forward deletion.
 		//
-		// See: https://github.com/WordPress/gutenberg/issues/8731
+		// See: https://github.com/FinPress/gutenberg/issues/8731
 		await editor.insertBlock( { name: 'core/paragraph' } );
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( 'Second' );
@@ -249,7 +249,7 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Regression Test: In a sole empty paragraph, pressing backspace
 		// should remove the block.
 		//
-		// See: https://github.com/WordPress/gutenberg/pull/8306
+		// See: https://github.com/FinPress/gutenberg/pull/8306
 		await editor.insertBlock( { name: 'core/paragraph' } );
 		await page.keyboard.press( 'Backspace' );
 
@@ -265,7 +265,7 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Regression Test: A forward delete on empty RichText previously would
 		// destroy two paragraphs on the dual-action of merge & remove.
 		//
-		// See: https://github.com/WordPress/gutenberg/pull/8735
+		// See: https://github.com/FinPress/gutenberg/pull/8735
 		await editor.insertBlock( { name: 'core/paragraph' } );
 		await page.keyboard.type( 'First' );
 		await page.keyboard.press( 'Enter' );
@@ -303,7 +303,7 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// with pre-save content processing to save post consisting of only the
 		// unmodified default block as an empty string.
 		//
-		// See: https://github.com/WordPress/gutenberg/issues/9626
+		// See: https://github.com/FinPress/gutenberg/issues/9626
 		await editor.insertBlock( { name: 'core/paragraph' } );
 		await page.keyboard.press( 'Backspace' );
 
@@ -373,7 +373,7 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		);
 	} );
 
-	// Fix for https://github.com/WordPress/gutenberg/issues/65174.
+	// Fix for https://github.com/FinPress/gutenberg/issues/65174.
 	test( 'should handle unwrapping and merging blocks with empty contents', async ( {
 		editor,
 		page,

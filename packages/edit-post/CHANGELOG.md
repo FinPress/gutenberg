@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -62,20 +62,20 @@
 
 ### Bug Fixes
 
--   Add ´@wordpress/html-entities´ package to the list of dependencies in package.json. ([#62313](https://github.com/WordPress/gutenberg/pull/62313))
+-   Add ´@finpress/html-entities´ package to the list of dependencies in package.json. ([#62313](https://github.com/FinPress/gutenberg/pull/62313))
 
 ## 8.0.0 (2024-05-31)
 
 ### Breaking Changes
 
--   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/WordPress/gutenberg/pull/61486)).
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 7.35.0 (2024-05-16)
 
 ### Internal
 
--   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/WordPress/gutenberg/pull/61138)).
+-   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/FinPress/gutenberg/pull/61138)).
 
 ## 7.34.0 (2024-05-02)
 
@@ -153,13 +153,13 @@
 
 ### Breaking Changes
 
--   Updated dependencies to require React 18 ([45235](https://github.com/WordPress/gutenberg/pull/45235))
+-   Updated dependencies to require React 18 ([45235](https://github.com/FinPress/gutenberg/pull/45235))
 
 ## 6.19.0 (2022-11-16)
 
 ### Enhancements
 
--   ` BlockTypesChecklist`: Move BlockIcon component out of CheckboxControl label ([#45535](https://github.com/WordPress/gutenberg/pull/45535))
+-   ` BlockTypesChecklist`: Move BlockIcon component out of CheckboxControl label ([#45535](https://github.com/FinPress/gutenberg/pull/45535))
 
 ## 6.18.0 (2022-11-02)
 
@@ -201,11 +201,11 @@
 
 ### Breaking Changes
 
--   The `GUTENBERG_PHASE` environment variable has been renamed to `IS_GUTENBERG_PLUGIN` and is now a boolean ([#38202](https://github.com/WordPress/gutenberg/pull/38202)).
+-   The `GUTENBERG_PHASE` environment variable has been renamed to `IS_GUTENBERG_PLUGIN` and is now a boolean ([#38202](https://github.com/FinPress/gutenberg/pull/38202)).
 
 ### Bug Fixes
 
--   Removed unused `@wordpress/api-fetch`, `@wordpress/primitives` and `uuid` dependencies ([#38388](https://github.com/WordPress/gutenberg/pull/38388)).
+-   Removed unused `@finpress/api-fetch`, `@finpress/primitives` and `uuid` dependencies ([#38388](https://github.com/FinPress/gutenberg/pull/38388)).
 
 ## 5.1.0 (2022-01-27)
 
@@ -213,7 +213,7 @@
 
 ### Breaking Changes
 
--   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
+-   Upgraded React components to work with v17.0 ([#29118](https://github.com/FinPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
 ## 4.2.0 (2021-07-21)
 
@@ -223,32 +223,32 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at <https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/>.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at <https://nodejs.org/en/about/releases/>.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at <https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/>.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at <https://nodejs.org/en/about/releases/>.
 
 ## 3.27.0 (2021-03-17)
 
 ### New Features
 
--   When the plugin renders a pinnable `PluginSidebar` component, then by default it also automatically renders a corresponding `PluginSidebarMenuItem`. It's respecting matching `PluginSidebarMenuItem` components registered by plugins and therefore is fully backward compatible ([#29081](https://github.com/WordPress/gutenberg/pull/29081)).
+-   When the plugin renders a pinnable `PluginSidebar` component, then by default it also automatically renders a corresponding `PluginSidebarMenuItem`. It's respecting matching `PluginSidebarMenuItem` components registered by plugins and therefore is fully backward compatible ([#29081](https://github.com/FinPress/gutenberg/pull/29081)).
 
 ## 3.13.0 (2020-02-10)
 
 ### Internal
 
--   Move the internal `EditorRegions` component to the `@wordpress/block-editor` package, an rename to `EditorSkeleton`. Its class names have thus been renamed from `edit-post-editor-regions` to `block-editor-editor-skeleton`.
+-   Move the internal `EditorRegions` component to the `@finpress/block-editor` package, an rename to `EditorSkeleton`. Its class names have thus been renamed from `edit-post-editor-regions` to `block-editor-editor-skeleton`.
 
 ## 3.8.2
 
 ### Bug Fixes
 
--   Fix regression introduced by EditorInitializer component which auto-closed sidebar plugins when opened on small screens. ([#17712](https://github.com/WordPress/gutenberg/pull/17712))
+-   Fix regression introduced by EditorInitializer component which auto-closed sidebar plugins when opened on small screens. ([#17712](https://github.com/FinPress/gutenberg/pull/17712))
 
 ## 3.6.0 (2019-08-05)
 
 ### Internal
 
--   Create EditorInitializer component and implement for various things to initialize as the editor is loaded. This replaces the `__unstableInitialize` refactor done in #14740. ([#15444](https://github.com/WordPress/gutenberg/pull/15444))
+-   Create EditorInitializer component and implement for various things to initialize as the editor is loaded. This replaces the `__unstableInitialize` refactor done in #14740. ([#15444](https://github.com/FinPress/gutenberg/pull/15444))
 
 ## 3.4.0 (2019-05-21)
 
@@ -258,7 +258,7 @@
 
 ### Internal
 
--   convert `INIT` effect to controls & actions [#14740](https://github.com/WordPress/gutenberg/pull/14740)
+-   convert `INIT` effect to controls & actions [#14740](https://github.com/FinPress/gutenberg/pull/14740)
 
 ## 3.2.0 (2019-03-06)
 
@@ -293,7 +293,7 @@
 
 ### New Features
 
--   The new `AdminNotices` component will transparently upgrade any `.notice` elements on the page to the equivalent `@wordpress/notices` module notice state.
+-   The new `AdminNotices` component will transparently upgrade any `.notice` elements on the page to the equivalent `@finpress/notices` module notice state.
 
 ## 3.0.2 (2018-11-15)
 

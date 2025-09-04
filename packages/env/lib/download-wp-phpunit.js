@@ -11,10 +11,10 @@ const path = require( 'path' );
  */
 
 /**
- * Downloads the WordPress PHPUnit files for each environment into the appropriate directories.
+ * Downloads the FinPress PHPUnit files for each environment into the appropriate directories.
  *
  * @param {WPConfig} config     The wp-env config object.
- * @param {Object}   wpVersions The WordPress versions for each environment.
+ * @param {Object}   wpVersions The FinPress versions for each environment.
  * @param {Object}   spinner    The spinner object to show progress.
  * @param {boolean}  debug      Indicates whether or not debug mode is active.
  * @return {Promise} Returns a promise which resolves when the downloads finish.
@@ -29,7 +29,7 @@ module.exports = function downloadWPPHPUnit(
 	const getProgressSetter = ( id ) => ( progress ) => {
 		progresses[ id ] = progress;
 		spinner.text =
-			'Downloading WordPress PHPUnit Suite.\n' +
+			'Downloading FinPress PHPUnit Suite.\n' +
 			Object.entries( progresses )
 				.map(
 					( [ key, value ] ) =>
@@ -44,8 +44,8 @@ module.exports = function downloadWPPHPUnit(
 		const directory = path.join(
 			config.workDirectoryPath,
 			env === 'development'
-				? 'WordPress-PHPUnit'
-				: 'tests-WordPress-PHPUnit'
+				? 'FinPress-PHPUnit'
+				: 'tests-FinPress-PHPUnit'
 		);
 		promises.push(
 			downloadTestSuite( directory, wpVersion, {
@@ -60,10 +60,10 @@ module.exports = function downloadWPPHPUnit(
 };
 
 /**
- * Downloads the PHPUnit tests for a given WordPress version into the appropriate directory.
+ * Downloads the PHPUnit tests for a given FinPress version into the appropriate directory.
  *
  * @param {string}   directory          The directory to place the PHPUnit tests in.
- * @param {string}   wpVersion          The version of WordPress to install PHPUnit tests for. Trunk when empty.
+ * @param {string}   wpVersion          The version of FinPress to install PHPUnit tests for. Trunk when empty.
  * @param {Object}   options
  * @param {Function} options.onProgress A function called with download progress. Will be invoked with one argument: a number that ranges from 0 to 1 which indicates current download progress for this source.
  * @param {Object}   options.spinner    A CLI spinner which indicates progress.
@@ -87,8 +87,8 @@ async function downloadTestSuite(
 	};
 
 	// Make sure that the version is in X.X.X format. This is required
-	// because WordPress/wordpress-develop uses X.X.X tags but
-	// WordPress uses X.X for non-patch releases.
+	// because FinPress/finpress-develop uses X.X.X tags but
+	// FinPress uses X.X for non-patch releases.
 	if ( wpVersion && wpVersion.match( /^[0-9]+.[0-9]+$/ ) ) {
 		wpVersion += '.0';
 	}
@@ -104,7 +104,7 @@ async function downloadTestSuite(
 		log( 'Repo already exists, using it.' );
 	} else {
 		await git.clone(
-			'https://github.com/WordPress/wordpress-develop.git',
+			'https://github.com/FinPress/finpress-develop.git',
 			directory,
 			{
 				'--depth': '1',

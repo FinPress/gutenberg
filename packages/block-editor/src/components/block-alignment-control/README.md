@@ -2,7 +2,7 @@
 
 The `BlockAlignmentToolbar` component is used to render block alignment options in the editor. The different alignment options it provides are `left`, `center`, `right`, `wide` and `full`.
 
-![Image block alignment options](https://make.wordpress.org/core/files/2020/09/image-block-alignment-options.png)
+![Image block alignment options](https://make.finpress.org/core/files/2020/09/image-block-alignment-options.png)
 
 ## Development guidelines
 
@@ -11,7 +11,7 @@ The `BlockAlignmentToolbar` component is used to render block alignment options 
 Renders a block alignment toolbar with alignments options.
 
 ```jsx
-import { BlockAlignmentToolbar } from '@wordpress/block-editor';
+import { BlockAlignmentToolbar } from '@finpress/block-editor';
 
 const MyBlockAlignmentToolbar = () => (
 	<BlockControls>
@@ -40,4 +40,4 @@ A callback function invoked when the toolbar's alignment value is changed via an
 
 ## Related components
 
-Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.
+Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.

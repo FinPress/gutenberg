@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useState,
@@ -12,11 +12,11 @@ import {
 	forwardRef,
 	useMemo,
 	useEffect,
-} from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { useMergeRefs, useRefEffect, useDisabled } from '@wordpress/compose';
-import { __experimentalStyleProvider as StyleProvider } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { useMergeRefs, useRefEffect, useDisabled } from '@finpress/compose';
+import { __experimentalStyleProvider as StyleProvider } from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

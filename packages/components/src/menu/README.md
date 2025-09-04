@@ -2,9 +2,9 @@
 
 <!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->
 
-🔒 This component is locked as a [private API](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-private-apis/). We do not yet recommend using this outside of the Gutenberg project.
+🔒 This component is locked as a [private API](https://developer.finpress.org/block-editor/reference-guides/packages/packages-private-apis/). We do not yet recommend using this outside of the Gutenberg project.
 
-<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-menu--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
+<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-menu--docs">FinPress Storybook</a> for more detailed, interactive documentation.</p>
 
 Menu is a collection of React components that combine to render
 ARIA-compliant [menu](https://www.w3.org/WAI/ARIA/apg/patterns/menu/) and

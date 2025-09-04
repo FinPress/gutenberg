@@ -5,9 +5,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { press, hover, click, sleep } from '@ariakit/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { shortcutAriaLabel } from '@wordpress/keycodes';
+import { shortcutAriaLabel } from '@finpress/keycodes';
 
 /**
  * Internal dependencies
@@ -320,7 +320,7 @@ describe( 'Tooltip', () => {
 
 			// Prevent this test from interfering with the next one.
 			// "Tooltips appear instantly if another tooltip has just been hidden."
-			// See: https://github.com/WordPress/gutenberg/pull/57345#discussion_r1435495655
+			// See: https://github.com/FinPress/gutenberg/pull/57345#discussion_r1435495655
 			await sleep( 3000 );
 		} );
 

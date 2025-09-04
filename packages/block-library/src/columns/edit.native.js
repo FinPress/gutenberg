@@ -4,9 +4,9 @@
 import { View, Dimensions } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	PanelBody,
 	RangeControl,
@@ -15,7 +15,7 @@ import {
 	getValueAndUnit,
 	alignmentHelpers,
 	__experimentalUseCustomUnits as useCustomUnits,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	InspectorControls,
 	InnerBlocks,
@@ -25,18 +25,18 @@ import {
 	useSettings,
 	store as blockEditorStore,
 	useGlobalStyles,
-} from '@wordpress/block-editor';
-import { withDispatch, useSelect } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { withDispatch, useSelect } from '@finpress/data';
 import {
 	useEffect,
 	useState,
 	useMemo,
 	useCallback,
 	memo,
-} from '@wordpress/element';
-import { useResizeObserver } from '@wordpress/compose';
-import { createBlock } from '@wordpress/blocks';
-import { columns } from '@wordpress/icons';
+} from '@finpress/element';
+import { useResizeObserver } from '@finpress/compose';
+import { createBlock } from '@finpress/blocks';
+import { columns } from '@finpress/icons';
 /**
  * Internal dependencies
  */

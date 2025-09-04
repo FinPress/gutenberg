@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { cloneBlock } from '@wordpress/blocks';
-import { useEffect, useState, forwardRef, useMemo } from '@wordpress/element';
+import { cloneBlock } from '@finpress/blocks';
+import { useEffect, useState, forwardRef, useMemo } from '@finpress/element';
 import {
 	Composite,
 	VisuallyHidden,
 	Tooltip,
 	__experimentalHStack as HStack,
-} from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
-import { Icon, symbol } from '@wordpress/icons';
+} from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
+import { Icon, symbol } from '@finpress/icons';
 
 /**
  * Internal dependencies

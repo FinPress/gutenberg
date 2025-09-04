@@ -1,6 +1,6 @@
 <?php return array(
 	'dependencies' => array(
-		'@wordpress/interactivity',
+		'@finpress/interactivity',
 		'test/router-script-modules-charlie-1',
 		'test/router-script-modules-initial-1',
 		array(

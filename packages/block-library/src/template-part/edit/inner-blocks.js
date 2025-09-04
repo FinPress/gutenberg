@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityBlockEditor, store as coreStore } from '@wordpress/core-data';
+import { useEntityBlockEditor, store as coreStore } from '@finpress/core-data';
 import {
 	InnerBlocks,
 	useInnerBlocksProps,
 	useSettings,
 	store as blockEditorStore,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
-import { parse } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
+import { parse } from '@finpress/blocks';
 
 function useRenderAppender( hasInnerBlocks ) {
 	const blockEditingMode = useBlockEditingMode();

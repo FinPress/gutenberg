@@ -4,19 +4,19 @@
 
 How to add a sidebar to your plugin. A sidebar is the region to the far right of the editor. Your plugin can add an additional icon next to the InspectorControls (gear icon) that can be expanded.
 
-![Example sidebar](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-up-and-running.png)
+![Example sidebar](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/assets/sidebar-up-and-running.png)
 
 _Note: this tutorial covers a custom sidebar, if you are looking to add controls to the sidebar see the [Block Toolbar and Settings Sidebar](/docs/getting-started/fundamentals/block-in-the-editor.md)_
 
 ## Before you start
 
-The tutorial assumes you have an existing plugin setup and are ready to add PHP and JavaScript code. Please, refer to [Getting started with JavaScript](/docs/getting-started/fundamentals/javascript-in-the-block-editor.md) tutorial for an introduction to WordPress plugins and how to use JavaScript to extend the block editor.
+The tutorial assumes you have an existing plugin setup and are ready to add PHP and JavaScript code. Please, refer to [Getting started with JavaScript](/docs/getting-started/fundamentals/javascript-in-the-block-editor.md) tutorial for an introduction to FinPress plugins and how to use JavaScript to extend the block editor.
 
 ## Step-by-step guide
 
 ### Step 1: Get a sidebar up and running
 
-The first step is to tell the editor that there is a new plugin that will have its own sidebar. Use the [registerPlugin](/packages/plugins/README.md), [PluginSidebar](/packages/editor/README.md#pluginsidebar), and [createElement](/packages/element/README.md) utilities provided by the `@wordpress/plugins`, `@wordpress/editor`, and `react` packages, respectively.
+The first step is to tell the editor that there is a new plugin that will have its own sidebar. Use the [registerPlugin](/packages/plugins/README.md), [PluginSidebar](/packages/editor/README.md#pluginsidebar), and [createElement](/packages/element/README.md) utilities provided by the `@finpress/plugins`, `@finpress/editor`, and `react` packages, respectively.
 
 Add the following code to a JavaScript file called `plugin-sidebar.js` and save it within your plugin's directory:
 
@@ -70,13 +70,13 @@ add_action( 'enqueue_block_editor_assets', 'sidebar_plugin_script_enqueue' );
 
 After installing and activating this plugin, there is a new icon resembling a tack in the top-right of the editor. Upon clicking it, the plugin's sidebar will be opened:
 
-![Sidebar Up and Running](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-up-and-running.png)
+![Sidebar Up and Running](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/assets/sidebar-up-and-running.png)
 
 ### Step 2: Tweak the sidebar style and add controls
 
 After the sidebar is up and running, the next step is to fill it up with the necessary components and basic styling.
 
-To visualize and edit the meta field value you'll use an input component. The `@wordpress/components` package contains many components available for you to reuse, and, specifically, the [TextControl](/packages/components/src/text-control/README.md) is aimed at creating an input field:
+To visualize and edit the meta field value you'll use an input component. The `@finpress/components` package contains many components available for you to reuse, and, specifically, the [TextControl](/packages/components/src/text-control/README.md) is aimed at creating an input field:
 
 ```js
 ( function ( wp ) {
@@ -111,7 +111,7 @@ To visualize and edit the meta field value you'll use an input component. The `@
 } )( window.wp );
 ```
 
-Update the `plugin-sidebar.js` with this new code. Notice that it uses a new utility called `wp.components` from the `@wordpress/components` package. Be sure to add `wp-components` to the dependencies in the `wp_register_script` function in the PHP file.
+Update the `plugin-sidebar.js` with this new code. Notice that it uses a new utility called `wp.components` from the `@finpress/components` package. Be sure to add `wp-components` to the dependencies in the `wp_register_script` function in the PHP file.
 
 The code introduces:
 
@@ -164,13 +164,13 @@ add_action( 'enqueue_block_editor_assets', 'sidebar_plugin_script_enqueue' );
 
 Reload the editor and open the sidebar:
 
-![Sidebar with style and controls](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/sidebar-style-and-controls.png)
+![Sidebar with style and controls](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/assets/sidebar-style-and-controls.png)
 
 This code doesn't let users store or retrieve data just yet, so the next steps will focus on how to connect it to the meta block field.
 
 ### Step 3: Register the meta field
 
-To work with fields in the `post_meta` table, use the [register_post_meta](https://developer.wordpress.org/reference/functions/register_post_meta/). function to create a new field called `sidebar_plugin_meta_block_field`.
+To work with fields in the `post_meta` table, use the [register_post_meta](https://developer.finpress.org/reference/functions/register_post_meta/). function to create a new field called `sidebar_plugin_meta_block_field`.
 
 Note: this field needs to be available to the REST API because that's how the block editor access data.
 
@@ -192,7 +192,7 @@ wp.data.select( 'core/editor' ).getCurrentPost().meta;
 
 The function will return an object containing the registered meta field you registered.
 
-If the code returns `undefined` make sure your post type supports `custom-fields`. Either when [registering the post](https://developer.wordpress.org/reference/functions/register_post_type/#supports) or with [add_post_type_support function](https://developer.wordpress.org/reference/functions/add_post_type_support/).
+If the code returns `undefined` make sure your post type supports `custom-fields`. Either when [registering the post](https://developer.finpress.org/reference/functions/register_post_type/#supports) or with [add_post_type_support function](https://developer.finpress.org/reference/functions/add_post_type_support/).
 
 ### Step 4: Initialize the input control
 
@@ -283,7 +283,7 @@ The `useSelect` function is used to fetch data when the component loads and will
 } )( window.wp );
 ```
 
-The `wp.data.useSelect` function is from the `@wordpress/data` package, so `wp-data` needs to be added as a dependency in the `wp_register_script` function in PHP.
+The `wp.data.useSelect` function is from the `@finpress/data` package, so `wp-data` needs to be added as a dependency in the `wp_register_script` function in PHP.
 
 Note: The `getEditedPostAttribute` call is used to retrieve the most recent values of the post, including user editions that haven't been yet saved.
 
@@ -367,7 +367,7 @@ When saving a post, you can confirm it is stored properly in the database by rel
 
 ## Additional resources
 
-Documentation for working with the [@wordpress/data package](/packages/data/README.md).
+Documentation for working with the [@finpress/data package](/packages/data/README.md).
 
 Functions used in this guide:
 
@@ -379,13 +379,13 @@ Functions used in this guide:
 
 You now have a custom sidebar that you can use to update `post_meta` content.
 
-A complete example is available, download the [plugin-sidebar example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/plugin-sidebar-9ee4a6) from the [block-development-examples](https://github.com/WordPress/block-development-examples) repository.
+A complete example is available, download the [plugin-sidebar example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/plugin-sidebar-9ee4a6) from the [block-development-examples](https://github.com/FinPress/block-development-examples) repository.
 
 ### Note
 
 If you have enabled Custom Fields in the 'Panels' page of the Editor 'Preferences' (via the three dots in top right), a field with the same name as the TextControl, in this case `sidebar_plugin_meta_block_field`, will also appear in the custom fields panel at the bottom of the editor window. These two fields have access to the same meta property.
 
-![Text Control and Custom Field](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/plugin-sidebar-text-control-custom-field.png)
+![Text Control and Custom Field](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/assets/plugin-sidebar-text-control-custom-field.png)
 
 On saving the post the value in the TextControl will be saved first and the value in the custom field will be saved second, so that is the one that ends up persisting in the database. So if you change the value in the TextControl it is still the one in the custom field that ends up getting saved.
 
@@ -393,7 +393,7 @@ This problem does not exist if Custom Fields is not enabled.
 
 If you need to have Custom Fields enabled and also have post meta in the sidebar there are two possible solutions:
 
-1. Precede the name of the meta field with an underscore, so the name in the above example would be `_sidebar_plugin_meta_block_field`. This indicates that the post meta should be treated as private so it will not be visible in the Custom Fields section of a post. With this solution an error will be generated when you save the post unless you add an `auth_callback` property to the `args` array passed to `register_post_meta` with a function that ultimately returns `true`.  See the `args` documentation in the [post_meta](https://developer.wordpress.org/reference/functions/register_meta/#parameters) page for more info.
+1. Precede the name of the meta field with an underscore, so the name in the above example would be `_sidebar_plugin_meta_block_field`. This indicates that the post meta should be treated as private so it will not be visible in the Custom Fields section of a post. With this solution an error will be generated when you save the post unless you add an `auth_callback` property to the `args` array passed to `register_post_meta` with a function that ultimately returns `true`.  See the `args` documentation in the [post_meta](https://developer.finpress.org/reference/functions/register_meta/#parameters) page for more info.
 2. In the TextControl's `onChange` function, target the Value field textarea and set the value there to be the same as the value in the TextControl meta field. The value will then be identical in both places and so you can be assured that if the value is changed in the TextControl then it will still be saved to the database.
 
 ```js

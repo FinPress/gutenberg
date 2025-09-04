@@ -11,13 +11,13 @@ import {
 import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Children, cloneElement, useCallback } from '@wordpress/element';
+import { Children, cloneElement, useCallback } from '@finpress/element';
 import {
 	usePreferredColorScheme,
 	usePreferredColorSchemeStyle,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 
 /**
  * Internal dependencies

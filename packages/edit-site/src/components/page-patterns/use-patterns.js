@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { parse } from '@wordpress/blocks';
-import { useSelect, createSelector } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { useMemo } from '@wordpress/element';
+import { parse } from '@finpress/blocks';
+import { useSelect, createSelector } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -10,34 +10,34 @@ import {
 } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useCallback } from '@wordpress/element';
+import { useState, useCallback } from '@finpress/element';
 import {
 	useEntityBlockEditor,
 	useEntityProp,
 	store as coreStore,
-} from '@wordpress/core-data';
+} from '@finpress/core-data';
 import {
 	BottomSheet,
 	Icon,
 	Disabled,
 	TextControl,
-} from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	RecursionProvider,
 	useHasRecursion,
 	InnerBlocks,
 	Warning,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { help } from '@wordpress/icons';
-import { store as reusableBlocksStore } from '@wordpress/reusable-blocks';
-import { store as editorStore } from '@wordpress/editor';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/block-editor';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { help } from '@finpress/icons';
+import { store as reusableBlocksStore } from '@finpress/reusable-blocks';
+import { store as editorStore } from '@finpress/editor';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies
@@ -146,14 +146,14 @@ export default function ReusableBlockEdit( {
 		const infoTitle =
 			Platform.OS === 'android'
 				? sprintf(
-						/* translators: %s: name of the host app (e.g. WordPress) */
+						/* translators: %s: name of the host app (e.g. FinPress) */
 						__(
 							'Editing synced patterns is not yet supported on %s for Android'
 						),
 						hostAppNamespace
 				  )
 				: sprintf(
-						/* translators: %s: name of the host app (e.g. WordPress) */
+						/* translators: %s: name of the host app (e.g. FinPress) */
 						__(
 							'Editing synced patterns is not yet supported on %s for iOS'
 						),

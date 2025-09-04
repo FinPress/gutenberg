@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { calendar as icon } from '@wordpress/icons';
+import { calendar as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

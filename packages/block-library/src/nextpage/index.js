@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { pageBreak as icon } from '@wordpress/icons';
+import { pageBreak as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

@@ -44,7 +44,7 @@ module.exports = function ( api ) {
 				// Auto-add `import { createElement } from 'react';` when JSX is found.
 				plugins: [
 					[
-						'@wordpress/babel-plugin-import-jsx-pragma',
+						'@finpress/babel-plugin-import-jsx-pragma',
 						{
 							scopeVariable: 'createElement',
 							scopeVariableFrag: 'Fragment',

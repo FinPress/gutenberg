@@ -4,9 +4,9 @@
 import { TextDecoder, TextEncoder } from 'node:util';
 import { Blob as BlobPolyfill, File as FilePolyfill } from 'node:buffer';
 
-jest.mock( '@wordpress/compose', () => {
+jest.mock( '@finpress/compose', () => {
 	return {
-		...jest.requireActual( '@wordpress/compose' ),
+		...jest.requireActual( '@finpress/compose' ),
 		useViewportMatch: jest.fn(),
 	};
 } );

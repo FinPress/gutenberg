@@ -26,7 +26,7 @@ public protocol GutenbergBridgeDataSource: AnyObject {
 
     /// Asks the data source for the host app's namespace.
     ///
-    /// - Returns: The host app's namespace e.g. WordPress.
+    /// - Returns: The host app's namespace e.g. FinPress.
     func gutenbergHostAppNamespace() -> String
 
     /// Asks the data source for an object conforming to `TextViewAttachmentDelegate`

@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityBlockEditor } from '@wordpress/core-data';
+import { useEntityBlockEditor } from '@finpress/core-data';
 import {
 	useInnerBlocksProps,
 	InnerBlocks,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -91,7 +91,7 @@ export default function NavigationInnerBlocks( {
 			// the block appender even when a child block is selected.
 			// This should be a temporary fix, to be replaced by improvements to
 			// the sibling inserter.
-			// See https://github.com/WordPress/gutenberg/issues/37572.
+			// See https://github.com/FinPress/gutenberg/issues/37572.
 			renderAppender:
 				isSelected ||
 				( isImmediateParentOfSelectedBlock &&

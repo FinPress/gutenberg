@@ -213,7 +213,7 @@ Finally, enqueue your JavaScript file as you would any other, as in the followin
 <?php
 /**
  * Plugin Name: Fruit Autocompleter
- * Plugin URI: https://github.com/WordPress/gutenberg
+ * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team
  */
 

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { hasBlockSupport } from '@wordpress/blocks';
-import { WIDE_ALIGNMENTS } from '@wordpress/components';
+import { addFilter } from '@finpress/hooks';
+import { hasBlockSupport } from '@finpress/blocks';
+import { WIDE_ALIGNMENTS } from '@finpress/components';
 
 const ALIGNMENTS = [ 'left', 'center', 'right' ];
 

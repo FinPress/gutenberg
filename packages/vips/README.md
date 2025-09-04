@@ -1,4 +1,4 @@
-# `@wordpress/vips`
+# `@finpress/vips`
 
 Helper package to interact with [`wasm-vips`](https://github.com/kleisauke/wasm-vips).
 
@@ -7,7 +7,7 @@ Helper package to interact with [`wasm-vips`](https://github.com/kleisauke/wasm-
 Install the module
 
 ```bash
-npm install @wordpress/vips --save
+npm install @finpress/vips --save
 ```
 
 ## API Reference

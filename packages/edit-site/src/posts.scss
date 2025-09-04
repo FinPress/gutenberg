@@ -10,7 +10,7 @@
 @import "./components/post-list/style.scss";
 @import "./components/resizable-frame/style.scss";
 
-@include wordpress-admin-schemes();
+@include finpress-admin-schemes();
 
 #wpadminbar,
 #adminmenumain {

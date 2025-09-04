@@ -1,24 +1,24 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { speak } from '@wordpress/a11y';
-import apiFetch from '@wordpress/api-fetch';
-import deprecated from '@wordpress/deprecated';
+import { speak } from '@finpress/a11y';
+import apiFetch from '@finpress/api-fetch';
+import deprecated from '@finpress/deprecated';
 import {
 	parse,
 	synchronizeBlocksWithTemplate,
 	__unstableSerializeAndClean,
-} from '@wordpress/blocks';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+} from '@finpress/blocks';
+import { store as noticesStore } from '@finpress/notices';
+import { store as coreStore } from '@finpress/core-data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 import {
 	applyFilters,
 	applyFiltersAsync,
 	doActionAsync,
-} from '@wordpress/hooks';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/hooks';
+import { store as preferencesStore } from '@finpress/preferences';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -93,7 +93,7 @@ export function __experimentalTearDownEditor() {
  * Returns an action object used in signalling that the latest version of the
  * post has been received, either by initialization or save.
  *
- * @deprecated Since WordPress 6.0.
+ * @deprecated Since FinPress 6.0.
  */
 export function resetPost() {
 	deprecated( "wp.data.dispatch( 'core/editor' ).resetPost", {
@@ -310,7 +310,7 @@ export const savePost =
 /**
  * Action for refreshing the current post.
  *
- * @deprecated Since WordPress 6.0.
+ * @deprecated Since FinPress 6.0.
  */
 export function refreshPost() {
 	deprecated( "wp.data.dispatch( 'core/editor' ).refreshPost", {
@@ -423,7 +423,7 @@ export const undo =
 /**
  * Action that creates an undo history record.
  *
- * @deprecated Since WordPress 6.0
+ * @deprecated Since FinPress 6.0
  */
 export function createUndoLevel() {
 	deprecated( "wp.data.dispatch( 'core/editor' ).createUndoLevel", {

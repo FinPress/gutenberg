@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef } from '@wordpress/element';
-import { __, _n, sprintf } from '@wordpress/i18n';
+import { useEffect, useRef } from '@finpress/element';
+import { __, _n, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -56,7 +56,7 @@ function MenuTitleSearch( {
 		);
 		debouncedSpeak( resultsFoundMessage );
 		// Not adding deps for now, as it would require either a larger refactor.
-		// See https://github.com/WordPress/gutenberg/pull/44090
+		// See https://github.com/FinPress/gutenberg/pull/44090
 	}, [ items, search ] );
 
 	const onClose = () => {

@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { PanelBody, RangeControl } from '@wordpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { PanelBody, RangeControl } from '@finpress/components';
 import {
 	BlockControls,
 	BlockAlignmentToolbar,
 	InspectorControls,
 	RichText,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/block-editor';
+import deprecated from '@finpress/deprecated';
 
 export default function TextColumnsEdit( { attributes, setAttributes } ) {
 	const { width, content, columns } = attributes;

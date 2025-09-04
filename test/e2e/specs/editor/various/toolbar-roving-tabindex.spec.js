@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	ToolbarRovingTabindexUtils: async ( { page, pageUtils }, use ) => {
@@ -16,7 +16,7 @@ test.describe( 'Toolbar roving tabindex', () => {
 		await page.keyboard.type( 'First block' );
 
 		// Ensure the fixed toolbar option is off.
-		// See: https://github.com/WordPress/gutenberg/pull/54785.
+		// See: https://github.com/FinPress/gutenberg/pull/54785.
 		await editor.setIsFixedToolbar( false );
 	} );
 

@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useBlockProps } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { Path, SVG, Button, Placeholder } from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
+import { useSelect } from '@finpress/data';
+import { useBlockProps } from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { Path, SVG, Button, Placeholder } from '@finpress/components';
+import { useState, useEffect } from '@finpress/element';
 
 /**
  * Returns a custom variation icon.

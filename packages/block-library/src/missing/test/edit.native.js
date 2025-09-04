@@ -5,12 +5,12 @@ import { render } from 'test/helpers';
 import { Text } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BottomSheet, Icon } from '@wordpress/components';
-import { help, plugins } from '@wordpress/icons';
-import { storeConfig } from '@wordpress/block-editor';
-jest.mock( '@wordpress/block-editor/src/store/selectors' );
+import { BottomSheet, Icon } from '@finpress/components';
+import { help, plugins } from '@finpress/icons';
+import { storeConfig } from '@finpress/block-editor';
+jest.mock( '@finpress/block-editor/src/store/selectors' );
 
 /**
  * Internal dependencies

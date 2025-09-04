@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
+import { createBlock } from '@finpress/blocks';
 
 const mediaTypeTag = { image: 'img', video: 'video', audio: 'audio' };
 

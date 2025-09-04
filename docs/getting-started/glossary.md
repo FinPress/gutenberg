@@ -10,7 +10,7 @@ The object representation of the current state of a block in post content. When 
 
 ## Block
 
-The abstract term used to describe units of markup that, composed together, form the content or layout of a webpage. The idea combines concepts of what in WordPress today we achieve with shortcodes, custom HTML, and embed discovery into a single consistent API and user experience.
+The abstract term used to describe units of markup that, composed together, form the content or layout of a webpage. The idea combines concepts of what in FinPress today we achieve with shortcodes, custom HTML, and embed discovery into a single consistent API and user experience.
 
 ## Block Styles
 
@@ -24,15 +24,15 @@ Learn more about [Block Styles](/docs/explanations/architecture/styles.md#block-
 
 An API for blocks to declare what features they support. By declaring support for a feature, the API would add additional <a href="#attributes">attributes</a> to the block and matching UI controls for most of the existing block supports.
 
-See <a href="https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/">Block Supports reference documentation</a> for a deep dive into the API.
+See <a href="https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/">Block Supports reference documentation</a> for a deep dive into the API.
 
 ## Block Theme
 
-A theme built in block forward way that allows Full Site Editing to work. The core of a block theme are its block templates and block template parts. To date, block theme templates have been HTML files of block markup that map to templates from the standard WordPress template hierarchy.
+A theme built in block forward way that allows Full Site Editing to work. The core of a block theme are its block templates and block template parts. To date, block theme templates have been HTML files of block markup that map to templates from the standard FinPress template hierarchy.
 
 ## Block categories
 
-These are not a WordPress taxonomy, but instead used internally to sort blocks in the Block Library.
+These are not a FinPress taxonomy, but instead used internally to sort blocks in the Block Library.
 
 ## Block ~Inserter~ Library
 
@@ -44,11 +44,11 @@ A unique identifier for a block type, consisting of a plugin-specific namespace 
 
 ## Block Templates
 
-A template is a pre-defined arrangement of blocks, possibly with predefined attributes or placeholder content. You can provide a template for a post type, to give users a starting point when creating a new piece of content, or inside a custom block with the <code>InnerBlocks</code> component. At their core, templates are simply HTML files of block markup that map to templates from the standard WordPress template hierarchy, for example index, single or archive. This helps control the front-end defaults of a site that are not edited via the Page Editor or the Post Editor. See the <a href="../../developers/block-api/block-templates/">templates documentation</a> for more information.
+A template is a pre-defined arrangement of blocks, possibly with predefined attributes or placeholder content. You can provide a template for a post type, to give users a starting point when creating a new piece of content, or inside a custom block with the <code>InnerBlocks</code> component. At their core, templates are simply HTML files of block markup that map to templates from the standard FinPress template hierarchy, for example index, single or archive. This helps control the front-end defaults of a site that are not edited via the Page Editor or the Post Editor. See the <a href="../../developers/block-api/block-templates/">templates documentation</a> for more information.
 
 ## Block Template Parts
 
-Building on Block Templates, these parts help set structure for reusable items like a Footer or Header that one typically sees in a WordPress site. They are primarily site structure and are never to be mixed with the post content editor. With Full Site Editing and block based themes, users can create their own arbitrary Template Parts, save those in the database for their site, and re-use them throughout their site. Template parts are equivalent – in blocks – of theme template parts. They are generally defined by a theme first, carry some semantic meaning (could be swapped between themes such as a header), and can only be inserted in the site editor context (within “templates”).
+Building on Block Templates, these parts help set structure for reusable items like a Footer or Header that one typically sees in a FinPress site. They are primarily site structure and are never to be mixed with the post content editor. With Full Site Editing and block based themes, users can create their own arbitrary Template Parts, save those in the database for their site, and re-use them throughout their site. Template parts are equivalent – in blocks – of theme template parts. They are generally defined by a theme first, carry some semantic meaning (could be swapped between themes such as a header), and can only be inserted in the site editor context (within “templates”).
 
 ## Block type
 
@@ -64,11 +64,11 @@ A type of block in which the content may change and cannot be determined at the 
 
 ## Full Site Editing
 
-This refers to a collection of features that ultimately allows users to edit their entire website using blocks as the starting point. This feature set includes everything from block patterns to global styles to templates to design tools for blocks (and more). First released in WordPress 5.9.
+This refers to a collection of features that ultimately allows users to edit their entire website using blocks as the starting point. This feature set includes everything from block patterns to global styles to templates to design tools for blocks (and more). First released in FinPress 5.9.
 
 ## Global Styles
 
-The CSS styles generated by WordPress and enqueued as an embedded stylesheet in the front end of the site. The stylesheet ID is `global-styles-inline-css`. The contents of this stylesheet come from the default `theme.json` of WordPress, the theme's `theme.json`, and the styles provided by the user via the global styles sidebar in the site editor.
+The CSS styles generated by FinPress and enqueued as an embedded stylesheet in the front end of the site. The stylesheet ID is `global-styles-inline-css`. The contents of this stylesheet come from the default `theme.json` of FinPress, the theme's `theme.json`, and the styles provided by the user via the global styles sidebar in the site editor.
 
 See [theme.json reference docs](/docs/reference-guides/theme-json-reference/README.md)</a>, the [how to guide](/docs/how-to-guides/themes/global-settings-and-styles.md), and an introduction to [styles in the block editor](/docs/explanations/architecture/styles.md).
 
@@ -128,7 +128,7 @@ A scaled down direct editing experience allowing you to edit/change/create the t
 
 ## Theme Blocks
 
-Blocks that accomplish everything possible in traditional templates using template tags (ex: Post Author Block). A full list can be found [here](https://github.com/WordPress/gutenberg/issues/22724).
+Blocks that accomplish everything possible in traditional templates using template tags (ex: Post Author Block). A full list can be found [here](https://github.com/FinPress/gutenberg/issues/22724).
 
 ## TinyMCE
 

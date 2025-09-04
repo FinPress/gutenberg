@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
@@ -13,19 +13,19 @@ import {
 	Fill,
 	__unstableMotion as motion,
 	__unstableAnimatePresence as AnimatePresence,
-} from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { check, starEmpty, starFilled } from '@wordpress/icons';
-import { useEffect, useRef, useState } from '@wordpress/element';
-import { store as viewportStore } from '@wordpress/viewport';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { check, starEmpty, starFilled } from '@finpress/icons';
+import { useEffect, useRef, useState } from '@finpress/element';
+import { store as viewportStore } from '@finpress/viewport';
+import { store as preferencesStore } from '@finpress/preferences';
 import {
 	useReducedMotion,
 	useViewportMatch,
 	usePrevious,
-} from '@wordpress/compose';
-import { usePluginContext } from '@wordpress/plugins';
+} from '@finpress/compose';
+import { usePluginContext } from '@finpress/plugins';
 
 /**
  * Internal dependencies

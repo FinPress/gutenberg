@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ENTER } from '@wordpress/keycodes';
-import { insert, remove } from '@wordpress/rich-text';
+import { ENTER } from '@finpress/keycodes';
+import { insert, remove } from '@finpress/rich-text';
 
 export default ( props ) => ( element ) => {
 	function onKeyDownDeprecated( event ) {

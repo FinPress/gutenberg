@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector } from '@wordpress/data';
+import { createSelector } from '@finpress/data';
 
 /**
  * Returns the registered static commands.

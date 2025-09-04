@@ -48,12 +48,12 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 		const original = 'let foo = <bar />;';
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
-			source: '@wordpress/element',
+			source: '@finpress/element',
 			isDefault: false,
 		} );
 
 		expect( string ).toBe(
-			'import { createElement } from "@wordpress/element";\n' + original
+			'import { createElement } from "@finpress/element";\n' + original
 		);
 	} );
 
@@ -62,12 +62,12 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 			'let foo = <bar />;\nfunction local() {\n  const createElement = wp.element.createElement;\n}';
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
-			source: '@wordpress/element',
+			source: '@finpress/element',
 			isDefault: false,
 		} );
 
 		expect( string ).toBe(
-			'import { createElement } from "@wordpress/element";\n' + original
+			'import { createElement } from "@finpress/element";\n' + original
 		);
 	} );
 
@@ -77,7 +77,7 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			scopeVariableFrag: 'Fragment',
-			source: '@wordpress/element',
+			source: '@finpress/element',
 			isDefault: false,
 		} );
 
@@ -90,12 +90,12 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			scopeVariableFrag: 'Fragment',
-			source: '@wordpress/element',
+			source: '@finpress/element',
 			isDefault: false,
 		} );
 
 		expect( string ).toBe(
-			'import { Fragment } from "@wordpress/element";\nconst {\n  createElement\n} = wp.element;\nlet foo = <><bar /></>;'
+			'import { Fragment } from "@finpress/element";\nconst {\n  createElement\n} = wp.element;\nlet foo = <><bar /></>;'
 		);
 	} );
 
@@ -105,12 +105,12 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			scopeVariableFrag: 'Fragment',
-			source: '@wordpress/element',
+			source: '@finpress/element',
 			isDefault: false,
 		} );
 
 		expect( string ).toBe(
-			'import { createElement } from "@wordpress/element";\nconst {\n  Fragment\n} = wp.element;\nlet foo = <><bar /></>;'
+			'import { createElement } from "@finpress/element";\nconst {\n  Fragment\n} = wp.element;\nlet foo = <><bar /></>;'
 		);
 	} );
 
@@ -120,7 +120,7 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			scopeVariableFrag: 'Fragment',
-			source: '@wordpress/element',
+			source: '@finpress/element',
 			isDefault: false,
 		} );
 
@@ -132,12 +132,12 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			scopeVariableFrag: 'Fragment',
-			source: '@wordpress/element',
+			source: '@finpress/element',
 			isDefault: false,
 		} );
 
 		expect( string ).toBe(
-			'import { createElement, Fragment } from "@wordpress/element";\nlet foo = <><bar /><baz /></>;'
+			'import { createElement, Fragment } from "@finpress/element";\nlet foo = <><bar /><baz /></>;'
 		);
 	} );
 
@@ -146,12 +146,12 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			scopeVariableFrag: 'Fragment',
-			source: '@wordpress/element',
+			source: '@finpress/element',
 			isDefault: false,
 		} );
 
 		expect( string ).toBe(
-			'import { createElement } from "@wordpress/element";\nlet foo = <Fragment><bar /><baz /></Fragment>;'
+			'import { createElement } from "@finpress/element";\nlet foo = <Fragment><bar /><baz /></Fragment>;'
 		);
 	} );
 } );

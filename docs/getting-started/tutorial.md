@@ -2,17 +2,17 @@
 
 In this tutorial, you will build a "Copyright Date Block"—a basic yet practical block that displays the copyright symbol (©), the current year, and an optional starting year. This type of content is commonly used in website footers.
 
-The tutorial will guide you through the complete process, from scaffolding the block plugin using the [`create-block`](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/) package to modifying each file. While previous WordPress development experience is beneficial, it's not a prerequisite for this tutorial.
+The tutorial will guide you through the complete process, from scaffolding the block plugin using the [`create-block`](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-create-block/) package to modifying each file. While previous FinPress development experience is beneficial, it's not a prerequisite for this tutorial.
 
-By the end of this guide, you will have a clear understanding of block development fundamentals and the necessary skills to create your own WordPress blocks.
+By the end of this guide, you will have a clear understanding of block development fundamentals and the necessary skills to create your own FinPress blocks.
 
 ## What you're going to build
 
 Here's a quick look at what you're going to build.
 
-![What you're going to build](https://developer.wordpress.org/files/2023/12/block-tutorial-1.png)
+![What you're going to build](https://developer.finpress.org/files/2023/12/block-tutorial-1.png)
 
-You can also interact with the finished project in [WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/WordPress/block-development-examples/trunk/plugins/copyright-date-block-09aac3/_playground/blueprint.json) or use the [Quick Start Guide](https://developer.wordpress.org/block-editor/getting-started/quick-start-guide/) to install the complete block plugin in your local WordPress environment.
+You can also interact with the finished project in [FinPress Playground](https://playground.finpress.net/?blueprint-url=https://raw.githubusercontent.com/FinPress/block-development-examples/trunk/plugins/copyright-date-block-09aac3/_playground/blueprint.json) or use the [Quick Start Guide](https://developer.finpress.org/block-editor/getting-started/quick-start-guide/) to install the complete block plugin in your local FinPress environment.
 
 ## Prerequisites
 
@@ -20,53 +20,53 @@ To complete this tutorial, you will need:
 
 1. Code editor
 2. Node.js development tools
-3. Local WordPress environment
+3. Local FinPress environment
 
-If you don't have one or more of these items, the [Block Development Environment](https://developer.wordpress.org/block-editor/getting-started/devenv/) documentation will help you get started. Come back here once you are all set up.
+If you don't have one or more of these items, the [Block Development Environment](https://developer.finpress.org/block-editor/getting-started/devenv/) documentation will help you get started. Come back here once you are all set up.
 
 <div class="callout callout-info">
-	This tutorial uses <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-env/"><code>wp-env</code></a> to create a local WordPress development environment. However, feel free to use any development environment that meets the abovementioned prerequisites.
+	This tutorial uses <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-wp-env/"><code>wp-env</code></a> to create a local FinPress development environment. However, feel free to use any development environment that meets the abovementioned prerequisites.
 </div>
 
 ## Scaffolding the block
 
-The first step in creating the Copyright Date Block is to scaffold the initial block structure using the [`@wordpress/create-block`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/) package.
+The first step in creating the Copyright Date Block is to scaffold the initial block structure using the [`@finpress/create-block`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block/) package.
 
 <div class="callout callout-info">
-	Review the <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/">Get started with create-block</a> documentation for an introduction to using this package.
+	Review the <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-create-block/">Get started with create-block</a> documentation for an introduction to using this package.
 </div>
 
-You can use `create-block` from just about any directory (folder) on your computer and then use `wp-env` to create a local WordPress development environment with your new block plugin installed and activated.
+You can use `create-block` from just about any directory (folder) on your computer and then use `wp-env` to create a local FinPress development environment with your new block plugin installed and activated.
 
 Therefore, choose a directory to place the block plugin or optionally create a new folder called "Block Tutorial". Open your terminal and `cd` to this directory. Then run the following command.
 
 <div class="callout callout-info">
-	If you are not using <code>wp-env</code>, instead, navigate to the <code>plugins/</code> folder in your local WordPress installation using the terminal and run the following command.
+	If you are not using <code>wp-env</code>, instead, navigate to the <code>plugins/</code> folder in your local FinPress installation using the terminal and run the following command.
 </div>
 
 ```bash
-npx @wordpress/create-block@latest copyright-date-block --variant=dynamic
+npx @finpress/create-block@latest copyright-date-block --variant=dynamic
 cd copyright-date-block
 ```
 
 After executing this command, you'll find a new directory named `copyright-date-block` in the plugins folder. This directory contains all the initial files needed to start customizing your block.
 
-This command also sets up the basic structure of your block, with `copyright-date-block` as its slug. This slug uniquely identifies your block within WordPress.
+This command also sets up the basic structure of your block, with `copyright-date-block` as its slug. This slug uniquely identifies your block within FinPress.
 
 <div class="callout callout-info">
 	You might have noticed that the command uses the <code>--variant=dynamic</code> flag. This tells <code>create-block</code> you want to scaffold a dynamically rendered block. Later in this tutorial, you will learn about dynamic and static rendering and add static rendering to this block.
 </div>
 
-Navigate to the Plugins page in the WordPress admin and confirm that the plugin is active. Then, create a new page or post and ensure you can insert the Copyright Date Block. It should look like this once inserted.
+Navigate to the Plugins page in the FinPress admin and confirm that the plugin is active. Then, create a new page or post and ensure you can insert the Copyright Date Block. It should look like this once inserted.
 
-![The scaffolded block in the Editor](https://developer.wordpress.org/files/2023/12/block-tutorial-2.png)
+![The scaffolded block in the Editor](https://developer.finpress.org/files/2023/12/block-tutorial-2.png)
 
 ## Reviewing the files
 Before we begin modifying the scaffolded block, it's important to review the plugin's file structure. Open the plugin folder in your code editor.
 
-![The files that make up the block plugin](https://developer.wordpress.org/files/2023/12/block-tutorial-3.png)
+![The files that make up the block plugin](https://developer.finpress.org/files/2023/12/block-tutorial-3.png)
 
-Next, look at the [File structure of a block](https://developer.wordpress.org/block-editor/getting-started/fundamentals/file-structure-of-a-block/) documentation for a thorough overview of what each file does. Don't worry if this is overwhelming right now. You will learn how to use each file throughout this tutorial.
+Next, look at the [File structure of a block](https://developer.finpress.org/block-editor/getting-started/fundamentals/file-structure-of-a-block/) documentation for a thorough overview of what each file does. Don't worry if this is overwhelming right now. You will learn how to use each file throughout this tutorial.
 
 <div class="callout callout-info">
 	Since you scaffolded a dynamic block, you will not see a <code>save.js</code> file. Later in the tutorial, you will add this file to the plugin to enable static rendering, so stay tuned.
@@ -78,7 +78,7 @@ Let's start by creating the simplest Copyright Date Block possible, which will b
 
 Before proceeding to the following steps, run `npm run start` in the terminal from within the plugin directory. This command will watch each file in the `/src` folder for changes. The block's build files will be updated each time you save a file.
 
-Check out the [Working with JavaScript for the Block Editor](https://developer.wordpress.org/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/) documentation to learn more.
+Check out the [Working with JavaScript for the Block Editor](https://developer.finpress.org/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/) documentation to learn more.
 
 ### Updating block.json
 
@@ -108,7 +108,7 @@ Open the `block.json` file in the `/src` folder.
 ```
 
 <div class="callout callout-info">
-	Review the <a href="https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/">block.json</a> documentation for an introduction to this file.
+	Review the <a href="https://developer.finpress.org/block-editor/getting-started/fundamentals/block-json/">block.json</a> documentation for an introduction to this file.
 </div>
 
 Since this scaffolding process created this file, it requires some updating to suit the needs of the Copyright Date Block.
@@ -123,17 +123,17 @@ Begin by removing the icon and adding a more appropriate description. You will a
 
 After you refresh the Editor, you should now see that the block no longer has the smiley face icon, and its description has been updated.
 
-![The block in the Editor with updated information](https://developer.wordpress.org/files/2023/12/block-tutorial-4.png)
+![The block in the Editor with updated information](https://developer.finpress.org/files/2023/12/block-tutorial-4.png)
 
 #### Adding block supports
 
-Next, let's add a few [block supports](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/) so that the user can control the font size and text color of the block.
+Next, let's add a few [block supports](https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/) so that the user can control the font size and text color of the block.
 
 <div class="callout callout-tip">
 	You should always try to use native block supports before building custom functionality. This approach provides users with a consistent editing experience across blocks, and your block benefits from Core functionality with only a few lines of code.
 </div>
 
-Update the [`supports`](https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#enable-ui-settings-panels-for-the-block-with-supports) section of the `block.json` file to look like this.
+Update the [`supports`](https://developer.finpress.org/block-editor/getting-started/fundamentals/block-json/#enable-ui-settings-panels-for-the-block-with-supports) section of the `block.json` file to look like this.
 
 ```json
 "supports": {
@@ -152,7 +152,7 @@ Note that when you enable text color support with `"text": true`, the background
 
 Save the file and select the block in the Editor. You will now see both Color and Typography panels in the Settings Panel. Try modifying the settings and see what happens.
 
-![The block in the Editor with block supports](https://developer.wordpress.org/files/2023/12/block-tutorial-5.png)
+![The block in the Editor with block supports](https://developer.finpress.org/files/2023/12/block-tutorial-5.png)
 
 #### Removing unnecessary code
 
@@ -165,7 +165,7 @@ For simplicity, the styling for the Copyright Date Block will be controlled enti
 
 Refresh the Editor, and you will see that the block styling now matches your current theme.
 
-![The block in the Editor without default styling](https://developer.wordpress.org/files/2023/12/block-tutorial-6.png)
+![The block in the Editor without default styling](https://developer.finpress.org/files/2023/12/block-tutorial-6.png)
 
 #### Putting it all together
 
@@ -201,9 +201,9 @@ Your final `block.json` file should look like this:
 
 Before you start building the functionality of the block itself, let's do a bit more cleanup and add a custom icon to the block.
 
-Open the [`index.js`](https://developer.wordpress.org/block-editor/getting-started/fundamentals/file-structure-of-a-block/#index-js) file. This is the main JavaScript file of the block and is used to register it on the client. You can learn more about client-side and server-side registration in the [Registration of a block](https://developer.wordpress.org/block-editor/getting-started/fundamentals/registration-of-a-block/) documentation.
+Open the [`index.js`](https://developer.finpress.org/block-editor/getting-started/fundamentals/file-structure-of-a-block/#index-js) file. This is the main JavaScript file of the block and is used to register it on the client. You can learn more about client-side and server-side registration in the [Registration of a block](https://developer.finpress.org/block-editor/getting-started/fundamentals/registration-of-a-block/) documentation.
 
-Start by looking at the [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/) function. This function accepts the name of the block, which we are getting from the imported `block.json` file, and the block configuration object.
+Start by looking at the [`registerBlockType`](https://developer.finpress.org/block-editor/reference-guides/block-api/block-registration/) function. This function accepts the name of the block, which we are getting from the imported `block.json` file, and the block configuration object.
 
 ```js
 import Edit from './edit';
@@ -218,7 +218,7 @@ By default, the object just includes the `edit` property, but you can add many m
 
 #### Adding a custom icon
 
-Using the calendar icon from the [Gutenberg Storybook](https://wordpress.github.io/gutenberg/?path=/story/icons-icon--library), add the SVG to the function like so:
+Using the calendar icon from the [Gutenberg Storybook](https://finpress.github.io/gutenberg/?path=/story/icons-icon--library), add the SVG to the function like so:
 
 ```js
 const calendarIcon = (
@@ -244,13 +244,13 @@ registerBlockType( metadata.name, {
 
 Save the `index.js` file and refresh the Editor. You will now see the calendar icon instead of the default.
 
-![The block in the Editor a custom icon](https://developer.wordpress.org/files/2023/12/block-tutorial-7.png)
+![The block in the Editor a custom icon](https://developer.finpress.org/files/2023/12/block-tutorial-7.png)
 
 At this point, the block's icon and description are correct, and block supports allow you to change the font size and text color. Now, it's time to move on to the actual functionality of the block.
 
 ### Updating edit.js
 
-The [`edit.js`](https://developer.wordpress.org/block-editor/getting-started/fundamentals/file-structure-of-a-block/#edit-js) file controls how the block functions and appears in the Editor. Right now, the user sees the message "Copyright Date Block – hello from the editor!". Let's change that.
+The [`edit.js`](https://developer.finpress.org/block-editor/getting-started/fundamentals/file-structure-of-a-block/#edit-js) file controls how the block functions and appears in the Editor. Right now, the user sees the message "Copyright Date Block – hello from the editor!". Let's change that.
 
 Open the file and see that the `Edit()` function returns a paragraph tag with the default message.
 
@@ -269,11 +269,11 @@ export default function Edit() {
 
 It looks a bit more complicated than it is.
 
-- [`useBlockProps()`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#block-wrapper-props) outputs all the necessary CSS classes and styles in the [block's wrapper](https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-wrapper/#the-edit-components-markup) needed by the Editor, which includes the style provided by the block supports you added earlier
-- [`__()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/) is used for the internationalization of text strings
+- [`useBlockProps()`](https://developer.finpress.org/block-editor/reference-guides/block-api/block-edit-save/#block-wrapper-props) outputs all the necessary CSS classes and styles in the [block's wrapper](https://developer.finpress.org/block-editor/getting-started/fundamentals/block-wrapper/#the-edit-components-markup) needed by the Editor, which includes the style provided by the block supports you added earlier
+- [`__()`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-i18n/) is used for the internationalization of text strings
 
 <div class="callout callout-info">
-	Review the <a href="https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-wrapper/">block wrapper</a> documentation for an introductory guide on how to ensure the block's markup wrapper has the proper attributes.
+	Review the <a href="https://developer.finpress.org/block-editor/getting-started/fundamentals/block-wrapper/">block wrapper</a> documentation for an introductory guide on how to ensure the block's markup wrapper has the proper attributes.
 </div>
 
 As a reminder, the main purpose of this block is to display the copyright symbol (©) and the current year. So, you first need to get the current year in string form, which can be done with the following code.
@@ -296,11 +296,11 @@ export default function Edit() {
 
 Save the `edit.js` file and refresh the Editor. You will now see the copyright symbol (©) followed by the current year.
 
-![The block in the Editor displays the correct content](https://developer.wordpress.org/files/2023/12/block-tutorial-8.png)
+![The block in the Editor displays the correct content](https://developer.finpress.org/files/2023/12/block-tutorial-8.png)
 
 ### Updating render.php
 
-While the block is working properly in the Editor, the default block message is still being displayed on the front end. To fix this, open the [`render.php`](https://developer.wordpress.org/block-editor/getting-started/fundamentals/file-structure-of-a-block/#render-php) file, and you will see the following.
+While the block is working properly in the Editor, the default block message is still being displayed on the front end. To fix this, open the [`render.php`](https://developer.finpress.org/block-editor/getting-started/fundamentals/file-structure-of-a-block/#render-php) file, and you will see the following.
 
 ```php
 <?php
@@ -312,7 +312,7 @@ While the block is working properly in the Editor, the default block message is 
 
 ```
 
-Similar to the `useBlockProps()` function in the Editor, [`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) outputs all the necessary CSS classes and styles in the [block's wrapper](https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-wrapper/#the-server-side-render-markup). Only the content needs to be updated.
+Similar to the `useBlockProps()` function in the Editor, [`get_block_wrapper_attributes()`](https://developer.finpress.org/reference/functions/get_block_wrapper_attributes/) outputs all the necessary CSS classes and styles in the [block's wrapper](https://developer.finpress.org/block-editor/getting-started/fundamentals/block-wrapper/#the-server-side-render-markup). Only the content needs to be updated.
 
 You can use `date( "Y" )` to get the current year in PHP, and your `render.php` should look like this.
 
@@ -335,23 +335,23 @@ When you use the `create-block` package to scaffold a block, it might include fi
 
 Finally, make sure that there are no unsaved changes and then terminate the `npm run start` command. Run `npm run build` to optimize your code and make it production-ready.
 
-You have built a fully functional WordPress block, but let's not stop here. In the next sections, we'll add functionality and enable static rendering.
+You have built a fully functional FinPress block, but let's not stop here. In the next sections, we'll add functionality and enable static rendering.
 
 ## Adding block attributes
 
 The Copyright Date Block you have built shows the current year, but what if you wanted to display a starting year as well?
 
-![What you're going to build](https://developer.wordpress.org/files/2023/12/block-tutorial-1.png)
+![What you're going to build](https://developer.finpress.org/files/2023/12/block-tutorial-1.png)
 
 This functionality would require users to enter their starting year somewhere on the block. They should also have the ability to toggle it on or off.
 
-You could implement this in different ways, but all would require [block attributes](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-attributes/). Attributes allow you to store custom data for the block that can then be used to modify the block's markup.
+You could implement this in different ways, but all would require [block attributes](https://developer.finpress.org/block-editor/reference-guides/block-api/block-attributes/). Attributes allow you to store custom data for the block that can then be used to modify the block's markup.
 
-To enable this starting year functionality, you will need one attribute to store the starting year and another that will be used to tell WordPress whether the starting year should be displayed or not.
+To enable this starting year functionality, you will need one attribute to store the starting year and another that will be used to tell FinPress whether the starting year should be displayed or not.
 
 ### Updating block.json
 
-Block attributes are generally specified in the [`block.json`](https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#data-storage-in-the-block-with-attributes) file. So open up the file and add the following section after the `example` property.
+Block attributes are generally specified in the [`block.json`](https://developer.finpress.org/block-editor/getting-started/fundamentals/block-json/#data-storage-in-the-block-with-attributes) file. So open up the file and add the following section after the `example` property.
 
 ```json
 "example": {},
@@ -382,10 +382,10 @@ Earlier in this tutorial, you added block supports that automatically created Co
 
 ##### Inspector controls
 
-The `InspectorControls` belongs to the [`@wordpress/block-editor`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/) package, so you can import it into the `edit.js` file by adding the component name on line 14. The result should look like this.
+The `InspectorControls` belongs to the [`@finpress/block-editor`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-block-editor/) package, so you can import it into the `edit.js` file by adding the component name on line 14. The result should look like this.
 
 ```js
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@finpress/block-editor';
 ```
 
 Next, update the Edit function to return the current block content and an `InspectorControls` component that includes the text "Testing." You can wrap everything in a [Fragment](https://react.dev/reference/react/Fragment) (`<></>`) to ensure proper JSX syntax. The result should look like this.
@@ -406,19 +406,19 @@ export default function Edit() {
 ```
 Save the file and refresh the Editor. When selecting the block, you should see the "Testing" message in the Settings Sidebar.
 
-![The Setting Sidebar now displays the message](https://developer.wordpress.org/files/2023/12/block-tutorial-9.png)
+![The Setting Sidebar now displays the message](https://developer.finpress.org/files/2023/12/block-tutorial-9.png)
 
 ##### Components and panels
 
-Now, let's use a few more Core components to add a custom panel and the user interface for the starting year functionality. You will want to import [`PanelBody`](https://developer.wordpress.org/block-editor/reference-guides/components/panel/#panelbody), [`TextControl`](https://developer.wordpress.org/block-editor/reference-guides/components/text-control/), and [`ToggleControl`](https://developer.wordpress.org/block-editor/reference-guides/components/toggle-control/) from the [`@wordpress/components`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-components/) package.
+Now, let's use a few more Core components to add a custom panel and the user interface for the starting year functionality. You will want to import [`PanelBody`](https://developer.finpress.org/block-editor/reference-guides/components/panel/#panelbody), [`TextControl`](https://developer.finpress.org/block-editor/reference-guides/components/text-control/), and [`ToggleControl`](https://developer.finpress.org/block-editor/reference-guides/components/toggle-control/) from the [`@finpress/components`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-components/) package.
 
 Add the following line below the other imports in the `edit.js` file.
 
 ```js
-import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
+import { PanelBody, TextControl, ToggleControl } from '@finpress/components';
 ```
 
-Then wrap the "Testing" message in the `PanelBody` component and set the `title` parameter to "Settings". Refer to the [component documentation](https://developer.wordpress.org/block-editor/reference-guides/components/panel/#panelbody) for additional parameter options.
+Then wrap the "Testing" message in the `PanelBody` component and set the `title` parameter to "Settings". Refer to the [component documentation](https://developer.finpress.org/block-editor/reference-guides/components/panel/#panelbody) for additional parameter options.
 
 ```js
 export default function Edit() {
@@ -439,7 +439,7 @@ export default function Edit() {
 
 Save the file and refresh the Editor. You should now see the new Settings panel.
 
-![The Setting Sidebar now displays a custom panel](https://developer.wordpress.org/files/2023/12/block-tutorial-10.png)
+![The Setting Sidebar now displays a custom panel](https://developer.finpress.org/files/2023/12/block-tutorial-10.png)
 
 ##### Text control
 
@@ -505,7 +505,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 Save the file and refresh the Editor. Confirm that a text field now exists in the Settings panel. Add a starting year and confirm that when you update the page, the value is saved.
 
-![A live look at editing the new Starting Year field in the Settings Sidebar](https://developer.wordpress.org/files/2023/12/block-tutorial-11.gif)
+![A live look at editing the new Starting Year field in the Settings Sidebar](https://developer.finpress.org/files/2023/12/block-tutorial-11.gif)
 
 ##### Toggle control
 
@@ -564,7 +564,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 Save the file and refresh the Editor. Confirm that clicking the toggle displays the text input, and when you update the page, the toggle remains active.
 
-![A live look at editing the new Show Starting Year toggle in the Settings Sidebar](https://developer.wordpress.org/files/2023/12/block-tutorial-12.gif)
+![A live look at editing the new Show Starting Year toggle in the Settings Sidebar](https://developer.finpress.org/files/2023/12/block-tutorial-12.gif)
 
 #### Updating the block content
 
@@ -643,7 +643,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 Save the file and refresh the Editor. Confirm that the block content updates correctly when you make changes in the Settings panel.
 
-![A live look at the block content being updated by the new fields in the Setting Sidebar](https://developer.wordpress.org/files/2023/12/block-tutorial-13.gif)
+![A live look at the block content being updated by the new fields in the Setting Sidebar](https://developer.finpress.org/files/2023/12/block-tutorial-13.gif)
 
 ### Updating render.php
 
@@ -693,9 +693,9 @@ if ( ! empty( $attributes['startingYear'] ) && ! empty( $attributes['showStartin
 
 Save the file and confirm that the correct block content is now appearing on the front end of your site.
 
-You have now successfully built a dynamically rendered custom block that utilizes block supports, core WordPress components, and custom attributes. In many situations, this is as far as you would need to go for a block displaying the copyright date with some additional functionality.
+You have now successfully built a dynamically rendered custom block that utilizes block supports, core FinPress components, and custom attributes. In many situations, this is as far as you would need to go for a block displaying the copyright date with some additional functionality.
 
-In the next section, however, you will add static rendering to the block. This exercise will illustrate how block data is stored in WordPress and provide a fallback should this plugin ever be inadvertently disabled.
+In the next section, however, you will add static rendering to the block. This exercise will illustrate how block data is stored in FinPress and provide a fallback should this plugin ever be inadvertently disabled.
 
 ## Adding static rendering
 
@@ -719,26 +719,26 @@ Compare this to a statically rendered block like the Paragraph block.
 
 The HTML of the paragraph is stored in post content and saved in the database.
 
-You can learn more about dynamic and static rendering in the [Fundamentals documentation](https://developer.wordpress.org/block-editor/getting-started/fundamentals/static-dynamic-rendering/). While most blocks are either dynamically or statically rendered, you can build a block that utilizes both methods.
+You can learn more about dynamic and static rendering in the [Fundamentals documentation](https://developer.finpress.org/block-editor/getting-started/fundamentals/static-dynamic-rendering/). While most blocks are either dynamically or statically rendered, you can build a block that utilizes both methods.
 
 ### Why add static rendering?
 
 When you add static rendering to a dynamically rendered block, the `render.php` file will still control the output on the front end, but the block's HTML content will be saved in the database. This means that the content will remain if the plugin is ever removed from the site. In the case of this Copyright Date Block, the content will revert to a Custom HTML block that you can easily convert to a Paragraph block.
 
-![An error message in the Editor when a block type no longer exists](https://developer.wordpress.org/files/2023/12/block-tutorial-14.png)
+![An error message in the Editor when a block type no longer exists](https://developer.finpress.org/files/2023/12/block-tutorial-14.png)
 
 While not necessary in all situations, adding static rendering to a dynamically rendered block can provide a helpful fallback should the plugin ever be disabled unintentionally.
 
 Also, consider a situation where the block markup is included in a block pattern or theme template. If a user installs that theme or uses the pattern without the Copyright Date Block installed, they will get a notice that the block is not available, but the content will still be displayed.
 
-Adding static rendering is also a good exploration of how block content is stored and rendered in WordPress.
+Adding static rendering is also a good exploration of how block content is stored and rendered in FinPress.
 
 ### Adding a save function
 
 Start by adding a new file named `save.js` to the `src/` folder. In this file, add the following.
 
 ```js
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from '@finpress/block-editor';
 
 export default function save() {
 	return (
@@ -749,7 +749,7 @@ export default function save() {
 }
 ```
 
-This should look similar to the original `edit.js` file, and you can refer to the [block wrapper](https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-wrapper/#the-save-components-markup) documentation for additional information.
+This should look similar to the original `edit.js` file, and you can refer to the [block wrapper](https://developer.finpress.org/block-editor/getting-started/fundamentals/block-wrapper/#the-save-components-markup) documentation for additional information.
 
 Next, in the `index.js` file, import this `save()` function and add a save property to the `registerBlockType()` function. Here's a simplified view of the updated file.
 
@@ -771,11 +771,11 @@ registerBlockType( metadata.name, {
 
 Save both `save.js` and `index.js` files and refresh the Editor. It should look like this.
 
-![A block validation error message in the Editor](https://developer.wordpress.org/files/2023/12/block-tutorial-15.png)
+![A block validation error message in the Editor](https://developer.finpress.org/files/2023/12/block-tutorial-15.png)
 
 Don't worry, the error is expected. If you open the inspector in your browser, you should see the following message.
 
-![A block validation error message in the console](https://developer.wordpress.org/files/2023/12/block-tutorial-16.png)
+![A block validation error message in the console](https://developer.finpress.org/files/2023/12/block-tutorial-16.png)
 
 This block validation error occurs because the `save()` function returns block content, but no HTML is stored in the block markup since the previously saved block was dynamic. Remember that this is what the markup currently looks like.
 
@@ -1000,15 +1000,15 @@ That's it! You now have a block that utilizes both dynamic and static rendering.
 
 ## Wrapping up
 
-Congratulations on completing this tutorial and building your very own Copyright Date Block. Throughout this journey, you have gained a solid foundation in WordPress block development and are now ready to start building your own blocks.
+Congratulations on completing this tutorial and building your very own Copyright Date Block. Throughout this journey, you have gained a solid foundation in FinPress block development and are now ready to start building your own blocks.
 
-For final reference, the complete code for this tutorial is available in the [Block Development Examples](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/copyright-date-block-09aac3) repository on GitHub.
+For final reference, the complete code for this tutorial is available in the [Block Development Examples](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/copyright-date-block-09aac3) repository on GitHub.
 
-Now, whether you're now looking to refine your skills, tackle more advanced projects, or stay updated with the latest WordPress trends, the following resources will help you improve your block development skills:
+Now, whether you're now looking to refine your skills, tackle more advanced projects, or stay updated with the latest FinPress trends, the following resources will help you improve your block development skills:
 
-- [Block Development Environment](https://developer.wordpress.org/block-editor/getting-started/devenv/)
-- [Fundamentals of Block Development](https://developer.wordpress.org/block-editor/getting-started/fundamentals/)
-- [WordPress Developer Blog](https://developer.wordpress.org/news/)
-- [Block Development Examples](https://github.com/WordPress/block-development-examples) | GitHub repository
+- [Block Development Environment](https://developer.finpress.org/block-editor/getting-started/devenv/)
+- [Fundamentals of Block Development](https://developer.finpress.org/block-editor/getting-started/fundamentals/)
+- [FinPress Developer Blog](https://developer.finpress.org/news/)
+- [Block Development Examples](https://github.com/FinPress/block-development-examples) | GitHub repository
 
-Remember, every expert was once a beginner. Keep learning, experimenting, and, most importantly, have fun building with WordPress.
+Remember, every expert was once a beginner. Keep learning, experimenting, and, most importantly, have fun building with FinPress.

@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
@@ -7,18 +7,18 @@ import {
 	useInnerBlocksProps,
 	BlockControls,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { isRTL, __ } from '@wordpress/i18n';
-import { ToolbarButton } from '@wordpress/components';
+} from '@finpress/block-editor';
+import { isRTL, __ } from '@finpress/i18n';
+import { ToolbarButton } from '@finpress/components';
 import {
 	formatOutdent,
 	formatOutdentRTL,
 	formatIndentRTL,
 	formatIndent,
-} from '@wordpress/icons';
-import { useMergeRefs } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { displayShortcut } from '@wordpress/keycodes';
+} from '@finpress/icons';
+import { useMergeRefs } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { displayShortcut } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

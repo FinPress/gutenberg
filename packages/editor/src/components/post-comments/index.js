@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
+import { __, _x } from '@finpress/i18n';
 import {
 	RadioControl,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

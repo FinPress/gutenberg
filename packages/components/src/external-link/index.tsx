@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { forwardRef } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -84,10 +84,10 @@ function UnforwardedExternalLink(
  * Link to an external resource.
  *
  * ```jsx
- * import { ExternalLink } from '@wordpress/components';
+ * import { ExternalLink } from '@finpress/components';
  *
  * const MyExternalLink = () => (
- *   <ExternalLink href="https://wordpress.org">WordPress.org</ExternalLink>
+ *   <ExternalLink href="https://finpress.org">FinPress.org</ExternalLink>
  * );
  * ```
  */

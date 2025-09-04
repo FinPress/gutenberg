@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockAttributesNamesByRole } from '@wordpress/blocks';
+import { getBlockAttributesNamesByRole } from '@finpress/blocks';
 
 /**
  * Try to find a matching block by a block's name in a provided

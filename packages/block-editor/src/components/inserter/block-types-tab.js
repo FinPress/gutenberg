@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { useMemo, useEffect, forwardRef } from '@wordpress/element';
-import { useAsyncList } from '@wordpress/compose';
+import { __, _x } from '@finpress/i18n';
+import { useMemo, useEffect, forwardRef } from '@finpress/element';
+import { useAsyncList } from '@finpress/compose';
 
 /**
  * Internal dependencies

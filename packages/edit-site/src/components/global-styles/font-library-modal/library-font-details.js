@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalVStack as VStack,
 	__experimentalSpacer as Spacer,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

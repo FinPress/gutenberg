@@ -8,7 +8,7 @@ Render a user interface to change fixed background setting.
 
 ```jsx
 import { useState } from 'react';
-import { ToggleControl } from '@wordpress/components';
+import { ToggleControl } from '@finpress/components';
 
 const MyToggleControl = () => {
 	const [ hasFixedBackground, setHasFixedBackground ] = useState( false );

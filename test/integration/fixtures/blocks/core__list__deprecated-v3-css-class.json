@@ -35,7 +35,7 @@
 				"name": "core/list-item",
 				"isValid": true,
 				"attributes": {
-					"content": "Embeds, like YouTube, Tweets, or other WordPress posts."
+					"content": "Embeds, like YouTube, Tweets, or other FinPress posts."
 				},
 				"innerBlocks": []
 			},

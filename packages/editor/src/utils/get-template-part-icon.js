@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	header as headerIcon,
 	footer as footerIcon,
 	sidebar as sidebarIcon,
 	symbolFilled as symbolFilledIcon,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 /**
  * Helper function to retrieve the corresponding icon by name.
  *

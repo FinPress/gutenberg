@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { external } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { store as preferencesStore } from '@wordpress/preferences';
+import { __ } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { external } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies

@@ -4,7 +4,7 @@
 import { Animated, Easing, PanResponder, Text, View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createContext,
@@ -12,7 +12,7 @@ import {
 	useRef,
 	useState,
 	useContext,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies

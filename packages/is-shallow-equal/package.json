@@ -1,24 +1,24 @@
 {
-	"name": "@wordpress/is-shallow-equal",
+	"name": "@finpress/is-shallow-equal",
 	"version": "5.29.0",
 	"description": "Test for shallow equality between two objects or arrays.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"shallow",
 		"shallow-equal",
 		"shallowequal"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/is-shallow-equal/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/is-shallow-equal/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/is-shallow-equal"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",

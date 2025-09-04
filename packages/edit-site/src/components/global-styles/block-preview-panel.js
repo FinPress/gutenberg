@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BlockPreview } from '@wordpress/block-editor';
-import { getBlockType, getBlockFromExample } from '@wordpress/blocks';
-import { __experimentalSpacer as Spacer } from '@wordpress/components';
-import { useMemo } from '@wordpress/element';
+import { BlockPreview } from '@finpress/block-editor';
+import { getBlockType, getBlockFromExample } from '@finpress/blocks';
+import { __experimentalSpacer as Spacer } from '@finpress/components';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

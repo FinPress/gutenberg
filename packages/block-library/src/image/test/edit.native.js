@@ -13,19 +13,19 @@ import { Image } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
+import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
 import {
 	requestMediaPicker,
 	setFeaturedImage,
 	sendMediaUpload,
 	subscribeMediaUpload,
-} from '@wordpress/react-native-bridge';
-import { select, dispatch } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
-import apiFetch from '@wordpress/api-fetch';
+} from '@finpress/react-native-bridge';
+import { select, dispatch } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
+import { store as coreStore } from '@finpress/core-data';
+import apiFetch from '@finpress/api-fetch';
 
 /**
  * Internal dependencies
@@ -175,7 +175,7 @@ describe( 'Image Block', () => {
 		await act( () => clipboardPromise );
 		fireEvent.changeText(
 			screen.getByPlaceholderText( 'Search or type URL' ),
-			'wordpress.org'
+			'finpress.org'
 		);
 		fireEvent.press( screen.getByLabelText( 'Apply' ) );
 		await act(
@@ -183,7 +183,7 @@ describe( 'Image Block', () => {
 		);
 
 		const expectedHtml = `<!-- wp:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
-<figure class="wp-block-image size-large is-style-default"><a href="http://wordpress.org"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/></a><figcaption class="wp-element-caption">Mountain</figcaption></figure>
+<figure class="wp-block-image size-large is-style-default"><a href="http://finpress.org"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/></a><figcaption class="wp-element-caption">Mountain</figcaption></figure>
 <!-- /wp:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );
@@ -207,7 +207,7 @@ describe( 'Image Block', () => {
 		fireEvent.press( screen.getByText( 'Custom URL' ) );
 		fireEvent.changeText(
 			screen.getByPlaceholderText( 'Search or type URL' ),
-			'wordpress.org'
+			'finpress.org'
 		);
 		fireEvent.press( screen.getByLabelText( 'Apply' ) );
 		fireEvent.press( await screen.findByText( 'Custom URL' ) );
@@ -248,7 +248,7 @@ describe( 'Image Block', () => {
 		const initialHtml = `
 		<!-- wp:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
 		<figure class="wp-block-image size-large is-style-default">
-			<a href="https://wordpress.org">
+			<a href="https://finpress.org">
 				<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/>
 			</a>
 		<figcaption class="wp-element-caption">Mountain</figcaption></figure>
@@ -269,7 +269,7 @@ describe( 'Image Block', () => {
 		fireEvent.press( linkTargetButton );
 
 		const expectedHtml = `<!-- wp:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
-<figure class="wp-block-image size-large is-style-default"><a href="https://wordpress.org" target="_blank" rel="noreferrer noopener"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/></a><figcaption class="wp-element-caption">Mountain</figcaption></figure>
+<figure class="wp-block-image size-large is-style-default"><a href="https://finpress.org" target="_blank" rel="noreferrer noopener"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/></a><figcaption class="wp-element-caption">Mountain</figcaption></figure>
 <!-- /wp:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );
@@ -278,7 +278,7 @@ describe( 'Image Block', () => {
 		const initialHtml = `
 		<!-- wp:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
 		<figure class="wp-block-image size-large is-style-default">
-			<a href="https://wordpress.org" target="_blank" rel="noreferrer noopener">
+			<a href="https://finpress.org" target="_blank" rel="noreferrer noopener">
 				<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/>
 			</a>
 			<figcaption class="wp-element-caption">Mountain</figcaption>
@@ -300,7 +300,7 @@ describe( 'Image Block', () => {
 		fireEvent.press( linkTargetButton );
 
 		const expectedHtml = `<!-- wp:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
-<figure class="wp-block-image size-large is-style-default"><a href="https://wordpress.org"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/></a><figcaption class="wp-element-caption">Mountain</figcaption></figure>
+<figure class="wp-block-image size-large is-style-default"><a href="https://finpress.org"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/></a><figcaption class="wp-element-caption">Mountain</figcaption></figure>
 <!-- /wp:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );
@@ -449,7 +449,7 @@ describe( 'Image Block', () => {
 		const screen = await initializeEditor( { initialHtml } );
 
 		fireEvent.press( screen.getByText( 'Add image' ) );
-		fireEvent.press( screen.getByText( 'WordPress Media Library' ) );
+		fireEvent.press( screen.getByText( 'FinPress Media Library' ) );
 
 		const expectedHtml = `<!-- wp:image {"id":${ IMAGE.id },"sizeSlug":"large","linkDestination":"none"} -->
 <figure class="wp-block-image size-large"><img src="${ IMAGE.url }" alt="${ IMAGE.alt }" class="wp-image-${ IMAGE.id }"/></figure>

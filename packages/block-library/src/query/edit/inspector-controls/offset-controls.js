@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalNumberControl as NumberControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { __experimentalNumberControl as NumberControl } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 const MIN_OFFSET = 0;
 const MAX_OFFSET = 100;

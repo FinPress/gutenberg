@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Dropdown,
@@ -8,11 +8,11 @@ import {
 	SVG,
 	Path,
 	NavigableMenu,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { forwardRef } from '@wordpress/element';
-import { Icon, edit as editIcon } from '@wordpress/icons';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { forwardRef } from '@finpress/element';
+import { Icon, edit as editIcon } from '@finpress/icons';
 
 /**
  * Internal dependencies

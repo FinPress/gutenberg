@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useLayoutEffect, useState } from '@wordpress/element';
-import { useRegistry } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
-import isShallowEqual from '@wordpress/is-shallow-equal';
+import { useLayoutEffect, useState } from '@finpress/element';
+import { useRegistry } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
+import isShallowEqual from '@finpress/is-shallow-equal';
 
 /**
  * Internal dependencies

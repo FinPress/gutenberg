@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
-import { addFilter, removeFilter } from '@wordpress/hooks';
+import { useEffect } from '@finpress/element';
+import { addFilter, removeFilter } from '@finpress/hooks';
 
 // These post types are "structural" block lists.
 // We should be allowed to use

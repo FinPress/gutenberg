@@ -16,10 +16,10 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
-import { registerCoreBlocks } from '@wordpress/block-library';
+import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
+import { registerCoreBlocks } from '@finpress/block-library';
 
 beforeAll( () => {
 	// Register all core blocks
@@ -34,7 +34,7 @@ afterAll( () => {
 } );
 
 describe( 'Social links block', () => {
-	it( 'inserts block with the default icons and the WordPress link set as active', async () => {
+	it( 'inserts block with the default icons and the FinPress link set as active', async () => {
 		await initializeEditor();
 
 		// Add block
@@ -55,11 +55,11 @@ describe( 'Social links block', () => {
 			},
 		} );
 
-		// Check the WordPress icon has a URL set (active)
+		// Check the FinPress icon has a URL set (active)
 		const firstLinkBlock = await getBlock( screen, 'Social Icon' );
 		fireEvent.press( firstLinkBlock );
 		const firstLink = within( socialLinksBlock ).getByAccessibilityHint(
-			/WordPress has URL set/
+			/FinPress has URL set/
 		);
 		expect( firstLink ).toBeVisible();
 
@@ -95,11 +95,11 @@ describe( 'Social links block', () => {
 			within( socialLinksBlock ).getAllByLabelText( / social icon/ );
 		expect( socialLinks.length ).toBe( 1 );
 
-		// Check the WordPress link is shown when unselected
+		// Check the FinPress link is shown when unselected
 		const firstLinkBlock = await getBlock( screen, 'Social Icon' );
 		fireEvent.press( firstLinkBlock );
 		const firstLink = within( socialLinksBlock ).getByAccessibilityHint(
-			/WordPress has URL set/
+			/FinPress has URL set/
 		);
 		expect( firstLink ).toBeVisible();
 
@@ -253,7 +253,7 @@ describe( 'Social links block', () => {
 
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
 		"<!-- wp:social-links -->
-		<ul class="wp-block-social-links"><!-- wp:social-link {"url":"https://wordpress.org","service":"wordpress"} /-->
+		<ul class="wp-block-social-links"><!-- wp:social-link {"url":"https://finpress.org","service":"finpress"} /-->
 
 		<!-- wp:social-link {"url":"https://facebook.com","service":"facebook","label":"","rel":""} /-->
 

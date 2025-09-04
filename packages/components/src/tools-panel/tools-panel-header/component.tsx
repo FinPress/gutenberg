@@ -4,11 +4,11 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { speak } from '@wordpress/a11y';
-import { check, moreVertical, plus } from '@wordpress/icons';
-import { __, _x, sprintf } from '@wordpress/i18n';
+import { speak } from '@finpress/a11y';
+import { check, moreVertical, plus } from '@finpress/icons';
+import { __, _x, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

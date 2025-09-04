@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Test Custom Post Types', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -84,7 +84,7 @@ test.describe( 'Test Custom Post Types', () => {
 		await expect.poll( editor.getBlocks ).toMatchObject( [
 			{
 				name: 'core/embed',
-				attributes: { providerNameSlug: 'wordpress-tv' },
+				attributes: { providerNameSlug: 'finpress-tv' },
 			},
 			{
 				name: 'core/paragraph',

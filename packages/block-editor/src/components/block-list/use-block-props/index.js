@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { __unstableGetBlockProps as getBlockProps } from '@wordpress/blocks';
-import { useMergeRefs, useDisabled } from '@wordpress/compose';
-import warning from '@wordpress/warning';
+import { useContext } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { __unstableGetBlockProps as getBlockProps } from '@finpress/blocks';
+import { useMergeRefs, useDisabled } from '@finpress/compose';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies
@@ -45,7 +45,7 @@ import { useFirefoxDraggableCompatibility } from './use-firefox-draggable-compat
  *
  * @example
  * ```js
- * import { useBlockProps } from '@wordpress/block-editor';
+ * import { useBlockProps } from '@finpress/block-editor';
  *
  * export default function Edit() {
  *

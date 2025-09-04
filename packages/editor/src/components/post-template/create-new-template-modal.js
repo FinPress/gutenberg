@@ -4,19 +4,19 @@
 import { paramCase as kebabCase } from 'change-case';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useState } from '@wordpress/element';
-import { serialize, createBlock } from '@wordpress/blocks';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useState } from '@finpress/element';
+import { serialize, createBlock } from '@finpress/blocks';
 import {
 	Modal,
 	TextControl,
 	Button,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

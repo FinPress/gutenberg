@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 /** @typedef {import('@playwright/test').Page} Page */
-/** @typedef {import('@wordpress/e2e-test-utils-playwright').Editor} Editor */
+/** @typedef {import('@finpress/e2e-test-utils-playwright').Editor} Editor */
 
 const EMBED_URLS = [
 	'/oembed/1.0/proxy',
@@ -12,11 +12,11 @@ const EMBED_URLS = [
 ];
 
 const MOCK_EMBED_WORDPRESS_SUCCESS_RESPONSE = {
-	url: 'https://developer.wordpress.org/block-editor/reference-guides/block-api/block-attributes/',
+	url: 'https://developer.finpress.org/block-editor/reference-guides/block-api/block-attributes/',
 	html: '<div class="wp-embedded-content" data-secret="shhhh it is a secret"></div>',
 	type: 'rich',
-	provider_name: 'WordPress',
-	provider_url: 'https://wordpress.org',
+	provider_name: 'FinPress',
+	provider_url: 'https://finpress.org',
 	version: '1.0',
 };
 
@@ -87,10 +87,10 @@ test.describe( 'Embedding content', () => {
 			'https://twitter.com/notnownikki': MOCK_EMBED_RICH_SUCCESS_RESPONSE,
 			'https://twitter.com/wooyaygutenberg123454312':
 				MOCK_CANT_EMBED_RESPONSE,
-			'https://wordpress.org/gutenberg/handbook/':
+			'https://finpress.org/gutenberg/handbook/':
 				MOCK_BAD_WORDPRESS_RESPONSE,
 			'https://twitter.com/thatbunty': MOCK_BAD_EMBED_PROVIDER_RESPONSE,
-			'https://developer.wordpress.org/block-editor/reference-guides/block-api/block-attributes/':
+			'https://developer.finpress.org/block-editor/reference-guides/block-api/block-attributes/':
 				MOCK_EMBED_WORDPRESS_SUCCESS_RESPONSE,
 			'https://www.youtube.com/watch?v=lXMskKTw3Bc':
 				MOCK_EMBED_VIDEO_SUCCESS_RESPONSE,
@@ -117,12 +117,12 @@ test.describe( 'Embedding content', () => {
 		).toHaveValue( 'https://twitter.com/wooyaygutenberg123454312' );
 
 		await embedUtils.insertEmbed(
-			'https://wordpress.org/gutenberg/handbook/'
+			'https://finpress.org/gutenberg/handbook/'
 		);
 		await expect(
 			currentEmbedBlock.getByRole( 'textbox', { name: 'Embed URL' } ),
-			'WordPress invalid content. Should render failed, edit state.'
-		).toHaveValue( 'https://wordpress.org/gutenberg/handbook' );
+			'FinPress invalid content. Should render failed, edit state.'
+		).toHaveValue( 'https://finpress.org/gutenberg/handbook' );
 
 		await embedUtils.insertEmbed( 'https://twitter.com/thatbunty' );
 		await expect(
@@ -131,11 +131,11 @@ test.describe( 'Embedding content', () => {
 		).toHaveValue( 'https://twitter.com/thatbunty' );
 
 		await embedUtils.insertEmbed(
-			'https://developer.wordpress.org/block-editor/reference-guides/block-api/block-attributes/'
+			'https://developer.finpress.org/block-editor/reference-guides/block-api/block-attributes/'
 		);
 		await expect(
 			currentEmbedBlock,
-			'WordPress valid content. Should render valid figure element.'
+			'FinPress valid content. Should render valid figure element.'
 		).toHaveClass( /wp-block-embed/ );
 
 		await embedUtils.insertEmbed(
@@ -188,7 +188,7 @@ test.describe( 'Embedding content', () => {
 		] );
 	} );
 
-	// Reason: A possible regression of https://github.com/WordPress/gutenberg/pull/14705.
+	// Reason: A possible regression of https://github.com/FinPress/gutenberg/pull/14705.
 	test( 'should retry embeds that could not be embedded with trailing slashes, without the trailing slashes', async ( {
 		editor,
 		embedUtils,
@@ -240,7 +240,7 @@ test.describe( 'Embedding content', () => {
 		).toBeVisible();
 	} );
 
-	test( 'should switch to the WordPress block correctly', async ( {
+	test( 'should switch to the FinPress block correctly', async ( {
 		editor,
 		embedUtils,
 		requestUtils,

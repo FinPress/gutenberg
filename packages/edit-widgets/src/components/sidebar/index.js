@@ -1,25 +1,25 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useEffect,
 	Platform,
 	useContext,
 	useCallback,
-} from '@wordpress/element';
-import { isRTL, __ } from '@wordpress/i18n';
+} from '@finpress/element';
+import { isRTL, __ } from '@finpress/i18n';
 import {
 	ComplementaryArea,
 	store as interfaceStore,
-} from '@wordpress/interface';
+} from '@finpress/interface';
 import {
 	BlockInspector,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
-import { drawerLeft, drawerRight } from '@wordpress/icons';
-import { privateApis as componentsPrivateApis } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { drawerLeft, drawerRight } from '@finpress/icons';
+import { privateApis as componentsPrivateApis } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
 
 const SIDEBAR_ACTIVE_BY_DEFAULT = Platform.select( {
 	web: true,

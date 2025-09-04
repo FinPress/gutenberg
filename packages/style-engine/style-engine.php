@@ -11,8 +11,8 @@
 /**
  * Global public interface method to generate styles from a single style object, e.g.,
  * the value of a block's attributes.style object or the top level styles in theme.json.
- * See: https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/#styles and
- * https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/
+ * See: https://developer.finpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/#styles and
+ * https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/
  *
  * Example usage:
  *

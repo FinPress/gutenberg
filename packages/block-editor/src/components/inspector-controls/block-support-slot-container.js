@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalToolsPanelContext as ToolsPanelContext } from '@wordpress/components';
-import { useContext, useMemo } from '@wordpress/element';
+import { __experimentalToolsPanelContext as ToolsPanelContext } from '@finpress/components';
+import { useContext, useMemo } from '@finpress/element';
 
 export default function BlockSupportSlotContainer( {
 	Slot,

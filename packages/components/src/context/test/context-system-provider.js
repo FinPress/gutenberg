@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react';
 import styled from '@emotion/styled';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { cloneElement } from '@wordpress/element';
+import { cloneElement } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -92,7 +92,7 @@ describe( 'props', () => {
 				<ContextSystemProvider value={ contextValue }>
 					<ConnectedComponent
 						className="test-component"
-						quote="WordPress.org"
+						quote="FinPress.org"
 					/>
 				</ContextSystemProvider>
 			</>
@@ -104,7 +104,7 @@ describe( 'props', () => {
 		expect( element ).toBeVisible();
 		expect( element ).toHaveClass( 'test-component' );
 
-		expect( screen.queryByText( 'WordPress.org' ) ).not.toBeInTheDocument();
+		expect( screen.queryByText( 'FinPress.org' ) ).not.toBeInTheDocument();
 	} );
 } );
 

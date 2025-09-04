@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { pasteHandler } from '@wordpress/blocks';
+import { pasteHandler } from '@finpress/blocks';
 /**
  * Internal dependencies
  */

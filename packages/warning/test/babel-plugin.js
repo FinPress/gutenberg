@@ -23,11 +23,11 @@ function transformCode( input, options = {} ) {
 describe( 'babel-plugin', () => {
 	it( 'should replace warning calls with import declaration', () => {
 		const input = join(
-			'import warning from "@wordpress/warning";',
+			'import warning from "@finpress/warning";',
 			'warning("a");'
 		);
 		const expected = join(
-			'import warning from "@wordpress/warning";',
+			'import warning from "@finpress/warning";',
 			'globalThis.SCRIPT_DEBUG === true ? warning("a") : void 0;'
 		);
 
@@ -52,13 +52,13 @@ describe( 'babel-plugin', () => {
 
 	it( 'should replace multiple warning calls', () => {
 		const input = join(
-			'import warning from "@wordpress/warning";',
+			'import warning from "@finpress/warning";',
 			'warning("a");',
 			'warning("b");',
 			'warning("c");'
 		);
 		const expected = join(
-			'import warning from "@wordpress/warning";',
+			'import warning from "@finpress/warning";',
 			'globalThis.SCRIPT_DEBUG === true ? warning("a") : void 0;',
 			'globalThis.SCRIPT_DEBUG === true ? warning("b") : void 0;',
 			'globalThis.SCRIPT_DEBUG === true ? warning("c") : void 0;'
@@ -69,13 +69,13 @@ describe( 'babel-plugin', () => {
 
 	it( 'should identify warning callee name', () => {
 		const input = join(
-			'import warn from "@wordpress/warning";',
+			'import warn from "@finpress/warning";',
 			'warn("a");',
 			'warn("b");',
 			'warn("c");'
 		);
 		const expected = join(
-			'import warn from "@wordpress/warning";',
+			'import warn from "@finpress/warning";',
 			'globalThis.SCRIPT_DEBUG === true ? warn("a") : void 0;',
 			'globalThis.SCRIPT_DEBUG === true ? warn("b") : void 0;',
 			'globalThis.SCRIPT_DEBUG === true ? warn("c") : void 0;'
@@ -86,13 +86,13 @@ describe( 'babel-plugin', () => {
 
 	it( 'should identify warning callee name by', () => {
 		const input = join(
-			'import warn from "@wordpress/warning";',
+			'import warn from "@finpress/warning";',
 			'warn("a");',
 			'warn("b");',
 			'warn("c");'
 		);
 		const expected = join(
-			'import warn from "@wordpress/warning";',
+			'import warn from "@finpress/warning";',
 			'globalThis.SCRIPT_DEBUG === true ? warn("a") : void 0;',
 			'globalThis.SCRIPT_DEBUG === true ? warn("b") : void 0;',
 			'globalThis.SCRIPT_DEBUG === true ? warn("c") : void 0;'

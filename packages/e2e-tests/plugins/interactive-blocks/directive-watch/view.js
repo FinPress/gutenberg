@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store, privateApis } from '@wordpress/interactivity';
+import { store, privateApis } from '@finpress/interactivity';
 
 const { directive } = privateApis(
-	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WordPress.'
+	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of FinPress.'
 );
 
 // Fake `data-wp-show-mock` directive to test when things are removed from the

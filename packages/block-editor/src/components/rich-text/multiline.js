@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { ENTER } from '@wordpress/keycodes';
-import { create, split, toHTMLString } from '@wordpress/rich-text';
+import { forwardRef } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
+import { useDispatch, useSelect } from '@finpress/data';
+import { ENTER } from '@finpress/keycodes';
+import { create, split, toHTMLString } from '@finpress/rich-text';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ function RichTextMultiline(
 		since: '6.1',
 		version: '6.3',
 		alternative: 'nested blocks (InnerBlocks)',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/',
+		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/',
 	} );
 
 	const { clientId } = useBlockEditContext();

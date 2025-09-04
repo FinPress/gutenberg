@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
-import { usePrevious } from '@wordpress/compose';
+import { useEffect, useState } from '@finpress/element';
+import { usePrevious } from '@finpress/compose';
 
 export default function useDeprecatedOpacity(
 	opacity,

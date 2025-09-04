@@ -57,7 +57,7 @@ const dashicon = {
 		'The dashicon to make it easier to identify your block (optional):',
 	validate( input ) {
 		if ( input.length && ! /^[a-z][a-z0-9\-]*$/.test( input ) ) {
-			return 'Invalid dashicon name specified. Visit https://developer.wordpress.org/resource/dashicons/ to discover available names.';
+			return 'Invalid dashicon name specified. Visit https://developer.finpress.org/resource/dashicons/ to discover available names.';
 		}
 
 		return true;
@@ -92,7 +92,7 @@ const textdomain = {
 const pluginURI = {
 	type: 'input',
 	message:
-		'The home page of the plugin (optional). Unique URL outside of WordPress.org:',
+		'The home page of the plugin (optional). Unique URL outside of FinPress.org:',
 };
 
 const version = {

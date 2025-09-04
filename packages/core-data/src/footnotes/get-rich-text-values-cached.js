@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import { unlock } from '../lock-unlock';
 // `block-editor`. What follows is a workaround that defers the `unlock` call
 // to prevent native code from failing.
 //
-// Fix once https://github.com/WordPress/gutenberg/issues/52692 is closed.
+// Fix once https://github.com/FinPress/gutenberg/issues/52692 is closed.
 let unlockedApis;
 
 const cache = new WeakMap();

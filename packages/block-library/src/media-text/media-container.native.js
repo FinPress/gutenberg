@@ -4,15 +4,15 @@
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	mediaUploadSync,
 	requestImageFailedRetryDialog,
 	requestImageUploadCancelDialog,
 	requestImageFullscreenPreview,
-} from '@wordpress/react-native-bridge';
-import { Icon, Image, IMAGE_DEFAULT_FOCAL_POINT } from '@wordpress/components';
+} from '@finpress/react-native-bridge';
+import { Icon, Image, IMAGE_DEFAULT_FOCAL_POINT } from '@finpress/components';
 import {
 	MEDIA_TYPE_IMAGE,
 	MEDIA_TYPE_VIDEO,
@@ -21,12 +21,12 @@ import {
 	MediaUploadProgress,
 	VIDEO_ASPECT_RATIO,
 	VideoPlayer,
-} from '@wordpress/block-editor';
-import { Component } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { isURL, getProtocol } from '@wordpress/url';
-import { compose, withPreferredColorScheme } from '@wordpress/compose';
-import { media as icon } from '@wordpress/icons';
+} from '@finpress/block-editor';
+import { Component } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { isURL, getProtocol } from '@finpress/url';
+import { compose, withPreferredColorScheme } from '@finpress/compose';
+import { media as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

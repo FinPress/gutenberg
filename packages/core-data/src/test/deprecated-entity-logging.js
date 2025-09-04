@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { createRegistry } from '@wordpress/data';
+import deprecated from '@finpress/deprecated';
+import { createRegistry } from '@finpress/data';
 
 /**
  * Internal dependencies
  */
 import { store as coreDataStore } from '../index';
 
-jest.mock( '@wordpress/deprecated' );
-jest.mock( '@wordpress/api-fetch' );
+jest.mock( '@finpress/deprecated' );
+jest.mock( '@finpress/api-fetch' );
 
 // Use fake timers within this file.
 // logEntityDeprecation() uses setTimeout() to avoid spurious logging, so fake timers are used to

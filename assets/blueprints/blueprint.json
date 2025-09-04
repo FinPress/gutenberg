@@ -1,5 +1,5 @@
 {
-	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"$schema": "https://playground.finpress.net/blueprint-schema.json",
 	"landingPage": "/wp-admin/post.php?post=1&action=edit",
 	"plugins": [ "gutenberg" ],
 	"login": true,

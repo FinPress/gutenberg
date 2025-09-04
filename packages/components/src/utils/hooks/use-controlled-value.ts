@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback, useState } from '@finpress/element';
 
 type Props< T > = {
 	defaultValue?: T;

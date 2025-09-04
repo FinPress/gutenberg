@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { BlockEditorProvider } from '@wordpress/block-editor';
-import { createBlock } from '@wordpress/blocks';
+import { useMemo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { BlockEditorProvider } from '@finpress/block-editor';
+import { createBlock } from '@finpress/blocks';
 
 /**
  * Internal dependencies

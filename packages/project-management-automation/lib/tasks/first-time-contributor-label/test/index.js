@@ -7,7 +7,7 @@ describe( 'firstTimeContributorLabel', () => {
 	const payload = {
 		repository: {
 			owner: {
-				login: 'WordPress',
+				login: 'FinPress',
 			},
 			name: 'gutenberg',
 		},
@@ -68,7 +68,7 @@ describe( 'firstTimeContributorLabel', () => {
 		await firstTimeContributorLabel( payload, octokit );
 
 		expect( octokit.rest.repos.listCommits ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			author: 'ghost',
 		} );
@@ -94,25 +94,25 @@ describe( 'firstTimeContributorLabel', () => {
 		};
 
 		const expectedComment =
-			':wave: Thanks for your first Pull Request and for helping build the future of Gutenberg and WordPress, @ghost' +
-			"! In case you missed it, we'd love to have you join us in our [Slack community](https://make.wordpress.org/chat/).\n\n" +
-			'If you want to learn more about WordPress development in general, check out the [Core Handbook](https://make.wordpress.org/core/handbook/) full of helpful information.';
+			':wave: Thanks for your first Pull Request and for helping build the future of Gutenberg and FinPress, @ghost' +
+			"! In case you missed it, we'd love to have you join us in our [Slack community](https://make.finpress.org/chat/).\n\n" +
+			'If you want to learn more about FinPress development in general, check out the [Core Handbook](https://make.finpress.org/core/handbook/) full of helpful information.';
 
 		await firstTimeContributorLabel( payload, octokit );
 
 		expect( octokit.rest.repos.listCommits ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			author: 'ghost',
 		} );
 		expect( octokit.rest.issues.addLabels ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			issue_number: 123,
 			labels: [ 'First-time Contributor' ],
 		} );
 		expect( octokit.rest.issues.createComment ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			issue_number: 123,
 			body: expectedComment,

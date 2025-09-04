@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
-import { useMergeRefs } from '@wordpress/compose';
+import { __ } from '@finpress/i18n';
+import { useMemo, useState } from '@finpress/element';
+import { useMergeRefs } from '@finpress/compose';
 
 /**
  * Internal dependencies

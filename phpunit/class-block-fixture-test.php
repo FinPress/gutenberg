@@ -24,9 +24,9 @@ class Block_Fixture_Test extends WP_UnitTestCase {
 	public function test_kses_doesnt_change_fixtures( $block, $filename ) {
 
 		// KSES doesn't allow data: URLs, so we need to replace any of them in fixtures.
-		$block = preg_replace( "/src=['\"]data:[^'\"]+['\"]/", 'src="https://wordpress.org/foo.jpg"', $block );
-		$block = preg_replace( "/href=['\"]data:[^'\"]+['\"]/", 'href="https://wordpress.org/foo.jpg"', $block );
-		$block = preg_replace( '/url\(data:[^)]+\)/', 'url(https://wordpress.org/foo.jpg)', $block );
+		$block = preg_replace( "/src=['\"]data:[^'\"]+['\"]/", 'src="https://finpress.org/foo.jpg"', $block );
+		$block = preg_replace( "/href=['\"]data:[^'\"]+['\"]/", 'href="https://finpress.org/foo.jpg"', $block );
+		$block = preg_replace( '/url\(data:[^)]+\)/', 'url(https://finpress.org/foo.jpg)', $block );
 
 		// Account for a wp-env override using a port other than 8889 for the tests environment.
 		$block = preg_replace( '#http://localhost:\d+/#', home_url( '/' ), $block );

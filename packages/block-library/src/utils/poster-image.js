@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	MediaUpload,
 	MediaUploadCheck,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/block-editor';
+import { store as noticesStore } from '@finpress/notices';
 import {
 	Button,
 	BaseControl,
@@ -19,12 +19,12 @@ import {
 	Spinner,
 	__experimentalHStack as HStack,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { isBlobURL } from '@wordpress/blob';
-import { __, sprintf } from '@wordpress/i18n';
-import { useRef, useState } from '@wordpress/element';
-import { useInstanceId } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/components';
+import { isBlobURL } from '@finpress/blob';
+import { __, sprintf } from '@finpress/i18n';
+import { useRef, useState } from '@finpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
 
 const POSTER_IMAGE_ALLOWED_MEDIA_TYPES = [ 'image' ];
 

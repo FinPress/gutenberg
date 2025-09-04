@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isBlobURL } from '@wordpress/blob';
+import { isBlobURL } from '@finpress/blob';
 import {
 	createInterpolateElement,
 	useEffect,
 	useState,
-} from '@wordpress/element';
-import { __, isRTL } from '@wordpress/i18n';
+} from '@finpress/element';
+import { __, isRTL } from '@finpress/i18n';
 import {
 	RangeControl,
 	ResizableBox,
@@ -28,8 +28,8 @@ import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalHStack as HStack,
 	__experimentalTruncate as Truncate,
-} from '@wordpress/components';
-import { useViewportMatch } from '@wordpress/compose';
+} from '@finpress/components';
+import { useViewportMatch } from '@finpress/compose';
 import {
 	BlockControls,
 	InspectorControls,
@@ -39,11 +39,11 @@ import {
 	store as blockEditorStore,
 	__experimentalImageEditor as ImageEditor,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { crop, upload } from '@wordpress/icons';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/block-editor';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { crop, upload } from '@finpress/icons';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies
@@ -188,7 +188,7 @@ const SiteLogo = ( {
 	let showLeftHandle = false;
 
 	/* eslint-disable no-lonely-if */
-	// See https://github.com/WordPress/gutenberg/issues/7584.
+	// See https://github.com/FinPress/gutenberg/issues/7584.
 	if ( align === 'center' ) {
 		// When the image is centered, show both handles.
 		showRightHandle = true;
@@ -281,7 +281,7 @@ const SiteLogo = ( {
 
 	const syncSiteIconHelpText = createInterpolateElement(
 		__(
-			'Site Icons are what you see in browser tabs, bookmark bars, and within the WordPress mobile apps. To use a custom icon that is different from your site logo, use the <a>Site Icon settings</a>.'
+			'Site Icons are what you see in browser tabs, bookmark bars, and within the FinPress mobile apps. To use a custom icon that is different from your site logo, use the <a>Site Icon settings</a>.'
 		),
 		{
 			a: (

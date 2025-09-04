@@ -11,10 +11,10 @@ import {
 import SafeArea from 'react-native-safe-area';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef, useState } from '@wordpress/element';
-import { useResizeObserver } from '@wordpress/compose';
+import { useEffect, useRef, useState } from '@finpress/element';
+import { useResizeObserver } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -69,7 +69,7 @@ export const KeyboardAvoidingView = ( {
 			keyboardShowSubscription.remove();
 			keyboardHideSubscription.remove();
 		};
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [] );
 
 	function onSafeAreaInsetsUpdate( { safeAreaInsets } ) {

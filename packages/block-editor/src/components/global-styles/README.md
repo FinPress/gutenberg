@@ -9,7 +9,7 @@ This folder contains all the necessary APIs to manipulate the global styles data
 A React hook used to retrieve whether the Global Styles have been edited and a callback to reset to the default theme values.
 
 ```js
-import { useGlobalStylesReset } from '@wordpress/block-editor';
+import { useGlobalStylesReset } from '@finpress/block-editor';
 
 function MyComponent() {
 	const [ canReset, reset ] = useGlobalStylesReset();
@@ -27,7 +27,7 @@ import {
 	useGlobalStylesOutput,
 	BlockEditorProvider,
 	BlockList,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 function MyComponent() {
 	const [ styles, settings ] = useGlobalStylesOutput();
@@ -50,7 +50,7 @@ function MyComponent() {
 A react hook used to retrieve the style applied to a given context.
 
 ```js
-import { useGlobalStyle } from '@wordpress/block-editor';
+import { useGlobalStyle } from '@finpress/block-editor';
 
 function MyComponent() {
 	// Text color for the site root.
@@ -72,7 +72,7 @@ function MyComponent() {
 A react hook used to retrieve the setting applied to a given context.
 
 ```js
-import { useGlobalSetting } from '@wordpress/block-editor';
+import { useGlobalSetting } from '@finpress/block-editor';
 
 function MyComponent() {
 	// The theme color palette.

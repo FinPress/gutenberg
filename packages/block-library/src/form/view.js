@@ -2,7 +2,7 @@ let formSettings;
 try {
 	formSettings = JSON.parse(
 		document.getElementById(
-			'wp-script-module-data-@wordpress/block-library/form/view'
+			'wp-script-module-data-@finpress/block-library/form/view'
 		)?.textContent
 	);
 } catch {}

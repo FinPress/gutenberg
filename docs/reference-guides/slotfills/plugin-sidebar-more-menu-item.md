@@ -8,17 +8,17 @@ When a `<PluginSidebar />` is registered, a `<PluginSidebarMoreMenuItem />` is a
 This example shows how customize the text for the menu item instead of using the default text provided by the `<PluginSidebar />` title.
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { PluginSidebar, PluginSidebarMoreMenuItem } from '@wordpress/editor';
+import { __ } from '@finpress/i18n';
+import { PluginSidebar, PluginSidebarMoreMenuItem } from '@finpress/editor';
 import {
 	PanelBody,
 	Button,
 	TextControl,
 	SelectControl,
-} from '@wordpress/components';
-import { registerPlugin } from '@wordpress/plugins';
-import { useState } from '@wordpress/element';
-import { image } from '@wordpress/icons';
+} from '@finpress/components';
+import { registerPlugin } from '@finpress/plugins';
+import { useState } from '@finpress/element';
+import { image } from '@finpress/icons';
 
 const PluginSidebarMoreMenuItemTest = () => {
 	const [ text, setText ] = useState( '' );
@@ -77,4 +77,4 @@ registerPlugin( 'plugin-sidebar-more-menu-item-example', {
 
 ## Location
 
-![Interaction](https://developer.wordpress.org/files/2024/08/pluginsidebar-more-menu-item-1.gif)
+![Interaction](https://developer.finpress.org/files/2024/08/pluginsidebar-more-menu-item-1.gif)

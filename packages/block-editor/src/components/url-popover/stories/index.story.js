@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, ToggleControl } from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { keyboardReturn } from '@wordpress/icons';
+import { Button, ToggleControl } from '@finpress/components';
+import { useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { keyboardReturn } from '@finpress/icons';
 
 /**
  * Internal dependencies

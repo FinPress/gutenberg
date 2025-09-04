@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Block Locking', () => {
 	test.beforeEach( async ( { admin } ) => {
@@ -112,7 +112,7 @@ test.describe( 'Block Locking', () => {
 				},
 				{
 					name: 'core/paragraph',
-					attributes: { content: 'WordPress' },
+					attributes: { content: 'FinPress' },
 				},
 			],
 		} );

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, createInterpolateElement } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { speak } from '@wordpress/a11y';
-import { Popover } from '@wordpress/components';
-import { prependHTTP } from '@wordpress/url';
+import { useMemo, createInterpolateElement } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { speak } from '@finpress/a11y';
+import { Popover } from '@finpress/components';
+import { prependHTTP } from '@finpress/url';
 import {
 	create,
 	insert,
@@ -17,12 +17,12 @@ import {
 	split,
 	concat,
 	useAnchor,
-} from '@wordpress/rich-text';
+} from '@finpress/rich-text';
 import {
 	LinkControl,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useDispatch, useSelect } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { useDispatch, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -182,10 +182,10 @@ function InlineLinkUI( {
 			// run only against the second half of the value which was
 			// split at the active format's boundary. This avoids a bug
 			// with incorrectly targeted replacements.
-			// See: https://github.com/WordPress/gutenberg/issues/41771.
+			// See: https://github.com/FinPress/gutenberg/issues/41771.
 			// Note original formats will be lost when applying this change.
 			// That is expected behaviour.
-			// See: https://github.com/WordPress/gutenberg/pull/33849#issuecomment-936134179.
+			// See: https://github.com/FinPress/gutenberg/pull/33849#issuecomment-936134179.
 			const newValAfter = replace( valAfter, richTextText, newValue );
 
 			newValue = concat( valBefore, newValAfter );

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Block deletion', () => {
 	test.beforeEach( async ( { admin } ) => {
@@ -332,8 +332,8 @@ test.describe( 'Block deletion', () => {
 	 * Regression Test: Previously, removing a block would not clear
 	 * selection state when there were no other blocks to select.
 	 *
-	 * See: https://github.com/WordPress/gutenberg/issues/15458
-	 * See: https://github.com/WordPress/gutenberg/pull/15543
+	 * See: https://github.com/FinPress/gutenberg/issues/15458
+	 * See: https://github.com/FinPress/gutenberg/pull/15543
 	 */
 	test( 'deleting all blocks when the default block is unavailable', async ( {
 		editor,

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRegistry, useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { createRegistry, useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ function createRegistryWithStores() {
 	return registry;
 }
 
-jest.mock( '@wordpress/data/src/components/use-select', () => {
+jest.mock( '@finpress/data/src/components/use-select', () => {
 	// This allows us to tweak the returned value on each test.
 	const mock = jest.fn();
 	return mock;

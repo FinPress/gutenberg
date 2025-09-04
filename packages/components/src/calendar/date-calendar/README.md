@@ -1,6 +1,6 @@
 # `DateCalendar`
 
-🔒 This component is locked as a [private API](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-private-apis/). We do not yet recommend using this outside of the Gutenberg project.
+🔒 This component is locked as a [private API](https://developer.finpress.org/block-editor/reference-guides/packages/packages-private-apis/). We do not yet recommend using this outside of the Gutenberg project.
 
 `DateCalendar` is a React component that provides a customizable calendar interface for **single date** selection.
 
@@ -9,7 +9,7 @@ The component is built with accessibility in mind and follows ARIA best practice
 ## Usage example
 
 ```tsx
-import { DateCalendar } from '@wordpress/components';
+import { DateCalendar } from '@finpress/components';
 
 function MyComponent() {
 	const [ selected, setSelected ] = useState< Date >( new Date() );
@@ -165,7 +165,7 @@ The time zone (IANA or UTC offset) to use in the calendar. See [Wikipedia](https
 When working with time zones, use the `TZDate` object exported by this package instead of the native `Date` object.
 
 ```tsx
-import { DateCalendar, TZDate } from '@wordpress/components';
+import { DateCalendar, TZDate } from '@finpress/components';
 
 export function WithTimeZone() {
 	const timeZone = 'America/New_York';

@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
 	Modal,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useState, useEffect } from '@wordpress/element';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useState, useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

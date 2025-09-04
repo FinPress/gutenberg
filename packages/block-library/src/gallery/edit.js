@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	SelectControl,
@@ -16,7 +16,7 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	ToolbarDropdownMenu,
 	PanelBody,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	store as blockEditorStore,
 	MediaPlaceholder,
@@ -26,21 +26,21 @@ import {
 	BlockControls,
 	MediaReplaceFlow,
 	useSettings,
-} from '@wordpress/block-editor';
-import { Platform, useEffect, useMemo } from '@wordpress/element';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { View } from '@wordpress/primitives';
-import { createBlock } from '@wordpress/blocks';
-import { createBlobURL } from '@wordpress/blob';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/block-editor';
+import { Platform, useEffect, useMemo } from '@finpress/element';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { View } from '@finpress/primitives';
+import { createBlock } from '@finpress/blocks';
+import { createBlobURL } from '@finpress/blob';
+import { store as noticesStore } from '@finpress/notices';
 import {
 	link as linkIcon,
 	customLink,
 	image as imageIcon,
 	linkOff,
 	fullscreen,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 /**
  * Internal dependencies

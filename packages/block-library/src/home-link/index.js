@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x } from '@wordpress/i18n';
-import { home } from '@wordpress/icons';
+import { _x } from '@finpress/i18n';
+import { home } from '@finpress/icons';
 
 /**
  * Internal dependencies

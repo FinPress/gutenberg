@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockControls,
 	useBlockProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { debounce, useRefEffect } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { ToolbarGroup } from '@wordpress/components';
-import { useEffect, useRef, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { BACKSPACE, DELETE, F10, isKeyboardEvent } from '@wordpress/keycodes';
+} from '@finpress/block-editor';
+import { debounce, useRefEffect } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { ToolbarGroup } from '@finpress/components';
+import { useEffect, useRef, useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { BACKSPACE, DELETE, F10, isKeyboardEvent } from '@finpress/keycodes';
 
 /**
  * Internal dependencies
@@ -112,7 +112,7 @@ function ClassicEdit( {
 
 			editor.on( 'blur', () => {
 				bookmark = editor.selection.getBookmark( 2, true );
-				// There is an issue with Chrome and the editor.focus call in core at https://core.trac.wordpress.org/browser/trunk/src/js/_enqueues/lib/link.js#L451.
+				// There is an issue with Chrome and the editor.focus call in core at https://core.trac.finpress.org/browser/trunk/src/js/_enqueues/lib/link.js#L451.
 				// This causes a scroll to the top of editor content on return from some content updating dialogs so tracking
 				// scroll position until this is fixed in core.
 				const scrollContainer = document.querySelector(

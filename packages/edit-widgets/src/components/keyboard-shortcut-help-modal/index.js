@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Modal } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { Modal } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 import {
 	useShortcut,
 	store as keyboardShortcutsStore,
-} from '@wordpress/keyboard-shortcuts';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/keyboard-shortcuts';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

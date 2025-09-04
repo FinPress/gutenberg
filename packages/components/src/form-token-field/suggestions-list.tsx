@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import type { MouseEventHandler, ReactNode } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+import { useRefEffect } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

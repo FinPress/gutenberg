@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 const maxWidthWrapperMap = {
 	none: 0,
-	'wordpress-sidebar': 248,
+	'finpress-sidebar': 248,
 	'small-container': 600,
 	'large-container': 960,
 };
@@ -27,7 +27,7 @@ export const WithMaxWidthWrapper = ( Story, context ) => {
 	/**
 	 * A Storybook decorator to wrap a story in a div applying a max width.
 	 * This can be used to simulate real world constraints on components
-	 * such as being located within the WordPress editor sidebars.
+	 * such as being located within the FinPress editor sidebars.
 	 */
 	const maxWidth = maxWidthWrapperMap[ context.globals.maxWidthWrapper ];
 	if ( ! maxWidth ) {

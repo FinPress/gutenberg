@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { hasBlockSupport, isReusableBlock } from '@wordpress/blocks';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { useCallback, useState } from '@wordpress/element';
+import { hasBlockSupport, isReusableBlock } from '@finpress/blocks';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { useCallback, useState } from '@finpress/element';
 import {
 	MenuItem,
 	Modal,
@@ -12,12 +12,12 @@ import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	ToggleControl,
-} from '@wordpress/components';
-import { symbol } from '@wordpress/icons';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/components';
+import { symbol } from '@finpress/icons';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

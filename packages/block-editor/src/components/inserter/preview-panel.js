@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	isReusableBlock,
 	createBlock,
 	getBlockFromExample,
-} from '@wordpress/blocks';
-import { useMemo } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/blocks';
+import { useMemo } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

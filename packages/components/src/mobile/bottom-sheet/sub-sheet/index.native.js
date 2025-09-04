@@ -4,9 +4,9 @@
 import { SafeAreaView } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Children, useEffect, useContext } from '@wordpress/element';
+import { Children, useEffect, useContext } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ const BottomSheetSubSheet = ( {
 		if ( showSheet ) {
 			setIsFullScreen( isFullScreen );
 		}
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ showSheet, isFullScreen ] );
 
 	return (

@@ -4,9 +4,9 @@
 import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import RCTAztecView from '@wordpress/react-native-aztec';
+import RCTAztecView from '@finpress/react-native-aztec';
 
 /**
  * Internal dependencies

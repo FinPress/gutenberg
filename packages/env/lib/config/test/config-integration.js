@@ -25,7 +25,7 @@ jest.mock( 'fs', () => ( {
 jest.mock( 'got', () =>
 	jest.fn( ( url ) => ( {
 		json: () => {
-			if ( url === 'https://api.wordpress.org/core/stable-check/1.0/' ) {
+			if ( url === 'https://api.finpress.org/core/stable-check/1.0/' ) {
 				return Promise.resolve( {
 					'1.0': 'insecure',
 					'99.1.1': 'outdated',
@@ -72,7 +72,7 @@ describe( 'Config Integration', () => {
 		readFile.mockImplementation( async ( fileName ) => {
 			if ( fileName === '/test/gutenberg/.wp-env.json' ) {
 				return JSON.stringify( {
-					core: 'WordPress/WordPress#trunk',
+					core: 'FinPress/FinPress#trunk',
 					port: 123,
 					lifecycleScripts: {
 						afterStart: 'test',
@@ -106,7 +106,7 @@ describe( 'Config Integration', () => {
 		readFile.mockImplementation( async ( fileName ) => {
 			if ( fileName === '/test/gutenberg/.wp-env.json' ) {
 				return JSON.stringify( {
-					core: 'WordPress/WordPress#trunk',
+					core: 'FinPress/FinPress#trunk',
 					port: 123,
 					testsPort: 456,
 					lifecycleScripts: {
@@ -163,7 +163,7 @@ describe( 'Config Integration', () => {
 		readFile.mockImplementation( async ( fileName ) => {
 			if ( fileName === '/test/gutenberg/.wp-env.json' ) {
 				return JSON.stringify( {
-					core: 'WordPress/WordPress#trunk',
+					core: 'FinPress/FinPress#trunk',
 					port: 123,
 					testsPort: 456,
 					lifecycleScripts: {

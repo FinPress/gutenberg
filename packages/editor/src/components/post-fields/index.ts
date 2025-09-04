@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useMemo } from '@wordpress/element';
-import { useEntityRecords } from '@wordpress/core-data';
-import { useDispatch, useSelect } from '@wordpress/data';
-import type { Field } from '@wordpress/dataviews';
-import type { BasePostWithEmbeddedAuthor } from '@wordpress/fields';
+import { useEffect, useMemo } from '@finpress/element';
+import { useEntityRecords } from '@finpress/core-data';
+import { useDispatch, useSelect } from '@finpress/data';
+import type { Field } from '@finpress/dataviews';
+import type { BasePostWithEmbeddedAuthor } from '@finpress/fields';
 
 /**
  * Internal dependencies

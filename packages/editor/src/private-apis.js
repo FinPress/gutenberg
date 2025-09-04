@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import * as interfaceApis from '@wordpress/interface';
+import * as interfaceApis from '@finpress/interface';
 
 /**
  * Internal dependencies
@@ -27,7 +27,7 @@ import {
 	CreateTemplatePartModal,
 	patternTitleField,
 	templateTitleField,
-} from '@wordpress/fields';
+} from '@finpress/fields';
 import { registerCoreBlockBindingsSources } from './bindings/api';
 import { getTemplateInfo } from './utils/get-template-info';
 

@@ -4,9 +4,9 @@
 import type { ComponentProps, ReactElement, ReactNode } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, createRef } from '@wordpress/element';
+import { createContext, createRef } from '@finpress/element';
 
 /**
  * Internal dependencies

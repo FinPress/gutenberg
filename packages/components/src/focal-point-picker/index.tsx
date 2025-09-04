@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useEffect, useRef, useState } from '@finpress/element';
 import {
 	__experimentalUseDragging as useDragging,
 	useInstanceId,
 	useIsomorphicLayoutEffect,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ import {
 } from './styles/focal-point-picker-style';
 import { INITIAL_BOUNDS } from './utils';
 import { useUpdateEffect } from '../utils/hooks';
-import type { WordPressComponentProps } from '../context/wordpress-component';
+import type { WordPressComponentProps } from '../context/finpress-component';
 import type {
 	FocalPoint as FocalPointType,
 	FocalPointPickerProps,
@@ -50,8 +50,8 @@ const GRID_OVERLAY_TIMEOUT = 600;
  * - Corresponding CSS: `background-position: 50% 10%;`
  *
  * ```jsx
- * import { FocalPointPicker } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { FocalPointPicker } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const Example = () => {
  * 	const [ focalPoint, setFocalPoint ] = useState( {
@@ -169,7 +169,7 @@ export function FocalPointPicker( {
 	useIsomorphicLayoutEffect( () => void refUpdateBounds.current(), [] );
 
 	// TODO: Consider refactoring getValueWithinDragArea() into a pure function.
-	// https://github.com/WordPress/gutenberg/pull/43872#discussion_r963455173
+	// https://github.com/FinPress/gutenberg/pull/43872#discussion_r963455173
 	const getValueWithinDragArea = ( {
 		clientX,
 		clientY,

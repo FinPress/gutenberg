@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __unstableInserterMenuExtension } from '@wordpress/block-editor';
-import { debounce } from '@wordpress/compose';
-import { useState } from '@wordpress/element';
+import { __unstableInserterMenuExtension } from '@finpress/block-editor';
+import { debounce } from '@finpress/compose';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

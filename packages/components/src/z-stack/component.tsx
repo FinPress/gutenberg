@@ -4,9 +4,9 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isValidElement } from '@wordpress/element';
+import { isValidElement } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -68,7 +68,7 @@ function UnconnectedZStack(
  * `ZStack` allows you to stack things along the Z-axis.
  *
  * ```jsx
- * import { __experimentalZStack as ZStack } from '@wordpress/components';
+ * import { __experimentalZStack as ZStack } from '@finpress/components';
  *
  * function Example() {
  *   return (

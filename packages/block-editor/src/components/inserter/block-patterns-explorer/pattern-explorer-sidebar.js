@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, SearchControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { Button, SearchControl } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 function PatternCategoriesList( {
 	selectedCategory,

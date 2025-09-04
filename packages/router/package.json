@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/router",
+	"name": "@finpress/router",
 	"version": "1.29.0",
-	"description": "Router API for WordPress pages.",
-	"author": "The WordPress Contributors",
+	"description": "Router API for FinPress pages.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"router"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/router/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/router/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/router"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -29,10 +29,10 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/compose": "file:../compose",
-		"@wordpress/element": "file:../element",
-		"@wordpress/private-apis": "file:../private-apis",
-		"@wordpress/url": "file:../url",
+		"@finpress/compose": "file:../compose",
+		"@finpress/element": "file:../element",
+		"@finpress/private-apis": "file:../private-apis",
+		"@finpress/url": "file:../url",
 		"history": "^5.3.0",
 		"route-recognizer": "^0.3.4"
 	},

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import warning from '@wordpress/warning';
-import deprecated from '@wordpress/deprecated';
+import warning from '@finpress/warning';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

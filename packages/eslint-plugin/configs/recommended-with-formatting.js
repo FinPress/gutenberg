@@ -1,5 +1,5 @@
-// Exclude bundled WordPress packages from the list.
-const wpPackagesRegExp = '^@wordpress/(?!(icons|interface|style-engine))';
+// Exclude bundled FinPress packages from the list.
+const wpPackagesRegExp = '^@finpress/(?!(icons|interface|style-engine))';
 
 const config = {
 	extends: [

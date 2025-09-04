@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { __unstableMotion as motion } from '@wordpress/components';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { __unstableMotion as motion } from '@finpress/components';
 import {
 	useThrottle,
 	useReducedMotion,
 	useResizeObserver,
-} from '@wordpress/compose';
-import { useLayoutEffect, useState } from '@wordpress/element';
+} from '@finpress/compose';
+import { useLayoutEffect, useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -78,7 +78,7 @@ export default function PreviewWrapper( {
 	 * Use the throttled ratio if it has been calculated, otherwise
 	 * use the fallback ratio. The throttled ratio is used to avoid
 	 * an endless loop of updates at particular viewport heights.
-	 * See: https://github.com/WordPress/gutenberg/issues/55112
+	 * See: https://github.com/FinPress/gutenberg/issues/55112
 	 */
 	const ratio = ratioState ? ratioState : fallbackRatio;
 

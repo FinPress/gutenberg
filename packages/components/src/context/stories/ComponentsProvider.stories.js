@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, useContext, memo, useState } from '@wordpress/element';
+import { createContext, useContext, memo, useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -26,7 +26,7 @@ const outerContext = {
 	},
 	CardBody: {
 		as: 'a',
-		href: 'https://wordpress.org',
+		href: 'https://finpress.org',
 		style: {
 			display: 'block',
 		},

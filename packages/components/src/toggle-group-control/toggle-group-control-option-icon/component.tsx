@@ -4,9 +4,9 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -47,8 +47,8 @@ function UnforwardedToggleGroupControlOptionIcon(
  * import {
  *	__experimentalToggleGroupControl as ToggleGroupControl,
  *	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
- * from '@wordpress/components';
- * import { formatLowercase, formatUppercase } from '@wordpress/icons';
+ * from '@finpress/components';
+ * import { formatLowercase, formatUppercase } from '@finpress/icons';
  *
  * function Example() {
  *  return (

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { chevronDown, Icon } from '@wordpress/icons';
+import { chevronDown, Icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

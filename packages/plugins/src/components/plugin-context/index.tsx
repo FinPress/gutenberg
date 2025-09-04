@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, useContext } from '@wordpress/element';
-import { createHigherOrderComponent } from '@wordpress/compose';
-import deprecated from '@wordpress/deprecated';
+import { createContext, useContext } from '@finpress/element';
+import { createHigherOrderComponent } from '@finpress/compose';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Path, SVG } from '@wordpress/primitives';
+import { Path, SVG } from '@finpress/primitives';
 
 export const BehanceIcon = () => (
 	<SVG width="24" height="24" viewBox="0 0 24 24" version="1.1">

@@ -13,7 +13,7 @@ A function reference that must be passed to the DOM element being mounted and wh
 ## Usage
 
 ```jsx
-import { useFocusReturn } from '@wordpress/compose';
+import { useFocusReturn } from '@finpress/compose';
 
 const WithFocusReturn = () => {
 	const ref = useFocusReturn();

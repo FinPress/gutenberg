@@ -4,11 +4,11 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useReducer } from '@wordpress/element';
-import isShallowEqual from '@wordpress/is-shallow-equal';
-import warning from '@wordpress/warning';
+import { useMemo, useReducer } from '@finpress/element';
+import isShallowEqual from '@finpress/is-shallow-equal';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ import type {
 	Screen,
 	NavigateToParentOptions,
 } from '../types';
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 type MatchedPath = ReturnType< typeof patternMatch >;
 

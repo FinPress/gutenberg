@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useRef } from '@wordpress/element';
-import { withInstanceId } from '@wordpress/compose';
-import { __, _x } from '@wordpress/i18n';
-import { Button, Notice } from '@wordpress/components';
+import { useState, useRef } from '@finpress/element';
+import { withInstanceId } from '@finpress/compose';
+import { __, _x } from '@finpress/i18n';
+import { Button, Notice } from '@finpress/components';
 
 /**
  * Internal dependencies

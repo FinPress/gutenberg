@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BACKSPACE, DELETE } from '@wordpress/keycodes';
+import { BACKSPACE, DELETE } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

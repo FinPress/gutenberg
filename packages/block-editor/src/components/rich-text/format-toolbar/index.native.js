@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 
-import { Slot } from '@wordpress/components';
+import { Slot } from '@finpress/components';
 
 const FormatToolbar = () => {
 	return (

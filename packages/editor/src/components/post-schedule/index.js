@@ -4,14 +4,14 @@
 import { parseISO, endOfMonth, startOfMonth } from 'date-fns';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getSettings } from '@wordpress/date';
-import { _x } from '@wordpress/i18n';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { useState, useMemo } from '@wordpress/element';
-import { store as coreStore } from '@wordpress/core-data';
+import { getSettings } from '@finpress/date';
+import { _x } from '@finpress/i18n';
+import { useDispatch, useSelect } from '@finpress/data';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { useState, useMemo } from '@finpress/element';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

@@ -5,7 +5,7 @@
  * Initializes the environment for running GBCS tests.
  *
  * @package gutenberg/gutenberg-coding-standards
- * @link    https://github.com/WordPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
+ * @link    https://github.com/FinPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
  */
 
 if ( ! defined( 'PHP_CODESNIFFER_IN_TESTS' ) ) {
@@ -44,7 +44,7 @@ foreach ( $available_standards as $available_standard ) {
 
 $ignore_standards_string = implode( ',', $ignored_standards );
 
-// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv -- This is non-production code.
+// phpcs:ignore FinPress.PHP.DiscouragedPHPFunctions.runtime_configuration_putenv -- This is non-production code.
 putenv( "PHPCS_IGNORE_TESTS={$ignore_standards_string}" );
 
 // Cleanup.

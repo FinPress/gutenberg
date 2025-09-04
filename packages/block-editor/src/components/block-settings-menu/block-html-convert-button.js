@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { MenuItem } from '@wordpress/components';
-import { rawHandler, getBlockContent } from '@wordpress/blocks';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { MenuItem } from '@finpress/components';
+import { rawHandler, getBlockContent } from '@finpress/blocks';
+import { useDispatch, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

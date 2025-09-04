@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ColorPalette } from '@wordpress/components';
+import { ColorPalette } from '@finpress/components';
 
 /**
  * Internal dependencies

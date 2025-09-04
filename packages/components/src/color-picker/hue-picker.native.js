@@ -5,9 +5,9 @@ import { Animated, View, PanResponder } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import React, { Component } from '@wordpress/element';
+import React, { Component } from '@finpress/element';
 
 /**
  * Internal dependencies

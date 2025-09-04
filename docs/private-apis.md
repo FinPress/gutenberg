@@ -2,7 +2,7 @@
 
 This is an overview of private APIs exposed by Gutenberg packages. These APIs are used to implement parts of the Gutenberg editor (Post Editor, Site Editor, Core blocks and others) but are not exposed publicly to plugin and theme authors or authors of custom Gutenberg integrations.
 
-The purpose of this document is to present a picture of how many private APIs we have and how they are used to build the Gutenberg editor apps with the libraries and frameworks provided by the family of `@wordpress/*` packages.
+The purpose of this document is to present a picture of how many private APIs we have and how they are used to build the Gutenberg editor apps with the libraries and frameworks provided by the family of `@finpress/*` packages.
 
 ## data
 

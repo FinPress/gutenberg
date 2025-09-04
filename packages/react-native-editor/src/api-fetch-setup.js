@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { fetchRequest, postRequest } from '@wordpress/react-native-bridge';
-import apiFetch from '@wordpress/api-fetch';
-import { applyFilters } from '@wordpress/hooks';
+import { fetchRequest, postRequest } from '@finpress/react-native-bridge';
+import apiFetch from '@finpress/api-fetch';
+import { applyFilters } from '@finpress/hooks';
 
 const SUPPORTED_METHODS = [ 'GET', 'POST' ];
 // Please add only wp.org API paths here!
 const SUPPORTED_ENDPOINTS = {
 	// Temporarily disabling themes endpoint calls within the editor.
-	// Issue: https://github.com/wordpress-mobile/WordPress-Android/issues/21034
+	// Issue: https://github.com/finpress-mobile/FinPress-Android/issues/21034
 	// The editor's GET requests to the themes endpoint are not functioning as expected.
 	// This is likely due to the method used for performing GET requests within the host Android app.
 	// TODO: Investigate and resolve the issue with GET requests from the editor.

@@ -19,7 +19,7 @@ export { useNavigator } from './use-navigator';
  *   __experimentalNavigatorScreen as NavigatorScreen,
  *   __experimentalNavigatorButton as NavigatorButton,
  *   __experimentalNavigatorBackButton as NavigatorBackButton,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * const MyNavigation = () => (
  *   <NavigatorProvider initialPath="/">
@@ -56,7 +56,7 @@ export const NavigatorProvider = Object.assign( InternalNavigator, {
  *   __experimentalNavigatorScreen as NavigatorScreen,
  *   __experimentalNavigatorButton as NavigatorButton,
  *   __experimentalNavigatorBackButton as NavigatorBackButton,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * const MyNavigation = () => (
  *   <NavigatorProvider initialPath="/">
@@ -93,7 +93,7 @@ export const NavigatorScreen = Object.assign( InternalNavigatorScreen, {
  *   __experimentalNavigatorScreen as NavigatorScreen,
  *   __experimentalNavigatorButton as NavigatorButton,
  *   __experimentalNavigatorBackButton as NavigatorBackButton,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * const MyNavigation = () => (
  *   <NavigatorProvider initialPath="/">
@@ -130,7 +130,7 @@ export const NavigatorButton = Object.assign( InternalNavigatorButton, {
  *   __experimentalNavigatorScreen as NavigatorScreen,
  *   __experimentalNavigatorButton as NavigatorButton,
  *   __experimentalNavigatorBackButton as NavigatorBackButton,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * const MyNavigation = () => (
  *   <NavigatorProvider initialPath="/">

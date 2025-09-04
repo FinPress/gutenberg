@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { useMemo, useState } from '@wordpress/element';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useMemo, useState } from '@finpress/element';
 
 /**
  * Custom hook that determines if any entities are dirty (edited) and provides a way to manage selected/unselected entities.

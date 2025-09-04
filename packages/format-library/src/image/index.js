@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Path,
@@ -11,15 +11,15 @@ import {
 	__experimentalVStack as VStack,
 	__experimentalNumberControl as NumberControl,
 	TextareaControl,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-import { insertObject, useAnchor } from '@wordpress/rich-text';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useState } from '@finpress/element';
+import { insertObject, useAnchor } from '@finpress/rich-text';
 import {
 	MediaUpload,
 	RichTextToolbarButton,
 	MediaUploadCheck,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
 

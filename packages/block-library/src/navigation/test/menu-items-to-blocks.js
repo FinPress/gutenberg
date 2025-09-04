@@ -4,8 +4,8 @@
 import menuItemsToBlocks from '../menu-items-to-blocks';
 
 // Mock createBlock to avoid creating the blocks in test environment.
-jest.mock( '@wordpress/blocks', () => {
-	const blocks = jest.requireActual( '@wordpress/blocks' );
+jest.mock( '@finpress/blocks', () => {
+	const blocks = jest.requireActual( '@finpress/blocks' );
 
 	return {
 		...blocks,

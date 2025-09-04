@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { ComboboxControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { useMemo, useState } from '@wordpress/element';
-import { debounce } from '@wordpress/compose';
-import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@finpress/i18n';
+import { ComboboxControl } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useMemo, useState } from '@finpress/element';
+import { debounce } from '@finpress/compose';
+import { decodeEntities } from '@finpress/html-entities';
 
 const AUTHORS_QUERY = {
 	who: 'authors',

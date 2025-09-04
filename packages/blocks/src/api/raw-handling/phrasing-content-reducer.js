@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { wrap, replaceTag } from '@wordpress/dom';
+import { wrap, replaceTag } from '@finpress/dom';
 
 export default function phrasingContentReducer( node, doc ) {
 	// In jsdom-jscore, 'node.style' can be null.

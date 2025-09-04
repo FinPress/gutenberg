@@ -4,10 +4,10 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { starEmpty, starFilled, styles, wordpress } from '@wordpress/icons';
-import { useState } from '@wordpress/element';
+import { starEmpty, starFilled, styles, finpress } from '@finpress/icons';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ import { useState } from '@wordpress/element';
 import Placeholder from '../';
 import TextControl from '../../text-control';
 
-const ICONS = { starEmpty, starFilled, styles, wordpress };
+const ICONS = { starEmpty, starFilled, styles, finpress };
 
 const meta: Meta< typeof Placeholder > = {
 	component: Placeholder,
@@ -58,7 +58,7 @@ const Template: StoryFn< typeof Placeholder > = ( args ) => {
 
 export const Default: StoryFn< typeof Placeholder > = Template.bind( {} );
 Default.args = {
-	icon: 'wordpress',
+	icon: 'finpress',
 	label: 'My Placeholder Label',
 	instructions: 'Here are instructions you should follow',
 };

@@ -25,8 +25,8 @@ module.exports = {
 	],
 	/*
 	 * Filter out any non-component React elements and consider only imports of
-	 * `@wordpress/components` outside of the package.
+	 * `@finpress/components` outside of the package.
 	 */
-	importedFrom: '@wordpress/components',
+	importedFrom: '@finpress/components',
 	processors: [ [ 'raw-report', { outputTo: './results/gutenberg.json' } ] ],
 };

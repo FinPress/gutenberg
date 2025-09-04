@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Path, SVG } from '@wordpress/primitives';
+import { Path, SVG } from '@finpress/primitives';
 
 const payment = (
 	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

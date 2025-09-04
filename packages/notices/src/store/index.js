@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createReduxStore, register } from '@wordpress/data';
+import { createReduxStore, register } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import * as selectors from './selectors';
 /**
  * Store definition for the notices namespace.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
  */
 export const store = createReduxStore( 'core/notices', {
 	reducer,

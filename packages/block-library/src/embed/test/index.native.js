@@ -13,17 +13,17 @@ import { Platform } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getBlockTypes,
 	setDefaultBlockName,
 	unregisterBlockType,
-} from '@wordpress/blocks';
-import fetchRequest from '@wordpress/api-fetch';
-import { store as coreStore } from '@wordpress/core-data';
-import { dispatch } from '@wordpress/data';
-import { requestPreview } from '@wordpress/react-native-bridge';
+} from '@finpress/blocks';
+import fetchRequest from '@finpress/api-fetch';
+import { store as coreStore } from '@finpress/core-data';
+import { dispatch } from '@finpress/data';
+import { requestPreview } from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies
@@ -41,7 +41,7 @@ jest.mock( 'react-native-modal', () => {
 } );
 
 // Mock debounce to prevent potentially belated state updates.
-jest.mock( '@wordpress/compose/src/utils/debounce', () => ( {
+jest.mock( '@finpress/compose/src/utils/debounce', () => ( {
 	debounce: ( fn ) => {
 		fn.cancel = jest.fn();
 		return fn;
@@ -108,9 +108,9 @@ const PHOTO_EMBED_HTML = `<!-- wp:embed {"url":"https://cloudup.com/cQFlxqtY4ob"
 https://cloudup.com/cQFlxqtY4ob
 </div></figure>
 <!-- /wp:embed -->`;
-const WP_EMBED_HTML = `<!-- wp:embed {"url":"https://wordpress.org/news/2021/07/tatum/","type":"wp-embed","providerNameSlug":"wordpress-news"} -->
-<figure class="wp-block-embed is-type-wp-embed is-provider-wordpress-news wp-block-embed-wordpress-news"><div class="wp-block-embed__wrapper">
-https://wordpress.org/news/2021/07/tatum/
+const WP_EMBED_HTML = `<!-- wp:embed {"url":"https://finpress.org/news/2021/07/tatum/","type":"wp-embed","providerNameSlug":"finpress-news"} -->
+<figure class="wp-block-embed is-type-wp-embed is-provider-finpress-news wp-block-embed-finpress-news"><div class="wp-block-embed__wrapper">
+https://finpress.org/news/2021/07/tatum/
 </div></figure>
 <!-- /wp:embed -->`;
 
@@ -118,7 +118,7 @@ const EMPTY_PARAGRAPH_HTML =
 	'<!-- wp:paragraph --><p></p><!-- /wp:paragraph -->';
 
 const MOST_USED_PROVIDERS = embed.settings.variations.filter( ( { name } ) =>
-	[ 'youtube', 'twitter', 'wordpress', 'vimeo' ].includes( name )
+	[ 'youtube', 'twitter', 'finpress', 'vimeo' ].includes( name )
 );
 
 // Return specified mocked responses for the oembed endpoint.
@@ -764,10 +764,10 @@ describe( 'Embed block', () => {
 		} );
 
 		it( 'allows editing link if request failed', async () => {
-			const failURL = 'https://wordpress.org/news/2021/07/tatum/';
+			const failURL = 'https://finpress.org/news/2021/07/tatum/';
 			const successURL = 'https://twitter.com/notnownikki';
 
-			// Return bad response for WordPress URL and success for Twitter URL.
+			// Return bad response for FinPress URL and success for Twitter URL.
 			fetchRequest.mockImplementation( async ( req ) => {
 				const matchesPath = ( url ) =>
 					req.path ===
@@ -791,7 +791,7 @@ describe( 'Embed block', () => {
 
 			// Start editing link.
 			fireEvent.press(
-				editor.getByLabelText( `WordPress link, ${ failURL }` )
+				editor.getByLabelText( `FinPress link, ${ failURL }` )
 			);
 
 			// Set an URL.

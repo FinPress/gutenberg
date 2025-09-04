@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -46,7 +46,7 @@
 
 ### New Features
 
-- added new `doActionAsync` and `applyFiltersAsync` functions to run hooks in async mode ([#64204](https://github.com/WordPress/gutenberg/pull/64204)).
+- added new `doActionAsync` and `applyFiltersAsync` functions to run hooks in async mode ([#64204](https://github.com/FinPress/gutenberg/pull/64204)).
 
 ## 4.8.0 (2024-09-19)
 
@@ -68,7 +68,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 3.58.0 (2024-05-16)
 
@@ -190,8 +190,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ## 2.12.0 (2021-03-17)
 
@@ -203,11 +203,11 @@
 
 ### New Features
 
--   Include TypeScript type declarations ([#26430](https://github.com/WordPress/gutenberg/pull/26430))
+-   Include TypeScript type declarations ([#26430](https://github.com/FinPress/gutenberg/pull/26430))
 
 ### Bug Fixes
 
--   Fix: Use own instance's `doAction` method for built-in `hookAdded` and `hookRemoved` hooks ([#26498](https://github.com/WordPress/gutenberg/pull/26498))
+-   Fix: Use own instance's `doAction` method for built-in `hookAdded` and `hookRemoved` hooks ([#26498](https://github.com/FinPress/gutenberg/pull/26498))
 
 ## 2.6.0 (2019-08-29)
 
@@ -227,23 +227,23 @@
 
 ### Breaking Changes
 
--   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
+-   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
 
 ## 1.2.0 (2018-07-12)
 
 ### New Features
 
--   Updated build to work with Babel 7 ([#7832](https://github.com/WordPress/gutenberg/pull/7832))
+-   Updated build to work with Babel 7 ([#7832](https://github.com/FinPress/gutenberg/pull/7832))
 
 ### Internal
 
--   Moved `@WordPress/packages` repository to `@WordPress/gutenberg` ([#7805](https://github.com/WordPress/gutenberg/pull/7805))
+-   Moved `@FinPress/packages` repository to `@FinPress/gutenberg` ([#7805](https://github.com/FinPress/gutenberg/pull/7805))
 
 ## 1.1.8 (2018-05-08)
 
 ### Internal
 
--   Documentation: Improve usage examples ([#121](https://github.com/WordPress/packages/pull/121))
+-   Documentation: Improve usage examples ([#121](https://github.com/FinPress/packages/pull/121))
 
 ## 1.1.6 (2018-03-21)
 

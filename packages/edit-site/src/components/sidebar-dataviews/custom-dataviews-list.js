@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalHeading as Heading,
@@ -14,11 +14,11 @@ import {
 	__experimentalVStack as VStack,
 	Button,
 	Modal,
-} from '@wordpress/components';
-import { useMemo, useState } from '@wordpress/element';
-import { moreVertical } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+} from '@finpress/components';
+import { useMemo, useState } from '@finpress/element';
+import { moreVertical } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { flushSync, useEffect, useState } from '@wordpress/element';
-import { createQueue } from '@wordpress/priority-queue';
+import { flushSync, useEffect, useState } from '@finpress/element';
+import { createQueue } from '@finpress/priority-queue';
 
 type AsyncListConfig = {
 	step: number;

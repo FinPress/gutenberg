@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -24,7 +24,7 @@
 
 ### Enhancements
 
--   Query Loop Block: Enable custom order or `menu_order` ordering option for post types that support it. ([#68781](https://github.com/WordPress/gutenberg/pull/68781))
+-   Query Loop Block: Enable custom order or `menu_order` ordering option for post types that support it. ([#68781](https://github.com/FinPress/gutenberg/pull/68781))
 
 ## 9.19.0 (2025-02-28)
 
@@ -58,7 +58,7 @@
 
 ### New Feature
 
--   Query Loop Block: Moves per page, offset, and pages controls into Inspector Controls. ([#58207](https://github.com/WordPress/gutenberg/pull/58207))
+-   Query Loop Block: Moves per page, offset, and pages controls into Inspector Controls. ([#58207](https://github.com/FinPress/gutenberg/pull/58207))
 
 ## 9.4.0 (2024-07-24)
 
@@ -72,14 +72,14 @@
 
 ### Breaking Changes
 
--   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/WordPress/gutenberg/pull/61486)).
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 8.35.0 (2024-05-16)
 
 ### Internal
 
--   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/WordPress/gutenberg/pull/61138)).
+-   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/FinPress/gutenberg/pull/61138)).
 
 ## 8.34.0 (2024-05-02)
 
@@ -111,7 +111,7 @@
 
 ### Bug Fixes
 
--   Fix Image block lightbox missing alt attribute and improve accessibility. ([#54608](https://github.com/WordPress/gutenberg/pull/55010))
+-   Fix Image block lightbox missing alt attribute and improve accessibility. ([#54608](https://github.com/FinPress/gutenberg/pull/55010))
 
 ## 8.20.0 (2023-10-05)
 
@@ -157,7 +157,7 @@
 
 ### Breaking Changes
 
--   Updated dependencies to require React 18 ([#45235](https://github.com/WordPress/gutenberg/pull/45235))
+-   Updated dependencies to require React 18 ([#45235](https://github.com/FinPress/gutenberg/pull/45235))
 
 ## 7.19.0 (2022-11-16)
 
@@ -173,13 +173,13 @@
 
 ### New Features
 
--   Made it possible to import individual blocks ([#42258](https://github.com/WordPress/gutenberg/pull/42258)). Check [README](./README.md#loading-individual-blocks) for more information.
+-   Made it possible to import individual blocks ([#42258](https://github.com/FinPress/gutenberg/pull/42258)). Check [README](./README.md#loading-individual-blocks) for more information.
 
 ## 7.13.0 (2022-08-24)
 
 ### Bug Fixes
 
--   Ensure all dependencies allow version ranges ([#43355](https://github.com/WordPress/gutenberg/pull/43355)).
+-   Ensure all dependencies allow version ranges ([#43355](https://github.com/FinPress/gutenberg/pull/43355)).
 
 ## 7.12.0 (2022-08-10)
 
@@ -197,7 +197,7 @@
 
 ### Enhancements
 
--   Declare blocks as \_\_experimental in block.json to automate syncing Gutenberg packages to WordPress ([#40655](https://github.com/WordPress/gutenberg/pull/40655)).
+-   Declare blocks as \_\_experimental in block.json to automate syncing Gutenberg packages to FinPress ([#40655](https://github.com/FinPress/gutenberg/pull/40655)).
 
 ## 7.5.0 (2022-05-04)
 
@@ -209,11 +209,11 @@
 
 ### Bug Fixes
 
--   Table block: Fix deprecation eligibility to prevent loss of named (color palette) background color ([#39445](https://github.com/WordPress/gutenberg/pull/39445)).
+-   Table block: Fix deprecation eligibility to prevent loss of named (color palette) background color ([#39445](https://github.com/FinPress/gutenberg/pull/39445)).
 
 ### Enhancements
 
--   Social Icons: Avoid loss of previously selected background color when switching back from "Logos Only" style ([#39276](https://github.com/WordPress/gutenberg/pull/39276)).
+-   Social Icons: Avoid loss of previously selected background color when switching back from "Logos Only" style ([#39276](https://github.com/FinPress/gutenberg/pull/39276)).
 
 ## 7.1.0 (2022-03-11)
 
@@ -221,16 +221,16 @@
 
 ### Breaking Changes
 
--   The `GUTENBERG_PHASE` environment variable has been renamed to `IS_GUTENBERG_PLUGIN` and is now a boolean ([#38202](https://github.com/WordPress/gutenberg/pull/38202)).
+-   The `GUTENBERG_PHASE` environment variable has been renamed to `IS_GUTENBERG_PLUGIN` and is now a boolean ([#38202](https://github.com/FinPress/gutenberg/pull/38202)).
 
 ### Bug Fixes
 
--   Gallery block: disable edit as html support ([#39318](https://github.com/WordPress/gutenberg/pull/39318)).
--   Removed unused `@wordpress/escape-html` and `@wordpress/is-shallow-equal` dependencies ([#38388](https://github.com/WordPress/gutenberg/pull/38388)).
+-   Gallery block: disable edit as html support ([#39318](https://github.com/FinPress/gutenberg/pull/39318)).
+-   Removed unused `@finpress/escape-html` and `@finpress/is-shallow-equal` dependencies ([#38388](https://github.com/FinPress/gutenberg/pull/38388)).
 
 ## 6.1.0 (2022-01-27)
 
--   Code quality: Add block schema to each core block ([#35900](https://github.com/WordPress/gutenberg/pull/35900)).
+-   Code quality: Add block schema to each core block ([#35900](https://github.com/FinPress/gutenberg/pull/35900)).
 
 ## 6.0.0 (2021-09-09)
 
@@ -242,17 +242,17 @@
 
 ### Breaking Changes
 
--   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
+-   Upgraded React components to work with v17.0 ([#29118](https://github.com/FinPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
 ## 4.0.0 (2021-07-21)
 
 ### Breaking Changes
 
--   Removes the `core/legacy-widget` block. This is now in `@wordpress/widgets` via `registerLegacyWidgetBlock()`.
+-   Removes the `core/legacy-widget` block. This is now in `@finpress/widgets` via `registerLegacyWidgetBlock()`.
 
 ### Bug Fixes
 
--   Include missing attributes when upgrading embed block ([#33235](https://github.com/WordPress/gutenberg/pull/33235))
+-   Include missing attributes when upgrading embed block ([#33235](https://github.com/FinPress/gutenberg/pull/33235))
 
 ## 3.2.0 (2021-05-24)
 
@@ -266,24 +266,24 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at <https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/>.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at <https://nodejs.org/en/about/releases/>.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at <https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/>.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at <https://nodejs.org/en/about/releases/>.
 
 ## 2.29.0 (2021-03-17)
 
 ### Bug Fixes
 
--   Fix a regression where the Cover block migration would not work with a non-default contentPosition ([#29542](https://github.com/WordPress/gutenberg/pull/29542))
+-   Fix a regression where the Cover block migration would not work with a non-default contentPosition ([#29542](https://github.com/FinPress/gutenberg/pull/29542))
 
 ## 2.28.0 (2021-02-01)
 
 ### New Features
 
--   Allow setting the `crossOrigin` attribute so the `useTransformImage` hook can use cross-origin sources ([#28255](https://github.com/WordPress/gutenberg/pull/28255/)).
+-   Allow setting the `crossOrigin` attribute so the `useTransformImage` hook can use cross-origin sources ([#28255](https://github.com/FinPress/gutenberg/pull/28255/)).
 
 ### Bug Fixes
 
--   Fix a regression where the Cover block migration would not work with custom units for `minHeight` ([#28627](https://github.com/WordPress/gutenberg/pull/28627))
+-   Fix a regression where the Cover block migration would not work with custom units for `minHeight` ([#28627](https://github.com/FinPress/gutenberg/pull/28627))
 
 ## 2.27.0 (2020-12-17)
 
@@ -294,10 +294,10 @@
 
 ### Bug Fixes
 
--   Fix a regression where the Cover would not show opacity controls for the default overlay color ([#26625](https://github.com/WordPress/gutenberg/pull/26625)).
--   Fix a regression ([#26545](https://github.com/WordPress/gutenberg/pull/26545)) where the Cover block lost its default background overlay color
-    ([#26569](https://github.com/WordPress/gutenberg/pull/26569)).
--   Fix Image Block, reset image dimensions when replace URL. bug mentioned in ([#26333](https://github.com/WordPress/gutenberg/issues/26333)).
+-   Fix a regression where the Cover would not show opacity controls for the default overlay color ([#26625](https://github.com/FinPress/gutenberg/pull/26625)).
+-   Fix a regression ([#26545](https://github.com/FinPress/gutenberg/pull/26545)) where the Cover block lost its default background overlay color
+    ([#26569](https://github.com/FinPress/gutenberg/pull/26569)).
+-   Fix Image Block, reset image dimensions when replace URL. bug mentioned in ([#26333](https://github.com/FinPress/gutenberg/issues/26333)).
 
 ### Enhancements
 
@@ -329,34 +329,34 @@
 
 ### Bug Fixes
 
--   Fixed insertion of columns in the table block, which now inserts columns for all table sections ([#16410](https://github.com/WordPress/gutenberg/pull/16410))
+-   Fixed insertion of columns in the table block, which now inserts columns for all table sections ([#16410](https://github.com/FinPress/gutenberg/pull/16410))
 
 ## 2.6.0 (2019-06-12)
 
--   Fixed an issue with creating upgraded embed blocks that are not registered ([#15883](https://github.com/WordPress/gutenberg/issues/15883)).
+-   Fixed an issue with creating upgraded embed blocks that are not registered ([#15883](https://github.com/FinPress/gutenberg/issues/15883)).
 
 ## 2.5.0 (2019-05-21)
 
--   Add vertical alignment controls to Columns Block ([#13899](https://github.com/WordPress/gutenberg/pull/13899/)).
--   Add vertical alignment controls to Media & Text Block ([#13989](https://github.com/WordPress/gutenberg/pull/13989)).
--   Add `wide` and `full` alignments to Archives block ([#14533](https://github.com/WordPress/gutenberg/pull/14533)).
--   Add `wide` and `full` alignments to Categories block ([#14533](https://github.com/WordPress/gutenberg/pull/14533)).
--   Add all alignment options to RSS block ([#14533](https://github.com/WordPress/gutenberg/pull/14533)).
--   Add all alignment options to Search block ([#14533](https://github.com/WordPress/gutenberg/pull/14533)).
--   Add image fill option and focal point picker to Media & Text block ([#14445](https://github.com/WordPress/gutenberg/pull/14445)).
+-   Add vertical alignment controls to Columns Block ([#13899](https://github.com/FinPress/gutenberg/pull/13899/)).
+-   Add vertical alignment controls to Media & Text Block ([#13989](https://github.com/FinPress/gutenberg/pull/13989)).
+-   Add `wide` and `full` alignments to Archives block ([#14533](https://github.com/FinPress/gutenberg/pull/14533)).
+-   Add `wide` and `full` alignments to Categories block ([#14533](https://github.com/FinPress/gutenberg/pull/14533)).
+-   Add all alignment options to RSS block ([#14533](https://github.com/FinPress/gutenberg/pull/14533)).
+-   Add all alignment options to Search block ([#14533](https://github.com/FinPress/gutenberg/pull/14533)).
+-   Add image fill option and focal point picker to Media & Text block ([#14445](https://github.com/FinPress/gutenberg/pull/14445)).
 -   Updated the edit flow of the `image` block, updated the edit icon and unified the image editing in only one UI based on `MediaPlaceholder`
 
 ### Bug Fixes
 
--   fix uncaught error in `columns` block due to accessing a property on an object that might be undefined [#14605](https://github.com/WordPress/gutenberg/pull/14605)
+-   fix uncaught error in `columns` block due to accessing a property on an object that might be undefined [#14605](https://github.com/FinPress/gutenberg/pull/14605)
 
 ## 2.3.0 (2019-03-06)
 
 ### New Features
 
 -   Add background color controls for the table block.
--   Add new `RSS` block ([#7966](https://github.com/WordPress/gutenberg/pull/7966)).
--   Add new `Search` block ([#13583](https://github.com/WordPress/gutenberg/pull/13583)).
+-   Add new `RSS` block ([#7966](https://github.com/FinPress/gutenberg/pull/7966)).
+-   Add new `Search` block ([#13583](https://github.com/FinPress/gutenberg/pull/13583)).
 
 ## 2.2.12 (2019-01-03)
 
@@ -434,7 +434,7 @@
 
 ### Breaking Changes
 
--   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
+-   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
 
 ### Deprecations
 

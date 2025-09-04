@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Content-only lock', () => {
 	test.beforeEach( async ( { admin } ) => {
@@ -31,7 +31,7 @@ test.describe( 'Content-only lock', () => {
 		expect( await editor.getEditedPostContent() ).toMatchSnapshot();
 	} );
 
-	// See: https://github.com/WordPress/gutenberg/pull/54618
+	// See: https://github.com/FinPress/gutenberg/pull/54618
 	test( 'should be able to edit the content of deeply nested blocks', async ( {
 		editor,
 		page,

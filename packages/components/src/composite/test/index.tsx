@@ -6,9 +6,9 @@ import { click, press, waitFor } from '@ariakit/test';
 import type { ComponentProps } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

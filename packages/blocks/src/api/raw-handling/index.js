@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { getPhrasingContentSchema } from '@wordpress/dom';
+import deprecated from '@finpress/deprecated';
+import { getPhrasingContentSchema } from '@finpress/dom';
 
 /**
  * Internal dependencies

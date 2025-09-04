@@ -4,15 +4,15 @@
 import deepFreeze from 'deep-freeze';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	registerBlockType,
 	unregisterBlockType,
 	createBlock,
 	privateApis,
-} from '@wordpress/blocks';
-import { combineReducers } from '@wordpress/data';
+} from '@finpress/blocks';
+import { combineReducers } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -49,17 +49,17 @@ import { sectionRootClientIdKey } from '.././private-keys';
 
 const { isContentBlock } = unlock( privateApis );
 
-jest.mock( '@wordpress/data/src/select', () => {
-	const actualSelect = jest.requireActual( '@wordpress/data/src/select' );
+jest.mock( '@finpress/data/src/select', () => {
+	const actualSelect = jest.requireActual( '@finpress/data/src/select' );
 
 	return {
 		select: jest.fn( ( ...args ) => actualSelect.select( ...args ) ),
 	};
 } );
 
-jest.mock( '@wordpress/blocks/src/api/utils', () => {
+jest.mock( '@finpress/blocks/src/api/utils', () => {
 	return {
-		...jest.requireActual( '@wordpress/blocks/src/api/utils' ),
+		...jest.requireActual( '@finpress/blocks/src/api/utils' ),
 		isContentBlock: jest.fn(),
 	};
 } );

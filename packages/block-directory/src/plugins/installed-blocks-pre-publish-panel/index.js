@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _n, sprintf } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { PluginPrePublishPanel } from '@wordpress/editor';
+import { _n, sprintf } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { PluginPrePublishPanel } from '@finpress/editor';
 
 /**
  * Internal dependencies

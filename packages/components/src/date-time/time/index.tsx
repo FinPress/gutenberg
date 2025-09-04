@@ -4,10 +4,10 @@
 import { startOfMinute, format, set, setMonth } from 'date-fns';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useMemo, useEffect } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { useState, useMemo, useEffect } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -41,8 +41,8 @@ const VALID_DATE_ORDERS = [ 'dmy', 'mdy', 'ymd' ];
  * TimePicker is a React component that renders a clock for time selection.
  *
  * ```jsx
- * import { TimePicker } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { TimePicker } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyTimePicker = () => {
  *   const [ time, setTime ] = useState( new Date() );
@@ -277,8 +277,8 @@ export function TimePicker( {
  * Values are passed as an object in 24-hour format (`{ hours: number, minutes: number }`).
  *
  * ```jsx
- * import { TimePicker } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { TimePicker } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyTimeInput = () => {
  * 	const [ time, setTime ] = useState( { hours: 13, minutes: 30 } );

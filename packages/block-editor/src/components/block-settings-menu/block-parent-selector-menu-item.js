@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef } from '@wordpress/element';
-import { MenuItem } from '@wordpress/components';
-import { useViewportMatch } from '@wordpress/compose';
-import { useDispatch } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
+import { useRef } from '@finpress/element';
+import { MenuItem } from '@finpress/components';
+import { useViewportMatch } from '@finpress/compose';
+import { useDispatch } from '@finpress/data';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

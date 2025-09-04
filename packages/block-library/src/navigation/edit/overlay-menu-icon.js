@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { SVG, Rect } from '@wordpress/primitives';
-import { Icon, menu } from '@wordpress/icons';
+import { SVG, Rect } from '@finpress/primitives';
+import { Icon, menu } from '@finpress/icons';
 
 export default function OverlayMenuIcon( { icon } ) {
 	if ( icon === 'menu' ) {

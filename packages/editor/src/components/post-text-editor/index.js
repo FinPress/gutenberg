@@ -4,15 +4,15 @@
 import Textarea from 'react-autosize-textarea';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
-import { useMemo } from '@wordpress/element';
-import { __unstableSerializeAndClean } from '@wordpress/blocks';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useInstanceId } from '@wordpress/compose';
-import { VisuallyHidden } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
+import { useMemo } from '@finpress/element';
+import { __unstableSerializeAndClean } from '@finpress/blocks';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useInstanceId } from '@finpress/compose';
+import { VisuallyHidden } from '@finpress/components';
 
 /**
  * Internal dependencies

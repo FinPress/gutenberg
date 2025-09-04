@@ -15,8 +15,8 @@ exports.resolve = function ( source, file, config ) {
 			extensions: [ '.tsx', '.ts', '.mjs', '.js', '.json', '.node' ],
 		} );
 
-	if ( source.startsWith( '@wordpress/' ) ) {
-		const packageName = source.slice( '@wordpress/'.length );
+	if ( source.startsWith( '@finpress/' ) ) {
+		const packageName = source.slice( '@finpress/'.length );
 
 		const result = resolve( path.join( PACKAGES_DIR, packageName ) );
 

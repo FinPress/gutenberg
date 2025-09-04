@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getColorClassName, useBlockProps } from '@wordpress/block-editor';
+import { getColorClassName, useBlockProps } from '@finpress/block-editor';
 
 const v1 = {
 	attributes: {

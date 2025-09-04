@@ -8,28 +8,28 @@ import memize from 'memize';
 import { colord } from 'colord';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import RCTAztecView from '@wordpress/react-native-aztec';
+import RCTAztecView from '@finpress/react-native-aztec';
 import {
 	showUserSuggestions,
 	showXpostSuggestions,
-} from '@wordpress/react-native-bridge';
-import { BlockFormatControls } from '@wordpress/block-editor';
-import { getPxFromCssUnit } from '@wordpress/components';
-import { Component } from '@wordpress/element';
+} from '@finpress/react-native-bridge';
+import { BlockFormatControls } from '@finpress/block-editor';
+import { getPxFromCssUnit } from '@finpress/components';
+import { Component } from '@finpress/element';
 import {
 	compose,
 	debounce,
 	withPreferredColorScheme,
-} from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
-import { childrenBlock } from '@wordpress/blocks';
-import { decodeEntities } from '@wordpress/html-entities';
-import { BACKSPACE, DELETE, ENTER } from '@wordpress/keycodes';
-import { isURL } from '@wordpress/url';
-import { atSymbol, plus } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/compose';
+import { withSelect } from '@finpress/data';
+import { childrenBlock } from '@finpress/blocks';
+import { decodeEntities } from '@finpress/html-entities';
+import { BACKSPACE, DELETE, ENTER } from '@finpress/keycodes';
+import { isURL } from '@finpress/url';
+import { atSymbol, plus } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 import {
 	applyFormat,
 	getActiveFormat,
@@ -41,7 +41,7 @@ import {
 	toHTMLString,
 	isCollapsed,
 	remove,
-} from '@wordpress/rich-text';
+} from '@finpress/rich-text';
 
 /**
  * Internal dependencies
@@ -699,7 +699,7 @@ export class RichText extends Component {
 		// Forwarding this selection change could cause this RichText to regain
 		// focus and start a focus loop.
 		//
-		// See https://github.com/wordpress-mobile/gutenberg-mobile/issues/1696
+		// See https://github.com/finpress-mobile/gutenberg-mobile/issues/1696
 		if ( this.props.__unstableIsSelected ) {
 			this.onSelectionChange( realStart, realEnd );
 		}
@@ -748,7 +748,7 @@ export class RichText extends Component {
 		if ( typeof this.lastEventCount !== 'undefined' ) {
 			this.lastEventCount += 100; // bump by a hundred, hopefully native hasn't bombarded the JS side in the meantime.
 		} // no need to bump when 'undefined' as native side won't receive the key when the value is undefined, and that will cause force updating anyway,
-		//   see https://github.com/WordPress/gutenberg/blob/82e578dcc75e67891c750a41a04c1e31994192fc/packages/react-native-aztec/android/src/main/java/org/wordpress/mobile/ReactNativeAztec/ReactAztecManager.java#L213-L215
+		//   see https://github.com/FinPress/gutenberg/blob/82e578dcc75e67891c750a41a04c1e31994192fc/packages/react-native-aztec/android/src/main/java/org/finpress/mobile/ReactNativeAztec/ReactAztecManager.java#L213-L215
 	}
 
 	shouldComponentUpdate( nextProps, nextState ) {
@@ -763,7 +763,7 @@ export class RichText extends Component {
 		}
 
 		// TODO: Please re-introduce the check to avoid updating the content right after an `onChange` call.
-		// It was removed in https://github.com/WordPress/gutenberg/pull/12417 to fix undo/redo problem.
+		// It was removed in https://github.com/FinPress/gutenberg/pull/12417 to fix undo/redo problem.
 
 		// If the component is changed React side (undo/redo/merging/splitting/custom text actions)
 		// we need to make sure the native is updated as well.
@@ -1172,7 +1172,7 @@ export class RichText extends Component {
 			// On AztecAndroid, setting the caret to an out-of-bounds position will crash the editor so, let's check for some cases.
 			if ( ! this.isIOS ) {
 				// The following regular expression is used in Aztec here:
-				// https://github.com/wordpress-mobile/AztecEditor-Android/blob/b1fad439d56fa6d4aa0b78526fef355c59d00dd3/aztec/src/main/kotlin/org/wordpress/aztec/AztecParser.kt#L656
+				// https://github.com/finpress-mobile/AztecEditor-Android/blob/b1fad439d56fa6d4aa0b78526fef355c59d00dd3/aztec/src/main/kotlin/org/finpress/aztec/AztecParser.kt#L656
 				const brBeforeParaMatches = html.match( /(<br>)+<\/p>$/g );
 				if ( brBeforeParaMatches ) {
 					console.warn(

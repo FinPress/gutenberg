@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 const EMPTY_ARRAY = [];
 

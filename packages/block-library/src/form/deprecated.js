@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	InnerBlocks,
@@ -7,7 +7,7 @@ import {
 	getTypographyClassesAndStyles,
 	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
 	__experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 const v1 = {
 	// The block supports here are deliberately empty despite this
@@ -20,7 +20,7 @@ const v1 = {
 	// classes. If those block support classes are applied during the
 	// deprecation process, this deprecation doesn't match and won't
 	// run.
-	// @see https://github.com/WordPress/gutenberg/pull/55755
+	// @see https://github.com/FinPress/gutenberg/pull/55755
 	supports: {},
 	attributes: {
 		submissionMethod: {

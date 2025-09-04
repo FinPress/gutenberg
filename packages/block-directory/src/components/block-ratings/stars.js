@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { Icon, starEmpty, starFilled, starHalf } from '@wordpress/icons';
+import { __, sprintf } from '@finpress/i18n';
+import { Icon, starEmpty, starFilled, starHalf } from '@finpress/icons';
 
 function Stars( { rating } ) {
 	const stars = Math.round( rating / 0.5 ) * 0.5;

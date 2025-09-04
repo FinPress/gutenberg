@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	// Make the viewport tall enough so that some tabs panels within the
@@ -67,7 +67,7 @@ test.describe( 'a11y (@firefox, @webkit)', () => {
 		);
 		// The close button should not be focused by default; this is a strange UX
 		// experience.
-		// See: https://github.com/WordPress/gutenberg/issues/9410
+		// See: https://github.com/FinPress/gutenberg/issues/9410
 		await expect( closeButton ).not.toBeFocused();
 
 		// Open keyboard shortcuts modal.

@@ -1,25 +1,25 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { createHigherOrderComponent } from '@wordpress/compose';
+import { addFilter } from '@finpress/hooks';
+import { createHigherOrderComponent } from '@finpress/compose';
 import {
 	InspectorAdvancedControls,
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { BaseControl, Button } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { BaseControl, Button } from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	__EXPERIMENTAL_STYLE_PROPERTY,
 	getBlockType,
 	hasBlockSupport,
-} from '@wordpress/blocks';
-import { useContext, useMemo, useCallback } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/blocks';
+import { useContext, useMemo, useCallback } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -40,9 +40,9 @@ const STYLE_PROPERTY = {
 	blockGap: { value: [ 'spacing', 'blockGap' ] },
 };
 
-// TODO: Temporary duplication of constant in @wordpress/block-editor. Can be
+// TODO: Temporary duplication of constant in @finpress/block-editor. Can be
 // removed by moving PushChangesToGlobalStylesControl to
-// @wordpress/block-editor.
+// @finpress/block-editor.
 const STYLE_PATH_TO_CSS_VAR_INFIX = {
 	'border.color': 'color',
 	'color.background': 'color',
@@ -91,9 +91,9 @@ const STYLE_PATH_TO_CSS_VAR_INFIX = {
 	'typography.fontFamily': 'font-family',
 };
 
-// TODO: Temporary duplication of constant in @wordpress/block-editor. Can be
+// TODO: Temporary duplication of constant in @finpress/block-editor. Can be
 // removed by moving PushChangesToGlobalStylesControl to
-// @wordpress/block-editor.
+// @finpress/block-editor.
 const STYLE_PATH_TO_PRESET_BLOCK_ATTRIBUTE = {
 	'border.color': 'borderColor',
 	'color.background': 'backgroundColor',
@@ -280,8 +280,8 @@ function PushChangesToGlobalStylesControl( {
 				style: cleanEmptyObject( newBlockStyles ),
 			};
 
-			// @wordpress/core-data doesn't support editing multiple entity types in
-			// a single undo level. So for now, we disable @wordpress/core-data undo
+			// @finpress/core-data doesn't support editing multiple entity types in
+			// a single undo level. So for now, we disable @finpress/core-data undo
 			// tracking and implement our own Undo button in the snackbar
 			// notification.
 			__unstableMarkNextChangeAsNotPersistent();

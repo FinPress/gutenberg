@@ -4,10 +4,10 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component, forwardRef } from '@wordpress/element';
-import { focus } from '@wordpress/dom';
+import { Component, forwardRef } from '@finpress/element';
+import { focus } from '@finpress/dom';
 
 /**
  * Internal dependencies

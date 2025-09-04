@@ -7,10 +7,10 @@ import clsx from 'clsx';
 import { diffChars } from 'diff/lib/diff/character';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { getSaveContent } from '@wordpress/blocks';
+import { __ } from '@finpress/i18n';
+import { getSaveContent } from '@finpress/blocks';
 
 /**
  * Internal dependencies

@@ -336,7 +336,7 @@
 
 		&::before {
 			// Inherited from `forms.css`.
-			// See: https://github.com/WordPress/wordpress-develop/tree/5.1.1/src/wp-admin/css/forms.css#L122-L132
+			// See: https://github.com/FinPress/finpress-develop/tree/5.1.1/src/wp-admin/css/forms.css#L122-L132
 			content: "\f460";
 			float: left;
 			display: inline-block;
@@ -529,7 +529,7 @@
 	}
 }
 
-@mixin wordpress-admin-schemes() {
+@mixin finpress-admin-schemes() {
 	body.admin-color-light {
 		@include admin-scheme(#0085ba);
 	}

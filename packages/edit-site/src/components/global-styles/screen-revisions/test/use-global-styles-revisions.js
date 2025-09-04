@@ -4,21 +4,21 @@
 import { renderHook } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
  */
 import useGlobalStylesRevisions from '../use-global-styles-revisions';
 
-jest.mock( '@wordpress/data/src/components/use-select', () => jest.fn() );
+jest.mock( '@finpress/data/src/components/use-select', () => jest.fn() );
 
-jest.mock( '@wordpress/element', () => {
+jest.mock( '@finpress/element', () => {
 	return {
 		__esModule: true,
-		...jest.requireActual( '@wordpress/element' ),
+		...jest.requireActual( '@finpress/element' ),
 		useContext: jest.fn().mockImplementation( () => ( {
 			user: {
 				styles: 'ice-cream',

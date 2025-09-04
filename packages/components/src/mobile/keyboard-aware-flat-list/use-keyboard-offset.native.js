@@ -5,9 +5,9 @@
 import { Keyboard } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useCallback, useState, useRef } from '@wordpress/element';
+import { useEffect, useCallback, useState, useRef } from '@finpress/element';
 
 /**
  * Hook that adds Keyboard listeners to get the offset space

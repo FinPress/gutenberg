@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useMemo } from '@wordpress/element';
+import { useState, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import { RovingTabIndexProvider } from './roving-tab-index-context';
 /**
  * Provider for adding roving tab index behaviors to tree grid structures.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/components/src/tree-grid/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/components/src/tree-grid/README.md
  */
 export default function RovingTabIndex( {
 	children,

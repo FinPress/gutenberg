@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { rawHandler, store as blocksStore } from '@wordpress/blocks';
-import { getClipboard } from '@wordpress/components';
+import { useSelect } from '@finpress/data';
+import { rawHandler, store as blocksStore } from '@finpress/blocks';
+import { getClipboard } from '@finpress/components';
 
 /**
  * Internal dependencies

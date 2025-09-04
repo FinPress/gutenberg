@@ -7,7 +7,7 @@ import type { ForwardedRef } from 'react';
  * Internal dependencies
  */
 import { contextConnect, contextConnectWithoutRef } from '../context-connect';
-import type { WordPressComponentProps } from '../wordpress-component';
+import type { WordPressComponentProps } from '../finpress-component';
 
 // Static TypeScript tests
 /* eslint-disable jest/expect-expect */

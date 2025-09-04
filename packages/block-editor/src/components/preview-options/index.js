@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 export default function PreviewOptions() {
 	deprecated( 'wp.blockEditor.PreviewOptions', {

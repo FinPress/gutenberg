@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { SelectControl, TextControl } from '@wordpress/components';
-import { sprintf, __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+import { useEntityProp, store as coreStore } from '@finpress/core-data';
+import { SelectControl, TextControl } from '@finpress/components';
+import { sprintf, __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

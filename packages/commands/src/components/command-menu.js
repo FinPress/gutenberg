@@ -5,27 +5,27 @@ import { Command, useCommandState } from 'cmdk';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	useState,
 	useEffect,
 	useRef,
 	useCallback,
 	useMemo,
-} from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/element';
+import { __ } from '@finpress/i18n';
 import {
 	Modal,
 	TextHighlight,
 	__experimentalHStack as HStack,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	store as keyboardShortcutsStore,
 	useShortcut,
-} from '@wordpress/keyboard-shortcuts';
-import { Icon, search as inputIcon } from '@wordpress/icons';
+} from '@finpress/keyboard-shortcuts';
+import { Icon, search as inputIcon } from '@finpress/icons';
 
 /**
  * Internal dependencies

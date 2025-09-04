@@ -23,9 +23,9 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import TextInputState from 'react-native/Libraries/Components/TextInput/TextInputState';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BACKSPACE, ENTER } from '@wordpress/keycodes';
+import { BACKSPACE, ENTER } from '@finpress/keycodes';
 
 /**
  * Internal dependencies
@@ -33,7 +33,7 @@ import { BACKSPACE, ENTER } from '@wordpress/keycodes';
 import Paragraph from '../edit';
 
 // Mock debounce to prevent potentially belated state updates.
-jest.mock( '@wordpress/compose/src/utils/debounce', () => ( {
+jest.mock( '@finpress/compose/src/utils/debounce', () => ( {
 	debounce: ( fn ) => {
 		fn.cancel = jest.fn();
 		return fn;
@@ -41,7 +41,7 @@ jest.mock( '@wordpress/compose/src/utils/debounce', () => ( {
 } ) );
 // Mock link suggestions that are fetched by the link picker
 // when typing a search query.
-jest.mock( '@wordpress/core-data/src/fetch', () => ( {
+jest.mock( '@finpress/core-data/src/fetch', () => ( {
 	__experimentalFetchLinkSuggestions: jest.fn().mockResolvedValue( [ {} ] ),
 } ) );
 
@@ -421,7 +421,7 @@ describe( 'Paragraph block', () => {
 
 		fireEvent.changeText(
 			screen.getByPlaceholderText( 'Add link text' ),
-			'WordPress'
+			'FinPress'
 		);
 		fireEvent.press(
 			screen.getByLabelText( 'Link to, Search or type URL' )
@@ -429,7 +429,7 @@ describe( 'Paragraph block', () => {
 		const typeURLInput = await waitFor( () =>
 			screen.getByPlaceholderText( 'Search or type URL' )
 		);
-		fireEvent.changeText( typeURLInput, 'wordpress.org' );
+		fireEvent.changeText( typeURLInput, 'finpress.org' );
 		await waitForElementToBeRemoved( () =>
 			screen.getByTestId( 'link-picker-loading' )
 		);
@@ -442,7 +442,7 @@ describe( 'Paragraph block', () => {
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
 		"<!-- wp:paragraph -->
-		<p><a href="http://wordpress.org">WordPress</a></p>
+		<p><a href="http://finpress.org">FinPress</a></p>
 		<!-- /wp:paragraph -->"
 	` );
 	} );
@@ -472,7 +472,7 @@ describe( 'Paragraph block', () => {
 		const typeURLInput = await waitFor( () =>
 			screen.getByPlaceholderText( 'Search or type URL' )
 		);
-		fireEvent.changeText( typeURLInput, 'wordpress.org' );
+		fireEvent.changeText( typeURLInput, 'finpress.org' );
 		await waitForElementToBeRemoved( () =>
 			screen.getByTestId( 'link-picker-loading' )
 		);
@@ -485,14 +485,14 @@ describe( 'Paragraph block', () => {
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
 		"<!-- wp:paragraph -->
-		<p>A <a href="http://wordpress.org">quick</a> brown fox jumps over the lazy dog.</p>
+		<p>A <a href="http://finpress.org">quick</a> brown fox jumps over the lazy dog.</p>
 		<!-- /wp:paragraph -->"
 	` );
 	} );
 
 	it( 'should link text with clipboard contents', async () => {
 		// Arrange
-		Clipboard.getString.mockResolvedValue( 'https://wordpress.org' );
+		Clipboard.getString.mockResolvedValue( 'https://finpress.org' );
 		const screen = await initializeEditor();
 		await addBlock( screen, 'Paragraph' );
 
@@ -509,9 +509,9 @@ describe( 'Paragraph block', () => {
 				finalSelectionEnd: 7,
 			}
 		);
-		// Await React Navigation: https://github.com/WordPress/gutenberg/issues/35685#issuecomment-961919931
+		// Await React Navigation: https://github.com/FinPress/gutenberg/issues/35685#issuecomment-961919931
 		await act( () => fireEvent.press( screen.getByLabelText( 'Link' ) ) );
-		// Await React Navigation: https://github.com/WordPress/gutenberg/issues/35685#issuecomment-961919931
+		// Await React Navigation: https://github.com/FinPress/gutenberg/issues/35685#issuecomment-961919931
 		await act( () =>
 			fireEvent.press(
 				screen.getByLabelText( 'Link to, Search or type URL' )
@@ -521,7 +521,7 @@ describe( 'Paragraph block', () => {
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
 		"<!-- wp:paragraph -->
-		<p>A <a href="https://wordpress.org">quick</a> brown fox jumps over the lazy dog.</p>
+		<p>A <a href="https://finpress.org">quick</a> brown fox jumps over the lazy dog.</p>
 		<!-- /wp:paragraph -->"
 	` );
 

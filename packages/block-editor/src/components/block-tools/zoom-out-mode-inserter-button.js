@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
-import { plus } from '@wordpress/icons';
-import { _x } from '@wordpress/i18n';
+import { Button } from '@finpress/components';
+import { plus } from '@finpress/icons';
+import { _x } from '@finpress/i18n';
 
 function ZoomOutModeInserterButton( { onClick } ) {
 	return (

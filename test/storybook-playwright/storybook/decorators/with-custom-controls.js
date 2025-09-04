@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useId, useState } from '@wordpress/element';
+import { useId, useState } from '@finpress/element';
 
 export const WithCustomControls = ( Story, context ) => {
 	const textareaId = useId();

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { MenuItem } from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { addQueryArgs } from '@wordpress/url';
+import { MenuItem } from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { addQueryArgs } from '@finpress/url';
 
 function ManagePatternsMenuItem() {
 	const url = useSelect( ( select ) => {

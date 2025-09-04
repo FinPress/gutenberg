@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext } from '@wordpress/element';
-import { useObservableValue } from '@wordpress/compose';
+import { useContext } from '@finpress/element';
+import { useObservableValue } from '@finpress/compose';
 
 /**
  * Internal dependencies

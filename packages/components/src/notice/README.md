@@ -2,7 +2,7 @@
 
 Use Notices to communicate prominent messages to the user.
 
-![Notice component](https://make.wordpress.org/design/files/2019/03/Notice-Screenshot-alt.png)
+![Notice component](https://make.finpress.org/design/files/2019/03/Notice-Screenshot-alt.png)
 
 ## Design guidelines
 
@@ -27,32 +27,32 @@ If an icon is included in the Notice, it should be color-coded to match the Noti
 ### Do's and Don'ts
 **Do** use a Notice when you want to communicate a message of medium importance.
 
-![A success Notice for updating a post](https://make.wordpress.org/design/files/2019/03/Notice-Do-1-alt.png)
+![A success Notice for updating a post](https://make.finpress.org/design/files/2019/03/Notice-Do-1-alt.png)
 
 ---
 **Don’t** use a Notice for a message that requires immediate attention and action from the user. Use a Modal for this instead.
 
-![A Notice that requires an immediate action](https://make.wordpress.org/design/files/2019/03/Notice-Dont-1-alt.png)
+![A Notice that requires an immediate action](https://make.finpress.org/design/files/2019/03/Notice-Dont-1-alt.png)
 
 ---
 **Do** display Notices at the top of the screen, below any toolbars.
 
-![A success Notice for publishing a post](https://make.wordpress.org/design/files/2019/03/Notice-Do-2-alt.png)
+![A success Notice for publishing a post](https://make.finpress.org/design/files/2019/03/Notice-Do-2-alt.png)
 
 ---
 **Don’t** show Notices on top of toolbars.
 
-![A success Notice on top of the editor toolbar](https://make.wordpress.org/design/files/2019/03/Notice-Dont-2-alt.png)
+![A success Notice on top of the editor toolbar](https://make.finpress.org/design/files/2019/03/Notice-Dont-2-alt.png)
 
 ---
 **Do** use color to indicate the type of message being communicated.
 
-![An error Notice using red](https://make.wordpress.org/design/files/2019/03/Notice-Do-3-alt.png)
+![An error Notice using red](https://make.finpress.org/design/files/2019/03/Notice-Do-3-alt.png)
 
 ---
 **Don’t** apply any colors other than those for Warnings, Success, or Errors.
 
-![An error Notice using purple](https://make.wordpress.org/design/files/2019/03/Notice-Dont-3-alt.png)
+![An error Notice using purple](https://make.finpress.org/design/files/2019/03/Notice-Dont-3-alt.png)
 
 ## Development guidelines
 
@@ -61,7 +61,7 @@ If an icon is included in the Notice, it should be color-coded to match the Noti
 To display a plain notice, pass `Notice` a string:
 
 ```jsx
-import { Notice } from '@wordpress/components';
+import { Notice } from '@finpress/components';
 
 const MyNotice = () => (
 	<Notice status="error">An unknown error occurred.</Notice>
@@ -71,7 +71,7 @@ const MyNotice = () => (
 For more complex markup, you can pass any JSX element:
 
 ```jsx
-import { Notice } from '@wordpress/components';
+import { Notice } from '@finpress/components';
 
 const MyNotice = () => (
 	<Notice status="error">

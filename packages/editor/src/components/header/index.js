@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { useMediaQuery, useViewportMatch } from '@wordpress/compose';
-import { __unstableMotion as motion } from '@wordpress/components';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { useState } from '@wordpress/element';
-import { PinnedItems } from '@wordpress/interface';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { useMediaQuery, useViewportMatch } from '@finpress/compose';
+import { __unstableMotion as motion } from '@finpress/components';
+import { store as preferencesStore } from '@finpress/preferences';
+import { useState } from '@finpress/element';
+import { PinnedItems } from '@finpress/interface';
 
 /**
  * Internal dependencies

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__EXPERIMENTAL_PATHS_WITH_OVERRIDE as PATHS_WITH_OVERRIDE,
 	hasBlockSupport,
-} from '@wordpress/blocks';
-import { applyFilters } from '@wordpress/hooks';
+} from '@finpress/blocks';
+import { applyFilters } from '@finpress/hooks';
 
 /**
  * Internal dependencies
@@ -55,7 +55,7 @@ const deprecatedFlags = {
 const prefixedFlags = {
 	/*
 	 * These were only available in the plugin
-	 * and can be removed when the minimum WordPress version
+	 * and can be removed when the minimum FinPress version
 	 * for the plugin is 5.9.
 	 */
 	'border.customColor': 'border.color',
@@ -67,7 +67,7 @@ const prefixedFlags = {
 	'typography.customTextDecorations': 'typography.textDecoration',
 	'typography.customTextTransforms': 'typography.textTransform',
 	/*
-	 * These were part of WordPress 5.8 and we need to keep them.
+	 * These were part of FinPress 5.8 and we need to keep them.
 	 */
 	'border.customRadius': 'border.radius',
 	'spacing.customMargin': 'spacing.margin',
@@ -82,7 +82,7 @@ const prefixedFlags = {
  * be removed once third party devs have had sufficient time to update themes,
  * plugins, etc.
  *
- * @see https://github.com/WordPress/gutenberg/pull/34485
+ * @see https://github.com/FinPress/gutenberg/pull/34485
  *
  * @param {string} path Path to desired value in settings.
  * @return {string}     The value for defined setting.

@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isBlobURL, createBlobURL } from '@wordpress/blob';
-import { createBlock, getBlockBindingsSource } from '@wordpress/blocks';
-import { Placeholder } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { isBlobURL, createBlobURL } from '@finpress/blob';
+import { createBlock, getBlockBindingsSource } from '@finpress/blocks';
+import { Placeholder } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
 import {
 	BlockIcon,
 	useBlockProps,
@@ -18,12 +18,12 @@ import {
 	__experimentalUseBorderProps as useBorderProps,
 	__experimentalGetShadowClassesAndStyles as getShadowClassesAndStyles,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { useEffect, useRef, useState } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { image as icon, plugins as pluginsIcon } from '@wordpress/icons';
-import { store as noticesStore } from '@wordpress/notices';
-import { useResizeObserver } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { useEffect, useRef, useState } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { image as icon, plugins as pluginsIcon } from '@finpress/icons';
+import { store as noticesStore } from '@finpress/notices';
+import { useResizeObserver } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -274,7 +274,7 @@ export function ImageEdit( {
 		// Check if default link setting should be used.
 		let linkDestination = attributes.linkDestination;
 		if ( ! linkDestination ) {
-			// Use the WordPress option to determine the proper default.
+			// Use the FinPress option to determine the proper default.
 			// The constants used in Gutenberg do not match WP options so a little more complicated than ideal.
 			// TODO: fix this in a follow up PR, requires updating media-text and ui component.
 			switch (
@@ -474,7 +474,7 @@ export function ImageEdit( {
 			</figure>
 			{
 				// The listener cannot be placed as the first element as it will break the in-between inserter.
-				// See https://github.com/WordPress/gutenberg/blob/71134165868298fc15e22896d0c28b41b3755ff7/packages/block-editor/src/components/block-list/use-in-between-inserter.js#L120
+				// See https://github.com/FinPress/gutenberg/blob/71134165868298fc15e22896d0c28b41b3755ff7/packages/block-editor/src/components/block-list/use-in-between-inserter.js#L120
 				isSingleSelected && isMaxWidthContainerWidth && maxWidthObserver
 			}
 		</>

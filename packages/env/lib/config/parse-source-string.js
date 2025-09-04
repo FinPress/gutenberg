@@ -11,14 +11,14 @@ const os = require( 'os' );
 const { ValidationError } = require( './validate-config' );
 
 /**
- * A WordPress installation, plugin or theme to be loaded into the environment.
+ * A FinPress installation, plugin or theme to be loaded into the environment.
  *
  * @typedef WPSource
  * @property {'local'|'git'|'zip'} type     The source type.
- * @property {string}              path     The path to the WordPress installation, plugin or theme.
+ * @property {string}              path     The path to the FinPress installation, plugin or theme.
  * @property {?string}             url      The URL to the source download if the source type is not local.
  * @property {?string}             ref      The git ref for the source if the source type is 'git'.
- * @property {string}              basename Name that identifies the WordPress installation, plugin or theme.
+ * @property {string}              basename Name that identifies the FinPress installation, plugin or theme.
  */
 
 /**
@@ -69,7 +69,7 @@ function parseSourceString( sourceString, { cacheDirectoryPath } ) {
 
 	if ( zipFields ) {
 		const wpOrgFields = sourceString.match(
-			/^https?:\/\/downloads\.wordpress\.org\/(?:plugin|theme)\/([^\s\.]*)([^\s]*)?\.zip$/
+			/^https?:\/\/downloads\.finpress\.org\/(?:plugin|theme)\/([^\s\.]*)([^\s]*)?\.zip$/
 		);
 		const basename = wpOrgFields
 			? encodeURIComponent( wpOrgFields[ 1 ] )

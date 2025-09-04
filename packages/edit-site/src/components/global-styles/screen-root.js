@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalItemGroup as ItemGroup,
@@ -11,12 +11,12 @@ import {
 	Card,
 	CardDivider,
 	CardMedia,
-} from '@wordpress/components';
-import { isRTL, __ } from '@wordpress/i18n';
-import { chevronLeft, chevronRight } from '@wordpress/icons';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { isRTL, __ } from '@finpress/i18n';
+import { chevronLeft, chevronRight } from '@finpress/icons';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

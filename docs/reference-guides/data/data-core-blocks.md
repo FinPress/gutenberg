@@ -17,10 +17,10 @@ In case of function type, the function should accept a block's attributes and th
 _Usage_
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	// This example assumes that a core/embed block is the first block in the Block Editor.
@@ -61,8 +61,8 @@ Returns block styles by block name.
 _Usage_
 
 ```js
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const buttonBlockStyles = useSelect(
@@ -97,9 +97,9 @@ Returns the block support value for a feature, if defined.
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const paragraphBlockSupportValue = useSelect(
@@ -137,8 +137,8 @@ Returns a block type by name.
 _Usage_
 
 ```js
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const paragraphBlock = useSelect(
@@ -181,8 +181,8 @@ Returns all the available block types.
 _Usage_
 
 ```js
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const blockTypes = useSelect(
@@ -215,8 +215,8 @@ Returns block variations by block name.
 _Usage_
 
 ```js
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const socialLinkVariations = useSelect(
@@ -253,8 +253,8 @@ Returns all the available block categories.
 _Usage_
 
 ```js
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const blockCategories = useSelect(
@@ -287,8 +287,8 @@ Returns an array with the child blocks of a given block.
 _Usage_
 
 ```js
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const childBlockNames = useSelect(
@@ -324,8 +324,8 @@ Returns all the available collections.
 _Usage_
 
 ```js
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const blockCollections = useSelect(
@@ -359,9 +359,9 @@ Returns the name of the default block name.
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const defaultBlockName = useSelect(
@@ -394,9 +394,9 @@ Returns the default block variation for the given block type. When there are mul
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const defaultEmbedBlockVariation = useSelect(
@@ -435,9 +435,9 @@ Returns the name of the block for handling non-block content.
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const freeformFallbackBlockName = useSelect(
@@ -473,9 +473,9 @@ Returns the name of the block for handling the grouping of blocks.
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const groupingBlockName = useSelect(
@@ -511,9 +511,9 @@ Returns the name of the block for handling unregistered blocks.
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const unregisteredFallbackBlockName = useSelect(
@@ -549,9 +549,9 @@ Returns true if the block defines support for a feature, or false otherwise.
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
     const paragraphBlockSupportClassName = useSelect( ( select ) =>
@@ -588,9 +588,9 @@ Returns a boolean indicating if a block has child blocks or not.
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const navigationBlockHasChildBlocks = useSelect(
@@ -625,9 +625,9 @@ Returns a boolean indicating if a block has at least one child block with insert
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const navigationBlockHasChildBlocksWithInserterSupport = useSelect(
@@ -667,9 +667,9 @@ Returns true if the block type by the given name or object value matches a searc
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const termFound = useSelect(

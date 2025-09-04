@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector, createRegistrySelector } from '@wordpress/data';
-import { getWidgetIdFromBlock } from '@wordpress/widgets';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { createSelector, createRegistrySelector } from '@finpress/data';
+import { getWidgetIdFromBlock } from '@finpress/widgets';
+import { store as coreStore } from '@finpress/core-data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Internal dependencies
@@ -319,9 +319,9 @@ export function isListViewOpened( state ) {
  *
  * @example
  * ```jsx
- * import { __ } from '@wordpress/i18n';
- * import { store as widgetStore } from '@wordpress/edit-widgets';
- * import { useSelect } from '@wordpress/data';
+ * import { __ } from '@finpress/i18n';
+ * import { store as widgetStore } from '@finpress/edit-widgets';
+ * import { useSelect } from '@finpress/data';
  *
  * const ExampleComponent = () => {
  * 	const isSavingLocked = useSelect(

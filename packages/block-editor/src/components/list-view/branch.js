@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalTreeGridRow as TreeGridRow,
 	__experimentalTreeGridCell as TreeGridCell,
-} from '@wordpress/components';
-import { memo, useRef } from '@wordpress/element';
-import { AsyncModeProvider, useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { memo, useRef } from '@finpress/element';
+import { AsyncModeProvider, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

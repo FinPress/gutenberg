@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { __experimentalNumberControl as NumberControl } from '@wordpress/components';
-import deprecated from '@wordpress/deprecated';
+import { __ } from '@finpress/i18n';
+import { __experimentalNumberControl as NumberControl } from '@finpress/components';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -123,6 +123,6 @@ const LineHeightControl = ( {
 };
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/line-height-control/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/line-height-control/README.md
  */
 export default LineHeightControl;

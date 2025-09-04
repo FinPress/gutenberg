@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	previewUtils: async ( { page }, use ) => {
@@ -84,7 +84,7 @@ test.describe( 'Preview', () => {
 		// cases where the post is dirty but not autosaveable (because the
 		// autosave is already up-to-date).
 		//
-		// See: https://github.com/WordPress/gutenberg/issues/7561
+		// See: https://github.com/FinPress/gutenberg/issues/7561
 		await editorPage.bringToFront();
 		await previewUtils.waitForPreviewNavigation( previewPage );
 
@@ -144,7 +144,7 @@ test.describe( 'Preview', () => {
 		await previewPage.close();
 	} );
 
-	// Verify correct preview. See: https://github.com/WordPress/gutenberg/issues/33616
+	// Verify correct preview. See: https://github.com/FinPress/gutenberg/issues/33616
 	test( 'should display the correct preview when switching between published and draft statuses', async ( {
 		editor,
 		page,
@@ -194,7 +194,7 @@ test.describe( 'Preview', () => {
 			.click();
 
 		// Wait for the status change.
-		// @see https://github.com/WordPress/gutenberg/pull/43933
+		// @see https://github.com/FinPress/gutenberg/pull/43933
 		await expect(
 			page.locator( 'role=button[name="Publish"i]' )
 		).toBeVisible();
@@ -224,7 +224,7 @@ test.describe( 'Preview with Custom Fields enabled', () => {
 		await previewUtils.toggleCustomFieldsOption( false );
 	} );
 
-	// Catch regressions of https://github.com/WordPress/gutenberg/issues/12617
+	// Catch regressions of https://github.com/FinPress/gutenberg/issues/12617
 	test( 'displays edits to the post title and content in the preview', async ( {
 		editor,
 		page,

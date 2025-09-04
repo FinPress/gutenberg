@@ -4,17 +4,17 @@
 import TextareaAutosize from 'react-autosize-textarea';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useEffect, useState } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	getBlockAttributes,
 	getBlockContent,
 	getBlockType,
 	getSaveContent,
 	validateBlock,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies

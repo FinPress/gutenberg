@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useEffect, useMemo, useState } from '@wordpress/element';
+import { useEntityProp, store as coreStore } from '@finpress/core-data';
+import { useEffect, useMemo, useState } from '@finpress/element';
 import {
 	dateI18n,
 	humanTimeDiff,
 	getSettings as getDateSettings,
-} from '@wordpress/date';
+} from '@finpress/date';
 import {
 	AlignmentControl,
 	BlockControls,
@@ -21,7 +21,7 @@ import {
 	useBlockProps,
 	__experimentalDateFormatPicker as DateFormatPicker,
 	__experimentalPublishDateTimePicker as PublishDateTimePicker,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	Dropdown,
 	ToolbarGroup,
@@ -29,11 +29,11 @@ import {
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { edit } from '@wordpress/icons';
-import { DOWN } from '@wordpress/keycodes';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/components';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { edit } from '@finpress/icons';
+import { DOWN } from '@finpress/keycodes';
+import { useSelect, useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

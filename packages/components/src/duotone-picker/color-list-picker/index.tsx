@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { swatch } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+import { useState } from '@finpress/element';
+import { swatch } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import ColorPalette from '../../color-palette';
 import ColorIndicator from '../../color-indicator';
 import Icon from '../../icon';
 import type { ColorListPickerProps, ColorOptionProps } from './types';
-import { useInstanceId } from '@wordpress/compose';
+import { useInstanceId } from '@finpress/compose';
 
 function ColorOption( {
 	label,

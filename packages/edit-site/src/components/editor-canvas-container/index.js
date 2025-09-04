@@ -1,21 +1,21 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Children, cloneElement, useState } from '@wordpress/element';
+import { Children, cloneElement, useState } from '@finpress/element';
 import {
 	Button,
 	__experimentalUseSlotFills as useSlotFills,
-} from '@wordpress/components';
-import { ESCAPE } from '@wordpress/keycodes';
-import { __ } from '@wordpress/i18n';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { closeSmall } from '@wordpress/icons';
-import { useFocusOnMount, useFocusReturn } from '@wordpress/compose';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/components';
+import { ESCAPE } from '@finpress/keycodes';
+import { __ } from '@finpress/i18n';
+import { useDispatch, useSelect } from '@finpress/data';
+import { closeSmall } from '@finpress/icons';
+import { useFocusOnMount, useFocusReturn } from '@finpress/compose';
+import { store as preferencesStore } from '@finpress/preferences';
 import {
 	store as editorStore,
 	privateApis as editorPrivateApis,
-} from '@wordpress/editor';
+} from '@finpress/editor';
 
 /**
  * Internal dependencies

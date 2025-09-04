@@ -4,10 +4,10 @@
 import type { ComponentType, ComponentClass } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import isShallowEqual from '@wordpress/is-shallow-equal';
-import { Component } from '@wordpress/element';
+import isShallowEqual from '@finpress/is-shallow-equal';
+import { Component } from '@finpress/element';
 
 /**
  * Internal dependencies

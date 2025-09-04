@@ -3,12 +3,12 @@
  */
 import clsx from 'clsx';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { decodeEntities } from '@wordpress/html-entities';
+import { useBlockProps, useInnerBlocksProps } from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies

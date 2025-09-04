@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
+import { __, _x } from '@finpress/i18n';
 import {
 	Button,
 	Placeholder,
@@ -9,8 +9,8 @@ import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	__experimentalInputControl as InputControl,
-} from '@wordpress/components';
-import { BlockIcon } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { BlockIcon } from '@finpress/block-editor';
 
 const EmbedPlaceholder = ( {
 	icon,
@@ -49,7 +49,7 @@ const EmbedPlaceholder = ( {
 			<div className="wp-block-embed__learn-more">
 				<ExternalLink
 					href={ __(
-						'https://wordpress.org/documentation/article/embeds/'
+						'https://finpress.org/documentation/article/embeds/'
 					) }
 				>
 					{ __( 'Learn more about embeds' ) }

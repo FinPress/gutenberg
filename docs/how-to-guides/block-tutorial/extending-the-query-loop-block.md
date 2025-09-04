@@ -17,7 +17,7 @@ In order to have a Query Loop variation properly working, we'll need to:
 - Define a layout for the block variation
 - Use the `namespace` attribute in the `isActive` block variation property
 
-Let's go on a journey, for example, of setting up a variation for a plugin which registers a `book` [custom post type](https://developer.wordpress.org/plugins/post-types/).
+Let's go on a journey, for example, of setting up a variation for a plugin which registers a `book` [custom post type](https://developer.finpress.org/plugins/post-types/).
 
 ### 1. Offer sensible defaults
 
@@ -100,7 +100,7 @@ However, your query loop variation won't work just yet — we still need to defi
 
 ### 2. Customize your variation layout
 
-Please note that the Query Loop block supports `'block'` as a string in the `scope` property. In theory, that's to allow the variation to be picked up after inserting the block itself. Read more about the Block Variation Picker [here](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-variation-picker/README.md).
+Please note that the Query Loop block supports `'block'` as a string in the `scope` property. In theory, that's to allow the variation to be picked up after inserting the block itself. Read more about the Block Variation Picker [here](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-variation-picker/README.md).
 
 However, it is **unadvisable** to use this currently, this is due to the Query Loop setup with patterns and `scope: [ 'block' ]` variations, all of the selected pattern's attributes will be used except for `postType` and `inherit` query properties, which will likely lead to conflicts and non-functional variations.
 
@@ -124,7 +124,7 @@ The other way would be to register patterns specific to your variation, which ar
 
 The Query Loop block determines if there is an active variation of itself and if there are specific patterns available for this variation. If there are, these patterns are going to be the only ones suggested to the user, without including the default ones for the original Query Loop block. Otherwise, if there are no such patterns, the default ones are going to be suggested.
 
-In order for a pattern to be “connected” with a Query Loop variation, you should add the name of your variation prefixed with the Query Loop name (e.g. `core/query/$variation_name`) to the pattern's `blockTypes` property. For more details about registering patterns [see here](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-patterns/).
+In order for a pattern to be “connected” with a Query Loop variation, you should add the name of your variation prefixed with the Query Loop name (e.g. `core/query/$variation_name`) to the pattern's `blockTypes` property. For more details about registering patterns [see here](https://developer.finpress.org/block-editor/reference-guides/block-api/block-patterns/).
 
 If you have not provided `innerBlocks` in your variation, there is also a way to suggest “connected” variations when the user selects `Start blank` in the setup phase. This is handled in a similar fashion with “connected” patterns, by checking if there is an active variation of Query Loop and if there are any connected variations to suggest.
 
@@ -186,7 +186,7 @@ As of Gutenberg version 14.2, the following controls are available:
 -   `taxQuery` - Shows available taxonomies filters for the currently selected post type.
 -   `author` - Shows an input field to filter the query by author.
 -   `search` - Shows an input field to filter the query by keywords.
--   `format` - Shows an input field to filter the query by array/collection of [formats](https://developer.wordpress.org/advanced-administration/wordpress/post-formats/#supported-formats).
+-   `format` - Shows an input field to filter the query by array/collection of [formats](https://developer.finpress.org/advanced-administration/finpress/post-formats/#supported-formats).
 -   `parents` - Shows an input field to filter the query using parent(s) entity.
 
 In our case, the property would look like this:
@@ -204,10 +204,10 @@ Notice that we have also disabled the `postType` control. When the user selects 
 
 ### Adding additional controls
 
-Because our plugin uses custom attributes that we need to query, we want to add our own controls to allow the users to select those instead of the ones we have just disabled from the core inspector controls. We can do this via a [React HOC](https://reactjs.org/docs/higher-order-components.html) hooked into a [block filter](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/), like so:
+Because our plugin uses custom attributes that we need to query, we want to add our own controls to allow the users to select those instead of the ones we have just disabled from the core inspector controls. We can do this via a [React HOC](https://reactjs.org/docs/higher-order-components.html) hooked into a [block filter](https://developer.finpress.org/block-editor/reference-guides/filters/block-filters/), like so:
 
 ```jsx
-import { InspectorControls } from '@wordpress/block-editor';
+import { InspectorControls } from '@finpress/block-editor';
 
 export const withBookQueryControls = ( BlockEdit ) => ( props ) => {
 	// We only want to add these controls if it is our variation,
@@ -230,7 +230,7 @@ export const withBookQueryControls = ( BlockEdit ) => ( props ) => {
 addFilter( 'editor.BlockEdit', 'core/query', withBookQueryControls );
 ```
 
-Of course, you'll be responsible for implementing the logic of your control (you might want to take a look at [`@wordpress/components`](https://www.npmjs.com/package/@wordpress/components) to make your controls fit seamlessly within the Gutenberg UI). Any extra parameter you assign within the `query` object inside the blocks attributes can be used to create a custom query according to your needs, with a little extra effort.
+Of course, you'll be responsible for implementing the logic of your control (you might want to take a look at [`@finpress/components`](https://www.npmjs.com/package/@finpress/components) to make your controls fit seamlessly within the Gutenberg UI). Any extra parameter you assign within the `query` object inside the blocks attributes can be used to create a custom query according to your needs, with a little extra effort.
 
 Currently, you'll likely have to implement slightly different paths to make the query behave correctly both on the front-end side (i.e. on the end user's side) and to show the correct preview on the editor side.
 
@@ -251,7 +251,7 @@ Currently, you'll likely have to implement slightly different paths to make the 
 
 ### Making your custom query work on the front-end side
 
-The Query Loop block functions mainly through the Post Template block which receives the attributes and builds the query from there. Other first-class children of the Query Loop block (such as the Pagination block) behave in the same way. They build their query and then expose the result via the filter [`query_loop_block_query_vars`](https://developer.wordpress.org/reference/hooks/query_loop_block_query_vars/).
+The Query Loop block functions mainly through the Post Template block which receives the attributes and builds the query from there. Other first-class children of the Query Loop block (such as the Pagination block) behave in the same way. They build their query and then expose the result via the filter [`query_loop_block_query_vars`](https://developer.finpress.org/reference/hooks/query_loop_block_query_vars/).
 
 You can hook into that filter and modify your query accordingly. Just make sure you don't cause side-effects to other Query Loop blocks by at least checking that you apply the filter only to your variation!
 
@@ -266,13 +266,13 @@ if( 'my-plugin/books-list' === $block[ 'attrs' ][ 'namespace' ] ) {
 }
 ```
 
-(In the code above, we assume you have some way to access the block, for example within a [`pre_render_block`](https://developer.wordpress.org/reference/hooks/pre_render_block/) filter, but the specific solution can be different depending on the use-case, so this is not a firm recommendation).
+(In the code above, we assume you have some way to access the block, for example within a [`pre_render_block`](https://developer.finpress.org/reference/hooks/pre_render_block/) filter, but the specific solution can be different depending on the use-case, so this is not a firm recommendation).
 
 ### Making your custom query work on the editor side
 
 To finish up our custom variation, we might want the editor to react to changes in our custom query and display an appropriate preview accordingly. This is not required for a functioning block, but it enables a fully integrated user experience for the consumers of your block.
 
-The Query Loop block fetches its posts to show the preview using the [WordPress REST API](https://developer.wordpress.org/rest-api/). Any extra parameter added to the `query` object will be passed as a query argument to the API. This means that these extra parameters should be either supported by the REST API, or be handled by custom filters such as the [`rest_{$this->post_type}_query`](https://developer.wordpress.org/reference/hooks/rest_this-post_type_query/) filter which allows you to hook into any API request for your custom post type. Like so:
+The Query Loop block fetches its posts to show the preview using the [FinPress REST API](https://developer.finpress.org/rest-api/). Any extra parameter added to the `query` object will be passed as a query argument to the API. This means that these extra parameters should be either supported by the REST API, or be handled by custom filters such as the [`rest_{$this->post_type}_query`](https://developer.finpress.org/reference/hooks/rest_this-post_type_query/) filter which allows you to hook into any API request for your custom post type. Like so:
 
 ```php
 add_filter(

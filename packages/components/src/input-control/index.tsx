@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { forwardRef } from '@wordpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -126,7 +126,7 @@ export function UnforwardedInputControl(
  * intended to (in time) merge with or replace `TextControl`.
  *
  * ```jsx
- * import { __experimentalInputControl as InputControl } from '@wordpress/components';
+ * import { __experimentalInputControl as InputControl } from '@finpress/components';
  * import { useState } from 'react';
  *
  * const Example = () => {

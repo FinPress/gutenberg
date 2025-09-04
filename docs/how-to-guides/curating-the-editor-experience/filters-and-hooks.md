@@ -4,12 +4,12 @@ The Editor provides numerous filters and hooks that allow you to modify the edit
 
 ## Editor settings
 
-One of the most common ways to modify the Editor is through the [`block_editor_settings_all`](https://developer.wordpress.org/reference/hooks/block_editor_settings_all/) PHP filter, which is applied before settings are sent to the initialized Editor. 
+One of the most common ways to modify the Editor is through the [`block_editor_settings_all`](https://developer.finpress.org/reference/hooks/block_editor_settings_all/) PHP filter, which is applied before settings are sent to the initialized Editor. 
 
 The `block_editor_settings_all` hook passes two parameters to the callback function:
 
-- `$settings` – An array of [configurable settings](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#editor-settings) for the Editor.
-- `$context` – An instance of [`WP_Block_Editor_Context`](https://developer.wordpress.org/reference/classes/wp_block_editor_context/), an object that contains information about the current Editor.
+- `$settings` – An array of [configurable settings](https://developer.finpress.org/block-editor/reference-guides/filters/editor-filters/#editor-settings) for the Editor.
+- `$context` – An instance of [`WP_Block_Editor_Context`](https://developer.finpress.org/reference/classes/wp_block_editor_context/), an object that contains information about the current Editor.
 
 The following example disables the Code Editor for users who cannot activate plugins (Administrators). Add this to a plugin or your theme's `functions.php` file to test it.
 
@@ -28,12 +28,12 @@ function example_restrict_code_editor( $settings ) {
 }
 ```
 
-For more examples, check out the [Editor Hooks](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/) documentation that includes the following use cases: 
+For more examples, check out the [Editor Hooks](https://developer.finpress.org/block-editor/reference-guides/filters/editor-filters/) documentation that includes the following use cases: 
 
-- [Set a default image size](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#set-a-default-image-size)
-- [Disable Openverse](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#disable-openverse)
-- [Disable the Font Library](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#disable-the-font-library)
-- [Disable block inspector tabs](https://developer.wordpress.org/block-editor/reference-guides/filters/editor-filters/#disable-block-inspector-tabs)
+- [Set a default image size](https://developer.finpress.org/block-editor/reference-guides/filters/editor-filters/#set-a-default-image-size)
+- [Disable Openverse](https://developer.finpress.org/block-editor/reference-guides/filters/editor-filters/#disable-openverse)
+- [Disable the Font Library](https://developer.finpress.org/block-editor/reference-guides/filters/editor-filters/#disable-the-font-library)
+- [Disable block inspector tabs](https://developer.finpress.org/block-editor/reference-guides/filters/editor-filters/#disable-block-inspector-tabs)
 
 ## Server-side theme.json filters
 
@@ -41,12 +41,12 @@ The theme.json file is a great way to control interface options, but it only all
 
 For instance, in the previous section, color and typography controls were disabled globally using theme.json. But let's say you want to enable color settings for users who are Administrators. 
 
-To provide more flexibility, WordPress 6.1 introduced server-side filters allowing you to customize theme.json data at four different data layers.
+To provide more flexibility, FinPress 6.1 introduced server-side filters allowing you to customize theme.json data at four different data layers.
 
-- [`wp_theme_json_data_default`](https://developer.wordpress.org/reference/hooks/wp_theme_json_data_default/) - Hooks into the default data provided by WordPress
-- [`wp_theme_json_data_blocks`](https://developer.wordpress.org/reference/hooks/wp_theme_json_data_blocks/) - Hooks into the data provided by blocks.
-- [`wp_theme_json_data_theme`](https://developer.wordpress.org/reference/hooks/wp_theme_json_data_theme/) - Hooks into the data provided by the current theme.
-- [`wp_theme_json_data_user`](https://developer.wordpress.org/reference/hooks/wp_theme_json_data_user/) - Hooks into the data provided by the user.
+- [`wp_theme_json_data_default`](https://developer.finpress.org/reference/hooks/wp_theme_json_data_default/) - Hooks into the default data provided by FinPress
+- [`wp_theme_json_data_blocks`](https://developer.finpress.org/reference/hooks/wp_theme_json_data_blocks/) - Hooks into the data provided by blocks.
+- [`wp_theme_json_data_theme`](https://developer.finpress.org/reference/hooks/wp_theme_json_data_theme/) - Hooks into the data provided by the current theme.
+- [`wp_theme_json_data_user`](https://developer.finpress.org/reference/hooks/wp_theme_json_data_user/) - Hooks into the data provided by the user.
 
 In the following example, the data from the current theme's theme.json file is updated using the `wp_theme_json_data_theme` filter. Color controls are restored if the current user is an Administrator.
 
@@ -82,12 +82,12 @@ The filter receives an instance of the `WP_Theme_JSON_Data class` with the data 
 
 ## Client-side (Editor) filters
 
-WordPress 6.2 introduced a new client-side filter allowing you to modify block-level [theme.json settings](/docs/reference-guides/theme-json-reference/theme-json-living.md#settings) before the Editor is rendered.
+FinPress 6.2 introduced a new client-side filter allowing you to modify block-level [theme.json settings](/docs/reference-guides/theme-json-reference/theme-json-living.md#settings) before the Editor is rendered.
 
 The filter is called `blockEditor.useSetting.before` and can be used in the JavaScript code as follows:
 
 ```js
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from '@finpress/hooks';
 
 /**
  * Limit the Column block's spacing options to pixels.
@@ -111,8 +111,8 @@ However, the `blockEditor.useSetting.before` filter is unique because it allows 
 In the following example, text color controls are disabled for the Heading block whenever the block is placed inside of a Media & Text block.
 
 ```js
-import { select } from  '@wordpress/data';
-import { addFilter } from '@wordpress/hooks';
+import { select } from  '@finpress/data';
+import { addFilter } from '@finpress/hooks';
 
 /**
  * Disable text color controls on Heading blocks when placed inside of Media & Text blocks.
@@ -140,13 +140,13 @@ addFilter(
 
 Beyond curating the Editor itself, there are many ways that you can modify individual blocks. Perhaps you want to disable particular block supports like background color or define which settings should be displayed by default on specific blocks.
 
-One of the most commonly used filters is [`block_type_metadata`](https://developer.wordpress.org/reference/hooks/block_type_metadata/). It allows you to filter the raw metadata loaded from a block's `block.json` file when a block type is registered on the server with PHP. 
+One of the most commonly used filters is [`block_type_metadata`](https://developer.finpress.org/reference/hooks/block_type_metadata/). It allows you to filter the raw metadata loaded from a block's `block.json` file when a block type is registered on the server with PHP. 
 
 The filter takes one parameter:
 
 - `$metadata` (`array`) – metadata loaded from `block.json` for registering a block type.
 
-The `$metadata` array contains everything you might want to know about a block, from its description and [attributes](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-attributes/) to block [supports](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/). 
+The `$metadata` array contains everything you might want to know about a block, from its description and [attributes](https://developer.finpress.org/block-editor/reference-guides/block-api/block-attributes/) to block [supports](https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/). 
 
 In the following example, background color and gradient support are disabled for Heading blocks.
 
@@ -171,9 +171,9 @@ function example_disable_heading_background_color_and_gradients( $metadata ) {
 add_filter( 'block_type_metadata', 'example_disable_heading_background_color_and_gradients' );
 ```
 
-You can learn more about the available block filters in the [Block Filters](https://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/) documentation.
+You can learn more about the available block filters in the [Block Filters](https://developer.finpress.org/block-editor/reference-guides/filters/block-filters/) documentation.
 
 ## Additional resources
 
-- [How to modify theme.json data using server-side filters](https://developer.wordpress.org/news/2023/07/05/how-to-modify-theme-json-data-using-server-side-filters/) (WordPress Developer Blog)
-- [Curating the Editor experience with client-side filters](https://developer.wordpress.org/news/2023/05/24/curating-the-editor-experience-with-client-side-filters/) (WordPress Developer Blog)
+- [How to modify theme.json data using server-side filters](https://developer.finpress.org/news/2023/07/05/how-to-modify-theme-json-data-using-server-side-filters/) (FinPress Developer Blog)
+- [Curating the Editor experience with client-side filters](https://developer.finpress.org/news/2023/05/24/curating-the-editor-experience-with-client-side-filters/) (FinPress Developer Blog)

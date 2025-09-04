@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockType } from '@wordpress/blocks';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { useMemo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { getBlockType } from '@finpress/blocks';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { useMemo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 import {
 	PanelBody,
 	__experimentalVStack as VStack,
 	__experimentalHasSplitBorders as hasSplitBorders,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

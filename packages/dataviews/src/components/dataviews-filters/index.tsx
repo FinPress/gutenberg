@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	memo,
@@ -8,10 +8,10 @@ import {
 	useMemo,
 	useCallback,
 	useEffect,
-} from '@wordpress/element';
-import { __experimentalHStack as HStack, Button } from '@wordpress/components';
-import { funnel } from '@wordpress/icons';
-import { __, _x } from '@wordpress/i18n';
+} from '@finpress/element';
+import { __experimentalHStack as HStack, Button } from '@finpress/components';
+import { funnel } from '@finpress/icons';
+import { __, _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies

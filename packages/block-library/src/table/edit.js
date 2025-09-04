@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@finpress/element';
 import {
 	InspectorControls,
 	BlockControls,
@@ -17,8 +17,8 @@ import {
 	__experimentalUseColorProps as useColorProps,
 	__experimentalUseBorderProps as useBorderProps,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
 import {
 	Button,
 	Placeholder,
@@ -28,7 +28,7 @@ import {
 	__experimentalHasSplitBorders as hasSplitBorders,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	alignLeft,
 	alignRight,
@@ -41,7 +41,7 @@ import {
 	tableRowBefore,
 	tableRowDelete,
 	table,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 /**
  * Internal dependencies

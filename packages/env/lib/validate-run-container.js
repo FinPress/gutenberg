@@ -6,8 +6,8 @@
 const RUN_CONTAINERS = [
 	'mysql',
 	'tests-mysql',
-	'wordpress',
-	'tests-wordpress',
+	'finpress',
+	'tests-finpress',
 	'cli',
 	'tests-cli',
 	'phpmyadmin',

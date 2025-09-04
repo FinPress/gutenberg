@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@finpress/element';
 import {
 	requestConnectionStatus,
 	subscribeConnectionStatus,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 /**
  * @typedef {Object} NetworkInformation

@@ -13,7 +13,7 @@ import { checkDepsInTree } from '../packages/scripts/utils/license.js';
 const ignored = [ '@ampproject/remapping', 'webpack' ];
 
 /*
- * `wp-scripts check-licenses` uses prod and dev dependencies of the package to scan for dependencies. With npm workspaces, workspace packages (the @wordpress/* packages) are not listed in the main package json and this approach does not work.
+ * `wp-scripts check-licenses` uses prod and dev dependencies of the package to scan for dependencies. With npm workspaces, workspace packages (the @finpress/* packages) are not listed in the main package json and this approach does not work.
  *
  * Instead, work from an npm query that uses some custom information in package.json files to declare packages that are shipped with WordPress (and must be GPLv2 compatible) or other files that may use more permissive licenses.
  */

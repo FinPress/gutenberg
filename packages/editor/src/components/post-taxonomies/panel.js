@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { PanelBody } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { PanelBody } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createSlotFill,
 	MenuGroup,
 	__experimentalStyleProvider as StyleProvider,
-} from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -114,7 +114,7 @@ const BlockSettingsMenuControlsSlot = ( { fillProps, clientIds = null } ) => {
 };
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-settings-menu-controls/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-settings-menu-controls/README.md
  *
  * @param {Object} props Fill props.
  * @return {Element} Element.

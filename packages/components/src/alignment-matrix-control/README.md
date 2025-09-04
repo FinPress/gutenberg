@@ -2,13 +2,13 @@
 
 <!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->
 
-<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-alignmentmatrixcontrol--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
+<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-alignmentmatrixcontrol--docs">FinPress Storybook</a> for more detailed, interactive documentation.</p>
 
 AlignmentMatrixControl components enable adjustments to horizontal and vertical alignments for UI.
 
 ```jsx
-import { AlignmentMatrixControl } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+import { AlignmentMatrixControl } from '@finpress/components';
+import { useState } from '@finpress/element';
 
 const Example = () => {
 	const [ alignment, setAlignment ] = useState( 'center center' );

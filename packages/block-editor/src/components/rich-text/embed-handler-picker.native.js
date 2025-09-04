@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	forwardRef,
@@ -7,9 +7,9 @@ import {
 	useImperativeHandle,
 	memo,
 	useCallback,
-} from '@wordpress/element';
-import { Picker } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/element';
+import { Picker } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 const noop = () => {};
 

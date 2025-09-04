@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { store as blocksStore } from '@wordpress/blocks';
+import { useBlockProps, useInnerBlocksProps } from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { store as blocksStore } from '@finpress/blocks';
 
 const DEFAULT_BLOCK = {
 	name: 'core/button',

@@ -14,9 +14,9 @@ import type {
 import type { SetSelection } from './private-types';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { useFocusOnMount } from '@wordpress/compose';
+import type { useFocusOnMount } from '@finpress/compose';
 
 export type SortDirection = 'asc' | 'desc';
 

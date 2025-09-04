@@ -12,7 +12,7 @@ If a Popover is returned by your component, it will be shown. To hide the popove
 
 ```jsx
 import { useState } from 'react';
-import { Button, Popover } from '@wordpress/components';
+import { Button, Popover } from '@finpress/components';
 
 const MyPopover = () => {
 	const [ isVisible, setIsVisible ] = useState( false );
@@ -33,7 +33,7 @@ In order to pass an explicit anchor, you can use the `anchor` prop. When doing s
 
 ```jsx
 import { useState } from 'react';
-import { Button, Popover } from '@wordpress/components';
+import { Button, Popover } from '@finpress/components';
 
 const MyPopover = () => {
 	// Use internal state instead of a ref to make sure that the component
@@ -64,7 +64,7 @@ By default Popovers render at the end of the body of your document. If you want 
 
 ```jsx
 import { createRoot } from 'react-dom/client';
-import { Popover } from '@wordpress/components';
+import { Popover } from '@finpress/components';
 import Content from './Content';
 
 const app = document.getElementById( 'app' );

@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
 	__experimentalHeading as Heading,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { isRTL, __, sprintf } from '@wordpress/i18n';
-import { chevronRight, chevronLeft } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { useContext } from '@wordpress/element';
+} from '@finpress/components';
+import { isRTL, __, sprintf } from '@finpress/i18n';
+import { chevronRight, chevronLeft } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

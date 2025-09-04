@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { audio as icon } from '@wordpress/icons';
+import { audio as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

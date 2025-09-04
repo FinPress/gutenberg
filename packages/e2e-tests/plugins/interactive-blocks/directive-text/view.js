@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store, getContext, privateApis } from '@wordpress/interactivity';
+import { store, getContext, privateApis } from '@finpress/interactivity';
 
 const { h } = privateApis(
-	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WordPress.'
+	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of FinPress.'
 );
 
 const { state } = store( 'directive-context', {

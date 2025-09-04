@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 
-import { speak } from '@wordpress/a11y';
-import { __, sprintf } from '@wordpress/i18n';
+import { speak } from '@finpress/a11y';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

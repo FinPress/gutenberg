@@ -3,9 +3,9 @@
  */
 import { View, StyleSheet } from 'react-native';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useCallback } from '@wordpress/element';
+import { useState, useCallback } from '@finpress/element';
 
 /**
  * Hook which allows to listen the resize event of any target element when it changes sizes.

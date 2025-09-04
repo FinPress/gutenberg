@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { switchToBlockType } from '@wordpress/blocks';
+import { switchToBlockType } from '@finpress/blocks';
 
 function convertBlockToList( block ) {
 	const list = switchToBlockType( block, 'core/list' );

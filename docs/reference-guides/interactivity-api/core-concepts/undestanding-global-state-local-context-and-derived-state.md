@@ -98,7 +98,7 @@ You should use global state when:
     </div>
     ```
 
-    In JavaScript, the `store` function from the package at `@wordpress/interactivity` works both as a setter and a getter, returning the store of the selected namespace.
+    In JavaScript, the `store` function from the package at `@finpress/interactivity` works both as a setter and a getter, returning the store of the selected namespace.
 
     To access the global state in your actions and callbacks, you can use the `state` property of the object returned by the `store` function:
 
@@ -737,7 +737,7 @@ By using derived state, you create a more maintainable and less error-prone code
 
 ## Subscribing to Server State and Context
 
-Interactivity API offers a region-based navigation feature that dynamically replaces a part of the page without a full page reload. The [Query block](/docs/reference-guides/core-blocks.md#query-loop) natively supports this feature when the `Force page reload` toggle is disabled. Developers can use the same functionality in custom blocks by calling [`actions.navigate()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from the [`@wordpress/interactivity-router`](https://github.com/WordPress/gutenberg/tree/trunk/packages/interactivity-router) script module.
+Interactivity API offers a region-based navigation feature that dynamically replaces a part of the page without a full page reload. The [Query block](/docs/reference-guides/core-blocks.md#query-loop) natively supports this feature when the `Force page reload` toggle is disabled. Developers can use the same functionality in custom blocks by calling [`actions.navigate()`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from the [`@finpress/interactivity-router`](https://github.com/FinPress/gutenberg/tree/trunk/packages/interactivity-router) script module.
 
 When using region-based navigation, it's crucial to ensure that your interactive blocks stay in sync with the server-provided global state and local context. By default, the Interactivity API will never overwrite the global state or local context with the server-provided values. The Interactivity API provides two functions to help manage this synchronization: [`getServerState()`](/docs/reference-guides/interactivity-api/api-reference.md#getserverstate) and [`getServerContext()`](/docs/reference-guides/interactivity-api/api-reference.md#getservercontext).
 
@@ -757,7 +757,7 @@ Let's consider a quiz that has multiple questions. Each question is a separate p
 ```
 
 ```javascript
-import { store, getServerState } from '@wordpress/interactivity';
+import { store, getServerState } from '@finpress/interactivity';
 
 store( 'myPlugin', {
 	actions: {
@@ -766,7 +766,7 @@ store( 'myPlugin', {
 		*nextQuestion() {
 			event.preventDefault( event );
 			const { actions } = yield import(
-				'@wordpress/interactivity-router'
+				'@finpress/interactivity-router'
 			);
 			actions.navigate( '/question-2' );
 		},
@@ -800,7 +800,7 @@ Consider a quiz that has multiple questions. Each question is a separate page. W
 ```
 
 ```javascript
-import { store, getServerContext } from '@wordpress/interactivity';
+import { store, getServerContext } from '@finpress/interactivity';
 
 store( 'myPlugin', {
 	actions: {
@@ -809,7 +809,7 @@ store( 'myPlugin', {
 		*nextQuestion() {
 			event.preventDefault( event );
 			const { actions } = yield import(
-				'@wordpress/interactivity-router'
+				'@finpress/interactivity-router'
 			);
 			actions.navigate( '/question-2' );
 		},

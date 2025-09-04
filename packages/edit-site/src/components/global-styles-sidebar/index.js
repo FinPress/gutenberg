@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { FlexItem, Flex, Button } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { styles, seen, backup } from '@wordpress/icons';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useRef } from '@wordpress/element';
-import { store as preferencesStore } from '@wordpress/preferences';
+import { FlexItem, Flex, Button } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { styles, seen, backup } from '@finpress/icons';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useEffect, useRef } from '@finpress/element';
+import { store as preferencesStore } from '@finpress/preferences';
 import {
 	store as editorStore,
 	privateApis as editorPrivateApis,
-} from '@wordpress/editor';
-import { useViewportMatch } from '@wordpress/compose';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+} from '@finpress/editor';
+import { useViewportMatch } from '@finpress/compose';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ import { GlobalStylesUI } from '../global-styles';
 import { store as editSiteStore } from '../../store';
 import { GlobalStylesMenuSlot } from '../global-styles/ui';
 import { unlock } from '../../lock-unlock';
-import { store as coreStore } from '@wordpress/core-data';
+import { store as coreStore } from '@finpress/core-data';
 import DefaultSidebar from './default-sidebar';
 
 const { interfaceStore } = unlock( editorPrivateApis );

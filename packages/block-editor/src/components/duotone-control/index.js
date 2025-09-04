@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	ColorIndicator,
@@ -8,11 +8,11 @@ import {
 	DuotoneSwatch,
 	MenuGroup,
 	ToolbarButton,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { DOWN } from '@wordpress/keycodes';
-import { Icon, filter } from '@wordpress/icons';
-import { useInstanceId } from '@wordpress/compose';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { DOWN } from '@finpress/keycodes';
+import { Icon, filter } from '@finpress/icons';
+import { useInstanceId } from '@finpress/compose';
 
 function DuotoneControl( {
 	id: idProp,

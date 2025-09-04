@@ -12,10 +12,10 @@ import {
 import { BlurView } from '@react-native-community/blur';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef, useCallback, Platform } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { useEffect, useRef, useCallback, Platform } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies

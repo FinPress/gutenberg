@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
+import { __, _x } from '@finpress/i18n';
 import {
 	Modal,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { useContext } from '@wordpress/element';
+} from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

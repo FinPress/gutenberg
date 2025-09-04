@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Icon,
@@ -9,23 +9,23 @@ import {
 	Modal,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
-import type { TemplatePartArea } from '@wordpress/core-data';
-import { store as coreStore } from '@wordpress/core-data';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
+import type { TemplatePartArea } from '@finpress/core-data';
+import { store as coreStore } from '@finpress/core-data';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 import {
 	check,
 	footer as footerIcon,
 	header as headerIcon,
 	sidebar as sidebarIcon,
 	symbolFilled as symbolFilledIcon,
-} from '@wordpress/icons';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/icons';
+import { store as noticesStore } from '@finpress/notices';
 // @ts-expect-error serialize is not typed
-import { serialize } from '@wordpress/blocks';
+import { serialize } from '@finpress/blocks';
 
 /**
  * Internal dependencies

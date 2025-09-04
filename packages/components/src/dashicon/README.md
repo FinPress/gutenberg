@@ -3,13 +3,13 @@
 ## Usage
 
 ```jsx
-import { Dashicon } from '@wordpress/components';
+import { Dashicon } from '@finpress/components';
 
 const MyDashicon = () => (
 	<div>
 		<Dashicon icon="admin-home" />
 		<Dashicon icon="products" />
-		<Dashicon icon="wordpress" />
+		<Dashicon icon="finpress" />
 	</div>
 );
 ```

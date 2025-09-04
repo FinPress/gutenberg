@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { PanelBody } from '@wordpress/components';
+import { PanelBody } from '@finpress/components';
 
 /**
  * Internal dependencies

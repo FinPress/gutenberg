@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { memo, RawHTML, useContext, useMemo } from '@wordpress/element';
+import { memo, RawHTML, useContext, useMemo } from '@finpress/element';
 import {
 	getBlockType,
 	getSaveContent,
@@ -20,11 +20,11 @@ import {
 	hasBlockSupport,
 	createBlock,
 	store as blocksStore,
-} from '@wordpress/blocks';
-import { withFilters } from '@wordpress/components';
-import { withDispatch, useSelect } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
-import { safeHTML } from '@wordpress/dom';
+} from '@finpress/blocks';
+import { withFilters } from '@finpress/components';
+import { withDispatch, useSelect } from '@finpress/data';
+import { compose } from '@finpress/compose';
+import { safeHTML } from '@finpress/dom';
 
 /**
  * Internal dependencies
@@ -760,7 +760,7 @@ function BlockListBlockProvider( props ) {
 
 	// Block is sometimes not mounted at the right time, causing it be
 	// undefined see issue for more info
-	// https://github.com/WordPress/gutenberg/issues/17013
+	// https://github.com/FinPress/gutenberg/issues/17013
 	if ( ! selectedProps ) {
 		return null;
 	}

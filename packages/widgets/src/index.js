@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType } from '@finpress/blocks';
 
 /**
  * Internal dependencies
@@ -19,7 +19,7 @@ export * from './utils';
  * be loaded into the page.
  *
  * @param {Object} supports Block support settings.
- * @see https://developer.wordpress.org/block-editor/how-to-guides/widgets/legacy-widget-block/
+ * @see https://developer.finpress.org/block-editor/how-to-guides/widgets/legacy-widget-block/
  */
 export function registerLegacyWidgetBlock( supports = {} ) {
 	const { metadata, settings, name } = legacyWidget;

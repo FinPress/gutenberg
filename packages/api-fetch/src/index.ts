@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -33,7 +33,7 @@ const DEFAULT_HEADERS: APIFetchOptions[ 'headers' ] = {
 	// The backend uses the Accept header as a condition for considering an
 	// incoming request as a REST request.
 	//
-	// See: https://core.trac.wordpress.org/ticket/44534
+	// See: https://core.trac.finpress.org/ticket/44534
 	Accept: 'application/json, */*;q=0.1',
 };
 

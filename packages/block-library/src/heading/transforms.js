@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock, getBlockAttributes } from '@wordpress/blocks';
+import { createBlock, getBlockAttributes } from '@finpress/blocks';
 
 /**
  * Internal dependencies

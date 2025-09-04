@@ -9,9 +9,9 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { ToolbarGroup } from '..';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { wordpress } from '@wordpress/icons';
+import { finpress } from '@finpress/icons';
 
 describe( 'ToolbarGroup', () => {
 	describe( 'basic rendering', () => {
@@ -32,8 +32,8 @@ describe( 'ToolbarGroup', () => {
 
 			const controls = [
 				{
-					icon: wordpress,
-					title: 'WordPress',
+					icon: finpress,
+					title: 'FinPress',
 					onClick: clickHandler,
 					isActive: false,
 				},
@@ -41,7 +41,7 @@ describe( 'ToolbarGroup', () => {
 
 			render( <ToolbarGroup controls={ controls } /> );
 
-			const toolbarButton = screen.getByLabelText( 'WordPress' );
+			const toolbarButton = screen.getByLabelText( 'FinPress' );
 			expect( toolbarButton ).toHaveAttribute( 'aria-pressed', 'false' );
 			expect( toolbarButton ).toHaveAttribute( 'type', 'button' );
 		} );
@@ -50,8 +50,8 @@ describe( 'ToolbarGroup', () => {
 			const clickHandler = ( event?: React.MouseEvent ) => event;
 			const controls = [
 				{
-					icon: wordpress,
-					title: 'WordPress',
+					icon: finpress,
+					title: 'FinPress',
 					onClick: clickHandler,
 					isActive: true,
 				},
@@ -59,7 +59,7 @@ describe( 'ToolbarGroup', () => {
 
 			render( <ToolbarGroup controls={ controls } /> );
 
-			const toolbarButton = screen.getByLabelText( 'WordPress' );
+			const toolbarButton = screen.getByLabelText( 'FinPress' );
 			expect( toolbarButton ).toHaveAttribute( 'aria-pressed', 'true' );
 			expect( toolbarButton ).toHaveAttribute( 'type', 'button' );
 		} );
@@ -69,15 +69,15 @@ describe( 'ToolbarGroup', () => {
 				[
 					// First set.
 					{
-						icon: wordpress,
-						title: 'WordPress',
+						icon: finpress,
+						title: 'FinPress',
 					},
 				],
 				[
 					// Second set.
 					{
-						icon: wordpress,
-						title: 'WordPress',
+						icon: finpress,
+						title: 'FinPress',
 					},
 				],
 			];
@@ -101,15 +101,15 @@ describe( 'ToolbarGroup', () => {
 			const clickHandler = jest.fn();
 			const controls = [
 				{
-					icon: wordpress,
-					title: 'WordPress',
+					icon: finpress,
+					title: 'FinPress',
 					onClick: clickHandler,
 					isActive: true,
 				},
 			];
 			render( <ToolbarGroup controls={ controls } /> );
 
-			fireEvent.click( screen.getByLabelText( 'WordPress' ) );
+			fireEvent.click( screen.getByLabelText( 'FinPress' ) );
 			expect( clickHandler ).toHaveBeenCalledTimes( 1 );
 		} );
 	} );

@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import type { ComponentProps, ReactElement } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
@@ -15,11 +15,11 @@ import {
 	FlexItem,
 	Tooltip,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { useInstanceId } from '@wordpress/compose';
-import { isAppleOS } from '@wordpress/keycodes';
-import { useContext } from '@wordpress/element';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useInstanceId } from '@finpress/compose';
+import { isAppleOS } from '@finpress/keycodes';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

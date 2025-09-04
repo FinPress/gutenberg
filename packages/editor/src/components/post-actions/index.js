@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRegistry, useSelect } from '@wordpress/data';
-import { useState, useMemo } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { useRegistry, useSelect } from '@finpress/data';
+import { useState, useMemo } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 import {
 	privateApis as componentsPrivateApis,
 	Button,
 	Modal,
-} from '@wordpress/components';
-import { moreVertical } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/components';
+import { moreVertical } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

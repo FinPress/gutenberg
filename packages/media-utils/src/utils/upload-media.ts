@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { createBlobURL, revokeBlobURL } from '@wordpress/blob';
+import { __, sprintf } from '@finpress/i18n';
+import { createBlobURL, revokeBlobURL } from '@finpress/blob';
 
 /**
  * Internal dependencies
@@ -143,7 +143,7 @@ export function uploadMedia( {
 			// Reset to empty on failure.
 			setAndUpdateFiles( index, null );
 
-			// @wordpress/api-fetch throws any response that isn't in the 200 range as-is.
+			// @finpress/api-fetch throws any response that isn't in the 200 range as-is.
 			let message: string;
 			if (
 				typeof error === 'object' &&

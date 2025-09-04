@@ -36,7 +36,7 @@
  * parser generator to generate the actual _parser_ which
  * is used by Gutenberg. We generate two parsers: one in
  * JavaScript for use the browser and one in PHP for
- * WordPress itself. PEG parser generators are available
+ * FinPress itself. PEG parser generators are available
  * in many languages, though different libraries may require
  * some translation of this grammar into their syntax.
  *

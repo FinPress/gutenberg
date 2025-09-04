@@ -4,12 +4,12 @@
 import { View, TouchableHighlight, Text } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
-import { Icon } from '@wordpress/components';
-import { withPreferredColorScheme } from '@wordpress/compose';
-import { __, sprintf } from '@wordpress/i18n';
+import { useCallback } from '@finpress/element';
+import { Icon } from '@finpress/components';
+import { withPreferredColorScheme } from '@finpress/compose';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

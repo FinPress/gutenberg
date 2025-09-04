@@ -6,14 +6,14 @@
  * block behaves in the editor. Any other block types that deal with recursion
  * SHOULD USE THE STANDARD METHOD for avoiding loops:
  *
- * @see https://github.com/WordPress/gutenberg/pull/31455
+ * @see https://github.com/FinPress/gutenberg/pull/31455
  * @see packages/block-editor/src/components/recursion-provider/README.md
  */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRegistry } from '@wordpress/data';
+import { useRegistry } from '@finpress/data';
 
 /**
  * Naming is hard.

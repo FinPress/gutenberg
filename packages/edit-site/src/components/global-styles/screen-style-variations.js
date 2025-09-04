@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	privateApis as blockEditorPrivateApis,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { Card, CardBody } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { Card, CardBody } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

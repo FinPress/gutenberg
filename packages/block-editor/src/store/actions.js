@@ -1,6 +1,6 @@
 /* eslint no-console: [ 'error', { allow: [ 'error', 'warn' ] } ] */
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	cloneBlock,
@@ -15,13 +15,13 @@ import {
 	getBlockSupport,
 	isUnmodifiedDefaultBlock,
 	isUnmodifiedBlock,
-} from '@wordpress/blocks';
-import { speak } from '@wordpress/a11y';
-import { __, _n, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { create, insert, remove, toHTMLString } from '@wordpress/rich-text';
-import deprecated from '@wordpress/deprecated';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/blocks';
+import { speak } from '@finpress/a11y';
+import { __, _n, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { create, insert, remove, toHTMLString } from '@finpress/rich-text';
+import deprecated from '@finpress/deprecated';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies
@@ -1946,13 +1946,13 @@ export function __unstableSetTemporarilyEditingAsBlocks(
 /**
  * Interface for inserter media responses. Any media resource should
  * map their response to this interface, in order to create the core
- * WordPress media blocks (image, video, audio).
+ * FinPress media blocks (image, video, audio).
  *
  * @typedef {Object} InserterMediaItem
  * @property {string}        title        The title of the media item.
  * @property {string}        url          The source url of the media item.
  * @property {string}        [previewUrl] The preview source url of the media item to display in the media list.
- * @property {number}        [id]         The WordPress id of the media item.
+ * @property {number}        [id]         The FinPress id of the media item.
  * @property {number|string} [sourceId]   The id of the media item from external source.
  * @property {string}        [alt]        The alt text of the media item.
  * @property {string}        [caption]    The caption of the media item.
@@ -1977,14 +1977,14 @@ export function __unstableSetTemporarilyEditingAsBlocks(
  *
  * - _InserterMediaItem_ `Object`: Interface for inserter media responses. Any media resource should
  * map their response to this interface, in order to create the core
- * WordPress media blocks (image, video, audio).
+ * FinPress media blocks (image, video, audio).
  *
  * _Properties_
  *
  * - _title_ `string`: The title of the media item.
  * - _url_ `string: The source url of the media item.
  * - _previewUrl_ `[string]`: The preview source url of the media item to display in the media list.
- * - _id_ `[number]`: The WordPress id of the media item.
+ * - _id_ `[number]`: The FinPress id of the media item.
  * - _sourceId_ `[number|string]`: The id of the media item from external source.
  * - _alt_ `[string]`: The alt text of the media item.
  * - _caption_ `[string]`: The caption of the media item.
@@ -2021,7 +2021,7 @@ export function __unstableSetTemporarilyEditingAsBlocks(
  * 	 	} );
  * 	 	const response = await window.fetch( url, {
  * 	 		headers: {
- * 	 			'User-Agent': 'WordPress/inserter-media-fetch',
+ * 	 			'User-Agent': 'FinPress/inserter-media-fetch',
  * 	 		},
  * 	 	} );
  * 	 	const jsonResponse = await response.json();
@@ -2032,7 +2032,7 @@ export function __unstableSetTemporarilyEditingAsBlocks(
  * 	 		// be mapped to `InserterMediaItem`'s `sourceId` prop. This can be useful if you provide
  * 	 		// a report URL getter.
  * 	 		// Additionally you should always clear the `id` value of your response results because
- * 	 		// it is used to identify WordPress media items.
+ * 	 		// it is used to identify FinPress media items.
  * 	 		sourceId: result.id,
  * 	 		id: undefined,
  * 	 		caption: result.caption,
@@ -2040,7 +2040,7 @@ export function __unstableSetTemporarilyEditingAsBlocks(
  * 	 	} ) );
  * 	 },
  * 	 getReportUrl: ( { sourceId } ) =>
- * 	 	`https://wordpress.org/openverse/image/${ sourceId }/report/`,
+ * 	 	`https://finpress.org/openverse/image/${ sourceId }/report/`,
  * 	 isExternalResource: true,
  * } );
  * ```

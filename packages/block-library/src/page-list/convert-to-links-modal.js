@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, Modal } from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+import { Button, Modal } from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
 
 export const convertDescription = __(
 	"This Navigation Menu displays your website's pages. Editing it will enable you to add, delete, or reorder pages. However, new pages will no longer be added automatically."

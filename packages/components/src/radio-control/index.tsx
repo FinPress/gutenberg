@@ -5,9 +5,9 @@ import clsx from 'clsx';
 import type { ChangeEvent } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
+import { useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -35,8 +35,8 @@ function generateHelpId( radioGroupId: string ) {
  * Render a user interface to select the user type using radio inputs.
  *
  * ```jsx
- * import { RadioControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { RadioControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyRadioControl = () => {
  *   const [ option, setOption ] = useState( 'a' );

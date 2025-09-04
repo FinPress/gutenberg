@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RichText } from '@wordpress/block-editor';
+import { RichText } from '@finpress/block-editor';
 
 export default [
 	{

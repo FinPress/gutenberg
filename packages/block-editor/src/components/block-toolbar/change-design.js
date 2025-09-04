@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	ToolbarButton,
 	ToolbarGroup,
 	Dropdown,
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { cloneBlock } from '@wordpress/blocks';
-import { useMemo } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { cloneBlock } from '@finpress/blocks';
+import { useMemo } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -38,7 +38,7 @@ export default function ChangeDesign( { clientId } ) {
 
 			// Calling `__experimentalGetAllowedPatterns` is expensive.
 			// Checking if the block can be changed prevents unnecessary selector calls.
-			// See: https://github.com/WordPress/gutenberg/pull/64736.
+			// See: https://github.com/FinPress/gutenberg/pull/64736.
 			const _patterns =
 				_categories.length > 0
 					? __experimentalGetAllowedPatterns( rootBlock )

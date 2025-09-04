@@ -6,7 +6,7 @@
  * @example
  * ```js
  * const protocol1 = getProtocol( 'tel:012345678' ); // 'tel:'
- * const protocol2 = getProtocol( 'https://wordpress.org' ); // 'https:'
+ * const protocol2 = getProtocol( 'https://finpress.org' ); // 'https:'
  * ```
  *
  * @return  The protocol part of the URL.

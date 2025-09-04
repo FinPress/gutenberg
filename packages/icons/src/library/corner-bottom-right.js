@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { SVG, Path, G } from '@wordpress/primitives';
+import { SVG, Path, G } from '@finpress/primitives';
 
 const cornerBottomRight = (
 	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { check } from '@wordpress/icons';
+import { check } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -16,8 +16,8 @@ const noop = () => {};
  *
  *
  * ```jsx
- * import { MenuGroup, MenuItemsChoice } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { MenuGroup, MenuItemsChoice } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyMenuItemsChoice = () => {
  * 	const [ mode, setMode ] = useState( 'visual' );

@@ -42,16 +42,16 @@ describe( 'isURL', () => {
 
 describe( 'isEmail', () => {
 	it.each( [
-		'simple@wordpress.org',
-		'very.common@wordpress.org',
-		'disposable.style.email.with+symbol@wordpress.org',
-		'other.email-with-hyphen@wordpress.org',
-		'fully-qualified-domain@wordpress.org',
-		'user.name+tag+sorting@wordpress.org',
-		'x@wordpress.org',
-		'wordpress-indeed@strange-wordpress.org',
-		'wordpress@s.wordpress',
-		'1234567890123456789012345678901234567890123456789012345678901234+x@wordpress.org',
+		'simple@finpress.org',
+		'very.common@finpress.org',
+		'disposable.style.email.with+symbol@finpress.org',
+		'other.email-with-hyphen@finpress.org',
+		'fully-qualified-domain@finpress.org',
+		'user.name+tag+sorting@finpress.org',
+		'x@finpress.org',
+		'finpress-indeed@strange-finpress.org',
+		'finpress@s.finpress',
+		'1234567890123456789012345678901234567890123456789012345678901234+x@finpress.org',
 	] )(
 		'returns true when given things that look like an email: %s',
 		( email ) => {
@@ -60,12 +60,12 @@ describe( 'isEmail', () => {
 	);
 
 	it.each( [
-		'Abc.wordpress.org',
-		'A@b@c@wordpress.org',
-		'a"b(c)d,e:f;g<h>i[jk]l@wordpress.org',
-		'just"not"right@wordpress.org',
-		'this is"notallowed@wordpress.org',
-		'this still"not\\allowed@wordpress.org',
+		'Abc.finpress.org',
+		'A@b@c@finpress.org',
+		'a"b(c)d,e:f;g<h>i[jk]l@finpress.org',
+		'just"not"right@finpress.org',
+		'this is"notallowed@finpress.org',
+		'this still"not\\allowed@finpress.org',
 	] )(
 		"returns false when given things that don't look like an email: %s",
 		( email ) => {
@@ -132,9 +132,9 @@ describe( 'getProtocol', () => {
 				'https://user:password@www.test-this.com:1020/test-path/file.extension#anchor?query=params&more'
 			)
 		).toBe( 'https:' );
-		expect( getProtocol( 'https://wordpress.org#test' ) ).toBe( 'https:' );
-		expect( getProtocol( 'https://wordpress.org/' ) ).toBe( 'https:' );
-		expect( getProtocol( 'https://wordpress.org?test' ) ).toBe( 'https:' );
+		expect( getProtocol( 'https://finpress.org#test' ) ).toBe( 'https:' );
+		expect( getProtocol( 'https://finpress.org/' ) ).toBe( 'https:' );
+		expect( getProtocol( 'https://finpress.org?test' ) ).toBe( 'https:' );
 		expect( getProtocol( 'https://localhost:8080' ) ).toBe( 'https:' );
 		expect( getProtocol( 'tel:1234' ) ).toBe( 'tel:' );
 		expect( getProtocol( 'blob:data' ) ).toBe( 'blob:' );
@@ -186,14 +186,14 @@ describe( 'getAuthority', () => {
 				'http://user:password@www.test-this.com:1020/test-path/file.extension#anchor?query=params&more'
 			)
 		).toBe( 'user:password@www.test-this.com:1020' );
-		expect( getAuthority( 'https://wordpress.org#test' ) ).toBe(
-			'wordpress.org'
+		expect( getAuthority( 'https://finpress.org#test' ) ).toBe(
+			'finpress.org'
 		);
-		expect( getAuthority( 'https://wordpress.org/' ) ).toBe(
-			'wordpress.org'
+		expect( getAuthority( 'https://finpress.org/' ) ).toBe(
+			'finpress.org'
 		);
-		expect( getAuthority( 'https://wordpress.org?test' ) ).toBe(
-			'wordpress.org'
+		expect( getAuthority( 'https://finpress.org?test' ) ).toBe(
+			'finpress.org'
 		);
 		expect( getAuthority( 'https://localhost:8080' ) ).toBe(
 			'localhost:8080'
@@ -216,7 +216,7 @@ describe( 'isValidAuthority', () => {
 		expect(
 			isValidAuthority( 'user:password@www.test-this.com:1020' )
 		).toBe( true );
-		expect( isValidAuthority( 'wordpress.org' ) ).toBe( true );
+		expect( isValidAuthority( 'finpress.org' ) ).toBe( true );
 		expect( isValidAuthority( 'localhost' ) ).toBe( true );
 		expect( isValidAuthority( 'localhost:8080' ) ).toBe( true );
 		expect( isValidAuthority( 'www.the-best-website.co.uk' ) ).toBe( true );
@@ -244,10 +244,10 @@ describe( 'getPath', () => {
 				'http://user:password@www.test-this.com:1020/test-path/file.extension#anchor?query=params&more'
 			)
 		).toBe( 'test-path/file.extension' );
-		expect( getPath( 'https://wordpress.org/test-path#anchor' ) ).toBe(
+		expect( getPath( 'https://finpress.org/test-path#anchor' ) ).toBe(
 			'test-path'
 		);
-		expect( getPath( 'https://wordpress.org/test-path?query' ) ).toBe(
+		expect( getPath( 'https://finpress.org/test-path?query' ) ).toBe(
 			'test-path'
 		);
 		expect(
@@ -255,20 +255,20 @@ describe( 'getPath', () => {
 				'https://www.google.com/search?source=hp&ei=tP7kW8-_FoK89QORoa2QBQ&q=test+url&oq=test+url&gs_l=psy-ab.3..0l10'
 			)
 		).toBe( 'search' );
-		expect( getPath( 'https://wordpress.org/this%20is%20a%20test' ) ).toBe(
+		expect( getPath( 'https://finpress.org/this%20is%20a%20test' ) ).toBe(
 			'this%20is%20a%20test'
 		);
 		expect(
-			getPath( 'https://wordpress.org/this%20is%20a%20test?query' )
+			getPath( 'https://finpress.org/this%20is%20a%20test?query' )
 		).toBe( 'this%20is%20a%20test' );
 	} );
 
 	it( 'returns undefined when the provided value does not contain a URL path', () => {
 		expect( getPath() ).toBeUndefined();
 		expect( getPath( '' ) ).toBeUndefined();
-		expect( getPath( 'https://wordpress.org#test' ) ).toBeUndefined();
-		expect( getPath( 'https://wordpress.org/' ) ).toBeUndefined();
-		expect( getPath( 'https://wordpress.org?test' ) ).toBeUndefined();
+		expect( getPath( 'https://finpress.org#test' ) ).toBeUndefined();
+		expect( getPath( 'https://finpress.org/' ) ).toBeUndefined();
+		expect( getPath( 'https://finpress.org?test' ) ).toBeUndefined();
 		expect( getPath( 'https://localhost:8080' ) ).toBeUndefined();
 		expect( getPath( 'https://' ) ).toBeUndefined();
 		expect( getPath( 'https:///test' ) ).toBeUndefined();
@@ -302,16 +302,16 @@ describe( 'isValidPath', () => {
 
 describe( 'getFilename', () => {
 	it.each( [
-		[ 'https://wordpress.org/image.jpg', 'image.jpg' ],
-		[ 'https://wordpress.org/image.jpg?query=test', 'image.jpg' ],
-		[ 'https://wordpress.org/image.jpg#anchor', 'image.jpg' ],
+		[ 'https://finpress.org/image.jpg', 'image.jpg' ],
+		[ 'https://finpress.org/image.jpg?query=test', 'image.jpg' ],
+		[ 'https://finpress.org/image.jpg#anchor', 'image.jpg' ],
 		[ 'http://localhost:8080/a/path/to/an/image.jpg', 'image.jpg' ],
 		[ '/path/to/an/image.jpg', 'image.jpg' ],
 		[ 'path/to/an/image.jpg', 'image.jpg' ],
 		[ '/image.jpg', 'image.jpg' ],
-		[ 'https://wordpress.org/file.pdf', 'file.pdf' ],
-		[ 'https://wordpress.org/image.webp?query=test', 'image.webp' ],
-		[ 'https://wordpress.org/video.mov#anchor', 'video.mov' ],
+		[ 'https://finpress.org/file.pdf', 'file.pdf' ],
+		[ 'https://finpress.org/image.webp?query=test', 'image.webp' ],
+		[ 'https://finpress.org/video.mov#anchor', 'video.mov' ],
 		[ 'http://localhost:8080/a/path/to/audio.mp3', 'audio.mp3' ],
 	] )( 'returns the filename part of the URL: %s', ( url, filename ) => {
 		expect( getFilename( url ) ).toBe( filename );
@@ -343,7 +343,7 @@ describe( 'getQueryString', () => {
 			)
 		).toBe( 'query=params&more' );
 		expect(
-			getQueryString( 'https://wordpress.org/test-path?query' )
+			getQueryString( 'https://finpress.org/test-path?query' )
 		).toBe( 'query' );
 		expect(
 			getQueryString(
@@ -353,11 +353,11 @@ describe( 'getQueryString', () => {
 			'source=hp&ei=tP7kW8-_FoK89QORoa2QBQ&q=test+url&oq=test+url&gs_l=psy-ab.3..0l10'
 		);
 		expect(
-			getQueryString( 'https://wordpress.org/this%20is%20a%20test?query' )
+			getQueryString( 'https://finpress.org/this%20is%20a%20test?query' )
 		).toBe( 'query' );
 		expect(
 			getQueryString(
-				'https://wordpress.org/test?query=something%20with%20spaces'
+				'https://finpress.org/test?query=something%20with%20spaces'
 			)
 		).toBe( 'query=something%20with%20spaces' );
 		expect(
@@ -389,15 +389,15 @@ describe( 'getQueryString', () => {
 			)
 		).toBeUndefined();
 		expect(
-			getQueryString( 'https://wordpress.org/test-path#anchor' )
+			getQueryString( 'https://finpress.org/test-path#anchor' )
 		).toBeUndefined();
 		expect(
-			getQueryString( 'https://wordpress.org/this%20is%20a%20test' )
+			getQueryString( 'https://finpress.org/this%20is%20a%20test' )
 		).toBeUndefined();
 		expect(
-			getQueryString( 'https://wordpress.org#test' )
+			getQueryString( 'https://finpress.org#test' )
 		).toBeUndefined();
-		expect( getQueryString( 'https://wordpress.org/' ) ).toBeUndefined();
+		expect( getQueryString( 'https://finpress.org/' ) ).toBeUndefined();
 		expect( getQueryString( 'https://localhost:8080' ) ).toBeUndefined();
 		expect( getQueryString( 'invalid' ) ).toBeUndefined();
 		expect(
@@ -546,20 +546,20 @@ describe( 'getFragment', () => {
 	it( 'returns undefined when the provided does not contain a url fragment', () => {
 		expect( getFragment( '' ) ).toBeUndefined();
 		expect(
-			getFragment( 'https://wordpress.org/test-path?query' )
+			getFragment( 'https://finpress.org/test-path?query' )
 		).toBeUndefined();
 		expect(
-			getFragment( 'https://wordpress.org/test-path' )
+			getFragment( 'https://finpress.org/test-path' )
 		).toBeUndefined();
 		expect(
-			getFragment( 'https://wordpress.org/this%20is%20a%20test' )
+			getFragment( 'https://finpress.org/this%20is%20a%20test' )
 		).toBeUndefined();
 		expect(
 			getFragment(
 				'https://www.google.com/search?source=hp&ei=tP7kW8-_FoK89QORoa2QBQ&q=test+url&oq=test+url&gs_l=psy-ab.3..0l10'
 			)
 		).toBeUndefined();
-		expect( getFragment( 'https://wordpress.org' ) ).toBeUndefined();
+		expect( getFragment( 'https://finpress.org' ) ).toBeUndefined();
 		expect( getFragment( 'https://localhost:8080' ) ).toBeUndefined();
 		expect( getFragment( 'https://' ) ).toBeUndefined();
 		expect( getFragment( 'https:///test' ) ).toBeUndefined();
@@ -909,154 +909,154 @@ describe( 'removeQueryArgs', () => {
 
 describe( 'prependHTTP', () => {
 	it( 'should prepend http to a domain', () => {
-		const url = 'wordpress.org';
+		const url = 'finpress.org';
 
 		expect( prependHTTP( url ) ).toBe( 'http://' + url );
 	} );
 
 	it( 'shouldn’t prepend http to an email', () => {
-		const url = 'foo@wordpress.org';
+		const url = 'foo@finpress.org';
 
 		expect( prependHTTP( url ) ).toBe( url );
 	} );
 
 	it( 'shouldn’t prepend http to an absolute URL', () => {
-		const url = '/wordpress';
+		const url = '/finpress';
 
 		expect( prependHTTP( url ) ).toBe( url );
 	} );
 
 	it( 'shouldn’t prepend http to a relative URL', () => {
-		const url = './wordpress';
+		const url = './finpress';
 
 		expect( prependHTTP( url ) ).toBe( url );
 	} );
 
 	it( 'shouldn’t prepend http to an anchor URL', () => {
-		const url = '#wordpress';
+		const url = '#finpress';
 
 		expect( prependHTTP( url ) ).toBe( url );
 	} );
 
 	it( 'shouldn’t prepend http to a URL that already has http', () => {
-		const url = 'http://wordpress.org';
+		const url = 'http://finpress.org';
 
 		expect( prependHTTP( url ) ).toBe( url );
 	} );
 
 	it( 'shouldn’t prepend http to a URL that already has https', () => {
-		const url = 'https://wordpress.org';
+		const url = 'https://finpress.org';
 
 		expect( prependHTTP( url ) ).toBe( url );
 	} );
 
 	it( 'shouldn’t prepend http to a URL that already has ftp', () => {
-		const url = 'ftp://wordpress.org';
+		const url = 'ftp://finpress.org';
 
 		expect( prependHTTP( url ) ).toBe( url );
 	} );
 
 	it( 'shouldn’t prepend http to a URL that already has mailto', () => {
-		const url = 'mailto:foo@wordpress.org';
+		const url = 'mailto:foo@finpress.org';
 
 		expect( prependHTTP( url ) ).toBe( url );
 	} );
 
 	it( 'should remove leading whitespace before prepending HTTP', () => {
-		const url = ' wordpress.org';
+		const url = ' finpress.org';
 
-		expect( prependHTTP( url ) ).toBe( 'http://wordpress.org' );
+		expect( prependHTTP( url ) ).toBe( 'http://finpress.org' );
 	} );
 
 	it( 'should not have trailing whitespaces', () => {
-		const url = 'wordpress.org ';
+		const url = 'finpress.org ';
 
-		expect( prependHTTP( url ) ).toBe( 'http://wordpress.org' );
+		expect( prependHTTP( url ) ).toBe( 'http://finpress.org' );
 	} );
 } );
 
 describe( 'prependHTTPS', () => {
 	it( 'should prepend https to a domain', () => {
-		const url = 'wordpress.org';
+		const url = 'finpress.org';
 
 		expect( prependHTTPS( url ) ).toBe( 'https://' + url );
 	} );
 
 	it( 'should not prepend https to an email', () => {
-		const url = 'foo@wordpress.org';
+		const url = 'foo@finpress.org';
 
 		expect( prependHTTPS( url ) ).toBe( url );
 	} );
 
 	it( 'should not prepend https to an absolute URL', () => {
-		const url = '/wordpress';
+		const url = '/finpress';
 
 		expect( prependHTTPS( url ) ).toBe( url );
 	} );
 
 	it( 'should not prepend https to a relative URL', () => {
-		const url = './wordpress';
+		const url = './finpress';
 
 		expect( prependHTTPS( url ) ).toBe( url );
 	} );
 
 	it( 'should not prepend https to an anchor URL', () => {
-		const url = '#wordpress';
+		const url = '#finpress';
 
 		expect( prependHTTPS( url ) ).toBe( url );
 	} );
 
 	it( 'should not prepend https to a URL that already has https', () => {
-		const url = 'https://wordpress.org';
+		const url = 'https://finpress.org';
 
 		expect( prependHTTPS( url ) ).toBe( url );
 	} );
 
 	it( 'should not prepend https to a URL that already has http', () => {
-		const url = 'http://wordpress.org';
+		const url = 'http://finpress.org';
 
 		expect( prependHTTPS( url ) ).toBe( url );
 	} );
 
 	it( 'should not prepend https to a URL that already has ftp', () => {
-		const url = 'ftp://wordpress.org';
+		const url = 'ftp://finpress.org';
 
 		expect( prependHTTPS( url ) ).toBe( url );
 	} );
 
 	it( 'should not prepend https to a URL that already has mailto', () => {
-		const url = 'mailto:foo@wordpress.org';
+		const url = 'mailto:foo@finpress.org';
 
 		expect( prependHTTPS( url ) ).toBe( url );
 	} );
 
 	it( 'should remove leading whitespace before prepending HTTPs', () => {
-		const url = ' wordpress.org';
+		const url = ' finpress.org';
 
-		expect( prependHTTPS( url ) ).toBe( 'https://wordpress.org' );
+		expect( prependHTTPS( url ) ).toBe( 'https://finpress.org' );
 	} );
 
 	it( 'should not have trailing whitespaces', () => {
-		const url = 'wordpress.org ';
+		const url = 'finpress.org ';
 
-		expect( prependHTTPS( url ) ).toBe( 'https://wordpress.org' );
+		expect( prependHTTPS( url ) ).toBe( 'https://finpress.org' );
 	} );
 } );
 
 it( 'should prepend https to a domain with an anchor', () => {
-	const url = 'wordpress.org#something';
+	const url = 'finpress.org#something';
 
 	expect( prependHTTPS( url ) ).toBe( 'https://' + url );
 } );
 
 it( 'should prepend https to a domain with path', () => {
-	const url = 'wordpress.org/some/thing';
+	const url = 'finpress.org/some/thing';
 
 	expect( prependHTTPS( url ) ).toBe( 'https://' + url );
 } );
 
 it( 'should prepend https to a domain with query arguments', () => {
-	const url = 'wordpress.org?foo=bar';
+	const url = 'finpress.org?foo=bar';
 
 	expect( prependHTTPS( url ) ).toBe( 'https://' + url );
 } );
@@ -1084,10 +1084,10 @@ describe( 'filterURLForDisplay', () => {
 		expect( url ).toBe( '' );
 	} );
 	it( 'should remove protocol', () => {
-		let url = filterURLForDisplay( 'http://wordpress.org' );
-		expect( url ).toBe( 'wordpress.org' );
-		url = filterURLForDisplay( 'https://wordpress.org' );
-		expect( url ).toBe( 'wordpress.org' );
+		let url = filterURLForDisplay( 'http://finpress.org' );
+		expect( url ).toBe( 'finpress.org' );
+		url = filterURLForDisplay( 'https://finpress.org' );
+		expect( url ).toBe( 'finpress.org' );
 		url = filterURLForDisplay( 'file:///folder/file.txt' );
 		expect( url ).toBe( '/folder/file.txt' );
 		url = filterURLForDisplay( 'tel:0123456789' );
@@ -1096,67 +1096,67 @@ describe( 'filterURLForDisplay', () => {
 		expect( url ).toBe( 'data' );
 	} );
 	it( 'should remove www subdomain', () => {
-		const url = filterURLForDisplay( 'http://www.wordpress.org' );
-		expect( url ).toBe( 'wordpress.org' );
+		const url = filterURLForDisplay( 'http://www.finpress.org' );
+		expect( url ).toBe( 'finpress.org' );
 	} );
 	it( 'should remove single trailing slash', () => {
-		const url = filterURLForDisplay( 'http://www.wordpress.org/' );
-		expect( url ).toBe( 'wordpress.org' );
+		const url = filterURLForDisplay( 'http://www.finpress.org/' );
+		expect( url ).toBe( 'finpress.org' );
 	} );
 	it( 'should preserve slashes where the url has multiple in the path', () => {
 		const url = filterURLForDisplay(
-			'http://www.wordpress.org/something/'
+			'http://www.finpress.org/something/'
 		);
-		expect( url ).toBe( 'wordpress.org/something/' );
+		expect( url ).toBe( 'finpress.org/something/' );
 	} );
 	it( 'should preserve slash where the url has path after the initial slash', () => {
-		const url = filterURLForDisplay( 'http://www.wordpress.org/something' );
-		expect( url ).toBe( 'wordpress.org/something' );
+		const url = filterURLForDisplay( 'http://www.finpress.org/something' );
+		expect( url ).toBe( 'finpress.org/something' );
 	} );
 	it( 'should preserve the original url if no argument max length', () => {
 		const url = filterURLForDisplay(
-			'http://www.wordpress.org/wp-content/uploads/myimage.jpg'
+			'http://www.finpress.org/wp-content/uploads/myimage.jpg'
 		);
-		expect( url ).toBe( 'wordpress.org/wp-content/uploads/myimage.jpg' );
+		expect( url ).toBe( 'finpress.org/wp-content/uploads/myimage.jpg' );
 	} );
 	it( 'should preserve the original url if the url is short enough', () => {
 		const url = filterURLForDisplay(
-			'http://www.wordpress.org/ig.jpg',
+			'http://www.finpress.org/ig.jpg',
 			20
 		);
-		expect( url ).toBe( 'wordpress.org/ig.jpg' );
+		expect( url ).toBe( 'finpress.org/ig.jpg' );
 	} );
 	it( 'should return ellipsis, upper level pieces url, and filename when the url is long enough but filename is short enough', () => {
 		const url = filterURLForDisplay(
-			'http://www.wordpress.org/wp-content/uploads/myimage.jpg',
+			'http://www.finpress.org/wp-content/uploads/myimage.jpg',
 			20
 		);
 		expect( url ).toBe( '…/uploads/myimage.jpg' );
 	} );
 	it( 'should return filename split by ellipsis plus three characters when filename is long enough', () => {
 		const url = filterURLForDisplay(
-			'http://www.wordpress.org/wp-content/uploads/superlongtitlewithextension.jpeg',
+			'http://www.finpress.org/wp-content/uploads/superlongtitlewithextension.jpeg',
 			20
 		);
 		expect( url ).toBe( 'superlongti…ion.jpeg' );
 	} );
 	it( 'should remove query arguments', () => {
 		const url = filterURLForDisplay(
-			'http://www.wordpress.org/wp-content/uploads/myimage.jpeg?query_args=a',
+			'http://www.finpress.org/wp-content/uploads/myimage.jpeg?query_args=a',
 			20
 		);
 		expect( url ).toBe( '…uploads/myimage.jpeg' );
 	} );
 	it( 'should preserve the original url when it is not a file', () => {
 		const url = filterURLForDisplay(
-			'http://www.wordpress.org/wp-content/url/',
+			'http://www.finpress.org/wp-content/url/',
 			20
 		);
-		expect( url ).toBe( 'wordpress.org/wp-content/url/' );
+		expect( url ).toBe( 'finpress.org/wp-content/url/' );
 	} );
 	it( 'should return file split by ellipsis when the file name has multiple periods', () => {
 		const url = filterURLForDisplay(
-			'http://www.wordpress.org/wp-content/uploads/filename.2020.12.20.png',
+			'http://www.finpress.org/wp-content/uploads/filename.2020.12.20.png',
 			20
 		);
 		expect( url ).toBe( 'filename.202….20.png' );

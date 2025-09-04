@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { ExternalLink } from '@wordpress/components';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { useDispatch } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { ExternalLink } from '@finpress/components';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -42,7 +42,7 @@ function ScreenCSS() {
 						<br />
 						<ExternalLink
 							href={ __(
-								'https://developer.wordpress.org/advanced-administration/wordpress/css/'
+								'https://developer.finpress.org/advanced-administration/finpress/css/'
 							) }
 							className="edit-site-global-styles-screen-css-help-link"
 						>

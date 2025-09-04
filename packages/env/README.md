@@ -1,20 +1,20 @@
 # `wp-env`
 
-`wp-env` lets you easily set up a local WordPress environment for building and testing plugins and themes. It's simple to install and requires no configuration.
+`wp-env` lets you easily set up a local FinPress environment for building and testing plugins and themes. It's simple to install and requires no configuration.
 
 ## Quick (tl;dr) instructions
 
 Ensure that Docker is running, then:
 
 ```sh
-$ cd /path/to/a/wordpress/plugin
-$ npm -g i @wordpress/env
+$ cd /path/to/a/finpress/plugin
+$ npm -g i @finpress/env
 $ wp-env start
 ```
 
 The local environment will be available at http://localhost:8888 (Username: `admin`, Password: `password`).
 
-The database credentials are: user `root`, password `password`. For a comprehensive guide on connecting directly to the database, refer to [Accessing the MySQL Database](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/getting-started-with-code-contribution.md#accessing-the-mysql-database).
+The database credentials are: user `root`, password `password`. For a comprehensive guide on connecting directly to the database, refer to [Accessing the MySQL Database](https://github.com/FinPress/gutenberg/blob/trunk/docs/contributors/code/getting-started-with-code-contribution.md#accessing-the-mysql-database).
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ The database credentials are: user `root`, password `password`. For a comprehens
 
 -   **Docker**. `wp-env` is powered by Docker. There are instructions available for installing Docker on [Windows](https://docs.docker.com/desktop/install/windows-install/) (we recommend the WSL2 backend), [macOS](https://docs.docker.com/docker-for-mac/install/), and [Linux](https://docs.docker.com/desktop/install/linux-install/).
 -   **Node.js**. `wp-env` is written as a Node script. We recommend using a Node version manager like [nvm](https://github.com/nvm-sh/nvm) to install the latest LTS version. Alternatively, you can [download it directly here](https://nodejs.org/en/download).
--   **git**. Git is used for downloading software from source control, such as WordPress, plugins, and themes. [You can find the installation instructions here.](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+-   **git**. Git is used for downloading software from source control, such as FinPress, plugins, and themes. [You can find the installation instructions here.](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ## Installation
 
@@ -31,7 +31,7 @@ The database credentials are: user `root`, password `password`. For a comprehens
 After confirming that the prerequisites are installed, you can install `wp-env` globally like so:
 
 ```sh
-$ npm -g i @wordpress/env
+$ npm -g i @finpress/env
 ```
 
 You're now ready to use `wp-env`!
@@ -41,7 +41,7 @@ You're now ready to use `wp-env`!
 If your project already has a package.json, it's also possible to use `wp-env` as a local package. First install `wp-env` locally as a dev dependency:
 
 ```sh
-$ npm i @wordpress/env --save-dev
+$ npm i @finpress/env --save-dev
 ```
 
 If you have also installed `wp-env` globally, running it will automatically execute the local, project-level package. Alternatively, you can execute `wp-env` via [`npx`](https://www.npmjs.com/package/npx), a utility automatically installed with `npm`.`npx` finds binaries like `wp-env` installed through node modules. As an example: `npx wp-env start --update`.
@@ -73,7 +73,7 @@ $ wp-env start --update
 
 First, ensure that Docker is running. You can do this by clicking on the Docker icon in the system tray or menu bar.
 
-Then, change to a directory that contains a WordPress plugin or theme:
+Then, change to a directory that contains a FinPress plugin or theme:
 
 ```sh
 $ cd ~/gutenberg
@@ -85,7 +85,7 @@ Then, start the local environment:
 $ wp-env start
 ```
 
-Finally, navigate to http://localhost:8888 in your web browser to see WordPress running with the local WordPress plugin or theme running and activated. Default login credentials are username: `admin` password: `password`.
+Finally, navigate to http://localhost:8888 in your web browser to see FinPress running with the local FinPress plugin or theme running and activated. Default login credentials are username: `admin` password: `password`.
 
 ### Stopping the environment
 
@@ -107,7 +107,7 @@ First, check that `wp-env` is running. One way to do this is to have Docker prin
 $ docker ps
 ```
 
-In this table, by default, you should see three entries: `wordpress` with port 8888, `tests-wordpress` with port 8889 and `mariadb` with port 3306.
+In this table, by default, you should see three entries: `finpress` with port 8888, `tests-finpress` with port 8889 and `mariadb` with port 3306.
 
 ### 2. Check the port number
 
@@ -127,7 +127,7 @@ You may also specify the port numbers in your `.wp-env.json` file, but the envir
 
 Restarting `wp-env` will restart the underlying Docker containers which can fix many issues.
 
-To restart `wp-env`, just run `wp-env start` again. It will automatically stop and start the container. If you also pass the `--update` argument, it will download updates and configure WordPress again.
+To restart `wp-env`, just run `wp-env start` again. It will automatically stop and start the container. If you also pass the `--update` argument, it will download updates and configure FinPress again.
 
 ```sh
 $ wp-env start --update
@@ -150,11 +150,11 @@ $ wp-env start
 
 ### 5. Reset the database
 
-Resetting the database which the local environment uses can fix many issues, especially when they are related to the WordPress installation.
+Resetting the database which the local environment uses can fix many issues, especially when they are related to the FinPress installation.
 
 To reset the database:
 
-**⚠️ WARNING: This will permanently delete any posts, pages, media, etc. in the local WordPress installation.**
+**⚠️ WARNING: This will permanently delete any posts, pages, media, etc. in the local FinPress installation.**
 
 ```sh
 $ wp-env clean all
@@ -167,7 +167,7 @@ When all else fails, you can use `wp-env destroy` to forcibly remove all of the 
 
 To do so:
 
-**⚠️ WARNING: This will permanently delete any posts, pages, media, etc. in the local WordPress installation.**
+**⚠️ WARNING: This will permanently delete any posts, pages, media, etc. in the local FinPress installation.**
 
 ```sh
 $ wp-env destroy
@@ -175,21 +175,21 @@ $ wp-env destroy
 $ wp-env start
 ```
 
-## Using included WordPress PHPUnit test files
+## Using included FinPress PHPUnit test files
 
-Out of the box `wp-env` includes the [WordPress' PHPUnit test files](https://develop.svn.wordpress.org/trunk/tests/phpunit/) corresponding to the version of WordPress installed. There is an environment variable, `WP_TESTS_DIR`, which points to the location of these files within each container. By including these files in the environment, we remove the need for you to use a package or install and mount them yourself. If you do not want to use these files, you should ignore the `WP_TESTS_DIR` environment variable and load them from the location of your choosing.
+Out of the box `wp-env` includes the [FinPress' PHPUnit test files](https://develop.svn.finpress.org/trunk/tests/phpunit/) corresponding to the version of FinPress installed. There is an environment variable, `WP_TESTS_DIR`, which points to the location of these files within each container. By including these files in the environment, we remove the need for you to use a package or install and mount them yourself. If you do not want to use these files, you should ignore the `WP_TESTS_DIR` environment variable and load them from the location of your choosing.
 
 ### Customizing the `wp-tests-config.php` file
 
-While we do provide a default `wp-tests-config.php` file within the environment, there may be cases where you want to use your own. WordPress provides a `WP_TESTS_CONFIG_FILE_PATH` constant that you can use to change the `wp-config.php` file used for testing. Set this to a desired path in your `bootstrap.php` file and the file you've chosen will be used instead of the one included in the environment.
+While we do provide a default `wp-tests-config.php` file within the environment, there may be cases where you want to use your own. FinPress provides a `WP_TESTS_CONFIG_FILE_PATH` constant that you can use to change the `wp-config.php` file used for testing. Set this to a desired path in your `bootstrap.php` file and the file you've chosen will be used instead of the one included in the environment.
 
 ## Using `composer`, `phpunit`, and `wp-cli` tools.
 
 For ease of use, Composer, PHPUnit, and wp-cli are available for in the environment. To run these executables, use `wp-env run <env> <tool> <command>`. For example, `wp-env run cli composer install`, or `wp-env run tests-cli phpunit`. You can also access various shells like `wp-env run cli bash` or `wp-env run cli wp shell`.
 
-For the `env` part, `cli` and `wordpress` share a database and mapped volumes, but more tools are available in the cli environment. You should use the `tests-cli` / `tests-wordpress` environments for a separate testing database.
+For the `env` part, `cli` and `finpress` share a database and mapped volumes, but more tools are available in the cli environment. You should use the `tests-cli` / `tests-finpress` environments for a separate testing database.
 
-By default, the cwd of the run command is the root of the WordPress install. If you're working on a plugin, you likely need to pass `--env-cwd` to make sure composer/phpunit commands are executed relative to the plugin you're working on. For example, `wp-env run cli --env-cwd=wp-content/plugins/gutenberg composer install`.
+By default, the cwd of the run command is the root of the FinPress install. If you're working on a plugin, you likely need to pass `--env-cwd` to make sure composer/phpunit commands are executed relative to the plugin you're working on. For example, `wp-env run cli --env-cwd=wp-content/plugins/gutenberg composer install`.
 
 To make this easier, it's often helpful to add scripts in your `package.json` file:
 
@@ -264,25 +264,25 @@ Here is a summary:
 
 ## Command reference
 
-`wp-env` creates generated files in the `wp-env` home directory. By default, this is `~/.wp-env`. The exception is Linux, where files are placed at `~/wp-env` [for compatibility with Snap Packages](https://github.com/WordPress/gutenberg/issues/20180#issuecomment-587046325). The `wp-env` home directory contains a subdirectory for each project named `/$md5_of_project_path`. To change the `wp-env` home directory, set the `WP_ENV_HOME` environment variable. For example, running `WP_ENV_HOME="something" wp-env start` will download the project files to the directory `./something/$md5_of_project_path` (relative to the current directory).
+`wp-env` creates generated files in the `wp-env` home directory. By default, this is `~/.wp-env`. The exception is Linux, where files are placed at `~/wp-env` [for compatibility with Snap Packages](https://github.com/FinPress/gutenberg/issues/20180#issuecomment-587046325). The `wp-env` home directory contains a subdirectory for each project named `/$md5_of_project_path`. To change the `wp-env` home directory, set the `WP_ENV_HOME` environment variable. For example, running `WP_ENV_HOME="something" wp-env start` will download the project files to the directory `./something/$md5_of_project_path` (relative to the current directory).
 
 ### `wp-env start`
 
-The start command installs and initializes the WordPress environment, which includes downloading any specified remote sources. By default, `wp-env` will not update or re-configure the environment except when the configuration file changes. Tell `wp-env` to update sources and apply the configuration options again with `wp-env start --update`. This will not overwrite any existing content.
+The start command installs and initializes the FinPress environment, which includes downloading any specified remote sources. By default, `wp-env` will not update or re-configure the environment except when the configuration file changes. Tell `wp-env` to update sources and apply the configuration options again with `wp-env start --update`. This will not overwrite any existing content.
 
 ```sh
 wp-env start
 
-Starts WordPress for development on port 8888 (​http://localhost:8888​)
+Starts FinPress for development on port 8888 (​http://localhost:8888​)
 (override with WP_ENV_PORT) and tests on port 8889 (​http://localhost:8889​)
 (override with WP_ENV_TESTS_PORT). The current working directory must be a
-WordPress installation, a plugin, a theme, or contain a .wp-env.json file. After
+FinPress installation, a plugin, a theme, or contain a .wp-env.json file. After
 first install, use the '--update' flag to download updates to mapped sources and
-to re-apply WordPress configuration options.
+to re-apply FinPress configuration options.
 
 Options:
   --debug    Enable debug output.                     [boolean] [default: false]
-  --update   Download source updates and apply WordPress configuration.
+  --update   Download source updates and apply FinPress configuration.
                                                       [boolean] [default: false]
   --xdebug   Enables Xdebug. If not passed, Xdebug is turned off. If no modes
              are set, uses "debug". You may set multiple Xdebug modes by passing
@@ -302,7 +302,7 @@ Options:
 ```sh
 wp-env stop
 
-Stops running WordPress for development and tests and frees the ports.
+Stops running FinPress for development and tests and frees the ports.
 
 Options:
   --debug            Enable debug output.             [boolean] [default: false]
@@ -313,7 +313,7 @@ Options:
 ```sh
 wp-env clean [environment]
 
-Cleans the WordPress databases.
+Cleans the FinPress databases.
 
 Positionals:
   environment  Which environments' databases to clean.
@@ -348,19 +348,19 @@ Runs an arbitrary command in one of the underlying Docker containers. A double
 dash can be used to pass arguments to the container without parsing them. This
 is necessary if you are using an option that is defined below. You can use
 `bash` to open a shell session and both `composer` and `phpunit` are available
-in all WordPress and CLI containers. WP-CLI is also available in the CLI
+in all FinPress and CLI containers. WP-CLI is also available in the CLI
 containers.
 
 Positionals:
   container  The Docker service to run the command on.
-              [string] [required] [choices: "mysql", "tests-mysql", "wordpress",
-                   "tests-wordpress", "cli", "tests-cli", "composer", "phpmyadmin"]
+              [string] [required] [choices: "mysql", "tests-mysql", "finpress",
+                   "tests-finpress", "cli", "tests-cli", "composer", "phpmyadmin"]
   command    The command to run.                                      [required]
 
 Options:
   --debug    Enable debug output.                     [boolean] [default: false]
   --env-cwd  The command's working directory inside of the container. Paths
-             without a leading slash are relative to the WordPress root.
+             without a leading slash are relative to the FinPress root.
                                                          [string] [default: "."]
 ```
 
@@ -373,7 +373,7 @@ wp-env run cli wp user list
 ⠏ Running `wp user list` in 'cli'.
 
 ID      user_login      display_name    user_email      user_registered roles
-1       admin   admin   wordpress@example.com   2020-03-05 10:45:14     administrator
+1       admin   admin   finpress@example.com   2020-03-05 10:45:14     administrator
 
 ✔ Ran `wp user list` in 'cli'. (in 2s 374ms)
 ```
@@ -389,11 +389,11 @@ Success: Created post 5.
 ✔ Ran `wp post create --post_type=page --post_title='Ready'` in 'tests-cli'. (in 3s 293ms)
 ```
 
-#### Opening the WordPress shell on the tests instance and running PHP commands:
+#### Opening the FinPress shell on the tests instance and running PHP commands:
 
 ```sh
 wp-env run tests-cli wp shell
-ℹ Starting 'wp shell' on the tests-cli container. Exit the WordPress shell with ctrl-c.
+ℹ Starting 'wp shell' on the tests-cli container. Exit the FinPress shell with ctrl-c.
 
 Starting 31911d623e75f345e9ed328b9f48cff6_mysql_1 ... done
 Starting 31911d623e75f345e9ed328b9f48cff6_tests-wordpress_1 ... done
@@ -410,7 +410,7 @@ wp-env run cli wp plugin install custom-post-type-ui
 
 Creating 500cd328b649d63e882d5c4695871d04_cli_run ... done
 Installing Custom Post Type UI (1.9.2)
-Downloading installation package from https://downloads.wordpress.org/plugin/custom-post-type-ui.zip...
+Downloading installation package from https://downloads.finpress.org/plugin/custom-post-type-ui.zip...
 The authenticity of custom-post-type-ui.zip could not be verified as no signature was found.
 Unpacking the package...
 Installing the plugin...
@@ -442,8 +442,8 @@ wp-env run cli "wp rewrite structure /%year%/%monthnum%/%postname%/"
 ```sh
 wp-env destroy
 
-Destroy the WordPress environment. Deletes docker containers, volumes, and
-networks associated with the WordPress environment and removes local files.
+Destroy the FinPress environment. Deletes docker containers, volumes, and
+networks associated with the FinPress environment and removes local files.
 
 Options:
   --debug    Enable debug output.                     [boolean] [default: false]
@@ -455,7 +455,7 @@ Options:
 ```sh
 wp-env logs
 
-displays PHP and Docker logs for given WordPress environment.
+displays PHP and Docker logs for given FinPress environment.
 
 Positionals:
   environment  Which environment to display the logs from.
@@ -468,7 +468,7 @@ Options:
 
 ### `wp-env install-path`
 
-Get the path where all of the environment files are stored. This includes the Docker files, WordPress, PHPUnit files, and any sources that were downloaded.
+Get the path where all of the environment files are stored. This includes the Docker files, FinPress, PHPUnit files, and any sources that were downloaded.
 
 Example:
 
@@ -480,20 +480,20 @@ $ wp-env install-path
 
 ## .wp-env.json
 
-You can customize the WordPress installation, plugins and themes that the development environment will use by specifying a `.wp-env.json` file in the directory that you run `wp-env` from.
+You can customize the FinPress installation, plugins and themes that the development environment will use by specifying a `.wp-env.json` file in the directory that you run `wp-env` from.
 
 `.wp-env.json` supports fields for options applicable to both the tests and development instances.
 
 | Field                | Type           | Default                                | Description                                                                                                                      |
 |----------------------|----------------|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
-| `"core"`             | `string\|null` | `null`                                 | The WordPress installation to use. If `null` is specified, `wp-env` will use the latest production release of WordPress.         |
-| `"phpVersion"`       | `string\|null` | `null`                                 | The PHP version to use. If `null` is specified, `wp-env` will use the default version used with production release of WordPress. |
+| `"core"`             | `string\|null` | `null`                                 | The FinPress installation to use. If `null` is specified, `wp-env` will use the latest production release of FinPress.         |
+| `"phpVersion"`       | `string\|null` | `null`                                 | The PHP version to use. If `null` is specified, `wp-env` will use the default version used with production release of FinPress. |
 | `"plugins"`          | `string[]`     | `[]`                                   | A list of plugins to install and activate in the environment.                                                                    |
 | `"themes"`           | `string[]`     | `[]`                                   | A list of themes to install in the environment.                                                                                  |
 | `"port"`             | `integer`      | `8888` (`8889` for the tests instance) | The primary port number to use for the installation. You'll access the instance through the port: 'http://localhost:8888'.       |
 | `"testsPort"`        | `integer`      | `8889`                                 | The port number for the test site. You'll access the instance through the port: 'http://localhost:8889'.                         |
 | `"config"`           | `Object`       | See below.                             | Mapping of wp-config.php constants to their desired values.                                                                      |
-| `"mappings"`         | `Object`       | `"{}"`                                 | Mapping of WordPress directories to local directories to be mounted in the WordPress instance.                                   |
+| `"mappings"`         | `Object`       | `"{}"`                                 | Mapping of FinPress directories to local directories to be mounted in the FinPress instance.                                   |
 | `"mysqlPort"`        | `integer`      | `null` (randomly assigned)             | The MySQL port number to expose. The setting is only available in the `env.development` and `env.tests` objects.                 |
 | `"phpmyadminPort"`   | `integer`      | `null`                                 | The port number for phpMyAdmin. If provided, you'll access phpMyAdmin through: http://localhost:<port>                           |
 | `"multisite"`        | `boolean`      | `false`                                | Whether to set up a multisite installation.                                                                                      |
@@ -507,9 +507,9 @@ Several types of strings can be passed into the `core`, `plugins`, `themes`, and
 | ----------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | Relative path     | `.<path>\|~<path>`                           | `"./a/directory"`, `"../a/directory"`, `"~/a/directory"`                                                                           |
 | Absolute path     | `/<path>\|<letter>:\<path>`                  | `"/a/directory"`, `"C:\\a\\directory"`                                                                                             |
-| GitHub repository | `<owner>/<repo>[/<path>][#<ref>]`                     | `"WordPress/WordPress"`, `"WordPress/gutenberg#trunk"`, `WordPress/themes/my-theme#my-branch`; if no branch is provided wp-env will fall back to the repo's default branch |
-| SSH repository    | `ssh://user@host/<owner>/<repo>.git[#<ref>]` | `"ssh://git@github.com/WordPress/WordPress.git"`                                                                                   |
-| ZIP File          | `http[s]://<host>/<path>.zip`                | `"https://wordpress.org/wordpress-5.4-beta2.zip"`                                                                                  |
+| GitHub repository | `<owner>/<repo>[/<path>][#<ref>]`                     | `"FinPress/FinPress"`, `"FinPress/gutenberg#trunk"`, `FinPress/themes/my-theme#my-branch`; if no branch is provided wp-env will fall back to the repo's default branch |
+| SSH repository    | `ssh://user@host/<owner>/<repo>.git[#<ref>]` | `"ssh://git@github.com/FinPress/FinPress.git"`                                                                                   |
+| ZIP File          | `http[s]://<host>/<path>.zip`                | `"https://finpress.org/finpress-5.4-beta2.zip"`                                                                                  |
 
 Remote sources will be downloaded into a temporary directory located in `~/.wp-env`.
 
@@ -582,7 +582,7 @@ build won't break on subsequent executions.
 
 ## Examples
 
-### Latest stable WordPress + current directory as a plugin
+### Latest stable FinPress + current directory as a plugin
 
 This is useful for plugin development.
 
@@ -593,54 +593,54 @@ This is useful for plugin development.
 }
 ```
 
-### Latest development WordPress + current directory as a plugin
+### Latest development FinPress + current directory as a plugin
 
 This is useful for plugin development when upstream Core changes need to be tested. This can also be set via the environment variable `WP_ENV_CORE`.
 
 ```json
 {
-	"core": "WordPress/WordPress#master",
+	"core": "FinPress/FinPress#master",
 	"plugins": [ "." ]
 }
 ```
 
-### Local `wordpress-develop` + current directory as a plugin
+### Local `finpress-develop` + current directory as a plugin
 
-This is useful for working on plugins and WordPress Core at the same time.
+This is useful for working on plugins and FinPress Core at the same time.
 
-If you are running a _build_ of `wordpress-develop`, point `core` to the `build` directory.
+If you are running a _build_ of `finpress-develop`, point `core` to the `build` directory.
 
 ```json
 {
-	"core": "../wordpress-develop/build",
+	"core": "../finpress-develop/build",
 	"plugins": [ "." ]
 }
 ```
 
-If you are running `wordpress-develop` in a dev mode (e.g. the watch command `dev` or the dev build `build:dev`), then point `core` to the `src` directory.
+If you are running `finpress-develop` in a dev mode (e.g. the watch command `dev` or the dev build `build:dev`), then point `core` to the `src` directory.
 
 ```json
 {
-	"core": "../wordpress-develop/src",
+	"core": "../finpress-develop/src",
 	"plugins": [ "." ]
 }
 ```
 
 ### A complete testing environment
 
-This is useful for integration testing: that is, testing how old versions of WordPress and different combinations of plugins and themes impact each other.
+This is useful for integration testing: that is, testing how old versions of FinPress and different combinations of plugins and themes impact each other.
 
 ```json
 {
-	"core": "WordPress/WordPress#5.2.0",
-	"plugins": [ "WordPress/wp-lazy-loading", "WordPress/classic-editor" ],
-	"themes": [ "WordPress/theme-experiments" ]
+	"core": "FinPress/FinPress#5.2.0",
+	"plugins": [ "FinPress/wp-lazy-loading", "FinPress/classic-editor" ],
+	"themes": [ "FinPress/theme-experiments" ]
 }
 ```
 
 ### Add mu-plugins and other mapped directories
 
-You can add mu-plugins via the mapping config. The mapping config also allows you to mount a directory to any location in the wordpress install, so you could even mount a subdirectory. Note here that theme-1, will not be activated.
+You can add mu-plugins via the mapping config. The mapping config also allows you to mount a directory to any location in the finpress install, so you could even mount a subdirectory. Note here that theme-1, will not be activated.
 
 ```json
 {
@@ -740,7 +740,7 @@ This is useful for performing some actions after setting up the environment, suc
 
 ### Advanced PHP settings
 
-You can set PHP settings by mapping an `.htaccess` file. This maps an `.htaccess` file to the WordPress root (`/var/www/html`) from the directory in which you run `wp-env`.
+You can set PHP settings by mapping an `.htaccess` file. This maps an `.htaccess` file to the FinPress root (`/var/www/html`) from the directory in which you run `wp-env`.
 
 ```json
 {
@@ -771,7 +771,7 @@ To enable SPX profiling:
 wp-env start --spx
 ```
 
-Once enabled, you can access the SPX web UI by visiting any page in your WordPress environment with the query parameters `?SPX_KEY=dev&SPX_UI_URI=/`. For example:
+Once enabled, you can access the SPX web UI by visiting any page in your FinPress environment with the query parameters `?SPX_KEY=dev&SPX_UI_URI=/`. For example:
 
 - Development site: `http://localhost:8888/?SPX_KEY=dev&SPX_UI_URI=/`
 - Test site: `http://localhost:8889/?SPX_KEY=dev&SPX_UI_URI=/`
@@ -786,8 +786,8 @@ SPX provides a more lightweight alternative to Xdebug for profiling, with minima
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

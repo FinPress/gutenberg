@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { toggleFormat } from '@wordpress/rich-text';
-import { RichTextToolbarButton } from '@wordpress/block-editor';
-import { button } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { toggleFormat } from '@finpress/rich-text';
+import { RichTextToolbarButton } from '@finpress/block-editor';
+import { button } from '@finpress/icons';
 
 const name = 'core/keyboard';
 const title = __( 'Keyboard input' );

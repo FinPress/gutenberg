@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerBlockBindingsSource } from '@wordpress/blocks';
+import { registerBlockBindingsSource } from '@finpress/blocks';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ import postMeta from './post-meta';
  *
  * @example
  * ```js
- * import { registerCoreBlockBindingsSources } from '@wordpress/editor';
+ * import { registerCoreBlockBindingsSources } from '@finpress/editor';
  *
  * registerCoreBlockBindingsSources();
  * ```

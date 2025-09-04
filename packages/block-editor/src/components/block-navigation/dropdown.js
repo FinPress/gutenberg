@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, Dropdown } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { forwardRef } from '@wordpress/element';
-import { listView } from '@wordpress/icons';
+import { Button, Dropdown } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { forwardRef } from '@finpress/element';
+import { listView } from '@finpress/icons';
 
 /**
  * Internal dependencies

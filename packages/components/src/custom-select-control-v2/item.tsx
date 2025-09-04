@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext } from '@wordpress/element';
-import { Icon, check } from '@wordpress/icons';
+import { useContext } from '@finpress/element';
+import { Icon, check } from '@finpress/icons';
 /**
  * Internal dependencies
  */

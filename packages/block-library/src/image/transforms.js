@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlobURL, isBlobURL } from '@wordpress/blob';
-import { createBlock, getBlockAttributes } from '@wordpress/blocks';
+import { createBlobURL, isBlobURL } from '@finpress/blob';
+import { createBlock, getBlockAttributes } from '@finpress/blocks';
 
 export function stripFirstImage( attributes, { shortcode } ) {
 	const { body } = document.implementation.createHTMLDocument( '' );

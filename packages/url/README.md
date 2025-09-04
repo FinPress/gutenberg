@@ -7,10 +7,10 @@ A collection of utilities to manipulate URLs.
 Install the module
 
 ```bash
-npm install @wordpress/url --save
+npm install @finpress/url --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## Usage
 
@@ -68,7 +68,7 @@ _Returns_
 
 Performs some basic cleanup of a string for use as a post slug.
 
-This replicates some of what `sanitize_title_with_dashes()` does in WordPress core, but is only designed to approximate what the slug will be.
+This replicates some of what `sanitize_title_with_dashes()` does in FinPress core, but is only designed to approximate what the slug will be.
 
 Converts Latin-1 Supplement and Latin Extended-A letters to basic Latin letters. Removes combining diacritical marks. Converts whitespace, periods, and forward slashes to hyphens. Removes any remaining non-word characters except hyphens. Converts remaining string to lowercase. It does not account for octets, HTML entities, or other encoded characters.
 
@@ -88,10 +88,10 @@ _Usage_
 
 ```js
 const displayUrl = filterURLForDisplay(
-	'https://www.wordpress.org/gutenberg/'
-); // wordpress.org/gutenberg
+	'https://www.finpress.org/gutenberg/'
+); // finpress.org/gutenberg
 const imageUrl = filterURLForDisplay(
-	'https://www.wordpress.org/wp-content/uploads/img.png',
+	'https://www.finpress.org/wp-content/uploads/img.png',
 	20
 ); // …ent/uploads/img.png
 ```
@@ -112,7 +112,7 @@ Returns the authority part of the URL.
 _Usage_
 
 ```js
-const authority1 = getAuthority( 'https://wordpress.org/help/' ); // 'wordpress.org'
+const authority1 = getAuthority( 'https://finpress.org/help/' ); // 'finpress.org'
 const authority2 = getAuthority( 'https://localhost:8080/test/' ); // 'localhost:8080'
 ```
 
@@ -154,7 +154,7 @@ const fragment1 = getFragment(
 	'http://localhost:8080/this/is/a/test?query=true#fragment'
 ); // '#fragment'
 const fragment2 = getFragment(
-	'https://wordpress.org#another-fragment?query=true'
+	'https://finpress.org#another-fragment?query=true'
 ); // '#another-fragment'
 ```
 
@@ -174,7 +174,7 @@ _Usage_
 
 ```js
 const path1 = getPath( 'http://localhost:8080/this/is/a/test?query=true' ); // 'this/is/a/test'
-const path2 = getPath( 'https://wordpress.org/help/faq/' ); // 'help/faq'
+const path2 = getPath( 'https://finpress.org/help/faq/' ); // 'help/faq'
 ```
 
 _Parameters_
@@ -196,7 +196,7 @@ const pathAndQueryString1 = getPathAndQueryString(
 	'http://localhost:8080/this/is/a/test?query=true'
 ); // '/this/is/a/test?query=true'
 const pathAndQueryString2 = getPathAndQueryString(
-	'https://wordpress.org/help/faq/'
+	'https://finpress.org/help/faq/'
 ); // '/help/faq'
 ```
 
@@ -216,7 +216,7 @@ _Usage_
 
 ```js
 const protocol1 = getProtocol( 'tel:012345678' ); // 'tel:'
-const protocol2 = getProtocol( 'https://wordpress.org' ); // 'https:'
+const protocol2 = getProtocol( 'https://finpress.org' ); // 'https:'
 ```
 
 _Parameters_
@@ -234,7 +234,7 @@ Returns a single query argument of the url
 _Usage_
 
 ```js
-const foo = getQueryArg( 'https://wordpress.org?foo=bar&bar=baz', 'foo' ); // bar
+const foo = getQueryArg( 'https://finpress.org?foo=bar&bar=baz', 'foo' ); // bar
 ```
 
 _Parameters_
@@ -253,7 +253,7 @@ Returns an object of query arguments of the given URL. If the given URL is inval
 _Usage_
 
 ```js
-const foo = getQueryArgs( 'https://wordpress.org?foo=bar&bar=baz' );
+const foo = getQueryArgs( 'https://finpress.org?foo=bar&bar=baz' );
 // { "foo": "bar", "bar": "baz" }
 ```
 
@@ -292,7 +292,7 @@ Determines whether the URL contains a given query arg.
 _Usage_
 
 ```js
-const hasBar = hasQueryArg( 'https://wordpress.org?foo=bar&bar=baz', 'bar' ); // true
+const hasBar = hasQueryArg( 'https://finpress.org?foo=bar&bar=baz', 'bar' ); // true
 ```
 
 _Parameters_
@@ -311,7 +311,7 @@ Determines whether the given string looks like an email.
 _Usage_
 
 ```js
-const isEmail = isEmail( 'hello@wordpress.org' ); // true
+const isEmail = isEmail( 'hello@finpress.org' ); // true
 ```
 
 _Parameters_
@@ -352,7 +352,7 @@ _Related_
 _Usage_
 
 ```js
-const isURL = isURL( 'https://wordpress.org' ); // true
+const isURL = isURL( 'https://finpress.org' ); // true
 ```
 
 _Parameters_
@@ -370,8 +370,8 @@ Checks for invalid characters within the provided authority.
 _Usage_
 
 ```js
-const isValid = isValidAuthority( 'wordpress.org' ); // true
-const isNotValid = isValidAuthority( 'wordpress#org' ); // false
+const isValid = isValidAuthority( 'finpress.org' ); // true
+const isNotValid = isValidAuthority( 'finpress#org' ); // false
 ```
 
 _Parameters_
@@ -477,7 +477,7 @@ Prepends "http\://" to a url, if it looks like something that is meant to be a T
 _Usage_
 
 ```js
-const actualURL = prependHTTP( 'wordpress.org' ); // http://wordpress.org
+const actualURL = prependHTTP( 'finpress.org' ); // http://finpress.org
 ```
 
 _Parameters_
@@ -497,7 +497,7 @@ Note: this will not replace "http\://" with "<https://">.
 _Usage_
 
 ```js
-const actualURL = prependHTTPS( 'wordpress.org' ); // https://wordpress.org
+const actualURL = prependHTTPS( 'finpress.org' ); // https://finpress.org
 ```
 
 _Parameters_
@@ -516,10 +516,10 @@ _Usage_
 
 ```js
 const newUrl = removeQueryArgs(
-	'https://wordpress.org?foo=bar&bar=baz&baz=foobar',
+	'https://finpress.org?foo=bar&bar=baz&baz=foobar',
 	'foo',
 	'bar'
-); // https://wordpress.org?baz=foobar
+); // https://finpress.org?baz=foobar
 ```
 
 _Parameters_
@@ -565,8 +565,8 @@ _Returns_
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useRef } from '@wordpress/element';
-import { useIsomorphicLayoutEffect } from '@wordpress/compose';
+import { useMemo, useRef } from '@finpress/element';
+import { useIsomorphicLayoutEffect } from '@finpress/compose';
 
 /**
  * Internal dependencies

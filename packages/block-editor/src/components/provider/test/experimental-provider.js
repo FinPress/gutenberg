@@ -3,9 +3,9 @@
  */
 import { render } from '@testing-library/react';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRegistry, useSelect } from '@wordpress/data';
+import { useRegistry, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

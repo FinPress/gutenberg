@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { info, caution, error, published } from '@wordpress/icons';
+import { info, caution, error, published } from '@finpress/icons';
 
 /**
  * Internal dependencies

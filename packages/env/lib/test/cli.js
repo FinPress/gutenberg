@@ -67,16 +67,16 @@ describe( 'env cli', () => {
 	} );
 
 	it( 'parses run commands without arguments.', () => {
-		cli().parse( [ 'run', 'tests-wordpress', 'test' ] );
+		cli().parse( [ 'run', 'tests-finpress', 'test' ] );
 		const { container, command, spinner } = env.run.mock.calls[ 0 ][ 0 ];
-		expect( container ).toBe( 'tests-wordpress' );
+		expect( container ).toBe( 'tests-finpress' );
 		expect( command ).toStrictEqual( [ 'test' ] );
 		expect( spinner.text ).toBe( '' );
 	} );
 	it( 'parses run commands with variadic arguments.', () => {
-		cli().parse( [ 'run', 'tests-wordpress', 'test', 'test1', '--test2' ] );
+		cli().parse( [ 'run', 'tests-finpress', 'test', 'test1', '--test2' ] );
 		const { container, command, spinner } = env.run.mock.calls[ 0 ][ 0 ];
-		expect( container ).toBe( 'tests-wordpress' );
+		expect( container ).toBe( 'tests-finpress' );
 		expect( command ).toStrictEqual( [ 'test', 'test1', '--test2' ] );
 		expect( spinner.text ).toBe( '' );
 	} );

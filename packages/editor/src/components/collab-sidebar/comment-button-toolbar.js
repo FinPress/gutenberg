@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ToolbarButton } from '@wordpress/components';
-import { _x } from '@wordpress/i18n';
-import { comment as commentIcon } from '@wordpress/icons';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+import { ToolbarButton } from '@finpress/components';
+import { _x } from '@finpress/i18n';
+import { comment as commentIcon } from '@finpress/icons';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

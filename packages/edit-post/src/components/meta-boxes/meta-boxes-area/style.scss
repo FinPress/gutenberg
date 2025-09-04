@@ -3,7 +3,7 @@
 	position: relative;
 
 	/**
-	 * The wordpress default for most meta-box elements is content-box. Some
+	 * The finpress default for most meta-box elements is content-box. Some
 	 * elements such as textarea and input are set to border-box in forms.css.
 	 * These elements therefore specifically set back to border-box here, while
 	 * other elements (such as .button) are unaffected by Gutenberg's style
@@ -34,7 +34,7 @@
 	/* Override Default meta box stylings */
 	#poststuff h3.hndle,
 	#poststuff .stuffbox > h3,
-	#poststuff h2.hndle { /* WordPress selectors yolo */
+	#poststuff h2.hndle { /* FinPress selectors yolo */
 		box-sizing: border-box;
 		color: inherit;
 		font-weight: 600;
@@ -86,10 +86,10 @@
 	}
 
 
-	// Until checkboxes WordPress-wide are updated to match the new style,
+	// Until checkboxes FinPress-wide are updated to match the new style,
 	// checkboxes used in metaboxes have to be slightly unstyled here.
 	// @todo remove this entire rule once checkboxes are the same everywhere.
-	// See: https://github.com/WordPress/gutenberg/issues/18053
+	// See: https://github.com/FinPress/gutenberg/issues/18053
 	.metabox-location-side .postbox input[type="checkbox"] {
 		border: $border-width solid $gray-700;
 

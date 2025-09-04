@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { focus } from '@wordpress/dom';
-import { forwardRef, useCallback } from '@wordpress/element';
-import { UP, DOWN, LEFT, RIGHT, HOME, END } from '@wordpress/keycodes';
+import { focus } from '@finpress/dom';
+import { forwardRef, useCallback } from '@finpress/element';
+import { UP, DOWN, LEFT, RIGHT, HOME, END } from '@finpress/keycodes';
 
 /**
  * Internal dependencies
@@ -306,7 +306,7 @@ function UnforwardedTreeGrid(
 			{
 				// Prevent browser mode from triggering in NVDA by wrapping List View
 				// in a role=application wrapper.
-				// see: https://github.com/WordPress/gutenberg/issues/43729
+				// see: https://github.com/FinPress/gutenberg/issues/43729
 			 }
 			<div role="application" aria-label={ applicationAriaLabel }>
 				<table

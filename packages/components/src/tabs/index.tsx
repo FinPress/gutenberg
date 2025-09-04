@@ -4,11 +4,11 @@
 import * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { useEffect, useMemo } from '@wordpress/element';
-import { isRTL } from '@wordpress/i18n';
+import { useInstanceId } from '@finpress/compose';
+import { useEffect, useMemo } from '@finpress/element';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies

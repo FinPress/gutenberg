@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as coreStore } from '@wordpress/core-data';
-import { useDispatch } from '@wordpress/data';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { addQueryArgs } from '@wordpress/url';
+import { store as coreStore } from '@finpress/core-data';
+import { useDispatch } from '@finpress/data';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies

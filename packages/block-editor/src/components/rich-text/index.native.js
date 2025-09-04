@@ -4,18 +4,18 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Platform, useRef, useCallback, forwardRef } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { Platform, useRef, useCallback, forwardRef } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
 import {
 	pasteHandler,
 	children as childrenSource,
 	getBlockTransforms,
 	findTransform,
 	isUnmodifiedDefaultBlock,
-} from '@wordpress/blocks';
-import { useInstanceId, useMergeRefs } from '@wordpress/compose';
+} from '@finpress/blocks';
+import { useInstanceId, useMergeRefs } from '@finpress/compose';
 import {
 	__unstableCreateElement,
 	isEmpty,
@@ -24,8 +24,8 @@ import {
 	create,
 	split,
 	toHTMLString,
-} from '@wordpress/rich-text';
-import { isURL } from '@wordpress/url';
+} from '@finpress/rich-text';
+import { isURL } from '@finpress/url';
 
 /**
  * Internal dependencies
@@ -140,7 +140,7 @@ export function RichTextWrapper(
 		let extraProps = {};
 		if ( Platform.OS === 'native' ) {
 			// If the block of this RichText is unmodified then it's a candidate for replacing when adding a new block.
-			// In order to fix https://github.com/wordpress-mobile/gutenberg-mobile/issues/1126, let's blur on unmount in that case.
+			// In order to fix https://github.com/finpress-mobile/gutenberg-mobile/issues/1126, let's blur on unmount in that case.
 			// This apparently assumes functionality the BlockHlder actually.
 			const block = clientId && getBlock( clientId );
 			const shouldBlurOnUnmount =
@@ -695,7 +695,7 @@ PrivateRichText.Raw = forwardRef( ( props, ref ) => (
 ) );
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md
  */
 export default PrivateRichText;
 export { RichTextShortcut } from './shortcut';

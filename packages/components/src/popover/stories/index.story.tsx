@@ -4,9 +4,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useRef, useEffect } from '@wordpress/element';
+import { useState, useRef, useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 import {
 	trash,
@@ -11,10 +11,10 @@ import {
 	scheduled,
 	pending,
 	notAllowed,
-} from '@wordpress/icons';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { useMemo } from '@wordpress/element';
+} from '@finpress/icons';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

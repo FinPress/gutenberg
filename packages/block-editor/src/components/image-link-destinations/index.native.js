@@ -5,12 +5,12 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Icon, check, chevronRight } from '@wordpress/icons';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { BottomSheet, PanelBody } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { Icon, check, chevronRight } from '@finpress/icons';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { BottomSheet, PanelBody } from '@finpress/components';
 
 /**
  * Internal dependencies

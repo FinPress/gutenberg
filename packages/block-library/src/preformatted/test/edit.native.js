@@ -12,9 +12,9 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ENTER } from '@wordpress/keycodes';
+import { ENTER } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

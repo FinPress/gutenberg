@@ -31,7 +31,7 @@ export const normalizeTextString = ( value: string ): string => {
  * Backwards compatible with `_wp_to_kebab_case()`.
  *
  * @see https://lodash.com/docs/4.17.15#kebabCase
- * @see https://developer.wordpress.org/reference/functions/_wp_to_kebab_case/
+ * @see https://developer.finpress.org/reference/functions/_wp_to_kebab_case/
  *
  * @param str String to convert.
  * @return Kebab-cased string

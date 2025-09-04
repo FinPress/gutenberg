@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createReduxStore,
 	createRegistry,
 	RegistryProvider,
-} from '@wordpress/data';
+} from '@finpress/data';
 
 /**
  * External dependencies
@@ -17,7 +17,7 @@ import { render, screen, waitFor } from '@testing-library/react';
  */
 import useQuerySelect from '../use-query-select';
 
-/* eslint-disable @wordpress/wp-global-usage */
+/* eslint-disable @finpress/wp-global-usage */
 describe( 'useQuerySelect', () => {
 	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
 	let registry;
@@ -199,4 +199,4 @@ describe( 'useQuerySelect', () => {
 		);
 	} );
 } );
-/* eslint-enable @wordpress/wp-global-usage */
+/* eslint-enable @finpress/wp-global-usage */

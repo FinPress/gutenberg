@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _n, sprintf } from '@wordpress/i18n';
-import { Flex, FlexItem } from '@wordpress/components';
-import { dragHandle } from '@wordpress/icons';
+import { __, _n, sprintf } from '@finpress/i18n';
+import { Flex, FlexItem } from '@finpress/components';
+import { dragHandle } from '@finpress/icons';
 
 /**
  * Internal dependencies

@@ -10,14 +10,14 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	requestMediaPicker,
 	sendMediaUpload,
 	subscribeMediaUpload,
-} from '@wordpress/react-native-bridge';
-import { MEDIA_UPLOAD_STATE_PAUSED } from '@wordpress/block-editor';
+} from '@finpress/react-native-bridge';
+import { MEDIA_UPLOAD_STATE_PAUSED } from '@finpress/block-editor';
 
 let uploadCallBack;
 subscribeMediaUpload.mockImplementation( ( callback ) => {

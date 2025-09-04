@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
@@ -8,10 +8,10 @@ import {
 	__experimentalText as Text,
 	TextControl,
 	Modal,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { useState, useId } from '@wordpress/element';
-import { speak } from '@wordpress/a11y';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useState, useId } from '@finpress/element';
+import { speak } from '@finpress/a11y';
 
 export function AllowOverridesModal( {
 	placeholder,

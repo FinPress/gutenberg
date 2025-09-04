@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Unsynced pattern', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -204,7 +204,7 @@ test.describe( 'Synced pattern', () => {
 		);
 	} );
 
-	// Check for regressions of https://github.com/WordPress/gutenberg/issues/33072.
+	// Check for regressions of https://github.com/FinPress/gutenberg/issues/33072.
 	test( 'can be saved when modified inside of a published post', async ( {
 		page,
 		requestUtils,
@@ -268,7 +268,7 @@ test.describe( 'Synced pattern', () => {
 		);
 	} );
 
-	// Check for regressions of https://github.com/WordPress/gutenberg/issues/26421.
+	// Check for regressions of https://github.com/FinPress/gutenberg/issues/26421.
 	test( 'allows conversion back to blocks when the reusable block has unsaved edits', async ( {
 		page,
 		requestUtils,
@@ -469,7 +469,7 @@ test.describe( 'Synced pattern', () => {
 		] );
 	} );
 
-	// Check for regressions of https://github.com/WordPress/gutenberg/pull/26484.
+	// Check for regressions of https://github.com/FinPress/gutenberg/pull/26484.
 	test( 'will not break the editor if empty', async ( {
 		editor,
 		page,
@@ -589,7 +589,7 @@ test.describe( 'Synced pattern', () => {
 		).toHaveCount( 2 );
 	} );
 
-	// Check for regressions of https://github.com/WordPress/gutenberg/issues/27243.
+	// Check for regressions of https://github.com/FinPress/gutenberg/issues/27243.
 	test( 'should allow a block with styles to be converted to a reusable block', async ( {
 		editor,
 		page,

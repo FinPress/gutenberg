@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Gutenberg Test Block Icons
- * Plugin URI: https://github.com/WordPress/gutenberg
+ * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team
  *
  * @package gutenberg-test-block-icons

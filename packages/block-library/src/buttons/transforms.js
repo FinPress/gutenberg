@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
-import { __unstableCreateElement as createElement } from '@wordpress/rich-text';
+import { createBlock } from '@finpress/blocks';
+import { __unstableCreateElement as createElement } from '@finpress/rich-text';
 
 /**
  * Internal dependencies

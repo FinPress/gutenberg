@@ -16,7 +16,7 @@ Only use this control when you know for sure the labels of items inside won't wr
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 function Example() {
 	return (

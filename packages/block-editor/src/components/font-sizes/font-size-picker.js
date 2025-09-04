@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { FontSizePicker as BaseFontSizePicker } from '@wordpress/components';
+import { FontSizePicker as BaseFontSizePicker } from '@finpress/components';
 
 /**
  * Internal dependencies
@@ -24,6 +24,6 @@ function FontSizePicker( props ) {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/font-sizes/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/font-sizes/README.md
  */
 export default FontSizePicker;

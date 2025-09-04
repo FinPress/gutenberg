@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	PluginMoreMenuItem as EditorPluginMoreMenuItem,
 	PluginSidebar as EditorPluginSidebar,
 	PluginSidebarMoreMenuItem as EditorPluginSidebarMoreMenuItem,
-} from '@wordpress/editor';
-import { getPath } from '@wordpress/url';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/editor';
+import { getPath } from '@finpress/url';
+import deprecated from '@finpress/deprecated';
 
 const isSiteEditor = getPath( window.location.href )?.includes(
 	'site-editor.php'
@@ -22,7 +22,7 @@ const deprecateSlot = ( name ) => {
 
 /* eslint-disable jsdoc/require-param */
 /**
- * @see PluginMoreMenuItem in @wordpress/editor package.
+ * @see PluginMoreMenuItem in @finpress/editor package.
  */
 export function PluginMoreMenuItem( props ) {
 	if ( ! isSiteEditor ) {
@@ -33,7 +33,7 @@ export function PluginMoreMenuItem( props ) {
 }
 
 /**
- * @see PluginSidebar in @wordpress/editor package.
+ * @see PluginSidebar in @finpress/editor package.
  */
 export function PluginSidebar( props ) {
 	if ( ! isSiteEditor ) {
@@ -44,7 +44,7 @@ export function PluginSidebar( props ) {
 }
 
 /**
- * @see PluginSidebarMoreMenuItem in @wordpress/editor package.
+ * @see PluginSidebarMoreMenuItem in @finpress/editor package.
  */
 export function PluginSidebarMoreMenuItem( props ) {
 	if ( ! isSiteEditor ) {

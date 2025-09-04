@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useMemo, useState } from '@wordpress/element';
-import { applyFilters } from '@wordpress/hooks';
+import { useCallback, useMemo, useState } from '@finpress/element';
+import { applyFilters } from '@finpress/hooks';
 
 export default function useTransformImage( {
 	url,

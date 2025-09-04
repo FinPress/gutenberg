@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId, usePrevious } from '@wordpress/compose';
+import { useInstanceId, usePrevious } from '@finpress/compose';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
@@ -15,7 +15,7 @@ import {
 	Spinner,
 	VisuallyHidden,
 	Composite,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	useCallback,
 	useEffect,
@@ -23,10 +23,10 @@ import {
 	useRef,
 	useState,
 	useContext,
-} from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { moreVertical } from '@wordpress/icons';
-import { useRegistry } from '@wordpress/data';
+} from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { moreVertical } from '@finpress/icons';
+import { useRegistry } from '@finpress/data';
 
 /**
  * Internal dependencies

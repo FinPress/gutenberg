@@ -33,7 +33,7 @@ export type ToggleGroupControlOptionIconProps = Pick<
 > & {
 	/**
 	 * Icon displayed as the content of the option. Usually one of the icons from
-	 * the `@wordpress/icons` package, or a custom React `<svg>` icon.
+	 * the `@finpress/icons` package, or a custom React `<svg>` icon.
 	 */
 	icon: JSX.Element;
 	/**

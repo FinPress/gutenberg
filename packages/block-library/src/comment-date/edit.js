@@ -1,23 +1,23 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityProp } from '@wordpress/core-data';
+import { useEntityProp } from '@finpress/core-data';
 import {
 	dateI18n,
 	humanTimeDiff,
 	getSettings as getDateSettings,
-} from '@wordpress/date';
+} from '@finpress/date';
 import {
 	InspectorControls,
 	useBlockProps,
 	__experimentalDateFormatPicker as DateFormatPicker,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	ToggleControl,
-} from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies

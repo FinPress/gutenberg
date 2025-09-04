@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createPortal, useState } from '@wordpress/element';
+import { createPortal, useState } from '@finpress/element';
 
 /**
  * Internal dependencies

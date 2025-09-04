@@ -4,9 +4,9 @@
 export { attr, prop, text, query } from 'hpq';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RichTextData } from '@wordpress/rich-text';
+import { RichTextData } from '@finpress/rich-text';
 
 /**
  * Internal dependencies

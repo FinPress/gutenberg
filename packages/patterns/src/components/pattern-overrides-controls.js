@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useId } from '@wordpress/element';
+import { useState, useId } from '@finpress/element';
 import {
 	InspectorControls,
 	useBlockBindingsUtils,
-} from '@wordpress/block-editor';
-import { BaseControl, Button } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { BaseControl, Button } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

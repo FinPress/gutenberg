@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { unregisterBlockType, registerBlockType } from '@wordpress/blocks';
+import { unregisterBlockType, registerBlockType } from '@finpress/blocks';
 
 /**
  * Internal dependencies

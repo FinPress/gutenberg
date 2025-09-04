@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useState } from '@wordpress/element';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __experimentalBlockPatternsList as BlockPatternsList } from '@wordpress/block-editor';
-import { MenuItem, Modal, SearchControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { parse } from '@wordpress/blocks';
+import { useMemo, useState } from '@finpress/element';
+import { decodeEntities } from '@finpress/html-entities';
+import { __experimentalBlockPatternsList as BlockPatternsList } from '@finpress/block-editor';
+import { MenuItem, Modal, SearchControl } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { parse } from '@finpress/blocks';
 
 /**
  * Internal dependencies

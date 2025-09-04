@@ -5,9 +5,9 @@ import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isRTL } from '@wordpress/i18n';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies

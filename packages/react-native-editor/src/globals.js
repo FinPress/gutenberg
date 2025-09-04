@@ -14,10 +14,10 @@ import 'core-js/features/array/flat-map';
 import 'core-js/proposals/relative-indexing-method';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { nativeLoggingHook } from '@wordpress/react-native-bridge';
-import { createElement } from '@wordpress/element';
+import { nativeLoggingHook } from '@finpress/react-native-bridge';
+import { createElement } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -4,10 +4,10 @@
 import * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useContext } from '@wordpress/element';
-import { Icon, check } from '@wordpress/icons';
+import { forwardRef, useContext } from '@finpress/element';
+import { Icon, check } from '@finpress/icons';
 
 /**
  * Internal dependencies

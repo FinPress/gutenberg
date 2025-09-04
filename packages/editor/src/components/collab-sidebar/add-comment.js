@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { _x } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

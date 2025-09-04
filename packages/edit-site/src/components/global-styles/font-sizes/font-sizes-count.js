@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
+import { __, isRTL } from '@finpress/i18n';
 import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalVStack as VStack,
 	__experimentalHStack as HStack,
 	FlexItem,
-} from '@wordpress/components';
-import { Icon, chevronLeft, chevronRight } from '@wordpress/icons';
+} from '@finpress/components';
+import { Icon, chevronLeft, chevronRight } from '@finpress/icons';
 
 /**
  * Internal dependencies

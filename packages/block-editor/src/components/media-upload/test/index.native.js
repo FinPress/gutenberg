@@ -7,9 +7,9 @@ import { render, fireEvent } from 'test/helpers';
 import { Text, TouchableWithoutFeedback } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { requestMediaPicker } from '@wordpress/react-native-bridge';
+import { requestMediaPicker } from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies
@@ -144,7 +144,7 @@ describe( 'MediaUpload component', () => {
 
 	it( 'can select media from WP media library', () => {
 		expectMediaPickerForOption(
-			'WordPress Media Library',
+			'FinPress Media Library',
 			false,
 			requestMediaPicker
 		);
@@ -164,7 +164,7 @@ describe( 'MediaUpload component', () => {
 
 	it( 'can select multiple media from WP media library', () => {
 		expectMediaPickerForOption(
-			'WordPress Media Library',
+			'FinPress Media Library',
 			true,
 			requestMediaPicker
 		);

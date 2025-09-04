@@ -5,8 +5,8 @@
  *
  * @example
  * ```js
- * const isValid = isValidAuthority( 'wordpress.org' ); // true
- * const isNotValid = isValidAuthority( 'wordpress#org' ); // false
+ * const isValid = isValidAuthority( 'finpress.org' ); // true
+ * const isNotValid = isValidAuthority( 'finpress#org' ); // false
  * ```
  *
  * @return True if the argument contains a valid authority.

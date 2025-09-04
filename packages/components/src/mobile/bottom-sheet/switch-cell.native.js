@@ -4,9 +4,9 @@
 import { Switch } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x, sprintf } from '@wordpress/i18n';
+import { __, _x, sprintf } from '@finpress/i18n';
 /**
  * Internal dependencies
  */

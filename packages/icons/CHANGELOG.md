@@ -1,20 +1,20 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
 ## 10.29.0 (2025-08-20)
 
--  Breaking change: deprecate `moreHorizontalMobile` icon. This was added in error, and `moreHorizontal` should be used instead. ([#71172](https://github.com/WordPress/gutenberg/pull/71172))
+-  Breaking change: deprecate `moreHorizontalMobile` icon. This was added in error, and `moreHorizontal` should be used instead. ([#71172](https://github.com/FinPress/gutenberg/pull/71172))
 
 ## 10.28.0 (2025-08-07)
 
--   Add new `dashboard` icon ([#70300](https://github.com/WordPress/gutenberg/pull/70300)).
+-   Add new `dashboard` icon ([#70300](https://github.com/FinPress/gutenberg/pull/70300)).
 
 ## 10.27.0 (2025-07-23)
 
--  Update `cancelCircleFilled`, `currencyDollar`, `currencyPound`, `currencyEuro`, `globe`, `helpFilled`, `siteLogo`, `swatch`, to have unified circular size footprints. ([https://github.com/WordPress/gutenberg/pull/70581](#70581)).
--  Update `help`, `plusCircle`, and `typography` icons to have a unified circular footprint that matches other circle icons. ([#70299](https://github.com/WordPress/gutenberg/pull/70299)).
--  Update `plusCircleFilled` to have unified circular size footprints. ([https://github.com/WordPress/gutenberg/pull/70650](#70650)).
+-  Update `cancelCircleFilled`, `currencyDollar`, `currencyPound`, `currencyEuro`, `globe`, `helpFilled`, `siteLogo`, `swatch`, to have unified circular size footprints. ([https://github.com/FinPress/gutenberg/pull/70581](#70581)).
+-  Update `help`, `plusCircle`, and `typography` icons to have a unified circular footprint that matches other circle icons. ([#70299](https://github.com/FinPress/gutenberg/pull/70299)).
+-  Update `plusCircleFilled` to have unified circular size footprints. ([https://github.com/FinPress/gutenberg/pull/70650](#70650)).
 
 ## 10.26.0 (2025-06-25)
 
@@ -40,9 +40,9 @@
 
 ## 10.15.0 (2025-01-02)
 
--   Add new `caution` icon ([#66555](https://github.com/WordPress/gutenberg/pull/66555)).
--   Add new `error` icon ([#66555](https://github.com/WordPress/gutenberg/pull/66555)).
--   Deprecate `warning` icon and rename to `cautionFilled` ([#67895](https://github.com/WordPress/gutenberg/pull/67895)).
+-   Add new `caution` icon ([#66555](https://github.com/FinPress/gutenberg/pull/66555)).
+-   Add new `error` icon ([#66555](https://github.com/FinPress/gutenberg/pull/66555)).
+-   Deprecate `warning` icon and rename to `cautionFilled` ([#67895](https://github.com/FinPress/gutenberg/pull/67895)).
 
 ## 10.14.0 (2024-12-11)
 
@@ -61,7 +61,7 @@
 ### New Features
 
 -   Add new `cloudDownload` icon.
--   Update `unseen` icon to be a strike-through eye, rather than a closed eye, to match provide consistency. ([#65914](https://github.com/WordPress/gutenberg/pull/65914)).
+-   Update `unseen` icon to be a strike-through eye, rather than a closed eye, to match provide consistency. ([#65914](https://github.com/FinPress/gutenberg/pull/65914)).
 
 ## 10.9.0 (2024-10-03)
 
@@ -96,7 +96,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 9.49.0 (2024-05-16)
 
@@ -140,13 +140,13 @@
 
 ### Enhancements
 
--   `<Icon>` now forwards ref to the underlying child component ([#54492](https://github.com/WordPress/gutenberg/pull/54492)).
+-   `<Icon>` now forwards ref to the underlying child component ([#54492](https://github.com/FinPress/gutenberg/pull/54492)).
 
 ## 9.32.0 (2023-08-31)
 
 ### Bug Fixes
 
--   Fixed invalid XML namespace on `alignJustify`, `customLink`, `mapMarker`, `postContent` and `title` ([#53955](https://github.com/WordPress/gutenberg/pull/53955)).
+-   Fixed invalid XML namespace on `alignJustify`, `customLink`, `mapMarker`, `postContent` and `title` ([#53955](https://github.com/FinPress/gutenberg/pull/53955)).
 
 ## 9.31.0 (2023-08-16)
 
@@ -164,7 +164,7 @@
 
 ### New Features
 
--   Add new `HeadingLevel` icons. ([#50856](https://github.com/WordPress/gutenberg/pull/50856))
+-   Add new `HeadingLevel` icons. ([#50856](https://github.com/FinPress/gutenberg/pull/50856))
 
 ## 9.24.0 (2023-05-10)
 
@@ -224,7 +224,7 @@
 
 ### Enhancements
 
--   Update the `title` icon to match g2 design language. ([#40596](https://github.com/WordPress/gutenberg/pull/40596))
+-   Update the `title` icon to match g2 design language. ([#40596](https://github.com/FinPress/gutenberg/pull/40596))
 
 ## 8.4.0 (2022-05-04)
 
@@ -232,16 +232,16 @@
 
 ### New Features
 
--   Add new `filter` icon. ([#40435](https://github.com/WordPress/gutenberg/pull/40435))
+-   Add new `filter` icon. ([#40435](https://github.com/FinPress/gutenberg/pull/40435))
 
--   Add new `commentTitle` icon. ([#40419](https://github.com/WordPress/gutenberg/pull/40419))
+-   Add new `commentTitle` icon. ([#40419](https://github.com/FinPress/gutenberg/pull/40419))
 
 ## 8.2.0 (2022-04-08)
 
 ### New Features
 
--   Add new `row` and `copy` icons. ([#39690](https://github.com/WordPress/gutenberg/pull/39690))
--   Add new `listItem` icon. ([#39929](https://github.com/WordPress/gutenberg/pull/39929))
+-   Add new `row` and `copy` icons. ([#39690](https://github.com/FinPress/gutenberg/pull/39690))
+-   Add new `listItem` icon. ([#39929](https://github.com/FinPress/gutenberg/pull/39929))
 
 ## 8.1.0 (2022-03-23)
 
@@ -249,24 +249,24 @@
 
 ### Breaking Changes
 
--   Changed `dragHandle` footprint from 18x18 to 24x24 to match other icons. ([#39342](https://github.com/WordPress/gutenberg/pull/39342))
+-   Changed `dragHandle` footprint from 18x18 to 24x24 to match other icons. ([#39342](https://github.com/FinPress/gutenberg/pull/39342))
 
 ## 7.0.0 (2022-02-23)
 
 ### New Features
 
--   Added new icon: `post`, and refreshed the existing `pin` icon. ([#39139](https://github.com/WordPress/gutenberg/pull/39139))
+-   Added new icon: `post`, and refreshed the existing `pin` icon. ([#39139](https://github.com/FinPress/gutenberg/pull/39139))
 
 ### Breaking Changes
 
--   Removed icons that were added by mistake: `alignJustifyAlt`, `cogAlt`, `sparkles`, `trashFilled`. ([#38849](https://github.com/WordPress/gutenberg/pull/38849))
+-   Removed icons that were added by mistake: `alignJustifyAlt`, `cogAlt`, `sparkles`, `trashFilled`. ([#38849](https://github.com/FinPress/gutenberg/pull/38849))
 
 ## 6.3.0 (2022-02-10)
 
 ### New Features
 
--   Added new block icon: `tip` ([#38424](https://github.com/WordPress/gutenberg/pull/38424)).
--   Added new query title, post terms icons, updated pagination, pagination next/prev, and pagination numbers icons: `tip` ([#38521](https://github.com/WordPress/gutenberg/pull/38521)).
+-   Added new block icon: `tip` ([#38424](https://github.com/FinPress/gutenberg/pull/38424)).
+-   Added new query title, post terms icons, updated pagination, pagination next/prev, and pagination numbers icons: `tip` ([#38521](https://github.com/FinPress/gutenberg/pull/38521)).
 
 ## 6.2.0 (2022-01-27)
 
@@ -274,7 +274,7 @@
 
 ### New Features
 
--   Added new block icons: `commentAuthorAvatar`, `commentAuthorName`, `commentContent` and `commentReplyLink` ([#36171](https://github.com/WordPress/gutenberg/pull/36171)).
+-   Added new block icons: `commentAuthorAvatar`, `commentAuthorName`, `commentContent` and `commentReplyLink` ([#36171](https://github.com/FinPress/gutenberg/pull/36171)).
 
 ## 6.0.0 (2021-10-12)
 
@@ -286,7 +286,7 @@
 
 ### Breaking Changes
 
--   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
+-   Upgraded React components to work with v17.0 ([#29118](https://github.com/FinPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
 ## 4.1.0 (2021-07-21)
 
@@ -300,8 +300,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ## 2.10.0 (2021-03-17)
 
@@ -309,22 +309,22 @@
 
 ### Breaking Changes
 
--   `star` icon removed as it is duplicative of `star-filled`. ([#21825](https://github.com/WordPress/gutenberg/pull/21825))
+-   `star` icon removed as it is duplicative of `star-filled`. ([#21825](https://github.com/FinPress/gutenberg/pull/21825))
 
 ### New Features
 
--   Include TypeScript type declarations ([#21781](https://github.com/WordPress/gutenberg/pull/21781))
+-   Include TypeScript type declarations ([#21781](https://github.com/FinPress/gutenberg/pull/21781))
 
 ## 1.3.1 (2020-04-15)
 
 ### Bug Fixes
 
--   Hide TypeScript type declarations ([#21613](https://github.com/WordPress/gutenberg/pull/21613))
+-   Hide TypeScript type declarations ([#21613](https://github.com/FinPress/gutenberg/pull/21613))
     after they were found to conflict with DefinitelyTyped provided declarations.
 
 ## 1.3.0 (2020-04-15)
 
--   Include TypeScript type declarations ([#21487](https://github.com/WordPress/gutenberg/pull/21487))
+-   Include TypeScript type declarations ([#21487](https://github.com/FinPress/gutenberg/pull/21487))
 
 ## 1.0.0 (2020-02-04)
 

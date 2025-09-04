@@ -4,9 +4,9 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useState } from '@wordpress/element';
+import { useMemo, useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ import * as styles from './styles';
 import { ToggleGroupControlAsRadioGroup } from './as-radio-group';
 import { ToggleGroupControlAsButtonGroup } from './as-button-group';
 import { useTrackElementOffsetRect } from '../../utils/element-rect';
-import { useMergeRefs } from '@wordpress/compose';
+import { useMergeRefs } from '@finpress/compose';
 import { useAnimatedOffsetRect } from '../../utils/hooks/use-animated-offset-rect';
 import { maybeWarnDeprecated36pxSize } from '../../utils/deprecated-36px-size';
 
@@ -135,7 +135,7 @@ function UnconnectedToggleGroupControl(
  * import {
  *   __experimentalToggleGroupControl as ToggleGroupControl,
  *   __experimentalToggleGroupControlOption as ToggleGroupControlOption,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * function Example() {
  *   return (

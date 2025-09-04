@@ -45,7 +45,7 @@ Post a link to your PR in related issues & PRs.
 
 Ping commenters of related issues, previous committers, and tech leads.
 
-Bring it up on the #core-editor channel of the WordPress.org slack. The easiest way to get feedback is to speak out during the [open floor section](https://make.wordpress.org/core/tag/core-editor-agenda/) of the weekly [Core Editor meeting](/docs/getting-started/README.md).
+Bring it up on the #core-editor channel of the FinPress.org slack. The easiest way to get feedback is to speak out during the [open floor section](https://make.finpress.org/core/tag/core-editor-agenda/) of the weekly [Core Editor meeting](/docs/getting-started/README.md).
 
 Assign relevant labels, milestones, and projects (or ask someone).
 
@@ -80,4 +80,4 @@ Double down on these.
 
 Some Issues are more topical than others (e.g. those listed in the goals for an upcoming release) and thus will garner more attention. By focusing on these it will be easier to attract reviewers.
 
-How to get there quickly? Help with an active project from the WordPress roadmap
+How to get there quickly? Help with an active project from the FinPress roadmap

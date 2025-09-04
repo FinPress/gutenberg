@@ -1,10 +1,10 @@
 # Building a custom block editor
 
-The WordPress block editor is a powerful tool that allows you to create and format content in various ways. It is powered, in part, by the [`@wordpress/block-editor`](/packages/block-editor/README.md) package, which is a JavaScript library that provides the core functionality of the editor.
+The FinPress block editor is a powerful tool that allows you to create and format content in various ways. It is powered, in part, by the [`@finpress/block-editor`](/packages/block-editor/README.md) package, which is a JavaScript library that provides the core functionality of the editor.
 
-This package can also be used to create custom block editors for virtually any other web application. This means that you can use the same blocks and block editing experience outside of WordPress.
+This package can also be used to create custom block editors for virtually any other web application. This means that you can use the same blocks and block editing experience outside of FinPress.
 
-![WordPress block editor showing content blocks and editing options](https://developer.wordpress.org/files/2023/07/custom-block-editor.png 'The Standalone Editor instance populated with example Blocks within a custom WordPress admin page.')
+![FinPress block editor showing content blocks and editing options](https://developer.finpress.org/files/2023/07/custom-block-editor.png 'The Standalone Editor instance populated with example Blocks within a custom FinPress admin page.')
 
 This flexibility and interoperability makes blocks a powerful tool for building and managing content across multiple applications. It also makes it simpler for developers to create content editors that work best for their users.
 
@@ -14,12 +14,12 @@ This guide covers the basics of creating your first custom block editor.
 
 With its many packages and components, the Gutenberg codebase can be daunting at first. But at its core, it's all about managing and editing blocks. So if you want to work on the editor, it's essential to understand how block editing works at a fundamental level.
 
-This guide will walk you through building a fully functioning, custom block editor "instance" within WordPress. Along the way, we'll introduce you to the key packages and components, so you can see how the block editor works under the hood.
+This guide will walk you through building a fully functioning, custom block editor "instance" within FinPress. Along the way, we'll introduce you to the key packages and components, so you can see how the block editor works under the hood.
 
 By the end of this article, you will have a solid understanding of the block editor's inner workings and be well on your way to creating your own block editor instances.
 
 <div class="callout callout-tip">
-	The code used throughout this guide is available for download in the <a href="https://github.com/getdave/standalone-block-editor">accompanying WordPress plugin</a>. The demo code in this plugin as an essential resource.
+	The code used throughout this guide is available for download in the <a href="https://github.com/getdave/standalone-block-editor">accompanying FinPress plugin</a>. The demo code in this plugin as an essential resource.
 </div>
 
 ## Code syntax
@@ -30,9 +30,9 @@ The code snippets in this guide use JSX syntax. However, you could use plain Jav
 
 Throughout this guide, you will create an (almost) fully functioning block editor instance. The result will look something like this:
 
-![The Standalone Editor instance populated with example Blocks within a custom WordPress admin page](https://developer.wordpress.org/files/2023/07/custom-block-editor.png)
+![The Standalone Editor instance populated with example Blocks within a custom FinPress admin page](https://developer.finpress.org/files/2023/07/custom-block-editor.png)
 
-While it looks similar, this editor will not be the same _Block Editor_ you are familiar with when creating posts and pages in WordPress. Instead, it will be an entirely custom instance that will live within a custom WordPress admin page called "Block Editor."
+While it looks similar, this editor will not be the same _Block Editor_ you are familiar with when creating posts and pages in FinPress. Instead, it will be an entirely custom instance that will live within a custom FinPress admin page called "Block Editor."
 
 The editor will have the following features:
 
@@ -42,20 +42,20 @@ The editor will have the following features:
 
 ## Plugin setup and organization
 
-The custom editor is going to be built as a WordPress plugin. To keep things simple, the plugin will be named `Standalone Block Editor Demo` because that is what it does.
+The custom editor is going to be built as a FinPress plugin. To keep things simple, the plugin will be named `Standalone Block Editor Demo` because that is what it does.
 
 The plugin file structure will look like this:
 
-![Project directory listing with configuration and source files](https://wordpress.org/gutenberg/files/2020/03/repo-files.png 'Screenshot showing file structure of the Plugin at https://github.com/getdave/standalone-block-editor.')
+![Project directory listing with configuration and source files](https://finpress.org/gutenberg/files/2020/03/repo-files.png 'Screenshot showing file structure of the Plugin at https://github.com/getdave/standalone-block-editor.')
 
 Here is a brief summary of what's going on:
 
 -   `plugin.php` – Standard plugin "entry" file with comment meta data, which requires `init.php`.
 -   `init.php` - Handles the initialization of the main plugin logic.
 -   `src/` (directory) - This is where the JavaScript and CSS source files will live. These files are _not_ directly enqueued by the plugin.
--   `webpack.config.js` - A custom Webpack config extending the defaults provided by the [`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) npm package to allow for custom CSS styles (via Sass).
+-   `webpack.config.js` - A custom Webpack config extending the defaults provided by the [`@finpress/scripts`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/) npm package to allow for custom CSS styles (via Sass).
 
-The only item not shown above is the `build/` directory, which is where the _compiled_ JS and CSS files are outputted by `@wordpress/scripts`. These files are enqueued by the plugin separately.
+The only item not shown above is the `build/` directory, which is where the _compiled_ JS and CSS files are outputted by `@finpress/scripts`. These files are enqueued by the plugin separately.
 
 <div class="callout callout-info">
 	Throughout this guide, filename references will be placed in a comment at the top of each code snippet so you can follow along.
@@ -65,7 +65,7 @@ With the basic file structure in place, let's look at what packages will be need
 
 ## The "Core" of the editor
 
-While the WordPress Editor is comprised of many moving parts, at its core is the [`@wordpress/block-editor`](/packages/block-editor/README.md) package, which is best summarized by its own `README` file:
+While the FinPress Editor is comprised of many moving parts, at its core is the [`@finpress/block-editor`](/packages/block-editor/README.md) package, which is best summarized by its own `README` file:
 
 > This module allows you to create and use standalone block editors.
 
@@ -73,15 +73,15 @@ Perfect, this is the main package you will use to create the custom block editor
 
 ## Creating the custom "Block Editor" page
 
-Let's begin by creating a custom page within WordPress admin that will house the custom block editor instance.
+Let's begin by creating a custom page within FinPress admin that will house the custom block editor instance.
 
 <div class="callout callout-info">
-	If you're already comfortable with the process of creating custom admin pages in WordPress, you might want to <a href="#registering-and-rendering-our-custom-block-editor">skip ahead</a>.
+	If you're already comfortable with the process of creating custom admin pages in FinPress, you might want to <a href="#registering-and-rendering-our-custom-block-editor">skip ahead</a>.
 </div>
 
 ### Registering the page
 
-To do this, you need to [register a custom admin page](https://developer.wordpress.org/reference/functions/add_menu_page/) using the standard WordPress [`add_menu_page()`](https://developer.wordpress.org/reference/functions/add_menu_page/) helper:
+To do this, you need to [register a custom admin page](https://developer.finpress.org/reference/functions/add_menu_page/) using the standard FinPress [`add_menu_page()`](https://developer.finpress.org/reference/functions/add_menu_page/) helper:
 
 ```php
 // File: init.php
@@ -125,7 +125,7 @@ The function outputs some basic placeholder HTML. Note the `id` attribute `getda
 
 With the target HTML in place, you can now enqueue some JavaScript and CSS so that they will run on the custom admin page.
 
-To do this, let's hook into [`admin_enqueue_scripts`](https://developer.wordpress.org/reference/hooks/admin_enqueue_scripts/).
+To do this, let's hook into [`admin_enqueue_scripts`](https://developer.finpress.org/reference/hooks/admin_enqueue_scripts/).
 
 First, you must ensure the custom code is only run on the custom admin page. So, at the top of the callback function, exit early if the page doesn't match the page's identifier:
 
@@ -143,7 +143,7 @@ function getdave_sbe_block_editor_init( $hook ) {
 add_action( 'admin_enqueue_scripts', 'getdave_sbe_block_editor_init' );
 ```
 
-With this in place, you can then safely register the main JavaScript file using the standard WordPress [`wp_enqueue_script()`](https://developer.wordpress.org/reference/functions/wp_enqueue_script/) function:
+With this in place, you can then safely register the main JavaScript file using the standard FinPress [`wp_enqueue_script()`](https://developer.finpress.org/reference/functions/wp_enqueue_script/) function:
 
 ```php
 // File: init.php
@@ -154,11 +154,11 @@ wp_enqueue_script( $script_handle, $script_url, $script_asset['dependencies'], $
 To save time and space, the `$script_` variables assignment has been omitted. You can [review these here](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L19).
 
 Note the third argument for script dependencies, `$script_asset['dependencies']`. These dependencies are
-dynamically generated using [@wordpress/dependency-extraction-webpack-plugin](https://developer.wordpress.org/block-editor/packages/packages-dependency-extraction-webpack-plugin/) which will
-[ensure that](https://developer.wordpress.org/block-editor/packages/packages-scripts/#default-webpack-config) WordPress provided scripts are not included in the built
+dynamically generated using [@finpress/dependency-extraction-webpack-plugin](https://developer.finpress.org/block-editor/packages/packages-dependency-extraction-webpack-plugin/) which will
+[ensure that](https://developer.finpress.org/block-editor/packages/packages-scripts/#default-webpack-config) FinPress provided scripts are not included in the built
 bundle.
 
-You also need to register both your custom CSS styles and the WordPress default formatting library to take advantage of some nice default styling:
+You also need to register both your custom CSS styles and the FinPress default formatting library to take advantage of some nice default styling:
 
 ```php
 // File: init.php
@@ -177,7 +177,7 @@ wp_enqueue_style(
 
 ### Inlining the editor settings
 
-Looking at the `@wordpress/block-editor` package, you can see that it accepts a [settings object](https://github.com/WordPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS) to configure the default settings for the editor. These are available on the server side, so you need to expose them for use within JavaScript.
+Looking at the `@finpress/block-editor` package, you can see that it accepts a [settings object](https://github.com/FinPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS) to configure the default settings for the editor. These are available on the server side, so you need to expose them for use within JavaScript.
 
 To do this, let's [inline the settings object as JSON](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L48) assigned to the global `window.getdaveSbeSettings` object:
 
@@ -195,7 +195,7 @@ wp_add_inline_script( $script_handle, 'window.getdaveSbeSettings = ' . wp_json_e
 
 With the PHP above in place to create the admin page, you’re now finally ready to use JavaScript to render a block editor into the page’s HTML.
 
-Begin by opening the main `src/index.js` file. Then pull in the required JavaScript packages and import the CSS styles. Note that using Sass requires [extending](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/webpack.config.js#L13) the default `@wordpress/scripts` Webpack config.
+Begin by opening the main `src/index.js` file. Then pull in the required JavaScript packages and import the CSS styles. Note that using Sass requires [extending](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/webpack.config.js#L13) the default `@finpress/scripts` Webpack config.
 
 ```js
 // File: src/index.js
@@ -203,9 +203,9 @@ Begin by opening the main `src/index.js` file. Then pull in the required JavaScr
 // External dependencies.
 import { createRoot } from 'react-dom';
 
-// WordPress dependencies.
-import domReady from '@wordpress/dom-ready';
-import { registerCoreBlocks } from '@wordpress/block-library';
+// FinPress dependencies.
+import domReady from '@finpress/dom-ready';
+import { registerCoreBlocks } from '@finpress/block-library';
 
 // Internal dependencies.
 import Editor from './editor';
@@ -215,7 +215,7 @@ import './styles.scss';
 Next, once the DOM is ready you will need to run a function which:
 
 - Grabs the editor settings from `window.getdaveSbeSettings` (previously inlined from PHP).
-- Registers all the Core WordPress blocks using `registerCoreBlocks`.
+- Registers all the Core FinPress blocks using `registerCoreBlocks`.
 - Renders an `<Editor>` component into the waiting `<div>` on the custom admin page.
 
 ```jsx
@@ -230,7 +230,7 @@ domReady( function () {
 ```
 
 <div class="callout callout-info">
-	It is possible to render the editor from PHP without creating an unnecessary JS global. Check out the <a href="https://href.li/?https://github.com/WordPress/gutenberg/blob/c6821d7e64a54eb322583a35daedc6c192ece850/lib/edit-site-page.php#L135">Edit Site</a> package in the Gutenberg plugin for an example of this.
+	It is possible to render the editor from PHP without creating an unnecessary JS global. Check out the <a href="https://href.li/?https://github.com/FinPress/gutenberg/blob/c6821d7e64a54eb322583a35daedc6c192ece850/lib/edit-site-page.php#L135">Edit Site</a> package in the Gutenberg plugin for an example of this.
 </div>
 
 ## Reviewing the `<Editor>` component
@@ -281,7 +281,7 @@ In this process, the core of the editor's layout is being scaffolded, along with
 
 Let's examine these in more detail:
 
--   `<DropZoneProvider>` – Enables the use of [dropzones for drag and drop functionality](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/drop-zone)
+-   `<DropZoneProvider>` – Enables the use of [dropzones for drag and drop functionality](https://github.com/FinPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/drop-zone)
 -   `<Notices>` – Provides a "snack bar" Notice that will be rendered if any messages are dispatched to the `core/notices` store
 -   `<Header>` – Renders the static title "Standalone Block Editor" at the top of the editor UI
 -   `<BlockEditor>` – The custom block editor component
@@ -289,7 +289,7 @@ Let's examine these in more detail:
 ### Keyboard navigation
 
 With this basic component structure in place, the only remaining thing left to do
-is wrap everything in the [`navigateRegions` HOC](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/higher-order/navigate-regions) to provide keyboard navigation between the different "regions" in the layout.
+is wrap everything in the [`navigateRegions` HOC](https://github.com/FinPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/components/src/higher-order/navigate-regions) to provide keyboard navigation between the different "regions" in the layout.
 
 ```jsx
 // File: src/editor.js
@@ -329,7 +329,7 @@ The key components are `<BlockEditorProvider>` and `<BlockList>`. Let's examine 
 
 ### Understanding the `<BlockEditorProvider>` component
 
-[`<BlockEditorProvider>`](https://github.com/WordPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider) is one of the most important components in the hierarchy. It establishes a new block editing context for a new block editor.
+[`<BlockEditorProvider>`](https://github.com/FinPress/gutenberg/tree/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider) is one of the most important components in the hierarchy. It establishes a new block editing context for a new block editor.
 
 As a result, it is _fundamental_ to the entire goal of this project.
 
@@ -350,20 +350,20 @@ The children of `<BlockEditorProvider>` comprise the UI for the block editor. Th
 
 You can see that `<BlockEditorProvider>` accepts an array of (parsed) block objects as its `value` prop and, when there's a change detected within the editor, calls the `onChange` and/or `onInput` handler prop (passing the new Blocks as an argument).
 
-Internally it does this by subscribing to the provided `registry` (via the [`withRegistryProvider` HOC](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider/index.js#L158)), listening to block change events, determining whether the block changing was persistent, and then calling the appropriate `onChange|Input` handler accordingly.
+Internally it does this by subscribing to the provided `registry` (via the [`withRegistryProvider` HOC](https://github.com/FinPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/provider/index.js#L158)), listening to block change events, determining whether the block changing was persistent, and then calling the appropriate `onChange|Input` handler accordingly.
 
 For the purposes of this simple project, these features allow you to:
 
 -   Store the array of current blocks in state as `blocks`.
 -   Update the `blocks` state in memory on `onInput` by calling the hook setter
     `updateBlocks(blocks)`.
--   Handle basic persistence of blocks into `localStorage` using `onChange`. This is [fired when block updates are considered "committed"](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/provider#onchange).
+-   Handle basic persistence of blocks into `localStorage` using `onChange`. This is [fired when block updates are considered "committed"](https://github.com/FinPress/gutenberg/tree/HEAD/packages/block-editor/src/components/provider#onchange).
 
-It's also worth recalling that the component accepts a `settings` property. This is where you will add the editor settings inlined earlier as JSON within `init.php`. You can use these settings to configure features such as custom colors, available image sizes, and [much more](https://github.com/WordPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS).
+It's also worth recalling that the component accepts a `settings` property. This is where you will add the editor settings inlined earlier as JSON within `init.php`. You can use these settings to configure features such as custom colors, available image sizes, and [much more](https://github.com/FinPress/gutenberg/tree/4c472c3443513d070a50ba1e96f3a476861447b3/packages/block-editor#SETTINGS_DEFAULTS).
 
 ### Understanding the `<BlockList>` component
 
-Alongside `<BlockEditorProvider>` the next most interesting component is [`<BlockList>`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/block-list/index.js).
+Alongside `<BlockEditorProvider>` the next most interesting component is [`<BlockList>`](https://github.com/FinPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/block-list/index.js).
 
 This is one of the most important components as it's role is to **render a list of blocks into the editor**.
 
@@ -394,12 +394,12 @@ The hierarchy of these components can be _approximated_ as follows:
 Here is roughly how this works together to render the list of blocks:
 
 -   `<BlockList>` loops over all the block `clientIds` and
-    renders each via [`<BlockListBlock />`](https://github.com/WordPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/block-list/block.js).
+    renders each via [`<BlockListBlock />`](https://github.com/FinPress/gutenberg/blob/e38dbe958c04d8089695eb686d4f5caff2707505/packages/block-editor/src/components/block-list/block.js).
 -   `<BlockListBlock />`, in turn, renders the individual block
-    using its own subcomponent [`<BlockEdit>`](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-edit/index.js).
--   Finally, the [block itself](https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-edit/edit.js) is rendered using the `Component` placeholder component.
+    using its own subcomponent [`<BlockEdit>`](https://github.com/FinPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-edit/index.js).
+-   Finally, the [block itself](https://github.com/FinPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-edit/edit.js) is rendered using the `Component` placeholder component.
 
-The `@wordpress/block-editor` package components are among the most complex and involved. Understanding them is crucial if you want to grasp how the editor functions at a fundamental level. Studying these components is strongly advised.
+The `@finpress/block-editor` package components are among the most complex and involved. Understanding them is crucial if you want to grasp how the editor functions at a fundamental level. Studying these components is strongly advised.
 
 ## Reviewing the sidebar
 
@@ -450,8 +450,8 @@ This might seem overly complex, but it is required in order for `<BlockInspector
 And with that you have covered the render of you custom `<BlockEditor>`.
 
 <div class="callout callout-tip">
-<a href="https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-inspector/index.js"><code>&lt;BlockInspector&gt;</code></a>
-itself actually renders a <code>Slot</code> for <a href="https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inspector-controls"><code>&lt;InspectorControls&gt;</code></a>. This is what allows you <a href="https://github.com/WordPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-library/src/paragraph/edit.js#L127">render</a> a <code>&lt;InspectorControls>&gt;</code> component inside
+<a href="https://github.com/FinPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-editor/src/components/block-inspector/index.js"><code>&lt;BlockInspector&gt;</code></a>
+itself actually renders a <code>Slot</code> for <a href="https://github.com/FinPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inspector-controls"><code>&lt;InspectorControls&gt;</code></a>. This is what allows you <a href="https://github.com/FinPress/gutenberg/blob/def076809d25e2ad680beda8b9205ab9dea45a0f/packages/block-library/src/paragraph/edit.js#L127">render</a> a <code>&lt;InspectorControls>&gt;</code> component inside
 the <code>edit()</code> definition for your block and have
 it display within the editor's sidebar. Exploring this component in more detail is recommended.
 </div>
@@ -461,7 +461,7 @@ it display within the editor's sidebar. Exploring this component in more detail 
 You have come a long way on your journey to create a custom block editor. But there is one major area left to touch upon - block persistence. In other words, having your
 blocks saved and available _between_ page refreshes.
 
-![WordPress custom block editor interface with various content blocks and editing options](https://developer.wordpress.org/files/2023/07/custom-block-editor-persistance.gif 'Screencapture showing blocks being restored between page refreshes.')
+![FinPress custom block editor interface with various content blocks and editing options](https://developer.finpress.org/files/2023/07/custom-block-editor-persistance.gif 'Screencapture showing blocks being restored between page refreshes.')
 
 As this is only an _experiment_, this guide has opted to utilize the browser's `localStorage` API to handle saving block data. In a real-world scenario, you would likely choose a more reliable and robust system (e.g. a database).
 
@@ -492,17 +492,17 @@ function persistBlocks( newBlocks ) {
 }
 ```
 
-This function accepts an array of "committed" block changes and calls the state setter `updateBlocks`. It also stores the blocks within LocalStorage under the key `getdavesbeBlocks`. In order to achieve this, the block data is serialized into [Gutenberg "Block Grammar"](https://developer.wordpress.org/block-editor/principles/key-concepts/#blocks) format, meaning it can be safely stored as a string.
+This function accepts an array of "committed" block changes and calls the state setter `updateBlocks`. It also stores the blocks within LocalStorage under the key `getdavesbeBlocks`. In order to achieve this, the block data is serialized into [Gutenberg "Block Grammar"](https://developer.finpress.org/block-editor/principles/key-concepts/#blocks) format, meaning it can be safely stored as a string.
 
 If you open DeveloperTools and inspect the LocalStorage you will see serialized block data stored and updated as changes occur within the editor. Below is an example of the format:
 
 ```
 <!-- wp:heading -->
-<h2>An experiment with a standalone Block Editor in the WordPress admin</h2>
+<h2>An experiment with a standalone Block Editor in the FinPress admin</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>This is an experiment to discover how easy (or otherwise) it is to create a standalone instance of the Block Editor in the WordPress admin.</p>
+<p>This is an experiment to discover how easy (or otherwise) it is to create a standalone instance of the Block Editor in the FinPress admin.</p>
 <!-- /wp:paragraph -->
 ```
 

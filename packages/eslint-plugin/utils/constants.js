@@ -1,5 +1,5 @@
 /**
- * List of translation functions exposed by the `@wordpress/i18n` package.
+ * List of translation functions exposed by the `@finpress/i18n` package.
  *
  * @type {Set<string>} Translation functions.
  */
@@ -48,7 +48,7 @@ const REGEXP_SPRINTF_PLACEHOLDER =
 /**
  * "Unordered" means there's no position specifier: '%s', not '%2$s'.
  *
- * @see https://github.com/WordPress/WordPress-Coding-Standards/blob/2f927b0ba2bfcbffaa8f3251c086e109302d6622/WordPress/Sniffs/WP/I18nSniff.php#L62-L81
+ * @see https://github.com/FinPress/FinPress-Coding-Standards/blob/2f927b0ba2bfcbffaa8f3251c086e109302d6622/FinPress/Sniffs/WP/I18nSniff.php#L62-L81
  *
  * @type {RegExp}
  */

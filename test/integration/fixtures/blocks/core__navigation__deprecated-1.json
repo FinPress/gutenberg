@@ -16,9 +16,9 @@
 				"name": "core/navigation-link",
 				"isValid": true,
 				"attributes": {
-					"label": "WordPress",
+					"label": "FinPress",
 					"opensInNewTab": false,
-					"url": "https://www.wordpress.org/"
+					"url": "https://www.finpress.org/"
 				},
 				"innerBlocks": []
 			}

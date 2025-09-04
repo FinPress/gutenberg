@@ -10,9 +10,9 @@ import type { ClassNamesArg } from '@emotion/css';
 import { cx as innerCx } from '@emotion/css';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
+import { useCallback } from '@finpress/element';
 
 const isSerializedStyles = ( o: any ): o is SerializedStyles =>
 	typeof o !== 'undefined' &&

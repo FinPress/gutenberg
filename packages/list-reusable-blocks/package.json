@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/list-reusable-blocks",
+	"name": "@finpress/list-reusable-blocks",
 	"version": "5.29.0",
 	"description": "Adding Export/Import support to the reusable blocks listing.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"templates",
 		"reusable blocks"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/list-reusable-blocks/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/list-reusable-blocks/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/list-reusable-blocks"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -28,12 +28,12 @@
 	"wpScript": true,
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/api-fetch": "file:../api-fetch",
-		"@wordpress/blob": "file:../blob",
-		"@wordpress/components": "file:../components",
-		"@wordpress/compose": "file:../compose",
-		"@wordpress/element": "file:../element",
-		"@wordpress/i18n": "file:../i18n",
+		"@finpress/api-fetch": "file:../api-fetch",
+		"@finpress/blob": "file:../blob",
+		"@finpress/components": "file:../components",
+		"@finpress/compose": "file:../compose",
+		"@finpress/element": "file:../element",
+		"@finpress/i18n": "file:../i18n",
 		"change-case": "^4.1.2"
 	},
 	"peerDependencies": {

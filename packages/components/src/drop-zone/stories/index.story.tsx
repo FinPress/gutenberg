@@ -4,9 +4,9 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { upload, media } from '@wordpress/icons';
+import { upload, media } from '@finpress/icons';
 
 /**
  * Internal dependencies

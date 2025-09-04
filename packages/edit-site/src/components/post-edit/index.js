@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { DataForm } from '@wordpress/dataviews';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
-import { __experimentalVStack as VStack } from '@wordpress/components';
-import { useState, useMemo, useEffect } from '@wordpress/element';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
+import { __ } from '@finpress/i18n';
+import { DataForm } from '@finpress/dataviews';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
+import { __experimentalVStack as VStack } from '@finpress/components';
+import { useState, useMemo, useEffect } from '@finpress/element';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import { privateApis as editorPrivateApis } from '@wordpress/editor';
 import Page from '../page';
 import { unlock } from '../../lock-unlock';
 import usePatternSettings from '../page-patterns/use-pattern-settings';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 
 const { usePostFields, PostCardPanel } = unlock( editorPrivateApis );
 
@@ -149,7 +149,7 @@ function PostEditForm( { postType, postId } ) {
 	/**
 	 * The template field depends on the block editor settings.
 	 * This is a workaround to ensure that the block editor settings are available.
-	 * For more information, see: https://github.com/WordPress/gutenberg/issues/67521
+	 * For more information, see: https://github.com/FinPress/gutenberg/issues/67521
 	 */
 	const fieldsWithDependency = useMemo( () => {
 		return fields.map( ( field ) => {

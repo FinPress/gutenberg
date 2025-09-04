@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -50,7 +50,7 @@
 
 ### Enhancements
 
--   Set the minimum supported WordPress version to 6.6 to make it work seamlessly with the latest version of `@wordpress/scripts` package ([#64920](https://github.com/WordPress/gutenberg/pull/64920)).
+-   Set the minimum supported FinPress version to 6.6 to make it work seamlessly with the latest version of `@finpress/scripts` package ([#64920](https://github.com/FinPress/gutenberg/pull/64920)).
 
 ## 4.6.0 (2024-08-21)
 
@@ -68,7 +68,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 3.12.0 (2024-05-16)
 
@@ -152,7 +152,7 @@
 
 ### Enhancements
 
--   Update templates to use the `render` field in `block.json` introduced in WordPress 6.1 ([#44185](https://github.com/WordPress/gutenberg/pull/44185)).
+-   Update templates to use the `render` field in `block.json` introduced in FinPress 6.1 ([#44185](https://github.com/FinPress/gutenberg/pull/44185)).
 
 ## 2.8.0 (2022-10-19)
 
@@ -164,59 +164,59 @@
 
 ### Enhancements
 
--   Add support to the `dynamic` variant ([#41289](https://github.com/WordPress/gutenberg/pull/41289), [#43481](https://github.com/WordPress/gutenberg/pull/43481)).
+-   Add support to the `dynamic` variant ([#41289](https://github.com/FinPress/gutenberg/pull/41289), [#43481](https://github.com/FinPress/gutenberg/pull/43481)).
 
 ## 2.3.0 (2022-06-01)
 
 ### Enhancements
 
--   Read the block name from `block.json` file in JavaScript files ([#41273](https://github.com/WordPress/gutenberg/pull/41273)).
+-   Read the block name from `block.json` file in JavaScript files ([#41273](https://github.com/FinPress/gutenberg/pull/41273)).
 
 ### Bug Fixes
 
--   Fix the issue with the block wrapper in the editor ([#41273](https://github.com/WordPress/gutenberg/pull/41273)).
+-   Fix the issue with the block wrapper in the editor ([#41273](https://github.com/FinPress/gutenberg/pull/41273)).
 
 ## 2.1.0 (2022-04-21)
 
 ### Bug Fixes
 
--   Fix some CSS Coding Standards violations in file templates ([#40479](https://github.com/WordPress/gutenberg/pull/40479)).
+-   Fix some CSS Coding Standards violations in file templates ([#40479](https://github.com/FinPress/gutenberg/pull/40479)).
 
 ## 2.0.0 (2022-03-03)
 
 ### Breaking Changes
 
--   Bring project's template compatibility with `@wordpress/create-block` v3 ([#39049](https://github.com/WordPress/gutenberg/pull/39049)).
+-   Bring project's template compatibility with `@finpress/create-block` v3 ([#39049](https://github.com/FinPress/gutenberg/pull/39049)).
 
 ### Enhancements
 
--   Update project template configuration and templates to synchronize with the updated [Create a Block Tutorial](https://developer.wordpress.org/block-editor/getting-started/create-block/) ([#39049](https://github.com/WordPress/gutenberg/pull/39049)).
+-   Update project template configuration and templates to synchronize with the updated [Create a Block Tutorial](https://developer.finpress.org/block-editor/getting-started/create-block/) ([#39049](https://github.com/FinPress/gutenberg/pull/39049)).
 
 ## 1.4.0 (2022-01-27)
 
 ### Enhancements
 
--   Speed up scaffolding process by omitting WordPress dependencies in the template ([#37639](https://github.com/WordPress/gutenberg/pull/37639)).
--   Update link to block registration reference ([#37674](https://github.com/WordPress/gutenberg/pull/37674))
+-   Speed up scaffolding process by omitting FinPress dependencies in the template ([#37639](https://github.com/FinPress/gutenberg/pull/37639)).
+-   Update link to block registration reference ([#37674](https://github.com/FinPress/gutenberg/pull/37674))
 
 ## 1.3.0 (2021-07-21)
 
 ### Enhancements
 
--   Plugin scaffolded requires WordPress 5.8 now ([#33252](https://github.com/WordPress/gutenberg/pull/33252).
--   Scaffolded block is now registered from `block.json` with the `register_block_type` helper ([#33252](https://github.com/WordPress/gutenberg/pull/33252)).
+-   Plugin scaffolded requires FinPress 5.8 now ([#33252](https://github.com/FinPress/gutenberg/pull/33252).
+-   Scaffolded block is now registered from `block.json` with the `register_block_type` helper ([#33252](https://github.com/FinPress/gutenberg/pull/33252)).
 
 ## 1.2.0 (2021-04-06)
 
 ### Enhancements
 
--   Scaffolded plugin requires WordPress 5.7 now ([#29757](https://github.com/WordPress/gutenberg/pull/29757).
+-   Scaffolded plugin requires FinPress 5.7 now ([#29757](https://github.com/FinPress/gutenberg/pull/29757).
 
 ## 1.1.0 (2021-03-17)
 
 ### Enhancements
 
--   Scaffolded block is now registered from `block.json` with the `register_block_type_from_metadata` helper ([#28883](https://github.com/WordPress/gutenberg/pull/28883)).
+-   Scaffolded block is now registered from `block.json` with the `register_block_type_from_metadata` helper ([#28883](https://github.com/FinPress/gutenberg/pull/28883)).
 
 ## 1.0.0 (2021-01-21)
 

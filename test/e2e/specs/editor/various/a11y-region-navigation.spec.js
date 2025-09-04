@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Region navigation (@firefox, @webkit)', () => {
 	test.beforeEach( async ( { admin } ) => {
@@ -51,7 +51,7 @@ test.describe( 'Region navigation (@firefox, @webkit)', () => {
 		// Make sure navigating backwards works also with the tilde character,
 		// as browsers interpret the combination of the crtl+shift+backtick keys
 		// and assign it to event.key inconsistently.
-		// See https://github.com/WordPress/gutenberg/pull/45019
+		// See https://github.com/FinPress/gutenberg/pull/45019
 		if ( testInfo.project.name === 'chromium' ) {
 			await page.keyboard.press( 'Control+Shift+`' );
 		} else {

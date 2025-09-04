@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { doAction } from '@wordpress/hooks';
+import { doAction } from '@finpress/hooks';
 
 /**
  * Object map tracking messages which have been logged, for use in ensuring a
@@ -44,7 +44,7 @@ type DeprecatedOptions = {
  *
  * @example
  * ```js
- * import deprecated from '@wordpress/deprecated';
+ * import deprecated from '@finpress/deprecated';
  *
  * deprecated( 'Eating meat', {
  * 	since: '2019.01.01',

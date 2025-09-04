@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { BottomSheet, withSpokenMessages } from '@wordpress/components';
+import { useMemo } from '@finpress/element';
+import { BottomSheet, withSpokenMessages } from '@finpress/components';
 
 /**
  * Internal dependencies

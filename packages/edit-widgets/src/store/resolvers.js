@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
-import { store as coreStore } from '@wordpress/core-data';
+import { createBlock } from '@finpress/blocks';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

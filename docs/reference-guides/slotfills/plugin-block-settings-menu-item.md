@@ -6,8 +6,8 @@ This will either appear in the controls for each block or at the Top Toolbar dep
 ## Example
 
 ```js
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginBlockSettingsMenuItem } from '@wordpress/editor';
+import { registerPlugin } from '@finpress/plugins';
+import { PluginBlockSettingsMenuItem } from '@finpress/editor';
 
 const PluginBlockSettingsMenuGroupTest = () => (
 	<PluginBlockSettingsMenuItem
@@ -27,4 +27,4 @@ registerPlugin( 'block-settings-menu-group-test', {
 
 ## Location
 
-![Location](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/plugin-block-settings-menu-item-screenshot.png?raw=true 'PluginBlockSettingsMenuItem Location')
+![Location](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/assets/plugin-block-settings-menu-item-screenshot.png?raw=true 'PluginBlockSettingsMenuItem Location')

@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalVStack as VStack } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { dateI18n, getSettings as getDateSettings } from '@wordpress/date';
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { __experimentalVStack as VStack } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { dateI18n, getSettings as getDateSettings } from '@finpress/date';
+import { useEntityProp, store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Render author information for a comment.

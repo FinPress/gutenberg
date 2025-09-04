@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.license      = package['license']
   s.authors      = package['author']
   s.platform     = :ios, '13.0'
-  s.source       = { :git => 'https://github.com/WordPress/gutenberg.git' }
+  s.source       = { :git => 'https://github.com/FinPress/gutenberg.git' }
   s.source_files = 'ios/**/*.{h,m,swift}'
   s.requires_arc = true
   s.preserve_paths = 'bundle/ios/*'

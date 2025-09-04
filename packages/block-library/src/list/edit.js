@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockControls,
 	useBlockProps,
 	useInnerBlocksProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { ToolbarButton } from '@wordpress/components';
-import { useDispatch, useSelect, useRegistry } from '@wordpress/data';
-import { isRTL, __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { ToolbarButton } from '@finpress/components';
+import { useDispatch, useSelect, useRegistry } from '@finpress/data';
+import { isRTL, __ } from '@finpress/i18n';
 import {
 	formatListBullets,
 	formatListBulletsRTL,
@@ -17,10 +17,10 @@ import {
 	formatListNumberedRTL,
 	formatOutdent,
 	formatOutdentRTL,
-} from '@wordpress/icons';
-import { createBlock } from '@wordpress/blocks';
-import { useCallback, useEffect, Platform } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/icons';
+import { createBlock } from '@finpress/blocks';
+import { useCallback, useEffect, Platform } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

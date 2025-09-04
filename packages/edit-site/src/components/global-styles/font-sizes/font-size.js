@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { __, sprintf } from '@wordpress/i18n';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	__experimentalSpacer as Spacer,
 	useNavigator,
@@ -13,9 +13,9 @@ import {
 	Button,
 	FlexItem,
 	ToggleControl,
-} from '@wordpress/components';
-import { moreVertical } from '@wordpress/icons';
-import { useState, useEffect } from '@wordpress/element';
+} from '@finpress/components';
+import { moreVertical } from '@finpress/icons';
+import { useState, useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

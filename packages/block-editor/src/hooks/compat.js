@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { hasBlockSupport } from '@wordpress/blocks';
-import { addFilter } from '@wordpress/hooks';
+import { hasBlockSupport } from '@finpress/blocks';
+import { addFilter } from '@finpress/hooks';
 
 function migrateLightBlockWrapper( settings ) {
 	const { apiVersion = 1 } = settings;

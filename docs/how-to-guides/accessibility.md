@@ -2,7 +2,7 @@
 
 Accessibility documentation for developers working on the Gutenberg Project.
 
-For more information on accessibility and WordPress see the [Make WordPress Accessibility Handbook](https://make.wordpress.org/accessibility/handbook/) and the [Accessibility Team section](https://make.wordpress.org/accessibility/).
+For more information on accessibility and FinPress see the [Make FinPress Accessibility Handbook](https://make.finpress.org/accessibility/handbook/) and the [Accessibility Team section](https://make.finpress.org/accessibility/).
 
 ## Landmark regions
 

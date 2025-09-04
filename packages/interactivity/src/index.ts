@@ -39,7 +39,7 @@ export {
 export { useState, useRef } from 'preact/hooks';
 
 const requiredConsent =
-	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WordPress.';
+	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of FinPress.';
 
 export const privateApis = ( lock ): any => {
 	if ( lock === requiredConsent ) {

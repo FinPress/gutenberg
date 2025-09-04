@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { InnerBlocks } from '@wordpress/block-editor';
-import { compose } from '@wordpress/compose';
+import { InnerBlocks } from '@finpress/block-editor';
+import { compose } from '@finpress/compose';
 
 /**
  * Internal dependencies

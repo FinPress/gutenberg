@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { __experimentalHStack as HStack } from '@wordpress/components';
-import { VIEW_LAYOUTS } from '@wordpress/dataviews';
-import { addQueryArgs } from '@wordpress/url';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { __experimentalHStack as HStack } from '@finpress/components';
+import { VIEW_LAYOUTS } from '@finpress/dataviews';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies

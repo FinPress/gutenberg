@@ -18,7 +18,7 @@ The more that you approach design at the block level, the less need there is to 
 
 ### Blocks
 
-How to manage block updates depends on the nature of the block itself. If the block depends on external data, then making it dynamic from start with the `render_callback` function is often a better choice as it provides more control. If the block's structure is expected to change over time, then starting with the static block that uses `save()` method defining a default output is the recommended approach. Over time, it's possible to go hybrid and include also the `render_callback` that can use the output from `save` as a fallback while processing an alternate output. Keep in mind that that flexibility and controls comes at the cost of additional processing during rendering. Another option is using static blocks that rely on managing updates with [block deprecations](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-deprecation/). This will require you to manually update exist blocks.  Depending on your needs and comfortability, either approach can work. **To get started on creating blocks and save time, [you can use the Create Block tool](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/).**
+How to manage block updates depends on the nature of the block itself. If the block depends on external data, then making it dynamic from start with the `render_callback` function is often a better choice as it provides more control. If the block's structure is expected to change over time, then starting with the static block that uses `save()` method defining a default output is the recommended approach. Over time, it's possible to go hybrid and include also the `render_callback` that can use the output from `save` as a fallback while processing an alternate output. Keep in mind that that flexibility and controls comes at the cost of additional processing during rendering. Another option is using static blocks that rely on managing updates with [block deprecations](https://developer.finpress.org/block-editor/reference-guides/block-api/block-deprecation/). This will require you to manually update exist blocks.  Depending on your needs and comfortability, either approach can work. **To get started on creating blocks and save time, [you can use the Create Block tool](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block/).**
 
 ### Patterns
 
@@ -55,8 +55,8 @@ Likewise, it is generally poor practice to delete template parts in theme update
 
 ### Resources
 
-- [Comparing Patterns, Template Parts, and Reusable Blocks](https://wordpress.org/documentation/article/comparing-patterns-template-parts-and-reusable-blocks/)
-- [Block deprecation](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-deprecation/)
-- [Create Block tool](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/)
+- [Comparing Patterns, Template Parts, and Reusable Blocks](https://finpress.org/documentation/article/comparing-patterns-template-parts-and-reusable-blocks/)
+- [Block deprecation](https://developer.finpress.org/block-editor/reference-guides/block-api/block-deprecation/)
+- [Create Block tool](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block/)
 
 

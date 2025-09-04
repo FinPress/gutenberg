@@ -4,9 +4,9 @@
 import { type LinearGradientNode } from 'gradient-parser';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -122,8 +122,8 @@ const GradientTypePicker = ( {
  * a slice of the gradient from the center to the outside.
  *
  * ```jsx
- * import { CustomGradientPicker } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { CustomGradientPicker } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyCustomGradientPicker = () => {
  *   const [ gradient, setGradient ] = useState();

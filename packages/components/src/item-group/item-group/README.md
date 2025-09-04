@@ -14,7 +14,7 @@ This feature is still experimental. “Experimental” means this is an early im
 import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalItem as Item,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 function Example() {
 	return (
@@ -68,7 +68,7 @@ In the following example, the `<Item />` will render with a size of `small`:
 import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalItem as Item,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 const Example = () => (
 	<ItemGroup size="small">

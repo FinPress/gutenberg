@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
 	__experimentalHStack as HStack,
 	SelectControl,
-} from '@wordpress/components';
-import { createInterpolateElement, memo, useContext } from '@wordpress/element';
-import { sprintf, __, _x, isRTL } from '@wordpress/i18n';
-import { next, previous } from '@wordpress/icons';
+} from '@finpress/components';
+import { createInterpolateElement, memo, useContext } from '@finpress/element';
+import { sprintf, __, _x, isRTL } from '@finpress/i18n';
+import { next, previous } from '@finpress/icons';
 
 /**
  * Internal dependencies

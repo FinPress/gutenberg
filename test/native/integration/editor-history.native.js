@@ -16,12 +16,12 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	subscribeOnUndoPressed,
 	subscribeOnRedoPressed,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 setupCoreBlocks();
 
@@ -224,7 +224,7 @@ describe( 'Editor History', () => {
 	it( 'should preserve editor history when a link has been added and configured to open in a new tab', async () => {
 		// Arrange
 		const initialHtml = `
-			<!-- wp:paragraph --><p>A <a href="http://wordpress.org">quick</a> brown fox jumps over the lazy dog.</p><!-- /wp:paragraph -->
+			<!-- wp:paragraph --><p>A <a href="http://finpress.org">quick</a> brown fox jumps over the lazy dog.</p><!-- /wp:paragraph -->
 		`;
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -252,7 +252,7 @@ describe( 'Editor History', () => {
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
 		"<!-- wp:paragraph -->
-		<p>A <a href="http://wordpress.org" target="_blank" rel="noreferrer noopener">quick</a> brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog.</p>
+		<p>A <a href="http://finpress.org" target="_blank" rel="noreferrer noopener">quick</a> brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog.</p>
 		<!-- /wp:paragraph -->"
 	` );
 
@@ -263,7 +263,7 @@ describe( 'Editor History', () => {
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
 		"<!-- wp:paragraph -->
-		<p>A <a href="http://wordpress.org">quick</a> brown fox jumps over the lazy dog.</p>
+		<p>A <a href="http://finpress.org">quick</a> brown fox jumps over the lazy dog.</p>
 		<!-- /wp:paragraph -->"
 	` );
 
@@ -274,7 +274,7 @@ describe( 'Editor History', () => {
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
 		"<!-- wp:paragraph -->
-		<p>A <a href="http://wordpress.org" target="_blank" rel="noreferrer noopener">quick</a> brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog.</p>
+		<p>A <a href="http://finpress.org" target="_blank" rel="noreferrer noopener">quick</a> brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog.</p>
 		<!-- /wp:paragraph -->"
 	` );
 	} );

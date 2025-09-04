@@ -1,10 +1,10 @@
 # Enforce dependencies docblocks formatting (dependency-group)
 
-Ensures that all top-level package imports adhere to the dependencies grouping conventions as outlined in the [Coding Guidelines](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/code/coding-guidelines.md#imports).
+Ensures that all top-level package imports adhere to the dependencies grouping conventions as outlined in the [Coding Guidelines](https://github.com/FinPress/gutenberg/blob/HEAD/docs/contributors/code/coding-guidelines.md#imports).
 
 Specifically, this ensures that:
 
--   An import is preceded by "External dependencies", "WordPress dependencies", or "Internal dependencies" as appropriate by the import source.
+-   An import is preceded by "External dependencies", "FinPress dependencies", or "Internal dependencies" as appropriate by the import source.
 
 ## Rule details
 
@@ -25,7 +25,7 @@ Examples of **correct** code for this rule:
 import { camelCase } from 'change-case';
 
 /*
- * WordPress dependencies
+ * FinPress dependencies
  */
 import { Component } from 'react';
 

@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch } from '@wordpress/data';
-import { useEffect, useMemo } from '@wordpress/element';
-import { SlotFillProvider } from '@wordpress/components';
+import { useDispatch } from '@finpress/data';
+import { useEffect, useMemo } from '@finpress/element';
+import { SlotFillProvider } from '@finpress/components';
 import {
 	MediaUploadProvider,
 	store as uploadStore,
-} from '@wordpress/upload-media';
+} from '@finpress/upload-media';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import { unlock } from '../../lock-unlock';
 import KeyboardShortcuts from '../keyboard-shortcuts';
 import useMediaUploadSettings from './use-media-upload-settings';
 
-/** @typedef {import('@wordpress/data').WPDataRegistry} WPDataRegistry */
+/** @typedef {import('@finpress/data').WPDataRegistry} WPDataRegistry */
 
 const noop = () => {};
 

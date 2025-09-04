@@ -4,10 +4,10 @@
 import * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, useCallback, useMemo } from '@wordpress/element';
-import { __, _n, sprintf } from '@wordpress/i18n';
+import { createContext, useCallback, useMemo } from '@finpress/element';
+import { __, _n, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

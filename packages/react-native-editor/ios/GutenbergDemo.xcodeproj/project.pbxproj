@@ -363,7 +363,7 @@
 				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/prevent-autosaves.js",
 				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/wp-bar-override.css",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/RCTI18nStrings.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/WordPress-Aztec-iOS/WordPress-Aztec-iOS.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FinPress-Aztec-iOS/FinPress-Aztec-iOS.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -377,7 +377,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/prevent-autosaves.js",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/wp-bar-override.css",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCTI18nStrings.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WordPress-Aztec-iOS.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FinPress-Aztec-iOS.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -463,7 +463,7 @@
 				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/prevent-autosaves.js",
 				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/wp-bar-override.css",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/RCTI18nStrings.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/WordPress-Aztec-iOS/WordPress-Aztec-iOS.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FinPress-Aztec-iOS/FinPress-Aztec-iOS.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -477,7 +477,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/prevent-autosaves.js",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/wp-bar-override.css",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCTI18nStrings.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WordPress-Aztec-iOS.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FinPress-Aztec-iOS.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -628,7 +628,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wordpress.gutenberg.development;
+				PRODUCT_BUNDLE_IDENTIFIER = org.finpress.gutenberg.development;
 				PRODUCT_NAME = GutenbergDemo;
 				PROVISIONING_PROFILE_SPECIFIER = "Gutenberg Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "gutenberg-Bridging-Header.h";
@@ -666,7 +666,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.wordpress.gutenberg.development;
+				PRODUCT_BUNDLE_IDENTIFIER = org.finpress.gutenberg.development;
 				PRODUCT_NAME = GutenbergDemo;
 				PROVISIONING_PROFILE_SPECIFIER = "Gutenberg Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "gutenberg-Bridging-Header.h";

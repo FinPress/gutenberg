@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockSupport } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
-import { useCallback } from '@wordpress/element';
+import { getBlockSupport } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

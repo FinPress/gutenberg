@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getScrollContainer } from '@wordpress/dom';
-import { useLayoutEffect } from '@wordpress/element';
+import { getScrollContainer } from '@finpress/dom';
+import { useLayoutEffect } from '@finpress/element';
 
 export default function useListViewScrollIntoView( {
 	isSelected,

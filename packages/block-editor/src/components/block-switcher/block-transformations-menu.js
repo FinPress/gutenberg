@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { MenuGroup, MenuItem } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { MenuGroup, MenuItem } from '@finpress/components';
 import {
 	getBlockMenuDefaultClassName,
 	switchToBlockType,
-} from '@wordpress/blocks';
-import { useState, useMemo } from '@wordpress/element';
+} from '@finpress/blocks';
+import { useState, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -4,14 +4,14 @@
 import { I18nManager, LogBox } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { unregisterBlockType, getBlockType } from '@wordpress/blocks';
-import { addAction, addFilter, doAction } from '@wordpress/hooks';
-import * as wpData from '@wordpress/data';
-import { registerCoreBlocks } from '@wordpress/block-library';
+import { unregisterBlockType, getBlockType } from '@finpress/blocks';
+import { addAction, addFilter, doAction } from '@finpress/hooks';
+import * as wpData from '@finpress/data';
+import { registerCoreBlocks } from '@finpress/block-library';
 // eslint-disable-next-line no-restricted-imports
-import { initializeEditor } from '@wordpress/edit-post';
+import { initializeEditor } from '@finpress/edit-post';
 
 /**
  * Internal dependencies

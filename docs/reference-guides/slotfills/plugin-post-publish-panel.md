@@ -5,8 +5,8 @@ This slot allows for injecting items into the bottom of the post-publish panel t
 ## Example
 
 ```js
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginPostPublishPanel } from '@wordpress/editor';
+import { registerPlugin } from '@finpress/plugins';
+import { PluginPostPublishPanel } from '@finpress/editor';
 
 const PluginPostPublishPanelTest = () => (
 	<PluginPostPublishPanel>
@@ -21,4 +21,4 @@ registerPlugin( 'post-publish-panel-test', {
 
 ## Location
 
-![post publish panel](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/plugin-post-publish-panel.png?raw=true)
+![post publish panel](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/assets/plugin-post-publish-panel.png?raw=true)

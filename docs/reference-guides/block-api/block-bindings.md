@@ -1,7 +1,7 @@
 # Bindings
 
 <div class="callout callout-alert">
-Block Bindings API is only available for WordPress 6.5 and above.
+Block Bindings API is only available for FinPress 6.5 and above.
 </div>
 
 The Block Bindings API lets you “bind” dynamic data to the block’s attributes, which are then reflected in the final HTML markup that is output to the browser on the front end.
@@ -105,7 +105,7 @@ add_action(
 
 #### Block bindings source value filter
 
-_**Note:** Since WordPress 6.7._
+_**Note:** Since FinPress 6.7._
 
 The value returned by `get_value_callback` can be modified with the `block_bindings_source_value` filter.
 The filter has the following parameters:
@@ -137,14 +137,14 @@ add_filter( 'block_bindings_source_value', 'wpmovies_format_visualization_date',
 
 There are a few examples in Core that can be used as reference.
 
-- Post Meta. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/block-bindings/post-meta.php)
-- Pattern overrides. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-includes/block-bindings/pattern-overrides.php)
-- Twenty Twenty-Five theme. [Source code](https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-content/themes/twentytwentyfive/functions.php)
+- Post Meta. [Source code](https://github.com/FinPress/finpress-develop/blob/trunk/src/wp-includes/block-bindings/post-meta.php)
+- Pattern overrides. [Source code](https://github.com/FinPress/finpress-develop/blob/trunk/src/wp-includes/block-bindings/pattern-overrides.php)
+- Twenty Twenty-Five theme. [Source code](https://github.com/FinPress/finpress-develop/blob/trunk/src/wp-content/themes/twentytwentyfive/functions.php)
 
 
 ### Editor registration
 
-_**Note:** Since WordPress 6.7._
+_**Note:** Since FinPress 6.7._
 
 Editor registration on the client allows defining what the bound block will do when the value is retrieved or when the value is edited.
 
@@ -164,9 +164,9 @@ This example will show a custom post meta date in the editor and, if it doesn't 
 ```js
 import {
 	registerBlockBindingsSource,
-} from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
-import { store as coreDataStore } from '@wordpress/core-data';
+} from '@finpress/blocks';
+import { __ } from '@finpress/i18n';
+import { store as coreDataStore } from '@finpress/core-data';
 
 registerBlockBindingsSource( {
 	name: 'wpmovies/visualization-date',
@@ -216,8 +216,8 @@ The `getValues` function retrieves the value from the source on block loading. I
 
 - `bindings` returns the bindings object of the specific source. It must have the attributes as a key, and the value can be a `string` or an `object` with arguments.
 - `clientId` returns a `string` with the current block client ID.
-- `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/).
-- `select` returns an `object` of a given store's selectors. [More info in their docs.](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#select).
+- `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.finpress.org/block-editor/reference-guides/block-api/block-context/).
+- `select` returns an `object` of a given store's selectors. [More info in their docs.](https://developer.finpress.org/block-editor/reference-guides/packages/packages-data/#select).
 
 The function must return an `object` with this structure:
 `{ 'block attribute' : value }`
@@ -228,57 +228,57 @@ The `setValues` function updates all the values of the source of the block bound
 
 - `bindings` returns the bindings object of the specific source. It must have the attributes as a key, and the value can be a `string` or an `object` with arguments. This object contains a `newValue` property with the user's input.
 - `clientId` returns a `string` with the current block client ID.
-- `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/).
-- `dispatch` returns an `object` of the store's action creators. [More about dispatch](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#dispatch).
-- `select` returns an `object` of a given store's selectors. [More info in their docs.](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#select).
+- `context` returns an `object` of the current block context, defined in the `usesContext` property. [More about block context.](https://developer.finpress.org/block-editor/reference-guides/block-api/block-context/).
+- `dispatch` returns an `object` of the store's action creators. [More about dispatch](https://developer.finpress.org/block-editor/reference-guides/packages/packages-data/#dispatch).
+- `select` returns an `object` of a given store's selectors. [More info in their docs.](https://developer.finpress.org/block-editor/reference-guides/packages/packages-data/#select).
 
 
 #### Editor registration Core examples
 
 There are a few examples in Core that can be used as reference.
 
-- Post Meta. [Source code](https://github.com/WordPress/gutenberg/blob/5afd6c27bfba2be2e06b502257753fbfff1ae9f0/packages/editor/src/bindings/post-meta.js#L74-L146)
-- Pattern overrides. [Source code](https://github.com/WordPress/gutenberg/blob/5afd6c27bfba2be2e06b502257753fbfff1ae9f0/packages/editor/src/bindings/pattern-overrides.js#L8-L100)
+- Post Meta. [Source code](https://github.com/FinPress/gutenberg/blob/5afd6c27bfba2be2e06b502257753fbfff1ae9f0/packages/editor/src/bindings/post-meta.js#L74-L146)
+- Pattern overrides. [Source code](https://github.com/FinPress/gutenberg/blob/5afd6c27bfba2be2e06b502257753fbfff1ae9f0/packages/editor/src/bindings/pattern-overrides.js#L8-L100)
 
 ## Unregistering a source
 
-_**Note:** Since WordPress 6.7._
+_**Note:** Since FinPress 6.7._
 
 `unregisterBlockBindingsSource` unregisters a block bindings source by providing its name.
 
 ```js
-import { unregisterBlockBindingsSource } from '@wordpress/blocks';
+import { unregisterBlockBindingsSource } from '@finpress/blocks';
 
 unregisterBlockBindingsSource( 'plugin/my-custom-source' );
 ```
 
 ## Getting all sources
 
-_**Note:** Since WordPress 6.7._
+_**Note:** Since FinPress 6.7._
 
 `getBlockBindingsSources` returns all registered block bindings sources.
 
 ```js
-import { getBlockBindingsSources } from '@wordpress/blocks';
+import { getBlockBindingsSources } from '@finpress/blocks';
 
 const registeredSources = getBlockBindingsSources();
 ```
 
 ## Getting one specific source
 
-_**Note:** Since WordPress 6.7._
+_**Note:** Since FinPress 6.7._
 
 `getBlockBindingsSource` return a specific block bindings source by its name.
 
 ```js
-import { getBlockBindingsSource } from '@wordpress/blocks';
+import { getBlockBindingsSource } from '@finpress/blocks';
 
 const blockBindingsSource = getBlockBindingsSource( 'plugin/my-custom-source' );
 ```
 
 ## Block Bindings Utils
 
-_**Note:** Since WordPress 6.7._
+_**Note:** Since FinPress 6.7._
 
 UseBlockBindingUtils is a hook with two helpers that allows developers to edit the `metadata.bindings` attribute easily.
 
@@ -287,7 +287,7 @@ It accepts a `clientId` string as a parameter, if it is not set, the function wi
 Example:
 
 ```js
-import { useBlockBindingsUtils } from '@wordpress/block-editor';
+import { useBlockBindingsUtils } from '@finpress/block-editor';
 
 const { updateBlockBindings } = useBlockBindingsUtils('my-block-client-id-12345');
 ...
@@ -298,7 +298,7 @@ const { updateBlockBindings } = useBlockBindingsUtils('my-block-client-id-12345'
 `updateBlockBindings` works similarly to `updateBlockAttributes`, and can be used to create, update, or remove specific connections.
 
 ```js
-import { useBlockBindingsUtils } from '@wordpress/block-editor';
+import { useBlockBindingsUtils } from '@finpress/block-editor';
 
 const { updateBlockBindings } = useBlockBindingsUtils();
 
@@ -321,7 +321,7 @@ function removeBlockBindingsURLSource() {
 `removeAllBlockBindings` will remove all existing connections in a block by removing the `metadata.bindings` attribute.
 
 ```js
-import { useBlockBindingsUtils } from '@wordpress/block-editor';
+import { useBlockBindingsUtils } from '@finpress/block-editor';
 
 const { removeAllBlockBindings } = useBlockBindingsUtils();
 

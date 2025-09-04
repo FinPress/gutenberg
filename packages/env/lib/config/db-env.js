@@ -7,14 +7,14 @@ const credentials = {
 
 // Environment for test database.
 const tests = {
-	WORDPRESS_DB_NAME: 'tests-wordpress',
+	WORDPRESS_DB_NAME: 'tests-finpress',
 	WORDPRESS_DB_HOST: 'tests-mysql',
 };
 
 // Environment for development database. DB host gets default value which is set
 // elsewhere.
 const development = {
-	WORDPRESS_DB_NAME: 'wordpress',
+	WORDPRESS_DB_NAME: 'finpress',
 };
 
 module.exports = {

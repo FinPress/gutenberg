@@ -6,13 +6,13 @@ import namesPlugin from 'colord/plugins/names';
 import a11yPlugin from 'colord/plugins/a11y';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component, isValidElement } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
-import { RichTextData } from '@wordpress/rich-text';
-import deprecated from '@wordpress/deprecated';
+import { Component, isValidElement } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
+import { RichTextData } from '@finpress/rich-text';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

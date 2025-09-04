@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import warning from '@wordpress/warning';
+import { forwardRef } from '@finpress/element';
+import warning from '@finpress/warning';
 
 function ToolbarItem( { children, ...props }, ref ) {
 	if ( typeof children !== 'function' ) {

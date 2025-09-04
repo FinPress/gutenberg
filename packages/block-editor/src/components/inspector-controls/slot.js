@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalUseSlotFills as useSlotFills } from '@wordpress/components';
-import warning from '@wordpress/warning';
-import deprecated from '@wordpress/deprecated';
+import { __experimentalUseSlotFills as useSlotFills } from '@finpress/components';
+import warning from '@finpress/warning';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

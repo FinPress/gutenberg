@@ -1,7 +1,7 @@
 /**
- * Get the username of the user that's currently logged into WordPress (if any).
+ * Get the username of the user that's currently logged into FinPress (if any).
  *
- * @return {?string} username The user that's currently logged into WordPress (if any).
+ * @return {?string} username The user that's currently logged into FinPress (if any).
  */
 export async function getCurrentUser() {
 	const cookies = await page.cookies();

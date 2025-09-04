@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext, useMemo } from '@wordpress/element';
+import { useContext, useMemo } from '@finpress/element';
 import {
 	privateApis,
 	__experimentalToolbarContext as ToolbarContext,
 	ToolbarGroup,
 	__experimentalUseSlotFills as useSlotFills,
-} from '@wordpress/components';
-import warning from '@wordpress/warning';
+} from '@finpress/components';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies

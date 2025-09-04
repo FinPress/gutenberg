@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { getDefaultBlockName } from '@wordpress/blocks';
+import { useSelect } from '@finpress/data';
+import { getDefaultBlockName } from '@finpress/blocks';
 
 /**
  * Internal dependencies

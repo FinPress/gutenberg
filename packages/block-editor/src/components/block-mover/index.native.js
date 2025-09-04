@@ -4,13 +4,13 @@
 import { Platform } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Picker, ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { withInstanceId, compose } from '@wordpress/compose';
-import { withSelect, withDispatch } from '@wordpress/data';
-import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { Picker, ToolbarButton, ToolbarGroup } from '@finpress/components';
+import { withInstanceId, compose } from '@finpress/compose';
+import { withSelect, withDispatch } from '@finpress/data';
+import { useCallback, useEffect, useRef, useState } from '@finpress/element';
 
 /**
  * Internal dependencies

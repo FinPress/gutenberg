@@ -5,9 +5,9 @@ import clsx from 'clsx';
 import type { ChangeEvent, ForwardedRef, FocusEventHandler } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useState } from '@wordpress/element';
+import { forwardRef, useState } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { Button, SearchControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import { useState, useEffect } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { Button, SearchControl } from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

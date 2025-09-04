@@ -4,10 +4,10 @@
 import type { ComponentPropsWithoutRef, MouseEvent } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+import { forwardRef } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 function stopPropagation( event: MouseEvent ) {
 	event.stopPropagation();

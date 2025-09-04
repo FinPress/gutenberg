@@ -6,7 +6,7 @@ import type gradientParser from 'gradient-parser';
 export type CustomGradientPickerProps = {
 	/**
 	 * Start opting in to the new margin-free styles that will become the default
-	 * in a future version, currently scheduled to be WordPress 6.4. (The prop
+	 * in a future version, currently scheduled to be FinPress 6.4. (The prop
 	 * can be safely removed once this happens.)
 	 *
 	 * @default false

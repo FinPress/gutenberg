@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useRefEffect } from '@wordpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useRefEffect } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -133,7 +133,7 @@ export default function useDragSelection() {
 
 				// Do not rely on the active element because it may change after
 				// the mouse leaves for the first time. See
-				// https://github.com/WordPress/gutenberg/issues/48747.
+				// https://github.com/FinPress/gutenberg/issues/48747.
 				anchorElement = target;
 
 				startMultiSelect();

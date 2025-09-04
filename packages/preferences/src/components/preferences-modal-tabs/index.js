@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
+import { useViewportMatch } from '@finpress/compose';
 import {
 	Navigator,
 	__experimentalItemGroup as ItemGroup,
@@ -14,10 +14,10 @@ import {
 	CardHeader,
 	CardBody,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { useMemo, useState } from '@wordpress/element';
-import { chevronLeft, chevronRight, Icon } from '@wordpress/icons';
-import { isRTL, __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useMemo, useState } from '@finpress/element';
+import { chevronLeft, chevronRight, Icon } from '@finpress/icons';
+import { isRTL, __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

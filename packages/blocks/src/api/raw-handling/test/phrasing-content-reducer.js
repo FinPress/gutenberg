@@ -53,9 +53,9 @@ describe( 'phrasingContentReducer', () => {
 
 	it( 'should normalise the rel attribute', () => {
 		const input =
-			'<a href="https://wordpress.org" target="_blank">WordPress</a>';
+			'<a href="https://finpress.org" target="_blank">FinPress</a>';
 		const output =
-			'<a href="https://wordpress.org" target="_blank" rel="noreferrer noopener">WordPress</a>';
+			'<a href="https://finpress.org" target="_blank" rel="noreferrer noopener">FinPress</a>';
 		expect(
 			deepFilterHTML( input, [ phrasingContentReducer ], {} )
 		).toEqual( output );
@@ -63,8 +63,8 @@ describe( 'phrasingContentReducer', () => {
 
 	it( 'should only allow target="_blank"', () => {
 		const input =
-			'<a href="https://wordpress.org" target="_self">WordPress</a>';
-		const output = '<a href="https://wordpress.org">WordPress</a>';
+			'<a href="https://finpress.org" target="_self">FinPress</a>';
+		const output = '<a href="https://finpress.org">FinPress</a>';
 		expect(
 			deepFilterHTML( input, [ phrasingContentReducer ], {} )
 		).toEqual( output );
@@ -72,8 +72,8 @@ describe( 'phrasingContentReducer', () => {
 
 	it( 'should remove the rel attribute when target is not set', () => {
 		const input =
-			'<a href="https://wordpress.org" rel="noopener">WordPress</a>';
-		const output = '<a href="https://wordpress.org">WordPress</a>';
+			'<a href="https://finpress.org" rel="noopener">FinPress</a>';
+		const output = '<a href="https://finpress.org">FinPress</a>';
 		expect(
 			deepFilterHTML( input, [ phrasingContentReducer ], {} )
 		).toEqual( output );

@@ -5,11 +5,11 @@ import clsx from 'clsx';
 import type { ChangeEvent, FocusEvent, ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
-import { useRef, useState, forwardRef } from '@wordpress/element';
-import { useInstanceId, useMergeRefs } from '@wordpress/compose';
+import { __, isRTL } from '@finpress/i18n';
+import { useRef, useState, forwardRef } from '@finpress/element';
+import { useInstanceId, useMergeRefs } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -387,8 +387,8 @@ function UnforwardedRangeControl(
  * RangeControls are used to make selections from a range of incremental values.
  *
  * ```jsx
- * import { RangeControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { RangeControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyRangeControl = () => {
  *   const [ value, setValue ] = useState();

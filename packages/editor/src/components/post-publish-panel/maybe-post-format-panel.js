@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, PanelBody } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
+import { Button, PanelBody } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

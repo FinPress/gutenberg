@@ -9,7 +9,7 @@ module.exports = {
 	plugins: [ 'stylelint-scss' ],
 
 	rules: {
-		// @wordpress/stylelint-config CSS overrides.
+		// @finpress/stylelint-config CSS overrides.
 		'at-rule-empty-line-before': [
 			'always',
 			{

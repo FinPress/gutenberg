@@ -53,7 +53,7 @@ module.exports = ( api ) => {
 			opts.targets = {
 				browsers:
 					localBrowserslistConfig.defaults ||
-					require( '@wordpress/browserslist-config' ),
+					require( '@finpress/browserslist-config' ),
 			};
 		}
 
@@ -87,7 +87,7 @@ module.exports = ( api ) => {
 			require.resolve( '@babel/preset-typescript' ),
 		],
 		plugins: [
-			require.resolve( '@wordpress/warning/babel-plugin' ),
+			require.resolve( '@finpress/warning/babel-plugin' ),
 			[
 				require.resolve( '@babel/plugin-transform-react-jsx' ),
 				{

@@ -5,9 +5,9 @@ import type { ForwardedRef } from 'react';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { cloneElement, forwardRef } from '@wordpress/element';
+import { cloneElement, forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -89,8 +89,8 @@ function UnforwardedMenuItem(
  * MenuItem is a component which renders a button intended to be used in combination with the `DropdownMenu` component.
  *
  * ```jsx
- * import { MenuItem } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { MenuItem } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyMenuItem = () => {
  * 	const [ isActive, setIsActive ] = useState( true );

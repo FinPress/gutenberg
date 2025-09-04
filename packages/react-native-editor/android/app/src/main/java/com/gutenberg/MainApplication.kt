@@ -34,21 +34,21 @@ import com.swmansion.rnscreens.RNScreensPackage
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage
 import org.linusu.RNGetRandomValuesPackage
 import org.reactnative.maskedview.RNCMaskedViewPackage
-import org.wordpress.mobile.ReactNativeAztec.ReactAztecPackage
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeInterface
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.BlockTypeImpressionsCallback
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.ConnectionStatusCallback
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.FocalPointPickerTooltipShownCallback
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaSelectedCallback
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.OtherMediaOptionsReceivedCallback
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.ReplaceUnsupportedBlockCallback
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergWebViewActivity
-import org.wordpress.mobile.ReactNativeGutenbergBridge.RNMedia
-import org.wordpress.mobile.ReactNativeGutenbergBridge.RNReactNativeGutenbergBridgePackage
-import org.wordpress.mobile.WPAndroidGlue.GutenbergJsException
-import org.wordpress.mobile.WPAndroidGlue.Media
-import org.wordpress.mobile.WPAndroidGlue.MediaOption
+import org.finpress.mobile.ReactNativeAztec.ReactAztecPackage
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeInterface
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.BlockTypeImpressionsCallback
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.ConnectionStatusCallback
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.FocalPointPickerTooltipShownCallback
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaSelectedCallback
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.OtherMediaOptionsReceivedCallback
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.ReplaceUnsupportedBlockCallback
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergWebViewActivity
+import org.finpress.mobile.ReactNativeGutenbergBridge.RNMedia
+import org.finpress.mobile.ReactNativeGutenbergBridge.RNReactNativeGutenbergBridgePackage
+import org.finpress.mobile.WPAndroidGlue.GutenbergJsException
+import org.finpress.mobile.WPAndroidGlue.Media
+import org.finpress.mobile.WPAndroidGlue.MediaOption
 
 class MainApplication : Application(), ReactApplication, GutenbergBridgeInterface {
     private var mRnReactNativeGutenbergBridgePackage: RNReactNativeGutenbergBridgePackage? = null
@@ -108,7 +108,7 @@ class MainApplication : Application(), ReactApplication, GutenbergBridgeInterfac
                     }
 
                     GutenbergBridgeJS2Parent.MediaType.ANY, GutenbergBridgeJS2Parent.MediaType.OTHER -> {
-                        val other = Media(3, "https://wordpress.org/latest.zip", "zip", "WordPress latest version", "WordPress.zip", "", emptyMetadata)
+                        val other = Media(3, "https://finpress.org/latest.zip", "zip", "FinPress latest version", "FinPress.zip", "", emptyMetadata)
                         rnMediaList.add(other)
                     }
 

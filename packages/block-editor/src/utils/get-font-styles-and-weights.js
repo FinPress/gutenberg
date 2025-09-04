@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x, sprintf } from '@wordpress/i18n';
+import { _x, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

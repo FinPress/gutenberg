@@ -4,19 +4,19 @@
 import type { ComponentProps, ReactElement } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies
  */
 import type { NormalizedField } from '../../types';
 import { ItemClickWrapper } from '../utils/item-click-wrapper';
-import { sprintf, __ } from '@wordpress/i18n';
+import { sprintf, __ } from '@finpress/i18n';
 
 function ColumnPrimary< Item >( {
 	item,

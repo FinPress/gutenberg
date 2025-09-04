@@ -8,15 +8,15 @@ To help with detecting infinite loops on the client, the `RecursionProvider` com
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RecursionProvider,
 	useHasRecursion,
 	useBlockProps,
 	Warning,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
 
 export default function MyRecursiveBlockEdit( { attributes: { ref } } ) {
 	const hasAlreadyRendered = useHasRecursion( ref );

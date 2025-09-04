@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	store,
@@ -7,10 +7,10 @@ import {
 	useWatch,
 	getElement,
 	privateApis,
-} from '@wordpress/interactivity';
+} from '@finpress/interactivity';
 
 const { directive, cloneElement } = privateApis(
-	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WordPress.'
+	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of FinPress.'
 );
 
 // Custom directive to show hide the content elements in which it is placed.
@@ -66,7 +66,7 @@ const { state } = store( 'directive-run', {
 		},
 		*navigate() {
 			const { actions } = yield import(
-				'@wordpress/interactivity-router'
+				'@finpress/interactivity-router'
 			);
 			return actions.navigate( window.location, {
 				force: true,

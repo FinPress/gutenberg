@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useLayoutEffect, useRef } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
+import { useLayoutEffect, useRef } from '@finpress/element';
+import { useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

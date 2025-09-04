@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getBlockType,
@@ -10,14 +10,14 @@ import {
 	switchToBlockType,
 	store as blocksStore,
 	privateApis as blocksPrivateApis,
-} from '@wordpress/blocks';
-import { Platform } from '@wordpress/element';
-import { applyFilters } from '@wordpress/hooks';
-import { symbol } from '@wordpress/icons';
-import { create, remove, toHTMLString } from '@wordpress/rich-text';
-import deprecated from '@wordpress/deprecated';
-import { createSelector, createRegistrySelector } from '@wordpress/data';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/blocks';
+import { Platform } from '@finpress/element';
+import { applyFilters } from '@finpress/hooks';
+import { symbol } from '@finpress/icons';
+import { create, remove, toHTMLString } from '@finpress/rich-text';
+import deprecated from '@finpress/deprecated';
+import { createSelector, createRegistrySelector } from '@finpress/data';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies
@@ -549,8 +549,8 @@ export function getSelectedBlockClientId( state ) {
  * @example
  *
  *```js
- * import { select } from '@wordpress/data'
- * import { store as blockEditorStore } from '@wordpress/block-editor'
+ * import { select } from '@finpress/data'
+ * import { store as blockEditorStore } from '@finpress/block-editor'
  *
  * // Set initial active block client ID
  * let activeBlockClientId = null

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useId } from '@wordpress/element';
-import { CheckboxControl, Flex } from '@wordpress/components';
+import { useId } from '@finpress/element';
+import { CheckboxControl, Flex } from '@finpress/components';
 
 /**
  * Internal dependencies

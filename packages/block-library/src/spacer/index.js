@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { resizeCornerNE as icon } from '@wordpress/icons';
+import { resizeCornerNE as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

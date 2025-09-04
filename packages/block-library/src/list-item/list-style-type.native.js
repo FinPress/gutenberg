@@ -4,11 +4,11 @@
 import { View, Text } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Icon } from '@wordpress/components';
-import { Platform } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { Icon } from '@finpress/components';
+import { Platform } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies

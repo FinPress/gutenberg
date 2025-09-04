@@ -17,8 +17,8 @@ a "shape" abstraction.
 
 ```jsx
 import { useState } from 'react';
-import { BorderControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { BorderControl } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 const colors = [
 	{ name: 'Blue 20', color: '#72aee6' },

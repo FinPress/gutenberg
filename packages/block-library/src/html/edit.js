@@ -1,22 +1,22 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useContext, useState } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useContext, useState } from '@finpress/element';
 import {
 	BlockControls,
 	PlainText,
 	useBlockProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	ToolbarButton,
 	Disabled,
 	ToolbarGroup,
 	VisuallyHidden,
-} from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { useInstanceId } from '@wordpress/compose';
+} from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies

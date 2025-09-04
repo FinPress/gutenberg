@@ -4,9 +4,9 @@
 import type { StoryFn, Meta } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { wordpress } from '@wordpress/icons';
+import { finpress } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -143,7 +143,7 @@ VariantStates.args = {
 
 export const Icon = VariantStates.bind( {} );
 Icon.args = {
-	icon: wordpress,
+	icon: finpress,
 };
 
 export const Dashicons: StoryFn< typeof Button > = ( props ) => {

@@ -56,7 +56,7 @@ function gutenberg_url( $path ) {
 function gutenberg_override_script( $scripts, $handle, $src, $deps = array(), $ver = false, $in_footer = false ) {
 	/*
 	 * Force `wp-i18n` script to be registered in the <head> as a
-	 * temporary workaround for https://meta.trac.wordpress.org/ticket/6195.
+	 * temporary workaround for https://meta.trac.finpress.org/ticket/6195.
 	 */
 	$in_footer = 'wp-i18n' === $handle ? false : $in_footer;
 
@@ -497,7 +497,7 @@ add_action( 'wp_default_styles', 'gutenberg_register_packages_styles' );
  *
  * @since 6.1
  *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-style-engine/
+ * @see https://developer.finpress.org/block-editor/reference-guides/packages/packages-style-engine/
  *
  * @param array $options {
  *     Optional. An array of options to pass to gutenberg_style_engine_get_stylesheet_from_context(). Default empty array.
@@ -629,24 +629,24 @@ function gutenberg_default_script_modules() {
 	foreach ( $assets as $file_name => $script_module_data ) {
 		/*
 		 * Build the WordPress Script Module ID from the file name.
-		 * Prepend `@wordpress/` and remove extensions and `/index` if present:
-		 *   - interactivity/index.min.js  => @wordpress/interactivity
-		 *   - interactivity/debug.min.js  => @wordpress/interactivity/debug
-		 *   - block-library/query/view.js => @wordpress/block-library/query/view
+		 * Prepend `@finpress/` and remove extensions and `/index` if present:
+		 *   - interactivity/index.min.js  => @finpress/interactivity
+		 *   - interactivity/debug.min.js  => @finpress/interactivity/debug
+		 *   - block-library/query/view.js => @finpress/block-library/query/view
 		 */
-		$script_module_id = '@wordpress/' . preg_replace( '~(?:/index)?\.min\.js$~D', '', $file_name, 1 );
+		$script_module_id = '@finpress/' . preg_replace( '~(?:/index)?\.min\.js$~D', '', $file_name, 1 );
 		switch ( $script_module_id ) {
 			/*
 			 * Interactivity exposes two entrypoints, "/index" and "/debug".
 			 * "/debug" should replace "/index" in development.
 			 */
-			case '@wordpress/interactivity/debug':
+			case '@finpress/interactivity/debug':
 				if ( ! SCRIPT_DEBUG ) {
 					continue 2;
 				}
-				$script_module_id = '@wordpress/interactivity';
+				$script_module_id = '@finpress/interactivity';
 				break;
-			case '@wordpress/interactivity':
+			case '@finpress/interactivity':
 				if ( SCRIPT_DEBUG ) {
 					continue 2;
 				}

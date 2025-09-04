@@ -8,7 +8,7 @@ Assuming you have a form component, you can disable all form inputs by wrapping 
 
 ```jsx
 import { useState } from 'react';
-import { Button, Disabled, TextControl } from '@wordpress/components';
+import { Button, Disabled, TextControl } from '@finpress/components';
 
 const MyDisabled = () => {
 	const [ isDisabled, setIsDisabled ] = useState( true );

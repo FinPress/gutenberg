@@ -8,8 +8,8 @@
 			{
 				"blockName": "core/navigation-link",
 				"attrs": {
-					"label": "WordPress",
-					"url": "https://www.wordpress.org/"
+					"label": "FinPress",
+					"url": "https://www.finpress.org/"
 				},
 				"innerBlocks": [],
 				"innerHTML": "",

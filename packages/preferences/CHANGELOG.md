@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,13 +64,13 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 3.35.0 (2024-05-16)
 
 ### Internal
 
--   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/WordPress/gutenberg/pull/61138)).
+-   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/FinPress/gutenberg/pull/61138)).
 
 ## 3.34.0 (2024-05-02)
 
@@ -144,7 +144,7 @@
 
 ### Breaking Changes
 
--   Updated dependencies to require React 18 ([45235](https://github.com/WordPress/gutenberg/pull/45235))
+-   Updated dependencies to require React 18 ([45235](https://github.com/FinPress/gutenberg/pull/45235))
 
 ## 2.14.0 (2022-11-16)
 
@@ -178,11 +178,11 @@
 
 ### Breaking Changes
 
--   The preferences package is no longer compatible with the `@wordpress/data` persistence plugin. Please use the new `setPersistenceLayer` API. ([#39795](https://github.com/WordPress/gutenberg/pull/39795))
+-   The preferences package is no longer compatible with the `@finpress/data` persistence plugin. Please use the new `setPersistenceLayer` API. ([#39795](https://github.com/FinPress/gutenberg/pull/39795))
 
 ### Enhancements
 
--   A new `setPersistenceLayer` action has been introduced. ([#39795](https://github.com/WordPress/gutenberg/pull/39795))
+-   A new `setPersistenceLayer` action has been introduced. ([#39795](https://github.com/FinPress/gutenberg/pull/39795))
 
 ## 1.3.0 (2022-04-21)
 

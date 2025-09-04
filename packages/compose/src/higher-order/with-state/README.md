@@ -10,9 +10,9 @@ Wrapping a component with `withState` provides state as props to the wrapped com
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withState } from '@wordpress/compose';
+import { withState } from '@finpress/compose';
 
 function MyCounter( { count, setState } ) {
 	return (

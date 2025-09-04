@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { Field } from '@wordpress/dataviews';
-import type { BasePost } from '@wordpress/fields';
-import { __ } from '@wordpress/i18n';
+import type { Field } from '@finpress/dataviews';
+import type { BasePost } from '@finpress/fields';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
-import { ToolbarDropdownMenu, ToolbarGroup } from '@wordpress/components';
-import { alignLeft, alignRight, alignCenter } from '@wordpress/icons';
+import { __, isRTL } from '@finpress/i18n';
+import { ToolbarDropdownMenu, ToolbarGroup } from '@finpress/components';
+import { alignLeft, alignRight, alignCenter } from '@finpress/icons';
 
 const DEFAULT_ALIGNMENT_CONTROLS = [
 	{

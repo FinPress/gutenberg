@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerPlugin } from '@wordpress/plugins';
-import { addFilter } from '@wordpress/hooks';
+import { registerPlugin } from '@finpress/plugins';
+import { addFilter } from '@finpress/hooks';
 
 /**
  * Internal dependencies

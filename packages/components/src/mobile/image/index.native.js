@@ -5,12 +5,12 @@ import { Image as RNImage, Text, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { image, offline } from '@wordpress/icons';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { useEffect, useState, Platform } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { image, offline } from '@finpress/icons';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { useEffect, useState, Platform } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -58,7 +58,7 @@ const ImageComponent = ( {
 	const [ networkURL, setNetworkURL ] = useState( null );
 	const [ networkImageLoaded, setNetworkImageLoaded ] = useState( false );
 
-	// Disabled for Android due to https://github.com/WordPress/gutenberg/issues/43149
+	// Disabled for Android due to https://github.com/FinPress/gutenberg/issues/43149
 	const Image =
 		! shouldUseFastImage || Platform.isAndroid ? RNImage : FastImage;
 	const imageResizeMode =
@@ -112,7 +112,7 @@ const ImageComponent = ( {
 			}
 		}
 		return () => ( isCurrent = false );
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ url ] );
 
 	const onContainerLayout = ( event ) => {
@@ -272,7 +272,7 @@ const ImageComponent = ( {
 				styles.container,
 				// Only set alignItems if an image exists because alignItems causes the placeholder
 				// to disappear when an aligned image can't be downloaded
-				// https://github.com/wordpress-mobile/gutenberg-mobile/issues/1592
+				// https://github.com/finpress-mobile/gutenberg-mobile/issues/1592
 				imageData && align && { alignItems: align },
 				style,
 			] }

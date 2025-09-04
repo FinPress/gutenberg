@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { MenuGroup, Button, Slot, Fill } from '@wordpress/components';
-import { Children } from '@wordpress/element';
+import { MenuGroup, Button, Slot, Fill } from '@finpress/components';
+import { Children } from '@finpress/element';
 
 const noop = () => {};
 
@@ -28,7 +28,7 @@ function ActionItemSlot( {
 				// It ensures that menu items created by plugin authors aren't
 				// duplicated with automatically injected menu items coming
 				// from pinnable plugin sidebars.
-				// @see https://github.com/WordPress/gutenberg/issues/14457
+				// @see https://github.com/FinPress/gutenberg/issues/14457
 				const initializedByPlugins = [];
 				Children.forEach(
 					fills,

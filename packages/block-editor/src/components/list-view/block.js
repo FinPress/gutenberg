@@ -4,32 +4,32 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	hasBlockSupport,
 	switchToBlockType,
 	store as blocksStore,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 import {
 	__experimentalTreeGridCell as TreeGridCell,
 	__experimentalTreeGridItem as TreeGridItem,
-} from '@wordpress/components';
-import { useInstanceId, useDebounce } from '@wordpress/compose';
-import { moreVertical } from '@wordpress/icons';
+} from '@finpress/components';
+import { useInstanceId, useDebounce } from '@finpress/compose';
+import { moreVertical } from '@finpress/icons';
 import {
 	useCallback,
 	useMemo,
 	useState,
 	useRef,
 	memo,
-} from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { BACKSPACE, DELETE } from '@wordpress/keycodes';
-import isShallowEqual from '@wordpress/is-shallow-equal';
-import { __unstableUseShortcutEventMatch as useShortcutEventMatch } from '@wordpress/keyboard-shortcuts';
-import { speak } from '@wordpress/a11y';
+} from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { BACKSPACE, DELETE } from '@finpress/keycodes';
+import isShallowEqual from '@finpress/is-shallow-equal';
+import { __unstableUseShortcutEventMatch as useShortcutEventMatch } from '@finpress/keyboard-shortcuts';
+import { speak } from '@finpress/a11y';
 
 /**
  * Internal dependencies

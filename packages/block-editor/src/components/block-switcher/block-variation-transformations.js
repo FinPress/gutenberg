@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { MenuItem } from '@wordpress/components';
+import { MenuItem } from '@finpress/components';
 import {
 	getBlockMenuDefaultClassName,
 	cloneBlock,
 	store as blocksStore,
-} from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
-import { useState, useMemo } from '@wordpress/element';
+} from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
+import { useState, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -2,7 +2,7 @@
 
 Generate a readable non-minified JS file for each `.min.js` asset.
 
-The end result is that for each JS entrypoint, we get a set of readable and non-minimized `.js` file and a minimized `.min.js`. This allows Gutenberg to follow the WordPress convention of adding a `.min.js` suffix to minimized JS files, while still providing a readable and unminized files that play well with the WordPress i18n machinery.
+The end result is that for each JS entrypoint, we get a set of readable and non-minimized `.js` file and a minimized `.min.js`. This allows Gutenberg to follow the FinPress convention of adding a `.min.js` suffix to minimized JS files, while still providing a readable and unminized files that play well with the FinPress i18n machinery.
 
 Consult the [webpack website](https://webpack.js.org) for additional information on webpack concepts.
 
@@ -11,7 +11,7 @@ Consult the [webpack website](https://webpack.js.org) for additional information
 Install the module
 
 ```bash
-npm install @wordpress/readable-js-assets-webpack-plugin --save-dev
+npm install @finpress/readable-js-assets-webpack-plugin --save-dev
 ```
 
 **Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It is not compatible with older versions.
@@ -24,7 +24,7 @@ Use this plugin as you would other webpack plugins:
 
 ```js
 // webpack.config.js
-const ReadableJsAssetsWebpackPlugin = require( '@wordpress/readable-js-assets-webpack-plugin' );
+const ReadableJsAssetsWebpackPlugin = require( '@finpress/readable-js-assets-webpack-plugin' );
 
 module.exports = {
 	// …snip
@@ -39,8 +39,8 @@ module.exports = {
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

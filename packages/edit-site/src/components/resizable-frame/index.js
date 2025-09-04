@@ -4,25 +4,25 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useRef } from '@wordpress/element';
+import { useState, useRef } from '@finpress/element';
 import {
 	ResizableBox,
 	Tooltip,
 	__unstableMotion as motion,
-} from '@wordpress/components';
-import { useInstanceId, useReducedMotion } from '@wordpress/compose';
-import { __, isRTL } from '@wordpress/i18n';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/components';
+import { useInstanceId, useReducedMotion } from '@finpress/compose';
+import { __, isRTL } from '@finpress/i18n';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
  */
 import { unlock } from '../../lock-unlock';
-import { addQueryArgs } from '@wordpress/url';
+import { addQueryArgs } from '@finpress/url';
 
 const { useLocation, useHistory } = unlock( routerPrivateApis );
 

@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RawHTML,
@@ -7,10 +7,10 @@ import {
 	useState,
 	useRef,
 	useMemo,
-} from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { Placeholder, Spinner } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { Placeholder, Spinner } from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -119,9 +119,9 @@ export function ServerSideRender( props ) {
  *
  * @example
  * ```jsx
- * import { ServerSideRender } from '@wordpress/server-side-render';
- * // Legacy import for WordPress 6.8 and earlier
- * // import { default as ServerSideRender } from '@wordpress/server-side-render';
+ * import { ServerSideRender } from '@finpress/server-side-render';
+ * // Legacy import for FinPress 6.8 and earlier
+ * // import { default as ServerSideRender } from '@finpress/server-side-render';
  *
  * function Example() {
  *   return (
@@ -153,9 +153,9 @@ export function ServerSideRenderWithPostId( {
 	...props
 } ) {
 	const currentPostId = useSelect( ( select ) => {
-		// FIXME: @wordpress/server-side-render should not depend on @wordpress/editor.
+		// FIXME: @finpress/server-side-render should not depend on @finpress/editor.
 		// It is used by blocks that can be loaded into a *non-post* block editor.
-		// eslint-disable-next-line @wordpress/data-no-store-string-literals
+		// eslint-disable-next-line @finpress/data-no-store-string-literals
 		const postId = select( 'core/editor' )?.getCurrentPostId();
 
 		// For templates and template parts we use a custom ID format.

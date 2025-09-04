@@ -13,7 +13,7 @@ jest.useFakeTimers( 'modern' ).setSystemTime( new Date( '2020-05-10' ) );
 const mockPushEventContext = {
 	runId: 100,
 	repo: {
-		owner: 'WordPress',
+		owner: 'FinPress',
 		repo: 'gutenberg',
 	},
 	ref: 'refs/heads/trunk',
@@ -23,7 +23,7 @@ const mockPushEventContext = {
 const mockPullRequestEventContext = {
 	runId: 100,
 	repo: {
-		owner: 'WordPress',
+		owner: 'FinPress',
 		repo: 'gutenberg',
 	},
 	ref: 'refs/pull/10/merge',
@@ -159,9 +159,9 @@ describe( 'Report flaky tests', () => {
 			.toMatchInlineSnapshot( `
 		"<!-- flaky-tests-report-comment -->
 		**Flaky tests detected in headSHA.**
-		Some tests passed with failed attempts. The failures may not be related to this commit but are still reported for visibility. See [the documentation](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/code/testing-overview.md#flaky-tests) for more information.
+		Some tests passed with failed attempts. The failures may not be related to this commit but are still reported for visibility. See [the documentation](https://github.com/FinPress/gutenberg/blob/HEAD/docs/contributors/code/testing-overview.md#flaky-tests) for more information.
 
-		🔍  Workflow run URL: https://github.com/WordPress/gutenberg/actions/runs/100
+		🔍  Workflow run URL: https://github.com/FinPress/gutenberg/actions/runs/100
 		📝  Reported issues:
 		- #1 in \`/test/e2e/specs/editor/various/copy-cut-paste.spec.js\`"
 	` );
@@ -260,9 +260,9 @@ describe( 'Report flaky tests', () => {
 			.toMatchInlineSnapshot( `
 		"<!-- flaky-tests-report-comment -->
 		**Flaky tests detected in commitSHA.**
-		Some tests passed with failed attempts. The failures may not be related to this commit but are still reported for visibility. See [the documentation](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/code/testing-overview.md#flaky-tests) for more information.
+		Some tests passed with failed attempts. The failures may not be related to this commit but are still reported for visibility. See [the documentation](https://github.com/FinPress/gutenberg/blob/HEAD/docs/contributors/code/testing-overview.md#flaky-tests) for more information.
 
-		🔍  Workflow run URL: https://github.com/WordPress/gutenberg/actions/runs/100
+		🔍  Workflow run URL: https://github.com/FinPress/gutenberg/actions/runs/100
 		📝  Reported issues:
 		- #1 in \`/test/e2e/specs/editor/various/copy-cut-paste.spec.js\`
 		- #2 in \`specs/site-editor/template-part.test.js\`"

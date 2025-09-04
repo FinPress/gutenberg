@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useReducedMotion } from '@wordpress/compose';
-import { useCallback, useRef, useState } from '@wordpress/element';
+import { useReducedMotion } from '@finpress/compose';
+import { useCallback, useRef, useState } from '@finpress/element';
 
 /**
  * Internal dependencies
  */
 import { CONFIG } from '../utils';
-import warning from '@wordpress/warning';
+import warning from '@finpress/warning';
 
 // Animation duration (ms) extracted to JS in order to be used on a setTimeout.
 const FRAME_ANIMATION_DURATION = CONFIG.transitionDuration;

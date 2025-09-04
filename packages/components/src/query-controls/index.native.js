@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { useCallback, memo } from '@wordpress/element';
+import { __, _x } from '@finpress/i18n';
+import { useCallback, memo } from '@finpress/element';
 
 /**
  * Internal dependencies

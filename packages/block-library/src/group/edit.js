@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@finpress/data';
 import {
 	InnerBlocks,
 	useBlockProps,
@@ -9,10 +9,10 @@ import {
 	useInnerBlocksProps,
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { useRef } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { View } from '@wordpress/primitives';
+} from '@finpress/block-editor';
+import { useRef } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { View } from '@finpress/primitives';
 
 /**
  * Internal dependencies

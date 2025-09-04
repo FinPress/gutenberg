@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState, useCallback, useRef } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { EntityProvider } from '@wordpress/core-data';
+import { useEffect, useState, useCallback, useRef } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { EntityProvider } from '@finpress/core-data';
 import {
 	__unstableDisclosureContent as DisclosureContent,
 	Panel,
 	PanelBody,
-} from '@wordpress/components';
-import { useBlockProps } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { useBlockProps } from '@finpress/block-editor';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ import WidgetAreaInnerBlocks from './inner-blocks';
 import { store as editWidgetsStore } from '../../../store';
 import useIsDraggingWithin from './use-is-dragging-within';
 
-/** @typedef {import('@wordpress/element').RefObject} RefObject */
+/** @typedef {import('@finpress/element').RefObject} RefObject */
 
 export default function WidgetAreaEdit( {
 	clientId,

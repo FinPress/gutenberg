@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isBlobURL } from '@wordpress/blob';
+import { isBlobURL } from '@finpress/blob';
 import {
 	__unstableGetAnimateClassName as getAnimateClassName,
 	ResizableBox,
 	ToolbarButton,
-} from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	BlockControls,
 	BlockIcon,
@@ -22,14 +22,14 @@ import {
 	useBlockProps,
 	store as blockEditorStore,
 	__experimentalGetElementClassName,
-} from '@wordpress/block-editor';
-import { useEffect, useState } from '@wordpress/element';
-import { useCopyToClipboard } from '@wordpress/compose';
-import { __, _x } from '@wordpress/i18n';
-import { file as icon } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as noticesStore } from '@wordpress/notices';
-import { getFilename } from '@wordpress/url';
+} from '@finpress/block-editor';
+import { useEffect, useState } from '@finpress/element';
+import { useCopyToClipboard } from '@finpress/compose';
+import { __, _x } from '@finpress/i18n';
+import { file as icon } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { store as noticesStore } from '@finpress/notices';
+import { getFilename } from '@finpress/url';
 
 /**
  * Internal dependencies

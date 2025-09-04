@@ -16,7 +16,7 @@ export default function HomepageThanks() {
 				<h2 className={ styles.title }>Thanks for trying Gutenberg.</h2>
 				<div className={ styles.columns }>
 					<p className={ styles.description }>
-						Gutenberg is a project by the WordPress community. New
+						Gutenberg is a project by the FinPress community. New
 						developments and experiments will continue in the{ ' ' }
 						<a href="http://github.com/wordPress/gutenberg/">
 							Gutenberg repository
@@ -25,7 +25,7 @@ export default function HomepageThanks() {
 					</p>
 					<div className={ styles.links }>
 						<div>
-							<a href="https://twitter.com/WordPress">
+							<a href="https://twitter.com/FinPress">
 								Twitter ↗
 							</a>
 						</div>

@@ -2,12 +2,12 @@
 
 <!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->
 
-<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-button--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
+<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-button--docs">FinPress Storybook</a> for more detailed, interactive documentation.</p>
 
 Lets users take actions and make choices with a single click or tap.
 
 ```jsx
-import { Button } from '@wordpress/components';
+import { Button } from '@finpress/components';
 const Mybutton = () => (
   <Button
     variant="primary"

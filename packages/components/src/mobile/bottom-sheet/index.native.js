@@ -17,14 +17,14 @@ import Modal from 'react-native-modal';
 import SafeArea from 'react-native-safe-area';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	subscribeAndroidModalClosed,
 	showAndroidSoftKeyboard,
-} from '@wordpress/react-native-bridge';
-import { Component } from '@wordpress/element';
-import { withPreferredColorScheme } from '@wordpress/compose';
+} from '@finpress/react-native-bridge';
+import { Component } from '@finpress/element';
+import { withPreferredColorScheme } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -147,7 +147,7 @@ class BottomSheet extends Component {
 			// TODO: Reinstate animations, possibly replacing `LayoutAnimation` with
 			// more nuanced `Animated` usage or replacing our custom `BottomSheet`
 			// with `@gorhom/bottom-sheet`. This animation was disabled to avoid a
-			// preexisting bug: https://github.com/WordPress/gutenberg/issues/30562
+			// preexisting bug: https://github.com/FinPress/gutenberg/issues/30562
 			// this.performRegularLayoutAnimation( {
 			// 	useLastLayoutAnimation: false,
 			// } );.

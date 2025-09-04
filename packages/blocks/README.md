@@ -1,11 +1,11 @@
 # Blocks
 
-"Block" is the abstract term used to describe units of markup that, composed together, form the content or layout of a webpage. The idea combines concepts of what in WordPress today we achieve with shortcodes, custom HTML, and embed discovery into a single consistent API and user experience.
+"Block" is the abstract term used to describe units of markup that, composed together, form the content or layout of a webpage. The idea combines concepts of what in FinPress today we achieve with shortcodes, custom HTML, and embed discovery into a single consistent API and user experience.
 
-For more context, refer to [_What Are Little Blocks Made Of?_](https://make.wordpress.org/design/2017/01/25/what-are-little-blocks-made-of/) from the [Make WordPress Design](https://make.wordpress.org/design/) blog.
+For more context, refer to [_What Are Little Blocks Made Of?_](https://make.finpress.org/design/2017/01/25/what-are-little-blocks-made-of/) from the [Make FinPress Design](https://make.finpress.org/design/) blog.
 
 <div class="callout callout-alert">
-<a href="https://developer.wordpress.org/block-editor/getting-started/create-block/">Learn how to create your first block</a> for the WordPress block editor. From setting up your development environment, tools, and getting comfortable with the new development model, this tutorial covers all you need to know to get started with creating blocks.
+<a href="https://developer.finpress.org/block-editor/getting-started/create-block/">Learn how to create your first block</a> for the FinPress block editor. From setting up your development environment, tools, and getting comfortable with the new development model, this tutorial covers all you need to know to get started with creating blocks.
 </div>
 
 ## Installation
@@ -13,10 +13,10 @@ For more context, refer to [_What Are Little Blocks Made Of?_](https://make.word
 Install the module
 
 ```bash
-npm install @wordpress/blocks --save
+npm install @finpress/blocks --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## API
 
@@ -129,7 +129,7 @@ _Returns_
 
 _Changelog_
 
-`6.7.0` Introduced in WordPress core.
+`6.7.0` Introduced in FinPress core.
 
 ### getBlockBindingsSources
 
@@ -141,7 +141,7 @@ _Returns_
 
 _Changelog_
 
-`6.7.0` Introduced in WordPress core.
+`6.7.0` Introduced in FinPress core.
 
 ### getBlockContent
 
@@ -465,7 +465,7 @@ This is a recursive-descent parser that scans linearly once through the input do
 
 _Related_
 
--   <https://developer.wordpress.org/block-editor/packages/packages-block-serialization-default-parser/>
+-   <https://developer.finpress.org/block-editor/packages/packages-block-serialization-default-parser/>
 
 _Parameters_
 
@@ -529,8 +529,8 @@ Registers a new block bindings source with an object defining its behavior. Once
 _Usage_
 
 ```js
-import { _x } from '@wordpress/i18n';
-import { registerBlockBindingsSource } from '@wordpress/blocks';
+import { _x } from '@finpress/i18n';
+import { registerBlockBindingsSource } from '@finpress/blocks';
 
 registerBlockBindingsSource( {
 	name: 'plugin/my-custom-source',
@@ -548,7 +548,7 @@ _Parameters_
 
 _Changelog_
 
-`6.7.0` Introduced in WordPress core.
+`6.7.0` Introduced in FinPress core.
 
 ### registerBlockCollection
 
@@ -557,8 +557,8 @@ Registers a new block collection to group blocks in the same namespace in the in
 _Usage_
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { registerBlockCollection, registerBlockType } from '@wordpress/blocks';
+import { __ } from '@finpress/i18n';
+import { registerBlockCollection, registerBlockType } from '@finpress/blocks';
 
 // Register the collection.
 registerBlockCollection( 'my-collection', {
@@ -584,14 +584,14 @@ _Parameters_
 
 Registers a new block style for the given block types.
 
-For more information on connecting the styles with CSS [the official documentation](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-styles/#styles).
+For more information on connecting the styles with CSS [the official documentation](https://developer.finpress.org/block-editor/reference-guides/block-api/block-styles/#styles).
 
 _Usage_
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { registerBlockStyle } from '@wordpress/blocks';
-import { Button } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { registerBlockStyle } from '@finpress/blocks';
+import { Button } from '@finpress/components';
 
 const ExampleComponent = () => {
 	return (
@@ -618,13 +618,13 @@ _Parameters_
 
 Registers a new block provided a unique name and an object defining its behavior. Once registered, the block is made available as an option to any editor interface where blocks are implemented.
 
-For more in-depth information on registering a custom block see the [Create a block tutorial](https://developer.wordpress.org/block-editor/getting-started/create-block/).
+For more in-depth information on registering a custom block see the [Create a block tutorial](https://developer.finpress.org/block-editor/getting-started/create-block/).
 
 _Usage_
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { registerBlockType } from '@wordpress/blocks';
+import { __ } from '@finpress/i18n';
+import { registerBlockType } from '@finpress/blocks';
 
 registerBlockType( 'namespace/block-name', {
 	title: __( 'My First Block' ),
@@ -646,14 +646,14 @@ _Returns_
 
 Registers a new block variation for the given block type.
 
-For more information on block variations see [the official documentation ](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-variations/).
+For more information on block variations see [the official documentation ](https://developer.finpress.org/block-editor/reference-guides/block-api/block-variations/).
 
 _Usage_
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { registerBlockVariation } from '@wordpress/blocks';
-import { Button } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { registerBlockVariation } from '@finpress/blocks';
+import { Button } from '@finpress/components';
 
 const ExampleComponent = () => {
 	return (
@@ -692,14 +692,14 @@ _Returns_
 
 ### serializeRawBlock
 
-Serializes a block node into the native HTML-comment-powered block format. CAVEAT: This function is intended for re-serializing blocks as parsed by valid parsers and skips any validation steps. This is NOT a generic serialization function for in-memory blocks. For most purposes, see the following functions available in the `@wordpress/blocks` package:
+Serializes a block node into the native HTML-comment-powered block format. CAVEAT: This function is intended for re-serializing blocks as parsed by valid parsers and skips any validation steps. This is NOT a generic serialization function for in-memory blocks. For most purposes, see the following functions available in the `@finpress/blocks` package:
 
 _Related_
 
 -   serializeBlock
 -   serialize For more on the format of block nodes as returned by valid parsers:
--   `@wordpress/block-serialization-default-parser` package
--   `@wordpress/block-serialization-spec-parser` package
+-   `@finpress/block-serialization-default-parser` package
+-   `@finpress/block-serialization-spec-parser` package
 
 _Parameters_
 
@@ -717,10 +717,10 @@ Sets the block categories.
 _Usage_
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { store as blocksStore, setCategories } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
-import { Button } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { store as blocksStore, setCategories } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
+import { Button } from '@finpress/components';
 
 const ExampleComponent = () => {
 	// Retrieve the list of current categories.
@@ -756,7 +756,7 @@ Assigns the default block name.
 _Usage_
 
 ```js
-import { setDefaultBlockName } from '@wordpress/blocks';
+import { setDefaultBlockName } from '@finpress/blocks';
 
 const ExampleComponent = () => {
 	return (
@@ -783,12 +783,12 @@ _Parameters_
 
 Assigns name of block for handling block grouping interactions.
 
-This function lets you select a different block to group other blocks in instead of the default `core/group` block. This function must be used in a component or when the DOM is fully loaded. See <https://developer.wordpress.org/block-editor/reference-guides/packages/packages-dom-ready/>
+This function lets you select a different block to group other blocks in instead of the default `core/group` block. This function must be used in a component or when the DOM is fully loaded. See <https://developer.finpress.org/block-editor/reference-guides/packages/packages-dom-ready/>
 
 _Usage_
 
 ```js
-import { setGroupingBlockName } from '@wordpress/blocks';
+import { setGroupingBlockName } from '@finpress/blocks';
 
 const ExampleComponent = () => {
 	return (
@@ -817,7 +817,7 @@ Store definition for the blocks namespace.
 
 _Related_
 
--   <https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore>
+-   <https://github.com/FinPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore>
 
 _Type_
 
@@ -858,7 +858,7 @@ Unregisters a block bindings source by providing its name.
 _Usage_
 
 ```js
-import { unregisterBlockBindingsSource } from '@wordpress/blocks';
+import { unregisterBlockBindingsSource } from '@finpress/blocks';
 
 unregisterBlockBindingsSource( 'plugin/my-custom-source' );
 ```
@@ -869,7 +869,7 @@ _Parameters_
 
 _Changelog_
 
-`6.7.0` Introduced in WordPress core.
+`6.7.0` Introduced in FinPress core.
 
 ### unregisterBlockStyle
 
@@ -878,9 +878,9 @@ Unregisters a block style for the given block.
 _Usage_
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { unregisterBlockStyle } from '@wordpress/blocks';
-import { Button } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { unregisterBlockStyle } from '@finpress/blocks';
+import { Button } from '@finpress/components';
 
 const ExampleComponent = () => {
 	return (
@@ -907,8 +907,8 @@ Unregisters a block.
 _Usage_
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { unregisterBlockType } from '@wordpress/blocks';
+import { __ } from '@finpress/i18n';
+import { unregisterBlockType } from '@finpress/blocks';
 
 const ExampleComponent = () => {
 	return (
@@ -936,9 +936,9 @@ Unregisters a block variation defined for the given block type.
 _Usage_
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { unregisterBlockVariation } from '@wordpress/blocks';
-import { Button } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { unregisterBlockVariation } from '@finpress/blocks';
+import { Button } from '@finpress/components';
 
 const ExampleComponent = () => {
 	return (
@@ -965,9 +965,9 @@ Updates a category.
 _Usage_
 
 ```js
-import { __ } from '@wordpress/i18n';
-import { updateCategory } from '@wordpress/blocks';
-import { Button } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { updateCategory } from '@finpress/blocks';
+import { Button } from '@finpress/components';
 
 const ExampleComponent = () => {
 	return (
@@ -1018,8 +1018,8 @@ _Returns_
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

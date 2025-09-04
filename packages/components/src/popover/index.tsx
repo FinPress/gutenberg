@@ -17,7 +17,7 @@ import type { HTMLMotionProps, MotionProps } from 'framer-motion';
 import { motion } from 'framer-motion';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useRef,
@@ -29,17 +29,17 @@ import {
 	useState,
 	useCallback,
 	createPortal,
-} from '@wordpress/element';
+} from '@finpress/element';
 import {
 	useReducedMotion,
 	useViewportMatch,
 	useMergeRefs,
 	__experimentalUseDialog as useDialog,
-} from '@wordpress/compose';
-import { close } from '@wordpress/icons';
-import deprecated from '@wordpress/deprecated';
-import { Path, SVG } from '@wordpress/primitives';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/compose';
+import { close } from '@finpress/icons';
+import deprecated from '@finpress/deprecated';
+import { Path, SVG } from '@finpress/primitives';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -279,7 +279,7 @@ const UnforwardedPopover = (
 		constrainTabbing,
 		focusOnMount,
 		__unstableOnClose: onDialogClose,
-		// @ts-expect-error The __unstableOnClose property needs to be deprecated first (see https://github.com/WordPress/gutenberg/pull/27675)
+		// @ts-expect-error The __unstableOnClose property needs to be deprecated first (see https://github.com/FinPress/gutenberg/pull/27675)
 		onClose: onDialogClose,
 	} );
 
@@ -508,8 +508,8 @@ export const PopoverSlot = forwardRef< HTMLDivElement, PopoverSlotProps >(
  * `Popover` renders its content in a floating modal. If no explicit anchor is passed via props, it anchors to its parent element by default.
  *
  * ```jsx
- * import { Button, Popover } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { Button, Popover } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyPopover = () => {
  * 	const [ isVisible, setIsVisible ] = useState( false );

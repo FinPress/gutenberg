@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityProp } from '@wordpress/core-data';
-import { __, sprintf } from '@wordpress/i18n';
+import { useEntityProp } from '@finpress/core-data';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

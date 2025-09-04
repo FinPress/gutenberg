@@ -1,27 +1,27 @@
 # Internationalization (i18n)
 
-Internationalization utilities for client-side localization. See [How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/) for server-side documentation.
+Internationalization utilities for client-side localization. See [How to Internationalize Your Plugin](https://developer.finpress.org/plugins/internationalization/how-to-internationalize-your-plugin/) for server-side documentation.
 
 ## Installation
 
 Install the module:
 
 ```bash
-npm install @wordpress/i18n --save
+npm install @finpress/i18n --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## Usage
 
 ```js
-import { sprintf, _n } from '@wordpress/i18n';
+import { sprintf, _n } from '@finpress/i18n';
 
 sprintf( _n( '%d hat', '%d hats', 4, 'text-domain' ), 4 );
 // 4 hats
 ```
 
-For a complete example, see the [Internationalization section of the Block Editor Handbook](https://developer.wordpress.org/block-editor/developers/internationalization/).
+For a complete example, see the [Internationalization section of the Block Editor Handbook](https://developer.finpress.org/block-editor/developers/internationalization/).
 
 ## API
 
@@ -146,7 +146,7 @@ Translates and retrieves the singular or plural form based on the supplied numbe
 
 _Related_
 
--   <https://developer.wordpress.org/reference/functions/_n/>
+-   <https://developer.finpress.org/reference/functions/_n/>
 
 _Parameters_
 
@@ -165,7 +165,7 @@ Translates and retrieves the singular or plural form based on the supplied numbe
 
 _Related_
 
--   <https://developer.wordpress.org/reference/functions/_nx/>
+-   <https://developer.finpress.org/reference/functions/_nx/>
 
 _Parameters_
 
@@ -186,7 +186,7 @@ Retrieve translated string with gettext context.
 
 _Related_
 
--   <https://developer.wordpress.org/reference/functions/_x/>
+-   <https://developer.finpress.org/reference/functions/_x/>
 
 _Parameters_
 
@@ -204,7 +204,7 @@ Retrieve the translation of text.
 
 _Related_
 
--   <https://developer.wordpress.org/reference/functions/__/>
+-   <https://developer.finpress.org/reference/functions/__/>
 
 _Parameters_
 
@@ -219,8 +219,8 @@ _Returns_
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

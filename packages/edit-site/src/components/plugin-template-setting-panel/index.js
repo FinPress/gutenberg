@@ -3,12 +3,12 @@
  */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as editorStore } from '@wordpress/editor';
-import { useSelect } from '@wordpress/data';
-import { createSlotFill } from '@wordpress/components';
-import deprecated from '@wordpress/deprecated';
+import { store as editorStore } from '@finpress/editor';
+import { useSelect } from '@finpress/data';
+import { createSlotFill } from '@finpress/components';
+import deprecated from '@finpress/deprecated';
 
 const { Fill, Slot } = createSlotFill( 'PluginTemplateSettingPanel' );
 
@@ -40,7 +40,7 @@ PluginTemplateSettingPanel.Slot = Slot;
  * @example
  * ```jsx
  * // Using ESNext syntax
- * import { PluginTemplateSettingPanel } from '@wordpress/edit-site';
+ * import { PluginTemplateSettingPanel } from '@finpress/edit-site';
  *
  * const MyTemplateSettingTest = () => (
  * 		<PluginTemplateSettingPanel>

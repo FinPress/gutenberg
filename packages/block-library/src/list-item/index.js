@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { listItem as icon } from '@wordpress/icons';
-import { privateApis } from '@wordpress/block-editor';
+import { listItem as icon } from '@finpress/icons';
+import { privateApis } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

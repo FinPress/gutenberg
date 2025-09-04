@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { page, addSubmenu } from '@wordpress/icons';
-import { _x } from '@wordpress/i18n';
+import { page, addSubmenu } from '@finpress/icons';
+import { _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies

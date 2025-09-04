@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	PanelBody,
@@ -7,15 +7,15 @@ import {
 	TextControl,
 	ExternalLink,
 	VisuallyHidden,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { useCallback, useEffect, useState, useRef } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { addQueryArgs, safeDecodeURIComponent } from '@wordpress/url';
-import { decodeEntities } from '@wordpress/html-entities';
-import { useCopyToClipboard } from '@wordpress/compose';
-import { store as coreStore } from '@wordpress/core-data';
-import { external } from '@wordpress/icons';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useCallback, useEffect, useState, useRef } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { addQueryArgs, safeDecodeURIComponent } from '@finpress/url';
+import { decodeEntities } from '@finpress/html-entities';
+import { useCopyToClipboard } from '@finpress/compose';
+import { store as coreStore } from '@finpress/core-data';
+import { external } from '@finpress/icons';
 
 /**
  * Internal dependencies

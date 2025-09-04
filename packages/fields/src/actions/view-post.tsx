@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { external } from '@wordpress/icons';
-import { _x } from '@wordpress/i18n';
-import type { Action } from '@wordpress/dataviews';
+import { external } from '@finpress/icons';
+import { _x } from '@finpress/i18n';
+import type { Action } from '@finpress/dataviews';
 
 /**
  * Internal dependencies

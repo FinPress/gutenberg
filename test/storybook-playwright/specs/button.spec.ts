@@ -58,7 +58,7 @@ test.describe( 'Button', () => {
 	test.describe( 'dashicon', () => {
 		test.beforeEach( async ( { page } ) => {
 			await gotoStoryId( page, 'components-button--dashicons', {
-				decorators: { css: 'wordpress' },
+				decorators: { css: 'finpress' },
 			} );
 			// Wait for dashicons font to load
 			await page.waitForFunction( () =>

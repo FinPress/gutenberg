@@ -4,23 +4,23 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Icon } from '@wordpress/components';
-import { compose, withPreferredColorScheme } from '@wordpress/compose';
-import { coreBlocks } from '@wordpress/block-library';
-import { normalizeIconObject, rawHandler, serialize } from '@wordpress/blocks';
-import { Component } from '@wordpress/element';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { help, plugins } from '@wordpress/icons';
-import { withSelect, withDispatch } from '@wordpress/data';
-import { applyFilters } from '@wordpress/hooks';
+import { Icon } from '@finpress/components';
+import { compose, withPreferredColorScheme } from '@finpress/compose';
+import { coreBlocks } from '@finpress/block-library';
+import { normalizeIconObject, rawHandler, serialize } from '@finpress/blocks';
+import { Component } from '@finpress/element';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { help, plugins } from '@finpress/icons';
+import { withSelect, withDispatch } from '@finpress/data';
+import { applyFilters } from '@finpress/hooks';
 import {
 	UnsupportedBlockDetails,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { store as noticesStore } from '@wordpress/notices';
-import { requestUnsupportedBlockFallback } from '@wordpress/react-native-bridge';
+} from '@finpress/block-editor';
+import { store as noticesStore } from '@finpress/notices';
+import { requestUnsupportedBlockFallback } from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies
@@ -97,7 +97,7 @@ export class UnsupportedBlockEdit extends Component {
 		const textdomain = blockType?.metadata.textdomain;
 
 		return title && textdomain
-			? // eslint-disable-next-line @wordpress/i18n-no-variables, @wordpress/i18n-text-domain
+			? // eslint-disable-next-line @finpress/i18n-no-variables, @finpress/i18n-text-domain
 			  _x( title, I18N_BLOCK_SCHEMA_TITLE, textdomain )
 			: originalName;
 	}

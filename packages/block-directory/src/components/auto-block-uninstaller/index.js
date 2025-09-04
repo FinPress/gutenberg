@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { unregisterBlockType } from '@wordpress/blocks';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
-import { store as editorStore } from '@wordpress/editor';
+import { unregisterBlockType } from '@finpress/blocks';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useEffect } from '@finpress/element';
+import { store as editorStore } from '@finpress/editor';
 
 /**
  * Internal dependencies

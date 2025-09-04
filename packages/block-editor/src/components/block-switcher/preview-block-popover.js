@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Popover } from '@wordpress/components';
-import { useViewportMatch } from '@wordpress/compose';
+import { __ } from '@finpress/i18n';
+import { Popover } from '@finpress/components';
+import { useViewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies

@@ -4,26 +4,26 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { Button, __unstableMotion as motion } from '@wordpress/components';
-import { useInstanceId, useReducedMotion } from '@wordpress/compose';
+import { useDispatch, useSelect } from '@finpress/data';
+import { Button, __unstableMotion as motion } from '@finpress/components';
+import { useInstanceId, useReducedMotion } from '@finpress/compose';
 import {
 	EditorKeyboardShortcutsRegister,
 	privateApis as editorPrivateApis,
 	store as editorStore,
-} from '@wordpress/editor';
-import { __, sprintf } from '@wordpress/i18n';
-import { store as coreDataStore } from '@wordpress/core-data';
-import { privateApis as blockLibraryPrivateApis } from '@wordpress/block-library';
-import { useCallback, useMemo } from '@wordpress/element';
-import { store as noticesStore } from '@wordpress/notices';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { decodeEntities } from '@wordpress/html-entities';
-import { Icon, arrowUpLeft } from '@wordpress/icons';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { addQueryArgs } from '@wordpress/url';
+} from '@finpress/editor';
+import { __, sprintf } from '@finpress/i18n';
+import { store as coreDataStore } from '@finpress/core-data';
+import { privateApis as blockLibraryPrivateApis } from '@finpress/block-library';
+import { useCallback, useMemo } from '@finpress/element';
+import { store as noticesStore } from '@finpress/notices';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { decodeEntities } from '@finpress/html-entities';
+import { Icon, arrowUpLeft } from '@finpress/icons';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies

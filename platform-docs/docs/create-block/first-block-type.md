@@ -10,7 +10,7 @@ The `registerBlockType` function registers the block we are going to create and 
 
 ```js
 import { createElement } from 'react';
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType } from '@finpress/blocks';
 
 registerBlockType( 'create-block/gutenpride', {
 	// This is just a flag that tells the block editor that this block

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import triggerFetch from '@wordpress/api-fetch';
-import { controls as dataControls } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
-import type { StoreDescriptor } from '@wordpress/data';
-import type { APIFetchOptions } from '@wordpress/api-fetch';
+import triggerFetch from '@finpress/api-fetch';
+import { controls as dataControls } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
+import type { StoreDescriptor } from '@finpress/data';
+import type { APIFetchOptions } from '@finpress/api-fetch';
 
 /**
  * Dispatches a control action for triggering an api fetch call.
@@ -14,7 +14,7 @@ import type { APIFetchOptions } from '@wordpress/api-fetch';
  *
  * @example
  * ```js
- * import { apiFetch } from '@wordpress/data-controls';
+ * import { apiFetch } from '@finpress/data-controls';
  *
  * // Action generator using apiFetch
  * export function* myAction() {
@@ -35,20 +35,20 @@ export function apiFetch( request: APIFetchOptions ) {
 
 /**
  * Control for resolving a selector in a registered data store.
- * Alias for the `resolveSelect` built-in control in the `@wordpress/data` package.
+ * Alias for the `resolveSelect` built-in control in the `@finpress/data` package.
  *
  * @param storeNameOrDescriptor The store object or identifier.
  * @param selectorName          The selector name.
- * @param args                  Arguments passed without change to the `@wordpress/data` control.
+ * @param args                  Arguments passed without change to the `@finpress/data` control.
  */
 export function select(
 	storeNameOrDescriptor: string | StoreDescriptor,
 	selectorName: string,
 	...args: any[]
 ) {
-	deprecated( '`select` control in `@wordpress/data-controls`', {
+	deprecated( '`select` control in `@finpress/data-controls`', {
 		since: '5.7',
-		alternative: 'built-in `resolveSelect` control in `@wordpress/data`',
+		alternative: 'built-in `resolveSelect` control in `@finpress/data`',
 	} );
 
 	return dataControls.resolveSelect(
@@ -60,20 +60,20 @@ export function select(
 
 /**
  * Control for calling a selector in a registered data store.
- * Alias for the `select` built-in control in the `@wordpress/data` package.
+ * Alias for the `select` built-in control in the `@finpress/data` package.
  *
  * @param storeNameOrDescriptor The store object or identifier.
  * @param selectorName          The selector name.
- * @param args                  Arguments passed without change to the `@wordpress/data` control.
+ * @param args                  Arguments passed without change to the `@finpress/data` control.
  */
 export function syncSelect(
 	storeNameOrDescriptor: string | StoreDescriptor,
 	selectorName: string,
 	...args: any[]
 ) {
-	deprecated( '`syncSelect` control in `@wordpress/data-controls`', {
+	deprecated( '`syncSelect` control in `@finpress/data-controls`', {
 		since: '5.7',
-		alternative: 'built-in `select` control in `@wordpress/data`',
+		alternative: 'built-in `select` control in `@finpress/data`',
 	} );
 
 	return dataControls.select( storeNameOrDescriptor, selectorName, ...args );
@@ -81,20 +81,20 @@ export function syncSelect(
 
 /**
  * Control for dispatching an action in a registered data store.
- * Alias for the `dispatch` control in the `@wordpress/data` package.
+ * Alias for the `dispatch` control in the `@finpress/data` package.
  *
  * @param storeNameOrDescriptor The store object or identifier.
  * @param actionName            The action name.
- * @param args                  Arguments passed without change to the `@wordpress/data` control.
+ * @param args                  Arguments passed without change to the `@finpress/data` control.
  */
 export function dispatch(
 	storeNameOrDescriptor: string | StoreDescriptor,
 	actionName: string,
 	...args: any[]
 ) {
-	deprecated( '`dispatch` control in `@wordpress/data-controls`', {
+	deprecated( '`dispatch` control in `@finpress/data-controls`', {
 		since: '5.7',
-		alternative: 'built-in `dispatch` control in `@wordpress/data`',
+		alternative: 'built-in `dispatch` control in `@finpress/data`',
 	} );
 
 	return dataControls.dispatch( storeNameOrDescriptor, actionName, ...args );
@@ -107,7 +107,7 @@ export function dispatch(
  *
  * @example
  * ```js
- * import { __unstableAwaitPromise } from '@wordpress/data-controls';
+ * import { __unstableAwaitPromise } from '@finpress/data-controls';
  *
  * // Action generator using apiFetch
  * export function* myAction() {
@@ -132,9 +132,9 @@ export const __unstableAwaitPromise = function < T >( promise: Promise< T > ) {
  *
  * @example
  * ```js
- * // WordPress dependencies
- * import { controls } from '@wordpress/data-controls';
- * import { registerStore } from '@wordpress/data';
+ * // FinPress dependencies
+ * import { controls } from '@finpress/data-controls';
+ * import { registerStore } from '@finpress/data';
  *
  * // Internal dependencies
  * import reducer from './reducer';

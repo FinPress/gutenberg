@@ -4,20 +4,20 @@
 import styled from '@emotion/styled';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalUnitControl as UnitControl,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 const SingleColumnToolsPanelItem = styled( ToolsPanelItem )`
 	grid-column: span 1;
 `;
 
 /**
- * @typedef {import('@wordpress/components/build-types/unit-control/types').WPUnitControlUnit} WPUnitControlUnit
+ * @typedef {import('@finpress/components/build-types/unit-control/types').WPUnitControlUnit} WPUnitControlUnit
  */
 
 /**

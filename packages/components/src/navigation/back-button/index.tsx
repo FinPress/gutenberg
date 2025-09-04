@@ -3,11 +3,11 @@
  */
 import clsx from 'clsx';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import { __, isRTL } from '@wordpress/i18n';
-import { Icon, chevronLeft, chevronRight } from '@wordpress/icons';
+import { forwardRef } from '@finpress/element';
+import { __, isRTL } from '@finpress/i18n';
+import { Icon, chevronLeft, chevronRight } from '@finpress/icons';
 
 /**
  * Internal dependencies

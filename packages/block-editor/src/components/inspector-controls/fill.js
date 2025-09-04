@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalStyleProvider as StyleProvider,
 	__experimentalToolsPanelContext as ToolsPanelContext,
-} from '@wordpress/components';
-import warning from '@wordpress/warning';
-import deprecated from '@wordpress/deprecated';
-import { useEffect, useContext } from '@wordpress/element';
+} from '@finpress/components';
+import warning from '@finpress/warning';
+import deprecated from '@finpress/deprecated';
+import { useEffect, useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

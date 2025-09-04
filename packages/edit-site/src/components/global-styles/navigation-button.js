@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Navigator,
 	__experimentalItem as Item,
 	FlexItem,
 	__experimentalHStack as HStack,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

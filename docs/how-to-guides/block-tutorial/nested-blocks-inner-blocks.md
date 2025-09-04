@@ -1,6 +1,6 @@
 # Nested Blocks: Using InnerBlocks
 
-You can create a single block that nests other blocks using the [InnerBlocks](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md) component. This is used in the Columns block, Social Links block, or any block you want to contain other blocks.
+You can create a single block that nests other blocks using the [InnerBlocks](https://github.com/FinPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md) component. This is used in the Columns block, Social Links block, or any block you want to contain other blocks.
 
 Note: A single block can only contain one `InnerBlocks` component.
 
@@ -8,8 +8,8 @@ Here is the basic InnerBlocks usage.
 
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { InnerBlocks, useBlockProps } from '@finpress/block-editor';
 
 registerBlockType( 'gutenberg-examples/example-06', {
 	// ...
@@ -93,11 +93,11 @@ const MY_TEMPLATE = [
 ```
 
 
-Use the `templateLock` property to lock down the template. Using `all` locks the template completely so no changes can be made. Using `insert` prevents additional blocks from being inserted, but existing blocks can be reordered. See [templateLock documentation](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md#templatelock) for additional information.
+Use the `templateLock` property to lock down the template. Using `all` locks the template completely so no changes can be made. Using `insert` prevents additional blocks from being inserted, but existing blocks can be reordered. See [templateLock documentation](https://github.com/FinPress/gutenberg/tree/HEAD/packages/block-editor/src/components/inner-blocks/README.md#templatelock) for additional information.
 
 ### Post template
 
-Unrelated to `InnerBlocks` but worth mentioning here, you can create a [post template](https://developer.wordpress.org/block-editor/developers/block-api/block-templates/) by post type, that preloads the block editor with a set of blocks.
+Unrelated to `InnerBlocks` but worth mentioning here, you can create a [post template](https://developer.finpress.org/block-editor/developers/block-api/block-templates/) by post type, that preloads the block editor with a set of blocks.
 
 The `InnerBlocks` template is for the component in the single block that you created, the rest of the post can include any blocks the user likes. Using a post template, can lock the entire post to just the template you define.
 
@@ -123,7 +123,7 @@ The key difference between `parent` and `ancestor` is `parent` has finer specifi
 
 ### Defining parent block relationship
 
-An example of this is the Column block, which is assigned the `parent` block setting. This allows the Column block to only be available as a nested direct descendant in its parent Columns block. Otherwise, the Column block will not be available as an option within the block inserter. See [Column code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/column).
+An example of this is the Column block, which is assigned the `parent` block setting. This allows the Column block to only be available as a nested direct descendant in its parent Columns block. Otherwise, the Column block will not be available as an option within the block inserter. See [Column code for reference](https://github.com/FinPress/gutenberg/tree/HEAD/packages/block-library/src/column).
 
 When defining a direct descendent block, use the `parent` block setting to define which block is the parent. This prevents the nested block from showing in the inserter outside of the InnerBlock it is defined for.
 
@@ -138,7 +138,7 @@ When defining a direct descendent block, use the `parent` block setting to defin
 
 ### Defining an ancestor block relationship
 
-An example of this is the Comment Author Name block, which is assigned the `ancestor` block setting. This allows the Comment Author Name block to only be available as a nested descendant in its ancestral Comment Template block. Otherwise, the Comment Author Name block will not be available as an option within the block inserter. See [Comment Author Name code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/comment-author-name).
+An example of this is the Comment Author Name block, which is assigned the `ancestor` block setting. This allows the Comment Author Name block to only be available as a nested descendant in its ancestral Comment Template block. Otherwise, the Comment Author Name block will not be available as an option within the block inserter. See [Comment Author Name code for reference](https://github.com/FinPress/gutenberg/tree/HEAD/packages/block-library/src/comment-author-name).
 
 The `ancestor` relationship allows the Comment Author Name block to be anywhere in the hierarchical tree, and not _just_ a direct child of the parent Comment Template block, while still limiting its availability within the block inserter to only be visible an an option to insert if the Comment Template block is available.
 
@@ -155,7 +155,7 @@ When defining a descendent block, use the `ancestor` block setting. This prevent
 
 ### Defining a children block relationship
 
-An example of this is the Navigation block, which is assigned the `allowedBlocks` block setting. This makes only a certain subset of block types to be available as direct descendants of the Navigation block. See [Navigation code for reference](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/navigation).
+An example of this is the Navigation block, which is assigned the `allowedBlocks` block setting. This makes only a certain subset of block types to be available as direct descendants of the Navigation block. See [Navigation code for reference](https://github.com/FinPress/gutenberg/tree/HEAD/packages/block-library/src/navigation).
 
 The `allowedBlocks` setting can be extended by builders of custom blocks. The custom block can hook into the `blocks.registerBlockType` filter and add itself to the available children of the Navigation.
 
@@ -174,7 +174,7 @@ When defining a set of possible descendant blocks, use the `allowedBlocks` block
 
 You can use a react hook called `useInnerBlocksProps` instead of the `InnerBlocks` component. This hook allows you to take more control over the markup of inner blocks areas.
 
-The `useInnerBlocksProps` is exported from the `@wordpress/block-editor` package same as the `InnerBlocks` component itself and supports everything the component does. It also works like the `useBlockProps` hook.
+The `useInnerBlocksProps` is exported from the `@finpress/block-editor` package same as the `InnerBlocks` component itself and supports everything the component does. It also works like the `useBlockProps` hook.
 
 It is important to note that `useBlockProps` hook must be called *before* `useInnerBlocksProps`, otherwise `useBlockProps` will return empty object. 
 
@@ -183,8 +183,8 @@ Here is the basic `useInnerBlocksProps` hook usage.
 
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { useBlockProps, useInnerBlocksProps } from '@finpress/block-editor';
 
 registerBlockType( 'gutenberg-examples/example-06', {
 	// ...
@@ -218,8 +218,8 @@ This hook can also pass objects returned from the `useBlockProps` hook to the `u
 
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { useBlockProps, useInnerBlocksProps } from '@finpress/block-editor';
 
 registerBlockType( 'gutenberg-examples/example-06', {
 	// ...
@@ -257,8 +257,8 @@ Another benefit to using the hook approach is using the returned value, which is
 
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { useBlockProps, useInnerBlocksProps } from '@finpress/block-editor';
 
 registerBlockType( 'gutenberg-examples/example-06', {
 	// ...

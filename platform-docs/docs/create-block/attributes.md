@@ -48,7 +48,7 @@ registerBlockType( 'create-block/gutenpride', {
 
 ## PlainText Component
 
-For our example block, the component we are going to use is the **PlainText** component, which allows the user to type some unformatted text. The **PlainText** component is imported from the `@wordpress/block-editor` package.
+For our example block, the component we are going to use is the **PlainText** component, which allows the user to type some unformatted text. The **PlainText** component is imported from the `@finpress/block-editor` package.
 
 The component is added similar to an HTML tag, the `value` is set to the `attributes.message` and the `onChange` function uses the `setAttributes` to update the message attribute value.
 
@@ -57,7 +57,7 @@ The save function will simply write the `attributes.message` as a `div` tag sinc
 **edit.js** file:
 
 ```js
-import { useBlockProps, PlainText } from '@wordpress/block-editor';
+import { useBlockProps, PlainText } from '@finpress/block-editor';
 
 function Edit( { attributes, setAttributes } ) {
 	const blockProps = useBlockProps();
@@ -76,7 +76,7 @@ function Edit( { attributes, setAttributes } ) {
 **save.js** file:
 
 ```jsx
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from '@finpress/block-editor';
 
 function Save( { attributes } ) {
 	const blockProps = useBlockProps.save();

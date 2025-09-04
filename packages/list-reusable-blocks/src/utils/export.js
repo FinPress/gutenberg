@@ -4,14 +4,14 @@
 import { paramCase as kebabCase } from 'change-case';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from '@finpress/api-fetch';
 
 /**
  * Internal dependencies
  */
-import { downloadBlob } from '@wordpress/blob';
+import { downloadBlob } from '@finpress/blob';
 
 /**
  * Export a reusable block as a JSON file.

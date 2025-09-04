@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useReducedMotion, useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useRef } from '@wordpress/element';
-import { chevronUp, chevronDown } from '@wordpress/icons';
+import { useReducedMotion, useMergeRefs } from '@finpress/compose';
+import { forwardRef, useRef } from '@finpress/element';
+import { chevronUp, chevronDown } from '@finpress/icons';
 
 /**
  * Internal dependencies

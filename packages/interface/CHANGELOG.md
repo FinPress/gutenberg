@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -34,7 +34,7 @@
 
 ### Breaking Changes
 
--   `ActionItem.Slot`: Render as `MenuGroup` by default ([#67985](https://github.com/WordPress/gutenberg/pull/67985)).
+-   `ActionItem.Slot`: Render as `MenuGroup` by default ([#67985](https://github.com/FinPress/gutenberg/pull/67985)).
 
 ## 8.3.0 (2024-12-11)
 
@@ -46,13 +46,13 @@
 
 ### Breaking Changes
 
--   Removed `smallScreenTitle` prop from the `ComplementaryArea` component ([#64474](https://github.com/WordPress/gutenberg/pull/64474)).
+-   Removed `smallScreenTitle` prop from the `ComplementaryArea` component ([#64474](https://github.com/FinPress/gutenberg/pull/64474)).
 
 ## 7.0.0 (2024-10-16)
 
 ### Breaking Changes
 
--   `InterfaceSkeleton` no longer supports region navigation and its props `enableRegionNavigation` and `shortcuts` are removed. ([#63611](https://github.com/WordPress/gutenberg/pull/63611)). It’s recommended to add region navigation with the higher-order component `navigateRegions` or the hook `__unstableUseNavigateRegions` from `@wordpress/components`.
+-   `InterfaceSkeleton` no longer supports region navigation and its props `enableRegionNavigation` and `shortcuts` are removed. ([#63611](https://github.com/FinPress/gutenberg/pull/63611)). It’s recommended to add region navigation with the higher-order component `navigateRegions` or the hook `__unstableUseNavigateRegions` from `@finpress/components`.
 
 ## 6.9.0 (2024-10-03)
 
@@ -76,13 +76,13 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 5.35.0 (2024-05-16)
 
 ### Internal
 
--   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/WordPress/gutenberg/pull/61138)).
+-   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/FinPress/gutenberg/pull/61138)).
 
 ## 5.34.0 (2024-05-02)
 
@@ -96,7 +96,7 @@
 
 ### Breaking Changes
 
--   Removed `MoreMenuDropdown` component ([#59095](https://github.com/WordPress/gutenberg/pull/59095)).
+-   Removed `MoreMenuDropdown` component ([#59095](https://github.com/FinPress/gutenberg/pull/59095)).
 
 ## 5.29.0 (2024-02-21)
 
@@ -160,7 +160,7 @@
 
 ### Breaking Changes
 
--   Updated dependencies to require React 18 ([45235](https://github.com/WordPress/gutenberg/pull/45235))
+-   Updated dependencies to require React 18 ([45235](https://github.com/FinPress/gutenberg/pull/45235))
 
 ## 4.21.0 (2022-11-16)
 
@@ -204,7 +204,7 @@
 
 ### Bug Fixes
 
--   Removed unused `@wordpress/deprecated` dependency ([#38388](https://github.com/WordPress/gutenberg/pull/38388)).
+-   Removed unused `@finpress/deprecated` dependency ([#38388](https://github.com/FinPress/gutenberg/pull/38388)).
 
 ## 4.2.0 (2022-01-27)
 
@@ -212,13 +212,13 @@
 
 ### New Features
 
--   Add support for editor 'feature' preferences. Adds an `isFeatureActive` selector, a `toggleFeature` action, a `MoreMenuDropdown` component, and a `MoreMenuFeatureToggle` component. ([#33774](https://github.com/WordPress/gutenberg/pull/33774)).
+-   Add support for editor 'feature' preferences. Adds an `isFeatureActive` selector, a `toggleFeature` action, a `MoreMenuDropdown` component, and a `MoreMenuFeatureToggle` component. ([#33774](https://github.com/FinPress/gutenberg/pull/33774)).
 
 ## 4.0.0 (2021-07-29)
 
 ### Breaking Changes
 
--   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
+-   Upgraded React components to work with v17.0 ([#29118](https://github.com/FinPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
 ## 3.2.0 (2021-07-21)
 
@@ -228,36 +228,36 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at <https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/>.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at <https://nodejs.org/en/about/releases/>.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at <https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/>.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at <https://nodejs.org/en/about/releases/>.
 
 ## 2.0.0 (2021-04-06)
 
 ### Breaking Changes
 
--   Passing a tuple of components with `as` prop to `ActionItem.Slot` component is no longer supported. Please pass a component with `as` prop instead ([#30417](https://github.com/WordPress/gutenberg/pull/30417)).
+-   Passing a tuple of components with `as` prop to `ActionItem.Slot` component is no longer supported. Please pass a component with `as` prop instead ([#30417](https://github.com/FinPress/gutenberg/pull/30417)).
 
 ## 1.1.0 (2021-03-17)
 
 ### Deprecations
 
--   Passing a tuple of components with `as` prop to `ActionItem.Slot` component is deprecated. Please pass a component with `as` prop instead ([#29340](https://github.com/WordPress/gutenberg/pull/29340)).
+-   Passing a tuple of components with `as` prop to `ActionItem.Slot` component is deprecated. Please pass a component with `as` prop instead ([#29340](https://github.com/FinPress/gutenberg/pull/29340)).
 
 ## 1.0.0 (2021-01-21)
 
 ### Breaking Changes
 
--   `leftSidebar` prop in `InterfaceSkeleton` component was removed ([#26517](https://github.com/WordPress/gutenberg/pull/26517). Use `secondarySidebar` prop instead.
+-   `leftSidebar` prop in `InterfaceSkeleton` component was removed ([#26517](https://github.com/FinPress/gutenberg/pull/26517). Use `secondarySidebar` prop instead.
 
 ## 0.11.0 (2020-12-17)
 
 ### New Features
 
--   Added a store definition `store` for the interface namespace to use with `@wordpress/data` API ([#26655](https://github.com/WordPress/gutenberg/pull/26655)).
+-   Added a store definition `store` for the interface namespace to use with `@finpress/data` API ([#26655](https://github.com/FinPress/gutenberg/pull/26655)).
 
 ### Deprecations
 
--   `leftSidebar` prop in `InterfaceSkeleton` component has been deprecated ([#26517](https://github.com/WordPress/gutenberg/pull/26517). Use `secondarySidebar` prop instead.
+-   `leftSidebar` prop in `InterfaceSkeleton` component has been deprecated ([#26517](https://github.com/FinPress/gutenberg/pull/26517). Use `secondarySidebar` prop instead.
 
 ## 0.1.0 (2020-04-15)
 

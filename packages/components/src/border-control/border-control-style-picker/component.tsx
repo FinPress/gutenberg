@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { lineDashed, lineDotted, lineSolid } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+import { lineDashed, lineDotted, lineSolid } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

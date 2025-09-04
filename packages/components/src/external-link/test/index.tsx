@@ -15,13 +15,13 @@ describe( 'ExternalLink', () => {
 		const onClickMock = jest.fn();
 
 		render(
-			<ExternalLink href="https://wordpress.org" onClick={ onClickMock }>
-				WordPress.org
+			<ExternalLink href="https://finpress.org" onClick={ onClickMock }>
+				FinPress.org
 			</ExternalLink>
 		);
 
 		const link = screen.getByRole( 'link', {
-			name: 'WordPress.org (opens in a new tab)',
+			name: 'FinPress.org (opens in a new tab)',
 		} );
 
 		await user.click( link );
@@ -77,7 +77,7 @@ describe( 'ExternalLink', () => {
 		const user = await userEvent.setup();
 
 		render(
-			<ExternalLink href="https://wordpress.org">
+			<ExternalLink href="https://finpress.org">
 				I&apos;m not an anchor link!
 			</ExternalLink>
 		);

@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,7 +64,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 4.26.0 (2024-05-16)
 
@@ -116,8 +116,8 @@
 
 ### New Features
 
--   Add a new action `removeNotices` which allows bulk removal of notices by their IDs. ([#39940](https://github.com/WordPress/gutenberg/pull/39940))
--   Add a new action `removeAllNotices` which removes all notices from a given context. ([#44059](https://github.com/WordPress/gutenberg/pull/44059))
+-   Add a new action `removeNotices` which allows bulk removal of notices by their IDs. ([#39940](https://github.com/FinPress/gutenberg/pull/39940))
+-   Add a new action `removeAllNotices` which removes all notices from a given context. ([#44059](https://github.com/FinPress/gutenberg/pull/44059))
 
 ## 4.2.0 (2023-05-24)
 
@@ -127,7 +127,7 @@
 
 ### Breaking Changes
 
--   Publish Typescript build types to npm. ([#49650](https://github.com/WordPress/gutenberg/pull/49650))
+-   Publish Typescript build types to npm. ([#49650](https://github.com/FinPress/gutenberg/pull/49650))
 
 ## 3.31.0 (2023-04-12)
 
@@ -195,8 +195,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ## 2.13.0 (2021-03-17)
 
@@ -204,13 +204,13 @@
 
 ### New Features
 
--   Added a store definition `store` for the notices namespace to use with `@wordpress/data` API ([#26655](https://github.com/WordPress/gutenberg/pull/26655)).
+-   Added a store definition `store` for the notices namespace to use with `@finpress/data` API ([#26655](https://github.com/FinPress/gutenberg/pull/26655)).
 
 ## 2.0.0 (2020-02-10)
 
 ### Breaking Changes
 
--   A notices message is no longer spoken as a result of notice creation, but rather by its display in the interface by its corresponding [`Notice` component](https://github.com/WordPress/gutenberg/tree/HEAD/packages/components/src/notice).
+-   A notices message is no longer spoken as a result of notice creation, but rather by its display in the interface by its corresponding [`Notice` component](https://github.com/FinPress/gutenberg/tree/HEAD/packages/components/src/notice).
 
 ## 1.5.0 (2019-06-12)
 

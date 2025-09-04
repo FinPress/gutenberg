@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
+import { createSelector } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

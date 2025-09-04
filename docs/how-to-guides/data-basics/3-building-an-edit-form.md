@@ -2,15 +2,15 @@
 
 This part is about adding an *Edit* feature to our app. Here's a glimpse of what we're going to build:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-finished.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-finished.png)
 
 ### Step 1: Add an _Edit_ button
 
 We can't have an *Edit* form without an *Edit* button, so let's start by adding one to our `PagesList` component:
 
 ```js
-import { Button } from '@wordpress/components';
-import { decodeEntities } from '@wordpress/html-entities';
+import { Button } from '@finpress/components';
+import { decodeEntities } from '@finpress/html-entities';
 
 const PageEditButton = () => (
 	<Button variant="primary">
@@ -51,14 +51,14 @@ function PagesList( { hasResolved, pages } ) {
 
 The only change in `PagesList` is the additional column labeled _Actions_:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/edit-button.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/edit-button.png)
 
 ### Step 2: Display an _Edit_ form
 
 Our button looks nice but doesn't do anything yet. To display an edit form, we need to have one first – let's create it:
 
 ```js
-import { Button, TextControl } from '@wordpress/components';
+import { Button, TextControl } from '@finpress/components';
 function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 	return (
 		<div className="my-gutenberg-form">
@@ -81,10 +81,10 @@ function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 }
 ```
 
-Now let's make the button display the form we just created. As this tutorial is not focused on web design, we will wire the two together using a component that requires the least amount of code: [`Modal`](https://developer.wordpress.org/block-editor/reference-guides/components/modal/). Let's update `PageEditButton` accordingly:
+Now let's make the button display the form we just created. As this tutorial is not focused on web design, we will wire the two together using a component that requires the least amount of code: [`Modal`](https://developer.finpress.org/block-editor/reference-guides/components/modal/). Let's update `PageEditButton` accordingly:
 
 ```js
-import { Button, Modal, TextControl } from '@wordpress/components';
+import { Button, Modal, TextControl } from '@finpress/components';
 
 function PageEditButton({ pageId }) {
 	const [ isOpen, setOpen ] = useState( false );
@@ -114,7 +114,7 @@ function PageEditButton({ pageId }) {
 
 When you click the *Edit* button now, you should see the following modal:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-scaffold.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-scaffold.png)
 
 Great! We now have a basic user interface to work with.
 
@@ -154,7 +154,7 @@ function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 
 Now it should look like this:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-populated.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-populated.png)
 
 ### Step 4: Making the Page title field editable
 
@@ -219,14 +219,14 @@ wp.data.select( 'core' ).getEntityRecord( 'postType', 'page', pageId ).title
 
 As you can see, the `title` of an Entity Record is an object, but the `title` of an Edited Entity record is a string.
 
-This is no accident. Fields like `title`, `excerpt`, and `content` may contain [shortcodes](https://developer.wordpress.org/apis/handbook/shortcode/) or [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md), which means they can only be rendered on the server. For such fields, the REST API exposes both the `raw` markup _and_ the `rendered` string. For example, in the block editor, `content.rendered` could used as a visual preview, and `content.raw` could be used to populate the code editor.
+This is no accident. Fields like `title`, `excerpt`, and `content` may contain [shortcodes](https://developer.finpress.org/apis/handbook/shortcode/) or [dynamic blocks](/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md), which means they can only be rendered on the server. For such fields, the REST API exposes both the `raw` markup _and_ the `rendered` string. For example, in the block editor, `content.rendered` could used as a visual preview, and `content.raw` could be used to populate the code editor.
 
 So why is the `content` of an Edited Entity Record a string? Since JavaScript is not be able to properly render arbitrary block markup, it stores only the `raw` markup without the `rendered` part. And since that's a string, the entire field becomes a string.
 
 We can now update `EditPageForm` accordingly. We can access the actions using the [`useDispatch`](/packages/data/README.md#usedispatch) hook similarly to how we use `useSelect` to access selectors:
 
 ```js
-import { useDispatch } from '@wordpress/data';
+import { useDispatch } from '@finpress/data';
 
 function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 	const page = useSelect(
@@ -262,11 +262,11 @@ We added an `onChange` handler to keep track of edits via the `editEntityRecord`
 
 This is what it looks like now:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-editable.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-editable.png)
 
 ### Step 5: Saving the form data
 
-Now that we can edit the page title let's also make sure we can save it. In Gutenberg data, we save changes to the WordPress REST API using the `saveEditedEntityRecord` action. It sends the request, processes the result, and updates the cached data in the Redux state.
+Now that we can edit the page title let's also make sure we can save it. In Gutenberg data, we save changes to the FinPress REST API using the `saveEditedEntityRecord` action. It sends the request, processes the result, and updates the cached data in the Redux state.
 
 Here's an example you may try in your browser's dev tools:
 
@@ -392,7 +392,7 @@ function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 
 Once you refresh the page, open the form, change the title, and hit save, you should see the following error message:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-error.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-error.png)
 
 Fantastic! We can now **restore the previous version of `handleChange`** and move on to the next step.
 
@@ -449,20 +449,20 @@ function EditPageForm( { pageId, onSaveFinished } ) {
 
 Note that we disable the _save_ button when there are no edits and when the page is currently being saved. This is to prevent the user from accidentally pressing the button twice.
 
-Also, interrupting a *save* in progress is not supported by `@wordpress/data` so we also conditionally disabled the _cancel_ button.
+Also, interrupting a *save* in progress is not supported by `@finpress/data` so we also conditionally disabled the _cancel_ button.
 
 Here's what it looks like in action:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-inactive.png)
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-spinner.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-inactive.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/edit-form/form-spinner.png)
 
 ### Wiring it all together
 
 All the pieces are in place, great! Here’s everything we built in this chapter in one place:
 
 ```js
-import { useDispatch } from '@wordpress/data';
-import { Button, Modal, TextControl } from '@wordpress/components';
+import { useDispatch } from '@finpress/data';
+import { Button, Modal, TextControl } from '@finpress/components';
 
 function PageEditButton( { pageId } ) {
 	const [ isOpen, setOpen ] = useState( false );
@@ -550,4 +550,4 @@ function EditPageForm( { pageId, onCancel, onSaveFinished } ) {
 
 * **Previous part:** [Building a list of pages](/docs/how-to-guides/data-basics/2-building-a-list-of-pages.md)
 * **Next part:** [Building a Create Page form](/docs/how-to-guides/data-basics/4-building-a-create-page-form.md)
-* (optional) Review the [finished app](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository
+* (optional) Review the [finished app](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository

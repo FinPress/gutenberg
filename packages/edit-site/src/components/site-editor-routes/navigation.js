@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

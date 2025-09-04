@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalVStack as VStack,
 	__experimentalHStack as HStack,
-} from '@wordpress/components';
-import { useState, useContext } from '@wordpress/element';
+} from '@finpress/components';
+import { useState, useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

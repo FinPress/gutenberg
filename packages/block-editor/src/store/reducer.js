@@ -4,15 +4,15 @@
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { pipe } from '@wordpress/compose';
-import { combineReducers, select } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
+import { pipe } from '@finpress/compose';
+import { combineReducers, select } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
 import {
 	store as blocksStore,
 	privateApis as blocksPrivateApis,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies

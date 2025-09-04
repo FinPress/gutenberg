@@ -4,7 +4,7 @@
 import removeAccents from 'remove-accents';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	renderToString,
@@ -12,17 +12,17 @@ import {
 	useState,
 	useRef,
 	useMemo,
-} from '@wordpress/element';
-import { useInstanceId, useMergeRefs, useRefEffect } from '@wordpress/compose';
+} from '@finpress/element';
+import { useInstanceId, useMergeRefs, useRefEffect } from '@finpress/compose';
 import {
 	create,
 	slice,
 	insert,
 	isCollapsed,
 	getTextContent,
-} from '@wordpress/rich-text';
-import { speak } from '@wordpress/a11y';
-import { isAppleOS } from '@wordpress/keycodes';
+} from '@finpress/rich-text';
+import { speak } from '@finpress/a11y';
+import { isAppleOS } from '@finpress/keycodes';
 
 /**
  * Internal dependencies
@@ -173,7 +173,7 @@ export function useAutocomplete( {
 						? filteredOptions.length
 						: selectedIndex ) - 1;
 				setSelectedIndex( newIndex );
-				// See the related PR as to why this is necessary: https://github.com/WordPress/gutenberg/pull/54902.
+				// See the related PR as to why this is necessary: https://github.com/FinPress/gutenberg/pull/54902.
 				if ( isAppleOS() ) {
 					speak(
 						getNodeText( filteredOptions[ newIndex ].label ),
@@ -357,7 +357,7 @@ export function useAutocomplete( {
 		);
 		setFilterValue( query === null ? '' : query );
 		// We want to avoid introducing unexpected side effects.
-		// See https://github.com/WordPress/gutenberg/pull/41820
+		// See https://github.com/FinPress/gutenberg/pull/41820
 	}, [ textContent ] );
 
 	const { key: selectedKey = '' } = filteredOptions[ selectedIndex ] || {};

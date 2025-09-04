@@ -3,9 +3,9 @@
  */
 import type { Meta, StoryFn } from '@storybook/react';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, useContext, useState } from '@wordpress/element';
+import { createContext, useContext, useState } from '@finpress/element';
 /**
  * Internal dependencies
  */

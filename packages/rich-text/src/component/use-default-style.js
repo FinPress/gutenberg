@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
+import { useCallback } from '@finpress/element';
 
 /**
  * In HTML, leading and trailing spaces are not visible, and multiple spaces

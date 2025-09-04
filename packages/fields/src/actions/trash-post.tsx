@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { trash } from '@wordpress/icons';
-import { useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { __, _n, sprintf, _x } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { useState } from '@wordpress/element';
+import { trash } from '@finpress/icons';
+import { useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { __, _n, sprintf, _x } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { useState } from '@finpress/element';
 import {
 	Button,
 	__experimentalText as Text,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import type { Action } from '@wordpress/dataviews';
+} from '@finpress/components';
+import type { Action } from '@finpress/dataviews';
 
 /**
  * Internal dependencies

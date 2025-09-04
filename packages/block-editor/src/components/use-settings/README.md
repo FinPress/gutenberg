@@ -16,12 +16,12 @@ It does the lookup of the settings in the following order:
 This will fetch the default color palette based on the block instance.
 
 ```jsx
-import { useSettings } from '@wordpress/block-editor';
+import { useSettings } from '@finpress/block-editor';
 
 const [ defaultColorPalette ] = useSettings( 'color.palette.default' );
 ```
 
-Refer [here](https://github.com/WordPress/gutenberg/blob/HEAD/docs/how-to-guides/curating-the-editor-experience.md?plain=1#L330) in order to understand how the filter mentioned above `blockEditor.useSetting.before` can be used.
+Refer [here](https://github.com/FinPress/gutenberg/blob/HEAD/docs/how-to-guides/curating-the-editor-experience.md?plain=1#L330) in order to understand how the filter mentioned above `blockEditor.useSetting.before` can be used.
 
 ### Props
 

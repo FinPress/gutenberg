@@ -6,23 +6,23 @@ import { I18nManager } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
+import { Component } from '@finpress/element';
 import {
 	EditorProvider,
 	ErrorBoundary,
 	store as editorStore,
-} from '@wordpress/editor';
-import { parse, serialize } from '@wordpress/blocks';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
+} from '@finpress/editor';
+import { parse, serialize } from '@finpress/blocks';
+import { withDispatch, withSelect } from '@finpress/data';
+import { compose } from '@finpress/compose';
 import {
 	subscribeSetFocusOnTitle,
 	subscribeFeaturedImageIdNativeUpdated,
-} from '@wordpress/react-native-bridge';
-import { SlotFillProvider } from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/react-native-bridge';
+import { SlotFillProvider } from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

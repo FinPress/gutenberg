@@ -11,7 +11,7 @@ After editing your blocks, you may choose to persist them as JSON or serialize t
 Given a block list object, you can retrieve an initial HTML version like so:
 
 ```js
-import { serialize } from '@wordpress/blocks';
+import { serialize } from '@finpress/blocks';
 
 const blockList = [
     {
@@ -28,7 +28,7 @@ const html = serialize( blockList );
 If needed, it is also possible to parse back the HTML into a block list object:
 
 ```js
-import { parse } from '@wordpress/blocks';
+import { parse } from '@finpress/blocks';
 
 const blockList = parse( html );
 ```

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ToolbarDropdownMenu } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
+import { ToolbarDropdownMenu } from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

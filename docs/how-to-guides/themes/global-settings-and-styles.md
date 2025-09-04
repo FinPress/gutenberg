@@ -1,10 +1,10 @@
 # Global Settings & Styles (theme.json)
 
-WordPress 5.8 comes with [a new mechanism](https://make.wordpress.org/core/2021/06/25/introducing-theme-json-in-wordpress-5-8/) to configure the editor that enables a finer-grained control and introduces the first step in managing styles for future WordPress releases: the `theme.json` file.
+FinPress 5.8 comes with [a new mechanism](https://make.finpress.org/core/2021/06/25/introducing-theme-json-in-finpress-5-8/) to configure the editor that enables a finer-grained control and introduces the first step in managing styles for future FinPress releases: the `theme.json` file.
 
 ## Rationale
 
-The Block Editor API has evolved at different velocities and there are some growing pains, specially in areas that affect themes. Examples of this are: the ability to [control the editor programmatically](https://make.wordpress.org/core/2020/01/23/controlling-the-block-editor/), or [a block style system](https://github.com/WordPress/gutenberg/issues/9534) that facilitates user, theme, and core style preferences.
+The Block Editor API has evolved at different velocities and there are some growing pains, specially in areas that affect themes. Examples of this are: the ability to [control the editor programmatically](https://make.finpress.org/core/2020/01/23/controlling-the-block-editor/), or [a block style system](https://github.com/FinPress/gutenberg/issues/9534) that facilitates user, theme, and core style preferences.
 
 This describes the current efforts to consolidate the various APIs related to styles into a single point – a `theme.json` file that should be located inside the root of the theme directory.
 
@@ -125,26 +125,26 @@ This specification is the same for the three different origins that use this for
 
 ### Version
 
-This field describes the format of the `theme.json` file. The latest version is [version 3](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) introduced in WordPress 6.6.
+This field describes the format of the `theme.json` file. The latest version is [version 3](https://developer.finpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/) introduced in FinPress 6.6.
 
 New versions are introduced when a breaking change needs to be made. This allows theme authors to choose when to opt-in to the breaking changes and migrate their theme.json files to the new format.
 
-Older versions of `theme.json` are backwards-compatible and will continue to work with newer versions of WordPress and the Gutenberg plugin. However new features will be developed on the latest version.
+Older versions of `theme.json` are backwards-compatible and will continue to work with newer versions of FinPress and the Gutenberg plugin. However new features will be developed on the latest version.
 
-Follow the instructions in [migrating to newer versions](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) for details on updating to the latest version.
+Follow the instructions in [migrating to newer versions](https://developer.finpress.org/block-editor/reference-guides/theme-json-reference/theme-json-migrations/) for details on updating to the latest version.
 
 ### Settings
 
 <div class="callout callout-alert">
-The Gutenberg plugin extends the settings available from WordPress 5.8, so they can be used with other WordPress versions and they go through a maturation process before being ported to core.
+The Gutenberg plugin extends the settings available from FinPress 5.8, so they can be used with other FinPress versions and they go through a maturation process before being ported to core.
 
-The tabs below show WordPress 5.8 supported settings and the ones supported by the Gutenberg plugin.
+The tabs below show FinPress 5.8 supported settings and the ones supported by the Gutenberg plugin.
 </div>
 
 The settings section has the following structure:
 
 {% codetabs %}
-{% WordPress %}
+{% FinPress %}
 
 ```json
 {
@@ -665,15 +665,15 @@ Note that the name of the variable is created by adding `--` in between each nes
 ### Styles
 
 <div class="callout callout-alert">
-The Gutenberg plugin extends the styles available from WordPress 5.8, so they can be used with other WordPress versions and they go through a maturation process before being ported to core.
+The Gutenberg plugin extends the styles available from FinPress 5.8, so they can be used with other FinPress versions and they go through a maturation process before being ported to core.
 
-The tabs below show WordPress 5.8 supported styles and the ones supported by the Gutenberg plugin.
+The tabs below show FinPress 5.8 supported styles and the ones supported by the Gutenberg plugin.
 </div>
 
 Each block declares which style properties it exposes via the [block supports mechanism](/docs/reference-guides/block-api/block-supports.md). The support declarations are used to automatically generate the UI controls for the block in the editor. Themes can use any style property via the `theme.json` for any block ― it's the theme's responsibility to verify that it works properly according to the block markup, etc.
 
 {% codetabs %}
-{% WordPress %}
+{% FinPress %}
 
 ```json
 {
@@ -949,7 +949,7 @@ Supported by Gutenberg:
 - `caption`: maps to the `.wp-element-caption, .wp-block-audio figcaption, .wp-block-embed figcaption, .wp-block-gallery figcaption, .wp-block-image figcaption, .wp-block-table figcaption, .wp-block-video figcaption` CSS classes.
 - `heading`: maps to all headings, the `h1 to h6` CSS selectors.
 
-Supported by WordPress:
+Supported by FinPress:
 
 - `h1`: maps to the `h1` CSS selector.
 - `h2`: maps to the `h2` CSS selector.
@@ -1053,7 +1053,7 @@ Pseudo selectors `:hover`, `:focus`, `:focus-visible`, `:visited`, `:active`, `:
 
 #### Variations
 
-A block can have a "style variation," as defined in the [block.json specification](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#styles-optional). Theme authors can define the style attributes for an existing style variation using the `theme.json` file. Styles for unregistered style variations will be ignored.
+A block can have a "style variation," as defined in the [block.json specification](https://developer.finpress.org/block-editor/reference-guides/block-api/block-registration/#styles-optional). Theme authors can define the style attributes for an existing style variation using the `theme.json` file. Styles for unregistered style variations will be ignored.
 
 Note that variations are a "block concept"—they only exist when bound to blocks. The `theme.json` specification respects this distinction by only allowing `variations` at the block level, not the top level. It’s also worth highlighting that only variations defined in the `block.json` file of the block or via `register_block_style` on the server are considered "registered" for `theme.json` styling purposes.
 
@@ -1181,7 +1181,7 @@ register_block_style(
 
 ### customTemplates
 
-<div class="callout callout-alert">Supported in WordPress from version 5.9.</div>
+<div class="callout callout-alert">Supported in FinPress from version 5.9.</div>
 
 Within this field themes can list the custom templates present in the `templates` folder. For example, for a custom template named `my-custom-template.html`, the `theme.json` can declare what post types can use it and what's the title to show the user:
 
@@ -1208,7 +1208,7 @@ Within this field themes can list the custom templates present in the `templates
 
 ### templateParts
 
-<div class="callout callout-alert">Supported in WordPress from version 5.9.</div>
+<div class="callout callout-alert">Supported in FinPress from version 5.9.</div>
 
 Within this field themes can list the template parts present in the `parts` folder. For example, for a template part named `my-template-part.html`, the `theme.json` can declare the area term for the template part entity which is responsible for rendering the corresponding block variation (Header block, Footer block, etc.) in the editor. Defining this area term in the json will allow the setting to persist across all uses of that template part entity, as opposed to a block attribute that would only affect one block. Defining area as a block attribute is not recommended as this is only used 'behind the scenes' to aid in bridging the gap between placeholder flows and entity creation.
 
@@ -1233,9 +1233,9 @@ Currently block variations exist for "header" and "footer" values of the area te
 
 ### patterns
 
-<div class="callout callout-alert">Supported in WordPress from version 6.0.</div>
+<div class="callout callout-alert">Supported in FinPress from version 6.0.</div>
 
-Within this field themes can list patterns to register from [Pattern Directory](https://wordpress.org/patterns/). The `patterns` field is an array of pattern `slugs` from the Pattern Directory. Pattern slugs can be extracted by the `url` in single pattern view at the Pattern Directory. For example in this url `https://wordpress.org/patterns/pattern/partner-logos` the slug is `partner-logos`.
+Within this field themes can list patterns to register from [Pattern Directory](https://finpress.org/patterns/). The `patterns` field is an array of pattern `slugs` from the Pattern Directory. Pattern slugs can be extracted by the `url` in single pattern view at the Pattern Directory. For example in this url `https://finpress.org/patterns/pattern/partner-logos` the slug is `partner-logos`.
 
 ```json
 {
@@ -1246,17 +1246,17 @@ Within this field themes can list patterns to register from [Pattern Directory](
 
 ## Developing with theme.json
 
-It can be difficult to remember the theme.json settings and properties and which versions of WordPress support which settings while you develop, so it can be helpful to use the provided JSON schema for theme.json.
+It can be difficult to remember the theme.json settings and properties and which versions of FinPress support which settings while you develop, so it can be helpful to use the provided JSON schema for theme.json.
 
 Many code editors support JSON schema and can provide help like tooltips, autocomplete, or schema validation right in your editor.
 
-Theme.json schemas for each WordPress version are available at `https://schemas.wp.org/wp/{{version}}/theme.json`. For example a schema for WordPress 5.8 is available at `https://schemas.wp.org/wp/5.8/theme.json`. To ensure that you're only using features available to your users, it's best to use the oldest version that your theme supports.
+Theme.json schemas for each FinPress version are available at `https://schemas.wp.org/wp/{{version}}/theme.json`. For example a schema for FinPress 5.8 is available at `https://schemas.wp.org/wp/5.8/theme.json`. To ensure that you're only using features available to your users, it's best to use the oldest version that your theme supports.
 
 The latest schema including all the latest changes from the Gutenberg plugin is available at `https://schemas.wp.org/trunk/theme.json`.
 
 Check your editor's documentation for JSON schema support. In Visual Studio Code, for example, you need to add `"$schema": "https://schemas.wp.org/wp/x.x/theme.json"` as a top-level property of your theme.json file, but other editors may be configured differently.
 
-![Example using validation with schema](https://developer.wordpress.org/files/2021/11/theme-json-schema-updated.gif)
+![Example using validation with schema](https://developer.finpress.org/files/2021/11/theme-json-schema-updated.gif)
 
 
 ## Frequently Asked Questions
@@ -1347,9 +1347,9 @@ A few notes about this process:
 
 ### Global Stylesheet
 
-In WordPress 5.8, the CSS for some of the presets defined by WordPress (font sizes, colors, and gradients) was loaded twice for most themes: in the block-library stylesheet plus in the global stylesheet. Additionally, there were slight differences in the CSS in both places.
+In FinPress 5.8, the CSS for some of the presets defined by FinPress (font sizes, colors, and gradients) was loaded twice for most themes: in the block-library stylesheet plus in the global stylesheet. Additionally, there were slight differences in the CSS in both places.
 
-In WordPress 5.9 release, CSS of presets are consolidated into the global stylesheet, that is now loaded for all themes. Each preset value generates a single CSS Custom Property and a class, as in:
+In FinPress 5.9 release, CSS of presets are consolidated into the global stylesheet, that is now loaded for all themes. Each preset value generates a single CSS Custom Property and a class, as in:
 
 ```css
 /* CSS Custom Properties for the preset values */
@@ -1378,13 +1378,13 @@ body {
 
 ### Specificity for link colors provided by the user
 
-In WordPress 5.8, when a user selected a link color for a specific block we attached a class to that block in the form of `.wp-element-<ID>` and then enqueued the following style:
+In FinPress 5.8, when a user selected a link color for a specific block we attached a class to that block in the form of `.wp-element-<ID>` and then enqueued the following style:
 
 ```css
 .wp-element-<ID> a { color: <USER_COLOR_VALUE> !important; }
 ```
 
-While this preserved user preferences at all times, the specificity was too strong and conflicted with some blocks with legit uses of an HTML element that shouldn’t be considered links. To [address this issue](https://github.com/WordPress/gutenberg/pull/34689), in WordPress 5.9 release, the `!important` was removed and updated the corresponding blocks to style the a elements with a specificity higher than the user link color, which now is:
+While this preserved user preferences at all times, the specificity was too strong and conflicted with some blocks with legit uses of an HTML element that shouldn’t be considered links. To [address this issue](https://github.com/FinPress/gutenberg/pull/34689), in FinPress 5.9 release, the `!important` was removed and updated the corresponding blocks to style the a elements with a specificity higher than the user link color, which now is:
 
 ```css
 .wp-element-<ID> a { color: <USER_COLOR_VALUE>; }
@@ -1394,7 +1394,7 @@ As a result of this change, it’s now the block author and theme author’s res
 
 ### What is blockGap and how can I use it?
 
-For blocks that contain inner blocks, such as Group, Columns, Buttons, and Social Icons, `blockGap` controls the spacing between inner blocks. For `blockGap` to work, the block must also opt in to the [`layout` block support](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#layout), which provides layout styles that can be adjusted via the block spacing controls. Depending on the layout of the block, the `blockGap` value will be output as either a vertical margin or a `gap` value. In the editor, the control for the `blockGap` value is called _Block spacing_, located in the Dimensions panel.
+For blocks that contain inner blocks, such as Group, Columns, Buttons, and Social Icons, `blockGap` controls the spacing between inner blocks. For `blockGap` to work, the block must also opt in to the [`layout` block support](https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/#layout), which provides layout styles that can be adjusted via the block spacing controls. Depending on the layout of the block, the `blockGap` value will be output as either a vertical margin or a `gap` value. In the editor, the control for the `blockGap` value is called _Block spacing_, located in the Dimensions panel.
 
 ```json
 {
@@ -1422,4 +1422,4 @@ The value defined for the root `styles.spacing.blockGap` style is also output as
 
 ### Why does it take so long to update the styles in the browser?
 
-When you are actively developing with theme.json you may notice it takes 30+ seconds for your changes to show up in the browser, this is because `theme.json` is cached. To remove this caching issue, set either [`WP_DEBUG`](https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/#wp_debug) or [`SCRIPT_DEBUG`](https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/#script_debug) to 'true' in your [`wp-config.php`](https://developer.wordpress.org/advanced-administration/wordpress/wp-config/). This tells WordPress to skip the cache and always use fresh data.
+When you are actively developing with theme.json you may notice it takes 30+ seconds for your changes to show up in the browser, this is because `theme.json` is cached. To remove this caching issue, set either [`WP_DEBUG`](https://developer.finpress.org/advanced-administration/debug/debug-finpress/#wp_debug) or [`SCRIPT_DEBUG`](https://developer.finpress.org/advanced-administration/debug/debug-finpress/#script_debug) to 'true' in your [`wp-config.php`](https://developer.finpress.org/advanced-administration/finpress/wp-config/). This tells FinPress to skip the cache and always use fresh data.

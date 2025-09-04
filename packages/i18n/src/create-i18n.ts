@@ -15,9 +15,9 @@ import type {
 	UnsubscribeCallback,
 } from './types';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { Hooks } from '@wordpress/hooks';
+import type { Hooks } from '@finpress/hooks';
 /**
  * Default locale data to use for Tannin domain when not otherwise provided.
  * Assumes an English plural forms expression.

@@ -7,9 +7,9 @@ import 'moment-timezone/moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 /**
  * Internal dependencies
  */
@@ -107,7 +107,7 @@ export function setSettings( dateSettings: DateSettings ) {
 	// Does moment already have a locale with the right name?
 	if ( momentLib.locales().includes( dateSettings.l10n.locale ) ) {
 		// Is that locale misconfigured, e.g. because we are on a site running
-		// WordPress < 6.0?
+		// FinPress < 6.0?
 		if (
 			momentLib
 				.localeData( dateSettings.l10n.locale )
@@ -192,7 +192,7 @@ function setupWPTimezone() {
 	if ( currentTimezone ) {
 		// Create WP timezone based off settings.timezone.string.  We need to include the additional data so that we
 		// don't lose information about daylight savings time and other items.
-		// See https://github.com/WordPress/gutenberg/pull/48083
+		// See https://github.com/FinPress/gutenberg/pull/48083
 		momentLib.tz.add(
 			momentLib.tz.pack( {
 				name: WP_ZONE,
@@ -540,7 +540,7 @@ export function gmdateI18n(
 }
 
 /**
- * Check whether a date is considered in the future according to the WordPress settings.
+ * Check whether a date is considered in the future according to the FinPress settings.
  *
  * @param dateValue Date String or Date object in the Defined WP Timezone.
  *

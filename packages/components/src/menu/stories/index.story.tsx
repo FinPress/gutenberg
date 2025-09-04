@@ -5,10 +5,10 @@ import type { StoryObj, Meta } from '@storybook/react';
 import { css } from '@emotion/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { customLink, formatCapitalize } from '@wordpress/icons';
-import { useState, useMemo, useContext } from '@wordpress/element';
+import { customLink, formatCapitalize } from '@finpress/icons';
+import { useState, useMemo, useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

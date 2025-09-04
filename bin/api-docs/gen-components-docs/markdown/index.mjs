@@ -28,11 +28,11 @@ export function generateMarkdownDocs( {
 		'<!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->',
 		tags.includes( 'status-private' ) && [
 			{
-				p: '🔒 This component is locked as a [private API](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-private-apis/). We do not yet recommend using this outside of the Gutenberg project.',
+				p: '🔒 This component is locked as a [private API](https://developer.finpress.org/block-editor/reference-guides/packages/packages-private-apis/). We do not yet recommend using this outside of the Gutenberg project.',
 			},
 		],
 		{
-			p: `<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-${ typeDocs.displayName.toLowerCase() }--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>`,
+			p: `<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-${ typeDocs.displayName.toLowerCase() }--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>`,
 		},
 		{ md: typeDocs.description },
 		...generateMarkdownPropsJson( typeDocs.props ),

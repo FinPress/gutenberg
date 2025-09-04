@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockControls,
@@ -7,8 +7,8 @@ import {
 	InspectorControls,
 	store as blockEditorStore,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { createBlock } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { createBlock } from '@finpress/blocks';
 import {
 	Placeholder,
 	ToggleControl,
@@ -17,13 +17,13 @@ import {
 	ToolbarGroup,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { renderToString } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { useInstanceId } from '@wordpress/compose';
-import { store as noticeStore } from '@wordpress/notices';
-import { tableOfContents as icon } from '@wordpress/icons';
+} from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { renderToString } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { useInstanceId } from '@finpress/compose';
+import { store as noticeStore } from '@finpress/notices';
+import { tableOfContents as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

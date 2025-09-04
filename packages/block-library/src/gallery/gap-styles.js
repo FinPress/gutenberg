@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalGetGapCSSValue as getGapCSSValue,
 	useStyleOverride,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 export default function GapStyles( { blockGap, clientId } ) {
 	// --gallery-block--gutter-size is deprecated. --wp--style--gallery-gap-default should be used by themes that want to set a default
@@ -14,7 +14,7 @@ export default function GapStyles( { blockGap, clientId } ) {
 	let column = fallbackValue;
 	let row;
 
-	// Check for the possibility of split block gap values. See: https://github.com/WordPress/gutenberg/pull/37736
+	// Check for the possibility of split block gap values. See: https://github.com/FinPress/gutenberg/pull/37736
 	if ( !! blockGap ) {
 		row =
 			typeof blockGap === 'string'

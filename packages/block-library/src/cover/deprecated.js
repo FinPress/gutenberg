@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
+import { createBlock } from '@finpress/blocks';
 import {
 	RichText,
 	getColorClassName,
@@ -14,9 +14,9 @@ import {
 	__experimentalGetGradientClass,
 	useBlockProps,
 	useInnerBlocksProps,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { compose } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { compose } from '@finpress/compose';
 
 /**
  * Internal dependencies

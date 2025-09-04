@@ -9,7 +9,7 @@ module.exports = {
 			outputFilename: '[name]-foo.asset.php',
 			requestToExternalModule( request ) {
 				return (
-					request.startsWith( '@wordpress/' ) || request === 'lodash'
+					request.startsWith( '@finpress/' ) || request === 'lodash'
 				);
 			},
 		} ),

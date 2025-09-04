@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x } from '@wordpress/i18n';
+import { _x } from '@finpress/i18n';
 // @ts-ignore
-import { privateApis as patternsPrivateApis } from '@wordpress/patterns';
-import type { Action } from '@wordpress/dataviews';
+import { privateApis as patternsPrivateApis } from '@finpress/patterns';
+import type { Action } from '@finpress/dataviews';
 
 /**
  * Internal dependencies

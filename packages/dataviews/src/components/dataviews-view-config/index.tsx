@@ -5,7 +5,7 @@ import type { ChangeEvent, ReactNode } from 'react';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
@@ -25,9 +25,9 @@ import {
 	privateApis as componentsPrivateApis,
 	BaseControl,
 	Icon,
-} from '@wordpress/components';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { memo, useContext, useMemo, useState } from '@wordpress/element';
+} from '@finpress/components';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { memo, useContext, useMemo, useState } from '@finpress/element';
 import {
 	chevronDown,
 	chevronUp,
@@ -36,9 +36,9 @@ import {
 	unseen,
 	lock,
 	moreVertical,
-} from '@wordpress/icons';
-import warning from '@wordpress/warning';
-import { useInstanceId } from '@wordpress/compose';
+} from '@finpress/icons';
+import warning from '@finpress/warning';
+import { useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -274,7 +274,7 @@ function PreviewOptions( {
 	const focusPreviewOptionsField = ( id: string ) => {
 		// Focus the visibility button to avoid focus loss.
 		// Our code is safe against the component being unmounted, so we don't need to worry about cleaning the timeout.
-		// eslint-disable-next-line @wordpress/react-no-unsafe-timeout
+		// eslint-disable-next-line @finpress/react-no-unsafe-timeout
 		setTimeout( () => {
 			const element = document.querySelector(
 				`.dataviews-field-control__field-${ id } .dataviews-field-control__field-preview-options-button`
@@ -349,7 +349,7 @@ function FieldItem( {
 	const focusVisibilityField = () => {
 		// Focus the visibility button to avoid focus loss.
 		// Our code is safe against the component being unmounted, so we don't need to worry about cleaning the timeout.
-		// eslint-disable-next-line @wordpress/react-no-unsafe-timeout
+		// eslint-disable-next-line @finpress/react-no-unsafe-timeout
 		setTimeout( () => {
 			const element = document.querySelector(
 				`.dataviews-field-control__field-${ field.id } .dataviews-field-control__field-visibility-button`

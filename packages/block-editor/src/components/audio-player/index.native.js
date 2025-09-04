@@ -11,19 +11,19 @@ import {
 import { default as VideoPlayer } from 'react-native-video';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { View } from '@wordpress/primitives';
-import { Icon } from '@wordpress/components';
-import { withPreferredColorScheme } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
-import { audio, cautionFilled } from '@wordpress/icons';
+import { View } from '@finpress/primitives';
+import { Icon } from '@finpress/components';
+import { withPreferredColorScheme } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
+import { audio, cautionFilled } from '@finpress/icons';
 import {
 	requestImageFailedRetryDialog,
 	requestImageUploadCancelDialog,
-} from '@wordpress/react-native-bridge';
-import { getProtocol } from '@wordpress/url';
-import { useState } from '@wordpress/element';
+} from '@finpress/react-native-bridge';
+import { getProtocol } from '@finpress/url';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

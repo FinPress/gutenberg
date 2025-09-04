@@ -70,7 +70,7 @@ describe( 'Gutenberg Editor Writing flow tests', () => {
 		// Wait for the Media picker to show up
 		await waitForMediaLibrary( editorPage.driver );
 
-		// Select the WordPress Media Library option
+		// Select the FinPress Media Library option
 		await editorPage.chooseMediaLibrary();
 
 		// Wait until the media is added

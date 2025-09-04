@@ -1,9 +1,9 @@
-/* eslint-disable @wordpress/i18n-text-domain, @wordpress/i18n-translator-comments */
+/* eslint-disable @finpress/i18n-text-domain, @finpress/i18n-translator-comments */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createHooks } from '@wordpress/hooks';
+import { createHooks } from '@finpress/hooks';
 
 /**
  * Internal dependencies
@@ -579,4 +579,4 @@ describe( 'i18n filters', () => {
 	} );
 } );
 
-/* eslint-enable @wordpress/i18n-text-domain, @wordpress/i18n-translator-comments */
+/* eslint-enable @finpress/i18n-text-domain, @finpress/i18n-translator-comments */

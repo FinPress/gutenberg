@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRegistry } from '@wordpress/data';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { createRegistry } from '@finpress/data';
+import { store as preferencesStore } from '@finpress/preferences';
+import { store as noticesStore } from '@finpress/notices';
+import { store as coreStore } from '@finpress/core-data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 import {
 	store as editorStore,
 	privateApis as editorPrivateApis,
-} from '@wordpress/editor';
+} from '@finpress/editor';
 
 /**
  * Internal dependencies
@@ -77,7 +77,7 @@ describe( 'actions', () => {
 	it( 'togglePinnedPluginItem', () => {
 		registry.dispatch( editPostStore ).togglePinnedPluginItem( 'rigatoni' );
 		// Sidebars are pinned by default.
-		// @See https://github.com/WordPress/gutenberg/pull/21645
+		// @See https://github.com/FinPress/gutenberg/pull/21645
 		expect(
 			registry.select( interfaceStore ).isItemPinned( 'core', 'rigatoni' )
 		).toBe( false );

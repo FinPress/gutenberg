@@ -47,10 +47,10 @@ let uniqueId = 0;
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { useDispatch } from '@wordpress/data';
- * import { store as noticesStore } from '@wordpress/notices';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { useDispatch } from '@finpress/data';
+ * import { store as noticesStore } from '@finpress/notices';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  *     const { createNotice } = useDispatch( noticesStore );
@@ -115,10 +115,10 @@ export function createNotice( status = DEFAULT_STATUS, content, options = {} ) {
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { useDispatch } from '@wordpress/data';
- * import { store as noticesStore } from '@wordpress/notices';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { useDispatch } from '@finpress/data';
+ * import { store as noticesStore } from '@finpress/notices';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  *     const { createSuccessNotice } = useDispatch( noticesStore );
@@ -154,10 +154,10 @@ export function createSuccessNotice( content, options ) {
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { useDispatch } from '@wordpress/data';
- * import { store as noticesStore } from '@wordpress/notices';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { useDispatch } from '@finpress/data';
+ * import { store as noticesStore } from '@finpress/notices';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  *     const { createInfoNotice } = useDispatch( noticesStore );
@@ -192,10 +192,10 @@ export function createInfoNotice( content, options ) {
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { useDispatch } from '@wordpress/data';
- * import { store as noticesStore } from '@wordpress/notices';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { useDispatch } from '@finpress/data';
+ * import { store as noticesStore } from '@finpress/notices';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  *     const { createErrorNotice } = useDispatch( noticesStore );
@@ -233,10 +233,10 @@ export function createErrorNotice( content, options ) {
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { useDispatch } from '@wordpress/data';
- * import { store as noticesStore } from '@wordpress/notices';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { useDispatch } from '@finpress/data';
+ * import { store as noticesStore } from '@finpress/notices';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  *     const { createWarningNotice, createInfoNotice } = useDispatch( noticesStore );
@@ -273,10 +273,10 @@ export function createWarningNotice( content, options ) {
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { useDispatch } from '@wordpress/data';
- * import { store as noticesStore } from '@wordpress/notices';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { useDispatch } from '@finpress/data';
+ * import { store as noticesStore } from '@finpress/notices';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  *    const notices = useSelect( ( select ) => select( noticesStore ).getNotices() );
@@ -321,10 +321,10 @@ export function removeNotice( id, context = DEFAULT_CONTEXT ) {
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { useDispatch, useSelect } from '@wordpress/data';
- * import { store as noticesStore } from '@wordpress/notices';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { useDispatch, useSelect } from '@finpress/data';
+ * import { store as noticesStore } from '@finpress/notices';
+ * import { Button } from '@finpress/components';
  *
  * export const ExampleComponent = () => {
  * 	const notices = useSelect( ( select ) =>
@@ -378,10 +378,10 @@ export function removeAllNotices(
  *                                      intended to appear. Defaults to default context.
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { useDispatch, useSelect } from '@wordpress/data';
- * import { store as noticesStore } from '@wordpress/notices';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { useDispatch, useSelect } from '@finpress/data';
+ * import { store as noticesStore } from '@finpress/notices';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  * 	const notices = useSelect( ( select ) =>

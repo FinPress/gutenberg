@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store } from '@wordpress/interactivity';
+import { store } from '@finpress/interactivity';
 
 /**
  * Internal dependencies

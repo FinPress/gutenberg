@@ -5,12 +5,12 @@ import { paramCase as kebabCase } from 'change-case';
 import { downloadZip } from 'client-zip';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { downloadBlob } from '@wordpress/blob';
-import { __ } from '@wordpress/i18n';
-import { download } from '@wordpress/icons';
-import type { Action } from '@wordpress/dataviews';
+import { downloadBlob } from '@finpress/blob';
+import { __ } from '@finpress/i18n';
+import { download } from '@finpress/icons';
+import type { Action } from '@finpress/dataviews';
 
 /**
  * Internal dependencies

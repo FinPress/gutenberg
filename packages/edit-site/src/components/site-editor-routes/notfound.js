@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
  */
-import { Notice, __experimentalSpacer as Spacer } from '@wordpress/components';
+import { Notice, __experimentalSpacer as Spacer } from '@finpress/components';
 import SidebarNavigationScreenMain from '../sidebar-navigation-screen-main';
 
 function NotFoundError() {

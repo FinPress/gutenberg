@@ -6,12 +6,12 @@ A user can pick _Default_ to use the default date format (usually set at the sit
 
 Otherwise, a user may choose a suggested date format or type in their own date format by selecting _Custom_.
 
-All date format strings should be in the format accepted by by the [`dateI18n` function in `@wordpress/date`](https://github.com/WordPress/gutenberg/tree/trunk/packages/date#datei18n).
+All date format strings should be in the format accepted by by the [`dateI18n` function in `@finpress/date`](https://github.com/FinPress/gutenberg/tree/trunk/packages/date#datei18n).
 
 ## Usage
 
 ```jsx
-import { DateFormatPicker } from '@wordpress/block-editor';
+import { DateFormatPicker } from '@finpress/block-editor';
 
 const Example = () => {
 	const [ format, setFormat ] = useState( null );

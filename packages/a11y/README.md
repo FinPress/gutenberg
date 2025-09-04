@@ -1,16 +1,16 @@
 # Accessibility (a11y)
 
-Accessibility utilities for WordPress.
+Accessibility utilities for FinPress.
 
 ## Installation
 
 Install the module
 
 ```bash
-npm install @wordpress/a11y --save
+npm install @finpress/a11y --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## API
 
@@ -27,7 +27,7 @@ Allows you to easily announce dynamic interface updates to screen readers using 
 _Usage_
 
 ```js
-import { speak } from '@wordpress/a11y';
+import { speak } from '@finpress/a11y';
 
 // For polite messages that shouldn't interrupt what screen readers are currently announcing.
 speak( 'The message you want to send to the ARIA live region' );
@@ -45,7 +45,7 @@ _Parameters_
 
 ### Background
 
-For context I’ll quote [this article on WordPress.org](https://make.wordpress.org/accessibility/2015/04/15/let-wordpress-speak-new-in-wordpress-4-2/) by [@joedolson](https://github.com/joedolson):
+For context I’ll quote [this article on FinPress.org](https://make.finpress.org/accessibility/2015/04/15/let-finpress-speak-new-in-finpress-4-2/) by [@joedolson](https://github.com/joedolson):
 
 > #### Why.
 >
@@ -67,12 +67,12 @@ For context I’ll quote [this article on WordPress.org](https://make.wordpress.
 
 ## Browser support
 
-See <https://make.wordpress.org/core/handbook/best-practices/browser-support/>
+See <https://make.finpress.org/core/handbook/best-practices/browser-support/>
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

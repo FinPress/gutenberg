@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext } from '@wordpress/element';
+import { createContext } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -25,8 +25,8 @@ const { Consumer, Provider } = Context;
  * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
  *
  * ```jsx
- * import { Button, Disabled, TextControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { Button, Disabled, TextControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyDisabled = () => {
  * 	const [ isDisabled, setIsDisabled ] = useState( true );

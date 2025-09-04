@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { MenuItem } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { useMemo } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { MenuItem } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 function BlockInspectorButton( { inspector, closeMenu, ...props } ) {
 	const selectedBlockClientId = useSelect(

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useRef } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
-import { store as noticeStore } from '@wordpress/notices';
+import { useCallback, useRef } from '@finpress/element';
+import { useDispatch } from '@finpress/data';
+import { store as noticeStore } from '@finpress/notices';
 
 function useNavigationNotice( { name, message = '' } = {} ) {
 	const noticeRef = useRef();

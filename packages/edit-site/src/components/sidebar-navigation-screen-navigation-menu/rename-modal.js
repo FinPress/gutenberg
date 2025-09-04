@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
@@ -7,9 +7,9 @@ import {
 	Button,
 	TextControl,
 	Modal,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useState } from '@finpress/element';
 
 const notEmptyString = ( testString ) => testString?.trim()?.length > 0;
 

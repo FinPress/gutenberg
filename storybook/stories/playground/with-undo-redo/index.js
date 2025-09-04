@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
-import { useStateWithHistory } from '@wordpress/compose';
-import { registerCoreBlocks } from '@wordpress/block-library';
+import { useEffect } from '@finpress/element';
+import { useStateWithHistory } from '@finpress/compose';
+import { registerCoreBlocks } from '@finpress/block-library';
 import {
 	BlockEditorProvider,
 	BlockCanvas,
 	BlockToolbar,
-} from '@wordpress/block-editor';
-import { Button } from '@wordpress/components';
-import { undo as undoIcon, redo as redoIcon } from '@wordpress/icons';
+} from '@finpress/block-editor';
+import { Button } from '@finpress/components';
+import { undo as undoIcon, redo as redoIcon } from '@finpress/icons';
 
 /**
  * Internal dependencies

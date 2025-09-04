@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useEffect } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	useShortcut,
 	store as keyboardShortcutsStore,
-} from '@wordpress/keyboard-shortcuts';
-import { __ } from '@wordpress/i18n';
-import { createBlock } from '@wordpress/blocks';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+} from '@finpress/keyboard-shortcuts';
+import { __ } from '@finpress/i18n';
+import { createBlock } from '@finpress/blocks';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 function BlockKeyboardShortcuts() {
 	const { registerShortcut } = useDispatch( keyboardShortcutsStore );

@@ -4,19 +4,19 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { create, toHTMLString, insert } from '@wordpress/rich-text';
-import { decodeEntities } from '@wordpress/html-entities';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { withFocusOutside } from '@wordpress/components';
-import { withInstanceId, compose } from '@wordpress/compose';
-import { __, sprintf } from '@wordpress/i18n';
-import { pasteHandler } from '@wordpress/blocks';
-import { store as blockEditorStore, RichText } from '@wordpress/block-editor';
-import { store as editorStore } from '@wordpress/editor';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+import { Component } from '@finpress/element';
+import { create, toHTMLString, insert } from '@finpress/rich-text';
+import { decodeEntities } from '@finpress/html-entities';
+import { withDispatch, withSelect } from '@finpress/data';
+import { withFocusOutside } from '@finpress/components';
+import { withInstanceId, compose } from '@finpress/compose';
+import { __, sprintf } from '@finpress/i18n';
+import { pasteHandler } from '@finpress/blocks';
+import { store as blockEditorStore, RichText } from '@finpress/block-editor';
+import { store as editorStore } from '@finpress/editor';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
 
 /** @typedef {import('./types').RichTextValue} RichTextValue */
 

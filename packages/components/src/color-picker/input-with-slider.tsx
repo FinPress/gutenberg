@@ -56,7 +56,7 @@ export const InputWithSlider = ( {
 				max={ max }
 				value={ value }
 				// @ts-expect-error
-				// See: https://github.com/WordPress/gutenberg/pull/40535#issuecomment-1172418185
+				// See: https://github.com/FinPress/gutenberg/pull/40535#issuecomment-1172418185
 				onChange={ onChange }
 				withInputField={ false }
 			/>

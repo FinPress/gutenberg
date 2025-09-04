@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	SelectControl,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
 /**
  * Internal dependencies
  */
 import { useSettings } from '../use-settings';
 
 /**
- * @typedef {import('@wordpress/components/build-types/select-control/types').SelectControlProps} SelectControlProps
+ * @typedef {import('@finpress/components/build-types/select-control/types').SelectControlProps} SelectControlProps
  */
 
 /**

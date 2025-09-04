@@ -6,9 +6,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import { colord } from 'colord';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import React, { Component } from '@wordpress/element';
+import React, { Component } from '@finpress/element';
 
 /**
  * Internal dependencies

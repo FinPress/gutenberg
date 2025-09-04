@@ -4,18 +4,18 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
 	__experimentalText as Text,
 	__experimentalVStack as VStack,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
-import { __, isRTL } from '@wordpress/i18n';
-import { chevronLeft, chevronRight } from '@wordpress/icons';
+} from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
+import { __, isRTL } from '@finpress/i18n';
+import { chevronLeft, chevronRight } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ const { Badge } = unlock( componentsPrivateApis );
  * A card component that displays block information including title, icon, and description.
  * Can be used to show block metadata and navigation controls for parent blocks.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-card/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-card/README.md
  *
  * @example
  * ```jsx
@@ -48,7 +48,7 @@ const { Badge } = unlock( componentsPrivateApis );
  *
  * @param {Object}        props             Component props.
  * @param {string}        props.title       The title of the block.
- * @param {string|Object} props.icon        The icon of the block. This can be any of [WordPress' Dashicons](https://developer.wordpress.org/resource/dashicons/), or a custom `svg` element.
+ * @param {string|Object} props.icon        The icon of the block. This can be any of [FinPress' Dashicons](https://developer.finpress.org/resource/dashicons/), or a custom `svg` element.
  * @param {string}        props.description The description of the block.
  * @param {Object}        [props.blockType] Deprecated: Object containing block type data.
  * @param {string}        [props.className] Additional classes to apply to the card.

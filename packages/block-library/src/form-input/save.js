@@ -5,15 +5,15 @@ import clsx from 'clsx';
 import removeAccents from 'remove-accents';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
 	useBlockProps,
 	__experimentalGetBorderClassesAndStyles as getBorderClassesAndStyles,
 	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
-} from '@wordpress/block-editor';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+} from '@finpress/block-editor';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
 
 /**
  * Get the name attribute from a content string.

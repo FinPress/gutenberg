@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createHigherOrderComponent } from '@wordpress/compose';
-import { addFilter } from '@wordpress/hooks';
+import { createHigherOrderComponent } from '@finpress/compose';
+import { addFilter } from '@finpress/hooks';
 
 const { wp } = window;
 

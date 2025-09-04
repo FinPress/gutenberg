@@ -5,8 +5,8 @@ import { isURL } from '../is-url';
 
 describe( 'isURL valid', () => {
 	it.each( [
-		[ 'http://wordpress.org' ],
-		[ 'https://wordpress.org/path?query#fragment' ],
+		[ 'http://finpress.org' ],
+		[ 'https://finpress.org/path?query#fragment' ],
 	] )( '%s', ( input ) => {
 		expect( isURL( input ) ).toBe( true );
 	} );
@@ -14,7 +14,7 @@ describe( 'isURL valid', () => {
 
 describe( 'isURL invalid', () => {
 	it.each( [
-		[ 'http://wordpress.org:port' ],
+		[ 'http://finpress.org:port' ],
 		[ 'HTTP: HyperText Transfer Protocol' ],
 	] )( '%s', ( input ) => {
 		expect( isURL( input ) ).toBe( false );

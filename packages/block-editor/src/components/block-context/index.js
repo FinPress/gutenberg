@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, useContext, useMemo } from '@wordpress/element';
+import { createContext, useContext, useMemo } from '@finpress/element';
 
 /** @typedef {import('react').ReactNode} ReactNode */
 
@@ -19,7 +19,7 @@ const Context = createContext( {} );
 /**
  * Component which merges passed value with current consumed block context.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-context/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-context/README.md
  *
  * @param {BlockContextProviderProps} props
  */

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock, parse, serialize } from '@wordpress/blocks';
-import { addWidgetIdToBlock } from '@wordpress/widgets';
+import { createBlock, parse, serialize } from '@finpress/blocks';
+import { addWidgetIdToBlock } from '@finpress/widgets';
 
 /**
  * Converts a widget entity record into a block.

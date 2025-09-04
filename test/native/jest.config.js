@@ -20,7 +20,7 @@ const transpiledPackageNames = glob( 'packages/*/src/index.{js,ts}' ).map(
 
 // The following unit tests related to the `raw-handling` API will be enabled when addressing
 // the various errors we encounter when running them in the native version.
-// Reference: https://github.com/WordPress/gutenberg/issues/55652
+// Reference: https://github.com/FinPress/gutenberg/issues/55652
 const RAW_HANDLING_UNSUPPORTED_UNIT_TESTS = [
 	'html-formatting-remover',
 	'phrasing-content-reducer',
@@ -28,7 +28,7 @@ const RAW_HANDLING_UNSUPPORTED_UNIT_TESTS = [
 	'normalise-blocks',
 	'image-corrector',
 	// Disabled due to jsdom-jscore-rn limitations.
-	// See: https://github.com/WordPress/gutenberg/pull/69322#issuecomment-2789510963
+	// See: https://github.com/FinPress/gutenberg/pull/69322#issuecomment-2789510963
 	'paste-handler',
 ];
 
@@ -64,7 +64,7 @@ module.exports = {
 		'\\.(scss)$': '<rootDir>/test/native/__mocks__/styleMock.js',
 		'\\.(eot|otf|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
 			'<rootDir>/test/native/__mocks__/fileMock.js',
-		[ `@wordpress\\/(${ transpiledPackageNames.join( '|' ) })$` ]:
+		[ `@finpress\\/(${ transpiledPackageNames.join( '|' ) })$` ]:
 			'<rootDir>/packages/$1/src',
 		'test/helpers$': '<rootDir>/test/native/helpers.js',
 	},
@@ -86,7 +86,7 @@ module.exports = {
 	},
 	transformIgnorePatterns: [
 		// This is required for now to have jest transform some of our modules
-		// See: https://github.com/wordpress-mobile/gutenberg-mobile/pull/257#discussion_r234978268
+		// See: https://github.com/finpress-mobile/gutenberg-mobile/pull/257#discussion_r234978268
 		// There is no overloading in jest so we need to rewrite the config from react-native-jest-preset:
 		// https://github.com/facebook/react-native/blob/HEAD/jest-preset.json#L20
 		'node_modules/(?!(simple-html-tokenizer|(jest-)?react-native|@react-native|react-clone-referenced-element|@react-navigation))',

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Fragment } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { Fragment } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ export function PostTaxonomies( { taxonomyWrapper = identity } ) {
 	const visibleTaxonomies = ( taxonomies ?? [] ).filter(
 		( taxonomy ) =>
 			// In some circumstances .visibility can end up as undefined so optional chaining operator required.
-			// https://github.com/WordPress/gutenberg/issues/40326
+			// https://github.com/FinPress/gutenberg/issues/40326
 			taxonomy.types.includes( postType ) && taxonomy.visibility?.show_ui
 	);
 

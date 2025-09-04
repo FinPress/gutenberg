@@ -4,9 +4,9 @@
 import { Keyboard, Dimensions } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@finpress/element';
 
 export default function useIsFloatingKeyboard() {
 	const windowWidth = Dimensions.get( 'window' ).width;

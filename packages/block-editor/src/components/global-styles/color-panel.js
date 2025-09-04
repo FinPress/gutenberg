@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalToolsPanel as ToolsPanel,
@@ -18,9 +18,9 @@ import {
 	Dropdown,
 	Button,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { useCallback, useRef } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useCallback, useRef } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ import { useColorsPerOrigin, useGradientsPerOrigin } from './hooks';
 import { getValueFromVariable, useToolsPanelDropdownMenuProps } from './utils';
 import { setImmutably } from '../../utils/object';
 import { unlock } from '../../lock-unlock';
-import { reset as resetIcon } from '@wordpress/icons';
+import { reset as resetIcon } from '@finpress/icons';
 
 export function useHasColorPanel( settings ) {
 	const hasTextPanel = useHasTextPanel( settings );

@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/priority-queue",
+	"name": "@finpress/priority-queue",
 	"version": "3.29.0",
 	"description": "Generic browser priority queue.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"browser",
 		"async"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/priority-queue/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/priority-queue/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/priority-queue"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",

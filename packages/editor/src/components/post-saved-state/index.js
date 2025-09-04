@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__unstableGetAnimateClassName as getAnimateClassName,
 	Button,
-} from '@wordpress/components';
-import { usePrevious, useViewportMatch } from '@wordpress/compose';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { Icon, check, cloud, cloudUpload } from '@wordpress/icons';
-import { displayShortcut } from '@wordpress/keycodes';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/components';
+import { usePrevious, useViewportMatch } from '@finpress/compose';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useEffect, useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { Icon, check, cloud, cloudUpload } from '@finpress/icons';
+import { displayShortcut } from '@finpress/keycodes';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies
@@ -109,7 +109,7 @@ export default function PostSavedState( { forceIsDirty } ) {
 	// The reason for this is that this button handles the `save as pending` and `save draft` actions.
 	// An exception for this is when the post has a custom status and there should be a way to save changes without
 	// having to publish. This should be handled better in the future when custom statuses have better support.
-	// @see https://github.com/WordPress/gutenberg/issues/3144.
+	// @see https://github.com/FinPress/gutenberg/issues/3144.
 	const isIneligibleStatus =
 		! [ 'pending', 'draft', 'auto-draft' ].includes( postStatus ) &&
 		STATUS_OPTIONS.map( ( { value } ) => value ).includes( postStatus );

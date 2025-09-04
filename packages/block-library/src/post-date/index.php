@@ -2,7 +2,7 @@
 /**
  * Server-side rendering of the `core/post-date` block.
  *
- * @package WordPress
+ * @package FinPress
  */
 
 /**
@@ -24,9 +24,9 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 		isset( $attributes['metadata']['bindings']['datetime']['args'] )
 	) {
 		/*
-		 * We might be running on a version of WordPress that doesn't support binding the block's `datetime` attribute
+		 * We might be running on a version of FinPress that doesn't support binding the block's `datetime` attribute
 		 * to a Block Bindings source. In this case, we need to manually set the `datetime` attribute to its correct value.
-		 * This branch can be removed once the minimum required WordPress version is 6.9 or newer.
+		 * This branch can be removed once the minimum required FinPress version is 6.9 or newer.
 		 */
 		$source      = get_block_bindings_source( $attributes['metadata']['bindings']['datetime']['source'] );
 		$source_args = $attributes['metadata']['bindings']['datetime']['args'];
@@ -58,7 +58,7 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 		// If the `datetime` attribute is set but empty, it could be because Block Bindings
 		// set it that way. This can happen e.g. if the block is bound to the
 		// post's last modified date, and the latter lies before the publish date.
-		// (See https://github.com/WordPress/gutenberg/pull/46839 where this logic was originally
+		// (See https://github.com/FinPress/gutenberg/pull/46839 where this logic was originally
 		// implemented.)
 		// In this case, we have to respect and return the empty value.
 		return $attributes['datetime'];

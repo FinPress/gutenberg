@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { insert } from '@wordpress/rich-text';
-import { RichTextShortcut } from '@wordpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { insert } from '@finpress/rich-text';
+import { RichTextShortcut } from '@finpress/block-editor';
 
 const name = 'core/non-breaking-space';
 const title = __( 'Non breaking space' );

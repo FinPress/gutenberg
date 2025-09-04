@@ -4,7 +4,7 @@
 This feature is still experimental. “Experimental” means this is an early implementation subject to drastic and breaking changes.
 </div>
 
-`Theme` allows defining theme variables for components in the `@wordpress/components` package.
+`Theme` allows defining theme variables for components in the `@finpress/components` package.
 
 Multiple `Theme` components can be nested in order to override specific theme variables.
 

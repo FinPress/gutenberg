@@ -4,12 +4,12 @@
 import { ActionSheetIOS } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Component, forwardRef, useContext } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { usePreferredColorScheme } from '@wordpress/compose';
+import { __ } from '@finpress/i18n';
+import { Component, forwardRef, useContext } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { usePreferredColorScheme } from '@finpress/compose';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useLayoutEffect, useReducer } from '@wordpress/element';
+import { useLayoutEffect, useReducer } from '@finpress/element';
 
 /**
  * Internal dependencies

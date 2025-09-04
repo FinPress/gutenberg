@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useEffect } from '@wordpress/element';
+import { useRef, useEffect } from '@finpress/element';
 import {
 	ButtonBlockAppender,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
 
 export default function BlockAppender( props ) {
 	const ref = useRef();

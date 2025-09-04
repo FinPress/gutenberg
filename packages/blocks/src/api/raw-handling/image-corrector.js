@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlobURL } from '@wordpress/blob';
+import { createBlobURL } from '@finpress/blob';
 
 export default function imageCorrector( node ) {
 	if ( node.nodeName !== 'IMG' ) {

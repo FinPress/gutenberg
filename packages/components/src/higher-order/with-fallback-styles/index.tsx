@@ -4,10 +4,10 @@
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { createHigherOrderComponent } from '@wordpress/compose';
+import { Component } from '@finpress/element';
+import { createHigherOrderComponent } from '@finpress/compose';
 
 type Props = {
 	node?: HTMLElement;

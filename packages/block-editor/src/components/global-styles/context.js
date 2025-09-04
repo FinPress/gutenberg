@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext } from '@wordpress/element';
+import { createContext } from '@finpress/element';
 
 export const DEFAULT_GLOBAL_STYLES_CONTEXT = {
 	user: {},

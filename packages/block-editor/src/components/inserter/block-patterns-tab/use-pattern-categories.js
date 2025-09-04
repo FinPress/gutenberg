@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { _x, _n, sprintf } from '@wordpress/i18n';
+import { useMemo } from '@finpress/element';
+import { _x, _n, sprintf } from '@finpress/i18n';
 
-import { speak } from '@wordpress/a11y';
+import { speak } from '@finpress/a11y';
 
 /**
  * Internal dependencies

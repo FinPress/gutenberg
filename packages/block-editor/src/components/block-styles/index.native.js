@@ -4,12 +4,12 @@
 import { ScrollView } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
-import { _x } from '@wordpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useMemo } from '@finpress/element';
+import { _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies

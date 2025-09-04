@@ -18,7 +18,7 @@ Note that the OS platform used by the maintainers is macOS but the tools and set
 ## Clone the project
 
 ```sh
-git clone https://github.com/WordPress/gutenberg.git
+git clone https://github.com/FinPress/gutenberg.git
 ```
 
 ## Set up
@@ -79,9 +79,9 @@ By default, the Demo editor renders most of the supported core blocks. This is h
 
 ```js
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from '@finpress/hooks';
 
 export default () => {
 	addFilter(
@@ -139,7 +139,7 @@ Then, open `chrome://inspect` in Chrome to attach the debugger (look into the "R
 
 ## Writing and running unit tests
 
-This project is set up to use [jest](https://jestjs.io/) for tests. You can configure whatever testing strategy you like, but jest works out of the box. Create test files in directories called `__tests__` or with the `.test.js` extension to have the files loaded by jest. See an example test [here](https://github.com/WordPress/gutenberg/blob/HEAD/packages/react-native-editor/src/test/api-fetch-setup.test.js). The [jest documentation](https://jestjs.io/docs/getting-started) is also a wonderful resource, as is the [React Native testing tutorial](https://jestjs.io/docs/tutorial-react-native).
+This project is set up to use [jest](https://jestjs.io/) for tests. You can configure whatever testing strategy you like, but jest works out of the box. Create test files in directories called `__tests__` or with the `.test.js` extension to have the files loaded by jest. See an example test [here](https://github.com/FinPress/gutenberg/blob/HEAD/packages/react-native-editor/src/test/api-fetch-setup.test.js). The [jest documentation](https://jestjs.io/docs/getting-started) is also a wonderful resource, as is the [React Native testing tutorial](https://jestjs.io/docs/tutorial-react-native).
 
 ## End-to-end tests
 

@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext, useState, useLayoutEffect } from '@wordpress/element';
-import { useRefEffect } from '@wordpress/compose';
+import { useContext, useState, useLayoutEffect } from '@finpress/element';
+import { useRefEffect } from '@finpress/compose';
 
 /**
  * Internal dependencies
  */
 import { BlockRefs } from '../../provider/block-refs-provider';
 
-/** @typedef {import('@wordpress/element').RefCallback} RefCallback */
-/** @typedef {import('@wordpress/element').Ref} Ref */
+/** @typedef {import('@finpress/element').RefCallback} RefCallback */
+/** @typedef {import('@finpress/element').Ref} Ref */
 
 /**
  * Provides a ref to the BlockRefs context.

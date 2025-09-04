@@ -1,24 +1,24 @@
 {
-	"name": "@wordpress/babel-preset-default",
+	"name": "@finpress/babel-preset-default",
 	"version": "8.29.0",
-	"description": "Default Babel preset for WordPress development.",
-	"author": "The WordPress Contributors",
+	"description": "Default Babel preset for FinPress development.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"babel",
 		"preset",
 		"babel-preset"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/babel-preset-default"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -38,8 +38,8 @@
 		"@babel/preset-env": "7.25.7",
 		"@babel/preset-typescript": "7.25.7",
 		"@babel/runtime": "7.25.7",
-		"@wordpress/browserslist-config": "file:../browserslist-config",
-		"@wordpress/warning": "file:../warning",
+		"@finpress/browserslist-config": "file:../browserslist-config",
+		"@finpress/warning": "file:../warning",
 		"browserslist": "^4.21.10",
 		"core-js": "^3.31.0",
 		"react": "^18.3.0"

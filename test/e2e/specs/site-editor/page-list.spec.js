@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 /**
  * External dependencies
  */
@@ -236,7 +236,7 @@ test.describe( 'Page List', () => {
 					await expect( parent ).toContainText( 'Sample Page' );
 				},
 			},
-			// TODO: Wrap up this test once https://github.com/WordPress/gutenberg/issues/68173 is fixed
+			// TODO: Wrap up this test once https://github.com/FinPress/gutenberg/issues/68173 is fixed
 			// template: {
 			// 	assertInitialState: async ( page ) => {
 			// 		const template = page.getByRole( 'button', {
@@ -347,7 +347,7 @@ test.describe( 'Page List', () => {
 			await createPages( requestUtils );
 		} );
 
-		// TODO: Wrap up this test once https://github.com/WordPress/gutenberg/pull/67584 is merged
+		// TODO: Wrap up this test once https://github.com/FinPress/gutenberg/pull/67584 is merged
 		// test( 'should update pages according to the changes', async ( {
 		// 	page,
 		// } ) => {

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import '@wordpress/jest-console';
+import '@finpress/jest-console';
 
 /**
  * Internal dependencies

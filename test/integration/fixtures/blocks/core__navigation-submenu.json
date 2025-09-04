@@ -12,9 +12,9 @@
 				"name": "core/navigation-link",
 				"isValid": true,
 				"attributes": {
-					"label": "WordPress",
+					"label": "FinPress",
 					"opensInNewTab": false,
-					"url": "https://wordpress.org/"
+					"url": "https://finpress.org/"
 				},
 				"innerBlocks": []
 			}

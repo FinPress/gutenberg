@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInnerBlocksProps } from '@wordpress/block-editor';
-import { Disabled } from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { useContext, useEffect, useRef } from '@wordpress/element';
+import { useInnerBlocksProps } from '@finpress/block-editor';
+import { Disabled } from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { useContext, useEffect, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

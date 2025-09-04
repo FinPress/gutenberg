@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { Guide } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { createInterpolateElement } from '@wordpress/element';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { store as coreStore } from '@wordpress/core-data';
+import { useDispatch, useSelect } from '@finpress/data';
+import { Guide } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { createInterpolateElement } from '@finpress/element';
+import { store as preferencesStore } from '@finpress/preferences';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

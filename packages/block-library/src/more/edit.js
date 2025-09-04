@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	ToggleControl,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	InspectorControls,
 	PlainText,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { getDefaultBlockName, createBlock } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { getDefaultBlockName, createBlock } from '@finpress/blocks';
 
 /**
  * Internal dependencies

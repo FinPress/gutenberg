@@ -59,7 +59,7 @@ declare module './base-entity-records' {
 			 */
 			start_of_week: number;
 			/**
-			 * WordPress locale code.
+			 * FinPress locale code.
 			 */
 			language: string;
 			/**

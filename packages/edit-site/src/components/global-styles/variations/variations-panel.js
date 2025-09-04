@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blocksStore } from '@wordpress/blocks';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { __experimentalItemGroup as ItemGroup } from '@wordpress/components';
+import { store as blocksStore } from '@finpress/blocks';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { __experimentalItemGroup as ItemGroup } from '@finpress/components';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { createInterpolateElement } from '@wordpress/element';
-import { dateI18n, getDate, getSettings } from '@wordpress/date';
+import { __, sprintf } from '@finpress/i18n';
+import { createInterpolateElement } from '@finpress/element';
+import { dateI18n, getDate, getSettings } from '@finpress/date';
 
 /**
  * Internal dependencies

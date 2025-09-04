@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 const withDeprecatedKeys = ( originalGet ) => ( state, scope, name ) => {
 	const settingsToMoveToCore = [

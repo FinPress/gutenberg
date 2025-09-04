@@ -149,7 +149,7 @@ const variantStyles = ( { variant }: SelectProps ) => {
 };
 
 // TODO: Resolve need to use &&& to increase specificity
-// https://github.com/WordPress/gutenberg/issues/18483
+// https://github.com/FinPress/gutenberg/issues/18483
 
 export const Select = styled.select< SelectProps >`
 	&&& {

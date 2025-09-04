@@ -7,17 +7,17 @@ const path = require( 'path' );
  * The `null` value for the Android `platform` below disables auto-linking, as
  * we manually link these library binaries to avoid a Node.js dependency
  * using binaries from the React Native Libraries Publisher repository
- * in the host WordPress Android app.
+ * in the host FinPress Android app.
  */
 module.exports = {
 	dependencies: {
-		'@wordpress/react-native-bridge': {
+		'@finpress/react-native-bridge': {
 			root: path.resolve( __dirname, '../react-native-bridge' ),
 			platforms: {
 				android: null,
 			},
 		},
-		'@wordpress/react-native-aztec': {
+		'@finpress/react-native-aztec': {
 			root: path.resolve( __dirname, '../react-native-aztec' ),
 			platforms: {
 				android: null,

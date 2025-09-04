@@ -13,11 +13,11 @@ import {
 } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { useRef, useEffect } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { __, sprintf } from '@finpress/i18n';
+import { useRef, useEffect } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -116,7 +116,7 @@ function ColorPalette( {
 			}
 		}
 		// Not adding additional dependencies until the component can be refactored and updated safely.
-		// Please see https://github.com/WordPress/gutenberg/pull/41253 for discussion and details.
+		// Please see https://github.com/FinPress/gutenberg/pull/41253 for discussion and details.
 	}, [ currentSegment ] );
 
 	function isSelectedCustom() {

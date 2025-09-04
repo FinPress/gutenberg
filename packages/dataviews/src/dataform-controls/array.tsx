@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { FormTokenField } from '@wordpress/components';
-import { useCallback, useMemo } from '@wordpress/element';
+import { FormTokenField } from '@finpress/components';
+import { useCallback, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

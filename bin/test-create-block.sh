@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# This script validates whether `npm init @wordpress/block` works properly
+# This script validates whether `npm init @finpress/block` works properly
 # with the latest changes applied to the `trunk` branch. It purposefully
-# avoids installing `@wordpress/scripts` package from npm when scaffolding
+# avoids installing `@finpress/scripts` package from npm when scaffolding
 # a test block and uses the local package by executing everything from the
 # root of the project.
 

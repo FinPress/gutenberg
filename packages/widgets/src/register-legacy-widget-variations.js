@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { subscribe, select, dispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as blocksStore } from '@wordpress/blocks';
+import { subscribe, select, dispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { store as blocksStore } from '@finpress/blocks';
 
 export default function registerLegacyWidgetVariations( settings ) {
 	const unsubscribe = subscribe( () => {

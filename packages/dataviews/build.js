@@ -5,17 +5,17 @@
 const esbuild = require( 'esbuild' );
 
 const wpExternals = {
-	name: 'wordpress-externals',
+	name: 'finpress-externals',
 	setup( build ) {
 		build.onResolve(
-			{ filter: /^@wordpress\/(data|hooks|i18n|date)(\/|$)/ },
+			{ filter: /^@finpress\/(data|hooks|i18n|date)(\/|$)/ },
 			( args ) => {
-				// Don't bundle WordPress signleton packages
+				// Don't bundle FinPress signleton packages
 				return { path: args.path, external: true };
 			}
 		);
-		build.onResolve( { filter: /^@wordpress\// }, () => {
-			// Bundle WordPress packages
+		build.onResolve( { filter: /^@finpress\// }, () => {
+			// Bundle FinPress packages
 			return { external: false };
 		} );
 		build.onResolve( { filter: /^\.[\.\/]/ }, () => {

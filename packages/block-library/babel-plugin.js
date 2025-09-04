@@ -20,7 +20,7 @@ const isBlockMetadataExperimental = require( './src/utils/is-block-metadata-expe
  * This ensures the dead code elimination removes the experimental blocks modules
  * during the production build.
  *
- * For more context, see https://github.com/WordPress/gutenberg/pull/40655/
+ * For more context, see https://github.com/FinPress/gutenberg/pull/40655/
  *
  * @param {Function} shouldProcessImport Optional callback to decide whether a given import should be processed.
  * @param {boolean}  isGutenbergPlugin   Whether to run the plugin.

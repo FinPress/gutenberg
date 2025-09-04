@@ -13,7 +13,7 @@ import filterMessage from './filter-message';
  *
  * @example
  * ```js
- * import { speak } from '@wordpress/a11y';
+ * import { speak } from '@finpress/a11y';
  *
  * // For polite messages that shouldn't interrupt what screen readers are currently announcing.
  * speak( 'The message you want to send to the ARIA live region' );

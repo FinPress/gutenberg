@@ -33,7 +33,7 @@ if ( ! class_exists( 'Gutenberg_Interactivity_API_Full_Page_Navigation' ) ) {
 		 */
 		public function enqueue_script_modules() {
 			wp_enqueue_script_module(
-				'@wordpress/interactivity-router/full-page'
+				'@finpress/interactivity-router/full-page'
 			);
 		}
 

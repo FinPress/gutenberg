@@ -4,34 +4,34 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useRef, useEffect, Platform } from '@wordpress/element';
-import { compose, usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { withSelect, withDispatch } from '@wordpress/data';
-import { withViewportMatch } from '@wordpress/viewport';
-import { __ } from '@wordpress/i18n';
+import { useCallback, useRef, useEffect, Platform } from '@finpress/element';
+import { compose, usePreferredColorSchemeStyle } from '@finpress/compose';
+import { withSelect, withDispatch } from '@finpress/data';
+import { withViewportMatch } from '@finpress/viewport';
+import { __ } from '@finpress/i18n';
 import {
 	Inserter,
 	BlockToolbar,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+} from '@finpress/block-editor';
+import { ToolbarGroup, ToolbarButton } from '@finpress/components';
 import {
 	keyboardClose,
 	audio as audioIcon,
 	media as imageIcon,
 	video as videoIcon,
 	gallery as galleryIcon,
-} from '@wordpress/icons';
-import { store as editorStore } from '@wordpress/editor';
-import { createBlock } from '@wordpress/blocks';
+} from '@finpress/icons';
+import { store as editorStore } from '@finpress/editor';
+import { createBlock } from '@finpress/blocks';
 import {
 	toggleUndoButton,
 	toggleRedoButton,
 	subscribeOnUndoPressed,
 	subscribeOnRedoPressed,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies

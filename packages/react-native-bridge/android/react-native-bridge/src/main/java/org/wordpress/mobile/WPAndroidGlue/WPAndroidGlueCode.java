@@ -1,4 +1,4 @@
-package org.wordpress.mobile.WPAndroidGlue;
+package org.finpress.mobile.WPAndroidGlue;
 
 import android.app.Activity;
 import android.app.Application;
@@ -52,16 +52,16 @@ import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 
 import org.linusu.RNGetRandomValuesPackage;
 import org.reactnative.maskedview.RNCMaskedViewPackage;
-import org.wordpress.android.util.AppLog;
-import org.wordpress.android.util.AppLog.T;
-import org.wordpress.mobile.ReactNativeAztec.ReactAztecPackage;
-import org.wordpress.mobile.ReactNativeGutenbergBridge.BuildConfig;
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent;
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.LogExceptionCallback;
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaSelectedCallback;
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.ReplaceUnsupportedBlockCallback;
-import org.wordpress.mobile.ReactNativeGutenbergBridge.RNMedia;
-import org.wordpress.mobile.ReactNativeGutenbergBridge.RNReactNativeGutenbergBridgePackage;
+import org.finpress.android.util.AppLog;
+import org.finpress.android.util.AppLog.T;
+import org.finpress.mobile.ReactNativeAztec.ReactAztecPackage;
+import org.finpress.mobile.ReactNativeGutenbergBridge.BuildConfig;
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent;
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.LogExceptionCallback;
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaSelectedCallback;
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.ReplaceUnsupportedBlockCallback;
+import org.finpress.mobile.ReactNativeGutenbergBridge.RNMedia;
+import org.finpress.mobile.ReactNativeGutenbergBridge.RNReactNativeGutenbergBridgePackage;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -285,7 +285,7 @@ public class WPAndroidGlueCode {
 
                 // Gutenberg mobile sends us html response even without we asking for it so, check if the latch is there.
                 //  This is probably an indication of a bug on the RN side of things though.
-                //  Related: https://github.com/WordPress/gutenberg/pull/16260#issuecomment-506727286
+                //  Related: https://github.com/FinPress/gutenberg/pull/16260#issuecomment-506727286
                 if (mGetContentCountDownLatch != null) {
                     mGetContentCountDownLatch.countDown();
                 }
@@ -625,7 +625,7 @@ public class WPAndroidGlueCode {
         mReactRootView.setBackgroundColor(colorBackground);
 
         // Workaround to prevent saving large RN view hierarchies that lead to a `TransactionTooLargeException`
-        // Ref: https://github.com/wordpress-mobile/WordPress-Android/issues/9685#issuecomment-1908452392
+        // Ref: https://github.com/finpress-mobile/FinPress-Android/issues/9685#issuecomment-1908452392
         mReactRootView.setSaveFromParentEnabled(false);
 
         ReactInstanceManagerBuilder builder =
@@ -1023,7 +1023,7 @@ public class WPAndroidGlueCode {
 
     public void toggleEditorMode(boolean htmlModeEnabled) {
         // Turn off hardware acceleration for Oreo
-        // see https://github.com/wordpress-mobile/gutenberg-mobile/issues/1268#issuecomment-535887390
+        // see https://github.com/finpress-mobile/gutenberg-mobile/issues/1268#issuecomment-535887390
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) {
             if (htmlModeEnabled) {
@@ -1045,7 +1045,7 @@ public class WPAndroidGlueCode {
             List<RNMedia> rnMediaList = new ArrayList<>();
 
             // We have special handling here for the image block when the user selects multiple items from the
-            // WordPress Media Library: We pass the first image to the callback, and the remaining images will be
+            // FinPress Media Library: We pass the first image to the callback, and the remaining images will be
             // appended as blocks via sendOrDeferAppendMediaSignal
             //
             // All other media selection results should be passed to the callback at once (as a collection)

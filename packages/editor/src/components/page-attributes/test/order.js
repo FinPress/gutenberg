@@ -5,17 +5,17 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies
  */
 import PageAttributesOrder from '../order';
 
-jest.mock( '@wordpress/data/src/components/use-select', () => jest.fn() );
-jest.mock( '@wordpress/data/src/components/use-dispatch', () => ( {
+jest.mock( '@finpress/data/src/components/use-select', () => jest.fn() );
+jest.mock( '@finpress/data/src/components/use-dispatch', () => ( {
 	useDispatch: jest.fn(),
 } ) );
 

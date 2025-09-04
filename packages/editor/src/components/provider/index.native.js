@@ -6,7 +6,7 @@ import memize from 'memize';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import RNReactNativeGutenbergBridge, {
 	requestBlockTypeImpressions,
@@ -22,9 +22,9 @@ import RNReactNativeGutenbergBridge, {
 	subscribeShowNotice,
 	subscribeShowEditorHelp,
 	subscribeToContentUpdate,
-} from '@wordpress/react-native-bridge';
-import { Component } from '@wordpress/element';
-import { count as wordCount } from '@wordpress/wordcount';
+} from '@finpress/react-native-bridge';
+import { Component } from '@finpress/element';
+import { count as wordCount } from '@finpress/wordcount';
 import {
 	parse,
 	serialize,
@@ -32,17 +32,17 @@ import {
 	getBlockType,
 	createBlock,
 	pasteHandler,
-} from '@wordpress/blocks';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
-import { applyFilters } from '@wordpress/hooks';
+} from '@finpress/blocks';
+import { withDispatch, withSelect } from '@finpress/data';
+import { compose } from '@finpress/compose';
+import { applyFilters } from '@finpress/hooks';
 import {
 	store as blockEditorStore,
 	getGlobalStyles,
 	getColorsAndGradients,
-} from '@wordpress/block-editor';
-import { NEW_BLOCK_TYPES } from '@wordpress/block-library';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { NEW_BLOCK_TYPES } from '@finpress/block-library';
+import { __ } from '@finpress/i18n';
 
 const postTypeEntities = [
 	{ name: 'post', baseURL: '/wp/v2/posts' },
@@ -65,9 +65,9 @@ const postTypeEntities = [
 	},
 	rawAttributes: [ 'title', 'excerpt', 'content' ],
 } ) );
-import { EditorHelpTopics, store as editorStore } from '@wordpress/editor';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as coreStore } from '@wordpress/core-data';
+import { EditorHelpTopics, store as editorStore } from '@finpress/editor';
+import { store as noticesStore } from '@finpress/notices';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

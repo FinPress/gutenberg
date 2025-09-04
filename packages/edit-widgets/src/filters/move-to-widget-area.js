@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 
-import { BlockControls } from '@wordpress/block-editor';
-import { createHigherOrderComponent } from '@wordpress/compose';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { addFilter } from '@wordpress/hooks';
-import { MoveToWidgetArea } from '@wordpress/widgets';
+import { BlockControls } from '@finpress/block-editor';
+import { createHigherOrderComponent } from '@finpress/compose';
+import { useDispatch, useSelect } from '@finpress/data';
+import { addFilter } from '@finpress/hooks';
+import { MoveToWidgetArea } from '@finpress/widgets';
 
 /**
  * Internal dependencies

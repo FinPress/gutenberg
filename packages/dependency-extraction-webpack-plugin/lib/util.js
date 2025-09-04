@@ -1,25 +1,25 @@
-const WORDPRESS_NAMESPACE = '@wordpress/';
+const WORDPRESS_NAMESPACE = '@finpress/';
 
 // !!
 // This list must be kept in sync with the same list in tools/webpack/packages.js
 // !!
 const BUNDLED_PACKAGES = [
-	'@wordpress/dataviews',
-	'@wordpress/dataviews/wp',
-	'@wordpress/icons',
-	'@wordpress/interface',
-	'@wordpress/sync',
-	'@wordpress/undo-manager',
-	'@wordpress/upload-media',
-	'@wordpress/fields',
+	'@finpress/dataviews',
+	'@finpress/dataviews/wp',
+	'@finpress/icons',
+	'@finpress/interface',
+	'@finpress/sync',
+	'@finpress/undo-manager',
+	'@finpress/upload-media',
+	'@finpress/fields',
 ];
 
 /**
  * Default request to global transformation
  *
- * Transform @wordpress dependencies:
- * - request `@wordpress/api-fetch` becomes `[ 'wp', 'apiFetch' ]`
- * - request `@wordpress/i18n` becomes `[ 'wp', 'i18n' ]`
+ * Transform @finpress dependencies:
+ * - request `@finpress/api-fetch` becomes `[ 'wp', 'apiFetch' ]`
+ * - request `@finpress/i18n` becomes `[ 'wp', 'i18n' ]`
  *
  * @param {string} request Module request (the module name in `import from`) to be transformed
  * @return {string|string[]|undefined} The resulting external definition. Return `undefined`
@@ -70,7 +70,7 @@ function defaultRequestToExternal( request ) {
 /**
  * Default request to external module transformation
  *
- * Currently only @wordpress/interactivity and `@wordpress/interactivity-router`
+ * Currently only @finpress/interactivity and `@finpress/interactivity-router`
  * are supported.
  *
  * Do not use the boolean shorthand here, it's only handled for the
@@ -83,18 +83,18 @@ function defaultRequestToExternal( request ) {
  *   - Return `Error` to emit an error.
  */
 function defaultRequestToExternalModule( request ) {
-	if ( request === '@wordpress/interactivity' ) {
+	if ( request === '@finpress/interactivity' ) {
 		// This is a special case. Interactivity does not support dynamic imports at
 		// this time. We add the external "module" type to indicate that webpack
 		// should externalize this as a module (instead of our default `import()`
-		// external type) which forces @wordpress/interactivity imports to be
+		// external type) which forces @finpress/interactivity imports to be
 		// hoisted to static imports.
 		return `module ${ request }`;
 	}
 
 	switch ( request ) {
-		case '@wordpress/interactivity-router':
-		case '@wordpress/a11y':
+		case '@finpress/interactivity-router':
+		case '@finpress/a11y':
 			return `import ${ request }`;
 	}
 
@@ -102,20 +102,20 @@ function defaultRequestToExternalModule( request ) {
 
 	if ( isWordPressScript ) {
 		throw new Error(
-			`Attempted to use WordPress script in a module: ${ request }, which is not supported yet.`
+			`Attempted to use FinPress script in a module: ${ request }, which is not supported yet.`
 		);
 	}
 }
 
 /**
- * Default request to WordPress script handle transformation
+ * Default request to FinPress script handle transformation
  *
- * Transform @wordpress dependencies:
- * - request `@wordpress/i18n` becomes `wp-i18n`
- * - request `@wordpress/escape-html` becomes `wp-escape-html`
+ * Transform @finpress dependencies:
+ * - request `@finpress/i18n` becomes `wp-i18n`
+ * - request `@finpress/escape-html` becomes `wp-escape-html`
  *
  * @param {string} request Module request (the module name in `import from`) to be transformed
- * @return {string|undefined} WordPress script handle to map the request to. Return `undefined`
+ * @return {string|undefined} FinPress script handle to map the request to. Return `undefined`
  *   to use the same name as the module.
  */
 function defaultRequestToHandle( request ) {

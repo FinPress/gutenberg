@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useReducedMotion } from '@wordpress/compose';
-import { useRef } from '@wordpress/element';
+import { useReducedMotion } from '@finpress/compose';
+import { useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

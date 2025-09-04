@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useRef, createContext, useContext } from '@wordpress/element';
-import { __unstableMotion as motion } from '@wordpress/components';
-import { useReducedMotion } from '@wordpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useRef, createContext, useContext } from '@finpress/element';
+import { __unstableMotion as motion } from '@finpress/components';
+import { useReducedMotion } from '@finpress/compose';
 
 /**
  * Internal dependencies

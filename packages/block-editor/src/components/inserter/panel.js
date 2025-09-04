@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Icon } from '@wordpress/components';
+import { Icon } from '@finpress/components';
 
 function InserterPanel( { title, icon, children } ) {
 	return (

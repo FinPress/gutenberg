@@ -36,4 +36,4 @@ If a `clientId` is not provided, the component will return `null`.
 
 ## Examples
 
-This component is currently used in the [block inspector](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components/block-inspector) in the sidebar, at the bottom right corner of the screen.
+This component is currently used in the [block inspector](https://github.com/FinPress/gutenberg/tree/trunk/packages/block-editor/src/components/block-inspector) in the sidebar, at the bottom right corner of the screen.

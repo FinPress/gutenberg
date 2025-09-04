@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { useKeyboardShortcut } from '@wordpress/compose';
+import type { useKeyboardShortcut } from '@finpress/compose';
 
-// TODO: We wouldn't have to do this if this type was exported from `@wordpress/compose`.
+// TODO: We wouldn't have to do this if this type was exported from `@finpress/compose`.
 type WPKeyboardShortcutConfig = NonNullable<
 	Parameters< typeof useKeyboardShortcut >[ 2 ]
 >;

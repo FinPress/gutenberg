@@ -10,9 +10,9 @@ import userEvent from '@testing-library/user-event';
 import { Slot, Fill, Provider } from '../';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
+import { Component } from '@finpress/element';
 
 class Filler extends Component {
 	constructor() {

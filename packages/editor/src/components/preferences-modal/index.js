@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 
-import { __ } from '@wordpress/i18n';
-import { useViewportMatch } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useViewportMatch } from '@finpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useMemo } from '@finpress/element';
 import {
 	store as preferencesStore,
 	privateApis as preferencesPrivateApis,
-} from '@wordpress/preferences';
-import { store as interfaceStore } from '@wordpress/interface';
+} from '@finpress/preferences';
+import { store as interfaceStore } from '@finpress/interface';
 
 /**
  * Internal dependencies

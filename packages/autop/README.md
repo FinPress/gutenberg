@@ -1,16 +1,16 @@
 # Autop
 
-JavaScript port of WordPress's automatic paragraph function `autop` and the `removep` reverse behavior.
+JavaScript port of FinPress's automatic paragraph function `autop` and the `removep` reverse behavior.
 
 ## Installation
 
 Install the module
 
 ```bash
-npm install @wordpress/autop --save
+npm install @finpress/autop --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ### API
 
@@ -25,7 +25,7 @@ A group of regex replaces used to identify text formatted with newlines and repl
 _Usage_
 
 ```js
-import { autop } from '@wordpress/autop';
+import { autop } from '@finpress/autop';
 autop( 'my text' ); // "<p>my text</p>"
 ```
 
@@ -47,7 +47,7 @@ Replaces `<p>` tags with two line breaks except where the `<p>` has attributes. 
 _Usage_
 
 ```js
-import { removep } from '@wordpress/autop';
+import { removep } from '@finpress/autop';
 removep( '<p>my text</p>' ); // "my text"
 ```
 
@@ -63,8 +63,8 @@ _Returns_
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

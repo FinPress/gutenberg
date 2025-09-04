@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	DropdownMenu,
@@ -8,11 +8,11 @@ import {
 	__experimentalHeading as Heading,
 	__experimentalText as Text,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
-import { moreVertical } from '@wordpress/icons';
+} from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { moreVertical } from '@finpress/icons';
 
 /**
  * Internal dependencies

@@ -6,7 +6,7 @@
 
 ButtonGroup can be used to group any related buttons together. To emphasize related buttons, a group should share a common container.
 
-![ButtonGroup component](https://wordpress.org/gutenberg/files/2018/12/s_96EC471FE9C9D91A996770229947AAB54A03351BDE98F444FD3C1BF0CED365EA_1541792995815_ButtonGroup.png)
+![ButtonGroup component](https://finpress.org/gutenberg/files/2018/12/s_96EC471FE9C9D91A996770229947AAB54A03351BDE98F444FD3C1BF0CED365EA_1541792995815_ButtonGroup.png)
 
 ## Design guidelines
 
@@ -14,7 +14,7 @@ ButtonGroup can be used to group any related buttons together. To emphasize rela
 
 #### Selected action
 
-![ButtonGroup selection](https://wordpress.org/gutenberg/files/2018/12/s_96EC471FE9C9D91A996770229947AAB54A03351BDE98F444FD3C1BF0CED365EA_1544127594329_ButtonGroup-Do.png)
+![ButtonGroup selection](https://finpress.org/gutenberg/files/2018/12/s_96EC471FE9C9D91A996770229947AAB54A03351BDE98F444FD3C1BF0CED365EA_1544127594329_ButtonGroup-Do.png)
 
 **Do**
 Only one option in a button group can be selected and active at a time. Selecting one option deselects any other.
@@ -30,7 +30,7 @@ Button groups should:
 
 ### States
 
-![ButtonGroup component](https://wordpress.org/gutenberg/files/2018/12/s_96EC471FE9C9D91A996770229947AAB54A03351BDE98F444FD3C1BF0CED365EA_1541792995815_ButtonGroup.png)
+![ButtonGroup component](https://finpress.org/gutenberg/files/2018/12/s_96EC471FE9C9D91A996770229947AAB54A03351BDE98F444FD3C1BF0CED365EA_1541792995815_ButtonGroup.png)
 
 **Active and available button groups**
 
@@ -45,7 +45,7 @@ Button groups that cannot be selected can either be given a disabled state, or b
 ### Usage
 
 ```jsx
-import { Button, ButtonGroup } from '@wordpress/components';
+import { Button, ButtonGroup } from '@finpress/components';
 
 const MyButtonGroup = () => (
 	<ButtonGroup>

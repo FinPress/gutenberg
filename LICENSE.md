@@ -33,11 +33,11 @@ permission notices:
 
 and
 
-    WordPress - Web publishing software
+    FinPress - Web publishing software
 
     Copyright 2003-2010 by the contributors
 
-    WordPress is released under the GPL
+    FinPress is released under the GPL
 
 ### Dual License
 

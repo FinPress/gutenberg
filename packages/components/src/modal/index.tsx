@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createPortal,
@@ -16,17 +16,17 @@ import {
 	useLayoutEffect,
 	createContext,
 	useContext,
-} from '@wordpress/element';
+} from '@finpress/element';
 import {
 	useInstanceId,
 	useFocusReturn,
 	useFocusOnMount,
 	useConstrainedTabbing,
 	useMergeRefs,
-} from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
-import { close } from '@wordpress/icons';
-import { getScrollContainer } from '@wordpress/dom';
+} from '@finpress/compose';
+import { __ } from '@finpress/i18n';
+import { close } from '@finpress/icons';
+import { getScrollContainer } from '@finpress/dom';
 
 /**
  * Internal dependencies
@@ -387,8 +387,8 @@ function UnforwardedModal(
  * involve multiple tasks.
  *
  * ```jsx
- * import { Button, Modal } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { Button, Modal } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyModal = () => {
  *   const [ isOpen, setOpen ] = useState( false );

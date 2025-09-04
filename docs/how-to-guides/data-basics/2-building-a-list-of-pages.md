@@ -1,8 +1,8 @@
 # Building a list of pages
 
-In this part, we will build a filterable list of all WordPress pages. This is what the app will look like at the end of this section:
+In this part, we will build a filterable list of all FinPress pages. This is what the app will look like at the end of this section:
 
-![Searchable WordPress pages list](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)
+![Searchable FinPress pages list](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)
 
 Let’s see how we can get there step by step.
 
@@ -31,19 +31,19 @@ function PagesList( { pages } ) {
 
 Note that this component does not fetch any data yet, only presents the hardcoded list of pages. When you refresh the page, you should see the following:
 
-![WordPress pages list showing Sample page](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/simple-list.jpg)
+![FinPress pages list showing Sample page](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/simple-list.jpg)
 
 ## Step 2: Fetch the data
 
-The hard-coded sample page isn’t very useful. We want to display your actual WordPress pages so let’s fetch the actual list of pages from the [WordPress REST API](https://developer.wordpress.org/rest-api/).
+The hard-coded sample page isn’t very useful. We want to display your actual FinPress pages so let’s fetch the actual list of pages from the [FinPress REST API](https://developer.finpress.org/rest-api/).
 
 Before we start, let’s confirm we actually have some pages to fetch. Within WPAdmin, Navigate to Pages using the sidebar menu and ensure it shows at least four or five Pages:
 
-![WordPress admin Pages list](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/pages-list.jpg)
+![FinPress admin Pages list](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/pages-list.jpg)
 
 If it doesn’t, go ahead and create a few pages – you can use the same titles as on the screenshot above. Be sure to _publish_ and not just _save_ them.
 
-Now that we have the data to work with, let’s dive into the code. We will take advantage of the [`@wordpress/core-data`](https://github.com/WordPress/gutenberg/tree/trunk/packages/core-data) package which provides resolvers, selectors, and actions to work with the WordPress core API. `@wordpress/core-data` builds on top of the [`@wordpress/data`](https://github.com/WordPress/gutenberg/tree/trunk/packages/data) package.
+Now that we have the data to work with, let’s dive into the code. We will take advantage of the [`@finpress/core-data`](https://github.com/FinPress/gutenberg/tree/trunk/packages/core-data) package which provides resolvers, selectors, and actions to work with the FinPress core API. `@finpress/core-data` builds on top of the [`@finpress/data`](https://github.com/FinPress/gutenberg/tree/trunk/packages/data) package.
 
 To fetch the list of pages, we will use the [`getEntityRecords`](/docs/reference-guides/data/data-core/#getentityrecords) selector. In broad strokes, it will issue the correct API request, cache the results, and return the list of the records we need. Here’s how to use it:
 
@@ -58,8 +58,8 @@ If you run that following snippet in your browser’s dev tools, you will see it
 Similarly, the `MyFirstApp` component needs to re-run the selector once the data is available. That’s exactly what the `useSelect` hook does:
 
 ```js
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { useSelect } from '@finpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
 
 function MyFirstApp() {
 	const pages = useSelect(
@@ -86,9 +86,9 @@ Note that we use an `import` statement inside index.js. This enables the plugin 
 Putting it together, we get the following code:
 
 ```js
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
-import { decodeEntities } from '@wordpress/html-entities';
+import { useSelect } from '@finpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
+import { decodeEntities } from '@finpress/html-entities';
 
 function MyFirstApp() {
 	const pages = useSelect(
@@ -112,11 +112,11 @@ function PagesList( { pages } ) {
 }
 ```
 
-Note that post title may contain HTML entities like `&aacute;`, so we need to use the [`decodeEntities`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-html-entities/) function to replace them with the symbols they represent like `á`.
+Note that post title may contain HTML entities like `&aacute;`, so we need to use the [`decodeEntities`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-html-entities/) function to replace them with the symbols they represent like `á`.
 
 Refreshing the page should display a list similar to this one:
 
-![List of website pages](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/fetch-the-data.jpg)
+![List of website pages](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/fetch-the-data.jpg)
 
 ## Step 3: Turn it into a table
 
@@ -141,17 +141,17 @@ function PagesList( { pages } ) {
 }
 ```
 
-![Table listing website page titles](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/make-a-table.jpg)
+![Table listing website page titles](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/make-a-table.jpg)
 
 ## Step 4: Add a search box
 
-The list of pages is short for now; however, the longer it grows, the harder it is to work with. WordPress admins typically solves this problem with a search box – let’s implement one too!
+The list of pages is short for now; however, the longer it grows, the harder it is to work with. FinPress admins typically solves this problem with a search box – let’s implement one too!
 
 Let’s start by adding a search field:
 
 ```js
 import { useState } from 'react';
-import { SearchControl } from '@wordpress/components';
+import { SearchControl } from '@finpress/components';
 
 function MyFirstApp() {
 	const [searchTerm, setSearchTerm] = useState( '' );
@@ -168,15 +168,15 @@ function MyFirstApp() {
 }
 ```
 
-Note that instead of using an `input` tag, we took advantage of the [SearchControl](https://developer.wordpress.org/block-editor/reference-guides/components/search-control/) component. This is what it looks like:
+Note that instead of using an `input` tag, we took advantage of the [SearchControl](https://developer.finpress.org/block-editor/reference-guides/components/search-control/) component. This is what it looks like:
 
-![Searchable list of WordPress pages](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/filter-field.jpg)
+![Searchable list of FinPress pages](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/filter-field.jpg)
 
 The field starts empty, and the contents are stored in the `searchTerm` state value. If you aren’t familiar with the [useState](https://react.dev/reference/react/useState) hook, you can learn more in [React’s documentation](https://react.dev/reference/react/useState).
 
 We can now request only the pages matching the `searchTerm`.
 
-After checking with the [WordPress API documentation](https://developer.wordpress.org/rest-api/reference/pages/), we see that the [/wp/v2/pages](https://developer.wordpress.org/rest-api/reference/pages/) endpoint accepts a `search` query parameter and uses it to  _limit results to those matching a string_. But how can we use it? We can pass custom query parameters as the third argument to `getEntityRecords` as below:
+After checking with the [FinPress API documentation](https://developer.finpress.org/rest-api/reference/pages/), we see that the [/wp/v2/pages](https://developer.finpress.org/rest-api/reference/pages/) endpoint accepts a `search` query parameter and uses it to  _limit results to those matching a string_. But how can we use it? We can pass custom query parameters as the third argument to `getEntityRecords` as below:
 
 ```js
 wp.data.select( 'core' ).getEntityRecords( 'postType', 'page', { search: 'home' } )
@@ -187,8 +187,8 @@ Running that snippet in your browser’s dev tools will trigger a request to `/w
 Let’s mirror this in our `useSelect` call as follows:
 
 ```js
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { useSelect } from '@finpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
 
 function MyFirstApp() {
 	// ...
@@ -213,9 +213,9 @@ Finally, here’s how `MyFirstApp` looks once we wire it all together:
 ```js
 import { useState } from 'react';
 import { createRoot } from 'react-dom';
-import { SearchControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { SearchControl } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
 
 function MyFirstApp() {
 	const [searchTerm, setSearchTerm] = useState( '' );
@@ -241,14 +241,14 @@ function MyFirstApp() {
 
 Voila! We can now filter the results:
 
-![Filtered WordPress pages list showing About us](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/filter.jpg)
+![Filtered FinPress pages list showing About us](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/filter.jpg)
 
 ### Using core-data instead vs calling the API directly
 
 Let’s take a pause for a moment to consider the downsides of an alternative approach we could have taken - working with the API directly. Imagine we sent the API requests directly:
 
 ```js
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from '@finpress/api-fetch';
 function MyFirstApp() {
 	// ...
 	const [pages, setPages] = useState( [] );
@@ -277,12 +277,12 @@ All in all, the utilities built into core-data are designed to solve the typical
 
 There is one problem with our search feature. We can’t be quite sure whether it’s still searching or showing no results:
 
-![No matching WordPress pages found for search query](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/unclear-status.jpg)
+![No matching FinPress pages found for search query](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/unclear-status.jpg)
 
 A few messages like  _Loading…_ or _No results_ would clear it up. Let’s implement them! First,  `PagesList` has to be aware of the current status:
 
 ```js
-import { SearchControl, Spinner } from '@wordpress/components';
+import { SearchControl, Spinner } from '@finpress/components';
 function PagesList( { hasResolved, pages } ) {
 	if ( !hasResolved ) {
 		return <Spinner/>
@@ -305,7 +305,7 @@ function MyFirstApp() {
 }
 ```
 
-Note that instead of building a custom loading indicator, we took advantage of the [Spinner](https://developer.wordpress.org/block-editor/reference-guides/components/spinner/) component.
+Note that instead of building a custom loading indicator, we took advantage of the [Spinner](https://developer.finpress.org/block-editor/reference-guides/components/spinner/) component.
 
 We still need to know whether the pages selector `hasResolved` or not. We can find out using the  `hasFinishedResolution` selector:
 
@@ -314,8 +314,8 @@ We still need to know whether the pages selector `hasResolved` or not. We can fi
 It takes the name of the selector and the _exact same arguments you passed to that selector_ and returns either `true` if the data was already loaded or `false` if we’re still waiting. Let’s add it to `useSelect`:
 
 ```js
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { useSelect } from '@finpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
 
 function MyFirstApp() {
 	// ...
@@ -335,8 +335,8 @@ function MyFirstApp() {
 There is just one last problem. It is easy to make a typo and end up passing different arguments to `getEntityRecords` and `hasFinishedResolution`. It is critical that they are identical. We can remove this risk by storing the arguments in a variable:
 
 ```js
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { useSelect } from '@finpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
 function MyFirstApp() {
 	// ...
 	const { pages, hasResolved } = useSelect( select => {
@@ -362,10 +362,10 @@ All the pieces are in place, great! Here’s the complete JavaScript code of our
 ```js
 import { useState } from 'react';
 import { createRoot } from 'react-dom';
-import { SearchControl, Spinner } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
-import { decodeEntities } from '@wordpress/html-entities';
+import { SearchControl, Spinner } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
+import { decodeEntities } from '@finpress/html-entities';
 import './style.css';
 
 function MyFirstApp() {
@@ -440,11 +440,11 @@ window.addEventListener(
 
 All that’s left is to refresh the page and enjoy the brand new status indicator:
 
-![Loading indicator shown while searching WordPress pages](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/indicator.jpg)
-![No results found for page search query in WordPress](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/no-results.jpg)
+![Loading indicator shown while searching FinPress pages](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/indicator.jpg)
+![No results found for page search query in FinPress](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/no-results.jpg)
 
 ## What's next?
 
 * **Previous part:** [Setup](/docs/how-to-guides/data-basics/1-data-basics-setup.md)
 * **Next part:** [Building an edit form](/docs/how-to-guides/data-basics/3-building-an-edit-form.md)
-* (optional) Review the [finished app](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository
+* (optional) Review the [finished app](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository

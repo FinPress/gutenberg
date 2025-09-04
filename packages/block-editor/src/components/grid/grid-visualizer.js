@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect, forwardRef, useMemo } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __experimentalUseDropZone as useDropZone } from '@wordpress/compose';
+import { useState, useEffect, forwardRef, useMemo } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __experimentalUseDropZone as useDropZone } from '@finpress/compose';
 
 /**
  * Internal dependencies

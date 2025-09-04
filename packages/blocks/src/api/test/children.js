@@ -1,9 +1,9 @@
 /* eslint-disable testing-library/render-result-naming-convention */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { renderToString } from '@wordpress/element';
+import { renderToString } from '@finpress/element';
 
 /**
  * Internal dependencies

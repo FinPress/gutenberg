@@ -23,8 +23,8 @@ show "Mixed" placeholder text.
 
 ```jsx
 import { useState } from 'react';
-import { BorderBoxControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { BorderBoxControl } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 const colors = [
 	{ name: 'Blue 20', color: '#72aee6' },

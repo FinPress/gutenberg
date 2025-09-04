@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as richTextStore } from '@wordpress/rich-text';
+import { useMemo } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as richTextStore } from '@finpress/rich-text';
 
 /**
  * Internal dependencies

@@ -9,13 +9,13 @@ import { getPhotoHtml } from './util';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { Placeholder, SandBox } from '@wordpress/components';
-import { BlockIcon } from '@wordpress/block-editor';
-import { useState } from '@wordpress/element';
-import { getAuthority } from '@wordpress/url';
+import { __, sprintf } from '@finpress/i18n';
+import { Placeholder, SandBox } from '@finpress/components';
+import { BlockIcon } from '@finpress/block-editor';
+import { useState } from '@finpress/element';
+import { getAuthority } from '@finpress/url';
 
 /**
  * Internal dependencies

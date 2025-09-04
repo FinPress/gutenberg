@@ -4,9 +4,9 @@
 import { useStoreState } from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import { forwardRef } from '@wordpress/element';
 import type { TabPanelProps } from './types';
 import { TabPanel as StyledTabPanel } from './styles';
 
-import warning from '@wordpress/warning';
+import warning from '@finpress/warning';
 import { useTabsContext } from './context';
 import type { WordPressComponentProps } from '../context';
 

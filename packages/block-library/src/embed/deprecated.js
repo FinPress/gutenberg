@@ -9,9 +9,9 @@ import clsx from 'clsx';
 import metadata from './block.json';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RichText, useBlockProps } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@finpress/block-editor';
 
 const { attributes: blockAttributes } = metadata;
 

@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -8,7 +8,7 @@
 
 ## 7.27.0 (2025-07-23)
 
--   Fixed the TS type for meta values for core entities ([#70788](https://github.com/WordPress/gutenberg/pull/70788))
+-   Fixed the TS type for meta values for core entities ([#70788](https://github.com/FinPress/gutenberg/pull/70788))
 
 ## 7.26.0 (2025-06-25)
 
@@ -66,8 +66,8 @@
 
 ### Breaking Changes
 
--   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/WordPress/gutenberg/pull/61486)).
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 6.35.0 (2024-05-16)
 
@@ -101,8 +101,8 @@
 
 ### Enhancements
 
--   Add `getEntityRecordsTotalItems` and `getEntityRecordsTotalPages` selectors. [#55164](https://github.com/WordPress/gutenberg/pull/55164).
--   Revisions: add new selectors, `getRevisions` and `getRevision`, to fetch entity revisions. [#54046](https://github.com/WordPress/gutenberg/pull/54046).
+-   Add `getEntityRecordsTotalItems` and `getEntityRecordsTotalPages` selectors. [#55164](https://github.com/FinPress/gutenberg/pull/55164).
+-   Revisions: add new selectors, `getRevisions` and `getRevision`, to fetch entity revisions. [#54046](https://github.com/FinPress/gutenberg/pull/54046).
 
 ## 6.20.0 (2023-10-05)
 
@@ -148,7 +148,7 @@
 
 ### Breaking Changes
 
--   Updated dependencies to require React 18 ([45235](https://github.com/WordPress/gutenberg/pull/45235))
+-   Updated dependencies to require React 18 ([45235](https://github.com/FinPress/gutenberg/pull/45235))
 
 ## 5.5.0 (2022-11-16)
 
@@ -170,7 +170,7 @@
 
 ### New Features
 
--   Stabilized the `useResourcePermissions` hook ([#43268](https://github.com/WordPress/gutenberg/pull/43268))
+-   Stabilized the `useResourcePermissions` hook ([#43268](https://github.com/FinPress/gutenberg/pull/43268))
 
 ## 4.13.0 (2022-08-10)
 
@@ -188,7 +188,7 @@
 
 ### New Features
 
--   Stabilized the `useEntityRecord` and `useEntityRecords` hooks ([#40162](https://github.com/WordPress/gutenberg/pull/40162))
+-   Stabilized the `useEntityRecord` and `useEntityRecords` hooks ([#40162](https://github.com/FinPress/gutenberg/pull/40162))
 
 ## 4.6.0 (2022-05-04)
 
@@ -200,7 +200,7 @@
 
 ### New Features
 
--   The saveEntityRecord, saveEditedEntityRecord, and deleteEntityRecord actions now accept an optional throwOnError option (defaults to false). When set to true, any exceptions occurring when the action was executing are re-thrown, causing dispatch().saveEntityRecord() to reject with an error. ([#39258](https://github.com/WordPress/gutenberg/pull/39258))
+-   The saveEntityRecord, saveEditedEntityRecord, and deleteEntityRecord actions now accept an optional throwOnError option (defaults to false). When set to true, any exceptions occurring when the action was executing are re-thrown, causing dispatch().saveEntityRecord() to reject with an error. ([#39258](https://github.com/FinPress/gutenberg/pull/39258))
 -   Added support for fetching block patterns and their categories, with the `getBlockPatterns` and `getBlockPatternCategories` selectors.
 
 ## 4.2.0 (2022-03-11)
@@ -209,19 +209,19 @@
 
 ### Bug Fixes
 
--   The `canUser` no longer uses the `GET` request with the resource ID argument [#38901](https://github.com/WordPress/gutenberg/pull/38901).
+-   The `canUser` no longer uses the `GET` request with the resource ID argument [#38901](https://github.com/FinPress/gutenberg/pull/38901).
 
 ## 4.1.0 (2022-01-27)
 
 ### Bug Fixes
 
--   `getEntityRecords` no longer returns an empty array for unknown entities but returns `null` instead. `hasEntityRecords` now also returns `false` when the entity configuration is unknown. ([#36984](https://github.com/WordPress/gutenberg/pull/36984))
+-   `getEntityRecords` no longer returns an empty array for unknown entities but returns `null` instead. `hasEntityRecords` now also returns `false` when the entity configuration is unknown. ([#36984](https://github.com/FinPress/gutenberg/pull/36984))
 
 ## 4.0.0 (2021-07-29)
 
 ### Breaking Changes
 
--   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
+-   Upgraded React components to work with v17.0 ([#29118](https://github.com/FinPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
 ## 3.2.0 (2021-07-21)
 
@@ -231,8 +231,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ### Enhancements
 
@@ -244,7 +244,7 @@
 
 ### New Features
 
--   Added a store definition `store` for the core data namespace to use with `@wordpress/data` API ([#26655](https://github.com/WordPress/gutenberg/pull/26655)).
+-   Added a store definition `store` for the core data namespace to use with `@finpress/data` API ([#26655](https://github.com/FinPress/gutenberg/pull/26655)).
 
 ## 2.21.0 (2020-09-03)
 
@@ -299,4 +299,4 @@
 -   `select("core").getCategories` has been deprecated. Please use `select("core").getEntityRecords` instead.
 -   `wp.data.select("core").isRequestingCategories` has been deprecated. Please use `wp.data.select("core/data").isResolving` instead.
 -   `select("core").isRequestingTerms` has been deprecated. Please use `select("core").isResolving` instead.
--   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
+-   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.

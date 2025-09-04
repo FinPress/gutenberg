@@ -4,20 +4,20 @@
 import { View, useWindowDimensions } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useConvertUnitToMobile,
 	getPxFromCssUnit,
-} from '@wordpress/components';
-import { withPreferredColorScheme } from '@wordpress/compose';
+} from '@finpress/components';
+import { withPreferredColorScheme } from '@finpress/compose';
 import {
 	InspectorControls,
 	isValueSpacingPreset,
 	useSettings,
 	getCustomValueFromPreset,
-} from '@wordpress/block-editor';
-import { useEffect } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

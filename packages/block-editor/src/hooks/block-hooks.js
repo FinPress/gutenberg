@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Fragment, useMemo } from '@wordpress/element';
-import { PanelBody, ToggleControl } from '@wordpress/components';
-import { createBlock, store as blocksStore } from '@wordpress/blocks';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { Fragment, useMemo } from '@finpress/element';
+import { PanelBody, ToggleControl } from '@finpress/components';
+import { createBlock, store as blocksStore } from '@finpress/blocks';
+import { useDispatch, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

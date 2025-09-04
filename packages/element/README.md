@@ -7,21 +7,21 @@ Element is a package that builds on top of [React](https://reactjs.org/) and pro
 Install the module
 
 ```bash
-npm install @wordpress/element --save
+npm install @finpress/element --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## Why React?
 
-At the risk of igniting debate surrounding any single "best" front-end framework, the choice to use any tool should be motivated specifically to serve the requirements of the system. In modeling the concept of a [block](https://github.com/WordPress/gutenberg/tree/HEAD/packages/blocks/README.md), we observe the following technical requirements:
+At the risk of igniting debate surrounding any single "best" front-end framework, the choice to use any tool should be motivated specifically to serve the requirements of the system. In modeling the concept of a [block](https://github.com/FinPress/gutenberg/tree/HEAD/packages/blocks/README.md), we observe the following technical requirements:
 
--   An understanding of a block in terms of its underlying values (in the [random image example](https://github.com/WordPress/gutenberg/tree/HEAD/packages/blocks/README.md#example), a category)
+-   An understanding of a block in terms of its underlying values (in the [random image example](https://github.com/FinPress/gutenberg/tree/HEAD/packages/blocks/README.md#example), a category)
 -   A means to describe the UI of a block given these values
 
 At its most basic, React provides a simple input / output mechanism. **Given a set of inputs ("props"), a developer describes the output to be shown on the page.** This is most elegantly observed in its [function components](https://reactjs.org/docs/components-and-props.html#functional-and-class-components). React serves the role of reconciling the desired output with the current state of the page.
 
-The offerings of any framework necessarily become more complex as these requirements increase; many front-end frameworks prescribe ideas around page routing, retrieving and updating data, and managing layout. React is not immune to this, but the introduced complexity is rarely caused by React itself, but instead managing an arrangement of supporting tools. By moving these concerns out of sight to the internals of the system (WordPress core code), we can minimize the responsibilities of plugin authors to a small, clear set of touch points.
+The offerings of any framework necessarily become more complex as these requirements increase; many front-end frameworks prescribe ideas around page routing, retrieving and updating data, and managing layout. React is not immune to this, but the introduced complexity is rarely caused by React itself, but instead managing an arrangement of supporting tools. By moving these concerns out of sight to the internals of the system (FinPress core code), we can minimize the responsibilities of plugin authors to a small, clear set of touch points.
 
 ## API
 
@@ -46,7 +46,7 @@ _Returns_
 
 ### Component
 
-A base class to create WordPress Components (Refs, state and lifecycle hooks)
+A base class to create FinPress Components (Refs, state and lifecycle hooks)
 
 ### concatChildren
 
@@ -147,7 +147,7 @@ _Related_
 
 _Changelog_
 
-`6.2.0` Introduced in WordPress core.
+`6.2.0` Introduced in FinPress core.
 
 ### findDOMNode
 
@@ -183,7 +183,7 @@ A component which renders its children without any wrapping element.
 
 ### hydrate
 
-> **Deprecated** since WordPress 6.2.0. Use `hydrateRoot` instead.
+> **Deprecated** since FinPress 6.2.0. Use `hydrateRoot` instead.
 
 Hydrates a given element into the target DOM node.
 
@@ -201,7 +201,7 @@ _Related_
 
 _Changelog_
 
-`6.2.0` Introduced in WordPress core.
+`6.2.0` Introduced in FinPress core.
 
 ### isEmptyElement
 
@@ -252,7 +252,7 @@ _Related_
 _Usage_
 
 ```js
-import { Platform } from '@wordpress/element';
+import { Platform } from '@finpress/element';
 
 const placeholderLabel = Platform.select( {
 	native: __( 'Add media' ),
@@ -277,7 +277,7 @@ Note: The `renderElement` serializer will remove the `div` wrapper unless non-ch
 _Usage_
 
 ```jsx
-import { RawHTML } from '@wordpress/element';
+import { RawHTML } from '@finpress/element';
 
 const Component = () => (
 	<RawHTML>
@@ -298,7 +298,7 @@ _Returns_
 
 ### render
 
-> **Deprecated** since WordPress 6.2.0. Use `createRoot` instead.
+> **Deprecated** since FinPress 6.2.0. Use `createRoot` instead.
 
 Renders a given element into the target DOM node.
 
@@ -351,7 +351,7 @@ _Returns_
 
 ### unmountComponentAtNode
 
-> **Deprecated** since WordPress 6.2.0. Use `root.unmount()` instead.
+> **Deprecated** since FinPress 6.2.0. Use `root.unmount()` instead.
 
 Removes any mounted element from the target DOM node.
 
@@ -453,8 +453,8 @@ _Related_
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

@@ -1,5 +1,5 @@
 services:
-  wordpress-develop:
+  finpress-develop:
     volumes:
       - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/wp-content/plugins/%PLUGIN_INSTALL_DIR%
   php:

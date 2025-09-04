@@ -4,10 +4,10 @@
 import { camelCase } from 'change-case';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { combineReducers } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { combineReducers } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -68,7 +68,7 @@ function bootstrappedBlockTypes( state = {}, action ) {
 			if ( serverDefinition ) {
 				// The `blockHooks` prop is not yet included in the server provided
 				// definitions and needs to be polyfilled. This can be removed when the
-				// minimum supported WordPress is >= 6.4.
+				// minimum supported FinPress is >= 6.4.
 				if (
 					serverDefinition.blockHooks === undefined &&
 					blockType.blockHooks
@@ -82,7 +82,7 @@ function bootstrappedBlockTypes( state = {}, action ) {
 
 				// The `allowedBlocks` prop is not yet included in the server provided
 				// definitions and needs to be polyfilled. This can be removed when the
-				// minimum supported WordPress is >= 6.5.
+				// minimum supported FinPress is >= 6.5.
 				if (
 					serverDefinition.allowedBlocks === undefined &&
 					blockType.allowedBlocks

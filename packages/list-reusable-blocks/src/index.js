@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRoot, StrictMode } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { createRoot, StrictMode } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

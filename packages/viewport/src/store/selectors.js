@@ -8,9 +8,9 @@
  * @example
  *
  * ```js
- * import { store as viewportStore } from '@wordpress/viewport';
- * import { useSelect } from '@wordpress/data';
- * import { __ } from '@wordpress/i18n';
+ * import { store as viewportStore } from '@finpress/viewport';
+ * import { useSelect } from '@finpress/data';
+ * import { __ } from '@finpress/i18n';
  * const ExampleComponent = () => {
  *     const isMobile = useSelect(
  *         ( select ) => select( viewportStore ).isViewportMatch( '< small' ),

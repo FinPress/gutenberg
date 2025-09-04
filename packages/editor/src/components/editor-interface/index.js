@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { InterfaceSkeleton, ComplementaryArea } from '@wordpress/interface';
-import { useSelect } from '@wordpress/data';
-import { __, _x } from '@wordpress/i18n';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { BlockBreadcrumb, BlockToolbar } from '@wordpress/block-editor';
-import { useViewportMatch } from '@wordpress/compose';
-import { useState, useCallback } from '@wordpress/element';
+import { InterfaceSkeleton, ComplementaryArea } from '@finpress/interface';
+import { useSelect } from '@finpress/data';
+import { __, _x } from '@finpress/i18n';
+import { store as preferencesStore } from '@finpress/preferences';
+import { BlockBreadcrumb, BlockToolbar } from '@finpress/block-editor';
+import { useViewportMatch } from '@finpress/compose';
+import { useState, useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

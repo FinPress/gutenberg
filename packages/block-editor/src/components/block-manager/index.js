@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
-import { SearchControl, Button } from '@wordpress/components';
-import { __, _n, sprintf } from '@wordpress/i18n';
-import { useEffect, useState } from '@wordpress/element';
-import { useDebounce } from '@wordpress/compose';
-import { speak } from '@wordpress/a11y';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
+import { SearchControl, Button } from '@finpress/components';
+import { __, _n, sprintf } from '@finpress/i18n';
+import { useEffect, useState } from '@finpress/element';
+import { useDebounce } from '@finpress/compose';
+import { speak } from '@finpress/a11y';
 
 /**
  * Internal dependencies

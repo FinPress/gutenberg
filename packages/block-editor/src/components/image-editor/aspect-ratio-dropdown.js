@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { check, aspectRatio as aspectRatioIcon } from '@wordpress/icons';
-import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { check, aspectRatio as aspectRatioIcon } from '@finpress/icons';
+import { DropdownMenu, MenuGroup, MenuItem } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -89,7 +89,7 @@ export default function AspectRatioDropdown( { toggleProps } ) {
 						} }
 						value={ aspect }
 						aspectRatios={ [
-							// All ratios should be mirrored in AspectRatioTool in @wordpress/block-editor.
+							// All ratios should be mirrored in AspectRatioTool in @finpress/block-editor.
 							{
 								slug: 'original',
 								name: __( 'Original' ),

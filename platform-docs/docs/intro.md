@@ -21,9 +21,9 @@ Once done, you can navigate to your application folder and run it locally using 
 
 To build a block editor, you need to install the following dependencies:
 
- - `@wordpress/block-editor`
- - `@wordpress/block-library`
- - `@wordpress/components`
+ - `@finpress/block-editor`
+ - `@finpress/block-library`
+ - `@finpress/components`
 
 ## JSX
 
@@ -35,8 +35,8 @@ It's time to render our first block editor. We’ll do this with changes to thre
 
 First, we’ll add the base styles are for the editor UI. In `index.html` add these styles in the `<head>`:
 ```html
-<link href="node_modules/@wordpress/components/build-style/style.css" rel="stylesheet" vite-ignore/>
-<link href="node_modules/@wordpress/block-editor/build-style/style.css" rel="stylesheet" vite-ignore/>
+<link href="node_modules/@finpress/components/build-style/style.css" rel="stylesheet" vite-ignore/>
+<link href="node_modules/@finpress/block-editor/build-style/style.css" rel="stylesheet" vite-ignore/>
 ```
 :::note
 
@@ -46,7 +46,7 @@ There are more styles needed but can’t be added here because they are for the 
 
 Next, we’ll add blocks for the editor to work with. In `src/main.jsx` import and call `registerCoreBlocks`:
 ```js
-import { registerCoreBlocks } from '@wordpress/block-library'
+import { registerCoreBlocks } from '@finpress/block-library'
 registerCoreBlocks();
 ```
 
@@ -57,13 +57,13 @@ import { useState } from "react";
 import {
   BlockEditorProvider,
   BlockCanvas,
-} from "@wordpress/block-editor";
+} from "@finpress/block-editor";
 
 // Base styles for the content within the block canvas iframe.
-import componentsStyles from "@wordpress/components/build-style/style.css?raw";
-import blockEditorContentStyles from "@wordpress/block-editor/build-style/content.css?raw";
-import blocksStyles from "@wordpress/block-library/build-style/style.css?raw";
-import blocksEditorStyles from "@wordpress/block-library/build-style/editor.css?raw";
+import componentsStyles from "@finpress/components/build-style/style.css?raw";
+import blockEditorContentStyles from "@finpress/block-editor/build-style/content.css?raw";
+import blocksStyles from "@finpress/block-library/build-style/style.css?raw";
+import blocksEditorStyles from "@finpress/block-library/build-style/editor.css?raw";
 
 const contentStyles = [
   { css: componentsStyles },

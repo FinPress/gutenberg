@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BlockIcon } from '@wordpress/block-editor';
+import { BlockIcon } from '@finpress/block-editor';
 
 function DownloadableBlockIcon( { icon } ) {
 	const className = 'block-directory-downloadable-block-icon';

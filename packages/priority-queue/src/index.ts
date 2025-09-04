@@ -49,7 +49,7 @@ export interface WPPriorityQueue {
  *
  * @example
  *```js
- * import { createQueue } from '@wordpress/priority-queue';
+ * import { createQueue } from '@finpress/priority-queue';
  *
  * const queue = createQueue();
  *

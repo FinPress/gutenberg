@@ -6,11 +6,11 @@ import { Dimensions } from 'react-native';
 import { colord } from 'colord';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { createContext, useContext } from '@wordpress/element';
-import { getPxFromCssUnit } from '@wordpress/components';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { createContext, useContext } from '@finpress/element';
+import { getPxFromCssUnit } from '@finpress/components';
 
 /**
  * Internal dependencies

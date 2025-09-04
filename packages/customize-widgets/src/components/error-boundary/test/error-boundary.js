@@ -4,9 +4,9 @@
 import { render } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import * as wpHooks from '@wordpress/hooks';
+import * as wpHooks from '@finpress/hooks';
 
 /**
  * Internal dependencies

@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/dom",
+	"name": "@finpress/dom",
 	"version": "4.29.0",
-	"description": "DOM utilities module for WordPress.",
-	"author": "The WordPress Contributors",
+	"description": "DOM utilities module for FinPress.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"dom",
 		"utils"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/dom/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/dom/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/dom"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -31,7 +31,7 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/deprecated": "file:../deprecated"
+		"@finpress/deprecated": "file:../deprecated"
 	},
 	"publishConfig": {
 		"access": "public"

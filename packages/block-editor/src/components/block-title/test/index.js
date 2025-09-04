@@ -4,9 +4,9 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -30,8 +30,8 @@ const blockLabelMap = {
 	'Reusable Block': 'Reuse me!',
 };
 
-jest.mock( '@wordpress/blocks', () => {
-	const actualImplementation = jest.requireActual( '@wordpress/blocks' );
+jest.mock( '@finpress/blocks', () => {
+	const actualImplementation = jest.requireActual( '@finpress/blocks' );
 	return {
 		...actualImplementation,
 		isReusableBlock( { title } ) {
@@ -44,7 +44,7 @@ jest.mock( '@wordpress/blocks', () => {
 } );
 
 // This allows us to tweak the returned value on each test.
-jest.mock( '@wordpress/data/src/components/use-select', () => jest.fn() );
+jest.mock( '@finpress/data/src/components/use-select', () => jest.fn() );
 
 describe( 'BlockTitle', () => {
 	it( 'renders nothing if name is falsey', () => {

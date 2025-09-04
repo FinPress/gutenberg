@@ -5,18 +5,18 @@ import { TouchableWithoutFeedback } from 'react-native';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { View } from '@wordpress/primitives';
+import { View } from '@finpress/primitives';
 import {
 	BlockCaption,
 	RichText,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { __, sprintf } from '@wordpress/i18n';
-import { memo, useState } from '@wordpress/element';
-import { SandBox } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { __, sprintf } from '@finpress/i18n';
+import { memo, useState } from '@finpress/element';
+import { SandBox } from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

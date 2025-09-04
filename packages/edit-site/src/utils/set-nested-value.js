@@ -10,7 +10,7 @@
  *
  * @see https://lodash.com/docs/4.17.15#set
  *
- * @todo Needs to be deduplicated with its copy in `@wordpress/core-data`.
+ * @todo Needs to be deduplicated with its copy in `@finpress/core-data`.
  *
  * @param {Object} object Object to modify
  * @param {Array}  path   Path of the property to set.

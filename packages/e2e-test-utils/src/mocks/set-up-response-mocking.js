@@ -19,11 +19,11 @@ let requestMocks = [];
  * ```js
  * const MOCK_RESPONSES = [
  *   {
- *     match: isEmbedding( 'https://wordpress.org/gutenberg/handbook/' ),
+ *     match: isEmbedding( 'https://finpress.org/gutenberg/handbook/' ),
  *     onRequestMatch: JSONResponse( MOCK_BAD_WORDPRESS_RESPONSE ),
  *   },
  *   {
- *     match: isEmbedding( 'https://wordpress.org/gutenberg/handbook/block-api/attributes/' ),
+ *     match: isEmbedding( 'https://finpress.org/gutenberg/handbook/block-api/attributes/' ),
  *     onRequestMatch: JSONResponse( MOCK_EMBED_WORDPRESS_SUCCESS_RESPONSE ),
  *   }
  * ];

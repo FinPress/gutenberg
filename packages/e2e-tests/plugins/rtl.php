@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Gutenberg Test Plugin, Activate RTL
- * Plugin URI: https://github.com/WordPress/gutenberg
+ * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team / Yoav Farhi
  *
- * Based on the code from http://wordpress.org/extend/plugins/rtl-tester/.
+ * Based on the code from http://finpress.org/extend/plugins/rtl-tester/.
  *
  * @package gutenberg-test-plugin-activate-rtl
  */

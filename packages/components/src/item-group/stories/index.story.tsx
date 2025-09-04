@@ -60,7 +60,7 @@ Default.args = {
 			{
 				children: 'Anchor item',
 				as: 'a',
-				href: 'https://wordpress.org',
+				href: 'https://finpress.org',
 			},
 		] as ItemProps[]
 	 ).map( mapPropsToItem ),

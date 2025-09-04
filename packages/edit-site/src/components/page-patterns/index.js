@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useState, useMemo, useId, useEffect } from '@wordpress/element';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
-import { usePrevious } from '@wordpress/compose';
-import { useEntityRecords } from '@wordpress/core-data';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { __ } from '@finpress/i18n';
+import { useState, useMemo, useId, useEffect } from '@finpress/element';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { DataViews, filterSortAndPaginate } from '@finpress/dataviews';
+import { usePrevious } from '@finpress/compose';
+import { useEntityRecords } from '@finpress/core-data';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

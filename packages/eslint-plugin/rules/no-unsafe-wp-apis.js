@@ -7,7 +7,7 @@ module.exports = {
 				type: 'object',
 				additionalProperties: false,
 				patternProperties: {
-					'^@wordpress\\/[a-zA-Z0-9_-]+$': {
+					'^@finpress\\/[a-zA-Z0-9_-]+$': {
 						type: 'array',
 						uniqueItems: true,
 						minItems: 1,
@@ -51,8 +51,8 @@ function makeListener( { allowedImports, context } ) {
 
 		const sourceModule = node.source.value.trim();
 
-		// Ignore non-WordPress packages.
-		if ( ! sourceModule.startsWith( '@wordpress/' ) ) {
+		// Ignore non-FinPress packages.
+		if ( ! sourceModule.startsWith( '@finpress/' ) ) {
 			return;
 		}
 
@@ -77,7 +77,7 @@ function makeListener( { allowedImports, context } ) {
 			}
 
 			context.report( {
-				message: `Usage of \`${ importedName }\` from \`${ sourceModule }\` is not allowed.\nSee https://developer.wordpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
+				message: `Usage of \`${ importedName }\` from \`${ sourceModule }\` is not allowed.\nSee https://developer.finpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
 				node: specifierNode,
 			} );
 		} );

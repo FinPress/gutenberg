@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect, useRegistry } from '@wordpress/data';
-import { useCallback, useState } from '@wordpress/element';
+import { useDispatch, useSelect, useRegistry } from '@finpress/data';
+import { useCallback, useState } from '@finpress/element';
 import {
 	useThrottle,
 	__experimentalUseDropZone as useDropZone,
-} from '@wordpress/compose';
-import { isRTL } from '@wordpress/i18n';
+} from '@finpress/compose';
+import { isRTL } from '@finpress/i18n';
 import {
 	isUnmodifiedDefaultBlock as getIsUnmodifiedDefaultBlock,
 	store as blocksStore,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies

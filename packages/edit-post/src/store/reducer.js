@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { combineReducers } from '@wordpress/data';
+import { combineReducers } from '@finpress/data';
 
 /**
  * Reducer keeping track of the meta boxes isSaving state.

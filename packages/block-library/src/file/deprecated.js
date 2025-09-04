@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalGetElementClassName,
 	RichText,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { __, sprintf } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { __, sprintf } from '@finpress/i18n';
 
 // Version of the file block without PR#43050 removing the translated aria-label.
 const v3 = {

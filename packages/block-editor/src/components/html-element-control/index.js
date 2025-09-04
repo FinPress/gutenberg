@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	SelectControl,
 	Notice,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

@@ -13,16 +13,16 @@ import { useToolsPanelDropdownMenuProps } from '../utils/hooks';
 import { unlock } from '../lock-unlock';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	useEffect,
 	useState,
 	useRef,
 	useMemo,
 	createInterpolateElement,
-} from '@wordpress/element';
+} from '@finpress/element';
 import {
 	TextControl,
 	ToolbarButton,
@@ -31,7 +31,7 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	AlignmentControl,
 	BlockControls,
@@ -49,17 +49,17 @@ import {
 	getTypographyClassesAndStyles as useTypographyProps,
 	useSettings,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { displayShortcut, isKeyboardEvent, ENTER } from '@wordpress/keycodes';
-import { link, linkOff } from '@wordpress/icons';
+} from '@finpress/block-editor';
+import { displayShortcut, isKeyboardEvent, ENTER } from '@finpress/keycodes';
+import { link, linkOff } from '@finpress/icons';
 import {
 	createBlock,
 	cloneBlock,
 	getDefaultBlockName,
 	getBlockBindingsSource,
-} from '@wordpress/blocks';
-import { useMergeRefs, useRefEffect } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/blocks';
+import { useMergeRefs, useRefEffect } from '@finpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
 
 const { HTMLElementControl } = unlock( blockEditorPrivateApis );
 
@@ -307,7 +307,7 @@ function ButtonEdit( props ) {
 	}, [ isSelected ] );
 
 	// Memoize link value to avoid overriding the LinkControl's internal state.
-	// This is a temporary fix. See https://github.com/WordPress/gutenberg/issues/51256.
+	// This is a temporary fix. See https://github.com/FinPress/gutenberg/issues/51256.
 	const linkValue = useMemo(
 		() => ( { url, opensInNewTab, nofollow } ),
 		[ url, opensInNewTab, nofollow ]

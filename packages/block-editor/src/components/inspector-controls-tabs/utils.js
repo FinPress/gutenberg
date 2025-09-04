@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { cog, styles, listView } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+import { cog, styles, listView } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 
 export const TAB_SETTINGS = {
 	name: 'settings',

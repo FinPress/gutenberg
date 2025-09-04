@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlobTypeByURL, isBlobURL } from '@wordpress/blob';
+import { getBlobTypeByURL, isBlobURL } from '@finpress/blob';
 
 const POSITION_CLASSNAMES = {
 	'top left': 'is-position-top-left',

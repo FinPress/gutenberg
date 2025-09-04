@@ -120,7 +120,7 @@
 	.block-editor-block-parent-selector {
 		position: relative;
 		// Must use the same negative margins of the .components-toolbar-group
-		// https://github.com/WordPress/gutenberg/blob/73a4716f429b5dce0190638049f5bd30f0b242f6/packages/block-editor/src/components/block-toolbar/style.scss#L32-L33
+		// https://github.com/FinPress/gutenberg/blob/73a4716f429b5dce0190638049f5bd30f0b242f6/packages/block-editor/src/components/block-toolbar/style.scss#L32-L33
 		margin-top: -$border-width;
 		margin-bottom: -$border-width;
 

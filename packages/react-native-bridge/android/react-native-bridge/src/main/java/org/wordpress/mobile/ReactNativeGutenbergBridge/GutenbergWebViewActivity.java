@@ -1,4 +1,4 @@
-package org.wordpress.mobile.ReactNativeGutenbergBridge;
+package org.finpress.mobile.ReactNativeGutenbergBridge;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -25,8 +25,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import org.wordpress.android.util.AppLog;
-import org.wordpress.mobile.FileUtils;
+import org.finpress.android.util.AppLog;
+import org.finpress.mobile.FileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,7 +155,7 @@ public class GutenbergWebViewActivity extends AppCompatActivity {
     }
 
     protected void loadUrl() {
-        mWebView.loadUrl("https://wordpress.org/gutenberg/");
+        mWebView.loadUrl("https://finpress.org/gutenberg/");
     }
 
     private void setupToolbar() {

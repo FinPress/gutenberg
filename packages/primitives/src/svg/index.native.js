@@ -5,10 +5,10 @@ import { Svg } from 'react-native-svg';
 import { Animated } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import { usePreferredColorScheme } from '@wordpress/compose';
+import { forwardRef } from '@finpress/element';
+import { usePreferredColorScheme } from '@finpress/compose';
 
 /**
  * Internal dependencies

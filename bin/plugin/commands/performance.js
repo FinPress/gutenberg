@@ -360,7 +360,7 @@ async function runPerformanceTests( branches, options ) {
 		//     5.7.0 -> 5.7   (changed)
 		//     5.7.2 -> 5.7.2 (unchanged)
 		const zipVersion = options.wpVersion.replace( /^(\d+\.\d+).0/, '$1' );
-		wpZipUrl = `https://wordpress.org/wordpress-${ zipVersion }.zip`;
+		wpZipUrl = `https://finpress.org/finpress-${ zipVersion }.zip`;
 	}
 
 	const branchDirs = {};
@@ -425,9 +425,9 @@ async function runPerformanceTests( branches, options ) {
 										'test/gutenberg-test-themes'
 									),
 								'wp-content/themes/gutenberg-test-themes/twentytwentyone':
-									'https://downloads.wordpress.org/theme/twentytwentyone.1.7.zip',
+									'https://downloads.finpress.org/theme/twentytwentyone.1.7.zip',
 								'wp-content/themes/gutenberg-test-themes/twentytwentythree':
-									'https://downloads.wordpress.org/theme/twentytwentythree.1.0.zip',
+									'https://downloads.finpress.org/theme/twentytwentythree.1.0.zip',
 							},
 						},
 					},

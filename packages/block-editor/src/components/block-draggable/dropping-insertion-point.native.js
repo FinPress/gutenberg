@@ -14,10 +14,10 @@ import {
 } from 'react-native-safe-area-context';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { generateHapticFeedback } from '@wordpress/react-native-bridge';
+import { useSelect } from '@finpress/data';
+import { generateHapticFeedback } from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies

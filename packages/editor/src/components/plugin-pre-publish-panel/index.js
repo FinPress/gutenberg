@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSlotFill, PanelBody } from '@wordpress/components';
-import { usePluginContext } from '@wordpress/plugins';
+import { createSlotFill, PanelBody } from '@finpress/components';
+import { usePluginContext } from '@finpress/plugins';
 
 const { Fill, Slot } = createSlotFill( 'PluginPrePublishPanel' );
 
@@ -15,7 +15,7 @@ const { Fill, Slot } = createSlotFill( 'PluginPrePublishPanel' );
  * @param {string}                [props.title]                         Title displayed at the top of the panel.
  * @param {boolean}               [props.initialOpen=false]             Whether to have the panel initially opened.
  *                                                                      When no title is provided it is always opened.
- * @param {WPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.wordpress.org/resource/dashicons/)
+ * @param {WPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/)
  *                                                                      icon slug string, or an SVG WP element, to be rendered when
  *                                                                      the sidebar is pinned to toolbar. If `false` is passed, no icon will be rendered.
  * @param {React.ReactNode}       props.children                        Children to be rendered
@@ -23,8 +23,8 @@ const { Fill, Slot } = createSlotFill( 'PluginPrePublishPanel' );
  * @example
  * ```jsx
  * // Using ESNext syntax
- * import { __ } from '@wordpress/i18n';
- * import { PluginPrePublishPanel } from '@wordpress/editor';
+ * import { __ } from '@finpress/i18n';
+ * import { PluginPrePublishPanel } from '@finpress/editor';
  *
  * const MyPluginPrePublishPanel = () => (
  * 	<PluginPrePublishPanel

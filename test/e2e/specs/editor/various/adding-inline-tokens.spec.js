@@ -7,9 +7,9 @@ import os from 'os';
 import { v4 as uuid } from 'uuid';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'adding inline tokens', () => {
 	test.beforeEach( async ( { admin } ) => {

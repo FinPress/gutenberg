@@ -10,7 +10,7 @@ import type { PageUtils } from './';
  * @param this
  * @param path String to be serialized as pathname.
  *
- * @return Boolean represents whether current URL is or not a WordPress path.
+ * @return Boolean represents whether current URL is or not a FinPress path.
  */
 export function isCurrentURL( this: PageUtils, path: string ) {
 	const currentURL = new URL( this.page.url() );

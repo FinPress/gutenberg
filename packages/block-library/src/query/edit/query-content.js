@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useInstanceId } from '@wordpress/compose';
-import { useEffect, useCallback } from '@wordpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useInstanceId } from '@finpress/compose';
+import { useEffect, useCallback } from '@finpress/element';
 import {
 	InspectorControls,
 	useBlockProps,
@@ -11,9 +11,9 @@ import {
 	useInnerBlocksProps,
 	privateApis as blockEditorPrivateApis,
 	BlockControls,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

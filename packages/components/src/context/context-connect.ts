@@ -4,10 +4,10 @@
 import type { ForwardedRef, ReactElement, ReactNode } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import warn from '@wordpress/warning';
+import { forwardRef } from '@finpress/element';
+import warn from '@finpress/warning';
 
 /**
  * Internal dependencies
@@ -99,7 +99,7 @@ function _contextConnect<
 	}
 
 	// @ts-expect-error We can't rely on inferred types here because of the
-	// `as` prop polymorphism we're handling in https://github.com/WordPress/gutenberg/blob/4f3a11243c365f94892e479bff0b922ccc4ccda3/packages/components/src/context/wordpress-component.ts#L32-L33
+	// `as` prop polymorphism we're handling in https://github.com/FinPress/gutenberg/blob/4f3a11243c365f94892e479bff0b922ccc4ccda3/packages/components/src/context/finpress-component.ts#L32-L33
 	return Object.assign( WrappedComponent, {
 		[ CONNECT_STATIC_NAMESPACE ]: [ ...new Set( mergedNamespace ) ],
 		displayName: namespace,

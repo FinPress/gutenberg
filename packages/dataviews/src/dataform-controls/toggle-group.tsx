@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
-import { useCallback } from '@wordpress/element';
+} from '@finpress/components';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,23 +1,23 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRoot, StrictMode } from '@wordpress/element';
+import { createRoot, StrictMode } from '@finpress/element';
 import {
 	registerCoreBlocks,
 	__experimentalGetCoreBlocks,
 	__experimentalRegisterExperimentalCoreBlocks,
-} from '@wordpress/block-library';
+} from '@finpress/block-library';
 import {
 	registerLegacyWidgetBlock,
 	registerLegacyWidgetVariations,
 	registerWidgetGroupBlock,
-} from '@wordpress/widgets';
+} from '@finpress/widgets';
 import {
 	setFreeformContentHandlerName,
 	store as blocksStore,
-} from '@wordpress/blocks';
-import { dispatch } from '@wordpress/data';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/blocks';
+import { dispatch } from '@finpress/data';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies
@@ -72,7 +72,7 @@ export function initialize( editorName, blockEditorSettings ) {
 	// As we are unregistering `core/freeform` to avoid the Classic block, we must
 	// replace it with something as the default freeform content handler. Failure to
 	// do this will result in errors in the default block parser.
-	// see: https://github.com/WordPress/gutenberg/issues/33097
+	// see: https://github.com/FinPress/gutenberg/issues/33097
 	setFreeformContentHandlerName( 'core/html' );
 
 	const SidebarControl = getSidebarControl( blockEditorSettings );

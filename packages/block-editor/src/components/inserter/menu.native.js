@@ -4,16 +4,16 @@
 import { AccessibilityInfo, TouchableHighlight, Platform } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState, useCallback } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { createBlock } from '@wordpress/blocks';
+import { useEffect, useState, useCallback } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { createBlock } from '@finpress/blocks';
 import {
 	BottomSheet,
 	BottomSheetConsumer,
 	SearchControl,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies
@@ -137,12 +137,12 @@ function InserterMenu( {
 
 	const onSelectItem = useCallback(
 		( item ) => {
-			// Avoid a focus loop, see https://github.com/WordPress/gutenberg/issues/30562
+			// Avoid a focus loop, see https://github.com/FinPress/gutenberg/issues/30562
 			if ( Platform.OS === 'ios' ) {
 				AccessibilityInfo.isScreenReaderEnabled().then( ( enabled ) => {
 					// In testing, the bug focus loop needed a longer timeout when VoiceOver was enabled.
 					const timeout = enabled ? 200 : 100;
-					// eslint-disable-next-line @wordpress/react-no-unsafe-timeout
+					// eslint-disable-next-line @finpress/react-no-unsafe-timeout
 					setTimeout( () => {
 						onInsert( item );
 					}, timeout );

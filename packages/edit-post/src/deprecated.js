@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	privateApis as editorPrivateApis,
@@ -11,9 +11,9 @@ import {
 	PluginPostStatusInfo as EditorPluginPostStatusInfo,
 	PluginSidebar as EditorPluginSidebar,
 	PluginSidebarMoreMenuItem as EditorPluginSidebarMoreMenuItem,
-} from '@wordpress/editor';
-import { getPath } from '@wordpress/url';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/editor';
+import { getPath } from '@finpress/url';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -34,7 +34,7 @@ const deprecateSlot = ( name ) => {
 
 /* eslint-disable jsdoc/require-param */
 /**
- * @see PluginBlockSettingsMenuItem in @wordpress/editor package.
+ * @see PluginBlockSettingsMenuItem in @finpress/editor package.
  */
 export function PluginBlockSettingsMenuItem( props ) {
 	if ( isSiteEditor ) {
@@ -45,7 +45,7 @@ export function PluginBlockSettingsMenuItem( props ) {
 }
 
 /**
- * @see PluginDocumentSettingPanel in @wordpress/editor package.
+ * @see PluginDocumentSettingPanel in @finpress/editor package.
  */
 export function PluginDocumentSettingPanel( props ) {
 	if ( isSiteEditor ) {
@@ -56,7 +56,7 @@ export function PluginDocumentSettingPanel( props ) {
 }
 
 /**
- * @see PluginMoreMenuItem in @wordpress/editor package.
+ * @see PluginMoreMenuItem in @finpress/editor package.
  */
 export function PluginMoreMenuItem( props ) {
 	if ( isSiteEditor ) {
@@ -67,7 +67,7 @@ export function PluginMoreMenuItem( props ) {
 }
 
 /**
- * @see PluginPrePublishPanel in @wordpress/editor package.
+ * @see PluginPrePublishPanel in @finpress/editor package.
  */
 export function PluginPrePublishPanel( props ) {
 	if ( isSiteEditor ) {
@@ -78,7 +78,7 @@ export function PluginPrePublishPanel( props ) {
 }
 
 /**
- * @see PluginPostPublishPanel in @wordpress/editor package.
+ * @see PluginPostPublishPanel in @finpress/editor package.
  */
 export function PluginPostPublishPanel( props ) {
 	if ( isSiteEditor ) {
@@ -89,7 +89,7 @@ export function PluginPostPublishPanel( props ) {
 }
 
 /**
- * @see PluginPostStatusInfo in @wordpress/editor package.
+ * @see PluginPostStatusInfo in @finpress/editor package.
  */
 export function PluginPostStatusInfo( props ) {
 	if ( isSiteEditor ) {
@@ -100,7 +100,7 @@ export function PluginPostStatusInfo( props ) {
 }
 
 /**
- * @see PluginSidebar in @wordpress/editor package.
+ * @see PluginSidebar in @finpress/editor package.
  */
 export function PluginSidebar( props ) {
 	if ( isSiteEditor ) {
@@ -111,7 +111,7 @@ export function PluginSidebar( props ) {
 }
 
 /**
- * @see PluginSidebarMoreMenuItem in @wordpress/editor package.
+ * @see PluginSidebarMoreMenuItem in @finpress/editor package.
  */
 export function PluginSidebarMoreMenuItem( props ) {
 	if ( isSiteEditor ) {
@@ -122,7 +122,7 @@ export function PluginSidebarMoreMenuItem( props ) {
 }
 
 /**
- * @see PluginPostExcerpt in @wordpress/editor package.
+ * @see PluginPostExcerpt in @finpress/editor package.
  */
 export function __experimentalPluginPostExcerpt() {
 	if ( isSiteEditor ) {
@@ -131,7 +131,7 @@ export function __experimentalPluginPostExcerpt() {
 	deprecated( 'wp.editPost.__experimentalPluginPostExcerpt', {
 		since: '6.6',
 		hint: 'Core and custom panels can be access programmatically using their panel name.',
-		link: 'https://developer.wordpress.org/block-editor/reference-guides/slotfills/plugin-document-setting-panel/#accessing-a-panel-programmatically',
+		link: 'https://developer.finpress.org/block-editor/reference-guides/slotfills/plugin-document-setting-panel/#accessing-a-panel-programmatically',
 	} );
 	return PluginPostExcerpt;
 }

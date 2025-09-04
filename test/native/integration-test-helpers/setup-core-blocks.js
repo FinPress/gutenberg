@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getBlockTypes,
 	setDefaultBlockName,
 	unregisterBlockType,
-} from '@wordpress/blocks';
-import { coreBlocks, registerCoreBlocks } from '@wordpress/block-library';
+} from '@finpress/blocks';
+import { coreBlocks, registerCoreBlocks } from '@finpress/block-library';
 
 /**
  * Registers all core blocks or a specific list of blocks before running tests.

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { focus } from '@wordpress/dom';
+import { __, sprintf } from '@finpress/i18n';
+import { focus } from '@finpress/dom';
 
 export const getBlockPositionDescription = ( position, siblingCount, level ) =>
 	sprintf(
@@ -75,7 +75,7 @@ export function getCommonDepthClientIds(
 /**
  * Shift focus to the list view item associated with a particular clientId.
  *
- * @typedef {import('@wordpress/element').RefObject} RefObject
+ * @typedef {import('@finpress/element').RefObject} RefObject
  *
  * @param {string}       focusClientId   The client ID of the block to focus.
  * @param {?HTMLElement} treeGridElement The container element to search within.

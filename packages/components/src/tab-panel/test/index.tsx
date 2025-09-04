@@ -5,9 +5,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { press, hover, click } from '@ariakit/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { wordpress, category, media } from '@wordpress/icons';
+import { finpress, category, media } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -49,7 +49,7 @@ describe.each( [
 		originalGetClientRects = window.HTMLElement.prototype.getClientRects;
 		// Mocking `getClientRects()` is necessary to pass a check performed by
 		// the `focus.tabbable.find()` and by the `focus.focusable.find()` functions
-		// from the `@wordpress/dom` package.
+		// from the `@finpress/dom` package.
 		// @ts-expect-error We're not trying to comply to the DOM spec, only mocking
 		window.HTMLElement.prototype.getClientRects = function () {
 			return [ 'trick-jsdom-into-having-size-for-element-rect' ];
@@ -97,7 +97,7 @@ describe.each( [
 			const panelRenderFunction = jest.fn();
 
 			const TABS_WITH_ICON = [
-				{ ...TABS[ 0 ], icon: wordpress },
+				{ ...TABS[ 0 ], icon: finpress },
 				{ ...TABS[ 1 ], icon: category },
 				{ ...TABS[ 2 ], icon: media },
 			];
@@ -134,7 +134,7 @@ describe.each( [
 			const panelRenderFunction = jest.fn();
 
 			const TABS_WITH_ICON = [
-				{ ...TABS[ 0 ], icon: wordpress },
+				{ ...TABS[ 0 ], icon: finpress },
 				{ ...TABS[ 1 ], icon: category },
 				{ ...TABS[ 2 ], icon: media },
 			];

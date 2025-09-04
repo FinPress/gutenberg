@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
@@ -7,15 +7,15 @@ import {
 	__experimentalInputControl as InputControl,
 	__experimentalInputControlPrefixWrapper as InputControlPrefixWrapper,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { copySmall } from '@wordpress/icons';
-import { useCopyToClipboard, useInstanceId } from '@wordpress/compose';
-import { useDispatch } from '@wordpress/data';
-import { useCallback, useEffect, useRef } from '@wordpress/element';
-import { store as noticesStore } from '@wordpress/notices';
-import { safeDecodeURIComponent } from '@wordpress/url';
-import type { DataFormControlProps } from '@wordpress/dataviews';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { copySmall } from '@finpress/icons';
+import { useCopyToClipboard, useInstanceId } from '@finpress/compose';
+import { useDispatch } from '@finpress/data';
+import { useCallback, useEffect, useRef } from '@finpress/element';
+import { store as noticesStore } from '@finpress/notices';
+import { safeDecodeURIComponent } from '@finpress/url';
+import type { DataFormControlProps } from '@finpress/dataviews';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -81,7 +81,7 @@ const SlugEdit = ( {
 								'Customize the last part of the Permalink.'
 							) }
 						</span>
-						<ExternalLink href="https://wordpress.org/documentation/article/page-post-settings-sidebar/#permalink">
+						<ExternalLink href="https://finpress.org/documentation/article/page-post-settings-sidebar/#permalink">
 							{ __( 'Learn more' ) }
 						</ExternalLink>
 					</VStack>

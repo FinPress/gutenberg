@@ -79,7 +79,7 @@ const columnsBlock = {
 While block editors powered by Gutenberg manipulate and edit the content as a JavaScript array of blocks, the Gutenberg framework also offers a way to serialize the blocks into HTML and parse them back.
 
 ```js
-import { serialize, parse } from '@wordpress/blocks';
+import { serialize, parse } from '@finpress/blocks';
 
 const value = [ block1, block2, block3 ];
 

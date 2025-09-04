@@ -7,9 +7,9 @@ URLPopover is a presentational React component used to render a popover used for
 The component will be rendered adjacent to its parent.
 
 ```jsx
-import { ToggleControl, Button } from '@wordpress/components';
-import { URLPopover } from '@wordpress/block-editor';
-import { keyboardReturn } from '@wordpress/icons';
+import { ToggleControl, Button } from '@finpress/components';
+import { URLPopover } from '@finpress/block-editor';
+import { keyboardReturn } from '@finpress/icons';
 
 class MyURLPopover extends Component {
 	constructor() {

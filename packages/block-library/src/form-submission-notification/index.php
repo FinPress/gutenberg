@@ -2,7 +2,7 @@
 /**
  * Server-side rendering of the `core/form-submission-notification` block.
  *
- * @package WordPress
+ * @package FinPress
  */
 
 /**

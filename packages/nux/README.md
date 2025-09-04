@@ -1,6 +1,6 @@
 # New User eXperience (NUX)
 
-The NUX module exposes components, and `wp.data` methods useful for onboarding a new user to the WordPress admin interface. Specifically, it exposes _tips_ and _guides_.
+The NUX module exposes components, and `wp.data` methods useful for onboarding a new user to the FinPress admin interface. Specifically, it exposes _tips_ and _guides_.
 
 A _tip_ is a component that points to an element in the UI and contains text that explains the element's functionality. The user can dismiss a tip, in which case it never shows again. The user can also disable tips entirely. Information about tips is persisted between sessions using `localStorage`.
 
@@ -11,10 +11,10 @@ A _guide_ allows a series of tips to be presented to the user one by one. When a
 Install the module
 
 ```bash
-npm install @wordpress/nux --save
+npm install @finpress/nux --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## DotTip
 
@@ -22,7 +22,7 @@ _This package assumes that your code will run in an **ES2015+** environment. If 
 
 See [the component's README][dot-tip-readme] for more information.
 
-[dot-tip-readme]: https://github.com/WordPress/gutenberg/tree/HEAD/packages/nux/src/components/dot-tip/README.md
+[dot-tip-readme]: https://github.com/FinPress/gutenberg/tree/HEAD/packages/nux/src/components/dot-tip/README.md
 
 ```jsx
 <button onClick={ ... }>
@@ -107,8 +107,8 @@ console.log( 'Next to show:', guide.nextTipId );
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

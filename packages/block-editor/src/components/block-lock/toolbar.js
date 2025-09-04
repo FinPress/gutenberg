@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { useReducer, useRef, useEffect } from '@wordpress/element';
-import { lock, unlock } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { ToolbarButton, ToolbarGroup } from '@finpress/components';
+import { useReducer, useRef, useEffect } from '@finpress/element';
+import { lock, unlock } from '@finpress/icons';
 
 /**
  * Internal dependencies

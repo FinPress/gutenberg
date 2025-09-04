@@ -81,7 +81,7 @@ exports[`Blocks raw handling pasteHandler slack-quote 1`] = `"Test with&nbsp;<a 
 
 exports[`Blocks raw handling pasteHandler two-images 1`] = `"<img src="http://localhost/wp-content/uploads/2018/01/Dec-08-2017-15-12-24-17-300x137.gif" alt="" width="300" height="137"> <img src="http://localhost/wp-content/uploads/2018/01/Dec-05-2017-17-52-09-9-300x248.gif" alt="" width="300" height="248">"`;
 
-exports[`Blocks raw handling pasteHandler wordpress 1`] = `"Howdy<br>This is a paragraph.<br>More tag<br><br>Shortcode<br>[gallery ids="1"]<br><img src="block.png" alt=""><br><img src="aligned.png" alt=""> test<br><img src="not-aligned.png" alt=""> test"`;
+exports[`Blocks raw handling pasteHandler finpress 1`] = `"Howdy<br>This is a paragraph.<br>More tag<br><br>Shortcode<br>[gallery ids="1"]<br><img src="block.png" alt=""><br><img src="aligned.png" alt=""> test<br><img src="not-aligned.png" alt=""> test"`;
 */
 
 exports[`Blocks raw handling should correctly handle quotes with mixed content 1`] = `
@@ -177,7 +177,7 @@ exports[`rawHandler should convert a caption shortcode with caption 1`] = `
 
 exports[`rawHandler should convert a caption shortcode with link 1`] = `
 "<!-- wp:image {"id":754,"align":"none"} -->
-<figure class="wp-block-image alignnone"><a href="http://build.wordpress-develop.test/wp-content/uploads/2011/07/100_5478.jpg"><img src="http://build.wordpress-develop.test/wp-content/uploads/2011/07/100_5478.jpg?w=604" alt="Bell on Wharf" class="wp-image-754"/></a><figcaption class="wp-element-caption">Bell on wharf in San Francisco</figcaption></figure>
+<figure class="wp-block-image alignnone"><a href="http://build.finpress-develop.test/wp-content/uploads/2011/07/100_5478.jpg"><img src="http://build.finpress-develop.test/wp-content/uploads/2011/07/100_5478.jpg?w=604" alt="Bell on Wharf" class="wp-image-754"/></a><figcaption class="wp-element-caption">Bell on wharf in San Francisco</figcaption></figure>
 <!-- /wp:image -->"
 `;
 

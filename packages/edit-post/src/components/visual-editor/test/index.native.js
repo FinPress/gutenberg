@@ -4,11 +4,11 @@
 import { initializeEditor, getEditorHtml, fireEvent } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Platform } from '@wordpress/element';
-import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
-import { registerCoreBlocks } from '@wordpress/block-library';
+import { Platform } from '@finpress/element';
+import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
+import { registerCoreBlocks } from '@finpress/block-library';
 
 beforeAll( () => {
 	// Register all core blocks
@@ -25,7 +25,7 @@ afterAll( () => {
 const MEDIA_OPTIONS = [
 	'Choose from device',
 	'Take a Photo',
-	'WordPress Media Library',
+	'FinPress Media Library',
 ];
 
 const initialHtml = `

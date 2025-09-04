@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { isKeyboardEvent } from '@wordpress/keycodes';
+import { useSelect } from '@finpress/data';
+import { isKeyboardEvent } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

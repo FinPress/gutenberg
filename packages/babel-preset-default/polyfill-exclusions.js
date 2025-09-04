@@ -5,7 +5,7 @@ module.exports = [
 	// bug that leads to the polyfilling, and which we are choosing to ignore.
 	'es.array.push',
 	// This is an IE-only feature which we don't use, and don't want to polyfill.
-	// @see https://github.com/WordPress/gutenberg/pull/49234
+	// @see https://github.com/FinPress/gutenberg/pull/49234
 	'web.immediate',
 	// Remove Set feature polyfills.
 	//
@@ -26,11 +26,11 @@ module.exports = [
 	// These need to be specified as both `es.` and `esnext.` due to the way
 	// internal dependencies are set up in Babel / core-js.
 	//
-	// @see https://github.com/WordPress/gutenberg/pull/67230
+	// @see https://github.com/FinPress/gutenberg/pull/67230
 	/^es(next)?\.set\./,
 	// Remove Iterator feature polyfills.
 	// For the same reasoning as for Set exlusion above, we're excluding all iterator helper polyfills.
 	//
-	// @see https://github.com/WordPress/wordpress-develop/pull/8224#issuecomment-2636390007.
+	// @see https://github.com/FinPress/finpress-develop/pull/8224#issuecomment-2636390007.
 	/^es(next)?\.iterator\./,
 ];

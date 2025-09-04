@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RichTextData, create, toHTMLString } from '@wordpress/rich-text';
+import { RichTextData, create, toHTMLString } from '@finpress/rich-text';
 
 /**
  * Internal dependencies

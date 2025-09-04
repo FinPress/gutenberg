@@ -1,10 +1,10 @@
 # Block Filters
 
-WordPress exposes several APIs that allow you to modify the behavior of existing blocks.
+FinPress exposes several APIs that allow you to modify the behavior of existing blocks.
 
 ## Registration
 
-Blocks in WordPress are typically registered on both the server and client side using `block.json`` metadata. You can use the following filters to modify or extend block settings during their registration on the server with PHP and on the client with JavaScript. To learn more, refer to the [block registration](https://developer.wordpress.org/block-editor/getting-started/fundamentals/registration-of-a-block/) guide.
+Blocks in FinPress are typically registered on both the server and client side using `block.json`` metadata. You can use the following filters to modify or extend block settings during their registration on the server with PHP and on the client with JavaScript. To learn more, refer to the [block registration](https://developer.finpress.org/block-editor/getting-started/fundamentals/registration-of-a-block/) guide.
 
 ### `block_type_metadata`
 
@@ -24,7 +24,7 @@ function example_filter_metadata_registration( $metadata ) {
 add_filter( 'block_type_metadata', 'example_filter_metadata_registration' );
 ```
 
-Here's a more robust example that disables background color and gradient support for Heading blocks. The `block_type_metadata` filter is excellent for [curating the Editor experience](https://developer.wordpress.org/block-editor/how-to-guides/curating-the-editor-experience/). 
+Here's a more robust example that disables background color and gradient support for Heading blocks. The `block_type_metadata` filter is excellent for [curating the Editor experience](https://developer.finpress.org/block-editor/how-to-guides/curating-the-editor-experience/). 
 
 ```php
 function example_disable_heading_background_color_and_gradients( $metadata ) {
@@ -147,7 +147,7 @@ The callback function for this filter receives three parameters:
 - `$block` (`array`): The full block, including name and attributes.
 - `$instance` (`WP_Block`): The block instance.
 
-In the following example, the class `example-class` is added to all Paragraph blocks on the front end. Here the [HTML API](https://make.wordpress.org/core/2023/03/07/introducing-the-html-api-in-wordpress-6-2/) is used to easily add the class instead of relying on regex.
+In the following example, the class `example-class` is added to all Paragraph blocks on the front end. Here the [HTML API](https://make.finpress.org/core/2023/03/07/introducing-the-html-api-in-finpress-6-2/) is used to easily add the class instead of relying on regex.
 
 ```php
 function example_add_custom_class_to_paragraph_block( $block_content, $block ) {
@@ -180,7 +180,7 @@ The callback function for this filter receives three parameters:
 - `$block` (`array`): The full block, including name and attributes.
 - `$instance` (`WP_Block`): The block instance.
 
-In the following example, the class `example-class` is added to all Paragraph blocks on the front end. Notice that compared to the `render_block` example above, you no longer need to check the block type before modifying the content. Again, the [HTML API](https://make.wordpress.org/core/2023/03/07/introducing-the-html-api-in-wordpress-6-2/) is used instead of regex.
+In the following example, the class `example-class` is added to all Paragraph blocks on the front end. Notice that compared to the `render_block` example above, you no longer need to check the block type before modifying the content. Again, the [HTML API](https://make.finpress.org/core/2023/03/07/introducing-the-html-api-in-finpress-6-2/) is used instead of regex.
 
 ```php
 function example_add_custom_class_to_paragraph_block( $block_content, $block ) {
@@ -266,7 +266,7 @@ wp.hooks.addFilter(
 
 _Note:_ A [block validation](/docs/reference-guides/block-api/block-edit-save.md#validation) error will occur if this filter modifies existing content the next time the post is edited. The Editor verifies that the content stored in the post matches the content output by the `save()` function.
 
-To avoid this validation error, use `render_block` server-side to modify existing post content instead of this filter. See [render_block documentation](https://developer.wordpress.org/reference/hooks/render_block/).
+To avoid this validation error, use `render_block` server-side to modify existing post content instead of this filter. See [render_block documentation](https://developer.finpress.org/reference/hooks/render_block/).
 
 ### `blocks.getBlockDefaultClassName`
 
@@ -454,8 +454,8 @@ Place the following code in a `my-plugin.js` file.
 
 ```js
 // my-plugin.js
-import { unregisterBlockType } from '@wordpress/blocks';
-import domReady from '@wordpress/dom-ready';
+import { unregisterBlockType } from '@finpress/blocks';
+import domReady from '@finpress/dom-ready';
 
 domReady( function () {
 	unregisterBlockType( 'core/verse' );
@@ -508,7 +508,7 @@ wp.blocks.getBlockTypes().forEach( function ( blockType ) {
 ### `allowed_block_types_all`
 
 <div class="callout callout-warning">
-	Before WordPress 5.8, this hook was known as <code>allowed_block_types</code>, which is now deprecated. If you need to support older versions of WordPress, you might need a way to detect which filter should be used. You can check if <code>allowed_block_types</code> is safe to use by seeing if the <code>WP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
+	Before FinPress 5.8, this hook was known as <code>allowed_block_types</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>allowed_block_types</code> is safe to use by seeing if the <code>WP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
 </div>
 
 On the server, you can filter the list of blocks shown in the inserter using the `allowed_block_types_all` filter. You can return either true (all block types supported), false (no block types supported), or an array of block type names to allow. You can also use the second provided parameter `$editor_context` to filter block types based on their content.
@@ -530,7 +530,7 @@ add_filter( 'allowed_block_types_all', 'example_filter_allowed_block_types_when_
 ### `block_categories_all`
 
 <div class="callout callout-warning">
-	Before WordPress 5.8, this hook was known as <code>block_categories</code>, which is now deprecated. If you need to support older versions of WordPress, you might need a way to detect which filter should be used. You can check if <code>block_categories</code> is safe to use by seeing if the <code>WP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
+	Before FinPress 5.8, this hook was known as <code>block_categories</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>block_categories</code> is safe to use by seeing if the <code>WP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
 </div>
 
 It is possible to filter the list of default block categories using the `block_categories_all` filter. You can do it on the server by implementing a function which returns a list of categories. It is going to be used during block registration and to group blocks in the inserter. You can also use the second provided parameter `$editor_context` to filter the based on its content.
@@ -555,9 +555,9 @@ add_filter( 'block_categories_all', 'example_filter_block_categories_when_post_p
 
 ### `wp.blocks.updateCategory`
 
-You can also display an icon with your block category by setting an `icon` attribute. The value can be the slug of a [WordPress Dashicon](https://developer.wordpress.org/resource/dashicons/).
+You can also display an icon with your block category by setting an `icon` attribute. The value can be the slug of a [FinPress Dashicon](https://developer.finpress.org/resource/dashicons/).
 
-You can also set a custom icon in SVG format. To do so, the icon should be rendered and set on the frontend, so it can make use of WordPress SVG, allowing mobile compatibility and making the icon more accessible.
+You can also set a custom icon in SVG format. To do so, the icon should be rendered and set on the frontend, so it can make use of FinPress SVG, allowing mobile compatibility and making the icon more accessible.
 
 To set an SVG icon for the category shown in the previous example, add the following example JavaScript code to the Editor calling `wp.blocks.updateCategory` e.g:
 

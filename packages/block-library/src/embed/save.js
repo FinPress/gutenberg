@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
 	useBlockProps,
 	__experimentalGetElementClassName,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 export default function save( { attributes } ) {
 	const { url, caption, type, providerNameSlug } = attributes;

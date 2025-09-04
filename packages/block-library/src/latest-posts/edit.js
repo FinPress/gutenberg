@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Placeholder,
@@ -18,17 +18,17 @@ import {
 	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { dateI18n, format, getSettings } from '@wordpress/date';
+} from '@finpress/components';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { dateI18n, format, getSettings } from '@finpress/date';
 import {
 	InspectorControls,
 	BlockControls,
 	__experimentalImageSizeControl as ImageSizeControl,
 	useBlockProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	pin,
 	list,
@@ -37,11 +37,11 @@ import {
 	positionLeft,
 	positionCenter,
 	positionRight,
-} from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as noticeStore } from '@wordpress/notices';
-import { useInstanceId } from '@wordpress/compose';
-import { createInterpolateElement } from '@wordpress/element';
+} from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { store as noticeStore } from '@finpress/notices';
+import { useInstanceId } from '@finpress/compose';
+import { createInterpolateElement } from '@finpress/element';
 
 /**
  * Internal dependencies

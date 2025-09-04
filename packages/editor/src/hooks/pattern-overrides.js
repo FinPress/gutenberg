@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { privateApis as patternsPrivateApis } from '@wordpress/patterns';
-import { createHigherOrderComponent } from '@wordpress/compose';
-import { useBlockEditingMode } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { getBlockBindingsSource } from '@wordpress/blocks';
+import { addFilter } from '@finpress/hooks';
+import { privateApis as patternsPrivateApis } from '@finpress/patterns';
+import { createHigherOrderComponent } from '@finpress/compose';
+import { useBlockEditingMode } from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { getBlockBindingsSource } from '@finpress/blocks';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import { getBlockBindingsSource } from '@wordpress/blocks';
 import { store as editorStore } from '../store';
 import { unlock } from '../lock-unlock';
 
-/** @typedef {import('@wordpress/blocks').WPBlockSettings} WPBlockSettings */
+/** @typedef {import('@finpress/blocks').WPBlockSettings} WPBlockSettings */
 
 const {
 	PatternOverridesControls,

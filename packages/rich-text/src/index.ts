@@ -32,7 +32,7 @@ export {
 } from './component';
 
 /**
- * An object which represents a formatted string. See main `@wordpress/rich-text`
+ * An object which represents a formatted string. See main `@finpress/rich-text`
  * documentation for more information.
  */
 export type { RichTextValue } from './types';

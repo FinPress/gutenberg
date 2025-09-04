@@ -5,9 +5,9 @@ import { request } from '@playwright/test';
 import type { FullConfig } from '@playwright/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RequestUtils } from '@wordpress/e2e-test-utils-playwright';
+import { RequestUtils } from '@finpress/e2e-test-utils-playwright';
 
 async function globalSetup( config: FullConfig ) {
 	const { storageState, baseURL } = config.projects[ 0 ].use;

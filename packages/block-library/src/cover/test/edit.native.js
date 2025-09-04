@@ -16,15 +16,15 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BottomSheetSettings, BlockEdit } from '@wordpress/block-editor';
-import { SlotFillProvider } from '@wordpress/components';
-import { setDefaultBlockName, unregisterBlockType } from '@wordpress/blocks';
+import { BottomSheetSettings, BlockEdit } from '@finpress/block-editor';
+import { SlotFillProvider } from '@finpress/components';
+import { setDefaultBlockName, unregisterBlockType } from '@finpress/blocks';
 import {
 	requestMediaPicker,
 	requestMediaEditor,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies
@@ -34,8 +34,8 @@ import * as paragraph from '../../paragraph';
 import * as cover from '..';
 
 // Avoid errors due to mocked stylesheet files missing required selectors.
-jest.mock( '@wordpress/compose', () => ( {
-	...jest.requireActual( '@wordpress/compose' ),
+jest.mock( '@finpress/compose', () => ( {
+	...jest.requireActual( '@finpress/compose' ),
 	withPreferredColorScheme: jest.fn( ( Component ) => ( props ) => (
 		<Component
 			{ ...props }
@@ -74,7 +74,7 @@ const MEDIA_OPTIONS = [
 	'Choose from device',
 	'Take a Photo',
 	'Take a Video',
-	'WordPress Media Library',
+	'FinPress Media Library',
 ];
 
 // Simplified tree to render Cover edit within slot.
@@ -134,7 +134,7 @@ describe( 'when no media is attached', () => {
 		);
 		fireEvent.press( getByText( 'Add image or video' ) );
 		const mediaLibraryButton = await findByText(
-			'WordPress Media Library'
+			'FinPress Media Library'
 		);
 		fireEvent.press( mediaLibraryButton );
 
@@ -147,7 +147,7 @@ describe( 'when no media is attached and overlay color is set', () => {
 		const media = {
 			type: 'image',
 			id: 2000,
-			url: 'https://test.files.wordpress.com/local-image-1.mp4',
+			url: 'https://test.files.finpress.com/local-image-1.mp4',
 		};
 		const { mediaPickerCallback } = setupMediaPicker();
 		const screen = await initializeEditor( {
@@ -164,7 +164,7 @@ describe( 'when no media is attached and overlay color is set', () => {
 		await openBlockSettings( screen );
 
 		fireEvent.press( getByText( 'Add image or video' ) );
-		selectOption( 'WordPress Media Library' );
+		selectOption( 'FinPress Media Library' );
 		await mediaPickerCallback( media );
 
 		expect( getEditorHtml() ).toMatchSnapshot();
@@ -198,7 +198,7 @@ describe( 'when an image is attached', () => {
 		const replaceButton = await screen.findByText( 'Replace' );
 		fireEvent.press( replaceButton );
 		const mediaLibraryButton = await screen.findByText(
-			'WordPress Media Library'
+			'FinPress Media Library'
 		);
 		fireEvent.press( mediaLibraryButton );
 

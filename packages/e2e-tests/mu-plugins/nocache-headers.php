@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: Gutenberg Test Plugin, No-cache Headers
- * Plugin URI: https://github.com/WordPress/gutenberg
+ * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team
  *
  * @package gutenberg-test-nocache-headers
  */
 
-// Remove 'no-store' from the Cache-Control header set by WordPress when running
+// Remove 'no-store' from the Cache-Control header set by FinPress when running
 // E2E tests. This is a workaround for an issue where E2E tests time out waiting
 // for 'networkidle'.
 add_filter(

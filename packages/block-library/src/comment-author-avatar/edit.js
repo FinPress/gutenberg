@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	InspectorControls,
 	useBlockProps,
 	__experimentalGetSpacingClassesAndStyles as useSpacingProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { PanelBody, ResizableBox, RangeControl } from '@wordpress/components';
-import { useEntityProp } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __, isRTL } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { PanelBody, ResizableBox, RangeControl } from '@finpress/components';
+import { useEntityProp } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { __, isRTL } from '@finpress/i18n';
 
 export default function Edit( {
 	attributes,

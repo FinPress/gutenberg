@@ -1,21 +1,21 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { displayShortcut } from '@wordpress/keycodes';
-import { external, moreVertical } from '@wordpress/icons';
+import { __, _x } from '@finpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { displayShortcut } from '@finpress/keycodes';
+import { external, moreVertical } from '@finpress/icons';
 import {
 	MenuGroup,
 	MenuItem,
 	VisuallyHidden,
 	DropdownMenu,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	PreferenceToggleMenuItem,
 	store as preferencesStore,
-} from '@wordpress/preferences';
-import { store as interfaceStore, ActionItem } from '@wordpress/interface';
+} from '@finpress/preferences';
+import { store as interfaceStore, ActionItem } from '@finpress/interface';
 
 /**
  * Internal dependencies
@@ -128,7 +128,7 @@ export default function MoreMenu() {
 							<MenuItem
 								icon={ external }
 								href={ __(
-									'https://wordpress.org/documentation/article/wordpress-block-editor/'
+									'https://finpress.org/documentation/article/finpress-block-editor/'
 								) }
 								target="_blank"
 								rel="noopener noreferrer"

@@ -21,7 +21,7 @@ import {
 	Fill,
 	Panel,
 	PanelBody,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 const MySlotFillProvider = () => {
 	const MyPanelSlot = () => (

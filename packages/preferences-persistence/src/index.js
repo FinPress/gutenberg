@@ -13,7 +13,7 @@ export { create };
  * It prioritizes any data from the server, but falls back first to localStorage
  * restore data, and then to any legacy data.
  *
- * This function is used internally by WordPress in an inline script, so
+ * This function is used internally by FinPress in an inline script, so
  * prefixed with `__unstable`.
  *
  * @param {Object} serverData Preferences data preloaded from the server.

@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useRef, useCallback } from '@wordpress/element';
-import { ResizableBox } from '@wordpress/components';
+import { useState, useRef, useCallback } from '@finpress/element';
+import { ResizableBox } from '@finpress/components';
 
 /**
  * Internal dependencies

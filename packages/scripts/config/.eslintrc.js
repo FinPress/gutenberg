@@ -5,12 +5,12 @@ const { hasBabelConfig } = require( '../utils' );
 
 const eslintConfig = {
 	root: true,
-	extends: [ 'plugin:@wordpress/eslint-plugin/recommended' ],
+	extends: [ 'plugin:@finpress/eslint-plugin/recommended' ],
 	overrides: [
 		{
 			// Unit test files and their helpers only.
 			files: [ '**/@(test|__tests__)/**/*.js', '**/?(*.)test.js' ],
-			extends: [ 'plugin:@wordpress/eslint-plugin/test-unit' ],
+			extends: [ 'plugin:@finpress/eslint-plugin/test-unit' ],
 		},
 	],
 };
@@ -19,7 +19,7 @@ if ( ! hasBabelConfig() ) {
 	eslintConfig.parserOptions = {
 		requireConfigFile: false,
 		babelOptions: {
-			presets: [ require.resolve( '@wordpress/babel-preset-default' ) ],
+			presets: [ require.resolve( '@finpress/babel-preset-default' ) ],
 		},
 	};
 }

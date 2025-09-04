@@ -4,15 +4,15 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useRef,
 	useLayoutEffect,
 	useContext,
 	forwardRef,
-} from '@wordpress/element';
-import { useMergeRefs } from '@wordpress/compose';
+} from '@finpress/element';
+import { useMergeRefs } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -46,7 +46,7 @@ function Slot(
 	// We don't want to unregister and register the slot whenever
 	// `fillProps` change, which would cause the fill to be re-mounted. Instead,
 	// we can just update the slot (see hook below).
-	// For more context, see https://github.com/WordPress/gutenberg/pull/44403#discussion_r994415973
+	// For more context, see https://github.com/FinPress/gutenberg/pull/44403#discussion_r994415973
 	const fillPropsRef = useRef( fillProps );
 	useLayoutEffect( () => {
 		fillPropsRef.current = fillProps;

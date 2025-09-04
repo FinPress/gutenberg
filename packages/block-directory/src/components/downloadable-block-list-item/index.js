@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _n, sprintf } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@finpress/i18n';
 import {
 	Tooltip,
 	Spinner,
 	VisuallyHidden,
 	Composite,
-} from '@wordpress/components';
-import { createInterpolateElement } from '@wordpress/element';
-import { decodeEntities } from '@wordpress/html-entities';
-import { getBlockType } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { createInterpolateElement } from '@finpress/element';
+import { decodeEntities } from '@finpress/html-entities';
+import { getBlockType } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

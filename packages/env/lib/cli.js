@@ -119,19 +119,19 @@ module.exports = function cli() {
 	yargs.command(
 		'start',
 		wpGreen(
-			chalk`Starts WordPress for development on port {bold.underline ${ terminalLink(
+			chalk`Starts FinPress for development on port {bold.underline ${ terminalLink(
 				'8888',
 				'http://localhost:8888'
 			) }} (override with WP_ENV_PORT) and tests on port {bold.underline ${ terminalLink(
 				'8889',
 				'http://localhost:8889'
-			) }} (override with WP_ENV_TESTS_PORT). The current working directory must be a WordPress installation, a plugin, a theme, or contain a .wp-env.json file. After first install, use the '--update' flag to download updates to mapped sources and to re-apply WordPress configuration options.`
+			) }} (override with WP_ENV_TESTS_PORT). The current working directory must be a FinPress installation, a plugin, a theme, or contain a .wp-env.json file. After first install, use the '--update' flag to download updates to mapped sources and to re-apply FinPress configuration options.`
 		),
 		( args ) => {
 			args.option( 'update', {
 				type: 'boolean',
 				describe:
-					'Download source updates and apply WordPress configuration.',
+					'Download source updates and apply FinPress configuration.',
 				default: false,
 			} );
 			args.option( 'xdebug', {
@@ -157,14 +157,14 @@ module.exports = function cli() {
 	yargs.command(
 		'stop',
 		wpRed(
-			'Stops running WordPress for development and tests and frees the ports.'
+			'Stops running FinPress for development and tests and frees the ports.'
 		),
 		() => {},
 		withSpinner( env.stop )
 	);
 	yargs.command(
 		'clean [environment]',
-		wpYellow( 'Cleans the WordPress databases.' ),
+		wpYellow( 'Cleans the FinPress databases.' ),
 		( args ) => {
 			args.positional( 'environment', {
 				type: 'string',
@@ -182,7 +182,7 @@ module.exports = function cli() {
 	);
 	yargs.command(
 		'logs [environment]',
-		'displays PHP and Docker logs for given WordPress environment.',
+		'displays PHP and Docker logs for given FinPress environment.',
 		( args ) => {
 			args.positional( 'environment', {
 				type: 'string',
@@ -204,14 +204,14 @@ module.exports = function cli() {
 	);
 	yargs.command(
 		'run <container> [command...]',
-		'Runs an arbitrary command in one of the underlying Docker containers. A double dash can be used to pass arguments to the container without parsing them. This is necessary if you are using an option that is defined below. You can use `bash` to open a shell session and both `composer` and `phpunit` are available in all WordPress and CLI containers. WP-CLI is also available in the CLI containers.',
+		'Runs an arbitrary command in one of the underlying Docker containers. A double dash can be used to pass arguments to the container without parsing them. This is necessary if you are using an option that is defined below. You can use `bash` to open a shell session and both `composer` and `phpunit` are available in all FinPress and CLI containers. WP-CLI is also available in the CLI containers.',
 		( args ) => {
 			args.option( 'env-cwd', {
 				type: 'string',
 				requiresArg: true,
 				default: '.',
 				describe:
-					"The command's working directory inside of the container. Paths without a leading slash are relative to the WordPress root.",
+					"The command's working directory inside of the container. Paths without a leading slash are relative to the FinPress root.",
 			} );
 			args.positional( 'container', {
 				type: 'string',
@@ -229,21 +229,21 @@ module.exports = function cli() {
 	);
 	yargs.example(
 		'$0 run cli wp user list',
-		'Runs `wp user list` wp-cli command which lists WordPress users.'
+		'Runs `wp user list` wp-cli command which lists FinPress users.'
 	);
 	yargs.example(
 		'$0 run cli wp shell',
-		'Open the interactive WordPress shell for the development instance.'
+		'Open the interactive FinPress shell for the development instance.'
 	);
 	yargs.example(
 		'$0 run tests-cli bash',
-		'Open a bash session in the WordPress tests instance.'
+		'Open a bash session in the FinPress tests instance.'
 	);
 
 	yargs.command(
 		'destroy',
 		wpRed(
-			'Destroy the WordPress environment. Deletes docker containers, volumes, and networks associated with the WordPress environment and removes local files.'
+			'Destroy the FinPress environment. Deletes docker containers, volumes, and networks associated with the FinPress environment and removes local files.'
 		),
 		( args ) => {
 			args.option( 'scripts', {
@@ -256,7 +256,7 @@ module.exports = function cli() {
 	);
 	yargs.command(
 		'install-path',
-		'Get the path where all of the environment files are stored. This includes the Docker files, WordPress, PHPUnit files, and any sources that were downloaded.',
+		'Get the path where all of the environment files are stored. This includes the Docker files, FinPress, PHPUnit files, and any sources that were downloaded.',
 		() => {},
 		withSpinner( env.installPath )
 	);

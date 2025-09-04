@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector } from '@wordpress/data';
+import { createSelector } from '@finpress/data';
 
 /**
  * Shared reference to an empty array for cases where it is important to avoid

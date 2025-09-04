@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { forwardRef } from '@wordpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -155,8 +155,8 @@ function UnforwardedSelectControl< V extends string >(
  * It functions as a wrapper around the browser's native `<select>` element.
  *
  * ```jsx
- * import { SelectControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { SelectControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MySelectControl = () => {
  *   const [ size, setSize ] = useState( '50%' );

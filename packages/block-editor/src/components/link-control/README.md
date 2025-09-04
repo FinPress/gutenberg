@@ -22,7 +22,7 @@ As a result it is recommended that consumers provide a `key` prop to each instan
 
 This will cause React to return the same component/element type but force remount a new instance, thus avoiding the issues described above.
 
-For more information see: https://github.com/WordPress/gutenberg/pull/34742.
+For more information see: https://github.com/FinPress/gutenberg/pull/34742.
 
 ## Relationship to `<URLInput>`
 
@@ -43,24 +43,24 @@ In some circumstances if may be desirable to persist the toggle state of this po
 
 For example, once the user has toggled the UI to "open", then it may remain open across all links on the site until such time as the user toggles the UI back again.
 
-Consumers who which to take advantage of this functionality should ensure that their block editor environment utilizes the [`@wordpress/preferences`](packages/preferences/README.md) package. By default the `<LinkControl>` component will attempt to persist the state of UI to a setting named `linkControlSettingsDrawer` with a scope of `core/block-editor`. If the preferences package is not available then local state is used and the setting will not be persisted.
+Consumers who which to take advantage of this functionality should ensure that their block editor environment utilizes the [`@finpress/preferences`](packages/preferences/README.md) package. By default the `<LinkControl>` component will attempt to persist the state of UI to a setting named `linkControlSettingsDrawer` with a scope of `core/block-editor`. If the preferences package is not available then local state is used and the setting will not be persisted.
 
 ## Search Suggestions
 
 When creating links the `LinkControl` component will handle two kinds of input from users:
 
-1. Entity searches - the user may input free-text based search queries for entities retrieved from remote data sources (in the context of WordPress these are post-type entities). For example, a user might search for a `Page` they have just created by name (eg: About) and the UI will return a matching result if found.
-2. Direct entry - the user may also enter any arbitrary URL-like text. This includes full URLs (https://), URL fragments (eg: `#myinternallink`), `tel` protocol links (eg: `tel: 0800 1234`) and `mailto` protocol links (eg: `mailto: hello@wordpress.org`).
+1. Entity searches - the user may input free-text based search queries for entities retrieved from remote data sources (in the context of FinPress these are post-type entities). For example, a user might search for a `Page` they have just created by name (eg: About) and the UI will return a matching result if found.
+2. Direct entry - the user may also enter any arbitrary URL-like text. This includes full URLs (https://), URL fragments (eg: `#myinternallink`), `tel` protocol links (eg: `tel: 0800 1234`) and `mailto` protocol links (eg: `mailto: hello@finpress.org`).
 
 In addition, `<LinkControl>` also allows for on the fly creation of links based on the **current content of the `<input>` element**. When enabled, a default "Create new" search suggestion is appended to all non-URL-like search results.
 
-When this suggestion is selected it will call the `createSuggestion` prop affording the developer the ability to create new links on the fly (the [Navigation Block uses this to allow creation of Pages from within the Block](https://github.com/WordPress/gutenberg/pull/19775/files)). See below for more details.
+When this suggestion is selected it will call the `createSuggestion` prop affording the developer the ability to create new links on the fly (the [Navigation Block uses this to allow creation of Pages from within the Block](https://github.com/FinPress/gutenberg/pull/19775/files)). See below for more details.
 
 ### Data sources
 
 By default `LinkControl` utilizes the `__experimentalFetchLinkSuggestions` API from `core/block-editor` in order to retrieve search suggestions for matching post-type entities.
 
-By default this provides no functionality and so you must implement and provide this in your own Editor instance ([example](https://github.com/WordPress/gutenberg/blob/65c752816f46a9334b84f4801d80dea00ed76fba/packages/editor/src/components/provider/use-block-editor-settings.js#L114-L115)).
+By default this provides no functionality and so you must implement and provide this in your own Editor instance ([example](https://github.com/FinPress/gutenberg/blob/65c752816f46a9334b84f4801d80dea00ed76fba/packages/editor/src/components/provider/use-block-editor-settings.js#L114-L115)).
 
 ## Props
 
@@ -221,7 +221,7 @@ A `suggestion` should have the following shape:
 // Promise example
 <LinkControl
 	createSuggestion={ async (inputText) => {
-        // Hard coded values. These could be dynamically created by calling out to an API which creates an entity (eg: https://developer.wordpress.org/rest-api/reference/pages/#create-a-page).
+        // Hard coded values. These could be dynamically created by calling out to an API which creates an entity (eg: https://developer.finpress.org/rest-api/reference/pages/#create-a-page).
 		return {
 			id: 1234,
 			type: 'page',
@@ -605,7 +605,7 @@ See the [createSuggestion](#createSuggestion) section of this file to learn more
 
 ## History
 
-Much of the context for this component can be found in [the original Issue](https://github.com/WordPress/gutenberg/issues/17557).
+Much of the context for this component can be found in [the original Issue](https://github.com/FinPress/gutenberg/issues/17557).
 
 Previously iterations of a hyperlink UI existed within the Gutenberg interface but these tended to be highly tailored to their individual use cases and were not standardized, each having their own implementation.
 

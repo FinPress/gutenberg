@@ -124,7 +124,7 @@ export function useSignalEffect( callback: () => unknown ) {
  * available inside hook callbacks.
  *
  * Asynchronous functions should use generators that yield promises instead of awaiting them.
- * See the documentation for details: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity/packages-interactivity-api-reference/#the-store
+ * See the documentation for details: https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity/packages-interactivity-api-reference/#the-store
  *
  * @param func The passed function.
  * @return The wrapped function.
@@ -356,7 +356,7 @@ const logged: Set< string > = new Set();
 /**
  * Shows a warning with `message` if environment is not `production`.
  *
- * Based on the `@wordpress/warning` package.
+ * Based on the `@finpress/warning` package.
  *
  * @param message Message to show in the warning.
  */

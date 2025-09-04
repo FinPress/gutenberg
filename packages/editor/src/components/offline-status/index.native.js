@@ -4,17 +4,17 @@
 import { AccessibilityInfo, Text, View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	usePreferredColorSchemeStyle,
 	useNetworkConnectivity,
 	usePrevious,
-} from '@wordpress/compose';
-import { Icon } from '@wordpress/components';
-import { offline as offlineIcon } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
-import { useEffect } from '@wordpress/element';
+} from '@finpress/compose';
+import { Icon } from '@finpress/components';
+import { offline as offlineIcon } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
+import { useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

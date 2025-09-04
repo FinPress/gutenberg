@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { canvas, visitAdminPage } from '@wordpress/e2e-test-utils';
-import { addQueryArgs } from '@wordpress/url';
+import { canvas, visitAdminPage } from '@finpress/e2e-test-utils';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * @typedef {import('puppeteer-core').ElementHandle} ElementHandle

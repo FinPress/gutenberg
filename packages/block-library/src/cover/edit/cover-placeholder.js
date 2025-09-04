@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BlockIcon, MediaPlaceholder } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { cover as icon } from '@wordpress/icons';
+import { BlockIcon, MediaPlaceholder } from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { cover as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

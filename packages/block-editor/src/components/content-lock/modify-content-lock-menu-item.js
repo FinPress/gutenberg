@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { MenuItem } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { _x } from '@wordpress/i18n';
+import { MenuItem } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies

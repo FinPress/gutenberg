@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect, useRegistry } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { store as editorStore } from '@wordpress/editor';
-import { useLayoutEffect } from '@wordpress/element';
-import { store as preferencesStore } from '@wordpress/preferences';
+import { useDispatch, useSelect, useRegistry } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { store as editorStore } from '@finpress/editor';
+import { useLayoutEffect } from '@finpress/element';
+import { store as preferencesStore } from '@finpress/preferences';
 
 export function useAdaptEditorToCanvas( canvas ) {
 	const { clearSelectedBlock } = useDispatch( blockEditorStore );

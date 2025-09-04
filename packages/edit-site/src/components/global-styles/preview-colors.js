@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
 	__unstableMotion as motion,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

@@ -4,14 +4,14 @@
 import type { ComponentType, HTMLProps, SVGProps } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	cloneElement,
 	createElement,
 	isValidElement,
-} from '@wordpress/element';
-import { SVG } from '@wordpress/primitives';
+} from '@finpress/element';
+import { SVG } from '@finpress/primitives';
 
 /**
  * Internal dependencies
@@ -34,10 +34,10 @@ type AdditionalProps< T > = T extends ComponentType< infer U >
 export type Props = {
 	/**
 	 * The icon to render. In most cases, you should use an icon from
-	 * [the `@wordpress/icons` package](https://wordpress.github.io/gutenberg/?path=/story/icons-icon--library).
+	 * [the `@finpress/icons` package](https://finpress.github.io/gutenberg/?path=/story/icons-icon--library).
 	 *
 	 * Other supported values are: component instances, functions,
-	 * [Dashicons](https://developer.wordpress.org/resource/dashicons/)
+	 * [Dashicons](https://developer.finpress.org/resource/dashicons/)
 	 * (specified as strings), and `null`.
 	 *
 	 * The `size` value, as well as any other additional props, will be passed through.
@@ -59,9 +59,9 @@ export type Props = {
  * Renders a raw icon without any initial styling or wrappers.
  *
  * ```jsx
- * import { wordpress } from '@wordpress/icons';
+ * import { finpress } from '@finpress/icons';
  *
- * <Icon icon={ wordpress } />
+ * <Icon icon={ finpress } />
  * ```
  */
 function Icon( {

@@ -20,7 +20,7 @@ describe( 'Video block', () => {
 		fireEvent.press( screen.getByText( 'Insert from URL' ) );
 		fireEvent.changeText(
 			screen.getByPlaceholderText( 'Type a URL' ),
-			'h://wordpress.org/video.mp4'
+			'h://finpress.org/video.mp4'
 		);
 		dismissModal( screen.getByTestId( 'bottom-sheet' ) );
 

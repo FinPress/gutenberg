@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import domReady from '@wordpress/dom-ready';
+import domReady from '@finpress/dom-ready';
 
 /**
  * Internal dependencies

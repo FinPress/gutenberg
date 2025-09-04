@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockControls,
 	InspectorControls,
 	useBlockProps,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	Button,
 	Disabled,
@@ -17,12 +17,12 @@ import {
 	__experimentalInputControl as InputControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import { grid, list, edit, rss } from '@wordpress/icons';
-import { __, _x } from '@wordpress/i18n';
-import { prependHTTP } from '@wordpress/url';
-import ServerSideRender from '@wordpress/server-side-render';
+} from '@finpress/components';
+import { useState } from '@finpress/element';
+import { grid, list, edit, rss } from '@finpress/icons';
+import { __, _x } from '@finpress/i18n';
+import { prependHTTP } from '@finpress/url';
+import ServerSideRender from '@finpress/server-side-render';
 
 /**
  * Internal dependencies

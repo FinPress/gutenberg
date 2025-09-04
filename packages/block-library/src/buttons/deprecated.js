@@ -3,9 +3,9 @@
  */
 import clsx from 'clsx';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks, useBlockProps } from '@finpress/block-editor';
 
 /**
  * @param {Object} attributes Block's attributes.

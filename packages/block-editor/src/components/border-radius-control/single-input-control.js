@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalParseQuantityAndUnitFromRawValue as parseQuantityAndUnitFromRawValue,
@@ -10,10 +10,10 @@ import {
 	RangeControl,
 	Button,
 	CustomSelectControl,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-import { settings } from '@wordpress/icons';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useState } from '@finpress/element';
+import { settings } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -154,7 +154,7 @@ export default function SingleInputControl( {
 
 	// Controls are wrapped in tooltips as visible labels aren't desired here.
 	// Tooltip rendering also requires the UnitControl to be wrapped. See:
-	// https://github.com/WordPress/gutenberg/pull/24966#issuecomment-685875026
+	// https://github.com/FinPress/gutenberg/pull/24966#issuecomment-685875026
 	return (
 		<HStack>
 			{ icon && (

@@ -4,15 +4,15 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	registerBlockType,
 	unregisterBlockType,
 	getBlockTypes,
-} from '@wordpress/blocks';
-import { SlotFillProvider, ToolbarGroup } from '@wordpress/components';
-import { alignCenter, alignLeft, alignRight } from '@wordpress/icons';
+} from '@finpress/blocks';
+import { SlotFillProvider, ToolbarGroup } from '@finpress/components';
+import { alignCenter, alignLeft, alignRight } from '@finpress/icons';
 
 /**
  * Internal dependencies

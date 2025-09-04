@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
+import { __, isRTL } from '@finpress/i18n';
 import {
 	blockTable,
 	category,
 	formatListBullets,
 	formatListBulletsRTL,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 /**
  * Internal dependencies

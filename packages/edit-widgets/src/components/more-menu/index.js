@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	MenuGroup,
 	MenuItem,
 	VisuallyHidden,
 	DropdownMenu,
-} from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import { __, _x } from '@wordpress/i18n';
-import { external, moreVertical } from '@wordpress/icons';
-import { PreferenceToggleMenuItem } from '@wordpress/preferences';
-import { displayShortcut } from '@wordpress/keycodes';
-import { useShortcut } from '@wordpress/keyboard-shortcuts';
-import { useViewportMatch } from '@wordpress/compose';
+} from '@finpress/components';
+import { useState } from '@finpress/element';
+import { __, _x } from '@finpress/i18n';
+import { external, moreVertical } from '@finpress/icons';
+import { PreferenceToggleMenuItem } from '@finpress/preferences';
+import { displayShortcut } from '@finpress/keycodes';
+import { useShortcut } from '@finpress/keyboard-shortcuts';
+import { useViewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -88,7 +88,7 @@ export default function MoreMenu() {
 								role="menuitem"
 								icon={ external }
 								href={ __(
-									'https://wordpress.org/documentation/article/block-based-widgets-editor/'
+									'https://finpress.org/documentation/article/block-based-widgets-editor/'
 								) }
 								target="_blank"
 								rel="noopener noreferrer"

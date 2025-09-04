@@ -49,11 +49,11 @@ describe( 'formatTestResults', () => {
 			date: new Date(),
 			failedTimes: 1,
 			headBranch: 'trunk',
-			runURL: 'https://github.com/WordPress/gutenberg/actions/runs/2282393879',
+			runURL: 'https://github.com/FinPress/gutenberg/actions/runs/2282393879',
 		} );
 
 		expect( formatted ).toMatchInlineSnapshot(
-			`"<!-- __TEST_RESULT__ --><time datetime="2020-05-10T00:00:00.000Z"><code>[2020-05-10T00:00:00.000Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/WordPress/gutenberg/actions/runs/2282393879"><code>trunk</code></a>.<!-- /__TEST_RESULT__ -->"`
+			`"<!-- __TEST_RESULT__ --><time datetime="2020-05-10T00:00:00.000Z"><code>[2020-05-10T00:00:00.000Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2282393879"><code>trunk</code></a>.<!-- /__TEST_RESULT__ -->"`
 		);
 
 		expect( renderToDisplayText( formatted ) ).toMatchInlineSnapshot(
@@ -66,14 +66,14 @@ describe( 'formatTestResults', () => {
 			date: new Date(),
 			failedTimes: 1,
 			headBranch: 'trunk',
-			runURL: 'https://github.com/WordPress/gutenberg/actions/runs/2282393879',
+			runURL: 'https://github.com/FinPress/gutenberg/actions/runs/2282393879',
 			errorMessage: 'Error:\n  Oops...\n',
 		} );
 
 		expect( formatted ).toMatchInlineSnapshot( `
 		"<!-- __TEST_RESULT__ --><details>
 		<summary>
-			<time datetime="2020-05-10T00:00:00.000Z"><code>[2020-05-10T00:00:00.000Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/WordPress/gutenberg/actions/runs/2282393879"><code>trunk</code></a>.
+			<time datetime="2020-05-10T00:00:00.000Z"><code>[2020-05-10T00:00:00.000Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2282393879"><code>trunk</code></a>.
 		</summary>
 
 		\`\`\`
@@ -125,7 +125,7 @@ describe( 'parseFormattedTestResults', () => {
 			date: new Date(),
 			failedTimes: 1,
 			headBranch: 'trunk',
-			runURL: 'https://github.com/WordPress/gutenberg/actions/runs/2297863316',
+			runURL: 'https://github.com/FinPress/gutenberg/actions/runs/2297863316',
 		};
 
 		const formatted = formatTestResults( testResult );
@@ -140,7 +140,7 @@ describe( 'parseFormattedTestResults', () => {
 			date: new Date(),
 			failedTimes: 1,
 			headBranch: 'trunk',
-			runURL: 'https://github.com/WordPress/gutenberg/actions/runs/2297863316',
+			runURL: 'https://github.com/FinPress/gutenberg/actions/runs/2297863316',
 			errorMessage: 'Error:\n  Oops...\n',
 		};
 
@@ -156,7 +156,7 @@ describe( 'parseFormattedTestResults', () => {
 			date: new Date(),
 			failedTimes: 1,
 			headBranch: 'trunk',
-			runURL: 'https://github.com/WordPress/gutenberg/actions/runs/2297863316',
+			runURL: 'https://github.com/FinPress/gutenberg/actions/runs/2297863316',
 			errorMessage: 'Error:\n  Oops...\n',
 		};
 
@@ -178,13 +178,13 @@ describe( 'parseIssueBody', () => {
 				date: new Date( '2020-08-01' ),
 				failedTimes: 1,
 				headBranch: 'trunk',
-				runURL: 'https://github.com/WordPress/gutenberg/actions/runs/2282393879',
+				runURL: 'https://github.com/FinPress/gutenberg/actions/runs/2282393879',
 			} ),
 			formatTestResults( {
 				date: new Date(),
 				failedTimes: 2,
 				headBranch: 'try/some-branch',
-				runURL: 'https://github.com/WordPress/gutenberg/actions/runs/2297863316',
+				runURL: 'https://github.com/FinPress/gutenberg/actions/runs/2297863316',
 				errorMessage: 'Error:\n  Oops...\n  Oops again',
 			} ),
 			`\n<!-- __TEST_RESULT__ -->Some broken log.\nOops.\n<!-- /__TEST_RESULT__ -->\n`,
@@ -215,13 +215,13 @@ describe( 'parseIssueBody', () => {
 					date: new Date( '2020-08-01' ),
 					failedTimes: 1,
 					headBranch: 'trunk',
-					runURL: 'https://github.com/WordPress/gutenberg/actions/runs/2282393879',
+					runURL: 'https://github.com/FinPress/gutenberg/actions/runs/2282393879',
 				},
 				{
 					date: new Date(),
 					failedTimes: 2,
 					headBranch: 'try/some-branch',
-					runURL: 'https://github.com/WordPress/gutenberg/actions/runs/2297863316',
+					runURL: 'https://github.com/FinPress/gutenberg/actions/runs/2297863316',
 					errorMessage: 'Error:\n  Oops...\n  Oops again',
 				},
 			],
@@ -257,7 +257,7 @@ describe( 'renderCommitComment', () => {
 		expect( commentBody ).toMatchInlineSnapshot( `
 		"<!-- flaky-tests-report-comment -->
 		**Flaky tests detected in commitSHA.**
-		Some tests passed with failed attempts. The failures may not be related to this commit but are still reported for visibility. See [the documentation](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/code/testing-overview.md#flaky-tests) for more information.
+		Some tests passed with failed attempts. The failures may not be related to this commit but are still reported for visibility. See [the documentation](https://github.com/FinPress/gutenberg/blob/HEAD/docs/contributors/code/testing-overview.md#flaky-tests) for more information.
 
 		🔍  Workflow run URL: runURL
 		📝  Reported issues:

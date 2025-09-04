@@ -25,7 +25,7 @@ const restrictedImports = [
 	{
 		name: 'framer-motion',
 		message:
-			'Please use the Framer Motion API through `@wordpress/components` instead.',
+			'Please use the Framer Motion API through `@finpress/components` instead.',
 	},
 	{
 		name: 'lodash',
@@ -34,32 +34,32 @@ const restrictedImports = [
 	{
 		name: '@ariakit/react',
 		message:
-			'Please use Ariakit API through `@wordpress/components` instead.',
+			'Please use Ariakit API through `@finpress/components` instead.',
 	},
 	{
 		name: 'redux',
 		importNames: [ 'combineReducers' ],
-		message: 'Please use `combineReducers` from `@wordpress/data` instead.',
+		message: 'Please use `combineReducers` from `@finpress/data` instead.',
 	},
 	{
 		name: '@emotion/css',
 		message:
-			'Please use `@emotion/react` and `@emotion/styled` in order to maintain iframe support. As a replacement for the `cx` function, please use the `useCx` hook defined in `@wordpress/components` instead.',
+			'Please use `@emotion/react` and `@emotion/styled` in order to maintain iframe support. As a replacement for the `cx` function, please use the `useCx` hook defined in `@finpress/components` instead.',
 	},
 	{
-		name: '@wordpress/edit-post',
+		name: '@finpress/edit-post',
 		message:
-			"edit-post is a WordPress top level package that shouldn't be imported into other packages",
+			"edit-post is a FinPress top level package that shouldn't be imported into other packages",
 	},
 	{
-		name: '@wordpress/edit-site',
+		name: '@finpress/edit-site',
 		message:
-			"edit-site is a WordPress top level package that shouldn't be imported into other packages",
+			"edit-site is a FinPress top level package that shouldn't be imported into other packages",
 	},
 	{
-		name: '@wordpress/edit-widgets',
+		name: '@finpress/edit-widgets',
 		message:
-			"edit-widgets is a WordPress top level package that shouldn't be imported into other packages",
+			"edit-widgets is a FinPress top level package that shouldn't be imported into other packages",
 	},
 	{
 		name: 'classnames',
@@ -74,8 +74,8 @@ const restrictedSyntax = [
 	// here. That's why we use \\u002F in the regexes below.
 	{
 		selector:
-			'ImportDeclaration[source.value=/^@wordpress\\u002F.+\\u002F/]',
-		message: 'Path access on WordPress dependencies is not allowed.',
+			'ImportDeclaration[source.value=/^@finpress\\u002F.+\\u002F/]',
+		message: 'Path access on FinPress dependencies is not allowed.',
 	},
 	{
 		selector:
@@ -140,7 +140,7 @@ const restrictedSyntaxComponents = [
 module.exports = {
 	root: true,
 	extends: [
-		'plugin:@wordpress/eslint-plugin/recommended',
+		'plugin:@finpress/eslint-plugin/recommended',
 		'plugin:eslint-comments/recommended',
 		'plugin:storybook/recommended',
 	],
@@ -163,19 +163,19 @@ module.exports = {
 			'error',
 			{ props: 'never', children: 'never' },
 		],
-		'@wordpress/dependency-group': 'error',
-		'@wordpress/wp-global-usage': 'error',
-		'@wordpress/react-no-unsafe-timeout': 'error',
-		'@wordpress/i18n-hyphenated-range': 'error',
-		'@wordpress/i18n-no-flanking-whitespace': 'error',
-		'@wordpress/i18n-text-domain': [
+		'@finpress/dependency-group': 'error',
+		'@finpress/wp-global-usage': 'error',
+		'@finpress/react-no-unsafe-timeout': 'error',
+		'@finpress/i18n-hyphenated-range': 'error',
+		'@finpress/i18n-no-flanking-whitespace': 'error',
+		'@finpress/i18n-text-domain': [
 			'error',
 			{
 				allowedTextDomain: 'default',
 			},
 		],
-		'@wordpress/no-unsafe-wp-apis': 'off',
-		'@wordpress/data-no-store-string-literals': 'error',
+		'@finpress/no-unsafe-wp-apis': 'off',
+		'@finpress/data-no-store-string-literals': 'error',
 		'import/default': 'error',
 		'import/named': 'error',
 		'no-restricted-imports': [
@@ -191,7 +191,7 @@ module.exports = {
 					{
 						name: 'react',
 						message:
-							'Please use React API through `@wordpress/element` instead.',
+							'Please use React API through `@finpress/element` instead.',
 						allowTypeImports: true,
 					},
 				],
@@ -233,7 +233,7 @@ module.exports = {
 				'import/no-extraneous-dependencies': 'off',
 				'import/no-unresolved': 'off',
 				'import/named': 'off',
-				'@wordpress/data-no-store-string-literals': 'off',
+				'@finpress/data-no-store-string-literals': 'off',
 				'react-compiler/react-compiler': 'off',
 			},
 		},
@@ -358,7 +358,7 @@ module.exports = {
 		{
 			files: [ 'packages/jest*/**/*.js', '**/test/**/*.js' ],
 			excludedFiles: [ 'test/e2e/**/*.js', 'test/performance/**/*.js' ],
-			extends: [ 'plugin:@wordpress/eslint-plugin/test-unit' ],
+			extends: [ 'plugin:@finpress/eslint-plugin/test-unit' ],
 		},
 		{
 			files: [ '**/test/**/*.[tj]s?(x)' ],
@@ -379,7 +379,7 @@ module.exports = {
 		{
 			files: [ 'packages/e2e-test*/**/*.js' ],
 			excludedFiles: [ 'packages/e2e-test-utils-playwright/**/*.js' ],
-			extends: [ 'plugin:@wordpress/eslint-plugin/test-e2e' ],
+			extends: [ 'plugin:@finpress/eslint-plugin/test-e2e' ],
 			rules: {
 				'jest/expect-expect': 'off',
 			},
@@ -391,7 +391,7 @@ module.exports = {
 				'packages/e2e-test-utils-playwright/**/*.[tj]s',
 			],
 			extends: [
-				'plugin:@wordpress/eslint-plugin/test-playwright',
+				'plugin:@finpress/eslint-plugin/test-playwright',
 				'plugin:@typescript-eslint/base',
 			],
 			parserOptions: {
@@ -403,8 +403,8 @@ module.exports = {
 				],
 			},
 			rules: {
-				'@wordpress/no-global-active-element': 'off',
-				'@wordpress/no-global-get-selection': 'off',
+				'@finpress/no-global-active-element': 'off',
+				'@finpress/no-global-get-selection': 'off',
 				'no-restricted-syntax': [
 					'error',
 					{
@@ -492,7 +492,7 @@ module.exports = {
 				'no-restricted-imports': [
 					'error',
 					// The `ariakit` and `framer-motion` APIs are meant to be consumed via
-					// the `@wordpress/components` package, hence why importing those
+					// the `@finpress/components` package, hence why importing those
 					// dependencies should be allowed in the components package.
 					{
 						paths: restrictedImports.filter(
@@ -515,14 +515,14 @@ module.exports = {
 						paths: [
 							...restrictedImports,
 							{
-								name: '@wordpress/api-fetch',
+								name: '@finpress/api-fetch',
 								message:
-									"block-editor is a generic package that doesn't depend on a server or WordPress backend. To provide WordPress integration, consider passing settings to the BlockEditorProvider components.",
+									"block-editor is a generic package that doesn't depend on a server or FinPress backend. To provide FinPress integration, consider passing settings to the BlockEditorProvider components.",
 							},
 							{
-								name: '@wordpress/core-data',
+								name: '@finpress/core-data',
 								message:
-									"block-editor is a generic package that doesn't depend on a server or WordPress backend. To provide WordPress integration, consider passing settings to the BlockEditorProvider components.",
+									"block-editor is a generic package that doesn't depend on a server or FinPress backend. To provide FinPress integration, consider passing settings to the BlockEditorProvider components.",
 							},
 						],
 					},
@@ -538,7 +538,7 @@ module.exports = {
 						paths: [
 							...restrictedImports,
 							{
-								name: '@wordpress/interface',
+								name: '@finpress/interface',
 								message:
 									'The edit-post and edit-site package should not directly import the interface package. They should import them from the private APIs of the editor package instead.',
 							},

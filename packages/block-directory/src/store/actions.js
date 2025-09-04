@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	store as blocksStore,
 	unstable__bootstrapServerSideBlockDefinitions, // eslint-disable-line camelcase
-} from '@wordpress/blocks';
-import { __, sprintf } from '@wordpress/i18n';
-import apiFetch from '@wordpress/api-fetch';
-import { store as noticesStore } from '@wordpress/notices';
-import { addQueryArgs } from '@wordpress/url';
+} from '@finpress/blocks';
+import { __, sprintf } from '@finpress/i18n';
+import apiFetch from '@finpress/api-fetch';
+import { store as noticesStore } from '@finpress/notices';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies

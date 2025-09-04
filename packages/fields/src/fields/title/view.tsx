@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import type { ReactNode } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalHStack as HStack } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { __experimentalHStack as HStack } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

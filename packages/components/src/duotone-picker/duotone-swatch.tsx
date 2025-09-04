@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { swatch } from '@wordpress/icons';
+import { swatch } from '@finpress/icons';
 
 /**
  * Internal dependencies

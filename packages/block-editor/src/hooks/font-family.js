@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { hasBlockSupport } from '@wordpress/blocks';
-import TokenList from '@wordpress/token-list';
-import { privateApis as componentsPrivateApis } from '@wordpress/components';
+import { addFilter } from '@finpress/hooks';
+import { hasBlockSupport } from '@finpress/blocks';
+import TokenList from '@finpress/token-list';
+import { privateApis as componentsPrivateApis } from '@finpress/components';
 
 /**
  * Internal dependencies

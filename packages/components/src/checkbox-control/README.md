@@ -2,7 +2,7 @@
 
 Checkboxes allow the user to select one or more items from a set.
 
-![Selected and unselected checkboxes](https://make.wordpress.org/design/files/2019/02/CheckboxControl.png)
+![Selected and unselected checkboxes](https://make.finpress.org/design/files/2019/02/CheckboxControl.png)
 
 ## Design guidelines
 
@@ -15,17 +15,17 @@ Use checkboxes when you want users to:
 -   Select one or multiple items from a list.
 -   Open a list containing sub-selections.
 
-![](https://make.wordpress.org/design/files/2019/02/select-from-list.png)
+![](https://make.finpress.org/design/files/2019/02/select-from-list.png)
 
 **Do**
 Use checkboxes when users can select multiple items from a list. They let users select more than one item.
 
-![](https://make.wordpress.org/design/files/2019/02/many-form-toggles.png)
+![](https://make.finpress.org/design/files/2019/02/many-form-toggles.png)
 
 **Don’t**
 Don’t use toggles when a list consists of multiple options. Use checkboxes — they take up less space.
 
-![](https://make.wordpress.org/design/files/2019/02/checkbox-sublist.gif)
+![](https://make.finpress.org/design/files/2019/02/checkbox-sublist.gif)
 
 Checkboxes can be used to open a list containing sub-selections.
 
@@ -33,11 +33,11 @@ Checkboxes can be used to open a list containing sub-selections.
 
 Checkboxes can have a parent-child relationship, with secondary options nested under primary options.
 
-![](https://make.wordpress.org/design/files/2019/02/checkbox-parent.gif)
+![](https://make.finpress.org/design/files/2019/02/checkbox-parent.gif)
 
 When the parent checkbox is _checked_, all the child checkboxes are checked. When a parent checkbox is _unchecked_, all the child checkboxes are unchecked.
 
-![](https://make.wordpress.org/design/files/2019/02/mixed-checkbox.png)
+![](https://make.finpress.org/design/files/2019/02/mixed-checkbox.png)
 
 If only a few child checkboxes are checked, the parent checkbox becomes a mixed checkbox.
 
@@ -49,7 +49,7 @@ Render an is author checkbox:
 
 ```jsx
 import { useState } from 'react';
-import { CheckboxControl } from '@wordpress/components';
+import { CheckboxControl } from '@finpress/components';
 
 const MyCheckboxControl = () => {
 	const [ isChecked, setChecked ] = useState( true );

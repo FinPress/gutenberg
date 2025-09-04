@@ -36,14 +36,14 @@ function gutenberg_menu() {
 			__( 'Support', 'gutenberg' ),
 			__( 'Support', 'gutenberg' ),
 			'edit_posts',
-			__( 'https://wordpress.org/support/plugin/gutenberg/', 'gutenberg' )
+			__( 'https://finpress.org/support/plugin/gutenberg/', 'gutenberg' )
 		);
 		add_submenu_page(
 			'gutenberg',
 			__( 'Documentation', 'gutenberg' ),
 			__( 'Documentation', 'gutenberg' ),
 			'edit_posts',
-			'https://developer.wordpress.org/block-editor/'
+			'https://developer.finpress.org/block-editor/'
 		);
 	}
 

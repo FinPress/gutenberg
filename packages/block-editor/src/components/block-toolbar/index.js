@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { useRef } from '@wordpress/element';
-import { useViewportMatch } from '@wordpress/compose';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { useRef } from '@finpress/element';
+import { useViewportMatch } from '@finpress/compose';
 import {
 	getBlockType,
 	hasBlockSupport,
 	isReusableBlock,
 	isTemplatePart,
-} from '@wordpress/blocks';
-import { ToolbarGroup } from '@wordpress/components';
+} from '@finpress/blocks';
+import { ToolbarGroup } from '@finpress/components';
 
 /**
  * Internal dependencies
@@ -42,7 +42,7 @@ import { unlock } from '../../lock-unlock';
 /**
  * Renders the block toolbar.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-toolbar/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-toolbar/README.md
  *
  * @param {Object}   props                             Components props.
  * @param {boolean}  props.hideDragHandle              Show or hide the Drag Handle for drag and drop functionality.
@@ -206,7 +206,7 @@ export function PrivateBlockToolbar( {
 			__experimentalInitialIndex={ __experimentalInitialIndex }
 			__experimentalOnIndexChange={ __experimentalOnIndexChange }
 			// Resets the index whenever the active block changes so
-			// this is not persisted. See https://github.com/WordPress/gutenberg/pull/25760#issuecomment-717906169
+			// this is not persisted. See https://github.com/FinPress/gutenberg/pull/25760#issuecomment-717906169
 			key={ toolbarKey }
 		>
 			<div ref={ toolbarWrapperRef } className={ innerClasses }>
@@ -281,7 +281,7 @@ export function PrivateBlockToolbar( {
 /**
  * Renders the block toolbar.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-toolbar/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-toolbar/README.md
  *
  * @param {Object}  props                Components props.
  * @param {boolean} props.hideDragHandle Show or hide the Drag Handle for drag and drop functionality.

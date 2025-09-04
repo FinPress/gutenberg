@@ -6,9 +6,9 @@ Some components need to generate a unique id for each instance. This could serve
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
+import { useInstanceId } from '@finpress/compose';
 
 function MyCustomElement() {
 	const instanceId = useInstanceId( MyCustomElement );

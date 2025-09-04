@@ -2,7 +2,7 @@
 
 TextareaControls are TextControls that allow for multiple lines of text, and wrap overflow text onto a new line. They are a fixed height and scroll vertically when the cursor reaches the bottom of the field.
 
-![An empty TextareaControl, and a focused TextareaControl with some content entered.](https://wordpress.org/gutenberg/files/2019/01/TextareaControl.png)
+![An empty TextareaControl, and a focused TextareaControl with some content entered.](https://finpress.org/gutenberg/files/2019/01/TextareaControl.png)
 
 ## Design guidelines
 
@@ -23,13 +23,13 @@ TextareaControl should:
 
 Do not use TextareaControl if you need to let users enter shorter answers (no longer than a single line), such as a phone number or name. In this case, you should use `Text Control`.
 
-![](https://wordpress.org/gutenberg/files/2019/01/TextareaControl-Answers-Do.png)
+![](https://finpress.org/gutenberg/files/2019/01/TextareaControl-Answers-Do.png)
 
 **Do**
 
 Use TextareaControl to let users to enter text longer than a single line.
 
-![](https://wordpress.org/gutenberg/files/2019/01/TextareaControl-Answers-Dont.png)
+![](https://finpress.org/gutenberg/files/2019/01/TextareaControl-Answers-Dont.png)
 
 **Don’t**
 
@@ -37,7 +37,7 @@ Use TextareaControl for shorter answers.
 
 ## Anatomy
 
-![](https://wordpress.org/gutenberg/files/2019/01/TextareaControl-Anatomy.png)
+![](https://finpress.org/gutenberg/files/2019/01/TextareaControl-Anatomy.png)
 
 1. Container
 2. Label
@@ -46,12 +46,12 @@ Use TextareaControl for shorter answers.
 
 Containers improve the discoverability of text fields by creating contrast between the text field and surrounding content.
 
-![](https://wordpress.org/gutenberg/files/2019/01/TextareaControl-Stroke-Do.png)
+![](https://finpress.org/gutenberg/files/2019/01/TextareaControl-Stroke-Do.png)
 
 **Do**
 Use a stroke around the container, which clearly indicates that users can input information.
 
-![](https://wordpress.org/gutenberg/files/2019/01/TextareaControl-Stroke-Dont.png)
+![](https://finpress.org/gutenberg/files/2019/01/TextareaControl-Stroke-Dont.png)
 
 **Don’t**
 Use unclear visual markers to indicate a text field.
@@ -64,7 +64,7 @@ Label text is used to inform users as to what information is requested for a tex
 
 When text input isn’t accepted, an error message can display instructions on how to fix it. Error messages are displayed below the input line, replacing helper text until fixed.
 
-![](https://wordpress.org/gutenberg/files/2019/01/TextareaControl-Error.png)
+![](https://finpress.org/gutenberg/files/2019/01/TextareaControl-Error.png)
 
 ## Development guidelines
 
@@ -72,7 +72,7 @@ When text input isn’t accepted, an error message can display instructions on h
 
 ```jsx
 import { useState } from 'react';
-import { TextareaControl } from '@wordpress/components';
+import { TextareaControl } from '@finpress/components';
 
 const MyTextareaControl = () => {
 	const [ text, setText ] = useState( '' );

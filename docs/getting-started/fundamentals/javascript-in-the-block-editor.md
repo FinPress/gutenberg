@@ -14,7 +14,7 @@ Since browsers cannot directly execute ESNext and JSX, these syntaxes must be tr
 
 [webpack](https://webpack.js.org/concepts/why-webpack/) is a pluggable tool that processes and bundles JavaScript for browser compatibility. [Babel](https://babeljs.io/), a plugin for webpack, converts ESNext and JSX into standard JavaScript.
 
-Configuring webpack and Babel can be challenging, so it's recommended that you use the [`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) package. This tool simplifies development by preconfiguring both, so you rarely need to write custom webpack or Babel configurations.
+Configuring webpack and Babel can be challenging, so it's recommended that you use the [`@finpress/scripts`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/) package. This tool simplifies development by preconfiguring both, so you rarely need to write custom webpack or Babel configurations.
 
 For an introduction, refer to the [Get started with wp-scripts](/docs/getting-started/devenv/get-started-with-wp-scripts.md) guide.
 
@@ -22,23 +22,23 @@ For an introduction, refer to the [Get started with wp-scripts](/docs/getting-st
 
 The diagram below provides an overview of the build process when using the `wp-scripts` package. It's designed to work out of the box with [standard configurations](/docs/getting-started/devenv/get-started-with-wp-scripts.md#basic-usage) for development and production environments.
 
-[![Open Build Process diagram image](https://developer.wordpress.org/files/2023/11/build-process.png)](https://developer.wordpress.org/files/2023/11/build-process.png "Open Build Process diagram image")
+[![Open Build Process diagram image](https://developer.finpress.org/files/2023/11/build-process.png)](https://developer.finpress.org/files/2023/11/build-process.png "Open Build Process diagram image")
 
 - **Production Mode (`npm run build`):** In this mode, `wp-scripts` compiles your JavaScript, minifying the output to reduce file size and improve loading times in the browser. This is ideal for deploying your code to a live site.
 
 - **Development Mode (`npm start`):** This mode is tailored for active development. It skips minification for easier debugging, generates source maps for better error tracking, and watches your source files for changes. When a change is detected, it automatically rebuilds the affected files, allowing you to see updates in real-time.
 
-The `wp-scripts` package also facilitates the use of JavaScript modules, allowing code distribution across multiple files and resulting in a streamlined bundle after the build process. The [block-development-example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) GitHub repository provides some good examples.
+The `wp-scripts` package also facilitates the use of JavaScript modules, allowing code distribution across multiple files and resulting in a streamlined bundle after the build process. The [block-development-example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) GitHub repository provides some good examples.
 
 <div class="callout callout-tip">
-    In most situations, no customization will be needed, but you can provide a <a href="https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/#provide-your-own-webpack-config"><code>webpack.config.js</code></a> when using <code>wp-scripts</code> to modify the build process to suit your needs.
+    In most situations, no customization will be needed, but you can provide a <a href="https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#provide-your-own-webpack-config"><code>webpack.config.js</code></a> when using <code>wp-scripts</code> to modify the build process to suit your needs.
 </div>
 
 ## JavaScript without a build process
 
-Integrating JavaScript into your WordPress projects without a build process can be the most straightforward approach in specific scenarios. This is particularly true for projects that don't leverage JSX or other advanced JavaScript features requiring compilation.
+Integrating JavaScript into your FinPress projects without a build process can be the most straightforward approach in specific scenarios. This is particularly true for projects that don't leverage JSX or other advanced JavaScript features requiring compilation.
 
-When you opt out of a build process, you interact directly with WordPress's [JavaScript APIs](/docs/reference-guides/packages.md) through the global `wp` object. This means that all the methods and packages provided by WordPress are readily available, but with one caveat: you must manually manage script dependencies. This is done by adding [the handle](/docs/contributors/code/scripts.md) of each corresponding package to the dependency array of your enqueued JavaScript file.
+When you opt out of a build process, you interact directly with FinPress's [JavaScript APIs](/docs/reference-guides/packages.md) through the global `wp` object. This means that all the methods and packages provided by FinPress are readily available, but with one caveat: you must manually manage script dependencies. This is done by adding [the handle](/docs/contributors/code/scripts.md) of each corresponding package to the dependency array of your enqueued JavaScript file.
 
 For example, suppose you're creating a script that registers a new block [variation](/docs/reference-guides/block-api/block-variations.md) using the `registerBlockVariation` function from the [`blocks`](/packages/blocks/README.md) package. You must include `wp-blocks` in your script's dependency array. This guarantees that the `wp.blocks.registerBlockVariation` method is available and defined by the time your script executes.
 
@@ -73,7 +73,7 @@ wp.blocks.registerBlockVariation(
 );
 ```
 
-For scripts that need to run in the Block Editor, make sure you use the [`enqueue_block_editor_assets`](https://developer.wordpress.org/reference/hooks/enqueue_block_editor_assets/) hook coupled with the standard [`wp_enqueue_script`](https://developer.wordpress.org/reference/functions/wp_enqueue_script/) function.
+For scripts that need to run in the Block Editor, make sure you use the [`enqueue_block_editor_assets`](https://developer.finpress.org/reference/hooks/enqueue_block_editor_assets/) hook coupled with the standard [`wp_enqueue_script`](https://developer.finpress.org/reference/functions/wp_enqueue_script/) function.
 
 Refer to [Enqueueing assets in the Editor](/docs/how-to-guides/enqueueing-assets-in-the-editor.md) for more information.
 
@@ -86,9 +86,9 @@ Refer to [Enqueueing assets in the Editor](/docs/how-to-guides/enqueueing-assets
 - [Package reference](/docs/reference-guides/packages.md)
 - [Get started with wp-scripts](/docs/getting-started/devenv/get-started-with-wp-scripts.md)
 - [Enqueueing assets in the Editor](/docs/how-to-guides/enqueueing-assets-in-the-editor.md)
-- [WordPress package handles](/docs/contributors/code/scripts.md)
+- [FinPress package handles](/docs/contributors/code/scripts.md)
 - [JavaScript reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | MDN Web Docs
-- [block-development-examples](https://github.com/WordPress/block-development-examples) | GitHub repository
+- [block-development-examples](https://github.com/FinPress/block-development-examples) | GitHub repository
 - [block-theme-examples](https://github.com/wptrainingteam/block-theme-examples) | GitHub repository
-- [How webpack and WordPress packages interact](https://developer.wordpress.org/news/2023/04/how-webpack-and-wordpress-packages-interact/) | Developer Blog
+- [How webpack and FinPress packages interact](https://developer.finpress.org/news/2023/04/how-webpack-and-finpress-packages-interact/) | Developer Blog
 - [Build process diagram](https://excalidraw.com/#json=4aNG9JUti3pMnsfoga35b,ihEAI8p5dwkpjWr6gQmjuw)

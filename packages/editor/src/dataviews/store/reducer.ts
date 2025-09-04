@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { combineReducers } from '@wordpress/data';
-import type { Action, Field } from '@wordpress/dataviews';
+import { combineReducers } from '@finpress/data';
+import type { Action, Field } from '@finpress/dataviews';
 
 type ReduxAction =
 	| ReturnType< typeof import('./private-actions').registerEntityAction >

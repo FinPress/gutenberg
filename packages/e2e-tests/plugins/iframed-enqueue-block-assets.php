@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Gutenberg Test Iframed enqueue_block_assets
- * Plugin URI: https://github.com/WordPress/gutenberg
+ * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team
  *
  * @package gutenberg-test-iframed-iframed-enqueue-block-assets

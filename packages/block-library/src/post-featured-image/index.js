@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { postFeaturedImage as icon } from '@wordpress/icons';
+import { postFeaturedImage as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { useEntityRecords, store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { useEntityRecords, store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
 
-import { decodeEntities } from '@wordpress/html-entities';
+import { decodeEntities } from '@finpress/html-entities';
 import {
 	__experimentalItemGroup as ItemGroup,
 	Spinner,
-} from '@wordpress/components';
-import { navigation } from '@wordpress/icons';
+} from '@finpress/components';
+import { navigation } from '@finpress/icons';
 
 /**
  * Internal dependencies

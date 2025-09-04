@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getSettings, setSettings } from '@wordpress/date';
+import { getSettings, setSettings } from '@finpress/date';
 
 /**
  * Internal dependencies

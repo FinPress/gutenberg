@@ -2,7 +2,7 @@
 /**
  * Server-side rendering of the `core/query` block.
  *
- * @package WordPress
+ * @package FinPress
  */
 
 /**
@@ -24,7 +24,7 @@ function render_block_core_query( $attributes, $content, $block ) {
 	// Enqueue the script module and add the necessary directives if the block is
 	// interactive.
 	if ( $is_interactive ) {
-		wp_enqueue_script_module( '@wordpress/block-library/query/view' );
+		wp_enqueue_script_module( '@finpress/block-library/query/view' );
 
 		$p = new WP_HTML_Tag_Processor( $content );
 		if ( $p->next_tag() ) {

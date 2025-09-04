@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/create-block-interactive-template",
+	"name": "@finpress/create-block-interactive-template",
 	"version": "2.29.0",
-	"description": "Template for @wordpress/create-block to create interactive blocks with the Interactivity API.",
-	"author": "The WordPress Contributors",
+	"description": "Template for @finpress/create-block to create interactive blocks with the Interactivity API.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"create block",
 		"block template",
 		"Interactivity API"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/docs/getting-started/create-block",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/docs/getting-started/create-block",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/create-block-interactive-template"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",

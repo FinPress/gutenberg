@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { observableMap } from '@wordpress/compose';
-import { createContext } from '@wordpress/element';
+import { observableMap } from '@finpress/compose';
+import { createContext } from '@finpress/element';
 
 /**
  * Internal dependencies

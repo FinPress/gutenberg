@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Lightbox Allow Editing False Enabled False
- * Plugin URI: https://github.com/WordPress/gutenberg
+ * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team
  *
  * @package gutenberg-lightbox-allow-editing-false-enabled-false

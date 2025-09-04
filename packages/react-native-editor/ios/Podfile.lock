@@ -1111,7 +1111,7 @@ PODS:
     - React-Core
   - RNTAztecView (1.121.0):
     - React-Core
-    - WordPress-Aztec-iOS (= 1.19.11)
+    - FinPress-Aztec-iOS (= 1.19.11)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -1119,7 +1119,7 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
   - SocketRocket (0.6.1)
-  - WordPress-Aztec-iOS (1.19.11)
+  - FinPress-Aztec-iOS (1.19.11)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -1200,7 +1200,7 @@ SPEC REPOS:
     - SDWebImage
     - SDWebImageWebPCoder
     - SocketRocket
-    - WordPress-Aztec-iOS
+    - FinPress-Aztec-iOS
 
 EXTERNAL SOURCES:
   boost:
@@ -1406,7 +1406,7 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  WordPress-Aztec-iOS: 47311b8a342f2b12babb5b8a705ab20b281a83ae
+  FinPress-Aztec-iOS: 47311b8a342f2b12babb5b8a705ab20b281a83ae
   Yoga: ff0382b894475dba0b4d2a5fda860bfee5a9afad
 
 PODFILE CHECKSUM: 4684cf41ccdeb5f720da9f11c8904f21ad9fcc7f

@@ -9,8 +9,8 @@ The SpacingSizesControl component provides a flexible user interface for control
 ## Usage
 
 ```jsx
-import { __experimentalSpacingSizesControl as SpacingSizesControl } from '@wordpress/block-editor';
-import { useState } from '@wordpress/element';
+import { __experimentalSpacingSizesControl as SpacingSizesControl } from '@finpress/block-editor';
+import { useState } from '@finpress/element';
 
 function Example() {
 	const [ sides, setSides ] = useState( {

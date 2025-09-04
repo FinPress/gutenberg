@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { hasBlockSupport } from '@wordpress/blocks';
+import { addFilter } from '@finpress/hooks';
+import { hasBlockSupport } from '@finpress/blocks';
 
 const hasSettingsSupport = ( blockType ) =>
 	hasBlockSupport( blockType, '__experimentalSettings', false );

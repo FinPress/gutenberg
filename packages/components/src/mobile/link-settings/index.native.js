@@ -4,19 +4,19 @@
 import { Platform } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { compose } from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
-import { isURL, prependHTTP } from '@wordpress/url';
+import { compose } from '@finpress/compose';
+import { withSelect } from '@finpress/data';
+import { isURL, prependHTTP } from '@finpress/url';
 import {
 	useEffect,
 	useState,
 	useRef,
 	useContext,
 	useCallback,
-} from '@wordpress/element';
-import { link, external } from '@wordpress/icons';
+} from '@finpress/element';
+import { link, external } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -101,7 +101,7 @@ function LinkSettings( {
 		if ( onHandleClosingBottomSheet ) {
 			onHandleClosingBottomSheet( onCloseSettingsSheet );
 		}
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ urlInputValue, labelInputValue, linkRelInputValue ] );
 
 	useEffect( () => {
@@ -113,7 +113,7 @@ function LinkSettings( {
 		if ( url !== urlInputValue ) {
 			setUrlInputValue( url || '' );
 		}
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ url ] );
 
 	useEffect( () => {
@@ -137,7 +137,7 @@ function LinkSettings( {
 		if ( prevEditorSidebarOpened && ! editorSidebarOpened ) {
 			onSetAttributes();
 		}
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ editorSidebarOpened, isVisible ] );
 
 	useEffect( () => {
@@ -150,7 +150,7 @@ function LinkSettings( {
 				url: prependHTTP( urlValue ),
 			} );
 		}
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ urlValue ] );
 
 	const onChangeURL = useCallback(
@@ -180,7 +180,7 @@ function LinkSettings( {
 				rel: linkRelInputValue,
 			} );
 		}
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ urlInputValue, labelInputValue, linkRelInputValue, setAttributes ] );
 
 	const onCloseSettingsSheet = useCallback( () => {
@@ -213,7 +213,7 @@ function LinkSettings( {
 				rel: updatedRel,
 			} );
 		},
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 		[ linkRelInputValue ]
 	);
 

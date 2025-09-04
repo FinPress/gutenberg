@@ -10,8 +10,8 @@ import styles from './styles.module.css';
 
 const Users = [
 	{
-		title: 'WordPress',
-		img: require( '@site/static/img/wordpress.png' ).default,
+		title: 'FinPress',
+		img: require( '@site/static/img/finpress.png' ).default,
 		height: 60,
 	},
 	{

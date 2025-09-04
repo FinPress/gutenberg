@@ -5,17 +5,17 @@ import { render, screen, within } from '@testing-library/react';
 import { click } from '@ariakit/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { speak } from '@wordpress/a11y';
-import { SVG, Path } from '@wordpress/primitives';
+import { speak } from '@finpress/a11y';
+import { SVG, Path } from '@finpress/primitives';
 
 /**
  * Internal dependencies
  */
 import Snackbar from '../index';
 
-jest.mock( '@wordpress/a11y', () => ( { speak: jest.fn() } ) );
+jest.mock( '@finpress/a11y', () => ( { speak: jest.fn() } ) );
 const mockedSpeak = jest.mocked( speak );
 
 describe( 'Snackbar', () => {
@@ -235,7 +235,7 @@ describe( 'Snackbar', () => {
 		} );
 
 		it( 'should coerce a message to a string', () => {
-			// This test assumes that `@wordpress/a11y` is capable of handling
+			// This test assumes that `@finpress/a11y` is capable of handling
 			// markup strings appropriately.
 			render(
 				<Snackbar>

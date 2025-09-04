@@ -4,14 +4,14 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
  */
-import type { WordPressComponentProps } from '../wordpress-component';
+import type { WordPressComponentProps } from '../finpress-component';
 
 // Static TypeScript checks
 /* eslint-disable jest/expect-expect */

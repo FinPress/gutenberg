@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { didAction } from '@wordpress/hooks';
+import { didAction } from '@finpress/hooks';
 
 /**
  * Internal dependencies

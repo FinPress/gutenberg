@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _n, sprintf, isRTL } from '@wordpress/i18n';
+import { _n, sprintf, isRTL } from '@finpress/i18n';
 import {
 	useNavigator,
 	__experimentalText as Text,
@@ -9,13 +9,13 @@ import {
 	Flex,
 	FlexItem,
 	Icon,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies
  */
 import FontDemo from './font-demo';
-import { chevronLeft, chevronRight } from '@wordpress/icons';
+import { chevronLeft, chevronRight } from '@finpress/icons';
 
 function FontCard( { font, onClick, variantsText, navigatorPath } ) {
 	const variantsCount = font.fontFace?.length || 1;

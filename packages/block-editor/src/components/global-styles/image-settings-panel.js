@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	ToggleControl,
-} from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies

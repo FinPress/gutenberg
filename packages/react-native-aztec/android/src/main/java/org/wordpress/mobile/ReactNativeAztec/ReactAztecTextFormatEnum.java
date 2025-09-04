@@ -1,6 +1,6 @@
-package org.wordpress.mobile.ReactNativeAztec;
+package org.finpress.mobile.ReactNativeAztec;
 
-import org.wordpress.aztec.AztecTextFormat;
+import org.finpress.aztec.AztecTextFormat;
 
 import java.util.HashMap;
 import java.util.Map;

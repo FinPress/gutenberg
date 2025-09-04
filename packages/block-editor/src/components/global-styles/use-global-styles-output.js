@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__EXPERIMENTAL_STYLE_PROPERTY as STYLE_PROPERTY,
@@ -7,11 +7,11 @@ import {
 	getBlockSupport,
 	getBlockTypes,
 	store as blocksStore,
-} from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
-import { useContext, useMemo } from '@wordpress/element';
-import { getCSSRules, getCSSValueFromRawStyle } from '@wordpress/style-engine';
-import { privateApis as componentsPrivateApis } from '@wordpress/components';
+} from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
+import { useContext, useMemo } from '@finpress/element';
+import { getCSSRules, getCSSValueFromRawStyle } from '@finpress/style-engine';
+import { privateApis as componentsPrivateApis } from '@finpress/components';
 
 /**
  * Internal dependencies
@@ -332,7 +332,7 @@ export function getStylesDeclarations(
 			);
 
 			// Root-level padding styles don't currently support strings with CSS shorthand values.
-			// This may change: https://github.com/WordPress/gutenberg/issues/40132.
+			// This may change: https://github.com/FinPress/gutenberg/issues/40132.
 			if (
 				key === '--wp--style--root--padding' &&
 				( typeof styleValue === 'string' || ! useRootPaddingAlign )
@@ -931,14 +931,14 @@ export const toStyles = (
 		 * from the `theme.json`. This is to ensure that if the `theme.json` declares
 		 * `margin` in its `spacing` declaration for the `body` element then these
 		 * user-generated values take precedence in the CSS cascade.
-		 * @link https://github.com/WordPress/gutenberg/issues/36147.
+		 * @link https://github.com/FinPress/gutenberg/issues/36147.
 		 */
 		ruleset += ':where(body) {margin: 0;';
 
 		// Root padding styles should be output for full templates, patterns and template parts.
 		if ( options.rootPadding && useRootPaddingAlign ) {
 			/*
-			 * These rules reproduce the ones from https://github.com/WordPress/gutenberg/blob/79103f124925d1f457f627e154f52a56228ed5ad/lib/class-wp-theme-json-gutenberg.php#L2508
+			 * These rules reproduce the ones from https://github.com/FinPress/gutenberg/blob/79103f124925d1f457f627e154f52a56228ed5ad/lib/class-wp-theme-json-gutenberg.php#L2508
 			 * almost exactly, but for the selectors that target block wrappers in the front end. This code only runs in the editor, so it doesn't need those selectors.
 			 */
 			ruleset += `padding-right: 0; padding-left: 0; padding-top: var(--wp--style--root--padding-top); padding-bottom: var(--wp--style--root--padding-bottom) }

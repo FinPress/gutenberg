@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	ALIGNMENT_BREAKPOINTS,
 	convertUnitToMobile,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

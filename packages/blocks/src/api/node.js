@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ function isNodeOfType( node, type ) {
 	deprecated( 'wp.blocks.node.isNodeOfType', {
 		since: '6.1',
 		version: '6.3',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
 	return node && node.type === type;
@@ -73,7 +73,7 @@ export function fromDOM( domNode ) {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'wp.richText.create',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
 	if ( domNode.nodeType === domNode.TEXT_NODE ) {
@@ -108,7 +108,7 @@ export function toHTML( node ) {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'wp.richText.toHTMLString',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
 	return children.toHTML( [ node ] );
@@ -127,7 +127,7 @@ export function matcher( selector ) {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'html source',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
 	return ( domNode ) => {
@@ -149,7 +149,7 @@ export function matcher( selector ) {
  * Object of utility functions used in managing block attribute values of
  * source `node`.
  *
- * @see https://github.com/WordPress/gutenberg/pull/10439
+ * @see https://github.com/FinPress/gutenberg/pull/10439
  *
  * @deprecated since 4.0. The `node` source should not be used, and can be
  *             replaced by the `html` source.

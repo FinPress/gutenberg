@@ -3,7 +3,7 @@
  * An abstract class that all sniff unit tests must extend.
  *
  * @package gutenberg-coding-standards/gbc
- * @link    https://github.com/WordPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
+ * @link    https://github.com/FinPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
  */
 
 namespace GutenbergCS\Gutenberg\Tests;
@@ -67,7 +67,7 @@ abstract class AbstractSniffUnitTest extends BaseAbstractSniffUnitTest {
 		if ( ! isset( $GLOBALS['PHP_CODESNIFFER_RULESETS']['Gutenberg'] )
 			|| ( ! $GLOBALS['PHP_CODESNIFFER_RULESETS']['Gutenberg'] instanceof Ruleset )
 		) {
-			throw new \RuntimeException( $error_message ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- this is non-production code.
+			throw new \RuntimeException( $error_message ); // phpcs:ignore FinPress.Security.EscapeOutput.ExceptionNotEscaped -- this is non-production code.
 		}
 
 		// Backup the original Ruleset instance.
@@ -78,7 +78,7 @@ abstract class AbstractSniffUnitTest extends BaseAbstractSniffUnitTest {
 
 		$sniff_fqcn = $this->get_sniff_fqcn();
 		if ( ! isset( $current_ruleset->sniffs[ $sniff_fqcn ] ) ) {
-			throw new \RuntimeException( $error_message ); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- this is non-production code.
+			throw new \RuntimeException( $error_message ); // phpcs:ignore FinPress.Security.EscapeOutput.ExceptionNotEscaped -- this is non-production code.
 		}
 
 		$sniff = $current_ruleset->sniffs[ $sniff_fqcn ];

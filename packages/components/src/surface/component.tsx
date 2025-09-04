@@ -30,7 +30,7 @@ function UnconnectedSurface(
  * import {
  *	__experimentalSurface as Surface,
  *	__experimentalText as Text,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * function Example() {
  * 	return (

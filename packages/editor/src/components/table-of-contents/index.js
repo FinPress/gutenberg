@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Dropdown, Button } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { info } from '@wordpress/icons';
-import { forwardRef } from '@wordpress/element';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { Dropdown, Button } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { info } from '@finpress/icons';
+import { forwardRef } from '@finpress/element';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
-import { useMemo } from '@wordpress/element';
-import { __, _x } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useMemo } from '@finpress/element';
+import { __, _x } from '@finpress/i18n';
 
 /**
- * @typedef {import('@wordpress/components/build-types/select-control/types').SelectControlProps} SelectControlProps
+ * @typedef {import('@finpress/components/build-types/select-control/types').SelectControlProps} SelectControlProps
  */
 
 /**

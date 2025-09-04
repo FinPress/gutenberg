@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createBlock,
@@ -14,8 +14,8 @@ import {
 	rawHandler,
 	registerBlockType,
 	serialize,
-} from '@wordpress/blocks';
-import { registerCoreBlocks } from '@wordpress/block-library';
+} from '@finpress/blocks';
+import { registerCoreBlocks } from '@finpress/block-library';
 
 function readFile( filePath ) {
 	return fs.existsSync( filePath )
@@ -419,7 +419,7 @@ describe( 'Blocks raw handling', () => {
 			'one-image',
 			'two-images',
 			'markdown',
-			'wordpress',
+			'finpress',
 			'gutenberg',
 			'shortcode-matching',
 			'slack-quote',
@@ -510,7 +510,7 @@ describe( 'Blocks raw handling', () => {
 describe( 'rawHandler', () => {
 	it( 'should convert HTML post to blocks with minimal content changes', () => {
 		const HTML = readFile(
-			path.join( __dirname, 'fixtures/documents/wordpress-convert.html' )
+			path.join( __dirname, 'fixtures/documents/finpress-convert.html' )
 		);
 		expect( serialize( rawHandler( { HTML } ) ) ).toMatchSnapshot();
 	} );

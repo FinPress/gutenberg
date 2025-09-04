@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
-import { store as coreStore } from '@wordpress/core-data';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

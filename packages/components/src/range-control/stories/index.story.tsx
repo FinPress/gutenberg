@@ -4,17 +4,17 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { starEmpty, starFilled, styles, wordpress } from '@wordpress/icons';
+import { useState } from '@finpress/element';
+import { starEmpty, starFilled, styles, finpress } from '@finpress/icons';
 
 /**
  * Internal dependencies
  */
 import RangeControl from '..';
 
-const ICONS = { starEmpty, starFilled, styles, wordpress };
+const ICONS = { starEmpty, starFilled, styles, finpress };
 
 const meta: Meta< typeof RangeControl > = {
 	component: RangeControl,

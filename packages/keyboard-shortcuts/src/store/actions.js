@@ -1,4 +1,4 @@
-/** @typedef {import('@wordpress/keycodes').WPKeycodeModifier} WPKeycodeModifier */
+/** @typedef {import('@finpress/keycodes').WPKeycodeModifier} WPKeycodeModifier */
 
 /**
  * Keyboard key combination.
@@ -30,9 +30,9 @@
  *
  *```js
  * import { useEffect } from 'react';
- * import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
- * import { useSelect, useDispatch } from '@wordpress/data';
- * import { __ } from '@wordpress/i18n';
+ * import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+ * import { useSelect, useDispatch } from '@finpress/data';
+ * import { __ } from '@finpress/i18n';
  *
  * const ExampleComponent = () => {
  *     const { registerShortcut } = useDispatch( keyboardShortcutsStore );
@@ -92,9 +92,9 @@ export function registerShortcut( {
  *
  *```js
  * import { useEffect } from 'react';
- * import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
- * import { useSelect, useDispatch } from '@wordpress/data';
- * import { __ } from '@wordpress/i18n';
+ * import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+ * import { useSelect, useDispatch } from '@finpress/data';
+ * import { __ } from '@finpress/i18n';
  *
  * const ExampleComponent = () => {
  *     const { unregisterShortcut } = useDispatch( keyboardShortcutsStore );

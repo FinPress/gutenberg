@@ -3,8 +3,8 @@
 ## Usage
 
 ```jsx
-import { Placeholder } from '@wordpress/components';
-import { more } from '@wordpress/icons';
+import { Placeholder } from '@finpress/components';
+import { more } from '@finpress/icons';
 
 const MyPlaceholder = () => <Placeholder icon={ more } label="Placeholder" />;
 ```

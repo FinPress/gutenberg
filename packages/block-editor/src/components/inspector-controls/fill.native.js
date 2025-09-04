@@ -4,12 +4,12 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Children } from '@wordpress/element';
-import { BottomSheetConsumer } from '@wordpress/components';
-import warning from '@wordpress/warning';
-import deprecated from '@wordpress/deprecated';
+import { Children } from '@finpress/element';
+import { BottomSheetConsumer } from '@finpress/components';
+import warning from '@finpress/warning';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

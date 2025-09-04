@@ -20,9 +20,9 @@ import { Observable } from 'lib0/observable';
 import * as buffer from 'lib0/buffer';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addQueryArgs } from '@wordpress/url';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Method copied as is from the SignalingConn constructor.

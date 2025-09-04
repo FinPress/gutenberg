@@ -12,7 +12,7 @@ import {
 	withConstrainedTabbing,
 	TextControl,
 	Button,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 const ConstrainedTabbing = withConstrainedTabbing(
 	( { children } ) => children

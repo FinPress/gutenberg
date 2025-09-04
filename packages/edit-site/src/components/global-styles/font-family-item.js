@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _n, sprintf } from '@wordpress/i18n';
+import { _n, sprintf } from '@finpress/i18n';
 import {
 	__experimentalHStack as HStack,
 	__experimentalItem as Item,
 	FlexItem,
-} from '@wordpress/components';
-import { useContext } from '@wordpress/element';
+} from '@finpress/components';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

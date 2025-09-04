@@ -5,7 +5,7 @@
 ## Example:
 
 ```jsx
-import { navigateRegions } from '@wordpress/components';
+import { navigateRegions } from '@finpress/components';
 
 const MyComponentWithNavigateRegions = navigateRegions( () => (
 	<div>

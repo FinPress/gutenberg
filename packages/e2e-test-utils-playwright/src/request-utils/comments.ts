@@ -52,7 +52,7 @@ export async function createComment(
  */
 export async function deleteAllComments( this: RequestUtils ) {
 	// List all comments.
-	// https://developer.wordpress.org/rest-api/reference/comments/#list-comments
+	// https://developer.finpress.org/rest-api/reference/comments/#list-comments
 	const comments = await this.rest( {
 		path: '/wp/v2/comments',
 		params: {
@@ -63,7 +63,7 @@ export async function deleteAllComments( this: RequestUtils ) {
 	} );
 
 	// Delete all comments one by one.
-	// https://developer.wordpress.org/rest-api/reference/comments/#delete-a-comment
+	// https://developer.finpress.org/rest-api/reference/comments/#delete-a-comment
 	// "/wp/v2/comments" doesn't support batch requests yet.
 	await Promise.all(
 		comments.map( ( comment: Comment ) =>

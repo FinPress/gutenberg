@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withFilters } from '@wordpress/components';
-import { getBlockType } from '@wordpress/blocks';
-import { useContext, useMemo } from '@wordpress/element';
+import { withFilters } from '@finpress/components';
+import { getBlockType } from '@finpress/blocks';
+import { useContext, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

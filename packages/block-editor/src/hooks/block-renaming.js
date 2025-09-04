@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { hasBlockSupport } from '@wordpress/blocks';
+import { addFilter } from '@finpress/hooks';
+import { hasBlockSupport } from '@finpress/blocks';
 
 /**
  * Filters registered block settings, adding an `__experimentalLabel` callback if one does not already exist.

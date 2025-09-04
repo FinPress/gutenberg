@@ -5,10 +5,10 @@ import Cropper from 'react-easy-crop';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Spinner } from '@wordpress/components';
-import { useResizeObserver } from '@wordpress/compose';
+import { Spinner } from '@finpress/components';
+import { useResizeObserver } from '@finpress/compose';
 
 /**
  * Internal dependencies

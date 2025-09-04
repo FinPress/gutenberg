@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { safeDecodeURIComponent, cleanForSlug } from '@wordpress/url';
-import { useState, createInterpolateElement } from '@wordpress/element';
-import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { safeDecodeURIComponent, cleanForSlug } from '@finpress/url';
+import { useState, createInterpolateElement } from '@finpress/element';
+import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
 import {
 	ExternalLink,
 	Button,
@@ -13,11 +13,11 @@ import {
 	__experimentalInputControlPrefixWrapper as InputControlPrefixWrapper,
 	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { store as noticesStore } from '@wordpress/notices';
-import { copySmall } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { useCopyToClipboard, useInstanceId } from '@wordpress/compose';
+} from '@finpress/components';
+import { store as noticesStore } from '@finpress/notices';
+import { copySmall } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { useCopyToClipboard, useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -97,7 +97,7 @@ export default function PostURL( { onClose } ) {
 								a: (
 									<ExternalLink
 										href={ __(
-											'https://wordpress.org/documentation/article/page-post-settings-sidebar/#permalink'
+											'https://finpress.org/documentation/article/page-post-settings-sidebar/#permalink'
 										) }
 									/>
 								),

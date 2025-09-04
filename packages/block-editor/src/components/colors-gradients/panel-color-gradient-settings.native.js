@@ -4,10 +4,10 @@
 import { useNavigation } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ColorControl, PanelBody } from '@wordpress/components';
-import { useMemo } from '@wordpress/element';
+import { ColorControl, PanelBody } from '@finpress/components';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

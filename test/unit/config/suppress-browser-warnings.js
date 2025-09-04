@@ -1,16 +1,16 @@
 /**
  * Suppress specific browser warnings for unit tests
  *
- * This file mocks the @wordpress/warning module to suppress specific
+ * This file mocks the @finpress/warning module to suppress specific
  * warnings that are expected or not relevant in the test environment,
  * while allowing other warnings to pass through normally.
  *
  * Note: This mock can be removed once the apiVersion:3 becomes the default.
  */
 
-jest.mock( '@wordpress/warning', () => {
+jest.mock( '@finpress/warning', () => {
 	const mockOriginalWarning =
-		jest.requireActual( '@wordpress/warning' ).default;
+		jest.requireActual( '@finpress/warning' ).default;
 
 	return {
 		__esModule: true,

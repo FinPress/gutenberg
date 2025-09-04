@@ -128,7 +128,7 @@ async function buildCSS( file ) {
 
 	const result = await postcss( [
 		require( 'postcss-local-keyframes' ),
-		...require( '@wordpress/postcss-plugins-preset' ),
+		...require( '@finpress/postcss-plugins-preset' ),
 	] ).process( builtSass.css, {
 		from: 'src/app.css',
 		to: 'dest/app.css',
@@ -158,7 +158,7 @@ async function buildJS( file ) {
 		);
 		const babelOptions = getBabelConfig(
 			environment,
-			file.replace( PACKAGES_DIR, '@wordpress' )
+			file.replace( PACKAGES_DIR, '@finpress' )
 		);
 
 		const [ , transformed ] = await Promise.all( [

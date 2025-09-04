@@ -18,12 +18,12 @@ import {
 import type { KeyboardEventHandler } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _n, sprintf, isRTL } from '@wordpress/i18n';
-import { arrowLeft, arrowRight } from '@wordpress/icons';
-import { dateI18n, getSettings } from '@wordpress/date';
-import { useState, useRef, useEffect } from '@wordpress/element';
+import { __, _n, sprintf, isRTL } from '@finpress/i18n';
+import { arrowLeft, arrowRight } from '@finpress/icons';
+import { dateI18n, getSettings } from '@finpress/date';
+import { useState, useRef, useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -47,8 +47,8 @@ import { TIMEZONELESS_FORMAT } from '../constants';
  * DatePicker is a React component that renders a calendar for date selection.
  *
  * ```jsx
- * import { DatePicker } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { DatePicker } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyDatePicker = () => {
  *   const [ date, setDate ] = useState( new Date() );

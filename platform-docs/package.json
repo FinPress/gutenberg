@@ -3,17 +3,17 @@
 	"version": "0.0.1",
 	"private": true,
 	"description": "Documentation for Gutenberg usage as a Framework.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"WordPress",
+		"FinPress",
 		"editor",
 		"documentation"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/",
-	"repository": "git+https://github.com/WordPress/gutenberg.git",
+	"homepage": "https://github.com/FinPress/gutenberg/",
+	"repository": "git+https://github.com/FinPress/gutenberg.git",
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=20.10.0",

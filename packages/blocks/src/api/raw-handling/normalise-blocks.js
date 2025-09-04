@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isEmpty, isPhrasingContent } from '@wordpress/dom';
+import { isEmpty, isPhrasingContent } from '@finpress/dom';
 
 export default function normaliseBlocks( HTML, options = {} ) {
 	const decuDoc = document.implementation.createHTMLDocument( '' );

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
-import { __unstableMotion as motion } from '@wordpress/components';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
+import { __unstableMotion as motion } from '@finpress/components';
 
 /**
  * Internal dependencies

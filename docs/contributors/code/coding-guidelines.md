@@ -1,6 +1,6 @@
 # Coding Guidelines
 
-This living document serves to prescribe coding guidelines specific to the Gutenberg project. Base coding guidelines follow the [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/). The following sections outline additional patterns and conventions used in the Gutenberg project.
+This living document serves to prescribe coding guidelines specific to the Gutenberg project. Base coding guidelines follow the [FinPress Coding Standards](https://developer.finpress.org/coding-standards/finpress-coding-standards/). The following sections outline additional patterns and conventions used in the Gutenberg project.
 
 ## CSS
 
@@ -53,7 +53,7 @@ export default function Notice( { children, onRemove, isDismissible } ) {
 }
 ```
 
-A component's class name should **never** be used outside its own folder (with rare exceptions such as [`_z-index.scss`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/base-styles/_z-index.scss)). If you need to inherit styles of another component in your own components, you should render an instance of that other component. At worst, you should duplicate the styles within your own component's stylesheet. This is intended to improve maintainability by isolating shared components as a reusable interface, reducing the surface area of similar UI elements by adapting a limited set of common components to support a varied set of use-cases.
+A component's class name should **never** be used outside its own folder (with rare exceptions such as [`_z-index.scss`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/base-styles/_z-index.scss)). If you need to inherit styles of another component in your own components, you should render an instance of that other component. At worst, you should duplicate the styles within your own component's stylesheet. This is intended to improve maintainability by isolating shared components as a reusable interface, reducing the surface area of similar UI elements by adapting a limited set of common components to support a varied set of use-cases.
 
 #### SCSS file naming conventions for blocks
 
@@ -65,19 +65,19 @@ Examples of styles that appear in both the theme and the editor include gallery 
 
 ## JavaScript
 
-JavaScript in Gutenberg uses modern language features of the [ECMAScript language specification](https://www.ecma-international.org/ecma-262/) as well as the [JSX language syntax extension](https://react.dev/learn/writing-markup-with-jsx). These are enabled through a combination of preset configurations, notably [`@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default) which is used as a preset in the project's [Babel](https://babeljs.io/) configuration.
+JavaScript in Gutenberg uses modern language features of the [ECMAScript language specification](https://www.ecma-international.org/ecma-262/) as well as the [JSX language syntax extension](https://react.dev/learn/writing-markup-with-jsx). These are enabled through a combination of preset configurations, notably [`@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default) which is used as a preset in the project's [Babel](https://babeljs.io/) configuration.
 
-While the [staged process](https://tc39.es/process-document/) for introducing a new JavaScript language feature offers an opportunity to use new features before they are considered complete, **the Gutenberg project and the `@wordpress/babel-preset-default` configuration will only target support for proposals which have reached Stage 4 ("Finished")**.
+While the [staged process](https://tc39.es/process-document/) for introducing a new JavaScript language feature offers an opportunity to use new features before they are considered complete, **the Gutenberg project and the `@finpress/babel-preset-default` configuration will only target support for proposals which have reached Stage 4 ("Finished")**.
 
 ### Imports
 
-In the Gutenberg project, we use [the ES2015 import syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) to enable us to create modular code with clear separations between code of a specific feature, code shared across distinct WordPress features, and third-party dependencies.
+In the Gutenberg project, we use [the ES2015 import syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) to enable us to create modular code with clear separations between code of a specific feature, code shared across distinct FinPress features, and third-party dependencies.
 
 These separations are identified by multi-line comments at the top of a file which imports code from another file or source.
 
 #### External dependencies
 
-An external dependency is third-party code that is not maintained by WordPress contributors, but instead [included in WordPress as a default script](https://developer.wordpress.org/reference/functions/wp_enqueue_script/#default-scripts-included-and-registered-by-wordpress) or referenced from an outside package manager like [npm](https://www.npmjs.com/).
+An external dependency is third-party code that is not maintained by FinPress contributors, but instead [included in FinPress as a default script](https://developer.finpress.org/reference/functions/wp_enqueue_script/#default-scripts-included-and-registered-by-finpress) or referenced from an outside package manager like [npm](https://www.npmjs.com/).
 
 Example:
 
@@ -88,7 +88,7 @@ Example:
 import moment from 'moment';
 ```
 
-#### WordPress dependencies
+#### FinPress dependencies
 
 To encourage reusability between features, our JavaScript is split into domain-specific modules which [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) one or more functions or objects. In the Gutenberg project, we've distinguished these modules under top-level directories. Each module serve an independent purpose, and often code is shared between them. For example, in order to localize its text, editor code will need to include functions from the `i18n` module.
 
@@ -96,14 +96,14 @@ Example:
 
 ```js
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 ```
 
 #### Internal dependencies
 
-Within a specific feature, code is organized into separate files and folders. As is the case with external and WordPress dependencies, you can bring this code into scope by using the `import` keyword. The main distinction here is that when importing internal files, you should use relative paths specific to top-level directory you're working in.
+Within a specific feature, code is organized into separate files and folders. As is the case with external and FinPress dependencies, you can bring this code into scope by using the `import` keyword. The main distinction here is that when importing internal files, you should use relative paths specific to top-level directory you're working in.
 
 Example:
 
@@ -120,9 +120,9 @@ import VisualEditor from '../visual-editor';
 
 Historically, Gutenberg has used the `__experimental` and `__unstable` prefixes to indicate that a given API is not yet stable and may be subject to change. This is a legacy convention which should be avoided in favor of the plugin-only API pattern or a private API pattern described below.
 
-The problem with using the prefixes was that these APIs rarely got stabilized or removed. As of June 2022, WordPress Core contained 280 publicly exported experimental APIs merged from the Gutenberg plugin during the major WordPress releases. Many plugins and themes started relying on these experimental APIs for essential features that couldn't be accessed in any other way.
+The problem with using the prefixes was that these APIs rarely got stabilized or removed. As of June 2022, FinPress Core contained 280 publicly exported experimental APIs merged from the Gutenberg plugin during the major FinPress releases. Many plugins and themes started relying on these experimental APIs for essential features that couldn't be accessed in any other way.
 
-The legacy `__experimental` APIs can't be removed on a whim anymore. They became a part of the WordPress public API and fall under the [WordPress Backwards Compatibility policy](https://developer.wordpress.org/block-editor/contributors/code/backward-compatibility/). Removing them involves a deprecation process. It may be relatively easy for some APIs, but it may require effort and span multiple WordPress releases for others.
+The legacy `__experimental` APIs can't be removed on a whim anymore. They became a part of the FinPress public API and fall under the [FinPress Backwards Compatibility policy](https://developer.finpress.org/block-editor/contributors/code/backward-compatibility/). Removing them involves a deprecation process. It may be relatively easy for some APIs, but it may require effort and span multiple FinPress releases for others.
 
 All in all, don't use the `__experimental` prefix for new APIs. Use plugin-only APIs and private APIs instead.
 
@@ -138,11 +138,11 @@ _To Project Contributors:_
 
 An **plugin-only API** is one which is planned for eventual public availability, but is subject to further experimentation, testing, and discussion. It should be made stable or removed at the earliest opportunity.
 
-Plugin-only APIs are excluded from WordPress Core and only available in the Gutenberg Plugin:
+Plugin-only APIs are excluded from FinPress Core and only available in the Gutenberg Plugin:
 
 ```js
 // Using globalThis.IS_GUTENBERG_PLUGIN allows Webpack to exclude this
-// export from WordPress core:
+// export from FinPress core:
 if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 	export { doSomethingExciting } from './api';
 }
@@ -154,22 +154,22 @@ While a plugin-only API may often stabilize into a publicly-available API, there
 
 #### Private APIs
 
-Each `@wordpress` package wanting to privately access or expose a private APIs can
-do so by opting-in to `@wordpress/private-apis`:
+Each `@finpress` package wanting to privately access or expose a private APIs can
+do so by opting-in to `@finpress/private-apis`:
 
 ```js
 // In packages/block-editor/private-apis.js:
-import { __dangerousOptInToUnstableAPIsOnlyForCoreModules } from '@wordpress/private-apis';
+import { __dangerousOptInToUnstableAPIsOnlyForCoreModules } from '@finpress/private-apis';
 export const { lock, unlock } =
 	__dangerousOptInToUnstableAPIsOnlyForCoreModules(
-		'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of WordPress.',
-		'@wordpress/block-editor' // Name of the package calling __dangerousOptInToUnstableAPIsOnlyForCoreModules,
+		'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of FinPress.',
+		'@finpress/block-editor' // Name of the package calling __dangerousOptInToUnstableAPIsOnlyForCoreModules,
 		// (not the name of the package whose APIs you want to access)
 	);
 ```
 
-Each `@wordpress` package may only opt-in once. The process clearly communicates the extenders are not supposed
-to use it. This document will focus on the usage examples, but you can [find out more about the `@wordpress/private-apis` package in the its README.md](/packages/private-apis/README.md).
+Each `@finpress` package may only opt-in once. The process clearly communicates the extenders are not supposed
+to use it. This document will focus on the usage examples, but you can [find out more about the `@finpress/private-apis` package in the its README.md](/packages/private-apis/README.md).
 
 Once the package opted-in, you can use the `lock()` and `unlock()` utilities:
 
@@ -227,8 +227,8 @@ unlock( store ).registerPrivateSelectors( {
 
 ```js
 // In packages/package2/MyComponent.js:
-import { store } from '@wordpress/package1';
-import { useSelect } from '@wordpress/data';
+import { store } from '@finpress/package1';
+import { useSelect } from '@finpress/data';
 // The `unlock` function is exported from the internal private-apis.js file where
 // the opt-in function was called.
 import { unlock } from './lock-unlock';
@@ -269,7 +269,7 @@ lock( privateApis, {
 
 ```js
 // In packages/package2/index.js:
-import { privateApis } from '@wordpress/package1';
+import { privateApis } from '@finpress/package1';
 import { unlock } from './lock-unlock';
 
 const {
@@ -317,7 +317,7 @@ Then, export the stable function and `lock()` the unstable function
 inside it:
 
 ```js
-// In @wordpress/package1/index.js:
+// In @finpress/package1/index.js:
 import { lock } from './lock-unlock';
 
 // A private function contains all the logic
@@ -343,8 +343,8 @@ lock( privateApis, { privateValidateBlocks } );
 ```
 
 ```js
-// In @wordpress/package2/index.js:
-import { privateApis as package1PrivateApis } from '@wordpress/package1';
+// In @finpress/package2/index.js:
+import { privateApis as package1PrivateApis } from '@finpress/package1';
 import { unlock } from './lock-unlock';
 
 // The private function may be "unlocked" given the stable function:
@@ -360,7 +360,7 @@ Then, export the stable function and `lock()` the unstable function
 inside it:
 
 ```js
-// In @wordpress/package1/index.js:
+// In @finpress/package1/index.js:
 import { lock } from './lock-unlock';
 
 // The private component contains all the logic
@@ -385,8 +385,8 @@ lock( privateApis, { PrivateMyButton } );
 ```
 
 ```js
-// In @wordpress/package2/index.js:
-import { privateApis } from '@wordpress/package1';
+// In @finpress/package2/index.js:
+import { privateApis } from '@finpress/package1';
 import { unlock } from './lock-unlock';
 
 // The private component may be "unlocked" given the stable component:
@@ -398,7 +398,7 @@ export function MyComponent() {
 
 #### Private editor settings
 
-WordPress extenders cannot update the private block settings on their own. The `updateSettings()` actions of the `@wordpress/block-editor` store will filter out all the settings that are **not** a part of the public API. The only way to actually store them is via the private action `__experimentalUpdateSettings()`.
+FinPress extenders cannot update the private block settings on their own. The `updateSettings()` actions of the `@finpress/block-editor` store will filter out all the settings that are **not** a part of the public API. The only way to actually store them is via the private action `__experimentalUpdateSettings()`.
 
 To privatize a block editor setting, add it to the `privateSettings` list in [/packages/block-editor/src/store/actions.js](/packages/block-editor/src/store/actions.js):
 
@@ -413,7 +413,7 @@ const privateSettings = [
 
 As of today, there is no way to restrict the `block.json` and `theme.json` APIs
 to the Gutenberg codebase. In the future, however, the new private APIs
-will only apply to the core WordPress blocks and plugins and themes will not be
+will only apply to the core FinPress blocks and plugins and themes will not be
 able to access them.
 
 #### Inline small actions in thunks
@@ -431,7 +431,7 @@ export function toggleFeature( scope, featureName ) {
 
 ### Exposing private APIs publicly
 
-Some private APIs could benefit from community feedback and it makes sense to expose them to WordPress extenders. At the same time, it doesn't make sense to turn them into a public API in WordPress core. What should you do?
+Some private APIs could benefit from community feedback and it makes sense to expose them to FinPress extenders. At the same time, it doesn't make sense to turn them into a public API in FinPress core. What should you do?
 
 You can re-export that private API as a plugin-only API to expose it publicly only in the Gutenberg plugin:
 
@@ -439,7 +439,7 @@ You can re-export that private API as a plugin-only API to expose it publicly on
 // This function can't be used by extenders in any context:
 function privateEverywhere() {}
 
-// This function can be used by extenders with the Gutenberg plugin but not in vanilla WordPress Core:
+// This function can be used by extenders with the Gutenberg plugin but not in vanilla FinPress Core:
 function privateInCorePublicInPlugin() {}
 
 // Gutenberg treats both functions as private APIs internally:
@@ -447,7 +447,7 @@ const privateApis = {};
 lock( privateApis, { privateEverywhere, privateInCorePublicInPlugin } );
 
 // The privateInCorePublicInPlugin function is explicitly exported,
-// but this export will not be merged into WordPress core thanks to
+// but this export will not be merged into FinPress core thanks to
 // the globalThis.IS_GUTENBERG_PLUGIN check.
 if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 	export const privateInCorePublicInPlugin =
@@ -523,19 +523,19 @@ alert( `My name is ${ name }.` );
 
 -   When negating (`!`) the result of a value which is evaluated with optional chaining, you should be observant that in the case that optional chaining reaches a point where it cannot proceed, it will produce a [falsy value](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) that will be transformed to `true` when negated. In many cases, this is not an expected result.
     -   Example: `const hasFocus = ! nodeRef.current?.contains( document.activeElement );` will yield `true` if `nodeRef.current` is not assigned.
-    -   See related issue: [#21984](https://github.com/WordPress/gutenberg/issues/21984)
+    -   See related issue: [#21984](https://github.com/FinPress/gutenberg/issues/21984)
     -   See similar ESLint rule: [`no-unsafe-negation`](https://eslint.org/docs/rules/no-unsafe-negation)
--   When assigning a boolean value, observe that optional chaining may produce values which are [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) (`undefined`, `null`), but not strictly `false`. This can become an issue when the value is passed around in a way where it is expected to be a boolean (`true` or `false`). While it's a common occurrence for booleans—since booleans are often used in ways where the logic considers truthiness and falsyness broadly—these issues can also occur for other optional chaining when eagerly assuming a type resulting from the end of the property access chain. [Type-checking](https://github.com/WordPress/gutenberg/blob/HEAD/packages/README.md#typescript) may help in preventing these sorts of errors.
+-   When assigning a boolean value, observe that optional chaining may produce values which are [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) (`undefined`, `null`), but not strictly `false`. This can become an issue when the value is passed around in a way where it is expected to be a boolean (`true` or `false`). While it's a common occurrence for booleans—since booleans are often used in ways where the logic considers truthiness and falsyness broadly—these issues can also occur for other optional chaining when eagerly assuming a type resulting from the end of the property access chain. [Type-checking](https://github.com/FinPress/gutenberg/blob/HEAD/packages/README.md#typescript) may help in preventing these sorts of errors.
     -   Example: `document.body.classList.toggle( 'has-focus', nodeRef.current?.contains( document.activeElement ) );` may wrongly _add_ the class, since [the second argument is optional](https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/toggle). If `undefined` is passed, it would not unset the class as it would when `false` is passed.
     -   Example: `<input value={ state.selected?.value.trim() } />` may inadvertently cause warnings in React by toggling between [controlled and uncontrolled inputs](https://reactjs.org/docs/uncontrolled-components.html). This is an easy trap to fall into when eagerly assuming that a result of `trim()` will always return a string value, overlooking the fact the optional chaining may have caused evaluation to abort earlier with a value of `undefined`.
 
 ### React components
 
-It is preferred to implement all components as [function components](https://react.dev/learn/your-first-component), using [hooks](https://react.dev/reference/react/hooks) to manage component state and lifecycle. With the exception of [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary), you should never encounter a situation where you must use a class component. Note that the [WordPress guidance on Code Refactoring](https://make.wordpress.org/core/handbook/contribute/code-refactoring/) applies here: There needn't be a concentrated effort to update class components in bulk. Instead, consider it as a good refactoring opportunity in combination with some other change.
+It is preferred to implement all components as [function components](https://react.dev/learn/your-first-component), using [hooks](https://react.dev/reference/react/hooks) to manage component state and lifecycle. With the exception of [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary), you should never encounter a situation where you must use a class component. Note that the [FinPress guidance on Code Refactoring](https://make.finpress.org/core/handbook/contribute/code-refactoring/) applies here: There needn't be a concentrated effort to update class components in bulk. Instead, consider it as a good refactoring opportunity in combination with some other change.
 
 ## JavaScript documentation using JSDoc
 
-Gutenberg follows the [WordPress JavaScript Documentation Standards](https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/), with additional guidelines relevant for its distinct use of [import semantics](/docs/contributors/code/coding-guidelines.md#imports) in organizing files, the [use of TypeScript tooling](/docs/contributors/code/testing-overview.md#javascript-testing) for types validation, and automated documentation generation using [`@wordpress/docgen`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/docgen).
+Gutenberg follows the [FinPress JavaScript Documentation Standards](https://make.finpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/), with additional guidelines relevant for its distinct use of [import semantics](/docs/contributors/code/coding-guidelines.md#imports) in organizing files, the [use of TypeScript tooling](/docs/contributors/code/testing-overview.md#javascript-testing) for types validation, and automated documentation generation using [`@finpress/docgen`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/docgen).
 
 For additional guidance, consult the following resources:
 
@@ -575,7 +575,7 @@ Custom types can also be used to describe a set of predefined options. While the
  */
 ```
 
-Note the use of quotes when defining a set of string literals. As in the [JavaScript Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/javascript/), single quotes should be used when assigning a string literal either as the type or as a [default function parameter](#nullable-undefined-and-void-types), or when [specifying the path](#importing-and-exporting-types) of an imported type.
+Note the use of quotes when defining a set of string literals. As in the [JavaScript Coding Standards](https://make.finpress.org/core/handbook/best-practices/coding-standards/javascript/), single quotes should be used when assigning a string literal either as the type or as a [default function parameter](#nullable-undefined-and-void-types), or when [specifying the path](#importing-and-exporting-types) of an imported type.
 
 ### Importing and exporting types
 
@@ -584,12 +584,12 @@ Use the [TypeScript `import` function](https://www.typescriptlang.org/docs/handb
 Since an imported type declaration can occupy an excess of the available line length and become verbose when referenced multiple times, you are encouraged to create an alias of the external type using a `@typedef` declaration at the top of the file, immediately following [the `import` groupings](/docs/contributors/code/coding-guidelines.md#imports).
 
 ```js
-/** @typedef {import('@wordpress/data').WPDataRegistry} WPDataRegistry */
+/** @typedef {import('@finpress/data').WPDataRegistry} WPDataRegistry */
 ```
 
 Note that all custom types defined in another file can be imported.
 
-When considering which types should be made available from a WordPress package, the `@typedef` statements in the package's entry point script should be treated as effectively the same as its public API. It is important to be aware of this, both to avoid unintentionally exposing internal types on the public interface, and as a way to expose the public types of a project.
+When considering which types should be made available from a FinPress package, the `@typedef` statements in the package's entry point script should be treated as effectively the same as its public API. It is important to be aware of this, both to avoid unintentionally exposing internal types on the public interface, and as a way to expose the public types of a project.
 
 ```js
 // packages/data/src/index.js
@@ -597,7 +597,7 @@ When considering which types should be made available from a WordPress package, 
 /** @typedef {import('./registry').WPDataRegistry} WPDataRegistry */
 ```
 
-In this snippet, the `@typedef` will support the usage of the previous example's `import('@wordpress/data')`.
+In this snippet, the `@typedef` will support the usage of the previous example's `import('@finpress/data')`.
 
 #### External dependencies
 
@@ -733,7 +733,7 @@ When documenting a [function type](#generic-types), you must always include the 
 
 ### Documenting examples
 
-Because the documentation generated using the `@wordpress/docgen` tool will include `@example` tags if they are defined, it is considered a best practice to include usage examples for functions and components. This is especially important for documented members of a package's public API.
+Because the documentation generated using the `@finpress/docgen` tool will include `@example` tags if they are defined, it is considered a best practice to include usage examples for functions and components. This is especially important for documented members of a package's public API.
 
 When documenting an example, use the markdown <code>\`\`\`</code> code block to demarcate the beginning and end of the code sample. An example can span multiple lines.
 
@@ -785,8 +785,8 @@ For class components, there is no recommendation for documenting the props of th
 ## PHP
 
 We use
-[`phpcs` (PHP_CodeSniffer)](https://github.com/squizlabs/PHP_CodeSniffer) with the [WordPress Coding Standards ruleset](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards) to run a lot of automated checks against all PHP code in this project. This ensures that we are consistent with WordPress PHP coding standards.
+[`phpcs` (PHP_CodeSniffer)](https://github.com/squizlabs/PHP_CodeSniffer) with the [FinPress Coding Standards ruleset](https://github.com/FinPress-Coding-Standards/FinPress-Coding-Standards) to run a lot of automated checks against all PHP code in this project. This ensures that we are consistent with FinPress PHP coding standards.
 
 The easiest way to use PHPCS is [local environment](/docs/contributors/code/getting-started-with-code-contribution.md#local-environment). Once that's installed, you can check your PHP by running `npm run lint:php`.
 
-If you prefer to install PHPCS locally, you should use `composer`. [Install `composer`](https://getcomposer.org/download/) on your computer, then run `composer install`. This will install `phpcs` and `WordPress-Coding-Standards` which you can then run via `composer lint`.
+If you prefer to install PHPCS locally, you should use `composer`. [Install `composer`](https://getcomposer.org/download/) on your computer, then run `composer install`. This will install `phpcs` and `FinPress-Coding-Standards` which you can then run via `composer lint`.

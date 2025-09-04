@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
 	__unstableMotion as motion,
 	__unstableAnimatePresence as AnimatePresence,
-} from '@wordpress/components';
-import { chevronLeftSmall, chevronRightSmall } from '@wordpress/icons';
-import { useReducedMotion, useInstanceId } from '@wordpress/compose';
-import { _x, isRTL } from '@wordpress/i18n';
-import { Fragment } from '@wordpress/element';
+} from '@finpress/components';
+import { chevronLeftSmall, chevronRightSmall } from '@finpress/icons';
+import { useReducedMotion, useInstanceId } from '@finpress/compose';
+import { _x, isRTL } from '@finpress/i18n';
+import { Fragment } from '@finpress/element';
 
 function LinkSettingsDrawer( { children, settingsOpen, setSettingsOpen } ) {
 	const prefersReducedMotion = useReducedMotion();

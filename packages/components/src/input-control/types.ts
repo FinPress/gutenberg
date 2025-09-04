@@ -140,7 +140,7 @@ export interface InputBaseProps extends BaseProps, FlexProps {
 	 * import {
 	 *   __experimentalInputControl as InputControl,
 	 *   __experimentalInputControlPrefixWrapper as InputControlPrefixWrapper,
-	 * } from '@wordpress/components';
+	 * } from '@finpress/components';
 	 *
 	 * <InputControl
 	 *   prefix={<InputControlPrefixWrapper>@</InputControlPrefixWrapper>}
@@ -159,7 +159,7 @@ export interface InputBaseProps extends BaseProps, FlexProps {
 	 * import {
 	 *   __experimentalInputControl as InputControl,
 	 *   __experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
-	 * } from '@wordpress/components';
+	 * } from '@finpress/components';
 	 *
 	 * <InputControl
 	 *   suffix={<InputControlSuffixWrapper>%</InputControlSuffixWrapper>}

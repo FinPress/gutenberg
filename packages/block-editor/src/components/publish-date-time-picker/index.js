@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { DateTimePicker, TimePicker } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { forwardRef } from '@wordpress/element';
-import { getSettings } from '@wordpress/date';
+import { DateTimePicker, TimePicker } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { forwardRef } from '@finpress/element';
+import { getSettings } from '@finpress/date';
 
 /**
  * Internal dependencies

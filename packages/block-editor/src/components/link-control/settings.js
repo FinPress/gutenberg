@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { CheckboxControl, VisuallyHidden } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { CheckboxControl, VisuallyHidden } from '@finpress/components';
 
 const noop = () => {};
 

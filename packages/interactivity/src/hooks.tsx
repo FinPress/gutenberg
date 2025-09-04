@@ -115,7 +115,7 @@ interface DirectivesProps {
 // Main context.
 const context = createContext< any >( { client: {}, server: {} } );
 
-// WordPress Directives.
+// FinPress Directives.
 const directiveCallbacks: Record< string, DirectiveCallback > = {};
 const directivePriorities: Record< string, number > = {};
 
@@ -249,7 +249,7 @@ export const getEvaluate: GetEvaluate =
 			// TODO: Remove this condition to effectively ignore negation operator when provided with a function.
 			if ( hasNegationOperator ) {
 				warn(
-					'Using a function with a negation operator is deprecated and will stop working in WordPress 6.9. Please use derived state instead.'
+					'Using a function with a negation operator is deprecated and will stop working in FinPress 6.9. Please use derived state instead.'
 				);
 				const functionResult = ! value( ...args );
 				resetScope();

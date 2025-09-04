@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Gutenberg Test Custom Post Types
- * Plugin URI: https://github.com/WordPress/gutenberg
+ * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team
  *
  * @package gutenberg-test-custom-post-types
@@ -122,7 +122,7 @@ function legacy_block_in_template_cpt() {
 			'show_in_menu'       => true,
 			'template'           => array(
 				array(
-					'core-embed/wordpress-tv',
+					'core-embed/finpress-tv',
 					array( 'className' => 'wordpress_video' ),
 				),
 			),

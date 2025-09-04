@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
-import { createReduxStore, register } from '@wordpress/data';
+import apiFetch from '@finpress/api-fetch';
+import { createReduxStore, register } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ import { unlock } from '../lock-unlock';
 /**
  * Block editor data store configuration.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#register
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/data/README.md#register
  *
  * @type {Object}
  */
@@ -32,7 +32,7 @@ const storeConfig = {
 /**
  * Store definition for the edit widgets namespace.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
  *
  * @type {Object}
  */

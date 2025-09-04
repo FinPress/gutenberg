@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { useMemo } from '@wordpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { useMemo } from '@finpress/element';
 import {
 	Button,
 	__experimentalText as Text,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

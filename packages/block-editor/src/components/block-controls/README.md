@@ -4,20 +4,20 @@ When the user selects a particular block, a toolbar positioned above the selecte
 
 With `BlockControls`, you can customize the toolbar to include controls specific to your block type. If the return value of your block type's `edit` function includes a `BlockControls` element, the controls nested inside it will be shown in the selected block's toolbar.
 
-![Screenshot of the block controls of a Paragraph block inside the block editor](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/toolbar-text.png)
+![Screenshot of the block controls of a Paragraph block inside the block editor](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/assets/toolbar-text.png)
 
 ## Usage
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockControls,
 	__experimentalBlockAlignmentMatrixControl as BlockAlignmentMatrixControl,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
 
 export default function MyBlockEdit( { attributes, setAttributes } ) {
 	const blockProps = useBlockProps( {

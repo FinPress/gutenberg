@@ -4,9 +4,9 @@
 import Clipboard from 'clipboard';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useLayoutEffect } from '@wordpress/element';
+import { useRef, useLayoutEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -29,7 +29,7 @@ function UnconnectedText(
  * @example
  *
  * ```jsx
- * import { __experimentalText as Text } from `@wordpress/components`;
+ * import { __experimentalText as Text } from `@finpress/components`;
  *
  * function Example() {
  * 	return <Text>Code is Poetry</Text>;

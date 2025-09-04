@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { focus } from '@wordpress/dom';
-import { addQueryArgs } from '@wordpress/url';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { focus } from '@finpress/dom';
+import { addQueryArgs } from '@finpress/url';
 
 export default function SitePreview() {
 	const siteUrl = useSelect( ( select ) => {

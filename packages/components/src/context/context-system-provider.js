@@ -6,7 +6,7 @@ import fastDeepEqual from 'fast-deep-equal/es6';
 import { isPlainObject } from 'is-plain-object';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createContext,
@@ -14,8 +14,8 @@ import {
 	useRef,
 	useMemo,
 	memo,
-} from '@wordpress/element';
-import warn from '@wordpress/warning';
+} from '@finpress/element';
+import warn from '@finpress/warning';
 
 /**
  * Internal dependencies

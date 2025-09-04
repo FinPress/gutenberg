@@ -4,11 +4,11 @@
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect, useCallback } from '@wordpress/element';
-import isShallowEqual from '@wordpress/is-shallow-equal';
-import { getWidgetIdFromBlock, addWidgetIdToBlock } from '@wordpress/widgets';
+import { useState, useEffect, useCallback } from '@finpress/element';
+import isShallowEqual from '@finpress/is-shallow-equal';
+import { getWidgetIdFromBlock, addWidgetIdToBlock } from '@finpress/widgets';
 
 /**
  * Internal dependencies

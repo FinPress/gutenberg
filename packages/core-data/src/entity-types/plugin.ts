@@ -58,7 +58,7 @@ declare module './base-entity-records' {
 			 */
 			network_only: boolean;
 			/**
-			 * Minimum required version of WordPress.
+			 * Minimum required version of FinPress.
 			 */
 			requires_wp: string;
 			/**

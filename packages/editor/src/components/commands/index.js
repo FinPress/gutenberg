@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __, isRTL, sprintf } from '@wordpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __, isRTL, sprintf } from '@finpress/i18n';
 import {
 	blockDefault,
 	code,
@@ -18,14 +18,14 @@ import {
 	layout,
 	rotateRight,
 	rotateLeft,
-} from '@wordpress/icons';
-import { useCommandLoader } from '@wordpress/commands';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { store as coreStore, useEntityRecord } from '@wordpress/core-data';
-import { store as interfaceStore } from '@wordpress/interface';
-import { decodeEntities } from '@wordpress/html-entities';
+} from '@finpress/icons';
+import { useCommandLoader } from '@finpress/commands';
+import { store as preferencesStore } from '@finpress/preferences';
+import { store as noticesStore } from '@finpress/notices';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { store as coreStore, useEntityRecord } from '@finpress/core-data';
+import { store as interfaceStore } from '@finpress/interface';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies
@@ -394,7 +394,7 @@ const getManipulateDocumentCommands = () =>
 			postType,
 			postId
 		);
-		// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+		// eslint-disable-next-line @finpress/no-unused-vars-before-return
 		const { revertTemplate } = unlock( useDispatch( editorStore ) );
 
 		if (

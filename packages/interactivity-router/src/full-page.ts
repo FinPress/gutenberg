@@ -25,7 +25,7 @@ document.addEventListener( 'click', async ( event ) => {
 	const ref = ( event.target as Element ).closest( 'a' );
 	if ( isValidLink( ref ) && isValidEvent( event ) ) {
 		event.preventDefault();
-		const { actions } = await import( '@wordpress/interactivity-router' );
+		const { actions } = await import( '@finpress/interactivity-router' );
 		actions.navigate( ref.href );
 	}
 } );
@@ -37,7 +37,7 @@ document.addEventListener(
 			const ref = ( event.target as Element ).closest( 'a' );
 			if ( isValidLink( ref ) && isValidEvent( event ) ) {
 				const { actions } = await import(
-					'@wordpress/interactivity-router'
+					'@finpress/interactivity-router'
 				);
 				actions.prefetch( ref.href );
 			}

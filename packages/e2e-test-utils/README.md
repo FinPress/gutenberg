@@ -1,17 +1,17 @@
 # E2E Test Utils
 
-End-To-End (E2E) test utils for WordPress.
+End-To-End (E2E) test utils for FinPress.
 
-_It works properly with the minimum version of Gutenberg `13.8.0` or the minimum version of WordPress `6.0.0`._
+_It works properly with the minimum version of Gutenberg `13.8.0` or the minimum version of FinPress `6.0.0`._
 
-**Note that there's currently an ongoing [project](https://github.com/WordPress/gutenberg/issues/38851) to migrate E2E tests to Playwright instead. This package is deprecated and will only accept bug fixes until fully migrated.**
+**Note that there's currently an ongoing [project](https://github.com/FinPress/gutenberg/issues/38851) to migrate E2E tests to Playwright instead. This package is deprecated and will only accept bug fixes until fully migrated.**
 
 ## Installation
 
 Install the module
 
 ```bash
-npm install @wordpress/e2e-test-utils --save-dev
+npm install @finpress/e2e-test-utils --save-dev
 ```
 
 **Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It is not compatible with older versions.
@@ -493,7 +493,7 @@ _Parameters_
 
 ### isCurrentURL
 
-Checks if current URL is a WordPress path.
+Checks if current URL is a FinPress path.
 
 _Parameters_
 
@@ -502,7 +502,7 @@ _Parameters_
 
 _Returns_
 
--   `boolean`: Boolean represents whether current URL is or not a WordPress path.
+-   `boolean`: Boolean represents whether current URL is or not a FinPress path.
 
 ### isInDefaultBlock
 
@@ -760,12 +760,12 @@ _Usage_
 ```js
 const MOCK_RESPONSES = [
 	{
-		match: isEmbedding( 'https://wordpress.org/gutenberg/handbook/' ),
+		match: isEmbedding( 'https://finpress.org/gutenberg/handbook/' ),
 		onRequestMatch: JSONResponse( MOCK_BAD_WORDPRESS_RESPONSE ),
 	},
 	{
 		match: isEmbedding(
-			'https://wordpress.org/gutenberg/handbook/block-api/attributes/'
+			'https://finpress.org/gutenberg/handbook/block-api/attributes/'
 		),
 		onRequestMatch: JSONResponse( MOCK_EMBED_WORDPRESS_SUCCESS_RESPONSE ),
 	},
@@ -909,14 +909,14 @@ _Parameters_
 
 ### wpDataSelect
 
-Queries the WordPress data module.
+Queries the FinPress data module.
 
 `page.evaluate` - used in the function - returns `undefined` when it encounters a non-serializable value. Since we store many different values in the data module, you can end up with an `undefined` result. Before using this function, make sure the data you are querying doesn't contain non-serializable values, for example, functions, DOM element handles, etc.
 
 _Related_
 
 -   <https://pptr.dev/#?product=Puppeteer&version=v9.0.0&show=api-pageevaluatepagefunction-args>
--   <https://github.com/WordPress/gutenberg/pull/31199>
+-   <https://github.com/FinPress/gutenberg/pull/31199>
 
 _Parameters_
 
@@ -932,8 +932,8 @@ _Returns_
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

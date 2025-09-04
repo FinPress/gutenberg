@@ -4,14 +4,14 @@
 import { TextInput } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useImperativeHandle, useRef } from '@wordpress/element';
+import { forwardRef, useImperativeHandle, useRef } from '@finpress/element';
 
 // Preserve the mock of AztecInputState and AztecKeyCodes to be exported with the AztecView mock.
-const AztecInputState = jest.requireActual( '@wordpress/react-native-aztec' )
+const AztecInputState = jest.requireActual( '@finpress/react-native-aztec' )
 	.default.InputState;
-const AztecKeyCodes = jest.requireActual( '@wordpress/react-native-aztec' )
+const AztecKeyCodes = jest.requireActual( '@finpress/react-native-aztec' )
 	.default.KeyCodes;
 
 const RCTAztecView = ( { accessibilityLabel, text, ...rest }, ref ) => {
@@ -20,7 +20,7 @@ const RCTAztecView = ( { accessibilityLabel, text, ...rest }, ref ) => {
 
 	useImperativeHandle( ref, () => ( {
 		// We need to reference the props of TextInput because they are used in TextColorEdit to calculate the color indicator.
-		// Reference: https://github.com/WordPress/gutenberg/blob/4407ae6fa20bdd3c3aa62d50344e796467359246/packages/format-library/src/text-color/index.native.js#L83-L86
+		// Reference: https://github.com/FinPress/gutenberg/blob/4407ae6fa20bdd3c3aa62d50344e796467359246/packages/format-library/src/text-color/index.native.js#L83-L86
 		props: { ...inputRef.current.props },
 		blur: () => {
 			AztecInputState.blur( inputRef.current );

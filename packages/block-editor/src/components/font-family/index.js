@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { CustomSelectControl } from '@wordpress/components';
-import deprecated from '@wordpress/deprecated';
-import { __ } from '@wordpress/i18n';
+import { CustomSelectControl } from '@finpress/components';
+import deprecated from '@finpress/deprecated';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

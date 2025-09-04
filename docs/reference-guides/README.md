@@ -52,7 +52,7 @@
 
 ## [Data Module Reference](/docs/reference-guides/data/README.md)
 
--   [**core**: WordPress Core Data](/docs/reference-guides/data/data-core.md)
+-   [**core**: FinPress Core Data](/docs/reference-guides/data/data-core.md)
     -   [**core/annotations**: Annotations](/docs/reference-guides/data/data-core-annotations.md)
     -   [**core/block-directory**: Block directory](/docs/reference-guides/data/data-core-block-directory.md)
     -   [**core/block-editor**: The Block Editor’s Data](/docs/reference-guides/data/data-core-block-editor.md)

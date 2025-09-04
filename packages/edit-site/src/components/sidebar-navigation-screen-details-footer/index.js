@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _n, sprintf } from '@wordpress/i18n';
-import { addQueryArgs } from '@wordpress/url';
-import { __experimentalItemGroup as ItemGroup } from '@wordpress/components';
-import { backup } from '@wordpress/icons';
+import { _n, sprintf } from '@finpress/i18n';
+import { addQueryArgs } from '@finpress/url';
+import { __experimentalItemGroup as ItemGroup } from '@finpress/components';
+import { backup } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ export default function SidebarNavigationScreenDetailsFooter( {
 	 * This link is used for theme assets, e.g., templates, which have no database record until they're edited.
 	 * For these files there's only a "revision" after they're edited twice,
 	 * which means the revision.php page won't display a proper diff.
-	 * See: https://github.com/WordPress/gutenberg/issues/49164.
+	 * See: https://github.com/FinPress/gutenberg/issues/49164.
 	 */
 	if ( lastRevisionId && revisionsCount > 1 ) {
 		hrefProps.href = addQueryArgs( 'revision.php', {

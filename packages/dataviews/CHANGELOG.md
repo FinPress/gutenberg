@@ -1,72 +1,72 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
 ### Breaking changes
 
-- Revert the ability to hide the view config via `config` prop and export a `DataViews.Footer` component to support the "Minimal UI" story. [#71276](https://github.com/WordPress/gutenberg/pull/71276)
+- Revert the ability to hide the view config via `config` prop and export a `DataViews.Footer` component to support the "Minimal UI" story. [#71276](https://github.com/FinPress/gutenberg/pull/71276)
 
 ### Enhancements
 
--   DataForm: add description support for the combined fields and show the description in the Card layout ([#71380](https://github.com/WordPress/gutenberg/pull/71380)).
+-   DataForm: add description support for the combined fields and show the description in the Card layout ([#71380](https://github.com/FinPress/gutenberg/pull/71380)).
 
 ### Bug Fixes
 
--   DataViews: Fix incorrect documentation for `defaultLayouts` prop. [#71334](https://github.com/WordPress/gutenberg/pull/71334)
--   DataViews: Fix mismatched padding on mobile viewports for grid layout [#71455](https://github.com/WordPress/gutenberg/pull/71455)
+-   DataViews: Fix incorrect documentation for `defaultLayouts` prop. [#71334](https://github.com/FinPress/gutenberg/pull/71334)
+-   DataViews: Fix mismatched padding on mobile viewports for grid layout [#71455](https://github.com/FinPress/gutenberg/pull/71455)
 
 ## 7.0.0 (2025-08-20)
 
 ### Breaking changes
 
-- DataForm: introduce a new `card` layout. The `form.type` has been moved under a new `layout` object and it is now `form.layout.type`, check the README for details. [#71100](https://github.com/WordPress/gutenberg/pull/71100)
-- Adds a new `config` prop to DataViews that allows hiding the view config control entirely. The `perPageSizes` prop has been moved to be part of this new prop. [#71173](https://github.com/WordPress/gutenberg/pull/71173)
+- DataForm: introduce a new `card` layout. The `form.type` has been moved under a new `layout` object and it is now `form.layout.type`, check the README for details. [#71100](https://github.com/FinPress/gutenberg/pull/71100)
+- Adds a new `config` prop to DataViews that allows hiding the view config control entirely. The `perPageSizes` prop has been moved to be part of this new prop. [#71173](https://github.com/FinPress/gutenberg/pull/71173)
 
 ### Features
 
-- Introduce a new `array` DataForm Edit control that supports multi-selection. [#71136](https://github.com/WordPress/gutenberg/pull/71136)
-- Add `enableMoving` option to the `table` layout to allow or disallow column moving left and right. [#71120](https://github.com/WordPress/gutenberg/pull/71120)
-- Add infinite scroll support across all layout types (grid, list, table). Enable infinite scroll by providing an `infiniteScrollHandler` function in the `paginationInfo` prop and toggling the feature in the view configuration. ([#70955](https://github.com/WordPress/gutenberg/pull/70955))
-- Add support for modal in DataForm panel layouts. [#71212](https://github.com/WordPress/gutenberg/pull/71212)
+- Introduce a new `array` DataForm Edit control that supports multi-selection. [#71136](https://github.com/FinPress/gutenberg/pull/71136)
+- Add `enableMoving` option to the `table` layout to allow or disallow column moving left and right. [#71120](https://github.com/FinPress/gutenberg/pull/71120)
+- Add infinite scroll support across all layout types (grid, list, table). Enable infinite scroll by providing an `infiniteScrollHandler` function in the `paginationInfo` prop and toggling the feature in the view configuration. ([#70955](https://github.com/FinPress/gutenberg/pull/70955))
+- Add support for modal in DataForm panel layouts. [#71212](https://github.com/FinPress/gutenberg/pull/71212)
 
 ### Enhancements
 
-- Update DataForm stories to better highlight the library's capabilities ([#71268](https://github.com/WordPress/gutenberg/pull/71268)).
-- Add two smaller sizs to the grid layout ([#71077](https://github.com/WordPress/gutenberg/pull/71077)).
+- Update DataForm stories to better highlight the library's capabilities ([#71268](https://github.com/FinPress/gutenberg/pull/71268)).
+- Add two smaller sizs to the grid layout ([#71077](https://github.com/FinPress/gutenberg/pull/71077)).
 
 ### Bug Fixes
 
-- Do not throw exception when `view.layout.previewSize` is smaller than the smallest available size. [#71218](https://github.com/WordPress/gutenberg/pull/71218)
-- Fix actions horizontal layout consistency when all actions are primary. [#71274](https://github.com/WordPress/gutenberg/pull/71274)
+- Do not throw exception when `view.layout.previewSize` is smaller than the smallest available size. [#71218](https://github.com/FinPress/gutenberg/pull/71218)
+- Fix actions horizontal layout consistency when all actions are primary. [#71274](https://github.com/FinPress/gutenberg/pull/71274)
 
 ## 6.0.0 (2025-08-07)
 
 ### Breaking changes
 
-- Field API: `isValid` is now an object that contains `required` and `custom` validation rules. Additionally, fields should now opt-in into being a "required" field by setting `isValid.required` to `true` (all fields of type `email` and `integer` were required by default). [#70901](https://github.com/WordPress/gutenberg/pull/70901)
+- Field API: `isValid` is now an object that contains `required` and `custom` validation rules. Additionally, fields should now opt-in into being a "required" field by setting `isValid.required` to `true` (all fields of type `email` and `integer` were required by default). [#70901](https://github.com/FinPress/gutenberg/pull/70901)
 
 ### Bug Fixes
 
-- Do not render an empty `&nbsp;` when the title field has level 0. [#71021](https://github.com/WordPress/gutenberg/pull/71021)
-- When a field type is `array` and it has elements, the select control should allow multi-selection. [#71000](https://github.com/WordPress/gutenberg/pull/71000)
-- Set minimum and maximum number of items in `perPageSizes`, so that the UI control is disabled when the list exceeds those limits. [#71004](https://github.com/WordPress/gutenberg/pull/71004)
-- Fix `filterSortAndPaginate` to handle searching fields that have a type of `array` ([#70785](https://github.com/WordPress/gutenberg/pull/70785)).
-- Fix user-input filters: empty value for text and integer filters means there's no value to search for (so it returns all items). It also fixes a type conversion where empty strings for integer were converted to 0 [#70956](https://github.com/WordPress/gutenberg/pull/70956/).
-- Fix Table layout Title's column wrapping and min-width so that long descriptions can be visualized without scrolling. [#70983](https://github.com/WordPress/gutenberg/pull/70983)
+- Do not render an empty `&nbsp;` when the title field has level 0. [#71021](https://github.com/FinPress/gutenberg/pull/71021)
+- When a field type is `array` and it has elements, the select control should allow multi-selection. [#71000](https://github.com/FinPress/gutenberg/pull/71000)
+- Set minimum and maximum number of items in `perPageSizes`, so that the UI control is disabled when the list exceeds those limits. [#71004](https://github.com/FinPress/gutenberg/pull/71004)
+- Fix `filterSortAndPaginate` to handle searching fields that have a type of `array` ([#70785](https://github.com/FinPress/gutenberg/pull/70785)).
+- Fix user-input filters: empty value for text and integer filters means there's no value to search for (so it returns all items). It also fixes a type conversion where empty strings for integer were converted to 0 [#70956](https://github.com/FinPress/gutenberg/pull/70956/).
+- Fix Table layout Title's column wrapping and min-width so that long descriptions can be visualized without scrolling. [#70983](https://github.com/FinPress/gutenberg/pull/70983)
 
 ### Features
 
-- Introduce locked filters, as filters that cannot be edited by the user. [#71075](https://github.com/WordPress/gutenberg/pull/71075)
-- Add "groupBy" support to the table layout. [#71055](https://github.com/WordPress/gutenberg/pull/71055)
-- Elements in the Field API can now provide an empty value that will be used instead of the default. [#70894](https://github.com/WordPress/gutenberg/pull/70894)
-- Support Ctrl + Click / Cmd + Click for multiselecting rows in the Table layout ([#70891](https://github.com/WordPress/gutenberg/pull/70891)).
-- Add support for the `Edit` control on the date field type ([#70836](https://github.com/WordPress/gutenberg/pull/70836)).
-- Add support for responsive image attributes in media fields by adding a `config` prop to `mediaField.render`, containing a `sizes` string. Also simplifies grid logic and fixes imprecisions in grid resizing by changing the observed container. ([#70493](https://github.com/WordPress/gutenberg/pull/70493)).
+- Introduce locked filters, as filters that cannot be edited by the user. [#71075](https://github.com/FinPress/gutenberg/pull/71075)
+- Add "groupBy" support to the table layout. [#71055](https://github.com/FinPress/gutenberg/pull/71055)
+- Elements in the Field API can now provide an empty value that will be used instead of the default. [#70894](https://github.com/FinPress/gutenberg/pull/70894)
+- Support Ctrl + Click / Cmd + Click for multiselecting rows in the Table layout ([#70891](https://github.com/FinPress/gutenberg/pull/70891)).
+- Add support for the `Edit` control on the date field type ([#70836](https://github.com/FinPress/gutenberg/pull/70836)).
+- Add support for responsive image attributes in media fields by adding a `config` prop to `mediaField.render`, containing a `sizes` string. Also simplifies grid logic and fixes imprecisions in grid resizing by changing the observed container. ([#70493](https://github.com/FinPress/gutenberg/pull/70493)).
 - `DataViews` empty state can be customized using the new `empty` prop.
 
 ### Enhancements
 
-- Make the media item clickable along the title ([#70985](https://github.com/WordPress/gutenberg/pull/70985)).
+- Make the media item clickable along the title ([#70985](https://github.com/FinPress/gutenberg/pull/70985)).
 
 ## 5.0.0 (2025-07-23)
 
@@ -134,7 +134,7 @@
 
 ### Bug Fixes
 
--   Fixed commonjs export ([#67962](https://github.com/WordPress/gutenberg/pull/67962))
+-   Fixed commonjs export ([#67962](https://github.com/FinPress/gutenberg/pull/67962))
 
 ### Features
 
@@ -144,8 +144,8 @@
 
 ### Breaking Changes
 
--   Support showing or hiding title, media and description fields ([#67477](https://github.com/WordPress/gutenberg/pull/67477)).
--   Unify the `title`, `media` and `description` fields for the different layouts. So instead of the previous `view.layout.mediaField`, `view.layout.primaryField` and `view.layout.columnFields`, all the layouts now support these three fields with the following config ([#67477](https://github.com/WordPress/gutenberg/pull/67477)):
+-   Support showing or hiding title, media and description fields ([#67477](https://github.com/FinPress/gutenberg/pull/67477)).
+-   Unify the `title`, `media` and `description` fields for the different layouts. So instead of the previous `view.layout.mediaField`, `view.layout.primaryField` and `view.layout.columnFields`, all the layouts now support these three fields with the following config ([#67477](https://github.com/FinPress/gutenberg/pull/67477)):
 
 ```js
 const view = {
@@ -159,14 +159,14 @@ const view = {
 
 ### Internal
 
--   Upgraded `@ariakit/react` (v0.4.13) and `@ariakit/test` (v0.4.5) ([#65907](https://github.com/WordPress/gutenberg/pull/65907)).
--   Upgraded `@ariakit/react` (v0.4.15) and `@ariakit/test` (v0.4.7) ([#67404](https://github.com/WordPress/gutenberg/pull/67404)).
+-   Upgraded `@ariakit/react` (v0.4.13) and `@ariakit/test` (v0.4.5) ([#65907](https://github.com/FinPress/gutenberg/pull/65907)).
+-   Upgraded `@ariakit/react` (v0.4.15) and `@ariakit/test` (v0.4.7) ([#67404](https://github.com/FinPress/gutenberg/pull/67404)).
 
 ## 4.9.0 (2024-11-27)
 
 ### Bug Fixes
 
--   Fix focus loss when removing all filters or resetting ([#67003](https://github.com/WordPress/gutenberg/pull/67003)).
+-   Fix focus loss when removing all filters or resetting ([#67003](https://github.com/FinPress/gutenberg/pull/67003)).
 
 ## 4.8.0 (2024-11-16)
 
@@ -174,7 +174,7 @@ const view = {
 
 ## 4.6.0 (2024-10-16)
 
--   Invert the logic for which icon to show in `DataViews` when using the filter view. Icons now match the action of the button label. ([#65914](https://github.com/WordPress/gutenberg/pull/65914)).
+-   Invert the logic for which icon to show in `DataViews` when using the filter view. Icons now match the action of the button label. ([#65914](https://github.com/FinPress/gutenberg/pull/65914)).
 
 ## 4.5.0 (2024-10-03)
 
@@ -186,22 +186,22 @@ const view = {
 
 ## New features
 
--   Support using a component for field headers or names by providing a `header` property in the field object. The string `label` property (or `id`) is still mandatory. ([#64642](https://github.com/WordPress/gutenberg/pull/64642)).
+-   Support using a component for field headers or names by providing a `header` property in the field object. The string `label` property (or `id`) is still mandatory. ([#64642](https://github.com/FinPress/gutenberg/pull/64642)).
 
 ## Internal
 
--   The "move left/move right" controls in the table layout (popup displayed on cliking header) are always visible. ([#64646](https://github.com/WordPress/gutenberg/pull/64646)). Before this, its visibility depending on filters, enableSorting, and enableHiding.
--   Filters no longer display the elements' description. ([#64674](https://github.com/WordPress/gutenberg/pull/64674))
+-   The "move left/move right" controls in the table layout (popup displayed on cliking header) are always visible. ([#64646](https://github.com/FinPress/gutenberg/pull/64646)). Before this, its visibility depending on filters, enableSorting, and enableHiding.
+-   Filters no longer display the elements' description. ([#64674](https://github.com/FinPress/gutenberg/pull/64674))
 
 ## Enhancements
 
--   Adjust layout of filter / actions row, increase width of search control when the container is narrower. ([#64681](https://github.com/WordPress/gutenberg/pull/64681)).
+-   Adjust layout of filter / actions row, increase width of search control when the container is narrower. ([#64681](https://github.com/FinPress/gutenberg/pull/64681)).
 
 ## 4.1.0 (2024-08-07)
 
 ## Internal
 
--   Upgraded `@ariakit/react` (v0.4.7) ([#64066](https://github.com/WordPress/gutenberg/pull/64066)).
+-   Upgraded `@ariakit/react` (v0.4.7) ([#64066](https://github.com/FinPress/gutenberg/pull/64066)).
 
 ## 4.0.0 (2024-07-24)
 
@@ -230,7 +230,7 @@ const view = {
 
 ### Internal
 
--   Method style type signatures have been changed to function style ([#62718](https://github.com/WordPress/gutenberg/pull/62718)).
+-   Method style type signatures have been changed to function style ([#62718](https://github.com/FinPress/gutenberg/pull/62718)).
 
 ## 2.2.0 (2024-06-26)
 
@@ -241,23 +241,23 @@ const view = {
 ### Breaking Changes
 
 -   Legacy support for `in` and `notIn` operators introduced in 0.8 .0 has been removed and they no longer work. Please, convert them to `is` and `isNot` respectively.
--   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/WordPress/gutenberg/pull/61486)).
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ### Internal
 
--   Remove some unused dependencies ([#62010](https://github.com/WordPress/gutenberg/pull/62010)).
+-   Remove some unused dependencies ([#62010](https://github.com/FinPress/gutenberg/pull/62010)).
 
 ### Enhancements
 
--   `label` prop in Actions API can be either a `string` value or a `function`, in case we want to use information from the selected items. ([#61942](https://github.com/WordPress/gutenberg/pull/61942)).
--   Add `registry` argument to the callback of the actions API. ([#62505](https://github.com/WordPress/gutenberg/pull/62505)).
+-   `label` prop in Actions API can be either a `string` value or a `function`, in case we want to use information from the selected items. ([#61942](https://github.com/FinPress/gutenberg/pull/61942)).
+-   Add `registry` argument to the callback of the actions API. ([#62505](https://github.com/FinPress/gutenberg/pull/62505)).
 
 ## 1.2.0 (2024-05-16)
 
 ### Internal
 
--   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/WordPress/gutenberg/pull/61138)).
+-   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/FinPress/gutenberg/pull/61138)).
 
 ## 1.1.0 (2024-05-02)
 

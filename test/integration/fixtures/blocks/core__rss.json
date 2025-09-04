@@ -5,7 +5,7 @@
 		"attributes": {
 			"columns": 2,
 			"blockLayout": "grid",
-			"feedURL": "https://wordpress.org/news/",
+			"feedURL": "https://finpress.org/news/",
 			"itemsToShow": 4,
 			"displayExcerpt": true,
 			"displayAuthor": true,

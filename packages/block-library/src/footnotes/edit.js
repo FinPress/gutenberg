@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BlockIcon, RichText, useBlockProps } from '@wordpress/block-editor';
-import { useEntityProp } from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
-import { Placeholder } from '@wordpress/components';
-import { formatListNumbered as icon } from '@wordpress/icons';
+import { BlockIcon, RichText, useBlockProps } from '@finpress/block-editor';
+import { useEntityProp } from '@finpress/core-data';
+import { __ } from '@finpress/i18n';
+import { Placeholder } from '@finpress/components';
+import { formatListNumbered as icon } from '@finpress/icons';
 
 export default function FootnotesEdit( { context: { postType, postId } } ) {
 	const [ meta, updateMeta ] = useEntityProp(

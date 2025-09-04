@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Navigation block - Frontend interactivity', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -31,8 +31,8 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await requestUtils.createNavigationMenu( {
 				title: 'Hidden menu',
 				content: `
-					<!-- wp:navigation-link {"label":"Item 1","type":"custom","url":"http://www.wordpress.org/"} /-->
-					<!-- wp:navigation-link {"label":"Item 2","type":"custom","url":"http://www.wordpress.org/"} /-->
+					<!-- wp:navigation-link {"label":"Item 1","type":"custom","url":"http://www.finpress.org/"} /-->
+					<!-- wp:navigation-link {"label":"Item 2","type":"custom","url":"http://www.finpress.org/"} /-->
 					`,
 			} );
 			await editor.insertBlock( {
@@ -88,7 +88,7 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 		 * keypresses (passes 50 - 70% of the time). Tab keypresses are testing fine manually in Safari, but not
 		 * in the test. Once we figure out why the Tab keypresses are flakey in the test, we can
 		 * remove this test and only rely on the Overlay Interactions test above and add a (@firefox, @webkit)
-		 * directive to the describe() statement. https://github.com/WordPress/gutenberg/pull/55198
+		 * directive to the describe() statement. https://github.com/FinPress/gutenberg/pull/55198
 		 */
 		test( 'Overlay menu interactions in Safari (@webkit)', async ( {
 			page,
@@ -143,18 +143,18 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await requestUtils.createNavigationMenu( {
 				title: 'Hidden menu',
 				content: `
-					<!-- wp:navigation-link {"label":"Link 1","type":"custom","url":"http://www.wordpress.org/"} /-->
+					<!-- wp:navigation-link {"label":"Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
 					<!-- wp:navigation-submenu {"label":"Simple Submenu","type":"internal","url":"#heading","kind":"custom"} -->
-						<!-- wp:navigation-link {"label":"Simple Submenu Link 1","type":"custom","url":"http://www.wordpress.org/"} /-->
+						<!-- wp:navigation-link {"label":"Simple Submenu Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
 					<!-- /wp:navigation-submenu -->
 					<!-- wp:navigation-submenu {"label":"Complex Submenu","type":"internal","url":"#heading","kind":"custom"} -->
-						<!-- wp:navigation-link {"label":"Complex Submenu Link 1","type":"custom","url":"http://www.wordpress.org/"} /-->
+						<!-- wp:navigation-link {"label":"Complex Submenu Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
 						<!-- wp:navigation-submenu {"label":"Nested Submenu","type":"internal","url":"#heading","kind":"custom"} -->
-							<!-- wp:navigation-link {"label":"Nested Submenu Link 1","type":"custom","url":"http://www.wordpress.org/"} /-->
+							<!-- wp:navigation-link {"label":"Nested Submenu Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
 						<!-- /wp:navigation-submenu -->
-						<!-- wp:navigation-link {"label":"Complex Submenu Link 2","type":"custom","url":"http://www.wordpress.org/"} /-->
+						<!-- wp:navigation-link {"label":"Complex Submenu Link 2","type":"custom","url":"http://www.finpress.org/"} /-->
 					<!-- /wp:navigation-submenu -->
-					<!-- wp:navigation-link {"label":"Link 2","type":"custom","url":"http://www.wordpress.org/"} /-->
+					<!-- wp:navigation-link {"label":"Link 2","type":"custom","url":"http://www.finpress.org/"} /-->
 					`,
 			} );
 			await editor.insertBlock( {
@@ -258,7 +258,7 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await expect( firstLevelElement ).toBeHidden();
 
 			// Test: nested submenu closes on ESC key and focuses parent menu item:
-			// See: https://github.com/WordPress/gutenberg/issues/69834
+			// See: https://github.com/FinPress/gutenberg/issues/69834
 			await complexSubmenuButton.click();
 			await nestedSubmenuButton.click();
 			await expect( secondLevelElement ).toBeVisible();
@@ -272,7 +272,7 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 		 * Tab keypresses (passes 50 - 70% of the time). Tab keypresses are testing fine manually in Safari,
 		 * but not in the test. Once we figure out why the Tab keypresses are flakey in the test, we can
 		 * remove this test and only rely on the Submenu interactions test above and add a (@firefox, @webkit)
-		 * directive to the describe() statement. https://github.com/WordPress/gutenberg/pull/55198
+		 * directive to the describe() statement. https://github.com/FinPress/gutenberg/pull/55198
 		 */
 		test( 'Submenu interactions on Safari (@webkit)', async ( {
 			page,
@@ -354,7 +354,7 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 			await expect( firstLevelElement ).toBeHidden();
 
 			// Test: nested submenu closes on ESC key and focuses parent menu item:
-			// See: https://github.com/WordPress/gutenberg/issues/69834
+			// See: https://github.com/FinPress/gutenberg/issues/69834
 			await complexSubmenuButton.click();
 			await nestedSubmenuButton.click();
 			await expect( secondLevelElement ).toBeVisible();
@@ -377,9 +377,9 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 				title: 'Hidden menu',
 				content: `
 					<!-- wp:navigation-submenu {"label":"Submenu","type":"internal","url":"#heading","kind":"custom"} -->
-						<!-- wp:navigation-link {"label":"Submenu Link","type":"custom","url":"http://www.wordpress.org/"} /-->
+						<!-- wp:navigation-link {"label":"Submenu Link","type":"custom","url":"http://www.finpress.org/"} /-->
 						<!-- wp:navigation-submenu {"label":"Nested Menu","type":"internal","url":"#heading","kind":"custom"} -->
-							<!-- wp:navigation-link {"label":"Nested Menu Link","type":"custom","url":"http://www.wordpress.org/"} /-->
+							<!-- wp:navigation-link {"label":"Nested Menu Link","type":"custom","url":"http://www.finpress.org/"} /-->
 						<!-- /wp:navigation-submenu -->
 					<!-- /wp:navigation-submenu -->
 					`,
@@ -473,7 +473,7 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 				title: 'Page list menu',
 				content: `
 					<!-- wp:page-list /-->
-					<!-- wp:navigation-link {"label":"Link","type":"custom","url":"http://www.wordpress.org/"} /-->
+					<!-- wp:navigation-link {"label":"Link","type":"custom","url":"http://www.finpress.org/"} /-->
 					`,
 			} );
 			await editor.insertBlock( {

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { useMemo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ function useNativeBlockEditorSettings( settings, postType, postId ) {
 							'postType',
 							'wp_block',
 							// Unbounded queries are not supported on native so as a workaround, we set per_page with the maximum value that native version can handle.
-							// Related issue: https://github.com/wordpress-mobile/gutenberg-mobile/issues/2661
+							// Related issue: https://github.com/finpress-mobile/gutenberg-mobile/issues/2661
 							{ per_page: 100 }
 					  )
 					: EMPTY_BLOCKS_LIST,

@@ -26,7 +26,7 @@ function UnconnectedFlexBlock(
  * within layout containers like `Flex`.
  *
  * ```jsx
- * import { Flex, FlexBlock } from '@wordpress/components';
+ * import { Flex, FlexBlock } from '@finpress/components';
  *
  * function Example() {
  *   return (

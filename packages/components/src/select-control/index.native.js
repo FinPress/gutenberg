@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { memo } from '@wordpress/element';
+import { memo } from '@finpress/element';
 /**
  * Internal dependencies
  */

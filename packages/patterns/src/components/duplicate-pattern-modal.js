@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as coreStore } from '@wordpress/core-data';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
+import { store as coreStore } from '@finpress/core-data';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

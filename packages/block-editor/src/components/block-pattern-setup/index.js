@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch } from '@wordpress/data';
-import { cloneBlock } from '@wordpress/blocks';
-import { Composite, VisuallyHidden } from '@wordpress/components';
+import { useDispatch } from '@finpress/data';
+import { cloneBlock } from '@finpress/blocks';
+import { Composite, VisuallyHidden } from '@finpress/components';
 
-import { useState } from '@wordpress/element';
-import { useInstanceId } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+import { useState } from '@finpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

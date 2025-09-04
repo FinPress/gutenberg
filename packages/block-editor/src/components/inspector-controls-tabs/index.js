@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Icon,
 	Tooltip,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { store as preferencesStore } from '@finpress/preferences';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

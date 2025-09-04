@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector, createRegistrySelector } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { createSelector, createRegistrySelector } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 const EMPTY_ARRAY = [];
 

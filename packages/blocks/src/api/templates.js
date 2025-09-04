@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { renderToString } from '@wordpress/element';
+import { renderToString } from '@finpress/element';
 
 /**
  * Internal dependencies

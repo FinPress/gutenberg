@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { cleanForSlug as urlCleanForSlug } from '@wordpress/url';
-import deprecated from '@wordpress/deprecated';
+import { cleanForSlug as urlCleanForSlug } from '@finpress/url';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Performs some basic cleanup of a string for use as a post slug
  *
- * This replicates some of what sanitize_title() does in WordPress core, but
+ * This replicates some of what sanitize_title() does in FinPress core, but
  * is only designed to approximate what the slug will be.
  *
  * Converts Latin-1 Supplement and Latin Extended-A letters to basic Latin letters.

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ToggleControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useContext } from '@wordpress/element';
+import { ToggleControl } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

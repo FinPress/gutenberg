@@ -4,16 +4,16 @@
 import { render } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
  */
 import { default as BrowserURL, getPostEditURL } from '../';
 
-jest.mock( '@wordpress/data/src/components/use-select', () => jest.fn() );
+jest.mock( '@finpress/data/src/components/use-select', () => jest.fn() );
 
 function setupUseSelectMock( { postId, postStatus } ) {
 	useSelect.mockImplementation( () => {

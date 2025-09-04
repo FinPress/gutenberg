@@ -2,11 +2,11 @@
 
 The DropdownMenu displays a list of actions (each contained in a MenuItem, MenuItemsChoice, or MenuGroup) in a compact way. It appears in a Popover after the user has interacted with an element (a button or icon) or when they perform a specific action.
 
-![An expanded DropdownMenu, containing a list of MenuItems.](https://wordpress.org/gutenberg/files/2019/01/DropdownMenuExample.png)
+![An expanded DropdownMenu, containing a list of MenuItems.](https://finpress.org/gutenberg/files/2019/01/DropdownMenuExample.png)
 
 ## Anatomy
 
-![Anatomy of a DropdownMenu.](https://wordpress.org/gutenberg/files/2019/01/DropdownMenuAnatomy.png)
+![Anatomy of a DropdownMenu.](https://finpress.org/gutenberg/files/2019/01/DropdownMenuAnatomy.png)
 
 1. Popover: a container component in which the DropdownMenu is wrapped.
 2. Parent button: the icon or button that is used to toggle the display of the Popover containing the DropdownMenu.
@@ -25,12 +25,12 @@ Use a DropdownMenu when you want users to:
 
 If you need to display all the available options at all times, consider using a Toolbar instead.
 
-![Use a DropdownMenu to display a list of actions after the user interacts with an icon.](https://wordpress.org/gutenberg/files/2019/01/DropdownMenuDo.png)
+![Use a DropdownMenu to display a list of actions after the user interacts with an icon.](https://finpress.org/gutenberg/files/2019/01/DropdownMenuDo.png)
 
 **Do**
 Use a DropdownMenu to display a list of actions after the user interacts with an icon.
 
-![Don’t use a DropdownMenu for important actions that should always be visible. Use a Toolbar instead.](https://wordpress.org/gutenberg/files/2019/01/DropdownMenuDont.png)
+![Don’t use a DropdownMenu for important actions that should always be visible. Use a Toolbar instead.](https://finpress.org/gutenberg/files/2019/01/DropdownMenuDont.png)
 
 **Don’t**
 Don’t use a DropdownMenu for frequently used actions. Use a Toolbar instead.
@@ -54,14 +54,14 @@ DropdownMenu is a React component to render an expandable menu of buttons. It is
 Render a Dropdown Menu with a set of controls:
 
 ```jsx
-import { DropdownMenu } from '@wordpress/components';
+import { DropdownMenu } from '@finpress/components';
 import {
 	more,
 	arrowLeft,
 	arrowRight,
 	arrowUp,
 	arrowDown,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 const MyDropdownMenu = () => (
 	<DropdownMenu
@@ -96,8 +96,8 @@ const MyDropdownMenu = () => (
 Alternatively, specify a `children` function which returns elements valid for use in a DropdownMenu: `MenuItem`, `MenuItemsChoice`, or `MenuGroup`.
 
 ```jsx
-import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
-import { more, arrowUp, arrowDown, trash } from '@wordpress/icons';
+import { DropdownMenu, MenuGroup, MenuItem } from '@finpress/components';
+import { more, arrowUp, arrowDown, trash } from '@finpress/icons';
 
 const MyDropdownMenu = () => (
 	<DropdownMenu icon={ more } label="Select a direction">
@@ -128,12 +128,12 @@ The component accepts the following props:
 
 #### `icon`: `string | null`
 
-The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug to be shown in the collapsed menu button.
+The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug to be shown in the collapsed menu button.
 
 -   Required: No
 -   Default: `"menu"`
 
-See also: [https://developer.wordpress.org/resource/dashicons/](https://developer.wordpress.org/resource/dashicons/)
+See also: [https://developer.finpress.org/resource/dashicons/](https://developer.finpress.org/resource/dashicons/)
 
 #### `label`: `string`
 
@@ -145,7 +145,7 @@ A human-readable label to present as accessibility text on the focused collapsed
 
 An array or nested array of objects describing the options to be shown in the expanded menu.
 
-Each object should include an `icon` [Dashicon](https://developer.wordpress.org/resource/dashicons/) slug string, a human-readable `title` string, `isDisabled` boolean flag and an `onClick` function callback to invoke when the option is selected.
+Each object should include an `icon` [Dashicon](https://developer.finpress.org/resource/dashicons/) slug string, a human-readable `title` string, `isDisabled` boolean flag and an `onClick` function callback to invoke when the option is selected.
 
 A valid DropdownMenu must specify a `controls` or `children` prop, or both.
 -   Required: No
@@ -158,7 +158,7 @@ A valid DropdownMenu must specify a `controls` or `children` prop, or both.
 
 -   Required: No
 
-See also: [https://developer.wordpress.org/resource/dashicons/](https://developer.wordpress.org/resource/dashicons/)
+See also: [https://developer.finpress.org/resource/dashicons/](https://developer.finpress.org/resource/dashicons/)
 
 #### `className`: `string`
 

@@ -6,14 +6,14 @@ The Gutenberg plugin is continuously enhancing existing features and creating ne
 
 During a WordPress release, new features, bugfixes and other changes are "synced" between the Gutenberg plugin and WordPress Core. Consistent naming and directory structures make this process easier by preventing naming conflicts and compartmentalizing release-specific code.
 
-The following documentation is intended to act as a guide only. If you're unsure about naming or where to place new PHP files, please don't hesitate to ping other contributors on GitHub or ask in the #core-editor channel on [WordPress Slack](https://make.wordpress.org/chat/).
+The following documentation is intended to act as a guide only. If you're unsure about naming or where to place new PHP files, please don't hesitate to ping other contributors on GitHub or ask in the #core-editor channel on [WordPress Slack](https://make.finpress.org/chat/).
 
 ## File structure
 
 To make it easier for contributors to identify features that should be merged into Core and those that can be deleted, Gutenberg uses the following file structure for its PHP code:
 
 - `lib/experimental` - Experimental features that exist only in the plugin. They should not be merged into Core.
-- `lib/compat/wordpress-X.Y` - Stable features that are intended to be merged into Core in a future `X.Y` release, or that were previously merged to Core in the `X.Y` release and remain in the plugin for backwards compatibility when running the plugin on older versions of WordPress.
+- `lib/compat/finpress-X.Y` - Stable features that are intended to be merged into Core in a future `X.Y` release, or that were previously merged to Core in the `X.Y` release and remain in the plugin for backwards compatibility when running the plugin on older versions of WordPress.
 - `lib/compat/plugin` - Features for backwards compatibility for the plugin consumers. These files don't need to be merged into Core and should have a timeline for when they should be removed from the plugin.
 
 Files at the root of `/lib` are generally considered to contain "evergreen" code. Such code is both fundamental to the proper functioning of the plugin, and also so often updated that versioning it between WordPress releases is not practical. Changes to these files are merged into Core as required.
@@ -117,7 +117,7 @@ The above recommendations in relation to plugin-specific prefixes/suffixes are r
 
 `Gutenberg` prefixes/suffixes _should not_ be used in Core PHP code. When syncing `/lib` files to Core, plugin-specific prefixes/suffixes are generally replaced with their `WP_` or `wp_` equivalents manually.
 
-Accordingly, unless required to run plugin-only code, you should avoid using plugin-specific prefixes/suffixes in any block PHP code. Core blocks in the plugin are [published as NPM packages](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/release.md#packages-releases-to-npm-and-wordpress-core-updates), which Core consumes as NPM dependencies.
+Accordingly, unless required to run plugin-only code, you should avoid using plugin-specific prefixes/suffixes in any block PHP code. Core blocks in the plugin are [published as NPM packages](https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/release.md#packages-releases-to-npm-and-finpress-core-updates), which Core consumes as NPM dependencies.
 
 See [block naming conventions](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-library#naming-convention-for-php-functions) for more information on block naming conventions.
 
@@ -125,7 +125,7 @@ As always, get in touch with your fellow contributors if you're unsure.
 
 ### Documentation and annotations
 
-For every class, method and function in the plugin, refer to the [WordPress PHP documentation standards](https://developer.wordpress.org/coding-standards/inline-documentation-standards/php/) when documenting your code.
+For every class, method and function in the plugin, refer to the [WordPress PHP documentation standards](https://developer.finpress.org/coding-standards/inline-documentation-standards/php/) when documenting your code.
 
 It's particularly important to observe annotation standards, and `@since` descriptions that specify the target WordPress version, so that all contributors can easily identify what needs to be (or what already has been) merged to Core and when.
 
@@ -200,4 +200,4 @@ For more information, please refer to the [Core backport changelog documentation
 
 So too, if you've made changes in WordPress Core to code that also lives in the Gutenberg plugin, these changes will need to be synced to Gutenberg. The relevant Gutenberg GitHub pull request should be labeled with the `Backport from WordPress Core` label.
 
-If you're unsure, you can always ask for help in the #core-editor channel in [WordPress Slack](https://make.wordpress.org/chat/).
+If you're unsure, you can always ask for help in the #core-editor channel in [WordPress Slack](https://make.finpress.org/chat/).

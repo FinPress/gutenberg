@@ -11,7 +11,7 @@ import MenuItem from '../../menu-item';
 import MenuGroup from '../../menu-group';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	menu,
@@ -20,7 +20,7 @@ import {
 	chevronDown,
 	more,
 	trash,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 const meta: Meta< typeof DropdownMenu > = {
 	title: 'Components/Actions/DropdownMenu',

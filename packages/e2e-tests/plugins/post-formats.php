@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Gutenberg Test Plugin, Post Formats Support
- * Plugin URI: https://github.com/WordPress/gutenberg
+ * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team
  *
  * @package gutenberg-test-plugin-post-formats

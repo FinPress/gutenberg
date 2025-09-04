@@ -8,7 +8,7 @@ The `BlockVariationPicker` component allows certain types of blocks to display t
 
 This component is currently used by "Columns" and "Query Loop" blocks.
 
-![Columns block variations](https://make.wordpress.org/core/files/2020/09/colums-block-variations.png)
+![Columns block variations](https://make.finpress.org/core/files/2020/09/colums-block-variations.png)
 
 ## Development guidelines
 
@@ -17,11 +17,11 @@ This component is currently used by "Columns" and "Query Loop" blocks.
 Renders the variations of a block.
 
 ```jsx
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 import {
 	__experimentalBlockVariationPicker as BlockVariationPicker
-} from '@wordpress/block-editor';
-import { store as blocksStore } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { store as blocksStore } from '@finpress/blocks';
 
 const MyBlockVariationPicker = ( { blockName } ) => {
 	const variations = useSelect(
@@ -75,4 +75,4 @@ Icon to be displayed at the top of the component before the `label`.
 
 ## Related components
 
-Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [BlockEditorProvider](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.
+Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [BlockEditorProvider](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.

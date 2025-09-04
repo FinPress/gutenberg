@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { formatListNumbered as icon } from '@wordpress/icons';
-import { registerFormatType } from '@wordpress/rich-text';
+import { formatListNumbered as icon } from '@finpress/icons';
+import { registerFormatType } from '@finpress/rich-text';
 
 /**
  * Internal dependencies

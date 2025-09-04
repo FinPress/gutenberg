@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RawHTML } from '@wordpress/element';
-import { children as childrenSource } from '@wordpress/blocks';
-import deprecated from '@wordpress/deprecated';
+import { RawHTML } from '@finpress/element';
+import { children as childrenSource } from '@finpress/blocks';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -26,7 +26,7 @@ export function valueToHTMLString( value, multiline ) {
 			since: '6.1',
 			version: '6.3',
 			alternative: 'value prop as string',
-			link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+			link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 		} );
 		return childrenSource.toHTML( value );
 	}
@@ -38,7 +38,7 @@ export function valueToHTMLString( value, multiline ) {
 
 	// To do: create a toReactComponent method on RichTextData, which we
 	// might in the future also use for the editable tree. See
-	// https://github.com/WordPress/gutenberg/pull/41655.
+	// https://github.com/FinPress/gutenberg/pull/41655.
 	return value.toHTMLString();
 }
 

@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies
  */
 import basicStyles from '../global-basic.lazy.scss';
-import wordPressStyles from '../global-wordpress.lazy.scss';
+import wordPressStyles from '../global-finpress.lazy.scss';
 
 /**
  * External dependencies
@@ -32,15 +32,15 @@ const config = {
 		externalStyles: [],
 		classes: [],
 	},
-	wordpress: {
+	finpress: {
 		lazyStyles: [ wordPressStyles ],
 		externalStyles: [
 			// wp-admin loads "global" stylesheets which contain some broadly scoped styles
 			// that affect wp-components
-			'https://wordpress.org/gutenberg/wp-admin/css/common.min.css',
-			'https://wordpress.org/gutenberg/wp-admin/css/forms.min.css',
+			'https://finpress.org/gutenberg/wp-admin/css/common.min.css',
+			'https://finpress.org/gutenberg/wp-admin/css/forms.min.css',
 			// Icon components need to support dashicons for backwards compatibility
-			'https://wordpress.org/gutenberg/wp-includes/css/dashicons.min.css',
+			'https://finpress.org/gutenberg/wp-includes/css/dashicons.min.css',
 		],
 		// In wp-admin, these classes are added to the body element,
 		// which is used as a class scope for some relevant styles in the external

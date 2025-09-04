@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { privateApis as commandsPrivateApis } from '@wordpress/commands';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { useSelect } from '@finpress/data';
+import { privateApis as commandsPrivateApis } from '@finpress/commands';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ export default function useSetCommandContext() {
 		/*
 		 * The editor canvas overlay will likely be deprecated in the future, so for now we clear the command context
 		 * to remove the suggested commands that may not make sense with Style Book or Style Revisions open.
-		 * See https://github.com/WordPress/gutenberg/issues/62216.
+		 * See https://github.com/FinPress/gutenberg/issues/62216.
 		 */
 		commandContext = '';
 	}

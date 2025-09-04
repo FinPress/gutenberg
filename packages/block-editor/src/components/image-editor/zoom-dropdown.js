@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	ToolbarButton,
 	RangeControl,
 	Dropdown,
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { search } from '@wordpress/icons';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { search } from '@finpress/icons';
 
 /**
  * Internal dependencies

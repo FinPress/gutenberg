@@ -21,11 +21,11 @@ const initialHtml = `
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"left"} -->
-<p class="has-text-align-left">Gutenberg was developed on GitHub using the WordPress REST API, JavaScript, and React.</p>
+<p class="has-text-align-left">Gutenberg was developed on GitHub using the FinPress REST API, JavaScript, and React.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"left","fontSize":"small"} -->
-<p class="has-text-align-left has-small-font-size"><a href="https://wordpress.org/gutenberg/handbook/language/">Learn more</a></p>
+<p class="has-text-align-left has-small-font-size"><a href="https://finpress.org/gutenberg/handbook/language/">Learn more</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -35,11 +35,11 @@ const initialHtml = `
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"left"} -->
-<p class="has-text-align-left">We recommend migrating features to blocks, but support for existing WordPress functionality remains. There will be transition paths for shortcodes, meta-boxes, and Custom Post Types.</p>
+<p class="has-text-align-left">We recommend migrating features to blocks, but support for existing FinPress functionality remains. There will be transition paths for shortcodes, meta-boxes, and Custom Post Types.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"left","fontSize":"small"} -->
-<p class="has-text-align-left has-small-font-size"><a href="https://wordpress.org/gutenberg/handbook/reference/faq/">Learn more</a></p>
+<p class="has-text-align-left has-small-font-size"><a href="https://finpress.org/gutenberg/handbook/reference/faq/">Learn more</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->`;

@@ -46,7 +46,7 @@ describe( 'addMilestone', () => {
 			commits: [ { message: '(#123)' } ],
 			repository: {
 				owner: {
-					login: 'WordPress',
+					login: 'FinPress',
 				},
 				name: 'gutenberg',
 			},
@@ -77,7 +77,7 @@ describe( 'addMilestone', () => {
 		await addMilestone( payload, octokit );
 
 		expect( octokit.rest.issues.get ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			issue_number: 123,
 		} );
@@ -93,7 +93,7 @@ describe( 'addMilestone', () => {
 			commits: [ { message: '(#123)' } ],
 			repository: {
 				owner: {
-					login: 'WordPress',
+					login: 'FinPress',
 				},
 				name: 'gutenberg',
 			},
@@ -159,23 +159,23 @@ describe( 'addMilestone', () => {
 		await addMilestone( payload, octokit );
 
 		expect( octokit.rest.issues.get ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			issue_number: 123,
 		} );
 		expect( octokit.rest.repos.getContent ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			path: 'package.json',
 		} );
 		expect( octokit.rest.issues.createMilestone ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			title: 'Gutenberg 6.4',
 			due_on: '2019-08-26T00:00:00.000Z',
 		} );
 		expect( octokit.rest.issues.update ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			issue_number: 123,
 			milestone: 12,
@@ -188,7 +188,7 @@ describe( 'addMilestone', () => {
 			commits: [ { message: '(#123)' } ],
 			repository: {
 				owner: {
-					login: 'WordPress',
+					login: 'FinPress',
 				},
 				name: 'gutenberg',
 			},
@@ -254,23 +254,23 @@ describe( 'addMilestone', () => {
 		await addMilestone( payload, octokit );
 
 		expect( octokit.rest.issues.get ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			issue_number: 123,
 		} );
 		expect( octokit.rest.repos.getContent ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			path: 'package.json',
 		} );
 		expect( octokit.rest.issues.createMilestone ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			title: 'Gutenberg 7.0',
 			due_on: '2019-11-18T00:00:00.000Z',
 		} );
 		expect( octokit.rest.issues.update ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			issue_number: 123,
 			milestone: 12,

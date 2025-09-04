@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -12,7 +12,7 @@
 
 ### Bug Fixes
 
--   Add support for private selectors to `resolveSelect` and `suspendSelect` ([#52036](https://github.com/WordPress/gutenberg/pull/52036)).
+-   Add support for private selectors to `resolveSelect` and `suspendSelect` ([#52036](https://github.com/FinPress/gutenberg/pull/52036)).
 
 ## 10.25.0 (2025-06-04)
 
@@ -42,7 +42,7 @@
 
 ### Enhancements
 
--   Upgrade `redux` dependency to `^5.0.1` ([#66966](https://github.com/WordPress/gutenberg/pull/66966))
+-   Upgrade `redux` dependency to `^5.0.1` ([#66966](https://github.com/FinPress/gutenberg/pull/66966))
 
 ## 10.12.0 (2024-11-16)
 
@@ -72,7 +72,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 9.28.0 (2024-05-16)
 
@@ -80,13 +80,13 @@
 
 ## 9.26.0 (2024-04-19)
 
--   Add new `createSelector` function for creating memoized store selectors ([#60370](https://github.com/WordPress/gutenberg/pull/60370)).
+-   Add new `createSelector` function for creating memoized store selectors ([#60370](https://github.com/FinPress/gutenberg/pull/60370)).
 
 ## 9.25.0 (2024-04-03)
 
 ## 9.24.0 (2024-03-21)
 
--   Deprecate the `getIsResolved` meta-selector ([#59679](https://github.com/WordPress/gutenberg/pull/59679)).
+-   Deprecate the `getIsResolved` meta-selector ([#59679](https://github.com/FinPress/gutenberg/pull/59679)).
 
 ## 9.23.0 (2024-03-06)
 
@@ -112,13 +112,13 @@
 
 ### Bug Fixes
 
--   Fix `combineReducers()` types ([#55321](https://github.com/WordPress/gutenberg/pull/55321)).
+-   Fix `combineReducers()` types ([#55321](https://github.com/FinPress/gutenberg/pull/55321)).
 
 ## 9.13.0 (2023-10-05)
 
 ### Enhancements
 
--   Change implementation of `combineReducers` so that it doesn't use `eval` internally, and can run with a CSP policy that doesn't allow `unsafe-eval` ([#54606](https://github.com/WordPress/gutenberg/pull/54606)).
+-   Change implementation of `combineReducers` so that it doesn't use `eval` internally, and can run with a CSP policy that doesn't allow `unsafe-eval` ([#54606](https://github.com/FinPress/gutenberg/pull/54606)).
 
 ## 9.12.0 (2023-09-20)
 
@@ -128,7 +128,7 @@
 
 ### Enhancements
 
--   Warn if the `useSelect` hook returns different values when called with the same state and parameters ([#53666](https://github.com/WordPress/gutenberg/pull/53666)).
+-   Warn if the `useSelect` hook returns different values when called with the same state and parameters ([#53666](https://github.com/FinPress/gutenberg/pull/53666)).
 
 ## 9.9.0 (2023-08-10)
 
@@ -175,7 +175,7 @@
 
 ### Breaking Changes
 
--   Updated dependencies to require React 18 ([45235](https://github.com/WordPress/gutenberg/pull/45235))
+-   Updated dependencies to require React 18 ([45235](https://github.com/FinPress/gutenberg/pull/45235))
 
 ### Enhancements
 
@@ -201,7 +201,7 @@
 
 ### Bug Fixes
 
--   Packages: Replace `is-plain-obj` with `is-plain-object` ([#43511](https://github.com/WordPress/gutenberg/pull/43511)).
+-   Packages: Replace `is-plain-obj` with `is-plain-object` ([#43511](https://github.com/FinPress/gutenberg/pull/43511)).
 
 ## 6.15.0 (2022-08-10)
 
@@ -211,7 +211,7 @@
 
 ### Enhancements
 
--   Use `useDebugValue` in `useSelect` to better display data in React DevTools ([#42225](https://github.com/WordPress/gutenberg/pull/42225)).
+-   Use `useDebugValue` in `useSelect` to better display data in React DevTools ([#42225](https://github.com/FinPress/gutenberg/pull/42225)).
 
 ## 6.12.0 (2022-06-29)
 
@@ -236,14 +236,14 @@
 ### New Features
 
 -   Enabled thunks by default for all stores and removed the `__experimentalUseThunks` flag.
--   Store the resolution errors in store metadata and expose them using `hasResolutionFailed` the `getResolutionError` meta-selectors ([#38669](https://github.com/WordPress/gutenberg/pull/38669)).
--   Expose the resolution status (undefined, resolving, finished, error) via the `getResolutionState` meta-selector ([#38669](https://github.com/WordPress/gutenberg/pull/38669)).
+-   Store the resolution errors in store metadata and expose them using `hasResolutionFailed` the `getResolutionError` meta-selectors ([#38669](https://github.com/FinPress/gutenberg/pull/38669)).
+-   Expose the resolution status (undefined, resolving, finished, error) via the `getResolutionState` meta-selector ([#38669](https://github.com/FinPress/gutenberg/pull/38669)).
 
 ## 6.2.1 (2022-02-10)
 
 ### Bug Fixes
 
--   Removed unused `memize` dependency ([#38388](https://github.com/WordPress/gutenberg/pull/38388)).
+-   Removed unused `memize` dependency ([#38388](https://github.com/FinPress/gutenberg/pull/38388)).
 
 ## 6.2.0 (2022-01-27)
 
@@ -262,14 +262,14 @@
 ### New Features
 
 -   Added a `batch` registry method to batch dispatch calls for performance reasons.
--   Add a new migration for the persistence plugin to migrate edit-widgets preferences to the interface package. As part of this change deprecated migrations for the persistence plugin have been removed ([#33774](https://github.com/WordPress/gutenberg/pull/33774)).
--   Update data controls to accept a data store definition as their first param in addition to a string-based store name value ([#34170](https://github.com/WordPress/gutenberg/pull/34170)).
+-   Add a new migration for the persistence plugin to migrate edit-widgets preferences to the interface package. As part of this change deprecated migrations for the persistence plugin have been removed ([#33774](https://github.com/FinPress/gutenberg/pull/33774)).
+-   Update data controls to accept a data store definition as their first param in addition to a string-based store name value ([#34170](https://github.com/FinPress/gutenberg/pull/34170)).
 
 ## 6.0.0 (2021-07-29)
 
 ### Breaking Changes
 
--   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
+-   Upgraded React components to work with v17.0 ([#29118](https://github.com/FinPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
 ## 5.2.0 (2021-07-21)
 
@@ -279,8 +279,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ### New Features
 
@@ -300,10 +300,10 @@
 
 ### New Features
 
--   Added new `register` function for registering a standard `@wordpress/data` store definition ([#26655](https://github.com/WordPress/gutenberg/pull/26655)).
--   Added new `createReduxStore` factory function that creates a data store definition for the provided Redux store options to use with `register` function ([#26655](https://github.com/WordPress/gutenberg/pull/26655)).
--   Extended `select` and `dispatch` functions to accept a data store definition as their first param in addition to a string-based store name value [#26655](https://github.com/WordPress/gutenberg/pull/26655)).
--   Extended `useDispatch` hook to accept a data store definition as their first param in addition to a string-based store name value [#26655](https://github.com/WordPress/gutenberg/pull/26655)).
+-   Added new `register` function for registering a standard `@finpress/data` store definition ([#26655](https://github.com/FinPress/gutenberg/pull/26655)).
+-   Added new `createReduxStore` factory function that creates a data store definition for the provided Redux store options to use with `register` function ([#26655](https://github.com/FinPress/gutenberg/pull/26655)).
+-   Extended `select` and `dispatch` functions to accept a data store definition as their first param in addition to a string-based store name value [#26655](https://github.com/FinPress/gutenberg/pull/26655)).
+-   Extended `useDispatch` hook to accept a data store definition as their first param in addition to a string-based store name value [#26655](https://github.com/FinPress/gutenberg/pull/26655)).
 
 ### Deprecations
 
@@ -314,20 +314,20 @@
 
 ### New Features
 
--   Expose `useSelect` hook for usage in functional components. ([#15737](https://github.com/WordPress/gutenberg/pull/15737))
--   Expose `useDispatch` hook for usage in functional components. ([#15896](https://github.com/WordPress/gutenberg/pull/15896))
+-   Expose `useSelect` hook for usage in functional components. ([#15737](https://github.com/FinPress/gutenberg/pull/15737))
+-   Expose `useDispatch` hook for usage in functional components. ([#15896](https://github.com/FinPress/gutenberg/pull/15896))
 
 ### Enhancements
 
--   `withSelect` internally uses the new `useSelect` hook. ([#15737](https://github.com/WordPress/gutenberg/pull/15737). **Note:** This _could_ impact performance of code using `withSelect` in edge-cases. To avoid impact, memoize passed in `mapSelectToProps` callbacks or implement `useSelect` directly with dependencies.
--   `withDispatch` internally uses a new `useDispatchWithMap` hook (an internal only api) ([#15896](https://github.com/WordPress/gutenberg/pull/15896))
+-   `withSelect` internally uses the new `useSelect` hook. ([#15737](https://github.com/FinPress/gutenberg/pull/15737). **Note:** This _could_ impact performance of code using `withSelect` in edge-cases. To avoid impact, memoize passed in `mapSelectToProps` callbacks or implement `useSelect` directly with dependencies.
+-   `withDispatch` internally uses a new `useDispatchWithMap` hook (an internal only api) ([#15896](https://github.com/FinPress/gutenberg/pull/15896))
 
 ## 4.5.0 (2019-05-21)
 
 ### Bug Fixes
 
 -   Restore functionality of action-generators returning a Promise. Clarify intent and behaviour for `dispatch` behaviour. Dispatch actions now always
-    return a promise ([#14830](https://github.com/WordPress/gutenberg/pull/14830)
+    return a promise ([#14830](https://github.com/FinPress/gutenberg/pull/14830)
 
 ### Enhancements
 
@@ -356,8 +356,8 @@
 
 ### New Features
 
--   `withDispatch`'s `mapDispatchToProps` function takes the `registry` object as the 3rd param ([#11851](https://github.com/WordPress/gutenberg/pull/11851)).
--   `withSelect`'s `mapSelectToProps` function takes the `registry` object as the 3rd param ([#11851](https://github.com/WordPress/gutenberg/pull/11851)).
+-   `withDispatch`'s `mapDispatchToProps` function takes the `registry` object as the 3rd param ([#11851](https://github.com/FinPress/gutenberg/pull/11851)).
+-   `withSelect`'s `mapSelectToProps` function takes the `registry` object as the 3rd param ([#11851](https://github.com/FinPress/gutenberg/pull/11851)).
 
 ## 4.0.1 (2018-11-20)
 
@@ -432,4 +432,4 @@
 -   The `withRehdyration` function is removed. Use the persistence plugin instead.
 -   The `loadAndPersist` function is removed. Use the persistence plugin instead.
 -   `restrictPersistence`, `setPersistenceStorage` and `setupPersistence` functions have been removed. Please use the data persistence plugin instead.
--   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
+-   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.

@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	Button,
 	__experimentalConfirmDialog as ConfirmDialog,
-} from '@wordpress/components';
-import { useSelect, useDispatch, useRegistry } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+} from '@finpress/components';
+import { useSelect, useDispatch, useRegistry } from '@finpress/data';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

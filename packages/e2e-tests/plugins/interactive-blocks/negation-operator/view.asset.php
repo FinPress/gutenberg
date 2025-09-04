@@ -1,1 +1,1 @@
-<?php return array( 'dependencies' => array( '@wordpress/interactivity' ) );
+<?php return array( 'dependencies' => array( '@finpress/interactivity' ) );

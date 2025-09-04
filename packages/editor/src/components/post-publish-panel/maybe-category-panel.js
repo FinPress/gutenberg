@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { PanelBody } from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { useState, useEffect } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { PanelBody } from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { useState, useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

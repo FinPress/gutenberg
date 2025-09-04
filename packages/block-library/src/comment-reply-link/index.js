@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { commentReplyLink as icon } from '@wordpress/icons';
+import { commentReplyLink as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

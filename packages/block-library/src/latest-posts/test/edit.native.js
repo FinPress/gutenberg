@@ -9,11 +9,11 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockTypes, unregisterBlockType } from '@wordpress/blocks';
-import { registerCoreBlocks } from '@wordpress/block-library';
-import apiFetch from '@wordpress/api-fetch';
+import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
+import { registerCoreBlocks } from '@finpress/block-library';
+import apiFetch from '@finpress/api-fetch';
 
 beforeAll( () => {
 	// Register all core blocks

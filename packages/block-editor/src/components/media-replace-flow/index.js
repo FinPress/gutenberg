@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { speak } from '@wordpress/a11y';
+import { __, _x } from '@finpress/i18n';
+import { speak } from '@finpress/a11y';
 import {
 	FormFileUpload,
 	NavigableMenu,
@@ -10,17 +10,17 @@ import {
 	Dropdown,
 	withFilters,
 	ToolbarButton,
-} from '@wordpress/components';
-import { useSelect, withDispatch } from '@wordpress/data';
-import { DOWN } from '@wordpress/keycodes';
+} from '@finpress/components';
+import { useSelect, withDispatch } from '@finpress/data';
+import { DOWN } from '@finpress/keycodes';
 import {
 	postFeaturedImage,
 	upload,
 	media as mediaIcon,
-} from '@wordpress/icons';
-import { compose } from '@wordpress/compose';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/icons';
+import { compose } from '@finpress/compose';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies
@@ -245,7 +245,7 @@ const MediaReplaceFlow = ( {
 };
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/media-replace-flow/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/media-replace-flow/README.md
  */
 export default compose( [
 	withDispatch( ( dispatch ) => {

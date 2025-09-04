@@ -5,26 +5,26 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect } from '@finpress/element';
 import {
 	BlockEditorProvider,
 	BlockInspector,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { registerCoreBlocks } from '@wordpress/block-library';
-import '@wordpress/format-library';
+} from '@finpress/block-editor';
+import { registerCoreBlocks } from '@finpress/block-library';
+import '@finpress/format-library';
 import {
 	createBlock,
 	unregisterBlockType,
 	getBlockTypes,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 import {
 	store as richTextStore,
 	unregisterFormatType,
-} from '@wordpress/rich-text';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/rich-text';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

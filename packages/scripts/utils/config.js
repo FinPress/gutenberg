@@ -213,7 +213,7 @@ const getWebpackArgs = () => {
  * Returns the project source path. It defaults to 'src' if the
  * `process.env.WP_SOURCE_PATH` variable is not set.
  *
- * @return {string} The WordPress source directory.
+ * @return {string} The FinPress source directory.
  */
 function getProjectSourcePath() {
 	return process.env.WP_SOURCE_PATH || 'src';

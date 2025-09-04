@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { ExternalLink, Guide } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
+import { useDispatch, useSelect } from '@finpress/data';
+import { ExternalLink, Guide } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { store as preferencesStore } from '@finpress/preferences';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
 
 /**
  * Internal dependencies
@@ -122,7 +122,7 @@ export default function WelcomeGuideStyles() {
 								) }{ ' ' }
 								<ExternalLink
 									href={ __(
-										'https://wordpress.org/documentation/article/styles-overview/'
+										'https://finpress.org/documentation/article/styles-overview/'
 									) }
 								>
 									{ __(

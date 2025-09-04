@@ -5,13 +5,13 @@ import { FlatList } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	forwardRef,
 	useCallback,
 	useImperativeHandle,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -69,7 +69,7 @@ export const KeyboardAwareFlatList = ( { onScroll, ...props }, ref ) => {
 				onScroll={ scrollHandler }
 				onContentSizeChange={ onContentSizeChange }
 				// Disable clipping to fix focus losing.
-				// See https://github.com/wordpress-mobile/gutenberg-mobile/pull/741#issuecomment-472746541
+				// See https://github.com/finpress-mobile/gutenberg-mobile/pull/741#issuecomment-472746541
 				removeClippedSubviews={ false }
 				{ ...optimizationProps }
 				{ ...props }

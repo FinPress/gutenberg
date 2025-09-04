@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useState, useLayoutEffect, useEffect } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useState, useLayoutEffect, useEffect } from '@finpress/element';
 import {
 	getTextContent,
 	applyFormat,
@@ -11,16 +11,16 @@ import {
 	isCollapsed,
 	insert,
 	create,
-} from '@wordpress/rich-text';
-import { isURL, isEmail, isPhoneNumber } from '@wordpress/url';
+} from '@finpress/rich-text';
+import { isURL, isEmail, isPhoneNumber } from '@finpress/url';
 import {
 	RichTextToolbarButton,
 	RichTextShortcut,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { decodeEntities } from '@wordpress/html-entities';
-import { link as linkIcon } from '@wordpress/icons';
-import { speak } from '@wordpress/a11y';
+} from '@finpress/block-editor';
+import { decodeEntities } from '@finpress/html-entities';
+import { link as linkIcon } from '@finpress/icons';
+import { speak } from '@finpress/a11y';
 
 /**
  * Internal dependencies

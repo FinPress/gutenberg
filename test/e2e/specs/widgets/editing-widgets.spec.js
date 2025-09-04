@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 const {
 	test: base,
 	expect,
-} = require( '@wordpress/e2e-test-utils-playwright' );
+} = require( '@finpress/e2e-test-utils-playwright' );
 
-/** @typedef {import('@wordpress/e2e-test-utils-playwright').Editor} Editor */
+/** @typedef {import('@finpress/e2e-test-utils-playwright').Editor} Editor */
 /** @typedef {import('@playwright/test').Locator} Locator */
 
 /** @type {ReturnType<typeof base.extend<{widgetsScreen: WidgetsScreen}>>} */
@@ -623,7 +623,7 @@ test.describe( 'Widgets screen', () => {
 		await expect( listView ).toBeHidden();
 	} );
 
-	// Check for regressions of https://github.com/WordPress/gutenberg/issues/38002.
+	// Check for regressions of https://github.com/FinPress/gutenberg/issues/38002.
 	test( 'allows blocks to be added on mobile viewports', async ( {
 		page,
 		pageUtils,

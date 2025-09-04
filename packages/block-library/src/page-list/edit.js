@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
+import { createBlock } from '@finpress/blocks';
 import {
 	InspectorControls,
 	BlockControls,
@@ -15,7 +15,7 @@ import {
 	getColorClassName,
 	store as blockEditorStore,
 	Warning,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	ToolbarButton,
 	Spinner,
@@ -24,11 +24,11 @@ import {
 	Button,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { useMemo, useState, useEffect, useCallback } from '@wordpress/element';
-import { useEntityRecords } from '@wordpress/core-data';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useMemo, useState, useEffect, useCallback } from '@finpress/element';
+import { useEntityRecords } from '@finpress/core-data';
+import { useSelect, useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -133,7 +133,7 @@ export default function PageListEdit( {
 		{
 			per_page: MAX_PAGE_COUNT,
 			_fields: [ 'id', 'link', 'menu_order', 'parent', 'title', 'type' ],
-			// TODO: When https://core.trac.wordpress.org/ticket/39037 REST API support for multiple orderby
+			// TODO: When https://core.trac.finpress.org/ticket/39037 REST API support for multiple orderby
 			// values is resolved, update 'orderby' to [ 'menu_order', 'post_title' ] to provide a consistent
 			// sort.
 			orderby: 'menu_order',
@@ -153,7 +153,7 @@ export default function PageListEdit( {
 
 		// TODO: Once the REST API supports passing multiple values to
 		// 'orderby', this can be removed.
-		// https://core.trac.wordpress.org/ticket/39037
+		// https://core.trac.finpress.org/ticket/39037
 		const sortedPages = pages.sort( ( a, b ) => {
 			if ( a.menu_order === b.menu_order ) {
 				return a.title.rendered.localeCompare( b.title.rendered );

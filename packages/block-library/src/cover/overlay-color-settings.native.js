@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -13,8 +13,8 @@ import {
 	getGradientSlugByValue,
 	__experimentalPanelColorGradientSettings as PanelColorGradientSettings,
 	useMobileGlobalStylesColors,
-} from '@wordpress/block-editor';
-import { useMemo } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { useMemo } from '@finpress/element';
 
 function OverlayColorSettings( {
 	overlayColor,

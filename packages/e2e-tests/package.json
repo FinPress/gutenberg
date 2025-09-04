@@ -1,36 +1,36 @@
 {
-	"name": "@wordpress/e2e-tests",
+	"name": "@finpress/e2e-tests",
 	"version": "8.29.0",
-	"description": "End-To-End (E2E) tests for WordPress.",
-	"author": "The WordPress Contributors",
+	"description": "End-To-End (E2E) tests for FinPress.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"e2e",
 		"tests"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/e2e-tests/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/e2e-tests/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/e2e-tests"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
 		"npm": ">=8.19.2"
 	},
 	"dependencies": {
-		"@wordpress/e2e-test-utils": "file:../e2e-test-utils",
-		"@wordpress/interactivity": "file:../interactivity",
-		"@wordpress/interactivity-router": "file:../interactivity-router",
-		"@wordpress/jest-console": "file:../jest-console",
-		"@wordpress/jest-puppeteer-axe": "file:../jest-puppeteer-axe",
-		"@wordpress/scripts": "file:../scripts",
-		"@wordpress/url": "file:../url",
+		"@finpress/e2e-test-utils": "file:../e2e-test-utils",
+		"@finpress/interactivity": "file:../interactivity",
+		"@finpress/interactivity-router": "file:../interactivity-router",
+		"@finpress/jest-console": "file:../jest-console",
+		"@finpress/jest-puppeteer-axe": "file:../jest-puppeteer-axe",
+		"@finpress/scripts": "file:../scripts",
+		"@finpress/url": "file:../url",
 		"chalk": "^4.0.0",
 		"expect-puppeteer": "^4.4.0",
 		"filenamify": "^4.2.0",

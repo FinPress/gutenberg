@@ -145,7 +145,7 @@ module.exports = async (
 
 	if ( ! plugin && Object.keys( blockOutputTemplates ) < 1 ) {
 		/**
-		 * --no-plugin relies on the used template supporting the [blockTemplatesPath property](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/#blocktemplatespath).
+		 * --no-plugin relies on the used template supporting the [blockTemplatesPath property](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block/#blocktemplatespath).
 		 * If the blockOutputTemplates object has no properties, we can assume that there was a custom --template passed that
 		 * doesn't support it.
 		 */
@@ -158,7 +158,7 @@ module.exports = async (
 	const projectType = plugin ? 'plugin' : 'block';
 	info( '' );
 	info(
-		`Creating a new WordPress ${ projectType } in the ${ rootDirectory } directory.`
+		`Creating a new FinPress ${ projectType } in the ${ rootDirectory } directory.`
 	);
 
 	if ( plugin ) {
@@ -201,7 +201,7 @@ module.exports = async (
 	info( '' );
 
 	success(
-		`Done: WordPress ${ projectType } ${ title } bootstrapped in the ${ rootDirectory } directory.`
+		`Done: FinPress ${ projectType } ${ title } bootstrapped in the ${ rootDirectory } directory.`
 	);
 
 	if ( plugin && wpScripts ) {
@@ -224,10 +224,10 @@ module.exports = async (
 		info( '    Lints JavaScript files.' );
 		info( '' );
 		code( '  $ npm run plugin-zip' );
-		info( '    Creates a zip file for a WordPress plugin.' );
+		info( '    Creates a zip file for a FinPress plugin.' );
 		info( '' );
 		code( '  $ npm run packages-update' );
-		info( '    Updates WordPress packages to the latest version.' );
+		info( '    Updates FinPress packages to the latest version.' );
 		info( '' );
 		info( 'To enter the directory type:' );
 		info( '' );
@@ -241,7 +241,7 @@ module.exports = async (
 	}
 	if ( plugin && wpEnv ) {
 		info( '' );
-		info( 'You can start WordPress with:' );
+		info( 'You can start FinPress with:' );
 		info( '' );
 		code( '  $ npx wp-env start' );
 	}

@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -48,17 +48,17 @@
 
 ### Breaking Changes
 
--   Updated `stylelint` peer dependency requirement to `^16.8.2` ([#64828](https://github.com/WordPress/gutenberg/pull/64828)).
--   Updated `stylelint-config-recommended` to `^14.0.1` and disabled new rules ([#64828](https://github.com/WordPress/gutenberg/pull/64828)).
--   Updated `stylelint-config-recommended-scss` to `^14.1.0` and disabled new rules ([#64828](https://github.com/WordPress/gutenberg/pull/64828)).
--   Added `@stylistic/stylelint-plugin` dependency at `^3.0.1` ([#64828](https://github.com/WordPress/gutenberg/pull/64828)).
--   Migrated stylelint's deprecated rules from v15 to use `@stylistic/stylelint-plugin` ([#64828](https://github.com/WordPress/gutenberg/pull/64828)). For more information, see the [stylelint migration guide](https://stylelint.io/migration-guide/to-15). To migrate your rule overrides, you just need to add `@stylistic/` in front of the rule names.
--   Created new `stylistic` and `scss-stylistic` configs ([#64828](https://github.com/WordPress/gutenberg/pull/64828)). If you want to continue using the exact same rule set as before, you should use these, however if you currently use something like `stylelint-config-prettier` to disable formatting rules, you will want to use the non-stylistic configs (using the same names as before).
--   `scss/at-import-partial-extension` has been renamed ([#64828](https://github.com/WordPress/gutenberg/pull/64828)). You must convert this rule to `scss/load-partial-extension` instead (name only change).
+-   Updated `stylelint` peer dependency requirement to `^16.8.2` ([#64828](https://github.com/FinPress/gutenberg/pull/64828)).
+-   Updated `stylelint-config-recommended` to `^14.0.1` and disabled new rules ([#64828](https://github.com/FinPress/gutenberg/pull/64828)).
+-   Updated `stylelint-config-recommended-scss` to `^14.1.0` and disabled new rules ([#64828](https://github.com/FinPress/gutenberg/pull/64828)).
+-   Added `@stylistic/stylelint-plugin` dependency at `^3.0.1` ([#64828](https://github.com/FinPress/gutenberg/pull/64828)).
+-   Migrated stylelint's deprecated rules from v15 to use `@stylistic/stylelint-plugin` ([#64828](https://github.com/FinPress/gutenberg/pull/64828)). For more information, see the [stylelint migration guide](https://stylelint.io/migration-guide/to-15). To migrate your rule overrides, you just need to add `@stylistic/` in front of the rule names.
+-   Created new `stylistic` and `scss-stylistic` configs ([#64828](https://github.com/FinPress/gutenberg/pull/64828)). If you want to continue using the exact same rule set as before, you should use these, however if you currently use something like `stylelint-config-prettier` to disable formatting rules, you will want to use the non-stylistic configs (using the same names as before).
+-   `scss/at-import-partial-extension` has been renamed ([#64828](https://github.com/FinPress/gutenberg/pull/64828)). You must convert this rule to `scss/load-partial-extension` instead (name only change).
 
 ### Bug Fixes
 
--   Fixes `declaration-block-no-duplicate-properties` in the `scss` config to use the same value as the base config ([#64828](https://github.com/WordPress/gutenberg/pull/64828)).
+-   Fixes `declaration-block-no-duplicate-properties` in the `scss` config to use the same value as the base config ([#64828](https://github.com/FinPress/gutenberg/pull/64828)).
 
 ## 22.7.0 (2024-09-05)
 
@@ -78,7 +78,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 21.41.0 (2024-05-16)
 
@@ -166,19 +166,19 @@
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ## 20.0.0 (2022-01-27)
 
 ### Breaking Changes
 
--   Increased minimum peer dependency of `stylelint` to `14.2.0` ([#38091](https://github.com/WordPress/gutenberg/pull/38091)). See [official migration guide to v14](https://github.com/stylelint/stylelint/blob/14.0.0/docs/migration-guide/to-14.md) for details.
+-   Increased minimum peer dependency of `stylelint` to `14.2.0` ([#38091](https://github.com/FinPress/gutenberg/pull/38091)). See [official migration guide to v14](https://github.com/stylelint/stylelint/blob/14.0.0/docs/migration-guide/to-14.md) for details.
 
 ## 19.0.0 (2021-01-21)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 -   Increased minimum peer dependency of `stylelint` to `13.7.0`.
 
 ### Bug Fixes
@@ -189,11 +189,11 @@
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ### Internal
 
--   Imported from `WordPress-Coding-Standards/stylelint-config-wordpress` repository to `WordPress/gutenberg` ([#22777](https://github.com/WordPress/gutenberg/pull/22777))
+-   Imported from `FinPress-Coding-Standards/stylelint-config-finpress` repository to `FinPress/gutenberg` ([#22777](https://github.com/FinPress/gutenberg/pull/22777))
 
 ## 17.0.0 (2020-05-31)
 
@@ -227,7 +227,7 @@
 ## 13.1.0 (2018-08-19)
 
 -   Added: Added SCSS _shared config_ `extends` tests.
--   Changed: `stylelint-config-wordpress/scss` now extends [`stylelint-config-recommended-scss`](https://github.com/kristerkari/stylelint-config-recommended-scss) (the net result of this change results in no rule changes for this SCSS config).
+-   Changed: `stylelint-config-finpress/scss` now extends [`stylelint-config-recommended-scss`](https://github.com/kristerkari/stylelint-config-recommended-scss) (the net result of this change results in no rule changes for this SCSS config).
 -   Updated: `stylelint-scss` to `3.3.0`.
 -   Updated: `stylelint` to `9.5.0`.
 
@@ -245,11 +245,11 @@
 
 ## 12.0.0 (2017-07-18)
 
--   Changed: `stylelint-config-wordpress` now extends [`stylelint-config-recommended`](https://github.com/stylelint/stylelint-config-recommended), which turns on the `at-rule-no-unknown`, `block-no-empty`, `comment-no-empty`, `declaration-block-no-ignored-properties`, `declaration-block-no-redundant-longhand-properties`, `font-family-no-duplicate-names`, `media-feature-name-no-unknown`, `no-empty-source` rule. These rules are part of stylelint's [possible errors](https://github.com/stylelint/stylelint/blob/HEAD/docs/user-guide/rules/list.md#possible-errors) rules.
+-   Changed: `stylelint-config-finpress` now extends [`stylelint-config-recommended`](https://github.com/stylelint/stylelint-config-recommended), which turns on the `at-rule-no-unknown`, `block-no-empty`, `comment-no-empty`, `declaration-block-no-ignored-properties`, `declaration-block-no-redundant-longhand-properties`, `font-family-no-duplicate-names`, `media-feature-name-no-unknown`, `no-empty-source` rule. These rules are part of stylelint's [possible errors](https://github.com/stylelint/stylelint/blob/HEAD/docs/user-guide/rules/list.md#possible-errors) rules.
 -   Removed: `stylelint-scss < 1.5.1` compatibility.
 -   Removed: Removed style guide docs.
--   Removed: `at-rule-no-unknown` custom `ignoreAtRules` options in `stylelint-config-wordpress/scss` shared config.
--   Added: `scss/at-rule-no-unknown` rule in `stylelint-config-wordpress/scss` shared config.
+-   Removed: `at-rule-no-unknown` custom `ignoreAtRules` options in `stylelint-config-finpress/scss` shared config.
+-   Added: `scss/at-rule-no-unknown` rule in `stylelint-config-finpress/scss` shared config.
 -   Added: NodeJS 8.x.x support.
 -   Added: npm 5.x.x support.
 -   Added: Jest snapshots to help detect and prevent regressions.
@@ -257,7 +257,7 @@
 ## 11.0.0 (2017-05-16)
 
 -   Added: `declaration-property-unit-whitelist` rule to allow `px` and exclude `%` and `em` units in `line-height` values.
--   Changed: Relocated repo to https://github.com/WordPress-Coding-Standards.
+-   Changed: Relocated repo to https://github.com/FinPress-Coding-Standards.
 -   Fixed: Include CSS config `at-rule-empty-line-before` rules in SCSS config.
 
 ## 10.0.2 (2017-04-29)
@@ -270,13 +270,13 @@
 
 ## 10.0.0 (2017-04-21)
 
--   Added: `scss/selector-no-redundant-nesting-selector` rule in `stylelint-config-wordpress/scss` shared config.
+-   Added: `scss/selector-no-redundant-nesting-selector` rule in `stylelint-config-finpress/scss` shared config.
 -   Added: `selector-no-empty` rule.
 -   Added: NodeJS 7.x.x support
 -   Fixed: Added `stylelint-scss` plugin @if/@else placement rules.
 -   Fixed: Ignore `relative` keyword names in `font-weight-notation` rule.
 -   Fixed: Ignore proprietary `DXImageTransform.Microsoft` MS filters
--   Fixed: Removed `@debug` from `ignoreAtRules` array of `at-rule-no-unknown` rule in `stylelint-config-wordpress/scss` chared config.
+-   Fixed: Removed `@debug` from `ignoreAtRules` array of `at-rule-no-unknown` rule in `stylelint-config-finpress/scss` chared config.
 -   Deprecated `blockless-group` option for `at-rule-empty-line-before` rule. Use the new `blockless-after-blockless` option instead.
 -   Deprecated `media-feature-no-missing-punctuation` rule.
 -   Deprecated `rule-nested-empty-line-before` and `rule-non-nested-empty-line-before` rules. Use the new `rule-empty-line-before` rule instead.
@@ -285,7 +285,7 @@
 -   Refactor: Switch from eslint-plugin-ava to eslint-plugin-jest.
 -   Removed: `stylelint < 7.10.1` compatibility.
 -   Removed: `stylelint-scss < 1.4.4` compatibility.
--   Removed: NodeJS 4.x support, `stylelint` and `stylelint-config-wordpress` now require NodeJS > 6.9.1 LTS or greater
+-   Removed: NodeJS 4.x support, `stylelint` and `stylelint-config-finpress` now require NodeJS > 6.9.1 LTS or greater
 
 ## 9.1.1 (2016-09-30)
 
@@ -293,12 +293,12 @@
 
 ## 9.1.0 (2016-09-30)
 
--   Added: `stylelint-config-wordpress/scss` preset.
+-   Added: `stylelint-config-finpress/scss` preset.
 
 ## 9.0.0 (2016-09-10)
 
 -   Removed: `stylelint < 7.2.0` compatibility.
--   Removed: NodeJS 0.12.x support, `stylelint` and `stylelint-config-wordpress` now require NodeJS > 4.2.1 LTS or greater
+-   Removed: NodeJS 0.12.x support, `stylelint` and `stylelint-config-finpress` now require NodeJS > 4.2.1 LTS or greater
 -   Added: `at-rule-no-unknown` rule.
 -   Added: `selector-attribute-quotes` rule.
 -   Added: `font-weight-notation` rule.

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockTypes, store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
-import { useContext, useMemo } from '@wordpress/element';
+import { getBlockTypes, store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
+import { useContext, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

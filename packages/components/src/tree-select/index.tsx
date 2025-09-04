@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { decodeEntities } from '@wordpress/html-entities';
+import { useMemo } from '@finpress/element';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies
@@ -40,7 +40,7 @@ function getSelectOptions(
  *
  * ```jsx
  * import { useState } from 'react';
- * import { TreeSelect } from '@wordpress/components';
+ * import { TreeSelect } from '@finpress/components';
  *
  * const MyTreeSelect = () => {
  * 	const [ page, setPage ] = useState( 'p21' );

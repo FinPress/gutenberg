@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { InspectorControls } from '@finpress/block-editor';
 import {
 	TextControl,
 	PanelBody,
@@ -10,8 +10,8 @@ import {
 	SelectControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { Platform } from '@wordpress/element';
+} from '@finpress/components';
+import { Platform } from '@finpress/element';
 
 /**
  * Internal dependencies

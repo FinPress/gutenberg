@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { useEffect, useRef, useState } from '@wordpress/element';
-import { isRTL } from '@wordpress/i18n';
+import deprecated from '@finpress/deprecated';
+import { useEffect, useRef, useState } from '@finpress/element';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ const noop = () => {};
  *   __experimentalNavigationGroup as NavigationGroup,
  *   __experimentalNavigationItem as NavigationItem,
  *   __experimentalNavigationMenu as NavigationMenu,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * const MyNavigation = () => (
  *   <Navigation>
@@ -112,7 +112,7 @@ export function Navigation( {
 			setActiveMenu( activeMenu );
 		}
 		// Not adding deps for now, as it would require either a larger refactor or some questionable workarounds.
-		// See https://github.com/WordPress/gutenberg/pull/41612 for context.
+		// See https://github.com/FinPress/gutenberg/pull/41612 for context.
 	}, [ activeMenu ] );
 
 	const context = {

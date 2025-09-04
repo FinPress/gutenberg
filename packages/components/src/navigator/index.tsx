@@ -13,7 +13,7 @@ export { useNavigator } from './use-navigator';
  * (via the `Navigator.Button` and `Navigator.BackButton` components).
  *
  * ```jsx
- * import { Navigator } from '@wordpress/components';
+ * import { Navigator } from '@finpress/components';
  *
  * const MyNavigation = () => (
  *   <Navigator initialPath="/">
@@ -42,7 +42,7 @@ export const Navigator = Object.assign( TopLevelNavigator, {
 	 *
 	 * @example
 	 * ```jsx
-	 * import { Navigator } from '@wordpress/components';
+	 * import { Navigator } from '@finpress/components';
 	 *
 	 * const MyNavigation = () => (
 	 *   <Navigator initialPath="/">
@@ -73,7 +73,7 @@ export const Navigator = Object.assign( TopLevelNavigator, {
 	 *
 	 * @example
 	 * ```jsx
-	 * import { Navigator } from '@wordpress/components';
+	 * import { Navigator } from '@finpress/components';
 	 *
 	 * const MyNavigation = () => (
 	 *   <Navigator initialPath="/">
@@ -104,7 +104,7 @@ export const Navigator = Object.assign( TopLevelNavigator, {
 	 *
 	 * @example
 	 * ```jsx
-	 * import { Navigator } from '@wordpress/components';
+	 * import { Navigator } from '@finpress/components';
 	 *
 	 * const MyNavigation = () => (
 	 *   <Navigator initialPath="/">

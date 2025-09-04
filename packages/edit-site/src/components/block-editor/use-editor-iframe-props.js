@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { ENTER, SPACE } from '@wordpress/keycodes';
-import { useState, useEffect } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { store as editorStore } from '@wordpress/editor';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { addQueryArgs } from '@wordpress/url';
+import { useSelect } from '@finpress/data';
+import { ENTER, SPACE } from '@finpress/keycodes';
+import { useState, useEffect } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { store as editorStore } from '@finpress/editor';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies

@@ -4,17 +4,17 @@
 import type { ReactElement } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
 	CheckboxControl,
 	__experimentalHStack as HStack,
-} from '@wordpress/components';
-import { __, sprintf, _n } from '@wordpress/i18n';
-import { useMemo, useState, useRef, useContext } from '@wordpress/element';
-import { useRegistry } from '@wordpress/data';
-import { closeSmall } from '@wordpress/icons';
+} from '@finpress/components';
+import { __, sprintf, _n } from '@finpress/i18n';
+import { useMemo, useState, useRef, useContext } from '@finpress/element';
+import { useRegistry } from '@finpress/data';
+import { closeSmall } from '@finpress/icons';
 
 /**
  * Internal dependencies

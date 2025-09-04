@@ -1,22 +1,22 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useId } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { useId } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	DropdownMenu,
 	ToolbarItem,
 	__experimentalText as Text,
-} from '@wordpress/components';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
-import { copy } from '@wordpress/icons';
+} from '@finpress/components';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
+import { copy } from '@finpress/icons';
 import {
 	store as blockEditorStore,
 	BlockIcon,
 	privateApis as blockEditorPrivateApis,
 	BlockControls,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 /**
  * Internal dependencies

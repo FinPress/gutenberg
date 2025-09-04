@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -74,7 +74,7 @@ export function getBlockGapCSS(
  * are not a `css var`. This needs to change when parsing
  * css variables land.
  *
- * @see https://github.com/WordPress/gutenberg/pull/34710#issuecomment-918000752
+ * @see https://github.com/FinPress/gutenberg/pull/34710#issuecomment-918000752
  *
  * @param {Object} layout The layout object.
  * @return {Object} An object with contextual info per alignment.

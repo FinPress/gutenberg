@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { backup } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { __, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import type { Action } from '@wordpress/dataviews';
+import { backup } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import type { Action } from '@finpress/dataviews';
 
 /**
  * Internal dependencies

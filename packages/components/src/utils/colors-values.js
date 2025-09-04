@@ -3,7 +3,7 @@
  */
 const white = '#fff';
 
-// Matches the grays in @wordpress/base-styles
+// Matches the grays in @finpress/base-styles
 const GRAY = {
 	900: '#1e1e1e',
 	800: '#2f2f2f',
@@ -20,7 +20,7 @@ const GRAY = {
 	100: '#f0f0f0',
 };
 
-// Matches @wordpress/base-styles
+// Matches @finpress/base-styles
 const ALERT = {
 	yellow: '#f0b849',
 	red: '#d94f4f',
@@ -63,7 +63,7 @@ const UI = {
 	borderDisabled: THEME.gray[ 400 ],
 	textDisabled: THEME.gray[ 600 ],
 
-	// Matches @wordpress/base-styles
+	// Matches @finpress/base-styles
 	darkGrayPlaceholder: `color-mix(in srgb, ${ THEME.foreground }, transparent 38%)`,
 	lightGrayPlaceholder: `color-mix(in srgb, ${ THEME.background }, transparent 35%)`,
 };

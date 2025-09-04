@@ -9,7 +9,7 @@ export {
 	Line,
 	HorizontalRule,
 	BlockQuotation,
-} from '@wordpress/primitives';
+} from '@finpress/primitives';
 
 // Components.
 export {

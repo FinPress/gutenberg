@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { isTextField } from '@wordpress/dom';
-import { Popover } from '@wordpress/components';
-import { __unstableUseShortcutEventMatch as useShortcutEventMatch } from '@wordpress/keyboard-shortcuts';
-import { useRef } from '@wordpress/element';
-import { switchToBlockType, store as blocksStore } from '@wordpress/blocks';
-import { speak } from '@wordpress/a11y';
-import { __, sprintf, _n } from '@wordpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { isTextField } from '@finpress/dom';
+import { Popover } from '@finpress/components';
+import { __unstableUseShortcutEventMatch as useShortcutEventMatch } from '@finpress/keyboard-shortcuts';
+import { useRef } from '@finpress/element';
+import { switchToBlockType, store as blocksStore } from '@finpress/blocks';
+import { speak } from '@finpress/a11y';
+import { __, sprintf, _n } from '@finpress/i18n';
 
 /**
  * Internal dependencies

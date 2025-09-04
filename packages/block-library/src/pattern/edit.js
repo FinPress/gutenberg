@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { cloneBlock } from '@wordpress/blocks';
-import { useSelect, useDispatch, useRegistry } from '@wordpress/data';
-import { useState, useEffect } from '@wordpress/element';
+import { cloneBlock } from '@finpress/blocks';
+import { useSelect, useDispatch, useRegistry } from '@finpress/data';
+import { useState, useEffect } from '@finpress/element';
 import {
 	Warning,
 	store as blockEditorStore,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { __, sprintf } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { store as coreStore } from '@finpress/core-data';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -91,7 +91,7 @@ const PatternEdit = ( { attributes, clientId } ) => {
 			window.queueMicrotask( () => {
 				const rootClientId = getBlockRootClientId( clientId );
 				// Clone blocks from the pattern before insertion to ensure they receive
-				// distinct client ids. See https://github.com/WordPress/gutenberg/issues/50628.
+				// distinct client ids. See https://github.com/FinPress/gutenberg/issues/50628.
 				const clonedBlocks = selectedPattern.blocks.map( ( block ) =>
 					cloneBlock(
 						injectThemeAttributeInBlockTemplateContent( block )

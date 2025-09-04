@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useDispatch } from '@wordpress/data';
-import { MenuItem } from '@wordpress/components';
-import { store as preferencesStore } from '@wordpress/preferences';
+import { __ } from '@finpress/i18n';
+import { useDispatch } from '@finpress/data';
+import { MenuItem } from '@finpress/components';
+import { store as preferencesStore } from '@finpress/preferences';
 
 export default function WelcomeGuideMenuItem() {
 	const { toggle } = useDispatch( preferencesStore );

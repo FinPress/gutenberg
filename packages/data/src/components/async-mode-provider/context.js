@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext } from '@wordpress/element';
+import { createContext } from '@finpress/element';
 
 export const Context = createContext( false );
 
@@ -16,8 +16,8 @@ export const AsyncModeConsumer = Consumer;
  * @example
  *
  * ```js
- * import { useSelect, AsyncModeProvider } from '@wordpress/data';
- * import { store as blockEditorStore } from '@wordpress/block-editor';
+ * import { useSelect, AsyncModeProvider } from '@finpress/data';
+ * import { store as blockEditorStore } from '@finpress/block-editor';
  *
  * function BlockCount() {
  *   const count = useSelect( ( select ) => {

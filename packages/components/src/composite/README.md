@@ -5,7 +5,7 @@
 ## Usage
 
 ```jsx
-import { Composite } from '@wordpress/components';
+import { Composite } from '@finpress/components';
 
 <Composite>
   <Composite.Group>

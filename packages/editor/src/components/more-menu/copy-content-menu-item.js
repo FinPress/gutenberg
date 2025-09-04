@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { MenuItem } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { useCopyToClipboard } from '@wordpress/compose';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as coreStore } from '@wordpress/core-data';
-import { __unstableSerializeAndClean } from '@wordpress/blocks';
+import { MenuItem } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { useCopyToClipboard } from '@finpress/compose';
+import { store as noticesStore } from '@finpress/notices';
+import { store as coreStore } from '@finpress/core-data';
+import { __unstableSerializeAndClean } from '@finpress/blocks';
 
 /**
  * Internal dependencies

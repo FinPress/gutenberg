@@ -5,10 +5,10 @@ import * as Ariakit from '@ariakit/react';
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useContext } from '@wordpress/element';
-import warning from '@wordpress/warning';
+import { forwardRef, useContext } from '@finpress/element';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies
@@ -26,7 +26,7 @@ function UnforwardedToolbarItem(
 	if ( ! isRenderProp && ! Component ) {
 		warning(
 			'`ToolbarItem` is a generic headless component. You must pass either a `children` prop as a function or an `as` prop as a component. ' +
-				'See https://developer.wordpress.org/block-editor/components/toolbar-item/'
+				'See https://developer.finpress.org/block-editor/components/toolbar-item/'
 		);
 		return null;
 	}

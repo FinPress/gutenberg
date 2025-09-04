@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { MenuItem } from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { privateApis as patternsPrivateApis } from '@wordpress/patterns';
+import { MenuItem } from '@finpress/components';
+import { useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { privateApis as patternsPrivateApis } from '@finpress/patterns';
 /**
  * Internal dependencies
  */

@@ -11,7 +11,7 @@ Upgrading to v2 enables some new features and adjusts the naming of some old fea
 1. Update `version` to `2`.
 2. Rename the properties that were updated (see below) if you're using them.
 
-Refer to the [dev note for the release](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/) and the [reference documents](/docs/reference-guides/theme-json-reference/README.md) for the respective v1 and v2 versions.
+Refer to the [dev note for the release](https://make.finpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/) and the [reference documents](/docs/reference-guides/theme-json-reference/README.md) for the respective v1 and v2 versions.
 
 ### Renamed properties
 
@@ -94,9 +94,9 @@ To keep behavior similar to v2 with a v3 theme.json:
 
 #### `settings.spacing.defaultSpacingSizes`
 
-In theme.json v2, there are two settings that could be used to set theme level spacing sizes: `settings.spacing.spacingSizes` and `settings.spacing.spacingScale`. Setting both `spacingSizes` _and_ `spacingScale` would only use the values from `spacingSizes`. And setting either of them would always replace the entire set of default spacing sizes provided by WordPress.
+In theme.json v2, there are two settings that could be used to set theme level spacing sizes: `settings.spacing.spacingSizes` and `settings.spacing.spacingScale`. Setting both `spacingSizes` _and_ `spacingScale` would only use the values from `spacingSizes`. And setting either of them would always replace the entire set of default spacing sizes provided by FinPress.
 
-The default `spacingSizes` slugs provided by WordPress are: `20`, `30`, `40`, `50`, `60`, `70`, and `80`.
+The default `spacingSizes` slugs provided by FinPress are: `20`, `30`, `40`, `50`, `60`, `70`, and `80`.
 
 The new `defaultSpacingSizes` option gives control over showing default spacing sizes and preventing those defaults from being overridden.
 

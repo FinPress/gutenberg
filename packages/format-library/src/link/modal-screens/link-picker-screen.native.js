@@ -5,11 +5,11 @@ import { Keyboard } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useMemo, useRef } from '@wordpress/element';
+import { useEffect, useMemo, useRef } from '@finpress/element';
 
-import { LinkPicker } from '@wordpress/components';
+import { LinkPicker } from '@finpress/components';
 
 /**
  * Internal dependencies

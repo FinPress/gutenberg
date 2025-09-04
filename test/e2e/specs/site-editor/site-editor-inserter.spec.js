@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Site Editor Inserter', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -57,7 +57,7 @@ test.describe( 'Site Editor Inserter', () => {
 			await expect( InserterUtils.inserterButton ).toBeFocused();
 		} );
 
-		// A test for https://github.com/WordPress/gutenberg/issues/43090.
+		// A test for https://github.com/FinPress/gutenberg/issues/43090.
 		await test.step( 'should close the inserter when clicking on the toggle button', async () => {
 			const beforeBlocks = await editor.getBlocks();
 

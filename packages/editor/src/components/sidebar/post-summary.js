@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalVStack as VStack } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import { __experimentalVStack as VStack } from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

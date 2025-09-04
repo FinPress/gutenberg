@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useState } from '@finpress/element';
 import {
 	TextControl,
 	RadioControl,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

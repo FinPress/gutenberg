@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 import { Platform } from 'react-native';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withPreferredColorScheme } from '@wordpress/compose';
-import { menu } from '@wordpress/icons';
+import { withPreferredColorScheme } from '@finpress/compose';
+import { menu } from '@finpress/icons';
 
 /**
  * Internal dependencies

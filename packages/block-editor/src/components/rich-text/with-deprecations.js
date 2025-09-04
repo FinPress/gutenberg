@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import { children as childrenSource } from '@wordpress/blocks';
-import { __unstableCreateElement } from '@wordpress/rich-text';
-import deprecated from '@wordpress/deprecated';
+import { forwardRef } from '@finpress/element';
+import { children as childrenSource } from '@finpress/blocks';
+import { __unstableCreateElement } from '@finpress/rich-text';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ export function withDeprecations( Component ) {
 				since: '6.1',
 				version: '6.3',
 				alternative: 'value prop as string',
-				link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+				link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 			} );
 
 			value = childrenSource.toHTML( props.value );

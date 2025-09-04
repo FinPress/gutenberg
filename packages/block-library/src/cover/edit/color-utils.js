@@ -7,9 +7,9 @@ import { FastAverageColor } from 'fast-average-color';
 import memoize from 'memize';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { applyFilters } from '@wordpress/hooks';
+import { applyFilters } from '@finpress/hooks';
 
 /**
  * @typedef {import('colord').RgbaColor} RgbaColor

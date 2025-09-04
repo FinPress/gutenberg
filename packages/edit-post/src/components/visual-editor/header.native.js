@@ -4,17 +4,17 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { memo } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { compose, withPreferredColorScheme } from '@wordpress/compose';
-import { PostTitle } from '@wordpress/editor';
+import { memo } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { withDispatch, withSelect } from '@finpress/data';
+import { compose, withPreferredColorScheme } from '@finpress/compose';
+import { PostTitle } from '@finpress/editor';
 import {
 	store as blockEditorStore,
 	useEditorWrapperStyles,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 const Header = memo(
 	function EditorHeader( { editTitle, setTitleRef, title } ) {

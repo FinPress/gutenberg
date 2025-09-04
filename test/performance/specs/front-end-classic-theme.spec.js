@@ -1,9 +1,9 @@
 /* eslint-disable playwright/no-conditional-in-test, playwright/expect-expect */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { test, Metrics } from '@wordpress/e2e-test-utils-playwright';
+import { test, Metrics } from '@finpress/e2e-test-utils-playwright';
 
 const results = {
 	timeToFirstByte: [],

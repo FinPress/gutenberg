@@ -3,9 +3,9 @@
 Block registration API reference.
 
 <div class="callout callout-alert">
-You can use the functions documented on this page to register a block with JavaScript only on the client, but the recommended method is to register new block types also with PHP on the server using the `block.json` metadata file. See <a href="https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/">metadata documentation for complete information</a>
+You can use the functions documented on this page to register a block with JavaScript only on the client, but the recommended method is to register new block types also with PHP on the server using the `block.json` metadata file. See <a href="https://developer.finpress.org/block-editor/reference-guides/block-api/block-metadata/">metadata documentation for complete information</a>
 <br/>
-<a href="https://developer.wordpress.org/block-editor/getting-started/create-block/">Learn how to create your first block</a> for the WordPress block editor. From setting up your development environment, tools, and getting comfortable with the new development model, this tutorial covers all you need to know to get started with creating blocks.
+<a href="https://developer.finpress.org/block-editor/getting-started/create-block/">Learn how to create your first block</a> for the FinPress block editor. From setting up your development environment, tools, and getting comfortable with the new development model, this tutorial covers all you need to know to get started with creating blocks.
 </div>
 
 ## `registerBlockType`
@@ -107,7 +107,7 @@ Plugins and Themes can also register [custom block categories](/docs/reference-g
 
 -   **Type:** `String` | `Object`
 
-An icon property should be specified to make it easier to identify a block. These can be any of [WordPress' Dashicons](https://developer.wordpress.org/resource/dashicons/), or a custom `svg` element.
+An icon property should be specified to make it easier to identify a block. These can be any of [FinPress' Dashicons](https://developer.finpress.org/resource/dashicons/), or a custom `svg` element.
 
 ```js
 // Specifying a dashicon for the block
@@ -257,7 +257,7 @@ example: {
 #### variations (optional)
 
 -   **Type:** `Object[]`
--   **Since**: `WordPress 5.9.0`
+-   **Since**: `FinPress 5.9.0`
 
 Similarly to how the block's styles can be declared, a block type can define block variations that the user can pick from. The difference is that, rather than changing only the visual appearance, this field provides a way to apply initial custom attributes and inner blocks at the time when a block is inserted. See the [Block Variations API](/docs/reference-guides/block-api/block-variations.md) for more details.
 
@@ -277,7 +277,7 @@ Transforms provide rules for what a block can be transformed from and what it ca
 
 -   **Type:** `Array`
 
-Blocks are able to be inserted into blocks that use [`InnerBlocks`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md) as nested content. Sometimes it is useful to restrict a block so that it is only available as a nested block. For example, you might want to allow an 'Add to Cart' block to only be available within a 'Product' block.
+Blocks are able to be inserted into blocks that use [`InnerBlocks`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md) as nested content. Sometimes it is useful to restrict a block so that it is only available as a nested block. For example, you might want to allow an 'Add to Cart' block to only be available within a 'Product' block.
 
 Setting `parent` lets a block require that it is only available when nested within the specified blocks.
 
@@ -289,7 +289,7 @@ parent: [ 'core/columns' ],
 #### ancestor (optional)
 
 -   **Type:** `Array`
--   **Since**: `WordPress 6.0.0`
+-   **Since**: `FinPress 6.0.0`
 
 The `ancestor` property makes a block available inside the specified block types at any position of the ancestor block subtree. That allows, for example, to place a 'Comment Content' block inside a 'Column' block, as long as 'Column' is somewhere within a 'Comment Template' block. In comparison to the `parent` property, blocks that specify their `ancestor` can be placed anywhere in the subtree whilst blocks with a specified `parent` need to be direct children.
 
@@ -301,7 +301,7 @@ ancestor: [ 'core/columns' ],
 #### allowedBlocks (optional)
 
 -   **Type:** `Array`
--   **Since**: `WordPress 6.5.0`
+-   **Since**: `FinPress 6.5.0`
 
 Setting the `allowedBlocks` property will limit which block types can be nested as direct children of the block.
 
@@ -313,7 +313,7 @@ allowedBlocks: [ 'core/columns' ],
 #### blockHooks (optional)
 
 -   **Type:** `Object`
--   **Since**: `WordPress 6.4.0`
+-   **Since**: `FinPress 6.4.0`
 
 Block Hooks is an API that allows a block to automatically insert itself next to all instances of a given block type, in a relative position also specified by the "hooked" block. That is, a block can opt to be inserted before or after a given block type, or as its first or last child (i.e. to be prepended or appended to the list of its child blocks, respectively). Hooked blocks will appear both on the frontend and in the editor (to allow for customization by the user).
 

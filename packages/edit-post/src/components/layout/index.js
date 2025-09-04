@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	AutosaveMonitor,
@@ -16,29 +16,29 @@ import {
 	PostLockedModal,
 	store as editorStore,
 	privateApis as editorPrivateApis,
-} from '@wordpress/editor';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/editor';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	privateApis as blockEditorPrivateApis,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { PluginArea } from '@wordpress/plugins';
-import { __, sprintf } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { PluginArea } from '@finpress/plugins';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	useCallback,
 	useMemo,
 	useId,
 	useRef,
 	useState,
-} from '@wordpress/element';
-import { chevronDown, chevronUp } from '@wordpress/icons';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { privateApis as commandsPrivateApis } from '@wordpress/commands';
-import { privateApis as blockLibraryPrivateApis } from '@wordpress/block-library';
-import { addQueryArgs } from '@wordpress/url';
-import { decodeEntities } from '@wordpress/html-entities';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/element';
+import { chevronDown, chevronUp } from '@finpress/icons';
+import { store as noticesStore } from '@finpress/notices';
+import { store as preferencesStore } from '@finpress/preferences';
+import { privateApis as commandsPrivateApis } from '@finpress/commands';
+import { privateApis as blockLibraryPrivateApis } from '@finpress/block-library';
+import { addQueryArgs } from '@finpress/url';
+import { decodeEntities } from '@finpress/html-entities';
+import { store as coreStore } from '@finpress/core-data';
 import {
 	Icon,
 	ResizableBox,
@@ -46,12 +46,12 @@ import {
 	Tooltip,
 	VisuallyHidden,
 	__unstableUseNavigateRegions as useNavigateRegions,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	useMediaQuery,
 	useRefEffect,
 	useViewportMatch,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 
 /**
  * Internal dependencies

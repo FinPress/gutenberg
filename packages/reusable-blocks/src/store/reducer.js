@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { combineReducers } from '@wordpress/data';
+import { combineReducers } from '@finpress/data';
 
 export function isEditingReusableBlock( state = {}, action ) {
 	if ( action?.type === 'SET_EDITING_REUSABLE_BLOCK' ) {

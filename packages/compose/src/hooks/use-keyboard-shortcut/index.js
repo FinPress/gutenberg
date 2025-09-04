@@ -5,10 +5,10 @@ import Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef } from '@wordpress/element';
-import { isAppleOS } from '@wordpress/keycodes';
+import { useEffect, useRef } from '@finpress/element';
+import { isAppleOS } from '@finpress/keycodes';
 
 /**
  * A block selection object.

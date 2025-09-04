@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isKeyboardEvent } from '@wordpress/keycodes';
+import { isKeyboardEvent } from '@finpress/keycodes';
 
 /**
  * Hook to prevent default behaviors for key combinations otherwise handled

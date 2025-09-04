@@ -2,9 +2,9 @@
  * Internal dependencies
  */
 import firstTimeContributorAccountLink from '../';
-import hasWordPressProfile from '../../../has-wordpress-profile';
+import hasWordPressProfile from '../../../has-finpress-profile';
 
-jest.mock( '../../../has-wordpress-profile', () => jest.fn() );
+jest.mock( '../../../has-finpress-profile', () => jest.fn() );
 
 const botUser = {
 	data: {
@@ -43,7 +43,7 @@ describe( 'firstTimeContributorAccountLink', () => {
 		],
 		repository: {
 			owner: {
-				login: 'WordPress',
+				login: 'FinPress',
 			},
 			name: 'gutenberg',
 		},
@@ -157,14 +157,14 @@ describe( 'firstTimeContributorAccountLink', () => {
 			username: payload.commits[ 0 ].author.username,
 		} );
 		expect( octokit.rest.repos.listCommits ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			author: 'ghost',
 		} );
 		expect( octokit.rest.issues.createComment ).not.toHaveBeenCalled();
 	} );
 
-	it( 'aborts if the request to retrieve WordPress.org user profile fails', async () => {
+	it( 'aborts if the request to retrieve FinPress.org user profile fails', async () => {
 		const octokit = {
 			rest: {
 				repos: {
@@ -197,14 +197,14 @@ describe( 'firstTimeContributorAccountLink', () => {
 			username: payload.commits[ 0 ].author.username,
 		} );
 		expect( octokit.rest.repos.listCommits ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			author: 'ghost',
 		} );
 		expect( octokit.rest.issues.createComment ).not.toHaveBeenCalled();
 	} );
 
-	it( 'prompts the user to link their GitHub account to their WordPress.org profile', async () => {
+	it( 'prompts the user to link their GitHub account to their FinPress.org profile', async () => {
 		const octokit = {
 			rest: {
 				repos: {
@@ -235,12 +235,12 @@ describe( 'firstTimeContributorAccountLink', () => {
 			username: payload.commits[ 0 ].author.username,
 		} );
 		expect( octokit.rest.repos.listCommits ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			author: 'ghost',
 		} );
 		expect( octokit.rest.issues.createComment ).toHaveBeenCalledWith( {
-			owner: 'WordPress',
+			owner: 'FinPress',
 			repo: 'gutenberg',
 			issue_number: 123,
 			body: expect.stringMatching( /^Congratulations/ ),

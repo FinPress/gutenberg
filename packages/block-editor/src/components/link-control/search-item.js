@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { MenuItem, TextHighlight } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { MenuItem, TextHighlight } from '@finpress/components';
 import {
 	Icon,
 	globe,
@@ -13,11 +13,11 @@ import {
 	file,
 	home,
 	verse,
-} from '@wordpress/icons';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
-import { safeDecodeURI, filterURLForDisplay, getPath } from '@wordpress/url';
-import { pipe } from '@wordpress/compose';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/icons';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
+import { safeDecodeURI, filterURLForDisplay, getPath } from '@finpress/url';
+import { pipe } from '@finpress/compose';
+import deprecated from '@finpress/deprecated';
 
 const ICONS_MAP = {
 	post: postList,

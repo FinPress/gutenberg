@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityRecords, store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
+import { useEntityRecords, store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

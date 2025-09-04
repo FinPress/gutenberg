@@ -5,11 +5,11 @@ import fastDeepEqual from 'fast-deep-equal/es6';
 import { v4 as uuid } from 'uuid';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
-import { addQueryArgs } from '@wordpress/url';
-import deprecated from '@wordpress/deprecated';
+import apiFetch from '@finpress/api-fetch';
+import { addQueryArgs } from '@finpress/url';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -219,7 +219,7 @@ export function receiveThemeSupports() {
  * Returns an action object used in signalling that the theme global styles CPT post revisions have been received.
  * Ignored from documentation as it's internal to the data store.
  *
- * @deprecated since WordPress 6.5.0. Callers should use `dispatch( 'core' ).receiveRevision` instead.
+ * @deprecated since FinPress 6.5.0. Callers should use `dispatch( 'core' ).receiveRevision` instead.
  *
  * @ignore
  *

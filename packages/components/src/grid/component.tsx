@@ -28,7 +28,7 @@ function UnconnectedGrid(
  * import {
  * 	__experimentalGrid as Grid,
  * 	__experimentalText as Text
- * } from `@wordpress/components`;
+ * } from `@finpress/components`;
  *
  * function Example() {
  * 	return (

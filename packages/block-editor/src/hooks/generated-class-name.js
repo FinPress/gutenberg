@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { hasBlockSupport, getBlockDefaultClassName } from '@wordpress/blocks';
+import { addFilter } from '@finpress/hooks';
+import { hasBlockSupport, getBlockDefaultClassName } from '@finpress/blocks';
 
 /**
  * Override props assigned to save component to inject generated className if

@@ -11,9 +11,9 @@ import {
 } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
+import { Component } from '@finpress/element';
 
 /**
  * This is a simplified version of Facebook's KeyboardAvoidingView.

@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useBlockProps,
@@ -8,11 +8,11 @@ import {
 	InnerBlocks,
 	store as blockEditorStore,
 	RichText,
-} from '@wordpress/block-editor';
-import { Placeholder } from '@wordpress/components';
-import { group as groupIcon } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { Placeholder } from '@finpress/components';
+import { group as groupIcon } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
 
 export default function Edit( props ) {
 	const { clientId } = props;

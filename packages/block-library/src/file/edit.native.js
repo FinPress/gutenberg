@@ -5,13 +5,13 @@ import { View, TouchableWithoutFeedback, Text } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	requestImageFailedRetryDialog,
 	requestImageUploadCancelDialog,
 	mediaUploadSync,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 import {
 	BlockIcon,
 	MediaPlaceholder,
@@ -23,7 +23,7 @@ import {
 	InspectorControls,
 	MEDIA_TYPE_ANY,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	ToolbarButton,
 	ToolbarGroup,
@@ -32,7 +32,7 @@ import {
 	TextControl,
 	SelectControl,
 	Icon,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	file as icon,
 	replace,
@@ -40,13 +40,13 @@ import {
 	external,
 	link,
 	warning,
-} from '@wordpress/icons';
-import { Component } from '@wordpress/element';
-import { __, _x } from '@wordpress/i18n';
-import { compose, withPreferredColorScheme } from '@wordpress/compose';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { getProtocol } from '@wordpress/url';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/icons';
+import { Component } from '@finpress/element';
+import { __, _x } from '@finpress/i18n';
+import { compose, withPreferredColorScheme } from '@finpress/compose';
+import { withDispatch, withSelect } from '@finpress/data';
+import { getProtocol } from '@finpress/url';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

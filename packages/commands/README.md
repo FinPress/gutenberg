@@ -37,32 +37,32 @@ As the usage of the Command Palette expands, more contexts will be added.
 
 Attaching a command or command loader to a given context is as simple as adding the `context` property (with the right context value from the available contexts above) to the `useCommand` or `useCommandLoader` calls.
 
-## WordPress Data API
+## FinPress Data API
 
-The Command Palette also offers a number of [selectors and actions](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-commands/) to manipulate its state, which include:
+The Command Palette also offers a number of [selectors and actions](https://developer.finpress.org/block-editor/reference-guides/data/data-core-commands/) to manipulate its state, which include:
 
 -   Retrieving the registered commands and command loaders using the following selectors `getCommands` and `getCommandLoader`
 -   Checking if the Command Palette is open using the `isOpen` selector.
 -   Programmatically open or close the Command Palette using the `open` and `close` actions.
 
-See the [Commands Data](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-commands/) documentation for more information.
+See the [Commands Data](https://developer.finpress.org/block-editor/reference-guides/data/data-core-commands/) documentation for more information.
 
 ## Installation
 
 Install the module
 
 ```bash
-npm install @wordpress/commands --save
+npm install @finpress/commands --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 _This package requires the following stylesheets to be included for proper styling:_
 
 ```css
 /* From node_modules: */
-@import '@wordpress/components/build-style/style.css';
-@import '@wordpress/commands/build-style/style.css';
+@import '@finpress/components/build-style/style.css';
+@import '@finpress/commands/build-style/style.css';
 ```
 
 ## API
@@ -75,13 +75,13 @@ Store definition for the commands namespace.
 
 _Related_
 
--   <https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore>
+-   <https://github.com/FinPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore>
 
 _Usage_
 
 ```js
-import { store as commandsStore } from '@wordpress/commands';
-import { useDispatch } from '@wordpress/data';
+import { store as commandsStore } from '@finpress/commands';
+import { useDispatch } from '@finpress/data';
 ...
 const { open: openCommandCenter } = useDispatch( commandsStore );
 ```
@@ -97,8 +97,8 @@ Attach a command to the command palette. Used for static commands.
 _Usage_
 
 ```js
-import { useCommand } from '@wordpress/commands';
-import { plus } from '@wordpress/icons';
+import { useCommand } from '@finpress/commands';
+import { plus } from '@finpress/icons';
 
 useCommand( {
 	name: 'myplugin/my-command-name',
@@ -122,8 +122,8 @@ Attach a command loader to the command palette. Used for dynamic commands.
 _Usage_
 
 ```js
-import { useCommandLoader } from '@wordpress/commands';
-import { post, page, layout, symbolFilled } from '@wordpress/icons';
+import { useCommandLoader } from '@finpress/commands';
+import { post, page, layout, symbolFilled } from '@finpress/icons';
 
 const icons = {
     post,
@@ -192,8 +192,8 @@ _Parameters_
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

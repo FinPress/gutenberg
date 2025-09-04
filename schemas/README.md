@@ -1,6 +1,6 @@
 # Schemas
 
-The collection of schemas used in WordPress, including the `theme.json`, `block.json` and `font-collection.json` schemas.
+The collection of schemas used in FinPress, including the `theme.json`, `block.json` and `font-collection.json` schemas.
 
 JSON schemas are used by code editors to offer tooltips, autocomplete, and validation.
 

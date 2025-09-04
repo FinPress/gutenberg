@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Path, SVG } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { Path, SVG } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
-/** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
+/** @typedef {import('@finpress/blocks').WPBlockVariation} WPBlockVariation */
 
 /**
  * Template option choices for predefined columns layouts.

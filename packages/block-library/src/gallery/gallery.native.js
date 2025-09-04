@@ -10,19 +10,19 @@ import { defaultColumnsNumber } from './shared';
 import styles from './gallery-styles.scss';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	BlockCaption,
 	RichText,
 	useInnerBlocksProps,
-} from '@wordpress/block-editor';
-import { useState, useEffect } from '@wordpress/element';
-import { mediaUploadSync } from '@wordpress/react-native-bridge';
-import { WIDE_ALIGNMENTS } from '@wordpress/components';
-import { useResizeObserver } from '@wordpress/compose';
-import { withViewportMatch } from '@wordpress/viewport';
+} from '@finpress/block-editor';
+import { useState, useEffect } from '@finpress/element';
+import { mediaUploadSync } from '@finpress/react-native-bridge';
+import { WIDE_ALIGNMENTS } from '@finpress/components';
+import { useResizeObserver } from '@finpress/compose';
+import { withViewportMatch } from '@finpress/viewport';
 
 const TILE_SPACING = 8;
 

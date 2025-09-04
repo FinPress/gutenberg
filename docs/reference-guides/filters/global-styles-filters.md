@@ -1,8 +1,8 @@
 # Global Styles Filters
 
-WordPress 6.1 has introduced some server-side filters to hook into the `theme.json` data provided at the different data layers:
+FinPress 6.1 has introduced some server-side filters to hook into the `theme.json` data provided at the different data layers:
 
-- `wp_theme_json_data_default`: hooks into the default data provided by WordPress
+- `wp_theme_json_data_default`: hooks into the default data provided by FinPress
 - `wp_theme_json_data_blocks`: hooks into the data provided by the blocks
 - `wp_theme_json_data_theme`: hooks into the data provided by the theme
 - `wp_theme_json_data_user`: hooks into the data provided by the user

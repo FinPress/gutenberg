@@ -41,7 +41,7 @@ function md5( text: string ): string {
  * @return  Module to use as local package alias.
  */
 function getLocalModuleName( arg: string ): string {
-	return '@wordpress/lazy-import.' + md5( arg );
+	return '@finpress/lazy-import.' + md5( arg );
 }
 
 /**
@@ -143,7 +143,7 @@ export async function lazyImport(
 	// first attempt to require the module. Thus, it's not required to reset any
 	// values from `require.cache`.
 	//
-	// See: https://github.com/WordPress/gutenberg/pull/22684#discussion_r434583858
+	// See: https://github.com/FinPress/gutenberg/pull/22684#discussion_r434583858
 
 	return require( join( localModule, localPath ) );
 }

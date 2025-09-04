@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalToolsPanel as ToolsPanel } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useCallback } from '@wordpress/element';
+import { __experimentalToolsPanel as ToolsPanel } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 
-import { _n } from '@wordpress/i18n';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
+import { _n } from '@finpress/i18n';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

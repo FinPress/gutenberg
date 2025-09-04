@@ -1,18 +1,18 @@
 # Core Data
 
-Core Data is a [data module](https://github.com/WordPress/gutenberg/tree/HEAD/packages/data/README.md) intended to simplify access to and manipulation of core WordPress entities. It registers its own store and provides a number of selectors which resolve data from the WordPress REST API automatically, along with dispatching action creators to manipulate data. Core data is shipped with [`TypeScript definitions for WordPress data types`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/core-data/src/entity-types/README.md).
+Core Data is a [data module](https://github.com/FinPress/gutenberg/tree/HEAD/packages/data/README.md) intended to simplify access to and manipulation of core FinPress entities. It registers its own store and provides a number of selectors which resolve data from the FinPress REST API automatically, along with dispatching action creators to manipulate data. Core data is shipped with [`TypeScript definitions for FinPress data types`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/core-data/src/entity-types/README.md).
 
-Used in combination with features of the data module such as [`subscribe`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/data/README.md#subscribe-function) or [higher-order components](https://github.com/WordPress/gutenberg/tree/HEAD/packages/data/README.md#higher-order-components), it enables a developer to easily add data into the logic and display of their plugin.
+Used in combination with features of the data module such as [`subscribe`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/data/README.md#subscribe-function) or [higher-order components](https://github.com/FinPress/gutenberg/tree/HEAD/packages/data/README.md#higher-order-components), it enables a developer to easily add data into the logic and display of their plugin.
 
 ## Installation
 
 Install the module
 
 ```bash
-npm install @wordpress/core-data --save
+npm install @finpress/core-data --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## Example
 
@@ -44,7 +44,7 @@ function MyAuthorsListBase() {
 
 An entity represents a data source. Each item within the entity is called an entity record. Available entities are defined in `rootEntitiesConfig` at ./src/entities.js.
 
-As of right now, the default entities defined by this package map to the [REST API handbook](https://developer.wordpress.org/rest-api/reference/), though there is nothing in the design that prevents it from being used to interact with any other API.
+As of right now, the default entities defined by this package map to the [REST API handbook](https://developer.finpress.org/rest-api/reference/), though there is nothing in the design that prevents it from being used to interact with any other API.
 
 What follows is a description of some of the properties of `rootEntitiesConfig`.
 
@@ -333,7 +333,7 @@ Returns whether the current user can perform the given action on the given REST 
 
 Calling this may trigger an OPTIONS request to the REST API via the `canUser()` resolver.
 
-<https://developer.wordpress.org/rest-api/reference/>
+<https://developer.finpress.org/rest-api/reference/>
 
 _Parameters_
 
@@ -352,7 +352,7 @@ Returns whether the current user can edit the given entity.
 
 Calling this may trigger an OPTIONS request to the REST API via the `canUser()` resolver.
 
-<https://developer.wordpress.org/rest-api/reference/>
+<https://developer.finpress.org/rest-api/reference/>
 
 _Parameters_
 
@@ -374,7 +374,7 @@ Returns all available authors.
 _Parameters_
 
 -   _state_ `State`: Data state.
--   _query_ `GetRecordsHttpQuery`: Optional object of query parameters to include with request. For valid query parameters see the [Users page](https://developer.wordpress.org/rest-api/reference/users/) in the REST API Handbook and see the arguments for [List Users](https://developer.wordpress.org/rest-api/reference/users/#list-users) and [Retrieve a User](https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user).
+-   _query_ `GetRecordsHttpQuery`: Optional object of query parameters to include with request. For valid query parameters see the [Users page](https://developer.finpress.org/rest-api/reference/users/) in the REST API Handbook and see the arguments for [List Users](https://developer.finpress.org/rest-api/reference/users/#list-users) and [Retrieve a User](https://developer.finpress.org/rest-api/reference/users/#retrieve-a-user).
 
 _Returns_
 
@@ -449,7 +449,7 @@ _Returns_
 
 ### getCurrentThemeGlobalStylesRevisions
 
-> **Deprecated** since WordPress 6.5.0. Callers should use `select( 'core' ).getRevisions( 'root', 'globalStyles', ${ recordKey } )` instead, where `recordKey` is the id of the global styles parent post.
+> **Deprecated** since FinPress 6.5.0. Callers should use `select( 'core' ).getRevisions( 'root', 'globalStyles', ${ recordKey } )` instead, where `recordKey` is the id of the global styles parent post.
 
 Returns the revisions of the current global styles theme.
 
@@ -516,7 +516,7 @@ _Returns_
 
 ### getEntitiesByKind
 
-> **Deprecated** since WordPress 6.0. Use getEntitiesConfig instead
+> **Deprecated** since FinPress 6.0. Use getEntitiesConfig instead
 
 Returns the loaded entities for the given kind.
 
@@ -544,7 +544,7 @@ _Returns_
 
 ### getEntity
 
-> **Deprecated** since WordPress 6.0. Use getEntityConfig instead
+> **Deprecated** since FinPress 6.0. Use getEntityConfig instead
 
 Returns the entity config given its kind and name.
 
@@ -582,7 +582,7 @@ _Parameters_
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
 -   _key_ `EntityRecordKey`: Optional record's key. If requesting a global record (e.g. site settings), the key can be omitted. If requesting a specific item, the key must always be included.
--   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available "Retrieve a [Entity kind]".
+-   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available "Retrieve a [Entity kind]".
 
 _Returns_
 
@@ -629,7 +629,7 @@ _Parameters_
 -   _state_ `State`: State tree
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
--   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+-   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
 
 _Returns_
 
@@ -644,7 +644,7 @@ _Parameters_
 -   _state_ `State`: State tree
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
--   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+-   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
 
 _Returns_
 
@@ -659,7 +659,7 @@ _Parameters_
 -   _state_ `State`: State tree
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
--   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+-   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
 
 _Returns_
 
@@ -754,7 +754,7 @@ _Parameters_
 -   _name_ `string`: Entity name.
 -   _recordKey_ `EntityRecordKey`: The key of the entity record whose revisions you want to fetch.
 -   _revisionKey_ `EntityRecordKey`: The revision's key.
--   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.wordpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [entity kind]".
+-   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.finpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [entity kind]".
 
 _Returns_
 
@@ -770,7 +770,7 @@ _Parameters_
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
 -   _recordKey_ `EntityRecordKey`: The key of the entity record whose revisions you want to fetch.
--   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.wordpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [Entity kind]".
+-   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.finpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [Entity kind]".
 
 _Returns_
 
@@ -851,7 +851,7 @@ _Parameters_
 -   _state_ `State`: State tree
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
--   _query_ `GetRecordsHttpQuery`: Optional terms query. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+-   _query_ `GetRecordsHttpQuery`: Optional terms query. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
 
 _Returns_
 
@@ -929,7 +929,7 @@ _Returns_
 
 Determines if the returned preview is an oEmbed link fallback.
 
-WordPress can be configured to return a simple link to a URL if it is not embeddable. We need to be able to determine if a URL is embeddable or not, based on what we get back from the oEmbed preview API.
+FinPress can be configured to return a simple link to a URL if it is not embeddable. We need to be able to determine if a URL is embeddable or not, based on what we get back from the oEmbed preview API.
 
 _Parameters_
 
@@ -972,7 +972,7 @@ _Returns_
 
 ## Hooks
 
-The following set of react hooks available to import from the `@wordpress/core-data` package:
+The following set of react hooks available to import from the `@finpress/core-data` package:
 
 <!-- START TOKEN(Autogenerated hooks|src/hooks/index.ts) -->
 
@@ -1024,7 +1024,7 @@ Resolves the specified entity record.
 _Usage_
 
 ```js
-import { useEntityRecord } from '@wordpress/core-data';
+import { useEntityRecord } from '@finpress/core-data';
 
 function PageTitleDisplay( { id } ) {
 	const { record, isResolving } = useEntityRecord( 'postType', 'page', id );
@@ -1046,11 +1046,11 @@ the store state using `getEntityRecord()`, or resolved if missing.
 
 ```js
 import { useCallback } from 'react';
-import { useDispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { TextControl } from '@wordpress/components';
-import { store as noticeStore } from '@wordpress/notices';
-import { useEntityRecord } from '@wordpress/core-data';
+import { useDispatch } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { TextControl } from '@finpress/components';
+import { store as noticeStore } from '@finpress/notices';
+import { useEntityRecord } from '@finpress/core-data';
 
 function PageRenameForm( { id } ) {
 	const page = useEntityRecord( 'postType', 'page', id );
@@ -1115,7 +1115,7 @@ _Returns_
 
 _Changelog_
 
-`6.1.0` Introduced in WordPress core.
+`6.1.0` Introduced in FinPress core.
 
 ### useEntityRecords
 
@@ -1124,7 +1124,7 @@ Resolves the specified entity records.
 _Usage_
 
 ```js
-import { useEntityRecords } from '@wordpress/core-data';
+import { useEntityRecords } from '@finpress/core-data';
 
 function PageTitlesList() {
 	const { records, isResolving } = useEntityRecords( 'postType', 'page' );
@@ -1163,7 +1163,7 @@ _Returns_
 
 _Changelog_
 
-`6.1.0` Introduced in WordPress core.
+`6.1.0` Introduced in FinPress core.
 
 ### useResourcePermissions
 
@@ -1172,7 +1172,7 @@ Resolves resource permissions.
 _Usage_
 
 ```js
-import { useResourcePermissions } from '@wordpress/core-data';
+import { useResourcePermissions } from '@finpress/core-data';
 
 function PagesList() {
 	const { canCreate, isResolving } = useResourcePermissions( {
@@ -1197,7 +1197,7 @@ function PagesList() {
 ```
 
 ```js
-import { useResourcePermissions } from '@wordpress/core-data';
+import { useResourcePermissions } from '@finpress/core-data';
 
 function Page( { pageId } ) {
 	const { canCreate, canUpdate, canDelete, isResolving } =
@@ -1240,14 +1240,14 @@ _Returns_
 
 _Changelog_
 
-`6.1.0` Introduced in WordPress core.
+`6.1.0` Introduced in FinPress core.
 
 <!-- END TOKEN(Autogenerated hooks|src/hooks/index.ts) -->
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

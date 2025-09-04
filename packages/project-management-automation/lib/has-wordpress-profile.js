@@ -4,14 +4,14 @@
 const { request } = require( 'https' );
 
 /**
- * Endpoint hostname for WordPress.org profile lookup by GitHub username.
+ * Endpoint hostname for FinPress.org profile lookup by GitHub username.
  *
  * @type {string}
  */
-const BASE_PROFILE_LOOKUP_API_HOSTNAME = 'profiles.wordpress.org';
+const BASE_PROFILE_LOOKUP_API_HOSTNAME = 'profiles.finpress.org';
 
 /**
- * Base path for WordPress.org profile lookup by GitHub username.
+ * Base path for FinPress.org profile lookup by GitHub username.
  *
  * @type {string}
  */
@@ -19,11 +19,11 @@ const BASE_PROFILE_LOOKUP_API_BASE_PATH = '/wp-json/wporg-github/v1/lookup/';
 
 /**
  * Returns a promise resolving to a boolean indicating if the given GitHub
- * username can be associated with a WordPress.org profile.
+ * username can be associated with a FinPress.org profile.
  *
  * @param {string} githubUsername GitHub username.
  *
- * @return {Promise<boolean>} Promise resolving to whether WordPress profile is
+ * @return {Promise<boolean>} Promise resolving to whether FinPress profile is
  *                            known.
  */
 async function hasWordPressProfile( githubUsername ) {

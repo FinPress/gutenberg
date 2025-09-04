@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ExternalLink } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { CheckboxControl, ExternalLink } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ function PostPingbacks() {
 			help={
 				<ExternalLink
 					href={ __(
-						'https://wordpress.org/documentation/article/trackbacks-and-pingbacks/'
+						'https://finpress.org/documentation/article/trackbacks-and-pingbacks/'
 					) }
 				>
 					{ __( 'Learn more about pingbacks & trackbacks' ) }
@@ -44,7 +44,7 @@ function PostPingbacks() {
 
 /**
  * Renders a control for enabling or disabling pingbacks and trackbacks
- * in a WordPress post.
+ * in a FinPress post.
  *
  * @module PostPingbacks
  */

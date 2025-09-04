@@ -1,26 +1,26 @@
 # Edit Widgets
 
-Widgets Page Module for WordPress.
+Widgets Page Module for FinPress.
 
-> This package is meant to be used only with WordPress core. Feel free to use it in your own project but please keep in mind that it might never get fully documented.
+> This package is meant to be used only with FinPress core. Feel free to use it in your own project but please keep in mind that it might never get fully documented.
 
 ## Batch processing
 
-This package contains the first version of what may eventually become `@wordpress/batch-processing` package. Once imported, `core/__experimental-batch-processing` store gets registered. As the name says - it is highly experimental and considered a private API for now.
+This package contains the first version of what may eventually become `@finpress/batch-processing` package. Once imported, `core/__experimental-batch-processing` store gets registered. As the name says - it is highly experimental and considered a private API for now.
 
 ## Installation
 
 Install the module
 
 ```bash
-npm install @wordpress/edit-widgets
+npm install @finpress/edit-widgets
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## How this works
 
-The new Widgets screen in WordPress admin is another block editor, just like the Post editor or the experimental site editor. Hence it will be referred often as the Widgets editor.
+The new Widgets screen in FinPress admin is another block editor, just like the Post editor or the experimental site editor. Hence it will be referred often as the Widgets editor.
 
 This editor manages widget areas and offers a way to add Gutenberg blocks to them, in addition to regular widgets. To support both widgets and blocks, the editor employs a translation mechanism between widget storage and block grammar.
 
@@ -40,8 +40,8 @@ In order to make the experience as seamless as possible for users, the following
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

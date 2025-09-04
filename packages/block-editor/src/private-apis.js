@@ -54,7 +54,7 @@ import CommentIconSlotFill from './components/collab/block-comment-icon-slot';
 import CommentIconToolbarSlotFill from './components/collab/block-comment-icon-toolbar-slot';
 import HTMLElementControl from './components/html-element-control';
 /**
- * Private @wordpress/block-editor APIs.
+ * Private @finpress/block-editor APIs.
  */
 export const privateApis = {};
 lock( privateApis, {

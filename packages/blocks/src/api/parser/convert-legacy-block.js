@@ -20,10 +20,10 @@ export function convertLegacyBlockNameAndAttributes( name, attributes ) {
 		name = 'core/paragraph';
 	}
 
-	// Convert derivative blocks such as 'core/social-link-wordpress' to the
+	// Convert derivative blocks such as 'core/social-link-finpress' to the
 	// canonical form 'core/social-link'.
 	if ( name && name.indexOf( 'core/social-link-' ) === 0 ) {
-		// Capture `social-link-wordpress` into `{"service":"wordpress"}`
+		// Capture `social-link-finpress` into `{"service":"finpress"}`
 		newAttributes.service = name.substring( 17 );
 		name = 'core/social-link';
 	}
@@ -43,7 +43,7 @@ export function convertLegacyBlockNameAndAttributes( name, attributes ) {
 				: providerSlug;
 		// This is needed as the `responsive` attribute was passed
 		// in a different way before the refactoring to block variations.
-		if ( ! [ 'amazon-kindle', 'wordpress' ].includes( providerSlug ) ) {
+		if ( ! [ 'amazon-kindle', 'finpress' ].includes( providerSlug ) ) {
 			newAttributes.responsive = true;
 		}
 		name = 'core/embed';
@@ -119,7 +119,7 @@ export function convertLegacyBlockNameAndAttributes( name, attributes ) {
 	if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 		// Convert pattern overrides added during experimental phase.
 		// Only four blocks were supported initially.
-		// These checks can be removed in WordPress 6.6.
+		// These checks can be removed in FinPress 6.6.
 		if (
 			newAttributes.metadata?.bindings &&
 			( name === 'core/paragraph' ||

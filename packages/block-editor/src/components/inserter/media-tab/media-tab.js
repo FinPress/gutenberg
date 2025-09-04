@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useViewportMatch } from '@wordpress/compose';
-import { Button } from '@wordpress/components';
-import { useCallback, useMemo } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useViewportMatch } from '@finpress/compose';
+import { Button } from '@finpress/components';
+import { useCallback, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

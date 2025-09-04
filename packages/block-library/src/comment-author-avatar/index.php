@@ -2,7 +2,7 @@
 /**
  * Server-side rendering of the `core/comment-author-avatar` block.
  *
- * @package WordPress
+ * @package FinPress
  */
 
 /**

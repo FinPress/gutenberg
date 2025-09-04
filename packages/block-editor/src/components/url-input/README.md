@@ -38,8 +38,8 @@ This prop is passed directly to the `URLInput` component.
 
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import { URLInputButton } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { URLInputButton } from '@finpress/block-editor';
 
 registerBlockType( /* ... */, {
 	// ...
@@ -134,8 +134,8 @@ This prop allows the suggestions list to be programmatically not rendered by pas
 
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import { URLInput } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { URLInput } from '@finpress/block-editor';
 
 registerBlockType( /* ... */, {
 	// ...

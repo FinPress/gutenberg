@@ -4,21 +4,21 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	AlignmentControl,
 	BlockControls,
 	useBlockProps,
 	useInnerBlocksProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { BlockQuotation } from '@wordpress/components';
-import { useDispatch, useRegistry } from '@wordpress/data';
-import { Platform, useEffect } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
-import { verse } from '@wordpress/icons';
+} from '@finpress/block-editor';
+import { BlockQuotation } from '@finpress/components';
+import { useDispatch, useRegistry } from '@finpress/data';
+import { Platform, useEffect } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
+import { verse } from '@finpress/icons';
 
 /**
  * Internal dependencies

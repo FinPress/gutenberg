@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, Fragment } from '@wordpress/element';
+import { useState, Fragment } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __unstableMotion as motion } from '@wordpress/components';
+import { __unstableMotion as motion } from '@finpress/components';
 
 /**
  * Internal dependencies

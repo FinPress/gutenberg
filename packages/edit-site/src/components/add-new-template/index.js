@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
@@ -14,12 +14,12 @@ import {
 	__experimentalVStack as VStack,
 	Flex,
 	Icon,
-} from '@wordpress/components';
-import { decodeEntities } from '@wordpress/html-entities';
-import { useState, memo, useRef, useEffect } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { useViewportMatch } from '@wordpress/compose';
+} from '@finpress/components';
+import { decodeEntities } from '@finpress/html-entities';
+import { useState, memo, useRef, useEffect } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useViewportMatch } from '@finpress/compose';
 import {
 	archive,
 	blockMeta,
@@ -37,11 +37,11 @@ import {
 	verse,
 	search,
 	tag,
-} from '@wordpress/icons';
-import { __, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { focus } from '@wordpress/dom';
+} from '@finpress/icons';
+import { __, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { focus } from '@finpress/dom';
 
 /**
  * Internal dependencies

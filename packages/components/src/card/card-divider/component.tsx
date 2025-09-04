@@ -26,7 +26,7 @@ function UnconnectedCardDivider(
  * It is typically used to divide multiple `CardBody` components from each other.
  *
  * ```jsx
- * import { Card, CardBody, CardDivider } from `@wordpress/components`;
+ * import { Card, CardBody, CardDivider } from `@finpress/components`;
  *
  * <Card>
  *  <CardBody>...</CardBody>

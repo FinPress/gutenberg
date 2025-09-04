@@ -34,7 +34,7 @@ const config = {
 				docs: {
 					sidebarPath: require.resolve( './sidebars.js' ),
 					editUrl:
-						'https://github.com/WordPress/gutenberg/tree/trunk/platform-docs/',
+						'https://github.com/FinPress/gutenberg/tree/trunk/platform-docs/',
 				},
 				theme: {
 					customCss: require.resolve( './src/css/custom.css' ),
@@ -64,7 +64,7 @@ const config = {
 						label: 'Docs',
 					},
 					{
-						href: 'https://github.com/WordPress/gutenberg',
+						href: 'https://github.com/FinPress/gutenberg',
 						label: 'GitHub',
 						position: 'right',
 					},

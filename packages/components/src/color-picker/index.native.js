@@ -5,12 +5,12 @@ import { View, Text, TouchableWithoutFeedback, Platform } from 'react-native';
 import { colord, extend } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { Icon, check, close } from '@wordpress/icons';
+import { useState, useEffect } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { Icon, check, close } from '@finpress/icons';
 /**
  * Internal dependencies
  */

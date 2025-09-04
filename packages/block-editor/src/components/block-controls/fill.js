@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalStyleProvider as StyleProvider,
 	ToolbarGroup,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

@@ -4,19 +4,19 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { focus } from '@wordpress/dom';
+import { focus } from '@finpress/dom';
 import {
 	useContext,
 	useEffect,
 	useMemo,
 	useRef,
 	useId,
-} from '@wordpress/element';
-import { useMergeRefs } from '@wordpress/compose';
-import { escapeAttribute } from '@wordpress/escape-html';
-import warning from '@wordpress/warning';
+} from '@finpress/element';
+import { useMergeRefs } from '@finpress/compose';
+import { escapeAttribute } from '@finpress/escape-html';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies

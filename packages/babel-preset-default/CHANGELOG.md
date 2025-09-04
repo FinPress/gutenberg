@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -44,24 +44,24 @@
 
 ### Enhancements
 
--   The bundled `@babel/core` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `@babel/plugin-transform-react-jsx` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `@babel/plugin-transform-runtime` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `@babel/preset-env` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `@babel/preset-typescript` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `@babel/runtime` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
+-   The bundled `@babel/core` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `@babel/plugin-transform-react-jsx` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `@babel/plugin-transform-runtime` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `@babel/preset-env` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `@babel/preset-typescript` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `@babel/runtime` dependency has been updated from requiring `^7.16.0` to requiring `7.25.7` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
 
 ## 8.9.0 (2024-10-03)
 
 ### Bug Fixes
 
--   Fix a bug in 8.8.1 due to missing files in the published package ([#65481](https://github.com/WordPress/gutenberg/pull/65481)).
+-   Fix a bug in 8.8.1 due to missing files in the published package ([#65481](https://github.com/FinPress/gutenberg/pull/65481)).
 
 ## 8.8.0 (2024-09-19)
 
 ### Internal
 
--   Added `addPolyfillComments` option. When used, it will automatically add magic comments to mark files that need `wp-polyfill` ([#65292](https://github.com/WordPress/gutenberg/pull/65292)).
+-   Added `addPolyfillComments` option. When used, it will automatically add magic comments to mark files that need `wp-polyfill` ([#65292](https://github.com/FinPress/gutenberg/pull/65292)).
 
 ## 8.7.0 (2024-09-05)
 
@@ -81,10 +81,10 @@
 
 ### Breaking Changes
 
-**Note** If you're using @wordpress/scripts for building JS scripts to target WordPress 6.5 or earlier, you should not upgrade to this version and continue using @wordpress/babel-preset-default@7.
+**Note** If you're using @finpress/scripts for building JS scripts to target FinPress 6.5 or earlier, you should not upgrade to this version and continue using @finpress/babel-preset-default@7.
 
--   Use React's automatic runtime to transform JSX ([#61692](https://github.com/WordPress/gutenberg/pull/61692)).
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Use React's automatic runtime to transform JSX ([#61692](https://github.com/FinPress/gutenberg/pull/61692)).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 7.42.0 (2024-05-16)
 
@@ -120,11 +120,11 @@
 
 ### Internal
 
--   The bundled `browserslist` dependency has been updated from requiring `^4.21.9` to requiring `^4.21.10` ([#54657](https://github.com/WordPress/gutenberg/pull/54657)).
+-   The bundled `browserslist` dependency has been updated from requiring `^4.21.9` to requiring `^4.21.10` ([#54657](https://github.com/FinPress/gutenberg/pull/54657)).
 
 ### Enhancements
 
--   Use `react` as the default scope variable for JSX pragma instead of `@wordpress/element`.
+-   Use `react` as the default scope variable for JSX pragma instead of `@finpress/element`.
 
 ## 7.26.0 (2023-09-20)
 
@@ -144,7 +144,7 @@
 
 ### Enhancements
 
--   Enable the `bugfixes` option in `@babel/preset-env` to remove unneeded transpilation ([#50994](https://github.com/WordPress/gutenberg/pull/50994)).
+-   Enable the `bugfixes` option in `@babel/preset-env` to remove unneeded transpilation ([#50994](https://github.com/FinPress/gutenberg/pull/50994)).
 
 ## 7.18.0 (2023-05-24)
 
@@ -188,26 +188,26 @@
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ## 6.4.0 (2021-11-15)
 
 ### Enhancements
 
--   The bundled `@babel/core` dependency has been updated from requiring `^7.13.19` to requiring `^7.16.0` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `@babel/plugin-transform-react-jsx` dependency has been updated from requiring `^7.12.7` to requiring `^7.16.0` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `@babel/plugin-transform-runtime` dependency has been updated from requiring `^7.13.10` to requiring `^7.16.0` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `@babel/preset-env` dependency has been updated from requiring `^7.13.10` to requiring `^7.16.0` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `@babel/preset-typescript` dependency has been updated from requiring `^7.13.10` to requiring `^7.16.0` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `@babel/runtime` dependency has been updated from requiring `^7.13.10` to requiring `^7.16.0` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `browserslist` dependency has been updated from requiring `^4.16.6` to requiring `^4.17.6` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
--   The bundled `core-js` dependency has been updated from requiring `^3.12.1` to requiring `^3.19.1` ([#36244](https://github.com/WordPress/gutenberg/pull/36244)).
+-   The bundled `@babel/core` dependency has been updated from requiring `^7.13.19` to requiring `^7.16.0` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `@babel/plugin-transform-react-jsx` dependency has been updated from requiring `^7.12.7` to requiring `^7.16.0` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `@babel/plugin-transform-runtime` dependency has been updated from requiring `^7.13.10` to requiring `^7.16.0` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `@babel/preset-env` dependency has been updated from requiring `^7.13.10` to requiring `^7.16.0` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `@babel/preset-typescript` dependency has been updated from requiring `^7.13.10` to requiring `^7.16.0` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `@babel/runtime` dependency has been updated from requiring `^7.13.10` to requiring `^7.16.0` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `browserslist` dependency has been updated from requiring `^4.16.6` to requiring `^4.17.6` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
+-   The bundled `core-js` dependency has been updated from requiring `^3.12.1` to requiring `^3.19.1` ([#36244](https://github.com/FinPress/gutenberg/pull/36244)).
 
 ## 6.2.0 (2021-05-31)
 
 ### New Features
 
--   New `build/polyfill.js` (minified version – `build/polyfill.min.js`) file is available that polyfills ECMAScript features missing in the [browsers supported](https://make.wordpress.org/core/handbook/best-practices/browser-support/) by the WordPress project. It's a drop-in replacement for the deprecated `@babel/polyfill` package ([#31279](https://github.com/WordPress/gutenberg/pull/31279)).
+-   New `build/polyfill.js` (minified version – `build/polyfill.min.js`) file is available that polyfills ECMAScript features missing in the [browsers supported](https://make.finpress.org/core/handbook/best-practices/browser-support/) by the FinPress project. It's a drop-in replacement for the deprecated `@babel/polyfill` package ([#31279](https://github.com/FinPress/gutenberg/pull/31279)).
 
 ## 6.1.0 (2021-05-20)
 
@@ -219,18 +219,18 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ## 5.2.0 (2021-04-06)
 
 ### Enhancements
 
--   The bundled `@babel/core` dependency has been updated from requiring `^7.12.9` to requiring `^7.13.10` ([#30018](https://github.com/WordPress/gutenberg/pull/30018)).
--   The bundled `@babel/plugin-transform-runtime` dependency has been updated from requiring `^7.12.1` to requiring `^7.13.10` ([#30018](https://github.com/WordPress/gutenberg/pull/30018)).
--   The bundled `@babel/preset-env` dependency has been updated from requiring `^7.12.7` to requiring `^7.13.10` ([#30018](https://github.com/WordPress/gutenberg/pull/30018)).
--   The bundled `@babel/preset-typescript` dependency has been updated from requiring `^7.12.7` to requiring `^7.13.10` ([#30018](https://github.com/WordPress/gutenberg/pull/30018)).
--   The bundled `@babel/runtime` dependency has been updated from requiring `^7.12.5` to requiring `^7.13.10` ([#30018](https://github.com/WordPress/gutenberg/pull/30018)).
+-   The bundled `@babel/core` dependency has been updated from requiring `^7.12.9` to requiring `^7.13.10` ([#30018](https://github.com/FinPress/gutenberg/pull/30018)).
+-   The bundled `@babel/plugin-transform-runtime` dependency has been updated from requiring `^7.12.1` to requiring `^7.13.10` ([#30018](https://github.com/FinPress/gutenberg/pull/30018)).
+-   The bundled `@babel/preset-env` dependency has been updated from requiring `^7.12.7` to requiring `^7.13.10` ([#30018](https://github.com/FinPress/gutenberg/pull/30018)).
+-   The bundled `@babel/preset-typescript` dependency has been updated from requiring `^7.12.7` to requiring `^7.13.10` ([#30018](https://github.com/FinPress/gutenberg/pull/30018)).
+-   The bundled `@babel/runtime` dependency has been updated from requiring `^7.12.5` to requiring `^7.13.10` ([#30018](https://github.com/FinPress/gutenberg/pull/30018)).
 
 ## 5.1.0 (2021-03-17)
 
@@ -242,7 +242,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ## 4.20.0 (2020-12-17)
 
@@ -254,7 +254,7 @@
 
 ### Breaking Changes
 
--   Revert enabling the `shippedProposals` flag. That flag enables the use of stage-3 proposals, but the goal of this preset is to only support stage-4 features. [#22083](https://github.com/WordPress/gutenberg/pull/22083)
+-   Revert enabling the `shippedProposals` flag. That flag enables the use of stage-3 proposals, but the goal of this preset is to only support stage-4 features. [#22083](https://github.com/FinPress/gutenberg/pull/22083)
 
 ### New Features
 
@@ -276,28 +276,28 @@
 
 ### Bug Fixes
 
--   Added missing `@wordpress/element` dependency which is used internally.
+-   Added missing `@finpress/element` dependency which is used internally.
 
 ## 4.4.0 (2019-08-05)
 
 ### Bug Fixes
 
 -   Configure Babel to target your current version of Node as described in [Jest docs](https://jestjs.io/docs/en/getting-started#using-babel).
--   Added missing [core-js](https://www.npmjs.com/package/core-js) dependency ([#16259](https://github.com/WordPress/gutenberg/pull/16259)).
+-   Added missing [core-js](https://www.npmjs.com/package/core-js) dependency ([#16259](https://github.com/FinPress/gutenberg/pull/16259)).
 
 ## 4.2.0 (2019-05-21)
 
 ### New Features
 
--   Handle `<></>` JSX Fragments with `@wordpress/element` `Fragment` ([#15120](https://github.com/WordPress/gutenberg/pull/15120)).
+-   Handle `<></>` JSX Fragments with `@finpress/element` `Fragment` ([#15120](https://github.com/FinPress/gutenberg/pull/15120)).
 -   The bundled `@babel/core` dependency has been updated from requiring `^7.2.2` to requiring `^7.4.4`. Babel preset is now using `core-js@3` instead of `core-js@2` (see [Migration Guide](https://babeljs.io/blog/2019/03/19/7.4.0#migration-from-core-js-2)).
 
 ## 4.0.0 (2019-03-06)
 
 ### Breaking Changes
 
--   Removed `babel-core` dependency acting as Babel 7 bridge ([#13922](https://github.com/WordPress/gutenberg/pull/13922). Ensure all references to `babel-core` are replaced with `@babel/core` .
--   Preset updated to include `@wordpress/babel-plugin-import-jsx-pragma` plugin integration ([#13540](https://github.com/WordPress/gutenberg/pull/13540)). It should no longer be explicitly included in your Babel config.
+-   Removed `babel-core` dependency acting as Babel 7 bridge ([#13922](https://github.com/FinPress/gutenberg/pull/13922). Ensure all references to `babel-core` are replaced with `@babel/core` .
+-   Preset updated to include `@finpress/babel-plugin-import-jsx-pragma` plugin integration ([#13540](https://github.com/FinPress/gutenberg/pull/13540)). It should no longer be explicitly included in your Babel config.
 
 ### Bug Fixes
 
@@ -313,26 +313,26 @@
 
 ### New Features
 
--   Plugin updated to work with the stable version of Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)).
+-   Plugin updated to work with the stable version of Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)).
 
 ## 2.0.0 (2018-07-12)
 
 ### Breaking Changes
 
--   Updated code to work with Babel 7 ([#7832](https://github.com/WordPress/gutenberg/pull/7832))
+-   Updated code to work with Babel 7 ([#7832](https://github.com/FinPress/gutenberg/pull/7832))
 
 ### Internal
 
--   Moved `@WordPress/packages` repository to `@WordPress/gutenberg` ([#7805](https://github.com/WordPress/gutenberg/pull/7805))
+-   Moved `@FinPress/packages` repository to `@FinPress/gutenberg` ([#7805](https://github.com/FinPress/gutenberg/pull/7805))
 
 ## 1.3.0 (2018-05-22)
 
 ### New Features
 
--   Added support for async generator functions ([#126](https://github.com/WordPress/packages/pull/126))
+-   Added support for async generator functions ([#126](https://github.com/FinPress/packages/pull/126))
 
 ## 1.2.1 (2018-05-18)
 
 ### Internal
 
--   Fix: Standardized `package.json` format ([#119](https://github.com/WordPress/packages/pull/119))
+-   Fix: Standardized `package.json` format ([#119](https://github.com/FinPress/packages/pull/119))

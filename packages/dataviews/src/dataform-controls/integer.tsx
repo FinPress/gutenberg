@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Flex,
 	BaseControl,
 	__experimentalNumberControl as NumberControl,
 	privateApis,
-} from '@wordpress/components';
-import { useCallback, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useCallback, useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

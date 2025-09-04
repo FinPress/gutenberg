@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import type { Settings } from '@wordpress/core-data';
-import { privateApis as componentsPrivateApis } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import type { Settings } from '@finpress/core-data';
+import { privateApis as componentsPrivateApis } from '@finpress/components';
 
 /**
  * Internal dependencies

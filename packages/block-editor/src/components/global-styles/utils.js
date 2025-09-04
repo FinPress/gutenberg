@@ -4,10 +4,10 @@
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
-import { getCSSValueFromRawStyle } from '@wordpress/style-engine';
+import { useViewportMatch } from '@finpress/compose';
+import { getCSSValueFromRawStyle } from '@finpress/style-engine';
 
 /**
  * Internal dependencies

@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Composite } from '@wordpress/components';
-import { getBlockType } from '@wordpress/blocks';
-import { useDispatch } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { Composite } from '@finpress/components';
+import { getBlockType } from '@finpress/blocks';
+import { useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

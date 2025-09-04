@@ -7,7 +7,7 @@ Tooltip is a React component to render floating help text relative to a node whe
 Render a Tooltip, passing as a child the element to which it should anchor:
 
 ```jsx
-import { Tooltip } from '@wordpress/components';
+import { Tooltip } from '@finpress/components';
 
 const MyTooltip = () => (
 	<Tooltip text="More information">

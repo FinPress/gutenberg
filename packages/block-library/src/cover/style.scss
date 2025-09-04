@@ -24,8 +24,8 @@
 	 * for the overlay.
 	 *
 	 * See:
-	 *   - Issue with background color specificity: https://github.com/WordPress/gutenberg/issues/26545
-	 *   - Issue with alternative fix: https://github.com/WordPress/gutenberg/issues/26545
+	 *   - Issue with background color specificity: https://github.com/FinPress/gutenberg/issues/26545
+	 *   - Issue with alternative fix: https://github.com/FinPress/gutenberg/issues/26545
 	 */
 
 	// the first selector is required for old Cover markup
@@ -59,8 +59,8 @@
 
 	// The following styles are needed to support legacy blocks added prior to the update
 	// that moved opacity to a nested span.
-	// https://github.com/WordPress/gutenberg/pull/35065
-	// https://github.com/WordPress/gutenberg/pull/38362
+	// https://github.com/FinPress/gutenberg/pull/35065
+	// https://github.com/FinPress/gutenberg/pull/38362
 	@for $i from 1 through 10 {
 		&.has-background-dim.has-background-dim-#{ $i * 10 } {
 			&:not(.has-background-gradient)::before,

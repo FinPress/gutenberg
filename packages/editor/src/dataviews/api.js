@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { dispatch } from '@wordpress/data';
+import { dispatch } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -10,8 +10,8 @@ import { unlock } from '../lock-unlock';
 import { store as editorStore } from '../store';
 
 /**
- * @typedef {import('@wordpress/dataviews').Action} Action
- * @typedef {import('@wordpress/dataviews').Field} Field
+ * @typedef {import('@finpress/dataviews').Action} Action
+ * @typedef {import('@finpress/dataviews').Field} Field
  */
 
 /**

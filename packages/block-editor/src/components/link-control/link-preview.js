@@ -4,21 +4,21 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	Button,
 	ExternalLink,
 	__experimentalTruncate as Truncate,
-} from '@wordpress/components';
-import { useCopyToClipboard } from '@wordpress/compose';
-import { filterURLForDisplay, safeDecodeURI } from '@wordpress/url';
-import { Icon, globe, info, linkOff, edit, copySmall } from '@wordpress/icons';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/components';
+import { useCopyToClipboard } from '@finpress/compose';
+import { filterURLForDisplay, safeDecodeURI } from '@finpress/url';
+import { Icon, globe, info, linkOff, edit, copySmall } from '@finpress/icons';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies
@@ -35,7 +35,7 @@ import useRichUrlData from './use-rich-url-data';
  * @return {string} The filtered title.
  */
 function filterTitleForDisplay( title ) {
-	// Derived from `filterURLForDisplay` in `@wordpress/url`.
+	// Derived from `filterURLForDisplay` in `@finpress/url`.
 	return title
 		.replace( /^[a-z\-.\+]+[0-9]*:(\/\/)?/i, '' )
 		.replace( /^www\./i, '' );

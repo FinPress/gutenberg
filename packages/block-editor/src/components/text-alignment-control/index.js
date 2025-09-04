@@ -4,20 +4,20 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	alignLeft,
 	alignCenter,
 	alignRight,
 	alignJustify,
-} from '@wordpress/icons';
-import { useMemo } from '@wordpress/element';
+} from '@finpress/icons';
+import { useMemo } from '@finpress/element';
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 const TEXT_ALIGNMENT_OPTIONS = [
 	{

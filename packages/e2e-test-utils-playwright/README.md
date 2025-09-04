@@ -1,8 +1,8 @@
 # E2E Test Utils
 
-End-To-End (E2E) Playwright test utils for WordPress.
+End-To-End (E2E) Playwright test utils for FinPress.
 
-_It works properly with the minimum version of Gutenberg `9.2.0` or the minimum version of WordPress `5.6.0`._
+_It works properly with the minimum version of Gutenberg `9.2.0` or the minimum version of FinPress `5.6.0`._
 
 <div class="callout callout-alert">
 This package is still under active development. Documentation might not be up-to-date, and the <code>v0.x</code> version can introduce breaking changes without a detailed migration guide. Early adopters are encouraged to use a <a href="https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json">lock file</a> to prevent unexpected breakages.
@@ -13,7 +13,7 @@ This package is still under active development. Documentation might not be up-to
 Install the module
 
 ```bash
-npm install @wordpress/e2e-test-utils-playwright --save-dev
+npm install @finpress/e2e-test-utils-playwright --save-dev
 ```
 
 **Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It is not compatible with older versions.
@@ -30,7 +30,7 @@ The Playwright/Jest's [expect](https://jestjs.io/docs/expect) function.
 
 ### Admin
 
-End to end test utilities for WordPress admin's user interface.
+End to end test utilities for FinPress admin's user interface.
 
 ```js
 const admin = new Admin( { page, pageUtils } );
@@ -39,7 +39,7 @@ await admin.visitAdminPage( 'options-general.php' );
 
 ### Editor
 
-End to end test utilities for the WordPress Block Editor.
+End to end test utilities for the FinPress Block Editor.
 
 To use these utilities, instantiate them within each test file:
 
@@ -68,7 +68,7 @@ await pageUtils.pressKeys( 'primary+a' );
 
 ### RequestUtils
 
-Playwright utilities for interacting with the WordPress REST API.
+Playwright utilities for interacting with the FinPress REST API.
 
 Create a request utils instance.
 
@@ -83,8 +83,8 @@ const requestUtils = await RequestUtils.setup( {
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

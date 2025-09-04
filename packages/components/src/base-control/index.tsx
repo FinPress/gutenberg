@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { forwardRef } from '@wordpress/element';
+import deprecated from '@finpress/deprecated';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -118,7 +118,7 @@ export const VisualLabel = forwardRef( UnforwardedVisualLabel );
  * `BaseControl` is a component used to generate labels and help text for components handling user inputs.
  *
  * ```jsx
- * import { BaseControl, useBaseControlProps } from '@wordpress/components';
+ * import { BaseControl, useBaseControlProps } from '@finpress/components';
  *
  * // Render a `BaseControl` for a textarea input
  * const MyCustomTextareaControl = ({ children, ...baseProps }) => (
@@ -149,7 +149,7 @@ export const BaseControl = Object.assign(
 		 * otherwise use if the `label` prop was passed.
 		 *
 		 * ```jsx
-		 * import { BaseControl } from '@wordpress/components';
+		 * import { BaseControl } from '@finpress/components';
 		 *
 		 * const MyBaseControl = () => (
 		 * 	<BaseControl

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { privateApis as patternsPrivateApis } from '@wordpress/patterns';
+import { useSelect } from '@finpress/data';
+import { privateApis as patternsPrivateApis } from '@finpress/patterns';
 
 /**
  * Internal dependencies

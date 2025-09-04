@@ -4,10 +4,10 @@
 import { v4 as uuid } from 'uuid';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useState, useMemo } from '@wordpress/element';
-import { createHigherOrderComponent } from '@wordpress/compose';
+import { forwardRef, useState, useMemo } from '@finpress/element';
+import { createHigherOrderComponent } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ import type { WithNoticeProps } from './types';
  * with the additional props `noticeOperations` and `noticeUI`.
  *
  * ```jsx
- * import { withNotices, Button } from '@wordpress/components';
+ * import { withNotices, Button } from '@finpress/components';
  *
  * const MyComponentWithNotices = withNotices(
  * 	( { noticeOperations, noticeUI } ) => {

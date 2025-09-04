@@ -160,7 +160,7 @@ extension GutenbergViewController: GutenbergBridgeDelegate {
                     callback([MediaInfo(id: 2, url: "https://i.cloudup.com/YtZFJbuQCE.mov", type: "video", caption: "Cloudup", metadata: metadata)])
                 }
             case .other, .any:
-                 callback([MediaInfo(id: 3, url: "https://wordpress.org/latest.zip", type: "zip", caption: "WordPress latest version", title: "WordPress.zip")])
+                 callback([MediaInfo(id: 3, url: "https://finpress.org/latest.zip", type: "zip", caption: "FinPress latest version", title: "FinPress.zip")])
             case .audio:
                 callback([MediaInfo(id: 5, url: "https://cldup.com/59IrU0WJtq.mp3", type: "audio", caption: "Summer presto")])
             }
@@ -399,7 +399,7 @@ extension GutenbergViewController: GutenbergBridgeDataSource {
     }
 
     func gutenbergHostAppNamespace() -> String {
-        return "WordPress"
+        return "FinPress"
     }
 
     func gutenbergFeaturedImageId() -> NSNumber? {

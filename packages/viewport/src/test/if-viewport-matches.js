@@ -4,9 +4,9 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
+import { useViewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import { useViewportMatch } from '@wordpress/compose';
 import '../store';
 import ifViewportMatches from '../if-viewport-matches';
 
-jest.mock( '@wordpress/compose/src/hooks/use-viewport-match' );
+jest.mock( '@finpress/compose/src/hooks/use-viewport-match' );
 
 describe( 'ifViewportMatches()', () => {
 	const Component = () => <div>Hello</div>;

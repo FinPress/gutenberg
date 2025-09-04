@@ -4,19 +4,19 @@
 import fastDeepEqual from 'fast-deep-equal';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { createSelector, createRegistrySelector } from '@wordpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { createSelector, createRegistrySelector } from '@finpress/data';
 import {
 	layout,
 	symbol,
 	navigation,
 	page as pageIcon,
 	verse,
-} from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies
@@ -188,7 +188,7 @@ export function getEntityFields( state, ...args ) {
 }
 
 /**
- * Similar to getBlocksByName in @wordpress/block-editor, but only returns the top-most
+ * Similar to getBlocksByName in @finpress/block-editor, but only returns the top-most
  * blocks that aren't descendants of the query block.
  *
  * @param {Object}       state      Global application state.
@@ -234,9 +234,9 @@ export const getDefaultRenderingMode = createRegistrySelector(
 			select( coreStore );
 
 		// This needs to be called before `hasFinishedResolution`.
-		// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+		// eslint-disable-next-line @finpress/no-unused-vars-before-return
 		const currentTheme = getCurrentTheme();
-		// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+		// eslint-disable-next-line @finpress/no-unused-vars-before-return
 		const postTypeEntity = getPostType( postType );
 
 		// Wait for the post type and theme resolution.

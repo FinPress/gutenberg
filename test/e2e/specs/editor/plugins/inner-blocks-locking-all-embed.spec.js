@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 const EMBED_URLS = [
 	'/oembed/1.0/proxy',
 	`rest_route=${ encodeURIComponent( '/oembed/1.0/proxy' ) }`,
 ];
 const MOCK_RESPONSES = {
-	url: 'https://twitter.com/wordpress',
+	url: 'https://twitter.com/finpress',
 	html: '<p>Mock success response.</p>',
 	type: 'rich',
 	provider_name: 'Twitter',
@@ -49,7 +49,7 @@ test.describe( 'Embed block inside a locked all parent', () => {
 		} );
 		await page
 			.getByRole( 'textbox', { name: 'Embed URL' } )
-			.fill( 'https://twitter.com/wordpress' );
+			.fill( 'https://twitter.com/finpress' );
 		await page.keyboard.press( 'Enter' );
 
 		await expect(

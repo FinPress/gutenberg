@@ -12,11 +12,11 @@ import {
 } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BottomSheet } from '@wordpress/components';
-import { useState, useEffect, useRef } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { BottomSheet } from '@finpress/components';
+import { useState, useEffect, useRef } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies

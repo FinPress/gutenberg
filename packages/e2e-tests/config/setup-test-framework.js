@@ -4,7 +4,7 @@
 import { toMatchInlineSnapshot, toMatchSnapshot } from 'jest-snapshot';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	activatePlugin,
@@ -15,7 +15,7 @@ import {
 	resetPreferences,
 	setBrowserViewport,
 	trashAllPosts,
-} from '@wordpress/e2e-test-utils';
+} from '@finpress/e2e-test-utils';
 
 /**
  * Timeout, in seconds, that the test should be allowed to run.
@@ -121,7 +121,7 @@ function observeConsoleLogging() {
 		// A chrome advisory warning about SameSite cookies is informational
 		// about future changes, tracked separately for improvement in core.
 		//
-		// See: https://core.trac.wordpress.org/ticket/37000
+		// See: https://core.trac.finpress.org/ticket/37000
 		// See: https://www.chromestatus.com/feature/5088147346030592
 		// See: https://www.chromestatus.com/feature/5633521622188032
 		if (
@@ -145,10 +145,10 @@ function observeConsoleLogging() {
 			return;
 		}
 
-		// As of WordPress 5.3.2 in Chrome 79, navigating to the block editor
+		// As of FinPress 5.3.2 in Chrome 79, navigating to the block editor
 		// (Posts > Add New) will display a console warning about
 		// non - unique IDs.
-		// See: https://core.trac.wordpress.org/ticket/23165
+		// See: https://core.trac.finpress.org/ticket/23165
 		if ( text.includes( 'elements with non-unique id #_wpnonce' ) ) {
 			return;
 		}
@@ -184,7 +184,7 @@ function observeConsoleLogging() {
 
 		// Disable reason: We intentionally bubble up the console message
 		// which, unless the test explicitly anticipates the logging via
-		// @wordpress/jest-console matchers, will cause the intended test
+		// @finpress/jest-console matchers, will cause the intended test
 		// failure.
 
 		// eslint-disable-next-line no-console

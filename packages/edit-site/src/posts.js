@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blocksStore } from '@wordpress/blocks';
+import { store as blocksStore } from '@finpress/blocks';
 import {
 	registerCoreBlocks,
 	__experimentalGetCoreBlocks,
 	__experimentalRegisterExperimentalCoreBlocks,
-} from '@wordpress/block-library';
-import { dispatch } from '@wordpress/data';
-import { createRoot, StrictMode } from '@wordpress/element';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/block-library';
+import { dispatch } from '@finpress/data';
+import { createRoot, StrictMode } from '@finpress/element';
+import { store as preferencesStore } from '@finpress/preferences';
 import {
 	registerLegacyWidgetBlock,
 	registerWidgetGroupBlock,
-} from '@wordpress/widgets';
+} from '@finpress/widgets';
 
 /**
  * Internal dependencies

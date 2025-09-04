@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x } from '@wordpress/i18n';
-import { ToolbarGroup, ToolbarDropdownMenu } from '@wordpress/components';
+import { _x } from '@finpress/i18n';
+import { ToolbarGroup, ToolbarDropdownMenu } from '@finpress/components';
 import {
 	justifyTop,
 	justifyCenterVertical,
 	justifyBottom,
 	justifyStretchVertical,
 	justifySpaceBetweenVertical,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 const BLOCK_ALIGNMENTS_CONTROLS = {
 	top: {
@@ -80,6 +80,6 @@ function BlockVerticalAlignmentUI( {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-vertical-alignment-toolbar/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-vertical-alignment-toolbar/README.md
  */
 export default BlockVerticalAlignmentUI;

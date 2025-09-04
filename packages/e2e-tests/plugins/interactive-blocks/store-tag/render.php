@@ -59,7 +59,7 @@ if ( 'missing' !== $attributes['condition'] ) {
 	}
 
 	echo <<<HTML
-	<script type="application/json" id="wp-script-module-data-@wordpress/interactivity">
+	<script type="application/json" id="wp-script-module-data-@finpress/interactivity">
 		$test_store_tag_json
 	</script>
 HTML;

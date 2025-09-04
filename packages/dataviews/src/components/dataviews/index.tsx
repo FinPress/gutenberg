@@ -4,17 +4,17 @@
 import type { ReactNode, ComponentProps, ReactElement } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalHStack as HStack } from '@wordpress/components';
+import { __experimentalHStack as HStack } from '@finpress/components';
 import {
 	useContext,
 	useEffect,
 	useMemo,
 	useRef,
 	useState,
-} from '@wordpress/element';
-import { useResizeObserver, throttle } from '@wordpress/compose';
+} from '@finpress/element';
+import { useResizeObserver, throttle } from '@finpress/compose';
 
 /**
  * Internal dependencies

@@ -9,9 +9,9 @@ import variations from './variations';
 import deprecated from './deprecated';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from '@finpress/hooks';
 
 const { name } = metadata;
 

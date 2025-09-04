@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect, useMemo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { addQueryArgs } from '@wordpress/url';
-import apiFetch from '@wordpress/api-fetch';
+import { useState, useEffect, useMemo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { addQueryArgs } from '@finpress/url';
+import apiFetch from '@finpress/api-fetch';
 
 // This is limited by WP REST API
 const MAX_COMMENTS_PER_PAGE = 100;

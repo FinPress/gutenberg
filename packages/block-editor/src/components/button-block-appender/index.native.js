@@ -4,12 +4,12 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withPreferredColorScheme } from '@wordpress/compose';
-import { Button } from '@wordpress/components';
-import { Icon, plusCircleFilled } from '@wordpress/icons';
-import { useCallback } from '@wordpress/element';
+import { withPreferredColorScheme } from '@finpress/compose';
+import { Button } from '@finpress/components';
+import { Icon, plusCircleFilled } from '@finpress/icons';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -87,6 +87,6 @@ function ButtonBlockAppender( {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/button-block-appender/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/button-block-appender/README.md
  */
 export default withPreferredColorScheme( ButtonBlockAppender );

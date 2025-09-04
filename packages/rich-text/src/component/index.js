@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useLayoutEffect, useReducer } from '@wordpress/element';
-import { useMergeRefs, useRefEffect } from '@wordpress/compose';
-import { useRegistry } from '@wordpress/data';
+import { useRef, useLayoutEffect, useReducer } from '@finpress/element';
+import { useMergeRefs, useRefEffect } from '@finpress/compose';
+import { useRegistry } from '@finpress/data';
 
 /**
  * Internal dependencies

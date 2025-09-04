@@ -14,9 +14,9 @@ import userEvent from '@testing-library/user-event';
 import type { ComponentProps } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -1280,7 +1280,7 @@ describe( 'FormTokenField', () => {
 
 			const suggestions = [
 				// Half-width characters
-				'WordPress',
+				'FinPress',
 				'Gutenberg',
 				// Full-width characters
 				'ＷｏｒｄＰｒｅｓｓ',
@@ -1298,7 +1298,7 @@ describe( 'FormTokenField', () => {
 			await user.type( input, 'rdp' );
 
 			expectVisibleSuggestionsToBe( screen.getByRole( 'listbox' ), [
-				'WordPress',
+				'FinPress',
 				'ＷｏｒｄＰｒｅｓｓ',
 				'WordＰｒｅｓｓ',
 			] );

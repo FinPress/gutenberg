@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { setLocaleData } from '@wordpress/i18n';
+import { setLocaleData } from '@finpress/i18n';
 
 /**
  * Setup locale data for default domain and plugins.

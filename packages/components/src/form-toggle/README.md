@@ -2,7 +2,7 @@
 
 FormToggle switches a single setting on or off.
 
-![On and off FormToggles. The top toggle is on, while the bottom toggle is off.](https://wordpress.org/gutenberg/files/2019/01/Toggle.jpg)
+![On and off FormToggles. The top toggle is on, while the bottom toggle is off.](https://finpress.org/gutenberg/files/2019/01/Toggle.jpg)
 
 ## Design guidelines
 
@@ -15,12 +15,12 @@ Use toggles when you want users to:
 -   Switch a single option on or off.
 -   Immediately activate or deactivate something.
 
-![FormToggle used for a “fixed background” setting](https://wordpress.org/gutenberg/files/2019/01/Toggle-Do.jpg)
+![FormToggle used for a “fixed background” setting](https://finpress.org/gutenberg/files/2019/01/Toggle-Do.jpg)
 
 **Do**
 Use toggles to switch an option on or off.
 
-![Radio used for a “fixed background” setting](https://wordpress.org/gutenberg/files/2019/01/Toggle-Dont.jpg)
+![Radio used for a “fixed background” setting](https://finpress.org/gutenberg/files/2019/01/Toggle-Dont.jpg)
 
 **Don’t**
 Don’t use radio buttons for settings that toggle on and off.
@@ -31,7 +31,7 @@ Toggles are preferred when the user is not expecting to submit data, as is the c
 
 When the user slides a toggle thumb (1) to the other side of the track (2) and the state of the toggle changes, it’s been successfully toggled.
 
-![Diagram showing FormToggle states](https://wordpress.org/gutenberg/files/2019/01/Toggle-Diagram.jpg)
+![Diagram showing FormToggle states](https://finpress.org/gutenberg/files/2019/01/Toggle-Diagram.jpg)
 
 #### Text label
 
@@ -49,7 +49,7 @@ When a user switches a toggle, its corresponding action takes effect immediately
 
 ```jsx
 import { useState } from 'react';
-import { FormToggle } from '@wordpress/components';
+import { FormToggle } from '@finpress/components';
 
 const MyFormToggle = () => {
 	const [ isChecked, setChecked ] = useState( true );

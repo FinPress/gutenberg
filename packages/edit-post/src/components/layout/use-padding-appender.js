@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRegistry } from '@wordpress/data';
-import { useRefEffect } from '@wordpress/compose';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { isUnmodifiedDefaultBlock } from '@wordpress/blocks';
+import { useRegistry } from '@finpress/data';
+import { useRefEffect } from '@finpress/compose';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { isUnmodifiedDefaultBlock } from '@finpress/blocks';
 
 // Ruleset to add space for the typewriter effect. When typing in the last
 // block, there needs to be room to scroll up.

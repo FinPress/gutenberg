@@ -4,16 +4,16 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef, useMemo, memo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { useMergeRefs } from '@finpress/compose';
+import { forwardRef, useMemo, memo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 import {
 	getBlockSupport,
 	store as blocksStore,
 	__unstableGetInnerBlocksProps as getInnerBlocksProps,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies
@@ -174,7 +174,7 @@ const ForwardedInnerBlocks = forwardRef( ( props, ref ) => {
  * returns. Optionally, you can also pass any other props through this hook, and
  * they will be merged and returned.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md
  *
  * @param {Object} props   Optional. Props to pass to the element. Must contain
  *                         the ref if one is defined.
@@ -312,6 +312,6 @@ ForwardedInnerBlocks.ButtonBlockAppender = ButtonBlockAppender;
 ForwardedInnerBlocks.Content = () => useInnerBlocksProps.save().children;
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md
  */
 export default ForwardedInnerBlocks;

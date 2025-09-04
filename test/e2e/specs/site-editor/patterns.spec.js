@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 const {
 	test: base,
 	expect,
-} = require( '@wordpress/e2e-test-utils-playwright' );
+} = require( '@finpress/e2e-test-utils-playwright' );
 
 /** @type {ReturnType<typeof base.extend<{patterns: Patterns}>>} */
 const test = base.extend( {

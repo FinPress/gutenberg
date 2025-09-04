@@ -4,23 +4,23 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	InspectorControls,
 	RichText,
 	useBlockProps,
 	__experimentalUseBorderProps as useBorderProps,
 	__experimentalUseColorProps as useColorProps,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	TextControl,
 	CheckboxControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { useRef } from '@wordpress/element';
+} from '@finpress/components';
+import { useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

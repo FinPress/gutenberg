@@ -4,10 +4,10 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { forwardRef } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -52,7 +52,7 @@ function UnforwardedProgressBar(
  * when a value hasn't been specified.
  *
  * ```jsx
- * import { ProgressBar } from '@wordpress/components';
+ * import { ProgressBar } from '@finpress/components';
  *
  * const MyLoadingComponent = () => {
  * 	return <ProgressBar />;

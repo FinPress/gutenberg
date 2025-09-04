@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSlotFill } from '@wordpress/components';
+import { createSlotFill } from '@finpress/components';
 
 const { Fill: __unstableBlockToolbarLastItem, Slot } = createSlotFill(
 	'__unstableBlockToolbarLastItem'

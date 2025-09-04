@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
-import { create, join, toHTMLString } from '@wordpress/rich-text';
+import { createBlock } from '@finpress/blocks';
+import { create, join, toHTMLString } from '@finpress/rich-text';
 
 const transforms = {
 	from: [

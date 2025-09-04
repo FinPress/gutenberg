@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { withSelect } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
-import { privateApis as preferencesPrivateApis } from '@wordpress/preferences';
+import { __ } from '@finpress/i18n';
+import { withSelect } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
+import { privateApis as preferencesPrivateApis } from '@finpress/preferences';
 
 /**
  * Internal dependencies

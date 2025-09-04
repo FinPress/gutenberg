@@ -11,8 +11,8 @@
 import {
 	BottomSheetSelectControl,
 	FooterMessageLink,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 const MyTextControl = () => {
 	const {
@@ -35,8 +35,8 @@ const MyTextControl = () => {
 					<>
 						{ __( 'A footer note to add to the component! ' ) }
 						<FooterMessageLink
-							href={ 'https://wordpress.org/' }
-							value={ __( 'Visit WordPress.org' ) }
+							href={ 'https://finpress.org/' }
+							value={ __( 'Visit FinPress.org' ) }
 						/>
 					</>
 				}

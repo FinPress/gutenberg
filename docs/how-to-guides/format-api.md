@@ -4,21 +4,21 @@
 
 The Format API makes it possible for developers to add custom buttons to the formatting toolbar and have them apply a _format_ to a text selection. Bold is an example of a standard button in the formatting toolbar.
 
-![Format API Toolbar animated example](https://developer.wordpress.org/files/2021/12/format-api-example.gif)
+![Format API Toolbar animated example](https://developer.finpress.org/files/2021/12/format-api-example.gif)
 
-In WordPress lingo, a _format_ is a [HTML tag with text-level semantics](https://www.w3.org/TR/html5/textlevel-semantics.html#text-level-semantics-usage-summary) used to give some special meaning to a text selection. For example, in this tutorial, the button to be hooked into the format toolbar will wrap a particular text selection with the `<samp>` HTML tag.
+In FinPress lingo, a _format_ is a [HTML tag with text-level semantics](https://www.w3.org/TR/html5/textlevel-semantics.html#text-level-semantics-usage-summary) used to give some special meaning to a text selection. For example, in this tutorial, the button to be hooked into the format toolbar will wrap a particular text selection with the `<samp>` HTML tag.
 
 ## Before you start
 
-This guide assumes you are already familiar with WordPress plugins and loading JavaScript with them, see the [Plugin Handbook](https://developer.wordpress.org/plugins/) or [JavaScript Tutorial](/docs/getting-started/fundamentals/javascript-in-the-block-editor.md) to brush up.
+This guide assumes you are already familiar with FinPress plugins and loading JavaScript with them, see the [Plugin Handbook](https://developer.finpress.org/plugins/) or [JavaScript Tutorial](/docs/getting-started/fundamentals/javascript-in-the-block-editor.md) to brush up.
 
 You will need:
 
--   WordPress development environment
+-   FinPress development environment
 -   A minimal plugin activated and setup ready to edit
 -   JavaScript setup for building and enqueuing
 
-The [complete format-api example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/format-api-f14b86) is available that you can use as a reference for your setup.
+The [complete format-api example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/format-api-f14b86) is available that you can use as a reference for your setup.
 
 ## Step-by-step guide
 
@@ -29,7 +29,7 @@ The guide will refer to `src/index.js` as the JavaScript file where the changes 
 The first step is to register the new format, add `src/index.js` with the following:
 
 ```js
-import { registerFormatType } from '@wordpress/rich-text';
+import { registerFormatType } from '@finpress/rich-text';
 
 registerFormatType( 'my-custom-format/sample-output', {
 	title: 'Sample output',
@@ -55,8 +55,8 @@ With the format available, the next step is to add a button to the UI by registe
 Using the `RichTextToolbarButton` component, update `src/index.js`:
 
 ```js
-import { registerFormatType } from '@wordpress/rich-text';
-import { RichTextToolbarButton } from '@wordpress/block-editor';
+import { registerFormatType } from '@finpress/rich-text';
+import { RichTextToolbarButton } from '@finpress/block-editor';
 
 const MyCustomButton = ( props ) => {
 	return (
@@ -80,7 +80,7 @@ registerFormatType( 'my-custom-format/sample-output', {
 
 Let's check that everything is working as expected. Build and reload and then select any block containing text like for example the paragraph block. Confirm the new button was added to the format toolbar.
 
-![Toolbar with custom button](https://developer.wordpress.org/files/2021/12/format-api-toolbar.png)
+![Toolbar with custom button](https://developer.finpress.org/files/2021/12/format-api-toolbar.png)
 
 Click the button and check the console.log for the "toggle format" message.
 
@@ -95,8 +95,8 @@ For our example, the `<samp>` tag format is binary - either a text selection has
 Update `src/index.js` changing the `onClick` action:
 
 ```js
-import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
-import { RichTextToolbarButton } from '@wordpress/block-editor';
+import { registerFormatType, toggleFormat } from '@finpress/rich-text';
+import { RichTextToolbarButton } from '@finpress/block-editor';
 
 const MyCustomButton = ( { isActive, onChange, value } ) => {
 	return (
@@ -131,14 +131,14 @@ Use the `className` option when registering to add your own custom class to the 
 
 ### Step 4: Show the button only for specific blocks (Optional)
 
-By default, the button is rendered on every rich text toolbar (image captions, buttons, paragraphs, etc). You can render the button only on blocks of a certain type by using [the data API](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data).
+By default, the button is rendered on every rich text toolbar (image captions, buttons, paragraphs, etc). You can render the button only on blocks of a certain type by using [the data API](https://developer.finpress.org/block-editor/reference-guides/packages/packages-data).
 
 Here is an example that only shows the button for Paragraph blocks:
 
 ```js
-import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
-import { RichTextToolbarButton } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
+import { registerFormatType, toggleFormat } from '@finpress/rich-text';
+import { RichTextToolbarButton } from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
 
 function ConditionalButton( { isActive, onChange, value } ) {
 	const selectedBlock = useSelect( ( select ) => {
@@ -178,9 +178,9 @@ registerFormatType( 'my-custom-format/sample-output', {
 Using the `RichTextToolbarButton` component, the button is added to the default dropdown menu. You can add the button directly to the toolbar by using the `BlockControls` component.
 
 ```js
-import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
-import { BlockControls } from '@wordpress/block-editor';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+import { registerFormatType, toggleFormat } from '@finpress/rich-text';
+import { BlockControls } from '@finpress/block-editor';
+import { ToolbarGroup, ToolbarButton } from '@finpress/components';
 
 const MyCustomButton = ( { isActive, onChange, value } ) => {
 	return (
@@ -234,4 +234,4 @@ Reference documentation used in this guide:
 
 The guide showed you how to add a button to the toolbar and have it apply a format to the selected text. Try it out and see what you can build with it in your next plugin.
 
-Download the [format-api example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/format-api-f14b86) from the [block-development-examples](https://github.com/WordPress/block-development-examples) repository.
+Download the [format-api example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/format-api-f14b86) from the [block-development-examples](https://github.com/FinPress/block-development-examples) repository.

@@ -4,9 +4,9 @@
 import { a } from './a';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store } from '@wordpress/interactivity';
+import { store } from '@finpress/interactivity';
 
 export const someFunction = () => {
 	store( 'test', {

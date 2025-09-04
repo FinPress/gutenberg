@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -60,7 +60,7 @@
 
 ### Deprecations
 
--   `PostTaxonomiesFlatTermSelector`: Deprecate bottom margin. Add a `__nextHasNoMarginBottom` prop to start opting into the margin-free styles that will become the default in a future version, currently scheduled to be WordPress 7.0 ([#63491](https://github.com/WordPress/gutenberg/pull/63491)).
+-   `PostTaxonomiesFlatTermSelector`: Deprecate bottom margin. Add a `__nextHasNoMarginBottom` prop to start opting into the margin-free styles that will become the default in a future version, currently scheduled to be FinPress 7.0 ([#63491](https://github.com/FinPress/gutenberg/pull/63491)).
 
 ## 14.3.0 (2024-07-10)
 
@@ -72,14 +72,14 @@
 
 ### Breaking Changes
 
--   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/WordPress/gutenberg/pull/61486)).
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Variables like `process.env.IS_GUTENBERG_PLUGIN` have been replaced by `globalThis.IS_GUTENBERG_PLUGIN`. Build systems using `process.env` should be updated ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 13.35.0 (2024-05-16)
 
 ### Internal
 
--   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/WordPress/gutenberg/pull/61138)).
+-   Replaced `classnames` package with the faster and smaller `clsx` package ([#61138](https://github.com/FinPress/gutenberg/pull/61138)).
 
 ## 13.34.0 (2024-05-02)
 
@@ -157,7 +157,7 @@
 
 ### Breaking Changes
 
--   Updated dependencies to require React 18 ([45235](https://github.com/WordPress/gutenberg/pull/45235))
+-   Updated dependencies to require React 18 ([45235](https://github.com/FinPress/gutenberg/pull/45235))
 
 ## 12.21.0 (2022-11-16)
 
@@ -173,7 +173,7 @@
 
 ### New Features
 
--   Add `isDeletingPost` selector to the `core/editor` store ([#44012](https://github.com/WordPress/gutenberg/pull/44012)).
+-   Add `isDeletingPost` selector to the `core/editor` store ([#44012](https://github.com/FinPress/gutenberg/pull/44012)).
 
 ## 12.15.0 (2022-08-24)
 
@@ -203,7 +203,7 @@
 
 ### Deprecations
 
--   Deprecated `cleanForSlug` that is now part of `@wordpress/url`.
+-   Deprecated `cleanForSlug` that is now part of `@finpress/url`.
 
 ## 12.2.0 (2022-02-10)
 
@@ -213,7 +213,7 @@
 
 ### Bug Fixes
 
--   Removed unused `@wordpress/autop`, `@wordpress/blob` and `@wordpress/is-shallow-equal` dependencies ([#38388](https://github.com/WordPress/gutenberg/pull/38388)).
+-   Removed unused `@finpress/autop`, `@finpress/blob` and `@finpress/is-shallow-equal` dependencies ([#38388](https://github.com/FinPress/gutenberg/pull/38388)).
 
 ### Deprecations
 
@@ -225,14 +225,14 @@
 
 ### Breaking Changes
 
--   Removed the deprecated `resetAutosave` action ([#34537](https://github.com/WordPress/gutenberg/pull/34537)).
--   Removed the deprecated `getAutosave`, `hasAutosave` and `getBlockForSerialization` selectors ([#34537](https://github.com/WordPress/gutenberg/pull/34537)).
+-   Removed the deprecated `resetAutosave` action ([#34537](https://github.com/FinPress/gutenberg/pull/34537)).
+-   Removed the deprecated `getAutosave`, `hasAutosave` and `getBlockForSerialization` selectors ([#34537](https://github.com/FinPress/gutenberg/pull/34537)).
 
 ## 11.0.0 (2021-07-29)
 
 ### Breaking Changes
 
--   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
+-   Upgraded React components to work with v17.0 ([#29118](https://github.com/FinPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
 ## 10.2.0 (2021-07-21)
 
@@ -242,8 +242,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at <https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/>.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at <https://nodejs.org/en/about/releases/>.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at <https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/>.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at <https://nodejs.org/en/about/releases/>.
 
 ## 9.26.0 (2021-03-17)
 
@@ -251,7 +251,7 @@
 
 ### New Features
 
--   Added a store definition `store` for the editor namespace to use with `@wordpress/data` API ([#26655](https://github.com/WordPress/gutenberg/pull/26655)).
+-   Added a store definition `store` for the editor namespace to use with `@finpress/data` API ([#26655](https://github.com/FinPress/gutenberg/pull/26655)).
 
 ## 9.21.0 (2020-09-03)
 
@@ -263,7 +263,7 @@
 
 ### Deprecations
 
--   The following components are deprecated as moved to the `@wordpress/block-editor` package:
+-   The following components are deprecated as moved to the `@finpress/block-editor` package:
     -   Autocomplete,
     -   AlignmentToolbar,
     -   BlockAlignmentToolbar,
@@ -408,15 +408,15 @@
 
 ### Deprecations
 
--   The `getAutosave`, `getAutosaveAttribute`, and `hasAutosave` selectors are deprecated. Please use the `getAutosave` selector in the `@wordpress/core-data` package.
--   The `resetAutosave` action is deprecated. An equivalent action `receiveAutosaves` has been added to the `@wordpress/core-data` package.
--   `ServerSideRender` component was deprecated. The component is now available in `@wordpress/server-side-render`.
+-   The `getAutosave`, `getAutosaveAttribute`, and `hasAutosave` selectors are deprecated. Please use the `getAutosave` selector in the `@finpress/core-data` package.
+-   The `resetAutosave` action is deprecated. An equivalent action `receiveAutosaves` has been added to the `@finpress/core-data` package.
+-   `ServerSideRender` component was deprecated. The component is now available in `@finpress/server-side-render`.
 
 ### Internal
 
--   Refactor setupEditor effects to action-generator using controls ([#14513](https://github.com/WordPress/gutenberg/pull/14513))
+-   Refactor setupEditor effects to action-generator using controls ([#14513](https://github.com/FinPress/gutenberg/pull/14513))
 -   Remove redux-multi dependency (no longer needed/used with above refactor)
--   Replace internal controls definitions with usage of new @wordpress/data-controls package (see [#15435](https://github.com/WordPress/gutenberg/pull/15435)
+-   Replace internal controls definitions with usage of new @finpress/data-controls package (see [#15435](https://github.com/FinPress/gutenberg/pull/15435)
 
 ## 9.1.0 (2019-03-06)
 
@@ -438,7 +438,7 @@
 -   Removed `jQuery` dependency.
 -   Removed `TinyMCE` dependency.
 -   RichText: improve format boundaries.
--   Refactor all post effects to action-generators using controls ([#13716](https://github.com/WordPress/gutenberg/pull/13716))
+-   Refactor all post effects to action-generators using controls ([#13716](https://github.com/FinPress/gutenberg/pull/13716))
 
 ## 9.0.7 (2019-01-03)
 
@@ -483,7 +483,7 @@
 
 ### Internal
 
--   Remove unnecessary `locale` prop usage [#11649](https://github.com/WordPress/gutenberg/pull/11649)
+-   Remove unnecessary `locale` prop usage [#11649](https://github.com/FinPress/gutenberg/pull/11649)
 
 ### Bug Fixes
 
@@ -521,7 +521,7 @@
 
 ### New Features
 
--   Adjust a11y roles for menu items, and make sure screen readers can properly use BlockNavigationList ([#11431](https://github.com/WordPress/gutenberg/issues/11431)).
+-   Adjust a11y roles for menu items, and make sure screen readers can properly use BlockNavigationList ([#11431](https://github.com/FinPress/gutenberg/issues/11431)).
 
 ## 6.1.1 (2018-11-03)
 
@@ -535,7 +535,7 @@
 
 ### Deprecations
 
--   The Reusable blocks Data API is marked as experimental as it's subject to change in the future ([#11230](https://github.com/WordPress/gutenberg/pull/11230)).
+-   The Reusable blocks Data API is marked as experimental as it's subject to change in the future ([#11230](https://github.com/FinPress/gutenberg/pull/11230)).
 
 ## 6.0.1 (2018-10-30)
 
@@ -555,8 +555,8 @@
 ### New Features
 
 -   In `MediaPlaceholder`, provide default values for title and instructions labels when allowed type is one of image, audio or video.
--   New actions `lockPostSaving` and `unlockPostSaving` were introduced ([#10649](https://github.com/WordPress/gutenberg/pull/10649)).
--   New selector `isPostSavingLocked` was introduced ([#10649](https://github.com/WordPress/gutenberg/pull/10649)).
+-   New actions `lockPostSaving` and `unlockPostSaving` were introduced ([#10649](https://github.com/FinPress/gutenberg/pull/10649)).
+-   New selector `isPostSavingLocked` was introduced ([#10649](https://github.com/FinPress/gutenberg/pull/10649)).
 
 ### Internal
 
@@ -621,7 +621,7 @@
 -   `isFetchingSharedBlock` selector has been removed. Use `isFetchingReusableBlock` instead.
 -   `getSharedBlocks` selector has been removed. Use `getReusableBlocks` instead.
 -   `editorMediaUpload` has been removed. Use `mediaUpload` instead.
--   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
+-   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
 -   `DocumentTitle` component has been removed.
 -   `getDocumentTitle` selector (`core/editor`) has been removed.
 

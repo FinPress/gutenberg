@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import '@wordpress/core-data';
-import '@wordpress/format-library';
-import { dispatch } from '@wordpress/data';
-import { store as preferencesStore } from '@wordpress/preferences';
+import '@finpress/core-data';
+import '@finpress/format-library';
+import { dispatch } from '@finpress/data';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies

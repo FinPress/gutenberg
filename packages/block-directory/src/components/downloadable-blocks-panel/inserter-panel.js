@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _n, sprintf } from '@wordpress/i18n';
-import { useEffect } from '@wordpress/element';
-import { speak } from '@wordpress/a11y';
+import { __, _n, sprintf } from '@finpress/i18n';
+import { useEffect } from '@finpress/element';
+import { speak } from '@finpress/a11y';
 
 function DownloadableBlocksInserterPanel( {
 	children,

@@ -1267,7 +1267,7 @@ class WP_Theme_JSON_Resolver_Gutenberg_Test extends WP_UnitTestCase {
 		 * This filter callback normalizes the return value from `get_theme_file_uri`
 		 * to guard against changes in test environments.
 		 * The test suite otherwise returns full system dir path, e.g.,
-		 * /wordpress-phpunit/includes/../data/themedir1/default/example/img/image.png
+		 * /finpress-phpunit/includes/../data/themedir1/default/example/img/image.png
 		 */
 		$filter_theme_file_uri_callback = function ( $file ) {
 			return 'https://example.org/wp-content/themes/example-theme/example/' . explode( 'example/', $file )[1];
@@ -1338,7 +1338,7 @@ class WP_Theme_JSON_Resolver_Gutenberg_Test extends WP_UnitTestCase {
 		 * This filter callback normalizes the return value from `get_theme_file_uri`
 		 * to guard against changes in test environments.
 		 * The test suite otherwise returns full system dir path, e.g.,
-		 * /wordpress-phpunit/includes/../data/themedir1/default/example/img/image.png
+		 * /finpress-phpunit/includes/../data/themedir1/default/example/img/image.png
 		 */
 		$filter_theme_file_uri_callback = function ( $file ) {
 			return 'https://example.org/wp-content/themes/example-theme/example/' . explode( 'example/', $file )[1];

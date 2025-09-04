@@ -12,7 +12,7 @@ describe( 'props', () => {
 	test( 'should render correctly', () => {
 		render(
 			<Scrollable data-testid="scrollable">
-				WordPress.org - Code is Poetry
+				FinPress.org - Code is Poetry
 			</Scrollable>
 		);
 
@@ -22,12 +22,12 @@ describe( 'props', () => {
 	test( 'should render smoothScroll', () => {
 		render(
 			<Scrollable data-testid="scrollable">
-				WordPress.org - Code is Poetry
+				FinPress.org - Code is Poetry
 			</Scrollable>
 		);
 		render(
 			<Scrollable smoothScroll data-testid="smooth-scrollable">
-				WordPress.org - Code is Poetry
+				FinPress.org - Code is Poetry
 			</Scrollable>
 		);
 

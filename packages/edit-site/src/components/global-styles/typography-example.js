@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext } from '@wordpress/element';
-import { __unstableMotion as motion } from '@wordpress/components';
-import { _x } from '@wordpress/i18n';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
+import { useContext } from '@finpress/element';
+import { __unstableMotion as motion } from '@finpress/components';
+import { _x } from '@finpress/i18n';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
 
 /**
  * Internal dependencies

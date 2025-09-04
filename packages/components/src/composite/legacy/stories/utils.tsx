@@ -18,7 +18,7 @@ import type { LegacyStateOptions } from '..';
  * 	__unstableUseCompositeState as useCompositeState,
  * 	__unstableComposite as Composite,
  * 	__unstableCompositeItem as CompositeItem,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * const state = useCompositeState();
  * <Composite state={ state }>

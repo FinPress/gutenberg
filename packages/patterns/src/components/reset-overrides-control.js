@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	store as blockEditorStore,
 	__unstableBlockToolbarLastItem as BlockToolbarLastItem,
-} from '@wordpress/block-editor';
-import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { useRegistry, useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { ToolbarButton, ToolbarGroup } from '@finpress/components';
+import { useRegistry, useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 
 const CONTENT = 'content';
 

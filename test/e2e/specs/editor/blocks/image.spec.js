@@ -9,9 +9,9 @@ const { v4: uuid } = require( 'uuid' );
 /** @typedef {import('@playwright/test').Page} Page */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	imageBlockUtils: async ( { page }, use ) => {
@@ -639,7 +639,7 @@ test.describe( 'Image', () => {
 		);
 
 		const imgUrl =
-			'https://wp20.wordpress.net/wp-content/themes/twentyseventeen-wp20/images/wp20-logo-white.svg';
+			'https://wp20.finpress.net/wp-content/themes/twentyseventeen-wp20/images/wp20-logo-white.svg';
 
 		await form.getByLabel( 'URL' ).fill( imgUrl );
 		await form.getByRole( 'button', { name: 'Apply' } ).click();
@@ -680,7 +680,7 @@ test.describe( 'Image', () => {
 		// class name, so we use page.locator() instead of page.getByRole()
 		const form = page.locator( '.block-editor-url-popover__link-editor' );
 
-		const url = 'https://wordpress.org';
+		const url = 'https://finpress.org';
 
 		await form.getByLabel( 'URL' ).fill( url );
 
@@ -1036,7 +1036,7 @@ test.describe( 'Image - lightbox', () => {
 	} );
 } );
 
-// Added to prevent regressions of https://github.com/WordPress/gutenberg/pull/57040.
+// Added to prevent regressions of https://github.com/FinPress/gutenberg/pull/57040.
 test.describe( 'Image - Site editor', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.deleteAllMedia();

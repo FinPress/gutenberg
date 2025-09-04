@@ -108,7 +108,7 @@ export type CustomSelectProps< T extends CustomSelectOption > = {
 	showSelectedHint?: boolean;
 	/**
 	 * Opt-in prop for an unconstrained width style which became the default in
-	 * WordPress 6.5. The prop is no longer needed and can be safely removed.
+	 * FinPress 6.5. The prop is no longer needed and can be safely removed.
 	 *
 	 * @deprecated
 	 * @ignore

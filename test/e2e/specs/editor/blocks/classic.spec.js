@@ -7,9 +7,9 @@ const os = require( 'os' );
 const { v4: uuid } = require( 'uuid' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	mediaUtils: async ( { page }, use ) => {

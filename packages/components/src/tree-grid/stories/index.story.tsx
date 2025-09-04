@@ -4,9 +4,9 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Fragment } from '@wordpress/element';
+import { Fragment } from '@finpress/element';
 
 /**
  * Internal dependencies

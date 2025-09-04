@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockSettingsMenuControls,
 	__unstableBlockSettingsMenuFirstItem as BlockSettingsMenuFirstItem,
 	store as blockEditorStore,
 	useBlockDisplayInformation,
-} from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { __experimentalText as Text, MenuItem } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __, _x } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { store as coreStore } from '@finpress/core-data';
+import { __experimentalText as Text, MenuItem } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __, _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies

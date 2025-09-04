@@ -6,9 +6,9 @@ import namesPlugin from 'colord/plugins/names';
 import a11yPlugin from 'colord/plugins/a11y';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as componentsPrivateApis } from '@wordpress/components';
+import { privateApis as componentsPrivateApis } from '@finpress/components';
 
 /**
  * Internal dependencies

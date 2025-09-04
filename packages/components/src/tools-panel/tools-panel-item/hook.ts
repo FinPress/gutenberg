@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { usePrevious } from '@wordpress/compose';
+import { usePrevious } from '@finpress/compose';
 import {
 	useCallback,
 	useEffect,
 	useLayoutEffect,
 	useMemo,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -68,7 +68,7 @@ export function useToolsPanelItem(
 	//
 	// This is performed in a layout effect to ensure that the panel item
 	// is registered before it is rendered preventing a rendering glitch.
-	// See: https://github.com/WordPress/gutenberg/issues/56470
+	// See: https://github.com/FinPress/gutenberg/issues/56470
 	useLayoutEffect( () => {
 		if ( hasMatchingPanel && previousPanelId !== null ) {
 			registerPanelItem( {
@@ -144,7 +144,7 @@ export function useToolsPanelItem(
 	useEffect( () => {
 		// We check whether this item is currently registered as items rendered
 		// via fills can persist through the parent panel being remounted.
-		// See: https://github.com/WordPress/gutenberg/pull/45673
+		// See: https://github.com/FinPress/gutenberg/pull/45673
 		if ( ! isRegistered || isResetting || ! hasMatchingPanel ) {
 			return;
 		}

@@ -3,14 +3,14 @@
  */
 import EmbedLinkSettings from './embed-link-settings';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { PanelBody, ToggleControl } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/block-editor';
-import { useDispatch } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { PanelBody, ToggleControl } from '@finpress/components';
+import { InspectorControls } from '@finpress/block-editor';
+import { useDispatch } from '@finpress/data';
 // eslint-disable-next-line no-restricted-imports
-import { store as editPostStore } from '@wordpress/edit-post';
+import { store as editPostStore } from '@finpress/edit-post';
 
 function getResponsiveHelp( checked ) {
 	return checked

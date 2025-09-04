@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useBlockProps, getSpacingPresetCssVar } from '@wordpress/block-editor';
+import { useBlockProps, getSpacingPresetCssVar } from '@finpress/block-editor';
 
 export default function save( { attributes: { height, width } } ) {
 	return (

@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { fullscreen } from '@wordpress/icons';
-import { useCommand } from '@wordpress/commands';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { store as noticesStore } from '@wordpress/notices';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { fullscreen } from '@finpress/icons';
+import { useCommand } from '@finpress/commands';
+import { store as preferencesStore } from '@finpress/preferences';
+import { store as noticesStore } from '@finpress/notices';
 
 export default function useCommands() {
 	const { isFullscreen } = useSelect( ( select ) => {

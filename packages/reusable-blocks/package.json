@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/reusable-blocks",
+	"name": "@finpress/reusable-blocks",
 	"version": "5.29.0",
 	"description": "Reusable blocks utilities.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"reusable blocks"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/reusable-blocks/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/reusable-blocks/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/reusable-blocks"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -31,17 +31,17 @@
 	],
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/block-editor": "file:../block-editor",
-		"@wordpress/blocks": "file:../blocks",
-		"@wordpress/components": "file:../components",
-		"@wordpress/core-data": "file:../core-data",
-		"@wordpress/data": "file:../data",
-		"@wordpress/element": "file:../element",
-		"@wordpress/i18n": "file:../i18n",
-		"@wordpress/icons": "file:../icons",
-		"@wordpress/notices": "file:../notices",
-		"@wordpress/private-apis": "file:../private-apis",
-		"@wordpress/url": "file:../url"
+		"@finpress/block-editor": "file:../block-editor",
+		"@finpress/blocks": "file:../blocks",
+		"@finpress/components": "file:../components",
+		"@finpress/core-data": "file:../core-data",
+		"@finpress/data": "file:../data",
+		"@finpress/element": "file:../element",
+		"@finpress/i18n": "file:../i18n",
+		"@finpress/icons": "file:../icons",
+		"@finpress/notices": "file:../notices",
+		"@finpress/private-apis": "file:../private-apis",
+		"@finpress/url": "file:../url"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0",

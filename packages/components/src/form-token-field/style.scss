@@ -31,7 +31,7 @@
 		box-shadow: none;
 
 		// Resolves Zooming on iOS devices
-		// https://github.com/WordPress/gutenberg/issues/27405
+		// https://github.com/FinPress/gutenberg/issues/27405
 		@include break-small() {
 			font-size: 13px;
 		}

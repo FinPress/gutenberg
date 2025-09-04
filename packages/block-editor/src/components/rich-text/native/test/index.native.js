@@ -11,20 +11,20 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { select } from '@wordpress/data';
+import { select } from '@finpress/data';
 import {
 	store as richTextStore,
 	RichTextData,
 	__unstableCreateElement,
-} from '@wordpress/rich-text';
-import { coreBlocks } from '@wordpress/block-library';
+} from '@finpress/rich-text';
+import { coreBlocks } from '@finpress/block-library';
 import {
 	getBlockTypes,
 	setDefaultBlockName,
 	unregisterBlockType,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies

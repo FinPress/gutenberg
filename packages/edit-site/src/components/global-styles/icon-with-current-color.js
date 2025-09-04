@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Icon } from '@wordpress/components';
+import { Icon } from '@finpress/components';
 
 export function IconWithCurrentColor( { className, ...props } ) {
 	return (

@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	registerBlockType,
 	unregisterBlockType,
 	setFreeformContentHandlerName,
-} from '@wordpress/blocks';
-import { RawHTML } from '@wordpress/element';
-import { symbol } from '@wordpress/icons';
-import { select, dispatch } from '@wordpress/data';
+} from '@finpress/blocks';
+import { RawHTML } from '@finpress/element';
+import { symbol } from '@finpress/icons';
+import { select, dispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

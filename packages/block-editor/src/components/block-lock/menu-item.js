@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useReducer } from '@wordpress/element';
-import { MenuItem } from '@wordpress/components';
-import { lockOutline, unlock } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { useReducer } from '@finpress/element';
+import { MenuItem } from '@finpress/components';
+import { lockOutline, unlock } from '@finpress/icons';
 
 /**
  * Internal dependencies

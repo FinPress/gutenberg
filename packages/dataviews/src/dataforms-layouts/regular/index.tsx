@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext, useMemo } from '@wordpress/element';
+import { useContext, useMemo } from '@finpress/element';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	__experimentalHeading as Heading,
 	__experimentalSpacer as Spacer,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

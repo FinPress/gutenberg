@@ -1,26 +1,26 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { useMemo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 import {
 	applyFormat,
 	removeFormat,
 	getActiveFormat,
 	useAnchor,
-} from '@wordpress/rich-text';
+} from '@finpress/rich-text';
 import {
 	ColorPalette,
 	getColorClassName,
 	getColorObjectByColorValue,
 	getColorObjectByAttributeValues,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	Popover,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

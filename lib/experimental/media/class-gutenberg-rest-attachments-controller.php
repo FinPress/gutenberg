@@ -200,7 +200,7 @@ class Gutenberg_REST_Attachments_Controller extends WP_REST_Attachments_Controll
 	 * However, here it is desired not to add the suffix in order to maintain the same
 	 * naming convention as if the file was uploaded regularly.
 	 *
-	 * @link https://github.com/WordPress/wordpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/wp-includes/functions.php#L2576-L2582
+	 * @link https://github.com/WordPress/finpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/wp-includes/functions.php#L2576-L2582
 	 *
 	 * @param string        $filename                 Unique file name.
 	 * @param string        $ext                      File extension. Example: ".png".
@@ -272,7 +272,7 @@ class Gutenberg_REST_Attachments_Controller extends WP_REST_Attachments_Controll
 
 		/*
 		 * wp_unique_filename() will always add numeric suffix if the name looks like a sub-size to avoid conflicts.
-		 * See https://github.com/WordPress/wordpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/wp-includes/functions.php#L2576-L2582
+		 * See https://github.com/WordPress/finpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/wp-includes/functions.php#L2576-L2582
 		 * With the following filter we can work around this safeguard.
 		 */
 

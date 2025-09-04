@@ -5,11 +5,11 @@ import { isPlainObject } from 'is-plain-object';
 import { isValidElementType } from 'react-is';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { applyFilters } from '@wordpress/hooks';
-import warning from '@wordpress/warning';
+import deprecated from '@finpress/deprecated';
+import { applyFilters } from '@finpress/hooks';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies
@@ -114,7 +114,7 @@ export const processBlockType =
 			warning(
 				`The block "${ name }" is registered with API version 2 or lower. This means that the post editor may work as a non-iframe editor.\n` +
 					`Since all editors are planned to work as iframes in the future, set the \`apiVersion\` field to 3 and test the block inside the iframe editor.\n` +
-					`See: https://developer.wordpress.org/block-editor/reference-guides/block-api/block-api-versions/#version-3-wordpress-6-3`
+					`See: https://developer.finpress.org/block-editor/reference-guides/block-api/block-api-versions/#version-3-finpress-6-3`
 			);
 		}
 
@@ -201,7 +201,7 @@ export const processBlockType =
 		if ( ! isValidIcon( settings.icon.src ) ) {
 			warning(
 				'The icon passed is invalid. ' +
-					'The icon should be a string, an element, a function, or an object following the specifications documented in https://developer.wordpress.org/block-editor/developers/block-api/block-registration/#icon-optional'
+					'The icon should be a string, an element, a function, or an object following the specifications documented in https://developer.finpress.org/block-editor/developers/block-api/block-registration/#icon-optional'
 			);
 			return;
 		}
@@ -217,7 +217,7 @@ export const processBlockType =
 			// Intentionally continue:
 			//
 			// While string values were never supported, they appeared to work with some unintended side-effects
-			// that have been fixed by [#66250](https://github.com/WordPress/gutenberg/pull/66250).
+			// that have been fixed by [#66250](https://github.com/FinPress/gutenberg/pull/66250).
 			//
 			// To be backwards-compatible, this code that automatically migrates strings to arrays.
 		}

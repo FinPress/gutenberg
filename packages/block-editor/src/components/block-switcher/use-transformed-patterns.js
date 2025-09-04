@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { cloneBlock } from '@wordpress/blocks';
+import { useMemo } from '@finpress/element';
+import { cloneBlock } from '@finpress/blocks';
 
 /**
  * Internal dependencies

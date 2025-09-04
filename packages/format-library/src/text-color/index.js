@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
-import { RichTextToolbarButton, useSettings } from '@wordpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { useMemo, useState } from '@finpress/element';
+import { RichTextToolbarButton, useSettings } from '@finpress/block-editor';
 import {
 	Icon,
 	color as colorIcon,
 	textColor as textColorIcon,
-} from '@wordpress/icons';
-import { removeFormat } from '@wordpress/rich-text';
+} from '@finpress/icons';
+import { removeFormat } from '@finpress/rich-text';
 
 /**
  * Internal dependencies

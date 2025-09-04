@@ -1,27 +1,27 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	registerBlockType,
 	unstable__bootstrapServerSideBlockDefinitions, // eslint-disable-line camelcase
 	setFreeformContentHandlerName,
 	store as blocksStore,
-} from '@wordpress/blocks';
-import { dispatch } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
-import { StrictMode, createRoot } from '@wordpress/element';
+} from '@finpress/blocks';
+import { dispatch } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
+import { StrictMode, createRoot } from '@finpress/element';
 import {
 	registerCoreBlocks,
 	__experimentalGetCoreBlocks,
 	__experimentalRegisterExperimentalCoreBlocks,
-} from '@wordpress/block-library';
-import { __experimentalFetchLinkSuggestions as fetchLinkSuggestions } from '@wordpress/core-data';
+} from '@finpress/block-library';
+import { __experimentalFetchLinkSuggestions as fetchLinkSuggestions } from '@finpress/core-data';
 import {
 	registerLegacyWidgetBlock,
 	registerLegacyWidgetVariations,
 	registerWidgetGroupBlock,
-} from '@wordpress/widgets';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/widgets';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies
@@ -87,7 +87,7 @@ export function initializeEditor( id, settings ) {
 	// As we are unregistering `core/freeform` to avoid the Classic block, we must
 	// replace it with something as the default freeform content handler. Failure to
 	// do this will result in errors in the default block parser.
-	// see: https://github.com/WordPress/gutenberg/issues/33097
+	// see: https://github.com/FinPress/gutenberg/issues/33097
 	setFreeformContentHandlerName( 'core/html' );
 
 	root.render(

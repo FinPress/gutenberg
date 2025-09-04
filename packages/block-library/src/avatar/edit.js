@@ -4,22 +4,22 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	InspectorControls,
 	useBlockProps,
 	__experimentalUseBorderProps as useBorderProps,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	RangeControl,
 	ResizableBox,
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { __, isRTL } from '@wordpress/i18n';
-import { addQueryArgs, removeQueryArgs } from '@wordpress/url';
+} from '@finpress/components';
+import { __, isRTL } from '@finpress/i18n';
+import { addQueryArgs, removeQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies

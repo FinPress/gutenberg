@@ -68,7 +68,7 @@ _Related_
 
 ### getAutosaveAttribute
 
-> **Deprecated** since 5.6. Callers should use the `getAutosave( postType, postId, userId )` selector from the '@wordpress/core-data' package and access properties on the returned autosave object using getPostRawValue.
+> **Deprecated** since 5.6. Callers should use the `getAutosave( postType, postId, userId )` selector from the '@finpress/core-data' package and access properties on the returned autosave object using getPostRawValue.
 
 Returns an attribute value of the current autosave revision for a post, or null if there is no autosave for the post.
 
@@ -1013,9 +1013,9 @@ Returns whether post autosaving is locked.
 _Usage_
 
 ```jsx
-import { __ } from '@wordpress/i18n';
-import { store as editorStore } from '@wordpress/editor';
-import { useSelect } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { store as editorStore } from '@finpress/editor';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const isAutoSavingLocked = useSelect(
@@ -1070,9 +1070,9 @@ Returns whether post saving is locked.
 _Usage_
 
 ```jsx
-import { __ } from '@wordpress/i18n';
-import { store as editorStore } from '@wordpress/editor';
-import { useSelect } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { store as editorStore } from '@finpress/editor';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const isSavingLocked = useSelect(
@@ -1213,7 +1213,7 @@ _Returns_
 
 ### createUndoLevel
 
-> **Deprecated** Since WordPress 6.0
+> **Deprecated** Since FinPress 6.0
 
 Action that creates an undo history record.
 
@@ -1395,7 +1395,7 @@ Action that restores last popped state in undo history.
 
 ### refreshPost
 
-> **Deprecated** Since WordPress 6.0.
+> **Deprecated** Since FinPress 6.0.
 
 Action for refreshing the current post.
 
@@ -1452,7 +1452,7 @@ _Parameters_
 
 ### resetPost
 
-> **Deprecated** Since WordPress 6.0.
+> **Deprecated** Since FinPress 6.0.
 
 Returns an action object used in signalling that the latest version of the post has been received, either by initialization or save.
 

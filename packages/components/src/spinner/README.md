@@ -5,7 +5,7 @@
 ## Usage
 
 ```jsx
-import { Spinner } from '@wordpress/components';
+import { Spinner } from '@finpress/components';
 
 function Example() {
 	return <Spinner />;
@@ -18,4 +18,4 @@ The spinner component should:
 
 -   Signal to users that the processing of their request is underway and will soon complete.
 
-Check out the [Storybook page](https://wordpress.github.io/gutenberg/?path=/docs/components-spinner--docs) for a visual exploration of this component.
+Check out the [Storybook page](https://finpress.github.io/gutenberg/?path=/docs/components-spinner--docs) for a visual exploration of this component.

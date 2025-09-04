@@ -12,7 +12,7 @@ Render `<KeyboardShortcuts />` with a `shortcuts` prop object:
 
 ```jsx
 import { useState } from 'react';
-import { KeyboardShortcuts } from '@wordpress/components';
+import { KeyboardShortcuts } from '@finpress/components';
 
 const MyKeyboardShortcuts = () => {
 	const [ isAllSelected, setIsAllSelected ] = useState( false );

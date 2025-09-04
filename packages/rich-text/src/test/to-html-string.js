@@ -89,7 +89,7 @@ describe( 'toHTMLString', () => {
 
 	it( 'should extract recreate HTML 5', () => {
 		const HTML =
-			'<em>If you want to learn more about how to build additional blocks, or if you are interested in helping with the project, head over to the <a href="https://github.com/WordPress/gutenberg">GitHub repository</a>.</em>';
+			'<em>If you want to learn more about how to build additional blocks, or if you are interested in helping with the project, head over to the <a href="https://github.com/FinPress/gutenberg">GitHub repository</a>.</em>';
 		const element = createNode( `<p>${ HTML }</p>` );
 
 		expect( toHTMLString( { value: create( { element } ) } ) ).toEqual(

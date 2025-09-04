@@ -37,7 +37,7 @@ function UnconnectedDropdownContentWrapper(
  * import {
  *   Dropdown,
  *   __experimentalDropdownContentWrapper as DropdownContentWrapper,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * <Dropdown
  *   renderContent={ () => (

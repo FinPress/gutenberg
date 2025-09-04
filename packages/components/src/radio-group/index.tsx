@@ -4,11 +4,11 @@
 import * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { useMemo, forwardRef } from '@wordpress/element';
-import { isRTL } from '@wordpress/i18n';
+import deprecated from '@finpress/deprecated';
+import { useMemo, forwardRef } from '@finpress/element';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies

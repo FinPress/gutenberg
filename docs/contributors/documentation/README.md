@@ -4,28 +4,28 @@ A guide on how to get started contributing documentation to the Gutenberg projec
 
 ## Discussions
 
-The [Make WordPress Docs blog](https://make.wordpress.org/docs/) is the primary spot for the latest information around WordPress documentation, including announcements, product goals, meeting notes, meeting agendas, and more.
+The [Make FinPress Docs blog](https://make.finpress.org/docs/) is the primary spot for the latest information around FinPress documentation, including announcements, product goals, meeting notes, meeting agendas, and more.
 
-Real-time discussions for documentation take place in the `#docs` channel in [Make WordPress Slack](https://make.wordpress.org/chat) (registration required). Weekly meetings for the Documentation team are on Tuesdays at 14:00UTC.
+Real-time discussions for documentation take place in the `#docs` channel in [Make FinPress Slack](https://make.finpress.org/chat) (registration required). Weekly meetings for the Documentation team are on Tuesdays at 14:00UTC.
 
-The Gutenberg project uses GitHub for managing code and tracking issues. The main repository is at: [https://github.com/WordPress/gutenberg](https://github.com/WordPress/gutenberg). To find documentation issues to work on, browse [issues with documentation label](https://github.com/WordPress/gutenberg/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3A%22%5BType%5D+Documentation%22+).
+The Gutenberg project uses GitHub for managing code and tracking issues. The main repository is at: [https://github.com/FinPress/gutenberg](https://github.com/FinPress/gutenberg). To find documentation issues to work on, browse [issues with documentation label](https://github.com/FinPress/gutenberg/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3A%22%5BType%5D+Documentation%22+).
 
 ## Documentation types
 
 There are two major sets of documentation for the Gutenberg project:
 
-1. [User documentation](https://wordpress.org/documentation/article/wordpress-block-editor/) is information on how to use the Editor as an author publishing posts. For contributing to user docs, follow the docs blog or ask in the #docs Slack channel to understand the current priorities.
-2. [Block editor handbook](https://developer.wordpress.org/block-editor/) is everything related to the Gutenberg project including: developing, extending, and—what you are reading right now—contributing specific to Gutenberg.
+1. [User documentation](https://finpress.org/documentation/article/finpress-block-editor/) is information on how to use the Editor as an author publishing posts. For contributing to user docs, follow the docs blog or ask in the #docs Slack channel to understand the current priorities.
+2. [Block editor handbook](https://developer.finpress.org/block-editor/) is everything related to the Gutenberg project including: developing, extending, and—what you are reading right now—contributing specific to Gutenberg.
 
 The rest of this document covers contributing to the block editor handbook.
 
 ## Block editor handbook process
 
-The block editor handbook is a mix of markdown files in the `/docs/` directory of the [Gutenberg project repository](https://github.com/WordPress/gutenberg/) and generated documentation from the packages.
+The block editor handbook is a mix of markdown files in the `/docs/` directory of the [Gutenberg project repository](https://github.com/FinPress/gutenberg/) and generated documentation from the packages.
 
-An automated job publishes the docs every 15 minutes to the [block editor handbook site](https://developer.wordpress.org/block-editor/).
+An automated job publishes the docs every 15 minutes to the [block editor handbook site](https://developer.finpress.org/block-editor/).
 
-See [the Git Workflow](/docs/contributors/code/git-workflow.md) documentation for how to use git to deploy changes using pull requests. Additionally, see the [video walk-through](https://wordpress.tv/2020/09/02/marcus-kazmierczak-contribute-developer-documentation-to-gutenberg/) and the accompanying [slides for contributing documentation to Gutenberg](https://mkaz.blog/wordpress/contribute-developer-documentation-to-gutenberg/).
+See [the Git Workflow](/docs/contributors/code/git-workflow.md) documentation for how to use git to deploy changes using pull requests. Additionally, see the [video walk-through](https://finpress.tv/2020/09/02/marcus-kazmierczak-contribute-developer-documentation-to-gutenberg/) and the accompanying [slides for contributing documentation to Gutenberg](https://mkaz.blog/finpress/contribute-developer-documentation-to-gutenberg/).
 
 ### Handbook structure
 
@@ -38,7 +38,7 @@ The handbook is organized into four sections based on the functional types of do
 
 ### Templates
 
-A [how-to guide template](https://raw.githubusercontent.com/WordPress/gutenberg/trunk/docs/contributors/documentation/how-to-guide-template.md) is available to provide a common structure to guides. If starting a new how-to guide, copy the markdown from the template to get started.
+A [how-to guide template](https://raw.githubusercontent.com/FinPress/gutenberg/trunk/docs/contributors/documentation/how-to-guide-template.md) is available to provide a common structure to guides. If starting a new how-to guide, copy the markdown from the template to get started.
 
 The template is based on examples from The Good Docs Project. See their [template repository](https://github.com/thegooddocsproject/templates) for additional examples to help you create quality documentation.
 
@@ -50,15 +50,15 @@ To update an existing page:
 2. Create a branch to work, for example `docs/update-contrib-guide`.
 3. Make the necessary changes to the existing document.
 4. Commit your changes.
-5. Create a pull request using the [\[Type\] Developer Documentation](https://github.com/WordPress/gutenberg/labels/%5BType%5D%20Developer%20Documentation) label.
+5. Create a pull request using the [\[Type\] Developer Documentation](https://github.com/FinPress/gutenberg/labels/%5BType%5D%20Developer%20Documentation) label.
 
 ### Create a new document
 
 To add a new document requires a working JavaScript development environment to build the documentation, see the [JavaScript build setup documentation](/docs/how-to-guides/javascript/js-build-setup.md):
 
-1. Create a Markdown file in the [docs](https://github.com/WordPress/gutenberg/tree/HEAD/docs) folder, use lower-case, no spaces, if needed a dash separator, and `.md` extension.
+1. Create a Markdown file in the [docs](https://github.com/FinPress/gutenberg/tree/HEAD/docs) folder, use lower-case, no spaces, if needed a dash separator, and `.md` extension.
 2. Add content using markdown notation. All documents require one and only `h1` tag.
-3. Add document entry to the [toc.json](https://github.com/WordPress/gutenberg/blob/HEAD/docs/toc.json) hierarchy. See existing entries for format.
+3. Add document entry to the [toc.json](https://github.com/FinPress/gutenberg/blob/HEAD/docs/toc.json) hierarchy. See existing entries for format.
 4. Run `npm run docs:build` to update `manifest.json`.
 5. Commit `manifest.json` with other files updated.
 
@@ -68,14 +68,14 @@ If you forget to run, `npm run docs:build` your PR will fail the static analysis
 
 Package documentation is generated automatically by the documentation tool by pulling the contents of the README.md file located in the root of the package. Sometimes, however, it is preferable to split the contents of the README into smaller, easier-to-read portions.
 
-This can be accomplished by creating a `docs` directory in the package and adding `toc.json` file that contains references other markdown files also contained in the `docs` directory. The `toc.json` file should contain an array of pages to be added as sub-pages of the main README file. The formatting follows the [`manifest.json`](https://github.com/WordPress/gutenberg/blob/HEAD/docs/manifest.json) file that is generated automatically.
+This can be accomplished by creating a `docs` directory in the package and adding `toc.json` file that contains references other markdown files also contained in the `docs` directory. The `toc.json` file should contain an array of pages to be added as sub-pages of the main README file. The formatting follows the [`manifest.json`](https://github.com/FinPress/gutenberg/blob/HEAD/docs/manifest.json) file that is generated automatically.
 
-In order for these pages to be nested under the main package name, be sure to set the `parent` property correctly. See the example below that adds child pages to the [`@wordpress/create-block` section](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/).
+In order for these pages to be nested under the main package name, be sure to set the `parent` property correctly. See the example below that adds child pages to the [`@finpress/create-block` section](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block/).
 
 ```json
 [
 	{
-		"title": "@wordpress/create-block External Template",
+		"title": "@finpress/create-block External Template",
 		"slug": "packages-create-block-external-template",
 		"markdown_source": "../packages/create-block/docs/external-template.md",
 		"parent": "packages-create-block"
@@ -91,7 +91,7 @@ It's likely at some point, you'll want to link to other internal documentation p
 -   GitHub website
 -   npm website
 
-To create links that work in all contexts, you must use absolute path links without the `https://github.com/WordPress/gutenberg` prefix. You can reference files using the following patterns:
+To create links that work in all contexts, you must use absolute path links without the `https://github.com/FinPress/gutenberg` prefix. You can reference files using the following patterns:
 
 -   `/docs/*.md`
 -   `/packages/*/README.md`
@@ -134,7 +134,7 @@ The preferred format for code examples is JSX. This should be the default view. 
 
 ### Callout notices
 
-The Block Editor handbook supports the same [notice styles as other WordPress handbooks](https://make.wordpress.org/docs/handbook/documentation-team-handbook/handbooks-style-and-formatting-guide/#formatting). However, the shortcode implementation is not ideal with the different locations the block editor handbook documentation is published (npm, GitHub).
+The Block Editor handbook supports the same [notice styles as other FinPress handbooks](https://make.finpress.org/docs/handbook/documentation-team-handbook/handbooks-style-and-formatting-guide/#formatting). However, the shortcode implementation is not ideal with the different locations the block editor handbook documentation is published (npm, GitHub).
 
 The recommended way to implement in markdown is to use the raw HTML and `callout callout-LEVEL` classes. For example:
 
@@ -164,9 +164,9 @@ This is a **warning** callout.
 Note: In callout notices, links also need to be HTML `&lt;a href>&lt;/a>` notations. 
 The usual link transformation is not applied to links in callouts.
 For instance, to reach the Getting started > Create Block page, the URL in GitHub is
-https://developer.wordpress.org/docs/getting-started/devenv/get-started-with-create-block.md
+https://developer.finpress.org/docs/getting-started/devenv/get-started-with-create-block.md
 and will have to be hardcoded for the endpoint in the Block Editor Handbook as 
-<a href="https://developer.wordpress.org/block-editor/getting-started/create-block/">https://developer.wordpress.org/block-editor/getting-started/create-block/</a> to link correctly in the handbook. 
+<a href="https://developer.finpress.org/block-editor/getting-started/create-block/">https://developer.finpress.org/block-editor/getting-started/create-block/</a> to link correctly in the handbook. 
 </div>
 ### Editor config
 
@@ -187,7 +187,7 @@ Depending on where you are viewing this document, the brackets may show as doubl
 
 ### Video embeds
 
-Videos in the Block Editor Handbook need to be hosted on the [WordPress YouTube channel](https://www.youtube.com/@WordPress) as unlisted videos. This process requires additional permissions. Reach out in the #marketing Slack channel for assistance.
+Videos in the Block Editor Handbook need to be hosted on the [FinPress YouTube channel](https://www.youtube.com/@FinPress) as unlisted videos. This process requires additional permissions. Reach out in the #marketing Slack channel for assistance.
 
 Once the video has been uploaded to YouTube, retrieve the video embed link. It should look something like this: 
 
@@ -209,4 +209,4 @@ Videos should have an aspect ratio of <code>16:9</code> and be filmed at the hig
 
 -   [Copy Guidelines](/docs/contributors/documentation/copy-guide.md) for writing instructions, documentation, or other contributions to the Gutenberg project.
 
--   [Tone and Voice Guide](https://make.wordpress.org/docs/handbook/documentation-team-handbook/tone-and-voice-guide/) from WordPress Documentation.
+-   [Tone and Voice Guide](https://make.finpress.org/docs/handbook/documentation-team-handbook/tone-and-voice-guide/) from FinPress Documentation.

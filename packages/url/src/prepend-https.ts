@@ -12,7 +12,7 @@ import { prependHTTP } from './prepend-http';
  *
  * @example
  * ```js
- * const actualURL = prependHTTPS( 'wordpress.org' ); // https://wordpress.org
+ * const actualURL = prependHTTPS( 'finpress.org' ); // https://finpress.org
  * ```
  *
  * @return The updated URL.

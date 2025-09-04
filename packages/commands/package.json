@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/commands",
+	"name": "@finpress/commands",
 	"version": "1.29.0",
 	"description": "Handles the commands menu.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"commands",
 		"k"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/commands/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/commands/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/commands"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -29,13 +29,13 @@
 	"wpScript": true,
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/components": "file:../components",
-		"@wordpress/data": "file:../data",
-		"@wordpress/element": "file:../element",
-		"@wordpress/i18n": "file:../i18n",
-		"@wordpress/icons": "file:../icons",
-		"@wordpress/keyboard-shortcuts": "file:../keyboard-shortcuts",
-		"@wordpress/private-apis": "file:../private-apis",
+		"@finpress/components": "file:../components",
+		"@finpress/data": "file:../data",
+		"@finpress/element": "file:../element",
+		"@finpress/i18n": "file:../i18n",
+		"@finpress/icons": "file:../icons",
+		"@finpress/keyboard-shortcuts": "file:../keyboard-shortcuts",
+		"@finpress/private-apis": "file:../private-apis",
 		"clsx": "^2.1.1",
 		"cmdk": "^1.0.0"
 	},

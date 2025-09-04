@@ -4,17 +4,17 @@
 import { render } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from '@finpress/block-editor';
 
 /**
  * Internal dependencies
  */
 import SeparatorEdit from '../edit';
 
-jest.mock( '@wordpress/block-editor', () => ( {
-	...jest.requireActual( '@wordpress/block-editor' ),
+jest.mock( '@finpress/block-editor', () => ( {
+	...jest.requireActual( '@finpress/block-editor' ),
 	useBlockProps: jest.fn(),
 } ) );
 

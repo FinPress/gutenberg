@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { speak } from '@wordpress/a11y';
-import { __, sprintf } from '@wordpress/i18n';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useCallback } from '@wordpress/element';
-import { UP, DOWN, HOME, END, ESCAPE } from '@wordpress/keycodes';
-import { store as blocksStore } from '@wordpress/blocks';
+import { speak } from '@finpress/a11y';
+import { __, sprintf } from '@finpress/i18n';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useCallback } from '@finpress/element';
+import { UP, DOWN, HOME, END, ESCAPE } from '@finpress/keycodes';
+import { store as blocksStore } from '@finpress/blocks';
 
 /**
  * Internal dependencies

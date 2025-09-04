@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x, sprintf, isRTL } from '@wordpress/i18n';
-import { getSettings, getDate, dateI18n } from '@wordpress/date';
-import { useSelect } from '@wordpress/data';
+import { __, _x, sprintf, isRTL } from '@finpress/i18n';
+import { getSettings, getDate, dateI18n } from '@finpress/date';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

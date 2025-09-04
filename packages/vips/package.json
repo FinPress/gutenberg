@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/vips",
+	"name": "@finpress/vips",
 	"version": "1.0.0-prerelease",
 	"private": true,
 	"description": "Utils for working with libvips.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"media",
 		"libvips"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/vips/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/vips/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/vips"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { combineReducers } from '@wordpress/data';
+import { combineReducers } from '@finpress/data';
 
 /**
  * Reducer managing the format types

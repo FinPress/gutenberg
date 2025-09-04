@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { useMemo } from '@wordpress/element';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

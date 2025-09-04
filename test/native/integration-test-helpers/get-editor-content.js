@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	subscribeParentGetHtml,
 	provideToNative_Html as provideToNativeHtml,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 // Set up the mocks for getting the HTML output of the editor
 let triggerHtmlSerialization;

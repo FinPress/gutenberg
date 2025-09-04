@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Draggable } from '@wordpress/components';
-import { createBlock, store as blocksStore } from '@wordpress/blocks';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
+import { Draggable } from '@finpress/components';
+import { createBlock, store as blocksStore } from '@finpress/blocks';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

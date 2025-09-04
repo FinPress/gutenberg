@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Modal,
@@ -7,14 +7,14 @@ import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	Button,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useDispatch, resolveSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { useState } from '@wordpress/element';
-import { plus } from '@wordpress/icons';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { addQueryArgs } from '@wordpress/url';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useDispatch, resolveSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useState } from '@finpress/element';
+import { plus } from '@finpress/icons';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies

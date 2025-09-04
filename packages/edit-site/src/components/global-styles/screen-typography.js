@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { __experimentalVStack as VStack } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
+import { __ } from '@finpress/i18n';
+import { __experimentalVStack as VStack } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
 
 /**
  * Internal dependencies

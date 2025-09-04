@@ -4,7 +4,7 @@ The `AlignmentControl` component renders a dropdown menu that displays alignment
 
 This component is mostly used for blocks that display text, such as Heading, Paragraph, Post Author, Post Comments, Verse, Quote, Post Title, etc... And the available alignment options are `left`, `center` or `right` alignment.
 
-![Post Title block alignment options](https://make.wordpress.org/core/files/2020/09/post-title-block-alignment-options.png)
+![Post Title block alignment options](https://make.finpress.org/core/files/2020/09/post-title-block-alignment-options.png)
 
 ## Development guidelines
 
@@ -13,7 +13,7 @@ This component is mostly used for blocks that display text, such as Heading, Par
 Renders an alignment toolbar with alignments options.
 
 ```jsx
-import { AlignmentControl } from '@wordpress/block-editor';
+import { AlignmentControl } from '@finpress/block-editor';
 
 const MyAlignmentToolbar = () => (
 	<BlockControls group="block">
@@ -47,4 +47,4 @@ A callback function invoked when the toolbar's alignment value is changed via an
 
 ## Related components
 
-Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.
+Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.

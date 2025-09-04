@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getActiveFormat, getActiveObject } from '@wordpress/rich-text';
+import { getActiveFormat, getActiveObject } from '@finpress/rich-text';
 
 export default function FormatEdit( {
 	formatTypes,

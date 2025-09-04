@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { applyFilters, doAction } from '@wordpress/hooks';
-import { Component, cloneElement, registerComponent } from '@wordpress/element';
+import { applyFilters, doAction } from '@finpress/hooks';
+import { Component, cloneElement, registerComponent } from '@finpress/element';
 
 /**
  * Internal dependencies

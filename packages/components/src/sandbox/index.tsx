@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	renderToString,
 	useRef,
 	useState,
 	useEffect,
-} from '@wordpress/element';
-import { useFocusableIframe, useMergeRefs } from '@wordpress/compose';
+} from '@finpress/element';
+import { useFocusableIframe, useMergeRefs } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -90,7 +90,7 @@ const observeAndResizeJS = function () {
 	window.addEventListener( 'resize', sendResize, true );
 };
 
-// TODO: These styles shouldn't be coupled with WordPress.
+// TODO: These styles shouldn't be coupled with FinPress.
 const style = `
 	body {
 		margin: 0;
@@ -118,7 +118,7 @@ const style = `
  * This component provides an isolated environment for arbitrary HTML via iframes.
  *
  * ```jsx
- * import { SandBox } from '@wordpress/components';
+ * import { SandBox } from '@finpress/components';
  *
  * const MySandBox = () => (
  * 	<SandBox html="<p>Content</p>" title="SandBox" type="embed" />
@@ -250,7 +250,7 @@ function SandBox( {
 
 		// This used to be registered using <iframe onLoad={} />, but it made the iframe blank
 		// after reordering the containing block. See these two issues for more details:
-		// https://github.com/WordPress/gutenberg/issues/6146
+		// https://github.com/FinPress/gutenberg/issues/6146
 		// https://github.com/facebook/react/issues/18752
 		iframe?.addEventListener( 'load', tryNoForceSandBox, false );
 		defaultView?.addEventListener( 'message', checkMessageForResize );
@@ -263,19 +263,19 @@ function SandBox( {
 			);
 		};
 		// Passing `exhaustive-deps` will likely involve a more detailed refactor.
-		// See https://github.com/WordPress/gutenberg/pull/44378
+		// See https://github.com/FinPress/gutenberg/pull/44378
 	}, [] );
 
 	useEffect( () => {
 		trySandBox();
 		// Passing `exhaustive-deps` will likely involve a more detailed refactor.
-		// See https://github.com/WordPress/gutenberg/pull/44378
+		// See https://github.com/FinPress/gutenberg/pull/44378
 	}, [ title, styles, scripts ] );
 
 	useEffect( () => {
 		trySandBox( true );
 		// Passing `exhaustive-deps` will likely involve a more detailed refactor.
-		// See https://github.com/WordPress/gutenberg/pull/44378
+		// See https://github.com/FinPress/gutenberg/pull/44378
 	}, [ html, type ] );
 
 	return (

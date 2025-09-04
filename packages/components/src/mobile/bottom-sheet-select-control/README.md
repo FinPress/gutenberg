@@ -7,9 +7,9 @@ However, instead of opening up the selection in a modal, the selection opens up 
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BottomSheetSelectControl } from '@wordpress/components';
+import { BottomSheetSelectControl } from '@finpress/components';
 import { useState } from 'react';
 
 const options = [

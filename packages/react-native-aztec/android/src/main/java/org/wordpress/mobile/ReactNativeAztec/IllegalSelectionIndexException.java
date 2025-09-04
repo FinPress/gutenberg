@@ -1,10 +1,10 @@
-package org.wordpress.mobile.ReactNativeAztec;
+package org.finpress.mobile.ReactNativeAztec;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import org.jetbrains.annotations.NotNull;
-import org.wordpress.aztec.spans.UnknownHtmlSpan;
+import org.finpress.aztec.spans.UnknownHtmlSpan;
 
 import java.util.ArrayList;
 import java.util.List;

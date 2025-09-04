@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRoot, StrictMode } from '@wordpress/element';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { CommandMenu } from '@wordpress/commands';
+import { createRoot, StrictMode } from '@finpress/element';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { CommandMenu } from '@finpress/commands';
 
 /**
  * Internal dependencies

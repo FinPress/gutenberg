@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { TextareaControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { decodeEntities } from '@wordpress/html-entities';
-import { useSelect } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { useState, forwardRef } from '@wordpress/element';
+import { TextareaControl } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { decodeEntities } from '@finpress/html-entities';
+import { useSelect } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { useState, forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies

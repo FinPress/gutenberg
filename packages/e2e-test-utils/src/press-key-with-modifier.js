@@ -4,9 +4,9 @@
 import { capitalCase } from 'change-case';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { modifiers, SHIFT, ALT, CTRL } from '@wordpress/keycodes';
+import { modifiers, SHIFT, ALT, CTRL } from '@finpress/keycodes';
 
 /**
  * Emulates a Ctrl+A SelectAll key combination by dispatching custom keyboard

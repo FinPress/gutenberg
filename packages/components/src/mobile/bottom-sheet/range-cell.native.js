@@ -5,11 +5,11 @@ import { Platform, AccessibilityInfo, View } from 'react-native';
 import Slider from '@react-native-community/slider';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { Component } from '@wordpress/element';
-import { withPreferredColorScheme } from '@wordpress/compose';
+import { __, sprintf } from '@finpress/i18n';
+import { Component } from '@finpress/element';
+import { withPreferredColorScheme } from '@finpress/compose';
 
 /**
  * Internal dependencies

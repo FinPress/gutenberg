@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useReducer } from '@wordpress/element';
+import { useRef, useReducer } from '@finpress/element';
 
 /**
  * Internal dependencies

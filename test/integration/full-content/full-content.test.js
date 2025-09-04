@@ -5,20 +5,20 @@ import glob from 'fast-glob';
 import { format } from 'util';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getBlockTypes,
 	parse,
 	serialize,
 	unstable__bootstrapServerSideBlockDefinitions, // eslint-disable-line camelcase
-} from '@wordpress/blocks';
-import { parse as grammarParse } from '@wordpress/block-serialization-default-parser';
+} from '@finpress/blocks';
+import { parse as grammarParse } from '@finpress/block-serialization-default-parser';
 import {
 	registerCoreBlocks,
 	__experimentalRegisterExperimentalCoreBlocks,
-} from '@wordpress/block-library';
-import prettierConfig from '@wordpress/prettier-config';
+} from '@finpress/block-library';
+import prettierConfig from '@finpress/prettier-config';
 
 /**
  * Internal dependencies
@@ -36,10 +36,10 @@ import {
 } from '../fixtures';
 
 /* eslint-disable no-restricted-syntax */
-import * as form from '@wordpress/block-library/src/form';
-import * as formInput from '@wordpress/block-library/src/form-input';
-import * as formSubmitButton from '@wordpress/block-library/src/form-submit-button';
-import * as formSubmissionNotification from '@wordpress/block-library/src/form-submission-notification';
+import * as form from '@finpress/block-library/src/form';
+import * as formInput from '@finpress/block-library/src/form-input';
+import * as formSubmitButton from '@finpress/block-library/src/form-submit-button';
+import * as formSubmissionNotification from '@finpress/block-library/src/form-submission-notification';
 /* eslint-enable no-restricted-syntax */
 
 const blockBasenames = getAvailableBlockFixturesBasenames();
@@ -284,7 +284,7 @@ describe( 'full post content fixture', () => {
 							format(
 								"Expected a fixture file called '%s.html' or '%s__*.html' in `test/integration/fixtures/blocks/` " +
 									'\n\n' +
-									'For more information on how to create test fixtures see https://github.com/WordPress/gutenberg/blob/1f75f8f6f500a20df5b9d6e317b4d72dd5af4ede/test/integration/fixtures/blocks/README.md\n\n',
+									'For more information on how to create test fixtures see https://github.com/FinPress/gutenberg/blob/1f75f8f6f500a20df5b9d6e317b4d72dd5af4ede/test/integration/fixtures/blocks/README.md\n\n',
 								nameToFilename,
 								nameToFilename
 							)

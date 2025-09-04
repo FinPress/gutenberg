@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityRecords } from '@wordpress/core-data';
+import { useEntityRecords } from '@finpress/core-data';
 
 /**
  * @typedef {Object} NavigationEntitiesData

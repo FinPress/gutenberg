@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import type {
 	CustomValueUnits,
 	Preset,
 } from './types';
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 export const CUSTOM_VALUE_SETTINGS: CustomValueUnits = {
 	px: { max: 300, step: 1 },

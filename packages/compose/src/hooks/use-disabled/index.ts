@@ -17,7 +17,7 @@ import useRefEffect from '../use-ref-effect';
  *
  * @example
  * ```js
- * import { useDisabled } from '@wordpress/compose';
+ * import { useDisabled } from '@finpress/compose';
  *
  * const DisabledExample = () => {
  * 	const disabledRef = useDisabled();

@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useRefEffect } from '@wordpress/compose';
-import { ENTER, BACKSPACE, DELETE } from '@wordpress/keycodes';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useRefEffect } from '@finpress/compose';
+import { ENTER, BACKSPACE, DELETE } from '@finpress/keycodes';
 import {
 	createBlock,
 	getDefaultBlockName,
 	hasBlockSupport,
 	getBlockTransforms,
 	findTransform,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies

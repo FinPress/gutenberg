@@ -62,7 +62,7 @@ function setPath( object: Record< string, any >, path: string[], value: any ) {
  *
  * @example
  * ```js
- * const foo = getQueryArgs( 'https://wordpress.org?foo=bar&bar=baz' );
+ * const foo = getQueryArgs( 'https://finpress.org?foo=bar&bar=baz' );
  * // { "foo": "bar", "bar": "baz" }
  * ```
  *

@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
-import { store as preferencesStore } from '@wordpress/preferences';
+import apiFetch from '@finpress/api-fetch';
+import { store as preferencesStore } from '@finpress/preferences';
 import {
 	store as editorStore,
 	privateApis as editorPrivateApis,
-} from '@wordpress/editor';
-import deprecated from '@wordpress/deprecated';
-import { addAction } from '@wordpress/hooks';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as noticesStore } from '@wordpress/notices';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/editor';
+import deprecated from '@finpress/deprecated';
+import { addAction } from '@finpress/hooks';
+import { store as coreStore } from '@finpress/core-data';
+import { store as noticesStore } from '@finpress/notices';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -456,7 +456,7 @@ export function __unstableCreateTemplate() {
 let metaBoxesInitialized = false;
 
 /**
- * Initializes WordPress `postboxes` script and the logic for saving meta boxes.
+ * Initializes FinPress `postboxes` script and the logic for saving meta boxes.
  */
 export const initializeMetaBoxes =
 	() =>

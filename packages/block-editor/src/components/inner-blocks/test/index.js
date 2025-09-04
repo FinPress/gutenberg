@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/render-result-naming-convention */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createBlock,
@@ -10,8 +10,8 @@ import {
 	registerBlockType,
 	serialize,
 	unregisterBlockType,
-} from '@wordpress/blocks';
-import { renderToString } from '@wordpress/element';
+} from '@finpress/blocks';
+import { renderToString } from '@finpress/element';
 
 /**
  * Internal dependencies

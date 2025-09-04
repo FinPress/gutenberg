@@ -2,19 +2,19 @@
 
 `BlockVerticalAlignmentControl` is a simple component designed to provide _vertical_ alignment UI controls for use within the editor `BlockControls` toolbar.
 
-This builds upon similar patterns to the [`BlockAlignmentControl`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/editor/src/components/block-alignment-control) but is focused on vertical alignment only.
+This builds upon similar patterns to the [`BlockAlignmentControl`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/editor/src/components/block-alignment-control) but is focused on vertical alignment only.
 
 ## Usage
 
 In a block's `edit` implementation, render a `<BlockControls />` component. Then inside of this add the `<BlockVerticalAlignmentControl />` where required.
 
 ```jsx
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType } from '@finpress/blocks';
 import {
 	BlockControls,
 	BlockVerticalAlignmentControl,
 	useBlockProps,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 registerBlockType( 'my-plugin/my-block', {
 	// ...
@@ -81,4 +81,4 @@ const onChange = ( alignment ) =>
 
 ## Examples
 
-The [Core Columns](https://github.com/WordPress/gutenberg/tree/HEAD/packages/block-library/src/columns) Block utilises the `BlockVerticalAlignmentControl`.
+The [Core Columns](https://github.com/FinPress/gutenberg/tree/HEAD/packages/block-library/src/columns) Block utilises the `BlockVerticalAlignmentControl`.

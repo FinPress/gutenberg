@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	store,
 	getContext,
 	getElement,
 	withSyncEvent,
-} from '@wordpress/interactivity';
+} from '@finpress/interactivity';
 
 const isValidLink = ( ref ) =>
 	ref &&
@@ -38,7 +38,7 @@ store(
 					event.preventDefault();
 
 					const { actions } = yield import(
-						'@wordpress/interactivity-router'
+						'@finpress/interactivity-router'
 					);
 					yield actions.navigate( ref.href );
 					ctx.url = ref.href;
@@ -52,7 +52,7 @@ store(
 				const { ref } = getElement();
 				if ( isValidLink( ref ) ) {
 					const { actions } = yield import(
-						'@wordpress/interactivity-router'
+						'@finpress/interactivity-router'
 					);
 					yield actions.prefetch( ref.href );
 				}
@@ -64,7 +64,7 @@ store(
 				const { ref } = getElement();
 				if ( url && isValidLink( ref ) ) {
 					const { actions } = yield import(
-						'@wordpress/interactivity-router'
+						'@finpress/interactivity-router'
 					);
 					yield actions.prefetch( ref.href );
 				}

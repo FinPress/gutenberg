@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useMemo } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+import { forwardRef, useMemo } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ function UnforwardedToolbar(
 		deprecated( 'Using Toolbar without label prop', {
 			since: '5.6',
 			alternative: 'ToolbarGroup component',
-			link: 'https://developer.wordpress.org/block-editor/components/toolbar/',
+			link: 'https://developer.finpress.org/block-editor/components/toolbar/',
 		} );
 		// Extracting title from `props` because `ToolbarGroup` doesn't accept it.
 		const { title: _title, ...restProps } = props;
@@ -87,8 +87,8 @@ function UnforwardedToolbar(
  * To add controls, simply pass `ToolbarButton` components as children.
  *
  * ```jsx
- * import { Toolbar, ToolbarButton } from '@wordpress/components';
- * import { formatBold, formatItalic, link } from '@wordpress/icons';
+ * import { Toolbar, ToolbarButton } from '@finpress/components';
+ * import { formatBold, formatItalic, link } from '@finpress/icons';
  *
  * function MyToolbar() {
  *   return (

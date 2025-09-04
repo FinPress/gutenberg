@@ -1,10 +1,10 @@
 /* eslint-disable jsdoc/require-param */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEvent } from '@wordpress/compose';
-import { useLayoutEffect } from '@wordpress/element';
+import { useEvent } from '@finpress/compose';
+import { useLayoutEffect } from '@finpress/element';
 /**
  * Internal dependencies
  */

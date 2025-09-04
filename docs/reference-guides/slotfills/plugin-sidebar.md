@@ -7,16 +7,16 @@ Additionally, it will also create a `<PluginSidebarMoreMenuItem />` that will al
 ## Example
 
 ```jsx
-import { __ } from '@wordpress/i18n';
-import { PluginSidebar } from '@wordpress/editor';
+import { __ } from '@finpress/i18n';
+import { PluginSidebar } from '@finpress/editor';
 import {
 	PanelBody,
 	Button,
 	TextControl,
 	SelectControl,
-} from '@wordpress/components';
-import { registerPlugin } from '@wordpress/plugins';
-import { useState } from '@wordpress/element';
+} from '@finpress/components';
+import { registerPlugin } from '@finpress/plugins';
+import { useState } from '@finpress/element';
 
 const PluginSidebarExample = () => {
 	const [ text, setText ] = useState( '' );
@@ -66,4 +66,4 @@ registerPlugin( 'plugin-sidebar-example', { render: PluginSidebarExample } );
 
 ## Location
 
-![PluginSidebar example expanded](https://developer.wordpress.org/files/2024/08/plugin-sidebar-example.png)
+![PluginSidebar example expanded](https://developer.finpress.org/files/2024/08/plugin-sidebar-example.png)

@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { Button, createSlotFill } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useCallback } from '@wordpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { Button, createSlotFill } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

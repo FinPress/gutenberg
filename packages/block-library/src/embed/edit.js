@@ -21,15 +21,15 @@ import EmbedPreview from './embed-preview';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { useState, useEffect } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useBlockProps } from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { View } from '@wordpress/primitives';
-import { getAuthority } from '@wordpress/url';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { useState, useEffect } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useBlockProps } from '@finpress/block-editor';
+import { store as coreStore } from '@finpress/core-data';
+import { View } from '@finpress/primitives';
+import { getAuthority } from '@finpress/url';
 import { Caption } from '../utils/caption';
 
 const EmbedEdit = ( props ) => {
@@ -85,7 +85,7 @@ const EmbedEdit = ( props ) => {
 			const badEmbedProvider =
 				embedPreview?.html === false &&
 				embedPreview?.type === undefined;
-			// Some WordPress URLs that can't be embedded will cause the API to return
+			// Some FinPress URLs that can't be embedded will cause the API to return
 			// a valid JSON response with no HTML and `data.status` set to 404, rather
 			// than generating a fallback response as other embeds do.
 			const wordpressCantEmbed = embedPreview?.data?.status === 404;
@@ -156,7 +156,7 @@ const EmbedEdit = ( props ) => {
 			return;
 		}
 
-		// Until X provider is supported in WordPress, as a workaround we use Twitter provider.
+		// Until X provider is supported in FinPress, as a workaround we use Twitter provider.
 		if ( getAuthority( url ) === 'x.com' ) {
 			const newURL = new URL( url );
 			newURL.host = 'twitter.com';

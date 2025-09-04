@@ -51,8 +51,8 @@ Arbitrary data object attached to the drag and drop event.
 ## Usage
 
 ```jsx
-import { Draggable, Panel, PanelBody } from '@wordpress/components';
-import { Icon, more } from '@wordpress/icons';
+import { Draggable, Panel, PanelBody } from '@finpress/components';
+import { Icon, more } from '@finpress/icons';
 
 const MyDraggable = () => (
 	<div id="draggable-panel">
@@ -79,8 +79,8 @@ const MyDraggable = () => (
 In case you want to call your own `dragstart` / `dragend` event handlers as well, you can pass them to `Draggable` and it'll take care of calling them after their own:
 
 ```jsx
-import { Draggable, Panel, PanelBody } from '@wordpress/components';
-import { Icon, more } from '@wordpress/icons';
+import { Draggable, Panel, PanelBody } from '@finpress/components';
+import { Icon, more } from '@finpress/icons';
 
 const MyDraggable = ( { onDragStart, onDragEnd } ) => (
 	<div id="draggable-panel">

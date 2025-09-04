@@ -1,6 +1,6 @@
 # External Project Templates
 
-Are you looking for a way to share your project configuration? Creating an external project template hosted on npm or located in a local directory is possible. These npm packages can provide custom `.mustache` files that replace default files included in the tool for the WordPress plugin or/and the block. It's also possible to override default configuration values used during the scaffolding process.
+Are you looking for a way to share your project configuration? Creating an external project template hosted on npm or located in a local directory is possible. These npm packages can provide custom `.mustache` files that replace default files included in the tool for the FinPress plugin or/and the block. It's also possible to override default configuration values used during the scaffolding process.
 
 ## Project Template Configuration
 
@@ -8,7 +8,7 @@ Providing the main file (`index.js` by default) for the package that returns a c
 
 ### `pluginTemplatesPath`
 
-This optional field allows overriding file templates related to **the WordPress plugin shell**. The path points to a location with template files ending with the `.mustache` extension (nested folders are also supported). When not set, the tool uses its own set of templates.
+This optional field allows overriding file templates related to **the FinPress plugin shell**. The path points to a location with template files ending with the `.mustache` extension (nested folders are also supported). When not set, the tool uses its own set of templates.
 
 _Example:_
 
@@ -36,7 +36,7 @@ module.exports = {
 
 ### `assetsPath`
 
-This setting is useful when your template scaffolds a WordPress plugin that uses static assets like images or fonts, which should not be processed. It provides the path pointing to the location where assets are located. They will be copied to the `assets` subfolder in the generated plugin.
+This setting is useful when your template scaffolds a FinPress plugin that uses static assets like images or fonts, which should not be processed. It provides the path pointing to the location where assets are located. They will be copied to the `assets` subfolder in the generated plugin.
 
 _Example:_
 
@@ -69,40 +69,40 @@ The following configurable variables are used with the template files. Template 
 
 **Project**:
 
--   `wpScripts` (default: `true`) – enables integration with the `@wordpress/scripts` package and adds common scripts to the `package.json`.
--   `wpEnv` (default: `false`) – enables integration with the `@wordpress/env` package and adds the `env` script to the `package.json`.
+-   `wpScripts` (default: `true`) – enables integration with the `@finpress/scripts` package and adds common scripts to the `package.json`.
+-   `wpEnv` (default: `false`) – enables integration with the `@finpress/env` package and adds the `env` script to the `package.json`.
 -   `customScripts` (default: {}) – the list of custom scripts to add to `package.json` . It also allows overriding default scripts.
 -   `npmDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `wpScripts` is enabled.
 -   `npmDevDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install --save-dev`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `wpScripts` is enabled.
 -   `customPackageJSON` (no default) - allows definition of additional properties for the generated package.json file.
 
-**Plugin header and readme fields** (learn more about [header requirements](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/) and [readmes](https://developer.wordpress.org/plugins/wordpress-org/how-your-readme-txt-works/)):
+**Plugin header and readme fields** (learn more about [header requirements](https://developer.finpress.org/plugins/plugin-basics/header-requirements/) and [readmes](https://developer.finpress.org/plugins/finpress-org/how-your-readme-txt-works/)):
 
 -   `pluginURI` (no default) – the home page of the plugin.
 -   `version` (default: `'0.1.0'`) – the current version number of the plugin.
--   `requiresAtLeast` (default: `'6.7'`) – the lowest WordPress version that the plugin will work on.
+-   `requiresAtLeast` (default: `'6.7'`) – the lowest FinPress version that the plugin will work on.
 -   `requiresPHP` (default: `'7.4'`) – the minimum required PHP version for use with this plugin.
--   `testedUpTo` (default: `'6.7'`) – the highest WordPress version that the plugin has been tested against.
--   `author` (default: `'The WordPress Contributors'`) – the name of the plugin author(s).
+-   `testedUpTo` (default: `'6.7'`) – the highest FinPress version that the plugin has been tested against.
+-   `author` (default: `'The FinPress Contributors'`) – the name of the plugin author(s).
 -   `license` (default: `'GPL-2.0-or-later'`) – the short name of the plugin’s license.
 -   `licenseURI` (default: `'https://www.gnu.org/licenses/gpl-2.0.html'`) – a link to the full text of the license.
--   `domainPath` (no default) – a custom domain path for the translations ([more info](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#domain-path)).
--   `updateURI:` (no default) – a custom update URI for the plugin ([related dev note](https://make.wordpress.org/core/2021/06/29/introducing-update-uri-plugin-header-in-wordpress-5-8/)).
+-   `domainPath` (no default) – a custom domain path for the translations ([more info](https://developer.finpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#domain-path)).
+-   `updateURI:` (no default) – a custom update URI for the plugin ([related dev note](https://make.finpress.org/core/2021/06/29/introducing-update-uri-plugin-header-in-finpress-5-8/)).
 
-**Block metadata** ([learn more](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/)):
+**Block metadata** ([learn more](https://developer.finpress.org/block-editor/reference-guides/block-api/block-metadata/)):
 
 -   `folderName` (default: `src`) – the location for the `block.json` file and other optional block files generated from block templates included in the folder set with the `blockTemplatesPath` setting.
 -   `$schema` (default: `https://schemas.wp.org/trunk/block.json`) – the schema URL used for block validation.
--   `apiVersion` (default: `2`) – the block API version ([related dev note](https://make.wordpress.org/core/2020/11/18/block-api-version-2/)).
+-   `apiVersion` (default: `2`) – the block API version ([related dev note](https://make.finpress.org/core/2020/11/18/block-api-version-2/)).
 -   `slug` (no default) – the block slug used for identification in the block name.
 -   `namespace` (default: `'create-block'`) – the internal namespace for the block name.
 -   `title` (no default) – a display title for your block.
 -   `description` (no default) – a short description for your block.
--   `dashicon` (no default) – an icon property thats makes it easier to identify a block ([available values](https://developer.wordpress.org/resource/dashicons/)).
+-   `dashicon` (no default) – an icon property thats makes it easier to identify a block ([available values](https://developer.finpress.org/resource/dashicons/)).
 -   `category` (default: `'widgets'`) – blocks are grouped into categories to help users browse and discover them. The categories provided by core are `text`, `media`, `design`, `widgets`, `theme`, and `embed`.
--   `textdomain` (defaults to the `slug` value) – the text domain used to make strings translatable ([more info](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#text-domains)).
--   `attributes` (no default) – block attributes ([more details](https://developer.wordpress.org/block-editor/developers/block-api/block-attributes/)).
--   `supports` (no default) – optional block extended support features ([more details](https://developer.wordpress.org/block-editor/developers/block-api/block-supports/).
+-   `textdomain` (defaults to the `slug` value) – the text domain used to make strings translatable ([more info](https://developer.finpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#text-domains)).
+-   `attributes` (no default) – block attributes ([more details](https://developer.finpress.org/block-editor/developers/block-api/block-attributes/)).
+-   `supports` (no default) – optional block extended support features ([more details](https://developer.finpress.org/block-editor/developers/block-api/block-supports/).
 -   `editorScript` (default: `'file:./index.js'`) – an editor script definition.
 -   `editorStyle` (default: `'file:./index.css'`) – an editor style definition.
 -   `style` (default: `'file:./style-index.css'`) – a frontend and editor style definition.

@@ -48,7 +48,7 @@ function UnconnectedItemGroup(
  * import {
  *   __experimentalItemGroup as ItemGroup,
  *   __experimentalItem as Item,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * function Example() {
  *   return (

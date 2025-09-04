@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { SVG, Path } from '@wordpress/primitives';
+import { SVG, Path } from '@finpress/primitives';
 
 const offline = (
 	<SVG viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">

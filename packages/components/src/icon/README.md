@@ -2,14 +2,14 @@
 
 <!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->
 
-<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-icon--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
+<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-icon--docs">FinPress Storybook</a> for more detailed, interactive documentation.</p>
 
 Renders a raw icon without any initial styling or wrappers.
 
 ```jsx
-import { wordpress } from '@wordpress/icons';
+import { finpress } from '@finpress/icons';
 
-<Icon icon={ wordpress } />
+<Icon icon={ finpress } />
 ```
 
 ## Props
@@ -21,10 +21,10 @@ import { wordpress } from '@wordpress/icons';
  - Default: `null`
 
 The icon to render. In most cases, you should use an icon from
-[the `@wordpress/icons` package](https://wordpress.github.io/gutenberg/?path=/story/icons-icon--library).
+[the `@finpress/icons` package](https://finpress.github.io/gutenberg/?path=/story/icons-icon--library).
 
 Other supported values are: component instances, functions,
-[Dashicons](https://developer.wordpress.org/resource/dashicons/)
+[Dashicons](https://developer.finpress.org/resource/dashicons/)
 (specified as strings), and `null`.
 
 The `size` value, as well as any other additional props, will be passed through.

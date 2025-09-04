@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityBlockEditor } from '@wordpress/core-data';
-import { InnerBlocks, useInnerBlocksProps } from '@wordpress/block-editor';
-import { useRef } from '@wordpress/element';
+import { useEntityBlockEditor } from '@finpress/core-data';
+import { InnerBlocks, useInnerBlocksProps } from '@finpress/block-editor';
+import { useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

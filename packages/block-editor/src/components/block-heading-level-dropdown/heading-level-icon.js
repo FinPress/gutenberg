@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	headingLevel1,
@@ -9,8 +9,8 @@ import {
 	headingLevel5,
 	headingLevel6,
 	paragraph,
-} from '@wordpress/icons';
-import { Icon } from '@wordpress/components';
+} from '@finpress/icons';
+import { Icon } from '@finpress/components';
 
 /** @typedef {import('react').ComponentType} ComponentType */
 

@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RangeControl,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	withColors,
 	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
 	__experimentalUseGradient as useGradient,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
-} from '@wordpress/block-editor';
-import { compose } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { compose } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
 
 const Overlay = ( {
 	clientId,

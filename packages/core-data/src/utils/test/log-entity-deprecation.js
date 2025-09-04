@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -26,7 +26,7 @@ jest.mock( '../../entities', () => ( {
 } ) );
 
 // Mock the deprecated function
-jest.mock( '@wordpress/deprecated' );
+jest.mock( '@finpress/deprecated' );
 
 describe( 'logEntityDeprecation', () => {
 	beforeEach( () => {

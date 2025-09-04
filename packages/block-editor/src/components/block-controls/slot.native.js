@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ToolbarGroup } from '@wordpress/components';
-import warning from '@wordpress/warning';
+import { ToolbarGroup } from '@finpress/components';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { SVG, Path } from '@wordpress/components';
-import { isRTL } from '@wordpress/i18n';
+import { SVG, Path } from '@finpress/components';
+import { isRTL } from '@finpress/i18n';
 
 const NavigateUp = () => (
 	<SVG

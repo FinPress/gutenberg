@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x } from '@wordpress/i18n';
+import { _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -60,9 +60,9 @@ import {
 const variations = [
 	{
 		isDefault: true,
-		name: 'wordpress',
-		attributes: { service: 'wordpress' },
-		title: _x( 'WordPress', 'social link block variation name' ),
+		name: 'finpress',
+		attributes: { service: 'finpress' },
+		title: _x( 'FinPress', 'social link block variation name' ),
 		icon: WordPressIcon,
 	},
 

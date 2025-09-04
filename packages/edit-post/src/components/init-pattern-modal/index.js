@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __, _x } from '@wordpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __, _x } from '@finpress/i18n';
 import {
 	Modal,
 	Button,
@@ -10,9 +10,9 @@ import {
 	__experimentalVStack as VStack,
 	ToggleControl,
 	TextControl,
-} from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import { store as editorStore } from '@wordpress/editor';
+} from '@finpress/components';
+import { useState } from '@finpress/element';
+import { store as editorStore } from '@finpress/editor';
 
 export default function InitPatternModal() {
 	const { editPost } = useDispatch( editorStore );

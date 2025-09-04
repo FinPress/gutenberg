@@ -1,6 +1,6 @@
 # Using the Style Engine to generate block supports styles
 
-[Block supports](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/) is the API that allows a block to declare support for certain features.
+[Block supports](https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/) is the API that allows a block to declare support for certain features.
 
 Where a block declares support for a specific style group or property, e.g., "spacing" or "spacing.padding", the block's attributes are extended to include a **style object**.
 
@@ -47,15 +47,15 @@ array(
 ```
 
 ## Use case
-When [registering a block support](https://developer.wordpress.org/reference/classes/wp_block_supports/register/), it is possible to pass an 'apply' callback in the block support config array to add or extend block support attributes with "class" or "style" properties.
+When [registering a block support](https://developer.finpress.org/reference/classes/wp_block_supports/register/), it is possible to pass an 'apply' callback in the block support config array to add or extend block support attributes with "class" or "style" properties.
 
-If a block has opted into the block support, the values of "class" and "style" will be applied to the block element's "class" and "style" attributes accordingly when rendered in the frontend HTML. Note, this applies only to server-side rendered blocks, for example, the [Site Title block](https://developer.wordpress.org/block-editor/reference-guides/core-blocks/#site-title).
+If a block has opted into the block support, the values of "class" and "style" will be applied to the block element's "class" and "style" attributes accordingly when rendered in the frontend HTML. Note, this applies only to server-side rendered blocks, for example, the [Site Title block](https://developer.finpress.org/block-editor/reference-guides/core-blocks/#site-title).
 
 The callback receives `$block_type` and `$block_attributes` as arguments. The `style` attribute within `$block_attributes` only contains the raw style object, if any styles have been set for the block, and not any CSS or classnames to be applied to the block's HTML elements.
 
 Here is where `wp_style_engine_get_styles` comes in handy: it will generate CSS and, if appropriate, classnames to be added to the "style" and "class" HTML attributes in the final rendered block markup.
 
-Here is a _very_ simplified version of how the [color block support](https://github.com/WordPress/gutenberg/tree/HEAD/lib/block-supports/color.php) works:
+Here is a _very_ simplified version of how the [color block support](https://github.com/FinPress/gutenberg/tree/HEAD/lib/block-supports/color.php) works:
 
 ```php
 function gutenberg_apply_colors_support( $block_type, $block_attributes ) {
@@ -96,7 +96,7 @@ In future releases, it will be possible to extend this list.
 Before passing the block style object to the Style Engine, you'll need to take into account:
 
 1. whether the theme has elected to support a particular block style, and
-2. whether a block has elected to "skip serialization" of that particular block style, that is, opt-out of automatic application of styles to the block's element (usually in order to do it via the block's internals). See the [block API documentation](https://developer.wordpress.org/block-editor/explanations/architecture/styles/#block-supports-api) for further information.
+2. whether a block has elected to "skip serialization" of that particular block style, that is, opt-out of automatic application of styles to the block's element (usually in order to do it via the block's internals). See the [block API documentation](https://developer.finpress.org/block-editor/explanations/architecture/styles/#block-supports-api) for further information.
 
 If a block either:
 
@@ -231,4 +231,4 @@ array(
 */
 ```
 
-Read more about [global styles](https://developer.wordpress.org/block-editor/explanations/architecture/styles/#global-styles) and [preset CSS custom properties](https://developer.wordpress.org/block-editor/how-to-guides/themes/global-settings-and-styles.md#css-custom-properties-presets-custom) and [theme supports](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/).
+Read more about [global styles](https://developer.finpress.org/block-editor/explanations/architecture/styles/#global-styles) and [preset CSS custom properties](https://developer.finpress.org/block-editor/how-to-guides/themes/global-settings-and-styles.md#css-custom-properties-presets-custom) and [theme supports](https://developer.finpress.org/block-editor/how-to-guides/themes/theme-support/).

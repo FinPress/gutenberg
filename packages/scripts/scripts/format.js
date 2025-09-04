@@ -33,7 +33,7 @@ function checkPrettier() {
 		const prettierPackageName = prettierPackageJson.packageJson.name;
 
 		if (
-			! [ 'wp-prettier', '@wordpress/prettier' ].includes(
+			! [ 'wp-prettier', '@finpress/prettier' ].includes(
 				prettierPackageName
 			)
 		) {
@@ -44,7 +44,7 @@ function checkPrettier() {
 						'Incompatible version of Prettier was found in your project\n'
 					) +
 					"You need to install the 'wp-prettier' package to get " +
-					'code formatting compliant with the WordPress coding standards.\n\n',
+					'code formatting compliant with the FinPress coding standards.\n\n',
 			};
 		}
 	} catch {
@@ -55,7 +55,7 @@ function checkPrettier() {
 					"The 'prettier' package was not found in your project\n"
 				) +
 				"You need to install the 'wp-prettier' package under an alias to get " +
-				'code formatting compliant with the WordPress coding standards.\n\n',
+				'code formatting compliant with the FinPress coding standards.\n\n',
 		};
 	}
 
@@ -75,7 +75,7 @@ let configArgs = [];
 if ( ! hasPrettierConfig() ) {
 	configArgs = [
 		'--config',
-		require.resolve( '@wordpress/prettier-config' ),
+		require.resolve( '@finpress/prettier-config' ),
 	];
 }
 

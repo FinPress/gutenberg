@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	writingFlowUtils: async ( { page, editor }, use ) => {
@@ -29,7 +29,7 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		// Assertions are made both against the active DOM element and the
 		// editor state, in order to protect against potential disparities.
 		//
-		// See: https://github.com/WordPress/gutenberg/issues/18928
+		// See: https://github.com/FinPress/gutenberg/issues/18928
 		await writingFlowUtils.addDemoContent();
 
 		const activeElementLocator = editor.canvas.locator( ':focus' );
@@ -320,7 +320,7 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 <!-- /wp:list -->` );
 	} );
 
-	// See: https://github.com/WordPress/gutenberg/issues/9626
+	// See: https://github.com/FinPress/gutenberg/issues/9626
 	test( 'should navigate native inputs vertically, not horizontally', async ( {
 		editor,
 		page,
@@ -934,7 +934,7 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 <!-- /wp:table -->` );
 	} );
 
-	// Checks for regressions of https://github.com/WordPress/gutenberg/issues/40091.
+	// Checks for regressions of https://github.com/FinPress/gutenberg/issues/40091.
 	test( 'does not deselect the block when selecting text outside the editor canvas', async ( {
 		editor,
 		page,

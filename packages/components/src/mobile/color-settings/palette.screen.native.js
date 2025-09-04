@@ -4,11 +4,11 @@
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useState, useContext } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { __ } from '@finpress/i18n';
+import { useState, useContext } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 /**

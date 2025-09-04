@@ -163,7 +163,7 @@ exports[`getChangelog verify that the changelog is properly formatted 1`] = `
 - Document the current state of the Real-Time collaboration experiment. ([54932](https://github.com/WordPress/gutenberg/pull/54932))
 - Fix a broken MD link in callout. ([54772](https://github.com/WordPress/gutenberg/pull/54772))
 - Platform Docs: Add a documentation page explaining how to use the block library. ([54967](https://github.com/WordPress/gutenberg/pull/54967))
-- Update the documentation of the block editor and replace @wordpress/element with react. ([54908](https://github.com/WordPress/gutenberg/pull/54908))
+- Update the documentation of the block editor and replace @finpress/element with react. ([54908](https://github.com/WordPress/gutenberg/pull/54908))
 - Update versions in WP for 6.4. ([54890](https://github.com/WordPress/gutenberg/pull/54890))
 
 
@@ -236,7 +236,7 @@ exports[`getChangelog verify that the changelog is properly formatted 1`] = `
 
 #### Build Tooling
 - Add some @types packages as proper dependencies. ([50231](https://github.com/WordPress/gutenberg/pull/50231))
-- Update the default JSX pragma to React instead of @wordpress/element. ([54494](https://github.com/WordPress/gutenberg/pull/54494))
+- Update the default JSX pragma to React instead of @finpress/element. ([54494](https://github.com/WordPress/gutenberg/pull/54494))
 - Upgrade wp-prettier to v3.0.3 (final). ([54775](https://github.com/WordPress/gutenberg/pull/54775))
 
 

@@ -5,7 +5,7 @@ import { sideloadMedia } from './utils/sideload-media';
 import { lock } from './lock-unlock';
 
 /**
- * Private @wordpress/media-utils APIs.
+ * Private @finpress/media-utils APIs.
  */
 export const privateApis = {};
 

@@ -5,7 +5,7 @@ The Social Icon is a foundational block that displays various icons linking to d
 
 ## Adding new social icons
 
-The core maintains certain standards for adding new social icons. To add a new variation to WordPress, it must be well-established and popular.
+The core maintains certain standards for adding new social icons. To add a new variation to FinPress, it must be well-established and popular.
 
 To evaluate if a social service should be added, contributors will consider the following factors:
 
@@ -18,7 +18,7 @@ To evaluate if a social service should be added, contributors will consider the 
 
 ## Adding custom social icons
 
-Starting from WordPress 6.9, it's possible to add custom social icons to your site. See:
+Starting from FinPress 6.9, it's possible to add custom social icons to your site. See:
 
-* Pull Request that introduced custom social icons - [#70261](https://github.com/WordPress/gutenberg/pull/70261).
-* Developer Blog tutorial for custom social icons - [Registering custom social icons in WordPress 6.9](https://developer.wordpress.org/news/2025/08/registering-custom-social-icons-in-wordpress-6-9/).
+* Pull Request that introduced custom social icons - [#70261](https://github.com/FinPress/gutenberg/pull/70261).
+* Developer Blog tutorial for custom social icons - [Registering custom social icons in FinPress 6.9](https://developer.finpress.org/news/2025/08/registering-custom-social-icons-in-finpress-6-9/).

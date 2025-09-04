@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, useState, useEffect } from '@wordpress/element';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { createContext, useState, useEffect } from '@finpress/element';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	useEntityRecord,
 	useEntityRecords,
 	store as coreStore,
-} from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/core-data';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

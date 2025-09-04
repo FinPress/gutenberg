@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRegistrySelector } from '@wordpress/data';
+import { createRegistrySelector } from '@finpress/data';
 
 /**
  * Internal dependencies

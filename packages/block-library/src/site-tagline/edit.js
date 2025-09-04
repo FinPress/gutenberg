@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 import {
 	AlignmentControl,
 	useBlockProps,
 	BlockControls,
 	HeadingLevelDropdown,
 	RichText,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { createBlock, getDefaultBlockName } from '@finpress/blocks';
 
 export default function SiteTaglineEdit( {
 	attributes,

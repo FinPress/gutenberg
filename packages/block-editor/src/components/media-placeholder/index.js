@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
@@ -14,12 +14,12 @@ import {
 	__experimentalInputControl as InputControl,
 	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
 	withFilters,
-} from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
-import { useState, useEffect } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { keyboardReturn } from '@wordpress/icons';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
+import { useState, useEffect } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { keyboardReturn } from '@finpress/icons';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -547,6 +547,6 @@ export function MediaPlaceholder( {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/media-placeholder/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/media-placeholder/README.md
  */
 export default withFilters( 'editor.MediaPlaceholder' )( MediaPlaceholder );

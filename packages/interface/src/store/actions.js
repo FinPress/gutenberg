@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { store as preferencesStore } from '@wordpress/preferences';
+import deprecated from '@finpress/deprecated';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies

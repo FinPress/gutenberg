@@ -38,7 +38,7 @@ declare module './base-entity-records' {
 			 */
 			requires_php: string;
 			/**
-			 * The minimum WordPress version required for the theme to work.
+			 * The minimum FinPress version required for the theme to work.
 			 */
 			requires_wp: string;
 			/**
@@ -167,7 +167,7 @@ declare module './base-entity-records' {
 			 */
 			'title-tag': boolean;
 			/**
-			 * Whether theme opts in to default WordPress block styles for viewing.
+			 * Whether theme opts in to default FinPress block styles for viewing.
 			 */
 			'wp-block-styles': boolean;
 		}

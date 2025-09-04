@@ -3,9 +3,9 @@
  */
 const path = require( 'path' );
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Registered sources', () => {
 	let imagePlaceholderSrc;
@@ -566,7 +566,7 @@ test.describe( 'Registered sources', () => {
 				previewPage.locator( '#connected-paragraph' )
 			).toHaveText( 'new value' );
 		} );
-		// Related issue: https://github.com/WordPress/gutenberg/issues/62347
+		// Related issue: https://github.com/FinPress/gutenberg/issues/62347
 		test( 'should be possible to use symbols and numbers as the custom field value', async ( {
 			editor,
 		} ) => {

@@ -209,7 +209,7 @@ function gutenberg_apply_typography_support( $block_type, $block_attributes ) {
  * * It mostly replaces the deprecated `wp_typography_get_css_variable_inline_style()`,
  *   but skips compiling a CSS declaration as the style engine takes over this role.
  *
- * @link https://github.com/wordpress/gutenberg/pull/27555
+ * @link https://github.com/finpress/gutenberg/pull/27555
  *
  * @since 6.1.0
  *

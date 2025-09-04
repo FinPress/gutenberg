@@ -101,7 +101,7 @@ wp.hooks.addFilter(
 );
 ```
 
-_Note_: To apply a filter where the text-domain is `undefined` (for example WordPress core strings), then use the name "default" to construct the filter name.
+_Note_: To apply a filter where the text-domain is `undefined` (for example FinPress core strings), then use the name "default" to construct the filter name.
 
 -   `i18n.gettext_default`
 -   `i18n.gettext_with_context_default`

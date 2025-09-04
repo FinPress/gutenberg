@@ -3,18 +3,18 @@
  */
 import { parseDropEvent, onFilesDrop, onHTMLDrop, onBlockDrop } from '..';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { findTransform, pasteHandler } from '@wordpress/blocks';
+import { findTransform, pasteHandler } from '@finpress/blocks';
 
 const noop = () => {};
 
-jest.mock( '@wordpress/blocks/src/api/factory', () => ( {
+jest.mock( '@finpress/blocks/src/api/factory', () => ( {
 	findTransform: jest.fn(),
 	getBlockTransforms: jest.fn(),
 } ) );
 
-jest.mock( '@wordpress/blocks/src/api/raw-handling', () => ( {
+jest.mock( '@finpress/blocks/src/api/raw-handling', () => ( {
 	pasteHandler: jest.fn(),
 } ) );
 

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType } from '@finpress/blocks';
 
 const ALLOWED_BLOCKS_GRADIENT_SUPPORT = [ 'core/button' ];
 

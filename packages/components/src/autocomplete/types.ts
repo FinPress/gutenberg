@@ -4,9 +4,9 @@
 import type { ReactElement } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { RichTextValue } from '@wordpress/rich-text';
+import type { RichTextValue } from '@finpress/rich-text';
 
 /**
  * Internal dependencies

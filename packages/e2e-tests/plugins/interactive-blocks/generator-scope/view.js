@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store, getContext } from '@wordpress/interactivity';
+import { store, getContext } from '@finpress/interactivity';
 
 const { callbacks } = store( 'test/generator-scope', {
 	callbacks: {

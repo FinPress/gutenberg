@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
-import { BaseControl, CustomSelectControl } from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { useMemo, Platform } from '@wordpress/element';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { getBlockSupport, hasBlockSupport } from '@finpress/blocks';
+import { BaseControl, CustomSelectControl } from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { useMemo, Platform } from '@finpress/element';
 
 /**
  * Internal dependencies

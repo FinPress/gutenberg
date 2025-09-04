@@ -10,10 +10,10 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BottomSheet, BottomSheetContext } from '@wordpress/components';
-import { useContext } from '@wordpress/element';
+import { BottomSheet, BottomSheetContext } from '@finpress/components';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

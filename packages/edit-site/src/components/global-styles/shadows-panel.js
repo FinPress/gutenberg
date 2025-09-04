@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
@@ -8,16 +8,16 @@ import {
 	Button,
 	FlexItem,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { __, sprintf, isRTL } from '@wordpress/i18n';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { __, sprintf, isRTL } from '@finpress/i18n';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 import {
 	plus,
 	Icon,
 	chevronLeft,
 	chevronRight,
 	moreVertical,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -27,7 +27,7 @@ import Subtitle from './subtitle';
 import { NavigationButtonAsItem } from './navigation-button';
 import ScreenHeader from './header';
 import { getNewIndexFromPresets } from './utils';
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 import ConfirmResetShadowDialog from './confirm-reset-shadow-dialog';
 
 const { useGlobalSetting } = unlock( blockEditorPrivateApis );

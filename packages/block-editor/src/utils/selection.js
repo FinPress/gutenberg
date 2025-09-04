@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RichTextData } from '@wordpress/rich-text';
+import { RichTextData } from '@finpress/rich-text';
 
 /**
  * A robust way to retain selection position through various

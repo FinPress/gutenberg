@@ -4,9 +4,9 @@
 import { createI18n } from '..';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createHooks } from '@wordpress/hooks';
+import { createHooks } from '@finpress/hooks';
 
 describe( 'i18n updates', () => {
 	it( 'updates on setLocaleData', () => {

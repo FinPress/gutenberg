@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/private-apis",
+	"name": "@finpress/private-apis",
 	"version": "1.29.0",
-	"description": "Internal experimental APIs for WordPress core.",
-	"author": "The WordPress Contributors",
+	"description": "Internal experimental APIs for FinPress core.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"dom",
 		"utils"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/private-apis/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/private-apis/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/private-apis"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",

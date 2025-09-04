@@ -15,13 +15,13 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { BlockEdit } from '@wordpress/block-editor';
+import { BlockEdit } from '@finpress/block-editor';
 import {
 	subscribeMediaUpload,
 	sendMediaUpload,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies
@@ -30,7 +30,7 @@ import { name } from '../index';
 
 // react-native-aztec shouldn't be mocked because these tests are based on
 // snapshot testing where we want to keep the original component.
-jest.unmock( '@wordpress/react-native-aztec' );
+jest.unmock( '@finpress/react-native-aztec' );
 
 const MEDIA_UPLOAD_STATE_FAILED = 3;
 
@@ -99,7 +99,7 @@ describe( 'Audio block', () => {
 		fireEvent.press( screen.getByText( 'Insert from URL' ) );
 		fireEvent.changeText(
 			screen.getByPlaceholderText( 'Type a URL' ),
-			'h://wordpress.org/audio.mp3'
+			'h://finpress.org/audio.mp3'
 		);
 		dismissModal( screen.getByTestId( 'bottom-sheet' ) );
 

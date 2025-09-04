@@ -4,9 +4,9 @@
 import { useRoute } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { memo, useEffect, useContext } from '@wordpress/element';
+import { memo, useEffect, useContext } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -35,7 +35,7 @@ const ColorSettingsMemo = memo(
 		useEffect( () => {
 			shouldEnableBottomSheetMaxHeight( true );
 			onHandleClosingBottomSheet( null );
-			// See https://github.com/WordPress/gutenberg/pull/41166
+			// See https://github.com/FinPress/gutenberg/pull/41166
 		}, [] );
 		return (
 			<BottomSheet.NavigationContainer>

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * External dependencies
@@ -14,7 +14,7 @@ export default function useInternalValue( value ) {
 
 	// If the value prop changes, update the internal state.
 	// See:
-	// - https://github.com/WordPress/gutenberg/pull/51387#issuecomment-1722927384.
+	// - https://github.com/FinPress/gutenberg/pull/51387#issuecomment-1722927384.
 	// - https://react.dev/reference/react/useState#storing-information-from-previous-renders.
 	if ( ! fastDeepEqual( value, previousValue ) ) {
 		setPreviousValue( value );

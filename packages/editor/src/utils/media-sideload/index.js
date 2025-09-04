@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis } from '@wordpress/media-utils';
+import { privateApis } from '@finpress/media-utils';
 
 /**
  * Internal dependencies

@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createBlock,
 	getDefaultBlockName,
 	cloneBlock,
-} from '@wordpress/blocks';
-import { useRef } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+} from '@finpress/blocks';
+import { useRef } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

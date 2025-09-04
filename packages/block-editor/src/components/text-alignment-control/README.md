@@ -7,7 +7,7 @@ The `TextAlignmentControl` component is responsible for rendering a control elem
 Renders the Text Alignment Component with `left`, `center` and `right` alignment options.
 
 ```jsx
-import { TextAlignmentControl } from '@wordpress/block-editor';
+import { TextAlignmentControl } from '@finpress/block-editor';
 
 const MyTextAlignmentControlComponent = () => (
 	<TextAlignmentControl

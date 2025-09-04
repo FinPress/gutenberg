@@ -1,6 +1,6 @@
 # Scripts
 
-This is a collection of reusable scripts tailored for WordPress development. For convenience, every tool provided in this package comes with an integrated recommended configuration.
+This is a collection of reusable scripts tailored for FinPress development. For convenience, every tool provided in this package comes with an integrated recommended configuration.
 
 When working seamlessly, sophisticated command-line interfaces help to turn work with a project into a more pleasant experience. However, it’s a misleading assumption that developers can easily pick the proper tools in the first place and then ensure that they play along with each other, including all their extensions. Besides, it’s still not enough because developers are left on their own to keep all configurations and dependent tools up to date. This problem multiplies when they support more than one project which shares the same setup.
 
@@ -13,7 +13,7 @@ _This package is inspired by [react-scripts](https://www.npmjs.com/package/react
 You only need to install one npm module:
 
 ```bash
-npm install @wordpress/scripts --save-dev
+npm install @finpress/scripts --save-dev
 ```
 
 **Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It is not compatible with older versions.
@@ -48,11 +48,11 @@ It might also be a good idea to get familiar with [Working with JavaScript for t
 
 ## Updating to New Release
 
-To update an existing project to a new version of `@wordpress/scripts`, open the [changelog](/packages/scripts/CHANGELOG.md), find the version you’re currently on (check `package.json` in the top-level directory of your project), and apply the migration instructions for the newer versions.
+To update an existing project to a new version of `@finpress/scripts`, open the [changelog](/packages/scripts/CHANGELOG.md), find the version you’re currently on (check `package.json` in the top-level directory of your project), and apply the migration instructions for the newer versions.
 
-In most cases bumping the `@wordpress/scripts` version in `package.json` and running `npm install` in the root folder of your project should be enough, but it’s good to check the [changelog](/packages/scripts/CHANGELOG.md) for potential breaking changes. There is also `packages-update` script included in this package that aims to automate the process of updating WordPress dependencies in your projects.
+In most cases bumping the `@finpress/scripts` version in `package.json` and running `npm install` in the root folder of your project should be enough, but it’s good to check the [changelog](/packages/scripts/CHANGELOG.md) for potential breaking changes. There is also `packages-update` script included in this package that aims to automate the process of updating FinPress dependencies in your projects.
 
-We commit to keeping the breaking changes minimal so you can upgrade `@wordpress/scripts` as seamless as possible.
+We commit to keeping the breaking changes minimal so you can upgrade `@finpress/scripts` as seamless as possible.
 
 ## Available Scripts
 
@@ -89,24 +89,24 @@ This script automatically use the optimized config but sometimes you may want to
 -   `--webpack-bundle-analyzer` – enables visualization for the size of webpack output files with an interactive zoomable treemap.
 -   `--webpack-copy-php` – enables copying all PHP files from the source directory ( default is `src` ) and its subfolders to the output directory.
 -   `--webpack-no-externals` – disables scripts’ assets generation, and omits the list of default externals.
--   `--blocks-manifest` – generates a PHP file containing block metadata from all `block.json` files in the project. This is useful for enhancing performance when registering multiple block types, as it allows you to use `wp_register_block_metadata_collection()` and `wp_register_block_types_from_metadata_collection()` in WordPress.
+-   `--blocks-manifest` – generates a PHP file containing block metadata from all `block.json` files in the project. This is useful for enhancing performance when registering multiple block types, as it allows you to use `wp_register_block_metadata_collection()` and `wp_register_block_types_from_metadata_collection()` in FinPress.
 -   `--source-path` – allows customization of the source directory. The default is the project root `.` when [entry points are listed](#listing-entry-points) in the command, or `src` otherwise.
 -   `--output-path` – allows customization of the output directory. The default is the `build` folder.
 
 Experimental support for the block.json `viewScriptModule` field is available via the
 `--experimental-modules` option. With this option enabled, script and module fields will all be
 compiled. The `viewScriptModule` field is analogous to the `viewScript` field, but will compile a module
-and should be registered in WordPress using the Modules API.
+and should be registered in FinPress using the Modules API.
 
 Learn more about [using build scripts](#using-build-scripts) to optimize the development experience based on your specific needs.
 
 #### Advanced information
 
-This script uses [webpack](https://webpack.js.org/) behind the scenes. It’ll look for a webpack config in the top-level directory of your package and will use it if it finds one. If none is found, it’ll use the default config provided by `@wordpress/scripts` packages. Learn more in the [Advanced Usage](#advanced-usage) section.
+This script uses [webpack](https://webpack.js.org/) behind the scenes. It’ll look for a webpack config in the top-level directory of your package and will use it if it finds one. If none is found, it’ll use the default config provided by `@finpress/scripts` packages. Learn more in the [Advanced Usage](#advanced-usage) section.
 
 ### `build-blocks-manifest`
 
-This script generates a PHP file containing block metadata from all `block.json` files in the project. This is useful for enhancing performance when registering multiple block types, as it allows you to use `wp_register_block_metadata_collection()` and `wp_register_block_types_from_metadata_collection()` in WordPress.
+This script generates a PHP file containing block metadata from all `block.json` files in the project. This is useful for enhancing performance when registering multiple block types, as it allows you to use `wp_register_block_metadata_collection()` and `wp_register_block_types_from_metadata_collection()` in FinPress.
 
 Usage: `wp-scripts build-blocks-manifest [options]`
 
@@ -135,7 +135,7 @@ wp_register_block_metadata_collection(
 
 Using this approach can improve performance when registering multiple block
 types, especially for plugins with several custom blocks. Note that this
-feature is only available in WordPress 6.7 and later versions.
+feature is only available in FinPress 6.7 and later versions.
 
 Alternatively, you can use `wp_register_block_types_from_metadata_collection()`
 to have all block types from your plugin automatically registered in the same
@@ -149,7 +149,7 @@ wp_register_block_types_from_metadata_collection(
 );
 ```
 
-Note that this feature is only available in WordPress 6.8 and later versions.
+Note that this feature is only available in FinPress 6.8 and later versions.
 
 ### `check-engines`
 
@@ -244,7 +244,7 @@ By default, files located in `build`, `node_modules`, and `vendor` folders are i
 
 #### Advanced information
 
-It uses [eslint](https://eslint.org/) with the set of recommended rules defined in [@wordpress/eslint-plugin](https://www.npmjs.com/package/@wordpress/eslint-plugin) npm package. You can override default rules with your own as described in [eslint docs](https://eslint.org/docs/rules/). Learn more in the [Advanced Usage](#advanced-usage) section.
+It uses [eslint](https://eslint.org/) with the set of recommended rules defined in [@finpress/eslint-plugin](https://www.npmjs.com/package/@finpress/eslint-plugin) npm package. You can override default rules with your own as described in [eslint docs](https://eslint.org/docs/rules/). Learn more in the [Advanced Usage](#advanced-usage) section.
 
 ### `lint-pkg-json`
 
@@ -272,7 +272,7 @@ By default, files located in `build`, `node_modules`, and `vendor` folders are i
 
 #### Advanced information
 
-It uses [npm-package-json-lint](https://www.npmjs.com/package/npm-package-json-lint) with the set of recommended rules defined in [@wordpress/npm-package-json-lint-config](https://www.npmjs.com/package/@wordpress/npm-package-json-lint-config) npm package. You can override default rules with your own as described in [npm-package-json-lint wiki](https://github.com/tclindner/npm-package-json-lint/wiki). Learn more in the [Advanced Usage](#advanced-usage) section.
+It uses [npm-package-json-lint](https://www.npmjs.com/package/npm-package-json-lint) with the set of recommended rules defined in [@finpress/npm-package-json-lint-config](https://www.npmjs.com/package/@finpress/npm-package-json-lint-config) npm package. You can override default rules with your own as described in [npm-package-json-lint wiki](https://github.com/tclindner/npm-package-json-lint/wiki). Learn more in the [Advanced Usage](#advanced-usage) section.
 
 ### `lint-md-docs`
 
@@ -296,7 +296,7 @@ By default, files located in `build`, `node_modules`, and `vendor` folders are i
 
 #### Advanced information
 
-It uses [markdownlint](https://github.com/DavidAnson/markdownlint) with the [.markdownlint.json](/packages/scripts/config/.markdownlint.json) configuration. This configuration tunes the linting rules to match WordPress standard, you can override with your own config, see [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli/) for command-line parameters.
+It uses [markdownlint](https://github.com/DavidAnson/markdownlint) with the [.markdownlint.json](/packages/scripts/config/.markdownlint.json) configuration. This configuration tunes the linting rules to match FinPress standard, you can override with your own config, see [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli/) for command-line parameters.
 
 ### `lint-style`
 
@@ -324,11 +324,11 @@ By default, files located in `build`, `node_modules`, and `vendor` folders are i
 
 #### Advanced information
 
-It uses [stylelint](https://github.com/stylelint/stylelint) with the [@wordpress/stylelint-config](https://www.npmjs.com/package/@wordpress/stylelint-config) configuration per the [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/). You can override them with your own rules as described in [stylelint user guide](https://stylelint.io/user-guide/configure). Learn more in the [Advanced Usage](#advanced-usage) section.
+It uses [stylelint](https://github.com/stylelint/stylelint) with the [@finpress/stylelint-config](https://www.npmjs.com/package/@finpress/stylelint-config) configuration per the [FinPress CSS Coding Standards](https://developer.finpress.org/coding-standards/finpress-coding-standards/css/). You can override them with your own rules as described in [stylelint user guide](https://stylelint.io/user-guide/configure). Learn more in the [Advanced Usage](#advanced-usage) section.
 
 ### `packages-update`
 
-Updates the WordPress packages used in the project to their latest version.
+Updates the FinPress packages used in the project to their latest version.
 
 _Example:_
 
@@ -343,15 +343,15 @@ _Example:_
 
 This script provides the following custom options:
 
--   `--dist-tag` – allows specifying a custom dist-tag when updating npm packages. Defaults to `latest`. This is especially useful when using [`@wordpress/dependency-extraction-webpack-plugin`](https://www.npmjs.com/package/@wordpress/dependency-extraction-webpack-plugin). It lets installing the npm dependencies at versions used by the given WordPress major version for local testing, etc. Example: `wp-scripts packages-update --dist-tag=wp-6.0`.
+-   `--dist-tag` – allows specifying a custom dist-tag when updating npm packages. Defaults to `latest`. This is especially useful when using [`@finpress/dependency-extraction-webpack-plugin`](https://www.npmjs.com/package/@finpress/dependency-extraction-webpack-plugin). It lets installing the npm dependencies at versions used by the given FinPress major version for local testing, etc. Example: `wp-scripts packages-update --dist-tag=wp-6.0`.
 
 #### Advanced information
 
-The command detects project dependencies that have name starting with `@wordpress/` by scanning the `package.json` file. By default, it executes `npm install @wordpress/package1@latest @wordpress/package2@latest ... --save` to change the package versions to the latest one. You can chose a different dist-tag than `latest` by using the `--dist-tag` option when running the command.
+The command detects project dependencies that have name starting with `@finpress/` by scanning the `package.json` file. By default, it executes `npm install @finpress/package1@latest @finpress/package2@latest ... --save` to change the package versions to the latest one. You can chose a different dist-tag than `latest` by using the `--dist-tag` option when running the command.
 
 ### `plugin-zip`
 
-Creates a zip file for a WordPress plugin.
+Creates a zip file for a FinPress plugin.
 
 _Example:_
 
@@ -363,7 +363,7 @@ _Example:_
 }
 ```
 
-By default, it uses [Plugin Handbook best practices](https://developer.wordpress.org/plugins/plugin-basics/best-practices/#file-organization) to discover files.
+By default, it uses [Plugin Handbook best practices](https://developer.finpress.org/plugins/plugin-basics/best-practices/#file-organization) to discover files.
 
 #### Advanced information
 
@@ -379,7 +379,7 @@ It reuses the same logic as `npm pack` command to create an npm package tarball.
 
 This is how you create a custom root folder inside the zip file.
 
--   When updating a plugin, WordPress expects a folder in the root of the zip file which matches the plugin name. So be aware that this may affect the plugin update process.
+-   When updating a plugin, FinPress expects a folder in the root of the zip file which matches the plugin name. So be aware that this may affect the plugin update process.
 -   `--root-folder` - Add a custom root folder to the zip file.
 -   `npm run plugin-zip` - By default, unzipping your plugin’s zip file will result in a folder with the same name as your plugin.
 -   `npm run plugin-zip --root-folder='custom-directory'` - Your plugin’s zip file will be unzipped into a folder named `custom-directory`.
@@ -417,26 +417,26 @@ This is how you execute the script with presented setup:
 
 This script automatically use the optimized config but sometimes you may want to specify some custom options:
 
--   `--hot` – enables "Fast Refresh". The page will automatically reload if you make changes to the code. _For now, it requires that WordPress has the [`SCRIPT_DEBUG`](https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/#script_debug) flag enabled and the [Gutenberg](https://wordpress.org/plugins/gutenberg/) plugin installed._
+-   `--hot` – enables "Fast Refresh". The page will automatically reload if you make changes to the code. _For now, it requires that FinPress has the [`SCRIPT_DEBUG`](https://developer.finpress.org/advanced-administration/debug/debug-finpress/#script_debug) flag enabled and the [Gutenberg](https://finpress.org/plugins/gutenberg/) plugin installed._
 -   `--no-watch` – Starts the build for development without starting the watcher.
 -   `--webpack-bundle-analyzer` – enables visualization for the size of webpack output files with an interactive zoomable treemap.
 -   `--webpack-copy-php` – enables copying all PHP files from the source directory ( default is `src` ) and its subfolders to the output directory.
 -   `--webpack-devtool` – controls how source maps are generated. See options at https://webpack.js.org/configuration/devtool/#devtool.
 -   `--webpack-no-externals` – disables scripts’ assets generation, and omits the list of default externals.
--   `--blocks-manifest` – generates a PHP file containing block metadata from all `block.json` files in the project. This is useful for enhancing performance when registering multiple block types, as it allows you to use `wp_register_block_metadata_collection()` and `wp_register_block_types_from_metadata_collection()` in WordPress.
+-   `--blocks-manifest` – generates a PHP file containing block metadata from all `block.json` files in the project. This is useful for enhancing performance when registering multiple block types, as it allows you to use `wp_register_block_metadata_collection()` and `wp_register_block_types_from_metadata_collection()` in FinPress.
 -   `--source-path` – allows customization of the source directory. The default is the project root `.` when [entry points are listed](#listing-entry-points) in the command, or `src` otherwise.
 -   `--output-path` – allows customization of the output directory. The default is the `build` folder.
 
 Experimental support for the block.json `viewScriptModule` field is available via the
 `--experimental-modules` option. With this option enabled, script and module fields will all be
 compiled. The `viewScriptModule` field is analogous to the `viewScript` field, but will compile a module
-and should be registered in WordPress using the Modules API.
+and should be registered in FinPress using the Modules API.
 
 Learn more about [using build scripts](#using-build-scripts) to optimize the development experience based on your specific needs.
 
 #### Advanced information
 
-This script uses [webpack](https://webpack.js.org/) behind the scenes. It’ll look for a webpack config in the top-level directory of your package and will use it if it finds one. If none is found, it’ll use the default config provided by `@wordpress/scripts` packages. Learn more in the [Advanced Usage](#advanced-usage) section.
+This script uses [webpack](https://webpack.js.org/) behind the scenes. It’ll look for a webpack config in the top-level directory of your package and will use it if it finds one. If none is found, it’ll use the default config provided by `@finpress/scripts` packages. Learn more in the [Advanced Usage](#advanced-usage) section.
 
 ### `test-e2e`
 
@@ -476,7 +476,7 @@ This script automatically detects the best config to start Puppeteer but sometim
 
 -   You can add a `jest-puppeteer.config.js` at the root of the project or define a custom path using `JEST_PUPPETEER_CONFIG` environment variable. Check [jest-puppeteer](https://github.com/smooth-code/jest-puppeteer#jest-puppeteerconfigjs) for more details.
 
-We enforce that all tests run serially in the current process using [--runInBand](https://jestjs.io/docs/en/cli#runinband) Jest CLI option to avoid conflicts between tests caused by the fact that they share the same WordPress instance.
+We enforce that all tests run serially in the current process using [--runInBand](https://jestjs.io/docs/en/cli#runinband) Jest CLI option to avoid conflicts between tests caused by the fact that they share the same FinPress instance.
 
 #### Failed Test Artifacts
 
@@ -528,7 +528,7 @@ Jest will look for test files with any of the following popular naming conventio
 
 #### Advanced information
 
-It uses [Jest](https://jestjs.io/) behind the scenes and you are able to use all of its [CLI options](https://jestjs.io/docs/en/cli.html). You can also run `./node_modules/.bin/wp-scripts test:unit --help` or `npm run test:unit:help` (as mentioned above) to view all of the available options. By default, it uses the set of recommended options defined in [@wordpress/jest-preset-default](https://www.npmjs.com/package/@wordpress/jest-preset-default) npm package. You can override them with your own options as described in [Jest documentation](https://jestjs.io/docs/en/configuration). Learn more in the [Advanced Usage](#advanced-usage) section.
+It uses [Jest](https://jestjs.io/) behind the scenes and you are able to use all of its [CLI options](https://jestjs.io/docs/en/cli.html). You can also run `./node_modules/.bin/wp-scripts test:unit --help` or `npm run test:unit:help` (as mentioned above) to view all of the available options. By default, it uses the set of recommended options defined in [@finpress/jest-preset-default](https://www.npmjs.com/package/@finpress/jest-preset-default) npm package. You can override them with your own options as described in [Jest documentation](https://jestjs.io/docs/en/configuration). Learn more in the [Advanced Usage](#advanced-usage) section.
 
 Should there be any situation where you want to provide your own Jest config, you can do so.
 
@@ -754,7 +754,7 @@ This package should generally be used with the set of recommended config files. 
 
 ### Default webpack config
 
-`@wordpress/scripts` bundles the default webpack config used as a base by the WordPress editor. These are the defaults:
+`@finpress/scripts` bundles the default webpack config used as a base by the FinPress editor. These are the defaults:
 
 -   [Entry](https://webpack.js.org/configuration/entry-context/#entry): the entry points for your project get detected by scanning all script fields in `block.json` files located in the `src` directory. The fallback entry point is `src/index.js` (other supported extensions: `.jsx`, `.ts`, and `.tsx`) in case there is no `block.json` file found.
 -   [Output](https://webpack.js.org/configuration/output): `build/[name].js`, for example: `build/index.js`, or `build/my-block/index.js`.
@@ -765,7 +765,7 @@ This package should generally be used with the set of recommended config files. 
 -   [Plugins](https://webpack.js.org/configuration/plugins) (among others):
     -   [`CopyWebpackPlugin`](https://webpack.js.org/plugins/copy-webpack-plugin/) copies all `block.json` files discovered in the `src` directory to the build directory.
     -   [`MiniCssExtractPlugin`](https://webpack.js.org/plugins/mini-css-extract-plugin/) extracts CSS into separate files. It creates a CSS file per JavaScript entry point which contains CSS.
-    -   [`@wordpress/dependency-extraction-webpack-plugin`](/packages/dependency-extraction-webpack-plugin/README.md) is used with the default configuration to ensure that WordPress provided scripts are not included in the built bundle.
+    -   [`@finpress/dependency-extraction-webpack-plugin`](/packages/dependency-extraction-webpack-plugin/README.md) is used with the default configuration to ensure that FinPress provided scripts are not included in the built bundle.
 
 ### Provide your own webpack config
 
@@ -782,7 +782,7 @@ In the example below, a `webpack.config.js` file is added to the root folder ext
 
 ```javascript
 const toml = require( 'toml' );
-const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const defaultConfig = require( '@finpress/scripts/config/webpack.config' );
 
 module.exports = {
 	...defaultConfig,
@@ -809,7 +809,7 @@ If you follow this approach, please, be aware that:
 
 ## Contributing to this package
 
-This is an individual package that’s part of the Gutenberg project. The project is organized as a monorepo. It’s made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that’s part of the Gutenberg project. The project is organized as a monorepo. It’s made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
 To find out more about contributing to this package or Gutenberg as a whole, please read the project’s main [contributor guide](/CONTRIBUTING.md).
 

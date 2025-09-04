@@ -5,10 +5,10 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { compose } from '@wordpress/compose';
-import { Component } from '@wordpress/element';
+import { compose } from '@finpress/compose';
+import { Component } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ import withDispatch from '../../with-dispatch';
 import { createRegistry } from '../../../registry';
 import { RegistryProvider } from '../../registry-provider';
 
-/* eslint-disable @wordpress/wp-global-usage */
+/* eslint-disable @finpress/wp-global-usage */
 describe( 'withSelect', () => {
 	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
 
@@ -43,7 +43,7 @@ describe( 'withSelect', () => {
 		// In normal circumstances, the fact that we have to add an arbitrary
 		// prefix to the variable name would be concerning, and perhaps an
 		// argument that we ought to expect developer to use select from the
-		// `@wordpress/data` export. But in-fact, this serves as a good deterrent for
+		// `@finpress/data` export. But in-fact, this serves as a good deterrent for
 		// including both `withSelect` and `select` in the same scope, which
 		// shouldn't occur for a typical component, and if it did might wrongly
 		// encourage the developer to use `select` within the component itself.
@@ -627,4 +627,4 @@ describe( 'withSelect', () => {
 		expect( screen.getByRole( 'status' ) ).toHaveTextContent( 'second' );
 	} );
 } );
-/* eslint-enable @wordpress/wp-global-usage */
+/* eslint-enable @finpress/wp-global-usage */

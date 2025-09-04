@@ -1,7 +1,7 @@
 # API Reference
 
 <div class="callout callout-alert">
-Interactivity API is only available for WordPress 6.5 and above.
+Interactivity API is only available for FinPress 6.5 and above.
 </div>
 
 To add interactions to blocks using the Interactivity API, developers can use:
@@ -11,7 +11,7 @@ To add interactions to blocks using the Interactivity API, developers can use:
 
 DOM elements are connected to data stored in the state and context through directives. If data in the state or context change directives will react to those changes, updating the DOM accordingly (see [diagram](https://excalidraw.com/#json=T4meh6lltJh6TCX51NTIu,DmIhxYSGFTL_ywZFbsmuSw)).
 
-![State & Directives](https://make.wordpress.org/core/files/2024/02/interactivity-state-directives.png)
+![State & Directives](https://make.finpress.org/core/files/2024/02/interactivity-state-directives.png)
 
 ## What are directives?
 
@@ -39,7 +39,7 @@ Interactivity API directives use the `data-` prefix. Here's an example of direct
 </div>
 ```
 
-Directives can also be injected dynamically using the [HTML Tag Processor](https://make.wordpress.org/core/2023/03/07/introducing-the-html-api-in-wordpress-6-2).
+Directives can also be injected dynamically using the [HTML Tag Processor](https://make.finpress.org/core/2023/03/07/introducing-the-html-api-in-finpress-6-2).
 
 With directives, you can directly manage interactions such as side effects, state, event handlers, attributes, or content.
 
@@ -544,7 +544,7 @@ Here's another example with several `wp-init` directives on the same DOM element
   <summary><em>See store used with the directive above</em></summary>
 
 ```js
-import { store, getElement } from '@wordpress/interactivity';
+import { store, getElement } from '@finpress/interactivity';
 
 store( "myPlugin", {
   callbacks: {
@@ -586,7 +586,7 @@ import {
 	store,
 	useState,
 	useEffect,
-} from '@wordpress/interactivity';
+} from '@finpress/interactivity';
 
 // Unlike `data-wp-init` and `data-wp-watch`, you can use any hooks inside
 // `data-wp-run` callbacks.
@@ -880,7 +880,7 @@ As mentioned above with [`wp-on`](#wp-on), [`wp-on-window`](#wp-on-window), and 
 To ensure that the action code does not contribute to a long task, you may manually yield to the main thread after calling the synchronous event API. The Interactivity API provides the `splitTask()` function for that purpose, which implements yielding in a cross-browser compatible way. Here is an example:
 
 ```js
-import { splitTask } from '@wordpress/interactivity';
+import { splitTask } from '@finpress/interactivity';
 
 store( 'myPlugin', {
 	actions: {
@@ -998,11 +998,11 @@ This approach enables some functionalities that make directives flexible and pow
 
 _In the `view.js` file of each block_ the developer can define both the state and the elements of the store referencing functions like actions, side effects or derived state.
 
-The `store` method used to set the store in JavaScript can be imported from `@wordpress/interactivity`.
+The `store` method used to set the store in JavaScript can be imported from `@finpress/interactivity`.
 
 ```js
 // store
-import { store, getContext } from '@wordpress/interactivity';
+import { store, getContext } from '@finpress/interactivity';
 
 store( 'myPlugin', {
 	actions: {
@@ -1023,7 +1023,7 @@ store( 'myPlugin', {
 
 #### On the server side
 
-The state can also be initialized on the server using the `wp_interactivity_state()` function. You would typically do this in the `render.php` file of your block (the `render.php` templates were [introduced](https://make.wordpress.org/core/2022/10/12/block-api-changes-in-wordpress-6-1/) in WordPress 6.1).
+The state can also be initialized on the server using the `wp_interactivity_state()` function. You would typically do this in the `render.php` file of your block (the `render.php` templates were [introduced](https://make.finpress.org/core/2022/10/12/block-api-changes-in-finpress-6-1/) in FinPress 6.1).
 
 The state defined on the server with `wp_interactivity_state()` gets merged with the stores defined in the view.js files.
 
@@ -1038,7 +1038,7 @@ wp_interactivity_state( 'myPlugin', array (
 ));
 ```
 
-Initializing the state in the server also allows you to use any WordPress API. For example, you could use the Core Translation API to translate part of your state:
+Initializing the state in the server also allows you to use any FinPress API. For example, you could use the Core Translation API to translate part of your state:
 
 ```php
 // render.php
@@ -1114,7 +1114,7 @@ const context = getContext( 'namespace' );
 
 ```js
 // store
-import { store, getContext } from '@wordpress/interactivity';
+import { store, getContext } from '@finpress/interactivity';
 
 store( 'myPlugin', {
 	actions: {
@@ -1136,7 +1136,7 @@ store( 'myPlugin', {
 
 This function is analogous to `getContext()`, but with 2 key differences:
 
-1. Whenever [`actions.navigate()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from [`@wordpress/interactivity-router`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/) is called, the object returned by `getServerContext()` is updated. This is useful when you want to update the context of a block based on **new** context coming from the page loaded via `actions.navigate()`. This new context is embedded in the HTML of the page loaded via `actions.navigate()`.
+1. Whenever [`actions.navigate()`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from [`@finpress/interactivity-router`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity-router/) is called, the object returned by `getServerContext()` is updated. This is useful when you want to update the context of a block based on **new** context coming from the page loaded via `actions.navigate()`. This new context is embedded in the HTML of the page loaded via `actions.navigate()`.
 2. The object returned by `getServerContext()` is read-only.
 
 The server context cannot be directly used in directives, but you can use callbacks to subscribe to its changes.
@@ -1168,7 +1168,7 @@ Retrieves the server state an interactive region.
 
 This function is serves the same purpose as `getServerContext()`, but it returns the **state** instead of the **context**.
 
-The object returned is read-only, and includes the state defined in PHP with `wp_interactivity_state()`. When using [`actions.navigate()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from [`@wordpress/interactivity-router`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-interactivity-router/), the object returned by `getServerState()` is updated to reflect the changes in its properties, without affecting the state returned by `store()`. Directives can subscribe to those changes to update the state if needed.
+The object returned is read-only, and includes the state defined in PHP with `wp_interactivity_state()`. When using [`actions.navigate()`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from [`@finpress/interactivity-router`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity-router/), the object returned by `getServerState()` is updated to reflect the changes in its properties, without affecting the state returned by `store()`. Directives can subscribe to those changes to update the state if needed.
 
 ```js
 const serverState = getServerState( 'namespace' );
@@ -1201,13 +1201,13 @@ It returns an object with two keys:
 
 ##### attributes
 
-`attributes` contains a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), which adds a getter that allows to reference other store namespaces. Feel free to check the getter in the code. [Link](https://github.com/WordPress/gutenberg/blob/8cb23964d58f3ce5cf6ae1b6f967a4b8d4939a8e/packages/interactivity/src/store.ts#L70)
+`attributes` contains a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), which adds a getter that allows to reference other store namespaces. Feel free to check the getter in the code. [Link](https://github.com/FinPress/gutenberg/blob/8cb23964d58f3ce5cf6ae1b6f967a4b8d4939a8e/packages/interactivity/src/store.ts#L70)
 
 Those attributes will contain the directives of that element. In the button example:
 
 ```js
 // store
-import { store, getElement } from '@wordpress/interactivity';
+import { store, getElement } from '@finpress/interactivity';
 
 store( 'myPlugin', {
 	actions: {
@@ -1255,7 +1255,7 @@ store( 'mySliderPlugin', {
 
 ### withSyncEvent()
 
-Actions that require synchronous access to the `event` object need to use the `withSyncEvent()` function to annotate their handler callback. This is necessary due to an ongoing effort to handle store actions asynchronously by default, unless they require synchronous event access. Therefore, as of Gutenberg 20.4 / WordPress 6.8 all actions that require synchronous event access need to use the `withSyncEvent()` function. Otherwise a deprecation warning will be triggered, and in a future release the behavior will change accordingly.
+Actions that require synchronous access to the `event` object need to use the `withSyncEvent()` function to annotate their handler callback. This is necessary due to an ongoing effort to handle store actions asynchronously by default, unless they require synchronous event access. Therefore, as of Gutenberg 20.4 / FinPress 6.8 all actions that require synchronous event access need to use the `withSyncEvent()` function. Otherwise a deprecation warning will be triggered, and in a future release the behavior will change accordingly.
 
 Only very specific event methods and properties require synchronous access, so it is advised to only use `withSyncEvent()` when necessary. The following event methods and properties require synchronous access:
 
@@ -1268,7 +1268,7 @@ Here is an example, where one action requires synchronous event access while the
 
 ```js
 // store
-import { store, withSyncEvent } from '@wordpress/interactivity';
+import { store, withSyncEvent } from '@finpress/interactivity';
 
 store( 'myPlugin', {
 	actions: {
@@ -1292,7 +1292,7 @@ store( 'myPlugin', {
 
 ## Server functions
 
-The Interactivity API comes with handy functions that allow you to initialize and reference configuration options on the server. This is necessary to feed the initial data that the Server Directive Processing will use to modify the HTML markup before it's send to the browser. It is also a great way to leverage many of WordPress's APIs, like nonces, AJAX, and translations.
+The Interactivity API comes with handy functions that allow you to initialize and reference configuration options on the server. This is necessary to feed the initial data that the Server Directive Processing will use to modify the HTML markup before it's send to the browser. It is also a great way to leverage many of FinPress's APIs, like nonces, AJAX, and translations.
 
 ### wp_interactivity_config
 
@@ -1325,7 +1325,7 @@ const { showLikeButton } = getConfig();
 
 `wp_interactivity_state` allows the initialization of the global state on the server, which will be used to process the directives on the server and then will be merged with any global state defined in the client.
 
-Initializing the global state on the server also allows you to use many critical WordPress APIs, including [AJAX](https://developer.wordpress.org/plugins/javascript/ajax/), or [nonces](https://developer.wordpress.org/plugins/javascript/enqueuing/#nonce).
+Initializing the global state on the server also allows you to use many critical FinPress APIs, including [AJAX](https://developer.finpress.org/plugins/javascript/ajax/), or [nonces](https://developer.finpress.org/plugins/javascript/enqueuing/#nonce).
 
 The `wp_interactivity_state` function receives two arguments, a string with the namespace that will be used as a reference and an associative array containing the values.
 

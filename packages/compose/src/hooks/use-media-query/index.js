@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useSyncExternalStore } from '@wordpress/element';
+import { useMemo, useSyncExternalStore } from '@finpress/element';
 
 const matchMediaCache = new Map();
 

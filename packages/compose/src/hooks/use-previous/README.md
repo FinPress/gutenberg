@@ -6,10 +6,10 @@ Sometimes you need to get the value something had on the previous render. `usePr
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import { useEffect, useState } from 'react';
-import { usePrevious } from '@wordpress/compose';
+import { usePrevious } from '@finpress/compose';
 
 function MyCustomElement() {
 	const [ myNumber, setMyNumber ] = useState( 5 );

@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 /** @typedef {import('@playwright/test').Page} Page */
-/** @typedef {import('@wordpress/e2e-test-utils-playwright').Editor} Editor */
+/** @typedef {import('@finpress/e2e-test-utils-playwright').Editor} Editor */
 
 /**
  * Some tests in this file use the character `|` to represent the caret's position
@@ -265,7 +265,7 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 
 		// Group the blocks and test that multiselection also works for nested
 		// blocks. Checks for regressions of
-		// https://github.com/WordPress/gutenberg/issues/32056
+		// https://github.com/FinPress/gutenberg/issues/32056
 		await page
 			.getByRole( 'toolbar', { name: 'Block tools' } )
 			.getByRole( 'button', { name: 'Group' } )
@@ -285,7 +285,7 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 			.toEqual( [ 2, 3 ] );
 	} );
 
-	// @see https://github.com/WordPress/gutenberg/issues/34118
+	// @see https://github.com/FinPress/gutenberg/issues/34118
 	test( 'should properly select a single block even if `shift` was held for the selection (-firefox)', async ( {
 		page,
 		editor,
@@ -539,7 +539,7 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 	} );
 
 	// This test MUST fail when this line is removed:
-	// https://github.com/WordPress/gutenberg/blob/eb2bb1d3456ea98db74b4518e3394ed6aed9e79f/packages/block-editor/src/components/writing-flow/use-drag-selection.js#L68
+	// https://github.com/FinPress/gutenberg/blob/eb2bb1d3456ea98db74b4518e3394ed6aed9e79f/packages/block-editor/src/components/writing-flow/use-drag-selection.js#L68
 	test( 'should return original focus after failed multi selection attempt', async ( {
 		page,
 		editor,
@@ -585,13 +585,13 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 		await page.mouse.down();
 		await page.mouse.move( coord2.x, coord2.y, { steps: 10 } );
 		// Simulate moving once in and out of the paragraph.
-		// Fixes https://github.com/WordPress/gutenberg/issues/48747.
+		// Fixes https://github.com/FinPress/gutenberg/issues/48747.
 		await page.mouse.move( coord1.x, coord1.y, { steps: 10 } );
 		await page.mouse.move( coord2.x, coord2.y, { steps: 10 } );
 		await page.mouse.up();
 
 		// Wait for:
-		// https://github.com/WordPress/gutenberg/blob/eb2bb1d3456ea98db74b4518e3394ed6aed9e79f/packages/block-editor/src/components/writing-flow/use-drag-selection.js#L47
+		// https://github.com/FinPress/gutenberg/blob/eb2bb1d3456ea98db74b4518e3394ed6aed9e79f/packages/block-editor/src/components/writing-flow/use-drag-selection.js#L47
 		await page.evaluate(
 			() => new Promise( window.requestAnimationFrame )
 		);
@@ -659,7 +659,7 @@ test.describe( 'Multi-block selection (@firefox, @webkit)', () => {
 		await page.mouse.up();
 
 		// Wait for:
-		// https://github.com/WordPress/gutenberg/blob/eb2bb1d3456ea98db74b4518e3394ed6aed9e79f/packages/block-editor/src/components/writing-flow/use-drag-selection.js#L47
+		// https://github.com/FinPress/gutenberg/blob/eb2bb1d3456ea98db74b4518e3394ed6aed9e79f/packages/block-editor/src/components/writing-flow/use-drag-selection.js#L47
 		await page.evaluate(
 			() => new Promise( window.requestAnimationFrame )
 		);

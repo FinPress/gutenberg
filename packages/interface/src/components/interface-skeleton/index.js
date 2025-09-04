@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useEffect } from '@wordpress/element';
+import { forwardRef, useEffect } from '@finpress/element';
 import {
 	__unstableMotion as motion,
 	__unstableAnimatePresence as AnimatePresence,
-} from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
 import {
 	useReducedMotion,
 	useViewportMatch,
 	useResizeObserver,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 
 /**
  * Internal dependencies

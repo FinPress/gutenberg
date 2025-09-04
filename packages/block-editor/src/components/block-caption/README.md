@@ -11,7 +11,7 @@ The `BlockCaption` component renders block-level UI for adding and editing capti
 Renders an editable caption field designed specifically for block-level use.
 
 ```jsx
-import { BlockCaption, RichText } from '@wordpress/block-editor';
+import { BlockCaption, RichText } from '@finpress/block-editor';
 
 const MyBlockCaption = (
 	clientId,
@@ -45,7 +45,7 @@ const MyBlockCaption = (
 
 The `clientId` prop is the only required prop.
 
-The `onBlur`, `onFocus`, `isSelected`, and `insertBlocksAfter` props are all passed directly to the `Caption` component, which then passes them to the inner `RichText` component. ([See detailed info about the RichText component's props](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md)). These props are not strictly required, but necessary for many implementations of the component to function as expected.
+The `onBlur`, `onFocus`, `isSelected`, and `insertBlocksAfter` props are all passed directly to the `Caption` component, which then passes them to the inner `RichText` component. ([See detailed info about the RichText component's props](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md)). These props are not strictly required, but necessary for many implementations of the component to function as expected.
 
 The `accessible` prop is `false` by default and must be set to `true` in order to set an accessibility label via the `accessibilityLabelCreator` prop.
 
@@ -101,4 +101,4 @@ Function to handle how blocks are inserted after pressing enter at the end of th
 
 ## Related components
 
-`BlockCaption` passes props directly to the [`Caption`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/caption) component. In turn, the `Caption` component uses the [`RichText`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/) component. It is recommended to refer to each of those components' documentation for more information on their props and usage.
+`BlockCaption` passes props directly to the [`Caption`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/caption) component. In turn, the `Caption` component uses the [`RichText`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/) component. It is recommended to refer to each of those components' documentation for more information on their props and usage.

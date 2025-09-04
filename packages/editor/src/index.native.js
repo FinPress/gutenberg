@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import '@wordpress/block-editor';
-import '@wordpress/core-data';
-import '@wordpress/rich-text';
+import '@finpress/block-editor';
+import '@finpress/core-data';
+import '@finpress/rich-text';
 
 /**
  * Internal dependencies

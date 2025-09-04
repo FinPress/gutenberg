@@ -3,7 +3,7 @@ export const textBlocks = `<!-- wp:heading -->
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p><strong>Bold</strong> <em>Italic</em> <s>Striked</s> Superscript<sup>(1)</sup> Subscript<sub>(2)</sub> <a href="http://www.wordpress.org" target="_blank" rel="noreferrer noopener">Link</a></p>
+<p><strong>Bold</strong> <em>Italic</em> <s>Striked</s> Superscript<sup>(1)</sup> Subscript<sub>(2)</sub> <a href="http://www.finpress.org" target="_blank" rel="noreferrer noopener">Link</a></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"left","level":4,"className":"has-primary-background-color has-background","style":{"typography":{"lineHeight":"2.5"}}} -->
@@ -68,8 +68,8 @@ export const mediaBlocks = `<!-- wp:image -->
 
 <!-- wp:file /-->
 
-<!-- wp:file {"id":3,"href":"https://wordpress.org/latest.zip"} -->
-<div class="wp-block-file"><a href="https://wordpress.org/latest.zip">WordPress.zip</a><a href="https://wordpress.org/latest.zip" class="wp-block-file__button wp-element-button" download>Download</a></div>
+<!-- wp:file {"id":3,"href":"https://finpress.org/latest.zip"} -->
+<div class="wp-block-file"><a href="https://finpress.org/latest.zip">FinPress.zip</a><a href="https://finpress.org/latest.zip" class="wp-block-file__button wp-element-button" download>Download</a></div>
 <!-- /wp:file -->
 
 <!-- wp:audio /-->
@@ -80,67 +80,67 @@ export const mediaBlocks = `<!-- wp:image -->
 
 <!-- wp:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
 <figure class="wp-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon.png" alt=""/><figcaption class="wp-element-caption">Paragraph</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon.png" alt=""/><figcaption class="wp-element-caption">Paragraph</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Heading.png" alt=""/><figcaption class="wp-element-caption">Heading</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Heading.png" alt=""/><figcaption class="wp-element-caption">Heading</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Subheading.png" alt=""/><figcaption class="wp-element-caption">Subheading</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Subheading.png" alt=""/><figcaption class="wp-element-caption">Subheading</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Quote.png" alt=""/><figcaption class="wp-element-caption">Quote</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Quote.png" alt=""/><figcaption class="wp-element-caption">Quote</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Image.png" alt=""/><figcaption class="wp-element-caption">Image</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Image.png" alt=""/><figcaption class="wp-element-caption">Image</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Gallery.png" alt=""/><figcaption class="wp-element-caption">Gallery</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Gallery.png" alt=""/><figcaption class="wp-element-caption">Gallery</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Cover-Image.png" alt=""/><figcaption class="wp-element-caption">Cover Image</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Cover-Image.png" alt=""/><figcaption class="wp-element-caption">Cover Image</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Video.png" alt=""/><figcaption class="wp-element-caption">Video</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Video.png" alt=""/><figcaption class="wp-element-caption">Video</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Audio.png" alt=""/><figcaption class="wp-element-caption">Audio</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Audio.png" alt=""/><figcaption class="wp-element-caption">Audio</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Column.png" alt=""/><figcaption class="wp-element-caption">Columns</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Column.png" alt=""/><figcaption class="wp-element-caption">Columns</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-File.png" alt=""/><figcaption class="wp-element-caption">File</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-File.png" alt=""/><figcaption class="wp-element-caption">File</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Code.png" alt=""/><figcaption class="wp-element-caption">Code</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Code.png" alt=""/><figcaption class="wp-element-caption">Code</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-List.png" alt=""/><figcaption class="wp-element-caption">List</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-List.png" alt=""/><figcaption class="wp-element-caption">List</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Button.png" alt=""/><figcaption class="wp-element-caption">Button</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Button.png" alt=""/><figcaption class="wp-element-caption">Button</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-Embeds.png" alt=""/><figcaption class="wp-element-caption">Embeds</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Embeds.png" alt=""/><figcaption class="wp-element-caption">Embeds</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://wordpress.org/gutenberg/files/2018/07/Block-Icon-More.png" alt=""/><figcaption class="wp-element-caption">More</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-More.png" alt=""/><figcaption class="wp-element-caption">More</figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -191,11 +191,11 @@ export const otherBlocks = `
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"left"} -->
-<p class="has-text-align-left">Gutenberg was developed on GitHub using the WordPress REST API, JavaScript, and React.</p>
+<p class="has-text-align-left">Gutenberg was developed on GitHub using the FinPress REST API, JavaScript, and React.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"left","fontSize":"small"} -->
-<p class="has-text-align-left has-small-font-size"><a href="https://wordpress.org/gutenberg/handbook/language/">Learn more</a></p>
+<p class="has-text-align-left has-small-font-size"><a href="https://finpress.org/gutenberg/handbook/language/">Learn more</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -205,11 +205,11 @@ export const otherBlocks = `
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"left"} -->
-<p class="has-text-align-left">We recommend migrating features to blocks, but support for existing WordPress functionality remains. There will be transition paths for shortcodes, meta-boxes, and Custom Post Types.</p>
+<p class="has-text-align-left">We recommend migrating features to blocks, but support for existing FinPress functionality remains. There will be transition paths for shortcodes, meta-boxes, and Custom Post Types.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"left","fontSize":"small"} -->
-<p class="has-text-align-left has-small-font-size"><a href="https://wordpress.org/gutenberg/handbook/reference/faq/">Learn more</a></p>
+<p class="has-text-align-left has-small-font-size"><a href="https://finpress.org/gutenberg/handbook/reference/faq/">Learn more</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->

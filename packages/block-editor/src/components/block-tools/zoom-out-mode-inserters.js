@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useState } from '@wordpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useEffect, useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -47,7 +47,7 @@ function ZoomOutModeInserters() {
 		};
 	}, [] );
 
-	// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+	// eslint-disable-next-line @finpress/no-unused-vars-before-return
 	const { showInsertionPoint } = unlock( useDispatch( blockEditorStore ) );
 
 	// Defer the initial rendering to avoid the jumps due to the animation.

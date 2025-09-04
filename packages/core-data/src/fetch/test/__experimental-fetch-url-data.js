@@ -3,11 +3,11 @@
  */
 import fetchUrlData from '../__experimental-fetch-url-data';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from '@finpress/api-fetch';
 
-jest.mock( '@wordpress/api-fetch' );
+jest.mock( '@finpress/api-fetch' );
 
 describe( 'fetchUrlData', () => {
 	afterEach( () => {
@@ -26,7 +26,7 @@ describe( 'fetchUrlData', () => {
 			apiFetch.mockReturnValueOnce( Promise.resolve( data ) );
 
 			await expect(
-				fetchUrlData( 'https://www.wordpress.org' )
+				fetchUrlData( 'https://www.finpress.org' )
 			).resolves.toEqual( data );
 
 			expect( apiFetch ).toHaveBeenCalledTimes( 1 );
@@ -36,7 +36,7 @@ describe( 'fetchUrlData', () => {
 			apiFetch.mockReturnValueOnce( Promise.reject( 'fetch failed' ) );
 
 			await expect(
-				fetchUrlData( 'https://www.wordpress.org/1' )
+				fetchUrlData( 'https://www.finpress.org/1' )
 			).rejects.toEqual( 'fetch failed' );
 		} );
 	} );
@@ -45,7 +45,7 @@ describe( 'fetchUrlData', () => {
 		it( 'passes options argument through to fetch API', async () => {
 			apiFetch.mockReturnValueOnce( Promise.resolve() );
 
-			await fetchUrlData( 'https://www.wordpress.org/2', {
+			await fetchUrlData( 'https://www.finpress.org/2', {
 				method: 'POST',
 			} );
 
@@ -63,7 +63,7 @@ describe( 'fetchUrlData', () => {
 
 	describe( 'client side caching', () => {
 		it( 'caches repeat requests to same url', async () => {
-			const targetUrl = 'https://www.wordpress.org/3';
+			const targetUrl = 'https://www.finpress.org/3';
 			const data = {
 				title: 'Lorem ipsum dolor',
 				icon: '',
@@ -88,7 +88,7 @@ describe( 'fetchUrlData', () => {
 		} );
 
 		it( 'does not cache failed requests', async () => {
-			const targetUrl = 'https://www.wordpress.org/4';
+			const targetUrl = 'https://www.finpress.org/4';
 			const data = {
 				title: 'Lorem ipsum dolor',
 				icon: '',
@@ -129,7 +129,7 @@ describe( 'fetchUrlData', () => {
 		it.each( [
 			'tel:123456',
 			'ftp://something',
-			'mailto:example@wordpress.org',
+			'mailto:example@finpress.org',
 			'file:somefilehere',
 		] )(
 			'errors when a non-http protocol (%s) is passed as part of URL',

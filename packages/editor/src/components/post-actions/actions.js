@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useMemo, useEffect } from '@wordpress/element';
-import { store as coreStore } from '@wordpress/core-data';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useMemo, useEffect } from '@finpress/element';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -65,7 +65,7 @@ export function usePostActions( { postType, onActionPerformed, context } ) {
 
 			// When there is a front page template, the front page cannot be
 			// changed. See
-			// https://developer.wordpress.org/themes/basics/template-hierarchy/
+			// https://developer.finpress.org/themes/basics/template-hierarchy/
 			return frontPageTemplate.slug !== 'front-page';
 		},
 		[ postType ]

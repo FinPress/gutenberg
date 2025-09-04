@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Modal,
@@ -7,14 +7,14 @@ import {
 	TextControl,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { useDispatch } from '@wordpress/data';
-import { useId, useRef, useState } from '@wordpress/element';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __ } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { speak } from '@wordpress/a11y';
+} from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { useDispatch } from '@finpress/data';
+import { useId, useRef, useState } from '@finpress/element';
+import { decodeEntities } from '@finpress/html-entities';
+import { __ } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { speak } from '@finpress/a11y';
 
 /**
  * Internal dependencies

@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -10,7 +10,7 @@
 
 ### Breaking Changes
 
--   Improve type declarations for `sprintf` by replacing the `sprintf-js` dependency with `@tannin/sprintf` ([#70434](https://github.com/WordPress/gutenberg/pull/70434))
+-   Improve type declarations for `sprintf` by replacing the `sprintf-js` dependency with `@tannin/sprintf` ([#70434](https://github.com/FinPress/gutenberg/pull/70434))
 
 ## 5.26.0 (2025-06-25)
 
@@ -68,7 +68,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 4.58.0 (2024-05-16)
 
@@ -192,8 +192,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ## 3.20.0 (2021-04-29)
 
@@ -214,26 +214,26 @@
 
 ### Enhancements
 
--   Improve type declarations for translation functions ([#26171](https://github.com/WordPress/gutenberg/pull/26171))
+-   Improve type declarations for translation functions ([#26171](https://github.com/FinPress/gutenberg/pull/26171))
 
 ## 3.12.0 (2020-04-30)
 
 ### Bug Fixes
 
--   Relax type of `sprintf` arguments type ([#21919](https://github.com/WordPress/gutenberg/pull/21919))
+-   Relax type of `sprintf` arguments type ([#21919](https://github.com/FinPress/gutenberg/pull/21919))
 
 ## 3.11.0 (2020-04-15)
 
 ### New Features
 
--   Include TypeScript type declarations ([#18942](https://github.com/WordPress/gutenberg/pull/18942))
--   Add `createI18n` method to allow creation of multiple i18n instances ([#21182](https://github.com/WordPress/gutenberg/pull/21182))
+-   Include TypeScript type declarations ([#18942](https://github.com/FinPress/gutenberg/pull/18942))
+-   Add `createI18n` method to allow creation of multiple i18n instances ([#21182](https://github.com/FinPress/gutenberg/pull/21182))
 
 ## 3.10.0 (2020-04-01)
 
 ### New Features
 
--   Add `isRTL` function ([#20298](https://github.com/WordPress/gutenberg/pull/20298))
+-   Add `isRTL` function ([#20298](https://github.com/FinPress/gutenberg/pull/20298))
 
 ## 3.1.0 (2018-11-15)
 
@@ -256,20 +256,20 @@
 
 ### Breaking Changes
 
--   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
+-   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
 
 ## 1.2.0 (2018-07-12)
 
 ### New Features
 
--   Updated build to work with Babel 7 ([#7832](https://github.com/WordPress/gutenberg/pull/7832))
+-   Updated build to work with Babel 7 ([#7832](https://github.com/FinPress/gutenberg/pull/7832))
 
 ### Internal
 
--   Moved `@WordPress/packages` repository to `@WordPress/gutenberg` ([#7805](https://github.com/WordPress/gutenberg/pull/7805))
+-   Moved `@FinPress/packages` repository to `@FinPress/gutenberg` ([#7805](https://github.com/FinPress/gutenberg/pull/7805))
 
 ## 1.1.1 (2018-05-18)
 
 ### Internal
 
--   Fix: Standardized `package.json` format ([#119](https://github.com/WordPress/packages/pull/119))
+-   Fix: Standardized `package.json` format ([#119](https://github.com/FinPress/packages/pull/119))

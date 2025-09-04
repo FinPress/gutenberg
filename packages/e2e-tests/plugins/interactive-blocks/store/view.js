@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store, getElement } from '@wordpress/interactivity';
+import { store, getElement } from '@finpress/interactivity';
 
 // A non-object state should never be allowed.
 store( 'test/store', { state: [ 'wrong' ] } );

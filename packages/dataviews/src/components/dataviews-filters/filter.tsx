@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import type { RefObject } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Dropdown,
@@ -15,10 +15,10 @@ import {
 	SelectControl,
 	Tooltip,
 	Icon,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { useRef, createInterpolateElement } from '@wordpress/element';
-import { closeSmall } from '@wordpress/icons';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useRef, createInterpolateElement } from '@finpress/element';
+import { closeSmall } from '@finpress/icons';
 
 const ENTER = 'Enter';
 const SPACE = ' ';

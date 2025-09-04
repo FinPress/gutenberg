@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalHStack as HStack } from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
-import { useState, useMemo, useId } from '@wordpress/element';
+import { __experimentalHStack as HStack } from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
+import { useState, useMemo, useId } from '@finpress/element';
 import {
 	BlockPreview,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { Icon } from '@wordpress/icons';
-import { parse } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { Icon } from '@finpress/icons';
+import { parse } from '@finpress/blocks';
 
 /**
  * Internal dependencies

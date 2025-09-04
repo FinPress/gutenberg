@@ -12,8 +12,8 @@ This feature is still experimental. “Experimental” means this is an early im
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
-} from '@wordpress/components';
-import { formatLowercase, formatUppercase } from '@wordpress/icons';
+} from '@finpress/components';
+import { formatLowercase, formatUppercase } from '@finpress/icons';
 
 function Example() {
 	return (
@@ -43,7 +43,7 @@ The value of the `ToggleGroupControlOption`.
 
 ### `icon`: `Component`
 
-Icon displayed as the content of the option. Usually one of the icons from the `@wordpress/icons` package, or a custom React `<svg>` icon.
+Icon displayed as the content of the option. Usually one of the icons from the `@finpress/icons` package, or a custom React `<svg>` icon.
 
 -   Required: Yes
 

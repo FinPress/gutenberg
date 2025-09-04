@@ -27,7 +27,7 @@ As an example, here's the matrix alignment tool in action.
 import {
     BlockControls,
     __experimentalBlockAlignmentMatrixControl as BlockAlignmentMatrixControl
-} from "@wordpress/block-editor";
+} from "@finpress/block-editor";
 
 const controls = (
   <>

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * External dependencies
@@ -9,9 +9,9 @@ import { useState } from '@wordpress/element';
 import type { StoryObj, Meta } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { seen, unseen } from '@wordpress/icons';
+import { seen, unseen } from '@finpress/icons';
 
 /**
  * Internal dependencies

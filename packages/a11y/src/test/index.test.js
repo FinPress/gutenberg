@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import domReady from '@wordpress/dom-ready';
+import domReady from '@finpress/dom-ready';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import filterMessage from '../shared/filter-message';
 jest.mock( '../shared/clear', () => {
 	return jest.fn();
 } );
-jest.mock( '@wordpress/dom-ready', () => {
+jest.mock( '@finpress/dom-ready', () => {
 	return jest.fn( ( callback ) => {
 		callback();
 	} );

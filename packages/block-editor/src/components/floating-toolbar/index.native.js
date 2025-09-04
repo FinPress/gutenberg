@@ -4,13 +4,13 @@
 import { Animated, Easing, View, Platform } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { useEffect, useState, useRef } from '@wordpress/element';
-import { withSelect, withDispatch } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+import { ToolbarButton, ToolbarGroup } from '@finpress/components';
+import { useEffect, useState, useRef } from '@finpress/element';
+import { withSelect, withDispatch } from '@finpress/data';
+import { compose } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

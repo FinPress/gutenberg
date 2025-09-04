@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Children } from '@wordpress/element';
-import { useInstanceId } from '@wordpress/compose';
+import { Children } from '@finpress/element';
+import { useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -19,7 +19,7 @@ import type { MenuGroupProps } from './types';
  * section.
  *
  * ```jsx
- * import { MenuGroup, MenuItem } from '@wordpress/components';
+ * import { MenuGroup, MenuItem } from '@finpress/components';
  *
  * const MyMenuGroup = () => (
  *   <MenuGroup label="Settings">

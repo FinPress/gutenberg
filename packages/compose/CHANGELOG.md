@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -46,14 +46,14 @@
 
 ### Bug Fixes
 
--   `useResizeObserver`: export legacy API at top-level for React Native ([#65588](https://github.com/WordPress/gutenberg/pull/65588)).
+-   `useResizeObserver`: export legacy API at top-level for React Native ([#65588](https://github.com/FinPress/gutenberg/pull/65588)).
 
 ## 7.8.0 (2024-09-19)
 
 ### New Features
 
--   `useEvent`: a new utility that creates a stable callback function that has access to the latest state and can be used within event handlers and effect callbacks ([#64943](https://github.com/WordPress/gutenberg/pull/64943)).
--   `useResizeObserver`: new and improved version of the utility (legacy API is still supported) ([#64943](https://github.com/WordPress/gutenberg/pull/64943)).
+-   `useEvent`: a new utility that creates a stable callback function that has access to the latest state and can be used within event handlers and effect callbacks ([#64943](https://github.com/FinPress/gutenberg/pull/64943)).
+-   `useResizeObserver`: new and improved version of the utility (legacy API is still supported) ([#64943](https://github.com/FinPress/gutenberg/pull/64943)).
 
 ## 7.7.0 (2024-09-05)
 
@@ -67,7 +67,7 @@
 
 ### Internal
 
--   Method style type signatures have been changed to function style ([#62718](https://github.com/WordPress/gutenberg/pull/62718)).
+-   Method style type signatures have been changed to function style ([#62718](https://github.com/FinPress/gutenberg/pull/62718)).
 
 ## 7.2.0 (2024-06-26)
 
@@ -77,13 +77,13 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 6.35.0 (2024-05-16)
 
 ## 6.34.0 (2024-05-02)
 
--   Added new `observableMap` data structure and `useObservableValue` React hook ([#60945](https://github.com/WordPress/gutenberg/pull/60945)).
+-   Added new `observableMap` data structure and `useObservableValue` React hook ([#60945](https://github.com/FinPress/gutenberg/pull/60945)).
 
 ## 6.33.0 (2024-04-19)
 
@@ -101,7 +101,7 @@
 
 ### Deprecations
 
--   The `pure` HoC has been deprecated. Use `memo` or `PureComponent` instead ([#57173](https://github.com/WordPress/gutenberg/pull/57173)).
+-   The `pure` HoC has been deprecated. Use `memo` or `PureComponent` instead ([#57173](https://github.com/FinPress/gutenberg/pull/57173)).
 
 ## 6.26.0 (2024-01-10)
 
@@ -163,7 +163,7 @@
 
 ### Breaking Changes
 
--   Updated dependencies to require React 18 ([45235](https://github.com/WordPress/gutenberg/pull/45235))
+-   Updated dependencies to require React 18 ([45235](https://github.com/FinPress/gutenberg/pull/45235))
 
 ## 5.20.0 (2022-11-16)
 
@@ -171,9 +171,9 @@
 
 ### Internal
 
--   `useDisabled`: Refactor the component to rely on the HTML `inert` attribute ([#44865](https://github.com/WordPress/gutenberg/pull/44865)).
--   `useFocusOutside`: Refactor the hook to TypeScript, rewrite tests using modern RTL and jest features ([#45317](https://github.com/WordPress/gutenberg/pull/45317)).
--   `useFocusableIframe`: Refactor to TypeScript ([#45428](https://github.com/WordPress/gutenberg/pull/45428)).
+-   `useDisabled`: Refactor the component to rely on the HTML `inert` attribute ([#44865](https://github.com/FinPress/gutenberg/pull/44865)).
+-   `useFocusOutside`: Refactor the hook to TypeScript, rewrite tests using modern RTL and jest features ([#45317](https://github.com/FinPress/gutenberg/pull/45317)).
+-   `useFocusableIframe`: Refactor to TypeScript ([#45428](https://github.com/FinPress/gutenberg/pull/45428)).
 
 ## 5.18.0 (2022-10-19)
 
@@ -183,18 +183,18 @@
 
 ### New Features
 
--   Compose: Introduce an in-house `debounce()` utility, deprecate Lodash version ([#43943](https://github.com/WordPress/gutenberg/pull/43943)).
--   Compose: Introduce in-house `compose` and `pipe` utils ([#44112](https://github.com/WordPress/gutenberg/pull/44112)).
+-   Compose: Introduce an in-house `debounce()` utility, deprecate Lodash version ([#43943](https://github.com/FinPress/gutenberg/pull/43943)).
+-   Compose: Introduce in-house `compose` and `pipe` utils ([#44112](https://github.com/FinPress/gutenberg/pull/44112)).
 
 ### Internal
 
--   `useInstanceId`: refactor to TypeScript ([#43790](https://github.com/WordPress/gutenberg/pull/43790)).
+-   `useInstanceId`: refactor to TypeScript ([#43790](https://github.com/FinPress/gutenberg/pull/43790)).
 
 ## 5.15.0 (2022-09-13)
 
 ### Internal
 
--   `useDialog`: refactor to TypeScript ([#43823](https://github.com/WordPress/gutenberg/pull/43823)).
+-   `useDialog`: refactor to TypeScript ([#43823](https://github.com/FinPress/gutenberg/pull/43823)).
 
 ## 5.14.0 (2022-08-24)
 
@@ -214,7 +214,7 @@
 
 ### Bug Fixes
 
--   `useRefEffect`: Allow `void` as a valid callback return type ([#40798](https://github.com/WordPress/gutenberg/pull/40798)).
+-   `useRefEffect`: Allow `void` as a valid callback return type ([#40798](https://github.com/FinPress/gutenberg/pull/40798)).
 
 ### New Features
 
@@ -240,7 +240,7 @@
 
 ### Breaking Changes
 
--   Upgraded React components to work with v17.0 ([#29118](https://github.com/WordPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
+-   Upgraded React components to work with v17.0 ([#29118](https://github.com/FinPress/gutenberg/pull/29118)). There are no new features in React v17.0 as explained in the [blog post](https://reactjs.org/blog/2020/10/20/react-v17.html).
 
 ## 4.2.0 (2021-07-21)
 
@@ -258,8 +258,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at <https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/>.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at <https://nodejs.org/en/about/releases/>.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at <https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/>.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at <https://nodejs.org/en/about/releases/>.
 
 ## 3.25.0 (2021-03-17)
 
@@ -299,4 +299,4 @@
 
 ### Breaking Changes
 
--   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
+-   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.

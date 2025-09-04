@@ -6,9 +6,9 @@ import type { FindAllArgs } from 'highlight-words-core';
 import { findAll } from 'highlight-words-core';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createElement } from '@wordpress/element';
+import { createElement } from '@finpress/element';
 
 /**
  * Source:

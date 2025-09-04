@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { SlotFillProvider } from '@wordpress/components';
-import { useViewportMatch } from '@wordpress/compose';
-import { uploadMedia } from '@wordpress/media-utils';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useEntityBlockEditor, store as coreStore } from '@wordpress/core-data';
-import { useMemo } from '@wordpress/element';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { privateApis as editPatternsPrivateApis } from '@wordpress/patterns';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { privateApis as blockLibraryPrivateApis } from '@wordpress/block-library';
+import { SlotFillProvider } from '@finpress/components';
+import { useViewportMatch } from '@finpress/compose';
+import { uploadMedia } from '@finpress/media-utils';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useEntityBlockEditor, store as coreStore } from '@finpress/core-data';
+import { useMemo } from '@finpress/element';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { privateApis as editPatternsPrivateApis } from '@finpress/patterns';
+import { store as preferencesStore } from '@finpress/preferences';
+import { privateApis as blockLibraryPrivateApis } from '@finpress/block-library';
 
 /**
  * Internal dependencies

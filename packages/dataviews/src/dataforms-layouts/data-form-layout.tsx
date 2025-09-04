@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalVStack as VStack } from '@wordpress/components';
-import { useContext, useMemo } from '@wordpress/element';
+import { __experimentalVStack as VStack } from '@finpress/components';
+import { useContext, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

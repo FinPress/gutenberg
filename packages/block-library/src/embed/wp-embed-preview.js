@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMergeRefs, useFocusableIframe } from '@wordpress/compose';
-import { useRef, useEffect, useMemo } from '@wordpress/element';
+import { useMergeRefs, useFocusableIframe } from '@finpress/compose';
+import { useRef, useEffect, useMemo } from '@finpress/element';
 
 /** @typedef {import('react').SyntheticEvent} SyntheticEvent */
 
@@ -39,17 +39,17 @@ export default function WpEmbedPreview( { html } ) {
 		const { defaultView } = ownerDocument;
 
 		/**
-		 * Checks for WordPress embed events signaling the height change when
+		 * Checks for FinPress embed events signaling the height change when
 		 * iframe content loads or iframe's window is resized.  The event is
-		 * sent from WordPress core via the window.postMessage API.
+		 * sent from FinPress core via the window.postMessage API.
 		 *
 		 * References:
 		 * window.postMessage:
 		 * https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
-		 * WordPress core embed-template on load:
-		 * https://github.com/WordPress/WordPress/blob/HEAD/wp-includes/js/wp-embed-template.js#L143
-		 * WordPress core embed-template on resize:
-		 * https://github.com/WordPress/WordPress/blob/HEAD/wp-includes/js/wp-embed-template.js#L187
+		 * FinPress core embed-template on load:
+		 * https://github.com/FinPress/FinPress/blob/HEAD/wp-includes/js/wp-embed-template.js#L143
+		 * FinPress core embed-template on resize:
+		 * https://github.com/FinPress/FinPress/blob/HEAD/wp-includes/js/wp-embed-template.js#L187
 		 *
 		 * @param {MessageEvent} event Message event.
 		 */

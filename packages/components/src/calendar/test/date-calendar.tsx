@@ -18,9 +18,9 @@ import {
 } from 'date-fns';
 import { ar } from 'date-fns/locale';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 /**
  * Internal dependencies
  */

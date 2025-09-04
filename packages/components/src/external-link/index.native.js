@@ -5,10 +5,10 @@
 import { TouchableOpacity, Text, Linking } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { external, Icon } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { external, Icon } from '@finpress/icons';
 
 export function ExternalLink( { href, children } ) {
 	return (

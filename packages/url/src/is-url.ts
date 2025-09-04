@@ -5,7 +5,7 @@
  *
  * @example
  * ```js
- * const isURL = isURL( 'https://wordpress.org' ); // true
+ * const isURL = isURL( 'https://finpress.org' ); // true
  * ```
  *
  * @see https://url.spec.whatwg.org/

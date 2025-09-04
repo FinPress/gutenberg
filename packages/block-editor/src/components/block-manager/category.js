@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
-import { useInstanceId } from '@wordpress/compose';
-import { CheckboxControl } from '@wordpress/components';
+import { useCallback } from '@finpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { CheckboxControl } from '@finpress/components';
 
 /**
  * Internal dependencies

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getScrollContainer } from '@wordpress/dom';
-import { useCallback, useEffect, useRef } from '@wordpress/element';
+import { getScrollContainer } from '@finpress/dom';
+import { useCallback, useEffect, useRef } from '@finpress/element';
 
 const SCROLL_INACTIVE_DISTANCE_PX = 50;
 const SCROLL_INTERVAL_MS = 25;

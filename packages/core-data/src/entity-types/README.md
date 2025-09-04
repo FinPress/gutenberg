@@ -11,7 +11,7 @@ The types in this directory are designed to support the following use-cases:
 
 ### Context-aware type checks for entity records
 
-WordPress REST API returns different responses based on the `context` query parameter, which typically is one of `view`, `edit`, or `embed`. See the [REST API documentation](https://developer.wordpress.org/rest-api/) to learn more.
+FinPress REST API returns different responses based on the `context` query parameter, which typically is one of `view`, `edit`, or `embed`. See the [REST API documentation](https://developer.finpress.org/rest-api/) to learn more.
 
 For example, requesting `/wp/v2/posts/1?context=view` yields:
 
@@ -19,7 +19,7 @@ For example, requesting `/wp/v2/posts/1?context=view` yields:
 {
   "content": {
     "protected": false,
-    "rendered": "\n<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>\n"
+    "rendered": "\n<p>Welcome to FinPress. This is your first post. Edit or delete it, then start writing!</p>\n"
   },
   "title": {
     "rendered": "Hello world!"
@@ -35,8 +35,8 @@ While requesting `/wp/v2/posts/1?context=edit`, yields:
   "content": {
     "block_version": 1,
     "protected": false,
-    "raw": "<!-- wp:paragraph -->\n<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>\n<!-- /wp:paragraph -->",
-    "rendered": "\n<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>\n"
+    "raw": "<!-- wp:paragraph -->\n<p>Welcome to FinPress. This is your first post. Edit or delete it, then start writing!</p>\n<!-- /wp:paragraph -->",
+    "rendered": "\n<p>Welcome to FinPress. This is your first post. Edit or delete it, then start writing!</p>\n"
   },
   "title": {
     "raw": "Hello world!",

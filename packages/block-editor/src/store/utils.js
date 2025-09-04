@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { parse } from '@wordpress/blocks';
-import { parse as grammarParse } from '@wordpress/block-serialization-default-parser';
+import { parse } from '@finpress/blocks';
+import { parse as grammarParse } from '@finpress/block-serialization-default-parser';
 
 /**
  * Internal dependencies

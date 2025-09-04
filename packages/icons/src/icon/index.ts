@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { cloneElement, forwardRef } from '@wordpress/element';
+import { cloneElement, forwardRef } from '@finpress/element';
 
 /**
  * External dependencies
  */
 import type { ReactElement } from 'react';
-import type { SVGProps } from '@wordpress/primitives';
+import type { SVGProps } from '@finpress/primitives';
 
 export interface IconProps extends SVGProps {
 	/**

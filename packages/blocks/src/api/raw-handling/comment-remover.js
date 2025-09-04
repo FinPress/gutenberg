@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { remove } from '@wordpress/dom';
+import { remove } from '@finpress/dom';
 
 /**
  * Looks for comments, and removes them.

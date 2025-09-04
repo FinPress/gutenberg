@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-import { settings } from '@wordpress/icons';
+import { useInstanceId } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
+import { useState } from '@finpress/element';
+import { settings } from '@finpress/icons';
 
 /**
  * Internal dependencies

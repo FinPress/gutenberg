@@ -4,10 +4,10 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withPreferredColorScheme } from '@wordpress/compose';
-import { Icon, plus, reset } from '@wordpress/icons';
+import { withPreferredColorScheme } from '@finpress/compose';
+import { Icon, plus, reset } from '@finpress/icons';
 
 /**
  * Internal dependencies

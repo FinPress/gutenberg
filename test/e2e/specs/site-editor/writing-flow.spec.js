@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Site editor writing flow', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -12,7 +12,7 @@ test.describe( 'Site editor writing flow', () => {
 		await requestUtils.activateTheme( 'twentytwentyone' );
 	} );
 
-	// Check for regressions of https://github.com/WordPress/gutenberg/issues/41811.
+	// Check for regressions of https://github.com/FinPress/gutenberg/issues/41811.
 	test( 'allows shift tabbing to the block toolbar from the first block', async ( {
 		admin,
 		editor,
@@ -40,7 +40,7 @@ test.describe( 'Site editor writing flow', () => {
 		await expect( blockToolbarButton ).toBeFocused();
 	} );
 
-	// Check for regressions of https://github.com/WordPress/gutenberg/issues/41811.
+	// Check for regressions of https://github.com/FinPress/gutenberg/issues/41811.
 	test( 'allows tabbing to the inspector from the last block', async ( {
 		admin,
 		editor,

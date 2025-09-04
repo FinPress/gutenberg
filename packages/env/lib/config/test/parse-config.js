@@ -4,14 +4,14 @@
  */
 const { parseConfig } = require( '../parse-config' );
 const readRawConfigFile = require( '../read-raw-config-file' );
-const { getLatestWordPressVersion } = require( '../../wordpress' );
+const { getLatestWordPressVersion } = require( '../../finpress' );
 const { ValidationError } = require( '../validate-config' );
 const detectDirectoryType = require( '../detect-directory-type' );
 
 jest.mock( 'got', () => jest.fn() );
 jest.mock( '../read-raw-config-file', () => jest.fn() );
 jest.mock( '../detect-directory-type', () => jest.fn() );
-jest.mock( '../../wordpress', () => ( {
+jest.mock( '../../finpress', () => ( {
 	getLatestWordPressVersion: jest.fn(),
 } ) );
 
@@ -27,12 +27,12 @@ const DEFAULT_CONFIG = {
 	phpVersion: null,
 	coreSource: {
 		type: 'git',
-		url: 'https://github.com/WordPress/WordPress.git',
+		url: 'https://github.com/FinPress/FinPress.git',
 		ref: '100.0.0',
-		path: '/cache/WordPress',
-		clonePath: '/cache/WordPress',
-		basename: 'WordPress',
-		testsPath: '/cache/tests-WordPress',
+		path: '/cache/FinPress',
+		clonePath: '/cache/FinPress',
+		basename: 'FinPress',
+		testsPath: '/cache/tests-FinPress',
 	},
 	pluginSources: [],
 	themeSources: [],
@@ -87,7 +87,7 @@ describe( 'parseConfig', () => {
 		expect( parsed ).toEqual( DEFAULT_CONFIG );
 	} );
 
-	it( 'should infer a core mounting default when ran from a WordPress directory', async () => {
+	it( 'should infer a core mounting default when ran from a FinPress directory', async () => {
 		detectDirectoryType.mockResolvedValue( 'core' );
 
 		const parsed = await parseConfig( '/test/gutenberg', '/cache' );
@@ -123,7 +123,7 @@ describe( 'parseConfig', () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
 			if ( configFile === '/test/gutenberg/.wp-env.json' ) {
 				return {
-					core: 'WordPress/WordPress#Test',
+					core: 'FinPress/FinPress#Test',
 					phpVersion: '1.0',
 					lifecycleScripts: {
 						afterStart: 'test',
@@ -161,12 +161,12 @@ describe( 'parseConfig', () => {
 		const expected = {
 			...DEFAULT_CONFIG,
 			coreSource: {
-				basename: 'WordPress',
-				path: '/cache/WordPress',
-				clonePath: '/cache/WordPress',
+				basename: 'FinPress',
+				path: '/cache/FinPress',
+				clonePath: '/cache/FinPress',
 				ref: 'Test',
-				testsPath: '/cache/tests-WordPress',
-				url: 'https://github.com/WordPress/WordPress.git',
+				testsPath: '/cache/tests-FinPress',
+				url: 'https://github.com/FinPress/FinPress.git',
 				type: 'git',
 			},
 			phpVersion: '2.0',
@@ -193,12 +193,12 @@ describe( 'parseConfig', () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
 			if ( configFile === '/test/gutenberg/.wp-env.json' ) {
 				return {
-					core: 'WordPress/WordPress#Test',
-					plugins: [ 'WordPress/TestPlugin#Test' ],
-					themes: [ 'WordPress/TestTheme#Test' ],
+					core: 'FinPress/FinPress#Test',
+					plugins: [ 'FinPress/TestPlugin#Test' ],
+					themes: [ 'FinPress/TestTheme#Test' ],
 					mappings: {
 						'/var/www/html/wp-content/plugins/test-mapping':
-							'WordPress/TestMapping#Test',
+							'FinPress/TestMapping#Test',
 					},
 				};
 			}
@@ -215,12 +215,12 @@ describe( 'parseConfig', () => {
 		expect( parsed ).toEqual( {
 			...DEFAULT_CONFIG,
 			coreSource: {
-				basename: 'WordPress',
-				path: '/cache/WordPress',
-				clonePath: '/cache/WordPress',
+				basename: 'FinPress',
+				path: '/cache/FinPress',
+				clonePath: '/cache/FinPress',
 				ref: 'Test',
-				testsPath: '/cache/tests-WordPress',
-				url: 'https://github.com/WordPress/WordPress.git',
+				testsPath: '/cache/tests-FinPress',
+				url: 'https://github.com/FinPress/FinPress.git',
 				type: 'git',
 			},
 			pluginSources: [
@@ -229,7 +229,7 @@ describe( 'parseConfig', () => {
 					path: '/cache/TestPlugin',
 					clonePath: '/cache/TestPlugin',
 					ref: 'Test',
-					url: 'https://github.com/WordPress/TestPlugin.git',
+					url: 'https://github.com/FinPress/TestPlugin.git',
 					type: 'git',
 				},
 			],
@@ -239,7 +239,7 @@ describe( 'parseConfig', () => {
 					path: '/cache/TestTheme',
 					clonePath: '/cache/TestTheme',
 					ref: 'Test',
-					url: 'https://github.com/WordPress/TestTheme.git',
+					url: 'https://github.com/FinPress/TestTheme.git',
 					type: 'git',
 				},
 			],
@@ -249,7 +249,7 @@ describe( 'parseConfig', () => {
 					path: '/cache/TestMapping',
 					clonePath: '/cache/TestMapping',
 					ref: 'Test',
-					url: 'https://github.com/WordPress/TestMapping.git',
+					url: 'https://github.com/FinPress/TestMapping.git',
 					type: 'git',
 				},
 			},
@@ -279,7 +279,7 @@ describe( 'parseConfig', () => {
 	it( 'should override with environment variables', async () => {
 		process.env.WP_ENV_PORT = 123;
 		process.env.WP_ENV_TESTS_PORT = 456;
-		process.env.WP_ENV_CORE = 'WordPress/WordPress#test';
+		process.env.WP_ENV_CORE = 'FinPress/FinPress#test';
 		process.env.WP_ENV_PHP_VERSION = '3.0';
 		process.env.WP_ENV_LIFECYCLE_SCRIPT_AFTER_START = 'test after';
 
@@ -290,12 +290,12 @@ describe( 'parseConfig', () => {
 			port: 123,
 			testsPort: 456,
 			coreSource: {
-				basename: 'WordPress',
-				path: '/cache/WordPress',
-				clonePath: '/cache/WordPress',
+				basename: 'FinPress',
+				path: '/cache/FinPress',
+				clonePath: '/cache/FinPress',
 				ref: 'test',
-				testsPath: '/cache/tests-WordPress',
-				url: 'https://github.com/WordPress/WordPress.git',
+				testsPath: '/cache/tests-FinPress',
+				url: 'https://github.com/FinPress/FinPress.git',
 				type: 'git',
 			},
 			phpVersion: '3.0',
@@ -308,12 +308,12 @@ describe( 'parseConfig', () => {
 					port: 123,
 					phpVersion: '3.0',
 					coreSource: {
-						basename: 'WordPress',
-						path: '/cache/WordPress',
-						clonePath: '/cache/WordPress',
+						basename: 'FinPress',
+						path: '/cache/FinPress',
+						clonePath: '/cache/FinPress',
 						ref: 'test',
-						testsPath: '/cache/tests-WordPress',
-						url: 'https://github.com/WordPress/WordPress.git',
+						testsPath: '/cache/tests-FinPress',
+						url: 'https://github.com/FinPress/FinPress.git',
 						type: 'git',
 					},
 				},
@@ -321,12 +321,12 @@ describe( 'parseConfig', () => {
 					port: 456,
 					phpVersion: '3.0',
 					coreSource: {
-						basename: 'WordPress',
-						path: '/cache/WordPress',
-						clonePath: '/cache/WordPress',
+						basename: 'FinPress',
+						path: '/cache/FinPress',
+						clonePath: '/cache/FinPress',
 						ref: 'test',
-						testsPath: '/cache/tests-WordPress',
-						url: 'https://github.com/WordPress/WordPress.git',
+						testsPath: '/cache/tests-FinPress',
+						url: 'https://github.com/FinPress/FinPress.git',
 						type: 'git',
 					},
 					config: {
@@ -338,14 +338,14 @@ describe( 'parseConfig', () => {
 		} );
 	} );
 
-	it( 'throws when latest WordPress version needed but not found', async () => {
+	it( 'throws when latest FinPress version needed but not found', async () => {
 		getLatestWordPressVersion.mockResolvedValue( null );
 
 		await expect(
 			parseConfig( '/test/gutenberg', '/cache' )
 		).rejects.toEqual(
 			new ValidationError(
-				'Could not find the latest WordPress version. There may be a network issue.'
+				'Could not find the latest FinPress version. There may be a network issue.'
 			)
 		);
 	} );
@@ -407,7 +407,7 @@ describe( 'parseConfig', () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
 			if ( configFile === '/test/gutenberg/.wp-env.json' ) {
 				return {
-					core: 'WordPress/WordPress#Test',
+					core: 'FinPress/FinPress#Test',
 					phpVersion: '1.0',
 					lifecycleScripts: {
 						afterStart: 'test',
@@ -437,7 +437,7 @@ describe( 'parseConfig', () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
 			if ( configFile === '/test/gutenberg/.wp-env.json' ) {
 				return {
-					core: 'WordPress/WordPress#Test',
+					core: 'FinPress/FinPress#Test',
 					phpVersion: '1.0',
 					lifecycleScripts: {
 						afterStart: 'test',

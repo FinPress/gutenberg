@@ -1,11 +1,11 @@
 # Create your First App with Gutenberg Data
 
-This tutorial aims to get you comfortable with the Gutenberg data layer. It guides you through building a simple React application that enables the user to manage their WordPress pages. The finished app will look like this:
+This tutorial aims to get you comfortable with the Gutenberg data layer. It guides you through building a simple React application that enables the user to manage their FinPress pages. The finished app will look like this:
 
 
-[![Open demo in WordPress Playground](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/WordPress/block-development-examples/trunk/plugins/data-basics-59c8f8/_playground/blueprint.json "Opens demo in WordPress Playground")
+[![Open demo in FinPress Playground](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/part1-finished.jpg)](https://playground.finpress.net/?blueprint-url=https://raw.githubusercontent.com/FinPress/block-development-examples/trunk/plugins/data-basics-59c8f8/_playground/blueprint.json "Opens demo in FinPress Playground")
 
-You may review the [finished app](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository.
+You may review the [finished app](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository.
 
 ### Table of Contents
 

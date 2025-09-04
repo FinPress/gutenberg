@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-// @wordpress/blocks imports are not typed.
+// @finpress/blocks imports are not typed.
 // @ts-expect-error
-import { getCategories } from '@wordpress/blocks';
+import { getCategories } from '@finpress/blocks';
 
 /**
  * Internal dependencies

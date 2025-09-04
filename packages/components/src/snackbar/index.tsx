@@ -5,18 +5,18 @@ import type { ForwardedRef, KeyboardEvent, MouseEvent } from 'react';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { speak } from '@wordpress/a11y';
+import { speak } from '@finpress/a11y';
 import {
 	useEffect,
 	useLayoutEffect,
 	useRef,
 	forwardRef,
 	renderToString,
-} from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import warning from '@wordpress/warning';
+} from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies

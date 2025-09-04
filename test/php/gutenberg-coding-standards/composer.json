@@ -12,7 +12,7 @@
 	"authors": [
 		{
 			"name": "Contributors",
-			"homepage": "https://github.com/WordPress/gutenberg/graphs/contributors"
+			"homepage": "https://github.com/FinPress/gutenberg/graphs/contributors"
 		}
 	],
 	"require": {

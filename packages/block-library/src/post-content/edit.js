@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	InspectorControls,
 	useBlockProps,
@@ -11,15 +11,15 @@ import {
 	Warning,
 	privateApis as blockEditorPrivateApis,
 	__experimentalUseBlockPreview as useBlockPreview,
-} from '@wordpress/block-editor';
-import { parse } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { parse } from '@finpress/blocks';
 import {
 	useEntityProp,
 	useEntityBlockEditor,
 	store as coreStore,
-} from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
+} from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

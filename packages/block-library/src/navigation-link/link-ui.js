@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
 import {
 	Popover,
 	Button,
 	VisuallyHidden,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { __, sprintf, isRTL } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __, sprintf, isRTL } from '@finpress/i18n';
 import {
 	LinkControl,
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	createInterpolateElement,
 	useMemo,
@@ -21,15 +21,15 @@ import {
 	useRef,
 	useEffect,
 	forwardRef,
-} from '@wordpress/element';
+} from '@finpress/element';
 import {
 	store as coreStore,
 	useResourcePermissions,
-} from '@wordpress/core-data';
-import { decodeEntities } from '@wordpress/html-entities';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { chevronLeftSmall, chevronRightSmall, plus } from '@wordpress/icons';
-import { useInstanceId, useFocusOnMount } from '@wordpress/compose';
+} from '@finpress/core-data';
+import { decodeEntities } from '@finpress/html-entities';
+import { useSelect, useDispatch } from '@finpress/data';
+import { chevronLeftSmall, chevronRightSmall, plus } from '@finpress/icons';
+import { useInstanceId, useFocusOnMount } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -174,8 +174,8 @@ function UnforwardedLinkUI( props, ref ) {
 			// - title.rendered = "Yes &#038; No"
 			// - decodeEntities( title.rendered ) = "Yes & No"
 			// See:
-			// - https://github.com/WordPress/gutenberg/pull/41063
-			// - https://github.com/WordPress/gutenberg/blob/a1e1fdc0e6278457e9f4fc0b31ac6d2095f5450b/packages/core-data/src/fetch/__experimental-fetch-link-suggestions.js#L212-L218
+			// - https://github.com/FinPress/gutenberg/pull/41063
+			// - https://github.com/FinPress/gutenberg/blob/a1e1fdc0e6278457e9f4fc0b31ac6d2095f5450b/packages/core-data/src/fetch/__experimental-fetch-link-suggestions.js#L212-L218
 			title: decodeEntities( page.title.rendered ),
 			url: page.link,
 			kind: 'post-type',
@@ -183,7 +183,7 @@ function UnforwardedLinkUI( props, ref ) {
 	}
 
 	// Memoize link value to avoid overriding the LinkControl's internal state.
-	// This is a temporary fix. See https://github.com/WordPress/gutenberg/issues/50976#issuecomment-1568226407.
+	// This is a temporary fix. See https://github.com/FinPress/gutenberg/issues/50976#issuecomment-1568226407.
 	const link = useMemo(
 		() => ( {
 			url,

@@ -4,9 +4,9 @@
 import type { SyntheticEvent, ChangeEvent, PointerEvent } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useReducer, useLayoutEffect, useRef } from '@wordpress/element';
+import { useReducer, useLayoutEffect, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

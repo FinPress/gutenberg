@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef } from '@wordpress/element';
+import { useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

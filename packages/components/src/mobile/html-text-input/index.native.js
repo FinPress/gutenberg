@@ -4,18 +4,18 @@
 import { ScrollView, TextInput } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { parse } from '@wordpress/blocks';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { addFilter, removeFilter } from '@wordpress/hooks';
+import { Component } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { parse } from '@finpress/blocks';
+import { withDispatch, withSelect } from '@finpress/data';
+import { addFilter, removeFilter } from '@finpress/hooks';
 import {
 	withInstanceId,
 	compose,
 	withPreferredColorScheme,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 
 /**
  * Internal dependencies

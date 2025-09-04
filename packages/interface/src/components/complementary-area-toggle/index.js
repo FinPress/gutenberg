@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { usePluginContext } from '@wordpress/plugins';
+import { Button } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { usePluginContext } from '@finpress/plugins';
 
 /**
  * Internal dependencies

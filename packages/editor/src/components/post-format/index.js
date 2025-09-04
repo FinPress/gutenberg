@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { Button, RadioControl } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useInstanceId } from '@wordpress/compose';
-import { store as coreStore } from '@wordpress/core-data';
+import { __, sprintf } from '@finpress/i18n';
+import { Button, RadioControl } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useInstanceId } from '@finpress/compose';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

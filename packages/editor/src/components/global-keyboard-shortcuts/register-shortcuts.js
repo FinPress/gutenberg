@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { BlockEditorKeyboardShortcuts } from '@wordpress/block-editor';
-import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
-import { isAppleOS } from '@wordpress/keycodes';
+import { useEffect } from '@finpress/element';
+import { useDispatch } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { BlockEditorKeyboardShortcuts } from '@finpress/block-editor';
+import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+import { isAppleOS } from '@finpress/keycodes';
 
 /**
  * Component for registering editor keyboard shortcuts.

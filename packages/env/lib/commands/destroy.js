@@ -37,7 +37,7 @@ module.exports = async function destroy( { spinner, scripts, debug } ) {
 	}
 
 	spinner.info(
-		'WARNING! This will remove Docker containers, volumes, networks, and images associated with the WordPress instance.'
+		'WARNING! This will remove Docker containers, volumes, networks, and images associated with the FinPress instance.'
 	);
 
 	let yesDelete = false;
@@ -80,5 +80,5 @@ module.exports = async function destroy( { spinner, scripts, debug } ) {
 		await executeLifecycleScript( 'afterDestroy', config, spinner );
 	}
 
-	spinner.text = 'Removed WordPress environment.';
+	spinner.text = 'Removed FinPress environment.';
 };

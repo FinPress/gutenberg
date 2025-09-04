@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Spinner } from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { getBlockType } from '@wordpress/blocks';
+import { __ } from '@finpress/i18n';
+import { Spinner } from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { getBlockType } from '@finpress/blocks';
 
 /**
  * Internal dependencies

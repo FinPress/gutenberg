@@ -20,7 +20,7 @@ export type RichTextFormatList = Array< RichTextFormat >;
  * An object which represents a formatted string. The text property contains the
  * text to be formatted, and the formats property contains an array which indicates
  * the formats that are applied to each character in the text. See the main
- * `@wordpress/rich-text` documentation for more detail.
+ * `@finpress/rich-text` documentation for more detail.
  */
 export type RichTextValue = {
 	text: string;

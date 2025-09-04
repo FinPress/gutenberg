@@ -9,31 +9,31 @@ These are the core principles of TypeScript's interaction with the Interactivity
 -   **Multiple store parts**: Even if your store is split into multiple parts, you can define or infer the types of each part of the store and then merge them into a single type that represents the entire store.
 -   **Typed external stores**: You can import typed stores from external namespaces, allowing you to use other plugins' functionality with type safety.
 
-## Installing `@wordpress/interactivity` locally
+## Installing `@finpress/interactivity` locally
 
-If you haven't done so already, you need to install the package `@wordpress/interactivity` locally so TypeScript can use its types in your IDE. You can do this using the following command:
+If you haven't done so already, you need to install the package `@finpress/interactivity` locally so TypeScript can use its types in your IDE. You can do this using the following command:
 
-`npm install @wordpress/interactivity`
+`npm install @finpress/interactivity`
 
 It is also a good practice to keep that package updated.
 
 ## Scaffolding a new typed interactive block
 
-If you want to explore an example of an interactive block using TypeScript in your local environment, you can use the `@wordpress/create-block-interactive-template`.
+If you want to explore an example of an interactive block using TypeScript in your local environment, you can use the `@finpress/create-block-interactive-template`.
 
-Start by ensuring you have Node.js and `npm` installed on your computer. Review the [Node.js development environment](https://developer.wordpress.org/block-editor/getting-started/devenv/nodejs-development-environment/) guide if not.
+Start by ensuring you have Node.js and `npm` installed on your computer. Review the [Node.js development environment](https://developer.finpress.org/block-editor/getting-started/devenv/nodejs-development-environment/) guide if not.
 
-Next, use the [`@wordpress/create-block`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/) package and the [`@wordpress/create-block-interactive-template`](https://www.npmjs.com/package/@wordpress/create-block-interactive-template) template to scaffold the block.
+Next, use the [`@finpress/create-block`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block/) package and the [`@finpress/create-block-interactive-template`](https://www.npmjs.com/package/@finpress/create-block-interactive-template) template to scaffold the block.
 
 Choose the folder where you want to create the plugin, execute the following command in the terminal from within that folder, and choose the `typescript` variant when asked.
 
 ```
-npx @wordpress/create-block@latest --template @wordpress/create-block-interactive-template
+npx @finpress/create-block@latest --template @finpress/create-block-interactive-template
 ```
 
 **Important**: Do not provide a slug in the terminal. Otherwise, `create-block` will not ask you which variant you want to choose and it will select the default non-TypeScript variant by default.
 
-Finally, you can keep following the instructions in the [Getting Started Guide](https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/iapi-quick-start-guide/) as the rest of the instructions remain the same.
+Finally, you can keep following the instructions in the [Getting Started Guide](https://developer.finpress.org/block-editor/reference-guides/interactivity-api/iapi-quick-start-guide/) as the rest of the instructions remain the same.
 
 ## Typing the store
 
@@ -493,7 +493,7 @@ There's something to keep in mind when using asynchronous actions. Just like wit
 In such cases, TypeScript might issue a warning about a circular reference or default to `any`. To solve this, you need to manually type the generator function. The Interactivity API provides a helper type, `AsyncAction<ReturnType>`, for this purpose.
 
     ```ts
-    import { store, type AsyncAction } from '@wordpress/interactivity';
+    import { store, type AsyncAction } from '@finpress/interactivity';
 
     const { state, actions } = store( 'myCounterPlugin', {
     	state: {
@@ -522,7 +522,7 @@ If you need to ensure the correct type for a value that a `yield` expression res
 Suppose `fetchCounterData` returns a promise that resolves to an object:
 
     ```ts
-    import { store, type AsyncAction, type TypeYield } from '@wordpress/interactivity';
+    import { store, type AsyncAction, type TypeYield } from '@finpress/interactivity';
 
     // Assume this function is defined elsewhere and fetches specific data.
     const fetchCounterData = async ( counterValue: number ): Promise< { current: number, next: number } > => {
@@ -746,7 +746,7 @@ export const { state, actions } = store< TodoList >( 'myTodoPlugin', {
 Now, the `add-post-to-todo` block can import the typed store from the `myTodoPlugin` script module, and it not only ensures that the store will be loaded, but that it also contains the correct types.
 
 ```ts
-import { store } from '@wordpress/interactivity';
+import { store } from '@finpress/interactivity';
 import {
 	state as todoState,
 	actions as todoActions,
@@ -769,7 +769,7 @@ Remember that you will need to declare the `my-todo-plugin-module` script module
 If the other store is optional and you don't want to load it eagerly, a dynamic import can be used instead of a static import.
 
 ```ts
-import { store } from '@wordpress/interactivity';
+import { store } from '@finpress/interactivity';
 
 store( 'myAddPostToTodoPlugin', {
 	actions: {

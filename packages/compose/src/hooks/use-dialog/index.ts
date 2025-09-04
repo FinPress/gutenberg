@@ -4,10 +4,10 @@
 import type { RefCallback, SyntheticEvent } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useEffect, useCallback } from '@wordpress/element';
-import { ESCAPE } from '@wordpress/keycodes';
+import { useRef, useEffect, useCallback } from '@finpress/element';
+import { ESCAPE } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

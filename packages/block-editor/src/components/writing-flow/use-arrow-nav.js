@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	computeCaretRect,
@@ -9,10 +9,10 @@ import {
 	placeCaretAtHorizontalEdge,
 	placeCaretAtVerticalEdge,
 	isRTL,
-} from '@wordpress/dom';
-import { UP, DOWN, LEFT, RIGHT } from '@wordpress/keycodes';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useRefEffect } from '@wordpress/compose';
+} from '@finpress/dom';
+import { UP, DOWN, LEFT, RIGHT } from '@finpress/keycodes';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useRefEffect } from '@finpress/compose';
 
 /**
  * Internal dependencies

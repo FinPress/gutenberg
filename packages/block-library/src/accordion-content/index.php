@@ -3,7 +3,7 @@
 /**
  * Server-side rendering of the `core/accordion-content` block.
  *
- * @package WordPress
+ * @package FinPress
  * @since 6.6.0
  *
  * @param array $attributes The block attributes.

@@ -4,9 +4,9 @@
 import { act, render, fireEvent, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useLayoutEffect, useState, useReducer } from '@wordpress/element';
+import { useLayoutEffect, useState, useReducer } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ function counterStore( initialCount = 0, step = 1 ) {
 	};
 }
 
-/* eslint-disable @wordpress/wp-global-usage */
+/* eslint-disable @finpress/wp-global-usage */
 describe( 'useSelect', () => {
 	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
 	let registry;
@@ -997,7 +997,7 @@ describe( 'useSelect', () => {
 			expect( TestComponent ).toHaveBeenCalledTimes( 2 );
 		} );
 
-		// Tests render queue fixes done in https://github.com/WordPress/gutenberg/pull/19286
+		// Tests render queue fixes done in https://github.com/FinPress/gutenberg/pull/19286
 		it( 'catches updates while switching from async to sync', () => {
 			const selectSpy = jest.fn( ( select ) =>
 				select( 'counter' ).get()
@@ -1269,4 +1269,4 @@ describe( 'useSelect', () => {
 		} );
 	} );
 } );
-/* eslint-enable @wordpress/wp-global-usage */
+/* eslint-enable @finpress/wp-global-usage */

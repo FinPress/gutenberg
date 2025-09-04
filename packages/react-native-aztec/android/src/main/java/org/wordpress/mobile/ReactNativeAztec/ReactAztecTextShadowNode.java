@@ -1,4 +1,4 @@
-package org.wordpress.mobile.ReactNativeAztec;
+package org.finpress.mobile.ReactNativeAztec;
 
 import android.widget.EditText;
 

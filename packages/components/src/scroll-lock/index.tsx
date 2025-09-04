@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from '@finpress/element';
 
 /*
  * Setting `overflow: hidden` on html and body elements resets body scroll in iOS.
@@ -40,8 +40,8 @@ let lockCounter = 0;
  * is present, the lock is applied.
  *
  * ```jsx
- * import { ScrollLock, Button } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { ScrollLock, Button } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyScrollLock = () => {
  *   const [ isScrollLocked, setIsScrollLocked ] = useState( false );

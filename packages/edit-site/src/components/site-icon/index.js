@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { Icon } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { wordpress } from '@wordpress/icons';
-import { store as coreDataStore } from '@wordpress/core-data';
+import { useSelect } from '@finpress/data';
+import { Icon } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { finpress } from '@finpress/icons';
+import { store as coreDataStore } from '@finpress/core-data';
 
 function SiteIcon( { className } ) {
 	const { isRequestingSite, siteIconUrl } = useSelect( ( select ) => {
@@ -36,7 +36,7 @@ function SiteIcon( { className } ) {
 	) : (
 		<Icon
 			className="edit-site-site-icon__icon"
-			icon={ wordpress }
+			icon={ finpress }
 			size={ 48 }
 		/>
 	);

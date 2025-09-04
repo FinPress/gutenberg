@@ -265,7 +265,7 @@ extension Gutenberg: RCTBridgeDelegate {
             isOnCellularNetwork = path.isExpensive
             semaphore.signal()
         }
-        let monitorQueue = DispatchQueue(label: "org.wordpress.network-path-monitor")
+        let monitorQueue = DispatchQueue(label: "org.finpress.network-path-monitor")
         monitor.start(queue: monitorQueue)
         _ = semaphore.wait(timeout: .distantFuture)
         monitor.cancel()

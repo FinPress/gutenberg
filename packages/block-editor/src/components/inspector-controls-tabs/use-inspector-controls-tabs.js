@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalUseSlotFills as useSlotFills } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import { __experimentalUseSlotFills as useSlotFills } from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

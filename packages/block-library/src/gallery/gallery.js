@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { View } from '@wordpress/primitives';
+import { __ } from '@finpress/i18n';
+import { View } from '@finpress/primitives';
 
 /**
  * Internal dependencies

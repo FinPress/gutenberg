@@ -11,10 +11,10 @@ import {
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { useState } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ const mockFetchSearchSuggestions = jest.fn();
  */
 let mockFetchRichUrlData;
 
-jest.mock( '@wordpress/data/src/components/use-select', () => {
+jest.mock( '@finpress/data/src/components/use-select', () => {
 	// This allows us to tweak the returned value on each test.
 	const mock = jest.fn();
 	return mock;
@@ -47,12 +47,12 @@ useSelect.mockImplementation( () => ( {
 	fetchRichUrlData: mockFetchRichUrlData,
 } ) );
 
-jest.mock( '@wordpress/data/src/components/use-dispatch', () => ( {
+jest.mock( '@finpress/data/src/components/use-dispatch', () => ( {
 	useDispatch: () => ( { saveEntityRecords: jest.fn() } ),
 } ) );
 
-jest.mock( '@wordpress/compose', () => ( {
-	...jest.requireActual( '@wordpress/compose' ),
+jest.mock( '@finpress/compose', () => ( {
+	...jest.requireActual( '@finpress/compose' ),
 	useReducedMotion: jest.fn( () => true ),
 } ) );
 
@@ -155,7 +155,7 @@ describe( 'Basic rendering', () => {
 
 		expect( searchInput ).toBeVisible();
 		// Make sure we use the ARIA 1.0 pattern with aria-owns.
-		// See https://github.com/WordPress/gutenberg/issues/47147
+		// See https://github.com/FinPress/gutenberg/issues/47147
 		expect( searchInput ).not.toHaveAttribute( 'aria-controls' );
 		expect( searchInput ).toHaveAttribute( 'aria-owns' );
 	} );
@@ -357,8 +357,8 @@ describe( 'Basic rendering', () => {
 			// Occasionally `forceIsEditingLink` is set explicitly to `false` which causes the Link UI to render
 			// it's preview even if the `value` has no URL.
 			// for an example of this see the usage in the following file whereby forceIsEditingLink is used to start/stop editing mode:
-			// https://github.com/WordPress/gutenberg/blob/fa5728771df7cdc86369f7157d6aa763649937a7/packages/format-library/src/link/inline.js#L151.
-			// see also: https://github.com/WordPress/gutenberg/issues/17972.
+			// https://github.com/FinPress/gutenberg/blob/fa5728771df7cdc86369f7157d6aa763649937a7/packages/format-library/src/link/inline.js#L151.
+			// see also: https://github.com/FinPress/gutenberg/issues/17972.
 
 			const valueWithEmptyURL = {
 				url: '',
@@ -521,12 +521,12 @@ describe( 'Searching for a link', () => {
 	);
 
 	it.each( [
-		[ 'https://wordpress.org', 'link' ],
-		[ 'http://wordpress.org', 'link' ],
-		[ 'www.wordpress.org', 'link' ],
-		[ 'wordpress.org', 'link' ],
-		[ 'ftp://wordpress.org', 'link' ],
-		[ 'mailto:hello@wordpress.org', 'mailto' ],
+		[ 'https://finpress.org', 'link' ],
+		[ 'http://finpress.org', 'link' ],
+		[ 'www.finpress.org', 'link' ],
+		[ 'finpress.org', 'link' ],
+		[ 'ftp://finpress.org', 'link' ],
+		[ 'mailto:hello@finpress.org', 'mailto' ],
 		[ 'tel:123456789', 'tel' ],
 		[ '#internal', 'internal' ],
 	] )(
@@ -688,9 +688,9 @@ describe( 'Searching for a link', () => {
 
 describe( 'Manual link entry', () => {
 	it.each( [
-		[ 'https://make.wordpress.org' ], // Explicit https.
-		[ 'http://make.wordpress.org' ], // Explicit http.
-		[ 'www.wordpress.org' ], // Usage of "www".
+		[ 'https://make.finpress.org' ], // Explicit https.
+		[ 'http://make.finpress.org' ], // Explicit http.
+		[ 'www.finpress.org' ], // Usage of "www".
 	] )(
 		'should display a single suggestion result when the current input value is URL-like (eg: %s)',
 		async ( searchTerm ) => {
@@ -926,8 +926,8 @@ describe( 'Manual link entry', () => {
 
 	describe( 'Alternative link protocols and formats', () => {
 		it.each( [
-			[ 'mailto:example123456@wordpress.org', 'mailto' ],
-			[ 'tel:example123456@wordpress.org', 'tel' ],
+			[ 'mailto:example123456@finpress.org', 'mailto' ],
+			[ 'tel:example123456@finpress.org', 'tel' ],
 			[ '#internal-anchor', 'internal' ],
 		] )(
 			'should recognise "%s" as a %s link and handle as manual entry by displaying a single suggestion',
@@ -989,7 +989,7 @@ describe( 'Link submission', () => {
 		expect( searchInput ).toBeVisible();
 		expect( submitButton ).toBeVisible();
 
-		await user.type( searchInput, 'https://wordpress.org' );
+		await user.type( searchInput, 'https://finpress.org' );
 
 		expect( submitButton ).toHaveAttribute( 'aria-disabled', 'false' );
 	} );
@@ -1442,10 +1442,10 @@ describe( 'Creating Entities (eg: Posts, Pages)', () => {
 		} );
 
 		it.each( [
-			'https://wordpress.org',
-			'www.wordpress.org',
-			'mailto:example123456@wordpress.org',
-			'tel:example123456@wordpress.org',
+			'https://finpress.org',
+			'www.finpress.org',
+			'mailto:example123456@finpress.org',
+			'tel:example123456@finpress.org',
 			'#internal-anchor',
 		] )(
 			'should not show option to "Create Page" when text is a form of direct entry (eg: %s)',
@@ -1603,11 +1603,11 @@ describe( 'Selecting links', () => {
 			[ 'entity', 'hello world', fauxEntitySuggestions[ 0 ] ], // Entity search.
 			[
 				'url',
-				'https://www.wordpress.org',
+				'https://www.finpress.org',
 				{
 					id: '1',
-					title: 'https://www.wordpress.org',
-					url: 'https://www.wordpress.org',
+					title: 'https://www.finpress.org',
+					url: 'https://www.finpress.org',
 					type: 'URL',
 				},
 			], // Url.
@@ -1665,11 +1665,11 @@ describe( 'Selecting links', () => {
 			[ 'entity', 'hello world', fauxEntitySuggestions[ 0 ] ], // Entity search.
 			[
 				'url',
-				'https://www.wordpress.org',
+				'https://www.finpress.org',
 				{
 					id: '1',
-					title: 'https://www.wordpress.org',
-					url: 'https://www.wordpress.org',
+					title: 'https://www.finpress.org',
+					url: 'https://www.finpress.org',
 					type: 'URL',
 				},
 			], // Url.
@@ -2120,8 +2120,8 @@ describe( 'Post types', () => {
 describe( 'Rich link previews', () => {
 	const selectedLink = {
 		id: '1',
-		title: 'WordPress.org', // Customize this for differentiation in assertions.
-		url: 'https://www.wordpress.org',
+		title: 'FinPress.org', // Customize this for differentiation in assertions.
+		url: 'https://www.finpress.org',
 		type: 'URL',
 	};
 
@@ -2138,7 +2138,7 @@ describe( 'Rich link previews', () => {
 	it( 'should not fetch or display rich previews by default', async () => {
 		mockFetchRichUrlData.mockImplementation( () =>
 			Promise.resolve( {
-				title: 'Blog Tool, Publishing Platform, and CMS \u2014 WordPress.org',
+				title: 'Blog Tool, Publishing Platform, and CMS \u2014 FinPress.org',
 				icon: 'https://s.w.org/favicon.ico?2',
 				description:
 					'Open source software which you can use to easily create a beautiful website, blog, or app.',
@@ -2161,7 +2161,7 @@ describe( 'Rich link previews', () => {
 	it( 'should display a rich preview when data is available', async () => {
 		mockFetchRichUrlData.mockImplementation( () =>
 			Promise.resolve( {
-				title: 'Blog Tool, Publishing Platform, and CMS \u2014 WordPress.org',
+				title: 'Blog Tool, Publishing Platform, and CMS \u2014 FinPress.org',
 				icon: 'https://s.w.org/favicon.ico?2',
 				description:
 					'Open source software which you can use to easily create a beautiful website, blog, or app.',
@@ -2241,7 +2241,7 @@ describe( 'Rich link previews', () => {
 	it( 'should display a fallback when icon is missing from rich data', async () => {
 		mockFetchRichUrlData.mockImplementation( () =>
 			Promise.resolve( {
-				title: 'Blog Tool, Publishing Platform, and CMS \u2014 WordPress.org',
+				title: 'Blog Tool, Publishing Platform, and CMS \u2014 FinPress.org',
 				description:
 					'Open source software which you can use to easily create a beautiful website, blog, or app.',
 				image: 'https://s.w.org/images/home/screen-themes.png?3',
@@ -2275,7 +2275,7 @@ describe( 'Rich link previews', () => {
 		async ( dataItem ) => {
 			mockFetchRichUrlData.mockImplementation( () => {
 				const data = {
-					title: 'Blog Tool, Publishing Platform, and CMS \u2014 WordPress.org',
+					title: 'Blog Tool, Publishing Platform, and CMS \u2014 FinPress.org',
 					icon: 'https://s.w.org/favicon.ico?2',
 					description:
 						'Open source software which you can use to easily create a beautiful website, blog, or app.',

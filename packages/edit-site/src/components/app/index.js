@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { useCallback, useMemo } from '@wordpress/element';
-import { store as coreStore } from '@wordpress/core-data';
+import { useSelect } from '@finpress/data';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { useCallback, useMemo } from '@finpress/element';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

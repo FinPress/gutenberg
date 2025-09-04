@@ -25,7 +25,7 @@ module.exports = async function getCacheDirectory() {
 	 * support hidden directories. Therefore we use a public directory when
 	 * snap packages exist.
 	 *
-	 * @see https://github.com/WordPress/gutenberg/issues/20180#issuecomment-587046325
+	 * @see https://github.com/FinPress/gutenberg/issues/20180#issuecomment-587046325
 	 */
 	let usesSnap;
 	try {

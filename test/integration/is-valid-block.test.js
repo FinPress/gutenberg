@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createElement } from '@wordpress/element';
+import { createElement } from '@finpress/element';
 import {
 	getBlockTypes,
 	registerBlockType,
 	unregisterBlockType,
 	validateBlock,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 describe( 'validateBlock', () => {
 	beforeAll( () => {

@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
+import { createBlock } from '@finpress/blocks';
 import {
 	addSubmenu,
 	chevronUp,
 	chevronDown,
 	moreVertical,
-} from '@wordpress/icons';
-import { DropdownMenu, MenuItem, MenuGroup } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
-import { BlockTitle, store as blockEditorStore } from '@wordpress/block-editor';
+} from '@finpress/icons';
+import { DropdownMenu, MenuItem, MenuGroup } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { BlockTitle, store as blockEditorStore } from '@finpress/block-editor';
 
 const POPOVER_PROPS = {
 	className: 'block-editor-block-settings-menu__popover',

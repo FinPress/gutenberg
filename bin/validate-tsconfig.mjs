@@ -58,9 +58,9 @@ for ( const packageName of packagesWithTypes ) {
 	}
 	if ( packageJson.dependencies ) {
 		for ( const dependency of Object.keys( packageJson.dependencies ) ) {
-			if ( dependency.startsWith( '@wordpress/' ) ) {
+			if ( dependency.startsWith( '@finpress/' ) ) {
 				const dependencyPackageName = dependency.slice(
-					'@wordpress/'.length
+					'@finpress/'.length
 				);
 				if (
 					packagesWithTypes.includes( dependencyPackageName ) &&

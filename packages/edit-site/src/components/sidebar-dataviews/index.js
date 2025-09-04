@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalItemGroup as ItemGroup } from '@wordpress/components';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { __experimentalItemGroup as ItemGroup } from '@finpress/components';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

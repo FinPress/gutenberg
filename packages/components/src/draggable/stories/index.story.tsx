@@ -5,11 +5,11 @@ import type { Meta, StoryFn } from '@storybook/react';
 import type { DragEvent } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { useState } from '@wordpress/element';
-import { Icon, more } from '@wordpress/icons';
+import { useInstanceId } from '@finpress/compose';
+import { useState } from '@finpress/element';
+import { Icon, more } from '@finpress/icons';
 
 /**
  * Internal dependencies

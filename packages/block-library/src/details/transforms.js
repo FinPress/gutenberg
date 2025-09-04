@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock, cloneBlock } from '@wordpress/blocks';
+import { createBlock, cloneBlock } from '@finpress/blocks';
 
 export default {
 	from: [

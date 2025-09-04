@@ -62,14 +62,14 @@ The `value` property is handled in a manner similar to controlled form component
 -   `__experimentalValidateInput` - If passed, all introduced values will be validated before being added as tokens.
 -   `__experimentalAutoSelectFirstMatch` - If true, the select the first matching suggestion when the user presses the Enter key (or space when tokenizeOnSpace is true).
 -   `__next40pxDefaultSize` - Start opting into the larger default height that will become the default size in a future version.
--   `__nextHasNoMarginBottom` - Start opting into the new margin-free styles that will become the default in a future version, currently scheduled to be WordPress 7.0. (The prop can be safely removed once this happens.)
+-   `__nextHasNoMarginBottom` - Start opting into the new margin-free styles that will become the default in a future version, currently scheduled to be FinPress 7.0. (The prop can be safely removed once this happens.)
 -   `tokenizeOnBlur` - If true, add any incompleteTokenValue as a new token when the field loses focus.
 
 ## Usage
 
 ```jsx
 import { useState } from 'react';
-import { FormTokenField } from '@wordpress/components';
+import { FormTokenField } from '@finpress/components';
 
 const continents = [
 	'Africa',

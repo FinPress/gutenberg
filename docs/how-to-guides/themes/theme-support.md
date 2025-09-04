@@ -60,7 +60,7 @@ The block editor allows themes to opt in to slightly more opinionated styles for
 add_theme_support( 'wp-block-styles' );
 ```
 
-You can see the CSS that will be included in the [block library theme file](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/theme.scss).
+You can see the CSS that will be included in the [block library theme file](https://github.com/FinPress/gutenberg/blob/trunk/packages/block-library/src/theme.scss).
 
 For block themes or themes providing a `theme.json` file, it is not recommended to use this theme support. Instead, to ensure there is no styling conflict between global styles rules and block styles, add the desired block styles to the theme's `theme.json` file.
 
@@ -72,7 +72,7 @@ Some blocks such as the image block have the possibility to define a "wide" or "
 add_theme_support( 'align-wide' );
 ```
 
-For more information about this function, see [the developer docs on `add_theme_support()`](https://developer.wordpress.org/reference/functions/add_theme_support/).
+For more information about this function, see [the developer docs on `add_theme_support()`](https://developer.finpress.org/reference/functions/add_theme_support/).
 
 ### Wide Alignments and Floats
 
@@ -153,7 +153,7 @@ Themes are responsible for creating the classes that apply the colors in differe
 }
 ```
 
-Starting in WordPress 5.9, to override color values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--color--<slug>`. See more info in [this devnote](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
+Starting in FinPress 5.9, to override color values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--color--<slug>`. See more info in [this devnote](https://make.finpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
 
 ```css
 :root {
@@ -213,7 +213,7 @@ Themes are responsible for creating the classes that apply the gradients. So to 
 }
 ```
 
-Starting in WordPress 5.9, to override gradient values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--gradient--<slug>`. See more info in [this devnote](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
+Starting in FinPress 5.9, to override gradient values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--gradient--<slug>`. See more info in [this devnote](https://make.finpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
 
 ```css
 :root {
@@ -268,7 +268,7 @@ As an example for the regular font size, a theme may provide the following class
 <strong>Note:</strong> The slugs `default` and `custom` are reserved and cannot be used by themes.
 </div>
 
-Starting in WordPress 5.9, to override font size values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--font-size--<slug>`. See more info in [this devnote](https://make.wordpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
+Starting in FinPress 5.9, to override font size values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--font-size--<slug>`. See more info in [this devnote](https://make.finpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
 
 ```css
 :root {
@@ -311,7 +311,7 @@ When set, users will be restricted to the default gradients provided in the bloc
 
 ### Disabling base layout styles
 
-_**Note:** Since WordPress 6.1._
+_**Note:** Since FinPress 6.1._
 
 Themes can opt out of generated block layout styles that provide default structural styles for core blocks including Group, Columns, Buttons, and Social Icons. By using the following code, these themes commit to providing their own structural styling, as using this feature will result in core blocks displaying incorrectly in both the editor and site frontend:
 
@@ -345,7 +345,7 @@ add_theme_support( 'custom-units', 'rem', 'em' );
 
 ### Disabling the default block patterns.
 
-WordPress comes with a number of block patterns built-in, themes can opt-out of the bundled patterns and provide their own set using the following code:
+FinPress comes with a number of block patterns built-in, themes can opt-out of the bundled patterns and provide their own set using the following code:
 
 ```php
 remove_theme_support( 'core-block-patterns' );
@@ -353,7 +353,7 @@ remove_theme_support( 'core-block-patterns' );
 
 ## Editor styles
 
-The block editor supports the theme's [editor styles](https://codex.wordpress.org/Editor_Style), however it works a little differently than in the classic editor.
+The block editor supports the theme's [editor styles](https://codex.finpress.org/Editor_Style), however it works a little differently than in the classic editor.
 
 In the classic editor, the editor stylesheet is loaded directly into the iframe of the WYSIWYG editor, with no changes. The block editor, however, doesn't use iframes. To make sure your styles are applied only to the content of the editor, we automatically transform your editor styles by selectively rewriting or adjusting certain CSS selectors. This also allows the block editor to leverage your editor style in block variation previews.
 
@@ -438,7 +438,7 @@ add_theme_support( 'custom-spacing' );
 
 ## Link color control
 
-Link support has been made stable as part of WordPress 5.8. It's `false` by default and themes can enable it via the [theme.json file](/docs/how-to-guides/curating-the-editor-experience/theme-json.md):
+Link support has been made stable as part of FinPress 5.8. It's `false` by default and themes can enable it via the [theme.json file](/docs/how-to-guides/curating-the-editor-experience/theme-json.md):
 
 ```json
 {
@@ -450,7 +450,7 @@ Link support has been made stable as part of WordPress 5.8. It's `false` by defa
 }
 ```
 
-> Alternatively, with the Gutenberg plugin active, the old legacy support `add_theme_support( 'experimental-link-color' )` would also work. This fallback would be removed when the Gutenberg plugin requires WordPress 5.9 as the minimum version.
+> Alternatively, with the Gutenberg plugin active, the old legacy support `add_theme_support( 'experimental-link-color' )` would also work. This fallback would be removed when the Gutenberg plugin requires FinPress 5.9 as the minimum version.
 
 When the user sets the link color of a block, a new style will be added in the form of:
 
@@ -510,4 +510,4 @@ This feature is only relevant for non block based themes, as block based themes 
 
 The standalone template part editor does not allow editors to create new, or delete existing template parts. This is because the theme manually needs to include the template part in the PHP template.
 
-You can find out more about block based template parts in the [themes handbook block template and template parts section](https://developer.wordpress.org/themes/block-themes/templates-and-template-parts/#block-c5fa39a2-a27d-4bd2-98d0-dc6249a0801a).
+You can find out more about block based template parts in the [themes handbook block template and template parts section](https://developer.finpress.org/themes/block-themes/templates-and-template-parts/#block-c5fa39a2-a27d-4bd2-98d0-dc6249a0801a).

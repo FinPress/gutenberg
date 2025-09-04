@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useContext } from '@wordpress/element';
-import { hasBlockSupport } from '@wordpress/blocks';
+import { useMemo, useContext } from '@finpress/element';
+import { hasBlockSupport } from '@finpress/blocks';
 
 /**
  * Internal dependencies

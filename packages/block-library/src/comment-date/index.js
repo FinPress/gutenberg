@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { postDate as icon } from '@wordpress/icons';
+import { postDate as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

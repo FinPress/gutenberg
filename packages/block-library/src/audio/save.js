@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
 	useBlockProps,
 	__experimentalGetElementClassName,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 export default function save( { attributes } ) {
 	const { autoplay, caption, loop, preload, src } = attributes;

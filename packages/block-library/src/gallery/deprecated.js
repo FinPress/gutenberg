@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
 	useBlockProps,
 	useInnerBlocksProps,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
-import { createBlock } from '@wordpress/blocks';
+import { createBlock } from '@finpress/blocks';
 
 /**
  * Internal dependencies
@@ -51,7 +51,7 @@ export function defaultColumnsNumberV1( attributes ) {
  */
 export function getHrefAndDestination( image, destination ) {
 	// Need to determine the URL that the selected destination maps to.
-	// Gutenberg and WordPress use different constants so the new link
+	// Gutenberg and FinPress use different constants so the new link
 	// destination also needs to be tweaked.
 	switch ( destination ) {
 		case DEPRECATED_LINK_DESTINATION_MEDIA:

@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { MenuItem } from '@wordpress/components';
-import apiFetch from '@wordpress/api-fetch';
-import { download } from '@wordpress/icons';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { downloadBlob } from '@wordpress/blob';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as noticesStore } from '@wordpress/notices';
+import { __, _x } from '@finpress/i18n';
+import { MenuItem } from '@finpress/components';
+import apiFetch from '@finpress/api-fetch';
+import { download } from '@finpress/icons';
+import { useDispatch, useSelect } from '@finpress/data';
+import { downloadBlob } from '@finpress/blob';
+import { store as coreStore } from '@finpress/core-data';
+import { store as noticesStore } from '@finpress/notices';
 
 export default function SiteExport() {
 	const canExport = useSelect( ( select ) => {

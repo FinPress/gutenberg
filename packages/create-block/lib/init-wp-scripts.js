@@ -11,9 +11,9 @@ const { info } = require( './log' );
 module.exports = async ( { rootDirectory } ) => {
 	info( '' );
 	info(
-		'Installing `@wordpress/scripts` package. It might take a couple of minutes...'
+		'Installing `@finpress/scripts` package. It might take a couple of minutes...'
 	);
-	await command( 'npm install @wordpress/scripts --save-dev', {
+	await command( 'npm install @finpress/scripts --save-dev', {
 		cwd: rootDirectory,
 	} );
 

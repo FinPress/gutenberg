@@ -9,9 +9,9 @@ const { v4: uuid } = require( 'uuid' );
 /** @typedef {import('@playwright/test').Page} Page */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	coverBlockUtils: async ( { page }, use ) => {

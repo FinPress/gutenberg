@@ -1,24 +1,24 @@
 {
-	"name": "@wordpress/jest-preset-default",
+	"name": "@finpress/jest-preset-default",
 	"version": "12.29.0",
-	"description": "Default Jest preset for WordPress development.",
-	"author": "The WordPress Contributors",
+	"description": "Default Jest preset for FinPress development.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"jest",
 		"preset",
 		"react"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/jest-preset-default/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/jest-preset-default/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/jest-preset-default"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -31,7 +31,7 @@
 	],
 	"main": "index.js",
 	"dependencies": {
-		"@wordpress/jest-console": "file:../jest-console",
+		"@finpress/jest-console": "file:../jest-console",
 		"babel-jest": "29.7.0"
 	},
 	"peerDependencies": {

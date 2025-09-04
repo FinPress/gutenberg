@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, Children } from '@wordpress/element';
-import { useKeyboardShortcut } from '@wordpress/compose';
+import { useRef, Children } from '@finpress/element';
+import { useKeyboardShortcut } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -33,8 +33,8 @@ function KeyboardShortcut( {
  * It uses the [Mousetrap](https://craig.is/killing/mice) library to implement keyboard sequence bindings.
  *
  * ```jsx
- * import { KeyboardShortcuts } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { KeyboardShortcuts } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyKeyboardShortcuts = () => {
  * 	const [ isAllSelected, setIsAllSelected ] = useState( false );

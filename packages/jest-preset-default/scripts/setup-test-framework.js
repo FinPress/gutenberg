@@ -1,1 +1,1 @@
-require( '@wordpress/jest-console' );
+require( '@finpress/jest-console' );

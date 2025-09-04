@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	toolbarUtils: async ( { page, pageUtils }, use ) => {
@@ -43,7 +43,7 @@ test.describe( 'Focus toolbar shortcut (alt + F10)', () => {
 			'Focus to block toolbar when block toolbar is visible'
 		);
 		// We need to force the toolbar to show. Otherwise, the bug from
-		// https://github.com/WordPress/gutenberg/pull/49644 won't surface in the e2e tests.
+		// https://github.com/FinPress/gutenberg/pull/49644 won't surface in the e2e tests.
 		await editor.showBlockToolbar();
 		await toolbarUtils.moveToToolbarShortcut();
 		await expect( toolbarUtils.blockToolbarParagraphButton ).toBeFocused();

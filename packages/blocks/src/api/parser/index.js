@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { parse as grammarParse } from '@wordpress/block-serialization-default-parser';
-import { autop } from '@wordpress/autop';
+import { parse as grammarParse } from '@finpress/block-serialization-default-parser';
+import { autop } from '@finpress/autop';
 
 /**
  * Internal dependencies
@@ -225,7 +225,7 @@ export function parseRawBlock( rawBlock, options ) {
 	// Parse inner blocks recursively.
 	const parsedInnerBlocks = normalizedBlock.innerBlocks
 		.map( ( innerBlock ) => parseRawBlock( innerBlock, options ) )
-		// See https://github.com/WordPress/gutenberg/pull/17164.
+		// See https://github.com/FinPress/gutenberg/pull/17164.
 		.filter( ( innerBlock ) => !! innerBlock );
 
 	// Get the fully parsed block.
@@ -300,7 +300,7 @@ export function parseRawBlock( rawBlock, options ) {
  * content within the blocks.
  *
  * @see
- * https://developer.wordpress.org/block-editor/packages/packages-block-serialization-default-parser/
+ * https://developer.finpress.org/block-editor/packages/packages-block-serialization-default-parser/
  *
  * @param {string}       content The post content.
  * @param {ParseOptions} options Extra options for handling block parsing.

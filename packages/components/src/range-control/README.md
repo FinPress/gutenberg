@@ -2,7 +2,7 @@
 
 RangeControls are used to make selections from a range of incremental values.
 
-![A RangeControl for volume](https://make.wordpress.org/design/files/2018/12/rangecontrol.png)
+![A RangeControl for volume](https://make.finpress.org/design/files/2018/12/rangecontrol.png)
 
 ## Design guidelines
 
@@ -48,7 +48,7 @@ RangeControls can have icons on both ends of the track that reflect a range of v
 
 Changes made with RangeControls are immediate, allowing a user to make adjustments until finding their preference. They shouldn’t be paired with settings that have delays in providing feedback.
 
-![A RangeControl that requires a save action](https://make.wordpress.org/design/files/2018/12/rangecontrol-save-action.png)
+![A RangeControl that requires a save action](https://make.finpress.org/design/files/2018/12/rangecontrol-save-action.png)
 
 **Don’t**
 Don’t use RangeControls if the effect isn’t immediate.
@@ -59,18 +59,18 @@ RangeControls reflect the current state of the settings they control.
 
 #### Values
 
-![](https://make.wordpress.org/design/files/2018/12/rangecontrol-field.png)
+![](https://make.finpress.org/design/files/2018/12/rangecontrol-field.png)
 
 A RangeControl with an editable numeric value
 
 **Editable numeric values**: Editable numeric values allow users to set the exact value of a RangeControl. After setting a value, the thumb position is immediately updated to match the new value.
 
-![A RangeControl with only two values](https://make.wordpress.org/design/files/2018/12/rangecontrol-2-values.png)
+![A RangeControl with only two values](https://make.finpress.org/design/files/2018/12/rangecontrol-2-values.png)
 
 **Don’t**
 RangeControls should only be used for choosing selections from a range of values (e.g., don’t use a RangeControl if there are only 2 values).
 
-![](https://make.wordpress.org/design/files/2018/12/rangecontrol-disabled.png)
+![](https://make.finpress.org/design/files/2018/12/rangecontrol-disabled.png)
 
 **Don’t**
 RangeControls should provide the full range of choices available for the user to select from (e.g., don’t disable only part of a RangeControl).
@@ -83,7 +83,7 @@ Render a RangeControl to make a selection from a range of incremental values.
 
 ```jsx
 import { useState } from 'react';
-import { RangeControl } from '@wordpress/components';
+import { RangeControl } from '@finpress/components';
 
 const MyRangeControl = () => {
 	const [ columns, setColumns ] = useState( 2 );

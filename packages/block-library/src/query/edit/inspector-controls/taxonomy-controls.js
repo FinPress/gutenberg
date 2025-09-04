@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	FormTokenField,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { useState, useEffect } from '@wordpress/element';
-import { useDebounce } from '@wordpress/compose';
-import { decodeEntities } from '@wordpress/html-entities';
+} from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useState, useEffect } from '@finpress/element';
+import { useDebounce } from '@finpress/compose';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies

@@ -11,7 +11,7 @@ You can customize the block editor by providing a `settings` prop to the `BlockE
 The experimental features setting is an object that allows you to enable/disable common block editor features. For instance, the following settings enables support for text, background colors and allow users to pick a custom color or one of the defined theme palette colors. Core block types and third-party block types using the block supports feature will automatically take these settings into account.
 
 ```js
-import { BlockEditorProvider, BlockCanvas } from '@wordpress/block-editor';
+import { BlockEditorProvider, BlockCanvas } from '@finpress/block-editor';
 
 const features = {
 	color: {
@@ -139,7 +139,7 @@ const inserterMediaCategories = {
         } );
         const response = await window.fetch( url, {
             headers: {
-                'User-Agent': 'WordPress/inserter-media-fetch',
+                'User-Agent': 'FinPress/inserter-media-fetch',
             },
         } );
         const jsonResponse = await response.json();
@@ -150,7 +150,7 @@ const inserterMediaCategories = {
             // be mapped to `InserterMediaItem`'s `sourceId` prop. This can be useful if you provide
             // a report URL getter.
             // Additionally you should always clear the `id` value of your response results because
-            // it is used to identify WordPress media items.
+            // it is used to identify FinPress media items.
             sourceId: result.id,
             id: undefined,
             caption: result.caption,
@@ -158,7 +158,7 @@ const inserterMediaCategories = {
         } ) );
     },
     getReportUrl: ( { sourceId } ) =>
-        `https://wordpress.org/openverse/image/${ sourceId }/report/`,
+        `https://finpress.org/openverse/image/${ sourceId }/report/`,
     isExternalResource: true,
 }
 ```

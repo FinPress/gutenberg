@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalVStack as VStack,
 	__experimentalHStack as HStack,
-} from '@wordpress/components';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
-import { useContext } from '@wordpress/element';
+} from '@finpress/components';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

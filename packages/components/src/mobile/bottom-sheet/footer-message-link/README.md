@@ -11,8 +11,8 @@ return (
 			<>
 				{ __( 'Example footer text. ' ) }
 				<FooterMessageLink
-					href={ 'https://www.wordpress.org/' }
-					value={ __( 'Visit WordPress.org!' ) }
+					href={ 'https://www.finpress.org/' }
+					value={ __( 'Visit FinPress.org!' ) }
 				/>
 			</>
 		}

@@ -5,9 +5,9 @@ This slot will add a new item to the More Tools & Options section.
 ## Example
 
 ```js
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginMoreMenuItem } from '@wordpress/editor';
-import { image } from '@wordpress/icons';
+import { registerPlugin } from '@finpress/plugins';
+import { PluginMoreMenuItem } from '@finpress/editor';
+import { image } from '@finpress/icons';
 
 const MyButtonMoreMenuItemTest = () => (
 	<PluginMoreMenuItem
@@ -25,4 +25,4 @@ registerPlugin( 'more-menu-item-test', { render: MyButtonMoreMenuItemTest } );
 
 ## Location
 
-![Location](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/assets/plugin-more-menu-item.png?raw=true)
+![Location](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/assets/plugin-more-menu-item.png?raw=true)

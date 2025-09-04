@@ -5,9 +5,9 @@ import { Keyboard } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useMemo, useRef } from '@wordpress/element';
+import { useEffect, useMemo, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -53,7 +53,7 @@ const LinkPickerScreen = ( { returnScreenName } ) => {
 				onCancel={ onCancel }
 			/>
 		);
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ inputValue ] );
 };
 

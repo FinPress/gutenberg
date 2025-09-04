@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 const userList = [
 	{
@@ -413,7 +413,7 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 				await page.keyboard.press( 'Enter' );
 				// Autocompleter might continue matching right after insertion,
 				// Emulate typing speed to avoid that.
-				// Remove after https://github.com/WordPress/gutenberg/issues/42925 is resolved.
+				// Remove after https://github.com/FinPress/gutenberg/issues/42925 is resolved.
 				await page.keyboard.type( ' test', { delay: 100 } );
 				await page.keyboard.press( 'Enter' );
 			}
@@ -461,7 +461,7 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 		await expect.poll( editor.getEditedPostContent ).toBe( snapshot );
 	} );
 
-	// The following test concerns an infinite loop regression (https://github.com/WordPress/gutenberg/issues/41709).
+	// The following test concerns an infinite loop regression (https://github.com/FinPress/gutenberg/issues/41709).
 	// When present, the regression will cause this test to time out.
 	test( 'should insert elements from multiple completers in a single block', async ( {
 		page,

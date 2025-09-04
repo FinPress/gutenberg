@@ -4,23 +4,23 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ResizableBox, Spinner, Placeholder } from '@wordpress/components';
+import { ResizableBox, Spinner, Placeholder } from '@finpress/components';
 import {
 	BlockControls,
 	BlockIcon,
 	MediaPlaceholder,
 	MediaReplaceFlow,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { useViewportMatch } from '@wordpress/compose';
-import { useDispatch } from '@wordpress/data';
-import { forwardRef } from '@wordpress/element';
-import { isBlobURL } from '@wordpress/blob';
-import { store as noticesStore } from '@wordpress/notices';
-import { media as icon } from '@wordpress/icons';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { useViewportMatch } from '@finpress/compose';
+import { useDispatch } from '@finpress/data';
+import { forwardRef } from '@finpress/element';
+import { isBlobURL } from '@finpress/blob';
+import { store as noticesStore } from '@finpress/notices';
+import { media as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

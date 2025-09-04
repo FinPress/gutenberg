@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useBlockProps,
@@ -12,11 +12,11 @@ import {
 	getSpacingPresetCssVar,
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { ResizableBox } from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
-import { View } from '@wordpress/primitives';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { ResizableBox } from '@finpress/components';
+import { useState, useEffect } from '@finpress/element';
+import { View } from '@finpress/primitives';
+import { useSelect, useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

@@ -8,7 +8,7 @@ When using a `dropZoneElement`, it is expected that the `ref` will be attached t
 
 ```js
 import { useState } from 'react';
-import { useDropZone } from '@wordpress/compose';
+import { useDropZone } from '@finpress/compose';
 
 const WithWrapperDropZoneElement = () => {
 	const [ dropZoneElement, setDropZoneElement ] = useState( null );

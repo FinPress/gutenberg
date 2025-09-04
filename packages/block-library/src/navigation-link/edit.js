@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { createBlock } from '@finpress/blocks';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
@@ -16,9 +16,9 @@ import {
 	TextareaControl,
 	ToolbarButton,
 	ToolbarGroup,
-} from '@wordpress/components';
-import { displayShortcut, isKeyboardEvent } from '@wordpress/keycodes';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { displayShortcut, isKeyboardEvent } from '@finpress/keycodes';
+import { __ } from '@finpress/i18n';
 import {
 	BlockControls,
 	InspectorControls,
@@ -28,14 +28,14 @@ import {
 	getColorClassName,
 	useInnerBlocksProps,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { isURL, prependHTTP, safeDecodeURI } from '@wordpress/url';
-import { useState, useEffect, useRef } from '@wordpress/element';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
-import { decodeEntities } from '@wordpress/html-entities';
-import { link as linkIcon, addSubmenu } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { useMergeRefs, usePrevious } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { isURL, prependHTTP, safeDecodeURI } from '@finpress/url';
+import { useState, useEffect, useRef } from '@finpress/element';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
+import { decodeEntities } from '@finpress/html-entities';
+import { link as linkIcon, addSubmenu } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { useMergeRefs, usePrevious } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -54,7 +54,7 @@ const NESTING_BLOCK_NAMES = [
 /**
  * A React hook to determine if it's dragging within the target element.
  *
- * @typedef {import('@wordpress/element').RefObject} RefObject
+ * @typedef {import('@finpress/element').RefObject} RefObject
  *
  * @param {RefObject<HTMLElement>} elementRef The target elementRef object.
  *
@@ -341,7 +341,7 @@ export default function NavigationLinkEdit( {
 
 	// Change the `label` and `url` using inspector causes RichText to change focus.
 	// This is a workaround to keep the focus on the field when it's focused we don't render the RichText.
-	// See: https://github.com/WordPress/gutenberg/pull/61374.
+	// See: https://github.com/FinPress/gutenberg/pull/61374.
 	const [ isEditingControl, setIsEditingControl ] = useState( false );
 
 	const {
@@ -490,7 +490,7 @@ export default function NavigationLinkEdit( {
 		if ( isKeyboardEvent.primary( event, 'k' ) ) {
 			// Required to prevent the command center from opening,
 			// as it shares the CMD+K shortcut.
-			// See https://github.com/WordPress/gutenberg/pull/59845.
+			// See https://github.com/FinPress/gutenberg/pull/59845.
 			event.preventDefault();
 			// If this link is a child of a parent submenu item, the parent submenu item event will also open, closing this popover
 			event.stopPropagation();
@@ -664,7 +664,7 @@ export default function NavigationLinkEdit( {
 								// If there is no link then remove the auto-inserted block.
 								// This avoids empty blocks which can provided a poor UX.
 								if ( ! url ) {
-									// Fixes https://github.com/WordPress/gutenberg/issues/61361
+									// Fixes https://github.com/FinPress/gutenberg/issues/61361
 									// There's a chance we're closing due to the user selecting the browse all button.
 									// Only move focus if the focus is still within the popover ui. If it's not within
 									// the popover, it's because something has taken the focus from the popover, and

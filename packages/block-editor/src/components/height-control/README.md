@@ -12,7 +12,7 @@ Renders the markup for height control component, to be used in the block inspect
 
 ```jsx
 import { useState } from 'react';
-import { HeightControl } from '@wordpress/block-editor';
+import { HeightControl } from '@finpress/block-editor';
 
 const MyLineHeightControl = () => (
 	const [ value, setValue ] = useState();
@@ -47,4 +47,4 @@ A label for the height control. This is useful when using the height control for
 
 ## Related components
 
-Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.
+Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.

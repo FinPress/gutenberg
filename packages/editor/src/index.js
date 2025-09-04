@@ -12,4 +12,4 @@ export * from './dataviews/api';
 /*
  * Backward compatibility
  */
-export { transformStyles } from '@wordpress/block-editor';
+export { transformStyles } from '@finpress/block-editor';

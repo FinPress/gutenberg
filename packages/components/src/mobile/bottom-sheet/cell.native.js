@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { check } from '@wordpress/icons';
-import { Component } from '@wordpress/element';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { withPreferredColorScheme } from '@wordpress/compose';
+import { check } from '@finpress/icons';
+import { Component } from '@finpress/element';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { withPreferredColorScheme } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -191,7 +191,7 @@ class BottomSheetCell extends Component {
 		};
 
 		const separatorStyle = () => {
-			// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+			// eslint-disable-next-line @finpress/no-unused-vars-before-return
 			const defaultSeparatorStyle = this.props.getStylesFromColorScheme(
 				styles.separator,
 				styles.separatorDark

@@ -25,7 +25,7 @@ plugins {
 apply from: 'https://gist.githubusercontent.com/hypest/742448b9588b3a0aa580a5e80ae95bdf/raw/8eb62d40ee7a5104d2fcaeff21ce6f29bd93b054/readReactNativeVersion.gradle'
 apply from: '../extractPackageVersion.gradle'
 
-group='org.wordpress.gutenberg-mobile'
+group='org.finpress.gutenberg-mobile'
 
 def buildAssetsFolder = 'build/assets'
 
@@ -33,7 +33,7 @@ android {
     // IMPORTANT: Any updates to the namespace should be reflected in
     // the `package` attribute of the main `AndroidManifest.xml` file.
     // File reference: `react-native-bridge/android/react-native-bridge/src/main/AndroidManifest.xml`
-    namespace "org.wordpress.mobile.ReactNativeGutenbergBridge"
+    namespace "org.finpress.mobile.ReactNativeGutenbergBridge"
 
     compileSdkVersion 34
 
@@ -79,7 +79,7 @@ dependencies {
     // For animated GIF support
     implementation "com.facebook.fresco:animated-gif:$facebookFrescoVersion"
     implementation "com.google.android.material:material:$googleMaterialVersion"
-    implementation "org.wordpress:utils:$wordpressUtilsVersion"
+    implementation "org.finpress:utils:$wordpressUtilsVersion"
 
     testImplementation "junit:junit:$junitVersion"
 
@@ -88,13 +88,13 @@ dependencies {
     def packageJson = '../../../react-native-editor/package.json'
 
     implementation "com.facebook.react:react-android:$rnVersion"
-    implementation "com.github.wordpress-mobile:react-native-video:${extractPackageVersion(packageJson, 'react-native-video', 'dependencies')}"
-    implementation "com.github.wordpress-mobile:react-native-slider:${extractPackageVersion(packageJson, '@react-native-community/slider', 'dependencies')}"
+    implementation "com.github.finpress-mobile:react-native-video:${extractPackageVersion(packageJson, 'react-native-video', 'dependencies')}"
+    implementation "com.github.finpress-mobile:react-native-slider:${extractPackageVersion(packageJson, '@react-native-community/slider', 'dependencies')}"
 
-    // Published by `wordpress-mobile/react-native-libraries-publisher`
-    // See the documentation for this value in `build.gradle.kts` of `wordpress-mobile/react-native-libraries-publisher`
+    // Published by `finpress-mobile/react-native-libraries-publisher`
+    // See the documentation for this value in `build.gradle.kts` of `finpress-mobile/react-native-libraries-publisher`
     def reactNativeLibrariesPublisherVersion = "v6"
-    def reactNativeLibrariesGroupId = "org.wordpress.react-native-libraries.$reactNativeLibrariesPublisherVersion"
+    def reactNativeLibrariesGroupId = "org.finpress.react-native-libraries.$reactNativeLibrariesPublisherVersion"
     implementation "$reactNativeLibrariesGroupId:react-native-get-random-values:${extractPackageVersion(packageJson, 'react-native-get-random-values', 'dependencies')}"
     implementation "$reactNativeLibrariesGroupId:react-native-safe-area-context:${extractPackageVersion(packageJson, 'react-native-safe-area-context', 'dependencies')}"
     implementation "$reactNativeLibrariesGroupId:react-native-screens:${extractPackageVersion(packageJson, 'react-native-screens', 'dependencies')}"
@@ -110,7 +110,7 @@ dependencies {
     runtimeOnly "com.facebook.react:hermes-android:$rnVersion"
 
     if (willPublishReactNativeBridgeBinary) {
-        implementation "org.wordpress.gutenberg-mobile:react-native-aztec:$reactNativeAztecVersion"
+        implementation "org.finpress.gutenberg-mobile:react-native-aztec:$reactNativeAztecVersion"
    } else {
         api project(':@wordpress_react-native-aztec')
    }
@@ -122,7 +122,7 @@ project.afterEvaluate {
             ReactNativeBridgePublication(MavenPublication) {
                 artifact bundleReleaseAar
 
-                groupId 'org.wordpress.gutenberg-mobile'
+                groupId 'org.finpress.gutenberg-mobile'
                 artifactId 'react-native-gutenberg-bridge'
                 // version is set by 'publish-to-s3' plugin
 

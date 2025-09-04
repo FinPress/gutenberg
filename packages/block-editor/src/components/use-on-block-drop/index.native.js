@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { cloneBlock } from '@wordpress/blocks';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { cloneBlock } from '@finpress/blocks';
+import { useDispatch, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

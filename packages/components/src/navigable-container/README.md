@@ -63,7 +63,7 @@ import {
 	NavigableMenu,
 	TabbableContainer,
 	Button,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 function onNavigate( index, target ) {
 	console.log( `Navigates to ${ index }`, target );

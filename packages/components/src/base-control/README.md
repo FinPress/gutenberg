@@ -2,12 +2,12 @@
 
 <!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->
 
-<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-basecontrol--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
+<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-basecontrol--docs">FinPress Storybook</a> for more detailed, interactive documentation.</p>
 
 `BaseControl` is a component used to generate labels and help text for components handling user inputs.
 
 ```jsx
-import { BaseControl, useBaseControlProps } from '@wordpress/components';
+import { BaseControl, useBaseControlProps } from '@finpress/components';
 
 // Render a `BaseControl` for a textarea input
 const MyCustomTextareaControl = ({ children, ...baseProps }) => (
@@ -101,7 +101,7 @@ e.g., a button, but we want an additional visual label for that section equivale
 otherwise use if the `label` prop was passed.
 
 ```jsx
-import { BaseControl } from '@wordpress/components';
+import { BaseControl } from '@finpress/components';
 
 const MyBaseControl = () => (
 	<BaseControl

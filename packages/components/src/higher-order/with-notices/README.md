@@ -40,7 +40,7 @@ The array of notice objects to be displayed.
 ## Usage
 
 ```jsx
-import { withNotices, Button } from '@wordpress/components';
+import { withNotices, Button } from '@finpress/components';
 
 const MyComponentWithNotices = withNotices(
 	( { noticeOperations, noticeUI } ) => {

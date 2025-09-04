@@ -4,11 +4,11 @@
 import { render, screen, within } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useResizeObserver } from '@wordpress/compose';
-import { SVG, Path } from '@wordpress/primitives';
-import { speak } from '@wordpress/a11y';
+import { useResizeObserver } from '@finpress/compose';
+import { SVG, Path } from '@finpress/primitives';
+import { speak } from '@finpress/a11y';
 
 /**
  * Internal dependencies
@@ -17,9 +17,9 @@ import BasePlaceholder from '../';
 import type { WordPressComponentProps } from '../../context';
 import type { PlaceholderProps } from '../types';
 
-jest.mock( '@wordpress/compose', () => {
+jest.mock( '@finpress/compose', () => {
 	return {
-		...jest.requireActual( '@wordpress/compose' ),
+		...jest.requireActual( '@finpress/compose' ),
 		useResizeObserver: jest.fn( () => [] ),
 	};
 } );
@@ -42,7 +42,7 @@ const Placeholder = (
 
 const getPlaceholder = () => screen.getByTestId( 'placeholder' );
 
-jest.mock( '@wordpress/a11y', () => ( { speak: jest.fn() } ) );
+jest.mock( '@finpress/a11y', () => ( { speak: jest.fn() } ) );
 const mockedSpeak = jest.mocked( speak );
 
 describe( 'Placeholder', () => {
@@ -102,7 +102,7 @@ describe( 'Placeholder', () => {
 		} );
 
 		it( 'should render a label section', () => {
-			const label = 'WordPress';
+			const label = 'FinPress';
 			render( <Placeholder label={ label } /> );
 			const placeholderLabel = screen.getByText( label );
 

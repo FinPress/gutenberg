@@ -2,9 +2,9 @@
 
 `PreferencesModal` renders a modal with editor preferences. It can take a `PreferencesModalTabs` component, which accepts multiple tabs, and/or other child components. On small viewports, the modal is fullscreen.
 
-This component implements a `Modal` component from the `@wordpress/components` package.
+This component implements a `Modal` component from the `@finpress/components` package.
 
-Sections passed to this component should use `PreferencesModalSection` component from the `@wordpress/preferences` package.
+Sections passed to this component should use `PreferencesModalSection` component from the `@finpress/preferences` package.
 
 
 ## Example

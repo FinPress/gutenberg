@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import { generateThemeVariables } from './color-algorithms';
 import { useCx } from '../utils';
 
 /**
- * `Theme` allows defining theme variables for components in the `@wordpress/components` package.
+ * `Theme` allows defining theme variables for components in the `@finpress/components` package.
  *
  * Multiple `Theme` components can be nested in order to override specific theme variables.
  *

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
+import { useState, useEffect } from '@finpress/element';
 import {
 	subscribePreferredColorScheme,
 	isInitialColorSchemeDark,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 /**
  * Returns the color scheme value when it changes. Possible values: [ 'light', 'dark' ]

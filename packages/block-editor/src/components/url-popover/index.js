@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { forwardRef, useState } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { forwardRef, useState } from '@finpress/element';
 import {
 	Button,
 	Popover,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { chevronDown } from '@wordpress/icons';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/components';
+import { chevronDown } from '@finpress/icons';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -116,6 +116,6 @@ URLPopover.LinkEditor = LinkEditor;
 URLPopover.LinkViewer = LinkViewer;
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/url-popover/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/url-popover/README.md
  */
 export default URLPopover;

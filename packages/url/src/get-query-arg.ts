@@ -17,7 +17,7 @@ export type QueryArgParsed = string | string[] | QueryArgObject;
  *
  * @example
  * ```js
- * const foo = getQueryArg( 'https://wordpress.org?foo=bar&bar=baz', 'foo' ); // bar
+ * const foo = getQueryArg( 'https://finpress.org?foo=bar&bar=baz', 'foo' ); // bar
  * ```
  *
  * @return Query arg value.

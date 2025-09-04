@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getProtocol, isValidProtocol, isValidFragment } from '@wordpress/url';
+import { getProtocol, isValidProtocol, isValidFragment } from '@finpress/url';
 
 /**
  * Determines whether a given value could be a URL. Note this does not

@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
 
 export function useArchiveLabel() {
 	const templateSlug = useSelect( ( select ) => {
-		// @wordpress/block-library should not depend on @wordpress/editor.
+		// @finpress/block-library should not depend on @finpress/editor.
 		// Blocks can be loaded into a *non-post* block editor, so to avoid
-		// declaring @wordpress/editor as a dependency, we must access its
+		// declaring @finpress/editor as a dependency, we must access its
 		// store by string.
 		// The solution here is to split WP specific blocks from generic blocks.
-		// eslint-disable-next-line @wordpress/data-no-store-string-literals
+		// eslint-disable-next-line @finpress/data-no-store-string-literals
 		const { getCurrentPostId, getCurrentPostType, getCurrentTemplateId } =
 			select( 'core/editor' );
 		const currentPostType = getCurrentPostType();

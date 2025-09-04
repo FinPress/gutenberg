@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useEffect, useMemo, useRef } from '@wordpress/element';
-import { Placeholder, Spinner } from '@wordpress/components';
-import { compose, useResizeObserver } from '@wordpress/compose';
+import { useEntityProp, store as coreStore } from '@finpress/core-data';
+import { useEffect, useMemo, useRef } from '@finpress/element';
+import { Placeholder, Spinner } from '@finpress/components';
+import { compose, useResizeObserver } from '@finpress/compose';
 import {
 	withColors,
 	ColorPalette,
@@ -19,11 +19,11 @@ import {
 	__experimentalUseGradient,
 	store as blockEditorStore,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { isBlobURL } from '@wordpress/blob';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { isBlobURL } from '@finpress/blob';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies
@@ -383,7 +383,7 @@ function CoverEdit( {
 		},
 		{
 			// Avoid template sync when the `templateLock` value is `all` or `contentOnly`.
-			// See: https://github.com/WordPress/gutenberg/pull/45632
+			// See: https://github.com/FinPress/gutenberg/pull/45632
 			template: ! hasInnerBlocks ? innerBlocksTemplate : undefined,
 			templateInsertUpdatesSelection: true,
 			allowedBlocks,

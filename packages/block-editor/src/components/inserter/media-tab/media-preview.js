@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Tooltip,
@@ -18,15 +18,15 @@ import {
 	Button,
 	Composite,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { useMemo, useCallback, useState } from '@wordpress/element';
-import { cloneBlock } from '@wordpress/blocks';
-import { moreVertical, external } from '@wordpress/icons';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
-import { isBlobURL } from '@wordpress/blob';
-import { getFilename } from '@wordpress/url';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useMemo, useCallback, useState } from '@finpress/element';
+import { cloneBlock } from '@finpress/blocks';
+import { moreVertical, external } from '@finpress/icons';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
+import { isBlobURL } from '@finpress/blob';
+import { getFilename } from '@finpress/url';
 
 /**
  * Internal dependencies

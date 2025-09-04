@@ -68,7 +68,7 @@ const spawnScript = ( scriptName, args = [], nodeArgs = [] ) => {
 			'Unknown script "' +
 				scriptName +
 				'". ' +
-				'Perhaps you need to update @wordpress/scripts?'
+				'Perhaps you need to update @finpress/scripts?'
 		);
 		exit( 1 );
 	}

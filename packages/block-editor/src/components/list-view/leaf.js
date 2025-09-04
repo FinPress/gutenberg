@@ -5,11 +5,11 @@ import { animated } from '@react-spring/web';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalTreeGridRow as TreeGridRow } from '@wordpress/components';
-import { useMergeRefs } from '@wordpress/compose';
-import { forwardRef } from '@wordpress/element';
+import { __experimentalTreeGridRow as TreeGridRow } from '@finpress/components';
+import { useMergeRefs } from '@finpress/compose';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies

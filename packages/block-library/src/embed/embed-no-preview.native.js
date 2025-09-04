@@ -4,19 +4,19 @@
 import { TouchableOpacity, TouchableWithoutFeedback, Text } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { View } from '@wordpress/primitives';
+import { View } from '@finpress/primitives';
 
-import { __, sprintf } from '@wordpress/i18n';
-import { useRef, useState } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { requestPreview } from '@wordpress/react-native-bridge';
-import { useSelect } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
-import { BottomSheet, Icon, TextControl } from '@wordpress/components';
-import { help } from '@wordpress/icons';
-import { BlockIcon } from '@wordpress/block-editor';
+import { __, sprintf } from '@finpress/i18n';
+import { useRef, useState } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { requestPreview } from '@finpress/react-native-bridge';
+import { useSelect } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
+import { BottomSheet, Icon, TextControl } from '@finpress/components';
+import { help } from '@finpress/icons';
+import { BlockIcon } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

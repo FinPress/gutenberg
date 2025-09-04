@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
+import { useCallback } from '@finpress/element';
 
-/** @typedef {import('@wordpress/element').RefObject} RefObject */
+/** @typedef {import('@finpress/element').RefObject} RefObject */
 /**
  * Hook to scroll to a specified element by taking into account the Keyboard
  * and the Header.

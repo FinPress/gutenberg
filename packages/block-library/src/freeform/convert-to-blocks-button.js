@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { ToolbarButton } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { rawHandler, serialize } from '@wordpress/blocks';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { ToolbarButton } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { rawHandler, serialize } from '@finpress/blocks';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 const ConvertToBlocksButton = ( { clientId } ) => {
 	const { replaceBlocks } = useDispatch( blockEditorStore );

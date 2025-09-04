@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { __, sprintf } from '@wordpress/i18n';
-import { closeSmall } from '@wordpress/icons';
+import { useInstanceId } from '@finpress/compose';
+import { __, sprintf } from '@finpress/i18n';
+import { closeSmall } from '@finpress/icons';
 
 /**
  * Internal dependencies

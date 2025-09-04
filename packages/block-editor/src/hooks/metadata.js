@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from '@finpress/hooks';
 const META_ATTRIBUTE_NAME = 'metadata';
 
 /**
  * Filters registered block settings, extending attributes to include `metadata`.
  *
- * see: https://github.com/WordPress/gutenberg/pull/40393/files#r864632012
+ * see: https://github.com/FinPress/gutenberg/pull/40393/files#r864632012
  *
  * @param {Object} blockTypeSettings Original block settings.
  * @return {Object} Filtered block settings.

@@ -2,9 +2,9 @@
 
 The `BlockPatternsList` component makes a list of the different registered block patterns. It uses the `BlockPreview` component to display a preview for each block pattern.
 
-For more infos about blocks patterns, read [this](https://make.wordpress.org/core/2020/07/16/block-patterns-in-wordpress-5-5/).
+For more infos about blocks patterns, read [this](https://make.finpress.org/core/2020/07/16/block-patterns-in-finpress-5-5/).
 
-![Block patterns sidebar in WordPress 5.5](https://make.wordpress.org/core/files/2020/09/blocks-patterns-sidebar-in-wordpress-5-5.png)
+![Block patterns sidebar in FinPress 5.5](https://make.finpress.org/core/files/2020/09/blocks-patterns-sidebar-in-finpress-5-5.png)
 
 ## Development guidelines
 
@@ -13,7 +13,7 @@ For more infos about blocks patterns, read [this](https://make.wordpress.org/cor
 Renders a block patterns list.
 
 ```jsx
-import { BlockPatternsList } from '@wordpress/block-editor';
+import { BlockPatternsList } from '@finpress/block-editor';
 
 const MyBlockPatternsList = () => (
 	<BlockPatternsList
@@ -71,4 +71,4 @@ Whether to render the title of each pattern as a tooltip. User-defined patterns 
 
 ## Related components
 
-Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.
+Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.

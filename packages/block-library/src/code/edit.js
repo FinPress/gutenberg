@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { RichText, useBlockProps } from '@wordpress/block-editor';
-import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
+import { __ } from '@finpress/i18n';
+import { RichText, useBlockProps } from '@finpress/block-editor';
+import { createBlock, getDefaultBlockName } from '@finpress/blocks';
 
 export default function CodeEdit( {
 	attributes,

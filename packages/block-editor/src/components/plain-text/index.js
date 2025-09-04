@@ -5,9 +5,9 @@ import TextareaAutosize from 'react-autosize-textarea';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -17,12 +17,12 @@ import EditableText from '../editable-text';
 /**
  * Render an auto-growing textarea allow users to fill any textual content.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/plain-text/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/plain-text/README.md
  *
  * @example
  * ```jsx
- * import { registerBlockType } from '@wordpress/blocks';
- * import { PlainText } from '@wordpress/block-editor';
+ * import { registerBlockType } from '@finpress/blocks';
+ * import { PlainText } from '@finpress/block-editor';
  *
  * registerBlockType( 'my-plugin/example-block', {
  *   // ...

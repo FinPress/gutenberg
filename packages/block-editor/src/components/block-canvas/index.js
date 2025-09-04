@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMergeRefs, useViewportMatch } from '@wordpress/compose';
-import { useRef } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { useMergeRefs, useViewportMatch } from '@finpress/compose';
+import { useRef } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

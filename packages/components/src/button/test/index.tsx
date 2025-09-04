@@ -4,10 +4,10 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRef, forwardRef } from '@wordpress/element';
-import { plusCircle } from '@wordpress/icons';
+import { createRef, forwardRef } from '@finpress/element';
+import { plusCircle } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -280,7 +280,7 @@ describe( 'Button', () => {
 			expect( button ).not.toHaveAttribute( 'aria-label' );
 		} );
 
-		it( 'should render a Dashicon component matching the wordpress icon', () => {
+		it( 'should render a Dashicon component matching the finpress icon', () => {
 			render( <Button icon={ plusCircle } /> );
 
 			expect( screen.getByRole( 'button' ) ).toContainElement(
@@ -306,14 +306,14 @@ describe( 'Button', () => {
 		} );
 
 		it( 'should add an aria-label when the label property is used, with Tooltip wrapper', async () => {
-			render( <Button icon={ plusCircle } label="WordPress" /> );
+			render( <Button icon={ plusCircle } label="FinPress" /> );
 
-			expect( screen.queryByText( 'WordPress' ) ).not.toBeInTheDocument();
+			expect( screen.queryByText( 'FinPress' ) ).not.toBeInTheDocument();
 
 			// Move focus to the button
 			await press.Tab();
 
-			expect( screen.getByText( 'WordPress' ) ).toBeVisible();
+			expect( screen.getByText( 'FinPress' ) ).toBeVisible();
 		} );
 
 		it( 'should support explicit aria-label override', () => {
@@ -386,66 +386,66 @@ describe( 'Button', () => {
 			render(
 				<Button
 					icon={ plusCircle }
-					label="WordPress"
+					label="FinPress"
 					showTooltip={ false }
 				/>
 			);
 
 			expect(
-				screen.getByRole( 'button', { name: 'WordPress' } )
-			).toHaveAttribute( 'aria-label', 'WordPress' );
+				screen.getByRole( 'button', { name: 'FinPress' } )
+			).toHaveAttribute( 'aria-label', 'FinPress' );
 
-			expect( screen.queryByText( 'WordPress' ) ).not.toBeInTheDocument();
+			expect( screen.queryByText( 'FinPress' ) ).not.toBeInTheDocument();
 
 			// Move focus to the button
 			await press.Tab();
 
-			expect( screen.queryByText( 'WordPress' ) ).not.toBeInTheDocument();
+			expect( screen.queryByText( 'FinPress' ) ).not.toBeInTheDocument();
 		} );
 
 		it( 'should show the tooltip for empty children', async () => {
 			render(
-				<Button icon={ plusCircle } label="WordPress" children={ [] } />
+				<Button icon={ plusCircle } label="FinPress" children={ [] } />
 			);
 
-			expect( screen.queryByText( 'WordPress' ) ).not.toBeInTheDocument();
+			expect( screen.queryByText( 'FinPress' ) ).not.toBeInTheDocument();
 
 			// Move focus to the button
 			await press.Tab();
 
-			expect( screen.getByText( 'WordPress' ) ).toBeVisible();
+			expect( screen.getByText( 'FinPress' ) ).toBeVisible();
 
 			await cleanupTooltip();
 		} );
 
 		it( 'should not show the tooltip when icon and children defined', async () => {
 			render(
-				<Button icon={ plusCircle } label="WordPress">
+				<Button icon={ plusCircle } label="FinPress">
 					Children
 				</Button>
 			);
 
-			expect( screen.queryByText( 'WordPress' ) ).not.toBeInTheDocument();
+			expect( screen.queryByText( 'FinPress' ) ).not.toBeInTheDocument();
 
 			// Move focus to the button
 			await press.Tab();
 
-			expect( screen.queryByText( 'WordPress' ) ).not.toBeInTheDocument();
+			expect( screen.queryByText( 'FinPress' ) ).not.toBeInTheDocument();
 		} );
 
 		it( 'should force showing the tooltip even if icon and children defined', async () => {
 			render(
-				<Button icon={ plusCircle } label="WordPress" showTooltip>
+				<Button icon={ plusCircle } label="FinPress" showTooltip>
 					Children
 				</Button>
 			);
 
-			expect( screen.queryByText( 'WordPress' ) ).not.toBeInTheDocument();
+			expect( screen.queryByText( 'FinPress' ) ).not.toBeInTheDocument();
 
 			// Move focus to the button
 			await press.Tab();
 
-			expect( screen.getByText( 'WordPress' ) ).toBeVisible();
+			expect( screen.getByText( 'FinPress' ) ).toBeVisible();
 
 			await cleanupTooltip();
 		} );
@@ -503,16 +503,16 @@ describe( 'Button', () => {
 
 	describe( 'with href property', () => {
 		it( 'should render a link instead of a button with href prop', () => {
-			render( <Button href="https://wordpress.org/" /> );
+			render( <Button href="https://finpress.org/" /> );
 
 			expect( screen.getByRole( 'link' ) ).toHaveAttribute(
 				'href',
-				'https://wordpress.org/'
+				'https://finpress.org/'
 			);
 		} );
 
 		it( 'should allow for the passing of the target prop when a link is created', () => {
-			render( <Button href="https://wordpress.org/" target="_blank" /> );
+			render( <Button href="https://finpress.org/" target="_blank" /> );
 
 			expect( screen.getByRole( 'link' ) ).toHaveAttribute(
 				'target',
@@ -523,7 +523,7 @@ describe( 'Button', () => {
 		it( 'should become a button again when disabled is supplied', () => {
 			// @ts-expect-error - a button should not have `href`
 			// eslint-disable-next-line no-restricted-syntax
-			render( <Button href="https://wordpress.org/" disabled /> );
+			render( <Button href="https://finpress.org/" disabled /> );
 
 			expect( screen.getByRole( 'button' ) ).toBeVisible();
 		} );
@@ -533,7 +533,7 @@ describe( 'Button', () => {
 				<Button
 					// @ts-expect-error - a button should not have `href`
 					// eslint-disable-next-line no-restricted-syntax
-					href="https://wordpress.org/"
+					href="https://finpress.org/"
 					disabled
 					accessibleWhenDisabled
 				/>

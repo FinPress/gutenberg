@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as coreStore } from '@wordpress/core-data';
-import type { Action, Field } from '@wordpress/dataviews';
-import { doAction } from '@wordpress/hooks';
-import type { PostType } from '@wordpress/fields';
+import { store as coreStore } from '@finpress/core-data';
+import type { Action, Field } from '@finpress/dataviews';
+import { doAction } from '@finpress/hooks';
+import type { PostType } from '@finpress/fields';
 import {
 	viewPost,
 	viewPostRevisions,
@@ -32,7 +32,7 @@ import {
 	templateTitleField,
 	pageTitleField,
 	patternTitleField,
-} from '@wordpress/fields';
+} from '@finpress/fields';
 
 /**
  * Internal dependencies

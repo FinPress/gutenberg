@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const baseConfig = require( '@wordpress/scripts/config/jest-e2e.config' );
+const baseConfig = require( '@finpress/scripts/config/jest-e2e.config' );
 
 module.exports = {
 	...baseConfig,
@@ -9,8 +9,8 @@ module.exports = {
 	setupFiles: [ '<rootDir>/config/is-gutenberg-plugin.js' ],
 	setupFilesAfterEnv: [
 		'<rootDir>/config/setup-test-framework.js',
-		'@wordpress/jest-console',
-		'@wordpress/jest-puppeteer-axe',
+		'@finpress/jest-console',
+		'@finpress/jest-puppeteer-axe',
 		'expect-puppeteer',
 	],
 	testPathIgnorePatterns: [ '/node_modules/' ],

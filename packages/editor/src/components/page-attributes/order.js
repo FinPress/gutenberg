@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	Flex,
 	FlexBlock,
 	__experimentalNumberControl as NumberControl,
-} from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+} from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

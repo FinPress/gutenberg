@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 
 import {
 	escapeEditableHTML,
 	escapeAttribute,
 	isValidAttributeName,
-} from '@wordpress/escape-html';
+} from '@finpress/escape-html';
 
 /**
  * Internal dependencies

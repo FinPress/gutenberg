@@ -4,12 +4,12 @@
 import { render, fireEvent } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	subscribeMediaUpload,
 	sendMediaUpload,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ import { FileEdit } from '../edit.native.js';
 
 // react-native-aztec shouldn't be mocked because these tests are based on
 // snapshot testing where we want to keep the original component.
-jest.unmock( '@wordpress/react-native-aztec' );
+jest.unmock( '@finpress/react-native-aztec' );
 
 const MEDIA_UPLOAD_STATE_FAILED = 3;
 
@@ -53,9 +53,9 @@ describe( 'File block', () => {
 		const component = getTestComponentWithContent( {
 			showDownloadButton: true,
 			downloadButtonText: 'Download',
-			href: 'https://wordpress.org/latest.zip',
+			href: 'https://finpress.org/latest.zip',
 			fileName: 'File name',
-			textLinkHref: 'https://wordpress.org/latest.zip',
+			textLinkHref: 'https://finpress.org/latest.zip',
 			id: '1',
 		} );
 
@@ -72,9 +72,9 @@ describe( 'File block', () => {
 		const component = getTestComponentWithContent( {
 			showDownloadButton: true,
 			downloadButtonText: 'Download',
-			href: 'https://wordpress.org/latest.zip',
+			href: 'https://finpress.org/latest.zip',
 			fileName: 'File name',
-			textLinkHref: 'https://wordpress.org/latest.zip',
+			textLinkHref: 'https://finpress.org/latest.zip',
 			id: MEDIA_ID,
 		} );
 		fireEvent( component.getByTestId( 'file-edit-container' ), 'layout', {

@@ -5,15 +5,15 @@ import type { Meta, StoryFn } from '@storybook/react';
 import type { ReactNode } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	formatBold,
 	formatItalic,
 	link,
 	more,
-	wordpress,
-} from '@wordpress/icons';
+	finpress,
+} from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -41,9 +41,9 @@ const meta: Meta< typeof Button > = {
 		href: { type: { name: 'string', required: false } },
 		icon: {
 			control: { type: 'select' },
-			options: [ 'wordpress', 'link', 'more' ],
+			options: [ 'finpress', 'link', 'more' ],
 			mapping: {
-				wordpress,
+				finpress,
 				link,
 				more,
 			},
@@ -116,7 +116,7 @@ IsDestructive.args = {
 export const Icon = Template.bind( {} );
 Icon.args = {
 	label: 'Code is poetry',
-	icon: 'wordpress',
+	icon: 'finpress',
 };
 
 export const GroupedIcons = () => {

@@ -4,9 +4,9 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -61,8 +61,8 @@ function UnforwardedDateTimePicker(
  * individually using the `DatePicker` and `TimePicker` components respectively.
  *
  * ```jsx
- * import { DateTimePicker } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { DateTimePicker } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyDateTimePicker = () => {
  *   const [ date, setDate ] = useState( new Date() );

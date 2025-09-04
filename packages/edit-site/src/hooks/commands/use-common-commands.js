@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __, isRTL } from '@wordpress/i18n';
+import { useMemo } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __, isRTL } from '@finpress/i18n';
 import {
 	rotateLeft,
 	rotateRight,
@@ -12,12 +12,12 @@ import {
 	styles,
 	external,
 	brush,
-} from '@wordpress/icons';
-import { useCommandLoader, useCommand } from '@wordpress/commands';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/icons';
+import { useCommandLoader, useCommand } from '@finpress/commands';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { store as preferencesStore } from '@finpress/preferences';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

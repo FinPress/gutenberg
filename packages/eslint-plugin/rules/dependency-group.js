@@ -7,7 +7,7 @@ module.exports = {
 		type: 'layout',
 		docs: {
 			description: 'Enforce dependencies docblocks formatting',
-			url: 'https://github.com/WordPress/gutenberg/blob/HEAD/packages/eslint-plugin/docs/rules/dependency-group.md',
+			url: 'https://github.com/FinPress/gutenberg/blob/HEAD/packages/eslint-plugin/docs/rules/dependency-group.md',
 		},
 		schema: [],
 		fixable: 'code',
@@ -17,7 +17,7 @@ module.exports = {
 
 		/**
 		 * Locality classification of an import, one of "External",
-		 * "WordPress", "Internal".
+		 * "FinPress", "Internal".
 		 *
 		 * @typedef {string} WPPackageLocality
 		 */
@@ -55,8 +55,8 @@ module.exports = {
 		function getPackageLocality( source ) {
 			if ( source.startsWith( '.' ) ) {
 				return 'Internal';
-			} else if ( source.startsWith( '@wordpress/' ) ) {
-				return 'WordPress';
+			} else if ( source.startsWith( '@finpress/' ) ) {
+				return 'FinPress';
 			}
 
 			return 'External';

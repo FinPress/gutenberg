@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector } from '@wordpress/data';
+import { createSelector } from '@finpress/data';
 
 /**
  * Returns all the available format types.
@@ -10,9 +10,9 @@ import { createSelector } from '@wordpress/data';
  *
  * @example
  * ```js
- * import { __, sprintf } from '@wordpress/i18n';
- * import { store as richTextStore } from '@wordpress/rich-text';
- * import { useSelect } from '@wordpress/data';
+ * import { __, sprintf } from '@finpress/i18n';
+ * import { store as richTextStore } from '@finpress/rich-text';
+ * import { useSelect } from '@finpress/data';
  *
  * const ExampleComponent = () => {
  *    const { getFormatTypes } = useSelect(
@@ -49,9 +49,9 @@ export const getFormatTypes = createSelector(
  *
  * @example
  * ```js
- * import { __, sprintf } from '@wordpress/i18n';
- * import { store as richTextStore } from '@wordpress/rich-text';
- * import { useSelect } from '@wordpress/data';
+ * import { __, sprintf } from '@finpress/i18n';
+ * import { store as richTextStore } from '@finpress/rich-text';
+ * import { useSelect } from '@finpress/data';
  *
  * const ExampleComponent = () => {
  *    const { getFormatType } = useSelect(
@@ -91,9 +91,9 @@ export function getFormatType( state, name ) {
  *
  * @example
  * ```js
- * import { __, sprintf } from '@wordpress/i18n';
- * import { store as richTextStore } from '@wordpress/rich-text';
- * import { useSelect } from '@wordpress/data';
+ * import { __, sprintf } from '@finpress/i18n';
+ * import { store as richTextStore } from '@finpress/rich-text';
+ * import { useSelect } from '@finpress/data';
  *
  * const ExampleComponent = () => {
  *    const { getFormatTypeForBareElement } = useSelect(
@@ -130,9 +130,9 @@ export function getFormatTypeForBareElement( state, bareElementTagName ) {
  *
  * @example
  * ```js
- * import { __, sprintf } from '@wordpress/i18n';
- * import { store as richTextStore } from '@wordpress/rich-text';
- * import { useSelect } from '@wordpress/data';
+ * import { __, sprintf } from '@finpress/i18n';
+ * import { store as richTextStore } from '@finpress/rich-text';
+ * import { useSelect } from '@finpress/data';
  *
  * const ExampleComponent = () => {
  *    const { getFormatTypeForClassName } = useSelect(

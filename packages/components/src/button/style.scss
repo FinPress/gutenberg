@@ -2,7 +2,7 @@
  * For easier testing of potential regressions, you can use a Button variant matrix
  * available in a special Storybook instance by running `npm run storybook:e2e:dev`.
  *
- * @see https://github.com/WordPress/gutenberg/blob/trunk/test/storybook-playwright/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/trunk/test/storybook-playwright/README.md
  */
 
 .components-button {
@@ -37,7 +37,7 @@
 	}
 
 	// Focus.
-	// See https://github.com/WordPress/gutenberg/issues/13267 for more context on these selectors.
+	// See https://github.com/FinPress/gutenberg/issues/13267 for more context on these selectors.
 	&:focus:not(:disabled) {
 		box-shadow: 0 0 0 var(--wp-admin-border-width-focus) $components-color-accent;
 
@@ -79,7 +79,7 @@
 		&[aria-disabled="true"],
 		&[aria-disabled="true"]:enabled, // This catches a situation where a Button is aria-disabled, but not disabled.
 		&[aria-disabled="true"]:active:enabled {
-			// TODO: Prepare for theming (https://github.com/WordPress/gutenberg/pull/45466/files#r1030872724)
+			// TODO: Prepare for theming (https://github.com/FinPress/gutenberg/pull/45466/files#r1030872724)
 			color: $components-color-foreground-inverted;
 			background: $components-color-gray-300;
 			border-color: $components-color-gray-300;
@@ -288,7 +288,7 @@
 		/* stylelint-disable -- Disable reason: This function call looks nicer when each argument is on its own line. */
 		background-image: linear-gradient(
 			-45deg,
-			// TODO: Prepare for theming (https://github.com/WordPress/gutenberg/pull/45466/files#r1030872724)
+			// TODO: Prepare for theming (https://github.com/FinPress/gutenberg/pull/45466/files#r1030872724)
 			darken($white, 2%) 33%,
 			darken($white, 12%) 33%,
 			darken($white, 12%) 70%,
@@ -385,7 +385,7 @@
 	}
 
 	// Fixes a Safari+VoiceOver bug, where the screen reader text is announced not respecting the source order.
-	// See https://core.trac.wordpress.org/ticket/42006 and https://github.com/h5bp/html5-boilerplate/issues/1985
+	// See https://core.trac.finpress.org/ticket/42006 and https://github.com/h5bp/html5-boilerplate/issues/1985
 	.components-visually-hidden {
 		height: auto;
 	}

@@ -6,8 +6,8 @@
  *
  * @example
  * ```js
- * const displayUrl = filterURLForDisplay( 'https://www.wordpress.org/gutenberg/' ); // wordpress.org/gutenberg
- * const imageUrl = filterURLForDisplay( 'https://www.wordpress.org/wp-content/uploads/img.png', 20 ); // …ent/uploads/img.png
+ * const displayUrl = filterURLForDisplay( 'https://www.finpress.org/gutenberg/' ); // finpress.org/gutenberg
+ * const imageUrl = filterURLForDisplay( 'https://www.finpress.org/wp-content/uploads/img.png', 20 ); // …ent/uploads/img.png
  * ```
  *
  * @return Displayed URL.

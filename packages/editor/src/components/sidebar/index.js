@@ -1,23 +1,23 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockInspector,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	Platform,
 	useCallback,
 	useContext,
 	useEffect,
 	useRef,
-} from '@wordpress/element';
-import { isRTL, __, _x } from '@wordpress/i18n';
-import { drawerLeft, drawerRight } from '@wordpress/icons';
-import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
-import { privateApis as componentsPrivateApis } from '@wordpress/components';
-import { store as interfaceStore } from '@wordpress/interface';
+} from '@finpress/element';
+import { isRTL, __, _x } from '@finpress/i18n';
+import { drawerLeft, drawerRight } from '@finpress/icons';
+import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+import { privateApis as componentsPrivateApis } from '@finpress/components';
+import { store as interfaceStore } from '@finpress/interface';
 
 /**
  * Internal dependencies
@@ -98,7 +98,7 @@ const SidebarContent = ( {
 			closeLabel={ __( 'Close Settings' ) }
 			// This classname is added so we can apply a corrective negative
 			// margin to the panel.
-			// see https://github.com/WordPress/gutenberg/pull/55360#pullrequestreview-1737671049
+			// see https://github.com/FinPress/gutenberg/pull/55360#pullrequestreview-1737671049
 			className="editor-sidebar__panel"
 			headerClassName="editor-sidebar__panel-tabs"
 			title={

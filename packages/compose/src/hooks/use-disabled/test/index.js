@@ -4,9 +4,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ describe( 'useDisabled', () => {
 		return (
 			<form ref={ ref }>
 				<input />
-				<a href="https://wordpress.org/">A link</a>
+				<a href="https://finpress.org/">A link</a>
 				<p role="document" contentEditable tabIndex="0"></p>
 				{ showButton && <button>Button</button> }
 			</form>

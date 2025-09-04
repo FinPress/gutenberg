@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ToolbarGroup, ToolbarItem } from '@wordpress/components';
+import { ToolbarGroup, ToolbarItem } from '@finpress/components';
 
 /**
  * Internal dependencies

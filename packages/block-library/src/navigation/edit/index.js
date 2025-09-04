@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useCallback,
@@ -12,7 +12,7 @@ import {
 	useEffect,
 	useRef,
 	Platform,
-} from '@wordpress/element';
+} from '@finpress/element';
 import {
 	InspectorControls,
 	useBlockProps,
@@ -26,10 +26,10 @@ import {
 	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { EntityProvider, store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { EntityProvider, store as coreStore } from '@finpress/core-data';
 
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@finpress/data';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
@@ -40,11 +40,11 @@ import {
 	Button,
 	Spinner,
 	Notice,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { speak } from '@wordpress/a11y';
-import { close, Icon } from '@wordpress/icons';
-import { useInstanceId } from '@wordpress/compose';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { speak } from '@finpress/a11y';
+import { close, Icon } from '@finpress/icons';
+import { useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies

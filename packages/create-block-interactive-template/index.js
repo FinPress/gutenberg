@@ -9,7 +9,7 @@ module.exports = {
 		title: 'Example Interactive',
 		description: 'An interactive block with the Interactivity API.',
 		dashicon: 'media-interactive',
-		npmDependencies: [ '@wordpress/interactivity' ],
+		npmDependencies: [ '@finpress/interactivity' ],
 		customPackageJSON: { files: [ '[^.]*' ] },
 		supports: {
 			interactivity: true,

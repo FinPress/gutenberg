@@ -4,9 +4,9 @@
 import { Controller, easings } from '@react-spring/web';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useLayoutEffect, useMemo, useRef } from '@wordpress/element';
+import { useLayoutEffect, useMemo, useRef } from '@finpress/element';
 
 function getAbsolutePosition( element ) {
 	return {

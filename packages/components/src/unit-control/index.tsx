@@ -5,11 +5,11 @@ import type { KeyboardEvent, ForwardedRef, SyntheticEvent } from 'react';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { forwardRef, useMemo, useRef, useEffect } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import deprecated from '@finpress/deprecated';
+import { forwardRef, useMemo, useRef, useEffect } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -120,7 +120,7 @@ function UnforwardedUnitControl(
 	const classes = clsx(
 		'components-unit-control',
 		// This class is added for legacy purposes to maintain it on the outer
-		// wrapper. See: https://github.com/WordPress/gutenberg/pull/45139
+		// wrapper. See: https://github.com/FinPress/gutenberg/pull/45139
 		'components-unit-control-wrapper',
 		className
 	);
@@ -250,8 +250,8 @@ function UnforwardedUnitControl(
  *
  *
  * ```jsx
- * import { __experimentalUnitControl as UnitControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { __experimentalUnitControl as UnitControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const Example = () => {
  *   const [ value, setValue ] = useState( '10px' );

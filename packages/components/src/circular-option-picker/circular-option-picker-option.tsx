@@ -5,11 +5,11 @@ import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { forwardRef, useContext, useEffect } from '@wordpress/element';
-import { Icon, check } from '@wordpress/icons';
+import { useInstanceId } from '@finpress/compose';
+import { forwardRef, useContext, useEffect } from '@finpress/element';
+import { Icon, check } from '@finpress/icons';
 
 /**
  * Internal dependencies

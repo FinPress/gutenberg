@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/dataviews",
+	"name": "@finpress/dataviews",
 	"version": "7.0.0",
 	"description": "DataViews is a component that provides an API to render datasets using different types of layouts (table, grid, list, etc.).",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"dataviews"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/dataviews/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/dataviews/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/dataviews"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -46,19 +46,19 @@
 	"dependencies": {
 		"@ariakit/react": "^0.4.15",
 		"@babel/runtime": "7.25.7",
-		"@wordpress/base-styles": "file:../base-styles",
-		"@wordpress/components": "file:../components",
-		"@wordpress/compose": "file:../compose",
-		"@wordpress/data": "file:../data",
-		"@wordpress/date": "file:../date",
-		"@wordpress/element": "file:../element",
-		"@wordpress/i18n": "file:../i18n",
-		"@wordpress/icons": "file:../icons",
-		"@wordpress/keycodes": "file:../keycodes",
-		"@wordpress/primitives": "file:../primitives",
-		"@wordpress/private-apis": "file:../private-apis",
-		"@wordpress/url": "file:../url",
-		"@wordpress/warning": "file:../warning",
+		"@finpress/base-styles": "file:../base-styles",
+		"@finpress/components": "file:../components",
+		"@finpress/compose": "file:../compose",
+		"@finpress/data": "file:../data",
+		"@finpress/date": "file:../date",
+		"@finpress/element": "file:../element",
+		"@finpress/i18n": "file:../i18n",
+		"@finpress/icons": "file:../icons",
+		"@finpress/keycodes": "file:../keycodes",
+		"@finpress/primitives": "file:../primitives",
+		"@finpress/private-apis": "file:../private-apis",
+		"@finpress/url": "file:../url",
+		"@finpress/warning": "file:../warning",
 		"clsx": "^2.1.1",
 		"date-fns": "^4.1.0",
 		"fast-deep-equal": "^3.1.3",

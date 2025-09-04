@@ -13,7 +13,7 @@ This acts as a wrapper for the `Tabs` component, adding conventions that can be 
 ### Usage
 
 ```jsx
-import { TabbedSidebar } from '@wordpress/block-editor';
+import { TabbedSidebar } from '@finpress/block-editor';
 
 const MyTabbedSidebar = () => (
 	<TabbedSidebar

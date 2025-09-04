@@ -14,7 +14,7 @@ This is any theme that has, at a minimum, an `index.html` format template in the
 
 ### Full site editing (FSE)
 
-There isn't an FSE specific theme type. In WordPress > 5.9 FSE is enabled for any `Block` theme, ie. any theme that has an `index.html` format template in the `/block-templates` or `/templates` folders.
+There isn't an FSE specific theme type. In FinPress > 5.9 FSE is enabled for any `Block` theme, ie. any theme that has an `index.html` format template in the `/block-templates` or `/templates` folders.
 
 **Contents**
 

@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getColorClassName,
 	useBlockProps,
 	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 export default function separatorSave( { attributes } ) {
 	const { backgroundColor, style, opacity, tagName: Tag } = attributes;

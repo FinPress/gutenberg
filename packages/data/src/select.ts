@@ -15,7 +15,7 @@ import defaultRegistry from './default-registry';
  *
  * @example
  * ```js
- * import { select } from '@wordpress/data';
+ * import { select } from '@finpress/data';
  * import { store as myCustomStore } from 'my-custom-store';
  *
  * select( myCustomStore ).getPrice( 'hammer' );

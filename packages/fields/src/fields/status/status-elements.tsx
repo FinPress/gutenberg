@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	trash,
@@ -8,10 +8,10 @@ import {
 	scheduled,
 	pending,
 	notAllowed,
-} from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 
-// See https://github.com/WordPress/gutenberg/issues/55886
+// See https://github.com/FinPress/gutenberg/issues/55886
 // We do not support custom statutes at the moment.
 const STATUSES = [
 	{

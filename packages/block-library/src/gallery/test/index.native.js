@@ -19,16 +19,16 @@ import {
 import { ActionSheetIOS } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Platform } from '@wordpress/element';
+import { Platform } from '@finpress/element';
 import {
 	getOtherMediaOptions,
 	requestImageFailedRetryDialog,
 	requestImageUploadCancelDialog,
-} from '@wordpress/react-native-bridge';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { select } from '@wordpress/data';
+} from '@finpress/react-native-bridge';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { select } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -43,7 +43,7 @@ import {
 const MEDIA_OPTIONS = [
 	'Choose from device',
 	'Take a Photo',
-	'WordPress Media Library',
+	'FinPress Media Library',
 ];
 
 const media = [
@@ -51,19 +51,19 @@ const media = [
 		localId: 1,
 		localUrl: 'file:///local-image-1.jpeg',
 		serverId: 2000,
-		serverUrl: 'https://test-site.files.wordpress.com/local-image-1.jpeg',
+		serverUrl: 'https://test-site.files.finpress.com/local-image-1.jpeg',
 	},
 	{
 		localId: 2,
 		localUrl: 'file:///local-image-2.jpeg',
 		serverId: 2001,
-		serverUrl: 'https://test-site.files.wordpress.com/local-image-2.jpeg',
+		serverUrl: 'https://test-site.files.finpress.com/local-image-2.jpeg',
 	},
 	{
 		localId: 3,
 		localUrl: 'file:///local-image-3.jpeg',
 		serverId: 2002,
-		serverUrl: 'https://test-site.files.wordpress.com/local-image-3.jpeg',
+		serverUrl: 'https://test-site.files.finpress.com/local-image-3.jpeg',
 	},
 ];
 
@@ -121,7 +121,7 @@ describe( 'Gallery block', () => {
 
 		expect( getByText( 'Choose from device' ) ).toBeVisible();
 		expect( getByText( 'Take a Photo' ) ).toBeVisible();
-		expect( getByText( 'WordPress Media Library' ) ).toBeVisible();
+		expect( getByText( 'FinPress Media Library' ) ).toBeVisible();
 	} );
 
 	it( 'displays correct media options picker', async () => {
@@ -171,7 +171,7 @@ describe( 'Gallery block', () => {
 
 		// Observe that media options picker is displayed
 		expect( getByText( 'Choose images' ) ).toBeVisible();
-		expect( getByText( 'WordPress Media Library' ) ).toBeVisible();
+		expect( getByText( 'FinPress Media Library' ) ).toBeVisible();
 
 		// Dismiss the picker
 		if ( Platform.isIOS ) {
@@ -187,7 +187,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC001 - Close/Re-open post with an ongoing image upload
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc001
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc001
 	it( 'finishes pending uploads upon opening the editor', async () => {
 		const { notifyUploadingState, notifySucceedState } = setupMediaUpload();
 
@@ -218,7 +218,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC003 - Add caption to gallery
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc003
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc003
 	it( 'sets caption to gallery', async () => {
 		// Initialize with a gallery that contains one item
 		const { getByLabelText } = await initializeWithGalleryBlock( {
@@ -245,7 +245,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC004 - Add caption to gallery images
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc004
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc004
 	it( 'sets caption to gallery items', async () => {
 		// Initialize with a gallery that contains one item
 		const { galleryBlock } = await initializeWithGalleryBlock( {
@@ -269,7 +269,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC005 - Choose from device (stay in editor) - Successful upload
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc005
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc005
 	it( 'successfully uploads items', async () => {
 		const { notifyUploadingState, notifySucceedState } = setupMediaUpload();
 		const { expectMediaPickerCall, mediaPickerCallback } =
@@ -309,7 +309,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC006 - Choose from device (stay in editor) - Failed upload
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc006
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc006
 	it( 'handles failed uploads', async () => {
 		const { notifyUploadingState, notifyFailedState } = setupMediaUpload();
 		const { expectMediaPickerCall, mediaPickerCallback } =
@@ -363,7 +363,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC007 - Take a photo
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc007
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc007
 	it( 'takes a photo', async () => {
 		const { notifyUploadingState, notifySucceedState } = setupMediaUpload();
 		const { expectMediaPickerCall, mediaPickerCallback } =
@@ -396,7 +396,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC008 - Choose from the free photo library
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc008
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc008
 	it( 'uploads from free photo library', async () => {
 		const freePhotoMedia = [ ...media ].map( ( item, index ) => ( {
 			...item,
@@ -457,7 +457,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC009 - Choose from device (stay in editor) - Cancel upload
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc009
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc009
 	it( 'cancels uploads', async () => {
 		const { notifyUploadingState, notifyResetState } = setupMediaUpload();
 		const { expectMediaPickerCall, mediaPickerCallback } =
@@ -506,7 +506,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC010 - Rearrange images in Gallery
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc010
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc010
 	it( 'rearranges gallery items', async () => {
 		// Initialize with a gallery that contains three items
 		const { getByLabelText, galleryBlock } =
@@ -541,7 +541,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC011 - Choose from Other Apps (iOS Files App)
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc011
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc011
 	it( 'uploads from other apps', async () => {
 		const otherAppsMedia = [ ...media ].map( ( item, index ) => ( {
 			...item,
@@ -595,7 +595,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC012 - Settings - Link
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc012
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc012
 	it( 'overrides "Link" setting of gallery items', async () => {
 		// Initialize with a gallery that contains two items, the latter includes "linkDestination" attribute
 		const screen = await initializeWithGalleryBlock( {
@@ -635,7 +635,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test cases related to TC013 - Settings - Columns
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc013
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc013
 	describe( 'Columns setting', () => {
 		it( 'does not increment due to maximum value', async () => {
 			// Initialize with a gallery that contains three items
@@ -682,7 +682,7 @@ describe( 'Gallery block', () => {
 	} );
 
 	// Test case related to TC014 - Settings - Crop images
-	// Reference: https://github.com/wordpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc014
+	// Reference: https://github.com/finpress-mobile/test-cases/blob/trunk/test-cases/gutenberg/gallery.md#tc014
 	it( 'disables crop images setting', async () => {
 		// Initialize with a gallery that contains one item
 		const screen = await initializeWithGalleryBlock( {

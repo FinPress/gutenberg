@@ -1,5 +1,5 @@
 // Run all tests with development tools enabled.
-// eslint-disable-next-line @wordpress/wp-global-usage
+// eslint-disable-next-line @finpress/wp-global-usage
 globalThis.SCRIPT_DEBUG = true;
 
 // These are necessary to load TinyMCE successfully.

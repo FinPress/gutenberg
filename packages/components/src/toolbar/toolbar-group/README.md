@@ -5,8 +5,8 @@ A ToolbarGroup can be used to create subgroups of controls inside a [Toolbar](/p
 ## Usage
 
 ```jsx
-import { Toolbar, ToolbarGroup, ToolbarButton } from '@wordpress/components';
-import { paragraph, formatBold, formatItalic, link } from '@wordpress/icons';
+import { Toolbar, ToolbarGroup, ToolbarButton } from '@finpress/components';
+import { paragraph, formatBold, formatItalic, link } from '@finpress/icons';
 
 function MyToolbar() {
 	return (

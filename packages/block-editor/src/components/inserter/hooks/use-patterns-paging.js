@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useState, useEffect } from '@wordpress/element';
-import { usePrevious } from '@wordpress/compose';
-import { getScrollContainer } from '@wordpress/dom';
+import { useMemo, useState, useEffect } from '@finpress/element';
+import { usePrevious } from '@finpress/compose';
+import { getScrollContainer } from '@finpress/dom';
 
 const PAGE_SIZE = 20;
 

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { combineReducers } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
+import { combineReducers } from '@finpress/data';
+import { compose } from '@finpress/compose';
 
 /**
  * Internal dependencies

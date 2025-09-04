@@ -4,16 +4,16 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	AlignmentControl,
 	BlockControls,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
 
 function PostAuthorBiographyEdit( {
 	context: { postType, postId },

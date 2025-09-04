@@ -6,16 +6,16 @@ import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	forwardRef,
 	useEffect,
 	useLayoutEffect,
 	useCallback,
-} from '@wordpress/element';
-import { useInstanceId, usePrevious } from '@wordpress/compose';
-import { isRTL } from '@wordpress/i18n';
+} from '@finpress/element';
+import { useInstanceId, usePrevious } from '@finpress/compose';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -43,7 +43,7 @@ const extractTabName = ( id: string | undefined | null ) => {
  * It has two sections: a list of tabs, and the view to show when tabs are chosen.
  *
  * ```jsx
- * import { TabPanel } from '@wordpress/components';
+ * import { TabPanel } from '@finpress/components';
  *
  * const onSelect = ( tabName ) => {
  *   console.log( 'Selecting tab', tabName );

@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
-import { forwardRef } from '@wordpress/element';
-import { _x, sprintf } from '@wordpress/i18n';
-import { Icon, plus } from '@wordpress/icons';
-import deprecated from '@wordpress/deprecated';
+import { Button } from '@finpress/components';
+import { forwardRef } from '@finpress/element';
+import { _x, sprintf } from '@finpress/i18n';
+import { Icon, plus } from '@finpress/icons';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -96,6 +96,6 @@ export const ButtonBlockerAppender = forwardRef( ( props, ref ) => {
 } );
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/button-block-appender/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/button-block-appender/README.md
  */
 export default forwardRef( ButtonBlockAppender );

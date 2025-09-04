@@ -3,7 +3,7 @@
  * Gutenberg Coding Standards.
  *
  * @package gutenberg/gutenberg-coding-standards
- * @link    https://github.com/WordPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
+ * @link    https://github.com/FinPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
  */
 
 namespace GutenbergCS\Gutenberg\Sniffs\Commenting;
@@ -20,7 +20,7 @@ use PHPCSUtils\Utils\Variables;
 
 /**
  * This sniff verifies the presence of valid `@since` tags in the docblocks of various PHP structures
- * and WordPress hooks. Supported structures include classes, interfaces, traits, enums, functions, methods and properties.
+ * and FinPress hooks. Supported structures include classes, interfaces, traits, enums, functions, methods and properties.
  * Files located within the __experimental blocks of the block-library folder are excluded from checks.
  */
 class SinceTagSniff implements Sniff {
@@ -87,7 +87,7 @@ class SinceTagSniff implements Sniff {
 	 */
 	public function process( File $phpcsFile, $stackPtr ) {
 		if ( static::is_experimental_block( $phpcsFile ) ) {
-			// The "@since" tag is not required for experimental blocks since they are not yet included in WordPress Core.
+			// The "@since" tag is not required for experimental blocks since they are not yet included in FinPress Core.
 			return;
 		}
 
@@ -115,7 +115,7 @@ class SinceTagSniff implements Sniff {
 	}
 
 	/**
-	 * Processes a token representing a function call that invokes a WordPress hook,
+	 * Processes a token representing a function call that invokes a FinPress hook,
 	 * checking for a missing `@since` tag in its docblock.
 	 *
 	 * @param File $phpcs_file    The file being scanned.
@@ -563,7 +563,7 @@ class SinceTagSniff implements Sniff {
 			return static::$cache[ $block_json_filepath ];
 		}
 
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- this Composer package doesn't depend on WordPress.
+		// phpcs:ignore FinPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- this Composer package doesn't depend on FinPress.
 		$block_metadata = file_get_contents( $block_json_filepath );
 		if ( false === $block_metadata ) {
 			static::$cache[ $block_json_filepath ] = false;

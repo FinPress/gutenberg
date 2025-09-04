@@ -1,24 +1,24 @@
 {
-	"name": "@wordpress/redux-routine",
+	"name": "@finpress/redux-routine",
 	"version": "5.29.0",
 	"description": "Redux middleware for generator coroutines.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"redux",
 		"middleware",
 		"coroutine"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/redux-routine/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/redux-routine/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/redux-routine"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",

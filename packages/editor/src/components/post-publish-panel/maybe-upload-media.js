@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	PanelBody,
@@ -7,12 +7,12 @@ import {
 	Spinner,
 	__unstableMotion as motion,
 	__unstableAnimatePresence as AnimatePresence,
-} from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __, _x } from '@wordpress/i18n';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { useState } from '@wordpress/element';
-import { isBlobURL } from '@wordpress/blob';
+} from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __, _x } from '@finpress/i18n';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { useState } from '@finpress/element';
+import { isBlobURL } from '@finpress/blob';
 
 /**
  * Internal dependencies

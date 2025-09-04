@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Font Library', () => {
 	test.describe( 'When a blank theme is active', () => {
@@ -161,7 +161,7 @@ test.describe( 'Font Library', () => {
 			const fileChooserPromise = page.waitForEvent( 'filechooser' );
 			await page.getByRole( 'button', { name: 'Upload Font' } ).click();
 			const fileChooser = await fileChooserPromise;
-			// Provides coverage for https://github.com/WordPress/gutenberg/issues/59023.
+			// Provides coverage for https://github.com/FinPress/gutenberg/issues/59023.
 			await fileChooser.setFiles( [
 				'./test/e2e/assets/Exo2-Regular.woff',
 				'./test/e2e/assets/Exo2-SemiBoldItalic.woff2',
@@ -174,7 +174,7 @@ test.describe( 'Font Library', () => {
 					.getByText( 'Fonts were installed successfully.' )
 			).toBeVisible();
 			await page.getByRole( 'tab', { name: 'Library' } ).click();
-			// Provides coverage for https://github.com/WordPress/gutenberg/issues/60040.
+			// Provides coverage for https://github.com/FinPress/gutenberg/issues/60040.
 			await page.getByRole( 'button', { name: 'Exo 2' } ).click();
 			await expect( page.getByLabel( 'Exo 2 Normal' ) ).toBeVisible();
 			await expect(

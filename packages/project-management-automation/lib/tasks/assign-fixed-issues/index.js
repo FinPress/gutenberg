@@ -14,7 +14,7 @@ const debug = require( '../../debug' );
  */
 async function assignFixedIssues( payload, octokit ) {
 	const regex =
-		/(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved):? +(?:\#?|https?:\/\/github\.com\/WordPress\/gutenberg\/issues\/)(\d+)/gi;
+		/(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved):? +(?:\#?|https?:\/\/github\.com\/FinPress\/gutenberg\/issues\/)(\d+)/gi;
 
 	let match;
 

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { debounce } from '@wordpress/compose';
-import { useEffect, useState, useRef } from '@wordpress/element';
-import apiFetch from '@wordpress/api-fetch';
-import { addQueryArgs } from '@wordpress/url';
-import { __experimentalSanitizeBlockAttributes } from '@wordpress/blocks';
+import { debounce } from '@finpress/compose';
+import { useEffect, useState, useRef } from '@finpress/element';
+import apiFetch from '@finpress/api-fetch';
+import { addQueryArgs } from '@finpress/url';
+import { __experimentalSanitizeBlockAttributes } from '@finpress/blocks';
 
 export function rendererPath( block, attributes = null, urlQueryArgs = {} ) {
 	return addQueryArgs( `/wp/v2/block-renderer/${ block }`, {
@@ -61,8 +61,8 @@ export function removeBlockSupportAttributes( attributes ) {
  * Basic usage:
  *
  * ```jsx
- * import { RawHTML } from '@wordpress/element';
- * import { useServerSideRender } from '@wordpress/server-side-render';
+ * import { RawHTML } from '@finpress/element';
+ * import { useServerSideRender } from '@finpress/server-side-render';
  *
  * function MyServerSideRender( { attributes, block } ) {
  *   const { content, status, error } = useServerSideRender( {

@@ -4,13 +4,13 @@
 import { Text, View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Icon } from '@wordpress/components';
-import { useGlobalStyles } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { withPreferredColorScheme } from '@wordpress/compose';
-import { help, lock } from '@wordpress/icons';
+import { Icon } from '@finpress/components';
+import { useGlobalStyles } from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { withPreferredColorScheme } from '@finpress/compose';
+import { help, lock } from '@finpress/icons';
 
 /**
  * Internal dependencies

@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.license          = package['license']
   s.homepage         = package['homepage']
   s.authors          = package['author']
-  s.source           = { git: 'https://github.com/WordPress/gutenberg.git' }
+  s.source           = { git: 'https://github.com/FinPress/gutenberg.git' }
   s.source_files     = 'ios/RNTAztecView/*.{h,m,swift}'
   s.public_header_files = 'ios/RNTAztecView/*.h'
   s.requires_arc     = true
@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
                          'HEADER_SEARCH_PATHS' => '/usr/include/libxml2' }
   s.dependency 'React-Core'
   # Intentionally locked because of how it's integrated.
-  # See https://github.com/WordPress/gutenberg/pull/54453#discussion_r1325582749
-  s.dependency 'WordPress-Aztec-iOS', '1.19.11'
+  # See https://github.com/FinPress/gutenberg/pull/54453#discussion_r1325582749
+  s.dependency 'FinPress-Aztec-iOS', '1.19.11'
 end

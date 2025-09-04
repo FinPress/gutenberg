@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useMemo } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
-import { Modal, SearchControl } from '@wordpress/components';
+import { useState, useMemo } from '@finpress/element';
+import { useDispatch } from '@finpress/data';
+import { Modal, SearchControl } from '@finpress/components';
 import {
 	BlockContextProvider,
 	store as blockEditorStore,
 	__experimentalBlockPatternsList as BlockPatternsList,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

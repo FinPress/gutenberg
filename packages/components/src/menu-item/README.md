@@ -6,7 +6,7 @@ MenuItem is a component which renders a button intended to be used in combinatio
 
 ```jsx
 import { useState } from 'react';
-import { MenuItem } from '@wordpress/components';
+import { MenuItem } from '@finpress/components';
 
 const MyMenuItem = () => {
 	const [ isActive, setIsActive ] = useState( true );

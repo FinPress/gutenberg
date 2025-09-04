@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useState } from '@wordpress/element';
+import { useMemo, useState } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
-import { blockDefault } from '@wordpress/icons';
-import { BlockIcon } from '@wordpress/block-editor';
-import { Button } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { addQueryArgs } from '@wordpress/url';
-import { safeHTML } from '@wordpress/dom';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
+import { blockDefault } from '@finpress/icons';
+import { BlockIcon } from '@finpress/block-editor';
+import { Button } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { addQueryArgs } from '@finpress/url';
+import { safeHTML } from '@finpress/dom';
 
 /**
  * Internal dependencies
@@ -52,8 +52,8 @@ export default function WidgetAreas( { selectedWidgetAreaId } ) {
 					<p
 						// Use `dangerouslySetInnerHTML` to keep backwards
 						// compatibility. Basic markup in the description is an
-						// established feature of WordPress.
-						// @see https://github.com/WordPress/gutenberg/issues/33106
+						// established feature of FinPress.
+						// @see https://github.com/FinPress/gutenberg/issues/33106
 						dangerouslySetInnerHTML={ {
 							__html: safeHTML( description ),
 						} }

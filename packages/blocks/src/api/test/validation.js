@@ -197,11 +197,11 @@ describe( 'validation', () => {
 	describe( 'getNormalizedStyleValue()', () => {
 		it( 'omits whitespace and quotes from url value', () => {
 			const normalizedValue = getNormalizedStyleValue(
-				'url( "https://wordpress.org/img.png" )'
+				'url( "https://finpress.org/img.png" )'
 			);
 
 			expect( normalizedValue ).toBe(
-				'url(https://wordpress.org/img.png)'
+				'url(https://finpress.org/img.png)'
 			);
 		} );
 
@@ -229,11 +229,11 @@ describe( 'validation', () => {
 	describe( 'getStyleProperties()', () => {
 		it( 'returns style property pairs', () => {
 			const pairs = getStyleProperties(
-				'background-image: url( "https://wordpress.org/img.png" ); color: red;'
+				'background-image: url( "https://finpress.org/img.png" ); color: red;'
 			);
 
 			expect( pairs ).toEqual( {
-				'background-image': 'url(https://wordpress.org/img.png)',
+				'background-image': 'url(https://finpress.org/img.png)',
 				color: 'red',
 			} );
 		} );
@@ -272,8 +272,8 @@ describe( 'validation', () => {
 		describe( '.style()', () => {
 			it( 'returns true if the same style', () => {
 				const isEqual = isEqualAttributesOfName.style(
-					'background-image: url( "https://wordpress.org/img.png" ); color: red;',
-					"color: red;   background-image: url('https://wordpress.org/img.png\n);"
+					'background-image: url( "https://finpress.org/img.png" ); color: red;',
+					"color: red;   background-image: url('https://finpress.org/img.png\n);"
 				);
 
 				expect( isEqual ).toBe( true );
@@ -281,8 +281,8 @@ describe( 'validation', () => {
 
 			it( 'returns false if not same style', () => {
 				const isEqual = isEqualAttributesOfName.style(
-					'background-image: url( "https://wordpress.org/img.png" ); color: red;',
-					"color: red;  font-size: 13px; background-image: url('https://wordpress.org/img.png');"
+					'background-image: url( "https://finpress.org/img.png" ); color: red;',
+					"color: red;  font-size: 13px; background-image: url('https://finpress.org/img.png');"
 				);
 
 				expect( isEqual ).toBe( false );
@@ -306,7 +306,7 @@ describe( 'validation', () => {
 					[ 'class', 'c  a b' ],
 					[
 						'style',
-						'background-image: url( "https://wordpress.org/img.png" ); color: red;',
+						'background-image: url( "https://finpress.org/img.png" ); color: red;',
 					],
 				]
 			);
@@ -321,7 +321,7 @@ describe( 'validation', () => {
 					[ 'class', 'b   a c' ],
 					[
 						'style',
-						'color: red;  background-image: url( "https://wordpress.org/img.png" );',
+						'color: red;  background-image: url( "https://finpress.org/img.png" );',
 					],
 					[ 'controls', '' ],
 				],
@@ -329,7 +329,7 @@ describe( 'validation', () => {
 					[ 'class', 'c  a b' ],
 					[
 						'style',
-						'background-image: url( "https://wordpress.org/img.png" ); color: red;',
+						'background-image: url( "https://finpress.org/img.png" ); color: red;',
 					],
 					[ 'controls', 'true' ],
 				]
@@ -380,7 +380,7 @@ describe( 'validation', () => {
 							[ 'class', 'c  a b' ],
 							[
 								'style',
-								'background-image: url( "https://wordpress.org/img.png" ); color: red;',
+								'background-image: url( "https://finpress.org/img.png" ); color: red;',
 							],
 						],
 					}
@@ -398,7 +398,7 @@ describe( 'validation', () => {
 							[ 'class', 'b   a c' ],
 							[
 								'style',
-								'color: red;  background-image: url( "https://wordpress.org/img.png" );',
+								'color: red;  background-image: url( "https://finpress.org/img.png" );',
 							],
 						],
 					},
@@ -408,7 +408,7 @@ describe( 'validation', () => {
 							[ 'class', 'c  a b' ],
 							[
 								'style',
-								'background-image: url( "https://wordpress.org/img.png" ); color: red;',
+								'background-image: url( "https://finpress.org/img.png" ); color: red;',
 							],
 						],
 					}
@@ -544,7 +544,7 @@ describe( 'validation', () => {
 			// segment of text ` Test</h2><h2>Test &amp` as a character
 			// reference, as it's between an opening `&` and terminating `;`.
 			//
-			// See: https://github.com/WordPress/gutenberg/issues/12448
+			// See: https://github.com/FinPress/gutenberg/issues/12448
 			const isEquivalent = isEquivalentHTML(
 				'<h2>Test &amp; Test</h2><h2>Test &amp; Test</h2>',
 				'<h2>Test & Test</h2><h2>Test &amp; Test</h2>'

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import { ToolbarGroup, ToolbarDropdownMenu } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { useBlockProps, BlockControls } from '@finpress/block-editor';
+import { ToolbarGroup, ToolbarDropdownMenu } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

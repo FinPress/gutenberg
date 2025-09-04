@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
 	__experimentalSpacer as Spacer,
 	Button,
 	Modal,
-} from '@wordpress/components';
-import { __, sprintf, _x } from '@wordpress/i18n';
-import { useState, useMemo } from '@wordpress/element';
+} from '@finpress/components';
+import { __, sprintf, _x } from '@finpress/i18n';
+import { useState, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

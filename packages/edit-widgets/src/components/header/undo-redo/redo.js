@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { redo as redoIcon, undo as undoIcon } from '@wordpress/icons';
-import { displayShortcut, isAppleOS } from '@wordpress/keycodes';
-import { store as coreStore } from '@wordpress/core-data';
-import { forwardRef } from '@wordpress/element';
+import { __, isRTL } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { redo as redoIcon, undo as undoIcon } from '@finpress/icons';
+import { displayShortcut, isAppleOS } from '@finpress/keycodes';
+import { store as coreStore } from '@finpress/core-data';
+import { forwardRef } from '@finpress/element';
 
 function RedoButton( props, ref ) {
 	const shortcut = isAppleOS()
@@ -28,7 +28,7 @@ function RedoButton( props, ref ) {
 			shortcut={ shortcut }
 			// If there are no undo levels we don't want to actually disable this
 			// button, because it will remove focus for keyboard users.
-			// See: https://github.com/WordPress/gutenberg/issues/3486
+			// See: https://github.com/FinPress/gutenberg/issues/3486
 			aria-disabled={ ! hasRedo }
 			onClick={ hasRedo ? redo : undefined }
 			size="compact"

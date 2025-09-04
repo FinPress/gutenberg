@@ -4,9 +4,9 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ const LinkSettingsScreen = ( props ) => {
 				urlValue={ inputValue }
 			/>
 		);
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ props, inputValue, navigation, route ] );
 };
 

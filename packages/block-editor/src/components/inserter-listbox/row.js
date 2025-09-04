@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import { Composite } from '@wordpress/components';
+import { forwardRef } from '@finpress/element';
+import { Composite } from '@finpress/components';
 
 function InserterListboxRow( props, ref ) {
 	return <Composite.Group role="presentation" ref={ ref } { ...props } />;

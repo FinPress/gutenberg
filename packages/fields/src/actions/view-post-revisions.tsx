@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addQueryArgs } from '@wordpress/url';
-import { __, sprintf } from '@wordpress/i18n';
-import type { Action } from '@wordpress/dataviews';
+import { addQueryArgs } from '@finpress/url';
+import { __, sprintf } from '@finpress/i18n';
+import type { Action } from '@finpress/dataviews';
 
 /**
  * Internal dependencies

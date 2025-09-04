@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/notices",
+	"name": "@finpress/notices",
 	"version": "5.29.0",
 	"description": "State management for notices.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"notices"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/notices/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/notices/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/notices"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -29,8 +29,8 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/a11y": "file:../a11y",
-		"@wordpress/data": "file:../data"
+		"@finpress/a11y": "file:../a11y",
+		"@finpress/data": "file:../data"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0"

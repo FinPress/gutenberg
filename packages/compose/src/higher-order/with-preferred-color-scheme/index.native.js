@@ -5,9 +5,9 @@ import { createHigherOrderComponent } from '../../utils/create-higher-order-comp
 import usePreferredColorScheme from '../../hooks/use-preferred-color-scheme';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
+import { useCallback } from '@finpress/element';
 
 const withPreferredColorScheme = createHigherOrderComponent(
 	( WrappedComponent ) => ( props ) => {

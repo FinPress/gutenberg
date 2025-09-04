@@ -1,13 +1,13 @@
 # MediaUpload
 
-MediaUpload is a React component used to render a button that opens the WordPress media modal.
+MediaUpload is a React component used to render a button that opens the FinPress media modal.
 
 ## Setup
 
 This is a placeholder component necessary to make it possible to provide an integration with the core blocks that handle media files. By default it renders nothing but it provides a way to have it overridden with the `editor.MediaUpload` filter.
 
 ```jsx
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from '@finpress/hooks';
 import MediaUpload from './media-upload';
 
 const replaceMediaUpload = () => MediaUpload;
@@ -19,15 +19,15 @@ addFilter(
 );
 ```
 
-You can check how this component is implemented for the edit post page using `wp.media` module in [edit-post](https://github.com/WordPress/gutenberg/blob/HEAD/packages/media-utils/src/components/media-upload/index.js).
+You can check how this component is implemented for the edit post page using `wp.media` module in [edit-post](https://github.com/FinPress/gutenberg/blob/HEAD/packages/media-utils/src/components/media-upload/index.js).
 
 ## Usage
 
 To make sure the current user has Upload permissions, you need to wrap the MediaUpload component into the MediaUploadCheck one.
 
 ```jsx
-import { Button } from '@wordpress/components';
-import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import { Button } from '@finpress/components';
+import { MediaUpload, MediaUploadCheck } from '@finpress/block-editor';
 
 const ALLOWED_MEDIA_TYPES = [ 'audio' ];
 

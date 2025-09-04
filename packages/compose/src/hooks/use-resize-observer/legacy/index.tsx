@@ -4,9 +4,9 @@
 import type { ReactElement } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useRef, useState } from '@wordpress/element';
+import { useCallback, useRef, useState } from '@finpress/element';
 /**
  * Internal dependencies
  */

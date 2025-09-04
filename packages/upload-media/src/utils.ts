@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getFilename } from '@wordpress/url';
-import { _x } from '@wordpress/i18n';
+import { getFilename } from '@finpress/url';
+import { _x } from '@finpress/i18n';
 
 /**
  * Converts a Blob to a File with a default name like "image.png".

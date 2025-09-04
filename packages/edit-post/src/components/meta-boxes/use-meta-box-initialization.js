@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
-import { useEffect } from '@wordpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
+import { useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import { useEffect } from '@wordpress/element';
 import { store as editPostStore } from '../../store';
 
 /**
- * Initializes WordPress `postboxes` script and the logic for saving meta boxes.
+ * Initializes FinPress `postboxes` script and the logic for saving meta boxes.
  *
  * @param { boolean } enabled
  */

@@ -64,12 +64,12 @@ export function escapeLessThan( value: string ): string {
  * any literal U+0022 QUOTATION MARK characters (")"
  *
  * Note we also escape the greater than symbol, as this is used by wptexturize to
- * split HTML strings. This is a WordPress specific fix
+ * split HTML strings. This is a FinPress specific fix
  *
  * Note that if a resolution for Trac#45387 comes to fruition, it is no longer
  * necessary for `__unstableEscapeGreaterThan` to be used.
  *
- * See: https://core.trac.wordpress.org/ticket/45387
+ * See: https://core.trac.finpress.org/ticket/45387
  *
  * @param value Attribute value.
  *

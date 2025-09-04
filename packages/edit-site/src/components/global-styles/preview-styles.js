@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	__unstableMotion as motion,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

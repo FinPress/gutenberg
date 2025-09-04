@@ -109,9 +109,9 @@ describe( 'getFormatBoundary', () => {
 	const linkFormat = {
 		type: 'core/link',
 		attributes: {
-			url: 'http://www.wordpress.org',
+			url: 'http://www.finpress.org',
 			type: 'URL',
-			id: 'www.wordpress.org',
+			id: 'www.finpress.org',
 		},
 	};
 

@@ -4,20 +4,20 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 import {
 	Button,
 	Icon,
 	__unstableMotion as motion,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { addQueryArgs } from '@wordpress/url';
-import { wordpress } from '@wordpress/icons';
-import { store as editorStore } from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useReducedMotion } from '@wordpress/compose';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { addQueryArgs } from '@finpress/url';
+import { finpress } from '@finpress/icons';
+import { store as editorStore } from '@finpress/editor';
+import { store as coreStore } from '@finpress/core-data';
+import { useReducedMotion } from '@finpress/compose';
 
 function FullscreenModeClose( { showTooltip, icon, href, initialPost } ) {
 	const { isRequestingSiteIcon, postType, siteIconUrl } = useSelect(
@@ -47,7 +47,7 @@ function FullscreenModeClose( { showTooltip, icon, href, initialPost } ) {
 		return null;
 	}
 
-	let buttonIcon = <Icon size="36px" icon={ wordpress } />;
+	let buttonIcon = <Icon size="36px" icon={ finpress } />;
 
 	const effect = {
 		expand: {

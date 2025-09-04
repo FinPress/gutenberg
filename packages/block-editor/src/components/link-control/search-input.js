@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { forwardRef, useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import { URLInput } from '../';
 import LinkControlSearchResults from './search-results';
 import { CREATE_TYPE } from './constants';
 import useSearchHandler from './use-search-handler';
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 // Must be a function as otherwise URLInput will default
 // to the fetchLinkSuggestions passed in block editor settings

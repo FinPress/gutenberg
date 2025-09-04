@@ -53,7 +53,7 @@
       "boundElementIds": [],
       "fontSize": 20,
       "fontFamily": 1,
-      "text": "WordPress \nREST API",
+      "text": "FinPress \nREST API",
       "baseline": 43,
       "textAlign": "left",
       "verticalAlign": "top"
@@ -201,7 +201,7 @@
       ],
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "@wordpress/edit-post",
+      "text": "@finpress/edit-post",
       "baseline": 14,
       "textAlign": "center",
       "verticalAlign": "middle"
@@ -257,7 +257,7 @@
       "boundElementIds": [],
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "@wordpress/data",
+      "text": "@finpress/data",
       "baseline": 14,
       "textAlign": "center",
       "verticalAlign": "middle"
@@ -286,7 +286,7 @@
       "boundElementIds": [],
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "@wordpress/apiFetch",
+      "text": "@finpress/apiFetch",
       "baseline": 14,
       "textAlign": "left",
       "verticalAlign": "top"
@@ -315,7 +315,7 @@
       "boundElementIds": [],
       "fontSize": 14.709677419354838,
       "fontFamily": 1,
-      "text": "@wordpress/block-editor",
+      "text": "@finpress/block-editor",
       "baseline": 12.387096774193544,
       "textAlign": "center",
       "verticalAlign": "top"
@@ -402,7 +402,7 @@
       "boundElementIds": [],
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "@wordpress/blocks",
+      "text": "@finpress/blocks",
       "baseline": 14,
       "textAlign": "center",
       "verticalAlign": "middle"
@@ -810,7 +810,7 @@
       "boundElementIds": [],
       "fontSize": 14.709677419354838,
       "fontFamily": 1,
-      "text": "@wordpress/editor",
+      "text": "@finpress/editor",
       "baseline": 13,
       "textAlign": "center",
       "verticalAlign": "top"
@@ -1278,7 +1278,7 @@
       "boundElementIds": [],
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "@wordpress/components",
+      "text": "@finpress/components",
       "baseline": 14,
       "textAlign": "center",
       "verticalAlign": "top"

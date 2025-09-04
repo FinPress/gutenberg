@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	InnerBlocks,
 	getColorClassName,
 	useBlockProps,
 	useInnerBlocksProps,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 const migrateAttributes = ( attributes ) => {
 	if ( ! attributes.tagName ) {

@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { memo } from '@wordpress/element';
-import { PanelBody } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { useSelect } from '@finpress/data';
+import { memo } from '@finpress/element';
+import { PanelBody } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

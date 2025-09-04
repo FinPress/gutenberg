@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`combine-assets\` should produce expected output: Asset file 'assets.php' should match snapshot 1`] = `
-"<?php return array('fileA.mjs' => array('dependencies' => array('@wordpress/blob', 'lodash'), 'version' => '4ab8cc4b6b7619053443', 'type' => 'module'), 'fileB.mjs' => array('dependencies' => array('@wordpress/token-list'), 'version' => '5c4197fd48811f25807f', 'type' => 'module'));
+"<?php return array('fileA.mjs' => array('dependencies' => array('@finpress/blob', 'lodash'), 'version' => '4ab8cc4b6b7619053443', 'type' => 'module'), 'fileB.mjs' => array('dependencies' => array('@finpress/token-list'), 'version' => '5c4197fd48811f25807f', 'type' => 'module'));
 "
 `;
 
@@ -9,13 +9,13 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`combine-assets\` sh
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "import",
-    "request": "@wordpress/token-list",
-    "userRequest": "@wordpress/token-list",
+    "request": "@finpress/token-list",
+    "userRequest": "@finpress/token-list",
   },
   {
     "externalType": "import",
@@ -26,7 +26,7 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`combine-assets\` sh
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`cyclic-dependency-graph\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/interactivity'), 'version' => '1e02dcb4017382a2799f', 'type' => 'module');
+"<?php return array('dependencies' => array('@finpress/interactivity'), 'version' => '1e02dcb4017382a2799f', 'type' => 'module');
 "
 `;
 
@@ -34,14 +34,14 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`cyclic-dependency-g
 [
   {
     "externalType": "module",
-    "request": "@wordpress/interactivity",
-    "userRequest": "@wordpress/interactivity",
+    "request": "@finpress/interactivity",
+    "userRequest": "@finpress/interactivity",
   },
 ]
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`cyclic-dynamic-dependency-graph\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array(array('id' => '@wordpress/interactivity', 'import' => 'dynamic')), 'version' => '3ca651be783423315165', 'type' => 'module');
+"<?php return array('dependencies' => array(array('id' => '@finpress/interactivity', 'import' => 'dynamic')), 'version' => '3ca651be783423315165', 'type' => 'module');
 "
 `;
 
@@ -49,14 +49,14 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`cyclic-dynamic-depe
 [
   {
     "externalType": "module",
-    "request": "@wordpress/interactivity",
-    "userRequest": "@wordpress/interactivity",
+    "request": "@finpress/interactivity",
+    "userRequest": "@finpress/interactivity",
   },
 ]
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`cyclic-external-deps\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array(array('id' => '@wordpress/interactivity', 'import' => 'dynamic')), 'version' => '095eb9129a2ad858900d', 'type' => 'module');
+"<?php return array('dependencies' => array(array('id' => '@finpress/interactivity', 'import' => 'dynamic')), 'version' => '095eb9129a2ad858900d', 'type' => 'module');
 "
 `;
 
@@ -64,14 +64,14 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`cyclic-external-dep
 [
   {
     "externalType": "module",
-    "request": "@wordpress/interactivity",
-    "userRequest": "@wordpress/interactivity",
+    "request": "@finpress/interactivity",
+    "userRequest": "@finpress/interactivity",
   },
 ]
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`dynamic-import\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array(array('id' => '@wordpress/blob', 'import' => 'dynamic')), 'version' => 'fbb215dc4902543bce35', 'type' => 'module');
+"<?php return array('dependencies' => array(array('id' => '@finpress/blob', 'import' => 'dynamic')), 'version' => 'fbb215dc4902543bce35', 'type' => 'module');
 "
 `;
 
@@ -79,23 +79,23 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`dynamic-import\` sh
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
 ]
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`error\` should produce expected output 1`] = `
 "ERROR in ./index.js 5:0-23
-Module not found: Error: Attempted to use WordPress script in a module: jquery, which is not supported yet.
+Module not found: Error: Attempted to use FinPress script in a module: jquery, which is not supported yet.
 
 ERROR in ./index.js 6:23-55
-Module not found: Error: Attempted to use WordPress script in a module: @wordpress/api-fetch, which is not supported yet.
+Module not found: Error: Attempted to use FinPress script in a module: @finpress/api-fetch, which is not supported yet.
 "
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`function-output-filename\` should produce expected output: Asset file 'chunk--main--main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/blob', 'lodash'), 'version' => 'e325da3aa7dbb0c0c151', 'type' => 'module');
+"<?php return array('dependencies' => array('@finpress/blob', 'lodash'), 'version' => 'e325da3aa7dbb0c0c151', 'type' => 'module');
 "
 `;
 
@@ -103,8 +103,8 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`function-output-fil
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "import",
@@ -115,7 +115,7 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`function-output-fil
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`has-extension-suffix\` should produce expected output: Asset file 'index.min.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/blob', 'lodash'), 'version' => '8308f1ac78c21f09c721', 'type' => 'module');
+"<?php return array('dependencies' => array('@finpress/blob', 'lodash'), 'version' => '8308f1ac78c21f09c721', 'type' => 'module');
 "
 `;
 
@@ -123,8 +123,8 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`has-extension-suffi
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "import",
@@ -169,7 +169,7 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`no-deps\` should pr
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`no-deps\` should produce expected output: External modules should match snapshot 1`] = `[]`;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`option-function-output-filename\` should produce expected output: Asset file 'chunk--main--main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/blob', 'lodash'), 'version' => 'e325da3aa7dbb0c0c151', 'type' => 'module');
+"<?php return array('dependencies' => array('@finpress/blob', 'lodash'), 'version' => 'e325da3aa7dbb0c0c151', 'type' => 'module');
 "
 `;
 
@@ -177,8 +177,8 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`option-function-out
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "import",
@@ -189,7 +189,7 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`option-function-out
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`option-output-filename\` should produce expected output: Asset file 'main-foo.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/blob', 'lodash'), 'version' => 'e325da3aa7dbb0c0c151', 'type' => 'module');
+"<?php return array('dependencies' => array('@finpress/blob', 'lodash'), 'version' => 'e325da3aa7dbb0c0c151', 'type' => 'module');
 "
 `;
 
@@ -197,8 +197,8 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`option-output-filen
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "import",
@@ -221,7 +221,7 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`output-format-json\
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`overrides\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/blob', '@wordpress/url', 'rxjs', 'rxjs/operators'), 'version' => '259fc706528651fc00c1', 'type' => 'module');
+"<?php return array('dependencies' => array('@finpress/blob', '@finpress/url', 'rxjs', 'rxjs/operators'), 'version' => '259fc706528651fc00c1', 'type' => 'module');
 "
 `;
 
@@ -229,13 +229,13 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`overrides\` should 
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "import",
-    "request": "@wordpress/url",
-    "userRequest": "@wordpress/url",
+    "request": "@finpress/url",
+    "userRequest": "@finpress/url",
   },
   {
     "externalType": "import",
@@ -265,12 +265,12 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`polyfill-magic-comm
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`polyfill-magic-comment-minified\` should produce expected output: External modules should match snapshot 1`] = `[]`;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`runtime-chunk-single\` should produce expected output: Asset file 'a.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/blob'), 'version' => 'ab7fa97b1381e41e0f70', 'type' => 'module', 'handle' => 'runtime-chunk-single-modules-a');
+"<?php return array('dependencies' => array('@finpress/blob'), 'version' => 'ab7fa97b1381e41e0f70', 'type' => 'module', 'handle' => 'runtime-chunk-single-modules-a');
 "
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`runtime-chunk-single\` should produce expected output: Asset file 'b.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/blob', 'lodash'), 'version' => '498fd24026d68fa84ba9', 'type' => 'module', 'handle' => 'runtime-chunk-single-modules-b');
+"<?php return array('dependencies' => array('@finpress/blob', 'lodash'), 'version' => '498fd24026d68fa84ba9', 'type' => 'module', 'handle' => 'runtime-chunk-single-modules-b');
 "
 `;
 
@@ -283,8 +283,8 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`runtime-chunk-singl
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "import",
@@ -295,7 +295,7 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`runtime-chunk-singl
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`style-imports\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/blob', 'lodash'), 'version' => '22d18a3461df47fbaa79', 'type' => 'module');
+"<?php return array('dependencies' => array('@finpress/blob', 'lodash'), 'version' => '22d18a3461df47fbaa79', 'type' => 'module');
 "
 `;
 
@@ -303,8 +303,8 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`style-imports\` sho
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "import",
@@ -314,17 +314,17 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`style-imports\` sho
 ]
 `;
 
-exports[`DependencyExtractionWebpackPlugin modules Webpack \`wordpress\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/blob', 'lodash'), 'version' => 'e325da3aa7dbb0c0c151', 'type' => 'module');
+exports[`DependencyExtractionWebpackPlugin modules Webpack \`finpress\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
+"<?php return array('dependencies' => array('@finpress/blob', 'lodash'), 'version' => 'e325da3aa7dbb0c0c151', 'type' => 'module');
 "
 `;
 
-exports[`DependencyExtractionWebpackPlugin modules Webpack \`wordpress\` should produce expected output: External modules should match snapshot 1`] = `
+exports[`DependencyExtractionWebpackPlugin modules Webpack \`finpress\` should produce expected output: External modules should match snapshot 1`] = `
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "import",
@@ -334,12 +334,12 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`wordpress\` should 
 ]
 `;
 
-exports[`DependencyExtractionWebpackPlugin modules Webpack \`wordpress-interactivity\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('lodash', array('id' => '@wordpress/interactivity', 'import' => 'dynamic')), 'version' => '363140026eaa9abcaf33', 'type' => 'module');
+exports[`DependencyExtractionWebpackPlugin modules Webpack \`finpress-interactivity\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
+"<?php return array('dependencies' => array('lodash', array('id' => '@finpress/interactivity', 'import' => 'dynamic')), 'version' => '363140026eaa9abcaf33', 'type' => 'module');
 "
 `;
 
-exports[`DependencyExtractionWebpackPlugin modules Webpack \`wordpress-interactivity\` should produce expected output: External modules should match snapshot 1`] = `
+exports[`DependencyExtractionWebpackPlugin modules Webpack \`finpress-interactivity\` should produce expected output: External modules should match snapshot 1`] = `
 [
   {
     "externalType": "import",
@@ -348,23 +348,23 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`wordpress-interacti
   },
   {
     "externalType": "module",
-    "request": "@wordpress/interactivity",
-    "userRequest": "@wordpress/interactivity",
+    "request": "@finpress/interactivity",
+    "userRequest": "@finpress/interactivity",
   },
 ]
 `;
 
-exports[`DependencyExtractionWebpackPlugin modules Webpack \`wordpress-require\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('@wordpress/blob', 'lodash'), 'version' => 'ee5a6866beeb5643397c', 'type' => 'module');
+exports[`DependencyExtractionWebpackPlugin modules Webpack \`finpress-require\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
+"<?php return array('dependencies' => array('@finpress/blob', 'lodash'), 'version' => 'ee5a6866beeb5643397c', 'type' => 'module');
 "
 `;
 
-exports[`DependencyExtractionWebpackPlugin modules Webpack \`wordpress-require\` should produce expected output: External modules should match snapshot 1`] = `
+exports[`DependencyExtractionWebpackPlugin modules Webpack \`finpress-require\` should produce expected output: External modules should match snapshot 1`] = `
 [
   {
     "externalType": "import",
-    "request": "@wordpress/blob",
-    "userRequest": "@wordpress/blob",
+    "request": "@finpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "import",
@@ -392,7 +392,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`combine-assets\` sh
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "window",
@@ -400,7 +400,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`combine-assets\` sh
       "wp",
       "tokenList",
     ],
-    "userRequest": "@wordpress/token-list",
+    "userRequest": "@finpress/token-list",
   },
 ]
 `;
@@ -418,7 +418,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-dependency-g
       "wp",
       "interactivity",
     ],
-    "userRequest": "@wordpress/interactivity",
+    "userRequest": "@finpress/interactivity",
   },
 ]
 `;
@@ -436,7 +436,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-dynamic-depe
       "wp",
       "interactivity",
     ],
-    "userRequest": "@wordpress/interactivity",
+    "userRequest": "@finpress/interactivity",
   },
 ]
 `;
@@ -454,7 +454,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-external-dep
       "wp",
       "interactivity",
     ],
-    "userRequest": "@wordpress/interactivity",
+    "userRequest": "@finpress/interactivity",
   },
 ]
 `;
@@ -472,7 +472,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`dynamic-import\` sh
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
 ]
 `;
@@ -501,7 +501,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`function-output-fil
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
 ]
 `;
@@ -524,7 +524,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`has-extension-suffi
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
 ]
 `;
@@ -587,7 +587,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`option-function-out
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
 ]
 `;
@@ -610,7 +610,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`option-output-filen
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
 ]
 `;
@@ -653,7 +653,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`overrides\` should 
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
   {
     "externalType": "window",
@@ -661,7 +661,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`overrides\` should 
       "wp",
       "url",
     ],
-    "userRequest": "@wordpress/url",
+    "userRequest": "@finpress/url",
   },
 ]
 `;
@@ -708,7 +708,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`runtime-chunk-singl
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
 ]
 `;
@@ -731,17 +731,17 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`style-imports\` sho
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
 ]
 `;
 
-exports[`DependencyExtractionWebpackPlugin scripts Webpack \`wordpress\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
+exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
 "<?php return array('dependencies' => array('lodash', 'wp-blob'), 'version' => '0633d70f7567175ad0d5');
 "
 `;
 
-exports[`DependencyExtractionWebpackPlugin scripts Webpack \`wordpress\` should produce expected output: External modules should match snapshot 1`] = `
+exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress\` should produce expected output: External modules should match snapshot 1`] = `
 [
   {
     "externalType": "window",
@@ -754,17 +754,17 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`wordpress\` should 
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
 ]
 `;
 
-exports[`DependencyExtractionWebpackPlugin scripts Webpack \`wordpress-interactivity\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
+exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress-interactivity\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
 "<?php return array('dependencies' => array('lodash', 'wp-interactivity'), 'version' => 'b16015e38aea0509f75f');
 "
 `;
 
-exports[`DependencyExtractionWebpackPlugin scripts Webpack \`wordpress-interactivity\` should produce expected output: External modules should match snapshot 1`] = `
+exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress-interactivity\` should produce expected output: External modules should match snapshot 1`] = `
 [
   {
     "externalType": "window",
@@ -777,17 +777,17 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`wordpress-interacti
       "wp",
       "interactivity",
     ],
-    "userRequest": "@wordpress/interactivity",
+    "userRequest": "@finpress/interactivity",
   },
 ]
 `;
 
-exports[`DependencyExtractionWebpackPlugin scripts Webpack \`wordpress-require\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
+exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress-require\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
 "<?php return array('dependencies' => array('lodash', 'wp-blob'), 'version' => '7087050d1490e856fec8');
 "
 `;
 
-exports[`DependencyExtractionWebpackPlugin scripts Webpack \`wordpress-require\` should produce expected output: External modules should match snapshot 1`] = `
+exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress-require\` should produce expected output: External modules should match snapshot 1`] = `
 [
   {
     "externalType": "window",
@@ -800,7 +800,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`wordpress-require\`
       "wp",
       "blob",
     ],
-    "userRequest": "@wordpress/blob",
+    "userRequest": "@finpress/blob",
   },
 ]
 `;

@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect } from '@wordpress/compose';
-import { computeCaretRect, getScrollContainer } from '@wordpress/dom';
-import { useSelect } from '@wordpress/data';
-import { UP, DOWN, LEFT, RIGHT } from '@wordpress/keycodes';
+import { useRefEffect } from '@finpress/compose';
+import { computeCaretRect, getScrollContainer } from '@finpress/dom';
+import { useSelect } from '@finpress/data';
+import { UP, DOWN, LEFT, RIGHT } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

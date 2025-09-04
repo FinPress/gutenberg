@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useContext,
@@ -7,7 +7,7 @@ import {
 	useState,
 	useMemo,
 	createInterpolateElement,
-} from '@wordpress/element';
+} from '@finpress/element';
 import {
 	__experimentalSpacer as Spacer,
 	__experimentalText as Text,
@@ -24,16 +24,16 @@ import {
 	SearchControl,
 	ProgressBar,
 	CheckboxControl,
-} from '@wordpress/components';
-import { debounce } from '@wordpress/compose';
-import { sprintf, __, _x, isRTL } from '@wordpress/i18n';
+} from '@finpress/components';
+import { debounce } from '@finpress/compose';
+import { sprintf, __, _x, isRTL } from '@finpress/i18n';
 import {
 	moreVertical,
 	next,
 	previous,
 	chevronLeft,
 	chevronRight,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 /**
  * Internal dependencies

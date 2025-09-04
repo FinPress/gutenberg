@@ -41,7 +41,7 @@ Before introducing the testing logic, we have to render the components that we w
 
 ### Using the Scoped Component approach
 
-Here is an example of rendering the Cover block (extracted from [this code](https://github.com/WordPress/gutenberg/blob/86cd187873984f80ddeeec3e82454b486dd1860f/packages/block-library/src/cover/test/edit.native.js#L82-L91)):
+Here is an example of rendering the Cover block (extracted from [this code](https://github.com/FinPress/gutenberg/blob/86cd187873984f80ddeeec3e82454b486dd1860f/packages/block-library/src/cover/test/edit.native.js#L82-L91)):
 
 ```js
 // This import points to the index file of the block
@@ -82,7 +82,7 @@ const { getByText, findByText } = render(
 
 ### Using the Entire Editor approach
 
-Here is an example of rendering the Buttons block (extracted from [this code](https://github.com/WordPress/gutenberg/blob/9201906891a68ca305daf7f8b6cd006e2b26291e/packages/block-library/src/buttons/test/edit.native.js#L32-L39)):
+Here is an example of rendering the Buttons block (extracted from [this code](https://github.com/FinPress/gutenberg/blob/9201906891a68ca305daf7f8b6cd006e2b26291e/packages/block-library/src/buttons/test/edit.native.js#L32-L39)):
 
 ```js
 const initialHtml = `<!-- wp:buttons -->
@@ -103,12 +103,12 @@ When querying we should follow this priority order:
 
 1. `getByText`: querying by text is the closest flow we can do from the user’s perspective, as text is the visual clue for them to identify elements.
 2. `getByLabelText`: in some cases, we want to query elements that don’t provide text so in this case we can fallback to the accessibility label.
-3. `getByTestId`: if none of the previous options fit and/or we don’t have any visual element that we can rely upon, we have to fallback to a specific test id, which can be defined using the `testID` attribute (see [here](https://github.com/WordPress/gutenberg/blob/e5b387b19ffc50555f52ea5f0b415ab846896def/packages/block-editor/src/components/block-types-list/index.native.js#L80) for an example).
+3. `getByTestId`: if none of the previous options fit and/or we don’t have any visual element that we can rely upon, we have to fallback to a specific test id, which can be defined using the `testID` attribute (see [here](https://github.com/FinPress/gutenberg/blob/e5b387b19ffc50555f52ea5f0b415ab846896def/packages/block-editor/src/components/block-types-list/index.native.js#L80) for an example).
 
 Here are some examples:
 
 ```js
-const mediaLibraryButton = getByText( 'WordPress Media Library' );
+const mediaLibraryButton = getByText( 'FinPress Media Library' );
 ```
 
 ```js
@@ -128,7 +128,7 @@ After rendering the components or firing an event, side effects might happen due
 Here are some examples:
 
 ```js
-const mediaLibraryButton = await findByText( 'WordPress Media Library' );
+const mediaLibraryButton = await findByText( 'FinPress Media Library' );
 ```
 
 ```js
@@ -162,7 +162,7 @@ Here is an example of a press event:
 fireEvent.press( settingsButton );
 ```
 
-We can also trigger any type of event, including custom events, in the following example you can see how we trigger the `onValueChange` event ([code reference](https://github.com/WordPress/gutenberg/blob/520cbd9d2af4bbc275d388edf92a6cadb685de56/packages/components/src/mobile/bottom-sheet/range-cell.native.js#L227)) for the Slider component:
+We can also trigger any type of event, including custom events, in the following example you can see how we trigger the `onValueChange` event ([code reference](https://github.com/FinPress/gutenberg/blob/520cbd9d2af4bbc275d388edf92a6cadb685de56/packages/components/src/mobile/bottom-sheet/range-cell.native.js#L227)) for the Slider component:
 
 **Custom event – onValueChange:**
 
@@ -204,7 +204,7 @@ afterAll( () => {
 
 ## Helpers
 
-In the spirit of making easier writing integration tests for the native version, you can find a list of helper functions in [this README](https://github.com/WordPress/gutenberg/blob/HEAD/test/native/integration-test-helpers/README.md).
+In the spirit of making easier writing integration tests for the native version, you can find a list of helper functions in [this README](https://github.com/FinPress/gutenberg/blob/HEAD/test/native/integration-test-helpers/README.md).
 
 ## Common flows
 
@@ -218,7 +218,7 @@ const spacerBlock = await waitFor( () =>
 );
 ```
 
-For further information about the accessibility label of a block, you can check the code of the [function `getAccessibleBlockLabel`](https://github.com/WordPress/gutenberg/blob/520cbd9d2af4bbc275d388edf92a6cadb685de56/packages/blocks/src/api/utils.js#L167-L234).
+For further information about the accessibility label of a block, you can check the code of the [function `getAccessibleBlockLabel`](https://github.com/FinPress/gutenberg/blob/520cbd9d2af4bbc275d388edf92a6cadb685de56/packages/blocks/src/api/utils.js#L167-L234).
 
 ### Add a block
 
@@ -266,7 +266,7 @@ When using the scoped component approach, we need first to render the `SlotFillP
 
 See examples:
 
--   [Cover block](https://github.com/WordPress/gutenberg/blob/b403b977b029911f46247012fa2dcbc42a5aa3cf/packages/block-library/src/cover/test/edit.native.js#L37-L42)
+-   [Cover block](https://github.com/FinPress/gutenberg/blob/b403b977b029911f46247012fa2dcbc42a5aa3cf/packages/block-library/src/cover/test/edit.native.js#L37-L42)
 
 ### FlatList items
 
@@ -325,7 +325,7 @@ fireEvent.press( buttonInnerBlock );
 
 If you have trouble locating an element’s identifier, you may wish to use Xcode’s Accessibility Inspector. Most identifiers are cross-platform, so even though the tests are run on Android by default, the Accessibility Inspector can be used to find the right identifier.
 
-<img src="https://raw.githubusercontent.com/WordPress/gutenberg/trunk/docs/assets/xcode-accessibility-inspector-screenshot.png" alt="Screenshot of the Xcode Accessibility Inspector app. The screenshot shows how to choose the correct target in the device dropdown, enable target mode, and locate accessibility labels after tapping on screen elements"/>
+<img src="https://raw.githubusercontent.com/FinPress/gutenberg/trunk/docs/assets/xcode-accessibility-inspector-screenshot.png" alt="Screenshot of the Xcode Accessibility Inspector app. The screenshot shows how to choose the correct target in the device dropdown, enable target mode, and locate accessibility labels after tapping on screen elements"/>
 
 ## Common pitfalls and caveats
 
@@ -341,7 +341,7 @@ The default timeout for the `waitFor` function is set to 1000 ms, so far this va
 
 Some components already have unit tests that cover component rendering, although it’s not mandatory, in these cases, it would be nice to analyze the potential migration to an integration test.
 
-In case we want to keep both, we’ll add the word "integration" to the integration test file to avoid naming conflicts, here is an example: [packages/block-library/src/missing/test/edit-integration.native.js](https://github.com/WordPress/gutenberg/blob/9201906891a68ca305daf7f8b6cd006e2b26291e/packages/block-library/src/missing/test/edit-integration.native.js).
+In case we want to keep both, we’ll add the word "integration" to the integration test file to avoid naming conflicts, here is an example: [packages/block-library/src/missing/test/edit-integration.native.js](https://github.com/FinPress/gutenberg/blob/9201906891a68ca305daf7f8b6cd006e2b26291e/packages/block-library/src/missing/test/edit-integration.native.js).
 
 ### Platform selection
 

@@ -122,10 +122,10 @@ register_block_style(
     )
 );
 ```
-Using the `style_data` property empowers the user to change it with the Global Styles UI via the **Editor > Styles**. The `style_data`property was added in WordPress 6.6.
+Using the `style_data` property empowers the user to change it with the Global Styles UI via the **Editor > Styles**. The `style_data`property was added in FinPress 6.6.
 
-More information via WordPress 6.6 Dev Note: [Section Styles](https://make.wordpress.org/core/2024/06/24/section-styles/).
-Also on the WordPress Developer Blog: [Styling sections, nested elements, and more with Block Style Variations in WordPress 6.6](https://developer.wordpress.org/news/2024/06/styling-sections-nested-elements-and-more-with-block-style-variations-in-wordpress-6-6/)
+More information via FinPress 6.6 Dev Note: [Section Styles](https://make.finpress.org/core/2024/06/24/section-styles/).
+Also on the FinPress Developer Blog: [Styling sections, nested elements, and more with Block Style Variations in FinPress 6.6](https://developer.finpress.org/news/2024/06/styling-sections-nested-elements-and-more-with-block-style-variations-in-finpress-6-6/)
 
 ### unregister_block_style
 

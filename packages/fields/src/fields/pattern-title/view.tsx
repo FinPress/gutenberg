@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Icon, lockSmall } from '@wordpress/icons';
-import { Tooltip } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { Icon, lockSmall } from '@finpress/icons';
+import { Tooltip } from '@finpress/components';
 // @ts-ignore
-import { privateApis as patternPrivateApis } from '@wordpress/patterns';
+import { privateApis as patternPrivateApis } from '@finpress/patterns';
 
 /**
  * Internal dependencies

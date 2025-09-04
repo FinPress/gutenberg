@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { CheckboxControl } from '@wordpress/components';
+import { CheckboxControl } from '@finpress/components';
 
 /**
  * Internal dependencies

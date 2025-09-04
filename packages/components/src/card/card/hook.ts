@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { useMemo } from '@wordpress/element';
+import deprecated from '@finpress/deprecated';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

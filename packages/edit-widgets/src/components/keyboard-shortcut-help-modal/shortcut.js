@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Fragment } from '@wordpress/element';
-import { displayShortcutList, shortcutAriaLabel } from '@wordpress/keycodes';
+import { Fragment } from '@finpress/element';
+import { displayShortcutList, shortcutAriaLabel } from '@finpress/keycodes';
 
 function KeyCombination( { keyCombination, forceAriaLabel } ) {
 	const shortcut = keyCombination.modifier

@@ -22,11 +22,11 @@ By default the default control will be used to render the default (ie: "All") se
 
 ```jsx
 import { useState } from 'react';
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType } from '@finpress/blocks';
 import {
 	InspectorControls,
 	__experimentalResponsiveBlockControl as ResponsiveBlockControl,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 registerBlockType( 'my-plugin/my-block', {
 	// ...

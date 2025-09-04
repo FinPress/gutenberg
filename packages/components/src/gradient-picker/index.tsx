@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { useInstanceId } from '@wordpress/compose';
-import { useCallback, useMemo } from '@wordpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { useInstanceId } from '@finpress/compose';
+import { useCallback, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -154,7 +154,7 @@ function Component( props: PickerProps< any > ) {
  *
  * ```jsx
  * import { useState } from 'react';
- * import { GradientPicker } from '@wordpress/components';
+ * import { GradientPicker } from '@finpress/components';
  *
  * const MyGradientPicker = () => {
  *   const [ gradient, setGradient ] = useState( null );

@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect, useRef } from '@finpress/element';
 import {
 	focus,
 	isFormElement,
 	isTextField,
 	placeCaretAtHorizontalEdge,
-} from '@wordpress/dom';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/dom';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import { isInsideRootBlock } from '../../../utils/dom';
 import { store as blockEditorStore } from '../../../store';
 import { unlock } from '../../../lock-unlock';
 
-/** @typedef {import('@wordpress/element').RefObject} RefObject */
+/** @typedef {import('@finpress/element').RefObject} RefObject */
 
 /**
  * Transitions focus to the block or inner tabbable when the block becomes

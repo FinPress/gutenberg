@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	pasteHandler,
@@ -7,13 +7,13 @@ import {
 	getBlockTransforms,
 	hasBlockSupport,
 	switchToBlockType,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 import {
 	documentHasSelection,
 	documentHasUncollapsedSelection,
-} from '@wordpress/dom';
-import { useDispatch, useRegistry, useSelect } from '@wordpress/data';
-import { useRefEffect } from '@wordpress/compose';
+} from '@finpress/dom';
+import { useDispatch, useRegistry, useSelect } from '@finpress/data';
+import { useRefEffect } from '@finpress/compose';
 
 /**
  * Internal dependencies

@@ -8,7 +8,7 @@ const path = require( 'path' );
 /**
  * Internal dependencies
  */
-const { hasSameCoreSource } = require( './wordpress' );
+const { hasSameCoreSource } = require( './finpress' );
 const { dbEnv } = require( './config' );
 const getHostUser = require( './get-host-user' );
 
@@ -23,8 +23,8 @@ const getHostUser = require( './get-host-user' );
  * @param {string}              workDirectoryPath The working directory for wp-env.
  * @param {WPEnvironmentConfig} config            The service config to get the mounts from.
  * @param {string}              hostUsername      The username of the host running wp-env.
- * @param {string}              wordpressDefault  The default internal path for the WordPress
- *                                                source code (such as tests-wordpress).
+ * @param {string}              wordpressDefault  The default internal path for the FinPress
+ *                                                source code (such as tests-finpress).
  *
  * @return {string[]} An array of volumes to mount in string format.
  */
@@ -32,9 +32,9 @@ function getMounts(
 	workDirectoryPath,
 	config,
 	hostUsername,
-	wordpressDefault = 'wordpress'
+	wordpressDefault = 'finpress'
 ) {
-	// Top-level WordPress directory mounts (like wp-content/themes)
+	// Top-level FinPress directory mounts (like wp-content/themes)
 	const directoryMounts = Object.entries( config.mappings ).map(
 		( [ wpDir, source ] ) => `${ source.path }:/var/www/html/${ wpDir }`
 	);
@@ -50,18 +50,18 @@ function getMounts(
 	);
 
 	const userHomeMount =
-		wordpressDefault === 'wordpress'
+		wordpressDefault === 'finpress'
 			? `user-home:/home/${ hostUsername }`
 			: `tests-user-home:/home/${ hostUsername }`;
 
 	const corePHPUnitMount = `${ path.join(
 		workDirectoryPath,
-		wordpressDefault === 'wordpress'
-			? 'WordPress-PHPUnit'
-			: 'tests-WordPress-PHPUnit',
+		wordpressDefault === 'finpress'
+			? 'FinPress-PHPUnit'
+			: 'tests-FinPress-PHPUnit',
 		'tests',
 		'phpunit'
-	) }:/wordpress-phpunit`;
+	) }:/finpress-phpunit`;
 
 	const coreMount = `${
 		config.coreSource ? config.coreSource.path : wordpressDefault
@@ -103,7 +103,7 @@ module.exports = function buildDockerComposeConfig( config ) {
 		config.workDirectoryPath,
 		config.env.tests,
 		hostUser.name,
-		'tests-wordpress'
+		'tests-finpress'
 	);
 
 	// We use a custom Dockerfile in order to make sure that
@@ -124,16 +124,16 @@ module.exports = function buildDockerComposeConfig( config ) {
 	// 2. That the development and tests environment use separate
 	//    databases and `wp-content/uploads`.
 	//
-	// To do this we copy the local "core" files ($wordpress) to a tests
-	// directory ($tests-wordpress) and instruct the tests environment
+	// To do this we copy the local "core" files ($finpress) to a tests
+	// directory ($tests-finpress) and instruct the tests environment
 	// to source its files like so:
 	//
-	// - wp-config.php        <- $tests-wordpress/wp-config.php
-	// - wp-config-sample.php <- $tests-wordpress/wp-config.php
-	// - wp-content           <- $tests-wordpress/wp-content
-	// - *                    <- $wordpress/*
+	// - wp-config.php        <- $tests-finpress/wp-config.php
+	// - wp-config-sample.php <- $tests-finpress/wp-config.php
+	// - wp-content           <- $tests-finpress/wp-content
+	// - *                    <- $finpress/*
 	//
-	// https://github.com/WordPress/gutenberg/issues/21164
+	// https://github.com/FinPress/gutenberg/issues/21164
 	if (
 		config.env.development.coreSource &&
 		hasSameCoreSource( [ config.env.development, config.env.tests ] )
@@ -205,11 +205,11 @@ module.exports = function buildDockerComposeConfig( config ) {
 				},
 				volumes: [ 'mysql-test:/var/lib/mysql' ],
 			},
-			wordpress: {
+			finpress: {
 				depends_on: [ 'mysql' ],
 				build: {
 					context: '.',
-					dockerfile: 'WordPress.Dockerfile',
+					dockerfile: 'FinPress.Dockerfile',
 					args: imageBuildArgs,
 				},
 				ports: [ developmentPorts ],
@@ -218,16 +218,16 @@ module.exports = function buildDockerComposeConfig( config ) {
 					APACHE_RUN_GROUP: '#' + hostUser.gid,
 					...dbEnv.credentials,
 					...dbEnv.development,
-					WP_TESTS_DIR: '/wordpress-phpunit',
+					WP_TESTS_DIR: '/finpress-phpunit',
 				},
 				volumes: developmentMounts,
 				extra_hosts: [ 'host.docker.internal:host-gateway' ],
 			},
-			'tests-wordpress': {
+			'tests-finpress': {
 				depends_on: [ 'tests-mysql' ],
 				build: {
 					context: '.',
-					dockerfile: 'Tests-WordPress.Dockerfile',
+					dockerfile: 'Tests-FinPress.Dockerfile',
 					args: imageBuildArgs,
 				},
 				ports: [ testsPorts ],
@@ -236,13 +236,13 @@ module.exports = function buildDockerComposeConfig( config ) {
 					APACHE_RUN_GROUP: '#' + hostUser.gid,
 					...dbEnv.credentials,
 					...dbEnv.tests,
-					WP_TESTS_DIR: '/wordpress-phpunit',
+					WP_TESTS_DIR: '/finpress-phpunit',
 				},
 				volumes: testsMounts,
 				extra_hosts: [ 'host.docker.internal:host-gateway' ],
 			},
 			cli: {
-				depends_on: [ 'wordpress' ],
+				depends_on: [ 'finpress' ],
 				build: {
 					context: '.',
 					dockerfile: 'CLI.Dockerfile',
@@ -253,12 +253,12 @@ module.exports = function buildDockerComposeConfig( config ) {
 				environment: {
 					...dbEnv.credentials,
 					...dbEnv.development,
-					WP_TESTS_DIR: '/wordpress-phpunit',
+					WP_TESTS_DIR: '/finpress-phpunit',
 				},
 				extra_hosts: [ 'host.docker.internal:host-gateway' ],
 			},
 			'tests-cli': {
-				depends_on: [ 'tests-wordpress' ],
+				depends_on: [ 'tests-finpress' ],
 				build: {
 					context: '.',
 					dockerfile: 'Tests-CLI.Dockerfile',
@@ -269,7 +269,7 @@ module.exports = function buildDockerComposeConfig( config ) {
 				environment: {
 					...dbEnv.credentials,
 					...dbEnv.tests,
-					WP_TESTS_DIR: '/wordpress-phpunit',
+					WP_TESTS_DIR: '/finpress-phpunit',
 				},
 				extra_hosts: [ 'host.docker.internal:host-gateway' ],
 			},
@@ -295,8 +295,8 @@ module.exports = function buildDockerComposeConfig( config ) {
 			},
 		},
 		volumes: {
-			...( ! config.env.development.coreSource && { wordpress: {} } ),
-			...( ! config.env.tests.coreSource && { 'tests-wordpress': {} } ),
+			...( ! config.env.development.coreSource && { finpress: {} } ),
+			...( ! config.env.tests.coreSource && { 'tests-finpress': {} } ),
 			mysql: {},
 			'mysql-test': {},
 			'user-home': {},

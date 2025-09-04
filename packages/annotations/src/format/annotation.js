@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { applyFormat, removeFormat } from '@wordpress/rich-text';
+import { __ } from '@finpress/i18n';
+import { applyFormat, removeFormat } from '@finpress/rich-text';
 
 const FORMAT_NAME = 'core/annotation';
 

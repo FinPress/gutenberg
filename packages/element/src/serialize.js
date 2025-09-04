@@ -32,13 +32,13 @@ import { isPlainObject } from 'is-plain-object';
 import { paramCase as kebabCase } from 'change-case';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	escapeHTML,
 	escapeAttribute,
 	isValidAttributeName,
-} from '@wordpress/escape-html';
+} from '@finpress/escape-html';
 
 /**
  * Internal dependencies

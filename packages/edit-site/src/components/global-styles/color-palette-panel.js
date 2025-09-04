@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
+import { useViewportMatch } from '@finpress/compose';
 import {
 	__experimentalPaletteEdit as PaletteEdit,
 	__experimentalVStack as VStack,
 	Button,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { shuffle } from '@wordpress/icons';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { shuffle } from '@finpress/icons';
 
 /**
  * Internal dependencies

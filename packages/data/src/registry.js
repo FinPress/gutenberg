@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -90,7 +90,7 @@ export function createRegistry( storeConfigs = {}, parent = null ) {
 		// Trying to access a store that hasn't been registered,
 		// this is a pattern rarely used but seen in some places.
 		// We fallback to global `subscribe` here for backward-compatibility for now.
-		// See https://github.com/WordPress/gutenberg/pull/27466 for more info.
+		// See https://github.com/FinPress/gutenberg/pull/27466 for more info.
 		if ( ! parent ) {
 			return emitter.subscribe( listener );
 		}
@@ -294,7 +294,7 @@ export function createRegistry( storeConfigs = {}, parent = null ) {
 	}
 
 	/**
-	 * Registers a standard `@wordpress/data` store.
+	 * Registers a standard `@finpress/data` store.
 	 *
 	 * @param {string} storeName Unique namespace identifier.
 	 * @param {Object} options   Store description (reducer, actions, selectors, resolvers).

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMergeRefs, useFocusableIframe } from '@wordpress/compose';
-import deprecated from '@wordpress/deprecated';
+import { useMergeRefs, useFocusableIframe } from '@finpress/compose';
+import deprecated from '@finpress/deprecated';
 /**
  * Internal dependencies
  */

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useMemo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { decodeEntities } from '@wordpress/html-entities';
-import { store as coreStore } from '@wordpress/core-data';
+import { __ } from '@finpress/i18n';
+import { useMemo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { decodeEntities } from '@finpress/html-entities';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	AlignmentToolbar,
@@ -14,13 +14,13 @@ import {
 	useBlockDisplayInformation,
 	RichText,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
-import { Spinner, TextControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __ } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { createBlock, getDefaultBlockName } from '@finpress/blocks';
+import { Spinner, TextControl } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { decodeEntities } from '@finpress/html-entities';
+import { __ } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

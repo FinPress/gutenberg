@@ -4,26 +4,26 @@
 import { TouchableWithoutFeedback, View, Text } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { compose, withPreferredColorScheme } from '@wordpress/compose';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { postList as icon } from '@wordpress/icons';
+import { Component } from '@finpress/element';
+import { compose, withPreferredColorScheme } from '@finpress/compose';
+import { withDispatch, withSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { postList as icon } from '@finpress/icons';
 import {
 	InspectorControls,
 	BlockAlignmentControl,
-} from '@wordpress/block-editor';
-import apiFetch from '@wordpress/api-fetch';
+} from '@finpress/block-editor';
+import apiFetch from '@finpress/api-fetch';
 import {
 	Icon,
 	PanelBody,
 	ToggleControl,
 	RangeControl,
 	QueryControls,
-} from '@wordpress/components';
-import { store as blocksStore } from '@wordpress/blocks';
+} from '@finpress/components';
+import { store as blocksStore } from '@finpress/blocks';
 
 /**
  * Internal dependencies

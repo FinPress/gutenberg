@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as coreStore } from '@wordpress/core-data';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { store as coreStore } from '@finpress/core-data';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

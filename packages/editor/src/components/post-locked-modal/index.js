@@ -1,20 +1,20 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	Modal,
 	Button,
 	ExternalLink,
 	__experimentalHStack as HStack,
 	withFilters,
-} from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { addQueryArgs } from '@wordpress/url';
-import { useEffect, createInterpolateElement } from '@wordpress/element';
-import { addAction, removeAction } from '@wordpress/hooks';
-import { useInstanceId } from '@wordpress/compose';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { addQueryArgs } from '@finpress/url';
+import { useEffect, createInterpolateElement } from '@finpress/element';
+import { addAction, removeAction } from '@finpress/hooks';
+import { useInstanceId } from '@finpress/compose';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -132,7 +132,7 @@ function PostLockedModal() {
 		}
 
 		// Details on these events on the Heartbeat API docs
-		// https://developer.wordpress.org/plugins/javascript/heartbeat-api/
+		// https://developer.finpress.org/plugins/javascript/heartbeat-api/
 		addAction( 'heartbeat.send', hookName, sendPostLock );
 		addAction( 'heartbeat.tick', hookName, receivePostLock );
 		window.addEventListener( 'beforeunload', releasePostLock );

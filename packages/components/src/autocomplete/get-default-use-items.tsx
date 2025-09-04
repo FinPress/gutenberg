@@ -4,10 +4,10 @@
 import removeAccents from 'remove-accents';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { debounce } from '@wordpress/compose';
-import { useLayoutEffect, useState } from '@wordpress/element';
+import { debounce } from '@finpress/compose';
+import { useLayoutEffect, useState } from '@finpress/element';
 
 /**
  * Internal dependencies

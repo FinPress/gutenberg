@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { speak } from '@wordpress/a11y';
-import { useSelect } from '@wordpress/data';
-import { forwardRef, useEffect } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { useInstanceId } from '@finpress/compose';
+import { speak } from '@finpress/a11y';
+import { useSelect } from '@finpress/data';
+import { forwardRef, useEffect } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

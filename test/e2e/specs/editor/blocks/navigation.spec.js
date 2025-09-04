@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Navigation block', () => {
 	test.beforeEach( async ( { requestUtils } ) => {
@@ -58,7 +58,7 @@ test.describe( 'Navigation block', () => {
 				// Wait for the Nav and Page List block API requests to resolve.
 				// Note: avoid waiting on network requests as these are not perceivable
 				// to the user.
-				// See: https://github.com/WordPress/gutenberg/pull/45070#issuecomment-1373712007.
+				// See: https://github.com/FinPress/gutenberg/pull/45070#issuecomment-1373712007.
 				timeout: 10000,
 			} );
 
@@ -79,7 +79,7 @@ test.describe( 'Navigation block', () => {
 			const createdMenu = await requestUtils.createNavigationMenu( {
 				title: 'Test Menu 1',
 				content:
-					'<!-- wp:navigation-link {"label":"WordPress","type":"custom","url":"http://www.wordpress.org/","kind":"custom"} /-->',
+					'<!-- wp:navigation-link {"label":"FinPress","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /-->',
 			} );
 
 			await editor.insertBlock( { name: 'core/navigation' } );
@@ -87,7 +87,7 @@ test.describe( 'Navigation block', () => {
 			// Check the block in the canvas.
 			await expect(
 				editor.canvas.locator(
-					`role=textbox[name="Navigation link text"i] >> text="WordPress"`
+					`role=textbox[name="Navigation link text"i] >> text="FinPress"`
 				)
 			).toBeVisible();
 
@@ -106,7 +106,7 @@ test.describe( 'Navigation block', () => {
 
 			await expect(
 				page.locator(
-					`role=navigation >> role=link[name="WordPress"i]`
+					`role=navigation >> role=link[name="FinPress"i]`
 				)
 			).toBeVisible();
 		} );
@@ -161,7 +161,7 @@ test.describe( 'Navigation block', () => {
 			} );
 
 			//FIXME this is needed because if the two menus are created at the same time, the API will return them in the wrong order.
-			//https://core.trac.wordpress.org/ticket/57914
+			//https://core.trac.finpress.org/ticket/57914
 			await editor.page.waitForTimeout( 1000 );
 
 			const latestMenu = await requestUtils.createNavigationMenu( {
@@ -249,14 +249,14 @@ test.describe( 'Navigation block', () => {
 			await requestUtils.createNavigationMenu( {
 				title: 'Test Menu',
 				content:
-					'<!-- wp:navigation-submenu {"label":"WordPress","type":"custom","url":"http://www.wordpress.org/","kind":"custom"} --><!-- wp:navigation-link {"label":"WordPress Child","type":"custom","url":"http://www.wordpress.org/","kind":"custom"} /--><!-- /wp:navigation-submenu -->',
+					'<!-- wp:navigation-submenu {"label":"FinPress","type":"custom","url":"http://www.finpress.org/","kind":"custom"} --><!-- wp:navigation-link {"label":"FinPress Child","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /--><!-- /wp:navigation-submenu -->',
 			} );
 
 			await editor.insertBlock( { name: 'core/navigation' } );
 
 			await expect(
 				editor.canvas.locator(
-					`role=textbox[name="Navigation link text"i] >> text="WordPress"`
+					`role=textbox[name="Navigation link text"i] >> text="FinPress"`
 				)
 			).toBeVisible();
 
@@ -426,7 +426,7 @@ test.describe( 'Navigation block', () => {
 			).toBeVisible();
 
 			await pageUtils.pressKeys( 'ArrowDown' );
-			// There is a bug that won't allow us to press Enter to add the link: https://github.com/WordPress/gutenberg/issues/60051
+			// There is a bug that won't allow us to press Enter to add the link: https://github.com/FinPress/gutenberg/issues/60051
 			// TODO: Use Enter after that bug is resolved
 			await navigation.useLinkShortcut();
 
@@ -488,8 +488,8 @@ test.describe( 'Navigation block', () => {
 				editor.canvas.locator( 'a' ).filter( { hasText: 'Add link' } )
 			).toBeVisible();
 
-			await navigation.addCustomURL( 'https://wordpress.org' );
-			await navigation.expectToHaveTextSelected( 'wordpress.org' );
+			await navigation.addCustomURL( 'https://finpress.org' );
+			await navigation.expectToHaveTextSelected( 'finpress.org' );
 
 			/**
 			 * Test: We can open and close the preview with the keyboard and escape
@@ -498,7 +498,7 @@ test.describe( 'Navigation block', () => {
 			await pageUtils.pressKeys( 'ArrowLeft' );
 			await navigation.useLinkShortcut();
 			await navigation.previewIsOpenAndCloses();
-			await navigation.checkLabelFocus( 'wordpress.org' );
+			await navigation.checkLabelFocus( 'finpress.org' );
 			await navigation.canUseToolbarLink();
 
 			/**
@@ -548,15 +548,15 @@ test.describe( 'Navigation block', () => {
 				editor.canvas.locator( 'a' ).filter( { hasText: 'Add link' } )
 			).toBeVisible();
 			await pageUtils.pressKeys( 'ArrowDown' );
-			// There is a bug that won't allow us to press Enter to add the link: https://github.com/WordPress/gutenberg/issues/60051
+			// There is a bug that won't allow us to press Enter to add the link: https://github.com/FinPress/gutenberg/issues/60051
 			// TODO: Use Enter after that bug is resolved
 			await navigation.useLinkShortcut();
 			await navigation.addPage( 'Dog' );
 			await page.keyboard.press( 'End' );
 			await pageUtils.pressKeys( 'ArrowRight', { times: 2 } );
 			await navigation.useBlockInserter();
-			await navigation.addCustomURL( 'https://wordpress.org' );
-			await navigation.expectToHaveTextSelected( 'wordpress.org' );
+			await navigation.addCustomURL( 'https://finpress.org' );
+			await navigation.expectToHaveTextSelected( 'finpress.org' );
 
 			/**
 			 * Test: Deleting second item returns focus to its sibling
@@ -571,8 +571,8 @@ test.describe( 'Navigation block', () => {
 			await page.keyboard.press( 'End' );
 			await pageUtils.pressKeys( 'ArrowRight', { times: 2 } );
 			await navigation.useBlockInserter();
-			await navigation.addCustomURL( 'https://wordpress.org' );
-			await navigation.expectToHaveTextSelected( 'wordpress.org' );
+			await navigation.addCustomURL( 'https://finpress.org' );
+			await navigation.expectToHaveTextSelected( 'finpress.org' );
 
 			await pageUtils.pressKeys( 'ArrowUp', { times: 2 } );
 			await navigation.checkLabelFocus( 'Dog' );
@@ -880,7 +880,7 @@ class Navigation {
 	 * any accessible attributes. In general we should avoid using this method
 	 * and instead rely on locating the sub elements of the component directly.
 	 * Remove / update method once the following PR has landed:
-	 * https://github.com/WordPress/gutenberg/pull/54063.
+	 * https://github.com/FinPress/gutenberg/pull/54063.
 	 */
 	getLinkPopover() {
 		return this.page.locator(

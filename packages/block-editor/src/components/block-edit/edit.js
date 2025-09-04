@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getBlockDefaultClassName,
 	getBlockType,
 	hasBlockSupport,
 	store as blocksStore,
-} from '@wordpress/blocks';
-import { withFilters } from '@wordpress/components';
-import { useRegistry, useSelect } from '@wordpress/data';
-import { useCallback, useContext, useMemo } from '@wordpress/element';
+} from '@finpress/blocks';
+import { withFilters } from '@finpress/components';
+import { useRegistry, useSelect } from '@finpress/data';
+import { useCallback, useContext, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

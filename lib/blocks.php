@@ -366,7 +366,7 @@ function gutenberg_register_legacy_social_link_blocks() {
 		'twitter',
 		'vimeo',
 		'vk',
-		'wordpress',
+		'finpress',
 		'yelp',
 		'youtube',
 	);

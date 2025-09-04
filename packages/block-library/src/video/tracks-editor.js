@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x, sprintf } from '@wordpress/i18n';
+import { __, _x, sprintf } from '@finpress/i18n';
 import {
 	NavigableMenu,
 	MenuItem,
@@ -18,16 +18,16 @@ import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	MediaUpload,
 	MediaUploadCheck,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { upload, media } from '@wordpress/icons';
-import { useSelect } from '@wordpress/data';
-import { useState, useRef, useEffect } from '@wordpress/element';
-import { getFilename } from '@wordpress/url';
+} from '@finpress/block-editor';
+import { upload, media } from '@finpress/icons';
+import { useSelect } from '@finpress/data';
+import { useState, useRef, useEffect } from '@finpress/element';
+import { getFilename } from '@finpress/url';
 
 /**
  * Internal dependencies

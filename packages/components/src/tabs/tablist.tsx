@@ -5,11 +5,11 @@ import * as Ariakit from '@ariakit/react';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import warning from '@wordpress/warning';
-import { forwardRef, useLayoutEffect, useState } from '@wordpress/element';
-import { useMergeRefs } from '@wordpress/compose';
+import warning from '@finpress/warning';
+import { forwardRef, useLayoutEffect, useState } from '@finpress/element';
+import { useMergeRefs } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -60,7 +60,7 @@ function useScrollRectIntoView(
 			/**
 			 * The optional chaining is used here to avoid unit test failures.
 			 * It can be removed when JSDOM supports `Element` scroll methods.
-			 * See: https://github.com/WordPress/gutenberg/pull/66498#issuecomment-2441146096
+			 * See: https://github.com/FinPress/gutenberg/pull/66498#issuecomment-2441146096
 			 */
 			parent.scroll?.( { left: scrollLeft } );
 		}

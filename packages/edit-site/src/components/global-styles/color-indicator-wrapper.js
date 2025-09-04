@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Flex } from '@wordpress/components';
+import { Flex } from '@finpress/components';
 
 function ColorIndicatorWrapper( { className, ...props } ) {
 	return (

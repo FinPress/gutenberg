@@ -22,7 +22,7 @@ A higher-order component factory for creating a 'withCustomColors' HOC, which ha
 ### Usage
 
 ```jsx
-import { createCustomColorsHOC } from '@wordpress/block-editor';
+import { createCustomColorsHOC } from '@finpress/block-editor';
 
 const CUSTOM_COLORS = [
 	{ name: 'Red', slug: 'red', color: '#ff0000' },
@@ -37,5 +37,5 @@ export default compose(
 ```
 ## Related components.
 
--   [`PanelColorSettings`](https://github.com/WordPress/gutenberg/blob/bb00ad891db9937862b16867dcebd2a4d830ea86/packages/block-editor/src/components/panel-color-settings/index.js).
--   [`InspectorControls`](https://github.com/WordPress/gutenberg/blob/bb00ad891db9937862b16867dcebd2a4d830ea86/packages/block-editor/src/components/inspector-controls/README.md).
+-   [`PanelColorSettings`](https://github.com/FinPress/gutenberg/blob/bb00ad891db9937862b16867dcebd2a4d830ea86/packages/block-editor/src/components/panel-color-settings/index.js).
+-   [`InspectorControls`](https://github.com/FinPress/gutenberg/blob/bb00ad891db9937862b16867dcebd2a4d830ea86/packages/block-editor/src/components/inspector-controls/README.md).

@@ -5,7 +5,7 @@ import { Pressable, View } from 'react-native';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useCallback,
@@ -13,8 +13,8 @@ import {
 	useState,
 	useRef,
 	memo,
-} from '@wordpress/element';
-import { withFilters } from '@wordpress/components';
+} from '@finpress/element';
+import { withFilters } from '@finpress/components';
 import {
 	__experimentalGetAccessibleBlockLabel as getAccessibleBlockLabel,
 	getBlockType,
@@ -22,14 +22,14 @@ import {
 	isUnmodifiedBlock,
 	isUnmodifiedDefaultBlock,
 	switchToBlockType,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 import {
 	useDispatch,
 	useSelect,
 	withDispatch,
 	withSelect,
-} from '@wordpress/data';
-import { compose, ifCondition } from '@wordpress/compose';
+} from '@finpress/data';
+import { compose, ifCondition } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -705,7 +705,7 @@ export default compose(
 	applyWithDispatch,
 	// Block is sometimes not mounted at the right time, causing it be undefined
 	// see issue for more info
-	// https://github.com/WordPress/gutenberg/issues/17013
+	// https://github.com/FinPress/gutenberg/issues/17013
 	ifCondition( ( { block } ) => !! block ),
 	withFilters( 'editor.BlockListBlock' )
 )( BlockListBlock );

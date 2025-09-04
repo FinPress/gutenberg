@@ -13,7 +13,7 @@ import { Animated } from 'react-native';
 const block = 'Social Icons';
 const initialHtml = `
 <!-- wp:social-links -->
-<ul class="wp-block-social-links"><!-- wp:social-link {"url":"https://wordpress.org","service":"wordpress"} /-->
+<ul class="wp-block-social-links"><!-- wp:social-link {"url":"https://finpress.org","service":"finpress"} /-->
 <!-- wp:social-link {"service":"facebook"} /-->
 <!-- wp:social-link {"service":"twitter"} /-->
 <!-- wp:social-link {"service":"instagram"} /--></ul>

@@ -10,10 +10,10 @@ import {
 	Easing,
 } from 'react-native';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { useState, useEffect } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -74,14 +74,14 @@ const SegmentedControls = ( {
 	useEffect( () => {
 		setActiveSegmentIndex( selectedSegmentIndex );
 		segmentHandler( segments[ selectedSegmentIndex ] );
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [] );
 
 	useEffect( () => {
 		positionAnimationValue.setValue(
 			calculateEndValue( activeSegmentIndex )
 		);
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ segmentsDimensions ] );
 
 	const containerStyle = usePreferredColorSchemeStyle(

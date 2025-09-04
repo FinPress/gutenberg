@@ -1,8 +1,8 @@
-package org.wordpress.mobile.WPAndroidGlue
+package org.finpress.mobile.WPAndroidGlue
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.wordpress.mobile.WPAndroidGlue.GutenbergProps.Companion.revertDeprecatedLanguageCode
+import org.finpress.mobile.WPAndroidGlue.GutenbergProps.Companion.revertDeprecatedLanguageCode
 
 class GutenbergPropsTest {
 

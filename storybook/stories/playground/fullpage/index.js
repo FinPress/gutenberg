@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@finpress/element';
 import {
 	BlockCanvas,
 	BlockEditorProvider,
 	BlockInspector,
-} from '@wordpress/block-editor';
-import { registerCoreBlocks } from '@wordpress/block-library';
-import '@wordpress/format-library';
+} from '@finpress/block-editor';
+import { registerCoreBlocks } from '@finpress/block-library';
+import '@finpress/format-library';
 
 /**
  * Internal dependencies

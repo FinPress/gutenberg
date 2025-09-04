@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useState,
@@ -20,14 +20,14 @@ import {
 	useMemo,
 	useEffect,
 	useCallback,
-} from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/element';
+import { __ } from '@finpress/i18n';
 import {
 	Icon,
 	cancelCircleFilled as cancelCircleFilledIcon,
 	arrowLeft as arrowLeftIcon,
 	close as closeIcon,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -122,7 +122,7 @@ function SearchControl( {
 		mergeFutureStyles( activeDarkStyles, [ isActive, isDark ] );
 
 		setCurrentStyles( futureStyles );
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ isActive, isDark ] );
 
 	const clearInput = useCallback( () => {

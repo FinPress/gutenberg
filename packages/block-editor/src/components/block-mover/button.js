@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockType } from '@wordpress/blocks';
-import { Button, VisuallyHidden } from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { forwardRef } from '@wordpress/element';
-import { __, isRTL } from '@wordpress/i18n';
+import { getBlockType } from '@finpress/blocks';
+import { Button, VisuallyHidden } from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
+import { forwardRef } from '@finpress/element';
+import { __, isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ import {
 	chevronRight,
 	chevronUp,
 	chevronDown,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 import { getBlockMoverDescription } from './mover-description';
 import { store as blockEditorStore } from '../../store';
 

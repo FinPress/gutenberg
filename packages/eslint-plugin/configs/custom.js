@@ -1,21 +1,21 @@
 module.exports = {
-	plugins: [ '@wordpress' ],
+	plugins: [ '@finpress' ],
 	rules: {
-		'@wordpress/no-unused-vars-before-return': 'error',
-		'@wordpress/no-base-control-with-label-without-id': 'error',
-		'@wordpress/no-unguarded-get-range-at': 'error',
-		'@wordpress/no-global-active-element': 'error',
-		'@wordpress/no-global-get-selection': 'error',
-		'@wordpress/no-unsafe-wp-apis': 'error',
-		'@wordpress/no-wp-process-env': 'error',
+		'@finpress/no-unused-vars-before-return': 'error',
+		'@finpress/no-base-control-with-label-without-id': 'error',
+		'@finpress/no-unguarded-get-range-at': 'error',
+		'@finpress/no-global-active-element': 'error',
+		'@finpress/no-global-get-selection': 'error',
+		'@finpress/no-unsafe-wp-apis': 'error',
+		'@finpress/no-wp-process-env': 'error',
 	},
 	overrides: [
 		{
 			files: [ '*.native.js' ],
 			rules: {
-				'@wordpress/no-base-control-with-label-without-id': 'off',
-				'@wordpress/i18n-no-flanking-whitespace': 'error',
-				'@wordpress/i18n-hyphenated-range': 'error',
+				'@finpress/no-base-control-with-label-without-id': 'off',
+				'@finpress/i18n-no-flanking-whitespace': 'error',
+				'@finpress/i18n-hyphenated-range': 'error',
 			},
 		},
 		{
@@ -25,8 +25,8 @@ module.exports = {
 				'packages/e2e-test-utils/**/*.js',
 			],
 			rules: {
-				'@wordpress/no-global-active-element': 'off',
-				'@wordpress/no-global-get-selection': 'off',
+				'@finpress/no-global-active-element': 'off',
+				'@finpress/no-global-get-selection': 'off',
 			},
 		},
 	],

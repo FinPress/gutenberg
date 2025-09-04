@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { rss as icon } from '@wordpress/icons';
+import { rss as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ export const settings = {
 	icon,
 	example: {
 		attributes: {
-			feedURL: 'https://wordpress.org',
+			feedURL: 'https://finpress.org',
 		},
 	},
 	edit,

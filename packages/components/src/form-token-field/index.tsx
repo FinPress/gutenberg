@@ -5,14 +5,14 @@ import clsx from 'clsx';
 import type { KeyboardEvent, MouseEvent, TouchEvent, FocusEvent } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef, useState } from '@wordpress/element';
-import { __, _n, sprintf } from '@wordpress/i18n';
-import { useDebounce, useInstanceId, usePrevious } from '@wordpress/compose';
-import { speak } from '@wordpress/a11y';
-import isShallowEqual from '@wordpress/is-shallow-equal';
-import deprecated from '@wordpress/deprecated';
+import { useEffect, useRef, useState } from '@finpress/element';
+import { __, _n, sprintf } from '@finpress/i18n';
+import { useDebounce, useInstanceId, usePrevious } from '@finpress/compose';
+import { speak } from '@finpress/a11y';
+import isShallowEqual from '@finpress/is-shallow-equal';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

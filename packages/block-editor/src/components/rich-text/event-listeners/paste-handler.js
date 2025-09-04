@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { pasteHandler } from '@wordpress/blocks';
-import { isEmpty, insert, create } from '@wordpress/rich-text';
-import { isURL } from '@wordpress/url';
+import { pasteHandler } from '@finpress/blocks';
+import { isEmpty, insert, create } from '@finpress/rich-text';
+import { isURL } from '@finpress/url';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import { isURL } from '@wordpress/url';
 import { addActiveFormats } from '../utils';
 import { getPasteEventData } from '../../../utils/pasting';
 
-/** @typedef {import('@wordpress/rich-text').RichTextValue} RichTextValue */
+/** @typedef {import('@finpress/rich-text').RichTextValue} RichTextValue */
 
 export default ( props ) => ( element ) => {
 	function _onPaste( event ) {

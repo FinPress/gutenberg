@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { pipe } from '@wordpress/compose';
+import { pipe } from '@finpress/compose';
 
 /**
  * Escapes ampersands, shortcodes, and links.
@@ -41,7 +41,7 @@ function escapeOpeningSquareBrackets( content ) {
  * An isolated URL is a URL that sits in its own line, surrounded only by spacing
  * characters.
  *
- * See https://github.com/WordPress/wordpress-develop/blob/5.1.1/src/wp-includes/class-wp-embed.php#L403
+ * See https://github.com/FinPress/finpress-develop/blob/5.1.1/src/wp-includes/class-wp-embed.php#L403
  *
  * @param {string} content The content of a code block.
  * @return {string} The given content with its ampersands converted into

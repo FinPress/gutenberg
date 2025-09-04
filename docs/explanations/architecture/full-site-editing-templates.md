@@ -27,7 +27,7 @@ This means:
 The synchronization is important for two different flows:
 
 -   When editing the template and template parts, the site editor frontend fetches the edited and available templates through the REST API. This means that for all `GET` API requests performed to the `wp-templates` and `wp-template-parts` endpoint synchronization is required.
--   When rendering a template (sometimes referred to as "resolving a template"): this is the algorithm that WordPress follows to traverse the template hierarchy and find the right template to render for the current page being loaded.
+-   When rendering a template (sometimes referred to as "resolving a template"): this is the algorithm that FinPress follows to traverse the template hierarchy and find the right template to render for the current page being loaded.
 -   When exporting a block theme, we need to export all its templates back as files. The synchronization is required to simplify the operation and only export the CPT templates.
 
 ## Switching themes

@@ -7,20 +7,20 @@
  */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf, _x } from '@wordpress/i18n';
-import { resolveSelect } from '@wordpress/data';
-import { decodeEntities } from '@wordpress/html-entities';
+import { __, sprintf, _x } from '@finpress/i18n';
+import { resolveSelect } from '@finpress/data';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies
  */
-import { store as coreStore } from '@wordpress/core-data';
+import { store as coreStore } from '@finpress/core-data';
 
-/** @typedef {import('@wordpress/block-editor').InserterMediaRequest} InserterMediaRequest */
-/** @typedef {import('@wordpress/block-editor').InserterMediaItem} InserterMediaItem */
-/** @typedef {import('@wordpress/block-editor').InserterMediaCategory} InserterMediaCategory */
+/** @typedef {import('@finpress/block-editor').InserterMediaRequest} InserterMediaRequest */
+/** @typedef {import('@finpress/block-editor').InserterMediaItem} InserterMediaItem */
+/** @typedef {import('@finpress/block-editor').InserterMediaCategory} InserterMediaCategory */
 
 const getExternalLink = ( url, text ) =>
 	`<a ${ getExternalLinkAttributes( url ) }>${ text }</a>`;
@@ -202,7 +202,7 @@ const inserterMediaCategories = [
 			} );
 			const response = await window.fetch( url, {
 				headers: {
-					'User-Agent': 'WordPress/inserter-media-fetch',
+					'User-Agent': 'FinPress/inserter-media-fetch',
 				},
 			} );
 			const jsonResponse = await response.json();
@@ -221,7 +221,7 @@ const inserterMediaCategories = [
 			} ) );
 		},
 		getReportUrl: ( { sourceId } ) =>
-			`https://wordpress.org/openverse/image/${ sourceId }/report/`,
+			`https://finpress.org/openverse/image/${ sourceId }/report/`,
 		isExternalResource: true,
 	},
 ];

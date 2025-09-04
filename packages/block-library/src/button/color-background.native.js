@@ -3,9 +3,9 @@
  */
 import { View } from 'react-native';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Gradient, colorsUtils } from '@wordpress/components';
+import { Gradient, colorsUtils } from '@finpress/components';
 /**
  * Internal dependencies
  */

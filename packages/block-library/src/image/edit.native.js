@@ -10,9 +10,9 @@ import {
 import { useRoute } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component, useEffect } from '@wordpress/element';
+import { Component, useEffect } from '@finpress/element';
 import {
 	requestMediaImport,
 	mediaUploadSync,
@@ -20,7 +20,7 @@ import {
 	requestImageUploadCancelDialog,
 	requestImageFullscreenPreview,
 	setFeaturedImage,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 import {
 	Icon,
 	PanelBody,
@@ -35,7 +35,7 @@ import {
 	FooterMessageControl,
 	FooterMessageLink,
 	Badge,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	BlockCaption,
 	MediaPlaceholder,
@@ -48,22 +48,22 @@ import {
 	store as blockEditorStore,
 	blockSettingsScreens,
 	RichText,
-} from '@wordpress/block-editor';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { getProtocol, hasQueryArg, isURL } from '@wordpress/url';
-import { doAction, hasAction } from '@wordpress/hooks';
-import { compose, withPreferredColorScheme } from '@wordpress/compose';
-import { withSelect, withDispatch } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { getProtocol, hasQueryArg, isURL } from '@finpress/url';
+import { doAction, hasAction } from '@finpress/hooks';
+import { compose, withPreferredColorScheme } from '@finpress/compose';
+import { withSelect, withDispatch } from '@finpress/data';
 import {
 	image as placeholderIcon,
 	replace,
 	fullscreen,
 	textColor,
-} from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { store as noticesStore } from '@finpress/notices';
 // eslint-disable-next-line no-restricted-imports
-import { store as editPostStore } from '@wordpress/edit-post';
+import { store as editPostStore } from '@finpress/edit-post';
 
 /**
  * Internal dependencies
@@ -221,7 +221,7 @@ export class ImageEdit extends Component {
 	componentDidMount() {
 		const { attributes, setAttributes } = this.props;
 		// This will warn when we have `id` defined, while `url` is undefined.
-		// This may help track this issue: https://github.com/wordpress-mobile/WordPress-Android/issues/9768
+		// This may help track this issue: https://github.com/finpress-mobile/FinPress-Android/issues/9768
 		// where a cancelled image upload was resulting in a subsequent crash.
 		if ( attributes.id && ! attributes.url ) {
 			// eslint-disable-next-line no-console

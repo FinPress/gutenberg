@@ -4,12 +4,12 @@
 import Clipboard from '@react-native-clipboard/clipboard';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Component } from '@wordpress/element';
-import { withSpokenMessages } from '@wordpress/components';
-import { RichTextToolbarButton } from '@wordpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { Component } from '@finpress/element';
+import { withSpokenMessages } from '@finpress/components';
+import { RichTextToolbarButton } from '@finpress/block-editor';
 import {
 	applyFormat,
 	getActiveFormat,
@@ -17,9 +17,9 @@ import {
 	isCollapsed,
 	removeFormat,
 	slice,
-} from '@wordpress/rich-text';
-import { isURL } from '@wordpress/url';
-import { link as linkIcon } from '@wordpress/icons';
+} from '@finpress/rich-text';
+import { isURL } from '@finpress/url';
+import { link as linkIcon } from '@finpress/icons';
 
 /**
  * Internal dependencies

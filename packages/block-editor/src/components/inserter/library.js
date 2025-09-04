@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { forwardRef } from '@wordpress/element';
+import { useSelect } from '@finpress/data';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies

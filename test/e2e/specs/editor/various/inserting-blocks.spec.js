@@ -4,9 +4,9 @@
 const path = require( 'path' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	insertingBlocksUtils: async ( { page, editor }, use ) => {
@@ -66,7 +66,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		await editor.switchToLegacyCanvas();
 
 		// We need a dummy block in place to display the drop indicator due to a bug.
-		// @see https://github.com/WordPress/gutenberg/issues/44064
+		// @see https://github.com/FinPress/gutenberg/issues/44064
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: { content: 'Dummy text' },
@@ -126,7 +126,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		await editor.switchToLegacyCanvas();
 
 		// We need a dummy block in place to display the drop indicator due to a bug.
-		// @see https://github.com/WordPress/gutenberg/issues/44064
+		// @see https://github.com/FinPress/gutenberg/issues/44064
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: { content: 'Dummy text' },
@@ -184,7 +184,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		await editor.switchToLegacyCanvas();
 
 		// We need a dummy block in place to display the drop indicator due to a bug.
-		// @see https://github.com/WordPress/gutenberg/issues/44064
+		// @see https://github.com/FinPress/gutenberg/issues/44064
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: { content: 'Dummy text' },
@@ -210,7 +210,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		);
 
 		// FIXME: I think we should show the indicator when hovering on patterns as well?
-		// @see https://github.com/WordPress/gutenberg/issues/45183
+		// @see https://github.com/FinPress/gutenberg/issues/45183
 		// await expect( insertingBlocksUtils.indicator ).toBeVisible();
 
 		const paragraphBoundingBox = await paragraphBlock.boundingBox();
@@ -247,7 +247,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		await editor.switchToLegacyCanvas();
 
 		// We need a dummy block in place to display the drop indicator due to a bug.
-		// @see https://github.com/WordPress/gutenberg/issues/44064
+		// @see https://github.com/FinPress/gutenberg/issues/44064
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: { content: 'Dummy text' },
@@ -338,7 +338,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		await editor.switchToLegacyCanvas();
 
 		// We need a dummy block in place to display the drop indicator due to a bug.
-		// @see https://github.com/WordPress/gutenberg/issues/44064
+		// @see https://github.com/FinPress/gutenberg/issues/44064
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: { content: 'Dummy text' },
@@ -384,7 +384,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		await expect.poll( editor.getEditedPostContent ).toBe( beforeContent );
 	} );
 
-	// A test for https://github.com/WordPress/gutenberg/issues/43090.
+	// A test for https://github.com/FinPress/gutenberg/issues/43090.
 	test( 'should close the inserter when clicking on the toggle button', async ( {
 		admin,
 		page,
@@ -434,7 +434,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		).toBeVisible();
 	} );
 
-	// Check for regression of https://github.com/WordPress/gutenberg/issues/24262.
+	// Check for regression of https://github.com/FinPress/gutenberg/issues/24262.
 	test( 'inserts a block in proper place after having clicked `Browse All` from inline inserter', async ( {
 		admin,
 		editor,
@@ -487,7 +487,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 			] );
 	} );
 
-	// Check for regression of https://github.com/WordPress/gutenberg/issues/25785.
+	// Check for regression of https://github.com/FinPress/gutenberg/issues/25785.
 	test( 'inserts a block should show a blue line indicator', async ( {
 		admin,
 		editor,
@@ -527,7 +527,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		);
 	} );
 
-	// Check for regression of https://github.com/WordPress/gutenberg/issues/24403.
+	// Check for regression of https://github.com/FinPress/gutenberg/issues/24403.
 	test( 'inserts a block in proper place after having clicked `Browse All` from block appender', async ( {
 		admin,
 		editor,
@@ -620,7 +620,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		).toHaveCount( 1 );
 	} );
 
-	// Check for regression of https://github.com/WordPress/gutenberg/issues/27586.
+	// Check for regression of https://github.com/FinPress/gutenberg/issues/27586.
 	test( 'can close the main inserter after inserting a single-use block, like the More block', async ( {
 		admin,
 		editor,

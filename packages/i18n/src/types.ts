@@ -97,7 +97,7 @@ export interface I18n< TextDomain extends string = string > {
 	/**
 	 * Retrieve the translation of text.
 	 *
-	 * @see https://developer.wordpress.org/reference/functions/__/
+	 * @see https://developer.finpress.org/reference/functions/__/
 	 */
 	__: < Text extends string >(
 		text: Text,
@@ -107,7 +107,7 @@ export interface I18n< TextDomain extends string = string > {
 	/**
 	 * Retrieve translated string with gettext context.
 	 *
-	 * @see https://developer.wordpress.org/reference/functions/_x/
+	 * @see https://developer.finpress.org/reference/functions/_x/
 	 */
 	_x: < Text extends string >(
 		text: Text,
@@ -119,7 +119,7 @@ export interface I18n< TextDomain extends string = string > {
 	 * Translates and retrieves the singular or plural form based on the supplied
 	 * number.
 	 *
-	 * @see https://developer.wordpress.org/reference/functions/_n/
+	 * @see https://developer.finpress.org/reference/functions/_n/
 	 */
 	_n: < Single extends string, Plural extends string >(
 		single: Single,
@@ -132,7 +132,7 @@ export interface I18n< TextDomain extends string = string > {
 	 * Translates and retrieves the singular or plural form based on the supplied
 	 * number, with gettext context.
 	 *
-	 * @see https://developer.wordpress.org/reference/functions/_nx/
+	 * @see https://developer.finpress.org/reference/functions/_nx/
 	 */
 	_nx: < Single extends string, Plural extends string >(
 		single: Single,

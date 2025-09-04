@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/keycodes",
+	"name": "@finpress/keycodes",
 	"version": "4.29.0",
-	"description": "Keycodes utilities for WordPress. Used to check for keyboard events across browsers/operating systems.",
-	"author": "The WordPress Contributors",
+	"description": "Keycodes utilities for FinPress. Used to check for keyboard events across browsers/operating systems.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"keycodes"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/keycodes/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/keycodes/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/keycodes"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -30,7 +30,7 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/i18n": "file:../i18n"
+		"@finpress/i18n": "file:../i18n"
 	},
 	"publishConfig": {
 		"access": "public"

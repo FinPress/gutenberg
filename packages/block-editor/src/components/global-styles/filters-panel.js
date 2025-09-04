@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalToolsPanel as ToolsPanel,
@@ -20,10 +20,10 @@ import {
 	Flex,
 	FlexItem,
 	Button,
-} from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
-import { useCallback, useMemo, useRef } from '@wordpress/element';
-import { reset as resetIcon } from '@wordpress/icons';
+} from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
+import { useCallback, useMemo, useRef } from '@finpress/element';
+import { reset as resetIcon } from '@finpress/icons';
 
 /**
  * Internal dependencies

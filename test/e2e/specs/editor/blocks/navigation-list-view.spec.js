@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Navigation block - List view editing', () => {
 	const navMenuBlocksFixture = {
@@ -202,14 +202,14 @@ test.describe( 'Navigation block - List view editing', () => {
 		// It should:
 		// - be focused - should not be in "preview" mode but rather ready to accept input.
 		// - be empty - not pre-populated
-		// See: https://github.com/WordPress/gutenberg/issues/50733
+		// See: https://github.com/FinPress/gutenberg/issues/50733
 		await expect( linkUIInput ).toBeFocused();
 		await expect( linkUIInput ).toBeEmpty();
 
 		// Provides test coverage for feature whereby Custom Link type
 		// should default to `Pages` when displaying the "initial suggestions"
 		// in the Link UI.
-		// See https://github.com/WordPress/gutenberg/pull/54622.
+		// See https://github.com/FinPress/gutenberg/pull/54622.
 		const firstResult = await linkControl.getNthSearchResult( 0 );
 		const secondResult = await linkControl.getNthSearchResult( 1 );
 		const thirdResult = await linkControl.getNthSearchResult( 2 );
@@ -433,7 +433,7 @@ test.describe( 'Navigation block - List view editing', () => {
 
 		await addSubmenuAction.click();
 
-		await linkControl.searchFor( 'https://wordpress.org' );
+		await linkControl.searchFor( 'https://finpress.org' );
 
 		await page.keyboard.press( 'Enter' );
 
@@ -441,7 +441,7 @@ test.describe( 'Navigation block - List view editing', () => {
 		await expect(
 			listView
 				.getByRole( 'gridcell', {
-					name: 'wordpress.org',
+					name: 'finpress.org',
 				} )
 				.filter( {
 					hasText: 'Block 1 of 1, Level 2.', // proxy for filtering by description.
@@ -469,7 +469,7 @@ test.describe( 'Navigation block - List view editing', () => {
 	} ) => {
 		// Provides coverage for a bug whereby the Link UI would be unexpectedly displayed for the last
 		// inserted block even if the block had been deselected and then reselected.
-		// See: https://github.com/WordPress/gutenberg/issues/50601
+		// See: https://github.com/FinPress/gutenberg/issues/50601
 
 		const { id: menuId } =
 			await requestUtils.createNavigationMenu( navMenuBlocksFixture );
@@ -612,7 +612,7 @@ class LinkControl {
 		return results.nth( index );
 	}
 
-	async searchFor( searchTerm = 'https://wordpress.org' ) {
+	async searchFor( searchTerm = 'https://finpress.org' ) {
 		const input = this.getSearchInput();
 
 		await expect( input ).toBeFocused();

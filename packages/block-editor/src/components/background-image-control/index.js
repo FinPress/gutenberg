@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	ToggleControl,
@@ -24,14 +24,14 @@ import {
 	Spinner,
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
 	Button,
-} from '@wordpress/components';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { getFilename } from '@wordpress/url';
-import { useRef, useState, useEffect, useMemo } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { focus } from '@wordpress/dom';
-import { isBlobURL } from '@wordpress/blob';
+} from '@finpress/components';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { getFilename } from '@finpress/url';
+import { useRef, useState, useEffect, useMemo } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { focus } from '@finpress/dom';
+import { isBlobURL } from '@finpress/blob';
 
 /**
  * Internal dependencies

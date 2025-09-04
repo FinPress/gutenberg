@@ -3,11 +3,11 @@
 	"overrides": [
 		{
 			"files": [ "*.scss", "**/*.scss" ],
-			"extends": "@wordpress/stylelint-config/scss-stylistic"
+			"extends": "@finpress/stylelint-config/scss-stylistic"
 		},
 		{
 			"files": [ "*.css", "**/*.css" ],
-			"extends": "@wordpress/stylelint-config/stylistic"
+			"extends": "@finpress/stylelint-config/stylistic"
 		}
 	]
 }

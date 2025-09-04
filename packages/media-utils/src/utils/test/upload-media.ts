@@ -9,7 +9,7 @@ jest.mock( '../upload-to-server', () => ( {
 	uploadToServer: jest.fn(),
 } ) );
 
-jest.mock( '@wordpress/blob', () => ( {
+jest.mock( '@finpress/blob', () => ( {
 	createBlobURL: jest.fn(),
 	revokeBlobURL: jest.fn(),
 } ) );

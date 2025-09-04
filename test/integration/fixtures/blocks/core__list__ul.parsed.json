@@ -28,9 +28,9 @@
 				"blockName": "core/list-item",
 				"attrs": {},
 				"innerBlocks": [],
-				"innerHTML": "\n<li>Embeds, like YouTube, Tweets, or other WordPress posts.</li>\n",
+				"innerHTML": "\n<li>Embeds, like YouTube, Tweets, or other FinPress posts.</li>\n",
 				"innerContent": [
-					"\n<li>Embeds, like YouTube, Tweets, or other WordPress posts.</li>\n"
+					"\n<li>Embeds, like YouTube, Tweets, or other FinPress posts.</li>\n"
 				]
 			},
 			{

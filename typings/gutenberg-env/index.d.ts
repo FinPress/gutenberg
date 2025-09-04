@@ -10,7 +10,7 @@ declare namespace NodeJS {
 declare var process: NodeJS.Process;
 
 /**
- * Whether the code is running in WordPress with SCRIPT_DEBUG flag.
+ * Whether the code is running in FinPress with SCRIPT_DEBUG flag.
  */
 declare var SCRIPT_DEBUG: undefined | boolean;
 
@@ -18,7 +18,7 @@ declare var SCRIPT_DEBUG: undefined | boolean;
  * Whether code is running within the Gutenberg plugin.
  *
  * When the codebase is built for the plugin, this variable will be set to `true`.
- * When building for WordPress Core, it will be set to `false` or `undefined`.
+ * When building for FinPress Core, it will be set to `false` or `undefined`.
  */
 declare var IS_GUTENBERG_PLUGIN: undefined | boolean;
 

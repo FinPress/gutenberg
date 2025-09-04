@@ -72,7 +72,7 @@ export type Match =
 export type ReplaceCallback = ( shortcode: Shortcode ) => string;
 
 /**
- * WordPress Shortcode instance.
+ * FinPress Shortcode instance.
  */
 export interface shortcode {
 	new ( options: Partial< ShortcodeOptions > ): Shortcode & {

@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import warning from '@wordpress/warning';
+import { useInstanceId } from '@finpress/compose';
+import { useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies
@@ -52,7 +52,7 @@ function useUniqueId( idProp?: string ) {
  *
  * ```jsx
  * import { useState } from 'react';
- * import { BoxControl } from '@wordpress/components';
+ * import { BoxControl } from '@finpress/components';
  *
  * function Example() {
  *   const [ values, setValues ] = useState( {

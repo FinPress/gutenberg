@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useRegistry, useSelect } from '@wordpress/data';
-import { isUnmodifiedDefaultBlock } from '@wordpress/blocks';
-import { _n, sprintf } from '@wordpress/i18n';
-import { speak } from '@wordpress/a11y';
-import { useCallback } from '@wordpress/element';
+import { useDispatch, useRegistry, useSelect } from '@finpress/data';
+import { isUnmodifiedDefaultBlock } from '@finpress/blocks';
+import { _n, sprintf } from '@finpress/i18n';
+import { speak } from '@finpress/a11y';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from '@finpress/block-editor';
 
 const PaginationItem = ( { content, tag: Tag = 'a', extraClass = '' } ) =>
 	Tag === 'a' ? (

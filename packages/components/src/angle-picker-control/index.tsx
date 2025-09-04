@@ -5,10 +5,10 @@ import type { ForwardedRef } from 'react';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import { isRTL, __ } from '@wordpress/i18n';
+import { forwardRef } from '@finpress/element';
+import { isRTL, __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -88,8 +88,8 @@ function UnforwardedAnglePickerControl(
  * desired angle in a text field.
  *
  * ```jsx
- * import { useState } from '@wordpress/element';
- * import { AnglePickerControl } from '@wordpress/components';
+ * import { useState } from '@finpress/element';
+ * import { AnglePickerControl } from '@finpress/components';
  *
  * function Example() {
  *   const [ angle, setAngle ] = useState( 0 );

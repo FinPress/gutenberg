@@ -4,20 +4,20 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	AlignmentControl,
 	BlockControls,
 	Warning,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { useState, useEffect } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import apiFetch from '@wordpress/api-fetch';
-import { addQueryArgs } from '@wordpress/url';
-import { __, sprintf, _n } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { useState, useEffect } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import apiFetch from '@finpress/api-fetch';
+import { addQueryArgs } from '@finpress/url';
+import { __, sprintf, _n } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
 
 function PostCommentsLinkEdit( { context, attributes, setAttributes } ) {
 	const { textAlign } = attributes;

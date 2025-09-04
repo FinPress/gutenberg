@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
 
 /**
  * Hook to fetch the singular label for the current post type.
@@ -11,8 +11,8 @@ import { useSelect } from '@wordpress/data';
  */
 export function usePostTypeLabel( contextPostType ) {
 	const currentPostType = useSelect( ( select ) => {
-		// Access core/editor by string to avoid @wordpress/editor dependency.
-		// eslint-disable-next-line @wordpress/data-no-store-string-literals
+		// Access core/editor by string to avoid @finpress/editor dependency.
+		// eslint-disable-next-line @finpress/data-no-store-string-literals
 		const { getCurrentPostType } = select( 'core/editor' );
 		return getCurrentPostType();
 	}, [] );

@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { DELETE, BACKSPACE, ENTER } from '@wordpress/keycodes';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { DELETE, BACKSPACE, ENTER } from '@finpress/keycodes';
+import { useDispatch, useSelect } from '@finpress/data';
 import {
 	BlockControls,
 	InspectorControls,
@@ -16,8 +16,8 @@ import {
 	useBlockEditingMode,
 	useBlockProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useState, useRef } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { useState, useRef } from '@finpress/element';
 import {
 	Icon,
 	Button,
@@ -27,11 +27,11 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
-} from '@wordpress/components';
-import { useMergeRefs } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
-import { keyboardReturn } from '@wordpress/icons';
-import { store as blocksStore } from '@wordpress/blocks';
+} from '@finpress/components';
+import { useMergeRefs } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
+import { keyboardReturn } from '@finpress/icons';
+import { store as blocksStore } from '@finpress/blocks';
 
 /**
  * Internal dependencies
@@ -124,7 +124,7 @@ const SocialLinkEdit = ( {
 	const wrapperClasses = clsx(
 		'wp-social-link',
 		// Manually adding this class for backwards compatibility of CSS when moving the
-		// blockProps from the li to the button: https://github.com/WordPress/gutenberg/pull/64883
+		// blockProps from the li to the button: https://github.com/FinPress/gutenberg/pull/64883
 		'wp-block-social-link',
 		'wp-social-link-' + service,
 		{
@@ -251,7 +251,7 @@ const SocialLinkEdit = ( {
 			{ /*
 			 * Because the `<ul>` element has a role=document, the `<li>` is
 			 * not semantically correct, so adding role=presentation is cleaner.
-			 * https://github.com/WordPress/gutenberg/pull/64883#issuecomment-2472874551
+			 * https://github.com/FinPress/gutenberg/pull/64883#issuecomment-2472874551
 			 */ }
 			<li
 				role="presentation"

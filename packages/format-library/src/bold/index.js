@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { toggleFormat } from '@wordpress/rich-text';
+import { __ } from '@finpress/i18n';
+import { toggleFormat } from '@finpress/rich-text';
 import {
 	RichTextToolbarButton,
 	RichTextShortcut,
 	__unstableRichTextInputEvent,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { formatBold } from '@wordpress/icons';
+} from '@finpress/block-editor';
+import { formatBold } from '@finpress/icons';
 
 /**
  * Internal dependencies

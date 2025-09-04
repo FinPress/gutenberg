@@ -1,25 +1,25 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRegistry } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { createRegistry } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 import {
 	store as blocksStore,
 	createBlock,
 	registerBlockType,
 	unregisterBlockType,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
-import { store as coreStore } from '@wordpress/core-data';
-import apiFetch from '@wordpress/api-fetch';
-import { store as preferencesStore } from '@wordpress/preferences';
+import { store as coreStore } from '@finpress/core-data';
+import apiFetch from '@finpress/api-fetch';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies
  */
 import { store as reusableBlocksStore } from '../index';
 
-jest.mock( '@wordpress/api-fetch', () => ( {
+jest.mock( '@finpress/api-fetch', () => ( {
 	__esModule: true,
 	default: jest.fn(),
 } ) );

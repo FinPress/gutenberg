@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	store as coreStore,
 	useResourcePermissions,
 	useEntityRecords,
-} from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

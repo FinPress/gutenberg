@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store, getElement } from '@wordpress/interactivity';
+import { store, getElement } from '@finpress/interactivity';
 
 const { state } = store( 'test/router-script-modules', {
 	state: {
@@ -13,7 +13,7 @@ const { state } = store( 'test/router-script-modules', {
 			e.preventDefault();
 			state.clientSideNavigation = false;
 			const { actions } = yield import(
-				'@wordpress/interactivity-router'
+				'@finpress/interactivity-router'
 			);
 			yield actions.navigate( e.target.href );
 			state.clientSideNavigation = true;
@@ -21,7 +21,7 @@ const { state } = store( 'test/router-script-modules', {
 		*prefetch() {
 			const { ref } = getElement();
 			const { actions } = yield import(
-				'@wordpress/interactivity-router'
+				'@finpress/interactivity-router'
 			);
 			yield actions.prefetch( ref.href );
 		},

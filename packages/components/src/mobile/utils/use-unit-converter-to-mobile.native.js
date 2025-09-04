@@ -4,9 +4,9 @@
 import { Dimensions } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState, useMemo, useCallback } from '@wordpress/element';
+import { useEffect, useState, useMemo, useCallback } from '@finpress/element';
 
 const getValueAndUnit = ( value, unit ) => {
 	const regex = /(\d+\.?\d*)(.*)/;
@@ -66,7 +66,7 @@ const useConvertUnitToMobile = ( value, unit, styles ) => {
 		return () => {
 			dimensionsChangeSubscription.remove();
 		};
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [] );
 
 	const onDimensionsChange = useCallback( ( { window } ) => {
@@ -83,7 +83,7 @@ const useConvertUnitToMobile = ( value, unit, styles ) => {
 			valueToConvert,
 			valueUnit
 		);
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ windowSizes, value, unit ] );
 };
 

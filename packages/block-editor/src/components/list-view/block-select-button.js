@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
 	__experimentalTruncate as Truncate,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { forwardRef } from '@wordpress/element';
-import { Icon, lockSmall as lock, pinSmall } from '@wordpress/icons';
-import { SPACE, ENTER } from '@wordpress/keycodes';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { forwardRef } from '@finpress/element';
+import { Icon, lockSmall as lock, pinSmall } from '@finpress/icons';
+import { SPACE, ENTER } from '@finpress/keycodes';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

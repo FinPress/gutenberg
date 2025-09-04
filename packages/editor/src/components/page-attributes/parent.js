@@ -4,26 +4,26 @@
 import removeAccents from 'remove-accents';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	Button,
 	Dropdown,
 	ComboboxControl,
 	ExternalLink,
-} from '@wordpress/components';
-import { debounce } from '@wordpress/compose';
+} from '@finpress/components';
+import { debounce } from '@finpress/compose';
 import {
 	createInterpolateElement,
 	useState,
 	useMemo,
-} from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { decodeEntities } from '@wordpress/html-entities';
-import { store as coreStore } from '@wordpress/core-data';
-import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
-import { filterURLForDisplay } from '@wordpress/url';
+} from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { decodeEntities } from '@finpress/html-entities';
+import { store as coreStore } from '@finpress/core-data';
+import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@finpress/block-editor';
+import { filterURLForDisplay } from '@finpress/url';
 
 /**
  * Internal dependencies
@@ -280,7 +280,7 @@ export function ParentRow() {
 						<div>
 							{ createInterpolateElement(
 								sprintf(
-									/* translators: %s: The home URL of the WordPress installation without the scheme. */
+									/* translators: %s: The home URL of the FinPress installation without the scheme. */
 									__(
 										'Child pages inherit characteristics from their parent, such as URL structure. For instance, if "Pricing" is a child of "Services", its URL would be %s<wbr />/services<wbr />/pricing.'
 									),
@@ -302,7 +302,7 @@ export function ParentRow() {
 										a: (
 											<ExternalLink
 												href={ __(
-													'https://wordpress.org/documentation/article/page-post-settings-sidebar/#page-attributes'
+													'https://finpress.org/documentation/article/page-post-settings-sidebar/#page-attributes'
 												) }
 											/>
 										),

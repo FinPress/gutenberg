@@ -1,4 +1,4 @@
-package org.wordpress.mobile.ReactNativeAztec;
+package org.finpress.mobile.ReactNativeAztec;
 
 import static android.content.ClipData.Item;
 
@@ -34,13 +34,13 @@ import com.facebook.react.views.textinput.ContentSizeWatcher;
 import com.facebook.react.views.textinput.ReactTextInputLocalData;
 import com.facebook.react.views.textinput.ScrollWatcher;
 
-import org.wordpress.android.util.AppLog;
-import org.wordpress.aztec.AlignmentRendering;
-import org.wordpress.aztec.AztecText;
-import org.wordpress.aztec.AztecTextFormat;
-import org.wordpress.aztec.ITextFormat;
-import org.wordpress.aztec.plugins.IAztecPlugin;
-import org.wordpress.aztec.plugins.IToolbarButton;
+import org.finpress.android.util.AppLog;
+import org.finpress.aztec.AlignmentRendering;
+import org.finpress.aztec.AztecText;
+import org.finpress.aztec.AztecTextFormat;
+import org.finpress.aztec.ITextFormat;
+import org.finpress.aztec.plugins.IAztecPlugin;
+import org.finpress.aztec.plugins.IToolbarButton;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class ReactAztecText extends AztecText {
 
     // This optional variable holds the outer HTML tag that will be added to the text when the user start typing in it
     // This is required to keep placeholder text working, and start typing with styled text.
-    // Ref: https://github.com/wordpress-mobile/gutenberg-mobile/issues/707
+    // Ref: https://github.com/finpress-mobile/gutenberg-mobile/issues/707
     private String mTagName = "";
     private String mEmptyTagHTML = "";
 
@@ -160,7 +160,7 @@ public class ReactAztecText extends AztecText {
 
     private void forceCaretAtStartOnTakeFocus() {
         // set a custom ArrowKeyMovementMethod: sets caret to the start of the text instead of the default (end of text)
-        // Fixes https://github.com/wordpress-mobile/gutenberg-mobile/issues/602
+        // Fixes https://github.com/finpress-mobile/gutenberg-mobile/issues/602
         // onTakeFocus adapted from the Android source code at:
         //  https://android.googlesource.com/platform/frameworks/base/+/refs/heads/pie-release/core/java/android/text/method/ArrowKeyMovementMethod.java#316
         setMovementMethod(new ReactAztecArrowKeyMovementMethod());
@@ -217,7 +217,7 @@ public class ReactAztecText extends AztecText {
             public void run() {
                 // let's pinpoint the caret line to ask the system to bring that line into the viewport
                 // we need to make sure that getLayout() isn't null
-                // because it will cause the NPE: https://github.com/wordpress-mobile/WordPress-Android/issues/11821
+                // because it will cause the NPE: https://github.com/finpress-mobile/FinPress-Android/issues/11821
                 if (getLayout() == null) {
                     AppLog.w(AppLog.T.EDITOR,
                             "Layout is null while trying to scroll inside a ReactAztecText block. Canceling the scroll.");
@@ -620,8 +620,8 @@ public class ReactAztecText extends AztecText {
      * There is a special case when block is preformatted.
      * In that case we want to propagate TextWatcher method calls even if text is set from JS.
      * Otherwise, couple of bugs will be introduced
-     * bug 1# https://github.com/wordpress-mobile/AztecEditor-Android/pull/869#issuecomment-552864686
-     * bug 2# https://github.com/wordpress-mobile/gutenberg-mobile/pull/1615#pullrequestreview-323274540
+     * bug 1# https://github.com/finpress-mobile/AztecEditor-Android/pull/869#issuecomment-552864686
+     * bug 2# https://github.com/finpress-mobile/gutenberg-mobile/pull/1615#pullrequestreview-323274540
      */
     private class TextWatcherDelegator implements TextWatcher {
         @Override

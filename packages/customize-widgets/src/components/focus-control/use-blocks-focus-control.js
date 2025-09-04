@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useEffect } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { getWidgetIdFromBlock } from '@wordpress/widgets';
+import { useRef, useEffect } from '@finpress/element';
+import { useDispatch } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { getWidgetIdFromBlock } from '@finpress/widgets';
 
 /**
  * Internal dependencies

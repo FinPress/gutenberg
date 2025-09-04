@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { register, createReduxStore } from '@wordpress/data';
+import { register, createReduxStore } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ import { STORE_NAME } from './constants';
 /**
  * Store definition for the annotations namespace.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
  *
  * @type {Object}
  */

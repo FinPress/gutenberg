@@ -9,7 +9,7 @@ This feature is still experimental. “Experimental” means this is an early im
 ## Usage
 
 ```jsx
-import { __experimentalScrollable as Scrollable } from '@wordpress/components';
+import { __experimentalScrollable as Scrollable } from '@finpress/components';
 
 function Example() {
 	return (

@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Icon, chevronLeft, chevronRight } from '@wordpress/icons';
-import { isRTL } from '@wordpress/i18n';
+import { Icon, chevronLeft, chevronRight } from '@finpress/icons';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies

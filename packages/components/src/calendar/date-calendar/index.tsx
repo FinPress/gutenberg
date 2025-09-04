@@ -4,9 +4,9 @@
 import { DayPicker } from 'react-day-picker';
 import { enUS } from 'react-day-picker/locale';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
+import { useCallback } from '@finpress/element';
 /**
  * Internal dependencies
  */

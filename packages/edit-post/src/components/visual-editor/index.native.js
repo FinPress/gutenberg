@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { BlockList } from '@wordpress/block-editor';
+import { Component } from '@finpress/element';
+import { BlockList } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

@@ -7,9 +7,9 @@ Wrapping a component with `withInstanceId` provides a unique `instanceId` to ser
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withInstanceId } from '@wordpress/compose';
+import { withInstanceId } from '@finpress/compose';
 
 function MyCustomElement( { instanceId } ) {
 	return <div id={ `my-custom-element-${ instanceId }` }>content</div>;

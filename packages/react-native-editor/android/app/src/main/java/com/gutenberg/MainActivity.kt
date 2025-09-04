@@ -13,7 +13,7 @@ import com.facebook.react.ReactActivity
 import com.facebook.react.ReactRootView
 import org.json.JSONException
 import org.json.JSONObject
-import org.wordpress.mobile.WPAndroidGlue.GutenbergProps
+import org.finpress.mobile.WPAndroidGlue.GutenbergProps
 import java.util.Locale
 
 class MainActivity : ReactActivity() {

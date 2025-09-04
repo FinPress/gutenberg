@@ -10,9 +10,9 @@ module.exports = {
 			version: 'detect',
 		},
 	},
-	plugins: [ '@wordpress', 'react', 'react-hooks' ],
+	plugins: [ '@finpress', 'react', 'react-hooks' ],
 	rules: {
-		'@wordpress/no-unused-vars-before-return': [
+		'@finpress/no-unused-vars-before-return': [
 			'error',
 			{
 				excludePattern: '^use',

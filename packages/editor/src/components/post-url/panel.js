@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { Dropdown, Button, ExternalLink } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { safeDecodeURIComponent } from '@wordpress/url';
-import { store as coreStore } from '@wordpress/core-data';
+import { useMemo, useState } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { Dropdown, Button, ExternalLink } from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { safeDecodeURIComponent } from '@finpress/url';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

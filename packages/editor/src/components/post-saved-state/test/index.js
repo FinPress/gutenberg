@@ -5,10 +5,10 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
+import { useViewportMatch } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -17,26 +17,26 @@ import PostSavedState from '../';
 
 const mockSavePost = jest.fn();
 
-jest.mock( '@wordpress/data/src/components/use-dispatch', () => {
+jest.mock( '@finpress/data/src/components/use-dispatch', () => {
 	return {
 		useDispatch: () => ( { savePost: mockSavePost } ),
 		useDispatchWithMap: jest.fn(),
 	};
 } );
 
-jest.mock( '@wordpress/data/src/components/use-select', () => {
+jest.mock( '@finpress/data/src/components/use-select', () => {
 	// This allows us to tweak the returned value on each test.
 	const mock = jest.fn();
 	return mock;
 } );
 
-jest.mock( '@wordpress/compose/src/hooks/use-viewport-match', () => {
+jest.mock( '@finpress/compose/src/hooks/use-viewport-match', () => {
 	// This allows us to tweak the returned value on each test.
 	const mock = jest.fn();
 	return mock;
 } );
 
-jest.mock( '@wordpress/icons/src/icon', () => () => (
+jest.mock( '@finpress/icons/src/icon', () => () => (
 	<div data-testid="test-icon" />
 ) );
 

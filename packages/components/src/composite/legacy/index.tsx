@@ -19,11 +19,11 @@
 import * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import { useInstanceId } from '@wordpress/compose';
-import deprecated from '@wordpress/deprecated';
+import { forwardRef } from '@finpress/element';
+import { useInstanceId } from '@finpress/compose';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

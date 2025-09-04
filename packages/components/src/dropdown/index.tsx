@@ -5,11 +5,11 @@ import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useState } from '@wordpress/element';
-import { useMergeRefs } from '@wordpress/compose';
-import deprecated from '@wordpress/deprecated';
+import { useRef, useState } from '@finpress/element';
+import { useMergeRefs } from '@finpress/compose';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -104,7 +104,7 @@ const UnconnectedDropdown = (
 	const popoverPropsHaveAnchor =
 		!! popoverProps?.anchor ||
 		// Note: `anchorRef`, `getAnchorRect` and `anchorRect` are deprecated and
-		// be removed from `Popover` from WordPress 6.3
+		// be removed from `Popover` from FinPress 6.3
 		!! popoverProps?.anchorRef ||
 		!! popoverProps?.getAnchorRect ||
 		!! popoverProps?.anchorRect;
@@ -159,7 +159,7 @@ const UnconnectedDropdown = (
  * Renders a button that opens a floating content modal when clicked.
  *
  * ```jsx
- * import { Button, Dropdown } from '@wordpress/components';
+ * import { Button, Dropdown } from '@finpress/components';
  *
  * const MyDropdown = () => (
  *   <Dropdown

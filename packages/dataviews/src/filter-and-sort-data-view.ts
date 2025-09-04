@@ -5,9 +5,9 @@ import removeAccents from 'remove-accents';
 import { subDays, subWeeks, subMonths, subYears } from 'date-fns';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getDate } from '@wordpress/date';
+import { getDate } from '@finpress/date';
 
 /**
  * Internal dependencies

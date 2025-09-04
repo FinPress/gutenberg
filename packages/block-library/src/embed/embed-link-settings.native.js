@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	LinkSettingsNavigation,
 	FooterMessageLink,
-} from '@wordpress/components';
-import { isURL } from '@wordpress/url';
-import { useDispatch } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
-import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
+} from '@finpress/components';
+import { isURL } from '@finpress/url';
+import { useDispatch } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
+import { useCallback, useEffect, useRef, useState } from '@finpress/element';
 
 const EmbedLinkSettings = ( {
 	autoFocus,
@@ -39,7 +39,7 @@ const EmbedLinkSettings = ( {
 			label: (
 				<FooterMessageLink
 					href={ __(
-						'https://wordpress.org/documentation/article/embeds/'
+						'https://finpress.org/documentation/article/embeds/'
 					) }
 					value={ __( 'Learn more about embeds' ) }
 				/>

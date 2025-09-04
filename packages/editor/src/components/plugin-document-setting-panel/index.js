@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSlotFill, PanelBody } from '@wordpress/components';
-import { usePluginContext } from '@wordpress/plugins';
-import { useDispatch, useSelect } from '@wordpress/data';
-import warning from '@wordpress/warning';
+import { createSlotFill, PanelBody } from '@finpress/components';
+import { usePluginContext } from '@finpress/plugins';
+import { useDispatch, useSelect } from '@finpress/data';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ const { Fill, Slot } = createSlotFill( 'PluginDocumentSettingPanel' );
  * @param {string}                props.name                            Required. A machine-friendly name for the panel.
  * @param {string}                [props.className]                     An optional class name added to the row.
  * @param {string}                [props.title]                         The title of the panel
- * @param {WPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar.
+ * @param {WPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar.
  * @param {React.ReactNode}       props.children                        Children to be rendered
  *
  * @example
@@ -52,8 +52,8 @@ const { Fill, Slot } = createSlotFill( 'PluginDocumentSettingPanel' );
  * @example
  * ```jsx
  * // Using ESNext syntax
- * import { registerPlugin } from '@wordpress/plugins';
- * import { PluginDocumentSettingPanel } from '@wordpress/editor';
+ * import { registerPlugin } from '@finpress/plugins';
+ * import { PluginDocumentSettingPanel } from '@finpress/editor';
  *
  * const MyDocumentSettingTest = () => (
  * 		<PluginDocumentSettingPanel className="my-document-setting-plugin" title="My Panel" name="my-panel">

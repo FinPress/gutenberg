@@ -23,7 +23,7 @@ Renders a control (`input` and `select`) with the values `10` and `px` parsed fr
 
 ```jsx
 import { useState } from 'react';
-import { __experimentalUnitControl as UnitControl } from '@wordpress/block-editor/';
+import { __experimentalUnitControl as UnitControl } from '@finpress/block-editor/';
 
 const Example = () => {
 	const [ value, setValue ] = useState( '10px' );
@@ -107,7 +107,7 @@ Collection of available units. These units must be one of the units defined in t
 Example:
 
 ```jsx
-import { __experimentalUnitControl as UnitControl } from '@wordpress/block-editor/';
+import { __experimentalUnitControl as UnitControl } from '@finpress/block-editor/';
 
 const Example = () => {
 	const [ value, setValue ] = useState( '10px' );

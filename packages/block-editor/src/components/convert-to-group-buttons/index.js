@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { MenuItem } from '@wordpress/components';
-import { _x } from '@wordpress/i18n';
-import { switchToBlockType } from '@wordpress/blocks';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { displayShortcut } from '@wordpress/keycodes';
+import { MenuItem } from '@finpress/components';
+import { _x } from '@finpress/i18n';
+import { switchToBlockType } from '@finpress/blocks';
+import { useSelect, useDispatch } from '@finpress/data';
+import { displayShortcut } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

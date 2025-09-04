@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getColorClassName,
@@ -12,8 +12,8 @@ import {
 	RichText,
 	store as blockEditorStore,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { select } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { select } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -117,7 +117,7 @@ const v5 = {
 	},
 };
 
-// TODO: this is ripe for a bit of a clean up according to the example in https://developer.wordpress.org/block-editor/reference-guides/block-api/block-deprecation/#example
+// TODO: this is ripe for a bit of a clean up according to the example in https://developer.finpress.org/block-editor/reference-guides/block-api/block-deprecation/#example
 
 const v4 = {
 	attributes: {

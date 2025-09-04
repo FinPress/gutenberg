@@ -4,13 +4,13 @@
 import path from 'path';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 // eslint-disable-next-line no-restricted-syntax
 import {
 	jsTester,
 	phpTester,
-} from '@wordpress/block-serialization-spec-parser/shared-tests';
+} from '@finpress/block-serialization-spec-parser/shared-tests';
 
 /**
  * Internal dependencies

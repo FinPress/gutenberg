@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -31,8 +31,8 @@ function UnforwardedPanel(
  * `Panel` expands and collapses multiple sections of content.
  *
  * ```jsx
- * import { Panel, PanelBody, PanelRow } from '@wordpress/components';
- * import { more } from '@wordpress/icons';
+ * import { Panel, PanelBody, PanelRow } from '@finpress/components';
+ * import { more } from '@finpress/icons';
  *
  * const MyPanel = () => (
  * 	<Panel header="My Panel">

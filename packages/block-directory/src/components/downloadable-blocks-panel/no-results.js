@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Tip, ExternalLink } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { Tip, ExternalLink } from '@finpress/components';
 
 function DownloadableBlocksNoResults() {
 	return (
@@ -14,7 +14,7 @@ function DownloadableBlocksNoResults() {
 				<Tip>
 					{ __( 'Interested in creating your own block?' ) }
 					<br />
-					<ExternalLink href="https://developer.wordpress.org/block-editor/">
+					<ExternalLink href="https://developer.finpress.org/block-editor/">
 						{ __( 'Get started here' ) }.
 					</ExternalLink>
 				</Tip>

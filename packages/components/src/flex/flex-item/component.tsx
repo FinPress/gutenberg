@@ -26,7 +26,7 @@ function UnconnectedFlexItem(
  * containers like `Flex`.
  *
  * ```jsx
- * import { Flex, FlexItem } from '@wordpress/components';
+ * import { Flex, FlexItem } from '@finpress/components';
  *
  * function Example() {
  *   return (

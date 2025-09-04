@@ -2,7 +2,7 @@
 
 <!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->
 
-<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-gradientpicker--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
+<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-gradientpicker--docs">FinPress Storybook</a> for more detailed, interactive documentation.</p>
 
 GradientPicker is a React component that renders a color gradient picker to
 define a multi step gradient. There's either a _linear_ or a _radial_ type
@@ -10,7 +10,7 @@ available.
 
 ```jsx
 import { useState } from 'react';
-import { GradientPicker } from '@wordpress/components';
+import { GradientPicker } from '@finpress/components';
 
 const MyGradientPicker = () => {
   const [ gradient, setGradient ] = useState( null );

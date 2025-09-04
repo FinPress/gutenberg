@@ -4,11 +4,11 @@
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEvent } from '@wordpress/compose';
-import { useMemo } from '@wordpress/element';
-import { Flex } from '@wordpress/components';
+import { useEvent } from '@finpress/compose';
+import { useMemo } from '@finpress/element';
+import { Flex } from '@finpress/components';
 
 /**
  * Internal dependencies

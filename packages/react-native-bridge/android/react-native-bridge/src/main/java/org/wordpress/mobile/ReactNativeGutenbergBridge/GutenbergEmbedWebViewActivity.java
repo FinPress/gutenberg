@@ -1,4 +1,4 @@
-package org.wordpress.mobile.ReactNativeGutenbergBridge;
+package org.finpress.mobile.ReactNativeGutenbergBridge;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;

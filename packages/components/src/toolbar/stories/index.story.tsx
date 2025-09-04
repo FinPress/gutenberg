@@ -4,7 +4,7 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	alignCenter,
@@ -22,8 +22,8 @@ import {
 	arrowLeft,
 	arrowRight,
 	chevronDown,
-} from '@wordpress/icons';
-import { SVG, Path } from '@wordpress/primitives';
+} from '@finpress/icons';
+import { SVG, Path } from '@finpress/primitives';
 
 /**
  * Internal dependencies

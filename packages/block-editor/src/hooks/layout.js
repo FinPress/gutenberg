@@ -4,20 +4,20 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createHigherOrderComponent, useInstanceId } from '@wordpress/compose';
-import { addFilter } from '@wordpress/hooks';
-import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { createHigherOrderComponent, useInstanceId } from '@finpress/compose';
+import { addFilter } from '@finpress/hooks';
+import { getBlockSupport, hasBlockSupport } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	ToggleControl,
 	PanelBody,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

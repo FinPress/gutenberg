@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, __experimentalGrid as Grid } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { useCallback, useRef } from '@wordpress/element';
+import { Button, __experimentalGrid as Grid } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { useCallback, useRef } from '@finpress/element';
 // @ts-ignore
-import { MediaUpload } from '@wordpress/media-utils';
-import { lineSolid } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import type { DataFormControlProps } from '@wordpress/dataviews';
-import { __ } from '@wordpress/i18n';
+import { MediaUpload } from '@finpress/media-utils';
+import { lineSolid } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import type { DataFormControlProps } from '@finpress/dataviews';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

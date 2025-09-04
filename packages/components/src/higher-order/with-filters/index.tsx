@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { addAction, applyFilters, removeAction } from '@wordpress/hooks';
-import { createHigherOrderComponent, debounce } from '@wordpress/compose';
+import { Component } from '@finpress/element';
+import { addAction, applyFilters, removeAction } from '@finpress/hooks';
+import { createHigherOrderComponent, debounce } from '@finpress/compose';
 
 const ANIMATION_FRAME_PERIOD = 16;
 
@@ -18,8 +18,8 @@ const ANIMATION_FRAME_PERIOD = 16;
  * @return Higher-order component factory.
  *
  * ```jsx
- * import { withFilters } from '@wordpress/components';
- * import { addFilter } from '@wordpress/hooks';
+ * import { withFilters } from '@finpress/components';
+ * import { addFilter } from '@finpress/hooks';
  *
  * const MyComponent = ( { title } ) => <h1>{ title }</h1>;
  *

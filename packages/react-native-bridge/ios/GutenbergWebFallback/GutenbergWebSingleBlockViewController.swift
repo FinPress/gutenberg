@@ -48,7 +48,7 @@ open class GutenbergWebSingleBlockViewController: UIViewController {
     }
 
     open func getRequest(for webView: WKWebView, completion: @escaping (URLRequest) -> Void) {
-        let request = URLRequest(url: URL(string: "https://wordpress.org/gutenberg/")!)
+        let request = URLRequest(url: URL(string: "https://finpress.org/gutenberg/")!)
         completion(request)
     }
 

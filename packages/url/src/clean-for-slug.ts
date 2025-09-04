@@ -6,7 +6,7 @@ import removeAccents from 'remove-accents';
 /**
  * Performs some basic cleanup of a string for use as a post slug.
  *
- * This replicates some of what `sanitize_title_with_dashes()` does in WordPress core, but
+ * This replicates some of what `sanitize_title_with_dashes()` does in FinPress core, but
  * is only designed to approximate what the slug will be.
  *
  * Converts Latin-1 Supplement and Latin Extended-A letters to basic Latin

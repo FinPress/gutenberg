@@ -16,7 +16,7 @@ const noop = () => {};
  * `NoticeList` is a component used to render a collection of notices.
  *
  *```jsx
- * import { Notice, NoticeList } from `@wordpress/components`;
+ * import { Notice, NoticeList } from `@finpress/components`;
  *
  * const MyNoticeList = () => {
  *	const [ notices, setNotices ] = useState( [

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 
-import { __, _x } from '@wordpress/i18n';
+import { __, _x } from '@finpress/i18n';
 
 export const INSERTER_PATTERN_TYPES = {
 	user: 'user',

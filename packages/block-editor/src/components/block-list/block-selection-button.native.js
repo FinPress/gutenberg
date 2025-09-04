@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Icon } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
-import { getBlockType } from '@wordpress/blocks';
-import { BlockIcon } from '@wordpress/block-editor';
+import { Icon } from '@finpress/components';
+import { withSelect } from '@finpress/data';
+import { compose } from '@finpress/compose';
+import { getBlockType } from '@finpress/blocks';
+import { BlockIcon } from '@finpress/block-editor';
 
 /**
  * External dependencies

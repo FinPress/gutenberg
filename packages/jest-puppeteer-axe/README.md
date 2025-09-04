@@ -9,7 +9,7 @@ Defines Jest async matcher to check whether a given Puppeteer's page instance pa
 Install the module
 
 ```bash
-npm install @wordpress/jest-puppeteer-axe --save-dev
+npm install @finpress/jest-puppeteer-axe --save-dev
 ```
 
 **Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It is not compatible with older versions.
@@ -21,7 +21,7 @@ The simplest setup is to use Jest's `setupFilesAfterEnv` config option:
 ```js
 "jest": {
   "setupFilesAfterEnv": [
-    "@wordpress/jest-puppeteer-axe"
+    "@finpress/jest-puppeteer-axe"
   ]
 },
 ```
@@ -64,8 +64,8 @@ test( 'checks the test component with Axe excluding some button', async () => {
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

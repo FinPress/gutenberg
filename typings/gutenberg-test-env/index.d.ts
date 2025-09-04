@@ -10,8 +10,8 @@ declare namespace jest {
 		 * @cite https://github.com/testing-library/react-testing-library/issues/36#issuecomment-440442300
 		 *
 		 * [`toMatchDiffSnapshot` matcher]: https://github.com/jest-community/snapshot-diff
-		 * [to-match-style-diff-snapshot.js]: https://github.com/WordPress/gutenberg/blob/trunk/test/unit/config/matchers/to-match-style-diff-snapshot.js
-		 * [Testing Overview docs]: https://github.com/WordPress/gutenberg/blob/trunk/docs/contributors/code/testing-overview.md#best-practices
+		 * [to-match-style-diff-snapshot.js]: https://github.com/FinPress/gutenberg/blob/trunk/test/unit/config/matchers/to-match-style-diff-snapshot.js
+		 * [Testing Overview docs]: https://github.com/FinPress/gutenberg/blob/trunk/docs/contributors/code/testing-overview.md#best-practices
 		 */
 		toMatchStyleDiffSnapshot( expected: Element | null ): R;
 	}

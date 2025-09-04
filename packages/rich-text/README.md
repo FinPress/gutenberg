@@ -7,10 +7,10 @@ This module contains helper functions to convert HTML or a DOM tree into a rich 
 Install the module
 
 ```bash
-npm install @wordpress/rich-text
+npm install @finpress/rich-text
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## Usage
 
@@ -29,11 +29,11 @@ Examples of rich formats include:
 The value object is comprised of the following:
 
 -   `text` - the string of text to which rich formats are to be applied.
--   `formats` - a sparse array of the same length as `text` that is filled with [formats](https://developer.wordpress.org/block-editor/how-to-guides/format-api/) (e.g. `core/link`, `core/bold` etc.) at the positions where the text is formatted.
+-   `formats` - a sparse array of the same length as `text` that is filled with [formats](https://developer.finpress.org/block-editor/how-to-guides/format-api/) (e.g. `core/link`, `core/bold` etc.) at the positions where the text is formatted.
 -   `start` - an index in the `text` representing the _start_ of the currently active selection.
 -   `end` - an index in the `text` representing the _end_ of the currently active selection.
 
-You should not attempt to create your own `value` objects. Rather you should rely on the built in methods of the `@wordpress/rich-text` package to build these for you.
+You should not attempt to create your own `value` objects. Rather you should rely on the built in methods of the `@finpress/rich-text` package to build these for you.
 
 It is important to understand how a value represents richly formatted text. Here is an example to illustrate.
 
@@ -370,7 +370,7 @@ formats: [ ... ] } )`.
 
 ### RichTextValue
 
-An object which represents a formatted string. See main `@wordpress/rich-text` documentation for more information.
+An object which represents a formatted string. See main `@finpress/rich-text` documentation for more information.
 
 ### slice
 
@@ -405,7 +405,7 @@ Store definition for the rich-text namespace.
 
 _Related_
 
--   <https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore>
+-   <https://github.com/FinPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore>
 
 _Type_
 
@@ -483,8 +483,8 @@ _Returns_
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

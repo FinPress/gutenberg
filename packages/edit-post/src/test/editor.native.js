@@ -17,14 +17,14 @@ import {
 import { BackHandler } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	requestMediaImport,
 	subscribeMediaAppend,
 	subscribeParentToggleHTMLMode,
 	subscribeToContentUpdate,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 setupCoreBlocks();
 
@@ -49,28 +49,28 @@ const MEDIA = [
 		mediaUrl: 'file:///local-image-1.jpeg',
 		mediaType: 'image',
 		serverId: 2000,
-		serverUrl: 'https://test-site.files.wordpress.com/local-image-1.jpeg',
+		serverUrl: 'https://test-site.files.finpress.com/local-image-1.jpeg',
 	},
 	{
 		localId: 2,
 		mediaUrl: 'file:///local-file-1.pdf',
 		mediaType: 'other',
 		serverId: 2001,
-		serverUrl: 'https://test-site.files.wordpress.com/local-file-1.pdf',
+		serverUrl: 'https://test-site.files.finpress.com/local-file-1.pdf',
 	},
 	{
 		localId: 3,
 		mediaUrl: 'file:///local-image-3.jpeg',
 		mediaType: 'image',
 		serverId: 2002,
-		serverUrl: 'https://test-site.files.wordpress.com/local-image-3.jpeg',
+		serverUrl: 'https://test-site.files.finpress.com/local-image-3.jpeg',
 	},
 	{
 		localId: 4,
 		mediaUrl: 'file:///local-video-4.mp4',
 		mediaType: 'video',
 		serverId: 2003,
-		serverUrl: 'https://test-site.files.wordpress.com/local-video-4.mp4',
+		serverUrl: 'https://test-site.files.finpress.com/local-video-4.mp4',
 	},
 ];
 

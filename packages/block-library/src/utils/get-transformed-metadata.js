@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockType } from '@wordpress/blocks';
+import { getBlockType } from '@finpress/blocks';
 
 /**
  * Transform the metadata attribute with only the values and bindings specified by each transform.

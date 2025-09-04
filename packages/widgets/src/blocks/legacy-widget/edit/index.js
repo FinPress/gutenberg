@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useBlockProps,
 	BlockControls,
 	InspectorControls,
 	BlockIcon,
-} from '@wordpress/block-editor';
-import { Flex, FlexBlock, Spinner, Placeholder } from '@wordpress/components';
-import { brush as brushIcon } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
-import { useState, useCallback } from '@wordpress/element';
-import { useEntityRecord } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { Flex, FlexBlock, Spinner, Placeholder } from '@finpress/components';
+import { brush as brushIcon } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
+import { useState, useCallback } from '@finpress/element';
+import { useEntityRecord } from '@finpress/core-data';
 
 /**
  * Internal dependencies

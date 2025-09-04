@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useReducedMotion, useRefEffect } from '@wordpress/compose';
+import { useReducedMotion, useRefEffect } from '@finpress/compose';
 
 export function useScrollIntoView( { isSelected } ) {
 	const prefersReducedMotion = useReducedMotion();

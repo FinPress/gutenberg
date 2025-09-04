@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _n, sprintf } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@finpress/i18n';
 import {
 	Component,
 	useState,
 	useMemo,
 	useRef,
 	useEffect,
-} from '@wordpress/element';
-import { useInstanceId } from '@wordpress/compose';
-import { speak } from '@wordpress/a11y';
-import { closeSmall } from '@wordpress/icons';
+} from '@finpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { speak } from '@finpress/a11y';
+import { closeSmall } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -69,8 +69,8 @@ const getIndexOfMatchingSuggestion = (
  * being able to search for options using a search input.
  *
  * ```jsx
- * import { ComboboxControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { ComboboxControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const options = [
  * 	{
@@ -145,7 +145,7 @@ function ComboboxControl( props: ComboboxControlProps ) {
 	const currentLabel = currentOption?.label ?? '';
 	// Use a custom prefix when generating the `instanceId` to avoid having
 	// duplicate input IDs when rendering this component and `FormTokenField`
-	// in the same page (see https://github.com/WordPress/gutenberg/issues/42112).
+	// in the same page (see https://github.com/FinPress/gutenberg/issues/42112).
 	const instanceId = useInstanceId( ComboboxControl, 'combobox-control' );
 	const [ selectedSuggestion, setSelectedSuggestion ] = useState(
 		currentOption || null
@@ -383,7 +383,7 @@ function ComboboxControl( props: ComboboxControlProps ) {
 							instanceId={ instanceId }
 							// The empty string for `value` here is not actually used, but is
 							// just a quick way to satisfy the TypeScript requirements of SuggestionsList.
-							// See: https://github.com/WordPress/gutenberg/pull/47581/files#r1091089330
+							// See: https://github.com/FinPress/gutenberg/pull/47581/files#r1091089330
 							match={ { label: inputValue, value: '' } }
 							displayTransform={ ( suggestion ) =>
 								suggestion.label

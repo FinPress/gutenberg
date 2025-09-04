@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { __ } from '@finpress/i18n';
 import {
 	RichText,
 	AlignmentControl,
@@ -18,14 +18,14 @@ import {
 	HeadingLevelDropdown,
 	useBlockEditingMode,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
-import { decodeEntities } from '@wordpress/html-entities';
+} from '@finpress/components';
+import { createBlock, getDefaultBlockName } from '@finpress/blocks';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies

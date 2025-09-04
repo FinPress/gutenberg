@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { logged } from '@wordpress/deprecated';
+import { logged } from '@finpress/deprecated';
 
 /**
  * Internal dependencies

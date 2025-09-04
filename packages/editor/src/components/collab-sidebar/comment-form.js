@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 import {
 	__experimentalHStack as HStack,
 	Button,
 	TextareaControl,
-} from '@wordpress/components';
-import { _x, __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { _x, __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

@@ -24,8 +24,8 @@ type RegistrySelector< Selector extends ( ...args: any[] ) => any > = {
  *
  * @example
  * ```js
- * import { store as coreStore } from '@wordpress/core-data';
- * import { store as editorStore } from '@wordpress/editor';
+ * import { store as coreStore } from '@finpress/core-data';
+ * import { store as editorStore } from '@finpress/editor';
  *
  * const getCurrentPostId = createRegistrySelector( ( select ) => ( state ) => {
  *   return select( editorStore ).getCurrentPostId();

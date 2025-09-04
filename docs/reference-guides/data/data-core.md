@@ -1,4 +1,4 @@
-# WordPress Core Data
+# FinPress Core Data
 
 Namespace: `core`.
 
@@ -12,8 +12,8 @@ Returns the information for a given post type.
 
 _Usage_
 
-    import { useSelect } from '@wordpress/data';
-    import { store as coreDataStore } from '@wordpress/core-data';
+    import { useSelect } from '@finpress/data';
+    import { store as coreDataStore } from '@finpress/core-data';
 
     const postType = useSelect(
     	( select ) => select( coreDataStore ).getPostType( 'post' )
@@ -35,8 +35,8 @@ Returns the information for post types.
 
 _Usage_
 
-    import { useSelect } from '@wordpress/data';
-    import { store as coreDataStore } from '@wordpress/core-data';
+    import { useSelect } from '@finpress/data';
+    import { store as coreDataStore } from '@finpress/core-data';
 
     const postTypes = useSelect( ( select ) => {
     	return select( coreDataStore ).getPostTypes( { per_page: 4 } );
@@ -47,7 +47,7 @@ _Usage_
 
 _Parameters_
 
--   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+-   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
 
 _Returns_
 
@@ -59,8 +59,8 @@ Returns information for a given taxonomy.
 
 _Usage_
 
-    import { useSelect } from '@wordpress/data';
-    import { store as coreDataStore } from '@wordpress/core-data';
+    import { useSelect } from '@finpress/data';
+    import { store as coreDataStore } from '@finpress/core-data';
 
     const taxonomy = useSelect( ( select ) => {
     	return select( coreDataStore ).getTaxonomy( 'category' );
@@ -83,8 +83,8 @@ Returns information for taxonomies.
 
 _Usage_
 
-    import { useSelect } from '@wordpress/data';
-    import { store as coreDataStore } from '@wordpress/core-data';
+    import { useSelect } from '@finpress/data';
+    import { store as coreDataStore } from '@finpress/core-data';
 
     const taxonomies = useSelect( ( select ) => {
     	return select( coreDataStore ).getTaxonomies( { type: 'post' } );
@@ -95,7 +95,7 @@ _Usage_
 
 _Parameters_
 
--   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+-   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
 
 _Returns_
 
@@ -111,7 +111,7 @@ Returns whether the current user can perform the given action on the given REST 
 
 Calling this may trigger an OPTIONS request to the REST API via the `canUser()` resolver.
 
-<https://developer.wordpress.org/rest-api/reference/>
+<https://developer.finpress.org/rest-api/reference/>
 
 _Parameters_
 
@@ -130,7 +130,7 @@ Returns whether the current user can edit the given entity.
 
 Calling this may trigger an OPTIONS request to the REST API via the `canUser()` resolver.
 
-<https://developer.wordpress.org/rest-api/reference/>
+<https://developer.finpress.org/rest-api/reference/>
 
 _Parameters_
 
@@ -152,7 +152,7 @@ Returns all available authors.
 _Parameters_
 
 -   _state_ `State`: Data state.
--   _query_ `GetRecordsHttpQuery`: Optional object of query parameters to include with request. For valid query parameters see the [Users page](https://developer.wordpress.org/rest-api/reference/users/) in the REST API Handbook and see the arguments for [List Users](https://developer.wordpress.org/rest-api/reference/users/#list-users) and [Retrieve a User](https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user).
+-   _query_ `GetRecordsHttpQuery`: Optional object of query parameters to include with request. For valid query parameters see the [Users page](https://developer.finpress.org/rest-api/reference/users/) in the REST API Handbook and see the arguments for [List Users](https://developer.finpress.org/rest-api/reference/users/#list-users) and [Retrieve a User](https://developer.finpress.org/rest-api/reference/users/#retrieve-a-user).
 
 _Returns_
 
@@ -227,7 +227,7 @@ _Returns_
 
 ### getCurrentThemeGlobalStylesRevisions
 
-> **Deprecated** since WordPress 6.5.0. Callers should use `select( 'core' ).getRevisions( 'root', 'globalStyles', ${ recordKey } )` instead, where `recordKey` is the id of the global styles parent post.
+> **Deprecated** since FinPress 6.5.0. Callers should use `select( 'core' ).getRevisions( 'root', 'globalStyles', ${ recordKey } )` instead, where `recordKey` is the id of the global styles parent post.
 
 Returns the revisions of the current global styles theme.
 
@@ -294,7 +294,7 @@ _Returns_
 
 ### getEntitiesByKind
 
-> **Deprecated** since WordPress 6.0. Use getEntitiesConfig instead
+> **Deprecated** since FinPress 6.0. Use getEntitiesConfig instead
 
 Returns the loaded entities for the given kind.
 
@@ -322,7 +322,7 @@ _Returns_
 
 ### getEntity
 
-> **Deprecated** since WordPress 6.0. Use getEntityConfig instead
+> **Deprecated** since FinPress 6.0. Use getEntityConfig instead
 
 Returns the entity config given its kind and name.
 
@@ -360,7 +360,7 @@ _Parameters_
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
 -   _key_ `EntityRecordKey`: Optional record's key. If requesting a global record (e.g. site settings), the key can be omitted. If requesting a specific item, the key must always be included.
--   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available "Retrieve a [Entity kind]".
+-   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available "Retrieve a [Entity kind]".
 
 _Returns_
 
@@ -407,7 +407,7 @@ _Parameters_
 -   _state_ `State`: State tree
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
--   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+-   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
 
 _Returns_
 
@@ -422,7 +422,7 @@ _Parameters_
 -   _state_ `State`: State tree
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
--   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+-   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
 
 _Returns_
 
@@ -437,7 +437,7 @@ _Parameters_
 -   _state_ `State`: State tree
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
--   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+-   _query_ `GetRecordsHttpQuery`: Optional terms query. If requesting specific fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
 
 _Returns_
 
@@ -532,7 +532,7 @@ _Parameters_
 -   _name_ `string`: Entity name.
 -   _recordKey_ `EntityRecordKey`: The key of the entity record whose revisions you want to fetch.
 -   _revisionKey_ `EntityRecordKey`: The revision's key.
--   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.wordpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [entity kind]".
+-   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.finpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [entity kind]".
 
 _Returns_
 
@@ -548,7 +548,7 @@ _Parameters_
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
 -   _recordKey_ `EntityRecordKey`: The key of the entity record whose revisions you want to fetch.
--   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.wordpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [Entity kind]".
+-   _query_ `GetRecordsHttpQuery`: Optional query. If requesting specific fields, fields must always include the ID. For valid query parameters see revisions schema in [the REST API Handbook](https://developer.finpress.org/rest-api/reference/). Then see the arguments available "Retrieve a [Entity kind]".
 
 _Returns_
 
@@ -629,7 +629,7 @@ _Parameters_
 -   _state_ `State`: State tree
 -   _kind_ `string`: Entity kind.
 -   _name_ `string`: Entity name.
--   _query_ `GetRecordsHttpQuery`: Optional terms query. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
+-   _query_ `GetRecordsHttpQuery`: Optional terms query. For valid query parameters see the [Reference](https://developer.finpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
 
 _Returns_
 
@@ -707,7 +707,7 @@ _Returns_
 
 Determines if the returned preview is an oEmbed link fallback.
 
-WordPress can be configured to return a simple link to a URL if it is not embeddable. We need to be able to determine if a URL is embeddable or not, based on what we get back from the oEmbed preview API.
+FinPress can be configured to return a simple link to a URL if it is not embeddable. We need to be able to determine if a URL is embeddable or not, based on what we get back from the oEmbed preview API.
 
 _Parameters_
 

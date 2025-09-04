@@ -14,11 +14,11 @@ process.env.TZ = 'UTC';
 module.exports = {
 	rootDir: '../../',
 	moduleNameMapper: {
-		[ `@wordpress\\/(${ transpiledPackageNames.join( '|' ) })$` ]:
+		[ `@finpress\\/(${ transpiledPackageNames.join( '|' ) })$` ]:
 			'packages/$1/src',
 		'.+\\.wasm$': '<rootDir>/test/unit/config/wasm-stub.js',
 	},
-	preset: '@wordpress/jest-preset-default',
+	preset: '@finpress/jest-preset-default',
 	setupFiles: [
 		'<rootDir>/test/unit/config/global-mocks.js',
 		'<rootDir>/test/unit/config/gutenberg-env.js',

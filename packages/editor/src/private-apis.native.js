@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import * as interfaceApis from '@wordpress/interface';
+import * as interfaceApis from '@finpress/interface';
 
 /**
  * Internal dependencies

@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalVStack as VStack,
@@ -8,9 +8,9 @@ import {
 	__experimentalSpacer as Spacer,
 	Button,
 	__experimentalText as Text,
-} from '@wordpress/components';
-import { closeSmall } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { closeSmall } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 
 export default function InspectorPopoverHeader( {
 	title,

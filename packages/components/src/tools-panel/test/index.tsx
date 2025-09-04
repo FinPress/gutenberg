@@ -353,7 +353,7 @@ describe( 'ToolsPanel', () => {
 		} );
 
 		it( 'should render optional item when value is updated externally and panelId is null', async () => {
-			// This test partially covers: https://github.com/WordPress/gutenberg/issues/47368
+			// This test partially covers: https://github.com/FinPress/gutenberg/issues/47368
 			const ToolsPanelOptional = ( {
 				toolsPanelItemValue,
 			}: {
@@ -601,7 +601,7 @@ describe( 'ToolsPanel', () => {
 			// When the `panelId` changes, only items matching the new ID register
 			// themselves, while those for the old panelId deregister.
 			//
-			// See: https://github.com/WordPress/gutenberg/pull/36588
+			// See: https://github.com/FinPress/gutenberg/pull/36588
 			const context: ToolsPanelContextType = { ...panelContext };
 			const TestPanel = () => (
 				<ToolsPanelContext.Provider value={ context }>
@@ -665,7 +665,7 @@ describe( 'ToolsPanel', () => {
 			// against the item's. Instead the panel gets an id of `null` and
 			// individual items should still render themselves in this case.
 			//
-			// See: https://github.com/WordPress/gutenberg/pull/37216
+			// See: https://github.com/FinPress/gutenberg/pull/37216
 			const context: ToolsPanelContextType = {
 				...panelContext,
 				panelId: null,
@@ -1003,7 +1003,7 @@ describe( 'ToolsPanel', () => {
 			// so it could prevent erroneous registrations and calls to
 			// `onDeselect` etc.
 			//
-			// See: https://github.com/WordPress/gutenberg/pull/35375
+			// See: https://github.com/FinPress/gutenberg/pull/35375
 			//
 			// This test simulates this issue by rendering an item within a
 			// contrived `ToolsPanelContext` to reflect the changes the panel
@@ -1059,7 +1059,7 @@ describe( 'ToolsPanel', () => {
 			// As fills and the panel can update independently this aims to
 			// test that no orphaned items appear registered in the panel menu.
 			//
-			// See: https://github.com/WordPress/gutenberg/pull/34085
+			// See: https://github.com/FinPress/gutenberg/pull/34085
 			const TestSlotFillPanel = ( {
 				panelId,
 			}: Pick<

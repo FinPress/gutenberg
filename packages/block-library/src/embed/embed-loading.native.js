@@ -4,9 +4,9 @@
 import { ActivityIndicator, View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies

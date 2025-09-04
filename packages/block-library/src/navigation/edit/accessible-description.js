@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { VisuallyHidden } from '@wordpress/components';
+import { VisuallyHidden } from '@finpress/components';
 
 export default function AccessibleDescription( { id, children } ) {
 	return (

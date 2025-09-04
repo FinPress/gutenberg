@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { hasBlockSupport, getBlockSupport } from '@wordpress/blocks';
-import { __experimentalHasSplitBorders as hasSplitBorders } from '@wordpress/components';
-import { Platform, useCallback, useMemo } from '@wordpress/element';
-import { addFilter } from '@wordpress/hooks';
-import { useSelect } from '@wordpress/data';
+import { hasBlockSupport, getBlockSupport } from '@finpress/blocks';
+import { __experimentalHasSplitBorders as hasSplitBorders } from '@finpress/components';
+import { Platform, useCallback, useMemo } from '@finpress/element';
+import { addFilter } from '@finpress/hooks';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -29,7 +29,7 @@ import {
 	BorderPanel as StylesBorderPanel,
 } from '../components/global-styles';
 import { store as blockEditorStore } from '../store';
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 export const BORDER_SUPPORT_KEY = '__experimentalBorder';
 export const SHADOW_SUPPORT_KEY = 'shadow';

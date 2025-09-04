@@ -5,15 +5,15 @@ import clsx from 'clsx';
 import memoize from 'memize';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as componentsPrivateApis } from '@wordpress/components';
-import { renderToString } from '@wordpress/element';
+import { privateApis as componentsPrivateApis } from '@finpress/components';
+import { renderToString } from '@finpress/element';
 import {
 	createBlock,
 	getBlockType,
 	getBlockVariations,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ import { unlock } from '../lock-unlock';
 const { name: DEFAULT_EMBED_BLOCK } = metadata;
 const { kebabCase } = unlock( componentsPrivateApis );
 
-/** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
+/** @typedef {import('@finpress/blocks').WPBlockVariation} WPBlockVariation */
 
 /**
  * Returns the embed block's information by matching the provided service provider
@@ -104,11 +104,11 @@ export const createUpgradedEmbedBlock = (
 
 	const matchedBlock = findMoreSuitableBlock( url );
 
-	// WordPress blocks can work on multiple sites, and so don't have patterns,
-	// so if we're in a WordPress block, assume the user has chosen it for a WordPress URL.
+	// FinPress blocks can work on multiple sites, and so don't have patterns,
+	// so if we're in a FinPress block, assume the user has chosen it for a FinPress URL.
 	const isCurrentBlockWP =
-		providerNameSlug === 'wordpress' || type === WP_EMBED_TYPE;
-	// If current block is not WordPress and a more suitable block found
+		providerNameSlug === 'finpress' || type === WP_EMBED_TYPE;
+	// If current block is not FinPress and a more suitable block found
 	// that is different from the current one, create the new matched block.
 	const shouldCreateNewBlock =
 		! isCurrentBlockWP &&
@@ -124,10 +124,10 @@ export const createUpgradedEmbedBlock = (
 	}
 
 	const wpVariation = getBlockVariations( DEFAULT_EMBED_BLOCK )?.find(
-		( { name } ) => name === 'wordpress'
+		( { name } ) => name === 'finpress'
 	);
 
-	// We can't match the URL for WordPress embeds, we have to check the HTML instead.
+	// We can't match the URL for FinPress embeds, we have to check the HTML instead.
 	if (
 		! wpVariation ||
 		! preview ||
@@ -137,15 +137,15 @@ export const createUpgradedEmbedBlock = (
 		return;
 	}
 
-	// This is not the WordPress embed block so transform it into one.
+	// This is not the FinPress embed block so transform it into one.
 	return createBlock( DEFAULT_EMBED_BLOCK, {
 		url,
 		...wpVariation.attributes,
 		// By now we have the preview, but when the new block first renders, it
 		// won't have had all the attributes set, and so won't get the correct
 		// type and it won't render correctly. So, we pass through the current attributes
-		// here so that the initial render works when we switch to the WordPress
-		// block. This only affects the WordPress block because it can't be
+		// here so that the initial render works when we switch to the FinPress
+		// block. This only affects the FinPress block because it can't be
 		// rendered in the usual Sandbox (it has a sandbox of its own) and it
 		// relies on the preview to set the correct render type.
 		...attributesFromPreview,

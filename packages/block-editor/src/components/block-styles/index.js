@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { debounce, useViewportMatch } from '@wordpress/compose';
+import { useState } from '@finpress/element';
+import { debounce, useViewportMatch } from '@finpress/compose';
 import {
 	Button,
 	__experimentalTruncate as Truncate,
 	Popover,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

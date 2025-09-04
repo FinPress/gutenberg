@@ -4,14 +4,14 @@
 import * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useContext,
 	useMemo,
 	forwardRef,
 	useCallback,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies

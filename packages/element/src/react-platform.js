@@ -39,7 +39,7 @@ export { flushSync };
 /**
  * Renders a given element into the target DOM node.
  *
- * @deprecated since WordPress 6.2.0. Use `createRoot` instead.
+ * @deprecated since FinPress 6.2.0. Use `createRoot` instead.
  * @see https://react.dev/reference/react-dom/render
  */
 export { render };
@@ -47,7 +47,7 @@ export { render };
 /**
  * Hydrates a given element into the target DOM node.
  *
- * @deprecated since WordPress 6.2.0. Use `hydrateRoot` instead.
+ * @deprecated since FinPress 6.2.0. Use `hydrateRoot` instead.
  * @see https://react.dev/reference/react-dom/hydrate
  */
 export { hydrate };
@@ -55,7 +55,7 @@ export { hydrate };
 /**
  * Creates a new React root for the target DOM node.
  *
- * @since 6.2.0 Introduced in WordPress core.
+ * @since 6.2.0 Introduced in FinPress core.
  * @see https://react.dev/reference/react-dom/client/createRoot
  */
 export { createRoot };
@@ -63,7 +63,7 @@ export { createRoot };
 /**
  * Creates a new React root for the target DOM node and hydrates it with a pre-generated markup.
  *
- * @since 6.2.0 Introduced in WordPress core.
+ * @since 6.2.0 Introduced in FinPress core.
  * @see https://react.dev/reference/react-dom/client/hydrateRoot
  */
 export { hydrateRoot };
@@ -71,7 +71,7 @@ export { hydrateRoot };
 /**
  * Removes any mounted element from the target DOM node.
  *
- * @deprecated since WordPress 6.2.0. Use `root.unmount()` instead.
+ * @deprecated since FinPress 6.2.0. Use `root.unmount()` instead.
  * @see https://react.dev/reference/react-dom/unmountComponentAtNode
  */
 export { unmountComponentAtNode };

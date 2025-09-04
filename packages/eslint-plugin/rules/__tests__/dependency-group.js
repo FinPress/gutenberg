@@ -26,9 +26,9 @@ import { camelCase } from 'change-case';
 import clsx from 'clsx';;
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
+import { Component } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -44,9 +44,9 @@ const { camelCase } = require( 'change-case' );
 const clsx = require( 'clsx' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { Component } = require( '@wordpress/element' );
+const { Component } = require( '@finpress/element' );
 
 /**
  * Internal dependencies
@@ -60,9 +60,9 @@ const edit = require( './edit' );`,
 import { camelCase } from 'change-case';
 import clsx from 'clsx';;
 /*
- * wordpress dependencies.
+ * finpress dependencies.
  */
-import { Component } from '@wordpress/element';
+import { Component } from '@finpress/element';
 import edit from './edit';`,
 			errors: [
 				{
@@ -71,7 +71,7 @@ import edit from './edit';`,
 				},
 				{
 					message:
-						'Expected preceding "WordPress dependencies" comment block',
+						'Expected preceding "FinPress dependencies" comment block',
 				},
 				{
 					message:
@@ -85,9 +85,9 @@ import edit from './edit';`,
 import { camelCase } from 'change-case';
 import clsx from 'clsx';;
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
+import { Component } from '@finpress/element';
 /**
  * Internal dependencies
  */
@@ -98,9 +98,9 @@ import edit from './edit';`,
 const { camelCase } = require( 'change-case' );
 const clsx = require( 'clsx' );
 /*
- * wordpress dependencies.
+ * finpress dependencies.
  */
-const { Component } = require( '@wordpress/element' );
+const { Component } = require( '@finpress/element' );
 const edit = require( './edit' );`,
 			errors: [
 				{
@@ -109,7 +109,7 @@ const edit = require( './edit' );`,
 				},
 				{
 					message:
-						'Expected preceding "WordPress dependencies" comment block',
+						'Expected preceding "FinPress dependencies" comment block',
 				},
 				{
 					message:
@@ -123,9 +123,9 @@ const edit = require( './edit' );`,
 const { camelCase } = require( 'change-case' );
 const clsx = require( 'clsx' );
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { Component } = require( '@wordpress/element' );
+const { Component } = require( '@finpress/element' );
 /**
  * Internal dependencies
  */

@@ -12,7 +12,7 @@ describe( 'edit', () => {
 			const linkSuggestion = {
 				opensInNewTab: false,
 				id: 1337,
-				url: 'https://wordpress.local/menu-test/',
+				url: 'https://finpress.local/menu-test/',
 				kind: 'post-type',
 				title: 'Menu Test',
 				type: 'post',
@@ -25,7 +25,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				kind: 'post-type',
 				type: 'post',
-				url: 'https://wordpress.local/menu-test/',
+				url: 'https://finpress.local/menu-test/',
 			} );
 		} );
 
@@ -37,7 +37,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				title: 'Sample Page',
 				type: 'page',
-				url: 'http://wordpress.local/sample-page/',
+				url: 'http://finpress.local/sample-page/',
 			};
 			updateAttributes( linkSuggestion, setAttributes );
 			expect( setAttributes ).toHaveBeenCalledWith( {
@@ -46,7 +46,7 @@ describe( 'edit', () => {
 				label: 'Sample Page',
 				opensInNewTab: false,
 				type: 'page',
-				url: 'http://wordpress.local/sample-page/',
+				url: 'http://finpress.local/sample-page/',
 			} );
 		} );
 
@@ -58,7 +58,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				title: 'bar',
 				type: 'post_tag',
-				url: 'http://wordpress.local/tag/bar/',
+				url: 'http://finpress.local/tag/bar/',
 			};
 			updateAttributes( linkSuggestion, setAttributes );
 			expect( setAttributes ).toHaveBeenCalledWith( {
@@ -67,7 +67,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				label: 'bar',
 				type: 'tag',
-				url: 'http://wordpress.local/tag/bar/',
+				url: 'http://finpress.local/tag/bar/',
 			} );
 		} );
 
@@ -79,7 +79,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				title: 'Cats',
 				type: 'category',
-				url: 'http://wordpress.local/category/cats/',
+				url: 'http://finpress.local/category/cats/',
 			};
 			updateAttributes( linkSuggestion, setAttributes );
 			expect( setAttributes ).toHaveBeenCalledWith( {
@@ -88,7 +88,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				label: 'Cats',
 				type: 'category',
-				url: 'http://wordpress.local/category/cats/',
+				url: 'http://finpress.local/category/cats/',
 			} );
 		} );
 
@@ -100,7 +100,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				title: 'Fall',
 				type: 'portfolio',
-				url: 'http://wordpress.local/portfolio/fall/',
+				url: 'http://finpress.local/portfolio/fall/',
 			};
 			updateAttributes( linkSuggestion, setAttributes );
 			expect( setAttributes ).toHaveBeenCalledWith( {
@@ -109,7 +109,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				label: 'Fall',
 				type: 'portfolio',
-				url: 'http://wordpress.local/portfolio/fall/',
+				url: 'http://finpress.local/portfolio/fall/',
 			} );
 		} );
 
@@ -121,7 +121,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				title: 'Portfolio Tag',
 				type: 'portfolio_tag',
-				url: 'http://wordpress.local/portfolio_tag/PortfolioTag/',
+				url: 'http://finpress.local/portfolio_tag/PortfolioTag/',
 			};
 			updateAttributes( linkSuggestion, setAttributes );
 			expect( setAttributes ).toHaveBeenCalledWith( {
@@ -130,7 +130,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				label: 'Portfolio Tag',
 				type: 'portfolio_tag',
-				url: 'http://wordpress.local/portfolio_tag/PortfolioTag/',
+				url: 'http://finpress.local/portfolio_tag/PortfolioTag/',
 			} );
 		} );
 
@@ -142,7 +142,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				title: 'Portfolio Category',
 				type: 'portfolio_category',
-				url: 'http://wordpress.local/portfolio_category/Portfolio-category/',
+				url: 'http://finpress.local/portfolio_category/Portfolio-category/',
 			};
 			updateAttributes( linkSuggestion, setAttributes );
 			expect( setAttributes ).toHaveBeenCalledWith( {
@@ -151,7 +151,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				label: 'Portfolio Category',
 				type: 'portfolio_category',
-				url: 'http://wordpress.local/portfolio_category/Portfolio-category/',
+				url: 'http://finpress.local/portfolio_category/Portfolio-category/',
 			} );
 		} );
 
@@ -163,7 +163,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				title: 'Video',
 				type: 'post-format',
-				url: 'http://wordpress.local/type/video/',
+				url: 'http://finpress.local/type/video/',
 			};
 			updateAttributes( linkSuggestion, setAttributes );
 			// post_format returns a slug ID value from the Search API
@@ -173,7 +173,7 @@ describe( 'edit', () => {
 				opensInNewTab: false,
 				label: 'Video',
 				type: 'post_format',
-				url: 'http://wordpress.local/type/video/',
+				url: 'http://finpress.local/type/video/',
 			} );
 		} );
 
@@ -182,13 +182,13 @@ describe( 'edit', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
 					opensInNewTab: false,
-					url: 'www.wordpress.org',
+					url: 'www.finpress.org',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
 					opensInNewTab: false,
-					url: 'www.wordpress.org',
-					label: 'www.wordpress.org',
+					url: 'www.finpress.org',
+					label: 'www.finpress.org',
 					kind: 'custom',
 				} );
 			} );
@@ -196,18 +196,18 @@ describe( 'edit', () => {
 			it( 'url', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
-					id: 'www.wordpress.org',
+					id: 'www.finpress.org',
 					opensInNewTab: false,
-					title: 'www.wordpress.org',
+					title: 'www.finpress.org',
 					type: 'URL',
-					url: 'http://www.wordpress.org',
+					url: 'http://www.finpress.org',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
 					opensInNewTab: false,
-					label: 'www.wordpress.org',
+					label: 'www.finpress.org',
 					kind: 'custom',
-					url: 'http://www.wordpress.org',
+					url: 'http://www.finpress.org',
 				} );
 			} );
 
@@ -270,74 +270,74 @@ describe( 'edit', () => {
 		} );
 
 		describe( 'link label', () => {
-			// https://github.com/WordPress/gutenberg/pull/19461
+			// https://github.com/FinPress/gutenberg/pull/19461
 			it( 'sets the url as a label if title is not provided', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
-					id: 'www.wordpress.org/foo bar',
+					id: 'www.finpress.org/foo bar',
 					opensInNewTab: false,
 					title: '',
 					type: 'URL',
-					url: 'https://www.wordpress.org',
+					url: 'https://www.finpress.org',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
 					opensInNewTab: false,
-					label: 'www.wordpress.org',
+					label: 'www.finpress.org',
 					kind: 'custom',
-					url: 'https://www.wordpress.org',
+					url: 'https://www.finpress.org',
 				} );
 			} );
 			it( 'does not replace label when editing url without protocol', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
-					id: 'www.wordpress.org',
+					id: 'www.finpress.org',
 					opensInNewTab: false,
 					title: 'Custom Title',
 					type: 'URL',
-					url: 'wordpress.org',
+					url: 'finpress.org',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
 					opensInNewTab: false,
 					label: 'Custom Title',
 					kind: 'custom',
-					url: 'wordpress.org',
+					url: 'finpress.org',
 				} );
 			} );
 			it( 'does not replace label when editing url with protocol', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
-					id: 'www.wordpress.org',
+					id: 'www.finpress.org',
 					opensInNewTab: false,
 					title: 'Custom Title',
 					type: 'URL',
-					url: 'https://wordpress.org',
+					url: 'https://finpress.org',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
 					opensInNewTab: false,
 					label: 'Custom Title',
 					kind: 'custom',
-					url: 'https://wordpress.org',
+					url: 'https://finpress.org',
 				} );
 			} );
-			// https://github.com/WordPress/gutenberg/pull/19679
+			// https://github.com/FinPress/gutenberg/pull/19679
 			it( 'url when escaped is still an actual link', () => {
 				const setAttributes = jest.fn();
 				const linkSuggestion = {
-					id: 'http://wordpress.org/?s=',
+					id: 'http://finpress.org/?s=',
 					opensInNewTab: false,
 					title: 'Custom Title',
 					type: 'URL',
-					url: 'http://wordpress.org/?s=<>',
+					url: 'http://finpress.org/?s=<>',
 				};
 				updateAttributes( linkSuggestion, setAttributes );
 				expect( setAttributes ).toHaveBeenCalledWith( {
 					opensInNewTab: false,
 					label: 'Custom Title',
 					kind: 'custom',
-					url: 'http://wordpress.org/?s=%3C%3E',
+					url: 'http://finpress.org/?s=%3C%3E',
 				} );
 			} );
 		} );
@@ -351,7 +351,7 @@ describe( 'edit', () => {
 				const linkSuggestion = {
 					opensInNewTab: false,
 					id: 1337,
-					url: 'https://wordpress.local/menu-test/',
+					url: 'https://finpress.local/menu-test/',
 					kind: 'post-type',
 					title: 'Menu Test',
 					type: 'post',
@@ -364,7 +364,7 @@ describe( 'edit', () => {
 					opensInNewTab: false,
 					kind: 'post-type',
 					type: 'post',
-					url: 'https://wordpress.local/menu-test/',
+					url: 'https://finpress.local/menu-test/',
 				} );
 				// Click on the existing link control, and toggle opens new tab.
 				// Note: When only opensInNewTab is changed (no URL change), ID should be retained
@@ -381,7 +381,7 @@ describe( 'edit', () => {
 					opensInNewTab: true,
 					kind: 'post-type',
 					type: 'post',
-					url: 'https://wordpress.local/menu-test/',
+					url: 'https://finpress.local/menu-test/',
 				} );
 			} );
 			it( 'id is removed after editing url', () => {
@@ -392,7 +392,7 @@ describe( 'edit', () => {
 				const linkSuggestion = {
 					opensInNewTab: false,
 					id: 1337,
-					url: 'https://wordpress.local/menu-test/',
+					url: 'https://finpress.local/menu-test/',
 					kind: 'post-type',
 					title: 'Menu Test',
 					type: 'post',
@@ -405,13 +405,13 @@ describe( 'edit', () => {
 					opensInNewTab: false,
 					kind: 'post-type',
 					type: 'post',
-					url: 'https://wordpress.local/menu-test/',
+					url: 'https://finpress.local/menu-test/',
 				} );
 				// Click on the existing link control, and change URL.
 				// Note: When URL is changed without a new ID, the original ID should be removed
 				updateAttributes(
 					{
-						url: 'https://wordpress.local/foo/',
+						url: 'https://finpress.local/foo/',
 						opensInNewTab: false,
 					},
 					setAttributes,
@@ -423,7 +423,7 @@ describe( 'edit', () => {
 					opensInNewTab: false,
 					kind: 'custom',
 					type: 'custom',
-					url: 'https://wordpress.local/foo/',
+					url: 'https://finpress.local/foo/',
 				} );
 			} );
 		} );

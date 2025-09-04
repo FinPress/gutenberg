@@ -82,8 +82,8 @@ trimmed.
 ## Example
 
 ```js
-import { registerBlockType } from '@wordpress/blocks';
-import { RichText } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { RichText } from '@finpress/block-editor';
 
 registerBlockType( /* ... */, {
 	// ...
@@ -122,8 +122,8 @@ Slot to extend the format toolbar. Use it in the edit function of a `registerFor
 
 
 ```js
-import { registerFormatType } from '@wordpress/rich-text';
-import { RichTextToolbarButton } from '@wordpress/block-editor';
+import { registerFormatType } from '@finpress/rich-text';
+import { RichTextToolbarButton } from '@finpress/block-editor';
 
 registerFormatType( /* ... */, {
 	/* ... */

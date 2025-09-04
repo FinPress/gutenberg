@@ -1,22 +1,22 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	hasBlockSupport,
 	store as blocksStore,
 	switchToBlockType,
 	isTemplatePart,
-} from '@wordpress/blocks';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useCommandLoader } from '@wordpress/commands';
+} from '@finpress/blocks';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useCommandLoader } from '@finpress/commands';
 import {
 	copy,
 	trash as remove,
 	plus as add,
 	group,
 	ungroup,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -50,7 +50,7 @@ const getTransformCommands = () =>
 			// selectedBlocks can have `null`s when something tries to call `selectBlock` with an inexistent clientId.
 			// These nulls will cause fatal errors down the line.
 			// In order to prevent discrepancies between selectedBlockClientIds and selectedBlocks, we effectively treat the entire selection as invalid.
-			// @see https://github.com/WordPress/gutenberg/pull/59410#issuecomment-2006304536
+			// @see https://github.com/FinPress/gutenberg/pull/59410#issuecomment-2006304536
 			if ( selectedBlocks.filter( ( block ) => ! block ).length > 0 ) {
 				return {
 					invalidSelection: true,

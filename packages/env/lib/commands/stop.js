@@ -22,12 +22,12 @@ module.exports = async function stop( { spinner, debug } ) {
 		debug,
 	} );
 
-	spinner.text = 'Stopping WordPress.';
+	spinner.text = 'Stopping FinPress.';
 
 	await dockerCompose.down( {
 		config: dockerComposeConfigPath,
 		log: debug,
 	} );
 
-	spinner.text = 'Stopped WordPress.';
+	spinner.text = 'Stopped FinPress.';
 };

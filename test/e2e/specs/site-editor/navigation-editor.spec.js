@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Editing Navigation Menus', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -24,14 +24,14 @@ test.describe( 'Editing Navigation Menus', () => {
 			const createdMenu = await requestUtils.createNavigationMenu( {
 				title: 'Primary Menu',
 				content:
-					'<!-- wp:navigation-link {"label":"WordPress","type":"custom","url":"http://www.wordpress.org/","kind":"custom"} /-->',
+					'<!-- wp:navigation-link {"label":"FinPress","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /-->',
 			} );
 
 			// Add another so we get a list of Navigation menus in the editor.
 			await requestUtils.createNavigationMenu( {
 				title: 'Another One',
 				content:
-					'<!-- wp:navigation-link {"label":"Another Item","type":"custom","url":"http://www.wordpress.org/","kind":"custom"} /-->',
+					'<!-- wp:navigation-link {"label":"Another Item","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /-->',
 			} );
 
 			await admin.visitSiteEditor( {

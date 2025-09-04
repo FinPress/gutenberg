@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	RangeControl,
 	SelectControl,
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { InspectorControls } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { InspectorControls } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

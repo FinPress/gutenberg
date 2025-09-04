@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from '@finpress/api-fetch';
 
 /**
  * Internal dependencies
@@ -12,7 +12,7 @@ const EMPTY_OBJECT = {};
 const localStorage = window.localStorage;
 
 /**
- * Creates a persistence layer that stores data in WordPress user meta via the
+ * Creates a persistence layer that stores data in FinPress user meta via the
  * REST API.
  *
  * @param {Object}  options
@@ -26,7 +26,7 @@ const localStorage = window.localStorage;
  *                                                 minimum every `requestDebounceMS` milliseconds, and don't
  *                                                 swamp the server. Defaults to 2500ms.
  *
- * @return {Object} A persistence layer for WordPress user meta.
+ * @return {Object} A persistence layer for FinPress user meta.
  */
 export default function create( {
 	preloadedData,

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { debounce } from '@wordpress/compose';
-import { useState } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { ComboboxControl } from '@wordpress/components';
+import { debounce } from '@finpress/compose';
+import { useState } from '@finpress/element';
+import { useDispatch } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { ComboboxControl } from '@finpress/components';
 
 /**
  * Internal dependencies

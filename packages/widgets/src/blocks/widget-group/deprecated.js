@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { InnerBlocks, RichText } from '@wordpress/block-editor';
+import { InnerBlocks, RichText } from '@finpress/block-editor';
 
 const v1 = {
 	attributes: {

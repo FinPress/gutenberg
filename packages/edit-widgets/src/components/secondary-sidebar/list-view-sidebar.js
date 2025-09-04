@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalListView as ListView } from '@wordpress/block-editor';
-import { Button } from '@wordpress/components';
-import { useFocusOnMount, useMergeRefs } from '@wordpress/compose';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useCallback, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { closeSmall } from '@wordpress/icons';
-import { ESCAPE } from '@wordpress/keycodes';
+import { __experimentalListView as ListView } from '@finpress/block-editor';
+import { Button } from '@finpress/components';
+import { useFocusOnMount, useMergeRefs } from '@finpress/compose';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useCallback, useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { closeSmall } from '@finpress/icons';
+import { ESCAPE } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

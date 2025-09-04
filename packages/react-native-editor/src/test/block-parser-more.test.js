@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerCoreBlocks } from '@wordpress/block-library';
-import { parse } from '@wordpress/blocks';
+import { registerCoreBlocks } from '@finpress/block-library';
+import { parse } from '@finpress/blocks';
 
 registerCoreBlocks();
 

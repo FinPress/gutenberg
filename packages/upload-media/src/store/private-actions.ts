@@ -4,10 +4,10 @@
 import { v4 as uuidv4 } from 'uuid';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlobURL, isBlobURL, revokeBlobURL } from '@wordpress/blob';
-import type { createRegistry } from '@wordpress/data';
+import { createBlobURL, isBlobURL, revokeBlobURL } from '@finpress/blob';
+import type { createRegistry } from '@finpress/data';
 
 type WPDataRegistry = ReturnType< typeof createRegistry >;
 
@@ -116,7 +116,7 @@ export function addItem( {
 		const itemId = uuidv4();
 
 		// Hardening in case a Blob is passed instead of a File.
-		// See https://github.com/WordPress/gutenberg/pull/65693 for an example.
+		// See https://github.com/FinPress/gutenberg/pull/65693 for an example.
 		const file = convertBlobToFile( fileOrBlob );
 
 		let blobUrl;

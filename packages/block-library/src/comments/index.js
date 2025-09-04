@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { postComments as icon } from '@wordpress/icons';
+import { postComments as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

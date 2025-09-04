@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Copy/cut/paste', () => {
 	test.beforeEach( async ( { admin } ) => {
@@ -260,7 +260,7 @@ test.describe( 'Copy/cut/paste', () => {
 		await pageUtils.pressKeys( 'primary+c' );
 		await pageUtils.pressKeys( 'primary+ArrowLeft' );
 		// Sometimes the caret has not moved to the correct position before pressing Enter.
-		// @see https://github.com/WordPress/gutenberg/issues/40303#issuecomment-1109434887
+		// @see https://github.com/FinPress/gutenberg/issues/40303#issuecomment-1109434887
 		await expect
 			.poll( async () =>
 				editor.canvas
@@ -294,7 +294,7 @@ test.describe( 'Copy/cut/paste', () => {
 		await pageUtils.pressKeys( 'primary+c' );
 		await pageUtils.pressKeys( 'primary+ArrowLeft' );
 		// Sometimes the caret has not moved to the correct position before pressing Enter.
-		// @see https://github.com/WordPress/gutenberg/issues/40303#issuecomment-1109434887
+		// @see https://github.com/FinPress/gutenberg/issues/40303#issuecomment-1109434887
 		await expect
 			.poll( async () =>
 				editor.canvas
@@ -327,7 +327,7 @@ test.describe( 'Copy/cut/paste', () => {
 		await pageUtils.pressKeys( 'primary+x' );
 		await pageUtils.pressKeys( 'primary+ArrowLeft' );
 		// Sometimes the caret has not moved to the correct position before pressing Enter.
-		// @see https://github.com/WordPress/gutenberg/issues/40303#issuecomment-1109434887
+		// @see https://github.com/FinPress/gutenberg/issues/40303#issuecomment-1109434887
 		await expect
 			.poll( async () =>
 				editor.canvas
@@ -361,7 +361,7 @@ test.describe( 'Copy/cut/paste', () => {
 		await pageUtils.pressKeys( 'primary+x' );
 		await pageUtils.pressKeys( 'primary+ArrowLeft' );
 		// Sometimes the caret has not moved to the correct position before pressing Enter.
-		// @see https://github.com/WordPress/gutenberg/issues/40303#issuecomment-1109434887
+		// @see https://github.com/FinPress/gutenberg/issues/40303#issuecomment-1109434887
 		await expect
 			.poll( async () =>
 				editor.canvas
@@ -392,7 +392,7 @@ test.describe( 'Copy/cut/paste', () => {
 		await pageUtils.pressKeys( 'primary+x' );
 		await pageUtils.pressKeys( 'primary+ArrowLeft' );
 		// Sometimes the caret has not moved to the correct position before pressing Enter.
-		// @see https://github.com/WordPress/gutenberg/issues/40303#issuecomment-1109434887
+		// @see https://github.com/FinPress/gutenberg/issues/40303#issuecomment-1109434887
 		await expect
 			.poll( async () =>
 				editor.canvas
@@ -423,7 +423,7 @@ test.describe( 'Copy/cut/paste', () => {
 		await pageUtils.pressKeys( 'primary+c' );
 		await pageUtils.pressKeys( 'primary+ArrowLeft' );
 		// Sometimes the caret has not moved to the correct position before pressing Enter.
-		// @see https://github.com/WordPress/gutenberg/issues/40303#issuecomment-1109434887
+		// @see https://github.com/FinPress/gutenberg/issues/40303#issuecomment-1109434887
 		await expect
 			.poll( async () =>
 				editor.canvas
@@ -527,15 +527,15 @@ test.describe( 'Copy/cut/paste', () => {
 		} );
 		await pageUtils.pressKeys( 'primary+a' );
 		pageUtils.setClipboardData( {
-			plainText: 'https://wordpress.org/gutenberg',
-			html: '<a href="https://wordpress.org/gutenberg">https://wordpress.org/gutenberg</a>',
+			plainText: 'https://finpress.org/gutenberg',
+			html: '<a href="https://finpress.org/gutenberg">https://finpress.org/gutenberg</a>',
 		} );
 		await pageUtils.pressKeys( 'primary+v' );
 		expect( await editor.getBlocks() ).toMatchObject( [
 			{
 				name: 'core/paragraph',
 				attributes: {
-					content: '<a href="https://wordpress.org/gutenberg">a</a>',
+					content: '<a href="https://finpress.org/gutenberg">a</a>',
 				},
 			},
 		] );
@@ -648,8 +648,8 @@ test.describe( 'Copy/cut/paste', () => {
 		await pageUtils.pressKeys( 'shift+ArrowRight' );
 		await pageUtils.pressKeys( 'shift+ArrowRight' );
 		pageUtils.setClipboardData( {
-			plainText: 'https://wordpress.org/gutenberg',
-			html: 'https://wordpress.org/gutenberg',
+			plainText: 'https://finpress.org/gutenberg',
+			html: 'https://finpress.org/gutenberg',
 		} );
 		await pageUtils.pressKeys( 'primary+v' );
 		expect( await editor.getEditedPostContent() ).toMatchSnapshot();
@@ -661,8 +661,8 @@ test.describe( 'Copy/cut/paste', () => {
 			attributes: { content: 'a' },
 		} );
 		pageUtils.setClipboardData( {
-			plainText: 'https://wordpress.org/gutenberg',
-			html: 'https://wordpress.org/gutenberg',
+			plainText: 'https://finpress.org/gutenberg',
+			html: 'https://finpress.org/gutenberg',
 		} );
 		await pageUtils.pressKeys( 'primary+v' );
 		expect( await editor.getBlocks() ).toMatchObject( [
@@ -670,7 +670,7 @@ test.describe( 'Copy/cut/paste', () => {
 				name: 'core/paragraph',
 				attributes: {
 					content:
-						'<a href="https://wordpress.org/gutenberg">https://wordpress.org/gutenberg</a>a',
+						'<a href="https://finpress.org/gutenberg">https://finpress.org/gutenberg</a>a',
 				},
 			},
 		] );
@@ -757,7 +757,7 @@ test.describe( 'Copy/cut/paste', () => {
 		] );
 	} );
 
-	// See https://github.com/WordPress/gutenberg/pull/61900
+	// See https://github.com/FinPress/gutenberg/pull/61900
 	test( 'should inherit heading attributes on paste split', async ( {
 		pageUtils,
 		editor,

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, Composite } from '@wordpress/components';
-import { forwardRef } from '@wordpress/element';
+import { Button, Composite } from '@finpress/components';
+import { forwardRef } from '@finpress/element';
 
 function InserterListboxItem(
 	{ isFirst, as: Component, children, ...props },

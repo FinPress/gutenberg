@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { Button } from '@wordpress/components';
-import { __, _n, sprintf } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
-import { displayShortcut } from '@wordpress/keycodes';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { useSelect, useDispatch } from '@finpress/data';
+import { Button } from '@finpress/components';
+import { __, _n, sprintf } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
+import { displayShortcut } from '@finpress/keycodes';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 import {
 	useEntitiesSavedStatesIsDirty,
 	store as editorStore,
-} from '@wordpress/editor';
+} from '@finpress/editor';
 
 /**
  * Internal dependencies

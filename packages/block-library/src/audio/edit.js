@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isBlobURL } from '@wordpress/blob';
+import { isBlobURL } from '@finpress/blob';
 import {
 	Disabled,
 	SelectControl,
@@ -14,7 +14,7 @@ import {
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	BlockControls,
 	BlockIcon,
@@ -23,12 +23,12 @@ import {
 	MediaReplaceFlow,
 	useBlockProps,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { __, _x } from '@wordpress/i18n';
-import { useDispatch } from '@wordpress/data';
-import { audio as icon } from '@wordpress/icons';
-import { store as noticesStore } from '@wordpress/notices';
-import { useState } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { __, _x } from '@finpress/i18n';
+import { useDispatch } from '@finpress/data';
+import { audio as icon } from '@finpress/icons';
+import { store as noticesStore } from '@finpress/notices';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

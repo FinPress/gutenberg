@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from '@finpress/api-fetch';
 
 const FONT_FAMILIES_URL = '/wp/v2/font-families';
 const FONT_COLLECTIONS_URL = '/wp/v2/font-collections';

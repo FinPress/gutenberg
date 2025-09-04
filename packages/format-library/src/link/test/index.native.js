@@ -5,9 +5,9 @@ import { Keyboard, Platform } from 'react-native';
 import { render, fireEvent } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Slot, SlotFillProvider } from '@wordpress/components';
+import { Slot, SlotFillProvider } from '@finpress/components';
 
 /**
  * Internal dependencies

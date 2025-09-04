@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
+import { __, _x } from '@finpress/i18n';
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	__experimentalSpacer as Spacer,
-} from '@wordpress/components';
-import { useState } from '@wordpress/element';
+} from '@finpress/components';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

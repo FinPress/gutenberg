@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useDispatch } from '@wordpress/data';
-import { useCallback } from '@wordpress/element';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { addQueryArgs } from '@wordpress/url';
+import { __ } from '@finpress/i18n';
+import { useDispatch } from '@finpress/data';
+import { useCallback } from '@finpress/element';
+import { store as preferencesStore } from '@finpress/preferences';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies

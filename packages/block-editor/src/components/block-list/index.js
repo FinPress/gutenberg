@@ -4,22 +4,22 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	AsyncModeProvider,
 	useSelect,
 	useDispatch,
 	useRegistry,
-} from '@wordpress/data';
-import { useMergeRefs, useDebounce } from '@wordpress/compose';
+} from '@finpress/data';
+import { useMergeRefs, useDebounce } from '@finpress/compose';
 import {
 	createContext,
 	useMemo,
 	useCallback,
 	useEffect,
-} from '@wordpress/element';
-import { getDefaultBlockName } from '@wordpress/blocks';
+} from '@finpress/element';
+import { getDefaultBlockName } from '@finpress/blocks';
 
 /**
  * Internal dependencies

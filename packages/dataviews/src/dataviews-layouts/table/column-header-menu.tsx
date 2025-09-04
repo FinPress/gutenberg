@@ -4,16 +4,16 @@
 import type { ReactNode, Ref, PropsWithoutRef, RefAttributes } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { arrowLeft, arrowRight, unseen, funnel } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { arrowLeft, arrowRight, unseen, funnel } from '@finpress/icons';
 import {
 	Button,
 	Icon,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { forwardRef, Children, Fragment } from '@wordpress/element';
+} from '@finpress/components';
+import { forwardRef, Children, Fragment } from '@finpress/element';
 
 /**
  * Internal dependencies

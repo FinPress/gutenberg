@@ -5,15 +5,15 @@ import { Animated, PanResponder, StyleSheet, View } from 'react-native';
 import Video from 'react-native-video';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	requestFocalPointPickerTooltipShown,
 	setFocalPointPickerTooltipShown,
-} from '@wordpress/react-native-bridge';
-import { __ } from '@wordpress/i18n';
-import { useRef, useState, useMemo, useEffect } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+} from '@finpress/react-native-bridge';
+import { __ } from '@finpress/i18n';
+import { useRef, useState, useMemo, useEffect } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies

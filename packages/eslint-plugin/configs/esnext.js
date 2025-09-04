@@ -60,7 +60,7 @@ if ( ! result || ! result.filepath ) {
 		...config.parserOptions,
 		requireConfigFile: false,
 		babelOptions: {
-			presets: [ require.resolve( '@wordpress/babel-preset-default' ) ],
+			presets: [ require.resolve( '@finpress/babel-preset-default' ) ],
 		},
 	};
 }

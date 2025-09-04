@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalHStack as HStack, Icon } from '@wordpress/components';
+import { __experimentalHStack as HStack, Icon } from '@finpress/components';
 
 /**
  * Internal dependencies

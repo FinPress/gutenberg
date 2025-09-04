@@ -122,7 +122,7 @@ The declarative approach simplifies the process by focusing on _what_ should hap
 ```
 
 ```js
-import { store } from '@wordpress/interactivity';
+import { store } from '@finpress/interactivity';
 
 const { state } = store( 'myInteractivePlugin', {
 	state: {
@@ -315,4 +315,4 @@ This allows you to create declarative side effects that automatically run in res
 
 ## Conclusion
 
-As you continue to work with the Interactivity API, remember to think in terms of state, actions, and side effects. Define your data, describe how it should change, and let the Interactivity API handle the rest. This mental shift may take some time, especially if you're used to more imperative programming styles, but by embracing it, you'll unlock the full potential of the Interactivity API to create truly dynamic and interactive WordPress blocks that delight your users.
+As you continue to work with the Interactivity API, remember to think in terms of state, actions, and side effects. Define your data, describe how it should change, and let the Interactivity API handle the rest. This mental shift may take some time, especially if you're used to more imperative programming styles, but by embracing it, you'll unlock the full potential of the Interactivity API to create truly dynamic and interactive FinPress blocks that delight your users.

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { __, _x } from '@wordpress/i18n';
+import { useSelect } from '@finpress/data';
+import { __, _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies

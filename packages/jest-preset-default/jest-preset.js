@@ -1,7 +1,7 @@
 module.exports = {
 	moduleNameMapper: {
 		'\\.(scss|css)$': require.resolve(
-			'@wordpress/jest-preset-default/scripts/style-mock.js'
+			'@finpress/jest-preset-default/scripts/style-mock.js'
 		),
 		// See https://github.com/facebook/jest/issues/11100#issuecomment-967161978
 		'@eslint/eslintrc': '@eslint/eslintrc/dist/eslintrc-universal.cjs',
@@ -9,12 +9,12 @@ module.exports = {
 	modulePaths: [ '<rootDir>' ],
 	setupFiles: [
 		require.resolve(
-			'@wordpress/jest-preset-default/scripts/setup-globals.js'
+			'@finpress/jest-preset-default/scripts/setup-globals.js'
 		),
 	],
 	setupFilesAfterEnv: [
 		require.resolve(
-			'@wordpress/jest-preset-default/scripts/setup-test-framework.js'
+			'@finpress/jest-preset-default/scripts/setup-test-framework.js'
 		),
 	],
 	testEnvironment: 'jsdom',

@@ -1,16 +1,16 @@
 /* eslint-disable playwright/no-conditional-in-test, playwright/expect-expect */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { test, Metrics } from '@wordpress/e2e-test-utils-playwright';
+import { test, Metrics } from '@finpress/e2e-test-utils-playwright';
 
 /**
  * Internal dependencies
  */
 import { PerfUtils } from '../fixtures';
 
-// See https://github.com/WordPress/gutenberg/issues/51383#issuecomment-1613460429
+// See https://github.com/FinPress/gutenberg/issues/51383#issuecomment-1613460429
 const BROWSER_IDLE_WAIT = 1000;
 
 const results = {
@@ -222,7 +222,7 @@ test.describe( 'Site Editor Performance', () => {
 				// The Templates index page has changed, so we need to know which UI is in use in the branch.
 				// We do so by checking the presence of the dataviews component.
 				// If it's there, switch to the list layout before running the test.
-				// See https://github.com/WordPress/gutenberg/pull/59792
+				// See https://github.com/FinPress/gutenberg/pull/59792
 				const isDataViewsUI = await page
 					.getByRole( 'button', { name: 'Layout' } )
 					.isVisible();
@@ -297,9 +297,9 @@ test.describe( 'Site Editor Performance', () => {
 				await editor.openDocumentSettingsSidebar();
 
 				/*
-				 * https://github.com/WordPress/gutenberg/pull/55091 updated the HTML by
+				 * https://github.com/FinPress/gutenberg/pull/55091 updated the HTML by
 				 * removing the replace template button in sidebar-edit-mode/template-panel/replace-template-button.js
-				 * with a "transform into" list. https://github.com/WordPress/gutenberg/pull/59259 made these tests
+				 * with a "transform into" list. https://github.com/FinPress/gutenberg/pull/59259 made these tests
 				 * compatible with the new UI, however, the performance tests compare previous versions of the UI.
 				 *
 				 * The following code is a workaround to test the performance of the new UI.
@@ -337,7 +337,7 @@ test.describe( 'Site Editor Performance', () => {
 						.getByRole( 'button', { name: 'Design' } )
 						.or(
 							// Locator for backward compatibility with the old UI.
-							// The label was updated in https://github.com/WordPress/gutenberg/pull/62161.
+							// The label was updated in https://github.com/FinPress/gutenberg/pull/62161.
 							page.getByRole( 'button', {
 								name: 'Transform into:',
 							} )

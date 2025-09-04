@@ -4,10 +4,10 @@
 import type { StoryFn, Meta } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import { fullscreen } from '@wordpress/icons';
+import { useState } from '@finpress/element';
+import { fullscreen } from '@finpress/icons';
 
 /**
  * Internal dependencies

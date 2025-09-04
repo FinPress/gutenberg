@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useRef, useMemo } from '@wordpress/element';
-import { create, getTextContent } from '@wordpress/rich-text';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { Path, SVG, Line, Rect } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useRef, useMemo } from '@finpress/element';
+import { create, getTextContent } from '@finpress/rich-text';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { store as coreStore } from '@finpress/core-data';
+import { Path, SVG, Line, Rect } from '@finpress/components';
 
 /**
  * Internal dependencies

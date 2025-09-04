@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Button, Placeholder } from '@wordpress/components';
-import { layout } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { Button, Placeholder } from '@finpress/components';
+import { layout } from '@finpress/icons';
 
 function BlockVariationPicker( {
 	icon = layout,

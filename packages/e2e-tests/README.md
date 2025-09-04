@@ -1,15 +1,15 @@
 # E2E Tests
 
-End-To-End (E2E) tests for WordPress.
+End-To-End (E2E) tests for FinPress.
 
-**Note that there's currently an ongoing [project](https://github.com/WordPress/gutenberg/issues/38851) to migrate E2E tests to Playwright instead. This package is deprecated and will only accept bug fixes until fully migrated.**
+**Note that there's currently an ongoing [project](https://github.com/FinPress/gutenberg/issues/38851) to migrate E2E tests to Playwright instead. This package is deprecated and will only accept bug fixes until fully migrated.**
 
 ## Installation
 
 Install the module
 
 ```bash
-npm install @wordpress/e2e-tests --save-dev
+npm install @finpress/e2e-tests --save-dev
 ```
 
 ## Running tests
@@ -63,7 +63,7 @@ Debugging in a Chrome browser can be replaced with `vscode`'s debugger by adding
 	"type": "node",
 	"request": "launch",
 	"name": "Debug current e2e test",
-	"program": "${workspaceFolder}/node_modules/@wordpress/scripts/bin/wp-scripts.js",
+	"program": "${workspaceFolder}/node_modules/@finpress/scripts/bin/wp-scripts.js",
 	"args": [
 		"test-e2e",
 		"--config=${workspaceFolder}/packages/e2e-tests/jest.config.js",
@@ -84,8 +84,8 @@ This will run jest, targeting the spec file currently open in the editor. `vscod
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

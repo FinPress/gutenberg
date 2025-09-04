@@ -41,10 +41,10 @@ describe( 'buildDockerComposeConfig', () => {
 			workDirectoryPath: '/path',
 			env: { development: envConfig, tests: envConfig },
 		} );
-		const { volumes } = dockerConfig.services.wordpress;
+		const { volumes } = dockerConfig.services.finpress;
 		expect( volumes ).toEqual( [
-			'wordpress:/var/www/html', // WordPress root.
-			'/path/WordPress-PHPUnit/tests/phpunit:/wordpress-phpunit', // WordPress test library,
+			'finpress:/var/www/html', // FinPress root.
+			'/path/FinPress-PHPUnit/tests/phpunit:/finpress-phpunit', // FinPress test library,
 			'user-home:/home/test',
 			'/path/to/wp-plugins:/var/www/html/wp-content/plugins', // Mapped plugins root.
 			'/path/to/local/plugin:/var/www/html/wp-content/plugins/test-name', // Mapped plugin.
@@ -70,17 +70,17 @@ describe( 'buildDockerComposeConfig', () => {
 			workDirectoryPath: '/path',
 			env: { development: envConfig, tests: envConfig },
 		} );
-		const devVolumes = dockerConfig.services.wordpress.volumes;
+		const devVolumes = dockerConfig.services.finpress.volumes;
 		const cliVolumes = dockerConfig.services.cli.volumes;
 		expect( devVolumes ).toEqual( cliVolumes );
 
-		const testsVolumes = dockerConfig.services[ 'tests-wordpress' ].volumes;
+		const testsVolumes = dockerConfig.services[ 'tests-finpress' ].volumes;
 		const testsCliVolumes = dockerConfig.services[ 'tests-cli' ].volumes;
 		expect( testsVolumes ).toEqual( testsCliVolumes );
 
 		let localSources = [
 			'/path/to/wp-plugins:/var/www/html/wp-content/plugins',
-			'/path/WordPress-PHPUnit/tests/phpunit:/wordpress-phpunit',
+			'/path/FinPress-PHPUnit/tests/phpunit:/finpress-phpunit',
 			'user-home:/home/test',
 			'/path/to/local/plugin:/var/www/html/wp-content/plugins/test-name',
 			'/path/to/local/theme:/var/www/html/wp-content/themes/test-theme',
@@ -89,7 +89,7 @@ describe( 'buildDockerComposeConfig', () => {
 
 		localSources = [
 			'/path/to/wp-plugins:/var/www/html/wp-content/plugins',
-			'/path/tests-WordPress-PHPUnit/tests/phpunit:/wordpress-phpunit',
+			'/path/tests-FinPress-PHPUnit/tests/phpunit:/finpress-phpunit',
 			'tests-user-home:/home/test',
 			'/path/to/local/plugin:/var/www/html/wp-content/plugins/test-name',
 			'/path/to/local/theme:/var/www/html/wp-content/themes/test-theme',
@@ -99,7 +99,7 @@ describe( 'buildDockerComposeConfig', () => {
 		);
 	} );
 
-	it( 'should create "wordpress" and "tests-wordpress" volumes if they are needed by containers', () => {
+	it( 'should create "finpress" and "tests-finpress" volumes if they are needed by containers', () => {
 		// CONFIG has no coreSource entry, so there are no core sources on the
 		// local filesystem, so a volume should be created to contain core
 		// sources.
@@ -108,13 +108,13 @@ describe( 'buildDockerComposeConfig', () => {
 			env: { development: CONFIG, tests: CONFIG },
 		} );
 
-		expect( dockerConfig.volumes.wordpress ).not.toBe( undefined );
-		expect( dockerConfig.volumes[ 'tests-wordpress' ] ).not.toBe(
+		expect( dockerConfig.volumes.finpress ).not.toBe( undefined );
+		expect( dockerConfig.volumes[ 'tests-finpress' ] ).not.toBe(
 			undefined
 		);
 	} );
 
-	it( 'should NOT create "wordpress" and "tests-wordpress" volumes if they are not needed by containers', () => {
+	it( 'should NOT create "finpress" and "tests-finpress" volumes if they are not needed by containers', () => {
 		const envConfig = {
 			...CONFIG,
 			coreSource: {
@@ -128,7 +128,7 @@ describe( 'buildDockerComposeConfig', () => {
 			env: { development: envConfig, tests: envConfig },
 		} );
 
-		expect( dockerConfig.volumes.wordpress ).toBe( undefined );
-		expect( dockerConfig.volumes[ 'tests-wordpress' ] ).toBe( undefined );
+		expect( dockerConfig.volumes.finpress ).toBe( undefined );
+		expect( dockerConfig.volumes[ 'tests-finpress' ] ).toBe( undefined );
 	} );
 } );

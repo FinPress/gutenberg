@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useRef, useEffect, useState } from '@wordpress/element';
-import { focus } from '@wordpress/dom';
+import { __ } from '@finpress/i18n';
+import { useRef, useEffect, useState } from '@finpress/element';
+import { focus } from '@finpress/dom';
 import {
 	ToolbarButton,
 	NavigableMenu,
@@ -12,7 +12,7 @@ import {
 	ToggleControl,
 	TextControl,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	Icon,
 	link as linkIcon,
@@ -20,8 +20,8 @@ import {
 	page,
 	fullscreen,
 	linkOff,
-} from '@wordpress/icons';
-import { prependHTTP } from '@wordpress/url';
+} from '@finpress/icons';
+import { prependHTTP } from '@finpress/url';
 
 /**
  * Internal dependencies

@@ -14,9 +14,9 @@ import Animated, {
 } from 'react-native-reanimated';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, useContext, useRef, useMemo } from '@wordpress/element';
+import { createContext, useContext, useRef, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

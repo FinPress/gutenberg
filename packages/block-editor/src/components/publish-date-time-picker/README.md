@@ -2,7 +2,7 @@
 
 `<PublishDateTimePicker />` is a component used to select the date and time that
 a post will be published. It wraps the `<DateTimePicker />` component found in
-`@wordpress/components` and adds additional post-specific controls.
+`@finpress/components` and adds additional post-specific controls.
 
 See [the documentation for DateTimePicker](/packages/components/src/date-time)
 for more information.
@@ -11,8 +11,8 @@ for more information.
 
 ```jsx
 import { useState } from 'react';
-import { Dropdown, Button } from '@wordpress/components';
-import { __experimentalPublishDateTimePicker as PublishDateTimePicker } from '@wordpress/block-editor';
+import { Dropdown, Button } from '@finpress/components';
+import { __experimentalPublishDateTimePicker as PublishDateTimePicker } from '@finpress/block-editor';
 
 const MyDateTimePicker = () => {
 	const [ date, setDate ] = useState( new Date() );

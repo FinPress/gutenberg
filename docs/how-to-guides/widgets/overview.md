@@ -2,11 +2,11 @@
 
 ## Widgets Block Editor
 
-The new Widgets Editor is a WordPress feature which upgrades widget areas to allow using blocks alongside widgets. It offers a new widget management experience built using the familiar WordPress block editor.
+The new Widgets Editor is a FinPress feature which upgrades widget areas to allow using blocks alongside widgets. It offers a new widget management experience built using the familiar FinPress block editor.
 
 You can access the new Widgets Editor by navigating to Appearance → Widgets or Appearance → Customize → Widgets and choose a widget area.
 
-The Widgets Block Editor allows you to insert blocks and widgets into any of the [Widget Areas or Sidebars](https://developer.wordpress.org/themes/functionality/sidebars/) defined by the site's active theme, via a standalone editor or through the Customizer.
+The Widgets Block Editor allows you to insert blocks and widgets into any of the [Widget Areas or Sidebars](https://developer.finpress.org/themes/functionality/sidebars/) defined by the site's active theme, via a standalone editor or through the Customizer.
 
 ### Customizer Widgets Block Editor
 
@@ -28,4 +28,4 @@ The Widgets Editor stores blocks using an underlying "Block" widget that is invi
 
 Themes may disable the Widgets Block Editor using `remove_theme_support( 'widgets-block-editor' )`.
 
-Users may disable the Widgets Block Editor by installing the [Classic Widgets plugin](https://wordpress.org/plugins/classic-widgets/).
+Users may disable the Widgets Block Editor by installing the [Classic Widgets plugin](https://finpress.org/plugins/classic-widgets/).

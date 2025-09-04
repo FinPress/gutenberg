@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
-import { useSelect, useDispatch, useRegistry } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { cloneBlock } from '@wordpress/blocks';
+import { useCallback } from '@finpress/element';
+import { useSelect, useDispatch, useRegistry } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { cloneBlock } from '@finpress/blocks';
 
 export default function useOutdentListItem() {
 	const registry = useRegistry();

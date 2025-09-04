@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
-import { Platform } from '@wordpress/element';
+import { getBlockSupport, hasBlockSupport } from '@finpress/blocks';
+import { Platform } from '@finpress/element';
 
 const ALIGN_SUPPORT_KEY = 'align';
 const ALIGN_WIDE_SUPPORT_KEY = 'alignWide';

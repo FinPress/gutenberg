@@ -5,10 +5,10 @@ import { createStore, applyMiddleware } from 'redux';
 import EquivalentKeyMap from 'equivalent-key-map';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import createReduxRoutineMiddleware from '@wordpress/redux-routine';
-import { compose } from '@wordpress/compose';
+import createReduxRoutineMiddleware from '@finpress/redux-routine';
+import { compose } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -140,7 +140,7 @@ function createPrivateProxy( publicItems, privateItems ) {
  *
  * @example
  * ```js
- * import { createReduxStore } from '@wordpress/data';
+ * import { createReduxStore } from '@finpress/data';
  *
  * const store = createReduxStore( 'demo', {
  *     reducer: ( state = 'OK' ) => state,

@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useBlockProps,
@@ -16,9 +16,9 @@ import {
 	store as blockEditorStore,
 	__experimentalGetElementClassName,
 	useSettings,
-} from '@wordpress/block-editor';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useEffect, useRef } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useEffect, useRef } from '@finpress/element';
 import {
 	SelectControl,
 	ToggleControl,
@@ -30,11 +30,11 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
-import { Icon, search } from '@wordpress/icons';
-import { __, sprintf } from '@wordpress/i18n';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+} from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
+import { Icon, search } from '@finpress/icons';
+import { __, sprintf } from '@finpress/i18n';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
 
 /**
  * Internal dependencies

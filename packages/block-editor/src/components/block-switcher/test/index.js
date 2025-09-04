@@ -5,18 +5,18 @@ import { render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { registerBlockType, unregisterBlockType } from '@wordpress/blocks';
-import { copy } from '@wordpress/icons';
+import { useSelect } from '@finpress/data';
+import { registerBlockType, unregisterBlockType } from '@finpress/blocks';
+import { copy } from '@finpress/icons';
 
 /**
  * Internal dependencies
  */
 import { BlockSwitcher } from '../';
 
-jest.mock( '@wordpress/data/src/components/use-select', () => jest.fn() );
+jest.mock( '@finpress/data/src/components/use-select', () => jest.fn() );
 jest.mock( '../../block-title/use-block-display-title', () =>
 	jest.fn().mockReturnValue( 'Block Name' )
 );

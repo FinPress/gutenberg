@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCommandLoader } from '@wordpress/commands';
-import { __ } from '@wordpress/i18n';
-import { useMemo, useEffect, useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { useCommandLoader } from '@finpress/commands';
+import { __ } from '@finpress/i18n';
+import { useMemo, useEffect, useState } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 import {
 	post,
 	page,
@@ -14,11 +14,11 @@ import {
 	symbolFilled,
 	styles,
 	navigation,
-} from '@wordpress/icons';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { addQueryArgs, getPath } from '@wordpress/url';
-import { useDebounce } from '@wordpress/compose';
-import { decodeEntities } from '@wordpress/html-entities';
+} from '@finpress/icons';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { addQueryArgs, getPath } from '@finpress/url';
+import { useDebounce } from '@finpress/compose';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies

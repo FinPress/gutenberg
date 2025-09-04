@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
+import { __, _x } from '@finpress/i18n';
 import {
 	ToggleControl,
 	SelectControl,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { useMemo, useCallback, Platform } from '@wordpress/element';
+} from '@finpress/components';
+import { useMemo, useCallback, Platform } from '@finpress/element';
 
 const options = [
 	{ value: 'auto', label: __( 'Auto' ) },

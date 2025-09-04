@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { InnerBlocks } from '@wordpress/block-editor';
+import { InnerBlocks } from '@finpress/block-editor';
 
 export default function PostTemplateSave() {
 	return <InnerBlocks.Content />;

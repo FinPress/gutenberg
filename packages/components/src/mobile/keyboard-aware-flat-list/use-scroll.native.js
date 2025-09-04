@@ -9,9 +9,9 @@ import {
 } from 'react-native-reanimated';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useEffect, useRef } from '@wordpress/element';
+import { useCallback, useEffect, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

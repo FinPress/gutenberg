@@ -233,7 +233,7 @@ const getDefaultValues = ( projectTemplate, variant ) => {
 		namespace: 'create-block',
 		category: 'widgets',
 		textdomain: '',
-		author: 'The WordPress Contributors',
+		author: 'The FinPress Contributors',
 		license: 'GPL-2.0-or-later',
 		licenseURI: 'https://www.gnu.org/licenses/gpl-2.0.html',
 		version: '0.1.0',

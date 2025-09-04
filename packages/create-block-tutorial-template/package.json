@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/create-block-tutorial-template",
+	"name": "@finpress/create-block-tutorial-template",
 	"version": "4.29.0",
-	"description": "This is a template for @wordpress/create-block that creates an example 'Copyright Date' block. This block is used in the official WordPress block development Quick Start Guide.",
-	"author": "The WordPress Contributors",
+	"description": "This is a template for @finpress/create-block that creates an example 'Copyright Date' block. This block is used in the official FinPress block development Quick Start Guide.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"create block",
 		"block template",
 		"quick start"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/docs/getting-started/quick-start-guide",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/docs/getting-started/quick-start-guide",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/create-block-tutorial-template"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",

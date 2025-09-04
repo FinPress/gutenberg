@@ -5,9 +5,9 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -287,11 +287,11 @@ describe( 'Modal', () => {
 							onRequestClose={ () => setIsShown( false ) }
 						>
 							<p>Modal content</p>
-							<a href="https://wordpress.org">
+							<a href="https://finpress.org">
 								First Focusable Content Element
 							</a>
 
-							<a href="https://wordpress.org">
+							<a href="https://finpress.org">
 								Another Focusable Content Element
 							</a>
 						</Modal>
@@ -306,7 +306,7 @@ describe( 'Modal', () => {
 			 * the getClientRects method. This ensures that the focusable elements can be
 			 * found by the `focusOnMount` logic which depends on layout information
 			 * to determine if the element is visible or not.
-			 * See https://github.com/WordPress/gutenberg/blob/trunk/packages/dom/src/focusable.js#L55-L61.
+			 * See https://github.com/FinPress/gutenberg/blob/trunk/packages/dom/src/focusable.js#L55-L61.
 			 */
 			// @ts-expect-error We're not trying to comply to the DOM spec, only mocking
 			window.HTMLElement.prototype.getClientRects = function () {

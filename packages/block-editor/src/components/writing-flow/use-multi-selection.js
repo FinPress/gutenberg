@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
+import { useRefEffect } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

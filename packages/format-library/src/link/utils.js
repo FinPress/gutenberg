@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getProtocol,
@@ -12,7 +12,7 @@ import {
 	isValidQueryString,
 	getFragment,
 	isValidFragment,
-} from '@wordpress/url';
+} from '@finpress/url';
 
 /**
  * Check for issues with the provided href.

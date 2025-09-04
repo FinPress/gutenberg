@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getProtocol, prependHTTP } from '@wordpress/url';
-import { useCallback } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { getProtocol, prependHTTP } from '@finpress/url';
+import { useCallback } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -96,7 +96,7 @@ const handleEntitySearch = async (
 		: results.concat( {
 				// the `id` prop is intentionally omitted here because it
 				// is never exposed as part of the component's public API.
-				// see: https://github.com/WordPress/gutenberg/pull/19775#discussion_r378931316.
+				// see: https://github.com/FinPress/gutenberg/pull/19775#discussion_r378931316.
 				title: val, // Must match the existing `<input>`s text value.
 				url: val, // Must match the existing `<input>`s text value.
 				type: CREATE_TYPE,

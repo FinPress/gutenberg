@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
+import { useEffect } from '@finpress/element';
+import { useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -16,8 +16,8 @@ import { store as commandsStore } from '../store';
  *
  * @example
  * ```js
- * import { useCommandLoader } from '@wordpress/commands';
- * import { post, page, layout, symbolFilled } from '@wordpress/icons';
+ * import { useCommandLoader } from '@finpress/commands';
+ * import { post, page, layout, symbolFilled } from '@finpress/icons';
  *
  * const icons = {
  *     post,

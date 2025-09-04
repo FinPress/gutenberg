@@ -4,12 +4,12 @@
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext, useCallback, useMemo } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { store as blocksStore } from '@wordpress/blocks';
-import { _x } from '@wordpress/i18n';
+import { useContext, useCallback, useMemo } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { store as blocksStore } from '@finpress/blocks';
+import { _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -311,7 +311,7 @@ export function useSettingsForBlockElement(
 
 		// The column-count style is named text column to reduce confusion with
 		// the columns block and manage expectations from the support.
-		// See: https://github.com/WordPress/gutenberg/pull/33587
+		// See: https://github.com/FinPress/gutenberg/pull/33587
 		if ( ! supportedStyles.includes( 'columnCount' ) ) {
 			updatedSettings.typography = {
 				...updatedSettings.typography,
@@ -420,7 +420,7 @@ export function useColorsPerOrigin( settings ) {
 			result.push( {
 				name: _x(
 					'Default',
-					'Indicates this palette comes from WordPress.'
+					'Indicates this palette comes from FinPress.'
 				),
 				colors: defaultColors,
 			} );
@@ -468,7 +468,7 @@ export function useGradientsPerOrigin( settings ) {
 			result.push( {
 				name: _x(
 					'Default',
-					'Indicates this palette comes from WordPress.'
+					'Indicates this palette comes from FinPress.'
 				),
 				gradients: defaultGradients,
 			} );

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Modal } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { Modal } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 export default function PreferencesModal( { closeModal, children } ) {
 	return (

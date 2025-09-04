@@ -15,7 +15,7 @@ function getArg( argName ) {
 	return arg ? arg.split( '=' )[ 1 ] : null;
 }
 
-const OWNER = 'wordpress';
+const OWNER = 'finpress';
 const REPO = 'gutenberg';
 const MAX_MONTHS_TO_QUERY = 4;
 
@@ -71,7 +71,7 @@ async function main() {
 		}
 	} else {
 		console.error(
-			`Error. The --since argument is required (e.g. YYYY-MM-DD). This should be the date of the final Gutenberg release that was included in the last stable WP Core release (see https://developer.wordpress.org/block-editor/contributors/versions-in-wordpress/).`
+			`Error. The --since argument is required (e.g. YYYY-MM-DD). This should be the date of the final Gutenberg release that was included in the last stable WP Core release (see https://developer.finpress.org/block-editor/contributors/versions-in-finpress/).`
 		);
 		process.exit( 1 );
 	}
@@ -329,7 +329,7 @@ function processCommits( commits ) {
 	// It exists to provide compatibility for older releases, because we have to
 	// support the current and the previous WP versions.
 	// See: https://github.com/WordPress/gutenberg/pull/57890#pullrequestreview-1828994247.
-	const prevReleaseCompatDirToIgnore = `lib/compat/wordpress-${ stableWPRelease }`;
+	const prevReleaseCompatDirToIgnore = `lib/compat/finpress-${ stableWPRelease }`;
 
 	commits.forEach( ( commit ) => {
 		// Skip commits without an associated pull request

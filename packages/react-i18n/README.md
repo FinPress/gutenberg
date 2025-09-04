@@ -1,16 +1,16 @@
 # React Bindings for I18n
 
-React bindings for [`@wordpress/i18n`](../i18n).
+React bindings for [`@finpress/i18n`](../i18n).
 
 ## Installation
 
 Install the module:
 
 ```sh
-npm install @wordpress/react-i18n
+npm install @finpress/react-i18n
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## API
 
@@ -23,8 +23,8 @@ The `I18nProvider` should be mounted above any localized components:
 _Usage_
 
 ```js
-import { createI18n } from '@wordpress/i18n';
-import { I18nProvider } from '@wordpress/react-i18n';
+import { createI18n } from '@finpress/i18n';
+import { I18nProvider } from '@finpress/react-i18n';
 const i18n = createI18n();
 
 ReactDom.render(
@@ -36,7 +36,7 @@ ReactDom.render(
 ```
 
 You can also instantiate the provider without the `i18n` prop. In that case it will use the
-default `I18n` instance exported from `@wordpress/i18n`.
+default `I18n` instance exported from `@finpress/i18n`.
 
 _Parameters_
 
@@ -48,12 +48,12 @@ _Returns_
 
 ### useI18n
 
-React hook providing access to i18n functions. It exposes the `__`, `_x`, `_n`, `_nx`, `isRTL` and `hasTranslation` functions from [`@wordpress/i18n`](../i18n). Refer to their documentation there.
+React hook providing access to i18n functions. It exposes the `__`, `_x`, `_n`, `_nx`, `isRTL` and `hasTranslation` functions from [`@finpress/i18n`](../i18n). Refer to their documentation there.
 
 _Usage_
 
 ```js
-import { useI18n } from '@wordpress/react-i18n';
+import { useI18n } from '@finpress/react-i18n';
 
 function MyComponent() {
 	const { __ } = useI18n();
@@ -68,7 +68,7 @@ React higher-order component that passes the i18n translate functions (the same 
 _Usage_
 
 ```js
-import { withI18n } from '@wordpress/react-i18n';
+import { withI18n } from '@finpress/react-i18n';
 
 function MyComponent( { __ } ) {
 	return __( 'Hello, world!' );
@@ -89,8 +89,8 @@ _Returns_
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

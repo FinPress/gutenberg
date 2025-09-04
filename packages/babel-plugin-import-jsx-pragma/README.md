@@ -11,7 +11,7 @@ Babel transform plugin for automatically injecting an import to be used as the p
 Install the module to your project using [npm](https://www.npmjs.com/).
 
 ```bash
-npm install @wordpress/babel-plugin-import-jsx-pragma
+npm install @finpress/babel-plugin-import-jsx-pragma
 ```
 
 **Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It is not compatible with older versions.
@@ -20,19 +20,19 @@ npm install @wordpress/babel-plugin-import-jsx-pragma
 
 Refer to the [Babel Plugins documentation](https://babeljs.io/docs/plugins) if you don't yet have experience working with Babel plugins.
 
-Include `@wordpress/babel-plugin-import-jsx-pragma` (and [@babel/plugin-transform-react-jsx](https://babeljs.io/docs/babel-plugin-transform-react-jsx/)) as plugins in your Babel configuration. If you don't include both you will receive errors when encountering JSX tokens.
+Include `@finpress/babel-plugin-import-jsx-pragma` (and [@babel/plugin-transform-react-jsx](https://babeljs.io/docs/babel-plugin-transform-react-jsx/)) as plugins in your Babel configuration. If you don't include both you will receive errors when encountering JSX tokens.
 
 ```js
 // .babelrc.js
 module.exports = {
 	plugins: [
-		'@wordpress/babel-plugin-import-jsx-pragma',
+		'@finpress/babel-plugin-import-jsx-pragma',
 		'@babel/plugin-transform-react-jsx',
 	],
 };
 ```
 
-_Note:_ `@wordpress/babel-plugin-import-jsx-pragma` is included in `@wordpress/babel-preset-default` (default preset for WordPress development) starting from `v4.0.0`. If you are using this preset, you shouldn't include this plugin in your Babel config.
+_Note:_ `@finpress/babel-plugin-import-jsx-pragma` is included in `@finpress/babel-preset-default` (default preset for FinPress development) starting from `v4.0.0`. If you are using this preset, you shouldn't include this plugin in your Babel config.
 
 ## Options
 
@@ -45,7 +45,7 @@ For example, if you are using the `react` package, you may want to use the follo
 module.exports = {
 	plugins: [
 		[
-			'@wordpress/babel-plugin-import-jsx-pragma',
+			'@finpress/babel-plugin-import-jsx-pragma',
 			{
 				scopeVariable: 'createElement',
 				scopeVariableFrag: 'Fragment',
@@ -92,8 +92,8 @@ on `scopeVariableFrag`.
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

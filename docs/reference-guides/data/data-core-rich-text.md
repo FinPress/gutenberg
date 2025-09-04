@@ -13,9 +13,9 @@ Returns a format type by name.
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as richTextStore } from '@wordpress/rich-text';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as richTextStore } from '@finpress/rich-text';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
    const { getFormatType } = useSelect(
@@ -55,9 +55,9 @@ Gets the format type, if any, that can handle a bare element (without a data-for
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as richTextStore } from '@wordpress/rich-text';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as richTextStore } from '@finpress/rich-text';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const { getFormatTypeForBareElement } = useSelect(
@@ -87,9 +87,9 @@ Gets the format type, if any, that can handle an element, given its classes.
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as richTextStore } from '@wordpress/rich-text';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as richTextStore } from '@finpress/rich-text';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const { getFormatTypeForClassName } = useSelect(
@@ -119,9 +119,9 @@ Returns all the available format types.
 _Usage_
 
 ```js
-import { __, sprintf } from '@wordpress/i18n';
-import { store as richTextStore } from '@wordpress/rich-text';
-import { useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as richTextStore } from '@finpress/rich-text';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const { getFormatTypes } = useSelect(

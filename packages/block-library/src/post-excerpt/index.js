@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { postExcerpt as icon } from '@wordpress/icons';
+import { postExcerpt as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

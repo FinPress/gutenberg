@@ -11,14 +11,14 @@ import {
 } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	forwardRef,
 	useEffect,
 	useImperativeHandle,
 	useRef,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies

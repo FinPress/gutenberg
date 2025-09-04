@@ -2,7 +2,7 @@
 
 `npm run other:cherry-pick` automates cherry-picking Pull Requests with a specific label into the **current branch**.
 
-It's especially useful for major WordPress releases as by default the script looks for merged Pull Requests with the `Backport to WP Beta/RC` label.
+It's especially useful for major FinPress releases as by default the script looks for merged Pull Requests with the `Backport to WP Beta/RC` label.
 
 You can also use it in different scenarios by passing a custom label as the first argument. See the Gutenberg plugin release example at the end of this document.
 

@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useState } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { useDispatch } from '@wordpress/data';
-import { __experimentalBlockPatternsList as BlockPatternsList } from '@wordpress/block-editor';
+import { useMemo, useState } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { useDispatch } from '@finpress/data';
+import { __experimentalBlockPatternsList as BlockPatternsList } from '@finpress/block-editor';
 import {
 	SearchControl,
 	__experimentalHStack as HStack,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

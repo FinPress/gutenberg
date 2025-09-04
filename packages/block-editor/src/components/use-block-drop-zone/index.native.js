@@ -8,10 +8,10 @@ import {
 } from 'react-native-reanimated';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useCallback } from '@wordpress/element';
+import { useSelect } from '@finpress/data';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

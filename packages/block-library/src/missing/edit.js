@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { RawHTML } from '@wordpress/element';
-import { Button } from '@wordpress/components';
-import { createBlock } from '@wordpress/blocks';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { RawHTML } from '@finpress/element';
+import { Button } from '@finpress/components';
+import { createBlock } from '@finpress/blocks';
+import { useDispatch, useSelect } from '@finpress/data';
 import {
 	Warning,
 	useBlockProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { safeHTML } from '@wordpress/dom';
+} from '@finpress/block-editor';
+import { safeHTML } from '@finpress/dom';
 
 export default function MissingEdit( { attributes, clientId } ) {
 	const { originalName, originalUndelimitedContent } = attributes;

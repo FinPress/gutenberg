@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Block Library
 
-The block editor relies on a registry of block types to render and edit blocks. The `@wordpress/block-library` package provides a set of core blocks that you can register in your application.
+The block editor relies on a registry of block types to render and edit blocks. The `@finpress/block-library` package provides a set of core blocks that you can register in your application.
 
 ## Registering all block types
 
@@ -13,7 +13,7 @@ Registering blocks requires both loading the JavaScript code that makes the bloc
 To register all blocks from the block library, you can use the `registerCoreBlocks` function:
 
 ```js
-import { registerCoreBlocks } from '@wordpress/block-library';
+import { registerCoreBlocks } from '@finpress/block-library';
 
 registerCoreBlocks();
 ```
@@ -21,23 +21,23 @@ registerCoreBlocks();
 And make sure to also load the stylesheets required for these blocks.
 
 ```js
-import "@wordpress/block-library/build-style/common.css";
-import "@wordpress/block-library/build-style/style.css";
-import "@wordpress/block-library/build-style/editor.css";
+import "@finpress/block-library/build-style/common.css";
+import "@finpress/block-library/build-style/style.css";
+import "@finpress/block-library/build-style/editor.css";
 ```
 
 ## Registering individual blocks
 
-That said, by default the block library includes a very big number of blocks and some of them may contain some WordPress-specific logic. For this reason, if you're building a third-party block editor, it's recommended to only register the blocks that you need.
+That said, by default the block library includes a very big number of blocks and some of them may contain some FinPress-specific logic. For this reason, if you're building a third-party block editor, it's recommended to only register the blocks that you need.
 
 ### The paragraph block type
 
 The main block type that almost all block editors need is the paragraph block. You can register it with the following code:
 
 ```js
-import '@wordpress/block-library/build-module/paragraph/init';
-import '@wordpress/block-library/build-style/paragraph/style.css';
-import '@wordpress/block-library/build-style/paragraph/editor.css';
+import '@finpress/block-library/build-module/paragraph/init';
+import '@finpress/block-library/build-style/paragraph/style.css';
+import '@finpress/block-library/build-style/paragraph/editor.css';
 ```
 
 Also, the paragraph block is often used as the "default block" in the block editor. The default block has multiple purposes:
@@ -49,7 +49,7 @@ Also, the paragraph block is often used as the "default block" in the block edit
 You can mark the paragraph block as the default block with the following code:
 
 ```js
-import { setDefaultBlockName } from '@wordpress/blocks';
+import { setDefaultBlockName } from '@finpress/blocks';
 
 setDefaultBlockName( 'core/paragraph' );
 ```
@@ -63,8 +63,8 @@ It is also used by the block editor to render blocks that are not registered in 
 You can register the HTML block with the following code:
 
 ```js
-import '@wordpress/block-library/build-module/html/init';
-import '@wordpress/block-library/build-style/html/editor.css';
+import '@finpress/block-library/build-module/html/init';
+import '@finpress/block-library/build-style/html/editor.css';
 ```
 
 And mark it as the fallback block type with the following code:
@@ -73,7 +73,7 @@ And mark it as the fallback block type with the following code:
 import {
     setFreeformContentHandlerName,
     setUnregisteredTypeHandlerName
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 setFreeformContentHandlerName( 'core/html' );
 setUnregisteredTypeHandlerName( 'core/html' );
@@ -107,6 +107,6 @@ In addition to these two default blocks, here's a non-exhaustive list of blocks 
 For each block, you'll need to load the JavaScript code and stylesheets. Some blocks have two stylesheets (`style.css` and `editor.css`). For example, to register the heading block, you can use the following code:
 
 ```js
-import '@wordpress/block-library/build-module/heading/init';
-import '@wordpress/block-library/build-style/heading/editor.css';
+import '@finpress/block-library/build-module/heading/init';
+import '@finpress/block-library/build-style/heading/editor.css';
 ```

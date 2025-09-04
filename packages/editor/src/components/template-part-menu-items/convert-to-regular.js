@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { MenuItem } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { MenuItem } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 export default function ConvertToRegularBlocks( { clientId, onClose } ) {
 	const { getBlocks } = useSelect( blockEditorStore );

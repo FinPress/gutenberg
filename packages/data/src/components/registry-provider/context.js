@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext } from '@wordpress/element';
+import { createContext } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -25,7 +25,7 @@ const { Consumer, Provider } = Context;
  *   RegistryProvider,
  *   RegistryConsumer,
  *   createRegistry
- * } from '@wordpress/data';
+ * } from '@finpress/data';
  *
  * const registry = createRegistry( {} );
  *

@@ -9,7 +9,7 @@ InputControl components let users enter and edit text. This is an experimental c
 ## Usage
 
 ```js
-import { __experimentalInputControl as InputControl } from '@wordpress/components';
+import { __experimentalInputControl as InputControl } from '@finpress/components';
 import { useState } from 'react';
 
 const Example = () => {

@@ -4,10 +4,10 @@
 import * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useContext } from '@wordpress/element';
-import { Icon } from '@wordpress/icons';
+import { forwardRef, useContext } from '@finpress/element';
+import { Icon } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ import type { WordPressComponentProps } from '../context';
 import { Context } from './context';
 import type { RadioItemProps } from './types';
 import * as Styled from './styles';
-import { SVG, Circle } from '@wordpress/primitives';
+import { SVG, Circle } from '@finpress/primitives';
 
 const radioCheck = (
 	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

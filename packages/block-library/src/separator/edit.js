@@ -4,16 +4,16 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getColorClassName,
 	InspectorControls,
 	useBlockProps,
 	__experimentalUseColorProps as useColorProps,
-} from '@wordpress/block-editor';
-import { HorizontalRule, SelectControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { HorizontalRule, SelectControl } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

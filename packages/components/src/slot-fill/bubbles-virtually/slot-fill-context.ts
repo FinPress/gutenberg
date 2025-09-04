@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext } from '@wordpress/element';
-import warning from '@wordpress/warning';
-import { observableMap } from '@wordpress/compose';
+import { createContext } from '@finpress/element';
+import warning from '@finpress/warning';
+import { observableMap } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ const initialContextValue: SlotFillBubblesVirtuallyContext = {
 	registerSlot: () => {
 		warning(
 			'Components must be wrapped within `SlotFillProvider`. ' +
-				'See https://developer.wordpress.org/block-editor/components/slot-fill/'
+				'See https://developer.finpress.org/block-editor/components/slot-fill/'
 		);
 	},
 	updateSlot: () => {},

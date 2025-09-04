@@ -7,7 +7,7 @@ let _decodeTextArea: HTMLTextAreaElement | undefined;
  *
  * @example
  * ```js
- * import { decodeEntities } from '@wordpress/html-entities';
+ * import { decodeEntities } from '@finpress/html-entities';
  *
  * const result = decodeEntities( '&aacute;' );
  * console.log( result ); // result will be "á"

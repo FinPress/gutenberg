@@ -13,7 +13,7 @@ function isAndroid() {
  * tapped. This is done via the 'hideTextSelectionContextMenu' method, which
  * is sent back to the Android app, where the dismissal is then handle.
  *
- * @see https://github.com/WordPress/gutenberg/pull/34668
+ * @see https://github.com/FinPress/gutenberg/pull/34668
  * @return {void}
  */
 function manageTextSelectionContextMenu() {
@@ -86,7 +86,7 @@ function _toggleBlockSelectedClass( isBlockSelected ) {
 	}
 }
 
-/** @typedef {import('@wordpress/data').WPDataRegistry} WPDataRegistry */
+/** @typedef {import('@finpress/data').WPDataRegistry} WPDataRegistry */
 
 /**
  * Toggle the `is-block-selected` class on the editor container when a block is

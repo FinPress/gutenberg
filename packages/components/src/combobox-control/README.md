@@ -12,7 +12,7 @@ These are the same as [the ones for `SelectControl`s](/packages/components/src/s
 
 ```jsx
 import { useState } from 'react';
-import { ComboboxControl } from '@wordpress/components';
+import { ComboboxControl } from '@finpress/components';
 
 const options = [
 	{
@@ -152,8 +152,8 @@ Start opting into the new margin-free styles that will become the default in a f
 
 ## Related components
 
--   Like this component, but without a search input, the [`CustomSelectControl`](https://developer.wordpress.org/block-editor/reference-guides/components/custom-select-control/) component.
+-   Like this component, but without a search input, the [`CustomSelectControl`](https://developer.finpress.org/block-editor/reference-guides/components/custom-select-control/) component.
 
--   To select one option from a set, when you want to show all the available options at once, use the [`RadioControl`](https://developer.wordpress.org/block-editor/reference-guides/components/radio-control/) component.
--   To select one or more items from a set, use the [`CheckboxControl`](https://developer.wordpress.org/block-editor/reference-guides/components/checkbox-control/) component.
--   To toggle a single setting on or off, use the [`ToggleControl`](https://developer.wordpress.org/block-editor/reference-guides/components/toggle-control/) component.
+-   To select one option from a set, when you want to show all the available options at once, use the [`RadioControl`](https://developer.finpress.org/block-editor/reference-guides/components/radio-control/) component.
+-   To select one or more items from a set, use the [`CheckboxControl`](https://developer.finpress.org/block-editor/reference-guides/components/checkbox-control/) component.
+-   To toggle a single setting on or off, use the [`ToggleControl`](https://developer.finpress.org/block-editor/reference-guides/components/toggle-control/) component.

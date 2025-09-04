@@ -1,17 +1,17 @@
 # (Experimental) Upload Media
 
-This module is a media upload handler with a queue-like system that is implemented using a custom `@wordpress/data` store.
+This module is a media upload handler with a queue-like system that is implemented using a custom `@finpress/data` store.
 
 Such a system is useful for additional client-side processing of media files (e.g. image compression) before uploading them to a server.
 
-It is typically used by `@wordpress/block-editor` but can also be leveraged outside of it.
+It is typically used by `@finpress/block-editor` but can also be leveraged outside of it.
 
 ## Installation
 
 Install the module
 
 ```bash
-npm install @wordpress/upload-media --save
+npm install @finpress/upload-media --save
 ```
 
 ## Usage
@@ -19,8 +19,8 @@ npm install @wordpress/upload-media --save
 This is a basic example of how one can interact with the upload data store:
 
 ```js
-import { store as uploadStore } from '@wordpress/upload-media';
-import { dispatch } from '@wordpress/data';
+import { store as uploadStore } from '@finpress/upload-media';
+import { dispatch } from '@finpress/data';
 
 dispatch( uploadStore ).updateSettings( /* ... */ );
 dispatch( uploadStore ).addItems( [

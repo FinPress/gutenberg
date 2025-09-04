@@ -4,7 +4,7 @@
 import { logged } from './utils';
 
 function isDev(): boolean {
-	// eslint-disable-next-line @wordpress/wp-global-usage
+	// eslint-disable-next-line @finpress/wp-global-usage
 	return globalThis.SCRIPT_DEBUG === true;
 }
 
@@ -15,7 +15,7 @@ function isDev(): boolean {
  *
  * @example
  * ```js
- * import warning from '@wordpress/warning';
+ * import warning from '@finpress/warning';
  *
  * function MyComponent( props ) {
  *   if ( ! props.title ) {

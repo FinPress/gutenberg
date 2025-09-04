@@ -34,7 +34,7 @@ function UnconnectedVisuallyHidden(
  * hidden, but will show for alternate devices, for example a screen reader.
  *
  * ```jsx
- * import { VisuallyHidden } from `@wordpress/components`;
+ * import { VisuallyHidden } from `@finpress/components`;
  *
  * function Example() {
  *   return (

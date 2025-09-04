@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { PanelBody, PanelRow } from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { useContext } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { PanelBody, PanelRow } from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,21 +1,21 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'RSS', () => {
 	test.beforeEach( async ( { admin } ) => {
 		await admin.createNewPost();
 	} );
 
-	// See: https://github.com/WordPress/gutenberg/pull/61389.
+	// See: https://github.com/FinPress/gutenberg/pull/61389.
 	test( 'should retain native copy/paste behavior for input fields', async ( {
 		editor,
 		pageUtils,
 	} ) => {
 		await editor.insertBlock( { name: 'core/rss' } );
 		pageUtils.setClipboardData( {
-			plainText: 'https://developer.wordpress.org/news/feed/',
+			plainText: 'https://developer.finpress.org/news/feed/',
 		} );
 		await pageUtils.pressKeys( 'primary+v' );
 
@@ -23,7 +23,7 @@ test.describe( 'RSS', () => {
 			{
 				name: 'core/rss',
 				attributes: {
-					feedURL: 'https://developer.wordpress.org/news/feed/',
+					feedURL: 'https://developer.finpress.org/news/feed/',
 				},
 			},
 		] );

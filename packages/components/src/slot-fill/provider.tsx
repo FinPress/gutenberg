@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ import type {
 	SlotFillProviderProps,
 	SlotKey,
 } from './types';
-import { observableMap } from '@wordpress/compose';
+import { observableMap } from '@finpress/compose';
 
 function createSlotRegistry(): BaseSlotFillContext {
 	const slots = observableMap< SlotKey, BaseSlotInstance >();

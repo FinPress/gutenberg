@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { store as coreStore, useEntityProp } from '@wordpress/core-data';
-import { __, sprintf } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { store as coreStore, useEntityProp } from '@finpress/core-data';
+import { __, sprintf } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
 
 function getAvatarSizes( sizes ) {
 	const minSize = sizes ? sizes[ 0 ] : 24;

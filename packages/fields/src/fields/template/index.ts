@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { Field } from '@wordpress/dataviews';
+import type { Field } from '@finpress/dataviews';
 
 /**
  * Internal dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import type { BasePost } from '../../types';
 import { TemplateEdit } from './template-edit';
 

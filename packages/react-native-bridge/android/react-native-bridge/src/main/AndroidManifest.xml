@@ -3,7 +3,7 @@
     the `namespace` property of the `build.gradle` file.
     File reference: `react-native-bridge/android/react-native-bridge/build.gradle`
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.wordpress.mobile.ReactNativeGutenbergBridge">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.finpress.mobile.ReactNativeGutenbergBridge">
 
     <queries>
         <intent>

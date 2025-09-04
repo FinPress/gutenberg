@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Links', () => {
 	test.beforeEach( async ( { admin } ) => {
@@ -88,7 +88,7 @@ test.describe( 'Links', () => {
 			.getByRole( 'combobox', {
 				name: 'Search or type URL',
 			} )
-			.fill( 'https://wordpress.org/gutenberg' );
+			.fill( 'https://finpress.org/gutenberg' );
 
 		// Submit the link.
 		await pageUtils.pressKeys( 'Enter' );
@@ -99,7 +99,7 @@ test.describe( 'Links', () => {
 				name: 'core/paragraph',
 				attributes: {
 					content:
-						'This is <a href="https://wordpress.org/gutenberg">Gutenberg</a>',
+						'This is <a href="https://finpress.org/gutenberg">Gutenberg</a>',
 				},
 			},
 		] );
@@ -139,7 +139,7 @@ test.describe( 'Links', () => {
 			name: 'core/paragraph',
 		} );
 		await page.keyboard.type(
-			'This is Gutenberg: https://wordpress.org/gutenberg'
+			'This is Gutenberg: https://finpress.org/gutenberg'
 		);
 
 		// Select the URL.
@@ -154,7 +154,7 @@ test.describe( 'Links', () => {
 				name: 'core/paragraph',
 				attributes: {
 					content:
-						'This is Gutenberg: <a href="https://wordpress.org/gutenberg">https://wordpress.org/gutenberg</a>',
+						'This is Gutenberg: <a href="https://finpress.org/gutenberg">https://finpress.org/gutenberg</a>',
 				},
 			},
 		] );
@@ -182,7 +182,7 @@ test.describe( 'Links', () => {
 			.getByRole( 'combobox', {
 				name: 'Search or type URL',
 			} )
-			.fill( 'https://wordpress.org/gutenberg' );
+			.fill( 'https://finpress.org/gutenberg' );
 
 		// Click somewhere else - it doesn't really matter where.
 		await editor.canvas
@@ -443,7 +443,7 @@ test.describe( 'Links', () => {
 		pageUtils,
 		LinkUtils,
 	} ) => {
-		const URL = 'https://wordpress.org/gutenberg';
+		const URL = 'https://finpress.org/gutenberg';
 
 		// Create a block with some text and format it as a link.
 		await editor.insertBlock( {
@@ -562,7 +562,7 @@ test.describe( 'Links', () => {
 		await expect( linkPopover ).toBeVisible();
 
 		// Type a URL.
-		await page.keyboard.type( 'https://wordpress.org/gutenberg' );
+		await page.keyboard.type( 'https://finpress.org/gutenberg' );
 
 		// Ensure that the contents of the post have not been changed, since at
 		// this point the link is still not inserted.
@@ -607,7 +607,7 @@ test.describe( 'Links', () => {
 				name: 'core/paragraph',
 				attributes: {
 					content:
-						'This is <a href="https://wordpress.org/gutenberg" target="_blank" rel="noreferrer noopener">Gutenberg</a>',
+						'This is <a href="https://finpress.org/gutenberg" target="_blank" rel="noreferrer noopener">Gutenberg</a>',
 				},
 			},
 		] );
@@ -623,9 +623,9 @@ test.describe( 'Links', () => {
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 		} );
-		await page.keyboard.type( 'This is WordPress' );
+		await page.keyboard.type( 'This is FinPress' );
 
-		// Select "WordPress".
+		// Select "FinPress".
 		await pageUtils.pressKeys( 'shiftAlt+ArrowLeft' );
 		await pageUtils.pressKeys( 'primary+k' );
 
@@ -645,7 +645,7 @@ test.describe( 'Links', () => {
 			{
 				name: 'core/paragraph',
 				attributes: {
-					content: 'This is <a href="http://w.org">WordPress</a>',
+					content: 'This is <a href="http://w.org">FinPress</a>',
 				},
 			},
 		] );
@@ -663,7 +663,7 @@ test.describe( 'Links', () => {
 		// Note: getByPlaceholder required in order to handle Link Control component
 		// managing focus onto other inputs within the control.
 		await linkPopover.getByPlaceholder( 'Search or type URL' ).fill( '' );
-		await page.keyboard.type( 'wordpress.org' );
+		await page.keyboard.type( 'finpress.org' );
 
 		// Save the link.
 		await linkPopover.getByRole( 'button', { name: 'Save' } ).click();
@@ -677,7 +677,7 @@ test.describe( 'Links', () => {
 				name: 'core/paragraph',
 				attributes: {
 					content:
-						'This is <a href="http://wordpress.org">WordPress</a>',
+						'This is <a href="http://finpress.org">FinPress</a>',
 				},
 			},
 		] );
@@ -693,13 +693,13 @@ test.describe( 'Links', () => {
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 		} );
-		await page.keyboard.type( 'This is Gutenberg WordPress' );
+		await page.keyboard.type( 'This is Gutenberg FinPress' );
 
 		const urlInput = page.getByRole( 'combobox', {
 			name: 'Search or type URL',
 		} );
 
-		// Select "WordPress".
+		// Select "FinPress".
 		await pageUtils.pressKeys( 'shiftAlt+ArrowLeft' );
 
 		// Create a link.
@@ -717,7 +717,7 @@ test.describe( 'Links', () => {
 		// Create a link.
 		await pageUtils.pressKeys( 'primary+k' );
 
-		await urlInput.fill( 'https://wordpress.org/plugins/gutenberg/' );
+		await urlInput.fill( 'https://finpress.org/plugins/gutenberg/' );
 		await page.keyboard.press( 'Enter' );
 
 		// Press the "Edit" button
@@ -736,10 +736,10 @@ test.describe( 'Links', () => {
 		// Move focus out of Link UI and into Paragraph block.
 		await pageUtils.pressKeys( 'Escape' );
 
-		// Click on the "WordPress" link
+		// Click on the "FinPress" link
 		await editor.canvas
 			.getByRole( 'link', {
-				name: 'WordPress',
+				name: 'FinPress',
 			} )
 			.click();
 
@@ -789,7 +789,7 @@ test.describe( 'Links', () => {
 			name: 'core/paragraph',
 			attributes: {
 				content:
-					'<a href="https://wordpress.org/gutenberg">Gutenberg</a>',
+					'<a href="https://finpress.org/gutenberg">Gutenberg</a>',
 			},
 		} );
 
@@ -831,7 +831,7 @@ test.describe( 'Links', () => {
 			{
 				name: 'core/paragraph',
 				attributes: {
-					content: `<a href="https://wordpress.org/gutenberg" target="_blank" rel="noreferrer noopener nofollow">Gutenberg</a>`,
+					content: `<a href="https://finpress.org/gutenberg" target="_blank" rel="noreferrer noopener nofollow">Gutenberg</a>`,
 				},
 			},
 		] );
@@ -859,13 +859,13 @@ test.describe( 'Links', () => {
 			{
 				name: 'core/paragraph',
 				attributes: {
-					content: `<a href="https://wordpress.org/gutenberg">Gutenberg</a>`,
+					content: `<a href="https://finpress.org/gutenberg">Gutenberg</a>`,
 				},
 			},
 		] );
 	} );
 
-	// Fix for https://github.com/WordPress/gutenberg/issues/58322
+	// Fix for https://github.com/FinPress/gutenberg/issues/58322
 	test( 'can click links within the same paragraph to open the correct link preview (@firefox)', async ( {
 		editor,
 		LinkUtils,
@@ -874,7 +874,7 @@ test.describe( 'Links', () => {
 		await editor.insertBlock( {
 			name: 'core/paragraph',
 			attributes: {
-				content: `<a href="https://wordpressfoundation.org/donate/">Donate to the WordPress Foundation</a> to support <a href="https://wordpress.org/gutenberg">Gutenberg</a>`,
+				content: `<a href="https://wordpressfoundation.org/donate/">Donate to the FinPress Foundation</a> to support <a href="https://finpress.org/gutenberg">Gutenberg</a>`,
 			},
 		} );
 
@@ -888,19 +888,19 @@ test.describe( 'Links', () => {
 		const linkPopover = LinkUtils.getLinkPopover();
 		await expect( linkPopover ).toBeVisible();
 		await expect(
-			linkPopover.getByText( 'wordpress.org/gutenberg' )
+			linkPopover.getByText( 'finpress.org/gutenberg' )
 		).toBeVisible();
 
 		// Click the other link in the same paragraph. We need a short delay between mousdown and mouseup to get the popover to show
 		await editor.canvas
 			.getByRole( 'link', {
-				name: 'WordPress',
+				name: 'FinPress',
 			} )
 			.click( { delay: 100 } );
 
 		await expect( linkPopover ).toBeVisible();
 		await expect(
-			linkPopover.getByText( 'wordpress.org/gutenberg' )
+			linkPopover.getByText( 'finpress.org/gutenberg' )
 		).toBeHidden();
 		await expect(
 			linkPopover.getByText( 'wordpressfoundation.org/donate/' )
@@ -991,7 +991,7 @@ test.describe( 'Links', () => {
 					name: 'core/paragraph',
 					attributes: {
 						content:
-							'This is <a href="https://wordpress.org/gutenberg">' +
+							'This is <a href="https://finpress.org/gutenberg">' +
 							changedLinkText +
 							'</a>',
 					},
@@ -1080,7 +1080,7 @@ test.describe( 'Links', () => {
 				.getByRole( 'combobox', {
 					name: 'Search or type URL',
 				} )
-				.fill( 'https://wordpress.org/gutenberg' );
+				.fill( 'https://finpress.org/gutenberg' );
 
 			// Click on the Submit button.
 			await pageUtils.pressKeys( 'Enter' );
@@ -1090,7 +1090,7 @@ test.describe( 'Links', () => {
 					name: 'core/paragraph',
 					attributes: {
 						content:
-							'Text with leading and trailing<a href="https://wordpress.org/gutenberg">' +
+							'Text with leading and trailing<a href="https://finpress.org/gutenberg">' +
 							textToSelect +
 							'</a>',
 					},
@@ -1130,7 +1130,7 @@ test.describe( 'Links', () => {
 			await expect( optionsButton ).toBeFocused();
 		} );
 
-		// Based on issue reported in https://github.com/WordPress/gutenberg/issues/41771/.
+		// Based on issue reported in https://github.com/FinPress/gutenberg/issues/41771/.
 		test( `should correctly replace active link's text value within rich text even when multiple matching text values exist within the rich text`, async ( {
 			page,
 			editor,
@@ -1156,7 +1156,7 @@ test.describe( 'Links', () => {
 				.getByRole( 'combobox', {
 					name: 'Search or type URL',
 				} )
-				.fill( 'www.wordpress.org' );
+				.fill( 'www.finpress.org' );
 
 			// Update the link.
 			await pageUtils.pressKeys( 'Enter' );
@@ -1189,7 +1189,7 @@ test.describe( 'Links', () => {
 					name: 'core/paragraph',
 					attributes: {
 						content:
-							'a b c <a href="http://www.wordpress.org">z</a>',
+							'a b c <a href="http://www.finpress.org">z</a>',
 					},
 				},
 			] );
@@ -1240,7 +1240,7 @@ class LinkUtils {
 			.getByRole( 'combobox', {
 				name: 'Search or type URL',
 			} )
-			.fill( 'https://wordpress.org/gutenberg' );
+			.fill( 'https://finpress.org/gutenberg' );
 
 		// Submit the link.
 		await this.pageUtils.pressKeys( 'Enter' );
@@ -1252,7 +1252,7 @@ class LinkUtils {
 	 * any accessible attributes. In general we should avoid using this method
 	 * and instead rely on locating the sub elements of the component directly.
 	 * Remove / update method once the following PR has landed:
-	 * https://github.com/WordPress/gutenberg/pull/54063.
+	 * https://github.com/FinPress/gutenberg/pull/54063.
 	 */
 	getLinkPopover() {
 		return this.page.locator(

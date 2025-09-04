@@ -1,20 +1,20 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
+import { Button } from '@finpress/components';
 import {
 	store as coreStore,
 	privateApis as coreDataPrivateApis,
-} from '@wordpress/core-data';
-import { useState, useMemo, useCallback, useEffect } from '@wordpress/element';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { DataViews, filterSortAndPaginate } from '@wordpress/dataviews';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
-import { __ } from '@wordpress/i18n';
-import { drawerRight } from '@wordpress/icons';
-import { useEvent, usePrevious } from '@wordpress/compose';
-import { addQueryArgs } from '@wordpress/url';
+} from '@finpress/core-data';
+import { useState, useMemo, useCallback, useEffect } from '@finpress/element';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { useSelect, useDispatch } from '@finpress/data';
+import { DataViews, filterSortAndPaginate } from '@finpress/dataviews';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
+import { __ } from '@finpress/i18n';
+import { drawerRight } from '@finpress/icons';
+import { useEvent, usePrevious } from '@finpress/compose';
+import { addQueryArgs } from '@finpress/url';
 
 /**
  * Internal dependencies

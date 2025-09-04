@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect } from '@wordpress/compose';
-import { getScrollContainer } from '@wordpress/dom';
+import { useRefEffect } from '@finpress/compose';
+import { getScrollContainer } from '@finpress/dom';
 
 const scrollContainerCache = new WeakMap();
 

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Autosave', () => {
 	test.beforeEach( async ( { admin, page } ) => {
@@ -276,7 +276,7 @@ test.describe( 'Autosave', () => {
 		).toBe( 1 );
 	} );
 
-	// See https://github.com/WordPress/gutenberg/pull/17501.
+	// See https://github.com/FinPress/gutenberg/pull/17501.
 	test( "shouldn't conflict with server-side autosave", async ( {
 		editor,
 		page,

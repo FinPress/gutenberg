@@ -4,9 +4,9 @@
 import EquivalentKeyMap from 'equivalent-key-map';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector } from '@wordpress/data';
+import { createSelector } from '@finpress/data';
 
 /**
  * Internal dependencies

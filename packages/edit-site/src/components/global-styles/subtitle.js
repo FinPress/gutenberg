@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalHeading as Heading } from '@wordpress/components';
+import { __experimentalHeading as Heading } from '@finpress/components';
 
 function Subtitle( { children, level } ) {
 	return (

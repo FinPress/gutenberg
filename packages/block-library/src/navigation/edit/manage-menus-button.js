@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addQueryArgs } from '@wordpress/url';
-import { Button, MenuItem } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { addQueryArgs } from '@finpress/url';
+import { Button, MenuItem } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 const ManageMenusButton = ( {
 	className = '',

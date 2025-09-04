@@ -6,9 +6,9 @@ import { click, press, sleep, type, waitFor } from '@ariakit/test';
 import { render } from '@ariakit/test/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

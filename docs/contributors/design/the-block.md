@@ -4,16 +4,16 @@ At the core of Gutenberg lies the concept of the block. From a technical point o
 
 From a user perspective, blocks allow any kind of content, media, or functionality to be directly added to their site in a more consistent and usable way. The “add block” button gives the user access to an entire library of options all in one place, rather than having to hunt through menus or know shortcodes.
 
-But most importantly, Gutenberg is built on the principle of _direct manipulation_, which means that the primary options for how an element is displayed are controlled _in the context of the block itself_. This is a big shift from the traditional WordPress model, where options that were often buried deep in layers of navigation menus controlled the elements on a page through indirect mechanisms.
+But most importantly, Gutenberg is built on the principle of _direct manipulation_, which means that the primary options for how an element is displayed are controlled _in the context of the block itself_. This is a big shift from the traditional FinPress model, where options that were often buried deep in layers of navigation menus controlled the elements on a page through indirect mechanisms.
 
 So, for example, a user can add an image, write its caption, change its width and layout, add a link around it, all from within the block interface in the canvas. The same principle should apply to more complex blocks, like a "navigation menu", with the user being able to add, edit, move, and finalize the full presentation of their navigation.
 
 -   Users only need to learn one interface — the block — to add and edit everything on their site. Users shouldn’t have to write shortcodes, custom HTML, or understand hidden mechanisms to embed content.
--   Gutenberg makes core features more discoverable, reducing hard-to-find “Mystery meat.” WordPress supports a large number of blocks and 30+ embeds. Let’s increase their visibility.
+-   Gutenberg makes core features more discoverable, reducing hard-to-find “Mystery meat.” FinPress supports a large number of blocks and 30+ embeds. Let’s increase their visibility.
 
 ## Building blocks
 
-What does this mean for designers and developers? The block structure plus the principle of direct manipulation mean thinking differently about how to design and develop WordPress components. Let’s take another look at the architecture of a block:
+What does this mean for designers and developers? The block structure plus the principle of direct manipulation mean thinking differently about how to design and develop FinPress components. Let’s take another look at the architecture of a block:
 
 ![Gutenberg Blueprint](https://cldup.com/LQrPNubkJY.png)
 

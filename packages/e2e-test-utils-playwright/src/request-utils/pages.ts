@@ -26,7 +26,7 @@ export type CreatePagePayload = {
 };
 
 export async function deletePage( this: RequestUtils, id: number ) {
-	// https://developer.wordpress.org/rest-api/reference/pages/#delete-a-page
+	// https://developer.finpress.org/rest-api/reference/pages/#delete-a-page
 	return await this.rest( {
 		method: 'DELETE',
 		path: `/wp/v2/pages/${ id }`,
@@ -43,7 +43,7 @@ export async function deletePage( this: RequestUtils, id: number ) {
  */
 export async function deleteAllPages( this: RequestUtils ) {
 	// List all pages.
-	// https://developer.wordpress.org/rest-api/reference/pages/#list-pages
+	// https://developer.finpress.org/rest-api/reference/pages/#list-pages
 	const pages = await this.rest< Page[] >( {
 		path: '/wp/v2/pages',
 		params: {
@@ -70,7 +70,7 @@ export async function createPage(
 	this: RequestUtils,
 	payload: CreatePagePayload
 ) {
-	// https://developer.wordpress.org/rest-api/reference/pages/#create-a-page
+	// https://developer.finpress.org/rest-api/reference/pages/#create-a-page
 	const page = await this.rest< Page >( {
 		method: 'POST',
 		path: `/wp/v2/pages`,

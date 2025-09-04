@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { privateApis as patternsPrivateApis } from '@wordpress/patterns';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as interfaceStore } from '@wordpress/interface';
+import { useDispatch, useSelect } from '@finpress/data';
+import { privateApis as patternsPrivateApis } from '@finpress/patterns';
+import { store as coreStore } from '@finpress/core-data';
+import { store as interfaceStore } from '@finpress/interface';
 
 /**
  * Internal dependencies

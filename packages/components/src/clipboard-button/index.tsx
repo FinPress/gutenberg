@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useEffect } from '@wordpress/element';
-import { useCopyToClipboard } from '@wordpress/compose';
-import deprecated from '@wordpress/deprecated';
+import { useRef, useEffect } from '@finpress/element';
+import { useCopyToClipboard } from '@finpress/compose';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

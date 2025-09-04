@@ -9,7 +9,7 @@
  * An in-line type `() => void` would be preferable, but the generated
  * documentation is `null` in that case.
  *
- * @see https://github.com/WordPress/gutenberg/issues/18045
+ * @see https://github.com/FinPress/gutenberg/issues/18045
  */
 
 /**
@@ -19,7 +19,7 @@
  *
  * @example
  * ```js
- * import domReady from '@wordpress/dom-ready';
+ * import domReady from '@finpress/dom-ready';
  *
  * domReady( function() {
  * 	//do something after DOM loads.

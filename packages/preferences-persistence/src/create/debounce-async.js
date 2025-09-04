@@ -6,7 +6,7 @@
  * - The second is never called.
  * - The third happens `delayMS` milliseconds after the first has resolved.
  *
- * This is distinct from `{ debounce } from @wordpress/compose` in that it
+ * This is distinct from `{ debounce } from @finpress/compose` in that it
  * waits for promise resolution.
  *
  * @param {Function} func    A function that returns a promise.

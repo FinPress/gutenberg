@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	justifyLeft,
 	justifyCenter,
@@ -10,14 +10,14 @@ import {
 	justifyStretch,
 	arrowRight,
 	arrowDown,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 import {
 	ToggleControl,
 	Flex,
 	FlexItem,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

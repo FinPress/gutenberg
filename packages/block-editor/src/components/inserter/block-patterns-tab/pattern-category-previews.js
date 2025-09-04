@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useMemo,
@@ -7,8 +7,8 @@ import {
 	useCallback,
 	useRef,
 	useEffect,
-} from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 import {
 	__experimentalHStack as HStack,
@@ -16,7 +16,7 @@ import {
 	__experimentalHeading as Heading,
 	__experimentalText as Text,
 	FlexBlock,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

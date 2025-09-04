@@ -4,9 +4,9 @@
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext, useMemo } from '@wordpress/element';
+import { useContext, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -43,7 +43,7 @@ const PickerScreen = () => {
 				onHandleHardwareButtonPress={ onHandleHardwareButtonPress }
 			/>
 		);
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [
 		setColor,
 		currentValue,

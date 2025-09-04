@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef } from '@wordpress/element';
-import { useRegistry, useSelect } from '@wordpress/data';
-import { cloneBlock } from '@wordpress/blocks';
+import { useEffect, useRef } from '@finpress/element';
+import { useRegistry, useSelect } from '@finpress/data';
+import { cloneBlock } from '@finpress/blocks';
 
 /**
  * Internal dependencies

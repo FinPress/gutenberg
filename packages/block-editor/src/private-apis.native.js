@@ -9,7 +9,7 @@ import { PrivateRichText } from './components/rich-text/';
 import HTMLElementControl from './components/html-element-control';
 
 /**
- * Private @wordpress/block-editor APIs.
+ * Private @finpress/block-editor APIs.
  */
 export const privateApis = {};
 lock( privateApis, {

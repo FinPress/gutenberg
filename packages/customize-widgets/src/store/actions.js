@@ -11,10 +11,10 @@
  * @example
  * ```js
  * import { useState } from 'react';
- * import { store as customizeWidgetsStore } from '@wordpress/customize-widgets';
- * import { __ } from '@wordpress/i18n';
- * import { useDispatch } from '@wordpress/data';
- * import { Button } from '@wordpress/components';
+ * import { store as customizeWidgetsStore } from '@finpress/customize-widgets';
+ * import { __ } from '@finpress/i18n';
+ * import { useDispatch } from '@finpress/data';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  *   const { setIsInserterOpened } = useDispatch( customizeWidgetsStore );

@@ -55,10 +55,10 @@ The following example allows us to drag & drop a red square around the entire vi
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import { useState, useCallback } from 'react';
-import { __experimentalUseDragging as useDragging } from '@wordpress/compose';
+import { __experimentalUseDragging as useDragging } from '@finpress/compose';
 
 const UseDraggingExample = () => {
 	const [ position, setPosition ] = useState( null );

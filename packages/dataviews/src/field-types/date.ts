@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { dateI18n, getDate, getSettings } from '@wordpress/date';
-import { __ } from '@wordpress/i18n';
+import { dateI18n, getDate, getSettings } from '@finpress/date';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

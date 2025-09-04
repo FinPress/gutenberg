@@ -14,10 +14,10 @@ const { sync: glob } = require( 'fast-glob' );
 const { exec } = require( 'child_process' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
-const postcssPlugins = require( '@wordpress/postcss-plugins-preset' );
+const DependencyExtractionWebpackPlugin = require( '@finpress/dependency-extraction-webpack-plugin' );
+const postcssPlugins = require( '@finpress/postcss-plugins-preset' );
 
 /**
  * Internal dependencies
@@ -183,7 +183,7 @@ const baseConfig = {
 								configFile: false,
 								presets: [
 									require.resolve(
-										'@wordpress/babel-preset-default'
+										'@finpress/babel-preset-default'
 									),
 								],
 								plugins: [

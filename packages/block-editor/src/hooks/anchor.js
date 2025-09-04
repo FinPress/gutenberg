@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { TextControl, ExternalLink } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { hasBlockSupport } from '@wordpress/blocks';
-import { Platform } from '@wordpress/element';
+import { addFilter } from '@finpress/hooks';
+import { TextControl, ExternalLink } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { hasBlockSupport } from '@finpress/blocks';
+import { Platform } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -77,7 +77,7 @@ function BlockEditAnchorControlPure( { anchor, setAttributes } ) {
 								{ ' ' }
 								<ExternalLink
 									href={ __(
-										'https://wordpress.org/documentation/article/page-jumps/'
+										'https://finpress.org/documentation/article/page-jumps/'
 									) }
 								>
 									{ __( 'Learn more about anchors' ) }

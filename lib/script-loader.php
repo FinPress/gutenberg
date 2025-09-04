@@ -25,7 +25,7 @@ function gutenberg_enqueue_global_styles() {
 	 * Global styles should be printed in the head when loading all styles combined.
 	 * The footer should only be used to print global styles for classic themes with separate core assets enabled.
 	 *
-	 * See https://core.trac.wordpress.org/ticket/53494.
+	 * See https://core.trac.finpress.org/ticket/53494.
 	 */
 	if (
 		( $is_block_theme && doing_action( 'wp_footer' ) ) ||

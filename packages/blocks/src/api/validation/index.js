@@ -5,10 +5,10 @@ import { Tokenizer } from 'simple-html-tokenizer';
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { decodeEntities } from '@wordpress/html-entities';
+import deprecated from '@finpress/deprecated';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies

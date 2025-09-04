@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getQueryArg } from '@wordpress/url';
+import { getQueryArg } from '@finpress/url';
 
 export function isPreviewingTheme() {
 	return !! getQueryArg( window.location.href, 'wp_theme_preview' );

@@ -4,9 +4,9 @@
 import type { DependencyList, RefCallback } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useRef } from '@wordpress/element';
+import { useCallback, useRef } from '@finpress/element';
 
 /**
  * Effect-like ref callback. Just like with `useEffect`, this allows you to

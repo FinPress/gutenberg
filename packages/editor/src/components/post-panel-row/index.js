@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalHStack as HStack } from '@wordpress/components';
-import { forwardRef } from '@wordpress/element';
+import { __experimentalHStack as HStack } from '@finpress/components';
+import { forwardRef } from '@finpress/element';
 
 const PostPanelRow = forwardRef( ( { className, label, children }, ref ) => {
 	return (

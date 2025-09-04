@@ -4,9 +4,9 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -60,7 +60,7 @@ export function UnforwardedTabbableContainer(
  *  import {
  *    TabbableContainer,
  *    Button,
- *  } from '@wordpress/components';
+ *  } from '@finpress/components';
  *
  *  function onNavigate( index, target ) {
  *    console.log( `Navigates to ${ index }`, target );

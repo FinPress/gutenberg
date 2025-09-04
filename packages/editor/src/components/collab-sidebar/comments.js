@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, RawHTML } from '@wordpress/element';
+import { useState, RawHTML } from '@finpress/element';
 import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
@@ -14,11 +14,11 @@ import {
 	Button,
 	DropdownMenu,
 	Tooltip,
-} from '@wordpress/components';
-import { Icon, check, published, moreVertical } from '@wordpress/icons';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { Icon, check, published, moreVertical } from '@finpress/icons';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

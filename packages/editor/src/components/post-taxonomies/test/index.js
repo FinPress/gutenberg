@@ -4,11 +4,11 @@
 import { render, screen } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { select } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
+import { select } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

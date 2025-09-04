@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { switchToBlockType, store as blocksStore } from '@wordpress/blocks';
-import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { group, row, stack, grid } from '@wordpress/icons';
-import { _x } from '@wordpress/i18n';
+import { useDispatch, useSelect } from '@finpress/data';
+import { switchToBlockType, store as blocksStore } from '@finpress/blocks';
+import { ToolbarButton, ToolbarGroup } from '@finpress/components';
+import { group, row, stack, grid } from '@finpress/icons';
+import { _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies

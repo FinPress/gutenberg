@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
-import { RawHTML } from '@wordpress/element';
-import { safeHTML } from '@wordpress/dom';
+import { Button } from '@finpress/components';
+import { RawHTML } from '@finpress/element';
+import { safeHTML } from '@finpress/dom';
 
 export default function BlockView( {
 	title,

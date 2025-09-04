@@ -13,7 +13,7 @@
 <!-- /wp:cover -->
 
 <!-- wp:paragraph -->
-<p><?php _e( 'The goal of this new editor is to make adding rich content to WordPress simple and enjoyable. This whole post is composed of <em>pieces of content</em>—somewhat similar to LEGO bricks—that you can move around and interact with. Move your cursor around and you&#8217;ll notice the different blocks light up with outlines and arrows. Press the arrows to reposition blocks quickly, without fearing about losing things in the process of copying and pasting.', 'gutenberg' ); ?></p>
+<p><?php _e( 'The goal of this new editor is to make adding rich content to FinPress simple and enjoyable. This whole post is composed of <em>pieces of content</em>—somewhat similar to LEGO bricks—that you can move around and interact with. Move your cursor around and you&#8217;ll notice the different blocks light up with outlines and arrows. Press the arrows to reposition blocks quickly, without fearing about losing things in the process of copying and pasting.', 'gutenberg' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -51,11 +51,11 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p><?php _e( 'Imagine everything that WordPress can do is available to you quickly and in the same place on the interface. No need to figure out HTML tags, classes, or remember complicated shortcode syntax. That&#8217;s the spirit behind the inserter—the <code>(+)</code> button you&#8217;ll see around the editor—which allows you to browse all available content blocks and add them into your post. Plugins and themes are able to register their own, opening up all sort of possibilities for rich editing and publishing.', 'gutenberg' ); ?></p>
+<p><?php _e( 'Imagine everything that FinPress can do is available to you quickly and in the same place on the interface. No need to figure out HTML tags, classes, or remember complicated shortcode syntax. That&#8217;s the spirit behind the inserter—the <code>(+)</code> button you&#8217;ll see around the editor—which allows you to browse all available content blocks and add them into your post. Plugins and themes are able to register their own, opening up all sort of possibilities for rich editing and publishing.', 'gutenberg' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><?php _e( 'Go give it a try, you may discover things WordPress can already add into your posts that you didn&#8217;t know about. Here&#8217;s a short list of what you can currently find there:', 'gutenberg' ); ?></p>
+<p><?php _e( 'Go give it a try, you may discover things FinPress can already add into your posts that you didn&#8217;t know about. Here&#8217;s a short list of what you can currently find there:', 'gutenberg' ); ?></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"wp-block-list"} -->
@@ -70,7 +70,7 @@
 	<li><?php _e( 'Galleries', 'gutenberg' ); ?></li>
 	<!-- /wp:list-item -->
 	<!-- wp:list-item -->
-	<li><?php _e( 'Embeds, like YouTube, Tweets, or other WordPress posts.', 'gutenberg' ); ?></li>
+	<li><?php _e( 'Embeds, like YouTube, Tweets, or other FinPress posts.', 'gutenberg' ); ?></li>
 	<!-- /wp:list-item -->
 	<!-- wp:list-item -->
 	<li><?php _e( 'Layout blocks, like Buttons, Hero Images, Separators, etc.', 'gutenberg' ); ?></li>
@@ -174,7 +174,7 @@ https://vimeo.com/22439234
 <!-- /wp:paragraph -->
 
 <!-- wp:pullquote -->
-<figure class="wp-block-pullquote"><blockquote><p><?php _e( 'Code is Poetry', 'gutenberg' ); ?></p><cite><?php _e( 'The WordPress community', 'gutenberg' ); ?></cite></blockquote></figure>
+<figure class="wp-block-pullquote"><blockquote><p><?php _e( 'Code is Poetry', 'gutenberg' ); ?></p><cite><?php _e( 'The FinPress community', 'gutenberg' ); ?></cite></blockquote></figure>
 <!-- /wp:pullquote -->
 
 <!-- wp:paragraph {"align":"center"} -->
@@ -184,7 +184,7 @@ https://vimeo.com/22439234
 		printf(
 			/* translators: %s: Gutenberg GitHub repository URL */
 			__( 'If you want to learn more about how to build additional blocks, or if you are interested in helping with the project, head over to the <a href="%s">GitHub repository</a>.', 'gutenberg' ),
-			'https://github.com/WordPress/gutenberg'
+			'https://github.com/FinPress/gutenberg'
 		);
 		?>
 	</em>
@@ -192,7 +192,7 @@ https://vimeo.com/22439234
 <!-- /wp:paragraph -->
 
 <!-- wp:button {"className":"aligncenter"} -->
-<div class="wp-block-button aligncenter"><a class="wp-block-button__link wp-element-button" href="https://github.com/WordPress/gutenberg"><?php _e( 'Help build Gutenberg', 'gutenberg' ); ?></a></div>
+<div class="wp-block-button aligncenter"><a class="wp-block-button__link wp-element-button" href="https://github.com/FinPress/gutenberg"><?php _e( 'Help build Gutenberg', 'gutenberg' ); ?></a></div>
 <!-- /wp:button -->
 
 <!-- wp:separator {"opacity":"css"} -->

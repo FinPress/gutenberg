@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useRef, memo } from '@wordpress/element';
+import { useMemo, useRef, memo } from '@finpress/element';
 import {
 	createBlock,
 	createBlocksFromInnerBlocksTemplate,
 	isReusableBlock,
 	isTemplatePart,
-} from '@wordpress/blocks';
-import { __experimentalTruncate as Truncate } from '@wordpress/components';
-import { ENTER, isAppleOS } from '@wordpress/keycodes';
+} from '@finpress/blocks';
+import { __experimentalTruncate as Truncate } from '@finpress/components';
+import { ENTER, isAppleOS } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

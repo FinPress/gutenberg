@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Flex,
@@ -13,16 +13,16 @@ import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	Disabled,
-} from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 import {
 	InspectorControls,
 	useBlockProps,
 	useSettings,
-} from '@wordpress/block-editor';
-import ServerSideRender from '@wordpress/server-side-render';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import ServerSideRender from '@finpress/server-side-render';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -90,7 +90,7 @@ function TagCloudEdit( { attributes, setAttributes } ) {
 	};
 
 	const onFontSizeChange = ( fontSizeLabel, newValue ) => {
-		// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+		// eslint-disable-next-line @finpress/no-unused-vars-before-return
 		const [ quantity, newUnit ] =
 			parseQuantityAndUnitFromRawValue( newValue );
 		if ( ! Number.isFinite( quantity ) ) {

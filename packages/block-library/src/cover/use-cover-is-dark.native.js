@@ -5,9 +5,9 @@
 import { colord } from 'colord';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@finpress/element';
 
 /**
  * useCoverIsDark is a hook that returns a boolean variable specifying if the cover

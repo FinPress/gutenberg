@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { logException } from '@wordpress/react-native-bridge';
+import { Component } from '@finpress/element';
+import { logException } from '@finpress/react-native-bridge';
 
 class BlockCrashBoundary extends Component {
 	constructor() {

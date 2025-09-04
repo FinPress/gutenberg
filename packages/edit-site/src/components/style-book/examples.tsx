@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	getBlockType,
 	getBlockTypes,
 	getBlockFromExample,
 	createBlock,
-	// @wordpress/blocks imports are not typed.
+	// @finpress/blocks imports are not typed.
 	// @ts-expect-error
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Internal dependencies

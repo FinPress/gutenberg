@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { decodeEntities } from '@wordpress/html-entities';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { ENTER, SPACE } from '@wordpress/keycodes';
+import { __ } from '@finpress/i18n';
+import { decodeEntities } from '@finpress/html-entities';
+import { useSelect, useDispatch } from '@finpress/data';
+import { ENTER, SPACE } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

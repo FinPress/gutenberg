@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@finpress/i18n';
 import {
 	__experimentalConfirmDialog as ConfirmDialog,
 	Spinner,
-} from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useContext, useState, useEffect } from '@wordpress/element';
+} from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useContext, useState, useEffect } from '@finpress/element';
 import {
 	privateApis as blockEditorPrivateApis,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 /**
  * Internal dependencies
@@ -104,7 +104,7 @@ function ScreenRevisions() {
 		 * when no revision is selected and the selected styles don't match the current editor styles.
 		 * This is required in case editor styles are changed outside the revisions panel,
 		 * e.g., via the reset styles function of useGlobalStylesReset().
-		 * See: https://github.com/WordPress/gutenberg/issues/55866
+		 * See: https://github.com/FinPress/gutenberg/issues/55866
 		 */
 		if ( shouldSelectFirstItem ) {
 			setCurrentlySelectedRevision( firstRevision );

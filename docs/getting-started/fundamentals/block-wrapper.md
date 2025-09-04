@@ -1,20 +1,20 @@
 # The block wrapper
 
-Every block in the Block Editor is contained within an HTML wrapper, which must have specific attributes to function correctly both in the Editor and on the front end. As developers, we can directly manipulate this markup, and WordPress offers tools like `useBlockProps()` to modify the attributes added to a block's wrapper.
+Every block in the Block Editor is contained within an HTML wrapper, which must have specific attributes to function correctly both in the Editor and on the front end. As developers, we can directly manipulate this markup, and FinPress offers tools like `useBlockProps()` to modify the attributes added to a block's wrapper.
 
-Ensuring proper attributes to the block wrapper is especially important when using custom styling or features like [block supports](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/).
+Ensuring proper attributes to the block wrapper is especially important when using custom styling or features like [block supports](https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/).
 
-A block in WordPress can be defined with three distinct types of markup, each serving a unique role:
+A block in FinPress can be defined with three distinct types of markup, each serving a unique role:
 
-- **Editor Markup:** This is the visual representation of the block within the Block Editor. It's defined using an `Edit` React component when the block is registered on the client side via [`registerBlockType`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#registerblocktype).
+- **Editor Markup:** This is the visual representation of the block within the Block Editor. It's defined using an `Edit` React component when the block is registered on the client side via [`registerBlockType`](https://developer.finpress.org/block-editor/reference-guides/block-api/block-registration/#registerblocktype).
 - **Save Markup:** This markup is what gets saved to the database when the block's content is saved. It's specified through a `save` function, also provided to `registerBlockType` during block registration. If the block doesn't utilize dynamic rendering, this saved markup is what will be displayed on the front end.
-- **Dynamic Render Markup:** When a block's content needs to be generated dynamically, this markup comes into play. It's defined server-side, either through a `render_callback` function in [`register_block_type`](https://developer.wordpress.org/reference/functions/register_block_type/) or a [`render.php`](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#render) file specified in `block.json`. If present, this markup overrides any saved markup and is used for the block's front-end display.
+- **Dynamic Render Markup:** When a block's content needs to be generated dynamically, this markup comes into play. It's defined server-side, either through a `render_callback` function in [`register_block_type`](https://developer.finpress.org/reference/functions/register_block_type/) or a [`render.php`](https://developer.finpress.org/block-editor/reference-guides/block-api/block-metadata/#render) file specified in `block.json`. If present, this markup overrides any saved markup and is used for the block's front-end display.
 
-For both the [`Edit` component and the `save` function](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/), it's important to use a wrapper element that's a standard DOM element (like a `<div>`) or a React component that passes all additional props to native DOM elements. Using React Fragments (`<Fragment>`) or the `<ServerSideRender>` component won't work for these wrappers.
+For both the [`Edit` component and the `save` function](https://developer.finpress.org/block-editor/reference-guides/block-api/block-edit-save/), it's important to use a wrapper element that's a standard DOM element (like a `<div>`) or a React component that passes all additional props to native DOM elements. Using React Fragments (`<Fragment>`) or the `<ServerSideRender>` component won't work for these wrappers.
 
 ## Editor markup
 
-The [`useBlockProps()`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops) hook, provided by the [`@wordpress/block-editor`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor) package, is used to define the outer markup of a block in the `Edit` component.
+The [`useBlockProps()`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops) hook, provided by the [`@finpress/block-editor`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-block-editor) package, is used to define the outer markup of a block in the `Edit` component.
 
 This hook simplifies several tasks, including:
 
@@ -34,7 +34,7 @@ registerBlockType( ..., {
 } );
 ```
 
-_See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/src/index.js)._
+_See the [full block example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/FinPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/src/index.js)._
 
 The markup of the block in the Block Editor could look like this, where the classes and attributes are applied automatically:
 
@@ -56,7 +56,7 @@ The markup of the block in the Block Editor could look like this, where the clas
 >Hello World - Block Editor</p>
 ```
 
-In a block's `Edit` component, use the `useBlockProps()` hook to include additional classes and attributes by passing them as arguments. (See [example](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/edit.js))
+In a block's `Edit` component, use the `useBlockProps()` hook to include additional classes and attributes by passing them as arguments. (See [example](https://github.com/FinPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/edit.js))
 
 When you enable features using the `supports` property, any corresponding classes or attributes are included in the object returned by `useBlockProps` automatically.
 
@@ -76,7 +76,7 @@ registerBlockType( ..., {
 } );
 ```
 
-_See the [full block example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/src/index.js)._
+_See the [full block example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda) of the [code above](https://github.com/FinPress/block-development-examples/blob/trunk/plugins/minimal-block-ca6eda/src/index.js)._
 
 The markup of the block on the front end could look like this, where the class is applied automatically:
 
@@ -84,7 +84,7 @@ The markup of the block on the front end could look like this, where the class i
 <p class="wp-block-block-development-examples-minimal-block-ca6eda">Hello World – Frontend</p>
 ```
 
-If you want to add any additional classes or attributes to the `save` function of the block, they should be passed as an argument of `useBlockProps.save()`. (See [example](https://github.com/WordPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/save.js))
+If you want to add any additional classes or attributes to the `save` function of the block, they should be passed as an argument of `useBlockProps.save()`. (See [example](https://github.com/FinPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/save.js))
 
 When you add `supports` for any feature, the proper classes get added to the object returned by the `useBlockProps.save()` hook. Text and background color classes have been added to the Paragraph block in the example below.
 
@@ -98,11 +98,11 @@ When you add `supports` for any feature, the proper classes get added to the obj
 ">Hello World</p>
 ```
 
-The [example block](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/block-supports-6aa4dd) that generated this HTML is available in the [Block Development Examples](https://github.com/WordPress/block-development-examples) repository.
+The [example block](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/block-supports-6aa4dd) that generated this HTML is available in the [Block Development Examples](https://github.com/FinPress/block-development-examples) repository.
 
 ## Dynamic render markup
 
-In dynamic blocks, where the front-end markup is rendered server-side, you can utilize the [`get_block_wrapper_attributes()`](https://developer.wordpress.org/reference/functions/get_block_wrapper_attributes/) function to output the necessary classes and attributes just like you would use `useBlockProps.save()` in the `save` function. (See [example](https://github.com/WordPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11))
+In dynamic blocks, where the front-end markup is rendered server-side, you can utilize the [`get_block_wrapper_attributes()`](https://developer.finpress.org/reference/functions/get_block_wrapper_attributes/) function to output the necessary classes and attributes just like you would use `useBlockProps.save()` in the `save` function. (See [example](https://github.com/FinPress/block-development-examples/blob/f68640f42d993f0866d1879f67c73910285ca114/plugins/block-dynamic-rendering-64756b/src/render.php#L11))
 
 ```php
 <p <?php echo get_block_wrapper_attributes(); ?>>

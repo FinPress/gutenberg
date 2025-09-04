@@ -21,7 +21,7 @@ function getLegacyData( userId ) {
 }
 
 /**
- * Converts data from the old `@wordpress/data` package format.
+ * Converts data from the old `@finpress/data` package format.
  *
  * @param {Object | null | undefined} data The legacy data in its original format.
  *

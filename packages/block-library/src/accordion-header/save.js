@@ -3,7 +3,7 @@
  */
 import clsx from 'clsx';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useBlockProps,
@@ -12,7 +12,7 @@ import {
 	__experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles,
 	__experimentalGetShadowClassesAndStyles as getShadowClassesAndStyles,
 	RichText,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 /**
  * Internal dependencies
  */

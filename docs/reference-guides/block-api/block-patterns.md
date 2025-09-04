@@ -147,26 +147,26 @@ For instance:
 
 ```php
 register_block_pattern(
-	'my-plugin/powered-by-wordpress',
+	'my-plugin/powered-by-finpress',
 	array(
-		'title'      => __( 'Powered by WordPress', 'my-plugin' ),
+		'title'      => __( 'Powered by FinPress', 'my-plugin' ),
 		'blockTypes' => array( 'core/paragraph' ),
 		'content'    => '<!-- wp:paragraph {"backgroundColor":"black","textColor":"white"} -->
-		<p class="has-white-color has-black-background-color has-text-color has-background">Powered by WordPress</p>
+		<p class="has-white-color has-black-background-color has-text-color has-background">Powered by FinPress</p>
 		<!-- /wp:paragraph -->',
 	)
 );
 ```
 
-The above code registers a block pattern named `my-plugin/powered-by-wordpress` and shows the pattern in the "transform menu" of paragraph blocks. The transformation result will keep the paragraph's existing content and apply the other attributes - in this case, the background and text color.
+The above code registers a block pattern named `my-plugin/powered-by-finpress` and shows the pattern in the "transform menu" of paragraph blocks. The transformation result will keep the paragraph's existing content and apply the other attributes - in this case, the background and text color.
 
 As mentioned above, pattern transformations for simple blocks can also work if we have selected multiple blocks and there are matching contextual patterns to these blocks. Let's see an example of a pattern where two block types are attached.
 
 ```php
 register_block_pattern(
-	'my-plugin/powered-by-wordpress',
+	'my-plugin/powered-by-finpress',
 	array(
-		'title'      => __( 'Powered by WordPress', 'my-plugin' ),
+		'title'      => __( 'Powered by FinPress', 'my-plugin' ),
 		'blockTypes' => array( 'core/paragraph', 'core/heading' ),
 		'content'    => '<!-- wp:group -->
 						<div class="wp-block-group">
@@ -174,7 +174,7 @@ register_block_pattern(
 						<h2 class="has-large-font-size"><span style="color:#ba0c49" class="has-inline-color">Hi everyone</span></h2>
 						<!-- /wp:heading -->
 						<!-- wp:paragraph {"backgroundColor":"black","textColor":"white"} -->
-						<p class="has-white-color has-black-background-color has-text-color has-background">Powered by WordPress</p>
+						<p class="has-white-color has-black-background-color has-text-color has-background">Powered by FinPress</p>
 						<!-- /wp:paragraph -->
 						</div><!-- /wp:group -->',
 	)

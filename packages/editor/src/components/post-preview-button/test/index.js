@@ -5,9 +5,9 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -16,8 +16,8 @@ import PostPreviewButton from '..';
 
 jest.useRealTimers();
 
-jest.mock( '@wordpress/data/src/components/use-select', () => jest.fn() );
-jest.mock( '@wordpress/data/src/components/use-dispatch/use-dispatch', () =>
+jest.mock( '@finpress/data/src/components/use-select', () => jest.fn() );
+jest.mock( '@finpress/data/src/components/use-dispatch/use-dispatch', () =>
 	jest.fn()
 );
 
@@ -164,7 +164,7 @@ describe( 'PostPreviewButton', () => {
 	} );
 
 	it( 'should set `href` to edited post preview link if specified.', () => {
-		const url = 'https://wordpress.org';
+		const url = 'https://finpress.org';
 		mockUseSelect( {
 			getEditedPostPreviewLink: () => url,
 			isEditedPostSaveable: () => true,
@@ -176,7 +176,7 @@ describe( 'PostPreviewButton', () => {
 	} );
 
 	it( 'should set `href` to current post link if specified.', () => {
-		const url = 'https://wordpress.org';
+		const url = 'https://finpress.org';
 		mockUseSelect( {
 			getCurrentPostAttribute: () => url,
 			isEditedPostSaveable: () => true,
@@ -188,8 +188,8 @@ describe( 'PostPreviewButton', () => {
 	} );
 
 	it( 'should prioritize preview link if both preview link and link attribute are specified.', () => {
-		const url1 = 'https://wordpress.org';
-		const url2 = 'https://wordpress.com';
+		const url1 = 'https://finpress.org';
+		const url2 = 'https://finpress.com';
 		mockUseSelect( {
 			getEditedPostPreviewLink: () => url1,
 			getCurrentPostAttribute: () => url2,
@@ -203,7 +203,7 @@ describe( 'PostPreviewButton', () => {
 
 	it( 'should properly set link target', () => {
 		mockUseSelect( {
-			getEditedPostPreviewLink: () => 'https://wordpress.org',
+			getEditedPostPreviewLink: () => 'https://finpress.org',
 			isEditedPostSaveable: () => true,
 		} );
 
@@ -219,7 +219,7 @@ describe( 'PostPreviewButton', () => {
 		const user = userEvent.setup();
 
 		mockUseSelect( {
-			getEditedPostPreviewLink: () => 'https://wordpress.org',
+			getEditedPostPreviewLink: () => 'https://finpress.org',
 			isEditedPostSaveable: () => true,
 		} );
 
@@ -234,7 +234,7 @@ describe( 'PostPreviewButton', () => {
 		const user = userEvent.setup();
 
 		mockUseSelect( {
-			getEditedPostPreviewLink: () => 'https://wordpress.org',
+			getEditedPostPreviewLink: () => 'https://finpress.org',
 			isEditedPostSaveable: () => true,
 		} );
 

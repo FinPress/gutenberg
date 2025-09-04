@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
@@ -14,9 +14,9 @@ import {
 	__experimentalUnitControl as UnitControl,
 	__experimentalUseCustomUnits as useCustomUnits,
 	__experimentalInputControlPrefixWrapper as InputControlPrefixWrapper,
-} from '@wordpress/components';
-import { Icon, alignNone, stretchWide } from '@wordpress/icons';
-import { useCallback, useState, Platform } from '@wordpress/element';
+} from '@finpress/components';
+import { Icon, alignNone, stretchWide } from '@finpress/icons';
+import { useCallback, useState, Platform } from '@finpress/element';
 
 /**
  * Internal dependencies

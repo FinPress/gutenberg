@@ -2,7 +2,7 @@
 
 Modals give users information and choices related to a task they’re trying to accomplish. They can contain critical information, require decisions, or involve multiple tasks.
 
-![An alert modal for trashing a post](https://wordpress.org/gutenberg/files/2019/04/Modal.png)
+![An alert modal for trashing a post](https://finpress.org/gutenberg/files/2019/04/Modal.png)
 
 ## Design guidelines
 
@@ -28,7 +28,7 @@ Modals are used for:
 
 ### Anatomy
 
-![A modal diagram with labels](https://wordpress.org/gutenberg/files/2019/04/Modal-diagram.png)
+![A modal diagram with labels](https://finpress.org/gutenberg/files/2019/04/Modal-diagram.png)
 
 1. Container
 2. Title
@@ -53,12 +53,12 @@ Titles should:
 -   Contain a brief, clear statement or question
 -   Avoid apologies (“Sorry for the interruption”), alarm (“Warning!”), or ambiguity (“Are you sure?”).
 
-![A modal that asks "Trash post?"](https://wordpress.org/gutenberg/files/2019/04/Modal-do-1.png)
+![A modal that asks "Trash post?"](https://finpress.org/gutenberg/files/2019/04/Modal-do-1.png)
 
 **Do**
 This modal title poses a specific question, concisely explains the purpose the request, and provides clear actions.
 
-![A modal that asks "Are you sure?"](https://wordpress.org/gutenberg/files/2019/04/Modal-dont-1.png)
+![A modal that asks "Are you sure?"](https://finpress.org/gutenberg/files/2019/04/Modal-dont-1.png)
 
 **Don’t**
 This modal creates ambiguity, and therefore unease — it leaves the user unsure about how to respond, or causes them to second-guess their answer.
@@ -69,13 +69,13 @@ This modal creates ambiguity, and therefore unease — it leaves the user unsure
 
 Side-by-side buttons display two text buttons next to one another.
 
-![A modal with two buttons next to each other](https://wordpress.org/gutenberg/files/2019/04/Modal-buttons.png)
+![A modal with two buttons next to each other](https://finpress.org/gutenberg/files/2019/04/Modal-buttons.png)
 
 #### Stacked or full-width buttons
 
 Use stacked buttons when you need to accommodate longer button text. Always place confirming actions above dismissive actions.
 
-![A modal with two buttons stacked on top of each other](https://wordpress.org/gutenberg/files/2019/04/Modal-buttons-stacked.png)
+![A modal with two buttons stacked on top of each other](https://finpress.org/gutenberg/files/2019/04/Modal-buttons-stacked.png)
 
 ### Behavior
 
@@ -115,7 +115,7 @@ The following example shows you how to properly implement a modal. For the modal
 
 ```jsx
 import { useState } from 'react';
-import { Button, Modal } from '@wordpress/components';
+import { Button, Modal } from '@finpress/components';
 
 const MyModal = () => {
 	const [ isOpen, setOpen ] = useState( false );

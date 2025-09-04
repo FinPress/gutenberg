@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	DropdownMenu,
@@ -7,9 +7,9 @@ import {
 	MenuItemsChoice,
 	ToolbarGroup,
 	ToolbarItem,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { moveTo } from '@wordpress/icons';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { moveTo } from '@finpress/icons';
 
 export default function MoveToWidgetArea( {
 	currentWidgetAreaId,

@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,7 +64,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 5.41.0 (2024-05-16)
 
@@ -152,22 +152,22 @@
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ## 4.0.0 (2021-04-29)
 
 ### Breaking Changes
 
--   The bundled `postcss` dependency requiring `^7.0.32` has been replaced with a peer dependency requiring `^8.0.0` (see [Breaking Changes](https://github.com/postcss/postcss/releases/tag/8.0.0), [#27821](https://github.com/WordPress/gutenberg/pull/27821)).
+-   The bundled `postcss` dependency requiring `^7.0.32` has been replaced with a peer dependency requiring `^8.0.0` (see [Breaking Changes](https://github.com/postcss/postcss/releases/tag/8.0.0), [#27821](https://github.com/FinPress/gutenberg/pull/27821)).
 
 ## 3.0.0 (2021-01-21)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ## 2.0.0 (2019-03-06)
 
 ### Breaking Changes
 
--   Stop using Babel transpilation internally and set node 8 as a minimal version required ([#13540](https://github.com/WordPress/gutenberg/pull/13540)).
+-   Stop using Babel transpilation internally and set node 8 as a minimal version required ([#13540](https://github.com/FinPress/gutenberg/pull/13540)).

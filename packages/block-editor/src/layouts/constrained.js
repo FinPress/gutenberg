@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalUseCustomUnits as useCustomUnits,
@@ -8,8 +8,8 @@ import {
 	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 	__experimentalInputControlPrefixWrapper as InputControlPrefixWrapper,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
 import {
 	Icon,
 	alignNone,
@@ -17,8 +17,8 @@ import {
 	justifyLeft,
 	justifyCenter,
 	justifyRight,
-} from '@wordpress/icons';
-import { getCSSRules } from '@wordpress/style-engine';
+} from '@finpress/icons';
+import { getCSSRules } from '@finpress/style-engine';
 
 /**
  * Internal dependencies

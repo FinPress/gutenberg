@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { speak } from '@wordpress/a11y';
+import { speak } from '@finpress/a11y';
 
 export default {
 	SPEAK( action ) {

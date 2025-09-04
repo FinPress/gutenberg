@@ -4,13 +4,13 @@
 import { capitalCase } from 'change-case';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as coreDataStore } from '@wordpress/core-data';
-import { select } from '@wordpress/data';
-import { symbolFilled } from '@wordpress/icons';
-import { addFilter } from '@wordpress/hooks';
-import { decodeEntities } from '@wordpress/html-entities';
+import { store as coreDataStore } from '@finpress/core-data';
+import { select } from '@finpress/data';
+import { symbolFilled } from '@finpress/icons';
+import { addFilter } from '@finpress/hooks';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies

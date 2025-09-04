@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isKeyboardEvent } from '@wordpress/keycodes';
-import { useEffect, useContext, useRef } from '@wordpress/element';
+import { isKeyboardEvent } from '@finpress/keycodes';
+import { useEffect, useContext, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

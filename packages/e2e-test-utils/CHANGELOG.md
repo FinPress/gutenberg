@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,7 +64,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 10.29.0 (2024-05-16)
 
@@ -134,7 +134,7 @@
 
 ### Breaking Changes
 
--   Started requiring Jest v29 instead of v27 as a peer dependency. See [breaking changes in Jest 28](https://jestjs.io/blog/2022/04/25/jest-28) and [in jest 29](https://jestjs.io/blog/2022/08/25/jest-29) ([#47388](https://github.com/WordPress/gutenberg/pull/47388))
+-   Started requiring Jest v29 instead of v27 as a peer dependency. See [breaking changes in Jest 28](https://jestjs.io/blog/2022/04/25/jest-28) and [in jest 29](https://jestjs.io/blog/2022/08/25/jest-29) ([#47388](https://github.com/FinPress/gutenberg/pull/47388))
 
 ## 9.5.0 (2023-03-01)
 
@@ -162,7 +162,7 @@
 
 ### Bug Fixes
 
--   Don't use hardcoded login credentials when requesting nonce ([#44331](https://github.com/WordPress/gutenberg/pull/44331)).
+-   Don't use hardcoded login credentials when requesting nonce ([#44331](https://github.com/FinPress/gutenberg/pull/44331)).
 
 ## 8.2.0 (2022-09-21)
 
@@ -170,21 +170,21 @@
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ## 7.2.0 (2022-04-08)
 
 ### Enhancements
 
--   Changed `setOption` to use `options.php`, to allow setting any option (and to be more consistent with `getOption`). [#39502](https://github.com/WordPress/gutenberg/pull/39502)
--   Changed `setOption` to return the changed setting's previous value (to make restoring it easier). [#39502](https://github.com/WordPress/gutenberg/pull/39502)
+-   Changed `setOption` to use `options.php`, to allow setting any option (and to be more consistent with `getOption`). [#39502](https://github.com/FinPress/gutenberg/pull/39502)
+-   Changed `setOption` to return the changed setting's previous value (to make restoring it easier). [#39502](https://github.com/FinPress/gutenberg/pull/39502)
 -   Added a new `trashAllComments` function.
 
 ## 7.0.0 (2022-03-11)
 
 ### Breaking Changes
 
--   Updated `clickMenuItem` method to use exact label matching instead of partial [#39274](https://github.com/WordPress/gutenberg/pull/39274).
+-   Updated `clickMenuItem` method to use exact label matching instead of partial [#39274](https://github.com/FinPress/gutenberg/pull/39274).
 
 ### Enhancements
 
@@ -194,19 +194,19 @@
 
 ### Breaking Changes
 
--   The peer `jest` dependency has been updated from requiring `>=26` to requiring `>=27` (see [Breaking Changes](https://jestjs.io/blog/2021/05/25/jest-27), [#33287](https://github.com/WordPress/gutenberg/pull/33287)).
--   The peer `puppeteer` dependency has been replaced with `puppeteer-core` requiring version `>=11` (see [Breaking Changes](https://github.com/puppeteer/puppeteer/releases/tag/v11.0.0), [#36040](https://github.com/WordPress/gutenberg/pull/36040)).
+-   The peer `jest` dependency has been updated from requiring `>=26` to requiring `>=27` (see [Breaking Changes](https://jestjs.io/blog/2021/05/25/jest-27), [#33287](https://github.com/FinPress/gutenberg/pull/33287)).
+-   The peer `puppeteer` dependency has been replaced with `puppeteer-core` requiring version `>=11` (see [Breaking Changes](https://github.com/puppeteer/puppeteer/releases/tag/v11.0.0), [#36040](https://github.com/FinPress/gutenberg/pull/36040)).
 
 ### New Features
 
--   Added `createReusableBlock` function to make it easier to create a simple reusable block ([#37333](https://github.com/WordPress/gutenberg/pull/37333)).
--   Added `getOption` and `setOption` functions to make it easier to set and reset options such as the site title and site tagline ([#37139](https://github.com/WordPress/gutenberg/pull/37139)).
+-   Added `createReusableBlock` function to make it easier to create a simple reusable block ([#37333](https://github.com/FinPress/gutenberg/pull/37333)).
+-   Added `getOption` and `setOption` functions to make it easier to set and reset options such as the site title and site tagline ([#37139](https://github.com/FinPress/gutenberg/pull/37139)).
 
 ## 5.4.6 (2021-11-07)
 
 ### New Features
 
--   Added `disablePageDialogAccept` - Disable auto-accepting dialogs enabled by `enablePageDialogAccept` [#35828](https://github.com/WordPress/gutenberg/pull/35828).
+-   Added `disablePageDialogAccept` - Disable auto-accepting dialogs enabled by `enablePageDialogAccept` [#35828](https://github.com/FinPress/gutenberg/pull/35828).
 
 ## 5.4.0 (2021-07-21)
 
@@ -225,9 +225,9 @@
 
 ### Breaking Changes
 
--   `toggleScreenOption` util has been removed, since `Preferences` modal was redesigned. Use `togglePreferencesOption` instead ([#28329](https://github.com/WordPress/gutenberg/pull/28329)).
+-   `toggleScreenOption` util has been removed, since `Preferences` modal was redesigned. Use `togglePreferencesOption` instead ([#28329](https://github.com/FinPress/gutenberg/pull/28329)).
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ## 4.16.0 (2020-12-17)
 
@@ -265,12 +265,12 @@
 
 ### Breaking Changes
 
--   The minimum version of Gutenberg `5.6.0` or the minimum version of WordPress `5.2.0`.
+-   The minimum version of Gutenberg `5.6.0` or the minimum version of FinPress `5.2.0`.
 
 ### Bug Fixes
 
--   WordPress 5.2: Fix a false positive build failure caused by Dashicons font file.
--   WordPress 5.2: Fix a test failure for Classic Block media insertion caused by a change in tooltips text ([rWP45066](https://core.trac.wordpress.org/changeset/45066)).
+-   FinPress 5.2: Fix a false positive build failure caused by Dashicons font file.
+-   FinPress 5.2: Fix a test failure for Classic Block media insertion caused by a change in tooltips text ([rWP45066](https://core.trac.finpress.org/changeset/45066)).
 
 ## 1.1.0 (2019-03-20)
 
@@ -282,10 +282,10 @@
 
 ### Breaking Changes
 
--   The minimum version of Gutenberg `5.3.0` or the minimum version of WordPress `5.2.0`.
+-   The minimum version of Gutenberg `5.3.0` or the minimum version of FinPress `5.2.0`.
 
 ## 1.0.0 (2019-03-06)
 
 ### New Features
 
--   Initial release. The minimum version of Gutenberg `5.2.0` or the minimum version of WordPress `5.2.0`.
+-   Initial release. The minimum version of Gutenberg `5.2.0` or the minimum version of FinPress `5.2.0`.

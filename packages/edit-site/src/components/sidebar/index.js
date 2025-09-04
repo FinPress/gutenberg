@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createContext,
@@ -12,8 +12,8 @@ import {
 	useState,
 	useRef,
 	useLayoutEffect,
-} from '@wordpress/element';
-import { focus } from '@wordpress/dom';
+} from '@finpress/element';
+import { focus } from '@finpress/dom';
 
 export const SidebarNavigationContext = createContext( () => {} );
 // Focus a sidebar element after a navigation. The element to focus is either

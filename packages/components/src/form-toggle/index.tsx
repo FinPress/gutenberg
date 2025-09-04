@@ -5,9 +5,9 @@ import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -56,8 +56,8 @@ function UnforwardedFormToggle(
  * FormToggle switches a single setting on or off.
  *
  * ```jsx
- * import { FormToggle } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { FormToggle } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyFormToggle = () => {
  *   const [ isChecked, setChecked ] = useState( true );

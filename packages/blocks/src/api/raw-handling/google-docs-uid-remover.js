@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { unwrap } from '@wordpress/dom';
+import { unwrap } from '@finpress/dom';
 
 export default function googleDocsUIdRemover( node ) {
 	if ( ! node.id || node.id.indexOf( 'docs-internal-guid-' ) !== 0 ) {

@@ -257,7 +257,7 @@ export const parseServerData = ( dom = document ) => {
 	const jsonDataScriptTag =
 		// Preferred Script Module data passing form
 		dom.getElementById(
-			'wp-script-module-data-@wordpress/interactivity'
+			'wp-script-module-data-@finpress/interactivity'
 		) ??
 		// Legacy form
 		dom.getElementById( 'wp-interactivity-data' );

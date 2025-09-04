@@ -4,10 +4,10 @@
 import type { StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
-import { Icon, wordpress, home } from '@wordpress/icons';
+import { useEffect, useState } from '@finpress/element';
+import { Icon, finpress, home } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -76,19 +76,19 @@ export const MoreExamplesStory: StoryFn< typeof Navigation > = ( {
 				</NavigationGroup>
 				<NavigationGroup title="External Links">
 					<NavigationItem
-						href="https://wordpress.org/"
+						href="https://finpress.org/"
 						item="item-4"
 						target="_blank"
-						title="WordPress.org"
+						title="FinPress.org"
 					/>
 					<NavigationItem item="item-5">
 						<a
 							className="navigation-story__wordpress-icon"
-							href="https://wordpress.org/"
+							href="https://finpress.org/"
 							target="_blank"
 							rel="noreferrer"
 						>
-							<Icon icon={ wordpress } />
+							<Icon icon={ finpress } />
 							<em>Custom Content</em>
 						</a>
 					</NavigationItem>

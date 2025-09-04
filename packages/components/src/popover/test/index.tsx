@@ -6,9 +6,9 @@ import userEvent from '@testing-library/user-event';
 import type { CSSProperties } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -43,7 +43,7 @@ beforeAll( () => {
 	// of this process involves checking that an element has an intrinsic size,
 	// which will always fail in JSDom.
 	//
-	// https://github.com/WordPress/gutenberg/blob/trunk/packages/dom/src/focusable.js#L55-L61
+	// https://github.com/FinPress/gutenberg/blob/trunk/packages/dom/src/focusable.js#L55-L61
 	jest.spyOn(
 		HTMLElement.prototype,
 		'offsetHeight',

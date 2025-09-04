@@ -3,11 +3,11 @@
  */
 import clsx from 'clsx';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch } from '@wordpress/data';
-import { useEffect, useRef } from '@wordpress/element';
-import { useShortcut } from '@wordpress/keyboard-shortcuts';
+import { useDispatch } from '@finpress/data';
+import { useEffect, useRef } from '@finpress/element';
+import { useShortcut } from '@finpress/keyboard-shortcuts';
 /**
  * Internal dependencies
  */
@@ -31,7 +31,7 @@ export default function BlockToolbarPopover( {
 
 	useEffect( () => {
 		// Resets the index whenever the active block changes so this is not
-		// persisted. See https://github.com/WordPress/gutenberg/pull/25760#issuecomment-717906169
+		// persisted. See https://github.com/FinPress/gutenberg/pull/25760#issuecomment-717906169
 		initialToolbarItemIndexRef.current = undefined;
 	}, [ clientId ] );
 

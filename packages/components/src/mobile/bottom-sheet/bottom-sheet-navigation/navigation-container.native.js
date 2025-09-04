@@ -11,7 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useContext,
@@ -20,9 +20,9 @@ import {
 	Children,
 	useRef,
 	cloneElement,
-} from '@wordpress/element';
+} from '@finpress/element';
 
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies

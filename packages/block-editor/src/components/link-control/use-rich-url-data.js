@@ -4,10 +4,10 @@
 import { store as blockEditorStore } from '../../store';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useEffect, useReducer } from '@wordpress/element';
+import { useSelect } from '@finpress/data';
+import { useEffect, useReducer } from '@finpress/element';
 
 function reducer( state, action ) {
 	switch ( action.type ) {

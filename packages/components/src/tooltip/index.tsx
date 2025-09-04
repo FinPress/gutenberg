@@ -5,17 +5,17 @@ import * as Ariakit from '@ariakit/react';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
+import { useInstanceId } from '@finpress/compose';
 import {
 	Children,
 	useContext,
 	createContext,
 	forwardRef,
 	cloneElement,
-} from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -109,8 +109,8 @@ function UnforwardedTooltip(
 	// The `aria-describedby` attribute is added only if the anchor doesn't have
 	// one already, and if the tooltip text is not the same as the anchor's
 	// `aria-label`
-	// See: https://github.com/WordPress/gutenberg/pull/64066
-	// See: https://github.com/WordPress/gutenberg/pull/65989
+	// See: https://github.com/FinPress/gutenberg/pull/64066
+	// See: https://github.com/FinPress/gutenberg/pull/65989
 	function addDescribedById( element: React.ReactElement ) {
 		return describedById &&
 			mounted &&

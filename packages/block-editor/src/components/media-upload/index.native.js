@@ -4,32 +4,32 @@
 import { Platform } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component, React } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { Component, React } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 import {
 	BottomSheet,
 	PanelBody,
 	Picker,
 	TextControl,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	getOtherMediaOptions,
 	requestMediaPicker,
 	mediaSources,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 import {
 	capturePhoto,
 	captureVideo,
 	image,
-	wordpress,
+	finpress,
 	mobile,
 	globe,
-} from '@wordpress/icons';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { compose } from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
+} from '@finpress/icons';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { compose } from '@finpress/compose';
+import { withSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -132,7 +132,7 @@ export class MediaUpload extends Component {
 				MEDIA_TYPE_AUDIO,
 				MEDIA_TYPE_ANY,
 			],
-			icon: wordpress,
+			icon: finpress,
 			mediaLibrary: true,
 		};
 

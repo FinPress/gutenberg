@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { _x, _n, __, sprintf } from '@wordpress/i18n';
-import { count as wordCount } from '@wordpress/wordcount';
-import { createInterpolateElement } from '@wordpress/element';
+import { useSelect } from '@finpress/data';
+import { _x, _n, __, sprintf } from '@finpress/i18n';
+import { count as wordCount } from '@finpress/wordcount';
+import { createInterpolateElement } from '@finpress/element';
 
 /**
  * Internal dependencies

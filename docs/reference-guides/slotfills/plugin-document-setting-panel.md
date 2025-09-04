@@ -7,13 +7,13 @@ This SlotFill allows registering a UI to edit Document settings.
 -   **name** `string`: A string identifying the panel.
 -   **className** `string`: An optional class name added to the sidebar body.
 -   **title** `string`: Title displayed at the top of the sidebar.
--   **icon** `(string|Element)`: The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element.
+-   **icon** `(string|Element)`: The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG WP element.
 
 ## Example
 
 ```js
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginDocumentSettingPanel } from '@wordpress/editor';
+import { registerPlugin } from '@finpress/plugins';
+import { PluginDocumentSettingPanel } from '@finpress/editor';
 
 const PluginDocumentSettingPanelDemo = () => (
 	<PluginDocumentSettingPanel
@@ -48,8 +48,8 @@ In order to access the panels using function such as `toggleEditorPanelOpened` o
 To programmatically toggle panels, use the following:
 
 ```js
-import { useDispatch } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
+import { useDispatch } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
 
 const Example = () => {
 	const { toggleEditorPanelOpened } = useDispatch( editorStore );
@@ -75,8 +75,8 @@ const Example = () => {
 It is also possible to remove panels from the admin using the `removeEditorPanel` function by passing the name of the registered panel.
 
 ```js
-import { useDispatch } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
+import { useDispatch } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
 
 const Example = () => {
 	const { removeEditorPanel } = useDispatch( editorStore );

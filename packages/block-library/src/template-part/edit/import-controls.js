@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
-import { useDispatch, useSelect, useRegistry } from '@wordpress/data';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { useMemo, useState } from '@finpress/element';
+import { useDispatch, useSelect, useRegistry } from '@finpress/data';
 import {
 	Button,
 	FlexBlock,
@@ -11,9 +11,9 @@ import {
 	SelectControl,
 	__experimentalHStack as HStack,
 	__experimentalSpacer as Spacer,
-} from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies
@@ -73,7 +73,7 @@ export function TemplatePartImportControls( { area, setAttributes } ) {
 	}, [ sidebars ] );
 
 	// Render an empty node while data is loading to avoid SlotFill re-positioning bug.
-	// See: https://github.com/WordPress/gutenberg/issues/15641.
+	// See: https://github.com/FinPress/gutenberg/issues/15641.
 	if ( ! hasResolved ) {
 		return <Spacer marginBottom="0" />;
 	}

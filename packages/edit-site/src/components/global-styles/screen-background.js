@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { __experimentalText as Text } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { __experimentalText as Text } from '@finpress/components';
 
 /**
  * Internal dependencies

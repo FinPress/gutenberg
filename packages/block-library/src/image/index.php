@@ -2,7 +2,7 @@
 /**
  * Server-side rendering of the `core/image` block.
  *
- * @package WordPress
+ * @package FinPress
  */
 
 /**
@@ -34,7 +34,7 @@ function render_block_core_image( $attributes, $content, $block ) {
 	if ( $has_id_binding ) {
 		// If there's a mismatch with the 'wp-image-' class and the actual id, the id was
 		// probably overridden by block bindings. Update it to the correct value.
-		// See https://github.com/WordPress/gutenberg/issues/62886 for why this is needed.
+		// See https://github.com/FinPress/gutenberg/issues/62886 for why this is needed.
 		$id                       = $attributes['id'];
 		$image_classnames         = $p->get_attribute( 'class' );
 		$class_with_binding_value = "wp-image-$id";
@@ -70,7 +70,7 @@ function render_block_core_image( $attributes, $content, $block ) {
 		isset( $lightbox_settings['enabled'] ) &&
 		true === $lightbox_settings['enabled']
 	) {
-		wp_enqueue_script_module( '@wordpress/block-library/image/view' );
+		wp_enqueue_script_module( '@finpress/block-library/image/view' );
 
 		/*
 		 * This render needs to happen in a filter with priority 15 to ensure that

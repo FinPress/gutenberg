@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ import { useSelect } from '@wordpress/data';
 import DownloadableBlockListItem from '../';
 import { plugin } from '../../test/fixtures';
 
-jest.mock( '@wordpress/data/src/components/use-select', () => {
+jest.mock( '@finpress/data/src/components/use-select', () => {
 	// This allows us to tweak the returned value on each test.
 	const mock = jest.fn();
 	return mock;

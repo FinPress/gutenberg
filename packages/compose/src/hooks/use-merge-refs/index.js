@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useCallback, useLayoutEffect } from '@wordpress/element';
+import { useRef, useCallback, useLayoutEffect } from '@finpress/element';
 
 /* eslint-disable jsdoc/valid-types */
 /**

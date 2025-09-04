@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { _x } from '@wordpress/i18n';
+import { useMemo } from '@finpress/element';
+import { _x } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -67,7 +67,7 @@ export default function useMultipleOriginColorsAndGradients() {
 			result.push( {
 				name: _x(
 					'Default',
-					'Indicates this palette comes from WordPress.'
+					'Indicates this palette comes from FinPress.'
 				),
 				slug: 'default',
 				colors: defaultColors,
@@ -111,7 +111,7 @@ export default function useMultipleOriginColorsAndGradients() {
 			result.push( {
 				name: _x(
 					'Default',
-					'Indicates this palette comes from WordPress.'
+					'Indicates this palette comes from FinPress.'
 				),
 				slug: 'default',
 				gradients: defaultGradients,

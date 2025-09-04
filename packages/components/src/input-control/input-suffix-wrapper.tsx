@@ -28,7 +28,7 @@ function UnconnectedInputControlSuffixWrapper(
  * import {
  *   __experimentalInputControl as InputControl,
  *   __experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * <InputControl
  *   suffix={<InputControlSuffixWrapper>%</InputControlSuffixWrapper>}

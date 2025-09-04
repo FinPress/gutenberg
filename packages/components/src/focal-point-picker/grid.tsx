@@ -7,7 +7,7 @@ import {
 	GridLineY,
 } from './styles/focal-point-picker-style';
 import type { FocalPointPickerGridProps } from './types';
-import type { WordPressComponentProps } from '../context/wordpress-component';
+import type { WordPressComponentProps } from '../context/finpress-component';
 
 export default function FocalPointPickerGrid( {
 	bounds,

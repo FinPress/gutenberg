@@ -1,5 +1,5 @@
 {
-	"title": "JSON schema for WordPress Font Collections",
+	"title": "JSON schema for FinPress Font Collections",
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"definitions": {
 		"fontFace": {

@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockList,
@@ -8,11 +8,11 @@ import {
 	BlockSelectionClearer,
 	WritingFlow,
 	__unstableEditorStyles as EditorStyles,
-} from '@wordpress/block-editor';
-import { useViewportMatch } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/block-editor';
+import { useViewportMatch } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies

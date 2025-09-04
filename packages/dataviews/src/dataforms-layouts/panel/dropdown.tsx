@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalVStack as VStack,
@@ -8,10 +8,10 @@ import {
 	__experimentalSpacer as Spacer,
 	Dropdown,
 	Button,
-} from '@wordpress/components';
-import { sprintf, __, _x } from '@wordpress/i18n';
-import { useMemo } from '@wordpress/element';
-import { closeSmall } from '@wordpress/icons';
+} from '@finpress/components';
+import { sprintf, __, _x } from '@finpress/i18n';
+import { useMemo } from '@finpress/element';
+import { closeSmall } from '@finpress/icons';
 
 /**
  * Internal dependencies

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, useContext, useMemo } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+import { createContext, useContext, useMemo } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

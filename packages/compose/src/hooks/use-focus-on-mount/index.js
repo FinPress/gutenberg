@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useEffect } from '@wordpress/element';
-import { focus } from '@wordpress/dom';
+import { useRef, useEffect } from '@finpress/element';
+import { focus } from '@finpress/dom';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import useRefEffect from '../use-ref-effect';
  *
  * @example
  * ```js
- * import { useFocusOnMount } from '@wordpress/compose';
+ * import { useFocusOnMount } from '@finpress/compose';
  *
  * const WithFocusOnMount = () => {
  *     const ref = useFocusOnMount()

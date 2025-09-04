@@ -9,9 +9,9 @@ import {
 	getBlockTransformOptions,
 } from 'test/helpers';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from '@finpress/api-fetch';
 
 const block = 'Latest Posts';
 const initialHtml = `

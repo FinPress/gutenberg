@@ -5,10 +5,10 @@ import type { ForwardedRef } from 'react';
 import * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { useLayoutEffect, useMemo, useRef } from '@wordpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { useLayoutEffect, useMemo, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -174,7 +174,7 @@ function ToggleGroupControlOptionBase(
  * import {
  *   __experimentalToggleGroupControl as ToggleGroupControl,
  *   __experimentalToggleGroupControlOptionBase as ToggleGroupControlOptionBase,
- * } from '@wordpress/components';
+ * } from '@finpress/components';
  *
  * function Example() {
  *   return (

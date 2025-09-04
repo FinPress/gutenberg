@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { ToggleControl } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { ToggleControl } from '@finpress/components';
 
 export function QueryPaginationLabelControl( { value, onChange } ) {
 	return (

@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createHigherOrderComponent,
 	useConstrainedTabbing,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 
 /**
  * `withConstrainedTabbing` is a React [higher-order component](https://facebook.github.io/react/docs/higher-order-components.html)

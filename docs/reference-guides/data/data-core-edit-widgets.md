@@ -143,9 +143,9 @@ Returns whether widget saving is locked.
 _Usage_
 
 ```jsx
-import { __ } from '@wordpress/i18n';
-import { store as widgetStore } from '@wordpress/edit-widgets';
-import { useSelect } from '@wordpress/data';
+import { __ } from '@finpress/i18n';
+import { store as widgetStore } from '@finpress/edit-widgets';
+import { useSelect } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const isSavingLocked = useSelect(
@@ -190,8 +190,8 @@ Returns an action object used to signal that widget saving is locked.
 _Usage_
 
 ```js
-import { store as widgetStore } from '@wordpress/edit-widgets';
-import { useDispatch } from '@wordpress/data';
+import { store as widgetStore } from '@finpress/edit-widgets';
+import { useDispatch } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const { lockWidgetSaving } = useDispatch( widgetStore );
@@ -338,8 +338,8 @@ Returns an action object used to signal that widget saving is unlocked.
 _Usage_
 
 ```js
-import { store as widgetStore } from '@wordpress/edit-widgets';
-import { useDispatch } from '@wordpress/data';
+import { store as widgetStore } from '@finpress/edit-widgets';
+import { useDispatch } from '@finpress/data';
 
 const ExampleComponent = () => {
 	const { unlockWidgetSaving } = useDispatch( widgetStore );

@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Component,
 	cloneElement,
 	renderToString,
 	RawHTML,
-} from '@wordpress/element';
-import { hasFilter, applyFilters } from '@wordpress/hooks';
-import isShallowEqual from '@wordpress/is-shallow-equal';
-import { removep } from '@wordpress/autop';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/element';
+import { hasFilter, applyFilters } from '@finpress/hooks';
+import isShallowEqual from '@finpress/is-shallow-equal';
+import { removep } from '@finpress/autop';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -40,7 +40,7 @@ import { isUnmodifiedDefaultBlock, normalizeBlockType } from './utils';
  */
 export function getBlockDefaultClassName( blockName ) {
 	// Generated HTML classes for blocks follow the `wp-block-{name}` nomenclature.
-	// Blocks provided by WordPress drop the prefixes 'core/' or 'core-' (historically used in 'core-embed/').
+	// Blocks provided by FinPress drop the prefixes 'core/' or 'core-' (historically used in 'core-embed/').
 	const className =
 		'wp-block-' + blockName.replace( /\//, '-' ).replace( /^core-/, '' );
 
@@ -60,7 +60,7 @@ export function getBlockDefaultClassName( blockName ) {
  */
 export function getBlockMenuDefaultClassName( blockName ) {
 	// Generated HTML classes for blocks follow the `editor-block-list-item-{name}` nomenclature.
-	// Blocks provided by WordPress drop the prefixes 'core/' or 'core-' (historically used in 'core-embed/').
+	// Blocks provided by FinPress drop the prefixes 'core/' or 'core-' (historically used in 'core-embed/').
 	const className =
 		'editor-block-list-item-' +
 		blockName.replace( /\//, '-' ).replace( /^core-/, '' );
@@ -292,7 +292,7 @@ export function serializeAttributes( attributes ) {
 			// Bypass server stripslashes behavior which would unescape stringify's
 			// escaping of quotation mark.
 			//
-			// See: https://developer.wordpress.org/reference/functions/wp_kses_stripslashes/
+			// See: https://developer.finpress.org/reference/functions/wp_kses_stripslashes/
 			.replace( /\\"/g, '\\u0022' )
 	);
 }

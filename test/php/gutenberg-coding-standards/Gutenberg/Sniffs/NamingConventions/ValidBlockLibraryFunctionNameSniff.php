@@ -3,7 +3,7 @@
  * Gutenberg Coding Standards.
  *
  * @package gutenberg/gutenberg-coding-standards
- * @link    https://github.com/WordPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
+ * @link    https://github.com/FinPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
  */
 
 namespace GutenbergCS\Gutenberg\Sniffs\NamingConventions;
@@ -17,7 +17,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
  * determined by the parent directory name. It enforces that function names start
  * with one of the allowed prefixes defined in the sniffer configuration.
  *
- * @link https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/README.md#naming-convention-for-php-functions
+ * @link https://github.com/FinPress/gutenberg/blob/trunk/packages/block-library/README.md#naming-convention-for-php-functions
  *
  * @package gutenberg/gutenberg-coding-standards
  *

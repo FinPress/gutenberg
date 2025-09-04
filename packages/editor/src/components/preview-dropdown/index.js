@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
+import { useViewportMatch } from '@finpress/compose';
 import {
 	DropdownMenu,
 	MenuGroup,
@@ -14,19 +14,19 @@ import {
 	MenuItemsChoice,
 	VisuallyHidden,
 	Icon,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { desktop, mobile, tablet, external, check } from '@wordpress/icons';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { ActionItem } from '@wordpress/interface';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { desktop, mobile, tablet, external, check } from '@finpress/icons';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { store as preferencesStore } from '@finpress/preferences';
+import { ActionItem } from '@finpress/interface';
 
 /**
  * Internal dependencies
  */
 import { store as editorStore } from '../../store';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { store as blockEditorStore } from '@finpress/block-editor';
 import PostPreviewButton from '../post-preview-button';
 import { unlock } from '../../lock-unlock';
 

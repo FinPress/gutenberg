@@ -7,7 +7,7 @@ Uses `<ToolbarDropdownMenu>`.
 
 ```jsx
 
-import { BlockControls, HeadingLevelDropdown } from '@wordpress/block-editor';
+import { BlockControls, HeadingLevelDropdown } from '@finpress/block-editor';
 
 const HEADING_LEVELS = [ 0, 1, 2, 3, 4, 5, 6 ];
 
@@ -49,4 +49,4 @@ Function called with the selected value changes.
 
 ## Related components
 
-Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.
+Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [`BlockEditorProvider`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.

@@ -4,9 +4,9 @@
 import type * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext } from '@wordpress/element';
+import { createContext } from '@finpress/element';
 
 export const RadioGroupContext = createContext< {
 	store?: Ariakit.RadioStore;

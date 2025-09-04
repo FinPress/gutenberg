@@ -2,7 +2,7 @@
 
 `MenuGroup` wraps a series of related `MenuItem` components into a common section.
 
-![MenuGroup Example](https://wordpress.org/gutenberg/files/2019/03/MenuGroup.png)
+![MenuGroup Example](https://finpress.org/gutenberg/files/2019/03/MenuGroup.png)
 
 ## Design guidelines
 
@@ -10,7 +10,7 @@
 
 A `MenuGroup` should be used to indicate that two or more individual MenuItems are related. When other menu items exist above or below a `MenuGroup`, the group should have a divider line between it and the adjacent item. A `MenuGroup` can optionally include a label to describe its contents.
 
-![MenuGroup diagram with label and dividers](https://wordpress.org/gutenberg/files/2019/03/MenuGroup-Anatomy.png)
+![MenuGroup diagram with label and dividers](https://finpress.org/gutenberg/files/2019/03/MenuGroup-Anatomy.png)
 
 1. `MenuGroup` label
 2. `MenuGroup` dividers
@@ -20,7 +20,7 @@ A `MenuGroup` should be used to indicate that two or more individual MenuItems a
 ### Usage
 
 ```jsx
-import { MenuGroup, MenuItem } from '@wordpress/components';
+import { MenuGroup, MenuItem } from '@finpress/components';
 
 const MyMenuGroup = () => (
 	<MenuGroup label="Settings">

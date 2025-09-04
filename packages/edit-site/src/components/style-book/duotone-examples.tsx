@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalGrid as Grid } from '@wordpress/components';
-import { View } from '@wordpress/primitives';
+import { __experimentalGrid as Grid } from '@finpress/components';
+import { View } from '@finpress/primitives';
 
 /**
  * Internal dependencies

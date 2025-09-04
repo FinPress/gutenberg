@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blocksStore } from '@wordpress/blocks';
-import { useSelect } from '@wordpress/data';
+import { store as blocksStore } from '@finpress/blocks';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

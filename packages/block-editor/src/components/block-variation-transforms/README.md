@@ -11,8 +11,8 @@ By selecting such a variation an update to the selected block's attributes happe
 Renders the block's variations which have the `transform` option set in `scope` property.
 
 ```jsx
-import { useSelect } from '@wordpress/data';
-import { __experimentalBlockVariationTransforms as BlockVariationTransforms } from '@wordpress/block-editor';
+import { useSelect } from '@finpress/data';
+import { __experimentalBlockVariationTransforms as BlockVariationTransforms } from '@finpress/block-editor';
 
 const MyBlockVariationTransforms = () => {
 	const { selectedBlockClientId } = useSelect( ( select ) => {
@@ -36,4 +36,4 @@ The block's client id.
 
 ## Related components
 
-Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [BlockEditorProvider](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.
+Block Editor components are components that can be used to compose the UI of your block editor. Thus, they can only be used under a [BlockEditorProvider](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/provider/README.md) in the components tree.

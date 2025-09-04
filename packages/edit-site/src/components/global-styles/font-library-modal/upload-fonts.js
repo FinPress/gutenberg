@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	__experimentalSpacer as Spacer,
 	__experimentalText as Text,
@@ -12,8 +12,8 @@ import {
 	FormFileUpload,
 	FlexItem,
 	ProgressBar,
-} from '@wordpress/components';
-import { useContext, useState } from '@wordpress/element';
+} from '@finpress/components';
+import { useContext, useState } from '@finpress/element';
 
 /**
  * Internal dependencies

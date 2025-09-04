@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	AlignmentControl,
 	BlockControls,
@@ -9,8 +9,8 @@ import {
 	useBlockProps,
 	getColorObjectByAttributeValues,
 	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
-} from '@wordpress/block-editor';
-import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { createBlock, getDefaultBlockName } from '@finpress/blocks';
 
 /**
  * Internal dependencies

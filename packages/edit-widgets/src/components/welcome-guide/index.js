@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { ExternalLink, Guide } from '@wordpress/components';
-import { __, sprintf, _n } from '@wordpress/i18n';
-import { createInterpolateElement } from '@wordpress/element';
-import { store as preferencesStore } from '@wordpress/preferences';
+import { useSelect, useDispatch } from '@finpress/data';
+import { ExternalLink, Guide } from '@finpress/components';
+import { __, sprintf, _n } from '@finpress/i18n';
+import { createInterpolateElement } from '@finpress/element';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies
@@ -95,7 +95,7 @@ export default function WelcomeGuide() {
 										</strong>{ ' ' }
 										<ExternalLink
 											href={ __(
-												'https://wordpress.org/plugins/classic-widgets/'
+												'https://finpress.org/plugins/classic-widgets/'
 											) }
 										>
 											{ __(
@@ -180,7 +180,7 @@ export default function WelcomeGuide() {
 										a: (
 											<ExternalLink
 												href={ __(
-													'https://wordpress.org/documentation/article/wordpress-block-editor/'
+													'https://finpress.org/documentation/article/finpress-block-editor/'
 												) }
 											/>
 										),

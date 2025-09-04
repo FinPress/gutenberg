@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { store as blockEditorStore } from '@finpress/block-editor';
 import {
 	createBlock,
 	isReusableBlock,
 	parse,
 	serialize,
-} from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/blocks';
+import { __ } from '@finpress/i18n';
 
 /**
  * Returns a generator converting a reusable block into a static block.

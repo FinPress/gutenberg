@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { navigation as icon } from '@wordpress/icons';
-import { select } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@finpress/i18n';
+import { navigation as icon } from '@finpress/icons';
+import { select } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ export const settings = {
 				attributes: {
 					// translators: 'Home' as in a website's home page.
 					label: __( 'Home' ),
-					url: 'https://make.wordpress.org/',
+					url: 'https://make.finpress.org/',
 				},
 			},
 			{
@@ -40,7 +40,7 @@ export const settings = {
 				attributes: {
 					// translators: 'About' as in a website's about page.
 					label: __( 'About' ),
-					url: 'https://make.wordpress.org/',
+					url: 'https://make.finpress.org/',
 				},
 			},
 			{
@@ -48,7 +48,7 @@ export const settings = {
 				attributes: {
 					// translators: 'Contact' as in a website's contact page.
 					label: __( 'Contact' ),
-					url: 'https://make.wordpress.org/',
+					url: 'https://make.finpress.org/',
 				},
 			},
 		],

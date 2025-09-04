@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'InnerBlocks Template Sync', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -100,7 +100,7 @@ test.describe( 'InnerBlocks Template Sync', () => {
 		] );
 	} );
 
-	// Test for regressions of https://github.com/WordPress/gutenberg/issues/27897.
+	// Test for regressions of https://github.com/FinPress/gutenberg/issues/27897.
 	test( `Synchronizes blocks if lock 'all' is set and the template prop is changed`, async ( {
 		editor,
 	} ) => {

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	undoUtils: async ( { page }, use ) => {
@@ -332,7 +332,7 @@ test.describe( 'undo', () => {
 		// explicit undo level would interfere with blocks values being synced
 		// correctly to the block editor.
 		//
-		// See: https://github.com/WordPress/gutenberg/issues/14950
+		// See: https://github.com/FinPress/gutenberg/issues/14950
 
 		// Issue is demonstrated from an edited post: create, save, and reload.
 		await editor.canvas
@@ -464,7 +464,7 @@ test.describe( 'undo', () => {
 		] );
 	} );
 
-	// @see https://github.com/WordPress/gutenberg/issues/12075
+	// @see https://github.com/FinPress/gutenberg/issues/12075
 	test( 'should be able to undo and redo property cross property changes', async ( {
 		page,
 		pageUtils,

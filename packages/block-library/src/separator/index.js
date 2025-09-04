@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { separator as icon } from '@wordpress/icons';
+import { separator as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/plugins",
+	"name": "@finpress/plugins",
 	"version": "7.29.0",
-	"description": "Plugins module for WordPress.",
-	"author": "The WordPress Contributors",
+	"description": "Plugins module for FinPress.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"plugins"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/plugins/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/plugins/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/plugins"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -29,13 +29,13 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/components": "file:../components",
-		"@wordpress/compose": "file:../compose",
-		"@wordpress/deprecated": "file:../deprecated",
-		"@wordpress/element": "file:../element",
-		"@wordpress/hooks": "file:../hooks",
-		"@wordpress/icons": "file:../icons",
-		"@wordpress/is-shallow-equal": "file:../is-shallow-equal",
+		"@finpress/components": "file:../components",
+		"@finpress/compose": "file:../compose",
+		"@finpress/deprecated": "file:../deprecated",
+		"@finpress/element": "file:../element",
+		"@finpress/hooks": "file:../hooks",
+		"@finpress/icons": "file:../icons",
+		"@finpress/is-shallow-equal": "file:../is-shallow-equal",
 		"memize": "^2.0.1"
 	},
 	"peerDependencies": {

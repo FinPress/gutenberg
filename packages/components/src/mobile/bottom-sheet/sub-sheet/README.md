@@ -13,10 +13,10 @@ import { SafeAreaView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Icon, chevronRight } from '@wordpress/icons';
-import { BottomSheet } from '@wordpress/components';
+import { Icon, chevronRight } from '@finpress/icons';
+import { BottomSheet } from '@finpress/components';
 
 const ExampleControl = () => {
 	const [ showSubSheet, setShowSubSheet ] = useState( false );

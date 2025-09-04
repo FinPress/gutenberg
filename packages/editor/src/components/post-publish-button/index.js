@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
-import { Component } from '@wordpress/element';
-import { withSelect, withDispatch } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
+import { Button } from '@finpress/components';
+import { Component } from '@finpress/element';
+import { withSelect, withDispatch } from '@finpress/data';
+import { compose } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -35,7 +35,7 @@ export class PostPublishButton extends Component {
 			// elects to not save changes to the non-post entities, those
 			// entities will still be dirty when the Publish button is clicked.
 			// We also need to check that the `setEntitiesSavedStatesCallback`
-			// prop was passed. See https://github.com/WordPress/gutenberg/pull/37383
+			// prop was passed. See https://github.com/FinPress/gutenberg/pull/37383
 			if ( hasNonPostEntityChanges && setEntitiesSavedStatesCallback ) {
 				// The modal for multiple entity saving will open,
 				// hold the callback for saving/publishing the post

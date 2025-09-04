@@ -60,7 +60,7 @@ function deepClone< T >( source: T ): T {
  * the future this will be changed and result in an error. The current temporary behavior allows implementers to update
  * their relevant actions to use `withSyncEvent()`.
  *
- * For additional context, see https://github.com/WordPress/gutenberg/issues/64944.
+ * For additional context, see https://github.com/FinPress/gutenberg/issues/64944.
  *
  * @param event Event object.
  * @return Proxied event object.
@@ -72,14 +72,14 @@ function wrapEventAsync( event: Event ) {
 			switch ( prop ) {
 				case 'currentTarget':
 					warn(
-						`Accessing the synchronous event.${ prop } property in a store action without wrapping it in withSyncEvent() is deprecated and will stop working in WordPress 6.9. Please wrap the store action in withSyncEvent().`
+						`Accessing the synchronous event.${ prop } property in a store action without wrapping it in withSyncEvent() is deprecated and will stop working in FinPress 6.9. Please wrap the store action in withSyncEvent().`
 					);
 					break;
 				case 'preventDefault':
 				case 'stopImmediatePropagation':
 				case 'stopPropagation':
 					warn(
-						`Using the synchronous event.${ prop }() function in a store action without wrapping it in withSyncEvent() is deprecated and will stop working in WordPress 6.9. Please wrap the store action in withSyncEvent().`
+						`Using the synchronous event.${ prop }() function in a store action without wrapping it in withSyncEvent() is deprecated and will stop working in FinPress 6.9. Please wrap the store action in withSyncEvent().`
 					);
 					break;
 			}

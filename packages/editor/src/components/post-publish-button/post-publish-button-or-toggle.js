@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useViewportMatch } from '@finpress/compose';
+import { useDispatch, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -55,7 +55,7 @@ export default function PostPublishButtonOrToggle( {
 	 * Conditions to show a BUTTON (publish directly) or a TOGGLE (open publish sidebar):
 	 *
 	 * 1) We want to show a BUTTON when the post status is at the _final stage_
-	 * for a particular role (see https://wordpress.org/documentation/article/post-status/):
+	 * for a particular role (see https://finpress.org/documentation/article/post-status/):
 	 *
 	 * - is published
 	 * - post status has changed explicitly to something different than 'future' or 'publish'
@@ -65,7 +65,7 @@ export default function PostPublishButtonOrToggle( {
 	 * 	 (for example, for an author with the contributor role). Some languages can have
 	 * 	 long translations for "Submit for review", so given the lack of UI real estate available
 	 * 	 we decided to take into account the viewport in that case.
-	 *  	 See: https://github.com/WordPress/gutenberg/issues/10475
+	 *  	 See: https://github.com/FinPress/gutenberg/issues/10475
 	 *
 	 * 2) Then, in small viewports, we'll show a TOGGLE.
 	 *

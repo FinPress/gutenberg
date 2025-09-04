@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect } from '@wordpress/compose';
-import { useEffect, useState } from '@wordpress/element';
-import { Disabled, Placeholder, Spinner } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import apiFetch from '@wordpress/api-fetch';
+import { useRefEffect } from '@finpress/compose';
+import { useEffect, useState } from '@finpress/element';
+import { Disabled, Placeholder, Spinner } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import apiFetch from '@finpress/api-fetch';
 
 export default function Preview( { idBase, instance, isVisible } ) {
 	const [ isLoaded, setIsLoaded ] = useState( false );

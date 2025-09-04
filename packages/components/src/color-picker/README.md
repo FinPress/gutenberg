@@ -6,7 +6,7 @@
 
 ```jsx
 import { useState } from 'react';
-import { ColorPicker } from '@wordpress/components';
+import { ColorPicker } from '@finpress/components';
 
 function Example() {
 	const [color, setColor] = useState();

@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { toggleFormat } from '@wordpress/rich-text';
+import { __ } from '@finpress/i18n';
+import { toggleFormat } from '@finpress/rich-text';
 import {
 	RichTextToolbarButton,
 	RichTextShortcut,
-} from '@wordpress/block-editor';
-import { formatStrikethrough } from '@wordpress/icons';
+} from '@finpress/block-editor';
+import { formatStrikethrough } from '@finpress/icons';
 
 const name = 'core/strikethrough';
 const title = __( 'Strikethrough' );

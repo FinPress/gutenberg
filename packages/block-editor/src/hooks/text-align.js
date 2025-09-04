@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { getBlockSupport, hasBlockSupport } from '@wordpress/blocks';
-import { alignLeft, alignRight, alignCenter } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { getBlockSupport, hasBlockSupport } from '@finpress/blocks';
+import { alignLeft, alignRight, alignCenter } from '@finpress/icons';
 
 /**
  * Internal dependencies

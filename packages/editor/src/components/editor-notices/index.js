@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { NoticeList } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
+import { NoticeList } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useCallback } from '@wordpress/element';
-import { useSelect, useDispatch, select as selectStore } from '@wordpress/data';
+import { useEffect, useCallback } from '@finpress/element';
+import { useSelect, useDispatch, select as selectStore } from '@finpress/data';
 
 /**
  * Internal dependencies

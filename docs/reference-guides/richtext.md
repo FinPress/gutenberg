@@ -8,28 +8,28 @@ The RichText component is extremely powerful because it provides built-in functi
 -   **Cohesive Placeholder Text:** Before the user writes their content, it's easy to include placeholder text that's already styled to match the rest of the block editor.
 -   **Control Over Formatting Options:** It's possible to dictate exactly which formatting options you want to allow for the RichText field. For example, you can dictate whether to allow the user to make text bold, italics or both.
 
-Unlike other components that exist in the [Component Reference](/packages/components/README.md) section, RichText lives separately because it only makes sense within the block editor, and not within other areas of WordPress.
+Unlike other components that exist in the [Component Reference](/packages/components/README.md) section, RichText lives separately because it only makes sense within the block editor, and not within other areas of FinPress.
 
 ## Property reference
 
-For a list of the possible properties to pass your RichText component, [check out the component documentation on GitHub](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md).
+For a list of the possible properties to pass your RichText component, [check out the component documentation on GitHub](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md).
 
 ## Core blocks using the RichText component
 
 There are a number of core blocks using the RichText component. The JavaScript edit function linked below for each block can be used as a best practice reference while creating your own blocks.
 
--   **[Button](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/button/edit.js):** RichText is used to enter the button's text.
--   **[Heading](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/heading/edit.js):** RichText is used to enter the heading's text.
--   **[Quote](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/quote/edit.js):** RichText is used in two places, for both the quotation and citation text.
--   **[Search](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-library/src/search/edit.js):** RichText is used in two places, for both the label above the search field and the submit button text.
+-   **[Button](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-library/src/button/edit.js):** RichText is used to enter the button's text.
+-   **[Heading](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-library/src/heading/edit.js):** RichText is used to enter the heading's text.
+-   **[Quote](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-library/src/quote/edit.js):** RichText is used in two places, for both the quotation and citation text.
+-   **[Search](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-library/src/search/edit.js):** RichText is used in two places, for both the label above the search field and the submit button text.
 
 ## Example
 
 
 
 ```jsx
-import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { useBlockProps, RichText } from '@finpress/block-editor';
 
 registerBlockType( /* ... */, {
 	// ...
@@ -79,7 +79,7 @@ Before moving forward, consider if using the RichText component makes sense at a
 
 If you'd still like to use RichText, you can eliminate all of the formatting options by specifying the `withoutInteractiveFormatting` property.
 
-If you want to limit the formats allowed, you can specify using `allowedFormats` property in your code, see the example above or [the component documentation](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md#allowedformats-array) for details.
+If you want to limit the formats allowed, you can specify using `allowedFormats` property in your code, see the example above or [the component documentation](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/rich-text/README.md#allowedformats-array) for details.
 
 ### Disable specific format types in Editor
 
@@ -89,4 +89,4 @@ The RichText component uses formats to display inline elements, for example imag
 wp.richText.unregisterFormatType( 'core/image' );
 ```
 
-To apply, you would need to enqueue the above script in your plugin or theme. See the JavaScript tutorial for [how to load JavaScript in WordPress](https://developer.wordpress.org/block-editor/how-to-guides/javascript/loading-javascript/).
+To apply, you would need to enqueue the above script in your plugin or theme. See the JavaScript tutorial for [how to load JavaScript in FinPress](https://developer.finpress.org/block-editor/how-to-guides/javascript/loading-javascript/).

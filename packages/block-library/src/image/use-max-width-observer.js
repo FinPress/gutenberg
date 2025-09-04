@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef } from '@wordpress/element';
-import { useResizeObserver } from '@wordpress/compose';
+import { useRef } from '@finpress/element';
+import { useResizeObserver } from '@finpress/compose';
 
 function useMaxWidthObserver() {
 	const [ contentResizeListener, { width } ] = useResizeObserver();

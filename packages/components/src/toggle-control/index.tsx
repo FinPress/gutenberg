@@ -6,11 +6,11 @@ import { css } from '@emotion/react';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import { useInstanceId } from '@wordpress/compose';
-import deprecated from '@wordpress/deprecated';
+import { forwardRef } from '@finpress/element';
+import { useInstanceId } from '@finpress/compose';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ import deprecated from '@wordpress/deprecated';
 import { FlexBlock } from '../flex';
 import FormToggle from '../form-toggle';
 import BaseControl from '../base-control';
-import type { WordPressComponentProps } from '../context/wordpress-component';
+import type { WordPressComponentProps } from '../context/finpress-component';
 import type { ToggleControlProps } from './types';
 import { HStack } from '../h-stack';
 import { useCx } from '../utils';
@@ -114,8 +114,8 @@ function UnforwardedToggleControl(
  * ToggleControl is used to generate a toggle user interface.
  *
  * ```jsx
- * import { ToggleControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { ToggleControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyToggleControl = () => {
  *   const [ value, setValue ] = useState( false );

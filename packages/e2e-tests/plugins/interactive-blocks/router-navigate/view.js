@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store, withSyncEvent } from '@wordpress/interactivity';
+import { store, withSyncEvent } from '@finpress/interactivity';
 
 const { state } = store( 'router', {
 	state: {
@@ -29,7 +29,7 @@ const { state } = store( 'router', {
 			const { timeout } = state;
 
 			const { actions } = yield import(
-				'@wordpress/interactivity-router'
+				'@finpress/interactivity-router'
 			);
 			yield actions.navigate( e.target.href, { force, timeout } );
 

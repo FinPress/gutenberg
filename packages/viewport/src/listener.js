@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { debounce } from '@wordpress/compose';
-import { dispatch } from '@wordpress/data';
+import { debounce } from '@finpress/compose';
+import { dispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

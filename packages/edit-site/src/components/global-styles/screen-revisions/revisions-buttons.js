@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { Button, Composite } from '@wordpress/components';
-import { dateI18n, getDate, humanTimeDiff, getSettings } from '@wordpress/date';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { ENTER, SPACE } from '@wordpress/keycodes';
+import { __, sprintf } from '@finpress/i18n';
+import { Button, Composite } from '@finpress/components';
+import { dateI18n, getDate, humanTimeDiff, getSettings } from '@finpress/date';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { ENTER, SPACE } from '@finpress/keycodes';
 /**
  * Internal dependencies
  */

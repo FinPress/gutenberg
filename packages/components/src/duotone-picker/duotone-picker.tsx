@@ -4,10 +4,10 @@
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { useMemo } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -25,8 +25,8 @@ import type { DuotonePickerProps } from './types';
 
 /**
  * ```jsx
- * import { DuotonePicker, DuotoneSwatch } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { DuotonePicker, DuotoneSwatch } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const DUOTONE_PALETTE = [
  * 	{ colors: [ '#8c00b7', '#fcff41' ], name: 'Purple and yellow', slug: 'purple-yellow' },
@@ -186,7 +186,7 @@ function DuotonePicker( {
 										: undefined;
 								// @ts-expect-error TODO: The color arrays for a DuotonePicker should be a tuple of two colors,
 								// but it's currently typed as a string[].
-								// See also https://github.com/WordPress/gutenberg/pull/49060#discussion_r1136951035
+								// See also https://github.com/FinPress/gutenberg/pull/49060#discussion_r1136951035
 								onChange( newValue );
 							} }
 						/>

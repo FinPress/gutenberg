@@ -1,9 +1,9 @@
 /* eslint-disable playwright/expect-expect */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.use( {
 	KeyboardNavigableBlocks: async ( { editor, page, pageUtils }, use ) => {

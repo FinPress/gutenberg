@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { moreVertical } from '@wordpress/icons';
+import { DropdownMenu, MenuGroup, MenuItem } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { moreVertical } from '@finpress/icons';
 
 function Warning( { className, actions, children, secondaryActions } ) {
 	return (
@@ -67,6 +67,6 @@ function Warning( { className, actions, children, secondaryActions } ) {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/warning/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/warning/README.md
  */
 export default Warning;

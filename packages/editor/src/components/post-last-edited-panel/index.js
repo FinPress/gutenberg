@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalText as Text } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
-import { humanTimeDiff } from '@wordpress/date';
+import { __experimentalText as Text } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { humanTimeDiff } from '@finpress/date';
 
 /**
  * Internal dependencies

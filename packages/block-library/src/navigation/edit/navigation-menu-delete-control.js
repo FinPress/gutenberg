@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
 	__experimentalConfirmDialog as ConfirmDialog,
-} from '@wordpress/components';
-import { store as coreStore, useEntityId } from '@wordpress/core-data';
-import { useDispatch } from '@wordpress/data';
-import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { store as coreStore, useEntityId } from '@finpress/core-data';
+import { useDispatch } from '@finpress/data';
+import { useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 export default function NavigationMenuDeleteControl( { onDelete } ) {
 	const [ isConfirmDialogVisible, setIsConfirmDialogVisible ] =

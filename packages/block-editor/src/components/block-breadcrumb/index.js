@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { chevronRightSmall, Icon } from '@wordpress/icons';
-import { useRef } from '@wordpress/element';
+import { Button } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { chevronRightSmall, Icon } from '@finpress/icons';
+import { useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { createHigherOrderComponent, useFocusReturn } from '@wordpress/compose';
-import deprecated from '@wordpress/deprecated';
+import { Component } from '@finpress/element';
+import { createHigherOrderComponent, useFocusReturn } from '@finpress/compose';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Returns true if the given object is component-like. An object is component-

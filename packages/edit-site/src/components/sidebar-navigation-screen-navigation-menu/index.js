@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityRecord, store as coreStore } from '@wordpress/core-data';
-import { Spinner } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { decodeEntities } from '@wordpress/html-entities';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { useEntityRecord, store as coreStore } from '@finpress/core-data';
+import { Spinner } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { decodeEntities } from '@finpress/html-entities';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

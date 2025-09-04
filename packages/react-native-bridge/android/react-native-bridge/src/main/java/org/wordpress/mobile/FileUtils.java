@@ -1,9 +1,9 @@
-package org.wordpress.mobile;
+package org.finpress.mobile;
 
 import android.app.Activity;
 import android.content.res.AssetManager;
 
-import org.wordpress.android.util.AppLog;
+import org.finpress.android.util.AppLog;
 
 import java.io.BufferedReader;
 import java.io.IOException;

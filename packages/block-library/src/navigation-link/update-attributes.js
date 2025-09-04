@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { escapeHTML } from '@wordpress/escape-html';
-import { safeDecodeURI, getPath } from '@wordpress/url';
+import { escapeHTML } from '@finpress/escape-html';
+import { safeDecodeURI, getPath } from '@finpress/url';
 
 /**
  * Determines if an entity link should be severed based on URL changes.
@@ -32,7 +32,7 @@ const shouldSeverEntityLink = ( originalUrl, newUrl ) => {
 				baseUrl ||
 				( typeof window !== 'undefined'
 					? window.location.origin
-					: 'https://wordpress.org' );
+					: 'https://finpress.org' );
 			return new URL( url, base );
 		} catch ( error ) {
 			// If URL construction still fails, it's likely an invalid URL
@@ -156,13 +156,13 @@ export const updateAttributes = (
 	// Why? Because there isn't one way to escape data. Depending on the context, you need to do
 	// different transforms. It doesn't make sense to me to choose one of them for the purposes of storage.
 	// See also:
-	// - https://github.com/WordPress/gutenberg/pull/41063
-	// - https://github.com/WordPress/gutenberg/pull/18617.
+	// - https://github.com/FinPress/gutenberg/pull/41063
+	// - https://github.com/FinPress/gutenberg/pull/18617.
 	const label = useNewLabel
 		? escapeHTML( finalNewLabel )
 		: originalLabel || escapeHTML( newUrlWithoutHttp );
 
-	// In https://github.com/WordPress/gutenberg/pull/24670 we decided to use "tag" in favor of "post_tag"
+	// In https://github.com/FinPress/gutenberg/pull/24670 we decided to use "tag" in favor of "post_tag"
 	const type = newType === 'post_tag' ? 'tag' : newType.replace( '-', '_' );
 
 	const isBuiltInType =

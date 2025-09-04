@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { hasBlockSupport, store as blocksStore } from '@wordpress/blocks';
-import { useMemo } from '@wordpress/element';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as preferencesStore } from '@finpress/preferences';
+import { hasBlockSupport, store as blocksStore } from '@finpress/blocks';
+import { useMemo } from '@finpress/element';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

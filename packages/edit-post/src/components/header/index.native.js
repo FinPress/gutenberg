@@ -4,10 +4,10 @@
 import { Keyboard } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import '@wordpress/editor';
+import { Component } from '@finpress/element';
+import '@finpress/editor';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
+import { useCallback } from '@finpress/element';
 import {
 	cloneBlock,
 	createBlock,
@@ -9,9 +9,9 @@ import {
 	getBlockTransforms,
 	pasteHandler,
 	store as blocksStore,
-} from '@wordpress/blocks';
-import { useDispatch, useSelect, useRegistry } from '@wordpress/data';
-import { getFilesFromDataTransfer } from '@wordpress/dom';
+} from '@finpress/blocks';
+import { useDispatch, useSelect, useRegistry } from '@finpress/data';
+import { getFilesFromDataTransfer } from '@finpress/dom';
 
 /**
  * Internal dependencies

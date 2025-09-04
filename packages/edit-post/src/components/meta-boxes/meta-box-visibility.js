@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
+import { useEffect } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
 
 export default function MetaBoxVisibility( { id } ) {
 	const isVisible = useSelect(

@@ -4,12 +4,12 @@
 import { render } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	subscribeMediaUpload,
 	sendMediaUpload,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 /* eslint-disable playwright/no-conditional-in-test, playwright/expect-expect */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { test, Metrics } from '@wordpress/e2e-test-utils-playwright';
+import { test, Metrics } from '@finpress/e2e-test-utils-playwright';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import { test, Metrics } from '@wordpress/e2e-test-utils-playwright';
 import { PerfUtils } from '../fixtures';
 import { sum } from '../utils.js';
 
-// See https://github.com/WordPress/gutenberg/issues/51383#issuecomment-1613460429
+// See https://github.com/FinPress/gutenberg/issues/51383#issuecomment-1613460429
 const BROWSER_IDLE_WAIT = 1000;
 
 const results = {
@@ -606,7 +606,7 @@ test.describe( 'Post Editor Performance', () => {
 					name: 'core/social-links-shared-background-color',
 					title: 'Social links with a shared background color',
 					content:
-						'<!-- wp:social-links {"customIconColor":"#ffffff","iconColorValue":"#ffffff","customIconBackgroundColor":"#3962e3","iconBackgroundColorValue":"#3962e3","className":"has-icon-color"} -->\n\t\t\t\t\t\t<ul class="wp-block-social-links has-icon-color has-icon-background-color"><!-- wp:social-link {"url":"https://wordpress.org","service":"wordpress"} /-->\n\t\t\t\t\t\t<!-- wp:social-link {"url":"#","service":"chain"} /-->\n\t\t\t\t\t\t<!-- wp:social-link {"url":"#","service":"mail"} /--></ul>\n\t\t\t\t\t\t<!-- /wp:social-links -->',
+						'<!-- wp:social-links {"customIconColor":"#ffffff","iconColorValue":"#ffffff","customIconBackgroundColor":"#3962e3","iconBackgroundColorValue":"#3962e3","className":"has-icon-color"} -->\n\t\t\t\t\t\t<ul class="wp-block-social-links has-icon-color has-icon-background-color"><!-- wp:social-link {"url":"https://finpress.org","service":"finpress"} /-->\n\t\t\t\t\t\t<!-- wp:social-link {"url":"#","service":"chain"} /-->\n\t\t\t\t\t\t<!-- wp:social-link {"url":"#","service":"mail"} /--></ul>\n\t\t\t\t\t\t<!-- /wp:social-links -->',
 					viewportWidth: 500,
 					categories: [ 'test' ],
 					blockTypes: [ 'core/social-links' ],
@@ -634,7 +634,7 @@ test.describe( 'Post Editor Performance', () => {
 					name: 'core/social-links-shared-background-color-2',
 					title: 'Social links with a shared background color 2',
 					content:
-						'<!-- wp:social-links {"customIconColor":"#ffffff","iconColorValue":"#ffffff","customIconBackgroundColor":"#3962e3","iconBackgroundColorValue":"#3962e3","className":"has-icon-color"} -->\n\t\t\t\t\t\t<ul class="wp-block-social-links has-icon-color has-icon-background-color"><!-- wp:social-link {"url":"https://wordpress.org","service":"wordpress"} /-->\n\t\t\t\t\t\t<!-- wp:social-link {"url":"#","service":"chain"} /-->\n\t\t\t\t\t\t<!-- wp:social-link {"url":"#","service":"mail"} /--></ul>\n\t\t\t\t\t\t<!-- /wp:social-links -->',
+						'<!-- wp:social-links {"customIconColor":"#ffffff","iconColorValue":"#ffffff","customIconBackgroundColor":"#3962e3","iconBackgroundColorValue":"#3962e3","className":"has-icon-color"} -->\n\t\t\t\t\t\t<ul class="wp-block-social-links has-icon-color has-icon-background-color"><!-- wp:social-link {"url":"https://finpress.org","service":"finpress"} /-->\n\t\t\t\t\t\t<!-- wp:social-link {"url":"#","service":"chain"} /-->\n\t\t\t\t\t\t<!-- wp:social-link {"url":"#","service":"mail"} /--></ul>\n\t\t\t\t\t\t<!-- /wp:social-links -->',
 					viewportWidth: 500,
 					categories: [ 'test' ],
 					blockTypes: [ 'core/social-links' ],

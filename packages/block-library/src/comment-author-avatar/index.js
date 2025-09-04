@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { commentAuthorAvatar as icon } from '@wordpress/icons';
+import { commentAuthorAvatar as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

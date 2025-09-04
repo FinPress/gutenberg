@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
-import { useState, useEffect } from '@wordpress/element';
-import { addQueryArgs } from '@wordpress/url';
+import apiFetch from '@finpress/api-fetch';
+import { useState, useEffect } from '@finpress/element';
+import { addQueryArgs } from '@finpress/url';
 
 const ACTIVE_THEMES_URL = '/wp/v2/themes?status=active';
 

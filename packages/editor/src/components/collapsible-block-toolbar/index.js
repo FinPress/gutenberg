@@ -4,18 +4,18 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockToolbar,
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { useEffect } from '@wordpress/element';
-import { Button, Popover } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { next, previous } from '@wordpress/icons';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { useEffect } from '@finpress/element';
+import { Button, Popover } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { next, previous } from '@finpress/icons';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

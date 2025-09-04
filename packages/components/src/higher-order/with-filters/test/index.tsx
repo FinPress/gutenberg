@@ -4,9 +4,9 @@
 import { render, waitFor } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter, removeAllFilters, removeFilter } from '@wordpress/hooks';
+import { addFilter, removeAllFilters, removeFilter } from '@finpress/hooks';
 
 /**
  * Internal dependencies

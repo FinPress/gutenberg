@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { insert, isCollapsed } from '@wordpress/rich-text';
-import { applyFilters } from '@wordpress/hooks';
+import { insert, isCollapsed } from '@finpress/rich-text';
+import { applyFilters } from '@finpress/hooks';
 
 /**
  * Internal dependencies

@@ -30,7 +30,7 @@ export interface UserRequestData {
 /**
  * List all users.
  *
- * @see https://developer.wordpress.org/rest-api/reference/users/#list-users
+ * @see https://developer.finpress.org/rest-api/reference/users/#list-users
  * @param this
  */
 async function listUsers( this: RequestUtils ) {
@@ -48,7 +48,7 @@ async function listUsers( this: RequestUtils ) {
 /**
  * Add a test user.
  *
- * @see https://developer.wordpress.org/rest-api/reference/users/#create-a-user
+ * @see https://developer.finpress.org/rest-api/reference/users/#create-a-user
  * @param this
  * @param user User data to create.
  */
@@ -86,7 +86,7 @@ async function createUser( this: RequestUtils, user: UserData ) {
 /**
  * Delete a user.
  *
- * @see https://developer.wordpress.org/rest-api/reference/users/#delete-a-user
+ * @see https://developer.finpress.org/rest-api/reference/users/#delete-a-user
  * @param this
  * @param userId The ID of the user.
  */

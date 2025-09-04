@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-import { upload, Icon } from '@wordpress/icons';
-import { getFilesFromDataTransfer } from '@wordpress/dom';
-import { __experimentalUseDropZone as useDropZone } from '@wordpress/compose';
+import { __ } from '@finpress/i18n';
+import { useState } from '@finpress/element';
+import { upload, Icon } from '@finpress/icons';
+import { getFilesFromDataTransfer } from '@finpress/dom';
+import { __experimentalUseDropZone as useDropZone } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -22,8 +22,8 @@ import type { WordPressComponentProps } from '../context';
  * `DropZone` is a component creating a drop zone area taking the full size of its parent element. It supports dropping files, HTML content or any other HTML drop event.
  *
  * ```jsx
- * import { DropZone } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { DropZone } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyDropZone = () => {
  *   const [ hasDropped, setHasDropped ] = useState( false );

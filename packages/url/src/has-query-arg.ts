@@ -11,7 +11,7 @@ import { getQueryArg } from './get-query-arg';
  *
  * @example
  * ```js
- * const hasBar = hasQueryArg( 'https://wordpress.org?foo=bar&bar=baz', 'bar' ); // true
+ * const hasBar = hasQueryArg( 'https://finpress.org?foo=bar&bar=baz', 'bar' ); // true
  * ```
  *
  * @return Whether or not the URL contains the query arg.

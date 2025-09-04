@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRegistry } from '@wordpress/data';
+import { createRegistry } from '@finpress/data';
 
 const getFooSelector = ( state ) => state;
 

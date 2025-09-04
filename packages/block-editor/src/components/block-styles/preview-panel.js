@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockType } from '@wordpress/blocks';
-import { useMemo } from '@wordpress/element';
+import { getBlockType } from '@finpress/blocks';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

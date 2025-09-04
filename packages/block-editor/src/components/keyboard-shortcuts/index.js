@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
-import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
-import { __ } from '@wordpress/i18n';
+import { useEffect } from '@finpress/element';
+import { useDispatch } from '@finpress/data';
+import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+import { __ } from '@finpress/i18n';
 
 function KeyboardShortcuts() {
 	return null;

@@ -7,13 +7,13 @@ import removeAccents from 'remove-accents';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { __, sprintf } from '@wordpress/i18n';
-import { useState, useMemo, useDeferredValue } from '@wordpress/element';
-import { VisuallyHidden, Icon, Composite } from '@wordpress/components';
-import { search, check } from '@wordpress/icons';
+import { useInstanceId } from '@finpress/compose';
+import { __, sprintf } from '@finpress/i18n';
+import { useState, useMemo, useDeferredValue } from '@finpress/element';
+import { VisuallyHidden, Icon, Composite } from '@finpress/components';
+import { search, check } from '@finpress/icons';
 
 /**
  * Internal dependencies

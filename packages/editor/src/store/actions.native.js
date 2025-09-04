@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import RNReactNativeGutenbergBridge from '@wordpress/react-native-bridge';
+import RNReactNativeGutenbergBridge from '@finpress/react-native-bridge';
 
 export * from './actions.js';
 

@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
@@ -26,16 +26,16 @@ import {
 	ColorPalette,
 	Modal,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 import {
 	plus,
 	shadow as shadowIcon,
 	reset,
 	moreVertical,
-} from '@wordpress/icons';
-import { useState, useMemo, useEffect, useRef } from '@wordpress/element';
+} from '@finpress/icons';
+import { useState, useMemo, useEffect, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -4,15 +4,15 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	withColors,
 	__experimentalUseGradient,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 	__experimentalUseBorderProps as useBorderProps,
-} from '@wordpress/block-editor';
-import { compose } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { compose } from '@finpress/compose';
 
 /**
  * Internal dependencies

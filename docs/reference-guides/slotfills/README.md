@@ -3,22 +3,22 @@
 Slot and Fill are components that have been exposed to allow developers to inject items into some predefined places in the Gutenberg admin experience.
 Please see the [SlotFill component docs](/packages/components/src/slot-fill/README.md) for more details.
 
-In order to use them, we must leverage the [@wordpress/plugins](/packages/plugins/README.md) api to register a plugin that will inject our items.
+In order to use them, we must leverage the [@finpress/plugins](/packages/plugins/README.md) api to register a plugin that will inject our items.
 
 ## Usage overview
 
 In order to access the SlotFills, we need to do four things:
 
-1. Import the `registerPlugin` method from the `@wordpress/plugins` package.
-2. Import the SlotFill we want from the `@wordpress/editor'` package.
+1. Import the `registerPlugin` method from the `@finpress/plugins` package.
+2. Import the SlotFill we want from the `@finpress/editor'` package.
 3. Define a component to render our changes. Our changes/additions will be wrapped in the SlotFill component we imported.
 4. Register the plugin.
 
 Here is an example using the `PluginPostStatusInfo` slotFill:
 
 ```js
-import { registerPlugin } from '@wordpress/plugins';
-import { PluginPostStatusInfo } from '@wordpress/editor';
+import { registerPlugin } from '@finpress/plugins';
+import { PluginPostStatusInfo } from '@finpress/editor';
 
 const PluginPostStatusInfoTest = () => (
 	<PluginPostStatusInfo>
@@ -39,16 +39,16 @@ A fill can be restricted to the Post Editor by checking to see if the current po
 
 ```js
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerPlugin } from '@wordpress/plugins';
+import { registerPlugin } from '@finpress/plugins';
 import {
 	PluginDocumentSettingPanel,
 	store as editorStore,
-} from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/editor';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 
 /**
  * The component to be rendered  as part of the plugin.
@@ -88,16 +88,16 @@ The following example expands on the example above by creating an allow list of 
 
 ```js
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerPlugin } from '@wordpress/plugins';
+import { registerPlugin } from '@finpress/plugins';
 import {
 	PluginDocumentSettingPanel,
 	store as editorStore,
-} from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
+} from '@finpress/editor';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * The component to be rendered  as part of the plugin.
@@ -150,16 +150,16 @@ To restrict fills to the Site Editor, the reverse logic is true. If the post typ
 
 ```js
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerPlugin } from '@wordpress/plugins';
+import { registerPlugin } from '@finpress/plugins';
 import {
 	PluginDocumentSettingPanel,
 	store as editorStore,
-} from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/editor';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 
 /**
  * The component to be rendered  as part of the plugin.
@@ -170,7 +170,7 @@ const SiteEditorDocumentSettingPanel = () => {
 		const postTypeName = select( editorStore ).getCurrentPostType();
 		const postTypeObject = select( coreStore ).getPostType( postTypeName );
 
-		// A viewable post type is one than can be viewed in the WordPress admin. Internal ones are not set to viewable.
+		// A viewable post type is one than can be viewed in the FinPress admin. Internal ones are not set to viewable.
 		return postTypeObject?.viewable;
 	}, [] );
 
@@ -201,16 +201,16 @@ This example builds on the example above by providing an allow list to control w
 
 ```js
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerPlugin } from '@wordpress/plugins';
+import { registerPlugin } from '@finpress/plugins';
 import {
 	PluginDocumentSettingPanel,
 	store as editorStore,
-} from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
+} from '@finpress/editor';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * The component to be rendered  as part of the plugin.
@@ -228,7 +228,7 @@ const SiteEditorDocumentSettingPanel = () => {
 		const postTypeObject = select( coreStore ).getPostType( postTypeName );
 
 		return {
-			// A viewable post type is one than can be viewed in the WordPress admin. Internal ones are not set to viewable.
+			// A viewable post type is one than can be viewed in the FinPress admin. Internal ones are not set to viewable.
 			isViewable: postTypeObject?.viewable,
 			postType: postTypeName,
 		};
@@ -266,7 +266,7 @@ registerPlugin( 'example-site-editor-only', {
 
 SlotFills are created using `createSlotFill`. This creates two components, `Slot` and `Fill` which are then used to create a new component that is exported on the `wp.plugins` global.
 
-**Definition of the `PluginPostStatusInfo` SlotFill** ([see core code](https://github.com/WordPress/gutenberg/blob/HEAD/packages/editor/src/components/plugin-post-status-info/index.js#L55))
+**Definition of the `PluginPostStatusInfo` SlotFill** ([see core code](https://github.com/FinPress/gutenberg/blob/HEAD/packages/editor/src/components/plugin-post-status-info/index.js#L55))
 
 ```js
 /**
@@ -274,9 +274,9 @@ SlotFills are created using `createSlotFill`. This creates two components, `Slot
  */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSlotFill, PanelRow } from '@wordpress/components';
+import { createSlotFill, PanelRow } from '@finpress/components';
 
 export const { Fill, Slot } = createSlotFill( 'PluginPostStatusInfo' );
 
@@ -296,7 +296,7 @@ This new Slot is then exposed in the editor. The example below is from core and 
 As we can see, the `<PluginPostStatusInfo.Slot>` is wrapping all of the items that will appear in the panel.
 Any items that have been added via the SlotFill ( see the example above ), will be included in the `fills` parameter and be displayed in the end of the component.
 
-See [core code](https://github.com/WordPress/gutenberg/tree/HEAD/packages/editor/src/components/sidebar/post-summary.js#L39).
+See [core code](https://github.com/FinPress/gutenberg/tree/HEAD/packages/editor/src/components/sidebar/post-summary.js#L39).
 
 ```js
 export default function PostSummary( { onActionPerformed } ) {

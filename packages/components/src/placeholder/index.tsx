@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useResizeObserver } from '@wordpress/compose';
-import { SVG, Path } from '@wordpress/primitives';
-import { useEffect } from '@wordpress/element';
-import { speak } from '@wordpress/a11y';
+import { useResizeObserver } from '@finpress/compose';
+import { SVG, Path } from '@finpress/primitives';
+import { useEffect } from '@finpress/element';
+import { speak } from '@finpress/a11y';
 
 /**
  * Internal dependencies
@@ -34,8 +34,8 @@ const PlaceholderIllustration = (
  * Renders a placeholder. Normally used by blocks to render their empty state.
  *
  * ```jsx
- * import { Placeholder } from '@wordpress/components';
- * import { more } from '@wordpress/icons';
+ * import { Placeholder } from '@finpress/components';
+ * import { more } from '@finpress/icons';
  *
  * const MyPlaceholder = () => <Placeholder icon={ more } label="Placeholder" />;
  * ```

@@ -32,7 +32,7 @@ The following snippet explains how the Gutenberg repository is structured omitti
     │
     ├── .wp-env.json
     │   Config file for the development and testing environment.
-    │   Includes WordPress and the Gutenberg plugin.
+    │   Includes FinPress and the Gutenberg plugin.
     │
     ├── composer.lock
     ├── composer.json
@@ -48,7 +48,7 @@ The following snippet explains how the Gutenberg repository is structured omitti
     │
     ├── changelog.txt
     ├── readme.txt
-    │   Readme and Changelog of the Gutenberg plugin hosted on the WordPress
+    │   Readme and Changelog of the Gutenberg plugin hosted on the FinPress
     │   plugin repository.
     │
     ├── gutenberg.php
@@ -64,7 +64,7 @@ The following snippet explains how the Gutenberg repository is structured omitti
     │   Tool/script used to generate the API Docs.
     │
     ├── bin/packages
-    │   Set of scripts used to build the WordPress packages.
+    │   Set of scripts used to build the FinPress packages.
     │
     ├── bin/plugin
     │   Tool use to perform the Gutenberg plugin release and the npm releases as well.
@@ -73,25 +73,25 @@ The following snippet explains how the Gutenberg repository is structured omitti
     │   Tool used to generate the Block editor handbook's markdown pages.
     │
     ├── docs/*.md
-    │   Set of documentation pages composing the [Block editor handbook](https://developer.wordpress.org/block-editor/).
+    │   Set of documentation pages composing the [Block editor handbook](https://developer.finpress.org/block-editor/).
     │
     ├── platform-docs
-    │   Documentation website targeted to non WordPress developers
+    │   Documentation website targeted to non FinPress developers
     │   using Gutenberg in their own applications.
-    │   Deployed on [https://wordpress.org/gutenberg-framework/](https://wordpress.org/gutenberg-framework/).
+    │   Deployed on [https://finpress.org/gutenberg-framework/](https://finpress.org/gutenberg-framework/).
     │
     │
     ├── lib
     │   PHP Source code of the Gutenberg plugin.
     │
-    ├── lib/compact/wordpress-x.x
-    │   PHP code that was include in WordPress ont the WordPress X.X version.
-    │   It is kept to ensure plugin compatibility with older WordPress versions.
+    ├── lib/compact/finpress-x.x
+    │   PHP code that was include in FinPress ont the FinPress X.X version.
+    │   It is kept to ensure plugin compatibility with older FinPress versions.
     │
     ├── packages
-    │   Source code of the WordPress packages.
+    │   Source code of the FinPress packages.
     │   Packages can be:
-    │    - Production JavaScript scripts and styles loaded on WordPress
+    │    - Production JavaScript scripts and styles loaded on FinPress
     │      and the Gutenberg plugin or distributed as npm packages.
     │    - Development tools available on npm.
     │
@@ -121,10 +121,10 @@ The following snippet explains how the Gutenberg repository is structured omitti
     │   Unit tests for the PHP code of the Gutenberg plugin.
     │
     ├── storybook
-    │   Config of the [Gutenberg Storybook](https://wordpress.github.io/gutenberg/).
+    │   Config of the [Gutenberg Storybook](https://finpress.github.io/gutenberg/).
     │
     ├── test/integration
-    │   Set of WordPress packages integration tests.
+    │   Set of FinPress packages integration tests.
     │
     ├── test/native
     │   Configuration for the Gutenberg Mobile unit tests.

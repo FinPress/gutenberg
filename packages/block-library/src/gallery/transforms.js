@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
-import { createBlobURL } from '@wordpress/blob';
-import { addFilter } from '@wordpress/hooks';
+import { createBlock } from '@finpress/blocks';
+import { createBlobURL } from '@finpress/blob';
+import { addFilter } from '@finpress/hooks';
 
 /**
  * Internal dependencies

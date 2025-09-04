@@ -1,21 +1,21 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	createBlocksFromInnerBlocksTemplate,
 	store as blocksStore,
-} from '@wordpress/blocks';
-import { useState } from '@wordpress/element';
+} from '@finpress/blocks';
+import { useState } from '@finpress/element';
 import {
 	store as blockEditorStore,
 	__experimentalBlockVariationPicker,
 	BlockControls,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { Button, Placeholder } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useResizeObserver } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { Button, Placeholder } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useResizeObserver } from '@finpress/compose';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createInterpolateElement } from '@wordpress/element';
+import { createInterpolateElement } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -14,7 +14,7 @@ import type { TextHighlightProps } from './types';
  * each match with a `<mark>` tag which provides browser default styling.
  *
  * ```jsx
- * import { TextHighlight } from '@wordpress/components';
+ * import { TextHighlight } from '@finpress/components';
  *
  * const MyTextHighlight = () => (
  *   <TextHighlight

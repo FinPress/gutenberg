@@ -10,16 +10,16 @@ import {
 } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	registerBlockType,
 	setDefaultBlockName,
 	unregisterBlockType,
-} from '@wordpress/blocks';
-import { coreBlocks } from '@wordpress/block-library';
-import { BlockControls, BlockEdit } from '@wordpress/block-editor';
-import { SlotFillProvider } from '@wordpress/components';
+} from '@finpress/blocks';
+import { coreBlocks } from '@finpress/block-library';
+import { BlockControls, BlockEdit } from '@finpress/block-editor';
+import { SlotFillProvider } from '@finpress/components';
 
 /**
  * Internal dependencies

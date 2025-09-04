@@ -11,9 +11,9 @@ import { render } from '@ariakit/test/react';
 import _FontSizePicker from '../';
 import type { FontSize } from '../types';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 const FontSizePicker = (
 	props: React.ComponentProps< typeof _FontSizePicker >

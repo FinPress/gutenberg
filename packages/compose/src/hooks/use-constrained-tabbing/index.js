@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { focus } from '@wordpress/dom';
+import { focus } from '@finpress/dom';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ import useRefEffect from '../use-ref-effect';
  *
  * @example
  * ```js
- * import { useConstrainedTabbing } from '@wordpress/compose';
+ * import { useConstrainedTabbing } from '@finpress/compose';
  *
  * const ConstrainedTabbingExample = () => {
  *     const constrainedTabbingRef = useConstrainedTabbing()
@@ -49,7 +49,7 @@ function useConstrainedTabbing() {
 			// container, browsers may disagree on where to move focus next.
 			// In this case we can't rely on native browsers behavior. We need
 			// to manage focus instead.
-			// See https://github.com/WordPress/gutenberg/issues/46041.
+			// See https://github.com/FinPress/gutenberg/issues/46041.
 			if (
 				/** @type {HTMLElement} */ ( target ).contains( nextElement )
 			) {

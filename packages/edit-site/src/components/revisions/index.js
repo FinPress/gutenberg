@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Disabled } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { Disabled } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 import {
 	BlockList,
 	privateApis as blockEditorPrivateApis,
 	store as blockEditorStore,
 	__unstableEditorStyles as EditorStyles,
 	__unstableIframe as Iframe,
-} from '@wordpress/block-editor';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
-import { useSelect } from '@wordpress/data';
-import { useContext, useMemo } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
+import { useSelect } from '@finpress/data';
+import { useContext, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useMemo } from '@wordpress/element';
+import { useEntityProp, store as coreStore } from '@finpress/core-data';
+import { useMemo } from '@finpress/element';
 import {
 	AlignmentToolbar,
 	BlockControls,
@@ -16,15 +16,15 @@ import {
 	Warning,
 	useBlockProps,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	ToggleControl,
 	RangeControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -59,7 +59,7 @@ export default function PostExcerptEditor( {
 	 * Add an exception and return early for the "page" post type,
 	 * which is registered without support for the excerpt UI,
 	 * but supports saving the excerpt to the database.
-	 * See: https://core.trac.wordpress.org/browser/branches/6.1/src/wp-includes/post.php#L65
+	 * See: https://core.trac.finpress.org/browser/branches/6.1/src/wp-includes/post.php#L65
 	 * Without this exception, users that have excerpts saved to the database will
 	 * not be able to edit the excerpts.
 	 */

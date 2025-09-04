@@ -5,7 +5,7 @@ import './style.scss';
 
 // See https://www.figma.com/developers/embed#embed-a-figma-file
 const CONFIG = {
-	'embed-host': 'wordpress-storybook',
+	'embed-host': 'finpress-storybook',
 	footer: false,
 	'page-selector': false,
 	'viewport-controls': true,

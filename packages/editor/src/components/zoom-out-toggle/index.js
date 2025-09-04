@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useEffect } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { square as zoomOutIcon } from '@wordpress/icons';
-import { store as preferencesStore } from '@wordpress/preferences';
+import { Button } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useEffect } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { square as zoomOutIcon } from '@finpress/icons';
+import { store as preferencesStore } from '@finpress/preferences';
 import {
 	useShortcut,
 	store as keyboardShortcutsStore,
-} from '@wordpress/keyboard-shortcuts';
-import { isAppleOS } from '@wordpress/keycodes';
+} from '@finpress/keyboard-shortcuts';
+import { isAppleOS } from '@finpress/keycodes';
 
 /**
  * Internal dependencies

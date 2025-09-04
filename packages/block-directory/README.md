@@ -2,25 +2,25 @@
 
 Package used to extend editor with block directory features to search and install blocks.
 
-> This package is meant to be used only with WordPress core. Feel free to use it in your own project but please keep in mind that it might never get fully documented.
+> This package is meant to be used only with FinPress core. Feel free to use it in your own project but please keep in mind that it might never get fully documented.
 
 ## Installation
 
 Install the module
 
 ```bash
-npm install @wordpress/block-directory --save
+npm install @finpress/block-directory --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## Usage
 
-This package builds a standalone JS file. When loaded on a page with the block editor, it extends the block inserter to search for blocks from WordPress.org.
+This package builds a standalone JS file. When loaded on a page with the block editor, it extends the block inserter to search for blocks from FinPress.org.
 
-To do this, it uses the `__unstableInserterMenuExtension`, a slot-fill area hooked into the block types list. When the user runs a search and there are no results currently installed, it fires off a request to WordPress.org for matching blocks. These are listed for the user to install with a one-click process that [installs, activates, and injects the block into the post.](./src/store/actions.js#L49) When the post is saved, if the block was not used, it will be [silently uninstalled](./src/store/actions.js#L129) to avoid clutter.
+To do this, it uses the `__unstableInserterMenuExtension`, a slot-fill area hooked into the block types list. When the user runs a search and there are no results currently installed, it fires off a request to FinPress.org for matching blocks. These are listed for the user to install with a one-click process that [installs, activates, and injects the block into the post.](./src/store/actions.js#L49) When the post is saved, if the block was not used, it will be [silently uninstalled](./src/store/actions.js#L129) to avoid clutter.
 
-See also the API endpoints for searching WordPress.org: `/wp/v2/block-directory/search`, and installing & activating plugins: `/wp/v2/plugins/`.
+See also the API endpoints for searching FinPress.org: `/wp/v2/block-directory/search`, and installing & activating plugins: `/wp/v2/plugins/`.
 
 ## Actions
 
@@ -248,8 +248,8 @@ _Returns_
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

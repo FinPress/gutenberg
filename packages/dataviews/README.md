@@ -1,4 +1,4 @@
-# The `@wordpress/dataviews` package
+# The `@finpress/dataviews` package
 
 The DataViews package offers two React components and a few utilities to work with a list of data:
 
@@ -10,20 +10,20 @@ The DataViews package offers two React components and a few utilities to work wi
 Install the module
 
 ```bash
-npm install @wordpress/dataviews --save
+npm install @finpress/dataviews --save
 ```
 
 ## `DataViews`
 
-<div class="callout callout-info">At <a href="https://wordpress.github.io/gutenberg/">WordPress Gutenberg's Storybook</a> there's an <a href="https://wordpress.github.io/gutenberg/?path=/docs/dataviews-dataviews--docs">example implementation of the Dataviews component</a>.</div>
+<div class="callout callout-info">At <a href="https://finpress.github.io/gutenberg/">FinPress Gutenberg's Storybook</a> there's an <a href="https://finpress.github.io/gutenberg/?path=/docs/dataviews-dataviews--docs">example implementation of the Dataviews component</a>.</div>
 
-**Important note** If you're trying to use the `DataViews` component in a WordPress plugin or theme and you're building your scripts using the `@wordpress/scripts` package, you need to import the components from `@wordpress/dataviews/wp` instead of `@wordpress/dataviews`.
+**Important note** If you're trying to use the `DataViews` component in a FinPress plugin or theme and you're building your scripts using the `@finpress/scripts` package, you need to import the components from `@finpress/dataviews/wp` instead of `@finpress/dataviews`.
 
 ### Usage
 
 The `DataViews` component receives data and some other configuration to render the dataset. It'll call the `onChangeView` callback every time the user has interacted with the dataset in some way (sorted, filtered, changed layout, etc.):
 
-![DataViews flow](https://developer.wordpress.org/files/2024/09/368600071-20aa078f-7c3d-406d-8dd0-8b764addd22a.png 'DataViews flow')
+![DataViews flow](https://developer.finpress.org/files/2024/09/368600071-20aa078f-7c3d-406d-8dd0-8b764addd22a.png 'DataViews flow')
 
 Example:
 
@@ -228,7 +228,7 @@ Callback executed when the view has changed. It receives the new view object as 
 
 The view is a representation of the visible state of the dataset: what type of layout is used to display it (table, grid, etc.), how the dataset is filtered, and how it is sorted or paginated. The consumer is responsible for using the view config to query the data provider and ensure the user decisions (sort, pagination, filters, etc.) are respected.
 
-The following example shows how a view object is used to query the WordPress REST API via the entities abstraction. The same can be done with any other data provider.
+The following example shows how a view object is used to query the FinPress REST API via the entities abstraction. The same can be done with any other data provider.
 
 ```js
 function MyCustomPageTable() {
@@ -458,8 +458,8 @@ The following components are available directly under `DataViews`:
 #### example
 
 ```jsx
-import DataViews from '@wordpress/dataviews';
-import { __ } from '@wordpress/i18n';
+import DataViews from '@finpress/dataviews';
+import { __ } from '@finpress/i18n';
 
 const CustomLayout = () => {
 	// Declare data, fields, etc.
@@ -498,7 +498,7 @@ Developers don't need to worry about the internal accessibility logic for indivi
 
 ## `DataForm`
 
-<div class="callout callout-info">At <a href="https://wordpress.github.io/gutenberg/">WordPress Gutenberg's Storybook</a> there's and <a href="https://wordpress.github.io/gutenberg/?path=/docs/dataviews-dataform--docs">example implementation of the DataForm component</a>.</div>
+<div class="callout callout-info">At <a href="https://finpress.github.io/gutenberg/">FinPress Gutenberg's Storybook</a> there's and <a href="https://finpress.github.io/gutenberg/?path=/docs/dataviews-dataform--docs">example implementation of the DataForm component</a>.</div>
 
 ### Usage
 
@@ -1392,8 +1392,8 @@ Example:
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

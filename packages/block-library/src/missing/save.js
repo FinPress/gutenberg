@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RawHTML } from '@wordpress/element';
+import { RawHTML } from '@finpress/element';
 
 export default function save( { attributes } ) {
 	// Preserve the missing block's content.

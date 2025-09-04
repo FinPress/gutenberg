@@ -61,7 +61,7 @@ module.exports = async function run( {
  * @param {Object}   spinner   A CLI spinner which indicates progress.
  */
 function spawnCommandDirectly( config, container, command, envCwd, spinner ) {
-	// Both the `wordpress` and `tests-wordpress` containers have the host's
+	// Both the `finpress` and `tests-finpress` containers have the host's
 	// user so that they can maintain ownership parity with the host OS.
 	// We should run any commands as that user so that they are able
 	// to interact with the files mounted from the host.
@@ -138,7 +138,7 @@ function showCommandTips( joinedCommand, container, spinner ) {
 			case 'bash':
 				return 'Exit bash with ctrl-d.';
 			case 'wp shell':
-				return 'Exit the WordPress shell with ctrl-c.';
+				return 'Exit the FinPress shell with ctrl-c.';
 			default:
 				return '';
 		}

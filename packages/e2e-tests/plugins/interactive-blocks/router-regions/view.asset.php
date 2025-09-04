@@ -1,8 +1,8 @@
 <?php return array(
 	'dependencies' => array(
-		'@wordpress/interactivity',
+		'@finpress/interactivity',
 		array(
-			'id'     => '@wordpress/interactivity-router',
+			'id'     => '@finpress/interactivity-router',
 			'import' => 'dynamic',
 		),
 	),

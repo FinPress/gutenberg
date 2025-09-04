@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	header as headerIcon,
 	footer as footerIcon,
 	sidebar as sidebarIcon,
 	symbolFilled as symbolFilledIcon,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 export const getTemplatePartIcon = ( iconName ) => {
 	if ( 'header' === iconName ) {

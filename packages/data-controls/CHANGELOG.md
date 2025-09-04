@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,7 +64,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 3.27.0 (2024-05-16)
 
@@ -124,7 +124,7 @@
 
 ### Breaking Changes
 
--   Publish Typescript build types to npm. ([#49647](https://github.com/WordPress/gutenberg/pull/49647))
+-   Publish Typescript build types to npm. ([#49647](https://github.com/FinPress/gutenberg/pull/49647))
 
 ## 2.30.0 (2023-03-29)
 
@@ -190,8 +190,8 @@
 
 ### Breaking Changes
 
--   Drop support for Internet Explorer 11 ([#31110](https://github.com/WordPress/gutenberg/pull/31110)). Learn more at https://make.wordpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
--   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/WordPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
+-   Drop support for Internet Explorer 11 ([#31110](https://github.com/FinPress/gutenberg/pull/31110)). Learn more at https://make.finpress.org/core/2021/04/22/ie-11-support-phase-out-plan/.
+-   Increase the minimum Node.js version to v12 matching Long Term Support releases ([#31270](https://github.com/FinPress/gutenberg/pull/31270)). Learn more at https://nodejs.org/en/about/releases/.
 
 ## 1.21.0 (2021-03-17)
 
@@ -204,7 +204,7 @@
 ### Deprecations
 
 -   Deprecated the `syncSelect`, `select` and `dispatch` controls that are now part of
-    `@wordpress/data` and built in by default in every data store.
+    `@finpress/data` and built in by default in every data store.
 
 ## 1.4.0 (2019-11-14)
 
@@ -214,4 +214,4 @@
 
 ## 1.0.0 (2019-06-12)
 
-Initial release of the @wordpress/data-controls package.
+Initial release of the @finpress/data-controls package.

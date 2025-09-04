@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { insert } from '@wordpress/rich-text';
+import { insert } from '@finpress/rich-text';
 
 export function preventEventDiscovery( value ) {
 	const searchText = 'tales of gutenberg';

@@ -3,7 +3,7 @@
 ## Usage
 
 ```jsx
-import { withSpokenMessages, Button } from '@wordpress/components';
+import { withSpokenMessages, Button } from '@finpress/components';
 
 const MyComponentWithSpokenMessages = withSpokenMessages(
 	( { speak, debouncedSpeak } ) => (

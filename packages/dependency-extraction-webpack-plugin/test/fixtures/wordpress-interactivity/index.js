@@ -5,7 +5,7 @@
 import _ from 'lodash';
 
 // This module should be externalized
-const { store, getContext } = await import( '@wordpress/interactivity' );
+const { store, getContext } = await import( '@finpress/interactivity' );
 
 store( _.identity( 'my-namespace' ), { state: 'is great' } );
 

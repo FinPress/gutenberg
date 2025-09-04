@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Allowed Blocks Setting on InnerBlocks', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -110,7 +110,7 @@ test.describe( 'Allowed Blocks Setting on InnerBlocks', () => {
 		] );
 	} );
 
-	// Note: This behavior isn't fully supported. See https://github.com/WordPress/gutenberg/issues/14515.
+	// Note: This behavior isn't fully supported. See https://github.com/FinPress/gutenberg/issues/14515.
 	test( 'correctly applies dynamic allowed blocks restrictions', async ( {
 		editor,
 		page,

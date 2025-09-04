@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { renderToString } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+import { renderToString } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ import * as node from './node';
  */
 
 /**
- * Given block children, returns a serialize-capable WordPress element.
+ * Given block children, returns a serialize-capable FinPress element.
  *
  * @param {WPBlockChildren} children Block children object to convert.
  *
@@ -43,7 +43,7 @@ function getChildrenArray( children ) {
 	deprecated( 'wp.blocks.children.getChildrenArray', {
 		since: '6.1',
 		version: '6.3',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
 	// The fact that block children are compatible with the element serializer
@@ -65,7 +65,7 @@ export function concat( ...blockNodes ) {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'wp.richText.concat',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
 	const result = [];
@@ -103,7 +103,7 @@ export function fromDOM( domNodes ) {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'wp.richText.create',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
 	const result = [];
@@ -130,7 +130,7 @@ export function toHTML( children ) {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'wp.richText.toHTMLString',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
 	const element = getSerializeCapableElement( children );
@@ -151,7 +151,7 @@ export function matcher( selector ) {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'html source',
-		link: 'https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
+		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
 	return ( domNode ) => {
@@ -173,7 +173,7 @@ export function matcher( selector ) {
  * Object of utility functions used in managing block attribute values of
  * source `children`.
  *
- * @see https://github.com/WordPress/gutenberg/pull/10439
+ * @see https://github.com/FinPress/gutenberg/pull/10439
  *
  * @deprecated since 4.0. The `children` source should not be used, and can be
  *             replaced by the `html` source.

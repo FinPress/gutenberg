@@ -5,13 +5,13 @@ import { render, fireEvent } from '@testing-library/react-native';
 import { v4 as uuid } from 'uuid';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createElement, cloneElement } from '@wordpress/element';
+import { createElement, cloneElement } from '@finpress/element';
 // eslint-disable-next-line no-restricted-imports
-import { initializeEditor as internalInitializeEditor } from '@wordpress/edit-post';
-import { store as coreStore } from '@wordpress/core-data';
-import { select } from '@wordpress/data';
+import { initializeEditor as internalInitializeEditor } from '@finpress/edit-post';
+import { store as coreStore } from '@finpress/core-data';
+import { select } from '@finpress/data';
 
 /**
  * Internal dependencies

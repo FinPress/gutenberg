@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createHigherOrderComponent } from '@wordpress/compose';
-import { addFilter } from '@wordpress/hooks';
-import { useSelect } from '@wordpress/data';
+import { createHigherOrderComponent } from '@finpress/compose';
+import { addFilter } from '@finpress/hooks';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

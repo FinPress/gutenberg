@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x } from '@wordpress/i18n';
+import { _x } from '@finpress/i18n';
 
 export const DEFAULT_MEDIA_SIZE_SLUG = 'full';
 export const WIDTH_CONSTRAINT_PERCENTAGE = 15;

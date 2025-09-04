@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
-import { useMergeRefs } from '@wordpress/compose';
+import { __ } from '@finpress/i18n';
+import { useMemo, useState } from '@finpress/element';
+import { useMergeRefs } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -152,8 +152,8 @@ const UnconnectedBorderBoxControl = (
  * border can be customized as a whole, or individually for each side of the box.
  *
  * ```jsx
- * import { BorderBoxControl } from '@wordpress/components';
- * import { __ } from '@wordpress/i18n';
+ * import { BorderBoxControl } from '@finpress/components';
+ * import { __ } from '@finpress/i18n';
  *
  * const colors = [
  * 	{ name: 'Blue 20', color: '#72aee6' },

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
-import { useResizeObserver } from '@wordpress/compose';
+import { useCallback, useEffect, useRef, useState } from '@finpress/element';
+import { useResizeObserver } from '@finpress/compose';
 
 const noop = () => {};
 

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { safeDecodeURI } from '@wordpress/url';
+import { safeDecodeURI } from '@finpress/url';
 
 export const parseAudioUrl = ( src ) => {
 	const decodedURI = safeDecodeURI( src );

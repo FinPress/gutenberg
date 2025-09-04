@@ -4,7 +4,7 @@
 import type { Meta } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useState,
@@ -12,7 +12,7 @@ import {
 	useCallback,
 	useEffect,
 	createInterpolateElement,
-} from '@wordpress/element';
+} from '@finpress/element';
 import {
 	Card,
 	CardHeader,
@@ -23,8 +23,8 @@ import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	Button,
-} from '@wordpress/components';
-import { __, _n } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __, _n } from '@finpress/i18n';
 
 /**
  * Internal dependencies

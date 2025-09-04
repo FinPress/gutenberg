@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
-import { useEffect, useRef } from '@wordpress/element';
+import { Button } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
+import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+import { useEffect, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

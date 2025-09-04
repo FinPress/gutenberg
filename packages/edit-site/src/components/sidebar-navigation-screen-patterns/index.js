@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalItem as Item,
-} from '@wordpress/components';
-import { getTemplatePartIcon } from '@wordpress/editor';
-import { __ } from '@wordpress/i18n';
-import { file } from '@wordpress/icons';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+} from '@finpress/components';
+import { getTemplatePartIcon } from '@finpress/editor';
+import { __ } from '@finpress/i18n';
+import { file } from '@finpress/icons';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

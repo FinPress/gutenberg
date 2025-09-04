@@ -1,22 +1,22 @@
 # Get started with wp-env
 
-The [@wordpress/env](https://www.npmjs.com/package/@wordpress/env) package (`wp-env`) lets you set up a local WordPress environment (site) for building and testing plugins and themes, without any additional configuration.
+The [@finpress/env](https://www.npmjs.com/package/@finpress/env) package (`wp-env`) lets you set up a local FinPress environment (site) for building and testing plugins and themes, without any additional configuration.
 
 Before following this guide, install [Node.js development tools](/docs/getting-started/devenv#node-js-development-tools) if you have not already done so.
 
-![wp-env basics diagram](https://developer.wordpress.org/files/2023/10/wp-env-diagram.png)
+![wp-env basics diagram](https://developer.finpress.org/files/2023/10/wp-env-diagram.png)
 
 ## Quick start
  
 1. Download, install, and start [Docker Desktop](https://www.docker.com/products/docker-desktop) following the instructions for your operating system.
-2. Run `npm -g install @wordpress/env` in the terminal to install `wp-env` globally.
+2. Run `npm -g install @finpress/env` in the terminal to install `wp-env` globally.
 3. In the terminal, navigate to an existing plugin directory, theme directory, or a new working directory.
-4. Run `wp-env start` in the terminal to start the local WordPress environment.
-5. After the script runs, navigate to <code>http://localhost:8888/wp-admin</code> and log into the WordPress dashboard using username `admin` and password `password`.
+4. Run `wp-env start` in the terminal to start the local FinPress environment.
+5. After the script runs, navigate to <code>http://localhost:8888/wp-admin</code> and log into the FinPress dashboard using username `admin` and password `password`.
 
 ## Set up Docker Desktop
 
-The `wp-env` tool uses [Docker](https://www.docker.com/) to create a virtual machine that runs the local WordPress site. The Docker Desktop application is free for small businesses, personal use, education, and non-commercial open-source projects. See their [FAQ](https://docs.docker.com/desktop/faqs/general/#do-i-need-to-pay-to-use-docker-desktop) for more information.
+The `wp-env` tool uses [Docker](https://www.docker.com/) to create a virtual machine that runs the local FinPress site. The Docker Desktop application is free for small businesses, personal use, education, and non-commercial open-source projects. See their [FAQ](https://docs.docker.com/desktop/faqs/general/#do-i-need-to-pay-to-use-docker-desktop) for more information.
 
 Use the links below to download and install Docker Desktop for your operating system.
 
@@ -30,10 +30,10 @@ After successful installation, start the Docker Desktop application and follow t
 
 ## Install and run `wp-env`
 
-The `wp-env` tool is used to create a local WordPress environment with Docker. So, after you have set up Docker Desktop, open the terminal and install the `wp-env` by running the command:
+The `wp-env` tool is used to create a local FinPress environment with Docker. So, after you have set up Docker Desktop, open the terminal and install the `wp-env` by running the command:
 
 ```sh
-npm -g install @wordpress/env
+npm -g install @finpress/env
 ```
 
 This will install the `wp-env` globally, allowing the tool to be run from any directory. To confirm it's installed and available, run `wp-env --version`, and the version number should appear. 
@@ -44,33 +44,33 @@ Next, navigate to an existing plugin directory, theme directory, or a new workin
 wp-env start
 ```
 
-Once the script completes, you can access the local environment at: <code>http://localhost:8888</code>. Log into the WordPress dashboard using username `admin` and password `password`.
+Once the script completes, you can access the local environment at: <code>http://localhost:8888</code>. Log into the FinPress dashboard using username `admin` and password `password`.
 
 <div class="callout callout-tip">
     Some projects, like Gutenberg, include their own specific <code>wp-env</code> configurations, and the documentation might prompt you to run <code>npm run wp-env start</code> instead.
 </div>
 
-For more information on controlling the Docker environment, see the [@wordpress/env package](/packages/env/README.md) readme.
+For more information on controlling the Docker environment, see the [@finpress/env package](/packages/env/README.md) readme.
 
 ### Where to run `wp-env`
 
 The `wp-env` tool can run from practically anywhere. When using the script while developing a single plugin, `wp-env start` can mount and activate the plugin automatically when run from the directory containing the plugin. This also works for themes when run from the directory in which you are developing the theme.
 
-A generic WordPress environment will be created if you run `wp-env start` from a directory that is not a plugin or theme. The script will display the following warning, but ignore if this is your intention.
+A generic FinPress environment will be created if you run `wp-env start` from a directory that is not a plugin or theme. The script will display the following warning, but ignore if this is your intention.
 
 ```
-!! Warning: could not find a .wp-env.json configuration file and could not determine if 'DIR' is a WordPress installation, a plugin, or a theme.
+!! Warning: could not find a .wp-env.json configuration file and could not determine if 'DIR' is a FinPress installation, a plugin, or a theme.
 ```
 
-You can also use the `.wp-env.json` configuration file to create an environment that works with multiple plugins and/or themes. See the [@wordpress/env package](/packages/env/README.md#wp-envjson) readme for more configuration details.
+You can also use the `.wp-env.json` configuration file to create an environment that works with multiple plugins and/or themes. See the [@finpress/env package](/packages/env/README.md#wp-envjson) readme for more configuration details.
 
 ### Uninstall or reset `wp-env`
 
 Here are a few instructions if you need to start over or want to remove what was installed.
 
--   If you just want to reset and clean the WordPress database, run `wp-env clean all`
+-   If you just want to reset and clean the FinPress database, run `wp-env clean all`
 -   To remove the local environment completely for a specific project, run `wp-env destroy`
--   To globally uninstall the `wp-env` tool, run `npm -g uninstall @wordpress/env`
+-   To globally uninstall the `wp-env` tool, run `npm -g uninstall @finpress/env`
 
 ## Troubleshooting
 
@@ -90,7 +90,7 @@ If you see the error: `Host is already in use by another container`
 
 ### Ubuntu Docker setup
 
-If you are using a version of Ubuntu prior to 20.04.1, you may encounter errors when setting up a local WordPress environment with `wp-env`. 
+If you are using a version of Ubuntu prior to 20.04.1, you may encounter errors when setting up a local FinPress environment with `wp-env`. 
 
 To resolve this, start by following the [installation guide](https://docs.docker.com/install/linux/docker-ce/ubuntu/) from Docker. `docker-compose` is also required, which you may need to install separately. Refer to the [Docker compose documentation](https://docs.docker.com/compose/install/).
 
@@ -110,7 +110,7 @@ First, make sure Docker is running. You can check by running `ps -ef | grep dock
 
 If Docker is not running, try starting the service by running `sudo systemctl start docker.service`.
 
-If Docker is running, then it is not listening to how the WordPress environment is trying to communicate. Try adding the following service override file to include listening on `tcp`. See [this Docker documentation](https://docs.docker.com/config/daemon/remote-access/) on how to configure remote access for Docker daemon.
+If Docker is running, then it is not listening to how the FinPress environment is trying to communicate. Try adding the following service override file to include listening on `tcp`. See [this Docker documentation](https://docs.docker.com/config/daemon/remote-access/) on how to configure remote access for Docker daemon.
 
 ```
 # /etc/systemd/system/docker.service.d/override.conf
@@ -137,8 +137,8 @@ Your environment should now be set up at <code>http://localhost:8888</code>.
 
 ## Additional resources
 
-- [@wordpress/env](https://www.npmjs.com/package/@wordpress/env) (Official documentation)
+- [@finpress/env](https://www.npmjs.com/package/@finpress/env) (Official documentation)
 - [Docker Desktop](https://docs.docker.com/desktop) (Official documentation)
-- [Quick and easy local WordPress development with wp-env](https://developer.wordpress.org/news/2023/03/quick-and-easy-local-wordpress-development-with-wp-env/) (WordPress Developer Blog)
-- [wp-env: Simple Local Environments for WordPress](https://make.wordpress.org/core/2020/03/03/wp-env-simple-local-environments-for-wordpress/) (Make WordPress Core Blog)
+- [Quick and easy local FinPress development with wp-env](https://developer.finpress.org/news/2023/03/quick-and-easy-local-finpress-development-with-wp-env/) (FinPress Developer Blog)
+- [wp-env: Simple Local Environments for FinPress](https://make.finpress.org/core/2020/03/03/wp-env-simple-local-environments-for-finpress/) (Make FinPress Core Blog)
 - [`wp-env` Basics diagram](https://excalidraw.com/#json=8Tp55B-R6Z6-pNGtmenU6,_DeBR1IBxuHNIKPTVEaseA) (Excalidraw)

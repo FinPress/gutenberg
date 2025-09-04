@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { useEffect, useState } from '@wordpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { useEffect, useState } from '@finpress/element';
 import {
 	Button,
 	CheckboxControl,
@@ -11,10 +11,10 @@ import {
 	Icon,
 	Modal,
 	ToggleControl,
-} from '@wordpress/components';
-import { lock as lockIcon, unlock as unlockIcon } from '@wordpress/icons';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { getBlockType } from '@wordpress/blocks';
+} from '@finpress/components';
+import { lock as lockIcon, unlock as unlockIcon } from '@finpress/icons';
+import { useDispatch, useSelect } from '@finpress/data';
+import { getBlockType } from '@finpress/blocks';
 
 /**
  * Internal dependencies

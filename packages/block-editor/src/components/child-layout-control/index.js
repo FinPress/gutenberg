@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
@@ -11,10 +11,10 @@ import {
 	__experimentalUseCustomUnits as useCustomUnits,
 	Flex,
 	FlexItem,
-} from '@wordpress/components';
-import { __, _x } from '@wordpress/i18n';
-import { useEffect } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/components';
+import { __, _x } from '@finpress/i18n';
+import { useEffect } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { regexp, next } from '@wordpress/shortcode';
+import { regexp, next } from '@finpress/shortcode';
 
 /**
  * Internal dependencies
@@ -89,7 +89,7 @@ function segmentHTMLToShortcodeBlock(
 			// Passing all of `match` as second argument is intentionally broad
 			// but shouldn't be too relied upon.
 			//
-			// See: https://github.com/WordPress/gutenberg/pull/3610#discussion_r152546926
+			// See: https://github.com/FinPress/gutenberg/pull/3610#discussion_r152546926
 			blocks = [].concat(
 				transformation.transform( match.shortcode.attrs, match )
 			);
@@ -109,7 +109,7 @@ function segmentHTMLToShortcodeBlock(
 					// Passing all of `match` as second argument is intentionally broad
 					// but shouldn't be too relied upon.
 					//
-					// See: https://github.com/WordPress/gutenberg/pull/3610#discussion_r152546926
+					// See: https://github.com/FinPress/gutenberg/pull/3610#discussion_r152546926
 					.map( ( [ key, schema ] ) => [
 						key,
 						schema.shortcode( match.shortcode.attrs, match ),

@@ -3,10 +3,10 @@
  */
 import clsx from 'clsx';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useEffect } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useEffect } from '@finpress/element';
 import {
 	useBlockProps,
 	__experimentalUseBorderProps as useBorderProps,
@@ -16,8 +16,8 @@ import {
 	BlockControls,
 	HeadingLevelDropdown,
 	RichText,
-} from '@wordpress/block-editor';
-import { ToolbarGroup } from '@wordpress/components';
+} from '@finpress/block-editor';
+import { ToolbarGroup } from '@finpress/components';
 /**
  * Internal dependencies
  */

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { VisuallyHidden } from '@wordpress/components';
-import { _x, sprintf } from '@wordpress/i18n';
+import { useInstanceId } from '@finpress/compose';
+import { VisuallyHidden } from '@finpress/components';
+import { _x, sprintf } from '@finpress/i18n';
 
 export default function ResponsiveBlockControlLabel( {
 	property,

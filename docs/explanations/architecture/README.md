@@ -13,6 +13,6 @@ Let’s look at the big picture and the architectural and UX principles of the b
 
 ## Gutenberg repository
 
--   [Modularity and WordPress Packages](/docs/explanations/architecture/modularity.md).
+-   [Modularity and FinPress Packages](/docs/explanations/architecture/modularity.md).
 -   [Understand the repository folder structure](/docs/contributors/folder-structure.md).
 -   **Outdated!** [Why is Puppeteer the tool of choice for end-to-end tests?](/docs/explanations/architecture/automated-testing.md).

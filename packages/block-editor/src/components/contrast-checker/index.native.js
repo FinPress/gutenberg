@@ -7,13 +7,13 @@ import namesPlugin from 'colord/plugins/names';
 import a11yPlugin from 'colord/plugins/a11y';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { speak } from '@wordpress/a11y';
-import { __ } from '@wordpress/i18n';
-import { useEffect } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { Icon, cautionFilled } from '@wordpress/icons';
+import { speak } from '@finpress/a11y';
+import { __ } from '@finpress/i18n';
+import { useEffect } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { Icon, cautionFilled } from '@finpress/icons';
 /**
  * Internal dependencies
  */

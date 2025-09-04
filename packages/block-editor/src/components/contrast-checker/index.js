@@ -6,11 +6,11 @@ import namesPlugin from 'colord/plugins/names';
 import { colord, extend } from 'colord';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { Notice } from '@wordpress/components';
-import { speak } from '@wordpress/a11y';
+import { __, sprintf } from '@finpress/i18n';
+import { Notice } from '@finpress/components';
+import { speak } from '@finpress/a11y';
 
 extend( [ namesPlugin, a11yPlugin ] );
 
@@ -139,6 +139,6 @@ function ContrastChecker( {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/contrast-checker/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/contrast-checker/README.md
  */
 export default ContrastChecker;

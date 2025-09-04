@@ -5,12 +5,12 @@ import { AppRegistry } from 'react-native';
 import { initializeEditor, render } from 'test/helpers';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import * as wpHooks from '@wordpress/hooks';
-import { registerCoreBlocks } from '@wordpress/block-library';
+import * as wpHooks from '@finpress/hooks';
+import { registerCoreBlocks } from '@finpress/block-library';
 // eslint-disable-next-line no-restricted-imports
-import * as wpEditPost from '@wordpress/edit-post';
+import * as wpEditPost from '@finpress/edit-post';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import setupLocale from '../setup-locale';
 
 jest.mock( 'react-native/Libraries/ReactNative/AppRegistry' );
 jest.mock( '../setup-locale' );
-jest.mock( '@wordpress/block-library', () => ( {
+jest.mock( '@finpress/block-library', () => ( {
 	__esModule: true,
 	registerCoreBlocks: jest.fn(),
 	NEW_BLOCK_TYPES: {},
@@ -169,7 +169,7 @@ describe( 'Register Gutenberg', () => {
 		jest.unmock( '../setup' );
 
 		// The mocked editor component is provided via `initializeEditor` function of
-		// `@wordpress/edit-post` package, instead of via the setup as above test cases.
+		// `@finpress/edit-post` package, instead of via the setup as above test cases.
 		const initializeEditorMock = jest
 			.spyOn( wpEditPost, 'initializeEditor' )
 			.mockReturnValue( <MockEditor /> );

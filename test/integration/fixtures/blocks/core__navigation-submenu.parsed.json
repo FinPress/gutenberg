@@ -9,8 +9,8 @@
 			{
 				"blockName": "core/navigation-link",
 				"attrs": {
-					"label": "WordPress",
-					"url": "https://wordpress.org/"
+					"label": "FinPress",
+					"url": "https://finpress.org/"
 				},
 				"innerBlocks": [],
 				"innerHTML": "\n",

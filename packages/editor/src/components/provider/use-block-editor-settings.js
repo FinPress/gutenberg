@@ -1,22 +1,22 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useCallback } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useMemo, useCallback } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
 import {
 	store as coreStore,
 	__experimentalFetchLinkSuggestions as fetchLinkSuggestions,
 	__experimentalFetchUrlData as fetchUrlData,
 	privateApis as coreDataPrivateApis,
-} from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { useViewportMatch } from '@wordpress/compose';
-import { store as blocksStore } from '@wordpress/blocks';
+} from '@finpress/core-data';
+import { __ } from '@finpress/i18n';
+import { store as preferencesStore } from '@finpress/preferences';
+import { useViewportMatch } from '@finpress/compose';
+import { store as blocksStore } from '@finpress/blocks';
 import {
 	privateApis,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 /**
  * Internal dependencies

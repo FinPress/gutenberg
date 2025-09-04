@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { LEFT, RIGHT } from '@wordpress/keycodes';
+import { __ } from '@finpress/i18n';
+import { LEFT, RIGHT } from '@finpress/keycodes';
 import {
 	VisuallyHidden,
 	Tooltip,
 	__unstableMotion as motion,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 const DELTA_DISTANCE = 20; // The distance to resize per keydown in pixels.
 

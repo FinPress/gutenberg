@@ -1,23 +1,23 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { backup } from '@wordpress/icons';
-import { dispatch, select, useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { __, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { useState } from '@wordpress/element';
+import { backup } from '@finpress/icons';
+import { dispatch, select, useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { useState } from '@finpress/element';
 // @ts-ignore
-import { parse, __unstableSerializeAndClean } from '@wordpress/blocks';
+import { parse, __unstableSerializeAndClean } from '@finpress/blocks';
 import {
 	Button,
 	__experimentalText as Text,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import type { Action } from '@wordpress/dataviews';
-import { addQueryArgs } from '@wordpress/url';
-import apiFetch from '@wordpress/api-fetch';
+} from '@finpress/components';
+import type { Action } from '@finpress/dataviews';
+import { addQueryArgs } from '@finpress/url';
+import apiFetch from '@finpress/api-fetch';
 
 /**
  * Internal dependencies
@@ -40,7 +40,7 @@ const isTemplateRevertable = (
 };
 
 /**
- *  Copied - pasted from https://github.com/WordPress/gutenberg/blob/bf1462ad37d4637ebbf63270b9c244b23c69e2a8/packages/editor/src/store/private-actions.js#L233-L365
+ *  Copied - pasted from https://github.com/FinPress/gutenberg/blob/bf1462ad37d4637ebbf63270b9c244b23c69e2a8/packages/editor/src/store/private-actions.js#L233-L365
  *
  * @param {Object}  template            The template to revert.
  * @param {Object}  [options]

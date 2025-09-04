@@ -7,7 +7,7 @@ import type { ShortcutProps } from './types';
  * Shortcut component is used to display keyboard shortcuts, and it can be customized with a custom display and aria label if needed.
  *
  * ```jsx
- * import { Shortcut } from '@wordpress/components';
+ * import { Shortcut } from '@finpress/components';
  *
  * const MyShortcut = () => {
  * 	return (

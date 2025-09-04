@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Gutenberg Test Iframed Block
- * Plugin URI: https://github.com/WordPress/gutenberg
+ * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team
  *
  * @package gutenberg-test-iframed-block

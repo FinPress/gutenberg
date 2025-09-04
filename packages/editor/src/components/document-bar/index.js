@@ -4,25 +4,25 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { __, isRTL } from '@finpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	Button,
 	__experimentalText as Text,
 	__unstableMotion as motion,
 	__unstableAnimatePresence as AnimatePresence,
-} from '@wordpress/components';
-import { BlockIcon } from '@wordpress/block-editor';
-import { chevronLeftSmall, chevronRightSmall, layout } from '@wordpress/icons';
-import { displayShortcut } from '@wordpress/keycodes';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as commandsStore } from '@wordpress/commands';
-import { useRef, useEffect } from '@wordpress/element';
-import { useReducedMotion } from '@wordpress/compose';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
+} from '@finpress/components';
+import { BlockIcon } from '@finpress/block-editor';
+import { chevronLeftSmall, chevronRightSmall, layout } from '@finpress/icons';
+import { displayShortcut } from '@finpress/keycodes';
+import { store as coreStore } from '@finpress/core-data';
+import { store as commandsStore } from '@finpress/commands';
+import { useRef, useEffect } from '@finpress/element';
+import { useReducedMotion } from '@finpress/compose';
+import { decodeEntities } from '@finpress/html-entities';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
 
 /**
  * Internal dependencies
@@ -32,7 +32,7 @@ import { store as editorStore } from '../../store';
 import usePageTypeBadge from '../../utils/pageTypeBadge';
 import { getTemplateInfo } from '../../utils/get-template-info';
 
-/** @typedef {import("@wordpress/components").IconType} IconType */
+/** @typedef {import("@finpress/components").IconType} IconType */
 
 const MotionButton = motion.create( Button );
 

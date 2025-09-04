@@ -4,7 +4,7 @@
 import { Platform } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	hasBlockSupport,
@@ -13,8 +13,8 @@ import {
 	setFreeformContentHandlerName,
 	setUnregisteredTypeHandlerName,
 	setGroupingBlockName,
-} from '@wordpress/blocks';
-import { addFilter } from '@wordpress/hooks';
+} from '@finpress/blocks';
+import { addFilter } from '@finpress/hooks';
 
 /**
  * Internal dependencies
@@ -199,7 +199,7 @@ addFilter(
  *
  * @example
  * ```js
- * import { registerCoreBlocks } from '@wordpress/block-library';
+ * import { registerCoreBlocks } from '@finpress/block-library';
  *
  * registerCoreBlocks();
  * ```

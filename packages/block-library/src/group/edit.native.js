@@ -4,20 +4,20 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { withSelect } from '@wordpress/data';
+import { withSelect } from '@finpress/data';
 import {
 	compose,
 	withPreferredColorScheme,
 	useResizeObserver,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 import {
 	InnerBlocks,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useCallback } from '@wordpress/element';
-import { alignmentHelpers } from '@wordpress/components';
+} from '@finpress/block-editor';
+import { useCallback } from '@finpress/element';
+import { alignmentHelpers } from '@finpress/components';
 
 /**
  * Internal dependencies

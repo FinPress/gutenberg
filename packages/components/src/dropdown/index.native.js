@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
+import { Component } from '@finpress/element';
 
 class Dropdown extends Component {
 	constructor() {

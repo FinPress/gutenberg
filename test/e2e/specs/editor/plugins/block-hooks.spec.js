@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 const dummyBlocksContent = `<!-- wp:heading -->
 <h2 class="wp-block-heading">This is a dummy heading</h2>
@@ -286,7 +286,7 @@ test.describe( 'Block Hooks API', () => {
 				title: 'Navigation Menu',
 				status: 'publish',
 				content:
-					'<!-- wp:navigation-link {"label":"wordpress.org","url":"https://wordpress.org","kind":"custom"} /-->',
+					'<!-- wp:navigation-link {"label":"finpress.org","url":"https://finpress.org","kind":"custom"} /-->',
 			} );
 
 			// The navigation menu in the site editor is only supported in block themes.

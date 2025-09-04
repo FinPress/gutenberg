@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import isShallowEqual from '@wordpress/is-shallow-equal';
+import isShallowEqual from '@finpress/is-shallow-equal';
 
 /**
  * Internal dependencies

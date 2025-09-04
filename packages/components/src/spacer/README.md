@@ -15,13 +15,13 @@ import {
 	__experimentalSpacer as Spacer,
 	__experimentalHeading as Heading,
 	__experimentalView as View,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 function Example() {
 	return (
 		<View>
 			<Spacer>
-				<Heading>WordPress.org</Heading>
+				<Heading>FinPress.org</Heading>
 			</Spacer>
 			<Text>Code is Poetry</Text>
 		</View>

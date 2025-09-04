@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
-import { privateApis as preferencesPrivateApis } from '@wordpress/preferences';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
+import { privateApis as preferencesPrivateApis } from '@finpress/preferences';
 
 /**
  * Internal dependencies

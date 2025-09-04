@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getBlockType,
@@ -7,11 +7,11 @@ import {
 	createBlocksFromInnerBlocksTemplate,
 	store as blocksStore,
 	parse,
-} from '@wordpress/blocks';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useCallback, useMemo } from '@wordpress/element';
-import { store as noticesStore } from '@wordpress/notices';
-import { __, sprintf } from '@wordpress/i18n';
+} from '@finpress/blocks';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useCallback, useMemo } from '@finpress/element';
+import { store as noticesStore } from '@finpress/notices';
+import { __, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

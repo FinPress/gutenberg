@@ -119,7 +119,7 @@ $block-inserter-tabs-height: 44px;
 .block-editor-inserter__no-tab-container {
 	overflow-y: auto;
 	flex-grow: 1;
-	// Fixes the editor canvas scrolling on search results https://github.com/WordPress/gutenberg/issues/56811
+	// Fixes the editor canvas scrolling on search results https://github.com/FinPress/gutenberg/issues/56811
 	position: relative;
 }
 
@@ -306,7 +306,7 @@ $block-inserter-tabs-height: 44px;
 	width: 100%;
 
 	// Constrain to container. Avoids overflow bug on FF 79
-	// see https://github.com/WordPress/gutenberg/issues/24529.
+	// see https://github.com/FinPress/gutenberg/issues/24529.
 	max-width: 100%;
 
 	@include break-medium {

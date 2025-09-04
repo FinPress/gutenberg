@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { MenuGroup } from '@wordpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { MenuGroup } from '@finpress/components';
 
 /**
  * External dependencies
@@ -15,7 +15,7 @@ import clsx from 'clsx';
 import LinkControlSearchCreate from './search-create-button';
 import LinkControlSearchItem from './search-item';
 import { CREATE_TYPE, LINK_ENTRY_TYPES } from './constants';
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 function LinkControlSearchResults( {
 	withCreateSuggestion,

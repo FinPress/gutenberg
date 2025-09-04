@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { createInterpolateElement, useState } from '@wordpress/element';
-import { Tip } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { createInterpolateElement, useState } from '@finpress/element';
+import { Tip } from '@finpress/components';
 
 const globalTips = [
 	createInterpolateElement(

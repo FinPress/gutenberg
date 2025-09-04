@@ -13,7 +13,7 @@ const { getArgFromCLI } = require( '../utils' );
 /**
  * Constants
  */
-const WORDPRESS_PACKAGES_PREFIX = '@wordpress/';
+const WORDPRESS_PACKAGES_PREFIX = '@finpress/';
 
 function readJSONFile( fileName ) {
 	const data = fs.readFileSync( fileName, 'utf8' );

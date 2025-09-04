@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/lazy-import",
+	"name": "@finpress/lazy-import",
 	"version": "2.29.0",
 	"description": "Lazily import a module, installing it automatically if missing.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"import"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/lazy-import/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/lazy-import/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/lazy-import"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",

@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
-import { createBlock } from '@wordpress/blocks';
-import { registerCoreBlocks } from '@wordpress/block-library';
-import { useDispatch } from '@wordpress/data';
-import { Toolbar } from '@wordpress/components';
+import { useEffect } from '@finpress/element';
+import { createBlock } from '@finpress/blocks';
+import { registerCoreBlocks } from '@finpress/block-library';
+import { useDispatch } from '@finpress/data';
+import { Toolbar } from '@finpress/components';
 
 /**
  * Internal dependencies

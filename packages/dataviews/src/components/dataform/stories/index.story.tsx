@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useMemo, useState } from '@wordpress/element';
+import { useCallback, useMemo, useState } from '@finpress/element';
 import {
 	Button,
 	__experimentalVStack as VStack,
 	privateApis,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies
@@ -183,7 +183,7 @@ const LayoutRegularComponent = ( {
 		author: 1,
 		status: 'draft',
 		reviewer: 'fulano',
-		email: 'hello@wordpress.org',
+		email: 'hello@finpress.org',
 		date: '2021-01-01T12:00:00',
 		birthdate: '1950-02-23T12:00:00',
 		sticky: false,

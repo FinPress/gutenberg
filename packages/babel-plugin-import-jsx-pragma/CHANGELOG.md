@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,7 +64,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 4.41.0 (2024-05-16)
 
@@ -152,32 +152,32 @@
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ## 3.0.0 (2021-01-21)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ## 2.2.0 (2019-05-21)
 
 ### New Features
 
--   Add Fragment import handling ([#15120](https://github.com/WordPress/gutenberg/pull/15120)).
+-   Add Fragment import handling ([#15120](https://github.com/FinPress/gutenberg/pull/15120)).
 
 ## 2.0.0 (2019-03-06)
 
 ### Breaking Changes
 
--   Stop using Babel transpilation internally and set node 8 as a minimal version required ([#13540](https://github.com/WordPress/gutenberg/pull/13540)).
+-   Stop using Babel transpilation internally and set node 8 as a minimal version required ([#13540](https://github.com/FinPress/gutenberg/pull/13540)).
 
 ### Enhancements
 
--   Plugin skips now adding import JSX pragma when the scope variable is defined for all JSX elements ([#13809](https://github.com/WordPress/gutenberg/pull/13809)).
+-   Plugin skips now adding import JSX pragma when the scope variable is defined for all JSX elements ([#13809](https://github.com/FinPress/gutenberg/pull/13809)).
 
 ## 1.1.0 (2018-09-05)
 
 ### New Features
 
--   Plugin updated to work with the stable version of Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)).
+-   Plugin updated to work with the stable version of Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)).

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { check } from '@wordpress/icons';
-import { MenuItem } from '@wordpress/components';
+import { check } from '@finpress/icons';
+import { MenuItem } from '@finpress/components';
 
 /**
  * Internal dependencies
@@ -13,7 +13,7 @@ import ActionItem from '../action-item';
 const PluginsMenuItem = ( {
 	// Menu item is marked with unstable prop for backward compatibility.
 	// They are removed so they don't leak to DOM elements.
-	// @see https://github.com/WordPress/gutenberg/issues/14457
+	// @see https://github.com/FinPress/gutenberg/issues/14457
 	__unstableExplicitMenuItem,
 	__unstableTarget,
 	...restProps

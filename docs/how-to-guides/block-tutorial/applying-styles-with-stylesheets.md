@@ -6,7 +6,7 @@ A block typically inserts markup (HTML) into post content that you want to style
 
 ## Before you start
 
-You will need a basic block and WordPress development environment to implement the examples shown in this guide. See the [Quick Start Guide](/docs/getting-started/quick-start-guide.md) or [block tutorial](/docs/getting-started/tutorial.md) to get set up.
+You will need a basic block and FinPress development environment to implement the examples shown in this guide. See the [Quick Start Guide](/docs/getting-started/quick-start-guide.md) or [block tutorial](/docs/getting-started/tutorial.md) to get set up.
 
 ## Methods to add style
 
@@ -19,8 +19,8 @@ The first method shows adding the style inline. This transforms the defined styl
 The `useBlockProps` React hook is used to set and apply properties on the block's wrapper element. The following example shows how:
 
 ```jsx
-import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { useBlockProps } from '@finpress/block-editor';
 
 registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 	edit() {
@@ -61,8 +61,8 @@ The `useBlockProps` hooks includes the classname for the block automatically, it
 For example the block name: `gutenberg-examples/example-02-stylesheets` would get the classname: `wp-block-gutenberg-examples-example-02-stylesheets`. It might be a bit long but best to avoid conflicts with other blocks.
 
 ```jsx
-import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps } from '@wordpress/block-editor';
+import { registerBlockType } from '@finpress/blocks';
+import { useBlockProps } from '@finpress/block-editor';
 
 registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 	edit() {
@@ -140,7 +140,7 @@ The files will automatically be enqueued when specified in the block.json.
 
 <div class="callout callout-info">
 
-If you are using `@wordpress/scripts` you will need to import your stylesheet within your corresponding JavaScript file in order for `@wordpress/scripts` to process the stylesheet.
+If you are using `@finpress/scripts` you will need to import your stylesheet within your corresponding JavaScript file in order for `@finpress/scripts` to process the stylesheet.
 
 Example:
 
@@ -158,4 +158,4 @@ Example:
 
 This guide showed a couple of different ways to apply styles to your block, by either inline or in its own style sheet. Both of these methods use the `useBlockProps` hook, see the [block wrapper reference documentation](/docs/reference-guides/block-api/block-edit-save.md#block-wrapper-props) for additional details.
 
-See the complete [stylesheets-79a4c3](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/stylesheets-79a4c3) code in the [block-development-examples repository](https://github.com/WordPress/block-development-examples).
+See the complete [stylesheets-79a4c3](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/stylesheets-79a4c3) code in the [block-development-examples repository](https://github.com/FinPress/block-development-examples).

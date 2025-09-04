@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	TextControl,
@@ -10,12 +10,12 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
-import { debounce } from '@wordpress/compose';
-import { useState, useMemo } from '@wordpress/element';
+} from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { __ } from '@finpress/i18n';
+import { debounce } from '@finpress/compose';
+import { useState, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -175,7 +175,7 @@ export default function QueryInspectorControls( props ) {
 	const showDisplayPanel =
 		showPostCountControl || showOffSetControl || showPagesControl;
 
-	// The block cannot inherit a default WordPress query in singular content (e.g., post, page, 404, blank).
+	// The block cannot inherit a default FinPress query in singular content (e.g., post, page, 404, blank).
 	// Warn users but still permit this type of query for exceptional cases in Classic and Hybrid themes.
 	const hasInheritanceWarning = isSingular && inherit;
 

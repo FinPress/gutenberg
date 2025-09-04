@@ -5,13 +5,13 @@ import { SafeAreaView, TouchableOpacity, View } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { getProtocol, isURL, prependHTTP } from '@wordpress/url';
-import { link, cancelCircleFilled } from '@wordpress/icons';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { useEffect, useState } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { getProtocol, isURL, prependHTTP } from '@finpress/url';
+import { link, cancelCircleFilled } from '@finpress/icons';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies

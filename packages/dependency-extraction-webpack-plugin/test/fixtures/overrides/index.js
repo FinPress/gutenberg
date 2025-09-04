@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isBlobURL } from '@wordpress/blob';
-import { isURL } from '@wordpress/url';
+import { isBlobURL } from '@finpress/blob';
+import { isURL } from '@finpress/url';
 
 /**
  * External dependencies

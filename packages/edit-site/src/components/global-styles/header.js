@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
@@ -8,9 +8,9 @@ import {
 	__experimentalHeading as Heading,
 	__experimentalView as View,
 	Navigator,
-} from '@wordpress/components';
-import { isRTL, __ } from '@wordpress/i18n';
-import { chevronRight, chevronLeft } from '@wordpress/icons';
+} from '@finpress/components';
+import { isRTL, __ } from '@finpress/i18n';
+import { chevronRight, chevronLeft } from '@finpress/icons';
 
 function ScreenHeader( { title, description, onBack } ) {
 	return (

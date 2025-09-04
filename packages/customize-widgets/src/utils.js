@@ -1,9 +1,9 @@
 // @ts-check
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { serialize, parse, createBlock } from '@wordpress/blocks';
-import { addWidgetIdToBlock } from '@wordpress/widgets';
+import { serialize, parse, createBlock } from '@finpress/blocks';
+import { addWidgetIdToBlock } from '@finpress/widgets';
 
 /**
  * Convert settingId to widgetId.

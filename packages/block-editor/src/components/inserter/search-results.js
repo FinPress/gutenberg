@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useEffect } from '@wordpress/element';
-import { __, _n, sprintf } from '@wordpress/i18n';
-import { VisuallyHidden } from '@wordpress/components';
-import { useDebounce, useAsyncList } from '@wordpress/compose';
-import { speak } from '@wordpress/a11y';
-import { useSelect } from '@wordpress/data';
+import { useMemo, useEffect } from '@finpress/element';
+import { __, _n, sprintf } from '@finpress/i18n';
+import { VisuallyHidden } from '@finpress/components';
+import { useDebounce, useAsyncList } from '@finpress/compose';
+import { speak } from '@finpress/a11y';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

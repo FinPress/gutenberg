@@ -4,14 +4,14 @@
 import { useWindowDimensions } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo } from '@finpress/element';
 import {
 	ALIGNMENT_BREAKPOINTS,
 	WIDE_ALIGNMENTS,
 	alignmentHelpers,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

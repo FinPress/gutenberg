@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { forwardRef } from '@wordpress/element';
-import { closeSmall } from '@wordpress/icons';
+} from '@finpress/components';
+import { forwardRef } from '@finpress/element';
+import { closeSmall } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ const { Tabs } = unlock( componentsPrivateApis );
 /**
  * A component that creates a tabbed sidebar with a close button.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/tabbed-sidebar/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/tabbed-sidebar/README.md
  *
  * @example
  * ```jsx

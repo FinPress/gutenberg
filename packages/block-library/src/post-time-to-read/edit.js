@@ -4,18 +4,18 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x, _n, sprintf } from '@wordpress/i18n';
-import { useMemo } from '@wordpress/element';
+import { _x, _n, sprintf } from '@finpress/i18n';
+import { useMemo } from '@finpress/element';
 import {
 	AlignmentControl,
 	BlockControls,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { __unstableSerializeAndClean } from '@wordpress/blocks';
-import { useEntityProp, useEntityBlockEditor } from '@wordpress/core-data';
-import { count as wordCount } from '@wordpress/wordcount';
+} from '@finpress/block-editor';
+import { __unstableSerializeAndClean } from '@finpress/blocks';
+import { useEntityProp, useEntityBlockEditor } from '@finpress/core-data';
+import { count as wordCount } from '@finpress/wordcount';
 
 /**
  * Average reading rate - based on average taken from

@@ -4,16 +4,16 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	RichText,
 	BlockControls,
 	AlignmentToolbar,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
+} from '@finpress/block-editor';
+import { createBlock, getDefaultBlockName } from '@finpress/blocks';
 
 export default function VerseEdit( {
 	attributes,

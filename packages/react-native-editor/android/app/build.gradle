@@ -92,7 +92,7 @@ android {
 dependencies {
     def packageJson = '../../package.json'
 
-    implementation "org.wordpress.gutenberg-mobile:react-native-bridge"
+    implementation "org.finpress.gutenberg-mobile:react-native-bridge"
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation "com.google.android.material:material:1.9.0"
     implementation "androidx.core:core-ktx:1.10.0"
@@ -100,13 +100,13 @@ dependencies {
     implementation "com.facebook.react:react-android"
     implementation("com.facebook.react:flipper-integration")
 
-    implementation "com.github.wordpress-mobile:react-native-video:${extractPackageVersion(packageJson, 'react-native-video', 'dependencies')}"
-    implementation "com.github.wordpress-mobile:react-native-slider:${extractPackageVersion(packageJson, '@react-native-community/slider', 'dependencies')}"
+    implementation "com.github.finpress-mobile:react-native-video:${extractPackageVersion(packageJson, 'react-native-video', 'dependencies')}"
+    implementation "com.github.finpress-mobile:react-native-slider:${extractPackageVersion(packageJson, '@react-native-community/slider', 'dependencies')}"
 
-    // Published by `wordpress-mobile/react-native-libraries-publisher`
-    // See the documentation for this value in `build.gradle.kts` of `wordpress-mobile/react-native-libraries-publisher`
+    // Published by `finpress-mobile/react-native-libraries-publisher`
+    // See the documentation for this value in `build.gradle.kts` of `finpress-mobile/react-native-libraries-publisher`
     def reactNativeLibrariesPublisherVersion = "v6"
-    def reactNativeLibrariesGroupId = "org.wordpress.react-native-libraries.$reactNativeLibrariesPublisherVersion"
+    def reactNativeLibrariesGroupId = "org.finpress.react-native-libraries.$reactNativeLibrariesPublisherVersion"
     implementation "$reactNativeLibrariesGroupId:react-native-get-random-values:${extractPackageVersion(packageJson, 'react-native-get-random-values', 'dependencies')}"
     implementation "$reactNativeLibrariesGroupId:react-native-safe-area-context:${extractPackageVersion(packageJson, 'react-native-safe-area-context', 'dependencies')}"
     implementation "$reactNativeLibrariesGroupId:react-native-screens:${extractPackageVersion(packageJson, 'react-native-screens', 'dependencies')}"

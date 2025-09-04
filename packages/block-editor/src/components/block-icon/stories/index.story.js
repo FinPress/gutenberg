@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { box, button, cog, paragraph } from '@wordpress/icons';
+import { box, button, cog, paragraph } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -31,7 +31,7 @@ const meta = {
 				button,
 			},
 			description:
-				'The icon of the block. This can be any of [WordPress Dashicons](https://developer.wordpress.org/resource/dashicons/), or a custom `svg` element.',
+				'The icon of the block. This can be any of [FinPress Dashicons](https://developer.finpress.org/resource/dashicons/), or a custom `svg` element.',
 			table: {
 				type: { summary: 'string | object' },
 			},

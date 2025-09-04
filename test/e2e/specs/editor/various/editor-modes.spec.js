@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Editing modes (visual/HTML)', () => {
 	test.beforeEach( async ( { admin, editor } ) => {
@@ -122,7 +122,7 @@ test.describe( 'Editing modes (visual/HTML)', () => {
 		await pageUtils.pressKeys( 'secondary+M' );
 	} );
 
-	// Test for regressions of https://github.com/WordPress/gutenberg/issues/24054.
+	// Test for regressions of https://github.com/FinPress/gutenberg/issues/24054.
 	test( 'saves content when using the shortcut in the Code Editor', async ( {
 		editor,
 		page,

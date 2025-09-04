@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x } from '@wordpress/i18n';
-import { customLink as linkIcon } from '@wordpress/icons';
-import { InnerBlocks } from '@wordpress/block-editor';
-import { addFilter } from '@wordpress/hooks';
+import { _x } from '@finpress/i18n';
+import { customLink as linkIcon } from '@finpress/icons';
+import { InnerBlocks } from '@finpress/block-editor';
+import { addFilter } from '@finpress/hooks';
 
 /**
  * Internal dependencies

@@ -4,11 +4,11 @@
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useLayoutEffect } from '@wordpress/element';
-import { useRegistry } from '@wordpress/data';
-import { synchronizeBlocksWithTemplate } from '@wordpress/blocks';
+import { useRef, useLayoutEffect } from '@finpress/element';
+import { useRegistry } from '@finpress/data';
+import { synchronizeBlocksWithTemplate } from '@finpress/blocks';
 
 /**
  * Internal dependencies

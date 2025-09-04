@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	store,
 	getContext,
 	getElement,
 	withSyncEvent,
-} from '@wordpress/interactivity';
+} from '@finpress/interactivity';
 
 /**
  * Tracks whether user is touching screen; used to differentiate behavior for

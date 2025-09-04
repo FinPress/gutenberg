@@ -2,7 +2,7 @@
 
 SelectControl allow users to select from a single or multiple option menu. It functions as a wrapper around the browser's native `<select>` element.
 
-![A “Link To” select with “none” selected.](https://wordpress.org/gutenberg/files/2018/12/select.png)
+![A “Link To” select with “none” selected.](https://finpress.org/gutenberg/files/2018/12/select.png)
 
 ## Design guidelines
 
@@ -19,12 +19,12 @@ Use a select control when:
 
 If you have a shorter list of options, consider using RadioControl instead.
 
-![](https://wordpress.org/gutenberg/files/2018/12/select-do-multiple.png)
+![](https://finpress.org/gutenberg/files/2018/12/select-do-multiple.png)
 
 **Do**
 Use selects when you have multiple options.
 
-![](https://wordpress.org/gutenberg/files/2018/12/select-dont-binary.png)
+![](https://finpress.org/gutenberg/files/2018/12/select-dont-binary.png)
 
 **Don’t**
 Use selects for binary questions.
@@ -43,12 +43,12 @@ Once the menu is displayed onscreen, it remains open until the user chooses a me
 
 Label the SelectControl with a text label above it, or to its left, using sentence capitalization. Clicking the label allows the user to focus directly on the select.
 
-![](https://wordpress.org/gutenberg/files/2018/12/select-do-position.png)
+![](https://finpress.org/gutenberg/files/2018/12/select-do-position.png)
 
 **Do**
 Position the label above, or to the left of, the select.
 
-![](https://wordpress.org/gutenberg/files/2018/12/select-dont-position.png)
+![](https://finpress.org/gutenberg/files/2018/12/select-dont-position.png)
 
 **Don’t**
 Position the label centered over the select, or right aligned against the side of the select.
@@ -59,12 +59,12 @@ Position the label centered over the select, or right aligned against the side o
 -   Do not use full sentences inside menu items.
 -   Ensure that menu items are ordered in a way that is most useful to users. Alphabetical or recency ordering is preferred.
 
-![](https://wordpress.org/gutenberg/files/2018/12/select-do-options.png)
+![](https://finpress.org/gutenberg/files/2018/12/select-do-options.png)
 
 **Do**
 Use short menu items.
 
-![](https://wordpress.org/gutenberg/files/2018/12/select-dont-options.png)
+![](https://finpress.org/gutenberg/files/2018/12/select-dont-options.png)
 
 **Don’t**
 Use sentences in your menu.
@@ -77,7 +77,7 @@ Render a user interface to select the size of an image.
 
 ```jsx
 import { useState } from 'react';
-import { SelectControl } from '@wordpress/components';
+import { SelectControl } from '@finpress/components';
 
 const MySelectControl = () => {
 	const [ size, setSize ] = useState( '50%' );

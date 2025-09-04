@@ -4,12 +4,12 @@
 import { View, useWindowDimensions } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import { useNavigation } from '@react-navigation/native';
-import { useState } from '@wordpress/element';
-import { Icon, chevronRight, check } from '@wordpress/icons';
-import { __, _x, sprintf } from '@wordpress/i18n';
+import { useState } from '@finpress/element';
+import { Icon, chevronRight, check } from '@finpress/icons';
+import { __, _x, sprintf } from '@finpress/i18n';
 
 /**
  * Internal dependencies

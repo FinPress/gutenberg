@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 // This spec tests common behavior of Verse, Code, and Preformatted blocks.
 [ 'core/verse', 'core/code', 'core/preformatted' ].forEach( ( blockName ) => {

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Post title', () => {
 	test.describe( 'Focus handling', () => {
@@ -182,7 +182,7 @@ test.describe( 'Post title', () => {
 		} );
 
 		// Reinstate once the PR to fix paste events is merged:
-		// https://github.com/WordPress/gutenberg/pull/55030.
+		// https://github.com/FinPress/gutenberg/pull/55030.
 		// eslint-disable-next-line playwright/no-skipped-test
 		test.skip( 'should retain HTML tags when pasting string of HTML into the post title field in Code view mode', async ( {
 			page,
@@ -304,7 +304,7 @@ test.describe( 'Post title', () => {
 
 			// Check that the `em` tag was output in plaintext (HTML entities)
 			// Note that the `>` is not required to be converted to entity form
-			// (see https://github.com/WordPress/gutenberg/pull/54718/files#r1347124685).
+			// (see https://github.com/FinPress/gutenberg/pull/54718/files#r1347124685).
 			await expect( codeViewPageTitleField ).toHaveText(
 				'I am &lt;em>emphasis&lt;/em>'
 			);

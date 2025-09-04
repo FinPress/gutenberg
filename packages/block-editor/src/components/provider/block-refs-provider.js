@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, useMemo } from '@wordpress/element';
-import { observableMap } from '@wordpress/compose';
+import { createContext, useMemo } from '@finpress/element';
+import { observableMap } from '@finpress/compose';
 
 export const BlockRefs = createContext( { refsMap: observableMap() } );
 

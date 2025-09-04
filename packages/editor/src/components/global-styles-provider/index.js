@@ -5,12 +5,12 @@ import deepmerge from 'deepmerge';
 import { isPlainObject } from 'is-plain-object';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useMemo, useCallback } from '@wordpress/element';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useMemo, useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

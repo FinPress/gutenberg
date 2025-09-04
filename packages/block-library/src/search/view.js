@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	store,
 	getContext,
 	getElement,
 	withSyncEvent,
-} from '@wordpress/interactivity';
+} from '@finpress/interactivity';
 
 const { actions } = store(
 	'core/search',

@@ -4,9 +4,9 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { wordpress } from '@wordpress/icons';
+import { finpress } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -61,7 +61,7 @@ WithActions.args = {
 	actions: [
 		{
 			label: 'Open WP.org',
-			url: 'https://wordpress.org',
+			url: 'https://finpress.org',
 		},
 	],
 	children: 'Use Snackbars with an action link to an external page.',
@@ -70,7 +70,7 @@ WithActions.args = {
 export const WithIcon: StoryFn< typeof Snackbar > = DefaultTemplate.bind( {} );
 WithIcon.args = {
 	children: 'Add an icon to make your snackbar stand out',
-	icon: <Icon style={ { fill: 'currentcolor' } } icon={ wordpress } />,
+	icon: <Icon style={ { fill: 'currentcolor' } } icon={ finpress } />,
 };
 
 export const WithExplicitDismiss: StoryFn< typeof Snackbar > =
@@ -87,7 +87,7 @@ WithActionAndExplicitDismiss.args = {
 	actions: [
 		{
 			label: 'Open WP.org',
-			url: 'https://wordpress.org',
+			url: 'https://finpress.org',
 		},
 	],
 	children:

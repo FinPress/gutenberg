@@ -4,10 +4,10 @@
 import type { DragEvent } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { throttle } from '@wordpress/compose';
-import { useEffect, useRef } from '@wordpress/element';
+import { throttle } from '@finpress/compose';
+import { useEffect, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -33,8 +33,8 @@ const bodyClass = 'is-dragging-components-draggable';
  * not concerned with creating an actual DOM element that is draggable.
  *
  * ```jsx
- * import { Draggable, Panel, PanelBody } from '@wordpress/components';
- * import { Icon, more } from '@wordpress/icons';
+ * import { Draggable, Panel, PanelBody } from '@finpress/components';
+ * import { Icon, more } from '@finpress/icons';
  *
  * const MyDraggable = () => (
  *   <div id="draggable-panel">

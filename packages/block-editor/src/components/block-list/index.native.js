@@ -4,17 +4,17 @@
 import { View, Platform, Pressable } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useState, useCallback } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { createBlock } from '@wordpress/blocks';
+import { useRef, useState, useCallback } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { createBlock } from '@finpress/blocks';
 import {
 	KeyboardAwareFlatList,
 	WIDE_ALIGNMENTS,
 	alignmentHelpers,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

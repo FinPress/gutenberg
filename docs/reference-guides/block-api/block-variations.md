@@ -4,15 +4,15 @@ The Block Variations API allows you to define multiple versions (variations) of 
 
 Variations are an excellent way to create iterations of existing blocks without building entirely new blocks from scratch.
 
-To better understand this API, consider the Embed block. This block contains numerous variations for each type of embeddable content (WordPress, Youtube, etc.). Each Embed block variation shares the same underlying functionality for editing, saving, and so on. Besides the name and descriptive information, the main difference is the `providerNameSlug` attribute. Below is a simplified example of the variations in the Embed block. View the [source code](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/embed/variations.js) for the complete specification.
+To better understand this API, consider the Embed block. This block contains numerous variations for each type of embeddable content (FinPress, Youtube, etc.). Each Embed block variation shares the same underlying functionality for editing, saving, and so on. Besides the name and descriptive information, the main difference is the `providerNameSlug` attribute. Below is a simplified example of the variations in the Embed block. View the [source code](https://github.com/FinPress/gutenberg/blob/trunk/packages/block-library/src/embed/variations.js) for the complete specification.
 
 ```js
 variations: [
 	{
-		name: 'wordpress',
-		title: 'WordPress',
-		description: __( 'Embed a WordPress post.' ),
-		attributes: { providerNameSlug: 'wordpress' },
+		name: 'finpress',
+		title: 'FinPress',
+		description: __( 'Embed a FinPress post.' ),
+		attributes: { providerNameSlug: 'finpress' },
 	},
 	{
 		name: 'youtube',
@@ -37,7 +37,7 @@ A block variation is defined by an object that can contain the following fields:
 -   `innerBlocks` (optional, type `Array[]`) – Initial configuration of nested blocks.
 -   `example` (optional, type `Object`) – Provides structured data for the block preview. Set to `undefined` to disable the preview. See the [Block Registration API](/docs/reference-guides/block-api/block-registration.md#example-optional) for more details.
 -   `scope` (optional, type `WPBlockVariationScope[]`) - Defaults to `block` and `inserter`. The list of scopes where the variation is applicable. Available options include:
-    -   `block` - Used by blocks to filter specific block variations. `Columns` and `Query` blocks have such variations, which are passed to the [experimental BlockVariationPicker](https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-variation-picker/README.md) component. This component handles displaying the variations and allows users to choose one of them.
+    -   `block` - Used by blocks to filter specific block variations. `Columns` and `Query` blocks have such variations, which are passed to the [experimental BlockVariationPicker](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-variation-picker/README.md) component. This component handles displaying the variations and allows users to choose one of them.
     -   `inserter` - Block variation is shown on the inserter.
     -   `transform` - Block variation is shown in the component for variation transformations.
 -   `isDefault` (optional, type `boolean`) – Defaults to `false`. Indicates whether the current variation is the default one (details below).
@@ -62,7 +62,7 @@ wp.blocks.registerBlockVariation( 'core/embed', {
 
 ## Registering block variations in PHP
 
-Block variations can also be registered from PHP using the `get_block_type_variations` filter hook. This approach is particularly useful when you need to dynamically generate variations based on registered post types, taxonomies, or other WordPress data.
+Block variations can also be registered from PHP using the `get_block_type_variations` filter hook. This approach is particularly useful when you need to dynamically generate variations based on registered post types, taxonomies, or other FinPress data.
 
 Here's an example of how to register a custom variation for the `core/image` block:
 
@@ -96,7 +96,7 @@ The `get_block_type_variations` filter is called when variations are requested f
 
 Note that variations registered through PHP will be merged with any variations registered through JavaScript using `registerBlockVariation()`.
 
-<div class="callout callout-info">Check the <a href="https://developer.wordpress.org/news/2024/03/how-to-register-block-variations-with-php/">How to register block variations with PHP</a> blog post for more info about this</div>
+<div class="callout callout-info">Check the <a href="https://developer.finpress.org/news/2024/03/how-to-register-block-variations-with-php/">How to register block variations with PHP</a> blog post for more info about this</div>
 
 ## Removing a block variation
 
@@ -201,7 +201,7 @@ isActive: [ 'providerNameSlug' ];
 
 This will cause the block instance value for `providerNameSlug` to be compared to the value declared in the variation's declaration (the values in the code snippet above) to determine which embed variation is active.
 
-Nested object paths are also supported since WordPress `6.6.0`. For example, consider a block variation that has a `query` object as an attribute. It is possible to determine if the variation is active solely based on that object's `postType` property (while ignoring all its other properties):
+Nested object paths are also supported since FinPress `6.6.0`. For example, consider a block variation that has a `query` object as an attribute. It is possible to determine if the variation is active solely based on that object's `postType` property (while ignoring all its other properties):
 
 ```js
 isActive: [ 'query.postType' ];
@@ -218,7 +218,7 @@ isActive: ( blockAttributes, variationAttributes ) =>
 
 ### Specificity of `isActive` matches
 
-_Note: Improved handling since WordPress `6.6.0`._
+_Note: Improved handling since FinPress `6.6.0`._
 
 If there are multiple variations whose `isActive` check matches a given block instance, and all of them are string arrays, then the variation with the highest _specificity_ will be chosen. Consider the following example:
 

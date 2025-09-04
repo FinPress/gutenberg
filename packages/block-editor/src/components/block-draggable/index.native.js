@@ -17,20 +17,20 @@ import Animated, {
 } from 'react-native-reanimated';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Draggable, DraggableTrigger } from '@wordpress/components';
-import { select, useSelect, useDispatch } from '@wordpress/data';
+import { Draggable, DraggableTrigger } from '@finpress/components';
+import { select, useSelect, useDispatch } from '@finpress/data';
 import {
 	useCallback,
 	useEffect,
 	useRef,
 	useState,
 	Platform,
-} from '@wordpress/element';
-import { getBlockType } from '@wordpress/blocks';
-import { generateHapticFeedback } from '@wordpress/react-native-bridge';
-import RCTAztecView from '@wordpress/react-native-aztec';
+} from '@finpress/element';
+import { getBlockType } from '@finpress/blocks';
+import { generateHapticFeedback } from '@finpress/react-native-bridge';
+import RCTAztecView from '@finpress/react-native-aztec';
 
 /**
  * Internal dependencies

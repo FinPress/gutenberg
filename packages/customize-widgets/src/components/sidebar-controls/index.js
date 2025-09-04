@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createContext, useMemo, useContext } from '@wordpress/element';
+import { createContext, useMemo, useContext } from '@finpress/element';
 
 export const SidebarControlsContext = createContext();
 

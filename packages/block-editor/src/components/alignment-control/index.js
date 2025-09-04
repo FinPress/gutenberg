@@ -12,6 +12,6 @@ const AlignmentToolbar = ( props ) => {
 };
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/alignment-control/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/alignment-control/README.md
  */
 export { AlignmentControl, AlignmentToolbar };

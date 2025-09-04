@@ -4,13 +4,13 @@
 import fastDeepEqual from 'fast-deep-equal/es6';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRegistry } from '@wordpress/data';
-import { __unstableStripHTML as stripHTML } from '@wordpress/dom';
-import { useEffect } from '@wordpress/element';
-import { addQueryArgs, removeQueryArgs } from '@wordpress/url';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { useRegistry } from '@finpress/data';
+import { __unstableStripHTML as stripHTML } from '@finpress/dom';
+import { useEffect } from '@finpress/element';
+import { addQueryArgs, removeQueryArgs } from '@finpress/url';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 function getLatestHeadings( select, clientId ) {
 	const {
@@ -20,12 +20,12 @@ function getLatestHeadings( select, clientId ) {
 		getClientIdsOfDescendants,
 	} = select( blockEditorStore );
 
-	// FIXME: @wordpress/block-library should not depend on @wordpress/editor.
+	// FIXME: @finpress/block-library should not depend on @finpress/editor.
 	// Blocks can be loaded into a *non-post* block editor, so to avoid
-	// declaring @wordpress/editor as a dependency, we must access its
+	// declaring @finpress/editor as a dependency, we must access its
 	// store by string. When the store is not available, editorSelectors
 	// will be null, and the block's saved markup will lack permalinks.
-	// eslint-disable-next-line @wordpress/data-no-store-string-literals
+	// eslint-disable-next-line @finpress/data-no-store-string-literals
 	const permalink = select( 'core/editor' ).getPermalink() ?? null;
 
 	const isPaginated = getBlocksByName( 'core/nextpage' ).length !== 0;
@@ -160,7 +160,7 @@ export function useObserveHeadings( clientId ) {
 	const registry = useRegistry();
 	useEffect( () => {
 		// Todo: Limit subscription to block editor store when data no longer depends on `getPermalink`.
-		// See: https://github.com/WordPress/gutenberg/pull/45513
+		// See: https://github.com/FinPress/gutenberg/pull/45513
 		return registry.subscribe( () =>
 			observeCallback( registry.select, registry.dispatch, clientId )
 		);

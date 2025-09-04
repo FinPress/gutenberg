@@ -1,21 +1,21 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	InnerBlocks,
 	useBlockProps,
 	useInnerBlocksProps,
 	InspectorControls,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	SelectControl,
 	TextControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

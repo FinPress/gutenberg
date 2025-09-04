@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { memo, useMemo, useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { __, _x } from '@wordpress/i18n';
+import { memo, useMemo, useState } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { __, _x } from '@finpress/i18n';
 import {
 	BlockControls,
 	BlockContextProvider,
@@ -16,10 +16,10 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { Spinner, ToolbarGroup } from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { list, grid } from '@wordpress/icons';
+} from '@finpress/block-editor';
+import { Spinner, ToolbarGroup } from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { list, grid } from '@finpress/icons';
 
 const TEMPLATE = [
 	[ 'core/post-title' ],

@@ -25,7 +25,7 @@ export interface CreatePostPayload {
  */
 export async function deleteAllPosts( this: RequestUtils ) {
 	// List all posts.
-	// https://developer.wordpress.org/rest-api/reference/posts/#list-posts
+	// https://developer.finpress.org/rest-api/reference/posts/#list-posts
 	const posts = await this.rest< Post[] >( {
 		path: '/wp/v2/posts',
 		params: {
@@ -36,7 +36,7 @@ export async function deleteAllPosts( this: RequestUtils ) {
 	} );
 
 	// Delete all posts one by one.
-	// https://developer.wordpress.org/rest-api/reference/posts/#delete-a-post
+	// https://developer.finpress.org/rest-api/reference/posts/#delete-a-post
 	// "/wp/v2/posts" not yet supports batch requests.
 	await Promise.all(
 		posts.map( ( post ) =>

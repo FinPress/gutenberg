@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
+import { useInnerBlocksProps, useBlockProps } from '@finpress/block-editor';
 
 export default function save( { attributes: { tagName: Tag, legacy } } ) {
 	const blockProps = useBlockProps.save();

@@ -5,11 +5,11 @@ import { View, Platform } from 'react-native';
 import RNLinearGradient from 'react-native-linear-gradient';
 import gradientParser from 'gradient-parser';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RadialGradient, Stop, SVG, Defs, Rect } from '@wordpress/primitives';
-import { useResizeObserver } from '@wordpress/compose';
-import { useMemo } from '@wordpress/element';
+import { RadialGradient, Stop, SVG, Defs, Rect } from '@finpress/primitives';
+import { useResizeObserver } from '@finpress/compose';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

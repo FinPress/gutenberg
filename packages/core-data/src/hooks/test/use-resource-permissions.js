@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import triggerFetch from '@wordpress/api-fetch';
-import { createRegistry, RegistryProvider } from '@wordpress/data';
+import triggerFetch from '@finpress/api-fetch';
+import { createRegistry, RegistryProvider } from '@finpress/data';
 
-jest.mock( '@wordpress/api-fetch' );
+jest.mock( '@finpress/api-fetch' );
 
 /**
  * External dependencies

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
-import { debounce } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+import apiFetch from '@finpress/api-fetch';
+import { debounce } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
 
 /**
  * An API for creating and loading a widget control (a <div class="widget">

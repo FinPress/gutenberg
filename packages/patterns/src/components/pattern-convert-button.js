@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	hasBlockSupport,
@@ -7,15 +7,15 @@ import {
 	createBlock,
 	serialize,
 	getBlockType,
-} from '@wordpress/blocks';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { useState, useCallback } from '@wordpress/element';
-import { MenuItem } from '@wordpress/components';
-import { symbol } from '@wordpress/icons';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { __, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/blocks';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { useState, useCallback } from '@finpress/element';
+import { MenuItem } from '@finpress/components';
+import { symbol } from '@finpress/icons';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
 /**
  * Internal dependencies
  */
@@ -41,7 +41,7 @@ export default function PatternConvertButton( {
 	const { createSuccessNotice } = useDispatch( noticesStore );
 	const { replaceBlocks } = useDispatch( blockEditorStore );
 	// Ignore reason: false positive of the lint rule.
-	// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+	// eslint-disable-next-line @finpress/no-unused-vars-before-return
 	const { setEditingPattern } = unlock( useDispatch( patternsStore ) );
 	const [ isModalOpen, setIsModalOpen ] = useState( false );
 	const canConvert = useSelect(

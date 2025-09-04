@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef, useCallback } from '@wordpress/element';
-import { useReducedMotion, useResizeObserver } from '@wordpress/compose';
+import { useEffect, useRef, useCallback } from '@finpress/element';
+import { useReducedMotion, useResizeObserver } from '@finpress/compose';
 
 /**
  * @typedef {Object} TransitionState

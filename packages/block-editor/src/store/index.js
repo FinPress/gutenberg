@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createReduxStore, registerStore } from '@wordpress/data';
+import { createReduxStore, registerStore } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -17,7 +17,7 @@ import { unlock } from '../lock-unlock';
 /**
  * Block editor data store configuration.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#registerStore
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/data/README.md#registerStore
  */
 export const storeConfig = {
 	reducer,
@@ -28,7 +28,7 @@ export const storeConfig = {
 /**
  * Store definition for the block editor namespace.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
  */
 export const store = createReduxStore( STORE_NAME, {
 	...storeConfig,
@@ -50,6 +50,6 @@ unlock( registeredStore ).registerPrivateSelectors( privateSelectors );
 // `store` descriptor in order to avoid unit tests failing, which could happen
 // when tests create new registries in which they register stores.
 //
-// @see https://github.com/WordPress/gutenberg/pull/51145#discussion_r1239999590
+// @see https://github.com/FinPress/gutenberg/pull/51145#discussion_r1239999590
 unlock( store ).registerPrivateActions( privateActions );
 unlock( store ).registerPrivateSelectors( privateSelectors );

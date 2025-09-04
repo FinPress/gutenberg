@@ -23,7 +23,7 @@ module.exports = {
 				if ( request === 'rxjs/operators' ) {
 					return request;
 				}
-				return request.startsWith( '@wordpress/' );
+				return request.startsWith( '@finpress/' );
 			},
 			requestToHandle( request ) {
 				if ( request === 'rxjs' || request === 'rxjs/operators' ) {

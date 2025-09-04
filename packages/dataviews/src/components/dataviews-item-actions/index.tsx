@@ -4,18 +4,18 @@
 import type { MouseEventHandler } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
 	Modal,
 	__experimentalHStack as HStack,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
-import { moreVertical } from '@wordpress/icons';
-import { useRegistry } from '@wordpress/data';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useMemo, useState } from '@finpress/element';
+import { moreVertical } from '@finpress/icons';
+import { useRegistry } from '@finpress/data';
 
 /**
  * Internal dependencies

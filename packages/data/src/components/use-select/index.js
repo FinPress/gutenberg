@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createQueue } from '@wordpress/priority-queue';
+import { createQueue } from '@finpress/priority-queue';
 import {
 	useRef,
 	useCallback,
 	useMemo,
 	useSyncExternalStore,
 	useDebugValue,
-} from '@wordpress/element';
-import isShallowEqual from '@wordpress/is-shallow-equal';
+} from '@finpress/element';
+import isShallowEqual from '@finpress/is-shallow-equal';
 
 /**
  * Internal dependencies
@@ -265,7 +265,7 @@ function _useMappingSelect( suspense, mapSelect, deps ) {
  *
  * @example
  * ```js
- * import { useSelect } from '@wordpress/data';
+ * import { useSelect } from '@finpress/data';
  * import { store as myCustomStore } from 'my-custom-store';
  *
  * function HammerPriceDisplay( { currency } ) {
@@ -296,7 +296,7 @@ function _useMappingSelect( suspense, mapSelect, deps ) {
  * function because your component won't re-render on a data change.**
  *
  * ```js
- * import { useSelect } from '@wordpress/data';
+ * import { useSelect } from '@finpress/data';
  * import { store as myCustomStore } from 'my-custom-store';
  *
  * function Paste( { children } ) {

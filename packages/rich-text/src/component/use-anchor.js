@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { usePrevious } from '@wordpress/compose';
-import { useState, useLayoutEffect } from '@wordpress/element';
+import { usePrevious } from '@finpress/compose';
+import { useState, useLayoutEffect } from '@finpress/element';
 
 /** @typedef {import('../register-format-type').WPFormat} WPFormat */
 /** @typedef {import('../types').RichTextValue} RichTextValue */

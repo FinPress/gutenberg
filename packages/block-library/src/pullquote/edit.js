@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	AlignmentControl,
 	BlockControls,
 	RichText,
 	useBlockProps,
-} from '@wordpress/block-editor';
-import { createBlock, getDefaultBlockName } from '@wordpress/blocks';
-import { Platform } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { createBlock, getDefaultBlockName } from '@finpress/blocks';
+import { Platform } from '@finpress/element';
 
 /**
  * Internal dependencies

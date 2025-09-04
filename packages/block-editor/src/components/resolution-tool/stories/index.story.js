@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useReducer } from '@wordpress/element';
+import { useReducer } from '@finpress/element';
 import {
 	Panel,
 	__experimentalToolsPanel as ToolsPanel,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

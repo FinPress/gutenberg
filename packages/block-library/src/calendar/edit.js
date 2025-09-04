@@ -4,15 +4,15 @@
 import memoize from 'memize';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { calendar as icon } from '@wordpress/icons';
-import { Disabled, Placeholder, Spinner } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import ServerSideRender from '@wordpress/server-side-render';
-import { useBlockProps } from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
+import { calendar as icon } from '@finpress/icons';
+import { Disabled, Placeholder, Spinner } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import ServerSideRender from '@finpress/server-side-render';
+import { useBlockProps } from '@finpress/block-editor';
+import { store as coreStore } from '@finpress/core-data';
+import { __ } from '@finpress/i18n';
 
 /**
  * Returns the year and month of a specified date.
@@ -55,9 +55,9 @@ export default function CalendarEdit( { attributes } ) {
 
 		let _date;
 
-		// FIXME: @wordpress/block-library should not depend on @wordpress/editor.
+		// FIXME: @finpress/block-library should not depend on @finpress/editor.
 		// Blocks can be loaded into a *non-post* block editor.
-		// eslint-disable-next-line @wordpress/data-no-store-string-literals
+		// eslint-disable-next-line @finpress/data-no-store-string-literals
 		const editorSelectors = select( 'core/editor' );
 		if ( editorSelectors ) {
 			const postType = editorSelectors.getEditedPostAttribute( 'type' );

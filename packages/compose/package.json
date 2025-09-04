@@ -1,24 +1,24 @@
 {
-	"name": "@wordpress/compose",
+	"name": "@finpress/compose",
 	"version": "7.29.0",
-	"description": "WordPress higher-order components (HOCs).",
-	"author": "The WordPress Contributors",
+	"description": "FinPress higher-order components (HOCs).",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"react",
 		"hoc",
 		"hooks"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/compose/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/compose/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/compose"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -33,13 +33,13 @@
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
 		"@types/mousetrap": "^1.6.8",
-		"@wordpress/deprecated": "file:../deprecated",
-		"@wordpress/dom": "file:../dom",
-		"@wordpress/element": "file:../element",
-		"@wordpress/is-shallow-equal": "file:../is-shallow-equal",
-		"@wordpress/keycodes": "file:../keycodes",
-		"@wordpress/priority-queue": "file:../priority-queue",
-		"@wordpress/undo-manager": "file:../undo-manager",
+		"@finpress/deprecated": "file:../deprecated",
+		"@finpress/dom": "file:../dom",
+		"@finpress/element": "file:../element",
+		"@finpress/is-shallow-equal": "file:../is-shallow-equal",
+		"@finpress/keycodes": "file:../keycodes",
+		"@finpress/priority-queue": "file:../priority-queue",
+		"@finpress/undo-manager": "file:../undo-manager",
 		"change-case": "^4.1.2",
 		"clipboard": "^2.0.11",
 		"mousetrap": "^1.6.5",

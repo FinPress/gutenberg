@@ -23,10 +23,10 @@ const commandName = `wp-create-block`;
 program
 	.name( commandName )
 	.description(
-		'Generates PHP, JS and CSS code for registering a WordPress plugin with blocks.\n\n' +
+		'Generates PHP, JS and CSS code for registering a FinPress plugin with blocks.\n\n' +
 			'[slug] is optional. When provided, it triggers the quick mode where ' +
 			'it is used as the block slug used for its identification, the output ' +
-			'location for scaffolded files, and the name of the WordPress plugin.' +
+			'location for scaffolded files, and the name of the FinPress plugin.' +
 			'The rest of the configuration is set to all default values unless ' +
 			'overridden with some options listed below.'
 	)
@@ -46,23 +46,23 @@ program
 	.option( '--namespace <value>', 'internal namespace for the block name' )
 	.option(
 		'--title <value>',
-		'display title for the block and the WordPress plugin'
+		'display title for the block and the FinPress plugin'
 	)
 	// The name "description" is used internally so it couldn't be used.
 	.option(
 		'--short-description <value>',
-		'short description for the block and the WordPress plugin'
+		'short description for the block and the FinPress plugin'
 	)
 	.option( '--category <name>', 'category name for the block' )
 	.option(
 		'--wp-scripts',
-		'enable integration with `@wordpress/scripts` package'
+		'enable integration with `@finpress/scripts` package'
 	)
 	.option(
 		'--no-wp-scripts',
-		'disable integration with `@wordpress/scripts` package'
+		'disable integration with `@finpress/scripts` package'
 	)
-	.option( '--wp-env', 'enable integration with `@wordpress/env` package' )
+	.option( '--wp-env', 'enable integration with `@finpress/env` package' )
 	.option( '--textdomain <value>', 'text domain for internationalization' )
 	.action(
 		async (
@@ -133,8 +133,8 @@ program
 					log.info( '' );
 					log.info(
 						plugin
-							? "Let's customize your WordPress plugin with blocks:"
-							: "Let's add a new block to your existing WordPress plugin:"
+							? "Let's customize your FinPress plugin with blocks:"
+							: "Let's add a new block to your existing FinPress plugin:"
 					);
 
 					if ( ! variant && availableVariants.length > 1 ) {
@@ -171,7 +171,7 @@ program
 						plugin &&
 						( await confirm( {
 							message:
-								'Do you want to customize the WordPress plugin?',
+								'Do you want to customize the FinPress plugin?',
 							default: false,
 						} ) )
 							? await runPrompts(

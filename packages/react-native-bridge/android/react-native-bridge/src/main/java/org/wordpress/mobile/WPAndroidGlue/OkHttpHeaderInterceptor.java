@@ -1,6 +1,6 @@
-package org.wordpress.mobile.WPAndroidGlue;
+package org.finpress.mobile.WPAndroidGlue;
 
-import org.wordpress.mobile.WPAndroidGlue.WPAndroidGlueCode.OnAuthHeaderRequestedListener;
+import org.finpress.mobile.WPAndroidGlue.WPAndroidGlueCode.OnAuthHeaderRequestedListener;
 
 import java.io.IOException;
 import java.util.Map;

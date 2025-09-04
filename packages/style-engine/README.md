@@ -6,7 +6,7 @@ Initially, it will offer a single, centralized agent responsible for generating 
 
 ## Please note
 
-This package is new as of WordPress 6.1 and therefore in its infancy.
+This package is new as of FinPress 6.1 and therefore in its infancy.
 
 Upcoming tasks on the roadmap include, but are not limited to, the following:
 
@@ -17,17 +17,17 @@ Upcoming tasks on the roadmap include, but are not limited to, the following:
 -   Propose a way to control hierarchy and specificity, and make the style hierarchy cascade accessible and predictable. This might include preparing for CSS cascade layers until they become more widely supported, and allowing for opt-in support in Gutenberg via theme.json.
 -   Refactor all blocks to consistently use the "style" attribute for all customizations, that is, deprecate preset-specific attributes such as `attributes.fontSize`.
 
-For more information about the roadmap, please refer to [Block editor styles: initiatives and goals](https://make.wordpress.org/core/2022/06/24/block-editor-styles-initiatives-and-goals/) and the [GitHub project board](https://github.com/orgs/WordPress/projects/19).
+For more information about the roadmap, please refer to [Block editor styles: initiatives and goals](https://make.finpress.org/core/2022/06/24/block-editor-styles-initiatives-and-goals/) and the [GitHub project board](https://github.com/orgs/FinPress/projects/19).
 
-If you're making changes or additions to the Style Engine, please take a moment to read the [notes on contributing](https://github.com/WordPress/gutenberg/tree/HEAD/packages/style-engine/CONTRIBUTING.md).
+If you're making changes or additions to the Style Engine, please take a moment to read the [notes on contributing](https://github.com/FinPress/gutenberg/tree/HEAD/packages/style-engine/CONTRIBUTING.md).
 
 ## Backend API
 
 ### wp_style_engine_get_styles()
 
-Global public function to generate styles from a single style object, e.g., the value of a [block's attributes.style object](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/#styles) or the [top level styles in theme.json](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/).
+Global public function to generate styles from a single style object, e.g., the value of a [block's attributes.style object](https://developer.finpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/#styles) or the [top level styles in theme.json](https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/).
 
-See also [Using the Style Engine to generate block supports styles](https://github.com/WordPress/gutenberg/tree/HEAD/packages/style-engine/docs/using-the-style-engine-with-block-supports.md).
+See also [Using the Style Engine to generate block supports styles](https://github.com/FinPress/gutenberg/tree/HEAD/packages/style-engine/docs/using-the-style-engine-with-block-supports.md).
 
 _Parameters_
 
@@ -59,7 +59,7 @@ To enqueue a style for rendering in the site's frontend, the `$options` array re
 
 #### Usage
 
-As mentioned, `wp_style_engine_get_styles()` is useful whenever you wish to generate CSS and/or classnames from a **block's style object**. A good example is [using the Style Engine to generate block supports styles](https://github.com/WordPress/gutenberg/tree/HEAD/packages/style-engine/docs/using-the-style-engine-with-block-supports.md).
+As mentioned, `wp_style_engine_get_styles()` is useful whenever you wish to generate CSS and/or classnames from a **block's style object**. A good example is [using the Style Engine to generate block supports styles](https://github.com/FinPress/gutenberg/tree/HEAD/packages/style-engine/docs/using-the-style-engine-with-block-supports.md).
 
 In the following snippet, we're taking the style object from a block's attributes and passing it to the Style Engine to get the styles. By passing a `context` in the options, the Style Engine will store the styles for later retrieval, for example, should you wish to batch enqueue a set of CSS rules.
 
@@ -215,10 +215,10 @@ if ( ! empty( $stylesheet ) ) {
 Install the module
 
 ```bash
-npm install @wordpress/style-engine --save
+npm install @finpress/style-engine --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## Usage
 
@@ -239,7 +239,7 @@ _Returns_
 
 _Changelog_
 
-`6.1.0` Introduced in WordPress core.
+`6.1.0` Introduced in FinPress core.
 
 ### getCSSRules
 
@@ -256,11 +256,11 @@ _Returns_
 
 _Changelog_
 
-`6.1.0` Introduced in WordPress core.
+`6.1.0` Introduced in FinPress core.
 
 ### getCSSValueFromRawStyle
 
-Returns a WordPress CSS custom var value from incoming style preset value, if one is detected.
+Returns a FinPress CSS custom var value from incoming style preset value, if one is detected.
 
 The preset value is a string and follows the pattern `var:description|context|slug`.
 

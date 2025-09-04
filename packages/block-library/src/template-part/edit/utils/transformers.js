@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	parse,
@@ -8,7 +8,7 @@ import {
 	getGroupingBlockName,
 	getPossibleBlockTransformations,
 	switchToBlockType,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 
 /**
  * Converts a widget entity record into a block.

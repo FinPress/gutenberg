@@ -4,23 +4,23 @@
 import removeAccents from 'remove-accents';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ComboboxControl, ExternalLink } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+import { ComboboxControl, ExternalLink } from '@finpress/components';
+import { useSelect } from '@finpress/data';
 import {
 	createInterpolateElement,
 	useCallback,
 	useMemo,
 	useState,
-} from '@wordpress/element';
+} from '@finpress/element';
 // @ts-ignore
-import { store as coreStore } from '@wordpress/core-data';
-import type { DataFormControlProps } from '@wordpress/dataviews';
-import { debounce } from '@wordpress/compose';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __, sprintf } from '@wordpress/i18n';
-import { filterURLForDisplay } from '@wordpress/url';
+import { store as coreStore } from '@finpress/core-data';
+import type { DataFormControlProps } from '@finpress/dataviews';
+import { debounce } from '@finpress/compose';
+import { decodeEntities } from '@finpress/html-entities';
+import { __, sprintf } from '@finpress/i18n';
+import { filterURLForDisplay } from '@finpress/url';
 
 /**
  * Internal dependencies
@@ -168,7 +168,7 @@ export function PageAttributesParent( {
 	);
 
 	/**
-	 * This logic has been copied from https://github.com/WordPress/gutenberg/blob/0249771b519d5646171fb9fae422006c8ab773f2/packages/editor/src/components/page-attributes/parent.js#L106.
+	 * This logic has been copied from https://github.com/FinPress/gutenberg/blob/0249771b519d5646171fb9fae422006c8ab773f2/packages/editor/src/components/page-attributes/parent.js#L106.
 	 */
 	const parentOptions = useMemo( () => {
 		const getOptionsFromTree = (
@@ -306,7 +306,7 @@ export const ParentEdit = ( {
 			<div>
 				{ createInterpolateElement(
 					sprintf(
-						/* translators: %1$s The home URL of the WordPress installation without the scheme. */
+						/* translators: %1$s The home URL of the FinPress installation without the scheme. */
 						__(
 							'Child pages inherit characteristics from their parent, such as URL structure. For instance, if "Pricing" is a child of "Services", its URL would be %1$s<wbr />/services<wbr />/pricing.'
 						),
@@ -328,7 +328,7 @@ export const ParentEdit = ( {
 							a: (
 								<ExternalLink
 									href={ __(
-										'https://wordpress.org/documentation/article/page-post-settings-sidebar/#page-attributes'
+										'https://finpress.org/documentation/article/page-post-settings-sidebar/#page-attributes'
 									) }
 									children={ undefined }
 								/>

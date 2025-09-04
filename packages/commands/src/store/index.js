@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createReduxStore, register } from '@wordpress/data';
+import { createReduxStore, register } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -17,14 +17,14 @@ const STORE_NAME = 'core/commands';
 /**
  * Store definition for the commands namespace.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
  *
  * @type {Object}
  *
  * @example
  * ```js
- * import { store as commandsStore } from '@wordpress/commands';
- * import { useDispatch } from '@wordpress/data';
+ * import { store as commandsStore } from '@finpress/commands';
+ * import { useDispatch } from '@finpress/data';
  * ...
  * const { open: openCommandCenter } = useDispatch( commandsStore );
  * ```

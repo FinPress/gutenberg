@@ -11,11 +11,11 @@ import type {
 } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { forwardRef } from '@wordpress/element';
-import { useInstanceId } from '@wordpress/compose';
+import deprecated from '@finpress/deprecated';
+import { forwardRef } from '@finpress/element';
+import { useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -291,7 +291,7 @@ export function UnforwardedButton(
  * Lets users take actions and make choices with a single click or tap.
  *
  * ```jsx
- * import { Button } from '@wordpress/components';
+ * import { Button } from '@finpress/components';
  * const Mybutton = () => (
  *   <Button
  *     variant="primary"

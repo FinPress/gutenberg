@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -24,6 +24,6 @@ export const useNavigationTreeMenu = ( props: NavigationMenuProps ) => {
 			removeMenu( key );
 		};
 		// Not adding deps for now, as it would require either a larger refactor
-		// See https://github.com/WordPress/gutenberg/pull/44090
+		// See https://github.com/FinPress/gutenberg/pull/44090
 	}, [] );
 };

@@ -4,12 +4,12 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { settings } from '@wordpress/icons';
-import { useState, forwardRef } from '@wordpress/element';
-import { useInstanceId } from '@wordpress/compose';
+import { __ } from '@finpress/i18n';
+import { settings } from '@finpress/icons';
+import { useState, forwardRef } from '@finpress/element';
+import { useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies

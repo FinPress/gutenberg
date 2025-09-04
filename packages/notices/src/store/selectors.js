@@ -51,8 +51,8 @@ const DEFAULT_NOTICES = [];
  * @example
  *
  *```js
- * import { useSelect } from '@wordpress/data';
- * import { store as noticesStore } from '@wordpress/notices';
+ * import { useSelect } from '@finpress/data';
+ * import { store as noticesStore } from '@finpress/notices';
  *
  * const ExampleComponent = () => {
  *     const notices = useSelect( ( select ) => select( noticesStore ).getNotices() );

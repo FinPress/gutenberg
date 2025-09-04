@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RichText } from '@wordpress/block-editor';
-import { createBlock } from '@wordpress/blocks';
+import { RichText } from '@finpress/block-editor';
+import { createBlock } from '@finpress/blocks';
 
 const transforms = {
 	from: [

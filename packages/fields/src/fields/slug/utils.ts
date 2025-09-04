@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { cleanForSlug } from '@wordpress/url';
+import { cleanForSlug } from '@finpress/url';
 /**
  * Internal dependencies
  */

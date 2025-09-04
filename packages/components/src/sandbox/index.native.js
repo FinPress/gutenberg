@@ -5,7 +5,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Platform,
@@ -16,8 +16,8 @@ import {
 	useEffect,
 	forwardRef,
 	useCallback,
-} from '@wordpress/element';
-import { usePreferredColorScheme } from '@wordpress/compose';
+} from '@finpress/element';
+import { usePreferredColorScheme } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -130,7 +130,7 @@ const style = `
 	/**
 	 * Add responsiveness to embeds with aspect ratios.
 	 *
-	 * These styles have been copied from the web version (https://github.com/WordPress/gutenberg/blob/7901895ca20cf61e402925e31571d659dab64721/packages/block-library/src/embed/style.scss#L42-L89) and
+	 * These styles have been copied from the web version (https://github.com/FinPress/gutenberg/blob/7901895ca20cf61e402925e31571d659dab64721/packages/block-library/src/embed/style.scss#L42-L89) and
 	 * adapted for the native version.
 	 */
 	.wp-has-aspect-ratio.wp-block-embed__wrapper::before {
@@ -336,7 +336,7 @@ const Sandbox = forwardRef( function Sandbox(
 
 	useEffect( () => {
 		updateContentHtml();
-		// See https://github.com/WordPress/gutenberg/pull/41166
+		// See https://github.com/FinPress/gutenberg/pull/41166
 	}, [ html, title, type, styles, scripts ] );
 
 	useEffect( () => {

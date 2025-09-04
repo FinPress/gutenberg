@@ -5,29 +5,29 @@ import { Platform, SafeAreaView, View } from 'react-native';
 import SafeArea from 'react-native-safe-area';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { withSelect } from '@wordpress/data';
+import { Component } from '@finpress/element';
+import { withSelect } from '@finpress/data';
 import {
 	BottomSheetSettings,
 	FloatingToolbar,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { compose, withPreferredColorScheme } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { compose, withPreferredColorScheme } from '@finpress/compose';
 import {
 	HTMLTextInput,
 	KeyboardAvoidingView,
 	NoticeList,
 	Tooltip,
 	__unstableAutocompletionItemsSlot as AutocompletionItemsSlot,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	AutosaveMonitor,
 	OfflineStatus,
 	store as editorStore,
-} from '@wordpress/editor';
-import { sendNativeEditorDidLayout } from '@wordpress/react-native-bridge';
+} from '@finpress/editor';
+import { sendNativeEditorDidLayout } from '@finpress/react-native-bridge';
 
 /**
  * Internal dependencies

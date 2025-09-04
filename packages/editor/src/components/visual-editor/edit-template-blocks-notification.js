@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { __experimentalConfirmDialog as ConfirmDialog } from '@wordpress/components';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useEffect, useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { __experimentalConfirmDialog as ConfirmDialog } from '@finpress/components';
 
 /**
  * Internal dependencies

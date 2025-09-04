@@ -4,11 +4,11 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf, _n } from '@wordpress/i18n';
-import { Component, createRef } from '@wordpress/element';
-import { UP, DOWN, ENTER, TAB } from '@wordpress/keycodes';
+import { __, sprintf, _n } from '@finpress/i18n';
+import { Component, createRef } from '@finpress/element';
+import { UP, DOWN, ENTER, TAB } from '@finpress/keycodes';
 import {
 	BaseControl,
 	Button,
@@ -16,15 +16,15 @@ import {
 	Spinner,
 	withSpokenMessages,
 	Popover,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	compose,
 	debounce,
 	withInstanceId,
 	withSafeTimeout,
-} from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
-import { isURL } from '@wordpress/url';
+} from '@finpress/compose';
+import { withSelect } from '@finpress/data';
+import { isURL } from '@finpress/url';
 
 /**
  * Internal dependencies
@@ -269,7 +269,7 @@ class URLInput extends Component {
 			// within an input field like they do for Mac Firefox/Chrome/Safari. This causes
 			// a form of focus trapping that is disruptive to the user experience. This disruption
 			// only happens if the caret is not in the first or last position in the text input.
-			// See: https://github.com/WordPress/gutenberg/issues/5693#issuecomment-436684747
+			// See: https://github.com/FinPress/gutenberg/issues/5693#issuecomment-436684747
 			switch ( event.keyCode ) {
 				// When UP is pressed, if the caret is at the start of the text, move it to the 0
 				// position.
@@ -560,7 +560,7 @@ class URLInput extends Component {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/url-input/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/url-input/README.md
  */
 export default compose(
 	withSafeTimeout,

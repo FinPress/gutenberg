@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { Button, Modal } from '@wordpress/components';
-import { useState, useCallback, useMemo } from '@wordpress/element';
-import { createBlock, rawHandler } from '@wordpress/blocks';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { __, _x } from '@finpress/i18n';
+import { Button, Modal } from '@finpress/components';
+import { useState, useCallback, useMemo } from '@finpress/element';
+import { createBlock, rawHandler } from '@finpress/blocks';
+import { useDispatch, useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

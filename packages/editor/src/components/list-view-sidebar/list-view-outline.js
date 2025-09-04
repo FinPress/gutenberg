@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalText as Text } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { __experimentalText as Text } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

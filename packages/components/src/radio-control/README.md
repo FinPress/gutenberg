@@ -2,7 +2,7 @@
 
 Use radio buttons when you want users to select one option from a set, and you want to show them all the available options at once.
 
-![](https://make.wordpress.org/design/files/2018/11/radio.png)
+![](https://make.finpress.org/design/files/2018/11/radio.png)
 Selected and unselected radio buttons
 
 ## Design guidelines
@@ -20,12 +20,12 @@ If you have a list of available options that can be collapsed, consider using a 
 
 #### Do
 
-![Right: A screenshot showing two radio buttons for "Author" and "Editor", one checked](https://github.com/WordPress/gutenberg/assets/10128264/77da4e95-b038-43e7-bd29-11282cc2bac7)
+![Right: A screenshot showing two radio buttons for "Author" and "Editor", one checked](https://github.com/FinPress/gutenberg/assets/10128264/77da4e95-b038-43e7-bd29-11282cc2bac7)
 Use radio buttons when only one item can be selected from a list.
 
 #### Don’t
 
-![Wrong: A screenshot showing two checkboxes for "Author" and "Editor", one checked](https://github.com/WordPress/gutenberg/assets/10128264/214f37a8-2080-4c10-a4b5-b011e0875f18)
+![Wrong: A screenshot showing two checkboxes for "Author" and "Editor", one checked](https://github.com/FinPress/gutenberg/assets/10128264/214f37a8-2080-4c10-a4b5-b011e0875f18)
 Don’t use checkboxes when only one item can be selected from a list. Use radio buttons instead.
 
 #### Defaults
@@ -51,7 +51,7 @@ Designs with a radio button selected by default make a strong suggestion to the 
 Render a user interface to select the user type using radio inputs.
 
 ```jsx
-import { RadioControl } from '@wordpress/components';
+import { RadioControl } from '@finpress/components';
 import { useState } from 'react';
 
 const MyRadioControl = () => {

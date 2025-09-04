@@ -3,11 +3,11 @@
  */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, Card, CardBody, CardHeader } from '@wordpress/components';
-import { useCallback, useContext, useMemo, useState } from '@wordpress/element';
-import { chevronDown, chevronUp } from '@wordpress/icons';
+import { Button, Card, CardBody, CardHeader } from '@finpress/components';
+import { useCallback, useContext, useMemo, useState } from '@finpress/element';
+import { chevronDown, chevronUp } from '@finpress/icons';
 
 /**
  * Internal dependencies

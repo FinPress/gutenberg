@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { createHigherOrderComponent } from '@wordpress/compose';
-import { useCallback } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { addFilter } from '@finpress/hooks';
+import { createHigherOrderComponent } from '@finpress/compose';
+import { useCallback } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 import {
 	__unstableBlockToolbarLastItem as BlockToolbarLastItem,
 	store as blockEditorStore,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { ToolbarButton, ToolbarGroup } from '@finpress/components';
+import { useSelect } from '@finpress/data';
 
 // Target blocks that should have the View button.
 const SUPPORTED_BLOCKS = [ 'core/navigation-link', 'core/navigation-submenu' ];

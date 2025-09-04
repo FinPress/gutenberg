@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { G, Path, SVG } from '@wordpress/components';
+import { G, Path, SVG } from '@finpress/components';
 
 export const embedContentIcon = (
 	<SVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

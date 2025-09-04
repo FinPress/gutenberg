@@ -3,9 +3,9 @@
  */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSlotFill, PanelRow } from '@wordpress/components';
+import { createSlotFill, PanelRow } from '@finpress/components';
 
 const { Fill, Slot } = createSlotFill( 'PluginPostStatusInfo' );
 
@@ -38,8 +38,8 @@ const { Fill, Slot } = createSlotFill( 'PluginPostStatusInfo' );
  * @example
  * ```jsx
  * // Using ESNext syntax
- * import { __ } from '@wordpress/i18n';
- * import { PluginPostStatusInfo } from '@wordpress/editor';
+ * import { __ } from '@finpress/i18n';
+ * import { PluginPostStatusInfo } from '@finpress/editor';
  *
  * const MyPluginPostStatusInfo = () => (
  * 	<PluginPostStatusInfo

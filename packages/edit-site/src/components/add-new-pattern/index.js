@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { DropdownMenu } from '@wordpress/components';
-import { useState, useRef } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { symbol, symbolFilled, upload } from '@wordpress/icons';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { DropdownMenu } from '@finpress/components';
+import { useState, useRef } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { symbol, symbolFilled, upload } from '@finpress/icons';
+import { useSelect, useDispatch } from '@finpress/data';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 import {
 	privateApis as editPatternsPrivateApis,
 	store as patternsStore,
-} from '@wordpress/patterns';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as coreStore } from '@wordpress/core-data';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
+} from '@finpress/patterns';
+import { store as noticesStore } from '@finpress/notices';
+import { store as coreStore } from '@finpress/core-data';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
 
 /**
  * Internal dependencies
@@ -37,7 +37,7 @@ export default function AddNewPattern() {
 	const [ showPatternModal, setShowPatternModal ] = useState( false );
 	const [ showTemplatePartModal, setShowTemplatePartModal ] =
 		useState( false );
-	// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+	// eslint-disable-next-line @finpress/no-unused-vars-before-return
 	const { createPatternFromFile } = unlock( useDispatch( patternsStore ) );
 	const { createSuccessNotice, createErrorNotice } =
 		useDispatch( noticesStore );

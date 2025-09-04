@@ -17,12 +17,12 @@ type CreateBlockPayload = {
 /**
  * Delete all blocks using REST API.
  *
- * @see https://developer.wordpress.org/rest-api/reference/blocks/#list-editor-blocks
+ * @see https://developer.finpress.org/rest-api/reference/blocks/#list-editor-blocks
  * @param this
  */
 export async function deleteAllBlocks( this: RequestUtils ) {
 	// List all blocks.
-	// https://developer.wordpress.org/rest-api/reference/blocks/#list-editor-blocks
+	// https://developer.finpress.org/rest-api/reference/blocks/#list-editor-blocks
 	const blocks = await this.rest( {
 		path: '/wp/v2/blocks',
 		params: {
@@ -33,7 +33,7 @@ export async function deleteAllBlocks( this: RequestUtils ) {
 	} );
 
 	// Delete blocks.
-	// https://developer.wordpress.org/rest-api/reference/blocks/#delete-a-editor-block
+	// https://developer.finpress.org/rest-api/reference/blocks/#delete-a-editor-block
 	// "/wp/v2/posts" not yet supports batch requests.
 	await this.batchRest(
 		blocks.map( ( block: { id: number } ) => ( {
@@ -46,7 +46,7 @@ export async function deleteAllBlocks( this: RequestUtils ) {
 /**
  * Creates a new block using the REST API.
  *
- * @see https://developer.wordpress.org/rest-api/reference/blocks/#create-a-editor-block.
+ * @see https://developer.finpress.org/rest-api/reference/blocks/#create-a-editor-block.
  * @param this
  * @param payload Block payload.
  */

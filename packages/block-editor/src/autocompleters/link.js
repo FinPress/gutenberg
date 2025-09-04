@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 // Disable Reason: Needs to be refactored.
 // eslint-disable-next-line no-restricted-imports
-import apiFetch from '@wordpress/api-fetch';
-import { addQueryArgs } from '@wordpress/url';
-import { Icon, page, post } from '@wordpress/icons';
-import { decodeEntities } from '@wordpress/html-entities';
+import apiFetch from '@finpress/api-fetch';
+import { addQueryArgs } from '@finpress/url';
+import { Icon, page, post } from '@finpress/icons';
+import { decodeEntities } from '@finpress/html-entities';
 
 const SHOWN_SUGGESTIONS = 10;
 

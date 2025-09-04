@@ -4,9 +4,9 @@
 import { colord } from 'colord';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect, useMemo } from '@wordpress/element';
+import { useState, useEffect, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Spinner, SearchControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useDebouncedInput } from '@wordpress/compose';
+import { Spinner, SearchControl } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useDebouncedInput } from '@finpress/compose';
 
 /**
  * Internal dependencies

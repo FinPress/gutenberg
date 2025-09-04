@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
-import { store as blocksStore } from '@wordpress/blocks';
+import { useSelect } from '@finpress/data';
+import { useMemo } from '@finpress/element';
+import { store as blocksStore } from '@finpress/blocks';
 import {
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { PanelBody } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { PanelBody } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

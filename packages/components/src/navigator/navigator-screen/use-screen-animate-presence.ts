@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useState,
 	useEffect,
 	useLayoutEffect,
 	useCallback,
-} from '@wordpress/element';
-import { useReducedMotion } from '@wordpress/compose';
-import { isRTL as isRTLFn } from '@wordpress/i18n';
+} from '@finpress/element';
+import { useReducedMotion } from '@finpress/compose';
+import { isRTL as isRTLFn } from '@finpress/i18n';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { ToolbarButton, ToolbarGroup } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useSelect, useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

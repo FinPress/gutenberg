@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { useBlockProps, useInnerBlocksProps } from '@finpress/block-editor';
 
 const TEMPLATE = [
 	[

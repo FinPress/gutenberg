@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { applyFilters, hasFilter } from '@wordpress/hooks';
+import { applyFilters, hasFilter } from '@finpress/hooks';
 import {
 	Autocomplete,
 	__unstableUseAutocompleteProps as useAutocompleteProps,
-} from '@wordpress/components';
-import { useMemo } from '@wordpress/element';
-import { getDefaultBlockName, getBlockSupport } from '@wordpress/blocks';
+} from '@finpress/components';
+import { useMemo } from '@finpress/element';
+import { getDefaultBlockName, getBlockSupport } from '@finpress/blocks';
 
 /**
  * Internal dependencies
@@ -73,6 +73,6 @@ function BlockEditorAutocomplete( props ) {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/autocomplete/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/autocomplete/README.md
  */
 export default BlockEditorAutocomplete;

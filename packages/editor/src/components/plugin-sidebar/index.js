@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ComplementaryArea } from '@wordpress/interface';
+import { ComplementaryArea } from '@finpress/interface';
 
 /**
  * Renders a sidebar when activated. The contents within the `PluginSidebar` will appear as content within the sidebar.
@@ -20,7 +20,7 @@ import { ComplementaryArea } from '@wordpress/interface';
  * @param {string}                [props.className]                     An optional class name added to the sidebar body.
  * @param {string}                props.title                           Title displayed at the top of the sidebar.
  * @param {boolean}               [props.isPinnable=true]               Whether to allow to pin sidebar to the toolbar. When set to `true` it also automatically renders a corresponding menu item.
- * @param {WPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar.
+ * @param {WPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar.
  *
  * @example
  * ```js
@@ -51,10 +51,10 @@ import { ComplementaryArea } from '@wordpress/interface';
  * @example
  * ```jsx
  * // Using ESNext syntax
- * import { __ } from '@wordpress/i18n';
- * import { PanelBody } from '@wordpress/components';
- * import { PluginSidebar } from '@wordpress/editor';
- * import { more } from '@wordpress/icons';
+ * import { __ } from '@finpress/i18n';
+ * import { PanelBody } from '@finpress/components';
+ * import { PluginSidebar } from '@finpress/editor';
+ * import { more } from '@finpress/icons';
  *
  * const MyPluginSidebar = () => (
  * 	<PluginSidebar

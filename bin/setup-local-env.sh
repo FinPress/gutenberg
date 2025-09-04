@@ -5,4 +5,4 @@ set -e
 
 echo "Hi there! It looks like you're trying to use the old local environment setup script. This script has been retired, running \`npm run wp-env start\` will setup a local environment for you, instead.
 
-Check out the documentation for more information: https://developer.wordpress.org/block-editor/contributors/develop/getting-started/"
+Check out the documentation for more information: https://developer.finpress.org/block-editor/contributors/develop/getting-started/"

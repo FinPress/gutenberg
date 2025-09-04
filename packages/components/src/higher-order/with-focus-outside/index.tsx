@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback, useState } from '@finpress/element';
 import {
 	createHigherOrderComponent,
 	__experimentalUseFocusOutside as useFocusOutside,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 
 export default createHigherOrderComponent(
 	( WrappedComponent ) => ( props ) => {

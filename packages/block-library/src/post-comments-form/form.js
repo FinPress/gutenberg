@@ -4,18 +4,18 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x, sprintf } from '@wordpress/i18n';
+import { __, _x, sprintf } from '@finpress/i18n';
 import {
 	Warning,
 	store as blockEditorStore,
 	__experimentalGetElementClassName,
-} from '@wordpress/block-editor';
-import { Button } from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/block-editor';
+import { Button } from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
+import { useEntityProp, store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
 
 const CommentsFormPlaceholder = () => {
 	const instanceId = useInstanceId( CommentsFormPlaceholder );

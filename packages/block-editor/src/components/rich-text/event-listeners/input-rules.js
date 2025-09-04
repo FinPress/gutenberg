@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { insert, toHTMLString } from '@wordpress/rich-text';
-import { getBlockTransforms, findTransform } from '@wordpress/blocks';
+import { insert, toHTMLString } from '@finpress/rich-text';
+import { getBlockTransforms, findTransform } from '@finpress/blocks';
 
 /**
  * Internal dependencies

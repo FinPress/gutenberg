@@ -7,7 +7,7 @@
 
 /**
  * Replaces core 'styles' and '__experimentalFeatures' block editor settings from
- * wordpress-develop/block-editor.php with the Gutenberg versions. Much of the
+ * finpress-develop/block-editor.php with the Gutenberg versions. Much of the
  * code is copied from get_block_editor_settings() in that file.
  *
  * This hook should run first as it completely replaces the core settings that

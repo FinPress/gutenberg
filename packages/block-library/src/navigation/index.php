@@ -2,7 +2,7 @@
 /**
  * Server-side rendering of the `core/navigation` block.
  *
- * @package WordPress
+ * @package FinPress
  */
 
 /**
@@ -627,7 +627,7 @@ class WP_Navigation_Block_Renderer {
 	 */
 	private static function handle_view_script_module_loading( $attributes, $block, $inner_blocks ) {
 		if ( static::is_interactive( $attributes, $inner_blocks ) ) {
-			wp_enqueue_script_module( '@wordpress/block-library/navigation/view' );
+			wp_enqueue_script_module( '@finpress/block-library/navigation/view' );
 		}
 	}
 
@@ -717,7 +717,7 @@ class WP_Navigation_Block_Renderer {
 // when the gutenberg plugin is active.
 if ( defined( 'IS_GUTENBERG_PLUGIN' ) && IS_GUTENBERG_PLUGIN ) {
 	/**
-	 * Returns the menu items for a WordPress menu location.
+	 * Returns the menu items for a FinPress menu location.
 	 *
 	 * @since 5.9.0
 	 *
@@ -1045,7 +1045,7 @@ function block_core_navigation_block_contains_core_navigation( $inner_blocks ) {
  * site when there is no menu assigned to the Nav block.
  *
  * This aims to mirror how the fallback mechanic for wp_nav_menu works.
- * See https://developer.wordpress.org/reference/functions/wp_nav_menu/#more-information.
+ * See https://developer.finpress.org/reference/functions/wp_nav_menu/#more-information.
  *
  * @since 5.9.0
  *

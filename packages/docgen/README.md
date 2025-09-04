@@ -13,7 +13,7 @@ Some characteristics:
 Install the module
 
 ```bash
-npm install @wordpress/docgen --save-dev
+npm install @finpress/docgen --save-dev
 ```
 
 **Note**: This package requires Node.js version with long-term support status (check [Active LTS or Maintenance LTS releases](https://nodejs.org/en/about/previous-releases)). It is not compatible with older versions.
@@ -43,9 +43,9 @@ This command will generate a file named `entry-point-api.md` containing all the 
 
 ### Babel Configuration
 
-`@wordpress/docgen` follows the default [project-wide configuration of Babel](https://babeljs.io/docs/en/next/config-files#project-wide-configuration). Like Babel, it will automatically search for a `babel.config.json` file, or an equivalent one using the [supported extensions](https://babeljs.io/docs/en/next/config-files#supported-file-extensions), in the project root directory.
+`@finpress/docgen` follows the default [project-wide configuration of Babel](https://babeljs.io/docs/en/next/config-files#project-wide-configuration). Like Babel, it will automatically search for a `babel.config.json` file, or an equivalent one using the [supported extensions](https://babeljs.io/docs/en/next/config-files#supported-file-extensions), in the project root directory.
 
-Without it, `@wordpress/docgen` runs with the default option. In other words, it cannot parse JSX or other advanced syntaxes.
+Without it, `@finpress/docgen` runs with the default option. In other words, it cannot parse JSX or other advanced syntaxes.
 
 ## Examples
 
@@ -296,8 +296,8 @@ Adds two numbers.
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

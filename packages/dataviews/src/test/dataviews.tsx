@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useState } from '@wordpress/element';
+import { useMemo, useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -148,9 +148,9 @@ function DataViewWrapper( {
 // jest.useFakeTimers();
 
 // Tests run against a DataView which is 500px wide.
-jest.mock( '@wordpress/compose', () => {
+jest.mock( '@finpress/compose', () => {
 	return {
-		...jest.requireActual( '@wordpress/compose' ),
+		...jest.requireActual( '@finpress/compose' ),
 		useResizeObserver: jest.fn( ( callback ) => {
 			setTimeout( () => {
 				callback( [

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isPhrasingContent, getPhrasingContentSchema } from '@wordpress/dom';
+import { isPhrasingContent, getPhrasingContentSchema } from '@finpress/dom';
 
 /**
  * Internal dependencies

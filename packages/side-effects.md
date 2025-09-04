@@ -2,12 +2,12 @@
 
 ## What are side effects?
 
-Many `@wordpress` packages, such as UI-focused ones that register blocks or data stores, make use of side effects in their code. A side effect, in an ES module context, is code that performs some externally-visible behavior (that is, behavior which is visible outside the module) when the module is loaded.
+Many `@finpress` packages, such as UI-focused ones that register blocks or data stores, make use of side effects in their code. A side effect, in an ES module context, is code that performs some externally-visible behavior (that is, behavior which is visible outside the module) when the module is loaded.
 
 Here is an example:
 
 ```js
-import { registerStore } from '@wordpress/data';
+import { registerStore } from '@finpress/data';
 
 const store = registerStore( STORE_NAME, {
 	// ...
@@ -19,7 +19,7 @@ const store = registerStore( STORE_NAME, {
 However, if this were to happen inside of an `init` function that doesn't get called on module load, then that would no longer be a side effect:
 
 ```js
-import { registerStore } from '@wordpress/data';
+import { registerStore } from '@finpress/data';
 
 export function init() {
 	const store = registerStore( STORE_NAME, {
@@ -48,7 +48,7 @@ for ( const entry of list ) {
 
 Modern bundlers have the concept of tree-shaking, where unused code is removed from the final bundles, as it's not necessary. This becomes important in libraries that offer a lot of different functionality, since consumers of that library may only be using a small portion of it, and don't want their bundles to be larger than necessary.
 
-These libraries should thus take steps to ensure they can indeed be correctly tree-shaken, and `@wordpress` packages are no exception.
+These libraries should thus take steps to ensure they can indeed be correctly tree-shaken, and `@finpress` packages are no exception.
 
 This brings us back to side effects. As we've seen, side effects are code that runs simply by virtue of importing a module, and has an external influence of some sort. This means that the code cannot be tree-shaken away; it needs to run, because it changes things outside of the module that may be needed elsewhere.
 

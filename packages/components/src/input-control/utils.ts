@@ -4,14 +4,14 @@
 import type { FocusEventHandler } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useEffect,
 	useLayoutEffect,
 	useRef,
 	useState,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies

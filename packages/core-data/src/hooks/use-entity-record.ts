@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
-import { useMemo } from '@wordpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -61,7 +61,7 @@ const EMPTY_OBJECT = {};
 /**
  * Resolves the specified entity record.
  *
- * @since 6.1.0 Introduced in WordPress core.
+ * @since 6.1.0 Introduced in FinPress core.
  *
  * @param    kind     Kind of the entity, e.g. `root` or a `postType`. See rootEntitiesConfig in ../entities.ts for a list of available kinds.
  * @param    name     Name of the entity, e.g. `plugin` or a `post`. See rootEntitiesConfig in ../entities.ts for a list of available names.
@@ -69,7 +69,7 @@ const EMPTY_OBJECT = {};
  * @param    options  Optional hook options.
  * @example
  * ```js
- * import { useEntityRecord } from '@wordpress/core-data';
+ * import { useEntityRecord } from '@finpress/core-data';
  *
  * function PageTitleDisplay( { id } ) {
  *   const { record, isResolving } = useEntityRecord( 'postType', 'page', id );
@@ -92,11 +92,11 @@ const EMPTY_OBJECT = {};
  * @example
  * ```js
  * import { useCallback } from 'react';
- * import { useDispatch } from '@wordpress/data';
- * import { __ } from '@wordpress/i18n';
- * import { TextControl } from '@wordpress/components';
- * import { store as noticeStore } from '@wordpress/notices';
- * import { useEntityRecord } from '@wordpress/core-data';
+ * import { useDispatch } from '@finpress/data';
+ * import { __ } from '@finpress/i18n';
+ * import { TextControl } from '@finpress/components';
+ * import { store as noticeStore } from '@finpress/notices';
+ * import { useEntityRecord } from '@finpress/core-data';
  *
  * function PageRenameForm( { id } ) {
  * 	const page = useEntityRecord( 'postType', 'page', id );

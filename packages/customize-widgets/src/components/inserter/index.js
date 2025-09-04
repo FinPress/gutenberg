@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { __experimentalLibrary as Library } from '@wordpress/block-editor';
-import { Button } from '@wordpress/components';
-import { useInstanceId } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { closeSmall } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { __experimentalLibrary as Library } from '@finpress/block-editor';
+import { Button } from '@finpress/components';
+import { useInstanceId } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { closeSmall } from '@finpress/icons';
 
 /**
  * Internal dependencies

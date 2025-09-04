@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { registerFormatType } from '@wordpress/rich-text';
+import { registerFormatType } from '@finpress/rich-text';
 
 /**
  * Internal dependencies

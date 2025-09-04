@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -64,7 +64,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 5.42.0 (2024-05-16)
 
@@ -130,7 +130,7 @@
 
 ### Internal
 
--   Lodash: Refactor away from `_.merge()` and remove Lodash dependency ([#48239](https://github.com/WordPress/gutenberg/pull/48239)).
+-   Lodash: Refactor away from `_.merge()` and remove Lodash dependency ([#48239](https://github.com/FinPress/gutenberg/pull/48239)).
 
 ## 5.11.0 (2023-02-15)
 
@@ -156,45 +156,45 @@
 
 ### Bug Fixes
 
--   Makepot: Fix translations object handling ([#43797](https://github.com/WordPress/gutenberg/pull/43797)).
+-   Makepot: Fix translations object handling ([#43797](https://github.com/FinPress/gutenberg/pull/43797)).
 
 ## 5.0.0 (2022-08-24)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ## 4.0.0 (2021-01-21)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ## 2.2.0 (2019-03-06)
 
 ### Bug Fixes
 
--   Fixed Babel plugin for POT file generation to properly handle plural numbers specified in the passed header. ([#13577](https://github.com/WordPress/gutenberg/pull/13577))
--   Fix extracted translator comments to be written as prefixed by `#.` ([#9440](https://github.com/WordPress/gutenberg/pull/9440))
+-   Fixed Babel plugin for POT file generation to properly handle plural numbers specified in the passed header. ([#13577](https://github.com/FinPress/gutenberg/pull/13577))
+-   Fix extracted translator comments to be written as prefixed by `#.` ([#9440](https://github.com/FinPress/gutenberg/pull/9440))
 
 ## 2.1.0 (2018-09-05)
 
 ### New Features
 
--   Plugin updated to work with the stable version of Babel 7 ([#9171](https://github.com/WordPress/gutenberg/pull/9171)).
+-   Plugin updated to work with the stable version of Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)).
 
 ## 2.0.0 (2018-07-12)
 
 ### Breaking Changes
 
--   Updated code to work with Babel 7 ([#7832](https://github.com/WordPress/gutenberg/pull/7832))
+-   Updated code to work with Babel 7 ([#7832](https://github.com/FinPress/gutenberg/pull/7832))
 
 ### Internal
 
--   Moved `@WordPress/packages` repository to `@WordPress/gutenberg` ([#7805](https://github.com/WordPress/gutenberg/pull/7805))
+-   Moved `@FinPress/packages` repository to `@FinPress/gutenberg` ([#7805](https://github.com/FinPress/gutenberg/pull/7805))
 
 ## 1.0.1 (2018-05-18)
 
 ### Internal
 
--   Fix: Standardized `package.json` format ([#119](https://github.com/WordPress/packages/pull/119))
+-   Fix: Standardized `package.json` format ([#119](https://github.com/FinPress/packages/pull/119))

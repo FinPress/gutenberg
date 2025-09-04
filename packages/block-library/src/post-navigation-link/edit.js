@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
@@ -13,7 +13,7 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	ToggleControl,
 	SelectControl,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	InspectorControls,
 	RichText,
@@ -21,10 +21,10 @@ import {
 	AlignmentToolbar,
 	useBlockProps,
 	useBlockEditingMode,
-} from '@wordpress/block-editor';
-import { __, _x } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { __, _x } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -60,9 +60,9 @@ export default function PostNavigationLinkEdit( {
 	if ( showTitle ) {
 		placeholder = isNext
 			? /* translators: Label before for next and previous post. There is a space after the colon. */
-			  __( 'Next: ' ) // eslint-disable-line @wordpress/i18n-no-flanking-whitespace
+			  __( 'Next: ' ) // eslint-disable-line @finpress/i18n-no-flanking-whitespace
 			: /* translators: Label before for next and previous post. There is a space after the colon. */
-			  __( 'Previous: ' ); // eslint-disable-line @wordpress/i18n-no-flanking-whitespace
+			  __( 'Previous: ' ); // eslint-disable-line @finpress/i18n-no-flanking-whitespace
 	}
 
 	const ariaLabel = isNext ? __( 'Next post' ) : __( 'Previous post' );

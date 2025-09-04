@@ -16,7 +16,7 @@ beforeEach( () => {
 } );
 
 const requiredConsent =
-	'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of WordPress.';
+	'I acknowledge private features are not for use in themes or plugins and doing so will break in the next version of FinPress.';
 
 describe( '__dangerousOptInToUnstableAPIsOnlyForCoreModules', () => {
 	it( 'Should require a consent string', () => {
@@ -27,14 +27,14 @@ describe( '__dangerousOptInToUnstableAPIsOnlyForCoreModules', () => {
 			);
 		} ).toThrow( /without confirming you know the consequences/ );
 	} );
-	it( 'Should require a valid @wordpress package name', () => {
+	it( 'Should require a valid @finpress package name', () => {
 		expect( () => {
 			__dangerousOptInToUnstableAPIsOnlyForCoreModules(
 				requiredConsent,
 				'custom_package'
 			);
 		} ).toThrow(
-			/This feature is only for JavaScript modules shipped with WordPress core/
+			/This feature is only for JavaScript modules shipped with FinPress core/
 		);
 	} );
 	it( 'Should not register the same module twice', () => {
@@ -119,7 +119,7 @@ describe( 'lock(), unlock()', () => {
 		const privateData = { secret: 'sh' };
 		lock( object, privateData );
 
-		// This would live in @wordpress/core-data:
+		// This would live in @finpress/core-data:
 		// Register the private APIs
 		const coreDataPrivateApis =
 			__dangerousOptInToUnstableAPIsOnlyForCoreModules(

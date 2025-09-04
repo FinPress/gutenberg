@@ -3,9 +3,9 @@
  */
 import { View } from 'react-native';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Children, cloneElement } from '@wordpress/element';
+import { Children, cloneElement } from '@finpress/element';
 /**
  * Internal dependencies
  */

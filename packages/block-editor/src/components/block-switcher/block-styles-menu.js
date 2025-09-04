@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { MenuGroup } from '@wordpress/components';
+import { __ } from '@finpress/i18n';
+import { MenuGroup } from '@finpress/components';
 
 /**
  * Internal dependencies

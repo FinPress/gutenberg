@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { toggleFormat, remove, applyFormat } from '@wordpress/rich-text';
+import { __ } from '@finpress/i18n';
+import { toggleFormat, remove, applyFormat } from '@finpress/rich-text';
 import {
 	RichTextToolbarButton,
 	RichTextShortcut,
-} from '@wordpress/block-editor';
-import { code as codeIcon } from '@wordpress/icons';
+} from '@finpress/block-editor';
+import { code as codeIcon } from '@finpress/icons';
 
 const name = 'core/code';
 const title = __( 'Inline code' );

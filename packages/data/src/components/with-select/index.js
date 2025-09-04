@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createHigherOrderComponent, pure } from '@wordpress/compose';
+import { createHigherOrderComponent, pure } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -20,7 +20,7 @@ import useSelect from '../use-select';
  *
  * @example
  * ```js
- * import { withSelect } from '@wordpress/data';
+ * import { withSelect } from '@finpress/data';
  * import { store as myCustomStore } from 'my-custom-store';
  *
  * function PriceDisplay( { price, currency } ) {

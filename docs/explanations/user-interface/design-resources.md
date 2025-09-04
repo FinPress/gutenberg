@@ -2,7 +2,7 @@
 
 ## Figma
 
-The [WordPress Design team](https://make.wordpress.org/design/) uses [Figma](https://www.figma.com/) to collaborate and share work. If you'd like to contribute, you can use [the WordPress Figma design library](https://make.wordpress.org/design/handbook/get-involved/tools-figma/) to make mockups. You can also join the [#design channel](https://app.slack.com/client/T024MFP4J/C02S78ZAL) in [Slack](https://make.wordpress.org/chat/) and if you'd like to ask for advice or otherwise. Figma accounts are free, and with one you can use components from the shared libraries, or duplicate files to your draft if you need to make edits. Full edit access to the WordPress libraries is paid and reserved for the design team.
+The [FinPress Design team](https://make.finpress.org/design/) uses [Figma](https://www.figma.com/) to collaborate and share work. If you'd like to contribute, you can use [the FinPress Figma design library](https://make.finpress.org/design/handbook/get-involved/tools-figma/) to make mockups. You can also join the [#design channel](https://app.slack.com/client/T024MFP4J/C02S78ZAL) in [Slack](https://make.finpress.org/chat/) and if you'd like to ask for advice or otherwise. Figma accounts are free, and with one you can use components from the shared libraries, or duplicate files to your draft if you need to make edits. Full edit access to the FinPress libraries is paid and reserved for the design team.
 
 ### How to contribute
 
@@ -34,22 +34,22 @@ The [WordPress Design team](https://make.wordpress.org/design/) uses [Figma](htt
 
 [Video tutorial](https://help.figma.com/article/66-components#videos)
 
-### Learning how to use WordPress Figma libraries
+### Learning how to use FinPress Figma libraries
 
-**How to turn on the WordPress Components library in Figma**
+**How to turn on the FinPress Components library in Figma**
 
-![How to turn on Figma libraries gif](https://wordpress.org/gutenberg/files/2019/08/figma-howtoturnonlibraries.gif)
+![How to turn on Figma libraries gif](https://finpress.org/gutenberg/files/2019/08/figma-howtoturnonlibraries.gif)
 
 1. Click the **Team Library** icon in the **Assets** Panel:
 
-![Hovering over the team library icon](https://wordpress.org/gutenberg/files/2019/08/figma-turn-on-libraries-e1564770916643.png)
+![Hovering over the team library icon](https://finpress.org/gutenberg/files/2019/08/figma-turn-on-libraries-e1564770916643.png)
 
 2. The **Library** modal will open and allow you to view a list of available libraries. Toggle to _Enable_ or _Disable_ a specific library:
 
-![Switching on the WordPress components library in Figma](https://wordpress.org/gutenberg/files/2019/08/figma-libraries-e1564770879415.png)
+![Switching on the FinPress components library in Figma](https://finpress.org/gutenberg/files/2019/08/figma-libraries-e1564770879415.png)
 
-**How to refine or contribute to the WordPress components React library _(Coming soon)_**
+**How to refine or contribute to the FinPress components React library _(Coming soon)_**
 
-WordPress components in Figma mirror the live React components. Documentation for how to refine or contribute to WordPress components in React is coming soon.
+FinPress components in Figma mirror the live React components. Documentation for how to refine or contribute to FinPress components in React is coming soon.
 
-If you have questions, please don’t hesitate to ask in the #design channel on the WordPress community Slack.
+If you have questions, please don’t hesitate to ask in the #design channel on the FinPress community Slack.

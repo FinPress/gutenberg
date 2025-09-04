@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 
-import { ToolbarButton } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { rotateRight as rotateRightIcon } from '@wordpress/icons';
+import { ToolbarButton } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { rotateRight as rotateRightIcon } from '@finpress/icons';
 
 /**
  * Internal dependencies

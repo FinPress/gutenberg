@@ -4,7 +4,7 @@
 import isURLLike from '../is-url-like';
 
 describe( 'isURLLike', () => {
-	it.each( [ 'https://wordpress.org', 'http://wordpress.org' ] )(
+	it.each( [ 'https://finpress.org', 'http://finpress.org' ] )(
 		'returns true for a string that starts with an http(s) protocol',
 		( testString ) => {
 			expect( isURLLike( testString ) ).toBe( true );
@@ -14,7 +14,7 @@ describe( 'isURLLike', () => {
 	it.each( [
 		'hello world',
 		'https://   has spaces even though starts with protocol',
-		'www. wordpress . org',
+		'www. finpress . org',
 	] )(
 		'returns false for any string with spaces (e.g. "%s")',
 		( testString ) => {
@@ -27,10 +27,10 @@ describe( 'isURLLike', () => {
 	} );
 
 	it( 'returns true for a string beginning with www.', () => {
-		expect( isURLLike( 'www.wordpress.org' ) ).toBe( true );
+		expect( isURLLike( 'www.finpress.org' ) ).toBe( true );
 	} );
 
-	it.each( [ 'mailto:test@wordpress.org', 'tel:123456' ] )(
+	it.each( [ 'mailto:test@finpress.org', 'tel:123456' ] )(
 		'returns true for common protocols',
 		( testString ) => {
 			expect( isURLLike( testString ) ).toBe( true );

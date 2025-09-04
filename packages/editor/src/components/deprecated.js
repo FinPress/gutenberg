@@ -1,9 +1,9 @@
 // Block Creation Components.
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { forwardRef } from '@wordpress/element';
+import deprecated from '@finpress/deprecated';
+import { forwardRef } from '@finpress/element';
 import {
 	Autocomplete as RootAutocomplete,
 	AlignmentToolbar as RootAlignmentToolbar,
@@ -57,9 +57,9 @@ import {
 	withColorContext as rootWithColorContext,
 	withColors as rootWithColors,
 	withFontSizes as rootWithFontSizes,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
-export { default as ServerSideRender } from '@wordpress/server-side-render';
+export { default as ServerSideRender } from '@finpress/server-side-render';
 
 function deprecateComponent( name, Wrapped, staticsToHoist = [] ) {
 	const Component = forwardRef( ( props, ref ) => {

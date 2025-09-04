@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { postCategories as icon } from '@wordpress/icons';
-import { addFilter } from '@wordpress/hooks';
+import { postCategories as icon } from '@finpress/icons';
+import { addFilter } from '@finpress/hooks';
 
 /**
  * Internal dependencies

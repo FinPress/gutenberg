@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useLayoutEffect,
@@ -19,9 +19,9 @@ import {
 	useRef,
 	useState,
 	useCallback,
-} from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+} from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -70,7 +70,7 @@ export function getAutoCompleterUI( autocompleter ) {
 				startAnimation( false );
 			}
 			// We want to avoid introducing unexpected side effects.
-			// See https://github.com/WordPress/gutenberg/pull/41820
+			// See https://github.com/FinPress/gutenberg/pull/41820
 		}, [ items, isVisible, text ] );
 
 		const activeItemStyles = usePreferredColorSchemeStyle(
@@ -112,7 +112,7 @@ export function getAutoCompleterUI( autocompleter ) {
 				} );
 			},
 			// We want to avoid introducing unexpected side effects.
-			// See https://github.com/WordPress/gutenberg/pull/41820
+			// See https://github.com/FinPress/gutenberg/pull/41820
 			[ isVisible ]
 		);
 

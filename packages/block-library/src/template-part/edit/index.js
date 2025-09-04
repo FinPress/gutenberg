@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { serialize } from '@wordpress/blocks';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { serialize } from '@finpress/blocks';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	BlockSettingsMenuControls,
 	useBlockProps,
@@ -13,18 +13,18 @@ import {
 	InspectorControls,
 	__experimentalBlockPatternsList as BlockPatternsList,
 	BlockControls,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	PanelBody,
 	Spinner,
 	Modal,
 	MenuItem,
 	ToolbarButton,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
-import { useState } from '@wordpress/element';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
+import { useState } from '@finpress/element';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

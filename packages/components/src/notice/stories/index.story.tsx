@@ -4,9 +4,9 @@
 import type { Meta, StoryFn } from '@storybook/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -78,7 +78,7 @@ WithActions.args = {
 		},
 		{
 			label: 'Or visit a link for more info',
-			url: 'https://wordpress.org',
+			url: 'https://finpress.org',
 			variant: 'link',
 		},
 	],

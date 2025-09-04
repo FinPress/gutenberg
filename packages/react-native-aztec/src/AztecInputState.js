@@ -5,12 +5,12 @@ import { Platform } from 'react-native';
 import TextInputState from 'react-native/Libraries/Components/TextInput/TextInputState';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { debounce } from '@wordpress/compose';
-import { hideAndroidSoftKeyboard } from '@wordpress/react-native-bridge';
+import { debounce } from '@finpress/compose';
+import { hideAndroidSoftKeyboard } from '@finpress/react-native-bridge';
 
-/** @typedef {import('@wordpress/element').RefObject} RefObject */
+/** @typedef {import('@finpress/element').RefObject} RefObject */
 
 const focusChangeListeners = [];
 const caretChangeListeners = [];

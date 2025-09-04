@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import { addFilter } from '@wordpress/hooks';
+import { useMemo } from '@finpress/element';
+import { addFilter } from '@finpress/hooks';
 import {
 	getBlockSupport,
 	hasBlockSupport,
 	__EXPERIMENTAL_ELEMENTS as ELEMENTS,
-} from '@wordpress/blocks';
-import { useInstanceId } from '@wordpress/compose';
-import { getCSSRules, compileCSS } from '@wordpress/style-engine';
+} from '@finpress/blocks';
+import { useInstanceId } from '@finpress/compose';
+import { getCSSRules, compileCSS } from '@finpress/style-engine';
 
 /**
  * Internal dependencies

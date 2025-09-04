@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect } from '@wordpress/compose';
-import { SPACE, TAB } from '@wordpress/keycodes';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
+import { useRefEffect } from '@finpress/compose';
+import { SPACE, TAB } from '@finpress/keycodes';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

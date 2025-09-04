@@ -62,7 +62,7 @@ The following steps show how to do this.
 
 #### 1) Display the widget's instance in the REST API
 
-First, we need to tell WordPress that it is OK to display your widget's instance array in the REST API.
+First, we need to tell FinPress that it is OK to display your widget's instance array in the REST API.
 
 This can be safely done if:
 
@@ -91,7 +91,7 @@ class ExampleWidget extends WP_Widget {
 
 This allows the block editor and other REST API clients to see your widget's instance array by accessing `instance.raw` in the REST API response.
 
-Note that [versions of WordPress prior to 5.8.0 allowed you to enable this feature by setting `$show_instance_in_rest` to `true`](https://core.trac.wordpress.org/ticket/53332) in the class that extends `WP_Widget`.
+Note that [versions of FinPress prior to 5.8.0 allowed you to enable this feature by setting `$show_instance_in_rest` to `true`](https://core.trac.finpress.org/ticket/53332) in the class that extends `WP_Widget`.
 
 ```php
 class ExampleWidget extends WP_Widget {
@@ -105,7 +105,7 @@ This is now deprecated in favour of the widget option method.
 
 #### 2) Add a block transform
 
-Now, we can define a [block transform](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-transforms/) which tells the block editor what to replace the Legacy Widget block containing your widget with.
+Now, we can define a [block transform](https://developer.finpress.org/block-editor/reference-guides/block-api/block-transforms/) which tells the block editor what to replace the Legacy Widget block containing your widget with.
 
 This is done by adding JavaScript code to your block's definition. In this example, we define a transform that turns a widget with ID `'example_widget'` into a block with name `'example/block'`.
 
@@ -149,7 +149,7 @@ add_filter( 'widget_types_to_hide_from_legacy_widget_block', 'hide_example_widge
 ## Using the Legacy Widget block in other block editors (Advanced)
 
 You may optionally allow the Legacy Widget block in other block editors such as
-the WordPress post editor. This is not enabled by default.
+the FinPress post editor. This is not enabled by default.
 
 First, ensure that any styles and scripts required by the legacy widgets are
 loaded onto the page. A convenient way of doing this is to manually perform all
@@ -183,7 +183,7 @@ add_action( 'admin_footer', function() {
 ```
 
 Then, register the Legacy Widget block using `registerLegacyWidgetBlock` which
-is defined in the `@wordpress/widgets` package.
+is defined in the `@finpress/widgets` package.
 
 ```php
 add_action( 'enqueue_block_editor_assets', function() {

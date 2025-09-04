@@ -1,16 +1,16 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@finpress/block-editor';
 import {
 	Disabled,
 	RangeControl,
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import ServerSideRender from '@wordpress/server-side-render';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import ServerSideRender from '@finpress/server-side-render';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Navigator,
@@ -8,19 +8,19 @@ import {
 	DropdownMenu,
 	MenuGroup,
 	MenuItem,
-} from '@wordpress/components';
-import { getBlockTypes, store as blocksStore } from '@wordpress/blocks';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/components';
+import { getBlockTypes, store as blocksStore } from '@finpress/blocks';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	privateApis as blockEditorPrivateApis,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { moreVertical } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
-import { useEffect } from '@wordpress/element';
-import { usePrevious } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { store as preferencesStore } from '@finpress/preferences';
+import { moreVertical } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
+import { useEffect } from '@finpress/element';
+import { usePrevious } from '@finpress/compose';
 
 /**
  * Internal dependencies

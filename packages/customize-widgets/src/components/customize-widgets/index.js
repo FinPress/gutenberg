@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useEffect, useRef, createPortal } from '@wordpress/element';
-import { SlotFillProvider, Popover } from '@wordpress/components';
+import { useState, useEffect, useRef, createPortal } from '@finpress/element';
+import { SlotFillProvider, Popover } from '@finpress/components';
 
 /**
  * Internal dependencies

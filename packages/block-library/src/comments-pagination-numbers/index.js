@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { queryPaginationNumbers as icon } from '@wordpress/icons';
+import { queryPaginationNumbers as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

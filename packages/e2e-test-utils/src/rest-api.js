@@ -5,9 +5,9 @@ import fetch from 'node-fetch';
 import FormData from 'form-data';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import apiFetch from '@wordpress/api-fetch';
+import apiFetch from '@finpress/api-fetch';
 
 /**
  * Internal dependencies
@@ -21,7 +21,7 @@ global.window.fetch = fetch;
 
 const setAPIRootURL = ( async () => {
 	// Discover the API root url using link header.
-	// See https://developer.wordpress.org/rest-api/using-the-rest-api/discovery/#link-header
+	// See https://developer.finpress.org/rest-api/using-the-rest-api/discovery/#link-header
 	const res = await fetch( WP_BASE_URL, { method: 'HEAD' } );
 	const links = res.headers.get( 'link' );
 	const restLink = links.match( /<([^>]+)>; rel="https:\/\/api\.w\.org\/"/ );
@@ -119,7 +119,7 @@ async function rest( options = {} ) {
 
 /**
  * Call a set of REST APIs in batch.
- * See https://make.wordpress.org/core/2020/11/20/rest-api-batch-framework-in-wordpress-5-6/
+ * See https://make.finpress.org/core/2020/11/20/rest-api-batch-framework-in-finpress-5-6/
  * Note that calling GET requests in batch is not supported.
  *
  * @param {Array<Object>} requests The request objects.

@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	store,
 	getContext,
 	getServerContext,
 	withSyncEvent,
-} from '@wordpress/interactivity';
+} from '@finpress/interactivity';
 
 store( 'test/get-server-context', {
 	actions: {
 		navigate: withSyncEvent( function* ( e ) {
 			e.preventDefault();
 			const { actions } = yield import(
-				'@wordpress/interactivity-router'
+				'@finpress/interactivity-router'
 			);
 			yield actions.navigate( e.target.href );
 		} ),

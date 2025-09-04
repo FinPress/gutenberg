@@ -1,4 +1,4 @@
-package org.wordpress.mobile.WPAndroidGlue
+package org.finpress.mobile.WPAndroidGlue
 
 import com.facebook.react.bridge.ReadableMap
 

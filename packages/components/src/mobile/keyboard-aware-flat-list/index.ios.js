@@ -5,15 +5,15 @@ import { FlatList, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	useCallback,
 	useEffect,
 	forwardRef,
 	useImperativeHandle,
-} from '@wordpress/element';
-import { useThrottle } from '@wordpress/compose';
+} from '@finpress/element';
+import { useThrottle } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ const DEFAULT_FONT_SIZE = 16;
 const AnimatedFlatList = Animated.createAnimatedComponent( FlatList );
 const EMPTY_OBJECT = {};
 
-/** @typedef {import('@wordpress/element').RefObject} RefObject */
+/** @typedef {import('@finpress/element').RefObject} RefObject */
 /**
  * React component that provides a FlatList that is aware of the keyboard state and can scroll
  * to the currently focused TextInput.

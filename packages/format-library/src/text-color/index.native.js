@@ -4,23 +4,23 @@
 import { StyleSheet, View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useMemo, useState } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { useMemo, useState } from '@finpress/element';
 import {
 	BlockControls,
 	useSettings,
 	useMobileGlobalStylesColors,
-} from '@wordpress/block-editor';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+} from '@finpress/block-editor';
+import { ToolbarGroup, ToolbarButton } from '@finpress/components';
 import {
 	Icon,
 	color as colorIcon,
 	textColor as textColorIcon,
-} from '@wordpress/icons';
-import { removeFormat } from '@wordpress/rich-text';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+} from '@finpress/icons';
+import { removeFormat } from '@finpress/rich-text';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies

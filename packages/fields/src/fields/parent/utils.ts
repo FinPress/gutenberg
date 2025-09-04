@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { decodeEntities } from '@wordpress/html-entities';
-import { __ } from '@wordpress/i18n';
+import { decodeEntities } from '@finpress/html-entities';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

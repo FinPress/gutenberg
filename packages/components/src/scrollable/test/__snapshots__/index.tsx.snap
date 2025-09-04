@@ -41,7 +41,7 @@ exports[`props should render correctly 1`] = `
   data-wp-c16t="true"
   data-wp-component="Scrollable"
 >
-  WordPress.org - Code is Poetry
+  FinPress.org - Code is Poetry
 </div>
 `;
 

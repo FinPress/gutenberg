@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as interfaceStore } from '@wordpress/interface';
-import { getWidgetIdFromBlock } from '@wordpress/widgets';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { __, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { store as interfaceStore } from '@finpress/interface';
+import { getWidgetIdFromBlock } from '@finpress/widgets';
+import { store as coreStore } from '@finpress/core-data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Internal dependencies
@@ -133,7 +133,7 @@ export const saveWidgetArea =
 
 		// Remove all duplicate reference widget instances for legacy widgets.
 		// Why? We filter out the widgets with duplicate IDs to prevent adding more than one instance of a widget
-		// implemented using a function. WordPress doesn't support having more than one instance of these, if you try to
+		// implemented using a function. FinPress doesn't support having more than one instance of these, if you try to
 		// save multiple instances of these in different sidebars you will run into undefined behaviors.
 		const usedReferenceWidgets = [];
 		const widgetsBlocks = post.blocks.filter( ( block ) => {
@@ -439,8 +439,8 @@ export const moveBlockToWidgetArea =
  *
  * @example
  * ```js
- * import { store as widgetStore } from '@wordpress/edit-widgets';
- * import { useDispatch } from '@wordpress/data';
+ * import { store as widgetStore } from '@finpress/edit-widgets';
+ * import { useDispatch } from '@finpress/data';
  *
  * const ExampleComponent = () => {
  * 	const { unlockWidgetSaving } = useDispatch( widgetStore );
@@ -468,8 +468,8 @@ export function unlockWidgetSaving( lockName ) {
  *
  * @example
  * ```js
- * import { store as widgetStore } from '@wordpress/edit-widgets';
- * import { useDispatch } from '@wordpress/data';
+ * import { store as widgetStore } from '@finpress/edit-widgets';
+ * import { useDispatch } from '@finpress/data';
  *
  * const ExampleComponent = () => {
  * 	const { lockWidgetSaving } = useDispatch( widgetStore );

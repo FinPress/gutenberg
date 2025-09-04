@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createRegistry } from '@wordpress/data';
+import { createRegistry } from '@finpress/data';
 
 type WPDataRegistry = ReturnType< typeof createRegistry >;
 
@@ -12,7 +12,7 @@ import { store as uploadStore } from '..';
 import { ItemStatus } from '../types';
 import { unlock } from '../../lock-unlock';
 
-jest.mock( '@wordpress/blob', () => ( {
+jest.mock( '@finpress/blob', () => ( {
 	__esModule: true,
 	createBlobURL: jest.fn( () => 'blob:foo' ),
 	isBlobURL: jest.fn( ( str: string ) => str.startsWith( 'blob:' ) ),

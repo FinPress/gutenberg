@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSelector, createRegistrySelector } from '@wordpress/data';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { store as coreStore } from '@wordpress/core-data';
+import { createSelector, createRegistrySelector } from '@finpress/data';
+import { store as preferencesStore } from '@finpress/preferences';
+import { store as coreStore } from '@finpress/core-data';
 import {
 	store as editorStore,
 	privateApis as editorPrivateApis,
-} from '@wordpress/editor';
-import deprecated from '@wordpress/deprecated';
+} from '@finpress/editor';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

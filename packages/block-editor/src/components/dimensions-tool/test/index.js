@@ -5,10 +5,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalToolsPanel as ToolsPanel } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+import { __experimentalToolsPanel as ToolsPanel } from '@finpress/components';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -54,7 +54,7 @@ function Example( { initialValue, onChange, ...props } ) {
 // state (xxxx) and final state (yyyy). Each digit represents whether or not the
 // value is set, in the order: [aspectRatio, scale, width, height].
 //
-// See https://github.com/WordPress/gutenberg/pull/51545#issuecomment-1601326289
+// See https://github.com/FinPress/gutenberg/pull/51545#issuecomment-1601326289
 
 // Using expect( onChange.mock.calls ).toStrictEqual(...) so undefined
 // properties are treated differently from missing properties.

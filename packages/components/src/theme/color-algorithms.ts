@@ -6,9 +6,9 @@ import a11yPlugin from 'colord/plugins/a11y';
 import namesPlugin from 'colord/plugins/names';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import warning from '@wordpress/warning';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies

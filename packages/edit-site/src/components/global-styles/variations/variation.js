@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Tooltip } from '@wordpress/components';
-import { useMemo, useContext, useState } from '@wordpress/element';
-import { ENTER } from '@wordpress/keycodes';
-import { _x, sprintf } from '@wordpress/i18n';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
-import { privateApis as editorPrivateApis } from '@wordpress/editor';
+import { Tooltip } from '@finpress/components';
+import { useMemo, useContext, useState } from '@finpress/element';
+import { ENTER } from '@finpress/keycodes';
+import { _x, sprintf } from '@finpress/i18n';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
+import { privateApis as editorPrivateApis } from '@finpress/editor';
 
 /**
  * Internal dependencies

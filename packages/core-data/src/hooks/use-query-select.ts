@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -35,7 +35,7 @@ interface QuerySelectResponse< Data > {
  * Like useSelect, but the selectors return objects containing
  * both the original data AND the resolution info.
  *
- * @since 6.1.0 Introduced in WordPress core.
+ * @since 6.1.0 Introduced in FinPress core.
  * @private
  *
  * @param {Function} mapQuerySelect see useSelect
@@ -43,8 +43,8 @@ interface QuerySelectResponse< Data > {
  *
  * @example
  * ```js
- * import { useQuerySelect } from '@wordpress/data';
- * import { store as coreDataStore } from '@wordpress/core-data';
+ * import { useQuerySelect } from '@finpress/data';
+ * import { store as coreDataStore } from '@finpress/core-data';
  *
  * function PageTitleDisplay( { id } ) {
  *   const { data: page, isResolving } = useQuerySelect( ( query ) => {

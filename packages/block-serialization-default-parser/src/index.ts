@@ -163,7 +163,7 @@ function Frame(
  *
  * Parsing code:
  * ```js
- * import { parse } from '@wordpress/block-serialization-default-parser';
+ * import { parse } from '@finpress/block-serialization-default-parser';
  *
  * parse( post ) === [
  *     {

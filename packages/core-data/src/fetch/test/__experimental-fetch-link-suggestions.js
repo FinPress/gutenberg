@@ -7,7 +7,7 @@ import {
 	tokenize,
 } from '../__experimental-fetch-link-suggestions';
 
-jest.mock( '@wordpress/api-fetch', () =>
+jest.mock( '@finpress/api-fetch', () =>
 	jest.fn( ( { path } ) => {
 		switch ( path ) {
 			case '/wp/v2/search?search=&per_page=20&type=post':
@@ -16,7 +16,7 @@ jest.mock( '@wordpress/api-fetch', () =>
 					{
 						id: 37,
 						title: 'Contact Page',
-						url: 'http://wordpress.local/contact-page/',
+						url: 'http://finpress.local/contact-page/',
 						type: 'post',
 						subtype: 'page',
 					},
@@ -27,13 +27,13 @@ jest.mock( '@wordpress/api-fetch', () =>
 					{
 						id: 9,
 						title: 'Cats',
-						url: 'http://wordpress.local/category/cats/',
+						url: 'http://finpress.local/category/cats/',
 						type: 'category',
 					},
 					{
 						id: 1,
 						title: 'Uncategorized',
-						url: 'http://wordpress.local/category/uncategorized/',
+						url: 'http://finpress.local/category/uncategorized/',
 						type: 'category',
 					},
 				] );
@@ -42,14 +42,14 @@ jest.mock( '@wordpress/api-fetch', () =>
 					{
 						id: 'gallery',
 						title: 'Gallery',
-						url: 'http://wordpress.local/type/gallery/',
+						url: 'http://finpress.local/type/gallery/',
 						type: 'post-format',
 						kind: 'taxonomy',
 					},
 					{
 						id: 'quote',
 						title: 'Quote',
-						url: 'http://wordpress.local/type/quote/',
+						url: 'http://finpress.local/type/quote/',
 						type: 'post-format',
 						kind: 'taxonomy',
 					},
@@ -59,7 +59,7 @@ jest.mock( '@wordpress/api-fetch', () =>
 					{
 						id: 11,
 						title: 'Limit Case',
-						url: 'http://wordpress.local/limit-case/',
+						url: 'http://finpress.local/limit-case/',
 						type: 'post',
 						subtype: 'page',
 					},
@@ -69,7 +69,7 @@ jest.mock( '@wordpress/api-fetch', () =>
 					{
 						id: 22,
 						title: 'Page Case',
-						url: 'http://wordpress.local/page-case/',
+						url: 'http://finpress.local/page-case/',
 						type: 'post',
 						subtype: 'page',
 					},
@@ -110,7 +110,7 @@ describe( 'fetchLinkSuggestions', () => {
 					id: 37,
 					title: 'Contact Page',
 					type: 'page',
-					url: 'http://wordpress.local/contact-page/',
+					url: 'http://finpress.local/contact-page/',
 					kind: 'post-type',
 				},
 			] )
@@ -125,14 +125,14 @@ describe( 'fetchLinkSuggestions', () => {
 				{
 					id: 9,
 					title: 'Cats',
-					url: 'http://wordpress.local/category/cats/',
+					url: 'http://finpress.local/category/cats/',
 					type: 'category',
 					kind: 'taxonomy',
 				},
 				{
 					id: 1,
 					title: 'Uncategorized',
-					url: 'http://wordpress.local/category/uncategorized/',
+					url: 'http://finpress.local/category/uncategorized/',
 					type: 'category',
 					kind: 'taxonomy',
 				},
@@ -147,14 +147,14 @@ describe( 'fetchLinkSuggestions', () => {
 				{
 					id: 'gallery',
 					title: 'Gallery',
-					url: 'http://wordpress.local/type/gallery/',
+					url: 'http://finpress.local/type/gallery/',
 					type: 'post-format',
 					kind: 'taxonomy',
 				},
 				{
 					id: 'quote',
 					title: 'Quote',
-					url: 'http://wordpress.local/type/quote/',
+					url: 'http://finpress.local/type/quote/',
 					type: 'post-format',
 					kind: 'taxonomy',
 				},
@@ -193,35 +193,35 @@ describe( 'fetchLinkSuggestions', () => {
 				{
 					id: 37,
 					title: 'Contact Page',
-					url: 'http://wordpress.local/contact-page/',
+					url: 'http://finpress.local/contact-page/',
 					type: 'page',
 					kind: 'post-type',
 				},
 				{
 					id: 9,
 					title: 'Cats',
-					url: 'http://wordpress.local/category/cats/',
+					url: 'http://finpress.local/category/cats/',
 					type: 'category',
 					kind: 'taxonomy',
 				},
 				{
 					id: 1,
 					title: 'Uncategorized',
-					url: 'http://wordpress.local/category/uncategorized/',
+					url: 'http://finpress.local/category/uncategorized/',
 					type: 'category',
 					kind: 'taxonomy',
 				},
 				{
 					id: 'gallery',
 					title: 'Gallery',
-					url: 'http://wordpress.local/type/gallery/',
+					url: 'http://finpress.local/type/gallery/',
 					type: 'post-format',
 					kind: 'taxonomy',
 				},
 				{
 					id: 'quote',
 					title: 'Quote',
-					url: 'http://wordpress.local/type/quote/',
+					url: 'http://finpress.local/type/quote/',
 					type: 'post-format',
 					kind: 'taxonomy',
 				},
@@ -246,7 +246,7 @@ describe( 'fetchLinkSuggestions', () => {
 					{
 						id: 11,
 						title: 'Limit Case',
-						url: 'http://wordpress.local/limit-case/',
+						url: 'http://finpress.local/limit-case/',
 						type: 'page',
 						kind: 'post-type',
 					},
@@ -271,7 +271,7 @@ describe( 'fetchLinkSuggestions', () => {
 					{
 						id: 22,
 						title: 'Page Case',
-						url: 'http://wordpress.local/page-case/',
+						url: 'http://finpress.local/page-case/',
 						type: 'page',
 						kind: 'post-type',
 					},
@@ -295,7 +295,7 @@ describe( 'fetchLinkSuggestions', () => {
 					{
 						id: 22,
 						title: 'Page Case',
-						url: 'http://wordpress.local/page-case/',
+						url: 'http://finpress.local/page-case/',
 						type: 'page',
 						kind: 'post-type',
 					},
@@ -313,7 +313,7 @@ describe( 'fetchLinkSuggestions', () => {
 				{
 					id: 22,
 					title: 'Page Case',
-					url: 'http://wordpress.local/page-case/',
+					url: 'http://finpress.local/page-case/',
 					type: 'page',
 					kind: 'post-type',
 				},
@@ -332,49 +332,49 @@ describe( 'sortResults', () => {
 			{
 				id: 1,
 				title: 'How to get from Stockholm to Helsinki by boat',
-				url: 'http://wordpress.local/stockholm-helsinki-boat/',
+				url: 'http://finpress.local/stockholm-helsinki-boat/',
 				type: 'page',
 				kind: 'post-type',
 			},
 			{
 				id: 2,
 				title: 'A day trip from Stockholm to Swedish countryside towns',
-				url: 'http://wordpress.local/day-trip-stockholm/',
+				url: 'http://finpress.local/day-trip-stockholm/',
 				type: 'page',
 				kind: 'post-type',
 			},
 			{
 				id: 3,
 				title: 'The art of packing lightly: How to travel with just a cabin bag',
-				url: 'http://wordpress.local/packing-lightly/',
+				url: 'http://finpress.local/packing-lightly/',
 				type: 'page',
 				kind: 'post-type',
 			},
 			{
 				id: 4,
 				title: 'Tips for travel with a young baby',
-				url: 'http://wordpress.local/young-baby-tips/',
+				url: 'http://finpress.local/young-baby-tips/',
 				type: 'page',
 				kind: 'post-type',
 			},
 			{
 				id: 5,
 				title: '', // Test that empty titles don't cause an error.
-				url: 'http://wordpress.local/420/',
+				url: 'http://finpress.local/420/',
 				type: 'page',
 				kind: 'post-type',
 			},
 			{
 				id: 6,
 				title: 'City Guides',
-				url: 'http://wordpress.local/city-guides/',
+				url: 'http://finpress.local/city-guides/',
 				type: 'category',
 				kind: 'taxonomy',
 			},
 			{
 				id: 7,
 				title: 'Travel Tips',
-				url: 'http://wordpress.local/travel-tips/',
+				url: 'http://finpress.local/travel-tips/',
 				type: 'category',
 				kind: 'taxonomy',
 			},
@@ -399,28 +399,28 @@ describe( 'sortResults', () => {
 			{
 				id: 1,
 				title: 'News',
-				url: 'http://wordpress.local/news/',
+				url: 'http://finpress.local/news/',
 				type: 'page',
 				kind: 'post-type',
 			},
 			{
 				id: 2,
 				title: 'Newspaper',
-				url: 'http://wordpress.local/newspaper/',
+				url: 'http://finpress.local/newspaper/',
 				type: 'page',
 				kind: 'post-type',
 			},
 			{
 				id: 3,
 				title: 'News Flash News',
-				url: 'http://wordpress.local/news-flash-news/',
+				url: 'http://finpress.local/news-flash-news/',
 				type: 'page',
 				kind: 'post-type',
 			},
 			{
 				id: 4,
 				title: 'News',
-				url: 'http://wordpress.local/news-2/',
+				url: 'http://finpress.local/news-2/',
 				type: 'page',
 				kind: 'post-type',
 			},

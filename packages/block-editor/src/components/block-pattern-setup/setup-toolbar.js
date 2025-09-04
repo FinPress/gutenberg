@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
+import { __, isRTL } from '@finpress/i18n';
+import { Button } from '@finpress/components';
 import {
 	chevronRight,
 	chevronLeft,
 	grid,
 	stretchFullWidth,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 /**
  * Internal dependencies

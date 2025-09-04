@@ -3,10 +3,10 @@
  */
 import { View } from 'react-native';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Children, cloneElement, forwardRef } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+import { Children, cloneElement, forwardRef } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 /**
  * Internal dependencies
  */

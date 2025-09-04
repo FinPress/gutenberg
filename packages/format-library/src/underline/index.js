@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { toggleFormat } from '@wordpress/rich-text';
+import { __ } from '@finpress/i18n';
+import { toggleFormat } from '@finpress/rich-text';
 import {
 	RichTextShortcut,
 	__unstableRichTextInputEvent,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 const name = 'core/underline';
 const title = __( 'Underline' );

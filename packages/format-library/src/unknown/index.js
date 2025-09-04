@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { removeFormat, slice, isCollapsed } from '@wordpress/rich-text';
-import { RichTextToolbarButton } from '@wordpress/block-editor';
-import { help } from '@wordpress/icons';
+import { __ } from '@finpress/i18n';
+import { removeFormat, slice, isCollapsed } from '@finpress/rich-text';
+import { RichTextToolbarButton } from '@finpress/block-editor';
+import { help } from '@finpress/icons';
 
 const name = 'core/unknown';
 const title = __( 'Clear Unknown Formatting' );

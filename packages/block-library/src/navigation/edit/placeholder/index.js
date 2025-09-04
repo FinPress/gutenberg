@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Placeholder, Button, Spinner } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { navigation, Icon } from '@wordpress/icons';
-import { speak } from '@wordpress/a11y';
-import { useEffect } from '@wordpress/element';
+import { Placeholder, Button, Spinner } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { navigation, Icon } from '@finpress/icons';
+import { speak } from '@finpress/a11y';
+import { useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

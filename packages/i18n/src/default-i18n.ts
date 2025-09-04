@@ -4,9 +4,9 @@
 import { createI18n } from './create-i18n';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { defaultHooks } from '@wordpress/hooks';
+import { defaultHooks } from '@finpress/hooks';
 import {
 	LocaleData,
 	SubscribeCallback,
@@ -23,7 +23,7 @@ export default i18n;
 
 /*
  * Comments in this file are duplicated from ./i18n due to
- * https://github.com/WordPress/gutenberg/pull/20318#issuecomment-590837722
+ * https://github.com/FinPress/gutenberg/pull/20318#issuecomment-590837722
  */
 
 /**
@@ -69,7 +69,7 @@ export const subscribe = i18n.subscribe.bind( i18n );
 /**
  * Retrieve the translation of text.
  *
- * @see https://developer.wordpress.org/reference/functions/__/
+ * @see https://developer.finpress.org/reference/functions/__/
  *
  * @template {string} Text
  *
@@ -83,7 +83,7 @@ export const __ = i18n.__.bind( i18n );
 /**
  * Retrieve translated string with gettext context.
  *
- * @see https://developer.wordpress.org/reference/functions/_x/
+ * @see https://developer.finpress.org/reference/functions/_x/
  *
  * @template {string} Text
  *
@@ -99,7 +99,7 @@ export const _x = i18n._x.bind( i18n );
  * Translates and retrieves the singular or plural form based on the supplied
  * number.
  *
- * @see https://developer.wordpress.org/reference/functions/_n/
+ * @see https://developer.finpress.org/reference/functions/_n/
  *
  * @template {string} Single
  * @template {string} Plural
@@ -118,7 +118,7 @@ export const _n = i18n._n.bind( i18n );
  * Translates and retrieves the singular or plural form based on the supplied
  * number, with gettext context.
  *
- * @see https://developer.wordpress.org/reference/functions/_nx/
+ * @see https://developer.finpress.org/reference/functions/_nx/
  *
  * @template {string} Single
  * @template {string} Plural

@@ -10,7 +10,7 @@ The overview section summarizes the problem and can include context on how and w
 
 Include a section on assumptions and prerequisites:
 
--   Pre-requisite one: WordPress development environment
+-   Pre-requisite one: FinPress development environment
 -   Pre-requisite two: familiarity with JavaScript and Gutenberg
 -   Pre-requisite three: custom block or theme
 

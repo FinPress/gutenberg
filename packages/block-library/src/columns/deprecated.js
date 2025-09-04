@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock } from '@wordpress/blocks';
-import { InnerBlocks, getColorClassName } from '@wordpress/block-editor';
+import { createBlock } from '@finpress/blocks';
+import { InnerBlocks, getColorClassName } from '@finpress/block-editor';
 
 /**
  * Given an HTML string for a deprecated columns inner block, returns the

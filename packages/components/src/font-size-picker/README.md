@@ -7,8 +7,8 @@ The component renders a user interface that allows the user to select predefined
 
 ```jsx
 import { useState } from 'react';
-import { FontSizePicker } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { FontSizePicker } from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 const fontSizes = [
 	{

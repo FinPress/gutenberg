@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlobURL } from '@wordpress/blob';
-import { createBlock } from '@wordpress/blocks';
-import { select } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { getFilename } from '@wordpress/url';
+import { createBlobURL } from '@finpress/blob';
+import { createBlock } from '@finpress/blocks';
+import { select } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { getFilename } from '@finpress/url';
 
 const transforms = {
 	from: [

@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
@@ -15,7 +15,7 @@ import {
 	__experimentalGetShadowClassesAndStyles as getShadowClassesAndStyles,
 	__experimentalGetElementClassName,
 	getTypographyClassesAndStyles,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 export default function save( { attributes, className } ) {
 	const {

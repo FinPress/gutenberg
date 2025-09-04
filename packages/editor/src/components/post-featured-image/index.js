@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { applyFilters } from '@wordpress/hooks';
+import { __, sprintf } from '@finpress/i18n';
+import { applyFilters } from '@finpress/hooks';
 import {
 	DropZone,
 	Button,
@@ -16,17 +16,17 @@ import {
 	withFilters,
 	__experimentalHStack as HStack,
 	Notice,
-} from '@wordpress/components';
-import { isBlobURL } from '@wordpress/blob';
-import { useState, useRef } from '@wordpress/element';
-import { compose } from '@wordpress/compose';
-import { useSelect, withDispatch, withSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { isBlobURL } from '@finpress/blob';
+import { useState, useRef } from '@finpress/element';
+import { compose } from '@finpress/compose';
+import { useSelect, withDispatch, withSelect } from '@finpress/data';
 import {
 	MediaUpload,
 	MediaUploadCheck,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

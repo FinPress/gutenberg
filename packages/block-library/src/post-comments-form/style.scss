@@ -49,7 +49,7 @@
 	.comment-form {
 		textarea,
 		// Make sure to not set display block on hidden input fields, to prevent
-		// the Safari bug experienced in https://github.com/WordPress/gutenberg/issues/50830
+		// the Safari bug experienced in https://github.com/FinPress/gutenberg/issues/50830
 		input:not([type="submit"]):not([type="checkbox"]):not([type="hidden"]) {
 			display: block;
 			box-sizing: border-box;

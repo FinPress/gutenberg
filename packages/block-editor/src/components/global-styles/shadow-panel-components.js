@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	__experimentalVStack as VStack,
 	__experimentalHeading as Heading,
@@ -12,9 +12,9 @@ import {
 	Dropdown,
 	Composite,
 	Tooltip,
-} from '@wordpress/components';
-import { useMemo, useRef } from '@wordpress/element';
-import { shadow as shadowIcon, Icon, check, reset } from '@wordpress/icons';
+} from '@finpress/components';
+import { useMemo, useRef } from '@finpress/element';
+import { shadow as shadowIcon, Icon, check, reset } from '@finpress/icons';
 
 /**
  * External dependencies

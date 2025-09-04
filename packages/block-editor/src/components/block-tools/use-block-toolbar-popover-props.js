@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { getScrollContainer } from '@wordpress/dom';
+import { useRefEffect } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { getScrollContainer } from '@finpress/dom';
 import {
 	useCallback,
 	useLayoutEffect,
 	useMemo,
 	useState,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies

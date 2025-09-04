@@ -7,14 +7,14 @@ const { readdirSync } = require( 'node:fs' );
 /**
  * WordPress dependencies
  */
-const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
+const DependencyExtractionWebpackPlugin = require( '@finpress/dependency-extraction-webpack-plugin' );
 
 /**
  * Internal dependencies
  */
 const { baseConfig, plugins } = require( './shared' );
 
-const WORDPRESS_NAMESPACE = '@wordpress/';
+const WORDPRESS_NAMESPACE = '@finpress/';
 
 const packageDirs = readdirSync(
 	new URL( '../packages', `file://${ __dirname }` ),
@@ -26,7 +26,7 @@ const packageDirs = readdirSync(
 /** @type {Map<string, string>} */
 const gutenbergScriptModules = new Map();
 for ( const packageDir of packageDirs ) {
-	const packageJson = require( `@wordpress/${ packageDir }/package.json` );
+	const packageJson = require( `@finpress/${ packageDir }/package.json` );
 
 	if ( ! Object.hasOwn( packageJson, 'wpScriptModuleExports' ) ) {
 		continue;
@@ -62,7 +62,7 @@ for ( const packageDir of packageDirs ) {
 
 		gutenbergScriptModules.set(
 			`${ moduleName }/${ name }`,
-			require.resolve( `@wordpress/${ packageDir }/${ exportPath }` )
+			require.resolve( `@finpress/${ packageDir }/${ exportPath }` )
 		);
 	}
 }

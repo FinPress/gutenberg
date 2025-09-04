@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
@@ -14,14 +14,14 @@ import {
 	__experimentalDropdownContentWrapper as DropdownContentWrapper,
 	__experimentalHStack as HStack,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { useRef } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useRef } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
  */
-import { reset as resetIcon } from '@wordpress/icons';
+import { reset as resetIcon } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -148,7 +148,7 @@ const renderToggle =
 // the may be individually wrapped in a `ToolsPanelItem` with the toggle as
 // a regular `Button`.
 //
-// For more context see: https://github.com/WordPress/gutenberg/pull/40084
+// For more context see: https://github.com/FinPress/gutenberg/pull/40084
 export default function ColorGradientSettingsDropdown( {
 	colors,
 	disableCustomColors,

@@ -578,7 +578,7 @@ class WP_Theme_JSON_Gutenberg {
 	 * specificity than the visited styles, which in turn have a higher specificity than
 	 * the unvisited styles.
 	 *
-	 * See https://core.trac.wordpress.org/ticket/56928.
+	 * See https://core.trac.finpress.org/ticket/56928.
 	 * Note: this will affect both top-level and block-level elements.
 	 *
 	 * @since 6.1.0
@@ -718,7 +718,7 @@ class WP_Theme_JSON_Gutenberg {
 		array( 'dimensions', 'minHeight' ),
 		// BEGIN EXPERIMENTAL.
 		// Allow `position.fixed` to be opted-in by default.
-		// Sticky position support was backported to WordPress 6.2 in https://core.trac.wordpress.org/ticket/57618.
+		// Sticky position support was backported to WordPress 6.2 in https://core.trac.finpress.org/ticket/57618.
 		// While `fixed` was included as a valid setting, exposing it by default is still experimental.
 		array( 'position', 'fixed' ),
 		// END EXPERIMENTAL.

@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	forwardRef,
@@ -13,11 +13,11 @@ import {
 	useMemo,
 	useRef,
 	useLayoutEffect,
-} from '@wordpress/element';
-import { VisuallyHidden, SearchControl, Popover } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useDebouncedInput, useViewportMatch } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/element';
+import { VisuallyHidden, SearchControl, Popover } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useDebouncedInput, useViewportMatch } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

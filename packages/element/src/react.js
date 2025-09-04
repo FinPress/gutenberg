@@ -90,7 +90,7 @@ export { Children };
 export { cloneElement };
 
 /**
- * A base class to create WordPress Components (Refs, state and lifecycle hooks)
+ * A base class to create FinPress Components (Refs, state and lifecycle hooks)
  */
 export { Component };
 

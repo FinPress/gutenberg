@@ -4,16 +4,16 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalGrid as Grid } from '@wordpress/components';
-import { View } from '@wordpress/primitives';
+import { __experimentalGrid as Grid } from '@finpress/components';
+import { View } from '@finpress/primitives';
 import {
 	getColorClassName,
 	__experimentalGetGradientClass,
-	// @wordpress/block-editor imports are not typed.
+	// @finpress/block-editor imports are not typed.
 	// @ts-expect-error
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 /**
  * Internal dependencies

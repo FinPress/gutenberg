@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { SVG, Path, Circle } from '@wordpress/primitives';
+import { SVG, Path, Circle } from '@finpress/primitives';
 
 const commentAuthorName = (
 	<SVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

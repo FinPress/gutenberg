@@ -4,19 +4,19 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, Modal } from '@wordpress/components';
+import { Button, Modal } from '@finpress/components';
 import {
 	EntitiesSavedStates,
 	useEntitiesSavedStatesIsDirty,
 	privateApis,
-} from '@wordpress/editor';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
-import { useEffect } from '@wordpress/element';
+} from '@finpress/editor';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { store as coreStore } from '@finpress/core-data';
+import { privateApis as routerPrivateApis } from '@finpress/router';
+import { useEffect } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getFilesFromDataTransfer } from '@wordpress/dom';
+import { getFilesFromDataTransfer } from '@finpress/dom';
 
 /**
  * Normalizes a given string of HTML to remove the Windows-specific "Fragment"
@@ -32,7 +32,7 @@ function removeWindowsFragments( html ) {
 /**
  * Removes the charset meta tag inserted by Chromium.
  * See:
- * - https://github.com/WordPress/gutenberg/issues/33585
+ * - https://github.com/FinPress/gutenberg/issues/33585
  * - https://bugs.chromium.org/p/chromium/issues/detail?id=1264616#c4
  *
  * @param {string} html the html to be stripped of the meta tag.

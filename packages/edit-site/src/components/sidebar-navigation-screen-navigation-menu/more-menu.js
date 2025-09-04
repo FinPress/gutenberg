@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { DropdownMenu, MenuItem, MenuGroup } from '@wordpress/components';
-import { moreVertical } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { DropdownMenu, MenuItem, MenuGroup } from '@finpress/components';
+import { moreVertical } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
+import { useState } from '@finpress/element';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

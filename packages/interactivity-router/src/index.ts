@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store, privateApis, getConfig } from '@wordpress/interactivity';
+import { store, privateApis, getConfig } from '@finpress/interactivity';
 
 /**
  * Internal dependencies
@@ -24,7 +24,7 @@ const {
 	populateServerData,
 	batch,
 } = privateApis(
-	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WordPress.'
+	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of FinPress.'
 );
 
 const regionAttr = `data-${ directivePrefix }-router-region`;
@@ -438,7 +438,7 @@ export const { state, actions } = store< Store >( 'core/router', {
 /**
  * Announces a message to screen readers.
  *
- * This is a wrapper around the `@wordpress/a11y` package's `speak` function. It handles importing
+ * This is a wrapper around the `@finpress/a11y` package's `speak` function. It handles importing
  * the package on demand and should be used instead of calling `a11y.speak` directly.
  *
  * @param messageKey The message to be announced by assistive technologies.
@@ -447,7 +447,7 @@ function a11ySpeak( messageKey: keyof typeof navigationTexts ) {
 	if ( ! hasLoadedNavigationTextsData ) {
 		hasLoadedNavigationTextsData = true;
 		const content = document.getElementById(
-			'wp-script-module-data-@wordpress/interactivity-router'
+			'wp-script-module-data-@finpress/interactivity-router'
 		)?.textContent;
 		if ( content ) {
 			try {
@@ -478,7 +478,7 @@ function a11ySpeak( messageKey: keyof typeof navigationTexts ) {
 
 	const message = navigationTexts[ messageKey ];
 
-	import( '@wordpress/a11y' ).then(
+	import( '@finpress/a11y' ).then(
 		( { speak } ) => speak( message ),
 		// Ignore failures to load the a11y module.
 		() => {}

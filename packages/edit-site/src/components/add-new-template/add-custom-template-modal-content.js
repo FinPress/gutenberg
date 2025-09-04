@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState, useMemo, useEffect } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { useState, useMemo, useEffect } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 import {
 	Button,
 	Flex,
@@ -12,11 +12,11 @@ import {
 	Composite,
 	__experimentalText as Text,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useEntityRecords } from '@wordpress/core-data';
-import { decodeEntities } from '@wordpress/html-entities';
-import { useDebouncedInput } from '@wordpress/compose';
-import { focus } from '@wordpress/dom';
+} from '@finpress/components';
+import { useEntityRecords } from '@finpress/core-data';
+import { decodeEntities } from '@finpress/html-entities';
+import { useDebouncedInput } from '@finpress/compose';
+import { focus } from '@finpress/dom';
 
 /**
  * Internal dependencies

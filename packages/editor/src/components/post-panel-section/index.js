@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalVStack as VStack } from '@wordpress/components';
+import { __experimentalVStack as VStack } from '@finpress/components';
 
 function PostPanelSection( { className, children } ) {
 	return (

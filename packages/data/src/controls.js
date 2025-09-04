@@ -25,7 +25,7 @@ function isObject( object ) {
  *
  * @example
  * ```js
- * import { controls } from '@wordpress/data';
+ * import { controls } from '@finpress/data';
  *
  * // Action generator using `select`.
  * export function* myAction() {
@@ -60,7 +60,7 @@ function select( storeNameOrDescriptor, selectorName, ...args ) {
  *
  * @example
  * ```js
- * import { controls } from '@wordpress/data';
+ * import { controls } from '@finpress/data';
  *
  * // Action generator using resolveSelect
  * export function* myAction() {
@@ -91,7 +91,7 @@ function resolveSelect( storeNameOrDescriptor, selectorName, ...args ) {
  *
  * @example
  * ```js
- * import { controls } from '@wordpress/data-controls';
+ * import { controls } from '@finpress/data-controls';
  *
  * // Action generator using dispatch
  * export function* myAction() {

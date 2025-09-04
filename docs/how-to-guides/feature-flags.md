@@ -1,12 +1,12 @@
 # Feature Flags
 
-'Feature flags' are variables that allow you to prevent specific code in the Gutenberg project from being shipped to WordPress core, and to run certain experimental features only in the plugin.
+'Feature flags' are variables that allow you to prevent specific code in the Gutenberg project from being shipped to FinPress core, and to run certain experimental features only in the plugin.
 
 ## Introducing `globalThis.IS_GUTENBERG_PLUGIN`
 
 The `globalThis.IS_GUTENBERG_PLUGIN` is an environment variable whose value 'flags' whether code is running within the Gutenberg plugin.
 
-When the codebase is built for the plugin, this variable will be set to `true`. When building for WordPress core, it will be set to `false` or `undefined`.
+When the codebase is built for the plugin, this variable will be set to `true`. When building for FinPress core, it will be set to `false` or `undefined`.
 
 ## Basic usage
 
@@ -24,14 +24,14 @@ export const pluginOnlyFeature = globalThis.IS_GUTENBERG_PLUGIN
 	: undefined;
 ```
 
-In the above example, the `pluginOnlyFeature` export will be `undefined` in non-plugin environments such as WordPress core.
+In the above example, the `pluginOnlyFeature` export will be `undefined` in non-plugin environments such as FinPress core.
 
 ### Importing features
 
 If you're attempting to import and call a plugin-only feature, be sure to wrap the function call in an `if` statement to avoid an error:
 
 ```js
-import { pluginOnlyFeature } from '@wordpress/foo';
+import { pluginOnlyFeature } from '@finpress/foo';
 
 if ( globalThis.IS_GUTENBERG_PLUGIN ) {
 	pluginOnlyFeature();
@@ -61,7 +61,7 @@ if ( true ) {
 
 This ensures that code within the body of the `if` statement will always be executed.
 
-In WordPress core, the `globalThis.IS_GUTENBERG_PLUGIN` variable is replaced with `undefined`. The built code looks like this:
+In FinPress core, the `globalThis.IS_GUTENBERG_PLUGIN` variable is replaced with `undefined`. The built code looks like this:
 
 ```js
 if ( undefined ) {
@@ -90,7 +90,7 @@ The condition will always evaluate to `true`, so webpack removes it, leaving beh
 pluginOnlyFeature(); // The `if` condition block has been removed. Only the body remains.
 ```
 
-Similarly, when building for WordPress core, the condition in the following `if` statement always resolves to false:
+Similarly, when building for FinPress core, the condition in the following `if` statement always resolves to false:
 
 ```js
 if ( undefined ) {
@@ -98,7 +98,7 @@ if ( undefined ) {
 }
 ```
 
-In this case, the minification process will remove the entire `if` statement including the body, ensuring plugin-only code is not included in WordPress core build.
+In this case, the minification process will remove the entire `if` statement including the body, ensuring plugin-only code is not included in FinPress core build.
 
 ## Frequently asked questions
 

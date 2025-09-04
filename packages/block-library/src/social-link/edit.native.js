@@ -4,23 +4,23 @@
 import { View, Animated, Easing, TouchableWithoutFeedback } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockControls,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { useEffect, useState, useRef, useCallback } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { useEffect, useState, useRef, useCallback } from '@finpress/element';
 import {
 	ToolbarGroup,
 	ToolbarButton,
 	LinkSettingsNavigation,
-} from '@wordpress/components';
-import { compose } from '@wordpress/compose';
-import { __, sprintf } from '@wordpress/i18n';
-import { link, Icon } from '@wordpress/icons';
-import { withSelect } from '@wordpress/data';
-import { store as blocksStore } from '@wordpress/blocks';
+} from '@finpress/components';
+import { compose } from '@finpress/compose';
+import { __, sprintf } from '@finpress/i18n';
+import { link, Icon } from '@finpress/icons';
+import { withSelect } from '@finpress/data';
+import { store as blocksStore } from '@finpress/blocks';
 
 /**
  * Internal dependencies

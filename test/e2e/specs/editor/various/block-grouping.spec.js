@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 /** @typedef {import('@playwright/test').Page} Page */
-/** @typedef {import('@wordpress/e2e-test-utils-playwright').Editor} Editor */
+/** @typedef {import('@finpress/e2e-test-utils-playwright').Editor} Editor */
 
 test.use( {
 	groupingUtils: async ( { page, editor }, use ) => {

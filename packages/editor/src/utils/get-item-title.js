@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { decodeEntities } from '@wordpress/html-entities';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Helper function to get the title of a post item.
- * This is duplicated from the `@wordpress/fields` package.
+ * This is duplicated from the `@finpress/fields` package.
  * `packages/fields/src/actions/utils.ts`
  *
  * @param {Object} item The post item.

@@ -4,9 +4,9 @@
 const path = require( 'path' );
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'changing image size', () => {
 	test.beforeAll( async ( { requestUtils } ) => {

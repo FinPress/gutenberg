@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo, useEffect, useRef, useState } from '@wordpress/element';
-import { _n, sprintf } from '@wordpress/i18n';
-import { useDebounce } from '@wordpress/compose';
-import { __experimentalHeading as Heading } from '@wordpress/components';
-import { speak } from '@wordpress/a11y';
+import { useMemo, useEffect, useRef, useState } from '@finpress/element';
+import { _n, sprintf } from '@finpress/i18n';
+import { useDebounce } from '@finpress/compose';
+import { __experimentalHeading as Heading } from '@finpress/components';
+import { speak } from '@finpress/a11y';
 
 /**
  * Internal dependencies

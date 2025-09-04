@@ -14,17 +14,17 @@ exports[`Editor adds image block when pasting HTML local image path 1`] = `
 
 exports[`Editor appends media correctly for allowed types 1`] = `
 "<!-- wp:image -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt=""/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt=""/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-3.jpeg" alt=""/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.finpress.com/local-image-3.jpeg" alt=""/></figure>
 <!-- /wp:image -->"
 `;
 
 exports[`Editor appends media correctly for allowed types and skips unsupported ones 1`] = `
 "<!-- wp:image -->
-<figure class="wp-block-image"><img src="https://test-site.files.wordpress.com/local-image-1.jpeg" alt=""/></figure>
+<figure class="wp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt=""/></figure>
 <!-- /wp:image -->
 
 <!-- wp:video -->

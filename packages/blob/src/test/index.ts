@@ -51,7 +51,7 @@ describe( 'downloadBlob', () => {
 	jest.spyOn( document.body, 'removeChild' );
 	beforeEach( () => {
 		// Can't seem to spy on these static methods. They are `undefined`.
-		// Possibly overwritten: https://github.com/WordPress/gutenberg/blob/trunk/packages/jest-preset-default/scripts/setup-globals.js#L5
+		// Possibly overwritten: https://github.com/FinPress/gutenberg/blob/trunk/packages/jest-preset-default/scripts/setup-globals.js#L5
 		// @ts-expect-error This is not a valid URL object.
 		window.URL = {
 			createObjectURL,

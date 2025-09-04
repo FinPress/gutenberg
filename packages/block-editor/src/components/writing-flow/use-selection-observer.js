@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useRefEffect } from '@wordpress/compose';
-import { create } from '@wordpress/rich-text';
-import { isSelectionForward } from '@wordpress/dom';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useRefEffect } from '@finpress/compose';
+import { create } from '@finpress/rich-text';
+import { isSelectionForward } from '@finpress/dom';
 
 /**
  * Internal dependencies

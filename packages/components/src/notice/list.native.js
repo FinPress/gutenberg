@@ -4,17 +4,17 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies
  */
 import Notice from './';
 import styles from './style.scss';
-import { useCallback } from '@wordpress/element';
+import { useCallback } from '@finpress/element';
 
 function NoticeList() {
 	const { notices } = useSelect( ( select ) => {

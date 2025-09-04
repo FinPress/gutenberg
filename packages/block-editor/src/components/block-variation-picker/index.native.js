@@ -10,18 +10,18 @@ import {
 } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch } from '@wordpress/data';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { createBlocksFromInnerBlocksTemplate } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
+import { useDispatch } from '@finpress/data';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { createBlocksFromInnerBlocksTemplate } from '@finpress/blocks';
+import { __ } from '@finpress/i18n';
 import {
 	PanelBody,
 	BottomSheet,
 	FooterMessageControl,
-} from '@wordpress/components';
-import { Icon, close } from '@wordpress/icons';
+} from '@finpress/components';
+import { Icon, close } from '@finpress/icons';
 
 /**
  * Internal dependencies

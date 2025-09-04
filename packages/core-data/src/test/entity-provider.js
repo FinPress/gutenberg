@@ -4,18 +4,18 @@
 import { act, render } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createBlock,
 	registerBlockType,
 	unregisterBlockType,
 	getBlockTypes,
-} from '@wordpress/blocks';
-import { RichText, useBlockProps } from '@wordpress/block-editor';
-import { createRegistry, RegistryProvider } from '@wordpress/data';
-import { registerCoreBlocks } from '@wordpress/block-library';
-import { unregisterFormatType } from '@wordpress/rich-text';
+} from '@finpress/blocks';
+import { RichText, useBlockProps } from '@finpress/block-editor';
+import { createRegistry, RegistryProvider } from '@finpress/data';
+import { registerCoreBlocks } from '@finpress/block-library';
+import { unregisterFormatType } from '@finpress/rich-text';
 
 /**
  * Internal dependencies

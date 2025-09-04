@@ -22,23 +22,23 @@ import EmbedLinkSettings from './embed-link-settings';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { _x } from '@wordpress/i18n';
-import { useCallback, useState, useEffect } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { _x } from '@finpress/i18n';
+import { useCallback, useState, useEffect } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
 import {
 	useBlockProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { View } from '@wordpress/primitives';
-import { getAuthority } from '@wordpress/url';
+} from '@finpress/block-editor';
+import { store as coreStore } from '@finpress/core-data';
+import { View } from '@finpress/primitives';
+import { getAuthority } from '@finpress/url';
 
 // The inline preview feature will be released progressible, for this reason
 // the embed will only be considered previewable for the following providers list.
 const PREVIEWABLE_PROVIDERS = [ 'youtube', 'twitter', 'instagram', 'vimeo' ];
-// Some providers are rendering the inline preview as a WordPress embed and
+// Some providers are rendering the inline preview as a FinPress embed and
 // are not supported yet, so we need to disallow them with a fixed providers list.
 const NOT_PREVIEWABLE_WP_EMBED_PROVIDERS = [ 'pinterest' ];
 
@@ -102,7 +102,7 @@ const EmbedEdit = ( props ) => {
 				const badEmbedProvider =
 					embedPreview?.html === false &&
 					embedPreview?.type === undefined;
-				// Some WordPress URLs that can't be embedded will cause the API to return
+				// Some FinPress URLs that can't be embedded will cause the API to return
 				// a valid JSON response with no HTML and `code` set to 404, rather
 				// than generating a fallback response as other embeds do.
 				const wordpressCantEmbed = embedPreview?.code === '404';
@@ -167,7 +167,7 @@ const EmbedEdit = ( props ) => {
 			return;
 		}
 
-		// Until X provider is supported in WordPress, as a workaround we use Twitter provider.
+		// Until X provider is supported in FinPress, as a workaround we use Twitter provider.
 		if ( getAuthority( url ) === 'x.com' ) {
 			const newURL = new URL( url );
 			newURL.host = 'twitter.com';
@@ -250,12 +250,12 @@ const EmbedEdit = ( props ) => {
 
 	const isProviderPreviewable =
 		PREVIEWABLE_PROVIDERS.includes( providerNameSlug ) ||
-		// For WordPress embeds, we enable the inline preview for all its providers
+		// For FinPress embeds, we enable the inline preview for all its providers
 		// except the ones that are not supported yet.
 		( WP_EMBED_TYPE === type &&
 			! NOT_PREVIEWABLE_WP_EMBED_PROVIDERS.includes( providerNameSlug ) );
 
-	const linkLabel = WP_EMBED_TYPE === type ? 'WordPress' : title;
+	const linkLabel = WP_EMBED_TYPE === type ? 'FinPress' : title;
 
 	return (
 		<>

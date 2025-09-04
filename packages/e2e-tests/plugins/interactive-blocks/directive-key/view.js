@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store } from '@wordpress/interactivity';
+import { store } from '@finpress/interactivity';
 
 const html = `
 		<div
@@ -19,7 +19,7 @@ store( 'directive-key', {
 	actions: {
 		*navigate() {
 			const { actions } = yield import(
-				'@wordpress/interactivity-router'
+				'@finpress/interactivity-router'
 			);
 			return actions.navigate( window.location, {
 				force: true,

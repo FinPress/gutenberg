@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { createBlock } from '@wordpress/blocks';
-import { RawHTML } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { __, sprintf } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { createBlock } from '@finpress/blocks';
+import { RawHTML } from '@finpress/element';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
 import {
 	Warning,
 	useBlockProps,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 /**
  * Internal dependencies

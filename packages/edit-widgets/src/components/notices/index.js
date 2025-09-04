@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { NoticeList, SnackbarList } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
+import { NoticeList, SnackbarList } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
 
 // Last three notices. Slices from the tail end of the list.
 const MAX_VISIBLE_NOTICES = -3;

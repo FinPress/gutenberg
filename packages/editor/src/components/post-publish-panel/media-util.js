@@ -4,9 +4,9 @@
 import { v4 as uuid } from 'uuid';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getFilename } from '@wordpress/url';
+import { getFilename } from '@finpress/url';
 
 /**
  * Generate a list of unique basenames given a list of URLs.
@@ -45,7 +45,7 @@ export function generateUniqueBasenames( urls ) {
 				// Append a UUID to deduplicate the basename.
 				// The server will try to deduplicate on its own if we don't do this,
 				// but it may run into a race condition
-				// (see https://github.com/WordPress/gutenberg/issues/64899).
+				// (see https://github.com/FinPress/gutenberg/issues/64899).
 				// Deduplicating the filenames before uploading is safer.
 				basename = `${ basename }-${ uuid() }`;
 			}

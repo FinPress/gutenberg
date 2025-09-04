@@ -4,7 +4,7 @@
 import deepFreeze from 'deep-freeze';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	registerBlockType,
@@ -14,8 +14,8 @@ import {
 	setDefaultBlockName,
 	setFreeformContentHandlerName,
 	getBlockTypes,
-} from '@wordpress/blocks';
-import { RawHTML } from '@wordpress/element';
+} from '@finpress/blocks';
+import { RawHTML } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -1672,7 +1672,7 @@ describe( 'selectors', () => {
 			// getBlocksForSerialization selector and instead makes assumptions
 			// about its filtering. The behavior should still be reflected.
 			//
-			// See: https://github.com/WordPress/gutenberg/pull/13086
+			// See: https://github.com/FinPress/gutenberg/pull/13086
 			const state = {
 				editor: {
 					present: {

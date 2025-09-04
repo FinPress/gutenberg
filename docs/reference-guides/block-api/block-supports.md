@@ -120,7 +120,7 @@ supports: {
 
 ## background
 
-_**Note:** Since WordPress 6.5._
+_**Note:** Since FinPress 6.5._
 
 -   Type: `Object`
 -   Default value: `null`
@@ -288,7 +288,7 @@ When the block declares support for `color.background`, the attributes definitio
 
 ### color.button
 
-_**Note:** Since WordPress 6.5._
+_**Note:** Since FinPress 6.5._
 
 This property adds block controls which allow the user to set button colors (text, background) in a block. Button colors are disabled by default.
 
@@ -332,7 +332,7 @@ When the block declares support for `color.button`, the attributes definition is
 
 ### color.enableContrastChecker
 
-_**Note:** Since WordPress 6.5._
+_**Note:** Since FinPress 6.5._
 
 Determines whether the contrast checker widget displays in the block editor UI.
 
@@ -348,7 +348,7 @@ supports: {
 
 ### color.\_\_experimentalDuotone
 
-_**Note:** Deprecated since WordPress 6.3._
+_**Note:** Deprecated since FinPress 6.3._
 
 This property has been replaced by [`filter.duotone`](#filterduotone).
 
@@ -407,7 +407,7 @@ When the block declares support for `color.gradient`, the attributes definition 
 
 ### color.heading
 
-_**Note:** Since WordPress 6.5._
+_**Note:** Since FinPress 6.5._
 
 This property adds block controls which allow the user to set heading colors in a block. Heading colors are disabled by default.
 
@@ -573,7 +573,7 @@ supports: {
 
 ## dimensions
 
-_**Note:** Since WordPress 6.2._
+_**Note:** Since FinPress 6.2._
 
 -   Type: `Object`
 -   Default value: null
@@ -814,7 +814,7 @@ supports: {
 
 ## position
 
-_**Note:** Since WordPress 6.2._
+_**Note:** Since FinPress 6.2._
 
 -   Type: `Object`
 -   Default value: null
@@ -850,7 +850,7 @@ attributes: {
 
 ## renaming
 
-_**Note:** Since WordPress 6.5._
+_**Note:** Since FinPress 6.5._
 
 -   Type: `boolean`
 -   Default value: `true`
@@ -880,7 +880,7 @@ supports: {
 
 ## shadow
 
-_**Note:** Since WordPress 6.5._
+_**Note:** Since FinPress 6.5._
 
 -   Type: `boolean`
 -   Default value: `false`
@@ -1069,7 +1069,7 @@ attributes: {
 
 ### typography.textAlign
 
-_**Note:** Since WordPress 6.6._
+_**Note:** Since FinPress 6.6._
 
 -   Type: `boolean` or `array`
 -   Default value: `false`

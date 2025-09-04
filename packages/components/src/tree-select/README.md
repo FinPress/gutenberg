@@ -2,13 +2,13 @@
 
 <!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->
 
-<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-treeselect--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
+<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-treeselect--docs">FinPress Storybook</a> for more detailed, interactive documentation.</p>
 
 Generates a hierarchical select input.
 
 ```jsx
 import { useState } from 'react';
-import { TreeSelect } from '@wordpress/components';
+import { TreeSelect } from '@finpress/components';
 
 const MyTreeSelect = () => {
 	const [ page, setPage ] = useState( 'p21' );
@@ -156,7 +156,7 @@ the provided `<InputControlPrefixWrapper>` component.
 import {
   __experimentalInputControl as InputControl,
   __experimentalInputControlPrefixWrapper as InputControlPrefixWrapper,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 <InputControl
   prefix={<InputControlPrefixWrapper>@</InputControlPrefixWrapper>}
@@ -193,7 +193,7 @@ the provided `<InputControlSuffixWrapper>` component.
 import {
   __experimentalInputControl as InputControl,
   __experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 <InputControl
   suffix={<InputControlSuffixWrapper>%</InputControlSuffixWrapper>}

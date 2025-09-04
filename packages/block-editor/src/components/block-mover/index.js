@@ -4,13 +4,13 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 
-import { dragHandle } from '@wordpress/icons';
-import { ToolbarGroup, ToolbarItem, Button } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { dragHandle } from '@finpress/icons';
+import { ToolbarGroup, ToolbarItem, Button } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -126,6 +126,6 @@ function BlockMover( {
 }
 
 /**
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-mover/README.md
+ * @see https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-mover/README.md
  */
 export default BlockMover;

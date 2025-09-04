@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { close, Icon } from '@wordpress/icons';
-import { Button } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { getColorClassName } from '@wordpress/block-editor';
+import { close, Icon } from '@finpress/icons';
+import { Button } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { getColorClassName } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { select, dispatch } from '@wordpress/data';
-import { _x } from '@wordpress/i18n';
-import warning from '@wordpress/warning';
+import { select, dispatch } from '@finpress/data';
+import { _x } from '@finpress/i18n';
+import warning from '@finpress/warning';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ import { unlock } from '../lock-unlock';
  *
  * @typedef {(string|Element|Component)} WPIcon
  *
- * @see https://developer.wordpress.org/resource/dashicons/
+ * @see https://developer.finpress.org/resource/dashicons/
  */
 
 /**
@@ -215,15 +215,15 @@ function getBlockSettingsFromMetadata( { textdomain, ...metadata } ) {
  * editor interface where blocks are implemented.
  *
  * For more in-depth information on registering a custom block see the
- * [Create a block tutorial](https://developer.wordpress.org/block-editor/getting-started/create-block/).
+ * [Create a block tutorial](https://developer.finpress.org/block-editor/getting-started/create-block/).
  *
  * @param {string|Object} blockNameOrMetadata Block type name or its metadata.
  * @param {Object}        settings            Block settings.
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { registerBlockType } from '@wordpress/blocks'
+ * import { __ } from '@finpress/i18n';
+ * import { registerBlockType } from '@finpress/blocks'
  *
  * registerBlockType( 'namespace/block-name', {
  *     title: __( 'My First Block' ),
@@ -285,7 +285,7 @@ function translateBlockSettingUsingI18nSchema(
 	textdomain
 ) {
 	if ( typeof i18nSchema === 'string' && typeof settingValue === 'string' ) {
-		// eslint-disable-next-line @wordpress/i18n-no-variables, @wordpress/i18n-text-domain
+		// eslint-disable-next-line @finpress/i18n-no-variables, @finpress/i18n-text-domain
 		return _x( settingValue, i18nSchema, textdomain );
 	}
 	if (
@@ -332,8 +332,8 @@ function translateBlockSettingUsingI18nSchema(
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { registerBlockCollection, registerBlockType } from '@wordpress/blocks';
+ * import { __ } from '@finpress/i18n';
+ * import { registerBlockCollection, registerBlockType } from '@finpress/blocks';
  *
  * // Register the collection.
  * registerBlockCollection( 'my-collection', {
@@ -359,7 +359,7 @@ export function registerBlockCollection( namespace, { title, icon } ) {
  *
  * @example
  * ```js
- * import { unregisterBlockCollection } from '@wordpress/blocks';
+ * import { unregisterBlockCollection } from '@finpress/blocks';
  *
  * unregisterBlockCollection( 'my-collection' );
  * ```
@@ -375,8 +375,8 @@ export function unregisterBlockCollection( namespace ) {
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { unregisterBlockType } from '@wordpress/blocks';
+ * import { __ } from '@finpress/i18n';
+ * import { unregisterBlockType } from '@finpress/blocks';
  *
  * const ExampleComponent = () => {
  *     return (
@@ -458,7 +458,7 @@ export function getUnregisteredTypeHandlerName() {
  *
  * @example
  * ```js
- * import { setDefaultBlockName } from '@wordpress/blocks';
+ * import { setDefaultBlockName } from '@finpress/blocks';
  *
  * const ExampleComponent = () => {
  *
@@ -479,13 +479,13 @@ export function setDefaultBlockName( name ) {
  *
  * This function lets you select a different block to group other blocks in instead of the
  * default `core/group` block. This function must be used in a component or when the DOM is fully
- * loaded. See https://developer.wordpress.org/block-editor/reference-guides/packages/packages-dom-ready/
+ * loaded. See https://developer.finpress.org/block-editor/reference-guides/packages/packages-dom-ready/
  *
  * @param {string} name Block name.
  *
  * @example
  * ```js
- * import { setGroupingBlockName } from '@wordpress/blocks';
+ * import { setGroupingBlockName } from '@finpress/blocks';
  *
  * const ExampleComponent = () => {
  *
@@ -630,16 +630,16 @@ export const hasChildBlocksWithInserterSupport = ( blockName ) => {
  * Registers a new block style for the given block types.
  *
  * For more information on connecting the styles with CSS
- * [the official documentation](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-styles/#styles).
+ * [the official documentation](https://developer.finpress.org/block-editor/reference-guides/block-api/block-styles/#styles).
  *
  * @param {string|Array} blockNames     Name of blocks e.g. “core/latest-posts” or `["core/group", "core/columns"]`.
  * @param {Object}       styleVariation Object containing `name` which is the class name applied to the block and `label` which identifies the variation to the user.
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { registerBlockStyle } from '@wordpress/blocks';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { registerBlockStyle } from '@finpress/blocks';
+ * import { Button } from '@finpress/components';
  *
  *
  * const ExampleComponent = () => {
@@ -670,9 +670,9 @@ export const registerBlockStyle = ( blockNames, styleVariation ) => {
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { unregisterBlockStyle } from '@wordpress/blocks';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { unregisterBlockStyle } from '@finpress/blocks';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  *     return (
@@ -693,7 +693,7 @@ export const unregisterBlockStyle = ( blockName, styleVariationName ) => {
 
 /**
  * Returns an array with the variations of a given block type.
- * Ignored from documentation as the recommended usage is via useSelect from @wordpress/data.
+ * Ignored from documentation as the recommended usage is via useSelect from @finpress/data.
  *
  * @ignore
  *
@@ -710,16 +710,16 @@ export const getBlockVariations = ( blockName, scope ) => {
  * Registers a new block variation for the given block type.
  *
  * For more information on block variations see
- * [the official documentation ](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-variations/).
+ * [the official documentation ](https://developer.finpress.org/block-editor/reference-guides/block-api/block-variations/).
  *
  * @param {string}           blockName Name of the block (example: “core/columns”).
  * @param {WPBlockVariation} variation Object describing a block variation.
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { registerBlockVariation } from '@wordpress/blocks';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { registerBlockVariation } from '@finpress/blocks';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  *     return (
@@ -754,9 +754,9 @@ export const registerBlockVariation = ( blockName, variation ) => {
  *
  * @example
  * ```js
- * import { __ } from '@wordpress/i18n';
- * import { unregisterBlockVariation } from '@wordpress/blocks';
- * import { Button } from '@wordpress/components';
+ * import { __ } from '@finpress/i18n';
+ * import { unregisterBlockVariation } from '@finpress/blocks';
+ * import { Button } from '@finpress/components';
  *
  * const ExampleComponent = () => {
  *     return (
@@ -780,14 +780,14 @@ export const unregisterBlockVariation = ( blockName, variationName ) => {
  * behavior. Once registered, the source is available to be connected
  * to the supported block attributes.
  *
- * @since 6.7.0 Introduced in WordPress core.
+ * @since 6.7.0 Introduced in FinPress core.
  *
  * @param {WPBlockBindingsSource} source Object describing a block bindings source.
  *
  * @example
  * ```js
- * import { _x } from '@wordpress/i18n';
- * import { registerBlockBindingsSource } from '@wordpress/blocks'
+ * import { _x } from '@finpress/i18n';
+ * import { registerBlockBindingsSource } from '@finpress/blocks'
  *
  * registerBlockBindingsSource( {
  *     name: 'plugin/my-custom-source',
@@ -913,13 +913,13 @@ export const registerBlockBindingsSource = ( source ) => {
 /**
  * Unregisters a block bindings source by providing its name.
  *
- * @since 6.7.0 Introduced in WordPress core.
+ * @since 6.7.0 Introduced in FinPress core.
  *
  * @param {string} name The name of the block bindings source to unregister.
  *
  * @example
  * ```js
- * import { unregisterBlockBindingsSource } from '@wordpress/blocks';
+ * import { unregisterBlockBindingsSource } from '@finpress/blocks';
  *
  * unregisterBlockBindingsSource( 'plugin/my-custom-source' );
  * ```
@@ -936,7 +936,7 @@ export function unregisterBlockBindingsSource( name ) {
 /**
  * Returns a registered block bindings source by its name.
  *
- * @since 6.7.0 Introduced in WordPress core.
+ * @since 6.7.0 Introduced in FinPress core.
  *
  * @param {string} name Block bindings source name.
  *
@@ -949,7 +949,7 @@ export function getBlockBindingsSource( name ) {
 /**
  * Returns all registered block bindings sources.
  *
- * @since 6.7.0 Introduced in WordPress core.
+ * @since 6.7.0 Introduced in FinPress core.
  *
  * @return {Array} Block bindings sources.
  */

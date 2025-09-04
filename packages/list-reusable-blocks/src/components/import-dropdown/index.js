@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { pipe } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
-import { Dropdown, Button } from '@wordpress/components';
+import { pipe } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
+import { Dropdown, Button } from '@finpress/components';
 
 /**
  * Internal dependencies

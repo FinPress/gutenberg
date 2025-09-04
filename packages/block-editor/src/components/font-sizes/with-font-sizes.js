@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createHigherOrderComponent, compose } from '@wordpress/compose';
-import { Component } from '@wordpress/element';
+import { createHigherOrderComponent, compose } from '@finpress/compose';
+import { Component } from '@finpress/element';
 
 /**
  * Internal dependencies

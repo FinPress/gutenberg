@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import TokenList from '@wordpress/token-list';
-import { _x } from '@wordpress/i18n';
+import TokenList from '@finpress/token-list';
+import { _x } from '@finpress/i18n';
 
 /**
  * Returns the active style from the given className.

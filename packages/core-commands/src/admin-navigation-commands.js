@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCommandLoader } from '@wordpress/commands';
-import { __ } from '@wordpress/i18n';
-import { plus, dashboard } from '@wordpress/icons';
-import { getPath } from '@wordpress/url';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useCallback, useMemo } from '@wordpress/element';
-import { store as noticesStore } from '@wordpress/notices';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { useCommandLoader } from '@finpress/commands';
+import { __ } from '@finpress/i18n';
+import { plus, dashboard } from '@finpress/icons';
+import { getPath } from '@finpress/url';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect, useDispatch } from '@finpress/data';
+import { useCallback, useMemo } from '@finpress/element';
+import { store as noticesStore } from '@finpress/notices';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

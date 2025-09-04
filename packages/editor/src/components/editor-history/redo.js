@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, isRTL } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { displayShortcut, isAppleOS } from '@wordpress/keycodes';
-import { redo as redoIcon, undo as undoIcon } from '@wordpress/icons';
-import { forwardRef } from '@wordpress/element';
+import { __, isRTL } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { displayShortcut, isAppleOS } from '@finpress/keycodes';
+import { redo as redoIcon, undo as undoIcon } from '@finpress/icons';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -34,7 +34,7 @@ function EditorHistoryRedo( props, ref ) {
 			shortcut={ shortcut }
 			// If there are no redo levels we don't want to actually disable this
 			// button, because it will remove focus for keyboard users.
-			// See: https://github.com/WordPress/gutenberg/issues/3486
+			// See: https://github.com/FinPress/gutenberg/issues/3486
 			aria-disabled={ ! hasRedo }
 			onClick={ hasRedo ? redo : undefined }
 			className="editor-history__redo"

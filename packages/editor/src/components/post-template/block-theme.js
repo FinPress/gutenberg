@@ -1,15 +1,15 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
-import { decodeEntities } from '@wordpress/html-entities';
-import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
-import { useState, useMemo } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { useEntityRecord, store as coreStore } from '@wordpress/core-data';
-import { check } from '@wordpress/icons';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as preferencesStore } from '@wordpress/preferences';
+import { useSelect, useDispatch } from '@finpress/data';
+import { decodeEntities } from '@finpress/html-entities';
+import { DropdownMenu, MenuGroup, MenuItem } from '@finpress/components';
+import { useState, useMemo } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { useEntityRecord, store as coreStore } from '@finpress/core-data';
+import { check } from '@finpress/icons';
+import { store as noticesStore } from '@finpress/notices';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies

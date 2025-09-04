@@ -5,12 +5,12 @@ import clsx from 'clsx';
 import { colord } from 'colord';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { useEffect, useRef, useState, useMemo } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
-import { plus } from '@wordpress/icons';
+import { useInstanceId } from '@finpress/compose';
+import { useEffect, useRef, useState, useMemo } from '@finpress/element';
+import { __, sprintf } from '@finpress/i18n';
+import { plus } from '@finpress/icons';
 
 /**
  * Internal dependencies

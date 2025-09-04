@@ -30,7 +30,7 @@ For a complete example, refer to the section below.
 
 #### Include a namespace
 
-As seen in the above example, it is recommended that you include a namespace as part of the name of the context key so as to avoid potential conflicts with other plugins or default context values provided by WordPress. The context namespace should be specific to your plugin, and in most cases can be the same as used in the name of the block itself.
+As seen in the above example, it is recommended that you include a namespace as part of the name of the context key so as to avoid potential conflicts with other plugins or default context values provided by FinPress. The context namespace should be specific to your plugin, and in most cases can be the same as used in the name of the block itself.
 
 ### Consuming block context
 
@@ -79,7 +79,7 @@ register_block_type( 'my-plugin/record-title', array(
 1. Create a `record` block.
 
 ```
-npm init @wordpress/block --namespace my-plugin record
+npm init @finpress/block --namespace my-plugin record
 cd record
 ```
 
@@ -129,8 +129,8 @@ registerBlockType( 'my-plugin/record-title', {
 3. Edit `src/edit.js` for the `record` block. Replace the `Edit` function with the following code:
 
 ```js
-import { TextControl } from '@wordpress/components';
-import { InnerBlocks } from '@wordpress/block-editor';
+import { TextControl } from '@finpress/components';
+import { InnerBlocks } from '@finpress/block-editor';
 
 export default function Edit( props ) {
 	const MY_TEMPLATE = [ [ 'my-plugin/record-title', {} ] ];

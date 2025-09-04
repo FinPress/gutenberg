@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BaseControl,
@@ -8,10 +8,10 @@ import {
 	__experimentalInputControl as InputControl,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useCallback, useMemo, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { getDate, getSettings } from '@wordpress/date';
+} from '@finpress/components';
+import { useCallback, useMemo, useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { getDate, getSettings } from '@finpress/date';
 
 /**
  * External dependencies

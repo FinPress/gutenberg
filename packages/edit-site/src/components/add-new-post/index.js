@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
@@ -7,14 +7,14 @@ import {
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	TextControl,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { useDispatch, useRegistry, useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as noticesStore } from '@wordpress/notices';
-import { decodeEntities } from '@wordpress/html-entities';
-import { serialize, synchronizeBlocksWithTemplate } from '@wordpress/blocks';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useDispatch, useRegistry, useSelect } from '@finpress/data';
+import { useState } from '@finpress/element';
+import { store as coreStore } from '@finpress/core-data';
+import { store as noticesStore } from '@finpress/notices';
+import { decodeEntities } from '@finpress/html-entities';
+import { serialize, synchronizeBlocksWithTemplate } from '@finpress/blocks';
 
 export default function AddNewPostModal( { postType, onSave, onClose } ) {
 	const labels = useSelect(

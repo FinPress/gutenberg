@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 /**
  * External dependencies
@@ -637,7 +637,7 @@ test.describe( 'Pattern Overrides', () => {
 		] );
 	} );
 
-	// See https://github.com/WordPress/gutenberg/pull/62014.
+	// See https://github.com/FinPress/gutenberg/pull/62014.
 	test( 'can convert a pattern block to regular blocks when the pattern supports overrides but not override values', async ( {
 		admin,
 		requestUtils,
@@ -881,7 +881,7 @@ test.describe( 'Pattern Overrides', () => {
 		await expect( resetButton ).toBeDisabled();
 	} );
 
-	// A Undo/Redo bug found when implementing and fixing https://github.com/WordPress/gutenberg/pull/60721.
+	// A Undo/Redo bug found when implementing and fixing https://github.com/FinPress/gutenberg/pull/60721.
 	// This could be merged into an existing test after we fully test it.
 	test( 'resets overrides immediately should not break undo/redo', async ( {
 		page,
@@ -946,7 +946,7 @@ test.describe( 'Pattern Overrides', () => {
 		await expect( paragraphBlock ).toHaveText( 'Paragraph' );
 	} );
 
-	// Fix https://github.com/WordPress/gutenberg/issues/58708.
+	// Fix https://github.com/FinPress/gutenberg/issues/58708.
 	test( 'overridden empty images should not have upload button', async ( {
 		page,
 		admin,
@@ -1295,7 +1295,7 @@ test.describe( 'Pattern Overrides', () => {
 		} );
 	} );
 
-	// https://github.com/WordPress/gutenberg/issues/61610.
+	// https://github.com/FinPress/gutenberg/issues/61610.
 	test( 'unsynced patterns should not be able to enable overrides', async ( {
 		page,
 		admin,
@@ -1336,7 +1336,7 @@ test.describe( 'Pattern Overrides', () => {
 		).toBeHidden();
 	} );
 
-	// @see https://github.com/WordPress/gutenberg/pull/60694
+	// @see https://github.com/FinPress/gutenberg/pull/60694
 	test( 'handles back-compat from individual attributes to __default', async ( {
 		page,
 		admin,

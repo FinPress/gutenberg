@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	store,
 	getContext,
 	useInit,
 	privateApis,
-} from '@wordpress/interactivity';
+} from '@finpress/interactivity';
 
 const { state } = store( 'directive-each' );
 
@@ -218,7 +218,7 @@ store( 'directive-each', {
 	actions: {
 		*navigate() {
 			const { actions } = yield import(
-				'@wordpress/interactivity-router'
+				'@finpress/interactivity-router'
 			);
 			return actions.navigate( window.location, {
 				force: true,
@@ -229,7 +229,7 @@ store( 'directive-each', {
 } );
 
 const { directive } = privateApis(
-	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of WordPress.'
+	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of FinPress.'
 );
 
 /*

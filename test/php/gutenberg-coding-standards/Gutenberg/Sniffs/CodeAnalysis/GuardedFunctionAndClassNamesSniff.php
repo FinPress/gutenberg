@@ -3,7 +3,7 @@
  * Gutenberg Coding Standards.
  *
  * @package gutenberg/gutenberg-coding-standards
- * @link    https://github.com/WordPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
+ * @link    https://github.com/FinPress/gutenberg/tree/trunk/test/php/gutenberg-coding-standards
  */
 
 namespace GutenbergCS\Gutenberg\Sniffs\CodeAnalysis;
@@ -17,7 +17,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
  * and classes are not already defined, and recommends the use of function_exists() and class_exists()
  * to prevent fatal errors during the integration of the feature to the Core.
  *
- * @link https://github.com/WordPress/gutenberg/blob/trunk/lib/README.md#wrap-functions-and-classes-with--function_exists-and--class_exists
+ * @link https://github.com/FinPress/gutenberg/blob/trunk/lib/README.md#wrap-functions-and-classes-with--function_exists-and--class_exists
  *
  * @package gutenberg/gutenberg-coding-standards
  *

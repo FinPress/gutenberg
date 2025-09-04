@@ -2,7 +2,7 @@
 /**
  * Server-side rendering of the `core/accordion` block.
  *
- * @package WordPress
+ * @package FinPress
  * @since 6.6.0
  *
  * @param array $attributes The block attributes.
@@ -21,13 +21,13 @@ function render_block_core_accordion( $attributes, $content ) {
 	}
 
 	wp_register_script_module(
-		'@wordpress/block-library/accordion',
+		'@finpress/block-library/accordion',
 		isset( $module_url ) ? $module_url : includes_url( "blocks/accordion/view{$suffix}.js" ),
-		array( '@wordpress/interactivity' ),
+		array( '@finpress/interactivity' ),
 		defined( 'GUTENBERG_VERSION' ) ? GUTENBERG_VERSION : get_bloginfo( 'version' )
 	);
 
-	wp_enqueue_script_module( '@wordpress/block-library/accordion' );
+	wp_enqueue_script_module( '@finpress/block-library/accordion' );
 
 	$p             = new WP_HTML_Tag_Processor( $content );
 	$autoclose     = $attributes['autoclose'] ? 'true' : 'false';

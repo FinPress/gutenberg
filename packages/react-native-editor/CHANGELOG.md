@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 <!--
 For each user feature we should also add a importance categorization label  to indicate the relevance of the change for end users of GB Mobile. The format is the following:
@@ -164,7 +164,7 @@ For each user feature we should also add a importance categorization label  to i
 
 ## 1.103.3
 
--   [*] Bump `WordPress-Aztec-iOS` version to `1.19.9` [#54456]
+-   [*] Bump `FinPress-Aztec-iOS` version to `1.19.9` [#54456]
 
 ## 1.103.2
 
@@ -200,7 +200,7 @@ For each user feature we should also add a importance categorization label  to i
 
 ## 1.101.1
 
--   [**] Fix the dynamic height when opening/closing navigation screens within the bottom sheet. [https://github.com/WordPress/gutenberg/pull/53608]
+-   [**] Fix the dynamic height when opening/closing navigation screens within the bottom sheet. [https://github.com/FinPress/gutenberg/pull/53608]
 
 ## 1.101.0
 
@@ -563,7 +563,7 @@ For each user feature we should also add a importance categorization label  to i
 
 ## 1.65.1
 
--   [**] Fixed a crash that could occur when copying lists from Microsoft Word. [https://github.com/WordPress/gutenberg/pull/36019]
+-   [**] Fixed a crash that could occur when copying lists from Microsoft Word. [https://github.com/FinPress/gutenberg/pull/36019]
 
 ## 1.65.0
 
@@ -629,7 +629,7 @@ For each user feature we should also add a importance categorization label  to i
 ## 1.61.0
 
 -   [**] Enable embed preview for a list of providers (for now only YouTube and Twitter) [#34446]
--   [***] Inserter: Add Inserter Block Search [https://github.com/WordPress/gutenberg/pull/33237]
+-   [***] Inserter: Add Inserter Block Search [https://github.com/FinPress/gutenberg/pull/33237]
 
 ## 1.60.1
 
@@ -725,7 +725,7 @@ For each user feature we should also add a importance categorization label  to i
 
 ## 1.52.0
 
--   [***] Search block now available on mobile! [https://github.com/WordPress/gutenberg/pull/30783]
+-   [***] Search block now available on mobile! [https://github.com/FinPress/gutenberg/pull/30783]
 -   [*] Image block: Add a "featured" banner. (Android only) [#30806]
 -   [**] The media upload options of the Image, Video and Gallery block automatically opens when the respective block is inserted. [#29546]
 -   [**] The media upload options of the File and Audio block automatically opens when the respective block is inserted. [#31025]
@@ -753,7 +753,7 @@ For each user feature we should also add a importance categorization label  to i
 
 ## 1.49.0
 
--   [*] Remove the cancel button from settings options (Android only) [https://github.com/WordPress/gutenberg/pull/29599]
+-   [*] Remove the cancel button from settings options (Android only) [https://github.com/FinPress/gutenberg/pull/29599]
 
 ## 1.48.0
 
@@ -785,8 +785,8 @@ For each user feature we should also add a importance categorization label  to i
 
 ## 1.45.0
 
--   [*] Use react-native-url-polyfill in globals - [https://github.com/WordPress/gutenberg/pull/27867]
--   [*] Remove Old Layout Picker - [https://github.com/WordPress/gutenberg/pull/27640]
+-   [*] Use react-native-url-polyfill in globals - [https://github.com/FinPress/gutenberg/pull/27867]
+-   [*] Remove Old Layout Picker - [https://github.com/FinPress/gutenberg/pull/27640]
 
 ## 1.44.1
 
@@ -1009,7 +1009,7 @@ For each user feature we should also add a importance categorization label  to i
 -   Add support for changing Settings in List Block.
 -   [iOS] Fix crash dismissing bottom-sheet after device rotation.
 -   [Android] Add support for Preformatted block.
--   New block: Gallery. You can now create image galleries using WordPress Media library. Upload feature is coming soon.
+-   New block: Gallery. You can now create image galleries using FinPress Media library. Upload feature is coming soon.
 -   Add support for Video block settings
 
 ## 1.18.0

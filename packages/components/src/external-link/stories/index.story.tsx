@@ -30,6 +30,6 @@ const Template: StoryFn< typeof ExternalLink > = ( { ...args } ) => {
 
 export const Default: StoryFn< typeof ExternalLink > = Template.bind( {} );
 Default.args = {
-	children: 'WordPress',
-	href: 'https://wordpress.org',
+	children: 'FinPress',
+	href: 'https://finpress.org',
 };

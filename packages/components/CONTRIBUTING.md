@@ -2,7 +2,7 @@
 
 Thank you for taking the time to contribute.
 
-The following is a set of guidelines for contributing to the `@wordpress/components` package to be considered in addition to the general ones described in our [Contributing Policy](https://github.com/WordPress/gutenberg/blob/HEAD/CONTRIBUTING.md).
+The following is a set of guidelines for contributing to the `@finpress/components` package to be considered in addition to the general ones described in our [Contributing Policy](https://github.com/FinPress/gutenberg/blob/HEAD/CONTRIBUTING.md).
 
 This set of guidelines should apply especially to newly introduced components. In fact, while these guidelines should also be retroactively applied to existing components, it is sometimes impossible to do so for legacy/compatibility reasons.
 
@@ -36,7 +36,7 @@ To determine if a component should be added, ask yourself:
 
 Here’s a flowchart that can help determine if a new component is necessary:
 
-![New component flowchart](https://wordpress.org/gutenberg/files/2019/07/New_component_flowchart.png)
+![New component flowchart](https://finpress.org/gutenberg/files/2019/07/New_component_flowchart.png)
 
 ### First steps
 
@@ -48,7 +48,7 @@ If you have a component you'd like added or changed, start by opening a GitHub i
 -   Include mockups of any fidelity (optional)
 -   Include any inspirations from other products (optional)
 
-This issue will be used to discuss the proposed changes and track progress. Reviewers start by discussing the proposal to determine if it's appropriate for WordPress Components, or if there's overlap with an existing component.
+This issue will be used to discuss the proposed changes and track progress. Reviewers start by discussing the proposal to determine if it's appropriate for FinPress Components, or if there's overlap with an existing component.
 
 It’s encouraged to surface works-in-progress. If you’re not able to complete all of the parts yourself, someone in the community may be able to pick up where you left off.
 
@@ -58,7 +58,7 @@ Once the team has discussed and approved the change, it's time to start implemen
 
 1. **Provide a rationale**: Explain how your component will add value to the system and the greater product ecosystem. Be sure to include any user experience and interaction descriptions.
 2. **Draft documentation**: New components need development, design, and accessibility guidelines. Additionally, if your change adds additional behavior or expands a component’s features, those changes will need to be fully documented as well. Read through existing component documentation for examples. Start with a rough draft, and reviewers will help polish documentation.
-3. **Provide working code**: The component or enhancement must be built in React. See the [developer contribution guidelines](https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/code/README.md).
+3. **Provide working code**: The component or enhancement must be built in React. See the [developer contribution guidelines](https://github.com/FinPress/gutenberg/blob/HEAD/docs/contributors/code/README.md).
 4. **Create a design spec**: Create sizing and styling annotations for all aspects of the component. This spec should provide a developer with everything they need to create the design in code. [Figma automatically does this for you](https://help.figma.com/article/32-developer-handoff).
 
 Remember, it’s unlikely that all parts will be done by one person. Contribute where you can, and others will help.
@@ -75,19 +75,19 @@ Before a component is published it will need to be fine-tuned:
 
 To ensure quality, each component should be tested. The testing process should be done during the development of the component and before the component is published.
 
--   **Accessibility**: Has the design and implementation accounted for accessibility? Please use the [WordPress accessibility guidelines](https://make.wordpress.org/accessibility/handbook/best-practices/). You must use the "Needs Accessibility Feedback" label and get a review from the accessibility team. It's best to request a review early (at the documentation stage) in order to ensure the component is designed inclusively from the outset.
--   **Visual quality**: Does the component apply visual style — color, typography, icons, space, borders, and more — using appropriate variables, and does it follow [visual guidelines](https://make.wordpress.org/design/handbook/design-guide/)? You must use the "Needs Design Feedback" label and get a review from the design team.
+-   **Accessibility**: Has the design and implementation accounted for accessibility? Please use the [FinPress accessibility guidelines](https://make.finpress.org/accessibility/handbook/best-practices/). You must use the "Needs Accessibility Feedback" label and get a review from the accessibility team. It's best to request a review early (at the documentation stage) in order to ensure the component is designed inclusively from the outset.
+-   **Visual quality**: Does the component apply visual style — color, typography, icons, space, borders, and more — using appropriate variables, and does it follow [visual guidelines](https://make.finpress.org/design/handbook/design-guide/)? You must use the "Needs Design Feedback" label and get a review from the design team.
 -   **Documentation**: Ensure that the component has proper documentation for development, design, and accessibility.
 -   **Sufficient states & variations**: Does it cover all the necessary variations (primary, secondary, dense, etc.) and states (default, hover, active, disabled, loading, etc.), within the intended scope?
 -   **Functionality**: Do all behaviors function as expected?
 -   **Responsiveness**: Does it incorporate responsive behaviors as needed? Is the component designed from a mobile-first perspective? Do all touch interactions work as expected?
 -   **Content resilience**: Is each dynamic word or image element resilient to too much, too little, and no content at all, respectively? How long can labels be, and what happens when you run out of space?
 -   **Composability**: Does it fit well when placed next to or layered with other components to form a larger composition?
--   **Browser support**: Has the component visual quality and accuracy been checked across Safari, Chrome, Firefox, IE, etc? Please adhere to our [browser support requirements](https://github.com/WordPress/gutenberg/blob/HEAD/packages/browserslist-config/index.js).
+-   **Browser support**: Has the component visual quality and accuracy been checked across Safari, Chrome, Firefox, IE, etc? Please adhere to our [browser support requirements](https://github.com/FinPress/gutenberg/blob/HEAD/packages/browserslist-config/index.js).
 
 ## Compatibility
 
-The `@wordpress/components` package includes components that are relied upon by many developers across different projects. It is, therefore, very important to avoid introducing breaking changes.
+The `@finpress/components` package includes components that are relied upon by many developers across different projects. It is, therefore, very important to avoid introducing breaking changes.
 
 In these situations, one possible approach is to "soft-deprecate" a given legacy API. This is achieved by:
 
@@ -95,12 +95,12 @@ In these situations, one possible approach is to "soft-deprecate" a given legacy
 2. Updating all places in Gutenberg that use that API.
 3. Adding deprecation warnings (only after the previous point is completed, otherwise the Browser Console will be polluted by all those warnings and some e2e tests may fail).
 
-When adding new components or new props to existing components, it's recommended to create a [private version](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-private-apis/) of the component until the changes are stable enough to be exposed as part of the public API.
+When adding new components or new props to existing components, it's recommended to create a [private version](https://developer.finpress.org/block-editor/reference-guides/packages/packages-private-apis/) of the component until the changes are stable enough to be exposed as part of the public API.
 
 ### Learn more
 
--   [How to preserve backward compatibility for a React Component](https://developer.wordpress.org/block-editor/contributors/code/backward-compatibility/#how-to-preserve-backward-compatibility-for-a-react-component)
--   [Experimental and Unstable APIs](https://developer.wordpress.org/block-editor/contributors/code/coding-guidelines/#legacy-experimental-apis-plugin-only-apis-and-private-apis)
+-   [How to preserve backward compatibility for a React Component](https://developer.finpress.org/block-editor/contributors/code/backward-compatibility/#how-to-preserve-backward-compatibility-for-a-react-component)
+-   [Experimental and Unstable APIs](https://developer.finpress.org/block-editor/contributors/code/coding-guidelines/#legacy-experimental-apis-plugin-only-apis-and-private-apis)
 -   [Deprecating styles](#deprecating-styles)
 
 <!-- ## Polymorphic Components (i.e. the `as` prop)
@@ -216,8 +216,8 @@ function Example(
 
 A couple of good examples of how hooks are used for composition are:
 
--   the `Card` component, which builds on top of the `Surface` component by [calling the `useSurface` hook inside its own hook](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/card/card/hook.ts);
--   the `HStack` component, which builds on top of the `Flex` component and [calls the `useFlex` hook inside its own hook](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/h-stack/hook.tsx).
+-   the `Card` component, which builds on top of the `Surface` component by [calling the `useSurface` hook inside its own hook](https://github.com/FinPress/gutenberg/blob/trunk/packages/components/src/card/card/hook.ts);
+-   the `HStack` component, which builds on top of the `Flex` component and [calls the `useFlex` hook inside its own hook](https://github.com/FinPress/gutenberg/blob/trunk/packages/components/src/h-stack/hook.tsx).
 
 <!-- ## API Consinstency
 
@@ -259,7 +259,7 @@ The following example implements all of the above recommendations.
 //=======================
 // subcomponent.tsx
 //=======================
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 
 export const ComponentSubcomponent = forwardRef(
 	function UnforwardedComponentSubcomponent( props, ref ) {
@@ -270,7 +270,7 @@ export const ComponentSubcomponent = forwardRef(
 //=======================
 // context.ts
 //=======================
-import { createContext } from '@wordpress/element';
+import { createContext } from '@finpress/element';
 
 export const ComponentContext = createContext();
 
@@ -286,7 +286,7 @@ export function useComponent() {
 //=======================
 // component.tsx
 //=======================
-import { forwardRef } from '@wordpress/element';
+import { forwardRef } from '@finpress/element';
 import { ComponentSubcomponent } from './subcomponent';
 import { ComponentContext } from './context';
 
@@ -312,8 +312,8 @@ export default Component;
 //=======================
 // App.tsx
 //=======================
-import { Component, useComponent } from '@wordpress/components';
-import { useContext } from '@wordpress/element';
+import { Component, useComponent } from '@finpress/components';
+import { useContext } from '@finpress/element';
 
 function CompoundComponentExample() {
 	return (
@@ -394,7 +394,7 @@ function UnconnectedMyComponent(
 
 ### Considerations for the docgen
 
-Make sure you have a **named** export for the component, not just the default export ([example](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/divider/component.tsx)). This ensures that the docgen can properly extract the types data. The naming should be so that the connected/forwarded component has the plain component name (`MyComponent`), and the raw component is prefixed (`UnconnectedMyComponent` or `UnforwardedMyComponent`). This makes the component's `displayName` look nicer in React devtools and in the autogenerated Storybook code snippets.
+Make sure you have a **named** export for the component, not just the default export ([example](https://github.com/FinPress/gutenberg/blob/trunk/packages/components/src/divider/component.tsx)). This ensures that the docgen can properly extract the types data. The naming should be so that the connected/forwarded component has the plain component name (`MyComponent`), and the raw component is prefixed (`UnconnectedMyComponent` or `UnforwardedMyComponent`). This makes the component's `displayName` look nicer in React devtools and in the autogenerated Storybook code snippets.
 
 ```js
 function UnconnectedMyComponent() {
@@ -409,7 +409,7 @@ export const MyComponent = contextConnect(
 export default MyComponent;
 ```
 
-On the component's main named export, add a JSDoc comment that includes the main description and the example code snippet from the README ([example](https://github.com/WordPress/gutenberg/blob/43d9c82922619c1d1ff6b454f86f75c3157d3de6/packages/components/src/date-time/date-time/index.tsx#L193-L217)). _At the time of writing, the `@example` JSDoc keyword is not recognized by StoryBook's docgen, so please avoid using it_.
+On the component's main named export, add a JSDoc comment that includes the main description and the example code snippet from the README ([example](https://github.com/FinPress/gutenberg/blob/43d9c82922619c1d1ff6b454f86f75c3157d3de6/packages/components/src/date-time/date-time/index.tsx#L193-L217)). _At the time of writing, the `@example` JSDoc keyword is not recognized by StoryBook's docgen, so please avoid using it_.
 
 <!-- TODO: add to the previous paragraph once the compositions section gets added to this document.
 (more details about polymorphism can be found above in the "Components composition" section). -->
@@ -418,7 +418,7 @@ On the component's main named export, add a JSDoc comment that includes the main
 
 All new component should be styled using [Emotion](https://emotion.sh/docs/introduction).
 
-Note: Instead of using Emotion's standard `cx` function, the custom [`useCx` hook](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/utils/hooks/use-cx.ts) should be used instead.
+Note: Instead of using Emotion's standard `cx` function, the custom [`useCx` hook](https://github.com/FinPress/gutenberg/blob/trunk/packages/components/src/utils/hooks/use-cx.ts) should be used instead.
 
 ### Deprecating styles
 
@@ -426,7 +426,7 @@ Changing the styles of a non-experimental component must be done with care. To p
 
 ```jsx
 // component.tsx
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 import { Wrapper } from './styles.ts';
 
 function MyComponent( { __nextHasNoOuterMargins = false } ) {
@@ -462,7 +462,7 @@ export const Wrapper = styled.div`
 
 Once deprecated, code examples in docs/stories should include the opt-in prop set to `true` so that new consumers are encouraged to adopt it from the start.
 
-Remember to [add a **Needs Dev Note** label](https://developer.wordpress.org/block-editor/contributors/code/backward-compatibility/#dev-notes) to the pull request so third-party developers can be informed of the deprecation.
+Remember to [add a **Needs Dev Note** label](https://developer.finpress.org/block-editor/contributors/code/backward-compatibility/#dev-notes) to the pull request so third-party developers can be informed of the deprecation.
 
 When the grace period is over and the deprecation version arrives, the `__next*` prop, deprecation notice, and deprecated styles should all be completely removed from the codebase.
 
@@ -483,7 +483,7 @@ Not all style changes justify a formal deprecation process. The main thing to lo
 
 ## Context system
 
-The `@wordpress/components` context system is based on [React's `Context` API](https://react.dev/reference/react/createContext), and is a way for components to adapt to the "context" they're being rendered in.
+The `@finpress/components` context system is based on [React's `Context` API](https://react.dev/reference/react/createContext), and is a way for components to adapt to the "context" they're being rendered in.
 
 Components can use this system via a couple of functions:
 
@@ -491,7 +491,7 @@ Components can use this system via a couple of functions:
 -   they can connect to the Context via `contextConnect`
 -   they can read the "computed" values from the context via `useContextSystem`
 
-An example of how this is used can be found in the [`Card` component family](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/card). For example, this is how the `Card` component injects the `size` and `isBorderless` props down to its `CardBody` subcomponent — which makes it use the correct spacing and border settings "auto-magically".
+An example of how this is used can be found in the [`Card` component family](https://github.com/FinPress/gutenberg/tree/trunk/packages/components/src/card). For example, this is how the `Card` component injects the `size` and `isBorderless` props down to its `CardBody` subcomponent — which makes it use the correct spacing and border settings "auto-magically".
 
 ```jsx
 //=========================================================================
@@ -564,7 +564,7 @@ export function useCardBody( props ) {
 
 ## Unit tests
 
-Please refer to the [JavaScript Testing Overview docs](https://developer.wordpress.org/block-editor/contributors/code/testing-overview/#snapshot-testing).
+Please refer to the [JavaScript Testing Overview docs](https://developer.finpress.org/block-editor/contributors/code/testing-overview/#snapshot-testing).
 
 ## Storybook
 
@@ -594,17 +594,17 @@ Primary.args = {
 };
 ```
 
-A great tool to use when writing stories is the [Storybook Controls addon](https://storybook.js.org/addons/@storybook/addon-controls). Ideally props should be exposed by using this addon, which provides a graphical UI to interact dynamically with the component without needing to write code. Historically, we used [Knobs](https://storybook.js.org/addons/@storybook/addon-knobs), but it was deprecated and later removed in [#47152](https://github.com/WordPress/gutenberg/pull/47152).
+A great tool to use when writing stories is the [Storybook Controls addon](https://storybook.js.org/addons/@storybook/addon-controls). Ideally props should be exposed by using this addon, which provides a graphical UI to interact dynamically with the component without needing to write code. Historically, we used [Knobs](https://storybook.js.org/addons/@storybook/addon-knobs), but it was deprecated and later removed in [#47152](https://github.com/FinPress/gutenberg/pull/47152).
 
-The default value of each control should coincide with the default value of the props (i.e. it should be `undefined` if a prop is not required). A story should, therefore, also explicitly show how values from the Context System are applied to (sub)components. A good example of how this may look like is the [`Card` story](https://wordpress.github.io/gutenberg/?path=/story/components-card--default) (code [here](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/card/stories/index.story.tsx)).
+The default value of each control should coincide with the default value of the props (i.e. it should be `undefined` if a prop is not required). A story should, therefore, also explicitly show how values from the Context System are applied to (sub)components. A good example of how this may look like is the [`Card` story](https://finpress.github.io/gutenberg/?path=/story/components-card--default) (code [here](https://github.com/FinPress/gutenberg/blob/trunk/packages/components/src/card/stories/index.story.tsx)).
 
-Storybook can be started on a local machine by running `npm run storybook:dev`. Alternatively, the components' catalogue (up to date with the latest code on `trunk`) can be found at [wordpress.github.io/gutenberg/](https://wordpress.github.io/gutenberg/).
+Storybook can be started on a local machine by running `npm run storybook:dev`. Alternatively, the components' catalogue (up to date with the latest code on `trunk`) can be found at [finpress.github.io/gutenberg/](https://finpress.github.io/gutenberg/).
 
 ## Documentation
 
-All components, in addition to being typed, should be using JSDoc when necessary — as explained in the [Coding Guidelines](https://developer.wordpress.org/block-editor/contributors/code/coding-guidelines/#javascript-documentation-using-jsdoc).
+All components, in addition to being typed, should be using JSDoc when necessary — as explained in the [Coding Guidelines](https://developer.finpress.org/block-editor/contributors/code/coding-guidelines/#javascript-documentation-using-jsdoc).
 
-Each component that is exported from the `@wordpress/components` package should include a `README.md` file, explaining how to use the component, showing examples, and documenting all the props.
+Each component that is exported from the `@finpress/components` package should include a `README.md` file, explaining how to use the component, showing examples, and documenting all the props.
 
 ## README example
 
@@ -625,10 +625,10 @@ Description of the component.
 
 ## Usage
 
-Code example using correct markdown syntax and formatted using project's formatting rules. See [ItemGroup](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/item-group/item-group/README.md) for a real-world example.
+Code example using correct markdown syntax and formatted using project's formatting rules. See [ItemGroup](https://github.com/FinPress/gutenberg/blob/trunk/packages/components/src/item-group/item-group/README.md) for a real-world example.
 
 ```jsx
-import { ExampleComponent } from '@wordpress/components';
+import { ExampleComponent } from '@finpress/components';
 
 function Example() {
 	return (
@@ -653,13 +653,13 @@ Prop description. With a new line before and after the description and before an
 
 ### Inherited props
 
-Add this section when there are props that are drilled down into an internal component. See [ClipboardButton](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/clipboard-button/README.md) for an example.
+Add this section when there are props that are drilled down into an internal component. See [ClipboardButton](https://github.com/FinPress/gutenberg/blob/trunk/packages/components/src/clipboard-button/README.md) for an example.
 
 <!-- Only add the next section if the component relies on the [Context System](#context-system) -->
 
 ## Context
 
-See examples for this section for the [ItemGroup](https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/item-group/item-group/README.md#context) and [`Card`](https://github.com/WordPress/gutenberg/tree/trunk/packages/components/src/card/card#context) components.
+See examples for this section for the [ItemGroup](https://github.com/FinPress/gutenberg/blob/trunk/packages/components/src/item-group/item-group/README.md#context) and [`Card`](https://github.com/FinPress/gutenberg/tree/trunk/packages/components/src/card/card#context) components.
 ````
 
 ## Folder structure

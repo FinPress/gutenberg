@@ -1,4 +1,4 @@
-package org.wordpress.mobile.ReactNativeAztec;
+package org.finpress.mobile.ReactNativeAztec;
 
 import androidx.core.util.Consumer;
 

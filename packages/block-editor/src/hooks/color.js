@@ -4,12 +4,12 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { getBlockSupport } from '@wordpress/blocks';
-import { useMemo, Platform, useCallback } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { addFilter } from '@finpress/hooks';
+import { getBlockSupport } from '@finpress/blocks';
+import { useMemo, Platform, useCallback } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

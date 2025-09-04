@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRefEffect } from '@wordpress/compose';
+import { useRefEffect } from '@finpress/compose';
 
 function listener( event ) {
 	if ( event.defaultPrevented ) {

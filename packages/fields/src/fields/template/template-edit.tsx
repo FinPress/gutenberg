@@ -1,29 +1,29 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useMemo, useState } from '@wordpress/element';
+import { useCallback, useMemo, useState } from '@finpress/element';
 // @ts-ignore
-import { parse } from '@wordpress/blocks';
-import type { WpTemplate } from '@wordpress/core-data';
-import { store as coreStore } from '@wordpress/core-data';
-import type { DataFormControlProps } from '@wordpress/dataviews';
+import { parse } from '@finpress/blocks';
+import type { WpTemplate } from '@finpress/core-data';
+import { store as coreStore } from '@finpress/core-data';
+import type { DataFormControlProps } from '@finpress/dataviews';
 
 /**
  * Internal dependencies
  */
 // @ts-expect-error block-editor is not typed correctly.
-import { __experimentalBlockPatternsList as BlockPatternsList } from '@wordpress/block-editor';
+import { __experimentalBlockPatternsList as BlockPatternsList } from '@finpress/block-editor';
 import {
 	Button,
 	Dropdown,
 	MenuGroup,
 	MenuItem,
 	Modal,
-} from '@wordpress/components';
-import { useAsyncList } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { useAsyncList } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { decodeEntities } from '@finpress/html-entities';
+import { __ } from '@finpress/i18n';
 import { getItemTitle } from '../../actions/utils';
 import type { BasePost } from '../../types';
 import { unlock } from '../../lock-unlock';

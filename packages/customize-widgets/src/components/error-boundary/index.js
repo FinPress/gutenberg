@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { Warning } from '@wordpress/block-editor';
-import { useCopyToClipboard } from '@wordpress/compose';
-import { doAction } from '@wordpress/hooks';
+import { Component } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { Button } from '@finpress/components';
+import { Warning } from '@finpress/block-editor';
+import { useCopyToClipboard } from '@finpress/compose';
+import { doAction } from '@finpress/hooks';
 
 function CopyButton( { text, children } ) {
 	const ref = useCopyToClipboard( text );

@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Component, createRef } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { Component, createRef } from '@finpress/element';
 import {
 	Button,
 	Spinner,
 	CheckboxControl,
 	withFocusReturn,
 	withConstrainedTabbing,
-} from '@wordpress/components';
-import { withSelect, withDispatch } from '@wordpress/data';
-import { compose } from '@wordpress/compose';
-import { closeSmall } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/components';
+import { withSelect, withDispatch } from '@finpress/data';
+import { compose } from '@finpress/compose';
+import { closeSmall } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

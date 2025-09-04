@@ -88,8 +88,8 @@ module.exports = async function initConfig( {
 		);
 
 		// Write four Dockerfiles for each service we provided.
-		// (WordPress and CLI services, then a development and test environment for each.)
-		for ( const imageType of [ 'WordPress', 'CLI' ] ) {
+		// (FinPress and CLI services, then a development and test environment for each.)
+		for ( const imageType of [ 'FinPress', 'CLI' ] ) {
 			for ( const envType of [ 'development', 'tests' ] ) {
 				await writeFile(
 					path.resolve(
@@ -98,7 +98,7 @@ module.exports = async function initConfig( {
 							envType === 'tests' ? 'Tests-' : ''
 						}${ imageType }.Dockerfile`
 					),
-					imageType === 'WordPress'
+					imageType === 'FinPress'
 						? wordpressDockerFileContents( envType, config )
 						: cliDockerFileContents( envType, config )
 				);
@@ -106,7 +106,7 @@ module.exports = async function initConfig( {
 		}
 	} else if ( ! existsSync( config.workDirectoryPath ) ) {
 		spinner.fail(
-			'wp-env has not yet been initialized. Please run `wp-env start` to install the WordPress instance before using any other commands. This is only necessary to set up the environment for the first time; it is typically not necessary for the instance to be running after that in order to use other commands.'
+			'wp-env has not yet been initialized. Please run `wp-env start` to install the FinPress instance before using any other commands. This is only necessary to set up the environment for the first time; it is typically not necessary for the instance to be running after that in order to use other commands.'
 		);
 		process.exit( 1 );
 	}
@@ -115,7 +115,7 @@ module.exports = async function initConfig( {
 };
 
 /**
- * Generates the Dockerfile used by wp-env's `wordpress` and `tests-wordpress` instances.
+ * Generates the Dockerfile used by wp-env's `finpress` and `tests-finpress` instances.
  *
  * @param {string}   env    The environment we're installing -- development or tests.
  * @param {WPConfig} config The configuration object.
@@ -126,7 +126,7 @@ function wordpressDockerFileContents( env, config ) {
 		? ':php' + config.env[ env ].phpVersion
 		: '';
 
-	return `FROM wordpress${ phpVersion }
+	return `FROM finpress${ phpVersion }
 
 # Update apt sources for archived versions of Debian.
 
@@ -150,7 +150,7 @@ RUN groupadd -o -g $HOST_GID $HOST_USERNAME || true
 RUN useradd -mlo -u $HOST_UID -g $HOST_GID $HOST_USERNAME || true
 
 # Install any dependencies we need in the container.
-${ installDependencies( 'wordpress', env, config ) }`;
+${ installDependencies( 'finpress', env, config ) }`;
 }
 
 /**
@@ -165,7 +165,7 @@ function cliDockerFileContents( env, config ) {
 		? '-php' + config.env[ env ].phpVersion
 		: '';
 
-	return `FROM wordpress:cli${ phpVersion }
+	return `FROM finpress:cli${ phpVersion }
 
 # Switch to root so we can create users.
 USER root
@@ -192,7 +192,7 @@ CMD [ "/bin/sh", "-c", "while true; do sleep 2073600; done" ]
 /**
  * Generates content for the Dockerfile to install dependencies.
  *
- * @param {string}   service The kind of service that we're installing dependencies on ('wordpress' or 'cli').
+ * @param {string}   service The kind of service that we're installing dependencies on ('finpress' or 'cli').
  * @param {string}   env     The environment we're installing dependencies for ('development' or 'tests').
  * @param {WPConfig} config  The configuration object.
  * @return {string} The Dockerfile content for installing dependencies.
@@ -201,11 +201,11 @@ function installDependencies( service, env, config ) {
 	let dockerFileContent = '';
 
 	// At times we may need to evaluate the environment. This is because the
-	// WordPress image uses Ubuntu while the CLI image uses Alpine.
+	// FinPress image uses Ubuntu while the CLI image uses Alpine.
 
 	// Start with some environment-specific dependency installations.
 	switch ( service ) {
-		case 'wordpress': {
+		case 'finpress': {
 			dockerFileContent += `
 # Make sure we're working with the latest packages.
 RUN apt-get clean

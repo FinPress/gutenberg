@@ -133,6 +133,6 @@ function gutenberg_block_core_form_view_script_module( $data ) {
 	return $data;
 }
 add_filter(
-	'script_module_data_@wordpress/block-library/form/view',
+	'script_module_data_@finpress/block-library/form/view',
 	'gutenberg_block_core_form_view_script_module'
 );

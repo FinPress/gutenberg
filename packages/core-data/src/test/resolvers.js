@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import triggerFetch from '@wordpress/api-fetch';
+import triggerFetch from '@finpress/api-fetch';
 
-jest.mock( '@wordpress/api-fetch' );
+jest.mock( '@finpress/api-fetch' );
 
 /**
  * Internal dependencies

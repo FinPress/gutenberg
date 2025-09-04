@@ -1,19 +1,19 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { Fragment, useEffect, useMemo, useState } from '@wordpress/element';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { Fragment, useEffect, useMemo, useState } from '@finpress/element';
 import {
 	FormTokenField,
 	withFilters,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
-import { store as coreStore } from '@wordpress/core-data';
-import { useDebounce } from '@wordpress/compose';
-import { speak } from '@wordpress/a11y';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
+import { store as coreStore } from '@finpress/core-data';
+import { useDebounce } from '@finpress/compose';
+import { speak } from '@finpress/a11y';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies
@@ -69,7 +69,7 @@ const Wrapper = ( { children, __nextHasNoMarginBottom } ) =>
  *
  * @param {Object}  props                         The component props.
  * @param {string}  props.slug                    The slug of the taxonomy.
- * @param {boolean} props.__nextHasNoMarginBottom Start opting into the new margin-free styles that will become the default in a future version, currently scheduled to be WordPress 7.0. (The prop can be safely removed once this happens.)
+ * @param {boolean} props.__nextHasNoMarginBottom Start opting into the new margin-free styles that will become the default in a future version, currently scheduled to be FinPress 7.0. (The prop can be safely removed once this happens.)
  *
  * @return {React.ReactNode} The rendered flat term selector component.
  */

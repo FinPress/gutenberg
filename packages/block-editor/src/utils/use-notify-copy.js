@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
-import { store as blocksStore } from '@wordpress/blocks';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { __, _n, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
+import { useCallback } from '@finpress/element';
+import { store as blocksStore } from '@finpress/blocks';
+import { useDispatch, useSelect } from '@finpress/data';
+import { __, _n, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

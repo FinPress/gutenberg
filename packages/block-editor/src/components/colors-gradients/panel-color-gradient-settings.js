@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalSpacer as Spacer,
 	__experimentalToolsPanel as ToolsPanel,
-} from '@wordpress/components';
-import { useRegistry } from '@wordpress/data';
-import { useInstanceId } from '@wordpress/compose';
+} from '@finpress/components';
+import { useRegistry } from '@finpress/data';
+import { useInstanceId } from '@finpress/compose';
 
 /**
  * Internal dependencies

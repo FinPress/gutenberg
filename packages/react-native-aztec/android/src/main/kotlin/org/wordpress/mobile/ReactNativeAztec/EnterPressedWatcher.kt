@@ -1,11 +1,11 @@
-package org.wordpress.mobile.ReactNativeAztec
+package org.finpress.mobile.ReactNativeAztec
 
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextWatcher
-import org.wordpress.aztec.AztecText
-import org.wordpress.aztec.Constants
+import org.finpress.aztec.AztecText
+import org.finpress.aztec.Constants
 import java.lang.ref.WeakReference
 
 // Class to be used as a span to temporarily denote that Enter was detected

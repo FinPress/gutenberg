@@ -5,9 +5,9 @@ import type { Meta, StoryFn } from '@storybook/react';
 import { fn } from '@storybook/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { link, more, wordpress } from '@wordpress/icons';
+import { link, more, finpress } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -79,7 +79,7 @@ WithTabIconsAndTooltips.args = {
 		{
 			name: 'tab1',
 			title: 'Tab 1',
-			icon: wordpress,
+			icon: finpress,
 		},
 		{
 			name: 'tab2',

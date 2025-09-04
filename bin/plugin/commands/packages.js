@@ -200,7 +200,7 @@ async function updatePackages( config ) {
 				lines,
 				minimumVersionBump
 			);
-			const packageName = `@wordpress/${
+			const packageName = `@finpress/${
 				changelogPath.split( '/' ).reverse()[ 1 ]
 			}`;
 			// Enforce version bump for all packages when

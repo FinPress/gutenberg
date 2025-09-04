@@ -4,16 +4,16 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	BaseControl,
 	__experimentalVStack as VStack,
 	ColorPalette,
 	GradientPicker,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 /**
  * Internal dependencies

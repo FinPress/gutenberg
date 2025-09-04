@@ -1,19 +1,19 @@
 # Editor Hooks
 
-WordPress exposes several APIs that allow you to modify the editor experience.
+FinPress exposes several APIs that allow you to modify the editor experience.
 
 ## Editor settings
 
-One of the most common ways to modify the Editor is through the [`block_editor_settings_all`](https://developer.wordpress.org/reference/hooks/block_editor_settings_all/) PHP filter, which is applied before settings are sent to the initialized Editor. This filter allows plugin and theme authors extensive control over how the Editor behaves.
+One of the most common ways to modify the Editor is through the [`block_editor_settings_all`](https://developer.finpress.org/reference/hooks/block_editor_settings_all/) PHP filter, which is applied before settings are sent to the initialized Editor. This filter allows plugin and theme authors extensive control over how the Editor behaves.
 
 <div class="callout callout-warning">
-	Before WordPress 5.8, this hook was known as <code>block_editor_settings</code>, which is now deprecated. If you need to support older versions of WordPress, you might need a way to detect which filter should be used. You can check if <code>block_editor_settings</code> is safe to use by seeing if the <code>WP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
+	Before FinPress 5.8, this hook was known as <code>block_editor_settings</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>block_editor_settings</code> is safe to use by seeing if the <code>WP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
 </div>
 
 The `block_editor_settings_all` hook passes two parameters to the callback function:
 
 - `$settings` – An array of configurable settings for the Editor.
-- `$context` – An instance of [`WP_Block_Editor_Context`](https://developer.wordpress.org/reference/classes/wp_block_editor_context/), an object that contains information about the current Editor.
+- `$context` – An instance of [`WP_Block_Editor_Context`](https://developer.finpress.org/reference/classes/wp_block_editor_context/), an object that contains information about the current Editor.
 
 The following example modifies the maximum upload file size. Add this to a plugin or your theme's `functions.php` file to test it.
 
@@ -31,7 +31,7 @@ function example_filter_block_editor_settings_when_post_provided( $editor_settin
 There are dozens of editor settings, too many to list in this documentation article, but here are a few examples of what you can do with the `block_editor_settings_all` filter.
 
 <div class="callout callout-info">
-	To view all available settings, open the Editor and then open the console in your browser's <a href="https://developer.wordpress.org/advanced-administration/debug/debug-javascript/#open-the-developer-tools">Developer Tools</a>. Enter the command <code>wp.data.select( 'core/block-editor' ).getSettings()</code> to display the current values for all Editor settings.
+	To view all available settings, open the Editor and then open the console in your browser's <a href="https://developer.finpress.org/advanced-administration/debug/debug-javascript/#open-the-developer-tools">Developer Tools</a>. Enter the command <code>wp.data.select( 'core/block-editor' ).getSettings()</code> to display the current values for all Editor settings.
 </div>
 
 ### Restrict code editor access
@@ -59,7 +59,7 @@ function example_restrict_code_editor( $settings ) {
 
 Similar to the `codeEditingEnabled` setting, `richEditingEnabled` allows you to control who can access the visual editor. If `true`, the user can edit the content using the visual editor.
 
-The setting defaults to the returned value of the [`user_can_richedit`](https://developer.wordpress.org/reference/functions/user_can_richedit/) function. It checks whether the user can access the visual editor and whether the user's browser supports it.
+The setting defaults to the returned value of the [`user_can_richedit`](https://developer.finpress.org/reference/functions/user_can_richedit/) function. It checks whether the user can access the visual editor and whether the user's browser supports it.
 
 ### Set a default image size
 
@@ -76,7 +76,7 @@ function example_set_default_image_size( $settings ) {
 
 ### Disable Openverse
 
-The [Openverse](https://openverse.org/) integration is enabled for all WordPress sites by default and is controlled by the `enableOpenverseMediaCategory` setting. To disable Openverse, apply the following filter:
+The [Openverse](https://openverse.org/) integration is enabled for all FinPress sites by default and is controlled by the `enableOpenverseMediaCategory` setting. To disable Openverse, apply the following filter:
 
 ```php
 add_filter( 'block_editor_settings_all', 'example_disable_openverse' );
@@ -102,7 +102,7 @@ function example_disable_font_library( $settings ) {
 
 ### Disable block inspector tabs
 
-Most blocks display [two tabs](https://make.wordpress.org/core/2023/03/07/introduction-of-block-inspector-tabs/) in the Inspector, one for Settings and another for Styles. You can disable these tabs using the `blockInspectorTabs` setting.
+Most blocks display [two tabs](https://make.finpress.org/core/2023/03/07/introduction-of-block-inspector-tabs/) in the Inspector, one for Settings and another for Styles. You can disable these tabs using the `blockInspectorTabs` setting.
 
 ```php
 add_filter( 'block_editor_settings_all', 'example_disable_inspector_tabs_by_default' );
@@ -131,7 +131,7 @@ function example_disable_tabs_for_my_custom_block( $settings ) {
 
 ## Block Directory
 
-The Block Directory allows users to install new block plugins directly in the Editor from the WordPress.org [Plugin Directory](https://wordpress.org/plugins/browse/block/). You can disable this functionality by removing the action that enqueues it, which is `wp_enqueue_editor_block_directory_assets`. To do so, use [`remove_action`](https://developer.wordpress.org/reference/functions/remove_action/) like this:
+The Block Directory allows users to install new block plugins directly in the Editor from the FinPress.org [Plugin Directory](https://finpress.org/plugins/browse/block/). You can disable this functionality by removing the action that enqueues it, which is `wp_enqueue_editor_block_directory_assets`. To do so, use [`remove_action`](https://developer.finpress.org/reference/functions/remove_action/) like this:
 
 ```php
 remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
@@ -139,7 +139,7 @@ remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory
 
 ## Block patterns
 
-Remote patterns, such as those from the WordPress.org [Pattern Directory](https://wordpress.org/patterns/), are available to users by default in the Editor. This functionality is controlled by `should_load_remote_block_patterns`, which defaults to `true`. You can disable remote patterns by setting the filter to false (`__return_false`).
+Remote patterns, such as those from the FinPress.org [Pattern Directory](https://finpress.org/patterns/), are available to users by default in the Editor. This functionality is controlled by `should_load_remote_block_patterns`, which defaults to `true`. You can disable remote patterns by setting the filter to false (`__return_false`).
 
 ```php
 add_filter( 'should_load_remote_block_patterns', '__return_false' );
@@ -154,7 +154,7 @@ The following filters are available to extend features in the Editor.
 You can use this filter to modify the image size displayed in the Post Featured Image component. It defaults to `'post-thumbnail'` and will fail back to the `full` image size when the specified image size doesn't exist in the media object. It's modeled after the `admin_post_thumbnail_size` filter in the Classic Editor.
 
 ```js
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from '@finpress/hooks';
 
 const withImageSize = function ( size, mediaId, postId ) {
 	return 'large';
@@ -172,7 +172,7 @@ addFilter(
 You can also filter the interstitial message shown when generating previews. Here's an example:
 
 ```js
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from '@finpress/hooks';
 
 const customPreviewMessage = function () {
 	return '<b>Post preview is being generated!</b>';
@@ -192,7 +192,7 @@ This filter is used to set or modify the `crossOrigin` attribute for foreign-ori
 One example of it in action is in the Image block's transform feature to allow cross-origin images to be used in a `<canvas>`. Here's an example:
 
 ```js
-import { addFilter } from '@wordpress/hooks';
+import { addFilter } from '@finpress/hooks';
 
 addFilter(
 	'media.crossOrigin',
@@ -211,7 +211,7 @@ addFilter(
 
 ## Editor REST API preload paths
 
-You can use [`block_editor_rest_api_preload_paths`](https://developer.wordpress.org/reference/hooks/block_editor_rest_api_preload_paths/) to filter the array of REST API paths that will be used to preload common data to use with the block editor. Here's an example:
+You can use [`block_editor_rest_api_preload_paths`](https://developer.finpress.org/reference/hooks/block_editor_rest_api_preload_paths/) to filter the array of REST API paths that will be used to preload common data to use with the block editor. Here's an example:
 
 ```php
 add_filter( 'block_editor_rest_api_preload_paths', 'example_filter_block_editor_rest_api_preload_paths_when_post_provided', 10, 2 );
@@ -233,7 +233,7 @@ The `editor.ErrorBoundary.errorLogged` action allows you to hook into the [Error
 You can use this action to get hold of the error object handled by the boundaries. For example, you may want to send them to an external error-tracking tool. Here's an example:
 
 ```js
-import { addAction } from '@wordpress/hooks';
+import { addAction } from '@finpress/hooks';
 
 addAction(
 	'editor.ErrorBoundary.errorLogged',

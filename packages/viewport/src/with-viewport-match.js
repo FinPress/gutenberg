@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createHigherOrderComponent,
 	pure,
 	useViewportMatch,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 
 /**
  * Higher-order component creator, creating a new component which renders with

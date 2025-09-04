@@ -19,11 +19,11 @@ import styles from './style.scss';
 import { CSS_UNITS, hasUnits, getAccessibleLabelForUnit } from './utils';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useCallback, useMemo, memo } from '@wordpress/element';
-import { withPreferredColorScheme } from '@wordpress/compose';
-import { __, sprintf } from '@wordpress/i18n';
+import { useRef, useCallback, useMemo, memo } from '@finpress/element';
+import { withPreferredColorScheme } from '@finpress/compose';
+import { __, sprintf } from '@finpress/i18n';
 
 function UnitControl( {
 	currentInput,
@@ -48,7 +48,7 @@ function UnitControl( {
 			pickerRef.current.presentPicker();
 		}
 		// It would be great if the deps could be addressed in the context of
-		// https://github.com/WordPress/gutenberg/pull/39218
+		// https://github.com/FinPress/gutenberg/pull/39218
 	}, [ pickerRef?.current ] );
 
 	const currentInputValue = currentInput === null ? value : currentInput;
@@ -105,7 +105,7 @@ function UnitControl( {
 				? findNodeHandle( anchorNodeRef?.current )
 				: undefined,
 		// It would be great if the deps could be addressed in the context of
-		// https://github.com/WordPress/gutenberg/pull/39218
+		// https://github.com/FinPress/gutenberg/pull/39218
 		[ anchorNodeRef?.current ]
 	);
 

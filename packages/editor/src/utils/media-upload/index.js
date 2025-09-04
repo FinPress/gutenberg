@@ -4,11 +4,11 @@
 import { v4 as uuid } from 'uuid';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { select, dispatch } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
-import { uploadMedia } from '@wordpress/media-utils';
+import { select, dispatch } from '@finpress/data';
+import { store as coreDataStore } from '@finpress/core-data';
+import { uploadMedia } from '@finpress/media-utils';
 
 /**
  * Internal dependencies

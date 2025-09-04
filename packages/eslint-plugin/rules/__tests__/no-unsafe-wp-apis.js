@@ -16,7 +16,7 @@ const ruleTester = new RuleTester( {
 } );
 
 const options = [
-	{ '@wordpress/package': [ '__experimentalSafe', '__unstableSafe' ] },
+	{ '@finpress/package': [ '__experimentalSafe', '__unstableSafe' ] },
 ];
 
 ruleTester.run( 'no-unsafe-wp-apis', rule, {
@@ -35,79 +35,79 @@ ruleTester.run( 'no-unsafe-wp-apis', rule, {
 		{ code: "import _, { __unstableFoo } from './x';", options },
 		{ code: "import * as _ from './x';", options },
 
-		{ code: "import s from '@wordpress/package';", options },
-		{ code: "import { feature } from '@wordpress/package';", options },
+		{ code: "import s from '@finpress/package';", options },
+		{ code: "import { feature } from '@finpress/package';", options },
 		{
-			code: "import { __experimentalSafe } from '@wordpress/package';",
+			code: "import { __experimentalSafe } from '@finpress/package';",
 			options,
 		},
 		{
-			code: "import { __unstableSafe } from '@wordpress/package';",
+			code: "import { __unstableSafe } from '@finpress/package';",
 			options,
 		},
 		{
-			code: "import { feature, __experimentalSafe } from '@wordpress/package';",
+			code: "import { feature, __experimentalSafe } from '@finpress/package';",
 			options,
 		},
 		{
-			code: "import s, { __experimentalSafe } from '@wordpress/package';",
+			code: "import s, { __experimentalSafe } from '@finpress/package';",
 			options,
 		},
-		{ code: "import * as s from '@wordpress/package';", options },
+		{ code: "import * as s from '@finpress/package';", options },
 	],
 
 	invalid: [
 		{
-			code: "import { __experimentalUnsafe } from '@wordpress/package';",
+			code: "import { __experimentalUnsafe } from '@finpress/package';",
 			options,
 			errors: [
 				{
-					message: `Usage of \`__experimentalUnsafe\` from \`@wordpress/package\` is not allowed.
-See https://developer.wordpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
+					message: `Usage of \`__experimentalUnsafe\` from \`@finpress/package\` is not allowed.
+See https://developer.finpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
 					type: 'ImportSpecifier',
 				},
 			],
 		},
 		{
-			code: "import { __experimentalSafe } from '@wordpress/unsafe';",
+			code: "import { __experimentalSafe } from '@finpress/unsafe';",
 			options,
 			errors: [
 				{
-					message: `Usage of \`__experimentalSafe\` from \`@wordpress/unsafe\` is not allowed.
-See https://developer.wordpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
+					message: `Usage of \`__experimentalSafe\` from \`@finpress/unsafe\` is not allowed.
+See https://developer.finpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
 					type: 'ImportSpecifier',
 				},
 			],
 		},
 		{
-			code: "import { feature, __experimentalSafe } from '@wordpress/unsafe';",
+			code: "import { feature, __experimentalSafe } from '@finpress/unsafe';",
 			options,
 			errors: [
 				{
-					message: `Usage of \`__experimentalSafe\` from \`@wordpress/unsafe\` is not allowed.
-See https://developer.wordpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
+					message: `Usage of \`__experimentalSafe\` from \`@finpress/unsafe\` is not allowed.
+See https://developer.finpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
 					type: 'ImportSpecifier',
 				},
 			],
 		},
 		{
-			code: "import s, { __experimentalUnsafe } from '@wordpress/package';",
+			code: "import s, { __experimentalUnsafe } from '@finpress/package';",
 			options,
 			errors: [
 				{
-					message: `Usage of \`__experimentalUnsafe\` from \`@wordpress/package\` is not allowed.
-See https://developer.wordpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
+					message: `Usage of \`__experimentalUnsafe\` from \`@finpress/package\` is not allowed.
+See https://developer.finpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
 					type: 'ImportSpecifier',
 				},
 			],
 		},
 		{
-			code: "import { __unstableFeature } from '@wordpress/package';",
+			code: "import { __unstableFeature } from '@finpress/package';",
 			options,
 			errors: [
 				{
-					message: `Usage of \`__unstableFeature\` from \`@wordpress/package\` is not allowed.
-See https://developer.wordpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
+					message: `Usage of \`__unstableFeature\` from \`@finpress/package\` is not allowed.
+See https://developer.finpress.org/block-editor/contributors/develop/coding-guidelines/#experimental-and-unstable-apis for details.`,
 					type: 'ImportSpecifier',
 				},
 			],

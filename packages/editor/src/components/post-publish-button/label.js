@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { useViewportMatch } from '@wordpress/compose';
+import { __ } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { useViewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -67,7 +67,7 @@ export default function PublishButtonLabel() {
 	}
 	if ( ! hasPublishAction ) {
 		// TODO: this is because "Submit for review" string is too long in some languages.
-		// @see https://github.com/WordPress/gutenberg/issues/10475
+		// @see https://github.com/FinPress/gutenberg/issues/10475
 		return isSmallerThanMediumViewport
 			? __( 'Publish' )
 			: __( 'Submit for Review' );

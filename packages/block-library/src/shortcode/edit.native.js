@@ -4,12 +4,12 @@
 import { View, Text } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { PlainText } from '@wordpress/block-editor';
-import { withPreferredColorScheme } from '@wordpress/compose';
-import { useCallback } from '@wordpress/element';
+import { __ } from '@finpress/i18n';
+import { PlainText } from '@finpress/block-editor';
+import { withPreferredColorScheme } from '@finpress/compose';
+import { useCallback } from '@finpress/element';
 
 /**
  * Internal dependencies

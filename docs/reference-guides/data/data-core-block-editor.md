@@ -735,8 +735,8 @@ Returns the currently selected block, or null if there is no selected block.
 _Usage_
 
 ```js
-import { select } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { select } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 // Set initial active block client ID
 let activeBlockClientId = null;
@@ -1439,14 +1439,14 @@ _Properties_
 
 _Type Definition_
 
--   _InserterMediaItem_ `Object`: Interface for inserter media responses. Any media resource should map their response to this interface, in order to create the core WordPress media blocks (image, video, audio).
+-   _InserterMediaItem_ `Object`: Interface for inserter media responses. Any media resource should map their response to this interface, in order to create the core FinPress media blocks (image, video, audio).
 
 _Properties_
 
 -   _title_ `string`: The title of the media item.
 -   _url_ \`string: The source url of the media item.
 -   _previewUrl_ `[string]`: The preview source url of the media item to display in the media list.
--   _id_ `[number]`: The WordPress id of the media item.
+-   _id_ `[number]`: The FinPress id of the media item.
 -   _sourceId_ `[number|string]`: The id of the media item from external source.
 -   _alt_ `[string]`: The alt text of the media item.
 -   _caption_ `[string]`: The caption of the media item.
@@ -1481,7 +1481,7 @@ wp.data.dispatch( 'core/block-editor' ).registerInserterMediaCategory( {
 		} );
 		const response = await window.fetch( url, {
 			headers: {
-				'User-Agent': 'WordPress/inserter-media-fetch',
+				'User-Agent': 'FinPress/inserter-media-fetch',
 			},
 		} );
 		const jsonResponse = await response.json();
@@ -1492,7 +1492,7 @@ wp.data.dispatch( 'core/block-editor' ).registerInserterMediaCategory( {
 			// be mapped to `InserterMediaItem`'s `sourceId` prop. This can be useful if you provide
 			// a report URL getter.
 			// Additionally you should always clear the `id` value of your response results because
-			// it is used to identify WordPress media items.
+			// it is used to identify FinPress media items.
 			sourceId: result.id,
 			id: undefined,
 			caption: result.caption,
@@ -1500,7 +1500,7 @@ wp.data.dispatch( 'core/block-editor' ).registerInserterMediaCategory( {
 		} ) );
 	},
 	getReportUrl: ( { sourceId } ) =>
-		`https://wordpress.org/openverse/image/${ sourceId }/report/`,
+		`https://finpress.org/openverse/image/${ sourceId }/report/`,
 	isExternalResource: true,
 } );
 ```

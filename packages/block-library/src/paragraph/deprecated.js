@@ -4,17 +4,17 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RawHTML } from '@wordpress/element';
+import { RawHTML } from '@finpress/element';
 import {
 	getColorClassName,
 	getFontSizeClass,
 	RichText,
 	useBlockProps,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
-import { isRTL } from '@wordpress/i18n';
+import { isRTL } from '@finpress/i18n';
 
 const supports = {
 	className: false,

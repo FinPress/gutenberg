@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 const VARIATIONS = [
 	[ 'Early Registration', 'test/test-meta-attribute-block-early' ],
@@ -37,7 +37,7 @@ test.describe( 'Block with a meta attribute', () => {
 				// of any input for meta-sourced attributes, due to syncing behavior of
 				// meta attribute updates.
 				//
-				// See: https://github.com/WordPress/gutenberg/issues/15739
+				// See: https://github.com/FinPress/gutenberg/issues/15739
 				await pageUtils.pressKeys( 'ArrowLeft', { times: 5 } );
 				await page.keyboard.type( 'Meta ' );
 
@@ -84,7 +84,7 @@ test.describe( 'Block with a meta attribute', () => {
 				// of any input for meta-sourced attributes, due to syncing behavior of
 				// meta attribute updates.
 				//
-				// See: https://github.com/WordPress/gutenberg/issues/15739
+				// See: https://github.com/FinPress/gutenberg/issues/15739
 				await pageUtils.pressKeys( 'ArrowLeft', { times: 5 } );
 				await page.keyboard.type( 'Meta ' );
 

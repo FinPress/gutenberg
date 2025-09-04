@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Platform } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
-import { speak } from '@wordpress/a11y';
-import { __ } from '@wordpress/i18n';
+import { Platform } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
+import { speak } from '@finpress/a11y';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -17,11 +17,11 @@ const castArray = ( maybeArray ) =>
 
 /**
  * A list of private/experimental block editor settings that
- * should not become a part of the WordPress public API.
+ * should not become a part of the FinPress public API.
  * BlockEditorProvider will remove these settings from the
  * settings object it receives.
  *
- * @see https://github.com/WordPress/gutenberg/pull/46131
+ * @see https://github.com/FinPress/gutenberg/pull/46131
  */
 const privateSettings = [
 	'inserterMediaCategories',
@@ -140,7 +140,7 @@ export const privateRemoveBlocks =
 		// prompts to the user. Any instance opting into removal prompts must
 		// register using `setBlockRemovalRules()`.
 		//
-		// @see https://github.com/WordPress/gutenberg/pull/51145
+		// @see https://github.com/FinPress/gutenberg/pull/51145
 		const rules = ! forceRemove && select.getBlockRemovalRules();
 
 		if ( rules ) {

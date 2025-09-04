@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Warning } from '@wordpress/block-editor';
-import { Button, Notice } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useState, createInterpolateElement } from '@wordpress/element';
+import { Warning } from '@finpress/block-editor';
+import { Button, Notice } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useState, createInterpolateElement } from '@finpress/element';
 
 function DeletedNavigationWarning( { onCreateNew, isNotice = false } ) {
 	const [ isButtonDisabled, setIsButtonDisabled ] = useState( false );

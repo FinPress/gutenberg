@@ -12,9 +12,9 @@ import PanelBody from '../body';
 import InputControl from '../../input-control';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { wordpress } from '@wordpress/icons';
+import { finpress } from '@finpress/icons';
 
 const meta: Meta< typeof Panel > = {
 	title: 'Components/Containers/Panel',
@@ -102,7 +102,7 @@ export const WithIcon: StoryFn< typeof Panel > = Template.bind( {} );
 WithIcon.args = {
 	...Default.args,
 	children: (
-		<PanelBody title="Section title" icon={ wordpress }>
+		<PanelBody title="Section title" icon={ finpress }>
 			<PanelRow>
 				<div
 					style={ {

@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BlockList,
@@ -15,16 +15,16 @@ import {
 	RecursionProvider,
 	privateApis as blockEditorPrivateApis,
 	__experimentalUseResizeCanvas as useResizeCanvas,
-} from '@wordpress/block-editor';
-import { useEffect, useRef, useMemo, useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { parse } from '@wordpress/blocks';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { useEffect, useRef, useMemo, useState } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { parse } from '@finpress/blocks';
+import { store as coreStore } from '@finpress/core-data';
 import {
 	useMergeRefs,
 	useViewportMatch,
 	useResizeObserver,
-} from '@wordpress/compose';
+} from '@finpress/compose';
 
 /**
  * Internal dependencies

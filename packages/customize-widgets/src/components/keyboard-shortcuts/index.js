@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect } from '@wordpress/element';
+import { useEffect } from '@finpress/element';
 import {
 	useShortcut,
 	store as keyboardShortcutsStore,
-} from '@wordpress/keyboard-shortcuts';
-import { isAppleOS } from '@wordpress/keycodes';
-import { useDispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/keyboard-shortcuts';
+import { isAppleOS } from '@finpress/keycodes';
+import { useDispatch } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 
 function KeyboardShortcuts( { undo, redo, save } ) {
 	useShortcut( 'core/customize-widgets/undo', ( event ) => {

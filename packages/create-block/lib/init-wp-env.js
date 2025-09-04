@@ -13,19 +13,19 @@ const { info } = require( './log' );
 module.exports = async ( { rootDirectory } ) => {
 	info( '' );
 	info(
-		'Installing `@wordpress/env` package. It might take a couple of minutes...'
+		'Installing `@finpress/env` package. It might take a couple of minutes...'
 	);
-	await command( 'npm install @wordpress/env --save-dev', {
+	await command( 'npm install @finpress/env --save-dev', {
 		cwd: rootDirectory,
 	} );
 
 	info( '' );
-	info( 'Configuring `@wordpress/env`...' );
+	info( 'Configuring `@finpress/env`...' );
 	await writeFile(
 		join( rootDirectory, '.wp-env.json' ),
 		JSON.stringify(
 			{
-				core: 'WordPress/WordPress',
+				core: 'FinPress/FinPress',
 				plugins: [ '.' ],
 			},
 			null,

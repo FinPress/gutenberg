@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { Placeholder, TextControl, Button } from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import { blockDefault } from '@wordpress/icons';
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { __, _x } from '@finpress/i18n';
+import { Placeholder, TextControl, Button } from '@finpress/components';
+import { useState } from '@finpress/element';
+import { blockDefault } from '@finpress/icons';
+import { useBlockProps, useInnerBlocksProps } from '@finpress/block-editor';
 
 const TEMPLATE = [
 	[ 'core/avatar' ],

@@ -4,14 +4,14 @@
 import type { Ref } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	privateApis as componentsPrivateApis,
 	Button,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { forwardRef } from '@wordpress/element';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies

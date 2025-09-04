@@ -5,24 +5,24 @@ import { View, AccessibilityInfo } from 'react-native';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
 	PlainText,
 	useBlockProps,
 	InspectorControls,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	PanelBody,
 	SelectControl,
 	ToggleControl,
 	Icon,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { search } from '@wordpress/icons';
-import { useRef, useEffect, useState } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { search } from '@finpress/icons';
+import { useRef, useEffect, useState } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
 
 /**
  * Internal dependencies

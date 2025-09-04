@@ -2,14 +2,14 @@
 
 <!-- This file is generated automatically and cannot be edited directly. Make edits via TypeScript types and TSDocs. -->
 
-<p class="callout callout-info">See the <a href="https://wordpress.github.io/gutenberg/?path=/docs/components-boxcontrol--docs">WordPress Storybook</a> for more detailed, interactive documentation.</p>
+<p class="callout callout-info">See the <a href="https://finpress.github.io/gutenberg/?path=/docs/components-boxcontrol--docs">FinPress Storybook</a> for more detailed, interactive documentation.</p>
 
 A control that lets users set values for top, right, bottom, and left. Can be
 used as an input control for values like `padding` or `margin`.
 
 ```jsx
 import { useState } from 'react';
-import { BoxControl } from '@wordpress/components';
+import { BoxControl } from '@finpress/components';
 
 function Example() {
   const [ values, setValues ] = useState( {

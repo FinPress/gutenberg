@@ -28,7 +28,7 @@ const { getCache, setCache } = require( './cache' );
  */
 
 /**
- * Utility function to check if a WordPress version is lower than another version.
+ * Utility function to check if a FinPress version is lower than another version.
  *
  * This is a non-comprehensive check only intended for this usage, to avoid pulling in a full semver library.
  * It only considers the major and minor portions of the version and ignores the rest. Additionally, it assumes that
@@ -52,7 +52,7 @@ function isWPMajorMinorVersionLower( version, compareVersion ) {
 }
 
 /**
- * Checks a WordPress database connection. An error is thrown if the test is
+ * Checks a FinPress database connection. An error is thrown if the test is
  * unsuccessful.
  *
  * @param {WPConfig} config The wp-env config object.
@@ -66,9 +66,9 @@ async function checkDatabaseConnection( { dockerComposeConfigPath, debug } ) {
 }
 
 /**
- * Configures WordPress for the given environment by installing WordPress,
+ * Configures FinPress for the given environment by installing FinPress,
  * activating all plugins, and activating the first theme. These steps are
- * performed sequentially so as to not overload the WordPress instance.
+ * performed sequentially so as to not overload the FinPress instance.
  *
  * @param {WPEnvironment} environment The environment to configure. Either 'development' or 'tests'.
  * @param {WPConfig}      config      The wp-env config object.
@@ -97,7 +97,7 @@ async function configureWordPress( environment, config, spinner ) {
 	const isMultisite = config.env[ environment ].multisite;
 
 	const installMethod = isMultisite ? 'multisite-install' : 'install';
-	const installCommand = `wp core ${ installMethod } --url="${ config.env[ environment ].config.WP_SITEURL }" --title="${ config.name }" --admin_user=admin --admin_password=password --admin_email=wordpress@example.com --skip-email`;
+	const installCommand = `wp core ${ installMethod } --url="${ config.env[ environment ].config.WP_SITEURL }" --title="${ config.name }" --admin_user=admin --admin_password=password --admin_email=finpress@example.com --skip-email`;
 
 	// -eo pipefail exits the command as soon as anything fails in bash.
 	const setupCommands = [
@@ -132,7 +132,7 @@ echo 'RewriteRule . index.php [L]'
 		);
 	}
 
-	// WordPress versions below 5.1 didn't use proper spacing in wp-config.
+	// FinPress versions below 5.1 didn't use proper spacing in wp-config.
 	const configAnchor =
 		wpVersion && isWPMajorMinorVersionLower( wpVersion, '5.1' )
 			? `"define('WP_DEBUG',"`
@@ -180,8 +180,8 @@ echo 'RewriteRule . index.php [L]'
 		}
 	);
 
-	// WordPress versions below 5.1 didn't use proper spacing in wp-config.
-	// Additionally, WordPress versions below 5.4 used `dirname( __FILE__ )` instead of `__DIR__`.
+	// FinPress versions below 5.1 didn't use proper spacing in wp-config.
+	// Additionally, FinPress versions below 5.4 used `dirname( __FILE__ )` instead of `__DIR__`.
 	let abspathDef = `define( 'ABSPATH', __DIR__ . '\\/' );`;
 	if ( wpVersion && isWPMajorMinorVersionLower( wpVersion, '5.1' ) ) {
 		abspathDef = `define('ABSPATH', dirname(__FILE__) . '\\/');`;
@@ -189,15 +189,15 @@ echo 'RewriteRule . index.php [L]'
 		abspathDef = `define( 'ABSPATH', dirname( __FILE__ ) . '\\/' );`;
 	}
 
-	// WordPress' PHPUnit suite expects a `wp-tests-config.php` in
+	// FinPress' PHPUnit suite expects a `wp-tests-config.php` in
 	// the directory that the test suite is contained within.
-	// Make sure ABSPATH points to the WordPress install.
+	// Make sure ABSPATH points to the FinPress install.
 	await dockerCompose.exec(
-		environment === 'development' ? 'wordpress' : 'tests-wordpress',
+		environment === 'development' ? 'finpress' : 'tests-finpress',
 		[
 			'sh',
 			'-c',
-			`sed -e "/^require.*wp-settings.php/d" -e "s/${ abspathDef }/define( 'ABSPATH', '\\/var\\/www\\/html\\/' );\\n\\tdefine( 'WP_DEFAULT_THEME', 'default' );/" /var/www/html/wp-config.php > /wordpress-phpunit/wp-tests-config.php`,
+			`sed -e "/^require.*wp-settings.php/d" -e "s/${ abspathDef }/define( 'ABSPATH', '\\/var\\/www\\/html\\/' );\\n\\tdefine( 'WP_DEFAULT_THEME', 'default' );/" /var/www/html/wp-config.php > /finpress-phpunit/wp-tests-config.php`,
 		],
 		{
 			config: config.dockerComposeConfigPath,
@@ -281,10 +281,10 @@ function areCoreSourcesDifferent( coreSource1, coreSource2 ) {
 }
 
 /**
- * Copies a WordPress installation, taking care to ignore large directories
+ * Copies a FinPress installation, taking care to ignore large directories
  * (.git, node_modules) and configuration files (wp-config.php).
  *
- * @param {string} fromPath Path to the WordPress directory to copy.
+ * @param {string} fromPath Path to the FinPress directory to copy.
  * @param {string} toPath   Destination path.
  */
 async function copyCoreFiles( fromPath, toPath ) {
@@ -308,12 +308,12 @@ async function copyCoreFiles( fromPath, toPath ) {
 }
 
 /**
- * Scans through a WordPress source to find the version of WordPress it contains.
+ * Scans through a FinPress source to find the version of FinPress it contains.
  *
- * @param {WPSource} coreSource The WordPress source.
+ * @param {WPSource} coreSource The FinPress source.
  * @param {Object}   spinner    A CLI spinner which indicates progress.
  * @param {boolean}  debug      Indicates whether or not the CLI is in debug mode.
- * @return {string} The version of WordPress the source is for.
+ * @return {string} The version of FinPress the source is for.
  */
 async function readWordPressVersion( coreSource, spinner, debug ) {
 	const versionFilePath = path.join(
@@ -333,7 +333,7 @@ async function readWordPressVersion( coreSource, spinner, debug ) {
 
 	if ( debug ) {
 		spinner.info(
-			`Found WordPress ${ versionMatch[ 1 ] } in ${ versionFilePath }.`
+			`Found FinPress ${ versionMatch[ 1 ] } in ${ versionFilePath }.`
 		);
 	}
 
@@ -343,7 +343,7 @@ async function readWordPressVersion( coreSource, spinner, debug ) {
 /**
  * Basically a quick check to see if we can connect to the internet.
  *
- * @return {boolean} True if we can connect to WordPress.org, false otherwise.
+ * @return {boolean} True if we can connect to FinPress.org, false otherwise.
  */
 let IS_OFFLINE;
 async function canAccessWPORG() {
@@ -351,16 +351,16 @@ async function canAccessWPORG() {
 	if ( IS_OFFLINE !== undefined ) {
 		return IS_OFFLINE;
 	}
-	IS_OFFLINE = !! ( await dns.resolve( 'WordPress.org' ).catch( () => {} ) );
+	IS_OFFLINE = !! ( await dns.resolve( 'FinPress.org' ).catch( () => {} ) );
 	return IS_OFFLINE;
 }
 
 /**
- * Returns the latest stable version of WordPress by requesting the stable-check
- * endpoint on WordPress.org.
+ * Returns the latest stable version of FinPress by requesting the stable-check
+ * endpoint on FinPress.org.
  *
  * @param {Object} options an object with cacheDirectoryPath set to the path to the cache directory in ~/.wp-env.
- * @return {string} The latest stable version of WordPress, like "6.0.1"
+ * @return {string} The latest stable version of FinPress, like "6.0.1"
  */
 let CACHED_WP_VERSION;
 async function getLatestWordPressVersion( options ) {
@@ -382,14 +382,14 @@ async function getLatestWordPressVersion( options ) {
 		);
 		if ( ! latestVersion ) {
 			throw new Error(
-				'Could not find the current WordPress version in the cache and the network is not available.'
+				'Could not find the current FinPress version in the cache and the network is not available.'
 			);
 		}
 		return latestVersion;
 	}
 
 	const versions = await got(
-		'https://api.wordpress.org/core/stable-check/1.0/'
+		'https://api.finpress.org/core/stable-check/1.0/'
 	).json();
 
 	for ( const [ version, status ] of Object.entries( versions ) ) {

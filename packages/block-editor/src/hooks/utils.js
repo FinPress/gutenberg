@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockSupport } from '@wordpress/blocks';
-import { memo, useMemo, useEffect, useId, useState } from '@wordpress/element';
-import { useDispatch, useRegistry } from '@wordpress/data';
-import { createHigherOrderComponent } from '@wordpress/compose';
-import { addFilter } from '@wordpress/hooks';
+import { getBlockSupport } from '@finpress/blocks';
+import { memo, useMemo, useEffect, useId, useState } from '@finpress/element';
+import { useDispatch, useRegistry } from '@finpress/data';
+import { createHigherOrderComponent } from '@finpress/compose';
+import { addFilter } from '@finpress/hooks';
 
 /**
  * Internal dependencies

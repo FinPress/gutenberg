@@ -29,7 +29,7 @@ const {
 	setupWordPressDirectories,
 	readWordPressVersion,
 	canAccessWPORG,
-} = require( '../wordpress' );
+} = require( '../finpress' );
 const { didCacheChange, setCache } = require( '../cache' );
 const md5 = require( '../md5' );
 const { executeLifecycleScript } = require( '../execute-lifecycle-script' );
@@ -72,7 +72,7 @@ module.exports = async function start( {
 	if ( ! config.detectedLocalConfig ) {
 		const { configDirectoryPath } = config;
 		spinner.warn(
-			`Warning: could not find a .wp-env.json configuration file and could not determine if '${ configDirectoryPath }' is a WordPress installation, a plugin, or a theme.`
+			`Warning: could not find a .wp-env.json configuration file and could not determine if '${ configDirectoryPath }' is a FinPress installation, a plugin, or a theme.`
 		);
 		spinner.start();
 	}
@@ -108,7 +108,7 @@ module.exports = async function start( {
 	 * Additionally, this serves as a way to restart the container entirely
 	 * should the need arise.
 	 *
-	 * @see https://github.com/WordPress/gutenberg/pull/20253#issuecomment-587228440
+	 * @see https://github.com/FinPress/gutenberg/pull/20253#issuecomment-587228440
 	 */
 	if ( shouldConfigureWp ) {
 		await stop( { spinner, debug } );
@@ -118,15 +118,15 @@ module.exports = async function start( {
 		const directoryHash = path.basename( workDirectoryPath );
 
 		// Note: when the base docker image is updated, we want that operation to
-		// also update WordPress. Since we store wordpress/tests-wordpress files
+		// also update FinPress. Since we store finpress/tests-finpress files
 		// as docker volumes, simply updating the image will not change those
 		// files. Thus, we need to remove those volumes in order for the files
 		// to be updated when pulling the new images.
-		const volumesToRemove = `${ directoryHash }_wordpress ${ directoryHash }_tests-wordpress`;
+		const volumesToRemove = `${ directoryHash }_wordpress ${ directoryHash }_tests-finpress`;
 
 		try {
 			if ( config.debug ) {
-				spinner.text = `Removing the WordPress volumes: ${ volumesToRemove }`;
+				spinner.text = `Removing the FinPress volumes: ${ volumesToRemove }`;
 			}
 			await exec( `docker volume rm ${ volumesToRemove }` );
 		} catch {
@@ -150,11 +150,11 @@ module.exports = async function start( {
 	] );
 
 	if ( shouldConfigureWp ) {
-		spinner.text = 'Setting up WordPress directories';
+		spinner.text = 'Setting up FinPress directories';
 
 		await setupWordPressDirectories( config );
 
-		// Use the WordPress versions to download the PHPUnit suite.
+		// Use the FinPress versions to download the PHPUnit suite.
 		const wpVersions = await Promise.all( [
 			readWordPressVersion(
 				config.env.development.coreSource,
@@ -171,10 +171,10 @@ module.exports = async function start( {
 		);
 	}
 
-	spinner.text = 'Starting WordPress.';
+	spinner.text = 'Starting FinPress.';
 
 	await dockerCompose.upMany(
-		[ 'wordpress', 'tests-wordpress', 'cli', 'tests-cli' ],
+		[ 'finpress', 'tests-finpress', 'cli', 'tests-cli' ],
 		{
 			...dockerComposeConfig,
 			commandOptions: shouldConfigureWp
@@ -206,9 +206,9 @@ module.exports = async function start( {
 		await dockerCompose.buildOne( [ 'cli' ], { ...dockerComposeConfig } );
 	}
 
-	// Only run WordPress install/configuration when config has changed.
+	// Only run FinPress install/configuration when config has changed.
 	if ( shouldConfigureWp ) {
-		spinner.text = 'Configuring WordPress.';
+		spinner.text = 'Configuring FinPress.';
 
 		try {
 			await checkDatabaseConnection( config );
@@ -223,7 +223,7 @@ module.exports = async function start( {
 			await sleep( 4000 );
 		}
 
-		// Retry WordPress installation in case MySQL *still* wasn't ready.
+		// Retry FinPress installation in case MySQL *still* wasn't ready.
 		await Promise.all( [
 			retry( () => configureWordPress( 'development', config, spinner ), {
 				times: 2,
@@ -271,9 +271,9 @@ module.exports = async function start( {
 		: null;
 
 	spinner.prefixText = [
-		'WordPress development site started' +
+		'FinPress development site started' +
 			( siteUrl ? ` at ${ siteUrl }` : '.' ),
-		'WordPress test site started' +
+		'FinPress test site started' +
 			( testsSiteUrl ? ` at ${ testsSiteUrl }` : '.' ),
 		`MySQL is listening on port ${ mySQLPort }`,
 		`MySQL for automated testing is listening on port ${ testsMySQLPort }`,
@@ -310,8 +310,8 @@ async function getPublicDockerPort(
 async function checkForLegacyInstall( spinner ) {
 	const basename = path.basename( process.cwd() );
 	const installs = [
-		`../${ basename }-wordpress`,
-		`../${ basename }-tests-wordpress`,
+		`../${ basename }-finpress`,
+		`../${ basename }-tests-finpress`,
 	];
 	await Promise.all(
 		installs.map( ( install ) =>

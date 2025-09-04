@@ -4,10 +4,10 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useCallback } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { useEffect, useCallback } from '@finpress/element';
+import { useSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

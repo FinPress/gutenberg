@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
 	useBlockProps,
 	useInnerBlocksProps,
 	__experimentalGetElementClassName,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 export default function saveWithInnerBlocks( { attributes } ) {
 	const { caption, columns, imageCrop } = attributes;

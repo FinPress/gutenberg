@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalText as Text } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { __, _x, _n, sprintf } from '@wordpress/i18n';
-import { count as wordCount } from '@wordpress/wordcount';
-import { useMemo } from '@wordpress/element';
-import { store as coreStore } from '@wordpress/core-data';
+import { __experimentalText as Text } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { __, _x, _n, sprintf } from '@finpress/i18n';
+import { count as wordCount } from '@finpress/wordcount';
+import { useMemo } from '@finpress/element';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

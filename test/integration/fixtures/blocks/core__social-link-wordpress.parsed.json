@@ -1,6 +1,6 @@
 [
 	{
-		"blockName": "core/social-link-wordpress",
+		"blockName": "core/social-link-finpress",
 		"attrs": {
 			"url": "https://example.com/"
 		},

@@ -4,10 +4,10 @@
 import { css } from '@emotion/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+import { useMemo } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

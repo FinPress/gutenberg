@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { TextControl } from '@wordpress/components';
-import { useEntityProp } from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
+import { TextControl } from '@finpress/components';
+import { useEntityProp } from '@finpress/core-data';
+import { __ } from '@finpress/i18n';
 
 export default function NavigationMenuNameControl() {
 	const [ title, updateTitle ] = useEntityProp(

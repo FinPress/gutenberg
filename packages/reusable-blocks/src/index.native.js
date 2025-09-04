@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import '@wordpress/core-data';
+import '@finpress/core-data';
 
 export { store } from './store';
 export * from './components';

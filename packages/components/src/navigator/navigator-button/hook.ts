@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback } from '@wordpress/element';
-import { escapeAttribute } from '@wordpress/escape-html';
+import { useCallback } from '@finpress/element';
+import { escapeAttribute } from '@finpress/escape-html';
 
 /**
  * Internal dependencies

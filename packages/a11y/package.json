@@ -1,24 +1,24 @@
 {
-	"name": "@wordpress/a11y",
+	"name": "@finpress/a11y",
 	"version": "4.29.0",
-	"description": "Accessibility (a11y) utilities for WordPress.",
-	"author": "The WordPress Contributors",
+	"description": "Accessibility (a11y) utilities for FinPress.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"accessibility",
 		"a11y",
 		"aria-live"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/a11y/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/a11y/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/a11y"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -32,8 +32,8 @@
 	"types": "build-types",
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/dom-ready": "file:../dom-ready",
-		"@wordpress/i18n": "file:../i18n"
+		"@finpress/dom-ready": "file:../dom-ready",
+		"@finpress/i18n": "file:../i18n"
 	},
 	"publishConfig": {
 		"access": "public"

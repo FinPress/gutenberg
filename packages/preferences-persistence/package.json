@@ -1,23 +1,23 @@
 {
-	"name": "@wordpress/preferences-persistence",
+	"name": "@finpress/preferences-persistence",
 	"version": "2.29.0",
-	"description": "Persistence utilities for `wordpress/preferences`.",
-	"author": "The WordPress Contributors",
+	"description": "Persistence utilities for `finpress/preferences`.",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"preferences",
 		"settings"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/preferences-persistence/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/preferences-persistence/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/preferences-persistence"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -30,7 +30,7 @@
 	"sideEffects": false,
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/api-fetch": "file:../api-fetch"
+		"@finpress/api-fetch": "file:../api-fetch"
 	},
 	"publishConfig": {
 		"access": "public"

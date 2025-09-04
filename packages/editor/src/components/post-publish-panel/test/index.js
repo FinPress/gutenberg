@@ -4,11 +4,11 @@
 import { render } from '@testing-library/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { select } from '@wordpress/data';
-import { store as editorStore } from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
+import { select } from '@finpress/data';
+import { store as editorStore } from '@finpress/editor';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -23,7 +23,7 @@ describe( 'PostPublishPanel', () => {
 	} );
 
 	jest.spyOn( select( editorStore ), 'getCurrentPost' ).mockReturnValue( {
-		link: 'https://wordpress.local/sample-page/',
+		link: 'https://finpress.local/sample-page/',
 	} );
 
 	it( 'should render the pre-publish panel if the post is not saving, published or scheduled', () => {

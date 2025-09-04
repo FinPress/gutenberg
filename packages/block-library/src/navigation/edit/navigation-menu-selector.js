@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	MenuGroup,
 	MenuItem,
 	MenuItemsChoice,
 	DropdownMenu,
-} from '@wordpress/components';
-import { moreVertical } from '@wordpress/icons';
-import { __, sprintf } from '@wordpress/i18n';
-import { decodeEntities } from '@wordpress/html-entities';
-import { useEffect, useMemo, useState } from '@wordpress/element';
-import { useEntityProp } from '@wordpress/core-data';
+} from '@finpress/components';
+import { moreVertical } from '@finpress/icons';
+import { __, sprintf } from '@finpress/i18n';
+import { decodeEntities } from '@finpress/html-entities';
+import { useEffect, useMemo, useState } from '@finpress/element';
+import { useEntityProp } from '@finpress/core-data';
 
 /**
  * Internal dependencies

@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { Icon, PanelBody } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { wordpress } from '@wordpress/icons';
-import { filterURLForDisplay } from '@wordpress/url';
-import { store as coreStore } from '@wordpress/core-data';
-import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@finpress/i18n';
+import { Icon, PanelBody } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { finpress } from '@finpress/icons';
+import { filterURLForDisplay } from '@finpress/url';
+import { store as coreStore } from '@finpress/core-data';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies
@@ -53,7 +53,7 @@ function PostPublishPanelPrepublish( { children } ) {
 	}, [] );
 
 	let siteIcon = (
-		<Icon className="components-site-icon" size="36px" icon={ wordpress } />
+		<Icon className="components-site-icon" size="36px" icon={ finpress } />
 	);
 
 	if ( siteIconUrl ) {

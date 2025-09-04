@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Table', () => {
 	test.beforeEach( async ( { admin } ) => {
@@ -227,7 +227,7 @@ test.describe( 'Table', () => {
 		expect( await editor.getEditedPostContent() ).toMatchSnapshot();
 	} );
 
-	// Testing for regressions of https://github.com/WordPress/gutenberg/issues/14904.
+	// Testing for regressions of https://github.com/FinPress/gutenberg/issues/14904.
 	test( 'allows cells to be selected when the cell area outside of the RichText is clicked', async ( {
 		editor,
 		page,

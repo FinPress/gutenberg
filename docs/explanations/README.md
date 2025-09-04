@@ -4,7 +4,7 @@
 
 -   [Key Concepts](/docs/explanations/architecture/key-concepts.md)
 -   [Data Format And Data Flow](/docs/explanations/architecture/data-flow.md)
--   [Modularity and WordPress Packages](/docs/explanations/architecture/modularity.md).
+-   [Modularity and FinPress Packages](/docs/explanations/architecture/modularity.md).
 -   [Block Editor Performance](/docs/explanations/architecture/performance.md).
 -   What are the decision decisions behind the Data Module?
 -   [Why is Puppeteer the tool of choice for end-to-end tests?](/docs/explanations/architecture/automated-testing.md)

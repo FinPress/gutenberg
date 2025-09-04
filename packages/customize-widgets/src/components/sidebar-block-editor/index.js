@@ -1,20 +1,20 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useViewportMatch } from '@wordpress/compose';
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
-import { useMemo, createPortal } from '@wordpress/element';
+import { useViewportMatch } from '@finpress/compose';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
+import { useMemo, createPortal } from '@finpress/element';
 import {
 	BlockList,
 	BlockToolbar,
 	BlockInspector,
 	privateApis as blockEditorPrivateApis,
 	__unstableBlockSettingsMenuFirstItem,
-} from '@wordpress/block-editor';
-import { uploadMedia } from '@wordpress/media-utils';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { privateApis as blockLibraryPrivateApis } from '@wordpress/block-library';
+} from '@finpress/block-editor';
+import { uploadMedia } from '@finpress/media-utils';
+import { store as preferencesStore } from '@finpress/preferences';
+import { privateApis as blockLibraryPrivateApis } from '@finpress/block-library';
 
 /**
  * Internal dependencies

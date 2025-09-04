@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	CheckboxControl,
 	__experimentalVStack as VStack,
 	TextControl,
-} from '@wordpress/components';
-import type { DataFormControlProps } from '@wordpress/dataviews';
-import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import type { DataFormControlProps } from '@finpress/dataviews';
+import { useState } from '@finpress/element';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

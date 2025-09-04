@@ -6,7 +6,7 @@
 
 ```jsx
 import { useState } from 'react';
-import { ColorPalette } from '@wordpress/components';
+import { ColorPalette } from '@finpress/components';
 
 const MyColorPalette = () => {
 	const [ color, setColor ] = useState ( '#f00' )

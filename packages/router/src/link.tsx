@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useContext, useMemo } from '@wordpress/element';
-import { getQueryArgs, getPath, buildQueryString } from '@wordpress/url';
+import { useContext, useMemo } from '@finpress/element';
+import { getQueryArgs, getPath, buildQueryString } from '@finpress/url';
 
 /**
  * Internal dependencies

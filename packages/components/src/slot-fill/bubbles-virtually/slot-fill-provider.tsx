@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
-import isShallowEqual from '@wordpress/is-shallow-equal';
-import { observableMap } from '@wordpress/compose';
+import { useState } from '@finpress/element';
+import isShallowEqual from '@finpress/is-shallow-equal';
+import { observableMap } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -34,7 +34,7 @@ function createSlotRegistry(): SlotFillBubblesVirtuallyContext {
 			}
 
 			// Make sure we're not unregistering a slot registered by another element
-			// See https://github.com/WordPress/gutenberg/pull/19242#issuecomment-590295412
+			// See https://github.com/FinPress/gutenberg/pull/19242#issuecomment-590295412
 			if ( slot.ref !== ref ) {
 				return;
 			}

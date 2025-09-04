@@ -7,7 +7,7 @@
 An example usage which sets the URL of the selected image to `theImage` attributes.
 
 ```js
-import { MediaPlaceholder } from '@wordpress/block-editor';
+import { MediaPlaceholder } from '@finpress/block-editor';
 
 ...
 
@@ -98,7 +98,7 @@ The `disableDropZone` prop still takes precedence over `dropZoneUIOnly` – spec
 
 ### icon
 
-Icon to display left of the title. When passed as a `String`, the icon will be resolved as a [Dashicon](https://developer.wordpress.org/resource/dashicons/). Alternatively, you can pass in a `Component` such as `BlockIcon`to render instead.
+Icon to display left of the title. When passed as a `String`, the icon will be resolved as a [Dashicon](https://developer.finpress.org/resource/dashicons/). Alternatively, you can pass in a `Component` such as `BlockIcon`to render instead.
 
 -   Type: `String|Component`
 -   Required: No

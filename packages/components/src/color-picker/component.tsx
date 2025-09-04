@@ -7,11 +7,11 @@ import { colord, extend } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useCallback, useState, useMemo } from '@wordpress/element';
-import { useDebounce } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+import { useCallback, useState, useMemo } from '@finpress/element';
+import { useDebounce } from '@finpress/compose';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

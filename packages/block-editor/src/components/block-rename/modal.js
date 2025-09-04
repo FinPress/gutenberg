@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalHStack as HStack,
@@ -7,11 +7,11 @@ import {
 	Button,
 	TextControl,
 	Modal,
-} from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-import { speak } from '@wordpress/a11y';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useState } from '@finpress/element';
+import { speak } from '@finpress/a11y';
+import { useSelect, useDispatch } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -38,7 +38,7 @@ export default function BlockRenameModal( { clientId, onClose } ) {
 
 	const blockName = metadata?.name || '';
 	const originalBlockName = blockInformation?.title;
-	// Pattern Overrides is a WordPress-only feature but it also uses the Block Binding API.
+	// Pattern Overrides is a FinPress-only feature but it also uses the Block Binding API.
 	// Ideally this should not be inside the block editor package, but we keep it here for simplicity.
 	const hasOverridesWarning =
 		!! blockName &&

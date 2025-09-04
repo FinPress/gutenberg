@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { forwardRef, useMemo } from '@wordpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { forwardRef, useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies

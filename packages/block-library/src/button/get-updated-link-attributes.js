@@ -4,9 +4,9 @@
 import { NEW_TAB_REL, NEW_TAB_TARGET, NOFOLLOW_REL } from './constants';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { prependHTTP } from '@wordpress/url';
+import { prependHTTP } from '@finpress/url';
 
 /**
  * Updates the link attributes.

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSlotFill } from '@wordpress/components';
+import { createSlotFill } from '@finpress/components';
 
 const { Fill: __unstableInserterMenuExtension, Slot } = createSlotFill(
 	'__unstableInserterMenuExtension'

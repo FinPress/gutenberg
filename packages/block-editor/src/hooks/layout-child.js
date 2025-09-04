@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies

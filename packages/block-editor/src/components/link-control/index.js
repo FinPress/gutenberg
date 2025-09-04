@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Button,
@@ -13,15 +13,15 @@ import {
 	TextControl,
 	__experimentalHStack as HStack,
 	__experimentalInputControlSuffixWrapper as InputControlSuffixWrapper,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useRef, useState, useEffect } from '@wordpress/element';
-import { focus } from '@wordpress/dom';
-import { ENTER } from '@wordpress/keycodes';
-import { isShallowEqualObjects } from '@wordpress/is-shallow-equal';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as preferencesStore } from '@wordpress/preferences';
-import { keyboardReturn } from '@wordpress/icons';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useRef, useState, useEffect } from '@finpress/element';
+import { focus } from '@finpress/dom';
+import { ENTER } from '@finpress/keycodes';
+import { isShallowEqualObjects } from '@finpress/is-shallow-equal';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as preferencesStore } from '@finpress/preferences';
+import { keyboardReturn } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -34,7 +34,7 @@ import useCreatePage from './use-create-page';
 import useInternalValue from './use-internal-value';
 import { ViewerFill } from './viewer-slot';
 import { DEFAULT_LINK_SETTINGS } from './constants';
-import deprecated from '@wordpress/deprecated';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Default properties associated with a link control value.
@@ -164,7 +164,7 @@ function LinkControl( {
 	 * Sets the open/closed state of the Advanced Settings Drawer,
 	 * optionlly persisting the state to the user's preferences.
 	 *
-	 * Note that Block Editor components can be consumed by non-WordPress
+	 * Note that Block Editor components can be consumed by non-FinPress
 	 * environments which may not have preferences setup.
 	 * Therefore a local state is also  used as a fallback.
 	 *
@@ -177,7 +177,7 @@ function LinkControl( {
 		setSettingsOpen( prefVal );
 	};
 
-	// Block Editor components can be consumed by non-WordPress environments
+	// Block Editor components can be consumed by non-FinPress environments
 	// which may not have these preferences setup.
 	// Therefore a local state is used as a fallback.
 	const isSettingsOpen = advancedSettingsPreference || settingsOpen;
@@ -348,7 +348,7 @@ function LinkControl( {
 
 	// Only show text control once a URL value has been committed
 	// and it isn't just empty whitespace.
-	// See https://github.com/WordPress/gutenberg/pull/33849/#issuecomment-932194927.
+	// See https://github.com/FinPress/gutenberg/pull/33849/#issuecomment-932194927.
 	const showTextControl = hasLinkValue && hasTextControl;
 
 	const isEditing = ( isEditingLink || ! value ) && ! isCreatingPage;

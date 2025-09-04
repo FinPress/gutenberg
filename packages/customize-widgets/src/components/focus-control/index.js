@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	createContext,
@@ -8,7 +8,7 @@ import {
 	useContext,
 	useCallback,
 	useMemo,
-} from '@wordpress/element';
+} from '@finpress/element';
 
 /**
  * Internal dependencies

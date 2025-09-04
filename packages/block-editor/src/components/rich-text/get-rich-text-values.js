@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RawHTML, StrictMode, Fragment } from '@wordpress/element';
+import { RawHTML, StrictMode, Fragment } from '@finpress/element';
 import {
 	getSaveElement,
 	__unstableGetBlockProps as getBlockProps,
-} from '@wordpress/blocks';
-import { RichTextData } from '@wordpress/rich-text';
+} from '@finpress/blocks';
+import { RichTextData } from '@finpress/rich-text';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ import InnerBlocks from '../inner-blocks';
 import { Content } from './content';
 
 /*
- * This function is similar to `@wordpress/element`'s `renderToString` function,
+ * This function is similar to `@finpress/element`'s `renderToString` function,
  * except that it does not render the elements to a string, but instead collects
  * the values of all rich text `Content` elements.
  */

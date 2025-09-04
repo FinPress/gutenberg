@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { alignLeft, alignCenter } from '@wordpress/icons';
+import { alignLeft, alignCenter } from '@finpress/icons';
 
 /**
  * Internal dependencies

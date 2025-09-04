@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Picker, ToolbarGroup, ToolbarButton } from '@wordpress/components';
-import { useRef } from '@wordpress/element';
-import { Icon } from '@wordpress/icons';
+import { Picker, ToolbarGroup, ToolbarButton } from '@finpress/components';
+import { useRef } from '@finpress/element';
+import { Icon } from '@finpress/icons';
 
 /**
  * Toolbar button component that, upon a long press, opens a Picker

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Buttons', () => {
 	test.beforeEach( async ( { admin } ) => {
@@ -56,7 +56,7 @@ test.describe( 'Buttons', () => {
 		page,
 		pageUtils,
 	} ) => {
-		// Regression: https://github.com/WordPress/gutenberg/pull/19885
+		// Regression: https://github.com/FinPress/gutenberg/pull/19885
 		await editor.insertBlock( { name: 'core/buttons' } );
 		await expect(
 			editor.canvas.locator( 'role=textbox[name="Button text"i]' )
@@ -69,14 +69,14 @@ test.describe( 'Buttons', () => {
 		await expect(
 			editor.canvas.locator( 'role=textbox[name="Button text"i]' )
 		).toBeFocused();
-		await page.keyboard.type( 'WordPress' );
+		await page.keyboard.type( 'FinPress' );
 
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
 			`<!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">WordPress</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">FinPress</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->`
 		);
@@ -87,7 +87,7 @@ test.describe( 'Buttons', () => {
 		page,
 		pageUtils,
 	} ) => {
-		// Regression: https://github.com/WordPress/gutenberg/issues/34307
+		// Regression: https://github.com/FinPress/gutenberg/issues/34307
 		await editor.insertBlock( { name: 'core/buttons' } );
 		await expect(
 			editor.canvas.locator( 'role=textbox[name="Button text"i]' )
@@ -119,7 +119,7 @@ test.describe( 'Buttons', () => {
 		page,
 		pageUtils,
 	} ) => {
-		// Regression: https://github.com/WordPress/gutenberg/issues/34307
+		// Regression: https://github.com/FinPress/gutenberg/issues/34307
 		await editor.insertBlock( { name: 'core/buttons' } );
 		await expect(
 			editor.canvas.locator( 'role=textbox[name="Button text"i]' )
@@ -148,16 +148,16 @@ test.describe( 'Buttons', () => {
 		pageUtils,
 	} ) => {
 		await editor.insertBlock( { name: 'core/buttons' } );
-		await page.keyboard.type( 'WordPress' );
+		await page.keyboard.type( 'FinPress' );
 		await pageUtils.pressKeys( 'primary+k' );
 		await page
 			.getByRole( 'combobox', { name: 'Search or type URL' } )
-			.fill( 'https://www.wordpress.org/' );
+			.fill( 'https://www.finpress.org/' );
 		await page.keyboard.press( 'Enter' );
 		// Make sure that the dialog is still opened, and that focus is retained
 		// within (focusing on the link preview).
 		await expect(
-			page.locator( 'role=link[name=/^wordpress\\.org/]' )
+			page.locator( 'role=link[name=/^finpress\\.org/]' )
 		).toBeFocused();
 
 		// Check the content.
@@ -165,7 +165,7 @@ test.describe( 'Buttons', () => {
 		expect( content ).toBe(
 			`<!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://www.wordpress.org/">WordPress</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="https://www.finpress.org/">FinPress</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->`
 		);
@@ -177,11 +177,11 @@ test.describe( 'Buttons', () => {
 		pageUtils,
 	} ) => {
 		await editor.insertBlock( { name: 'core/buttons' } );
-		await page.keyboard.type( 'WordPress' );
+		await page.keyboard.type( 'FinPress' );
 		await pageUtils.pressKeys( 'primary+k' );
 		await page
 			.getByRole( 'combobox', { name: 'Search or type URL' } )
-			.fill( 'https://www.wordpress.org/' );
+			.fill( 'https://www.finpress.org/' );
 		await page.keyboard.press( 'Enter' );
 
 		// Edit link.
@@ -208,7 +208,7 @@ test.describe( 'Buttons', () => {
 		await expect( newTabCheckbox ).toBeFocused();
 
 		await page
-			//TODO: change to a better selector when https://github.com/WordPress/gutenberg/issues/51060 is resolved.
+			//TODO: change to a better selector when https://github.com/FinPress/gutenberg/issues/51060 is resolved.
 			.locator( '.block-editor-link-control' )
 			.getByRole( 'button', { name: 'Save' } )
 			.click();
@@ -221,8 +221,8 @@ test.describe( 'Buttons', () => {
 					{
 						name: 'core/button',
 						attributes: {
-							text: 'WordPress',
-							url: 'https://www.wordpress.org/',
+							text: 'FinPress',
+							url: 'https://www.finpress.org/',
 							rel: 'noreferrer noopener',
 							linkTarget: '_blank',
 						},
@@ -242,7 +242,7 @@ test.describe( 'Buttons', () => {
 		await expect( noFollowCheckbox ).toBeChecked();
 
 		await page
-			//TODO: change to a better selector when https://github.com/WordPress/gutenberg/issues/51060 is resolved.
+			//TODO: change to a better selector when https://github.com/FinPress/gutenberg/issues/51060 is resolved.
 			.locator( '.block-editor-link-control' )
 			.getByRole( 'button', { name: 'Save' } )
 			.click();
@@ -255,8 +255,8 @@ test.describe( 'Buttons', () => {
 					{
 						name: 'core/button',
 						attributes: {
-							text: 'WordPress',
-							url: 'https://www.wordpress.org/',
+							text: 'FinPress',
+							url: 'https://www.finpress.org/',
 							rel: 'noreferrer noopener nofollow',
 							linkTarget: '_blank',
 						},

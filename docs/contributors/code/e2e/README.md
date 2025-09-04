@@ -4,7 +4,7 @@ This living document serves to prescribe instructions and best practices for wri
 
 <div class="callout callout-info">
 
-See the dedicated guide if you're working with the previous Jest + Puppeteer framework. See the <a href="https://github.com/WordPress/gutenberg/tree/HEAD/docs/contributors/code/e2e/migration.md">migration guide</a> if you're migrating tests from Jest + Puppeteer.
+See the dedicated guide if you're working with the previous Jest + Puppeteer framework. See the <a href="https://github.com/FinPress/gutenberg/tree/HEAD/docs/contributors/code/e2e/migration.md">migration guide</a> if you're migrating tests from Jest + Puppeteer.
 </div>
 
 
@@ -81,7 +81,7 @@ The rationale behind using a POM is to group utils under namespaces to be easier
 
 ### Restify actions to clear or set states
 
-It's slow to set states manually before or after tests, especially when they're repeated multiple times between tests. It's recommended to set them via API calls. Use `requestUtils.rest` and `requestUtils.batchRest` instead to call the [REST API](https://developer.wordpress.org/rest-api/reference/) (and add them to `requestUtils` if needed). We should still add a test for manually setting them, but that should only be tested once.
+It's slow to set states manually before or after tests, especially when they're repeated multiple times between tests. It's recommended to set them via API calls. Use `requestUtils.rest` and `requestUtils.batchRest` instead to call the [REST API](https://developer.finpress.org/rest-api/reference/) (and add them to `requestUtils` if needed). We should still add a test for manually setting them, but that should only be tested once.
 
 ### Avoid global variables
 
@@ -93,7 +93,7 @@ We can insert as many assertions in one test as needed. It's better to make expl
 
 ## Common pitfalls
 
-### [Overusing snapshots](https://github.com/WordPress/gutenberg/tree/HEAD/docs/contributors/code/e2e/overusing-snapshots.md)
+### [Overusing snapshots](https://github.com/FinPress/gutenberg/tree/HEAD/docs/contributors/code/e2e/overusing-snapshots.md)
 
 
 ## Cross-browser testing

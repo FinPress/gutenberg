@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	AlignmentControl,
@@ -12,20 +12,20 @@ import {
 	InspectorControls,
 	RichText,
 	useBlockProps,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 import {
 	ComboboxControl,
 	SelectControl,
 	ToggleControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { debounce } from '@wordpress/compose';
-import { useMemo, useState } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
-import { decodeEntities } from '@wordpress/html-entities';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/components';
+import { debounce } from '@finpress/compose';
+import { useMemo, useState } from '@finpress/element';
+import { useSelect, useDispatch } from '@finpress/data';
+import { __, sprintf } from '@finpress/i18n';
+import { decodeEntities } from '@finpress/html-entities';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

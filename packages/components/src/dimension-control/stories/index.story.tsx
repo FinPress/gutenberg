@@ -9,9 +9,9 @@ import { DimensionControl } from '..';
 import sizes from '../sizes';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { desktop, tablet, mobile } from '@wordpress/icons';
+import { desktop, tablet, mobile } from '@finpress/icons';
 
 /**
  * `DimensionControl` is a component designed to provide a UI to control spacing and/or dimensions.

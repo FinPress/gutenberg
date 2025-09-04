@@ -1,13 +1,13 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { __, sprintf } from '@wordpress/i18n';
-import { speak } from '@wordpress/a11y';
-import { decodeEntities } from '@wordpress/html-entities';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+import { useEffect, useRef } from '@finpress/element';
+import { useSelect } from '@finpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { __, sprintf } from '@finpress/i18n';
+import { speak } from '@finpress/a11y';
+import { decodeEntities } from '@finpress/html-entities';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies
@@ -36,10 +36,10 @@ export default function useTitle( title ) {
 		}
 
 		if ( title && siteTitle ) {
-			// @see https://github.com/WordPress/wordpress-develop/blob/94849898192d271d533e09756007e176feb80697/src/wp-admin/admin-header.php#L67-L68
+			// @see https://github.com/FinPress/finpress-develop/blob/94849898192d271d533e09756007e176feb80697/src/wp-admin/admin-header.php#L67-L68
 			const formattedTitle = sprintf(
 				/* translators: Admin document title. 1: Admin screen name, 2: Network or site name. */
-				__( '%1$s ‹ %2$s ‹ Editor — WordPress' ),
+				__( '%1$s ‹ %2$s ‹ Editor — FinPress' ),
 				decodeEntities( title ),
 				decodeEntities( siteTitle )
 			);

@@ -47,7 +47,7 @@ export function getAnimateClassName( options: GetAnimateOptions ) {
  * Simple interface to introduce animations to components.
  *
  * ```jsx
- * import { Animate, Notice } from '@wordpress/components';
+ * import { Animate, Notice } from '@finpress/components';
  *
  * const MyAnimatedNotice = () => (
  * 	<Animate type="slide-in" options={ { origin: 'top' } }>

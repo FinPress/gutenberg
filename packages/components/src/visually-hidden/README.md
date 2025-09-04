@@ -5,7 +5,7 @@
 ## Usage
 
 ```jsx
-import { VisuallyHidden } from '@wordpress/components';
+import { VisuallyHidden } from '@finpress/components';
 
 function Example() {
 	return (

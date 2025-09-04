@@ -1,11 +1,11 @@
 /* eslint-disable react/forbid-elements */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter, removeAllFilters, removeFilter } from '@wordpress/hooks';
-import { logged } from '@wordpress/deprecated';
-import { select, dispatch } from '@wordpress/data';
+import { addFilter, removeAllFilters, removeFilter } from '@finpress/hooks';
+import { logged } from '@finpress/deprecated';
+import { select, dispatch } from '@finpress/data';
 
 /**
  * Internal dependencies

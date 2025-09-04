@@ -1,17 +1,17 @@
 # Media Utils
 
 The media utils package provides a set of artifacts to abstract media functionality that may be useful in situations where there is a need to deal with media uploads or with the media library, e.g., artifacts that extend or implement a block-editor.
-This package is meant to be used by the WordPress core. It may not work as expected outside WordPress usages.
+This package is meant to be used by the FinPress core. It may not work as expected outside FinPress usages.
 
 ## Installation
 
 Install the module
 
 ```bash
-npm install @wordpress/media-utils --save
+npm install @finpress/media-utils --save
 ```
 
-_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@wordpress/babel-preset-default`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
+_This package assumes that your code will run in an **ES2015+** environment. If you're using an environment that has limited or no support for such language features and APIs, you should include [the polyfill shipped in `@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code._
 
 ## API
 
@@ -27,7 +27,7 @@ Undocumented declaration.
 
 ### privateApis
 
-Private @wordpress/media-utils APIs.
+Private @finpress/media-utils APIs.
 
 ### RestAttachment
 
@@ -91,8 +91,8 @@ _Parameters_
 
 ### uploadMedia
 
-Media upload util is a function that allows the invokers to upload files to the WordPress media library.
-As an example, provided that `myFiles` is an array of file objects, `handleFileChange` on onFileChange is a function that receives an array of objects containing the description of WordPress media items and `handleFileError` is a function that receives an object describing a possible error, the following code uploads a file to the WordPress media library:
+Media upload util is a function that allows the invokers to upload files to the FinPress media library.
+As an example, provided that `myFiles` is an array of file objects, `handleFileChange` on onFileChange is a function that receives an array of objects containing the description of FinPress media items and `handleFileError` is a function that receives an object describing a possible error, the following code uploads a file to the FinPress media library:
 
 ```js
 wp.mediaUtils.utils.uploadMedia( {
@@ -116,13 +116,13 @@ Beware that first onFileChange is called with temporary blob URLs and then with 
 
 ### MediaUpload
 
-Media upload component provides a UI button that allows users to open the WordPress media library. It is normally used in conjunction with the filter `editor.MediaUpload`.
-The component follows the interface specified in <https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/media-upload/README.md>, and more details regarding its usage can be checked there.
+Media upload component provides a UI button that allows users to open the FinPress media library. It is normally used in conjunction with the filter `editor.MediaUpload`.
+The component follows the interface specified in <https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/media-upload/README.md>, and more details regarding its usage can be checked there.
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

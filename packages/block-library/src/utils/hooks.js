@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { useLayoutEffect, useEffect, useRef } from '@wordpress/element';
-import { getBlobByURL, isBlobURL, revokeBlobURL } from '@wordpress/blob';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { useViewportMatch } from '@wordpress/compose';
+import { useSelect } from '@finpress/data';
+import { useLayoutEffect, useEffect, useRef } from '@finpress/element';
+import { getBlobByURL, isBlobURL, revokeBlobURL } from '@finpress/blob';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { store as coreStore } from '@finpress/core-data';
+import { useViewportMatch } from '@finpress/compose';
 
 /**
  * Returns whether the current user can edit the given entity.

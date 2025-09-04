@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ResizableBox } from '@wordpress/components';
+import { ResizableBox } from '@finpress/components';
 
 /**
  * Internal dependencies

@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	CheckboxControl,
 	TextControl,
@@ -15,9 +15,9 @@ import {
 	ToolbarGroup,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-} from '@wordpress/components';
-import { displayShortcut, isKeyboardEvent } from '@wordpress/keycodes';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { displayShortcut, isKeyboardEvent } from '@finpress/keycodes';
+import { __ } from '@finpress/i18n';
 import {
 	BlockControls,
 	InnerBlocks,
@@ -27,13 +27,13 @@ import {
 	useBlockProps,
 	store as blockEditorStore,
 	getColorClassName,
-} from '@wordpress/block-editor';
-import { isURL, prependHTTP } from '@wordpress/url';
-import { useState, useEffect, useRef } from '@wordpress/element';
-import { link as linkIcon, removeSubmenu } from '@wordpress/icons';
-import { speak } from '@wordpress/a11y';
-import { createBlock } from '@wordpress/blocks';
-import { useMergeRefs, usePrevious } from '@wordpress/compose';
+} from '@finpress/block-editor';
+import { isURL, prependHTTP } from '@finpress/url';
+import { useState, useEffect, useRef } from '@finpress/element';
+import { link as linkIcon, removeSubmenu } from '@finpress/icons';
+import { speak } from '@finpress/a11y';
+import { createBlock } from '@finpress/blocks';
+import { useMergeRefs, usePrevious } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -60,7 +60,7 @@ const DEFAULT_BLOCK = {
 /**
  * A React hook to determine if it's dragging within the target element.
  *
- * @typedef {import('@wordpress/element').RefObject} RefObject
+ * @typedef {import('@finpress/element').RefObject} RefObject
  *
  * @param {RefObject<HTMLElement>} elementRef The target elementRef object.
  *
@@ -274,7 +274,7 @@ export default function NavigationSubmenuEdit( {
 		if ( isKeyboardEvent.primary( event, 'k' ) ) {
 			// Required to prevent the command center from opening,
 			// as it shares the CMD+K shortcut.
-			// See https://github.com/WordPress/gutenberg/pull/59845.
+			// See https://github.com/FinPress/gutenberg/pull/59845.
 			event.preventDefault();
 			// If we don't stop propagation, this event bubbles up to the parent submenu item
 			event.stopPropagation();
@@ -323,7 +323,7 @@ export default function NavigationSubmenuEdit( {
 
 		// Ensure block toolbar is not too far removed from item
 		// being edited.
-		// see: https://github.com/WordPress/gutenberg/pull/34615.
+		// see: https://github.com/FinPress/gutenberg/pull/34615.
 		__experimentalCaptureToolbars: true,
 
 		renderAppender:

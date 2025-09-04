@@ -67,9 +67,9 @@ if ( hasArgInCLI( '--puppeteer-devtools' ) ) {
 }
 
 const configsMapping = {
-	WP_BASE_URL: '--wordpress-base-url',
-	WP_USERNAME: '--wordpress-username',
-	WP_PASSWORD: '--wordpress-password',
+	WP_BASE_URL: '--finpress-base-url',
+	WP_USERNAME: '--finpress-username',
+	WP_PASSWORD: '--finpress-password',
 };
 
 Object.entries( configsMapping ).forEach( ( [ envKey, argName ] ) => {
@@ -86,6 +86,6 @@ if ( ! process.env.WP_ARTIFACTS_PATH ) {
 	);
 }
 
-const cleanUpPrefixes = [ '--puppeteer-', '--wordpress-' ];
+const cleanUpPrefixes = [ '--puppeteer-', '--finpress-' ];
 
 jest.run( [ ...config, ...runInBand, ...getArgsFromCLI( cleanUpPrefixes ) ] );

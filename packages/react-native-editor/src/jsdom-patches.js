@@ -30,7 +30,7 @@ const { NO_MODIFICATION_ALLOWED_ERR, HIERARCHY_REQUEST_ERR, NOT_FOUND_ERR } =
 
 /**
  * Copy of Node.contains polyfill from polyfill-library package (https://t.ly/mehjW).
- * This polyfill was originally used in WordPress Core (https://t.ly/4o7wQ).
+ * This polyfill was originally used in FinPress Core (https://t.ly/4o7wQ).
  *
  * @param {number} node Node to check.
  * @return {boolean} true if passed node is a descendant of this node, or the
@@ -158,7 +158,7 @@ Element.prototype.matches = Element.prototype.matchesSelector;
 
 /*
  * Implementation of Element.prototype.closest that it's missing from the jsdom-jscore fork we're using.
- * See https://github.com/wordpress-mobile/gutenberg-mobile/issues/1625
+ * See https://github.com/finpress-mobile/gutenberg-mobile/issues/1625
  */
 Element.prototype.closest = function ( selector ) {
 	let el = this;
@@ -293,7 +293,7 @@ Object.defineProperties( Node.prototype, {
 class DOMParser {
 	// This is required for the stripHTML function, but it doesn't necessarily
 	// conform to the DOM standard.
-	// See https://github.com/wordpress-mobile/gutenberg-mobile/pull/1771
+	// See https://github.com/finpress-mobile/gutenberg-mobile/pull/1771
 	parseFromString( string ) {
 		return jsdom.html( string );
 	}

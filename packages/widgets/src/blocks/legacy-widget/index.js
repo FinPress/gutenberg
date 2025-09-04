@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { widget as icon } from '@wordpress/icons';
+import { widget as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

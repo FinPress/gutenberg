@@ -1,6 +1,6 @@
 # Get started with wp-scripts
 
-The [`@wordpress/scripts`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) package, commonly referred to as `wp-scripts`, is a set of configuration files and scripts that primarily aims to standardize and simplify the development process of WordPress projects that require a JavaScript build step.
+The [`@finpress/scripts`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/) package, commonly referred to as `wp-scripts`, is a set of configuration files and scripts that primarily aims to standardize and simplify the development process of FinPress projects that require a JavaScript build step.
 
 A JavaScript build step refers to the process of transforming, bundling, and optimizing JavaScript source code and related assets into a format suitable for production environments. These build steps often take modern JavaScript (ESNext and JSX) and convert it to a version compatible with most browsers. They can also bundle multiple files into one, minify the code to reduce file size and perform various other tasks to optimize the code.
 
@@ -15,17 +15,17 @@ Here are a few things that `wp-scripts` can do:
 - **Sass Compilation:** Converts Sass (.scss or .sass) files to standard CSS.
 - **Code Minification:** Reduces the size of the JavaScript code for production to ensure faster page loads.
 
-The package abstracts away much of the initial setup, configuration, and boilerplate code associated with JavaScript development for modern WordPress. You can then focus on building blocks and Block Editor extensions.
+The package abstracts away much of the initial setup, configuration, and boilerplate code associated with JavaScript development for modern FinPress. You can then focus on building blocks and Block Editor extensions.
 
 ## Quick start
 
 <div class="callout callout-tip">
-    If you use <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/"><code>@wordpress/create-block</code></a> package to scaffold the structure of files needed to create and register a block, you'll also get a modern JavaScript build setup (using <code>wp-scripts</code>) with no configuration required, so you don't need to worry about installing <code>wp-scripts</code> or enqueuing assets. Refer to <a href="https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-create-block/">Get started with <code>create-block</code></a> for more details.
+    If you use <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-create-block/"><code>@finpress/create-block</code></a> package to scaffold the structure of files needed to create and register a block, you'll also get a modern JavaScript build setup (using <code>wp-scripts</code>) with no configuration required, so you don't need to worry about installing <code>wp-scripts</code> or enqueuing assets. Refer to <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-create-block/">Get started with <code>create-block</code></a> for more details.
 </div>
 
 ### Installation
 
-Ensure you have Node.js and `npm` installed on your computer. Review the [Node.js development environment](https://developer.wordpress.org/block-editor/getting-started/devenv/nodejs-development-environment/) guide if not. 
+Ensure you have Node.js and `npm` installed on your computer. Review the [Node.js development environment](https://developer.finpress.org/block-editor/getting-started/devenv/nodejs-development-environment/) guide if not. 
 
 Then, create a project folder and ensure it contains a `package.json` file, a `build` folder, and an `src` folder. The `src` folder should also include an `index.js` file. 
 
@@ -36,7 +36,7 @@ Of course, there are many ways to set up a project using `wp-scripts`, but this 
 Finally, install the `wp-scripts` package as a development dependency by running the command:
 
 ```bash
-npm install @wordpress/scripts --save-dev
+npm install @finpress/scripts --save-dev
 ```
 
 Once the installation is complete, your project folder should look like this:
@@ -68,7 +68,7 @@ These scripts can then be run using the command `npm run {script name}`.
 
 ### The build process with `wp-scripts`
 
-The two scripts you will use most often are `start` and `build` since they handle the build step. See the [package documentation](https://developer.wordpress.org/block-editor/packages/packages-scripts/) for all options.
+The two scripts you will use most often are `start` and `build` since they handle the build step. See the [package documentation](https://developer.finpress.org/block-editor/packages/packages-scripts/) for all options.
 
 When working on your project, use the `npm run start` command. This will start a development server and automatically rebuild the project whenever any change is detected. Note that the compiled code in `build/index.js` will not be optimized.
 
@@ -76,13 +76,13 @@ When you are ready to deploy your project, use the `npm run build` command. This
 
 After the build finishes, you will see the compiled JavaScript file created at `build/index.js`. 
 
-A `build/index.asset.php` file will also be created in the build process, which contains an array of dependencies and a version number (for cache busting). Please, note that to register a block without this `wp-scripts` build process you'll need to manually create `*.asset.php` dependencies files (see [example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-no-build-e621a6)).
+A `build/index.asset.php` file will also be created in the build process, which contains an array of dependencies and a version number (for cache busting). Please, note that to register a block without this `wp-scripts` build process you'll need to manually create `*.asset.php` dependencies files (see [example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/minimal-block-no-build-e621a6)).
 
 ### Enqueuing assets
 
-If you register a block via `register_block_type` the scripts defined in `block.json` will be automatically enqueued (see [example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda))
+If you register a block via `register_block_type` the scripts defined in `block.json` will be automatically enqueued (see [example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/minimal-block-ca6eda))
 
-To manually enqueue files in the editor, in any other context, you can refer to the [Enqueueing assets in the Editor](https://developer.wordpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/) guide for more information, but here's a typical implementation. 
+To manually enqueue files in the editor, in any other context, you can refer to the [Enqueueing assets in the Editor](https://developer.finpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/) guide for more information, but here's a typical implementation. 
 
 ```php
 /**
@@ -101,7 +101,7 @@ function example_project_enqueue_editor_assets() {
 add_action( 'enqueue_block_editor_assets', 'example_project_enqueue_editor_assets' );
 ```
 
-Here's [an example](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) of manually enqueuing files in the editor.
+Here's [an example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) of manually enqueuing files in the editor.
 
 ## Next steps
 
@@ -109,7 +109,7 @@ While `start` and `build` will be the two most used scripts, several other usefu
 
 ### Maintaining code quality
 
-To help developers improve the quality of their code, `wp-scripts` comes pre-configured with tools like ESLint and Prettier. ESLint ensures your JavaScript adheres to best practices and the [WordPress coding standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/), while Prettier automatically formats your code. The available scripts include: 
+To help developers improve the quality of their code, `wp-scripts` comes pre-configured with tools like ESLint and Prettier. ESLint ensures your JavaScript adheres to best practices and the [FinPress coding standards](https://developer.finpress.org/coding-standards/finpress-coding-standards/), while Prettier automatically formats your code. The available scripts include: 
 
 ```json
 {
@@ -142,9 +142,9 @@ Unit tests validate individual units of code, such as functions, ensuring they w
 
 While `wp-scripts` provides a solid default configuration, there might be cases where you need more specialized setups. The good news is `wp-scripts` is highly adaptable. For example, you can extend and override the default webpack configuration, allowing you to add loaders and plugins or modify almost any part of the build process. This flexibility ensures that as your project grows or its requirements change, `wp-scripts` can be tailored to your evolving needs.
 
-See the `wp-scripts` [package documentation](https://developer.wordpress.org/block-editor/packages/packages-scripts/) for all configuration options.
+See the `wp-scripts` [package documentation](https://developer.finpress.org/block-editor/packages/packages-scripts/) for all configuration options.
 
 ## Additional resources
 
-- [@wordpress/scripts](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) (Official documentation)
-- [How webpack and WordPress packages interact](https://developer.wordpress.org/news/2023/04/how-webpack-and-wordpress-packages-interact/) (WordPress Developer Blog)
+- [@finpress/scripts](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/) (Official documentation)
+- [How webpack and FinPress packages interact](https://developer.finpress.org/news/2023/04/how-webpack-and-finpress-packages-interact/) (FinPress Developer Blog)

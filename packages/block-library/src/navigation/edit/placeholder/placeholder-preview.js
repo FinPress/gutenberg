@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Icon, navigation } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+import { Icon, navigation } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 
 const PlaceholderPreview = ( { isVisible = true } ) => {
 	return (

@@ -1,18 +1,18 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getBlockType,
 	serialize,
 	store as blocksStore,
-} from '@wordpress/blocks';
-import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { moreVertical } from '@wordpress/icons';
-import { Children, cloneElement } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
-import { pipe, useCopyToClipboard } from '@wordpress/compose';
+} from '@finpress/blocks';
+import { DropdownMenu, MenuGroup, MenuItem } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { moreVertical } from '@finpress/icons';
+import { Children, cloneElement } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
+import { pipe, useCopyToClipboard } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -201,7 +201,7 @@ export function BlockSettingsDropdown( {
 	// where it does not allow a dropdown to be closed if focus was never within
 	// the dropdown to begin with. Examples include a user either CMD+Clicking or
 	// right clicking into an inactive window.
-	// See: https://github.com/WordPress/gutenberg/pull/54083
+	// See: https://github.com/FinPress/gutenberg/pull/54083
 	const open = ! currentClientId
 		? undefined
 		: openedBlockSettingsMenu === currentClientId || false;

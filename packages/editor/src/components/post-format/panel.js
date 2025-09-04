@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Button, Dropdown } from '@wordpress/components';
-import { __, sprintf } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
-import { useState, useMemo } from '@wordpress/element';
-import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@wordpress/block-editor';
+import { Button, Dropdown } from '@finpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useSelect } from '@finpress/data';
+import { useState, useMemo } from '@finpress/element';
+import { __experimentalInspectorPopoverHeader as InspectorPopoverHeader } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

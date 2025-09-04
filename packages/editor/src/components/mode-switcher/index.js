@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { MenuItemsChoice, MenuGroup } from '@wordpress/components';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
+import { __ } from '@finpress/i18n';
+import { MenuItemsChoice, MenuGroup } from '@finpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { store as keyboardShortcutsStore } from '@finpress/keyboard-shortcuts';
 
 /**
  * Internal dependencies

@@ -6,10 +6,10 @@ import { press, click } from '@ariakit/test';
 import { render } from '@ariakit/test/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useState } from '@wordpress/element';
-import { isRTL } from '@wordpress/i18n';
+import { useEffect, useState } from '@finpress/element';
+import { isRTL } from '@finpress/i18n';
 
 /**
  * Internal dependencies
@@ -18,8 +18,8 @@ import { Tabs } from '..';
 import type { TabsProps } from '../types';
 
 // Setup mocking the `isRTL` function to test arrow key navigation behavior.
-jest.mock( '@wordpress/i18n', () => {
-	const original = jest.requireActual( '@wordpress/i18n' );
+jest.mock( '@finpress/i18n', () => {
+	const original = jest.requireActual( '@finpress/i18n' );
 	return {
 		...original,
 		isRTL: jest.fn( () => false ),
@@ -222,7 +222,7 @@ describe( 'Tabs', () => {
 		originalGetClientRects = window.HTMLElement.prototype.getClientRects;
 		// Mocking `getClientRects()` is necessary to pass a check performed by
 		// the `focus.tabbable.find()` and by the `focus.focusable.find()` functions
-		// from the `@wordpress/dom` package.
+		// from the `@finpress/dom` package.
 		// @ts-expect-error We're not trying to comply to the DOM spec, only mocking
 		window.HTMLElement.prototype.getClientRects = function () {
 			return [ 'trick-jsdom-into-having-size-for-element-rect' ];

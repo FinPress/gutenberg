@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { ESCAPE } from '@wordpress/keycodes';
-import { focus } from '@wordpress/dom';
-import { dispatch } from '@wordpress/data';
+import { ESCAPE } from '@finpress/keycodes';
+import { focus } from '@finpress/dom';
+import { dispatch } from '@finpress/data';
 
 /**
  * Internal dependencies
@@ -45,7 +45,7 @@ export default function getInserterOuterSection() {
 			super( ...args );
 
 			// This is necessary since we're creating a new class which is not identical to the original OuterSection.
-			// @See https://github.com/WordPress/wordpress-develop/blob/42b05c397c50d9dc244083eff52991413909d4bd/src/js/_enqueues/wp/customize/controls.js#L1427-L1436
+			// @See https://github.com/FinPress/finpress-develop/blob/42b05c397c50d9dc244083eff52991413909d4bd/src/js/_enqueues/wp/customize/controls.js#L1427-L1436
 			this.params.type = 'outer';
 
 			this.activeElementBeforeExpanded = null;

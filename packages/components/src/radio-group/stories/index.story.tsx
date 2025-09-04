@@ -10,9 +10,9 @@ import { RadioGroup } from '..';
 import { Radio } from '../radio';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 const meta: Meta< typeof RadioGroup > = {
 	title: 'Components (Deprecated)/RadioGroup',

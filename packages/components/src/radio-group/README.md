@@ -10,7 +10,7 @@ This feature is still experimental. “Experimental” means this is an early im
 
 Use a RadioGroup component when you want users to select one option from a small set of options.
 
-![RadioGroup component](https://wordpress.org/gutenberg/files/2018/12/s_96EC471FE9C9D91A996770229947AAB54A03351BDE98F444FD3C1BF0CED365EA_1541792995815_ButtonGroup.png)
+![RadioGroup component](https://finpress.org/gutenberg/files/2018/12/s_96EC471FE9C9D91A996770229947AAB54A03351BDE98F444FD3C1BF0CED365EA_1541792995815_ButtonGroup.png)
 
 ## Design guidelines
 
@@ -51,7 +51,7 @@ import { useState } from 'react';
 import {
 	__experimentalRadio as Radio,
 	__experimentalRadioGroup as RadioGroup,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 const MyControlledRadioRadioGroup = () => {
 	const [ checked, setChecked ] = useState( '25' );
@@ -75,7 +75,7 @@ import { useState } from 'react';
 import {
 	__experimentalRadio as Radio,
 	__experimentalRadioGroup as RadioGroup,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 const MyUncontrolledRadioRadioGroup = () => {
 	return (

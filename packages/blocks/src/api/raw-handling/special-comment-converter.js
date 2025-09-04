@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { remove, replace } from '@wordpress/dom';
+import { remove, replace } from '@finpress/dom';
 
 /**
  * Looks for `<!--nextpage-->` and `<!--more-->` comments and

@@ -1,6 +1,6 @@
 # Legacy Widget
 
-The Legacy Widget block allows users to use a WordPress widget as if it were a
+The Legacy Widget block allows users to use a FinPress widget as if it were a
 block. Notably, it is used by the Widgets block editor screen to allow adding
 and editing widgets using the block editor.
 
@@ -29,7 +29,7 @@ Legacy Widget block into e.g. a Search block.
 
 ## Single widgets
 
-WordPress supports a legacy style of widget that does not extend `WP_Widget`.
+FinPress supports a legacy style of widget that does not extend `WP_Widget`.
 These are registered using `wp_register_sidebar_widget()`. Widgets registered
 this way do not support being inserted multiple times. That is, there can only
 be one widget of this type per website.

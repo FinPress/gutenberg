@@ -41,7 +41,7 @@ export const Tooltip = styled.div`
 `;
 
 // TODO: Resolve need to use &&& to increase specificity
-// https://github.com/WordPress/gutenberg/issues/18483
+// https://github.com/FinPress/gutenberg/issues/18483
 
 export const LabelText = styled( Text )`
 	&&& {

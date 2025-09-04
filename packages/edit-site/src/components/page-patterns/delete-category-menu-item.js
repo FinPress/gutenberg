@@ -1,17 +1,17 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	MenuItem,
 	__experimentalConfirmDialog as ConfirmDialog,
-} from '@wordpress/components';
-import { store as coreStore } from '@wordpress/core-data';
-import { useDispatch } from '@wordpress/data';
-import { useState } from '@wordpress/element';
-import { decodeEntities } from '@wordpress/html-entities';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { store as noticesStore } from '@wordpress/notices';
-import { privateApis as routerPrivateApis } from '@wordpress/router';
+} from '@finpress/components';
+import { store as coreStore } from '@finpress/core-data';
+import { useDispatch } from '@finpress/data';
+import { useState } from '@finpress/element';
+import { decodeEntities } from '@finpress/html-entities';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { store as noticesStore } from '@finpress/notices';
+import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
  * Internal dependencies

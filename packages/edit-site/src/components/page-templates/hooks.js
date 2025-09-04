@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as coreStore } from '@wordpress/core-data';
-import { useSelect } from '@wordpress/data';
+import { store as coreStore } from '@finpress/core-data';
+import { useSelect } from '@finpress/data';
 import {
 	commentAuthorAvatar as authorIcon,
 	layout as themeIcon,
 	plugins as pluginIcon,
 	globe as globeIcon,
-} from '@wordpress/icons';
+} from '@finpress/icons';
 
 /**
  * Internal dependencies

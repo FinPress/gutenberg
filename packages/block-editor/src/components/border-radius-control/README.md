@@ -6,10 +6,10 @@
 
 ```jsx
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalBorderRadiusControl as BorderRadiusControl } from '@wordpress/block-editor';
-import { useState } from '@wordpress/element';
+import { __experimentalBorderRadiusControl as BorderRadiusControl } from '@finpress/block-editor';
+import { useState } from '@finpress/element';
 
 const MyBorderRadiusControl = () => {
     const [values, setValues] = useState({

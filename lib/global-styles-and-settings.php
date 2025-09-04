@@ -43,7 +43,7 @@ function gutenberg_get_global_stylesheet( $types = array() ) {
 	 *
 	 * This is so themes without a theme.json still work as before 5.9:
 	 * they can override the default presets.
-	 * See https://core.trac.wordpress.org/ticket/54782
+	 * See https://core.trac.finpress.org/ticket/54782
 	 */
 	$styles_variables = '';
 	if ( in_array( 'variables', $types, true ) ) {

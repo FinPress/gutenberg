@@ -3,9 +3,9 @@
  */
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createSlotFill, PanelRow } from '@wordpress/components';
+import { createSlotFill, PanelRow } from '@finpress/components';
 
 const { Fill, Slot } = createSlotFill( 'PluginPostExcerpt' );
 
@@ -36,8 +36,8 @@ const { Fill, Slot } = createSlotFill( 'PluginPostExcerpt' );
  * @example
  * ```jsx
  * // Using ESNext syntax
- * import { __ } from '@wordpress/i18n';
- * import { __experimentalPluginPostExcerpt as PluginPostExcerpt } from '@wordpress/edit-post';
+ * import { __ } from '@finpress/i18n';
+ * import { __experimentalPluginPostExcerpt as PluginPostExcerpt } from '@finpress/edit-post';
  *
  * const MyPluginPostExcerpt = () => (
  * 	<PluginPostExcerpt className="my-plugin-post-excerpt">

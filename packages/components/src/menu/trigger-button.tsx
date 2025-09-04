@@ -4,9 +4,9 @@
 import * as Ariakit from '@ariakit/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef, useContext } from '@wordpress/element';
+import { forwardRef, useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

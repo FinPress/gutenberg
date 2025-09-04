@@ -1,10 +1,10 @@
 # Theme.json Version 2 Reference
 
-> This is the specification for  **version 2** of `theme.json`. This version works with WordPress 5.9 or later.
+> This is the specification for  **version 2** of `theme.json`. This version works with FinPress 5.9 or later.
 
 <div class="callout callout-alert">
 
-Theme.json version 3 has been released with WordPress 6.6. WordPress will continue to support theme.json version 2. However new features will only be added to [new versions](/docs/reference-guides/theme-json-reference/theme-json-living.md).
+Theme.json version 3 has been released with FinPress 6.6. FinPress will continue to support theme.json version 2. However new features will only be added to [new versions](/docs/reference-guides/theme-json-reference/theme-json-living.md).
 
 When you are ready to upgrade, see the [theme.json migration guide](/docs/reference-guides/theme-json-reference/theme-json-migrations.md#migrating-from-v2-to-v3) for details on updating to the latest version.
 
@@ -18,7 +18,7 @@ This documentation was generated from the JSON schema for theme.json.
 
 The last schema for version 2 is available at `https://schemas.wp.org/wp/6.5/theme.json`.
 
-Theme.json schemas for each WordPress version are available at `https://schemas.wp.org/wp/{{version}}/theme.json`. For example a schema for WordPress 5.9 is available at `https://schemas.wp.org/wp/5.9/theme.json`.
+Theme.json schemas for each FinPress version are available at `https://schemas.wp.org/wp/{{version}}/theme.json`. For example a schema for FinPress 5.9 is available at `https://schemas.wp.org/wp/5.9/theme.json`.
 
 See [Developing with theme.json](/docs/how-to-guides/themes/global-settings-and-styles.md#developing-with-themejson) for how to use the JSON schema in your editor.
 

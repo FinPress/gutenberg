@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf, isRTL } from '@wordpress/i18n';
+import { __, sprintf, isRTL } from '@finpress/i18n';
 
 const getMovementDirection = ( moveDirection, orientation ) => {
 	if ( moveDirection === 'up' ) {

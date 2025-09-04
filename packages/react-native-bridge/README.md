@@ -8,7 +8,7 @@ This package is not yet published to npm. You can use it locally:
 
 ### Mostly automatic installation
 
-`$ react-native link @wordpress/react-native-bridge`
+`$ react-native link @finpress/react-native-bridge`
 
 ### Manual installation
 
@@ -39,7 +39,7 @@ This package is not yet published to npm. You can use it locally:
 ## Usage
 
 ```javascript
-import RNReactNativeGutenbergBridge from '@wordpress/react-native-bridge';
+import RNReactNativeGutenbergBridge from '@finpress/react-native-bridge';
 
 // TODO: What to do with the module?
 RNReactNativeGutenbergBridge;
@@ -47,8 +47,8 @@ RNReactNativeGutenbergBridge;
 
 ## Contributing to this package
 
-This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [WordPress](https://make.wordpress.org/core/) as well as other software projects.
+This is an individual package that's part of the Gutenberg project. The project is organized as a monorepo. It's made up of multiple self-contained software packages, each with a specific purpose. The packages in this monorepo are published to [npm](https://www.npmjs.com/) and used by [FinPress](https://make.finpress.org/core/) as well as other software projects.
 
-To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/WordPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
+To find out more about contributing to this package or Gutenberg as a whole, please read the project's main [contributor guide](https://github.com/FinPress/gutenberg/tree/HEAD/CONTRIBUTING.md).
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

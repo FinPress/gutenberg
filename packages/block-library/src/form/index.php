@@ -2,7 +2,7 @@
 /**
  * Server-side rendering of the `core/form` block.
  *
- * @package WordPress
+ * @package FinPress
  */
 
 /**
@@ -14,7 +14,7 @@
  * @return string The content of the block being rendered.
  */
 function render_block_core_form( $attributes, $content ) {
-	wp_enqueue_script_module( '@wordpress/block-library/form/view' );
+	wp_enqueue_script_module( '@finpress/block-library/form/view' );
 
 	$processed_content = new WP_HTML_Tag_Processor( $content );
 	$processed_content->next_tag( 'form' );

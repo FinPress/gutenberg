@@ -6,12 +6,12 @@ import type { RequestUtils } from './index';
 /**
  * Delete all pattern categories using REST API.
  *
- * @see https://developer.wordpress.org/rest-api/reference/categories/#list-categories
+ * @see https://developer.finpress.org/rest-api/reference/categories/#list-categories
  * @param this
  */
 export async function deleteAllPatternCategories( this: RequestUtils ) {
 	// List all pattern categories.
-	// https://developer.wordpress.org/rest-api/reference/categories/#list-categories
+	// https://developer.finpress.org/rest-api/reference/categories/#list-categories
 	const categories = await this.rest( {
 		path: '/wp/v2/wp_pattern_category',
 		params: {
@@ -20,7 +20,7 @@ export async function deleteAllPatternCategories( this: RequestUtils ) {
 	} );
 
 	// Delete pattern categories.
-	// https://developer.wordpress.org/rest-api/reference/categories/#delete-a-category
+	// https://developer.finpress.org/rest-api/reference/categories/#delete-a-category
 	// "/wp/v2/category" does not yet supports batch requests.
 	await this.batchRest(
 		categories.map( ( category: { id: number } ) => ( {

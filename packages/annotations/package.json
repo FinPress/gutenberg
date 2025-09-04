@@ -1,22 +1,22 @@
 {
-	"name": "@wordpress/annotations",
+	"name": "@finpress/annotations",
 	"version": "3.29.0",
 	"description": "Annotate content in the Gutenberg editor.",
-	"author": "The WordPress Contributors",
+	"author": "The FinPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
-		"wordpress",
+		"finpress",
 		"gutenberg",
 		"annotations"
 	],
-	"homepage": "https://github.com/WordPress/gutenberg/tree/HEAD/packages/annotations/README.md",
+	"homepage": "https://github.com/FinPress/gutenberg/tree/HEAD/packages/annotations/README.md",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WordPress/gutenberg.git",
+		"url": "https://github.com/FinPress/gutenberg.git",
 		"directory": "packages/annotations"
 	},
 	"bugs": {
-		"url": "https://github.com/WordPress/gutenberg/issues"
+		"url": "https://github.com/FinPress/gutenberg/issues"
 	},
 	"engines": {
 		"node": ">=18.12.0",
@@ -28,10 +28,10 @@
 	"wpScript": true,
 	"dependencies": {
 		"@babel/runtime": "7.25.7",
-		"@wordpress/data": "file:../data",
-		"@wordpress/hooks": "file:../hooks",
-		"@wordpress/i18n": "file:../i18n",
-		"@wordpress/rich-text": "file:../rich-text",
+		"@finpress/data": "file:../data",
+		"@finpress/hooks": "file:../hooks",
+		"@finpress/i18n": "file:../i18n",
+		"@finpress/rich-text": "file:../rich-text",
 		"uuid": "^9.0.1"
 	},
 	"peerDependencies": {

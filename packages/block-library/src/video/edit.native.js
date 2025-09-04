@@ -4,21 +4,21 @@
 import { View, TouchableWithoutFeedback, Text } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
+import { Component } from '@finpress/element';
 import {
 	mediaUploadSync,
 	requestImageFailedRetryDialog,
 	requestImageUploadCancelDialog,
-} from '@wordpress/react-native-bridge';
+} from '@finpress/react-native-bridge';
 import {
 	Icon,
 	ToolbarButton,
 	ToolbarGroup,
 	PanelBody,
-} from '@wordpress/components';
-import { withPreferredColorScheme, compose } from '@wordpress/compose';
+} from '@finpress/components';
+import { withPreferredColorScheme, compose } from '@finpress/compose';
 import {
 	BlockCaption,
 	MediaPlaceholder,
@@ -31,13 +31,13 @@ import {
 	InspectorControls,
 	RichText,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { __, sprintf } from '@wordpress/i18n';
-import { isURL, getProtocol } from '@wordpress/url';
-import { doAction, hasAction } from '@wordpress/hooks';
-import { video as SvgIcon, replace } from '@wordpress/icons';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
+} from '@finpress/block-editor';
+import { __, sprintf } from '@finpress/i18n';
+import { isURL, getProtocol } from '@finpress/url';
+import { doAction, hasAction } from '@finpress/hooks';
+import { video as SvgIcon, replace } from '@finpress/icons';
+import { withDispatch, withSelect } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
 
 /**
  * Internal dependencies

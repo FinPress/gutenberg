@@ -4,7 +4,7 @@
 import { View } from 'react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
@@ -12,11 +12,11 @@ import {
 	useInnerBlocksProps,
 	BlockControls,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { useSelect } from '@wordpress/data';
-import { useState, useCallback, useRef } from '@wordpress/element';
+} from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { useSelect } from '@finpress/data';
+import { useState, useCallback, useRef } from '@finpress/element';
 
 /**
  * Internal dependencies

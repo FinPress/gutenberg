@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { isBlobURL } from '@wordpress/blob';
+import { isBlobURL } from '@finpress/blob';
 import {
 	ExternalLink,
 	ResizableBox,
@@ -18,13 +18,13 @@ import {
 	ToolbarItem,
 	DropdownMenu,
 	Popover,
-} from '@wordpress/components';
+} from '@finpress/components';
 import {
 	useMergeRefs,
 	useResizeObserver,
 	useViewportMatch,
-} from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
+} from '@finpress/compose';
+import { useSelect, useDispatch } from '@finpress/data';
 import {
 	BlockControls,
 	InspectorControls,
@@ -37,14 +37,14 @@ import {
 	__experimentalGetShadowClassesAndStyles as getShadowClassesAndStyles,
 	privateApis as blockEditorPrivateApis,
 	BlockSettingsMenuControls,
-} from '@wordpress/block-editor';
-import { useCallback, useEffect, useMemo, useState } from '@wordpress/element';
-import { __, _x, sprintf, isRTL } from '@wordpress/i18n';
-import { getFilename } from '@wordpress/url';
-import { getBlockBindingsSource, switchToBlockType } from '@wordpress/blocks';
-import { crop, overlayText, upload, chevronDown } from '@wordpress/icons';
-import { store as noticesStore } from '@wordpress/notices';
-import { store as coreStore } from '@wordpress/core-data';
+} from '@finpress/block-editor';
+import { useCallback, useEffect, useMemo, useState } from '@finpress/element';
+import { __, _x, sprintf, isRTL } from '@finpress/i18n';
+import { getFilename } from '@finpress/url';
+import { getBlockBindingsSource, switchToBlockType } from '@finpress/blocks';
+import { crop, overlayText, upload, chevronDown } from '@finpress/icons';
+import { store as noticesStore } from '@finpress/notices';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
@@ -394,7 +394,7 @@ export default function Image( {
 	// Get naturalWidth and naturalHeight from image, and fall back to loaded natural
 	// width and height. This resolves an issue in Safari where the loaded natural
 	// width and height is otherwise lost when switching between alignments.
-	// See: https://github.com/WordPress/gutenberg/pull/37210.
+	// See: https://github.com/FinPress/gutenberg/pull/37210.
 	const { naturalWidth, naturalHeight } = useMemo( () => {
 		return {
 			naturalWidth:
@@ -408,7 +408,7 @@ export default function Image( {
 		setHasImageErrored( true );
 
 		// Check if there's an embed block that handles this URL, e.g., instagram URL.
-		// See: https://github.com/WordPress/gutenberg/pull/11472
+		// See: https://github.com/FinPress/gutenberg/pull/11472
 		const embedBlock = createUpgradedEmbedBlock( { attributes: { url } } );
 		if ( undefined !== embedBlock ) {
 			onReplace( embedBlock );
@@ -447,7 +447,7 @@ export default function Image( {
 		// When deleting a link from an image while lightbox settings
 		// are enabled by default, we should disable the lightbox,
 		// otherwise the resulting UX looks like a mistake.
-		// See https://github.com/WordPress/gutenberg/pull/59890/files#r1532286123.
+		// See https://github.com/FinPress/gutenberg/pull/59890/files#r1532286123.
 		if ( lightboxSetting?.enabled && lightboxSetting?.allowEditing ) {
 			setAttributes( {
 				lightbox: { enabled: false },
@@ -1000,7 +1000,7 @@ export default function Image( {
 		let showLeftHandle = false;
 
 		/* eslint-disable no-lonely-if */
-		// See https://github.com/WordPress/gutenberg/issues/7584.
+		// See https://github.com/FinPress/gutenberg/issues/7584.
 		if ( align === 'center' ) {
 			// When the image is centered, show both handles.
 			showRightHandle = true;

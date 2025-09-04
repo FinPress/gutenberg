@@ -4,9 +4,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import type { createRegistry } from '@wordpress/data';
+import type { createRegistry } from '@finpress/data';
 
 type WPDataRegistry = ReturnType< typeof createRegistry >;
 

@@ -1,13 +1,13 @@
 {
-	"title": "JSON schema for WordPress blocks",
+	"title": "JSON schema for FinPress blocks",
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"definitions": {
 		"//": {
-			"reference": "https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/",
-			"attributesReference": "https://developer.wordpress.org/block-editor/reference-guides/block-api/block-attributes/",
-			"contextReference": "https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/",
-			"supportsReference": "https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/",
-			"registerReference": "https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#example-optional"
+			"reference": "https://developer.finpress.org/block-editor/reference-guides/block-api/block-metadata/",
+			"attributesReference": "https://developer.finpress.org/block-editor/reference-guides/block-api/block-attributes/",
+			"contextReference": "https://developer.finpress.org/block-editor/reference-guides/block-api/block-context/",
+			"supportsReference": "https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/",
+			"registerReference": "https://developer.finpress.org/block-editor/reference-guides/block-api/block-registration/#example-optional"
 		}
 	},
 	"type": "object",
@@ -16,7 +16,7 @@
 			"type": "string"
 		},
 		"apiVersion": {
-			"description": "The version of the Block API used by the block. If the block is registered with API version 2 or lower, the post editor may work as a non-iframe editor. Since all editors are planned to work as iframes in the future, it is recommended to set the `apiVersion` field to 3 and test the block inside the iframe editor.\n\nSee the API versions documentation at https://developer.wordpress.org/block-editor/reference-guides/block-api/block-api-versions/ for more details.",
+			"description": "The version of the Block API used by the block. If the block is registered with API version 2 or lower, the post editor may work as a non-iframe editor. Since all editors are planned to work as iframes in the future, it is recommended to set the `apiVersion` field to 3 and test the block inside the iframe editor.\n\nSee the API versions documentation at https://developer.finpress.org/block-editor/reference-guides/block-api/block-api-versions/ for more details.",
 			"type": "integer",
 			"const": 3
 		},
@@ -41,7 +41,7 @@
 			"type": "string"
 		},
 		"category": {
-			"description": "Blocks are grouped into categories to help users browse and discover them.\n Core provided categories are: text, media, design, widgets, theme, embed\n\nPlugins and Themes can also register custom block categories.\n\nhttps://developer.wordpress.org/block-editor/reference-guides/filters/block-filters/#managing-block-categories",
+			"description": "Blocks are grouped into categories to help users browse and discover them.\n Core provided categories are: text, media, design, widgets, theme, embed\n\nPlugins and Themes can also register custom block categories.\n\nhttps://developer.finpress.org/block-editor/reference-guides/filters/block-filters/#managing-block-categories",
 			"anyOf": [
 				{
 					"type": "string"
@@ -81,7 +81,7 @@
 			}
 		},
 		"icon": {
-			"description": "An icon property should be specified to make it easier to identify a block. These can be any of WordPress’ Dashicons (slug serving also as a fallback in non-js contexts).",
+			"description": "An icon property should be specified to make it easier to identify a block. These can be any of FinPress’ Dashicons (slug serving also as a fallback in non-js contexts).",
 			"type": "string"
 		},
 		"description": {
@@ -96,15 +96,15 @@
 			}
 		},
 		"version": {
-			"description": "The current version number of the block, such as 1.0 or 1.0.3. It’s similar to how plugins are versioned. This field might be used with block assets to control cache invalidation, and when the block author omits it, then the installed version of WordPress is used instead.",
+			"description": "The current version number of the block, such as 1.0 or 1.0.3. It’s similar to how plugins are versioned. This field might be used with block assets to control cache invalidation, and when the block author omits it, then the installed version of FinPress is used instead.",
 			"type": "string"
 		},
 		"textdomain": {
-			"description": "The gettext text domain of the plugin/block. More information can be found in the Text Domain section of the How to Internationalize your Plugin page.\n\nhttps://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/",
+			"description": "The gettext text domain of the plugin/block. More information can be found in the Text Domain section of the How to Internationalize your Plugin page.\n\nhttps://developer.finpress.org/plugins/internationalization/how-to-internationalize-your-plugin/",
 			"type": "string"
 		},
 		"attributes": {
-			"description": "Attributes provide the structured data needs of a block. They can exist in different forms when they are serialized, but they are declared together under a common interface.\n\nSee the attributes documentation at https://developer.wordpress.org/block-editor/reference-guides/block-api/block-attributes/ for more details.",
+			"description": "Attributes provide the structured data needs of a block. They can exist in different forms when they are serialized, but they are declared together under a common interface.\n\nSee the attributes documentation at https://developer.finpress.org/block-editor/reference-guides/block-api/block-attributes/ for more details.",
 			"type": "object",
 			"patternProperties": {
 				"[a-zA-Z]": {
@@ -181,7 +181,7 @@
 							"type": "object"
 						},
 						"meta": {
-							"description": "Although attributes may be obtained from a post’s meta, meta attribute sources are considered deprecated; EntityProvider and related hook APIs should be used instead, as shown in the Create Meta Block how-to here:\n\nhttps://developer.wordpress.org/block-editor/how-to-guides/metabox/#step-2-add-meta-block",
+							"description": "Although attributes may be obtained from a post’s meta, meta attribute sources are considered deprecated; EntityProvider and related hook APIs should be used instead, as shown in the Create Meta Block how-to here:\n\nhttps://developer.finpress.org/block-editor/how-to-guides/metabox/#step-2-add-meta-block",
 							"type": "string"
 						},
 						"role": {
@@ -202,7 +202,7 @@
 			"additionalProperties": false
 		},
 		"providesContext": {
-			"description": "Context provided for available access by descendants of blocks of this type, in the form of an object which maps a context name to one of the block’s own attribute.\n\nSee the block context documentation at https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/ for more details.",
+			"description": "Context provided for available access by descendants of blocks of this type, in the form of an object which maps a context name to one of the block’s own attribute.\n\nSee the block context documentation at https://developer.finpress.org/block-editor/reference-guides/block-api/block-context/ for more details.",
 			"type": "object",
 			"patternProperties": {
 				"[a-zA-Z]": {
@@ -211,14 +211,14 @@
 			}
 		},
 		"usesContext": {
-			"description": "Array of the names of context values to inherit from an ancestor provider.\n\nSee the block context documentation at https://developer.wordpress.org/block-editor/reference-guides/block-api/block-context/ for more details.",
+			"description": "Array of the names of context values to inherit from an ancestor provider.\n\nSee the block context documentation at https://developer.finpress.org/block-editor/reference-guides/block-api/block-context/ for more details.",
 			"type": "array",
 			"items": {
 				"type": "string"
 			}
 		},
 		"supports": {
-			"description": "It contains as set of options to control features used in the editor. See the supports documentation at https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/ for more details.",
+			"description": "It contains as set of options to control features used in the editor. See the supports documentation at https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/ for more details.",
 			"type": "object",
 			"properties": {
 				"anchor": {
@@ -744,7 +744,7 @@
 			}
 		},
 		"styles": {
-			"description": "Block styles can be used to provide alternative styles to block. It works by adding a class name to the block’s wrapper. Using CSS, a theme developer can target the class name for the block style if it is selected.\n\nPlugins and Themes can also register custom block style for existing blocks.\n\nhttps://developer.wordpress.org/block-editor/reference-guides/block-api/block-styles/",
+			"description": "Block styles can be used to provide alternative styles to block. It works by adding a class name to the block’s wrapper. Using CSS, a theme developer can target the class name for the block style if it is selected.\n\nPlugins and Themes can also register custom block style for existing blocks.\n\nhttps://developer.finpress.org/block-editor/reference-guides/block-api/block-styles/",
 			"type": "array",
 			"items": {
 				"type": "object",
@@ -765,7 +765,7 @@
 			}
 		},
 		"example": {
-			"description": "It provides structured example data for the block. This data is used to construct a preview for the block to be shown in the Inspector Help Panel when the user mouses over the block.\n\nSee the example documentation at https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#example-optional for more details.",
+			"description": "It provides structured example data for the block. This data is used to construct a preview for the block to be shown in the Inspector Help Panel when the user mouses over the block.\n\nSee the example documentation at https://developer.finpress.org/block-editor/reference-guides/block-api/block-registration/#example-optional for more details.",
 			"type": "object",
 			"properties": {
 				"viewportWidth": {
@@ -784,7 +784,7 @@
 			}
 		},
 		"blockHooks": {
-			"description": "Block Hooks allow a block to automatically insert itself next to all instances of a given block type.\n\nSee the Block Hooks documentation at https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/#block-hooks-optional for more details.",
+			"description": "Block Hooks allow a block to automatically insert itself next to all instances of a given block type.\n\nSee the Block Hooks documentation at https://developer.finpress.org/block-editor/reference-guides/block-api/block-registration/#block-hooks-optional for more details.",
 			"type": "object",
 			"patternProperties": {
 				"^[a-z][a-z0-9-]*/[a-z][a-z0-9-]*$": {

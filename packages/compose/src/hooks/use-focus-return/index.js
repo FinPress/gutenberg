@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useEffect, useCallback } from '@wordpress/element';
+import { useRef, useEffect, useCallback } from '@finpress/element';
 
 /** @type {Element|null} */
 let origin = null;
@@ -15,7 +15,7 @@ let origin = null;
  *
  * @example
  * ```js
- * import { useFocusReturn } from '@wordpress/compose';
+ * import { useFocusReturn } from '@finpress/compose';
  *
  * const WithFocusReturn = () => {
  *     const ref = useFocusReturn()

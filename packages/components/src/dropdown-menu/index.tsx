@@ -4,9 +4,9 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { menu } from '@wordpress/icons';
+import { menu } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -229,14 +229,14 @@ function UnconnectedDropdownMenu( dropdownMenuProps: DropdownMenuProps ) {
  * Render a Dropdown Menu with a set of controls:
  *
  * ```jsx
- * import { DropdownMenu } from '@wordpress/components';
+ * import { DropdownMenu } from '@finpress/components';
  * import {
  * 	more,
  * 	arrowLeft,
  * 	arrowRight,
  * 	arrowUp,
  * 	arrowDown,
- * } from '@wordpress/icons';
+ * } from '@finpress/icons';
  *
  * const MyDropdownMenu = () => (
  * 	<DropdownMenu
@@ -272,8 +272,8 @@ function UnconnectedDropdownMenu( dropdownMenuProps: DropdownMenuProps ) {
  * use in a DropdownMenu: `MenuItem`, `MenuItemsChoice`, or `MenuGroup`.
  *
  * ```jsx
- * import { DropdownMenu, MenuGroup, MenuItem } from '@wordpress/components';
- * import { more, arrowUp, arrowDown, trash } from '@wordpress/icons';
+ * import { DropdownMenu, MenuGroup, MenuItem } from '@finpress/components';
+ * import { more, arrowUp, arrowDown, trash } from '@finpress/icons';
  *
  * const MyDropdownMenu = () => (
  * 	<DropdownMenu icon={ more } label="Select a direction">

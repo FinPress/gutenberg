@@ -3,10 +3,10 @@
  */
 import { I18nManager } from 'react-native';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { arrowUp, arrowDown, arrowLeft, arrowRight } from '@wordpress/icons';
+import { __, sprintf } from '@finpress/i18n';
+import { arrowUp, arrowDown, arrowLeft, arrowRight } from '@finpress/icons';
 
 const horizontalMover = {
 	backwardButtonIcon: arrowLeft,

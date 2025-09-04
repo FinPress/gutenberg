@@ -58,13 +58,13 @@ describe( 'element', () => {
 							backgroundColor: 'red',
 						},
 					},
-					'<"WordPress" & Friends>'
+					'<"FinPress" & Friends>'
 				)
 			);
 
 			expect( result ).toBe(
 				'<a href="/index.php?foo=bar&amp;qux=<&quot;scary&quot;&gt;" style="background-color:red">' +
-					'&lt;"WordPress" &amp; Friends>' +
+					'&lt;"FinPress" &amp; Friends>' +
 					'</a>'
 			);
 		} );

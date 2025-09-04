@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 import {
 	getBlockBindingsSource,
 	getBlockBindingsSources,
 	getBlockType,
-} from '@wordpress/blocks';
+} from '@finpress/blocks';
 import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalItem as Item,
@@ -15,10 +15,10 @@ import {
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalVStack as VStack,
 	privateApis as componentsPrivateApis,
-} from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { useContext, Fragment } from '@wordpress/element';
-import { useViewportMatch } from '@wordpress/compose';
+} from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { useContext, Fragment } from '@finpress/element';
+import { useViewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies

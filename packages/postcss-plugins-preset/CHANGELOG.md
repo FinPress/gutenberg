@@ -1,4 +1,4 @@
-<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
+<!-- Learn how to maintain this file at https://github.com/FinPress/gutenberg/tree/HEAD/packages#maintaining-changelogs. -->
 
 ## Unreleased
 
@@ -34,7 +34,7 @@
 
 ### Enhancements
 
--   The bundled `autoprefixer` dependency has been updated from requiring `^10.2.5` to requiring `^10.4.20` (see [#68237](https://github.com/WordPress/gutenberg/pull/68237)).
+-   The bundled `autoprefixer` dependency has been updated from requiring `^10.2.5` to requiring `^10.4.20` (see [#68237](https://github.com/FinPress/gutenberg/pull/68237)).
 
 ## 5.14.0 (2024-12-11)
 
@@ -68,7 +68,7 @@
 
 ### Breaking Changes
 
--   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/WordPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
+-   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
 ## 4.42.0 (2024-05-16)
 
@@ -156,20 +156,20 @@
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 14 ([#43141](https://github.com/WordPress/gutenberg/pull/43141)).
+-   Increase the minimum Node.js version to 14 ([#43141](https://github.com/FinPress/gutenberg/pull/43141)).
 
 ## 3.0.0 (2021-04-29)
 
 ### Breaking Changes
 
--   The bundled `autoprefixer` dependency has been updated from requiring `^9.8.6` to requiring `^10.2.5` (see [Breaking Changes](https://github.com/postcss/autoprefixer/releases/tag/10.0.0), [#27821](https://github.com/WordPress/gutenberg/pull/27821)).
--   The bundled `postcss-custom-properties` dependency has been updated from requiring `^10.0.0` to requiring `^11.0.0` (see [Breaking Changes](https://github.com/postcss/postcss-custom-properties/releases/tag/11.0.0), [#27821](https://github.com/WordPress/gutenberg/pull/27821)).
+-   The bundled `autoprefixer` dependency has been updated from requiring `^9.8.6` to requiring `^10.2.5` (see [Breaking Changes](https://github.com/postcss/autoprefixer/releases/tag/10.0.0), [#27821](https://github.com/FinPress/gutenberg/pull/27821)).
+-   The bundled `postcss-custom-properties` dependency has been updated from requiring `^10.0.0` to requiring `^11.0.0` (see [Breaking Changes](https://github.com/postcss/postcss-custom-properties/releases/tag/11.0.0), [#27821](https://github.com/FinPress/gutenberg/pull/27821)).
 
 ## 2.0.0 (2021-01-21)
 
 ### Breaking Changes
 
--   Increase the minimum Node.js version to 12 ([#27934](https://github.com/WordPress/gutenberg/pull/27934)).
+-   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 
 ## 1.5.1 (2020-10-19)
 

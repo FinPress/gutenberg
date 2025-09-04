@@ -1,20 +1,20 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	getFreeformContentHandlerName,
 	getDefaultBlockName,
 	__unstableSerializeAndClean,
 	parse,
-} from '@wordpress/blocks';
-import { isInTheFuture, getDate } from '@wordpress/date';
-import { addQueryArgs, cleanForSlug } from '@wordpress/url';
-import { createSelector, createRegistrySelector } from '@wordpress/data';
-import deprecated from '@wordpress/deprecated';
-import { Platform } from '@wordpress/element';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { store as coreStore } from '@wordpress/core-data';
-import { store as preferencesStore } from '@wordpress/preferences';
+} from '@finpress/blocks';
+import { isInTheFuture, getDate } from '@finpress/date';
+import { addQueryArgs, cleanForSlug } from '@finpress/url';
+import { createSelector, createRegistrySelector } from '@finpress/data';
+import deprecated from '@finpress/deprecated';
+import { Platform } from '@finpress/element';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { store as coreStore } from '@finpress/core-data';
+import { store as preferencesStore } from '@finpress/preferences';
 
 /**
  * Internal dependencies
@@ -371,7 +371,7 @@ export function getEditedPostAttribute( state, attributeName ) {
  * null if there is no autosave for the post.
  *
  * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )` selector
- * 			   from the '@wordpress/core-data' package and access properties on the returned
+ * 			   from the '@finpress/core-data' package and access properties on the returned
  * 			   autosave object using getPostRawValue.
  *
  * @param {Object} state         Global application state.
@@ -519,7 +519,7 @@ export function isEditedPostSaveable( state ) {
 	//  See: `isEditedPostPublishable` (includes `isEditedPostDirty` condition)
 	//  See: <PostSavedState /> (`forceIsDirty` prop)
 	//  See: <PostPublishButton /> (`forceIsDirty` prop)
-	//  See: https://github.com/WordPress/gutenberg/pull/4184.
+	//  See: https://github.com/FinPress/gutenberg/pull/4184.
 
 	return (
 		!! getEditedPostAttribute( state, 'title' ) ||
@@ -635,7 +635,7 @@ export const isEditedPostAutosaveable = createRegistrySelector(
 		// Disable reason - this line causes the side-effect of fetching the autosave
 		// via a resolver, moving below the return would result in the autosave never
 		// being fetched.
-		// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+		// eslint-disable-next-line @finpress/no-unused-vars-before-return
 		const autosave = select( coreStore ).getAutosave(
 			postType,
 			postId,
@@ -708,7 +708,7 @@ export function isEditedPostDateFloating( state ) {
 	// This should be the status of the persisted post
 	// It shouldn't use the "edited" status otherwise it breaks the
 	// inferred post data floating status
-	// See https://github.com/WordPress/gutenberg/issues/28083.
+	// See https://github.com/FinPress/gutenberg/issues/28083.
 	const status = getCurrentPost( state ).status;
 	if (
 		status === 'draft' ||
@@ -838,11 +838,11 @@ export function getEditedPostPreviewLink( state ) {
 	}
 
 	let previewLink = getAutosaveAttribute( state, 'preview_link' );
-	// Fix for issue: https://github.com/WordPress/gutenberg/issues/33616
+	// Fix for issue: https://github.com/FinPress/gutenberg/issues/33616
 	// If the post is draft, ignore the preview link from the autosave record,
 	// because the preview could be a stale autosave if the post was switched from
 	// published to draft.
-	// See: https://github.com/WordPress/gutenberg/pull/37952.
+	// See: https://github.com/FinPress/gutenberg/pull/37952.
 	if ( ! previewLink || 'draft' === getCurrentPost( state ).status ) {
 		previewLink = getEditedPostAttribute( state, 'link' );
 		if ( previewLink ) {
@@ -1064,9 +1064,9 @@ export function isPostLocked( state ) {
  *
  * @example
  * ```jsx
- * import { __ } from '@wordpress/i18n';
- * import { store as editorStore } from '@wordpress/editor';
- * import { useSelect } from '@wordpress/data';
+ * import { __ } from '@finpress/i18n';
+ * import { store as editorStore } from '@finpress/editor';
+ * import { useSelect } from '@finpress/data';
  *
  * const ExampleComponent = () => {
  * 	const isSavingLocked = useSelect(
@@ -1095,9 +1095,9 @@ export function isPostSavingLocked( state ) {
  *
  * @example
  * ```jsx
- * import { __ } from '@wordpress/i18n';
- * import { store as editorStore } from '@wordpress/editor';
- * import { useSelect } from '@wordpress/data';
+ * import { __ } from '@finpress/i18n';
+ * import { store as editorStore } from '@finpress/editor';
+ * import { useSelect } from '@finpress/data';
  *
  * const ExampleComponent = () => {
  * 	const isAutoSavingLocked = useSelect(

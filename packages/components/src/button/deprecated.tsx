@@ -4,10 +4,10 @@
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import deprecated from '@wordpress/deprecated';
-import { forwardRef } from '@wordpress/element';
+import deprecated from '@finpress/deprecated';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies

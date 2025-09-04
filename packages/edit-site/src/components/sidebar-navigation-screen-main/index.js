@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __experimentalItemGroup as ItemGroup } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { layout, symbol, navigation, styles, page } from '@wordpress/icons';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
-import { store as coreStore } from '@wordpress/core-data';
+import { __experimentalItemGroup as ItemGroup } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { layout, symbol, navigation, styles, page } from '@finpress/icons';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useEffect } from '@finpress/element';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies

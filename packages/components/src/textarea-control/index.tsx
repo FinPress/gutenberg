@@ -4,10 +4,10 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { forwardRef } from '@wordpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -69,8 +69,8 @@ function UnforwardedTextareaControl(
  * vertically when the cursor reaches the bottom of the field.
  *
  * ```jsx
- * import { TextareaControl } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { TextareaControl } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyTextareaControl = () => {
  *   const [ text, setText ] = useState( '' );

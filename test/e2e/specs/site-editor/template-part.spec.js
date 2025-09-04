@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Template Part', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -249,7 +249,7 @@ test.describe( 'Template Part', () => {
 		await expect( paragraph ).toBeVisible();
 	} );
 
-	// Tests for regressions of https://github.com/WordPress/gutenberg/pull/29239.
+	// Tests for regressions of https://github.com/FinPress/gutenberg/pull/29239.
 	test( "doesn't throw a block error when clicking on a link", async ( {
 		admin,
 		editor,
@@ -293,7 +293,7 @@ test.describe( 'Template Part', () => {
 		await expect( paragraph ).toBeVisible();
 	} );
 
-	// Reason: https://github.com/WordPress/gutenberg/issues/47003.
+	// Reason: https://github.com/FinPress/gutenberg/issues/47003.
 	test.skip( 'can import a widget area into an empty template part', async ( {
 		admin,
 		editor,

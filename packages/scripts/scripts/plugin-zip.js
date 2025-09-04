@@ -29,7 +29,7 @@ if ( hasPackageProp( 'files' ) ) {
 	stdout.write(
 		'Using Plugin Handbook best practices to discover files:\n\n'
 	);
-	// See https://developer.wordpress.org/plugins/plugin-basics/best-practices/#file-organization.
+	// See https://developer.finpress.org/plugins/plugin-basics/best-practices/#file-organization.
 	files = glob(
 		[
 			'admin/**',

@@ -5,9 +5,9 @@ import type { Meta, StoryFn } from '@storybook/react';
 import styled from '@emotion/styled';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -227,7 +227,7 @@ export const WithOptionalItemsPlusIcon: StoryFn< typeof ToolsPanel > = ( {
 						{ ...props }
 						resetAll={ resetAll }
 						// `key` property here is used as a hack to force `ToolsPanel` to re-render
-						// See https://github.com/WordPress/gutenberg/pull/38262/files#r793422991
+						// See https://github.com/FinPress/gutenberg/pull/38262/files#r793422991
 						key={
 							isFirstToolsPanelItemShownByDefault
 								? 'true'

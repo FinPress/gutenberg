@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { SVG, Path } from '@wordpress/primitives';
+import { SVG, Path } from '@finpress/primitives';
 
 // Used for the back button of the iOS Bottom Sheet
 const chevronBack = (

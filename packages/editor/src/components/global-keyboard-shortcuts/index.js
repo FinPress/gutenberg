@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useShortcut } from '@wordpress/keyboard-shortcuts';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as interfaceStore } from '@wordpress/interface';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { useShortcut } from '@finpress/keyboard-shortcuts';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as interfaceStore } from '@finpress/interface';
+import { store as blockEditorStore } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { title as icon } from '@wordpress/icons';
+import { title as icon } from '@finpress/icons';
 
 /**
  * Internal dependencies

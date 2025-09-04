@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { addFilter } from '@wordpress/hooks';
-import { withSelect } from '@wordpress/data';
+import { addFilter } from '@finpress/hooks';
+import { withSelect } from '@finpress/data';
 
 /**
  * Internal dependencies

@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { chevronRightSmall, chevronLeftSmall, Icon } from '@wordpress/icons';
-import { isRTL } from '@wordpress/i18n';
+import { chevronRightSmall, chevronLeftSmall, Icon } from '@finpress/icons';
+import { isRTL } from '@finpress/i18n';
 
 export default function ListViewExpander( { onClick } ) {
 	return (

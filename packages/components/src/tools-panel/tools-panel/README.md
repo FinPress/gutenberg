@@ -57,15 +57,15 @@ both columns.
 import styled from '@emotion/styled';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	BoxControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalUnitControl as UnitControl,
-} from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { __ } from '@finpress/i18n';
 
 const PanelDescription = styled.div`
 	grid-column: span 2;

@@ -1,14 +1,14 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo } from '@finpress/element';
 import {
 	transformStyles,
 	store as blockEditorStore,
-} from '@wordpress/block-editor';
-import { SandBox } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/block-editor';
+import { SandBox } from '@finpress/components';
+import { useSelect } from '@finpress/data';
+import { __ } from '@finpress/i18n';
 
 // Default styles used to unset some of the styles
 // that might be inherited from the editor style.

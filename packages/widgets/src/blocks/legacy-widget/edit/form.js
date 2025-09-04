@@ -3,14 +3,14 @@
  */
 import clsx from 'clsx';
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useRef, useEffect } from '@wordpress/element';
-import { useDispatch } from '@wordpress/data';
-import { store as noticesStore } from '@wordpress/notices';
-import { __, sprintf } from '@wordpress/i18n';
-import { Popover } from '@wordpress/components';
-import { useViewportMatch } from '@wordpress/compose';
+import { useRef, useEffect } from '@finpress/element';
+import { useDispatch } from '@finpress/data';
+import { store as noticesStore } from '@finpress/notices';
+import { __, sprintf } from '@finpress/i18n';
+import { Popover } from '@finpress/components';
+import { useViewportMatch } from '@finpress/compose';
 /**
  * Internal dependencies
  */

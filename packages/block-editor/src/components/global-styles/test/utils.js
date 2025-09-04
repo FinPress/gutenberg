@@ -85,12 +85,12 @@ describe( 'editor utils', () => {
 			'wp:theme-file': [
 				{
 					name: 'file:./assets/image.jpg',
-					href: 'https://wordpress.org/assets/image.jpg',
+					href: 'https://finpress.org/assets/image.jpg',
 					target: 'styles.background.backgroundImage.url',
 				},
 				{
 					name: 'file:./assets/other/image.jpg',
-					href: 'https://wordpress.org/assets/other/image.jpg',
+					href: 'https://finpress.org/assets/other/image.jpg',
 					target: "styles.blocks.['core/group'].background.backgroundImage.url",
 				},
 			],
@@ -414,7 +414,7 @@ describe( 'editor utils', () => {
 		it.each( [
 			[
 				'file:./assets/image.jpg',
-				'https://wordpress.org/assets/image.jpg',
+				'https://finpress.org/assets/image.jpg',
 				'Should return absolute URL if found in themeFileURIs',
 			],
 			[
@@ -423,8 +423,8 @@ describe( 'editor utils', () => {
 				'Should return value if not found in themeFileURIs',
 			],
 			[
-				'https://wordpress.org/assets/image.jpg',
-				'https://wordpress.org/assets/image.jpg',
+				'https://finpress.org/assets/image.jpg',
+				'https://finpress.org/assets/image.jpg',
 				'Should not match absolute URLs',
 			],
 		] )(
@@ -477,7 +477,7 @@ describe( 'editor utils', () => {
 			[ 0, 0, themeJson ],
 			[
 				{ ref: 'styles.background.backgroundImage' },
-				{ url: 'https://wordpress.org/assets/image.jpg' },
+				{ url: 'https://finpress.org/assets/image.jpg' },
 				themeJson,
 			],
 			[

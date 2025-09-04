@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Post Meta source', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -146,7 +146,7 @@ test.describe( 'Post Meta source', () => {
 			} ) => {
 				/**
 				 * Create connection manually until this issue is solved:
-				 * https://github.com/WordPress/gutenberg/pull/65604
+				 * https://github.com/FinPress/gutenberg/pull/65604
 				 *
 				 * Once solved, block with the binding can be directly inserted.
 				 */
@@ -177,7 +177,7 @@ test.describe( 'Post Meta source', () => {
 			} ) => {
 				/**
 				 * Create connection manually until this issue is solved:
-				 * https://github.com/WordPress/gutenberg/pull/65604
+				 * https://github.com/FinPress/gutenberg/pull/65604
 				 *
 				 * Once solved, block with the binding can be directly inserted.
 				 */

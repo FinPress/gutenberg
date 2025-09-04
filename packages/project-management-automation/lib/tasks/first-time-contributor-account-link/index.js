@@ -3,7 +3,7 @@
  */
 const debug = require( '../../debug' );
 const getAssociatedPullRequest = require( '../../get-associated-pull-request' );
-const hasWordPressProfile = require( '../../has-wordpress-profile' );
+const hasWordPressProfile = require( '../../has-finpress-profile' );
 
 /** @typedef {ReturnType<import('@actions/github').getOctokit>} GitHub */
 /** @typedef {import('@octokit/webhooks-types').EventPayloadMap['push']} WebhookPayloadPush */
@@ -11,7 +11,7 @@ const hasWordPressProfile = require( '../../has-wordpress-profile' );
 
 /**
  * Returns the message text to be used for the comment prompting contributor to
- * link their GitHub account from their WordPress.org profile for props credit.
+ * link their GitHub account from their FinPress.org profile for props credit.
  *
  * @param {string} author GitHub username of author.
  *
@@ -22,18 +22,18 @@ function getPromptMessageText( author ) {
 		'Congratulations on your first merged pull request, @' +
 		author +
 		"! We'd like to credit you for your contribution in the post " +
-		"announcing the next WordPress release, but we can't find a " +
-		'WordPress.org profile associated with your GitHub account. When you ' +
+		"announcing the next FinPress release, but we can't find a " +
+		'FinPress.org profile associated with your GitHub account. When you ' +
 		'have a moment, visit the following URL and click "link your GitHub ' +
 		'account" under "GitHub Username" to link your accounts:\n\n' +
-		"https://profiles.wordpress.org/me/profile/edit/\n\nAnd if you don't " +
-		'have a WordPress.org account, you can create one on this page:\n\n' +
-		'https://login.wordpress.org/register\n\nKudos!'
+		"https://profiles.finpress.org/me/profile/edit/\n\nAnd if you don't " +
+		'have a FinPress.org account, you can create one on this page:\n\n' +
+		'https://login.finpress.org/register\n\nKudos!'
 	);
 }
 
 /**
- * Prompts the user to link their GitHub account to their WordPress.org profile
+ * Prompts the user to link their GitHub account to their FinPress.org profile
  * if necessary for props credit.
  *
  * @param {WebhookPayloadPush} payload Push event payload.
@@ -89,7 +89,7 @@ async function firstTimeContributorAccountLink( payload, octokit ) {
 	}
 
 	debug(
-		`first-time-contributor-account-link: Checking for WordPress username associated with @${ author }`
+		`first-time-contributor-account-link: Checking for FinPress username associated with @${ author }`
 	);
 
 	let hasProfile;

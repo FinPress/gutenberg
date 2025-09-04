@@ -1,20 +1,20 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useDispatch, useSelect } from '@wordpress/data';
-import { store as blockEditorStore } from '@wordpress/block-editor';
-import { MenuItem } from '@wordpress/components';
-import { createBlock } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
-import { store as noticesStore } from '@wordpress/notices';
-import { symbolFilled } from '@wordpress/icons';
-import { store as coreStore } from '@wordpress/core-data';
+import { useDispatch, useSelect } from '@finpress/data';
+import { store as blockEditorStore } from '@finpress/block-editor';
+import { MenuItem } from '@finpress/components';
+import { createBlock } from '@finpress/blocks';
+import { __ } from '@finpress/i18n';
+import { useState } from '@finpress/element';
+import { store as noticesStore } from '@finpress/notices';
+import { symbolFilled } from '@finpress/icons';
+import { store as coreStore } from '@finpress/core-data';
 
 /**
  * Internal dependencies
  */
-import { CreateTemplatePartModal } from '@wordpress/fields';
+import { CreateTemplatePartModal } from '@finpress/fields';
 
 export default function ConvertToTemplatePart( { clientIds, blocks } ) {
 	const [ isModalOpen, setIsModalOpen ] = useState( false );

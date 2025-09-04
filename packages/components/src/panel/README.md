@@ -2,7 +2,7 @@
 
 Panels expand and collapse multiple sections of content.
 
-![](https://make.wordpress.org/design/files/2019/03/panel.png)
+![](https://make.finpress.org/design/files/2019/03/panel.png)
 
 ## Design guidelines
 
@@ -10,7 +10,7 @@ Panels expand and collapse multiple sections of content.
 
 A Panel is a single section of content that can be expanded or collapsed as needed.
 
-![Panel anatomy](https://make.wordpress.org/design/files/2019/03/panel-anatomy.png)
+![Panel anatomy](https://make.finpress.org/design/files/2019/03/panel-anatomy.png)
 
 1. Panel
 2. Body
@@ -40,7 +40,7 @@ Consider an alternative component when:
 
 Show and hide details of existing panel items by expanding and collapsing list content vertically.
 
-![](https://make.wordpress.org/design/files/2019/03/panel-expand.gif)
+![](https://make.finpress.org/design/files/2019/03/panel-expand.gif)
 
 Collapsible panels are indicated with a caret icon that is flipped when expanded. Carets are preferable over a plus or arrow icon, because a plus indicates addition, and arrows are closely related to navigation.
 
@@ -53,8 +53,8 @@ The `Panel` creates a container with a header that can take collapsible `PanelBo
 ### Usage
 
 ```jsx
-import { Panel, PanelBody, PanelRow } from '@wordpress/components';
-import { more } from '@wordpress/icons';
+import { Panel, PanelBody, PanelRow } from '@finpress/components';
+import { more } from '@finpress/icons';
 
 const MyPanel = () => (
 	<Panel header="My Panel">

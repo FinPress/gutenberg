@@ -1,12 +1,12 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@finpress/i18n';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RichTextToolbarButton } from '@wordpress/block-editor';
+import { RichTextToolbarButton } from '@finpress/block-editor';
 import {
 	TextControl,
 	SelectControl,
@@ -14,10 +14,10 @@ import {
 	Popover,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import { applyFormat, removeFormat, useAnchor } from '@wordpress/rich-text';
-import { language as languageIcon } from '@wordpress/icons';
+} from '@finpress/components';
+import { useState } from '@finpress/element';
+import { applyFormat, removeFormat, useAnchor } from '@finpress/rich-text';
+import { language as languageIcon } from '@finpress/icons';
 
 const name = 'core/language';
 const title = __( 'Language' );

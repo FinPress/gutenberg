@@ -9,7 +9,7 @@ Supports two modes: determinate and indeterminate. A progress bar is determinate
 Basic usage:
 
 ```jsx
-import { ProgressBar } from '@wordpress/components';
+import { ProgressBar } from '@finpress/components';
 
 const MyLoadingComponent = () => {
 	return <ProgressBar />;
@@ -19,7 +19,7 @@ const MyLoadingComponent = () => {
 You can also make it determinate by passing a `value` (from 0 to 100) representing the progress:
 
 ```jsx
-import { ProgressBar } from '@wordpress/components';
+import { ProgressBar } from '@finpress/components';
 
 const MyLoadingComponent = ( { progress } ) => {
 	return <ProgressBar value={ progress } />;
@@ -35,7 +35,7 @@ You can customize its appearance by passing a custom CSS class name to `classNam
 ```
 
 ```jsx
-import { ProgressBar } from '@wordpress/components';
+import { ProgressBar } from '@finpress/components';
 
 const MyLoadingComponent = () => {
 	return <ProgressBar className="my-custom-progress-bar" />;

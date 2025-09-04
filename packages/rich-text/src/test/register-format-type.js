@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { dispatch, select } from '@wordpress/data';
+import { dispatch, select } from '@finpress/data';
 
 /**
  * Internal dependencies

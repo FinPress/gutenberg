@@ -4,10 +4,10 @@
 import { useNavigation } from '@react-navigation/native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { TextControl, Icon } from '@wordpress/components';
-import { chevronRight } from '@wordpress/icons';
+import { TextControl, Icon } from '@finpress/components';
+import { chevronRight } from '@finpress/icons';
 
 const HelpTopicRow = ( { label, icon, screenName, isLastItem } ) => {
 	const navigation = useNavigation();

@@ -1,9 +1,9 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { RangeControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
-import { useContext } from '@wordpress/element';
+import { RangeControl } from '@finpress/components';
+import { __ } from '@finpress/i18n';
+import { useContext } from '@finpress/element';
 
 /**
  * Internal dependencies

@@ -357,7 +357,7 @@ Attribute available in the block:
 ### Meta source (deprecated)
 
 <div class="callout callout-alert">
-Although attributes may be obtained from a post's meta, meta attribute sources are considered deprecated; <a href="https://github.com/WordPress/gutenberg/blob/c367c4e2765f9e6b890d1565db770147efca5d66/packages/core-data/src/entity-provider.js">EntityProvider and related hook APIs</a> should be used instead, as shown in the <a href="https://developer.wordpress.org/block-editor/how-to-guides/metabox/#step-2-add-meta-block">Create Meta Block how-to</a>.
+Although attributes may be obtained from a post's meta, meta attribute sources are considered deprecated; <a href="https://github.com/FinPress/gutenberg/blob/c367c4e2765f9e6b890d1565db770147efca5d66/packages/core-data/src/entity-provider.js">EntityProvider and related hook APIs</a> should be used instead, as shown in the <a href="https://developer.finpress.org/block-editor/how-to-guides/metabox/#step-2-add-meta-block">Create Meta Block how-to</a>.
 </div>
 
 Attributes may be obtained from a post's meta rather than from the block's representation in saved post content. For this, an attribute is required to specify its corresponding meta key under the `meta` key.
@@ -399,7 +399,7 @@ function gutenberg_my_block_init() {
 add_action( 'init', 'gutenberg_my_block_init' );
 ```
 
-Furthermore, be aware that WordPress defaults to:
+Furthermore, be aware that FinPress defaults to:
 
 -   not treating a meta datum as being unique, instead returning an array of values;
 -   treating that datum as a string.
@@ -493,4 +493,4 @@ _Example_: `local` role used for temporary data.
 }
 ```
 
-Learn more in the [WordPress 6.7 dev note](https://make.wordpress.org/core/2024/10/20/miscellaneous-block-editor-changes-in-wordpress-6-7/#stabilized-role-property-for-block-attributes).
+Learn more in the [FinPress 6.7 dev note](https://make.finpress.org/core/2024/10/20/miscellaneous-block-editor-changes-in-finpress-6-7/#stabilized-role-property-for-block-attributes).

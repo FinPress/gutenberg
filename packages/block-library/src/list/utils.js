@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { createBlock, rawHandler } from '@wordpress/blocks';
+import { createBlock, rawHandler } from '@finpress/blocks';
 
 const LIST_STYLES = {
 	A: 'upper-alpha',

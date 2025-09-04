@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, _x } from '@wordpress/i18n';
-import { group, row, stack, grid } from '@wordpress/icons';
+import { __, _x } from '@finpress/i18n';
+import { group, row, stack, grid } from '@finpress/icons';
 
 const example = {
 	innerBlocks: [

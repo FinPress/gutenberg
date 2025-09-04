@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component, forwardRef } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+import { Component, forwardRef } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies

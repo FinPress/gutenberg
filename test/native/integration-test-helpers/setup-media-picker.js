@@ -4,9 +4,9 @@
 import { act } from '@testing-library/react-native';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { requestMediaPicker } from '@wordpress/react-native-bridge';
+import { requestMediaPicker } from '@finpress/react-native-bridge';
 
 /**
  *

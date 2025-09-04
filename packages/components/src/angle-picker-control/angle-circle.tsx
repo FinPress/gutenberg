@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEffect, useRef } from '@wordpress/element';
-import { __experimentalUseDragging as useDragging } from '@wordpress/compose';
+import { useEffect, useRef } from '@finpress/element';
+import { __experimentalUseDragging as useDragging } from '@finpress/compose';
 
 /**
  * Internal dependencies

@@ -8,11 +8,11 @@ import a11yPlugin from 'colord/plugins/a11y';
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useInstanceId } from '@wordpress/compose';
-import { __, sprintf } from '@wordpress/i18n';
-import { useCallback, useMemo, useState, forwardRef } from '@wordpress/element';
+import { useInstanceId } from '@finpress/compose';
+import { __, sprintf } from '@finpress/i18n';
+import { useCallback, useMemo, useState, forwardRef } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -344,8 +344,8 @@ function UnforwardedColorPalette(
  * Allows the user to pick a color from a list of pre-defined color entries.
  *
  * ```jsx
- * import { ColorPalette } from '@wordpress/components';
- * import { useState } from '@wordpress/element';
+ * import { ColorPalette } from '@finpress/components';
+ * import { useState } from '@finpress/element';
  *
  * const MyColorPalette = () => {
  *   const [ color, setColor ] = useState ( '#f00' )

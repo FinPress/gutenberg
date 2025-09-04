@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useEntityRecord } from '@wordpress/core-data';
+import { useEntityRecord } from '@finpress/core-data';
 
 function Media( { id, size = [ 'large', 'medium', 'thumbnail' ], ...props } ) {
 	const { record: media } = useEntityRecord( 'postType', 'attachment', id );

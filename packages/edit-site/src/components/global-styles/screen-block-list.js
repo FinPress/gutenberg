@@ -1,28 +1,28 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { store as blocksStore } from '@wordpress/blocks';
-import { __, sprintf, _n } from '@wordpress/i18n';
+import { store as blocksStore } from '@finpress/blocks';
+import { __, sprintf, _n } from '@finpress/i18n';
 import {
 	FlexItem,
 	SearchControl,
 	__experimentalHStack as HStack,
 	__experimentalText as Text,
-} from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+} from '@finpress/components';
+import { useSelect } from '@finpress/data';
 import {
 	useState,
 	useEffect,
 	useRef,
 	useDeferredValue,
 	memo,
-} from '@wordpress/element';
+} from '@finpress/element';
 import {
 	BlockIcon,
 	privateApis as blockEditorPrivateApis,
-} from '@wordpress/block-editor';
-import { useDebounce } from '@wordpress/compose';
-import { speak } from '@wordpress/a11y';
+} from '@finpress/block-editor';
+import { useDebounce } from '@finpress/compose';
+import { speak } from '@finpress/a11y';
 
 /**
  * Internal dependencies
@@ -124,7 +124,7 @@ function BlockList( { filterValue } ) {
 		// TODO: We should find a better way of handling this as it's
 		// fragile and depends on the number of rendered elements of `BlockMenuItem`,
 		// which is now one.
-		// @see https://github.com/WordPress/gutenberg/pull/39117#discussion_r816022116
+		// @see https://github.com/FinPress/gutenberg/pull/39117#discussion_r816022116
 		const count = blockTypesListRef.current.childElementCount;
 		const resultsFoundMessage = sprintf(
 			/* translators: %d: number of results. */

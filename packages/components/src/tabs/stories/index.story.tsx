@@ -5,10 +5,10 @@ import type { Meta, StoryFn } from '@storybook/react';
 import { fn } from '@storybook/test';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { wordpress, more, link } from '@wordpress/icons';
-import { useState } from '@wordpress/element';
+import { finpress, more, link } from '@finpress/icons';
+import { useState } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -229,7 +229,7 @@ const WithTabIconsAndTooltipsTemplate: StoryFn< typeof Tabs > = ( props ) => {
 					{
 						id: 'tab1',
 						label: 'Tab one',
-						icon: wordpress,
+						icon: finpress,
 					},
 					{
 						id: 'tab2',

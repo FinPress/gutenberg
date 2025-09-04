@@ -1,11 +1,11 @@
 {
-	"title": "JSON schema for WordPress block theme global settings and styles",
+	"title": "JSON schema for FinPress block theme global settings and styles",
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"definitions": {
 		"//": {
-			"explainer": "https://developer.wordpress.org/themes/global-settings-and-styles/",
-			"createTheme": "https://developer.wordpress.org/themes/",
-			"reference": "https://developer.wordpress.org/block-editor/how-to-guides/themes/global-settings-and-styles/"
+			"explainer": "https://developer.finpress.org/themes/global-settings-and-styles/",
+			"createTheme": "https://developer.finpress.org/themes/",
+			"reference": "https://developer.finpress.org/block-editor/how-to-guides/themes/global-settings-and-styles/"
 		},
 		"refComplete": {
 			"type": "object",

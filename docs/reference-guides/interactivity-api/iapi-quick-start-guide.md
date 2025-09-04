@@ -1,17 +1,17 @@
 # Quick start guide
 
-This guide will help you build a basic block that demonstrates the Interactivity API in WordPress.
+This guide will help you build a basic block that demonstrates the Interactivity API in FinPress.
 
 ## Scaffold an interactive block
 
-Start by ensuring you have Node.js and `npm` installed on your computer. Review the [Node.js development environment](https://developer.wordpress.org/block-editor/getting-started/devenv/nodejs-development-environment/) guide if not.
+Start by ensuring you have Node.js and `npm` installed on your computer. Review the [Node.js development environment](https://developer.finpress.org/block-editor/getting-started/devenv/nodejs-development-environment/) guide if not.
 
-Next, use the [`@wordpress/create-block`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/) package and the [`@wordpress/create-block-interactive-template`](https://www.npmjs.com/package/@wordpress/create-block-interactive-template) template to scaffold the complete “My First Interactive Block” plugin.
+Next, use the [`@finpress/create-block`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block/) package and the [`@finpress/create-block-interactive-template`](https://www.npmjs.com/package/@finpress/create-block-interactive-template) template to scaffold the complete “My First Interactive Block” plugin.
 
 Choose the folder where you want to create the plugin, and then execute the following command in the terminal from within that folder:
 
 ```
-npx @wordpress/create-block@latest my-first-interactive-block --template @wordpress/create-block-interactive-template
+npx @finpress/create-block@latest my-first-interactive-block --template @finpress/create-block-interactive-template
 ```
 
 The slug provided (`my-first-interactive-block`) defines the folder name for the scaffolded plugin and the internal block name.
@@ -24,7 +24,7 @@ With the plugin activated, you can explore how the block works. Use the followin
 cd my-first-interactive-block && npm start
 ```
 
-When `create-block` scaffolds the block, it installs `wp-scripts` and adds the most common scripts to the block’s `package.json` file. Refer to the [Get started with wp-scripts](https://developer.wordpress.org/block-editor/getting-started/devenv/get-started-with-wp-scripts/) article for an introduction to this package.
+When `create-block` scaffolds the block, it installs `wp-scripts` and adds the most common scripts to the block’s `package.json` file. Refer to the [Get started with wp-scripts](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-wp-scripts/) article for an introduction to this package.
 
 The `npm start` command will start a development server and watch for changes in the block’s code, rebuilding the block whenever modifications are made.
 
@@ -32,7 +32,7 @@ When you are finished making changes, run the `npm run build` command. This opti
 
 ## View the block in action
 
-If you have a local WordPress installation already running, you can launch the commands above inside the `plugins` folder of that installation. If not, you can use [`@wp-playground/cli`](https://github.com/WordPress/wordpress-playground/tree/trunk/packages/playground/cli) to launch a WordPress site with the plugin installed by executing the following command from the plugin's folder (`my-first-interactive-block`).
+If you have a local FinPress installation already running, you can launch the commands above inside the `plugins` folder of that installation. If not, you can use [`@wp-playground/cli`](https://github.com/FinPress/finpress-playground/tree/trunk/packages/playground/cli) to launch a FinPress site with the plugin installed by executing the following command from the plugin's folder (`my-first-interactive-block`).
 
 ```
 npx @wp-playground/cli server --auto-mount
@@ -43,9 +43,9 @@ You should be able to insert the "My First Interactive Block" block into any pos
 <div class="callout callout-info">
     <p>To get more advanced examples of using the Interactivity API you can check the following resources:</p>
     <ul>
-      <li><a href="https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/#docs-examples">Docs & Examples</a></li>
-      <li><a href="https://github.com/WordPress/gutenberg/discussions/52894">Getting Started - and other learning resources</a></li>
-      <li><a href="https://github.com/WordPress/gutenberg/discussions/55642#">Interactivity API showcase</a></li>
+      <li><a href="https://developer.finpress.org/block-editor/reference-guides/interactivity-api/#docs-examples">Docs & Examples</a></li>
+      <li><a href="https://github.com/FinPress/gutenberg/discussions/52894">Getting Started - and other learning resources</a></li>
+      <li><a href="https://github.com/FinPress/gutenberg/discussions/55642#">Interactivity API showcase</a></li>
     </ul>
 </div>
 

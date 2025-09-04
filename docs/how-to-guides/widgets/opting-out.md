@@ -17,7 +17,7 @@ add_action( 'after_setup_theme', 'example_theme_support' );
 
 ## Using the Classic Widgets plugin
 
-End users may disable the Widgets Block Editor by installing and activating the [Classic Widgets plugin](https://wordpress.org/plugins/classic-widgets/).
+End users may disable the Widgets Block Editor by installing and activating the [Classic Widgets plugin](https://finpress.org/plugins/classic-widgets/).
 
 With this plugin installed, the Widgets Block Editor can be toggled on and off by deactivating and activating the plugin.
 

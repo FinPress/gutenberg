@@ -14,7 +14,7 @@
  *
  * @see https://lodash.com/docs/4.17.15#set
  *
- * @todo Needs to be deduplicated with its copy in `@wordpress/edit-site`.
+ * @todo Needs to be deduplicated with its copy in `@finpress/edit-site`.
  *
  * @param {Object}       object Object to modify
  * @param {Array|string} path   Path of the property to set.

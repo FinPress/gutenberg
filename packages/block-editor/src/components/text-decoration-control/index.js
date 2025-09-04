@@ -4,14 +4,14 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { reset, formatStrikethrough, formatUnderline } from '@wordpress/icons';
-import { __ } from '@wordpress/i18n';
+import { reset, formatStrikethrough, formatUnderline } from '@finpress/icons';
+import { __ } from '@finpress/i18n';
 import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
-} from '@wordpress/components';
+} from '@finpress/components';
 
 const TEXT_DECORATIONS = [
 	{

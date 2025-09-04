@@ -5,15 +5,15 @@ and in this part we will add a *Delete* feature to our app.
 
 Here's a glimpse of what we're going to build:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/delete-button.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/delete-button.png)
 
 ### Step 1: Add a _Delete_ button
 
 Let's start by creating the `DeletePageButton` component and updating the user interface of our `PagesList` component:
 
 ```js
-import { Button } from '@wordpress/components';
-import { decodeEntities } from '@wordpress/html-entities';
+import { Button } from '@finpress/components';
+import { decodeEntities } from '@finpress/html-entities';
 
 const DeletePageButton = () => (
 	<Button variant="primary">
@@ -58,11 +58,11 @@ function PagesList( { hasResolved, pages } ) {
 
 This is what the PagesList should look like now:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/delete-button.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/delete-button.png)
 
 ### Step 2: Wire the button to a delete action
 
-In Gutenberg data, we delete entity records from the WordPress REST API using the `deleteEntityRecord` action. It sends the request, processes the result, and updates the cached data in the Redux state.
+In Gutenberg data, we delete entity records from the FinPress REST API using the `deleteEntityRecord` action. It sends the request, processes the result, and updates the cached data in the Redux state.
 
 Here's how you can try deleting entity records in your browser's dev tools:
 
@@ -122,7 +122,7 @@ const DeletePageButton = ({ pageId }) => {
 
 Here's what it looks like in action:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/deleting-in-progress.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/deleting-in-progress.png)
 
 ### Step 4: Handle errors
 
@@ -162,17 +162,17 @@ const DeletePageButton = ({ pageId }) => {
 }
 ```
 
-The `error` object comes from the `@wordpress/api-fetch` and contains information about the error. It has the following properties:
+The `error` object comes from the `@finpress/api-fetch` and contains information about the error. It has the following properties:
 
 * `message` – a human-readable error message such as `Invalid post ID`.
-* `code` – a string-based error code such as `rest_post_invalid_id`. To learn about all possible error codes you'd need to refer to the [`/v2/pages` endpoint's source code](https://github.com/WordPress/wordpress-develop/blob/2648a5f984b8abf06872151898e3a61d3458a628/src/wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php#L226-L230).
+* `code` – a string-based error code such as `rest_post_invalid_id`. To learn about all possible error codes you'd need to refer to the [`/v2/pages` endpoint's source code](https://github.com/FinPress/finpress-develop/blob/2648a5f984b8abf06872151898e3a61d3458a628/src/wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php#L226-L230).
 * `data` (optional) – error details, contains the `code` property containing the HTTP response code for the failed request.
 
 There are many ways to turn that object into an error message, but in this tutorial, we will display the `error.message`.
 
-WordPress has an established pattern of displaying status information using the `Snackbar` component. Here's what it looks like **in the Widgets editor**:
+FinPress has an established pattern of displaying status information using the `Snackbar` component. Here's what it looks like **in the Widgets editor**:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/snackbar-example.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/snackbar-example.png)
 
 Let's use the same type of notifications in our plugin! There are two parts to this:
 
@@ -183,17 +183,17 @@ Let's use the same type of notifications in our plugin! There are two parts to t
 
 Our application only knows how to display pages but does not know how to display notifications. Let's tell it!
 
-WordPress conveniently provides us with all the React components we need to render notifications. A [component called `Snackbar`](https://wordpress.github.io/gutenberg/?path=/story/components-snackbar--default) represents a single notification:
+FinPress conveniently provides us with all the React components we need to render notifications. A [component called `Snackbar`](https://finpress.github.io/gutenberg/?path=/story/components-snackbar--default) represents a single notification:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/snackbar.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/snackbar.png)
 
-We won't use `Snackbar` directly, though. We'll use the `SnackbarList` component, which can display multiple notices using smooth animations and automatically hide them after a few seconds. In fact, WordPress uses the same component used in the Widgets editor and other wp-admin pages!
+We won't use `Snackbar` directly, though. We'll use the `SnackbarList` component, which can display multiple notices using smooth animations and automatically hide them after a few seconds. In fact, FinPress uses the same component used in the Widgets editor and other wp-admin pages!
 
 Let's create our own `Notifications` components:
 
 ```js
-import { SnackbarList } from '@wordpress/components';
-import { store as noticesStore } from '@wordpress/notices';
+import { SnackbarList } from '@finpress/components';
+import { store as noticesStore } from '@finpress/notices';
 
 function Notifications() {
 	const notices = []; // We'll come back here in a second!
@@ -207,13 +207,13 @@ function Notifications() {
 }
 ```
 
-The basic structure is in place, but the list of notifications it renders is empty. How do we populate it? We'll lean on the same package as WordPress: [`@wordpress/notices`](https://github.com/WordPress/gutenberg/blob/895ca1f6a7d7e492974ea55f693aecbeb1d5bbe3/docs/reference-guides/data/data-core-notices.md).
+The basic structure is in place, but the list of notifications it renders is empty. How do we populate it? We'll lean on the same package as FinPress: [`@finpress/notices`](https://github.com/FinPress/gutenberg/blob/895ca1f6a7d7e492974ea55f693aecbeb1d5bbe3/docs/reference-guides/data/data-core-notices.md).
 
 Here's how:
 
 ```js
-import { SnackbarList } from '@wordpress/components';
-import { store as noticesStore } from '@wordpress/notices';
+import { SnackbarList } from '@finpress/components';
+import { store as noticesStore } from '@finpress/notices';
 
 function Notifications() {
 	const notices = useSelect(
@@ -243,7 +243,7 @@ function MyFirstApp() {
 }
 ```
 
-This tutorial is focused on managing the pages and won't discuss the above snippet in detail. If you're interested in the details of `@wordpress/notices`, the [handbook page](https://developer.wordpress.org/block-editor/reference-guides/data/data-core-notices/) is a good place to start.
+This tutorial is focused on managing the pages and won't discuss the above snippet in detail. If you're interested in the details of `@finpress/notices`, the [handbook page](https://developer.finpress.org/block-editor/reference-guides/data/data-core-notices/) is a good place to start.
 
 Now we're ready to tell the user about any errors that may have occurred.
 
@@ -253,7 +253,7 @@ With the SnackbarNotices component in place, we're ready to dispatch some notifi
 
 ```js
 import { useEffect } from 'react';
-import { store as noticesStore } from '@wordpress/notices';
+import { store as noticesStore } from '@finpress/notices';
 function DeletePageButton( { pageId } ) {
 	const { createSuccessNotice, createErrorNotice } = useDispatch( noticesStore );
 	// useSelect returns a list of selectors if you pass the store handle
@@ -292,13 +292,13 @@ function DeletePageButton( { pageId, onCancel, onSaveFinished } ) {
 
 Once you refresh the page and click any `Delete` button, you should see the following error message:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/snackbar-error.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/snackbar-error.png)
 
 Fantastic! We can now **remove the `pageId = pageId * 1000;` line.**
 
 Let's now try actually deleting a page. Here's what you should see after refreshing your browser and clicking the Delete button:
 
-![](https://raw.githubusercontent.com/WordPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/snackbar-success.png)
+![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/snackbar-success.png)
 
 And that's it!
 
@@ -308,8 +308,8 @@ All the pieces are in place, great! Here’s all the changes we've made in this 
 
 ```js
 import { useState, useEffect } from 'react';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { Button, Modal, TextControl } from '@wordpress/components';
+import { useSelect, useDispatch } from '@finpress/data';
+import { Button, Modal, TextControl } from '@finpress/components';
 
 function MyFirstApp() {
 	const [searchTerm, setSearchTerm] = useState( '' );
@@ -446,4 +446,4 @@ function DeletePageButton( { pageId } ) {
 ## What's next?
 
 * **Previous part:** [Building a *Create page form*](/docs/how-to-guides/data-basics/4-building-a-create-page-form.md)
-* (optional) Review the [finished app](https://github.com/WordPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository
+* (optional) Review the [finished app](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/data-basics-59c8f8) in the block-development-examples repository

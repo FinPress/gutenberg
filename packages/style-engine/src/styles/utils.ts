@@ -127,7 +127,7 @@ export function generateBoxRules(
 }
 
 /**
- * Returns a WordPress CSS custom var value from incoming style preset value,
+ * Returns a FinPress CSS custom var value from incoming style preset value,
  * if one is detected.
  *
  * The preset value is a string and follows the pattern `var:description|context|slug`.

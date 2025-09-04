@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	__experimentalItemGroup as ItemGroup,
@@ -8,11 +8,11 @@ import {
 	__experimentalZStack as ZStack,
 	__experimentalVStack as VStack,
 	ColorIndicator,
-} from '@wordpress/components';
-import { isRTL, __ } from '@wordpress/i18n';
-import { Icon, chevronLeft, chevronRight } from '@wordpress/icons';
-import { useMemo } from '@wordpress/element';
-import { privateApis as blockEditorPrivateApis } from '@wordpress/block-editor';
+} from '@finpress/components';
+import { isRTL, __ } from '@finpress/i18n';
+import { Icon, chevronLeft, chevronRight } from '@finpress/icons';
+import { useMemo } from '@finpress/element';
+import { privateApis as blockEditorPrivateApis } from '@finpress/block-editor';
 
 /**
  * Internal dependencies

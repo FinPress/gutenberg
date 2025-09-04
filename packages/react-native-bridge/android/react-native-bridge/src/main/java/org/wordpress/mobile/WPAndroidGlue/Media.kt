@@ -1,12 +1,12 @@
-package org.wordpress.mobile.WPAndroidGlue
+package org.finpress.mobile.WPAndroidGlue
 
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeMap
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaType
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaType.IMAGE
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaType.OTHER
-import org.wordpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaType.VIDEO
-import org.wordpress.mobile.ReactNativeGutenbergBridge.RNMedia
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaType
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaType.IMAGE
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaType.OTHER
+import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.MediaType.VIDEO
+import org.finpress.mobile.ReactNativeGutenbergBridge.RNMedia
 import java.util.Locale
 
 data class Media(

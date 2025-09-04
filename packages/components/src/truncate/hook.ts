@@ -4,9 +4,9 @@
 import { css } from '@emotion/react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo } from '@finpress/element';
 
 /**
  * Internal dependencies
@@ -55,7 +55,7 @@ export default function useTruncate(
 	const classes = useMemo( () => {
 		// The `word-break: break-all` property first makes sure a text line
 		// breaks even when it contains 'unbreakable' content such as long URLs.
-		// See https://github.com/WordPress/gutenberg/issues/60860.
+		// See https://github.com/FinPress/gutenberg/issues/60860.
 		const truncateLines = css`
 			${ numberOfLines === 1 ? 'word-break: break-all;' : '' }
 			-webkit-box-orient: vertical;

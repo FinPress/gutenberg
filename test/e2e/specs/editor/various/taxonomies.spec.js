@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 function generateRandomNumber() {
 	return Math.round( 1 + Math.random() * ( Number.MAX_SAFE_INTEGER - 1 ) );
@@ -95,7 +95,7 @@ test.describe( 'Taxonomies', () => {
 		await expect( tags ).toContainText( tagName );
 	} );
 
-	// See: https://github.com/WordPress/gutenberg/pull/21693.
+	// See: https://github.com/FinPress/gutenberg/pull/21693.
 	test( `should be able to create a new tag with ' on the name`, async ( {
 		editor,
 		page,

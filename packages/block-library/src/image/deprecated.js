@@ -4,20 +4,20 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	RichText,
 	useBlockProps,
 	__experimentalGetElementClassName,
 	__experimentalGetBorderClassesAndStyles as getBorderClassesAndStyles,
-} from '@wordpress/block-editor';
+} from '@finpress/block-editor';
 
 /**
  * Deprecation for adding the `wp-image-${id}` class to the image block for
  * responsive images.
  *
- * @see https://github.com/WordPress/gutenberg/pull/4898
+ * @see https://github.com/FinPress/gutenberg/pull/4898
  */
 const v1 = {
 	attributes: {
@@ -89,7 +89,7 @@ const v1 = {
  * Deprecation for adding the `is-resized` class to the image block to fix
  * captions on resized images.
  *
- * @see https://github.com/WordPress/gutenberg/pull/6496
+ * @see https://github.com/FinPress/gutenberg/pull/6496
  */
 const v2 = {
 	attributes: {
@@ -158,7 +158,7 @@ const v2 = {
 /**
  * Deprecation for image floats including a wrapping div.
  *
- * @see https://github.com/WordPress/gutenberg/pull/7721
+ * @see https://github.com/FinPress/gutenberg/pull/7721
  */
 const v3 = {
 	attributes: {
@@ -236,7 +236,7 @@ const v3 = {
 /**
  * Deprecation for removing the outer div wrapper around aligned images.
  *
- * @see https://github.com/WordPress/gutenberg/pull/38657
+ * @see https://github.com/FinPress/gutenberg/pull/38657
  */
 const v4 = {
 	attributes: {
@@ -390,7 +390,7 @@ const v4 = {
  * and styling when an image within a gallery has a custom border or
  * rounded corners.
  *
- * @see https://github.com/WordPress/gutenberg/pull/31366
+ * @see https://github.com/FinPress/gutenberg/pull/31366
  */
 const v5 = {
 	attributes: {
@@ -547,7 +547,7 @@ const v5 = {
 /**
  * Deprecation for adding width and height as style rules on the inner img.
  *
- * @see https://github.com/WordPress/gutenberg/pull/31366
+ * @see https://github.com/FinPress/gutenberg/pull/31366
  */
 const v6 = {
 	attributes: {
@@ -750,7 +750,7 @@ const v6 = {
  * removing the width and height img element attributes which are not needed
  * as they get added by the TODO hook.
  *
- * @see https://github.com/WordPress/gutenberg/pull/53274
+ * @see https://github.com/FinPress/gutenberg/pull/53274
  */
 const v7 = {
 	attributes: {

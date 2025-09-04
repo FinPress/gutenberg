@@ -14,8 +14,8 @@ Optionally, you can provide a `fontFamilies` prop that overrides the predefined 
 
 ```jsx
 import { useState } from 'react';
-import { __experimentalFontFamilyControl as FontFamilyControl } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
+import { __experimentalFontFamilyControl as FontFamilyControl } from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
 
 // ...
 

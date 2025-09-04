@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { parse } from '@wordpress/blocks';
+import { parse } from '@finpress/blocks';
 
 /**
  * Internal dependencies

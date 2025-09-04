@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { ExternalLink, TextareaControl } from '@wordpress/components';
-import { useDispatch, useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
-import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@finpress/i18n';
+import { ExternalLink, TextareaControl } from '@finpress/components';
+import { useDispatch, useSelect } from '@finpress/data';
+import { useState } from '@finpress/element';
+import { decodeEntities } from '@finpress/html-entities';
 
 /**
  * Internal dependencies
@@ -79,7 +79,7 @@ export default function PostExcerpt( {
 					! shouldUseDescriptionLabel ? (
 						<ExternalLink
 							href={ __(
-								'https://wordpress.org/documentation/article/page-post-settings-sidebar/#excerpt'
+								'https://finpress.org/documentation/article/page-post-settings-sidebar/#excerpt'
 							) }
 						>
 							{ __( 'Learn more about manual excerpts' ) }

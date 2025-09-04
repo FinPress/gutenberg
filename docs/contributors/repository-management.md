@@ -24,36 +24,36 @@ Any issues that are irrelevant or not actionable should be closed, because they 
 
 ### Labels
 
-All issues should have [one or more labels](https://github.com/WordPress/gutenberg/labels).
+All issues should have [one or more labels](https://github.com/FinPress/gutenberg/labels).
 
 Workflow labels start with “Needs” and may be applied as needed. Ideally, each workflow label will have a group that follows it, such as the Accessibility Team for `Needs Accessibility Feedback`, the Testing Team for `Needs Testing`, etc.
 
-[Priority High](https://github.com/WordPress/gutenberg/labels/%5BPriority%5D%20High) and [Priority OMGWTFBBQ](https://github.com/WordPress/gutenberg/labels/%5BPriority%5D%20OMGWTFBBQ) issues should have an assignee and/or be in an active milestone.
+[Priority High](https://github.com/FinPress/gutenberg/labels/%5BPriority%5D%20High) and [Priority OMGWTFBBQ](https://github.com/FinPress/gutenberg/labels/%5BPriority%5D%20OMGWTFBBQ) issues should have an assignee and/or be in an active milestone.
 
 Help requests or 'how to' questions should be posted in a relevant support forum as a first step. If something might be a bug but it's not clear, the Support Team or a forum volunteer can help troubleshoot the case to help get all the right information needed for an effective bug report.
 
 Here are some labels you might commonly see:
 
--   [Good First Issue](https://github.com/WordPress/gutenberg/labels/Good%20First%20Issue) - Issues identified as good for new contributors to work on. Comment to note that you intend to work on the issue and reference the issue number in the pull request you submit.
--   [Good First Review](https://github.com/WordPress/gutenberg/labels/Good%20First%20Review) - Pull requests identified as good for new contributors who are interested in doing code reviews.
--   [Needs Accessibility Feedback](https://github.com/WordPress/gutenberg/labels/Needs%20Accessibility%20Feedback) - Changes that impact accessibility and need corresponding review (e.g. markup changes).
--   [Needs Design Feedback](https://github.com/WordPress/gutenberg/labels/Needs%20Design%20Feedback) - Changes that modify the design or user experience in some way and need sign-off.
--   [[Type] Bug](https://github.com/WordPress/gutenberg/labels/%5BType%5D%20Bug) - An existing feature is broken in some way.
--   [[Type] Enhancement](https://github.com/WordPress/gutenberg/labels/%5BType%5D%20Enhancement) - Gutenberg would be better with this improvement added.
--   [[Type] Plugin Interoperability](https://github.com/WordPress/gutenberg/labels/%5BType%5D%20Plugin%20Interoperability) - Documentation of a conflict between Gutenberg and a plugin or extension. The plugin author should be informed and provided documentation on how to address.
--   [[Status] Needs More Info](https://github.com/WordPress/gutenberg/labels/%5BStatus%5D%20Needs%20More%20Info) - The issue needs more information in order to be actionable and relevant. Typically this requires follow-up from the original reporter.
+-   [Good First Issue](https://github.com/FinPress/gutenberg/labels/Good%20First%20Issue) - Issues identified as good for new contributors to work on. Comment to note that you intend to work on the issue and reference the issue number in the pull request you submit.
+-   [Good First Review](https://github.com/FinPress/gutenberg/labels/Good%20First%20Review) - Pull requests identified as good for new contributors who are interested in doing code reviews.
+-   [Needs Accessibility Feedback](https://github.com/FinPress/gutenberg/labels/Needs%20Accessibility%20Feedback) - Changes that impact accessibility and need corresponding review (e.g. markup changes).
+-   [Needs Design Feedback](https://github.com/FinPress/gutenberg/labels/Needs%20Design%20Feedback) - Changes that modify the design or user experience in some way and need sign-off.
+-   [[Type] Bug](https://github.com/FinPress/gutenberg/labels/%5BType%5D%20Bug) - An existing feature is broken in some way.
+-   [[Type] Enhancement](https://github.com/FinPress/gutenberg/labels/%5BType%5D%20Enhancement) - Gutenberg would be better with this improvement added.
+-   [[Type] Plugin Interoperability](https://github.com/FinPress/gutenberg/labels/%5BType%5D%20Plugin%20Interoperability) - Documentation of a conflict between Gutenberg and a plugin or extension. The plugin author should be informed and provided documentation on how to address.
+-   [[Status] Needs More Info](https://github.com/FinPress/gutenberg/labels/%5BStatus%5D%20Needs%20More%20Info) - The issue needs more information in order to be actionable and relevant. Typically this requires follow-up from the original reporter.
 
-[Check out the label directory](https://github.com/WordPress/gutenberg/labels) for a listing of all labels.
+[Check out the label directory](https://github.com/FinPress/gutenberg/labels) for a listing of all labels.
 
 ### Milestones
 
-We put issues into [milestones](https://github.com/wordpress/gutenberg/milestones) to better categorize them. Issues are added to milestones starting with `WordPress` and pull requests are added to milestones ending in `(Gutenberg)`.
+We put issues into [milestones](https://github.com/finpress/gutenberg/milestones) to better categorize them. Issues are added to milestones starting with `FinPress` and pull requests are added to milestones ending in `(Gutenberg)`.
 
 Here are some milestones you might see:
 
--   [WordPress X.Y](https://github.com/WordPress/gutenberg/milestone/70): Tasks that should be done for future WordPress releases.
--   [X.Y (Gutenberg)](https://github.com/WordPress/gutenberg/milestone/85): PRs targeted for the Gutenberg Plugin X.Y release.
--   [Future](https://github.com/WordPress/gutenberg/milestone/35): this is something that is confirmed by everyone as a good thing but doesn’t fall into other criteria.
+-   [FinPress X.Y](https://github.com/FinPress/gutenberg/milestone/70): Tasks that should be done for future FinPress releases.
+-   [X.Y (Gutenberg)](https://github.com/FinPress/gutenberg/milestone/85): PRs targeted for the Gutenberg Plugin X.Y release.
+-   [Future](https://github.com/FinPress/gutenberg/milestone/35): this is something that is confirmed by everyone as a good thing but doesn’t fall into other criteria.
 
 ### Triaging issues
 
@@ -108,7 +108,7 @@ If you struggle with getting a review, see: [How To Get Your Pull Request Review
 
 ### Design review
 
-If your pull request impacts the design/UI, you need to label appropriately to alert design. To request a design review, add the [Needs Design Feedback](https://github.com/WordPress/gutenberg/labels/Needs%20Design%20Feedback) label to your PR. If there are any PRs that require an update to the design/UI, please use the [Figma Library Update](https://github.com/WordPress/gutenberg/labels/Figma%20Library%20Update) label.
+If your pull request impacts the design/UI, you need to label appropriately to alert design. To request a design review, add the [Needs Design Feedback](https://github.com/FinPress/gutenberg/labels/Needs%20Design%20Feedback) label to your PR. If there are any PRs that require an update to the design/UI, please use the [Figma Library Update](https://github.com/FinPress/gutenberg/labels/Figma%20Library%20Update) label.
 
 As a guide, changes that should be reviewed:
 
@@ -128,9 +128,9 @@ A pull request can generally be merged once it is:
 -   Reviewed by someone other than the original author.
 -   [Rebased](/docs/contributors/code/git-workflow.md#keeping-your-branch-up-to-date) onto the latest version of the `trunk` branch.
 
-The final pull request merge decision is made by the **@wordpress/gutenberg-core** team.
+The final pull request merge decision is made by the **@finpress/gutenberg-core** team.
 
-All members of the WordPress organization on GitHub have the ability to review and merge pull requests. If you have reviewed a PR and are confident in the code, approve the pull request and comment pinging **@wordpress/gutenberg-core** or a specific core member who has been involved in the PR. Once they confirm there are no objections, you are free to merge the PR into trunk.
+All members of the FinPress organization on GitHub have the ability to review and merge pull requests. If you have reviewed a PR and are confident in the code, approve the pull request and comment pinging **@finpress/gutenberg-core** or a specific core member who has been involved in the PR. Once they confirm there are no objections, you are free to merge the PR into trunk.
 
 Most pull requests will be automatically assigned a release milestone, but please make sure your merged pull request was assigned one. Doing so creates the historical legacy of what code landed when, and makes it possible for all project contributors (even non-technical ones) to access this information.
 
@@ -156,12 +156,12 @@ If you’d like a template to follow:
 
 Two GitHub teams are used in the project.
 
--   [Gutenberg Core](https://github.com/orgs/WordPress/teams/gutenberg-core): A team composed of people that are actively involved in the project: attending meetings regularly, participating in triage sessions, performing reviews regularly, working on features and bug fixes and performing plugin and npm releases.
+-   [Gutenberg Core](https://github.com/orgs/FinPress/teams/gutenberg-core): A team composed of people that are actively involved in the project: attending meetings regularly, participating in triage sessions, performing reviews regularly, working on features and bug fixes and performing plugin and npm releases.
 
--   [Gutenberg](https://github.com/orgs/WordPress/teams/gutenberg): A team composed of contributors with at least 2–3 meaningful contributions to the project.
+-   [Gutenberg](https://github.com/orgs/FinPress/teams/gutenberg): A team composed of contributors with at least 2–3 meaningful contributions to the project.
 
-If you meet this criterion of several meaningful contributions having been accepted into the repository and would like to be added to the Gutenberg team, feel free to ask in the [#core-editor Slack channel](https://make.wordpress.org/chat/).
+If you meet this criterion of several meaningful contributions having been accepted into the repository and would like to be added to the Gutenberg team, feel free to ask in the [#core-editor Slack channel](https://make.finpress.org/chat/).
 
 ## Projects
 
-We use [GitHub projects](https://github.com/WordPress/gutenberg/projects) to keep track of details that aren't immediately actionable, but that we want to keep around for future reference.
+We use [GitHub projects](https://github.com/FinPress/gutenberg/projects) to keep track of details that aren't immediately actionable, but that we want to keep around for future reference.

@@ -1,7 +1,7 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { getBlockType } from '@wordpress/blocks';
+import { getBlockType } from '@finpress/blocks';
 
 export const WIDE_ALIGNMENTS = {
 	alignments: {

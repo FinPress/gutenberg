@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import Video from 'react-native-video';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
 import {
 	Image,
@@ -18,12 +18,12 @@ import {
 	BottomSheet,
 	ToggleControl,
 	__experimentalUseCustomUnits as useCustomUnits,
-} from '@wordpress/components';
-import { plus } from '@wordpress/icons';
-import { useState, useCallback, useRef } from '@wordpress/element';
-import { usePreferredColorSchemeStyle } from '@wordpress/compose';
-import { useSettings, MediaUpload } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
+} from '@finpress/components';
+import { plus } from '@finpress/icons';
+import { useState, useCallback, useRef } from '@finpress/element';
+import { usePreferredColorSchemeStyle } from '@finpress/compose';
+import { useSettings, MediaUpload } from '@finpress/block-editor';
+import { __ } from '@finpress/i18n';
 
 /**
  * Internal dependencies

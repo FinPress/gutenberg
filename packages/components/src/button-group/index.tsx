@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { forwardRef } from '@wordpress/element';
-import deprecated from '@wordpress/deprecated';
+import { forwardRef } from '@finpress/element';
+import deprecated from '@finpress/deprecated';
 
 /**
  * Internal dependencies
@@ -42,7 +42,7 @@ function UnforwardedButtonGroup(
  * @deprecated Use `ToggleGroupControl` instead.
  *
  * ```jsx
- * import { Button, ButtonGroup } from '@wordpress/components';
+ * import { Button, ButtonGroup } from '@finpress/components';
  *
  * const MyButtonGroup = () => (
  *   <ButtonGroup>

@@ -88,7 +88,7 @@ exports[`PostPublishPanel should render the post-publish panel if the post is pu
         >
           <a
             class="components-external-link"
-            href="https://wordpress.local/sample-page/"
+            href="https://finpress.local/sample-page/"
             rel="external noreferrer noopener"
             target="_blank"
           >
@@ -137,7 +137,7 @@ exports[`PostPublishPanel should render the post-publish panel if the post is pu
                   id="inspector-text-control-0"
                   readonly=""
                   type="text"
-                  value="https://wordpress.local/sample-page/"
+                  value="https://finpress.local/sample-page/"
                 />
               </div>
             </div>
@@ -157,7 +157,7 @@ exports[`PostPublishPanel should render the post-publish panel if the post is pu
           >
             <a
               class="components-button is-next-40px-default-size is-primary has-icon"
-              href="https://wordpress.local/sample-page/"
+              href="https://finpress.local/sample-page/"
               target="_blank"
             >
               <span
@@ -315,7 +315,7 @@ exports[`PostPublishPanel should render the post-publish panel if the post is sc
         >
           <a
             class="components-external-link"
-            href="https://wordpress.local/sample-page/"
+            href="https://finpress.local/sample-page/"
             rel="external noreferrer noopener"
             target="_blank"
           >
@@ -364,7 +364,7 @@ exports[`PostPublishPanel should render the post-publish panel if the post is sc
                   id="inspector-text-control-1"
                   readonly=""
                   type="text"
-                  value="https://wordpress.local/sample-page/"
+                  value="https://finpress.local/sample-page/"
                 />
               </div>
             </div>
@@ -384,7 +384,7 @@ exports[`PostPublishPanel should render the post-publish panel if the post is sc
           >
             <a
               class="components-button is-next-40px-default-size is-primary has-icon"
-              href="https://wordpress.local/sample-page/"
+              href="https://finpress.local/sample-page/"
               target="_blank"
             >
               <span

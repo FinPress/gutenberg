@@ -1,11 +1,11 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
-import { useDispatch } from '@wordpress/data';
-import { PluginArea } from '@wordpress/plugins';
-import { store as noticesStore } from '@wordpress/notices';
-import { __unstableUseNavigateRegions as useNavigateRegions } from '@wordpress/components';
+import { __, sprintf } from '@finpress/i18n';
+import { useDispatch } from '@finpress/data';
+import { PluginArea } from '@finpress/plugins';
+import { store as noticesStore } from '@finpress/notices';
+import { __unstableUseNavigateRegions as useNavigateRegions } from '@finpress/components';
 
 /**
  * Internal dependencies

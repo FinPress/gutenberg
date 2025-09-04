@@ -6,18 +6,18 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { Component } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { select } from '@wordpress/data';
-import { logException } from '@wordpress/react-native-bridge';
+import { Component } from '@finpress/element';
+import { __ } from '@finpress/i18n';
+import { select } from '@finpress/data';
+import { logException } from '@finpress/react-native-bridge';
 import {
 	usePreferredColorSchemeStyle,
 	withPreferredColorScheme,
-} from '@wordpress/compose';
-import { cautionFilled } from '@wordpress/icons';
-import { Icon } from '@wordpress/components';
+} from '@finpress/compose';
+import { cautionFilled } from '@finpress/icons';
+import { Icon } from '@finpress/components';
 
 /**
  * Internal dependencies

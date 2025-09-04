@@ -1,10 +1,10 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useEffect, useRef, memo, useContext } from '@wordpress/element';
-import { SearchControl } from '@wordpress/components';
-import { useDebouncedInput } from '@wordpress/compose';
+import { __ } from '@finpress/i18n';
+import { useEffect, useRef, memo, useContext } from '@finpress/element';
+import { SearchControl } from '@finpress/components';
+import { useDebouncedInput } from '@finpress/compose';
 
 /**
  * Internal dependencies

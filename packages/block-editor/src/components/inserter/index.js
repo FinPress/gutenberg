@@ -4,16 +4,16 @@
 import clsx from 'clsx';
 
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { speak } from '@wordpress/a11y';
-import { __, _x, sprintf } from '@wordpress/i18n';
-import { Dropdown, Button } from '@wordpress/components';
-import { Component } from '@wordpress/element';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { compose, ifCondition } from '@wordpress/compose';
-import { createBlock, store as blocksStore } from '@wordpress/blocks';
-import { plus } from '@wordpress/icons';
+import { speak } from '@finpress/a11y';
+import { __, _x, sprintf } from '@finpress/i18n';
+import { Dropdown, Button } from '@finpress/components';
+import { Component } from '@finpress/element';
+import { withDispatch, withSelect } from '@finpress/data';
+import { compose, ifCondition } from '@finpress/compose';
+import { createBlock, store as blocksStore } from '@finpress/blocks';
+import { plus } from '@finpress/icons';
 
 /**
  * Internal dependencies
@@ -364,7 +364,7 @@ export default compose( [
 
 				// Attempt to augment the directInsertBlock with attributes from an adjacent block.
 				// This ensures styling from nearby blocks is preserved in the newly inserted block.
-				// See: https://github.com/WordPress/gutenberg/issues/37904
+				// See: https://github.com/FinPress/gutenberg/issues/37904
 				if ( directInsertBlock ) {
 					const newAttributes = getAdjacentBlockAttributes(
 						directInsertBlock.attributesToCopy

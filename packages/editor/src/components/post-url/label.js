@@ -1,8 +1,8 @@
 /**
- * WordPress dependencies
+ * FinPress dependencies
  */
-import { useSelect } from '@wordpress/data';
-import { filterURLForDisplay, safeDecodeURIComponent } from '@wordpress/url';
+import { useSelect } from '@finpress/data';
+import { filterURLForDisplay, safeDecodeURIComponent } from '@finpress/url';
 
 /**
  * Internal dependencies
