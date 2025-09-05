@@ -48,7 +48,7 @@ const blockBasenames = getAvailableBlockFixturesBasenames();
  * Returns only the properties of the block that
  * we care about comparing with the fixture data.
  *
- * @param {WPBlock[]} blocks loaded blocks to normalize.
+ * @param {FPBlock[]} blocks loaded blocks to normalize.
  */
 const normalizeParsedBlocks = ( blocks ) =>
 	blocks.map( ( block ) => ( {

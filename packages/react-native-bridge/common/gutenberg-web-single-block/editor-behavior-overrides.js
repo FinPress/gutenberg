@@ -66,7 +66,7 @@ function manageTextSelectionContextMenu() {
 			if ( currentToggle ) {
 				event.stopPropagation();
 				hideContextMenuListeners.push( () => currentToggle.click() );
-				window.wpwebkit.hideTextSelectionContextMenu();
+				window.fpwebkit.hideTextSelectionContextMenu();
 			}
 		},
 		true
@@ -86,15 +86,15 @@ function _toggleBlockSelectedClass( isBlockSelected ) {
 	}
 }
 
-/** @typedef {import('@finpress/data').WPDataRegistry} WPDataRegistry */
+/** @typedef {import('@finpress/data').FPDataRegistry} FPDataRegistry */
 
 /**
  * Toggle the `is-block-selected` class on the editor container when a block is
  * selected. This is used to hide the sidebar toggle button when a block is not
  * selected.
  *
- * @param {WPDataRegistry} registry Data registry.
- * @return {WPDataRegistry} Modified data registry.
+ * @param {FPDataRegistry} registry Data registry.
+ * @return {FPDataRegistry} Modified data registry.
  */
 function toggleBlockSelectedStyles( registry ) {
 	return {
@@ -120,7 +120,7 @@ function toggleBlockSelectedStyles( registry ) {
 	};
 }
 
-window.wp.data.use( toggleBlockSelectedStyles );
+window.fp.data.use( toggleBlockSelectedStyles );
 
 // The editor-canvas iframe relies upon `srcdoc`, which does not trigger a
 // `load` event. Thus, we must poll for the iframe to be ready.

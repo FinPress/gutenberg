@@ -98,7 +98,7 @@ export const StyledTabList = styled( Ariakit.TabList )`
 							var( --antialiasing-factor )
 					)
 				);
-			border-bottom: var( --wp-admin-border-width-focus ) solid
+			border-bottom: var( --fp-admin-border-width-focus ) solid
 				${ COLORS.theme.accent };
 		}
 	}
@@ -134,11 +134,11 @@ export const StyledTabList = styled( Ariakit.TabList )`
 				:is( :focus-visible, [data-focus-visible] )
 			)::before {
 			box-sizing: border-box;
-			border: var( --wp-admin-border-width-focus ) solid
+			border: var( --fp-admin-border-width-focus ) solid
 				${ COLORS.theme.accent };
 			/* Adjusting the border width to match the scaling in the y axis. */
 			border-block-width: calc(
-				var( --wp-admin-border-width-focus, 1px ) /
+				var( --fp-admin-border-width-focus, 1px ) /
 					(
 						var( --selected-height, 0 ) /
 							var( --antialiasing-factor )
@@ -188,7 +188,7 @@ export const Tab = styled( Ariakit.Tab )`
 
 			// Draw the indicator.
 			// Outline works for Windows high contrast mode as well.
-			outline: var( --wp-admin-border-width-focus ) solid
+			outline: var( --fp-admin-border-width-focus ) solid
 				${ COLORS.theme.accent };
 			border-radius: ${ CONFIG.radiusSmall };
 
@@ -227,7 +227,7 @@ export const Tab = styled( Ariakit.Tab )`
 	}
 	[aria-orientation='vertical'][data-select-on-move='false'] &::after {
 		content: '';
-		inset: var( --wp-admin-border-width-focus );
+		inset: var( --fp-admin-border-width-focus );
 	}
 `;
 
@@ -277,7 +277,7 @@ export const TabPanel = styled( Ariakit.TabPanel )`
 	}
 
 	&[data-focus-visible] {
-		box-shadow: 0 0 0 var( --wp-admin-border-width-focus )
+		box-shadow: 0 0 0 var( --fp-admin-border-width-focus )
 			${ COLORS.theme.accent };
 		// Windows high contrast mode.
 		outline: 2px solid transparent;

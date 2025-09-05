@@ -1,8 +1,8 @@
 ( function () {
-	const { __ } = wp.i18n;
-	const { registerPlugin } = wp.plugins;
-	const PluginPreviewMenuItem = wp.editor.PluginPreviewMenuItem;
-	const el = wp.element.createElement;
+	const { __ } = fp.i18n;
+	const { registerPlugin } = fp.plugins;
+	const PluginPreviewMenuItem = fp.editor.PluginPreviewMenuItem;
+	const el = fp.element.createElement;
 
 	function CustomPreviewMenuItem() {
 		return el( PluginPreviewMenuItem, {}, __( 'Custom Preview' ) );

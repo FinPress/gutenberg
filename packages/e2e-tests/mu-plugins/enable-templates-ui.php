@@ -16,8 +16,8 @@ function gutenberg_enable_templates_ui() {
 	add_filter(
 		'register_post_type_args',
 		static function ( $args, $name ) {
-			if ( in_array( $name, array( 'wp_template', 'wp_template_part' ), true ) ) {
-				$args['show_ui'] = wp_is_block_theme();
+			if ( in_array( $name, array( 'fp_template', 'fp_template_part' ), true ) ) {
+				$args['show_ui'] = fp_is_block_theme();
 			}
 			return $args;
 		},

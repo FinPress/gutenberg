@@ -17,7 +17,7 @@ test.describe( 'Sidebar', () => {
 		page,
 		pageUtils,
 	} ) => {
-		await pageUtils.setBrowserViewport( 'large' );
+		await pageUtils.setBrowserviewport( 'large' );
 
 		const activeTab = page
 			.getByRole( 'region', {
@@ -33,7 +33,7 @@ test.describe( 'Sidebar', () => {
 		page,
 		pageUtils,
 	} ) => {
-		await pageUtils.setBrowserViewport( 'small' );
+		await pageUtils.setBrowserviewport( 'small' );
 
 		await expect(
 			page.getByRole( 'region', {
@@ -46,14 +46,14 @@ test.describe( 'Sidebar', () => {
 		page,
 		pageUtils,
 	} ) => {
-		await pageUtils.setBrowserViewport( 'large' );
+		await pageUtils.setBrowserviewport( 'large' );
 		const settingsSideber = page.getByRole( 'region', {
 			name: 'Editor settings',
 		} );
 
 		await expect( settingsSideber ).toBeVisible();
 
-		await pageUtils.setBrowserViewport( 'small' );
+		await pageUtils.setBrowserviewport( 'small' );
 
 		// Sidebar should be closed when resizing to mobile.
 		await expect( settingsSideber ).toBeHidden();
@@ -63,14 +63,14 @@ test.describe( 'Sidebar', () => {
 		page,
 		pageUtils,
 	} ) => {
-		await pageUtils.setBrowserViewport( 'large' );
-		await pageUtils.setBrowserViewport( 'small' );
+		await pageUtils.setBrowserviewport( 'large' );
+		await pageUtils.setBrowserviewport( 'small' );
 		const settingsSideber = page.getByRole( 'region', {
 			name: 'Editor settings',
 		} );
 
 		await expect( settingsSideber ).toBeHidden();
-		await pageUtils.setBrowserViewport( 'large' );
+		await pageUtils.setBrowserviewport( 'large' );
 		await expect( settingsSideber ).toBeVisible();
 	} );
 
@@ -136,7 +136,7 @@ test.describe( 'Sidebar', () => {
 
 		await page.evaluate( () => {
 			const { removeEditorPanel } =
-				window.wp.data.dispatch( 'core/editor' );
+				window.fp.data.dispatch( 'core/editor' );
 
 			removeEditorPanel( 'taxonomy-panel-category' );
 			removeEditorPanel( 'taxonomy-panel-post_tag' );

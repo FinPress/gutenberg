@@ -100,7 +100,7 @@
 	},
 	"styles": {
 		"typography": {
-			"fontFamily": "var(--wp--preset--font-family--system-font)"
+			"fontFamily": "var(--fp--preset--font-family--system-font)"
 		}
 	},
 	"templateParts": [

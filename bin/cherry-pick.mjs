@@ -7,8 +7,8 @@ import readline from 'readline';
 import { spawnSync } from 'node:child_process';
 
 const REPO = 'FinPress/gutenberg';
-const LABEL = process.argv[ 2 ] || 'Backport to WP Beta/RC';
-const BACKPORT_COMPLETED_LABEL = 'Backported to WP Core';
+const LABEL = process.argv[ 2 ] || 'Backport to FP Beta/RC';
+const BACKPORT_COMPLETED_LABEL = 'Backported to FP Core';
 const BRANCH = getCurrentBranch();
 const GITHUB_CLI_AVAILABLE = spawnSync( 'gh', [ 'auth', 'status' ] )
 	?.stdout?.toString()
@@ -20,7 +20,7 @@ const AUTO_PROPAGATE_RESULTS_TO_GITHUB = GITHUB_CLI_AVAILABLE;
  * The main function of this script. It:
  * * Confirms with the developer the current branch aligns with the expectations
  * * Gets local branches in sync with the remote ones
- * * Requests the list of PRs to cherry-pick from GitHub API (closed, label=`Backport to WP Beta/RC`)
+ * * Requests the list of PRs to cherry-pick from GitHub API (closed, label=`Backport to FP Beta/RC`)
  * * Runs `git cherry-pick {commitHash}` for each PR
  * * It keeps track of the failed cherry-picks and then retries them
  * * Retrying keeps going as long as at least one cherry-pick succeeds
@@ -351,7 +351,7 @@ function reportSummaryNextSteps( successes, failures ) {
 		nextSteps.push( 'Go to each of the cherry-picked Pull Requests' );
 		nextSteps.push( `Remove the ${ LABEL } label` );
 
-		if ( LABEL === 'Backport to WP Beta/RC' ) {
+		if ( LABEL === 'Backport to FP Beta/RC' ) {
 			nextSteps.push( `Add the "${ BACKPORT_COMPLETED_LABEL }" label` );
 		}
 
@@ -386,7 +386,7 @@ function GHcommentAndRemoveLabel( pr ) {
 		cli( 'gh', [ 'pr', 'comment', number, ...repo, '--body', comment ] );
 		cli( 'gh', [ 'pr', 'edit', number, ...repo, '--remove-label', LABEL ] );
 
-		if ( LABEL === 'Backport to WP Beta/RC' ) {
+		if ( LABEL === 'Backport to FP Beta/RC' ) {
 			cli( 'gh', [
 				'pr',
 				'edit',

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/categories",
 	"title": "Terms List",
@@ -91,6 +91,6 @@
 			}
 		}
 	},
-	"editorStyle": "wp-block-categories-editor",
-	"style": "wp-block-categories"
+	"editorStyle": "fp-block-categories-editor",
+	"style": "fp-block-categories"
 }

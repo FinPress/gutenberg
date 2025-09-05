@@ -30,7 +30,7 @@ add_action(
 			'true' === $_GET['disable_server_directive_processing']
 		) {
 			// Ensure the interactivity API is loaded.
-			wp_interactivity();
+			fp_interactivity();
 			// But remove the server directive processing.
 			add_filter( 'interactivity_process_directives', '__return_false' );
 		}

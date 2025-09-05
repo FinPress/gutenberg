@@ -19,7 +19,7 @@ test.describe( 'missing block', () => {
 		} );
 
 		await editor.setContent(
-			`<!-- wp:non-existing-block-here --><img src onerror=alert(1)>`
+			`<!-- fp:non-existing-block-here --><img src onerror=alert(1)>`
 		);
 
 		// Give the browser time to show the alert.
@@ -39,7 +39,7 @@ test.describe( 'missing block', () => {
 		} );
 
 		await editor.setContent(
-			`<!-- wp:non-existing-block-here --><script>alert("EVIL");</script>`
+			`<!-- fp:non-existing-block-here --><script>alert("EVIL");</script>`
 		);
 
 		// Give the browser time to show the alert.

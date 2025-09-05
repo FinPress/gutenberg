@@ -36,8 +36,8 @@ exports[`props should render active 1`] = `
   aria-hidden="true"
   class="components-elevation emotion-0 emotion-1"
   data-testid="elevation"
-  data-wp-c16t="true"
-  data-wp-component="Elevation"
+  data-fp-c16t="true"
+  data-fp-component="Elevation"
 />
 `;
 
@@ -69,8 +69,8 @@ exports[`props should render correctly 1`] = `
   aria-hidden="true"
   class="components-elevation emotion-0 emotion-1"
   data-testid="elevation"
-  data-wp-c16t="true"
-  data-wp-component="Elevation"
+  data-fp-c16t="true"
+  data-fp-component="Elevation"
 />
 `;
 
@@ -106,8 +106,8 @@ exports[`props should render hover 1`] = `
   aria-hidden="true"
   class="components-elevation emotion-0 emotion-1"
   data-testid="elevation"
-  data-wp-c16t="true"
-  data-wp-component="Elevation"
+  data-fp-c16t="true"
+  data-fp-component="Elevation"
 />
 `;
 
@@ -147,8 +147,8 @@ exports[`props should render isInteractive 1`] = `
   aria-hidden="true"
   class="components-elevation emotion-0 emotion-1"
   data-testid="elevation"
-  data-wp-c16t="true"
-  data-wp-component="Elevation"
+  data-fp-c16t="true"
+  data-fp-component="Elevation"
 />
 `;
 
@@ -188,8 +188,8 @@ exports[`props should render offset 1`] = `
   aria-hidden="true"
   class="components-elevation emotion-0 emotion-1"
   data-testid="elevation"
-  data-wp-c16t="true"
-  data-wp-component="Elevation"
+  data-fp-c16t="true"
+  data-fp-component="Elevation"
 />
 `;
 
@@ -221,7 +221,7 @@ exports[`props should render value 1`] = `
   aria-hidden="true"
   class="components-elevation emotion-0 emotion-1"
   data-testid="elevation"
-  data-wp-c16t="true"
-  data-wp-component="Elevation"
+  data-fp-c16t="true"
+  data-fp-component="Elevation"
 />
 `;

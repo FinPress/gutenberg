@@ -1,21 +1,21 @@
-%wpBlockQuote-shared {
+%fpBlockQuote-shared {
 	border-left-width: 4px;
 	border-left-style: solid;
 	padding-left: $block-edge-to-content;
 	margin-left: 0;
 }
 
-.wpBlockQuoteLight {
-	@extend %wpBlockQuote-shared;
+.fpBlockQuoteLight {
+	@extend %fpBlockQuote-shared;
 	border-left-color: $black;
 }
 
-.wpBlockQuoteDark {
-	@extend %wpBlockQuote-shared;
+.fpBlockQuoteDark {
+	@extend %fpBlockQuote-shared;
 	border-left-color: $white;
 }
 
-.wpBlockQuoteCitation {
+.fpBlockQuoteCitation {
 	margin-top: 16px;
 	font-size: 14px;
 }

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/rss",
 	"title": "RSS",
@@ -76,6 +76,6 @@
 			"link": true
 		}
 	},
-	"editorStyle": "wp-block-rss-editor",
-	"style": "wp-block-rss"
+	"editorStyle": "fp-block-rss-editor",
+	"style": "fp-block-rss"
 }

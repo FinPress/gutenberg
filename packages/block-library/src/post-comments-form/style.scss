@@ -1,5 +1,5 @@
 // Allow these default styles to be overridden by global styles.
-:where(.wp-block-post-comments-form) {
+:where(.fp-block-post-comments-form) {
 	textarea,
 	input:not([type="submit"]) {
 		border: 1px solid $gray-600;
@@ -13,7 +13,7 @@
 	}
 }
 
-.wp-block-post-comments-form {
+.fp-block-post-comments-form {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 
@@ -70,7 +70,7 @@
 		display: flex;
 		gap: 0.25em;
 
-		#wp-comment-cookies-consent {
+		#fp-comment-cookies-consent {
 			margin-top: 0.35em;
 		}
 	}
@@ -78,7 +78,7 @@
 	.comment-reply-title {
 		margin-bottom: 0;
 		:where(small) {
-			font-size: var(--wp--preset--font-size--medium, smaller);
+			font-size: var(--fp--preset--font-size--medium, smaller);
 			margin-left: 0.5em;
 		}
 	}

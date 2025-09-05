@@ -14,12 +14,12 @@ import { useEffect, useState, RawHTML } from '@finpress/element';
 import { __ } from '@finpress/i18n';
 import { useSelect } from '@finpress/data';
 import { fullscreen } from '@finpress/icons';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 
 function ModalAuxiliaryActions( { onClick, isModalFullScreen } ) {
 	// 'small' to match the rules in editor.scss.
-	const isMobileViewport = useViewportMatch( 'small', '<' );
-	if ( isMobileViewport ) {
+	const isMobileviewport = useviewportMatch( 'small', '<' );
+	if ( isMobileviewport ) {
 		return null;
 	}
 
@@ -43,14 +43,14 @@ function ClassicEdit( props ) {
 		( select ) => select( store ).getSettings().styles
 	);
 	useEffect( () => {
-		const { baseURL, suffix, settings } = window.wpEditorL10n.tinymce;
+		const { baseURL, suffix, settings } = window.fpEditorL10n.tinymce;
 
 		window.tinymce.EditorManager.overrideDefaults( {
 			base_url: baseURL,
 			suffix,
 		} );
 
-		window.wp.oldEditor.initialize( props.id, {
+		window.fp.oldEditor.initialize( props.id, {
 			tinymce: {
 				...settings,
 				setup( editor ) {
@@ -67,7 +67,7 @@ function ClassicEdit( props ) {
 		} );
 
 		return () => {
-			window.wp.oldEditor.remove( props.id );
+			window.fp.oldEditor.remove( props.id );
 		};
 	}, [] );
 
@@ -136,7 +136,7 @@ export default function ModalEdit( props ) {
 								onClick={ () => {
 									setAttributes( {
 										content:
-											window.wp.oldEditor.getContent(
+											window.fp.oldEditor.getContent(
 												id
 											),
 									} );

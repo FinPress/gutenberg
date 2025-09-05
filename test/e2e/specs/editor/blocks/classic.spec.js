@@ -98,7 +98,7 @@ test.describe( 'Classic', () => {
 		await editor.clickBlockToolbarButton( 'Convert to blocks' );
 		await expect
 			.poll( editor.getEditedPostContent )
-			.toMatch( /<!-- wp:gallery/ );
+			.toMatch( /<!-- fp:gallery/ );
 	} );
 
 	test( 'Should not fail after save/reload', async ( {

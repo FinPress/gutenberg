@@ -1,15 +1,15 @@
 <?php
 /**
- * Tests_L10n_wpWordcount class
+ * Tests_L10n_fpWordcount class
  *
  * @package FinPress
  */
 
-class Tests_L10n_wpWordcount extends WP_UnitTestCase {
+class Tests_L10n_fpWordcount extends FP_UnitTestCase {
 	/**
 	 * Tests that words are counted correctly based on the type
 	 *
-	 * @covers ::wp_word_count
+	 * @covers ::fp_word_count
 	 *
 	 * @dataProvider data_get_string_variations
 	 *
@@ -23,9 +23,9 @@ class Tests_L10n_wpWordcount extends WP_UnitTestCase {
 			'shortcodes' => array( 'shortcode' ),
 		);
 
-		$this->assertEquals( wp_word_count( $input_string, 'words', $settings ), $words );
-		$this->assertEquals( wp_word_count( $input_string, 'characters_excluding_spaces', $settings ), $characters_excluding_spaces );
-		$this->assertEquals( wp_word_count( $input_string, 'characters_including_spaces', $settings ), $characters_including_spaces );
+		$this->assertEquals( fp_word_count( $input_string, 'words', $settings ), $words );
+		$this->assertEquals( fp_word_count( $input_string, 'characters_excluding_spaces', $settings ), $characters_excluding_spaces );
+		$this->assertEquals( fp_word_count( $input_string, 'characters_including_spaces', $settings ), $characters_including_spaces );
 	}
 
 	/**

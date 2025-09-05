@@ -189,22 +189,22 @@ store( 'directive-each', {
 
 const html = `
 <div
-	data-wp-interactive="directive-each"
-	data-wp-router-region="navigation-updated list"
-	data-wp-context='{ "a": 1, "b": 2, "c": 3, "d": 4 }'
+	data-fp-interactive="directive-each"
+	data-fp-router-region="navigation-updated list"
+	data-fp-context='{ "a": 1, "b": 2, "c": 3, "d": 4 }'
 	data-testid="navigation-updated list"
 >
 	<button
 		data-testid="navigate"
-		data-wp-on--click="actions.navigate"
+		data-fp-on--click="actions.navigate"
 	>Navigate</button>
-	<template data-wp-each="state.list">
-		<p data-wp-text="context.item" data-testid="item"></p>
+	<template data-fp-each="state.list">
+		<p data-fp-text="context.item" data-testid="item"></p>
 	</template>
-	<p data-testid="item" data-wp-each-child>alpha</p>
-	<p data-testid="item" data-wp-each-child>beta</p>
-	<p data-testid="item" data-wp-each-child>gamma</p>
-	<p data-testid="item" data-wp-each-child>delta</p>
+	<p data-testid="item" data-fp-each-child>alpha</p>
+	<p data-testid="item" data-fp-each-child>beta</p>
+	<p data-testid="item" data-fp-each-child>gamma</p>
+	<p data-testid="item" data-fp-each-child>delta</p>
 </div>
 `;
 
@@ -233,8 +233,8 @@ const { directive } = privateApis(
 );
 
 /*
- * This is a high-priority version of the wp-init directive, to test directives
- * with such priority or lower don't run in elements with wp-each-child.
+ * This is a high-priority version of the fp-init directive, to test directives
+ * with such priority or lower don't run in elements with fp-each-child.
  */
 directive(
 	'priority-2-init',

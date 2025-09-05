@@ -49,16 +49,16 @@ function blockWithLinks( block, links ) {
 
 describe( 'actions', () => {
 	const pluginEndpoint =
-		'https://example.com/wp-json/wp/v2/plugins/block-block';
+		'https://example.com/fp-json/fp/v2/plugins/block-block';
 
 	const block = {
 		id: 'block-block',
 		name: 'block/block',
 		title: 'Test Block',
 		links: {
-			'wp:install-plugin': [
+			'fp:install-plugin': [
 				{
-					href: 'https://example.com/wp-json/wp/v2/plugins?slug=waves',
+					href: 'https://example.com/fp-json/fp/v2/plugins?slug=waves',
 				},
 			],
 		},
@@ -74,7 +74,7 @@ describe( 'actions', () => {
 		},
 	};
 
-	const blockTypePath = '/wp/v2/block-types/block/block';
+	const blockTypePath = '/fp/v2/block-types/block/block';
 	const blockTypeResponse = {
 		name: 'block/block',
 		title: 'Test Block',
@@ -87,7 +87,7 @@ describe( 'actions', () => {
 			// Mock the api-fetch and load-assets modules.
 			apiFetch.mockImplementation( async ( { path } ) => {
 				switch ( path ) {
-					case 'wp/v2/plugins':
+					case 'fp/v2/plugins':
 						return pluginResponse;
 					case blockTypePath:
 						return blockTypeResponse;
@@ -143,7 +143,7 @@ describe( 'actions', () => {
 			// Install the block.
 			await registry.dispatch( blockDirectoryStore ).installBlockType(
 				blockWithLinks( block, {
-					'wp:plugin': [ { href: pluginEndpoint } ],
+					'fp:plugin': [ { href: pluginEndpoint } ],
 				} )
 			);
 
@@ -166,7 +166,7 @@ describe( 'actions', () => {
 			// Mock the api-fetch and load-assets modules.
 			apiFetch.mockImplementation( async ( { path } ) => {
 				switch ( path ) {
-					case 'wp/v2/plugins':
+					case 'fp/v2/plugins':
 						throw {
 							code: 'plugins_api_failed',
 							message: 'Plugin not found.',

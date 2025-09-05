@@ -18,7 +18,7 @@ if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
 	 * @access private
 	 *
 	 * @param string       $content  Serialized content.
-	 * @param WP_Post|null $post     A post object that the content belongs to. If set to `null`,
+	 * @param FP_Post|null $post     A post object that the content belongs to. If set to `null`,
 	 *                               `get_post()` will be called to use the current post as context.
 	 *                               Default: `null`.
 	 * @param callable     $callback A function that will be called for each block to generate
@@ -32,7 +32,7 @@ if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
 			$post = get_post();
 		}
 
-		if ( ! $post instanceof WP_Post ) {
+		if ( ! $post instanceof FP_Post ) {
 			return apply_block_hooks_to_content( $content, $post, $callback );
 		}
 
@@ -58,7 +58,7 @@ if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
 		$attributes = array();
 
 		// If context is a post object, `ignoredHookedBlocks` information is stored in its post meta.
-		$ignored_hooked_blocks = get_post_meta( $post->ID, '_wp_ignored_hooked_blocks', true );
+		$ignored_hooked_blocks = get_post_meta( $post->ID, '_fp_ignored_hooked_blocks', true );
 		if ( ! empty( $ignored_hooked_blocks ) ) {
 			$ignored_hooked_blocks  = json_decode( $ignored_hooked_blocks, true );
 			$attributes['metadata'] = array(
@@ -70,9 +70,9 @@ if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
 		// so the Block Hooks algorithm can insert blocks that are hooked as first or last child
 		// of the wrapper block.
 		// To that end, we need to determine the wrapper block type based on the post type.
-		if ( 'wp_navigation' === $post->post_type ) {
+		if ( 'fp_navigation' === $post->post_type ) {
 			$wrapper_block_type = 'core/navigation';
-		} elseif ( 'wp_block' === $post->post_type ) {
+		} elseif ( 'fp_block' === $post->post_type ) {
 			$wrapper_block_type = 'core/block';
 		} else {
 			$wrapper_block_type = 'core/post-content';
@@ -112,11 +112,11 @@ if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
 	 * Hooks into the REST API response for the Posts endpoint and adds the first and last inner blocks.
 	 *
 	 * @since 6.6.0
-	 * @since 6.8.0 Support non-`wp_navigation` post types.
+	 * @since 6.8.0 Support non-`fp_navigation` post types.
 	 *
-	 * @param WP_REST_Response $response The response object.
-	 * @param WP_Post          $post     Post object.
-	 * @return WP_REST_Response The response object.
+	 * @param FP_REST_Response $response The response object.
+	 * @param FP_Post          $post     Post object.
+	 * @return FP_REST_Response The response object.
 	 */
 	function gutenberg_insert_hooked_blocks_into_rest_response( $response, $post ) {
 		if ( empty( $response->data['content']['raw'] ) ) {
@@ -140,7 +140,7 @@ if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
 			remove_filter( 'the_content', 'apply_block_hooks_to_content_from_post_object', $priority );
 		}
 
-		/** This filter is documented in wp-includes/post-template.php */
+		/** This filter is documented in fp-includes/post-template.php */
 		$response->data['content']['rendered'] = apply_filters(
 			'the_content',
 			$response->data['content']['raw']
@@ -159,16 +159,16 @@ if ( ! function_exists( 'apply_block_hooks_to_content_from_post_object' ) ) {
 	remove_filter( 'rest_prepare_post', 'insert_hooked_blocks_into_rest_response' );
 	add_filter( 'rest_prepare_post', 'gutenberg_insert_hooked_blocks_into_rest_response', 10, 2 );
 
-	remove_filter( 'rest_prepare_wp_block', 'insert_hooked_blocks_into_rest_response' );
-	add_filter( 'rest_prepare_wp_block', 'gutenberg_insert_hooked_blocks_into_rest_response', 10, 2 );
+	remove_filter( 'rest_prepare_fp_block', 'insert_hooked_blocks_into_rest_response' );
+	add_filter( 'rest_prepare_fp_block', 'gutenberg_insert_hooked_blocks_into_rest_response', 10, 2 );
 }
 
 /**
- * Updates the wp_postmeta with the list of ignored hooked blocks
+ * Updates the fp_postmeta with the list of ignored hooked blocks
  * where the inner blocks are stored as post content.
  *
  * @since 6.6.0
- * @since 6.8.0 Support other post types. (Previously, it was limited to `wp_navigation` only.)
+ * @since 6.8.0 Support other post types. (Previously, it was limited to `fp_navigation` only.)
  * @access private
  *
  * @param stdClass $post Post object.
@@ -200,7 +200,7 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 
 	$attributes = array();
 
-	$ignored_hooked_blocks = get_post_meta( $post->ID, '_wp_ignored_hooked_blocks', true );
+	$ignored_hooked_blocks = get_post_meta( $post->ID, '_fp_ignored_hooked_blocks', true );
 	if ( ! empty( $ignored_hooked_blocks ) ) {
 		$ignored_hooked_blocks  = json_decode( $ignored_hooked_blocks, true );
 		$attributes['metadata'] = array(
@@ -208,9 +208,9 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 		);
 	}
 
-	if ( 'wp_navigation' === $post->post_type ) {
+	if ( 'fp_navigation' === $post->post_type ) {
 		$wrapper_block_type = 'core/navigation';
-	} elseif ( 'wp_block' === $post->post_type ) {
+	} elseif ( 'fp_block' === $post->post_type ) {
 		$wrapper_block_type = 'core/block';
 	} else {
 		$wrapper_block_type = 'core/post-content';
@@ -225,7 +225,7 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 	$existing_post = get_post( $post->ID );
 	// Merge the existing post object with the updated post object to pass to the block hooks algorithm for context.
 	$context          = (object) array_merge( (array) $existing_post, (array) $post );
-	$context          = new WP_Post( $context ); // Convert to WP_Post object.
+	$context          = new FP_Post( $context ); // Convert to FP_Post object.
 	$serialized_block = apply_block_hooks_to_content( $markup, $context, 'set_ignored_hooked_blocks_metadata' );
 	$root_block       = parse_blocks( $serialized_block )[0];
 
@@ -234,7 +234,7 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 		: array();
 
 	if ( ! empty( $ignored_hooked_blocks ) ) {
-		$existing_ignored_hooked_blocks = get_post_meta( $post->ID, '_wp_ignored_hooked_blocks', true );
+		$existing_ignored_hooked_blocks = get_post_meta( $post->ID, '_fp_ignored_hooked_blocks', true );
 		if ( ! empty( $existing_ignored_hooked_blocks ) ) {
 			$existing_ignored_hooked_blocks = json_decode( $existing_ignored_hooked_blocks, true );
 			$ignored_hooked_blocks          = array_unique( array_merge( $ignored_hooked_blocks, $existing_ignored_hooked_blocks ) );
@@ -243,7 +243,7 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 		if ( ! isset( $post->meta_input ) ) {
 			$post->meta_input = array();
 		}
-		$post->meta_input['_wp_ignored_hooked_blocks'] = json_encode( $ignored_hooked_blocks );
+		$post->meta_input['_fp_ignored_hooked_blocks'] = json_encode( $ignored_hooked_blocks );
 	}
 
 	$post->post_content = remove_serialized_parent_block( $serialized_block );
@@ -251,7 +251,7 @@ function gutenberg_update_ignored_hooked_blocks_postmeta( $post ) {
 }
 add_filter( 'rest_pre_insert_page', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
 add_filter( 'rest_pre_insert_post', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
-add_filter( 'rest_pre_insert_wp_block', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
+add_filter( 'rest_pre_insert_fp_block', 'gutenberg_update_ignored_hooked_blocks_postmeta' );
 
 /**
  * Update Query `parents` argument validation for hierarchical post types.
@@ -260,7 +260,7 @@ add_filter( 'rest_pre_insert_wp_block', 'gutenberg_update_ignored_hooked_blocks_
  * Add new handler for `sticky` query argument.
  *
  * @param array    $query The query vars.
- * @param WP_Block $block Block instance.
+ * @param FP_Block $block Block instance.
  * @return array   The filtered query vars.
  */
 function gutenberg_update_query_vars_from_query_block_6_8( $query, $block ) {

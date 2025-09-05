@@ -44,8 +44,8 @@ test.describe( 'Site Editor Performance', () => {
 
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'emptytheme' );
-		await requestUtils.deleteAllTemplates( 'wp_template' );
-		await requestUtils.deleteAllTemplates( 'wp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template_part' );
 	} );
 
 	test.afterAll( async ( { requestUtils }, testInfo ) => {
@@ -54,8 +54,8 @@ test.describe( 'Site Editor Performance', () => {
 			contentType: 'application/json',
 		} );
 
-		await requestUtils.deleteAllTemplates( 'wp_template' );
-		await requestUtils.deleteAllTemplates( 'wp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template_part' );
 		await requestUtils.activateTheme( 'twentytwentyone' );
 	} );
 
@@ -90,7 +90,7 @@ test.describe( 'Site Editor Performance', () => {
 
 				// Wait for the first block.
 				const canvas = await perfUtils.getCanvas();
-				await canvas.locator( '.wp-block' ).first().waitFor();
+				await canvas.locator( '.fp-block' ).first().waitFor();
 
 				// Get the durations.
 				const loadingDurations = await metrics.getLoadingDurations();
@@ -127,7 +127,7 @@ test.describe( 'Site Editor Performance', () => {
 			const content = await perfUtils.loadContentForLargePost();
 			const page = await requestUtils.createPage( {
 				content:
-					content + `<!-- wp:paragraph --><!-- /wp:paragraph -->`,
+					content + `<!-- fp:paragraph --><!-- /fp:paragraph -->`,
 				status: 'draft',
 			} );
 
@@ -216,7 +216,7 @@ test.describe( 'Site Editor Performance', () => {
 			} ) => {
 				await admin.visitSiteEditor( {
 					// The old URL is supported in both previous versions and new versions.
-					path: '/wp_template',
+					path: '/fp_template',
 				} );
 
 				// The Templates index page has changed, so we need to know which UI is in use in the branch.
@@ -273,12 +273,12 @@ test.describe( 'Site Editor Performance', () => {
 						status: 'publish',
 						title: 'A post',
 						content: `
-<!-- wp:heading -->
+<!-- fp:heading -->
 <p>Hello</p>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
+<!-- /fp:heading -->
+<!-- fp:paragraph -->
 <p>Post content</p>
-<!-- /wp:paragraph -->`,
+<!-- /fp:paragraph -->`,
 					} );
 
 					return id;
@@ -291,7 +291,7 @@ test.describe( 'Site Editor Performance', () => {
 				// queries or patterns already cached.
 				await admin.visitSiteEditor( {
 					postId: 'twentytwentyfour//home',
-					postType: 'wp_template',
+					postType: 'fp_template',
 					canvas: 'edit',
 				} );
 				await editor.openDocumentSettingsSidebar();
@@ -366,7 +366,7 @@ test.describe( 'Site Editor Performance', () => {
 						// Wait until the first block is rendered AND all
 						// patterns are replaced.
 						await Promise.all( [
-							canvas.locator( '.wp-block' ).first().waitFor(),
+							canvas.locator( '.fp-block' ).first().waitFor(),
 							page.waitForFunction(
 								() =>
 									document.querySelectorAll(
@@ -404,12 +404,12 @@ test.describe( 'Site Editor Performance', () => {
 						status: 'publish',
 						title: `Page (${ index })`,
 						content: `
-<!-- wp:heading -->
+<!-- fp:heading -->
 <p>Hello</p>
-<!-- /wp:heading -->
-<!-- wp:paragraph -->
+<!-- /fp:heading -->
+<!-- fp:paragraph -->
 <p>Post content</p>
-<!-- /wp:paragraph -->`,
+<!-- /fp:paragraph -->`,
 					} );
 
 					return id;

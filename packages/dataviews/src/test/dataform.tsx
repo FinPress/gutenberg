@@ -160,7 +160,7 @@ describe( 'DataForm component', () => {
 			expect(
 				// It is used here to ensure that the fields are wrapped in HStack. This happens when the labelPosition is set to side.
 				// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-				container.querySelectorAll( "[data-wp-component='HStack']" )
+				container.querySelectorAll( "[data-fp-component='HStack']" )
 			).toHaveLength( 3 );
 		} );
 
@@ -428,7 +428,7 @@ describe( 'DataForm component', () => {
 
 			expect(
 				// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-				container.querySelectorAll( "[data-wp-component='HStack']" )
+				container.querySelectorAll( "[data-fp-component='HStack']" )
 			).toHaveLength( 3 );
 		} );
 

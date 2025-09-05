@@ -91,7 +91,7 @@ export function getColors( context, isSubMenu ) {
 
 export function getNavigationChildBlockProps( innerBlocksColors ) {
 	return {
-		className: clsx( 'wp-block-navigation__submenu-container', {
+		className: clsx( 'fp-block-navigation__submenu-container', {
 			'has-text-color': !! (
 				innerBlocksColors.textColor || innerBlocksColors.customTextColor
 			),

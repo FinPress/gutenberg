@@ -25,7 +25,7 @@ function setupUseSelectMock( hasPublishAction ) {
 			isCurrentPostPublished: () => false,
 			getCurrentPost: () => ( {
 				_links: {
-					'wp:action-publish': hasPublishAction,
+					'fp:action-publish': hasPublishAction,
 				},
 			} ),
 		} ) );

@@ -1,9 +1,9 @@
 ( function () {
-	const el = wp.element.createElement;
-	const registerBlockVariation = wp.blocks.registerBlockVariation;
-	const __ = wp.i18n.__;
-	const Circle = wp.primitives.Circle;
-	const SVG = wp.primitives.SVG;
+	const el = fp.element.createElement;
+	const registerBlockVariation = fp.blocks.registerBlockVariation;
+	const __ = fp.i18n.__;
+	const Circle = fp.primitives.Circle;
+	const SVG = fp.primitives.SVG;
 
 	const redCircle = el( Circle, {
 		cx: 24,

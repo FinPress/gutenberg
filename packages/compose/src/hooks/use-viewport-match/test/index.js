@@ -6,7 +6,7 @@ import { render } from '@testing-library/react';
 /**
  * Internal dependencies
  */
-import useViewportMatch from '../';
+import useviewportMatch from '../';
 
 jest.mock( '../../use-media-query', () => {
 	return jest.fn();
@@ -14,14 +14,14 @@ jest.mock( '../../use-media-query', () => {
 
 import useMediaQueryMock from '../../use-media-query';
 
-describe( 'useViewportMatch', () => {
+describe( 'useviewportMatch', () => {
 	afterEach( () => {
 		useMediaQueryMock.mockClear();
 	} );
 
 	const TestComponent = ( { breakpoint, operator } ) => {
-		const result = useViewportMatch( breakpoint, operator );
-		return `useViewportMatch: ${ result }`;
+		const result = useviewportMatch( breakpoint, operator );
+		return `useviewportMatch: ${ result }`;
 	};
 
 	it( 'should return true when the viewport matches', async () => {
@@ -31,15 +31,15 @@ describe( 'useViewportMatch', () => {
 			<TestComponent breakpoint="wide" operator="<" />
 		);
 
-		expect( container ).toHaveTextContent( 'useViewportMatch: true' );
+		expect( container ).toHaveTextContent( 'useviewportMatch: true' );
 
 		rerender( <TestComponent breakpoint="medium" operator=">=" /> );
 
-		expect( container ).toHaveTextContent( 'useViewportMatch: true' );
+		expect( container ).toHaveTextContent( 'useviewportMatch: true' );
 
 		rerender( <TestComponent breakpoint="small" operator=">=" /> );
 
-		expect( container ).toHaveTextContent( 'useViewportMatch: true' );
+		expect( container ).toHaveTextContent( 'useviewportMatch: true' );
 
 		expect( useMediaQueryMock ).toHaveBeenCalledTimes( 3 );
 		expect( useMediaQueryMock ).toHaveBeenNthCalledWith(
@@ -63,15 +63,15 @@ describe( 'useViewportMatch', () => {
 			<TestComponent breakpoint="huge" operator=">=" />
 		);
 
-		expect( container ).toHaveTextContent( 'useViewportMatch: false' );
+		expect( container ).toHaveTextContent( 'useviewportMatch: false' );
 
 		rerender( <TestComponent breakpoint="large" operator="<" /> );
 
-		expect( container ).toHaveTextContent( 'useViewportMatch: false' );
+		expect( container ).toHaveTextContent( 'useviewportMatch: false' );
 
 		rerender( <TestComponent breakpoint="mobile" operator="<" /> );
 
-		expect( container ).toHaveTextContent( 'useViewportMatch: false' );
+		expect( container ).toHaveTextContent( 'useviewportMatch: false' );
 
 		expect( useMediaQueryMock ).toHaveBeenCalledTimes( 3 );
 		expect( useMediaQueryMock ).toHaveBeenNthCalledWith(
@@ -92,24 +92,24 @@ describe( 'useViewportMatch', () => {
 		useMediaQueryMock.mockReturnValue( true );
 
 		const innerElement = <TestComponent breakpoint="wide" operator=">=" />;
-		const WidthProvider = useViewportMatch.__experimentalWidthProvider;
+		const WidthProvider = useviewportMatch.__experimentalWidthProvider;
 
 		const { container, rerender } = render(
 			<WidthProvider value={ 300 }>{ innerElement }</WidthProvider>
 		);
-		expect( container ).toHaveTextContent( 'useViewportMatch: false' );
+		expect( container ).toHaveTextContent( 'useviewportMatch: false' );
 
 		rerender(
 			<WidthProvider value={ 1200 }>{ innerElement }</WidthProvider>
 		);
 
-		expect( container ).toHaveTextContent( 'useViewportMatch: false' );
+		expect( container ).toHaveTextContent( 'useviewportMatch: false' );
 
 		rerender(
 			<WidthProvider value={ 1300 }>{ innerElement }</WidthProvider>
 		);
 
-		expect( container ).toHaveTextContent( 'useViewportMatch: true' );
+		expect( container ).toHaveTextContent( 'useviewportMatch: true' );
 
 		rerender(
 			<WidthProvider value={ 1300 }>
@@ -117,7 +117,7 @@ describe( 'useViewportMatch', () => {
 			</WidthProvider>
 		);
 
-		expect( container ).toHaveTextContent( 'useViewportMatch: false' );
+		expect( container ).toHaveTextContent( 'useviewportMatch: false' );
 
 		expect( useMediaQueryMock ).toHaveBeenCalledTimes( 4 );
 		// `useMediaQuery` is expected to receive `undefined` when simulating width.

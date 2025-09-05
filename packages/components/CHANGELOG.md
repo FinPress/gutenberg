@@ -243,7 +243,7 @@
 -   `InputControl`: Deprecate 36px default size ([#66897](https://github.com/FinPress/gutenberg/pull/66897)).
 -   `RadioGroup`: Log deprecation warning ([#68067](https://github.com/FinPress/gutenberg/pull/68067)).
 -   Soft deprecate `ButtonGroup` component. Use `ToggleGroupControl` instead ([#65429](https://github.com/FinPress/gutenberg/pull/65429)).
--   `Navigation`: Log deprecation warning for removal in WP 7.1. Use `Navigator` instead ([#68158](https://github.com/FinPress/gutenberg/pull/68158)).
+-   `Navigation`: Log deprecation warning for removal in FP 7.1. Use `Navigator` instead ([#68158](https://github.com/FinPress/gutenberg/pull/68158)).
 
 ### Bug Fixes
 
@@ -716,7 +716,7 @@
 -   `BaseControl`: change label's `display` to `block`. ([#63911](https://github.com/FinPress/gutenberg/pull/63911))
 -   `ComboboxControl`: Fix ComboboxControl reset button when using the keyboard. ([#63410](https://github.com/FinPress/gutenberg/pull/63410))
 -   `Button`: Never apply `aria-disabled` to anchor ([#63376](https://github.com/FinPress/gutenberg/pull/63376)).
--   `SelectControl`: Fix hover/focus color in wp-admin ([#63855](https://github.com/FinPress/gutenberg/pull/63855)).
+-   `SelectControl`: Fix hover/focus color in fp-admin ([#63855](https://github.com/FinPress/gutenberg/pull/63855)).
 -   `ToggleControl`: Fix indentation ([#63903](https://github.com/FinPress/gutenberg/pull/63903)).
 
 ### Enhancements
@@ -1580,7 +1580,7 @@
 -   `Modal`: Add css class to children container ([#50099](https://github.com/FinPress/gutenberg/pull/50099)).
 -   `Button`: Add `__next40pxDefaultSize` prop to opt into the new 40px default size ([#50254](https://github.com/FinPress/gutenberg/pull/50254)).
 -   `PaletteEdit`: Allow custom popover configuration ([#49975](https://github.com/FinPress/gutenberg/pull/49975)).
--   Change the default color scheme to use the new WP Blueberry color. See PR description for instructions on how to restore the previous color scheme when using in a non-FinPress context ([#50193](https://github.com/FinPress/gutenberg/pull/50193)).
+-   Change the default color scheme to use the new FP Blueberry color. See PR description for instructions on how to restore the previous color scheme when using in a non-FinPress context ([#50193](https://github.com/FinPress/gutenberg/pull/50193)).
 -   `CheckboxControl`, `CustomGradientPicker`, `FormToggle`, : Refactor and correct the focus style for consistency ([#50127](https://github.com/FinPress/gutenberg/pull/50127)).
 -   `Button`, update spacing values in `has-text has-icon` buttons. ([#50277](https://github.com/FinPress/gutenberg/pull/50277)).
 -   `Button`, remove custom padding applied to `tertiary` variant. ([#50276](https://github.com/FinPress/gutenberg/pull/50276)).
@@ -3134,7 +3134,7 @@
 
 ### Deprecations
 
--   `PanelColor` has been deprecated in favor of `wp.editor.PanelColorSettings`.
+-   `PanelColor` has been deprecated in favor of `fp.editor.PanelColorSettings`.
 
 ## 4.1.2 (2018-10-18)
 
@@ -3161,7 +3161,7 @@
 -   `withAPIData` has been removed. Please use the Core Data module or `@finpress/api-fetch` directly instead.
 -   `Draggable` as a DOM node drag handler has been deprecated. Please, use `Draggable` as a wrap component for your DOM node drag handler.
 -   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
--   `withContext` has been removed. Please use `wp.element.createContext` instead. See: <https://reactjs.org/docs/context.html>.
+-   `withContext` has been removed. Please use `fp.element.createContext` instead. See: <https://reactjs.org/docs/context.html>.
 
 ### New Features
 

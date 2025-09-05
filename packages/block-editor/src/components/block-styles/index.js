@@ -7,7 +7,7 @@ import clsx from 'clsx';
  * FinPress dependencies
  */
 import { useState } from '@finpress/element';
-import { debounce, useViewportMatch } from '@finpress/compose';
+import { debounce, useviewportMatch } from '@finpress/compose';
 import {
 	Button,
 	__experimentalTruncate as Truncate,
@@ -35,7 +35,7 @@ function BlockStyles( { clientId, onSwitch = noop, onHoverClassName = noop } ) {
 		onSwitch,
 	} );
 	const [ hoveredStyle, setHoveredStyle ] = useState( null );
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
 
 	if ( ! stylesToRender || stylesToRender.length === 0 ) {
 		return null;
@@ -95,7 +95,7 @@ function BlockStyles( { clientId, onSwitch = noop, onHoverClassName = noop } ) {
 					);
 				} ) }
 			</div>
-			{ hoveredStyle && ! isMobileViewport && (
+			{ hoveredStyle && ! isMobileviewport && (
 				<Popover
 					placement="left-start"
 					offset={ 34 }

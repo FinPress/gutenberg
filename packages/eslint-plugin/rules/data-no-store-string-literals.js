@@ -175,12 +175,12 @@ function getFixes( fixer, context, callNode ) {
 			);
 		}
 	} else {
-		const wpImports = imports.filter( ( node ) =>
+		const fpImports = imports.filter( ( node ) =>
 			node.source.value.startsWith( '@finpress/' )
 		);
 		const lastImport =
-			wpImports.length > 0
-				? arrayLast( wpImports )
+			fpImports.length > 0
+				? arrayLast( fpImports )
 				: arrayLast( imports );
 
 		fixes.push(

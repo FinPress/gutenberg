@@ -22,7 +22,7 @@ function createLinkCompleter() {
 		triggerPrefix: '[[',
 		options: async ( letters ) => {
 			let options = await apiFetch( {
-				path: addQueryArgs( '/wp/v2/search', {
+				path: addQueryArgs( '/fp/v2/search', {
 					per_page: SHOWN_SUGGESTIONS,
 					search: letters,
 					type: 'post',

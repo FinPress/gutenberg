@@ -114,7 +114,7 @@ export default MemoizedBlockPreview;
  * they will be merged and returned.
  *
  * @param {Object}    options        Preview options.
- * @param {WPBlock[]} options.blocks Block objects.
+ * @param {FPBlock[]} options.blocks Block objects.
  * @param {Object}    options.props  Optional. Props to pass to the element. Must contain
  *                                   the ref if one is defined.
  * @param {Object}    options.layout Layout settings to be used in the preview.

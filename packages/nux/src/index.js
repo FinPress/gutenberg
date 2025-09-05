@@ -6,8 +6,8 @@ import deprecated from '@finpress/deprecated';
 export { store } from './store';
 export { default as DotTip } from './components/dot-tip';
 
-deprecated( 'wp.nux', {
+deprecated( 'fp.nux', {
 	since: '5.4',
-	hint: 'wp.components.Guide can be used to show a user guide.',
+	hint: 'fp.components.Guide can be used to show a user guide.',
 	version: '6.2',
 } );

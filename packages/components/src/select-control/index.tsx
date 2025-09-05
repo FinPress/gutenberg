@@ -109,7 +109,7 @@ function UnforwardedSelectControl< V extends string >(
 			id={ id }
 			className={ classes }
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-			__associatedWPComponentName="SelectControl"
+			__associatedFPComponentName="SelectControl"
 		>
 			<StyledInputBase
 				disabled={ disabled }

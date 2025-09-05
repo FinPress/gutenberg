@@ -1,5 +1,5 @@
 ( function () {
-	wp.richText.registerFormatType( 'my-plugin/link', {
+	fp.richText.registerFormatType( 'my-plugin/link', {
 		title: 'Custom Link',
 		tagName: 'a',
 		attributes: {
@@ -7,14 +7,14 @@
 		},
 		className: 'my-plugin-link',
 		edit( props ) {
-			return wp.element.createElement(
-				wp.blockEditor.RichTextToolbarButton,
+			return fp.element.createElement(
+				fp.blockEditor.RichTextToolbarButton,
 				{
 					icon: 'admin-links',
 					title: 'Custom Link',
 					onClick() {
 						props.onChange(
-							wp.richText.toggleFormat( props.value, {
+							fp.richText.toggleFormat( props.value, {
 								type: 'my-plugin/link',
 								attributes: {
 									url: 'https://example.com',

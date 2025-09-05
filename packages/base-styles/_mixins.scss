@@ -137,7 +137,7 @@
  */
 
 @mixin block-toolbar-button-style__focus() {
-	box-shadow: inset 0 0 0 variables.$border-width colors.$white, 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+	box-shadow: inset 0 0 0 variables.$border-width colors.$white, 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
 
 	// Windows High Contrast mode will show this outline, but not the box-shadow.
 	outline: 2px solid transparent;
@@ -155,7 +155,7 @@
 }
 
 
-@mixin input-style__focus($accent-color: var(--wp-admin-theme-color)) {
+@mixin input-style__focus($accent-color: var(--fp-admin-theme-color)) {
 	border-color: $accent-color;
 	// Expand the default border focus style by .5px to be a total of 1.5px.
 	box-shadow: 0 0 0 0.5px $accent-color;
@@ -164,7 +164,7 @@
 }
 
 @mixin button-style__focus() {
-	box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+	box-shadow: 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
 
 	// Windows High Contrast mode will show this outline, but not the box-shadow.
 	outline: 2px solid transparent;
@@ -172,7 +172,7 @@
 
 
 @mixin button-style-outset__focus($focus-color) {
-	box-shadow: 0 0 0 var(--wp-admin-border-width-focus) colors.$white, 0 0 0 calc(2 * var(--wp-admin-border-width-focus)) $focus-color;
+	box-shadow: 0 0 0 var(--fp-admin-border-width-focus) colors.$white, 0 0 0 calc(2 * var(--fp-admin-border-width-focus)) $focus-color;
 
 	// Windows High Contrast mode will show this outline, but not the box-shadow.
 	outline: 2px solid transparent;
@@ -263,7 +263,7 @@
 	}
 }
 
-@mixin input-control($accent-color: var(--wp-admin-theme-color)) {
+@mixin input-control($accent-color: var(--fp-admin-theme-color)) {
 	font-family: variables.$default-font;
 	padding: 6px 8px;
 	/* Fonts smaller than 16px causes mobile safari to zoom. */
@@ -304,15 +304,15 @@
 	@include input-control;
 
 	&:focus {
-		box-shadow: 0 0 0 (variables.$border-width * 2) colors.$white, 0 0 0 (variables.$border-width * 2 + variables.$border-width-focus-fallback) var(--wp-admin-theme-color);
+		box-shadow: 0 0 0 (variables.$border-width * 2) colors.$white, 0 0 0 (variables.$border-width * 2 + variables.$border-width-focus-fallback) var(--fp-admin-theme-color);
 
 		// Only visible in Windows High Contrast mode.
 		outline: 2px solid transparent;
 	}
 
 	&:checked {
-		background: var(--wp-admin-theme-color);
-		border-color: var(--wp-admin-theme-color);
+		background: var(--fp-admin-theme-color);
+		border-color: var(--fp-admin-theme-color);
 
 		// Hide default checkbox styles in IE.
 		&::-ms-check {
@@ -331,12 +331,12 @@
 	}
 
 	&[aria-checked="mixed"] {
-		background: var(--wp-admin-theme-color);
-		border-color: var(--wp-admin-theme-color);
+		background: var(--fp-admin-theme-color);
+		border-color: var(--fp-admin-theme-color);
 
 		&::before {
 			// Inherited from `forms.css`.
-			// See: https://github.com/FinPress/finpress-develop/tree/5.1.1/src/wp-admin/css/forms.css#L122-L132
+			// See: https://github.com/FinPress/finpress-develop/tree/5.1.1/src/fp-admin/css/forms.css#L122-L132
 			content: "\f460";
 			float: left;
 			display: inline-block;
@@ -361,7 +361,7 @@
 		border-color: colors.$gray-300;
 		cursor: default;
 
-		// Override style inherited from wp-admin. Required to avoid degraded appearance on different backgrounds.
+		// Override style inherited from fp-admin. Required to avoid degraded appearance on different backgrounds.
 		opacity: 1;
 	}
 }
@@ -409,21 +409,21 @@
 	}
 
 	&:focus {
-		box-shadow: 0 0 0 (variables.$border-width * 2) colors.$white, 0 0 0 (variables.$border-width * 2 + variables.$border-width-focus-fallback) var(--wp-admin-theme-color);
+		box-shadow: 0 0 0 (variables.$border-width * 2) colors.$white, 0 0 0 (variables.$border-width * 2 + variables.$border-width-focus-fallback) var(--fp-admin-theme-color);
 
 		// Only visible in Windows High Contrast mode.
 		outline: 2px solid transparent;
 	}
 
 	&:checked {
-		background: var(--wp-admin-theme-color);
+		background: var(--fp-admin-theme-color);
 		border: none;
 	}
 }
 
 /**
  * Reset default styles for JavaScript UI based pages.
- * This is a WP-admin agnostic reset
+ * This is a FP-admin agnostic reset
  */
 
 @mixin reset {
@@ -438,8 +438,8 @@
 
 @mixin link-reset {
 	&:focus {
-		color: var(--wp-admin-theme-color--rgb);
-		box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color, #007cba);
+		color: var(--fp-admin-theme-color--rgb);
+		box-shadow: 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color, #007cba);
 		border-radius: variables.$radius-small;
 	}
 }
@@ -461,8 +461,8 @@
 	}
 
 	&:focus {
-		border-color: var(--wp-admin-theme-color) !important;
-		box-shadow: 0 0 0 (variables.$border-width-focus-fallback - variables.$border-width) var(--wp-admin-theme-color) !important;
+		border-color: var(--fp-admin-theme-color) !important;
+		box-shadow: 0 0 0 (variables.$border-width-focus-fallback - variables.$border-width) var(--fp-admin-theme-color) !important;
 
 		// Windows High Contrast mode will show this outline, but not the box-shadow.
 		outline: 2px solid transparent !important;
@@ -470,27 +470,27 @@
 }
 
 /**
- * Reset the WP Admin page styles for Gutenberg-like pages.
+ * Reset the FP Admin page styles for Gutenberg-like pages.
  */
 
-@mixin wp-admin-reset( $content-container ) {
+@mixin fp-admin-reset( $content-container ) {
 	background: colors.$white;
 
-	#wpcontent {
+	#fpcontent {
 		padding-left: 0;
 	}
 
-	#wpbody-content {
+	#fpbody-content {
 		padding-bottom: 0;
 	}
 
 	/* We hide legacy notices in Gutenberg Based Pages, because they were not designed in a way that scaled well.
 	   Plugins can use Gutenberg notices if they need to pass on information to the user when they are editing. */
-	#wpbody-content > div:not(#{ $content-container }):not(#screen-meta) {
+	#fpbody-content > div:not(#{ $content-container }):not(#screen-meta) {
 		display: none;
 	}
 
-	#wpfooter {
+	#fpfooter {
 		display: none;
 	}
 
@@ -499,7 +499,7 @@
 		top: -1px;
 	}
 
-	ul#adminmenu a.wp-has-current-submenu::after,
+	ul#adminmenu a.fp-has-current-submenu::after,
 	ul#adminmenu > li.current > a.current::after {
 		border-right-color: colors.$white;
 	}
@@ -513,19 +513,19 @@
 @mixin admin-scheme($color-primary) {
 	// Define RGB equivalents for use in rgba function.
 	// Hexadecimal css vars do not work in the rgba function.
-	--wp-admin-theme-color: #{$color-primary};
-	--wp-admin-theme-color--rgb: #{functions.hex-to-rgb($color-primary)};
+	--fp-admin-theme-color: #{$color-primary};
+	--fp-admin-theme-color--rgb: #{functions.hex-to-rgb($color-primary)};
 	// Darker shades.
-	--wp-admin-theme-color-darker-10: #{color.adjust($color-primary, $lightness: -5%)};
-	--wp-admin-theme-color-darker-10--rgb: #{functions.hex-to-rgb(color.adjust($color-primary, $lightness: -5%))};
-	--wp-admin-theme-color-darker-20: #{color.adjust($color-primary, $lightness: -10%)};
-	--wp-admin-theme-color-darker-20--rgb: #{functions.hex-to-rgb(color.adjust($color-primary, $lightness: -10%))};
+	--fp-admin-theme-color-darker-10: #{color.adjust($color-primary, $lightness: -5%)};
+	--fp-admin-theme-color-darker-10--rgb: #{functions.hex-to-rgb(color.adjust($color-primary, $lightness: -5%))};
+	--fp-admin-theme-color-darker-20: #{color.adjust($color-primary, $lightness: -10%)};
+	--fp-admin-theme-color-darker-20--rgb: #{functions.hex-to-rgb(color.adjust($color-primary, $lightness: -10%))};
 
 	// Focus style width.
 	// Avoid rounding issues by showing a whole 2px for 1x screens, and 1.5px on high resolution screens.
-	--wp-admin-border-width-focus: 2px;
+	--fp-admin-border-width-focus: 2px;
 	@media ( -webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-		--wp-admin-border-width-focus: 1.5px;
+		--fp-admin-border-width-focus: 1.5px;
 	}
 }
 
@@ -589,7 +589,7 @@
 @mixin gradient-colors-deprecated() {
 	// Our classes uses the same values we set for gradient value attributes.
 
-	/* stylelint-disable @stylistic/function-comma-space-after -- We can not use spacing because of WP multi site kses rule. */
+	/* stylelint-disable @stylistic/function-comma-space-after -- We can not use spacing because of FP multi site kses rule. */
 	.has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background {
 		background: linear-gradient(135deg,rgba(0,208,132,1) 0%,rgba(6,147,227,1) 100%);
 	}
@@ -665,10 +665,10 @@
 }
 
 @mixin selected-block-outline($widthRatio: 1) {
-	outline-color: var(--wp-admin-theme-color);
+	outline-color: var(--fp-admin-theme-color);
 	outline-style: solid;
-	outline-width: calc(#{$widthRatio} * (var(--wp-admin-border-width-focus) / var(--wp-block-editor-iframe-zoom-out-scale, 1)));
-	outline-offset: calc(#{$widthRatio} * ((-1 * var(--wp-admin-border-width-focus) ) / var(--wp-block-editor-iframe-zoom-out-scale, 1)));
+	outline-width: calc(#{$widthRatio} * (var(--fp-admin-border-width-focus) / var(--fp-block-editor-iframe-zoom-out-scale, 1)));
+	outline-offset: calc(#{$widthRatio} * ((-1 * var(--fp-admin-border-width-focus) ) / var(--fp-block-editor-iframe-zoom-out-scale, 1)));
 }
 
 @mixin selected-block-focus($widthRatio: 1) {

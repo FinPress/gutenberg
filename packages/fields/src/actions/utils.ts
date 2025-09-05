@@ -9,17 +9,17 @@ import { decodeEntities } from '@finpress/html-entities';
 import type { Post, TemplatePart, Template } from '../types';
 
 export function isTemplate( post: Post ): post is Template {
-	return post.type === 'wp_template';
+	return post.type === 'fp_template';
 }
 
 export function isTemplatePart( post: Post ): post is TemplatePart {
-	return post.type === 'wp_template_part';
+	return post.type === 'fp_template_part';
 }
 
 export function isTemplateOrTemplatePart(
 	p: Post
 ): p is Template | TemplatePart {
-	return p.type === 'wp_template' || p.type === 'wp_template_part';
+	return p.type === 'fp_template' || p.type === 'fp_template_part';
 }
 
 export function getItemTitle( item: {
@@ -52,7 +52,7 @@ export function isTemplateRemovable( template: Template | TemplatePart ) {
 	// two props whether is custom or has a theme file.
 	return (
 		[ template.source, template.source ].includes( 'custom' ) &&
-		! Boolean( template.type === 'wp_template' && template?.plugin ) &&
+		! Boolean( template.type === 'fp_template' && template?.plugin ) &&
 		! template.has_theme_file
 	);
 }

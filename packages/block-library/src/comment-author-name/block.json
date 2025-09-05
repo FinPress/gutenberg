@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/comment-author-name",
 	"title": "Comment Author Name",
@@ -65,5 +65,5 @@
 			}
 		}
 	},
-	"style": "wp-block-comment-author-name"
+	"style": "fp-block-comment-author-name"
 }

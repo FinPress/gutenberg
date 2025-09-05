@@ -200,7 +200,7 @@ export default function PageTemplates() {
 				onChangeSelection={ onChangeSelection }
 				isItemClickable={ () => true }
 				onClickItem={ ( { id } ) => {
-					history.navigate( `/wp_template/${ id }?canvas=edit` );
+					history.navigate( `/fp_template/${ id }?canvas=edit` );
 				} }
 				selection={ selection }
 				defaultLayouts={ defaultLayouts }

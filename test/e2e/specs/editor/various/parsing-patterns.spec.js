@@ -19,19 +19,19 @@ test.describe( 'Parsing patterns', () => {
 
 		await page.getByRole( 'tab', { name: 'Patterns' } ).click();
 		await page.evaluate( () => {
-			window.wp.data.dispatch( 'core/block-editor' ).updateSettings( {
+			window.fp.data.dispatch( 'core/block-editor' ).updateSettings( {
 				__experimentalBlockPatterns: [
 					{
 						name: 'test/whitespace',
 						title: 'Pattern with top-level whitespace',
 						description: '',
-						content: `<!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">test</a></div>
-<!-- /wp:button -->
+						content: `<!-- fp:button -->
+<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">test</a></div>
+<!-- /fp:button -->
 
-<!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">test</a></div>
-<!-- /wp:button -->`,
+<!-- fp:button -->
+<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">test</a></div>
+<!-- /fp:button -->`,
 					},
 				],
 			} );

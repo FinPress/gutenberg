@@ -4,8 +4,8 @@ exports[`DotTip should render correctly 1`] = `
 <div
   aria-label="Editor tips"
   class="components-popover nux-dot-tip is-positioned"
-  data-wp-c16t="true"
-  data-wp-component="Popover"
+  data-fp-c16t="true"
+  data-fp-component="Popover"
   role="dialog"
   style="position: absolute; top: 0px; left: 0px; transform: none;"
   tabindex="-1"

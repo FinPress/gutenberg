@@ -22,20 +22,20 @@ const retry = require( '../retry' );
 const stop = require( './stop' );
 const initConfig = require( '../init-config' );
 const downloadSources = require( '../download-sources' );
-const downloadWPPHPUnit = require( '../download-wp-phpunit' );
+const downloadFPPHPUnit = require( '../download-fp-phpunit' );
 const {
 	checkDatabaseConnection,
 	configureFinPress,
 	setupFinPressDirectories,
 	readFinPressVersion,
-	canAccessWPORG,
+	canAccessFPORG,
 } = require( '../finpress' );
 const { didCacheChange, setCache } = require( '../cache' );
 const md5 = require( '../md5' );
 const { executeLifecycleScript } = require( '../execute-lifecycle-script' );
 
 /**
- * @typedef {import('../config').WPConfig} WPConfig
+ * @typedef {import('../config').FPConfig} FPConfig
  */
 const CONFIG_CACHE_KEY = 'config_checksum';
 
@@ -72,7 +72,7 @@ module.exports = async function start( {
 	if ( ! config.detectedLocalConfig ) {
 		const { configDirectoryPath } = config;
 		spinner.warn(
-			`Warning: could not find a .wp-env.json configuration file and could not determine if '${ configDirectoryPath }' is a FinPress installation, a plugin, or a theme.`
+			`Warning: could not find a .fp-env.json configuration file and could not determine if '${ configDirectoryPath }' is a FinPress installation, a plugin, or a theme.`
 		);
 		spinner.start();
 	}
@@ -88,19 +88,19 @@ module.exports = async function start( {
 		// Don't reconfigure everything when we can't connect to the internet because
 		// the majority of update tasks involve connecting to the internet. (Such
 		// as downloading sources and pulling docker images.)
-		( await canAccessWPORG() );
+		( await canAccessFPORG() );
 
 	const dockerComposeConfig = {
 		config: dockerComposeConfigPath,
 		log: config.debug,
 	};
 
-	if ( ! ( await canAccessWPORG() ) ) {
-		spinner.info( 'wp-env is offline' );
+	if ( ! ( await canAccessFPORG() ) ) {
+		spinner.info( 'fp-env is offline' );
 	}
 
 	/**
-	 * If the Docker image is already running and the `wp-env` files have been
+	 * If the Docker image is already running and the `fp-env` files have been
 	 * deleted, the start command will not complete successfully. Stopping
 	 * the container before continuing allows the docker entrypoint script,
 	 * which restores the files, to run again when we start the containers.
@@ -132,7 +132,7 @@ module.exports = async function start( {
 		} catch {
 			// Note: we do not care about this error condition because it will
 			// mostly happen when the volume already exists. This error would not
-			// stop wp-env from working correctly.
+			// stop fp-env from working correctly.
 		}
 
 		await dockerCompose.pullAll( dockerComposeConfig );
@@ -155,7 +155,7 @@ module.exports = async function start( {
 		await setupFinPressDirectories( config );
 
 		// Use the FinPress versions to download the PHPUnit suite.
-		const wpVersions = await Promise.all( [
+		const fpVersions = await Promise.all( [
 			readFinPressVersion(
 				config.env.development.coreSource,
 				spinner,
@@ -163,9 +163,9 @@ module.exports = async function start( {
 			),
 			readFinPressVersion( config.env.tests.coreSource, spinner, debug ),
 		] );
-		await downloadWPPHPUnit(
+		await downloadFPPHPUnit(
 			config,
-			{ development: wpVersions[ 0 ], tests: wpVersions[ 1 ] },
+			{ development: fpVersions[ 0 ], tests: fpVersions[ 1 ] },
 			spinner,
 			debug
 		);
@@ -243,8 +243,8 @@ module.exports = async function start( {
 		await executeLifecycleScript( 'afterStart', config, spinner );
 	}
 
-	const siteUrl = config.env.development.config.WP_SITEURL;
-	const testsSiteUrl = config.env.tests.config.WP_SITEURL;
+	const siteUrl = config.env.development.config.FP_SITEURL;
+	const testsSiteUrl = config.env.tests.config.FP_SITEURL;
 
 	const mySQLPort = await getPublicDockerPort(
 		'mysql',

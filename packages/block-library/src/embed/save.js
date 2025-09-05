@@ -19,15 +19,15 @@ export default function save( { attributes } ) {
 		return null;
 	}
 
-	const className = clsx( 'wp-block-embed', {
+	const className = clsx( 'fp-block-embed', {
 		[ `is-type-${ type }` ]: type,
 		[ `is-provider-${ providerNameSlug }` ]: providerNameSlug,
-		[ `wp-block-embed-${ providerNameSlug }` ]: providerNameSlug,
+		[ `fp-block-embed-${ providerNameSlug }` ]: providerNameSlug,
 	} );
 
 	return (
 		<figure { ...useBlockProps.save( { className } ) }>
-			<div className="wp-block-embed__wrapper">
+			<div className="fp-block-embed__wrapper">
 				{ `\n${ url }\n` /* URL needs to be on its own line. */ }
 			</div>
 			{ ! RichText.isEmpty( caption ) && (

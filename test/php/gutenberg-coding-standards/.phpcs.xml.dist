@@ -27,7 +27,7 @@
 	-->
 
 	<rule ref="FinPress">
-		<!-- This project needs to comply with naming standards from PHPCS, not WP. -->
+		<!-- This project needs to comply with naming standards from PHPCS, not FP. -->
 		<exclude name="FinPress.Files.FileName"/>
 		<exclude name="FinPress.NamingConventions.ValidVariableName"/>
 	</rule>

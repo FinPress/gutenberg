@@ -21,8 +21,8 @@ import {
 } from '../registration';
 import { normalizeBlockType } from '../utils';
 
-/** @typedef {import('../parser').WPBlock} WPBlock */
-/** @typedef {import('../registration').WPBlockType} WPBlockType */
+/** @typedef {import('../parser').FPBlock} FPBlock */
+/** @typedef {import('../registration').FPBlockType} FPBlockType */
 /** @typedef {import('./logger').LoggerItem} LoggerItem */
 
 const identity = ( x ) => x;
@@ -65,7 +65,7 @@ const REGEXP_STYLE_URL_TYPE = /^url\s*\(['"\s]*(.*?)['"\s]*\)$/;
  */
 const BOOLEAN_ATTRIBUTES = [
 	'allowfullscreen',
-	'allowpaymentrequest',
+	'allofpaymentrequest',
 	'allowusermedia',
 	'async',
 	'autofocus',
@@ -716,8 +716,8 @@ export function isEquivalentHTML( actual, expected, logger = createLogger() ) {
  * with assumed attributes, the content matches the original value. If block is
  * invalid, this function returns all validations issues as well.
  *
- * @param {WPBlock}            block                          block object.
- * @param {WPBlockType|string} [blockTypeOrName = block.name] Block type or name, inferred from block if not given.
+ * @param {FPBlock}            block                          block object.
+ * @param {FPBlockType|string} [blockTypeOrName = block.name] Block type or name, inferred from block if not given.
  *
  * @return {[boolean,Array<LoggerItem>]} validation results.
  */

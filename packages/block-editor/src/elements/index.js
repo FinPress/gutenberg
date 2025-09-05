@@ -1,6 +1,6 @@
 const ELEMENT_CLASS_NAMES = {
-	button: 'wp-element-button',
-	caption: 'wp-element-caption',
+	button: 'fp-element-button',
+	caption: 'fp-element-caption',
 };
 
 export const __experimentalGetElementClassName = ( element ) => {

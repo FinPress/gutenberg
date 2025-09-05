@@ -22,7 +22,7 @@ import { getItemTitle } from './utils';
 const duplicateTemplatePart: Action< TemplatePart > = {
 	id: 'duplicate-template-part',
 	label: _x( 'Duplicate', 'action label' ),
-	isEligible: ( item ) => item.type === 'wp_template_part',
+	isEligible: ( item ) => item.type === 'fp_template_part',
 	modalHeader: _x( 'Duplicate template part', 'action label' ),
 	modalFocusOnMount: 'firstContentElement',
 	RenderModal: ( { items, closeModal } ) => {

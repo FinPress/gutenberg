@@ -4,7 +4,7 @@
 		"isValid": true,
 		"attributes": {
 			"isLink": false,
-			"className": "wp-block-post-date__modified-date",
+			"className": "fp-block-post-date__modified-date",
 			"metadata": {
 				"bindings": {
 					"datetime": {

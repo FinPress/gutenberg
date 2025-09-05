@@ -21,13 +21,13 @@ function stubFalse() {
  * deprecated migrations applied, or the original block if it was both valid
  * and no eligible migrations exist.
  *
- * @param {import(".").WPBlock}                   block     Parsed and invalid block object.
- * @param {import(".").WPRawBlock}                rawBlock  Raw block object.
- * @param {import('../registration').WPBlockType} blockType Block type. This is normalize not necessary and
+ * @param {import(".").FPBlock}                   block     Parsed and invalid block object.
+ * @param {import(".").FPRawBlock}                rawBlock  Raw block object.
+ * @param {import('../registration').FPBlockType} blockType Block type. This is normalize not necessary and
  *                                                          can be inferred from the block name,
  *                                                          but it's here for performance reasons.
  *
- * @return {import(".").WPBlock} Migrated block object.
+ * @return {import(".").FPBlock} Migrated block object.
  */
 export function applyBlockDeprecatedVersions( block, rawBlock, blockType ) {
 	const parsedAttributes = rawBlock.attrs;

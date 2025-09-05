@@ -2,7 +2,7 @@
  * Appender
  */
 
-.wp-block-navigation .block-list-appender {
+.fp-block-navigation .block-list-appender {
 	position: relative;
 }
 
@@ -11,23 +11,23 @@
  */
 
 // Show submenus above the sibling inserter.
-.wp-block-navigation .has-child {
+.fp-block-navigation .has-child {
 	cursor: pointer;
 
-	.wp-block-navigation__submenu-container {
-		z-index: z-index(".has-child .wp-block-navigation__submenu-container");
+	.fp-block-navigation__submenu-container {
+		z-index: z-index(".has-child .fp-block-navigation__submenu-container");
 	}
 
 	&:hover {
-		.wp-block-navigation__submenu-container {
-			z-index: z-index(".has-child:hover .wp-block-navigation__submenu-container");
+		.fp-block-navigation__submenu-container {
+			z-index: z-index(".has-child:hover .fp-block-navigation__submenu-container");
 		}
 	}
 
 	// Show on editor selected, even if on frontend it only stays open on focus-within.
 	&.is-selected,
 	&.has-child-selected {
-		> .wp-block-navigation__submenu-container {
+		> .fp-block-navigation__submenu-container {
 			// We use important here because if the parent block is selected and submenus are present, they should always be visible.
 			visibility: visible !important;
 			opacity: 1 !important;
@@ -44,8 +44,8 @@
  * Navigation Items.
  */
 
-.wp-block-navigation-item {
-	.wp-block-navigation-item__content {
+.fp-block-navigation-item {
+	.fp-block-navigation-item__content {
 		cursor: text;
 	}
 
@@ -63,7 +63,7 @@
 	}
 }
 
-.wp-block-navigation-link__invalid-item {
+.fp-block-navigation-link__invalid-item {
 	color: #000;
 }
 
@@ -71,7 +71,7 @@
  * Menu item setup state. Is shown when a menu item has no URL configured.
  */
 
-.wp-block-navigation-link__placeholder {
+.fp-block-navigation-link__placeholder {
 	position: relative;
 
 	// While in a placeholder state, hide any underlines the theme might add.
@@ -80,7 +80,7 @@
 	background-image: none !important;
 
 	// Draw a wavy underline.
-	.wp-block-navigation-link__placeholder-text {
+	.fp-block-navigation-link__placeholder-text {
 		span {
 			text-decoration: wavy underline;
 			text-decoration-skip-ink: none;
@@ -89,7 +89,7 @@
 	}
 
 	// This needs extra specificity.
-	&.wp-block-navigation-item__content {
+	&.fp-block-navigation-item__content {
 		cursor: pointer;
 	}
 }

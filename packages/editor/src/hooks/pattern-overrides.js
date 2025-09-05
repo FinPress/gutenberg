@@ -14,7 +14,7 @@ import { getBlockBindingsSource } from '@finpress/blocks';
 import { store as editorStore } from '../store';
 import { unlock } from '../lock-unlock';
 
-/** @typedef {import('@finpress/blocks').WPBlockSettings} WPBlockSettings */
+/** @typedef {import('@finpress/blocks').FPBlockSettings} FPBlockSettings */
 
 const {
 	PatternOverridesControls,
@@ -68,9 +68,9 @@ function ControlsWithStoreSubscription( props ) {
 				),
 				isEditingSyncedPattern:
 					getCurrentPostType() === PATTERN_TYPES.user &&
-					getEditedPostAttribute( 'meta' )?.wp_pattern_sync_status !==
+					getEditedPostAttribute( 'meta' )?.fp_pattern_sync_status !==
 						PATTERN_SYNC_TYPES.unsynced &&
-					getEditedPostAttribute( 'wp_pattern_sync_status' ) !==
+					getEditedPostAttribute( 'fp_pattern_sync_status' ) !==
 						PATTERN_SYNC_TYPES.unsynced,
 			};
 		},

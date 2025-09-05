@@ -30,7 +30,7 @@ export async function selectBlocks(
 		await this.page.evaluate(
 			( [ startId, endId ] ) => {
 				// @ts-ignore
-				wp.data
+				fp.data
 					.dispatch( 'core/block-editor' )
 					.multiSelect( startId, endId );
 			},
@@ -40,7 +40,7 @@ export async function selectBlocks(
 		await this.page.evaluate(
 			( [ clientId ] ) => {
 				// @ts-ignore
-				wp.data.dispatch( 'core/block-editor' ).selectBlock( clientId );
+				fp.data.dispatch( 'core/block-editor' ).selectBlock( clientId );
 			},
 			[ startClientId ]
 		);

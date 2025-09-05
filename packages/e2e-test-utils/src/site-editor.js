@@ -18,19 +18,19 @@ const SELECTORS = {
  */
 export async function disableSiteEditorWelcomeGuide() {
 	await page.evaluate( () => {
-		window.wp.data
+		window.fp.data
 			.dispatch( 'core/preferences' )
 			.set( 'core/edit-site', 'welcomeGuide', false );
 
-		window.wp.data
+		window.fp.data
 			.dispatch( 'core/preferences' )
 			.set( 'core/edit-site', 'welcomeGuideStyles', false );
 
-		window.wp.data
+		window.fp.data
 			.dispatch( 'core/preferences' )
 			.set( 'core/edit-site', 'welcomeGuidePage', false );
 
-		window.wp.data
+		window.fp.data
 			.dispatch( 'core/preferences' )
 			.set( 'core/edit-site', 'welcomeGuideTemplate', false );
 	} );
@@ -43,20 +43,20 @@ export async function disableSiteEditorWelcomeGuide() {
  */
 export function getCurrentSiteEditorContent() {
 	return page.evaluate( () => {
-		const postId = window.wp.data
+		const postId = window.fp.data
 			.select( 'core/editor' )
 			.getCurrentPostId();
-		const postType = window.wp.data
+		const postType = window.fp.data
 			.select( 'core/editor' )
 			.getCurrentPostType();
-		const record = window.wp.data
+		const record = window.fp.data
 			.select( 'core' )
 			.getEditedEntityRecord( 'postType', postType, postId );
 		if ( record ) {
 			if ( typeof record.content === 'function' ) {
 				return record.content( record );
 			} else if ( record.blocks ) {
-				return window.wp.blocks.__unstableSerializeAndClean(
+				return window.fp.blocks.__unstableSerializeAndClean(
 					record.blocks
 				);
 			} else if ( record.content ) {

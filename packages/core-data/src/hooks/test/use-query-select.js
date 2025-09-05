@@ -17,7 +17,7 @@ import { render, screen, waitFor } from '@testing-library/react';
  */
 import useQuerySelect from '../use-query-select';
 
-/* eslint-disable @finpress/wp-global-usage */
+/* eslint-disable @finpress/fp-global-usage */
 describe( 'useQuerySelect', () => {
 	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
 	let registry;
@@ -199,4 +199,4 @@ describe( 'useQuerySelect', () => {
 		);
 	} );
 } );
-/* eslint-enable @finpress/wp-global-usage */
+/* eslint-enable @finpress/fp-global-usage */

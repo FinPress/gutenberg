@@ -15,9 +15,9 @@
 				"innerContent": [ "\n\t<p>Details Content</p>\n\t" ]
 			}
 		],
-		"innerHTML": "\n<details class=\"wp-block-details\"><summary>Details Summary</summary>\n\t\n</details>\n",
+		"innerHTML": "\n<details class=\"fp-block-details\"><summary>Details Summary</summary>\n\t\n</details>\n",
 		"innerContent": [
-			"\n<details class=\"wp-block-details\"><summary>Details Summary</summary>\n\t",
+			"\n<details class=\"fp-block-details\"><summary>Details Summary</summary>\n\t",
 			null,
 			"\n</details>\n"
 		]

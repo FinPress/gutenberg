@@ -1,9 +1,9 @@
-.wp-block-group {
+.fp-block-group {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 }
 
 // We need this so groups with negative margins overlap as expected.
-:where(.wp-block-group.wp-block-group-is-layout-constrained) {
+:where(.fp-block-group.fp-block-group-is-layout-constrained) {
 	position: relative;
 }

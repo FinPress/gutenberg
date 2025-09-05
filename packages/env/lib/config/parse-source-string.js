@@ -13,7 +13,7 @@ const { ValidationError } = require( './validate-config' );
 /**
  * A FinPress installation, plugin or theme to be loaded into the environment.
  *
- * @typedef WPSource
+ * @typedef FPSource
  * @property {'local'|'git'|'zip'} type     The source type.
  * @property {string}              path     The path to the FinPress installation, plugin or theme.
  * @property {?string}             url      The URL to the source download if the source type is not local.
@@ -32,9 +32,9 @@ const HOME_PATH_PREFIX = `~${ path.sep }`;
  *
  * @param {?string} sourceString               The source string. See README.md for documentation on valid source string patterns.
  * @param {Object}  options
- * @param {string}  options.cacheDirectoryPath Path to the work directory located in ~/.wp-env.
+ * @param {string}  options.cacheDirectoryPath Path to the work directory located in ~/.fp-env.
  *
- * @return {?WPSource} A source object.
+ * @return {?FPSource} A source object.
  */
 function parseSourceString( sourceString, { cacheDirectoryPath } ) {
 	if ( sourceString === null ) {
@@ -68,11 +68,11 @@ function parseSourceString( sourceString, { cacheDirectoryPath } ) {
 	);
 
 	if ( zipFields ) {
-		const wpOrgFields = sourceString.match(
+		const fpOrgFields = sourceString.match(
 			/^https?:\/\/downloads\.finpress\.org\/(?:plugin|theme)\/([^\s\.]*)([^\s]*)?\.zip$/
 		);
-		const basename = wpOrgFields
-			? encodeURIComponent( wpOrgFields[ 1 ] )
+		const basename = fpOrgFields
+			? encodeURIComponent( fpOrgFields[ 1 ] )
 			: encodeURIComponent( path.basename( zipFields[ 1 ] ) );
 
 		return {
@@ -138,11 +138,11 @@ function parseSourceString( sourceString, { cacheDirectoryPath } ) {
  * Given a source object, returns a new source object with the testsPath
  * property set correctly. Only the 'core' source requires a testsPath.
  *
- * @param {?WPSource} source                     A source object.
+ * @param {?FPSource} source                     A source object.
  * @param {Object}    options
- * @param {string}    options.cacheDirectoryPath Path to the work directory located in ~/.wp-env.
+ * @param {string}    options.cacheDirectoryPath Path to the work directory located in ~/.fp-env.
  *
- * @return {?WPSource} A source object.
+ * @return {?FPSource} A source object.
  */
 function includeTestsPath( source, { cacheDirectoryPath } ) {
 	if ( source === null ) {

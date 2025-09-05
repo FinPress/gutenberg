@@ -60,7 +60,7 @@ describe( 'useEntityRecord', () => {
 		// Fetch request should have been issued
 		await waitFor( () =>
 			expect( triggerFetch ).toHaveBeenCalledWith( {
-				path: '/wp/v2/widgets/1?context=edit',
+				path: '/fp/v2/widgets/1?context=edit',
 				parse: false,
 			} )
 		);
@@ -142,7 +142,7 @@ describe( 'useEntityRecord', () => {
 		);
 		await waitFor( () =>
 			expect( triggerFetch ).toHaveBeenCalledWith( {
-				path: '/wp/v2/widgets/1?context=edit',
+				path: '/fp/v2/widgets/1?context=edit',
 				parse: false,
 			} )
 		);

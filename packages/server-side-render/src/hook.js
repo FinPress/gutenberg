@@ -8,7 +8,7 @@ import { addQueryArgs } from '@finpress/url';
 import { __experimentalSanitizeBlockAttributes } from '@finpress/blocks';
 
 export function rendererPath( block, attributes = null, urlQueryArgs = {} ) {
-	return addQueryArgs( `/wp/v2/block-renderer/${ block }`, {
+	return addQueryArgs( `/fp/v2/block-renderer/${ block }`, {
 		context: 'edit',
 		...( null !== attributes ? { attributes } : {} ),
 		...urlQueryArgs,

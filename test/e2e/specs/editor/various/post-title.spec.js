@@ -71,11 +71,11 @@ test.describe( 'Post title', () => {
 			);
 
 			await page.evaluate( () => {
-				window.wp.data
+				window.fp.data
 					.dispatch( 'core/preferences' )
 					.set( 'core/edit-post', 'welcomeGuide', false );
 
-				window.wp.data
+				window.fp.data
 					.dispatch( 'core/preferences' )
 					.set( 'core/edit-post', 'fullscreenMode', false );
 			}, false );
@@ -121,11 +121,11 @@ test.describe( 'Post title', () => {
 			);
 
 			await page.evaluate( () => {
-				window.wp.data
+				window.fp.data
 					.dispatch( 'core/preferences' )
 					.set( 'core/edit-post', 'welcomeGuide', false );
 
-				window.wp.data
+				window.fp.data
 					.dispatch( 'core/preferences' )
 					.set( 'core/edit-post', 'fullscreenMode', false );
 			}, false );

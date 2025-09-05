@@ -30,7 +30,7 @@ const localStorage = window.localStorage;
  */
 export default function create( {
 	preloadedData,
-	localStorageRestoreKey = 'WP_PREFERENCES_RESTORE_DATA',
+	localStorageRestoreKey = 'FP_PREFERENCES_RESTORE_DATA',
 	requestDebounceMS = 2500,
 } = {} ) {
 	let cache = preloadedData;
@@ -42,7 +42,7 @@ export default function create( {
 		}
 
 		const user = await apiFetch( {
-			path: '/wp/v2/users/me?context=edit',
+			path: '/fp/v2/users/me?context=edit',
 		} );
 
 		const serverData = user?.meta?.persisted_preferences;
@@ -89,7 +89,7 @@ export default function create( {
 		//
 		// Catch and do nothing with errors from the REST API.
 		debouncedApiFetch( {
-			path: '/wp/v2/users/me',
+			path: '/fp/v2/users/me',
 			method: 'PUT',
 			// `keepalive` will still send the request in the background,
 			// even when a browser unload event might interrupt it.

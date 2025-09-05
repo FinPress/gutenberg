@@ -6,21 +6,21 @@
  */
 ?>
 
-<div data-wp-interactive="negation-operator">
+<div data-fp-interactive="negation-operator">
 	<button
-		data-wp-on--click="actions.toggle"
+		data-fp-on--click="actions.toggle"
 		data-testid="toggle active value"
 	>
 		Toggle Active Value
 	</button>
 
 	<div
-		data-wp-bind--hidden="!state.active"
+		data-fp-bind--hidden="!state.active"
 		data-testid="add hidden attribute if state is not active"
 	></div>
 
 	<div
-		data-wp-bind--hidden="!state.isActive"
+		data-fp-bind--hidden="!state.isActive"
 		data-testid="add hidden attribute if selector is not active"
 	></div>
 </div>

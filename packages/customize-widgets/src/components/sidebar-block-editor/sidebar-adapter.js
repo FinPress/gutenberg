@@ -3,7 +3,7 @@
  */
 import { settingIdToWidgetId } from '../../utils';
 
-const { wp } = window;
+const { fp } = window;
 
 function parseWidgetId( widgetId ) {
 	const matches = widgetId.match( /^(.+)-(\d+)$/ );
@@ -167,7 +167,7 @@ export default class SidebarAdapter {
 	}
 
 	_createWidget( widget ) {
-		const widgetModel = wp.customize.Widgets.availableWidgets.findWhere( {
+		const widgetModel = fp.customize.Widgets.availableWidgets.findWhere( {
 			id_base: widget.idBase,
 		} );
 
@@ -185,7 +185,7 @@ export default class SidebarAdapter {
 			: `widget_${ widget.idBase }`;
 
 		const settingArgs = {
-			transport: wp.customize.Widgets.data.selectiveRefreshableWidgets[
+			transport: fp.customize.Widgets.data.selectiveRefreshableWidgets[
 				widgetModel.get( 'id_base' )
 			]
 				? 'postMessage'

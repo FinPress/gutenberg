@@ -8,9 +8,9 @@ import deprecated from '@finpress/deprecated';
  */
 import { processBlockType } from './process-block-type';
 
-/** @typedef {import('../api/registration').WPBlockVariation} WPBlockVariation */
-/** @typedef {import('../api/registration').WPBlockType} WPBlockType */
-/** @typedef {import('./reducer').WPBlockCategory} WPBlockCategory */
+/** @typedef {import('../api/registration').FPBlockVariation} FPBlockVariation */
+/** @typedef {import('../api/registration').FPBlockType} FPBlockType */
+/** @typedef {import('./reducer').FPBlockCategory} FPBlockCategory */
 
 /**
  * Returns an action object used in signalling that block types have been added.
@@ -18,7 +18,7 @@ import { processBlockType } from './process-block-type';
  *
  * @ignore
  *
- * @param {WPBlockType|WPBlockType[]} blockTypes Object or array of objects representing blocks to added.
+ * @param {FPBlockType|FPBlockType[]} blockTypes Object or array of objects representing blocks to added.
  *
  *
  * @return {Object} Action object.
@@ -66,7 +66,7 @@ export function reapplyBlockTypeFilters() {
 
 export function __experimentalReapplyBlockFilters() {
 	deprecated(
-		'wp.data.dispatch( "core/blocks" ).__experimentalReapplyBlockFilters',
+		'fp.data.dispatch( "core/blocks" ).__experimentalReapplyBlockFilters',
 		{
 			since: '6.4',
 			alternative: 'reapplyBlockFilters',
@@ -139,7 +139,7 @@ export function removeBlockStyles( blockName, styleNames ) {
  * @ignore
  *
  * @param {string}                              blockName  Block name.
- * @param {WPBlockVariation|WPBlockVariation[]} variations Block variations.
+ * @param {FPBlockVariation|FPBlockVariation[]} variations Block variations.
  *
  * @return {Object} Action object.
  */
@@ -250,7 +250,7 @@ export function setGroupingBlockName( name ) {
  *
  * @ignore
  *
- * @param {WPBlockCategory[]} categories Block categories.
+ * @param {FPBlockCategory[]} categories Block categories.
  *
  * @return {Object} Action object.
  */

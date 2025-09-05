@@ -5,13 +5,13 @@ import { store } from '@finpress/interactivity';
 
 const html = `
 		<div
-			data-wp-interactive="directive-key"
-			data-wp-router-region="some-id"
+			data-fp-interactive="directive-key"
+			data-fp-router-region="some-id"
 		>
 			<ul>
-				<li data-wp-key="id-1">1</li>
-				<li data-wp-key="id-2" data-testid="second-item">2</li>
-				<li data-wp-key="id-3">3</li>
+				<li data-fp-key="id-1">1</li>
+				<li data-fp-key="id-2" data-testid="second-item">2</li>
+				<li data-fp-key="id-3">3</li>
 			</ul>
 		</div>`;
 

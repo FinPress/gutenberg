@@ -50,7 +50,7 @@ import {
 import {
 	useMediaQuery,
 	useRefEffect,
-	useViewportMatch,
+	useviewportMatch,
 } from '@finpress/compose';
 
 /**
@@ -77,10 +77,10 @@ const { useCommandContext } = unlock( commandsPrivateApis );
 const { Editor, FullscreenMode, NavigableRegion } = unlock( editorPrivateApis );
 const { BlockKeyboardShortcuts } = unlock( blockLibraryPrivateApis );
 const DESIGN_POST_TYPES = [
-	'wp_template',
-	'wp_template_part',
-	'wp_block',
-	'wp_navigation',
+	'fp_template',
+	'fp_template_part',
+	'fp_block',
+	'fp_navigation',
 ];
 
 function useEditorStyles( ...additionalStyles ) {
@@ -383,7 +383,7 @@ function Layout( {
 		initialPostType,
 		'post-only'
 	);
-	const isEditingTemplate = currentPostType === 'wp_template';
+	const isEditingTemplate = currentPostType === 'fp_template';
 	const {
 		mode,
 		isFullscreenActive,
@@ -410,7 +410,7 @@ function Layout( {
 				getPostType( currentPostType )?.viewable ?? false;
 			const canViewTemplate = canUser( 'read', {
 				kind: 'postType',
-				name: 'wp_template',
+				name: 'fp_template',
 			} );
 			const { getBlockSelectionStart, isZoomOut } = unlock(
 				select( blockEditorStore )
@@ -425,7 +425,7 @@ function Layout( {
 			const isNotDesignPostType =
 				! DESIGN_POST_TYPES.includes( currentPostType );
 			const isDirectlyEditingPattern =
-				currentPostType === 'wp_block' &&
+				currentPostType === 'fp_block' &&
 				! onNavigateToPreviousEntityRecord;
 			const _templateId = getTemplateId( currentPostType, currentPostId );
 			const defaultMode = getDefaultRenderingMode( currentPostType );
@@ -573,7 +573,7 @@ function Layout( {
 	}, [ initialPostType, initialPostId ] );
 
 	const backButton =
-		useViewportMatch( 'medium' ) && isFullscreenActive ? (
+		useviewportMatch( 'medium' ) && isFullscreenActive ? (
 			<BackButton initialPost={ initialPost } />
 		) : null;
 

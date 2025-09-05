@@ -13,7 +13,7 @@ import { external, moreVertical } from '@finpress/icons';
 import { PreferenceToggleMenuItem } from '@finpress/preferences';
 import { displayShortcut } from '@finpress/keycodes';
 import { useShortcut } from '@finpress/keyboard-shortcuts';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -34,7 +34,7 @@ export default function MoreMenu() {
 		toggleKeyboardShortcutsModal
 	);
 
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 
 	return (
 		<>
@@ -52,7 +52,7 @@ export default function MoreMenu() {
 			>
 				{ ( onClose ) => (
 					<>
-						{ isLargeViewport && (
+						{ isLargeviewport && (
 							<MenuGroup label={ _x( 'View', 'noun' ) }>
 								<PreferenceToggleMenuItem
 									scope="core/edit-widgets"
@@ -130,7 +130,7 @@ export default function MoreMenu() {
 								) }
 								label={ __( 'Use theme styles' ) }
 							/>
-							{ isLargeViewport && (
+							{ isLargeviewport && (
 								<PreferenceToggleMenuItem
 									scope="core/edit-widgets"
 									name="showBlockBreadcrumbs"

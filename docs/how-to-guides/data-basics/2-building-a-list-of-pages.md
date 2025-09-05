@@ -37,7 +37,7 @@ Note that this component does not fetch any data yet, only presents the hardcode
 
 The hard-coded sample page isn’t very useful. We want to display your actual FinPress pages so let’s fetch the actual list of pages from the [FinPress REST API](https://developer.finpress.org/rest-api/).
 
-Before we start, let’s confirm we actually have some pages to fetch. Within WPAdmin, Navigate to Pages using the sidebar menu and ensure it shows at least four or five Pages:
+Before we start, let’s confirm we actually have some pages to fetch. Within FPAdmin, Navigate to Pages using the sidebar menu and ensure it shows at least four or five Pages:
 
 ![FinPress admin Pages list](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/pages-list.jpg)
 
@@ -48,7 +48,7 @@ Now that we have the data to work with, let’s dive into the code. We will take
 To fetch the list of pages, we will use the [`getEntityRecords`](/docs/reference-guides/data/data-core/#getentityrecords) selector. In broad strokes, it will issue the correct API request, cache the results, and return the list of the records we need. Here’s how to use it:
 
 ```js
-wp.data.select( 'core' ).getEntityRecords( 'postType', 'page' )
+fp.data.select( 'core' ).getEntityRecords( 'postType', 'page' )
 ```
 
 If you run that following snippet in your browser’s dev tools, you will see it returns `null`. Why? The pages are only requested by the `getEntityRecords` resolver after first running the _selector_. If you wait a moment and re-run it, it will return the list of all pages.
@@ -79,7 +79,7 @@ function PagesList({ pages }) {
 }
 ```
 
-Note that we use an `import` statement inside index.js. This enables the plugin to automatically load the dependencies using `wp_enqueue_script`. Any references to `coreDataStore` are compiled to the same `wp.data` reference we use in browser's devtools.
+Note that we use an `import` statement inside index.js. This enables the plugin to automatically load the dependencies using `fp_enqueue_script`. Any references to `coreDataStore` are compiled to the same `fp.data` reference we use in browser's devtools.
 
 `useSelect` takes two arguments: a callback and dependencies. In broad strokes, it re-runs the callback whenever either the dependencies or the underlying data store changes. You can learn more about [useSelect](/packages/data/README.md#useselect) in the [data module documentation](/packages/data/README.md#useselect).
 
@@ -123,7 +123,7 @@ Refreshing the page should display a list similar to this one:
 ```js
 function PagesList( { pages } ) {
 	return (
-		<table className="wp-list-table widefat fixed striped table-view-list">
+		<table className="fp-list-table widefat fixed striped table-view-list">
 			<thead>
 				<tr>
 					<th>Title</th>
@@ -176,13 +176,13 @@ The field starts empty, and the contents are stored in the `searchTerm` state va
 
 We can now request only the pages matching the `searchTerm`.
 
-After checking with the [FinPress API documentation](https://developer.finpress.org/rest-api/reference/pages/), we see that the [/wp/v2/pages](https://developer.finpress.org/rest-api/reference/pages/) endpoint accepts a `search` query parameter and uses it to  _limit results to those matching a string_. But how can we use it? We can pass custom query parameters as the third argument to `getEntityRecords` as below:
+After checking with the [FinPress API documentation](https://developer.finpress.org/rest-api/reference/pages/), we see that the [/fp/v2/pages](https://developer.finpress.org/rest-api/reference/pages/) endpoint accepts a `search` query parameter and uses it to  _limit results to those matching a string_. But how can we use it? We can pass custom query parameters as the third argument to `getEntityRecords` as below:
 
 ```js
-wp.data.select( 'core' ).getEntityRecords( 'postType', 'page', { search: 'home' } )
+fp.data.select( 'core' ).getEntityRecords( 'postType', 'page', { search: 'home' } )
 ```
 
-Running that snippet in your browser’s dev tools will trigger a request to `/wp/v2/pages?search=home` instead of just `/wp/v2/pages`.
+Running that snippet in your browser’s dev tools will trigger a request to `/fp/v2/pages?search=home` instead of just `/fp/v2/pages`.
 
 Let’s mirror this in our `useSelect` call as follows:
 
@@ -253,7 +253,7 @@ function MyFirstApp() {
 	// ...
 	const [pages, setPages] = useState( [] );
 	useEffect( () => {
-		const url = '/wp-json/wp/v2/pages?search=' + searchTerm;
+		const url = '/fp-json/fp/v2/pages?search=' + searchTerm;
 		apiFetch( { url } )
 			.then( setPages )
 	}, [searchTerm] );
@@ -309,7 +309,7 @@ Note that instead of building a custom loading indicator, we took advantage of t
 
 We still need to know whether the pages selector `hasResolved` or not. We can find out using the  `hasFinishedResolution` selector:
 
-`wp.data.select('core').hasFinishedResolution( 'getEntityRecords', [ 'postType', 'page', { search: 'home' } ] )`
+`fp.data.select('core').hasFinishedResolution( 'getEntityRecords', [ 'postType', 'page', { search: 'home' } ] )`
 
 It takes the name of the selector and the _exact same arguments you passed to that selector_ and returns either `true` if the data was already loaded or `false` if we’re still waiting. Let’s add it to `useSelect`:
 
@@ -407,7 +407,7 @@ function PagesList( { hasResolved, pages } ) {
 	}
 
 	return (
-		<table className="wp-list-table widefat fixed striped table-view-list">
+		<table className="fp-list-table widefat fixed striped table-view-list">
 			<thead>
 				<tr>
 					<td>Title</td>

@@ -98,7 +98,7 @@ function gutenberg_get_layout_definitions() {
 				array(
 					'selector' => ' > :where(:not(.alignleft):not(.alignright):not(.alignfull))',
 					'rules'    => array(
-						'max-width'    => 'var(--wp--style--global--content-size)',
+						'max-width'    => 'var(--fp--style--global--content-size)',
 						'margin-left'  => 'auto !important',
 						'margin-right' => 'auto !important',
 					),
@@ -106,7 +106,7 @@ function gutenberg_get_layout_definitions() {
 				array(
 					'selector' => ' > .alignwide',
 					'rules'    => array(
-						'max-width' => 'var(--wp--style--global--wide-size)',
+						'max-width' => 'var(--fp--style--global--wide-size)',
 					),
 				),
 			),
@@ -191,7 +191,7 @@ function gutenberg_get_layout_definitions() {
 /**
  * Registers the layout block attribute for block types that support it.
  *
- * @param WP_Block_Type $block_type Block Type.
+ * @param FP_Block_Type $block_type Block Type.
  */
 function gutenberg_register_layout_support( $block_type ) {
 	$support_layout = block_has_support( $block_type, array( 'layout' ), false ) || block_has_support( $block_type, array( '__experimentalLayout' ), false );
@@ -234,8 +234,8 @@ function gutenberg_get_layout_style( $selector, $layout, $has_block_gap_support 
 				// Get spacing CSS variable from preset value if provided.
 				if ( is_string( $gap_value ) && str_contains( $gap_value, 'var:preset|spacing|' ) ) {
 					$index_to_splice = strrpos( $gap_value, '|' ) + 1;
-					$slug            = _wp_to_kebab_case( substr( $gap_value, $index_to_splice ) );
-					$gap_value       = "var(--wp--preset--spacing--$slug)";
+					$slug            = _fp_to_kebab_case( substr( $gap_value, $index_to_splice ) );
+					$gap_value       = "var(--fp--preset--spacing--$slug)";
 				}
 
 				array_push(
@@ -351,8 +351,8 @@ function gutenberg_get_layout_style( $selector, $layout, $has_block_gap_support 
 				// Get spacing CSS variable from preset value if provided.
 				if ( is_string( $gap_value ) && str_contains( $gap_value, 'var:preset|spacing|' ) ) {
 					$index_to_splice = strrpos( $gap_value, '|' ) + 1;
-					$slug            = _wp_to_kebab_case( substr( $gap_value, $index_to_splice ) );
-					$gap_value       = "var(--wp--preset--spacing--$slug)";
+					$slug            = _fp_to_kebab_case( substr( $gap_value, $index_to_splice ) );
+					$gap_value       = "var(--fp--preset--spacing--$slug)";
 				}
 
 				array_push(
@@ -416,8 +416,8 @@ function gutenberg_get_layout_style( $selector, $layout, $has_block_gap_support 
 				// Get spacing CSS variable from preset value if provided.
 				if ( is_string( $process_value ) && str_contains( $process_value, 'var:preset|spacing|' ) ) {
 					$index_to_splice = strrpos( $process_value, '|' ) + 1;
-					$slug            = _wp_to_kebab_case( substr( $process_value, $index_to_splice ) );
-					$process_value   = "var(--wp--preset--spacing--$slug)";
+					$slug            = _fp_to_kebab_case( substr( $process_value, $index_to_splice ) );
+					$process_value   = "var(--fp--preset--spacing--$slug)";
 				}
 				$combined_gap_value .= "$process_value ";
 			}
@@ -488,8 +488,8 @@ function gutenberg_get_layout_style( $selector, $layout, $has_block_gap_support 
 				// Get spacing CSS variable from preset value if provided.
 				if ( is_string( $process_value ) && str_contains( $process_value, 'var:preset|spacing|' ) ) {
 					$index_to_splice = strrpos( $process_value, '|' ) + 1;
-					$slug            = _wp_to_kebab_case( substr( $process_value, $index_to_splice ) );
-					$process_value   = "var(--wp--preset--spacing--$slug)";
+					$slug            = _fp_to_kebab_case( substr( $process_value, $index_to_splice ) );
+					$process_value   = "var(--fp--preset--spacing--$slug)";
 				}
 				$combined_gap_value .= "$process_value ";
 			}
@@ -548,7 +548,7 @@ function gutenberg_get_layout_style( $selector, $layout, $has_block_gap_support 
 		 * Add to the style engine store to enqueue and render layout styles.
 		 * Return compiled layout styles to retain backwards compatibility.
 		 * Since https://github.com/FinPress/gutenberg/pull/42452,
-		 * wp_enqueue_block_support_styles is no longer called in this block supports file.
+		 * fp_enqueue_block_support_styles is no longer called in this block supports file.
 		 */
 		return gutenberg_style_engine_get_stylesheet_from_css_rules(
 			$layout_styles,
@@ -565,7 +565,7 @@ function gutenberg_get_layout_style( $selector, $layout, $has_block_gap_support 
 /**
  * Generates an incremental ID that is independent per each different prefix.
  *
- * It is similar to `wp_unique_id`, but each prefix has it's own internal ID
+ * It is similar to `fp_unique_id`, but each prefix has it's own internal ID
  * counter to make each prefix independent from each other. The ID starts at 1
  * and increments on each call. The returned value is not universally unique,
  * but it is unique across the life of the PHP process and it's stable per
@@ -595,7 +595,7 @@ function gutenberg_incremental_id_per_prefix( $prefix = '' ) {
  * @return string The generated unique ID for the array.
  */
 function gutenberg_unique_id_from_values( array $data, string $prefix = '' ): string {
-	$serialized = wp_json_encode( $data );
+	$serialized = fp_json_encode( $data );
 	$hash       = substr( md5( $serialized ), 0, 8 );
 	return $prefix . $hash;
 }
@@ -608,7 +608,7 @@ function gutenberg_unique_id_from_values( array $data, string $prefix = '' ): st
  * @return string                Filtered block content.
  */
 function gutenberg_render_layout_support_flag( $block_content, $block ) {
-	$block_type            = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+	$block_type            = FP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
 	$block_supports_layout = block_has_support( $block_type, array( 'layout' ), false ) || block_has_support( $block_type, array( '__experimentalLayout' ), false );
 	// If there is any value in style -> layout, the block has a child layout.
 	$child_layout = $block['attrs']['style']['layout'] ?? null;
@@ -645,7 +645,7 @@ function gutenberg_render_layout_support_flag( $block_content, $block ) {
 					)
 				),
 			),
-			'wp-container-content-'
+			'fp-container-content-'
 		);
 
 		$child_layout_declarations = array();
@@ -766,7 +766,7 @@ function gutenberg_render_layout_support_flag( $block_content, $block ) {
 	}
 
 	// Prep the processor for modifying the block output.
-	$processor = new WP_HTML_Tag_Processor( $block_content );
+	$processor = new FP_HTML_Tag_Processor( $block_content );
 
 	// Having no tags implies there are no tags onto which to add class names.
 	if ( ! $processor->next_tag() ) {
@@ -867,7 +867,7 @@ function gutenberg_render_layout_support_flag( $block_content, $block ) {
 		 * If a block's block.json skips serialization for spacing or spacing.blockGap,
 		 * don't apply the user-defined value to the styles.
 		 */
-		$should_skip_gap_serialization = wp_should_skip_block_supports_serialization( $block_type, 'spacing', 'blockGap' );
+		$should_skip_gap_serialization = fp_should_skip_block_supports_serialization( $block_type, 'spacing', 'blockGap' );
 
 		$block_gap             = $global_settings['spacing']['blockGap'] ?? null;
 		$has_block_gap_support = isset( $block_gap );
@@ -888,7 +888,7 @@ function gutenberg_render_layout_support_flag( $block_content, $block ) {
 				$fallback_gap_value,
 				$block_spacing,
 			),
-			'wp-container-' . sanitize_title( $block['blockName'] ) . '-is-layout-'
+			'fp-container-' . sanitize_title( $block['blockName'] ) . '-is-layout-'
 		);
 
 		$style = gutenberg_get_layout_style(
@@ -910,7 +910,7 @@ function gutenberg_render_layout_support_flag( $block_content, $block ) {
 	// Add combined layout and block classname for global styles to hook onto.
 	$split_block_name = explode( '/', $block['blockName'] );
 	$full_block_name  = 'core' === $split_block_name[0] ? end( $split_block_name ) : implode( '-', $split_block_name );
-	$class_names[]    = 'wp-block-' . $full_block_name . '-' . $layout_classname;
+	$class_names[]    = 'fp-block-' . $full_block_name . '-' . $layout_classname;
 
 	// Add classes to the outermost HTML tag if necessary.
 	if ( ! empty( $outer_class_names ) ) {
@@ -969,7 +969,7 @@ function gutenberg_render_layout_support_flag( $block_content, $block ) {
 	$inner_block_wrapper_classes = null;
 	$first_chunk                 = $block['innerContent'][0] ?? null;
 	if ( is_string( $first_chunk ) && count( $block['innerContent'] ) > 1 ) {
-		$first_chunk_processor = new WP_HTML_Tag_Processor( $first_chunk );
+		$first_chunk_processor = new FP_HTML_Tag_Processor( $first_chunk );
 		while ( $first_chunk_processor->next_tag() ) {
 			$class_attribute = $first_chunk_processor->get_attribute( 'class' );
 			if ( is_string( $class_attribute ) && ! empty( $class_attribute ) ) {
@@ -1029,15 +1029,15 @@ add_filter(
 );
 
 // Register the block support. (overrides core one).
-WP_Block_Supports::get_instance()->register(
+FP_Block_Supports::get_instance()->register(
 	'layout',
 	array(
 		'register_attribute' => 'gutenberg_register_layout_support',
 	)
 );
 
-if ( function_exists( 'wp_render_layout_support_flag' ) ) {
-	remove_filter( 'render_block', 'wp_render_layout_support_flag' );
+if ( function_exists( 'fp_render_layout_support_flag' ) ) {
+	remove_filter( 'render_block', 'fp_render_layout_support_flag' );
 }
 add_filter( 'render_block', 'gutenberg_render_layout_support_flag', 10, 2 );
 
@@ -1053,11 +1053,11 @@ add_filter( 'render_block', 'gutenberg_render_layout_support_flag', 10, 2 );
 function gutenberg_restore_group_inner_container( $block_content, $block ) {
 	$tag_name                         = isset( $block['attrs']['tagName'] ) ? $block['attrs']['tagName'] : 'div';
 	$group_with_inner_container_regex = sprintf(
-		'/(^\s*<%1$s\b[^>]*wp-block-group(\s|")[^>]*>)(\s*<div\b[^>]*wp-block-group__inner-container(\s|")[^>]*>)((.|\S|\s)*)/U',
+		'/(^\s*<%1$s\b[^>]*fp-block-group(\s|")[^>]*>)(\s*<div\b[^>]*fp-block-group__inner-container(\s|")[^>]*>)((.|\S|\s)*)/U',
 		preg_quote( $tag_name, '/' )
 	);
 	if (
-		wp_theme_has_theme_json() ||
+		fp_theme_has_theme_json() ||
 		1 === preg_match( $group_with_inner_container_regex, $block_content ) ||
 		( isset( $block['attrs']['layout']['type'] ) && ( 'flex' === $block['attrs']['layout']['type'] || 'grid' === $block['attrs']['layout']['type'] ) )
 	) {
@@ -1069,9 +1069,9 @@ function gutenberg_restore_group_inner_container( $block_content, $block ) {
 	 * have to be removed from the outer wrapper and then added to the inner.
 	*/
 	$layout_classes = array();
-	$processor      = new WP_HTML_Tag_Processor( $block_content );
+	$processor      = new FP_HTML_Tag_Processor( $block_content );
 
-	if ( $processor->next_tag( array( 'class_name' => 'wp-block-group' ) ) ) {
+	if ( $processor->next_tag( array( 'class_name' => 'fp-block-group' ) ) ) {
 		foreach ( $processor->class_list() as $class_name ) {
 			if ( str_contains( $class_name, 'layout' ) ) {
 				array_push( $layout_classes, $class_name );
@@ -1082,21 +1082,21 @@ function gutenberg_restore_group_inner_container( $block_content, $block ) {
 
 	$content_without_layout_classes = $processor->get_updated_html();
 	$replace_regex                  = sprintf(
-		'/(^\s*<%1$s\b[^>]*wp-block-group[^>]*>)(.*)(<\/%1$s>\s*$)/ms',
+		'/(^\s*<%1$s\b[^>]*fp-block-group[^>]*>)(.*)(<\/%1$s>\s*$)/ms',
 		preg_quote( $tag_name, '/' )
 	);
 	$updated_content                = preg_replace_callback(
 		$replace_regex,
 		static function ( $matches ) {
-			return $matches[1] . '<div class="wp-block-group__inner-container">' . $matches[2] . '</div>' . $matches[3];
+			return $matches[1] . '<div class="fp-block-group__inner-container">' . $matches[2] . '</div>' . $matches[3];
 		},
 		$content_without_layout_classes
 	);
 
 	// Add layout classes to inner wrapper.
 	if ( ! empty( $layout_classes ) ) {
-		$processor = new WP_HTML_Tag_Processor( $updated_content );
-		if ( $processor->next_tag( array( 'class_name' => 'wp-block-group__inner-container' ) ) ) {
+		$processor = new FP_HTML_Tag_Processor( $updated_content );
+		if ( $processor->next_tag( array( 'class_name' => 'fp-block-group__inner-container' ) ) ) {
 			foreach ( $layout_classes as $class_name ) {
 				$processor->add_class( $class_name );
 			}
@@ -1107,9 +1107,9 @@ function gutenberg_restore_group_inner_container( $block_content, $block ) {
 	return $updated_content;
 }
 
-if ( function_exists( 'wp_restore_group_inner_container' ) ) {
-	remove_filter( 'render_block', 'wp_restore_group_inner_container', 10 );
-	remove_filter( 'render_block_core/group', 'wp_restore_group_inner_container', 10 );
+if ( function_exists( 'fp_restore_group_inner_container' ) ) {
+	remove_filter( 'render_block', 'fp_restore_group_inner_container', 10 );
+	remove_filter( 'render_block_core/group', 'fp_restore_group_inner_container', 10 );
 }
 add_filter( 'render_block_core/group', 'gutenberg_restore_group_inner_container', 10, 2 );
 
@@ -1136,7 +1136,7 @@ function gutenberg_restore_image_outer_container( $block_content, $block ) {
 # 2) the class attribute contents
 (
 	[^\"']*
-	\bwp-block-image\b
+	\bfp-block-image\b
 	[^\"']*
 	\b(?:alignleft|alignright|aligncenter)\b
 	[^\"']*
@@ -1151,13 +1151,13 @@ function gutenberg_restore_image_outer_container( $block_content, $block ) {
 )/iUx";
 
 	if (
-		wp_theme_has_theme_json() ||
+		fp_theme_has_theme_json() ||
 		0 === preg_match( $image_with_align, $block_content, $matches )
 	) {
 		return $block_content;
 	}
 
-	$wrapper_classnames = array( 'wp-block-image' );
+	$wrapper_classnames = array( 'fp-block-image' );
 
 	// If the block has a classNames attribute these classnames need to be removed from the content and added back
 	// to the new wrapper div also.
@@ -1170,7 +1170,7 @@ function gutenberg_restore_image_outer_container( $block_content, $block ) {
 	return '<div class="' . implode( ' ', $wrapper_classnames ) . '">' . $matches[1] . implode( ' ', $filtered_content_classnames ) . $matches[3] . '</div>';
 }
 
-if ( function_exists( 'wp_restore_image_outer_container' ) ) {
-	remove_filter( 'render_block_core/image', 'wp_restore_image_outer_container', 10 );
+if ( function_exists( 'fp_restore_image_outer_container' ) ) {
+	remove_filter( 'render_block_core/image', 'fp_restore_image_outer_container', 10 );
 }
 add_filter( 'render_block_core/image', 'gutenberg_restore_image_outer_container', 10, 2 );

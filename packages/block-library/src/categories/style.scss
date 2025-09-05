@@ -1,4 +1,4 @@
-.wp-block-categories {
+.fp-block-categories {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 
@@ -11,10 +11,10 @@
 		margin-left: 2em;
 	}
 	/* Only apply the text align on dropdowns, not lists. */
-	&.wp-block-categories-dropdown.aligncenter {
+	&.fp-block-categories-dropdown.aligncenter {
 		text-align: center;
 	}
-	& .wp-block-categories__label {
+	& .fp-block-categories__label {
 		width: 100%;
 		display: block;
 	}

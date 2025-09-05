@@ -33,18 +33,18 @@ directive(
 
 const html = `
 <div
-	data-wp-interactive="directive-run"
-	data-wp-router-region='test-directive-run'
+	data-fp-interactive="directive-run"
+	data-fp-router-region='test-directive-run'
 >
-	<div data-testid="hydrated" data-wp-text="state.isHydrated"></div>
-	<div data-testid="mounted" data-wp-text="state.isMounted"></div>
-	<div data-testid="renderCount" data-wp-text="state.renderCount"></div>
+	<div data-testid="hydrated" data-fp-text="state.isHydrated"></div>
+	<div data-testid="mounted" data-fp-text="state.isMounted"></div>
+	<div data-testid="renderCount" data-fp-text="state.renderCount"></div>
 	<div data-testid="navigated">yes</div>
 
 	<div
-		data-wp-run--hydrated="callbacks.updateIsHydrated"
-		data-wp-run--renderCount="callbacks.updateRenderCount"
-		data-wp-text="state.clickCount"
+		data-fp-run--hydrated="callbacks.updateIsHydrated"
+		data-fp-run--renderCount="callbacks.updateRenderCount"
+		data-fp-text="state.clickCount"
 	></div>
 </div>
 `;
@@ -89,11 +89,11 @@ const { state } = store( 'directive-run', {
 			useInit( () => {
 				const { ref } = getElement();
 				ref.closest(
-					'[data-testid="wp-run hooks results"]'
+					'[data-testid="fp-run hooks results"]'
 				).setAttribute( 'data-init', 'initialized' );
 				return () => {
 					ref.closest(
-						'[data-testid="wp-run hooks results"]'
+						'[data-testid="fp-run hooks results"]'
 					).setAttribute( 'data-init', 'cleaned up' );
 				};
 			} );
@@ -104,11 +104,11 @@ const { state } = store( 'directive-run', {
 				const { ref } = getElement();
 				const { clickCount } = state;
 				ref.closest(
-					'[data-testid="wp-run hooks results"]'
+					'[data-testid="fp-run hooks results"]'
 				).setAttribute( 'data-watch', clickCount );
 				return () => {
 					ref.closest(
-						'[data-testid="wp-run hooks results"]'
+						'[data-testid="fp-run hooks results"]'
 					).setAttribute( 'data-watch', 'cleaned up' );
 				};
 			} );

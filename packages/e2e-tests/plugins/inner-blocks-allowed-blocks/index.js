@@ -1,8 +1,8 @@
 ( function () {
-	const { useSelect } = wp.data;
-	const { registerBlockType } = wp.blocks;
-	const { createElement: el } = wp.element;
-	const { InnerBlocks, useBlockProps } = wp.blockEditor;
+	const { useSelect } = fp.data;
+	const { registerBlockType } = fp.blocks;
+	const { createElement: el } = fp.element;
+	const { InnerBlocks, useBlockProps } = fp.blockEditor;
 	const divProps = {
 		className: 'product',
 		style: { outline: '1px solid gray', padding: 5 },

@@ -149,7 +149,7 @@ export default function PostPreviewButton( {
 		return null;
 	}
 
-	const targetId = `wp-preview-${ postId }`;
+	const targetId = `fp-preview-${ postId }`;
 
 	const openPreviewWindow = async ( event ) => {
 		// Our Preview button has its 'href' and 'target' set correctly for a11y

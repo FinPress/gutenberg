@@ -1,5 +1,5 @@
 /* Styles for backwards compatibility with the legacy `post-comments` block */
-.wp-block-post-comments {
+.fp-block-post-comments {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 
@@ -106,7 +106,7 @@
 		display: flex;
 		gap: 0.25em;
 
-		#wp-comment-cookies-consent {
+		#fp-comment-cookies-consent {
 			margin-top: 0.35em;
 		}
 	}
@@ -115,7 +115,7 @@
 		margin-bottom: 0;
 
 		:where(small) {
-			font-size: var(--wp--preset--font-size--medium, smaller);
+			font-size: var(--fp--preset--font-size--medium, smaller);
 			margin-left: 0.5em;
 		}
 	}
@@ -142,10 +142,10 @@
 // Using :where to give this a low specificity so that element styles take precedence.
 // Needed for backwards compatibility.
 // Styles copied from button block styles.
-:where(.wp-block-post-comments input[type="submit"]) {
+:where(.fp-block-post-comments input[type="submit"]) {
 	border: none;
 }
 
-.wp-block-comments {
+.fp-block-comments {
 	box-sizing: border-box;
 }

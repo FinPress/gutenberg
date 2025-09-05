@@ -13,7 +13,7 @@ export async function deleteAllPatternCategories( this: RequestUtils ) {
 	// List all pattern categories.
 	// https://developer.finpress.org/rest-api/reference/categories/#list-categories
 	const categories = await this.rest( {
-		path: '/wp/v2/wp_pattern_category',
+		path: '/fp/v2/fp_pattern_category',
 		params: {
 			per_page: 100,
 		},
@@ -21,11 +21,11 @@ export async function deleteAllPatternCategories( this: RequestUtils ) {
 
 	// Delete pattern categories.
 	// https://developer.finpress.org/rest-api/reference/categories/#delete-a-category
-	// "/wp/v2/category" does not yet supports batch requests.
+	// "/fp/v2/category" does not yet supports batch requests.
 	await this.batchRest(
 		categories.map( ( category: { id: number } ) => ( {
 			method: 'DELETE',
-			path: `/wp/v2/wp_pattern_category/${ category.id }?force=true`,
+			path: `/fp/v2/fp_pattern_category/${ category.id }?force=true`,
 		} ) )
 	);
 }

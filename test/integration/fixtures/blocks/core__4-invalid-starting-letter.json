@@ -3,7 +3,7 @@
 		"name": "core/freeform",
 		"isValid": true,
 		"attributes": {
-			"content": "<p><!-- wp:core/4-invalid /--></p>"
+			"content": "<p><!-- fp:core/4-invalid /--></p>"
 		},
 		"innerBlocks": []
 	}

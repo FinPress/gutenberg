@@ -6,9 +6,9 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 
-import org.finpress.mobile.WPAndroidGlue.GutenbergJsException;
-import org.finpress.mobile.WPAndroidGlue.MediaOption;
-import org.finpress.mobile.WPAndroidGlue.RequestExecutor;
+import org.finpress.mobile.FPAndroidGlue.GutenbergJsException;
+import org.finpress.mobile.FPAndroidGlue.MediaOption;
+import org.finpress.mobile.FPAndroidGlue.RequestExecutor;
 
 import java.util.ArrayList;
 import java.util.List;

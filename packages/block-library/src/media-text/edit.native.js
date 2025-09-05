@@ -296,7 +296,7 @@ class MediaTextEdit extends Component {
 		];
 
 		const containerStyles = {
-			...styles[ 'wp-block-media-text' ],
+			...styles[ 'fp-block-media-text' ],
 			...styles[
 				`is-vertically-aligned-${ verticalAlignment || 'center' }`
 			],

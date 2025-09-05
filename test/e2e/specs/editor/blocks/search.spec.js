@@ -27,9 +27,9 @@ test.describe( 'Search', () => {
 	} ) => {
 		const createdMenu = await requestUtils.createNavigationMenu( {
 			title: 'Test Menu',
-			content: `<!-- wp:spacer -->
-<div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->`,
+			content: `<!-- fp:spacer -->
+<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
+<!-- /fp:spacer -->`,
 		} );
 
 		await editor.insertBlock( {
@@ -59,9 +59,9 @@ test.describe( 'Search', () => {
 		// The only way to access the inner controlled blocks of the Navigation block
 		// is to access the edited entity record for the associated Navigation Menu record.
 		const editedMenuRecord = await page.evaluate( ( menuId ) => {
-			return window.wp.data
+			return window.fp.data
 				.select( 'core' )
-				.getEditedEntityRecord( 'postType', 'wp_navigation', menuId );
+				.getEditedEntityRecord( 'postType', 'fp_navigation', menuId );
 		}, createdMenu?.id );
 
 		// The 2nd block in the Navigation block is the Search block.

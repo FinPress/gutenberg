@@ -7,19 +7,19 @@
  */
 
 /**
- * Override core's wp_get_word_count_type() introduced in FinPress 6.2.
- * Originally, get_word_count_type() method of the WP_Locale class is executed,
+ * Override core's fp_get_word_count_type() introduced in FinPress 6.2.
+ * Originally, get_word_count_type() method of the FP_Locale class is executed,
  * but the process is simulated here.
  *
  * This function should not be backported to core.
  */
-if ( ! function_exists( 'wp_get_word_count_type' ) ) {
+if ( ! function_exists( 'fp_get_word_count_type' ) ) {
 	/**
 	 * Retrieves the word count type based on the locale.
 	 *
 	 * @return string Locale-specific word count type.
 	 */
-	function wp_get_word_count_type() {
+	function fp_get_word_count_type() {
 		$word_count_type = _x( 'words', 'Word count type. Do not translate!', 'gutenberg' );
 
 		// Check for valid types.
@@ -31,7 +31,7 @@ if ( ! function_exists( 'wp_get_word_count_type' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wp_word_count' ) ) {
+if ( ! function_exists( 'fp_word_count' ) ) {
 	/**
 	 * Count words or characters in a provided text string.
 	 *
@@ -61,7 +61,7 @@ if ( ! function_exists( 'wp_word_count' ) ) {
 	 * }
 	 * @return int The word or character count.
 	 */
-	function wp_word_count( $text, $type, $settings = array() ) {
+	function fp_word_count( $text, $type, $settings = array() ) {
 		$defaults = array(
 			'html_regexp'                        => '/<\/?[a-z][^>]*?>/i',
 			'html_comment_regexp'                => '/<!--[\s\S]*?-->/',
@@ -82,7 +82,7 @@ if ( ! function_exists( 'wp_word_count' ) ) {
 			return $count;
 		}
 
-		$settings = wp_parse_args( $settings, $defaults );
+		$settings = fp_parse_args( $settings, $defaults );
 
 		// If there are any shortcodes, add this as a shortcode regular expression.
 		if ( is_array( $settings['shortcodes'] ) && ! empty( $settings['shortcodes'] ) ) {

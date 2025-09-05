@@ -30,7 +30,7 @@ export async function createComment(
 	payload: CreateCommentPayload
 ) {
 	const currentUser = await this.rest< User >( {
-		path: '/wp/v2/users/me',
+		path: '/fp/v2/users/me',
 		method: 'GET',
 	} );
 
@@ -38,7 +38,7 @@ export async function createComment(
 
 	const comment = await this.rest< Comment >( {
 		method: 'POST',
-		path: '/wp/v2/comments',
+		path: '/fp/v2/comments',
 		data: { ...payload, author },
 	} );
 
@@ -54,7 +54,7 @@ export async function deleteAllComments( this: RequestUtils ) {
 	// List all comments.
 	// https://developer.finpress.org/rest-api/reference/comments/#list-comments
 	const comments = await this.rest( {
-		path: '/wp/v2/comments',
+		path: '/fp/v2/comments',
 		params: {
 			per_page: 100,
 			// All possible statuses.
@@ -64,12 +64,12 @@ export async function deleteAllComments( this: RequestUtils ) {
 
 	// Delete all comments one by one.
 	// https://developer.finpress.org/rest-api/reference/comments/#delete-a-comment
-	// "/wp/v2/comments" doesn't support batch requests yet.
+	// "/fp/v2/comments" doesn't support batch requests yet.
 	await Promise.all(
 		comments.map( ( comment: Comment ) =>
 			this.rest( {
 				method: 'DELETE',
-				path: `/wp/v2/comments/${ comment.id }`,
+				path: `/fp/v2/comments/${ comment.id }`,
 				params: {
 					force: true,
 				},

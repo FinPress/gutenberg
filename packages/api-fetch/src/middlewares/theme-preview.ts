@@ -8,10 +8,10 @@ import { addQueryArgs, getQueryArg, removeQueryArgs } from '@finpress/url';
 import type { APIFetchMiddleware } from '../types';
 
 /**
- * This appends a `wp_theme_preview` parameter to the REST API request URL if
+ * This appends a `fp_theme_preview` parameter to the REST API request URL if
  * the admin URL contains a `theme` GET parameter.
  *
- * If the REST API request URL has contained the `wp_theme_preview` parameter as `''`,
+ * If the REST API request URL has contained the `fp_theme_preview` parameter as `''`,
  * then bypass this middleware.
  *
  * @param themePath
@@ -21,35 +21,35 @@ const createThemePreviewMiddleware =
 	( themePath: Record< string, any > ): APIFetchMiddleware =>
 	( options, next ) => {
 		if ( typeof options.url === 'string' ) {
-			const wpThemePreview = getQueryArg(
+			const fpThemePreview = getQueryArg(
 				options.url,
-				'wp_theme_preview'
+				'fp_theme_preview'
 			);
-			if ( wpThemePreview === undefined ) {
+			if ( fpThemePreview === undefined ) {
 				options.url = addQueryArgs( options.url, {
-					wp_theme_preview: themePath,
+					fp_theme_preview: themePath,
 				} );
-			} else if ( wpThemePreview === '' ) {
+			} else if ( fpThemePreview === '' ) {
 				options.url = removeQueryArgs(
 					options.url,
-					'wp_theme_preview'
+					'fp_theme_preview'
 				);
 			}
 		}
 
 		if ( typeof options.path === 'string' ) {
-			const wpThemePreview = getQueryArg(
+			const fpThemePreview = getQueryArg(
 				options.path,
-				'wp_theme_preview'
+				'fp_theme_preview'
 			);
-			if ( wpThemePreview === undefined ) {
+			if ( fpThemePreview === undefined ) {
 				options.path = addQueryArgs( options.path, {
-					wp_theme_preview: themePath,
+					fp_theme_preview: themePath,
 				} );
-			} else if ( wpThemePreview === '' ) {
+			} else if ( fpThemePreview === '' ) {
 				options.path = removeQueryArgs(
 					options.path,
-					'wp_theme_preview'
+					'fp_theme_preview'
 				);
 			}
 		}

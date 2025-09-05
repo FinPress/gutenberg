@@ -53,9 +53,9 @@ function ExcerptPanel() {
 
 	// There are special cases where we want to label the excerpt as a description.
 	const shouldUseDescriptionLabel = [
-		'wp_template',
-		'wp_template_part',
-		'wp_block',
+		'fp_template',
+		'fp_template_part',
+		'fp_block',
 	].includes( postType );
 
 	return (
@@ -112,10 +112,10 @@ function PrivateExcerpt() {
 			} = select( editorStore );
 			const postType = getCurrentPostType();
 			const isTemplateOrTemplatePart = [
-				'wp_template',
-				'wp_template_part',
+				'fp_template',
+				'fp_template_part',
 			].includes( postType );
-			const isPattern = postType === 'wp_block';
+			const isPattern = postType === 'fp_block';
 			// These post types use the `excerpt` field as a description semantically, so we need to
 			// handle proper labeling and some flows where we should always render them as text.
 			const _shouldBeUsedAsDescription =

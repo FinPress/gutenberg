@@ -9,12 +9,12 @@ const DEFAULT_EMPTY_GALLERY = [];
 /**
  * Prepares the Featured Image toolbars and frames.
  *
- * @return {window.wp.media.view.MediaFrame.Select} The default media workflow.
+ * @return {window.fp.media.view.MediaFrame.Select} The default media workflow.
  */
 const getFeaturedImageMediaFrame = () => {
-	const { wp } = window;
+	const { fp } = window;
 
-	return wp.media.view.MediaFrame.Select.extend( {
+	return fp.media.view.MediaFrame.Select.extend( {
 		/**
 		 * Enables the Set Featured Image Button.
 		 *
@@ -23,7 +23,7 @@ const getFeaturedImageMediaFrame = () => {
 		 */
 		featuredImageToolbar( toolbar ) {
 			this.createSelectToolbar( toolbar, {
-				text: wp.media.view.l10n.setFeaturedImage,
+				text: fp.media.view.l10n.setFeaturedImage,
 				state: this.options.state,
 			} );
 		},
@@ -35,7 +35,7 @@ const getFeaturedImageMediaFrame = () => {
 		 */
 		editState() {
 			const selection = this.state( 'featured-image' ).get( 'selection' );
-			const view = new wp.media.view.EditImage( {
+			const view = new fp.media.view.EditImage( {
 				model: selection.single(),
 				controller: this,
 			} ).render();
@@ -61,8 +61,8 @@ const getFeaturedImageMediaFrame = () => {
 			this.on( 'content:render:edit-image', this.editState, this );
 
 			this.states.add( [
-				new wp.media.controller.FeaturedImage(),
-				new wp.media.controller.EditImage( {
+				new fp.media.controller.FeaturedImage(),
+				new fp.media.controller.EditImage( {
 					model: this.options.editImage,
 				} ),
 			] );
@@ -73,15 +73,15 @@ const getFeaturedImageMediaFrame = () => {
 /**
  * Prepares the default frame for selecting a single media item.
  *
- * @return {window.wp.media.view.MediaFrame.Select} The default media workflow.
+ * @return {window.fp.media.view.MediaFrame.Select} The default media workflow.
  */
 const getSingleMediaFrame = () => {
-	const { wp } = window;
+	const { fp } = window;
 
 	// Extend the default Select frame, and use the same `createStates` method as in core,
 	// but with the addition of `filterable: 'uploaded'` to the Library state, so that
 	// the user can filter the media library by uploaded media.
-	return wp.media.view.MediaFrame.Select.extend( {
+	return fp.media.view.MediaFrame.Select.extend( {
 		/**
 		 * Create the default states on the frame.
 		 */
@@ -95,14 +95,14 @@ const getSingleMediaFrame = () => {
 			// Add the default states.
 			this.states.add( [
 				// Main states.
-				new wp.media.controller.Library( {
-					library: wp.media.query( options.library ),
+				new fp.media.controller.Library( {
+					library: fp.media.query( options.library ),
 					multiple: options.multiple,
 					title: options.title,
 					priority: 20,
 					filterable: 'uploaded', // Allow filtering by uploaded images.
 				} ),
-				new wp.media.controller.EditImage( {
+				new fp.media.controller.EditImage( {
 					model: options.editImage,
 				} ),
 			] );
@@ -113,18 +113,18 @@ const getSingleMediaFrame = () => {
 /**
  * Prepares the Gallery toolbars and frames.
  *
- * @return {window.wp.media.view.MediaFrame.Post} The default media workflow.
+ * @return {window.fp.media.view.MediaFrame.Post} The default media workflow.
  */
 const getGalleryDetailsMediaFrame = () => {
-	const { wp } = window;
+	const { fp } = window;
 	/**
 	 * Custom gallery details frame.
 	 *
-	 * @see https://github.com/xwp/wp-core-media-widgets/blob/905edbccfc2a623b73a93dac803c5335519d7837/wp-admin/js/widgets/media-gallery-widget.js
+	 * @see https://github.com/xfp/fp-core-media-widgets/blob/905edbccfc2a623b73a93dac803c5335519d7837/fp-admin/js/widgets/media-gallery-widget.js
 	 * @class GalleryDetailsMediaFrame
 	 * @class
 	 */
-	return wp.media.view.MediaFrame.Post.extend( {
+	return fp.media.view.MediaFrame.Post.extend( {
 		/**
 		 * Set up gallery toolbar.
 		 *
@@ -133,19 +133,19 @@ const getGalleryDetailsMediaFrame = () => {
 		galleryToolbar() {
 			const editing = this.state().get( 'editing' );
 			this.toolbar.set(
-				new wp.media.view.Toolbar( {
+				new fp.media.view.Toolbar( {
 					controller: this,
 					items: {
 						insert: {
 							style: 'primary',
 							text: editing
-								? wp.media.view.l10n.updateGallery
-								: wp.media.view.l10n.insertGallery,
+								? fp.media.view.l10n.updateGallery
+								: fp.media.view.l10n.insertGallery,
 							priority: 80,
 							requires: { library: true },
 
 							/**
-							 * @fires wp.media.controller.State#update
+							 * @fires fp.media.controller.State#update
 							 */
 							click() {
 								const controller = this.controller,
@@ -174,7 +174,7 @@ const getGalleryDetailsMediaFrame = () => {
 		 */
 		editState() {
 			const selection = this.state( 'gallery' ).get( 'selection' );
-			const view = new wp.media.view.EditImage( {
+			const view = new fp.media.view.EditImage( {
 				model: selection.single(),
 				controller: this,
 			} ).render();
@@ -196,25 +196,25 @@ const getGalleryDetailsMediaFrame = () => {
 			this.on( 'content:render:edit-image', this.editState, this );
 
 			this.states.add( [
-				new wp.media.controller.Library( {
+				new fp.media.controller.Library( {
 					id: 'gallery',
-					title: wp.media.view.l10n.createGalleryTitle,
+					title: fp.media.view.l10n.createGalleryTitle,
 					priority: 40,
 					toolbar: 'main-gallery',
 					filterable: 'uploaded',
 					multiple: 'add',
 					editable: false,
 
-					library: wp.media.query( {
+					library: fp.media.query( {
 						type: 'image',
 						...this.options.library,
 					} ),
 				} ),
-				new wp.media.controller.EditImage( {
+				new fp.media.controller.EditImage( {
 					model: this.options.editImage,
 				} ),
 
-				new wp.media.controller.GalleryEdit( {
+				new fp.media.controller.GalleryEdit( {
 					library: this.options.selection,
 					editing: this.options.editing,
 					menu: 'gallery',
@@ -222,7 +222,7 @@ const getGalleryDetailsMediaFrame = () => {
 					multiple: true,
 				} ),
 
-				new wp.media.controller.GalleryAdd(),
+				new fp.media.controller.GalleryAdd(),
 			] );
 		},
 	} );
@@ -251,9 +251,9 @@ const slimImageObject = ( img ) => {
 };
 
 const getAttachmentsCollection = ( ids ) => {
-	const { wp } = window;
+	const { fp } = window;
 
-	return wp.media.query( {
+	return fp.media.query( {
 		order: 'ASC',
 		orderby: 'post__in',
 		post__in: ids,
@@ -300,7 +300,7 @@ class MediaUpload extends Component {
 			return;
 		}
 
-		const { wp } = window;
+		const { fp } = window;
 
 		this.lastGalleryValue = value;
 
@@ -318,7 +318,7 @@ class MediaUpload extends Component {
 			this.GalleryDetailsMediaFrame = getGalleryDetailsMediaFrame();
 		}
 		const attachments = getAttachmentsCollection( value );
-		const selection = new wp.media.model.Selection( attachments.models, {
+		const selection = new fp.media.model.Selection( attachments.models, {
 			props: attachments.props.toJSON(),
 			multiple,
 		} );
@@ -329,7 +329,7 @@ class MediaUpload extends Component {
 			selection,
 			editing: !! value?.length,
 		} );
-		wp.media.frame = this.frame;
+		fp.media.frame = this.frame;
 		this.initializeListeners();
 	}
 
@@ -339,11 +339,11 @@ class MediaUpload extends Component {
 	 * @return {void}
 	 */
 	buildAndSetFeatureImageFrame() {
-		const { wp } = window;
+		const { fp } = window;
 		const { value: featuredImageId, multiple, allowedTypes } = this.props;
 		const featuredImageFrame = getFeaturedImageMediaFrame();
 		const attachments = getAttachmentsCollection( featuredImageId );
-		const selection = new wp.media.model.Selection( attachments.models, {
+		const selection = new fp.media.model.Selection( attachments.models, {
 			props: attachments.props.toJSON(),
 		} );
 		this.frame = new featuredImageFrame( {
@@ -353,13 +353,13 @@ class MediaUpload extends Component {
 			selection,
 			editing: featuredImageId,
 		} );
-		wp.media.frame = this.frame;
+		fp.media.frame = this.frame;
 		// In order to select the current featured image when opening
 		// the media library we have to set the appropriate settings.
 		// Currently they are set in php for the post editor, but
 		// not for site editor.
-		wp.media.view.settings.post = {
-			...wp.media.view.settings.post,
+		fp.media.view.settings.post = {
+			...fp.media.view.settings.post,
 			featuredImageId: featuredImageId || -1,
 		};
 	}
@@ -370,7 +370,7 @@ class MediaUpload extends Component {
 	 * @return {void}
 	 */
 	buildAndSetSingleMediaFrame() {
-		const { wp } = window;
+		const { fp } = window;
 		const {
 			allowedTypes,
 			multiple = false,
@@ -393,7 +393,7 @@ class MediaUpload extends Component {
 
 		const singleImageFrame = getSingleMediaFrame();
 		const attachments = getAttachmentsCollection( value );
-		const selection = new wp.media.model.Selection( attachments.models, {
+		const selection = new fp.media.model.Selection( attachments.models, {
 			props: attachments.props.toJSON(),
 		} );
 		this.frame = new singleImageFrame( {
@@ -402,7 +402,7 @@ class MediaUpload extends Component {
 			selection,
 			...frameConfig,
 		} );
-		wp.media.frame = this.frame;
+		fp.media.frame = this.frame;
 	}
 
 	componentWillUnmount() {
@@ -437,7 +437,7 @@ class MediaUpload extends Component {
 	}
 
 	onOpen() {
-		const { wp } = window;
+		const { fp } = window;
 		const { value } = this.props;
 		this.updateCollection();
 
@@ -460,7 +460,7 @@ class MediaUpload extends Component {
 
 		if ( ! isGallery ) {
 			valueArray.forEach( ( id ) => {
-				selection.add( wp.media.attachment( id ) );
+				selection.add( fp.media.attachment( id ) );
 			} );
 		}
 

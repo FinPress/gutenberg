@@ -1,8 +1,8 @@
 ( function () {
-	const el = wp.element.createElement;
-	const __ = wp.i18n.__;
-	const registerPlugin = wp.plugins.registerPlugin;
-	const PluginDocumentSettingPanel = wp.editor.PluginDocumentSettingPanel;
+	const el = fp.element.createElement;
+	const __ = fp.i18n.__;
+	const registerPlugin = fp.plugins.registerPlugin;
+	const PluginDocumentSettingPanel = fp.editor.PluginDocumentSettingPanel;
 
 	function MyDocumentSettingPlugin() {
 		return el(

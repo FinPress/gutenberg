@@ -148,7 +148,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 			fileName: newMedia.title,
 			textLinkHref: newMedia.url,
 			id: newMedia.id,
-			fileId: `wp-block-file--media-${ clientId }`,
+			fileId: `fp-block-file--media-${ clientId }`,
 			blob: undefined,
 			...pdfAttributes,
 		} );
@@ -284,7 +284,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 						showHandle={ isSelected }
 					>
 						<object
-							className="wp-block-file__preview"
+							className="fp-block-file__preview"
 							data={ href }
 							type="application/pdf"
 							aria-label={ __(
@@ -292,11 +292,11 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 							) }
 						/>
 						{ ! isSelected && (
-							<div className="wp-block-file__preview-overlay" />
+							<div className="fp-block-file__preview-overlay" />
 						) }
 					</ResizableBox>
 				) }
-				<div className="wp-block-file__content-wrapper">
+				<div className="fp-block-file__content-wrapper">
 					<RichText
 						identifier="fileName"
 						tagName="a"
@@ -311,14 +311,14 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 						href={ textLinkHref }
 					/>
 					{ showDownloadButton && (
-						<div className="wp-block-file__button-richtext-wrapper">
+						<div className="fp-block-file__button-richtext-wrapper">
 							{ /* Using RichText here instead of PlainText so that it can be styled like a button. */ }
 							<RichText
 								identifier="downloadButtonText"
 								tagName="div" // Must be block-level or else cursor disappears.
 								aria-label={ __( 'Download button text' ) }
 								className={ clsx(
-									'wp-block-file__button',
+									'fp-block-file__button',
 									__experimentalGetElementClassName(
 										'button'
 									)

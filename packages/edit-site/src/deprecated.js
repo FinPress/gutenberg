@@ -14,9 +14,9 @@ const isSiteEditor = getPath( window.location.href )?.includes(
 );
 
 const deprecateSlot = ( name ) => {
-	deprecated( `wp.editPost.${ name }`, {
+	deprecated( `fp.editPost.${ name }`, {
 		since: '6.6',
-		alternative: `wp.editor.${ name }`,
+		alternative: `fp.editor.${ name }`,
 	} );
 };
 

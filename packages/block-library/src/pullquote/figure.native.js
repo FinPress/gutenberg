@@ -12,7 +12,7 @@ import { usePreferredColorSchemeStyle } from '@finpress/compose';
 import styles from './figure.scss';
 
 export const Figure = ( { children, backgroundColor, borderColor } ) => {
-	const wpPullquoteFigure = usePreferredColorSchemeStyle(
+	const fpPullquoteFigure = usePreferredColorSchemeStyle(
 		styles.light,
 		styles.dark
 	);
@@ -28,6 +28,6 @@ export const Figure = ( { children, backgroundColor, borderColor } ) => {
 	}
 
 	return (
-		<View style={ [ wpPullquoteFigure, customStyles ] }>{ children }</View>
+		<View style={ [ fpPullquoteFigure, customStyles ] }>{ children }</View>
 	);
 };

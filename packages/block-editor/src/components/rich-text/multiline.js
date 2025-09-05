@@ -27,7 +27,7 @@ function RichTextMultiline(
 	},
 	forwardedRef
 ) {
-	deprecated( 'wp.blockEditor.RichText multiline prop', {
+	deprecated( 'fp.blockEditor.RichText multiline prop', {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'nested blocks (InnerBlocks)',

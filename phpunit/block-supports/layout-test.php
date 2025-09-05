@@ -6,7 +6,7 @@
  * @package Gutenberg
  */
 
-class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
+class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 	/**
 	 * @var string|null
 	 */
@@ -25,25 +25,25 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 		$this->theme_root     = realpath( __DIR__ . '/../data/themedir1' );
-		$this->orig_theme_dir = $GLOBALS['wp_theme_directories'];
+		$this->orig_theme_dir = $GLOBALS['fp_theme_directories'];
 
 		// /themes is necessary as theme.php functions assume /themes is the root if there is only one root.
-		$GLOBALS['wp_theme_directories'] = array( WP_CONTENT_DIR . '/themes', $this->theme_root );
+		$GLOBALS['fp_theme_directories'] = array( FP_CONTENT_DIR . '/themes', $this->theme_root );
 
 		add_filter( 'theme_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'stylesheet_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'template_root', array( $this, 'filter_set_theme_root' ) );
 		$this->queries = array();
 		// Clear caches.
-		wp_clean_themes_cache();
-		unset( $GLOBALS['wp_themes'] );
+		fp_clean_themes_cache();
+		unset( $GLOBALS['fp_themes'] );
 	}
 
 	public function tear_down() {
-		$GLOBALS['wp_theme_directories'] = $this->orig_theme_dir;
-		wp_clean_themes_cache();
-		unset( $GLOBALS['wp_themes'] );
-		WP_Style_Engine_CSS_Rules_Store_Gutenberg::remove_all_stores();
+		$GLOBALS['fp_theme_directories'] = $this->orig_theme_dir;
+		fp_clean_themes_cache();
+		unset( $GLOBALS['fp_themes'] );
+		FP_Style_Engine_CSS_Rules_Store_Gutenberg::remove_all_stores();
 		parent::tear_down();
 	}
 
@@ -58,8 +58,8 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 			'blockName' => 'core/image',
 			'attrs'     => array(),
 		);
-		$block_content = '<figure class="wp-block-image size-full"><img src="/my-image.jpg"/></figure>';
-		$expected      = '<figure class="wp-block-image size-full"><img src="/my-image.jpg"/></figure>';
+		$block_content = '<figure class="fp-block-image size-full"><img src="/my-image.jpg"/></figure>';
+		$expected      = '<figure class="fp-block-image size-full"><img src="/my-image.jpg"/></figure>';
 
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_content, $block ) );
 	}
@@ -71,8 +71,8 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 			'blockName' => 'core/image',
 			'attrs'     => array(),
 		);
-		$block_content = '<figure class="wp-block-image alignright size-full"><img src="/my-image.jpg"/></figure>';
-		$expected      = '<div class="wp-block-image"><figure class="alignright size-full"><img src="/my-image.jpg"/></figure></div>';
+		$block_content = '<figure class="fp-block-image alignright size-full"><img src="/my-image.jpg"/></figure>';
+		$expected      = '<div class="fp-block-image"><figure class="alignright size-full"><img src="/my-image.jpg"/></figure></div>';
 
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_content, $block ) );
 	}
@@ -87,19 +87,19 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 			),
 		);
 
-		$block_classes_end_placement    = '<figure class="wp-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
-		$block_classes_start_placement  = '<figure class="is-style-round my-custom-classname wp-block-image alignright size-full"><img src="/my-image.jpg"/></figure>';
-		$block_classes_middle_placement = '<figure class="wp-block-image is-style-round my-custom-classname alignright size-full"><img src="/my-image.jpg"/></figure>';
-		$block_classes_random_placement = '<figure class="is-style-round wp-block-image alignright my-custom-classname size-full"><img src="/my-image.jpg"/></figure>';
-		$expected                       = '<div class="wp-block-image is-style-round my-custom-classname"><figure class="alignright size-full"><img src="/my-image.jpg"/></figure></div>';
+		$block_classes_end_placement    = '<figure class="fp-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
+		$block_classes_start_placement  = '<figure class="is-style-round my-custom-classname fp-block-image alignright size-full"><img src="/my-image.jpg"/></figure>';
+		$block_classes_middle_placement = '<figure class="fp-block-image is-style-round my-custom-classname alignright size-full"><img src="/my-image.jpg"/></figure>';
+		$block_classes_random_placement = '<figure class="is-style-round fp-block-image alignright my-custom-classname size-full"><img src="/my-image.jpg"/></figure>';
+		$expected                       = '<div class="fp-block-image is-style-round my-custom-classname"><figure class="alignright size-full"><img src="/my-image.jpg"/></figure></div>';
 
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_classes_end_placement, $block ) );
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_classes_start_placement, $block ) );
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_classes_middle_placement, $block ) );
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_classes_random_placement, $block ) );
 
-		$block_classes_other_attributes = '<figure style="color: red" class=\'is-style-round wp-block-image alignright my-custom-classname size-full\' data-random-tag=">"><img src="/my-image.jpg"/></figure>';
-		$expected_other_attributes      = '<div class="wp-block-image is-style-round my-custom-classname"><figure style="color: red" class=\'alignright size-full\' data-random-tag=">"><img src="/my-image.jpg"/></figure></div>';
+		$block_classes_other_attributes = '<figure style="color: red" class=\'is-style-round fp-block-image alignright my-custom-classname size-full\' data-random-tag=">"><img src="/my-image.jpg"/></figure>';
+		$expected_other_attributes      = '<div class="fp-block-image is-style-round my-custom-classname"><figure style="color: red" class=\'alignright size-full\' data-random-tag=">"><img src="/my-image.jpg"/></figure></div>';
 
 		$this->assertSame( $expected_other_attributes, gutenberg_restore_image_outer_container( $block_classes_other_attributes, $block ) );
 	}
@@ -112,8 +112,8 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 				'className' => 'is-style-round my-custom-classname',
 			),
 		);
-		$block_content = '<figure class="wp-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
-		$expected      = '<figure class="wp-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
+		$block_content = '<figure class="fp-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
+		$expected      = '<figure class="fp-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
 
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_content, $block ) );
 	}
@@ -178,21 +178,21 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 			),
 			'only selector should return empty value'      => array(
 				'args'            => array(
-					'selector' => '.wp-layout',
+					'selector' => '.fp-layout',
 				),
 				'expected_output' => '',
 			),
 			'default layout and block gap support'         => array(
 				'args'            => array(
-					'selector'              => '.wp-layout',
+					'selector'              => '.fp-layout',
 					'has_block_gap_support' => true,
 					'gap_value'             => '1em',
 				),
-				'expected_output' => '.wp-layout > *{margin-block-start:0;margin-block-end:0;}.wp-layout > * + *{margin-block-start:1em;margin-block-end:0;}',
+				'expected_output' => '.fp-layout > *{margin-block-start:0;margin-block-end:0;}.fp-layout > * + *{margin-block-start:1em;margin-block-end:0;}',
 			),
 			'skip serialization should return empty value' => array(
 				'args'            => array(
-					'selector'                      => '.wp-layout',
+					'selector'                      => '.fp-layout',
 					'has_block_gap_support'         => true,
 					'gap_value'                     => '1em',
 					'should_skip_gap_serialization' => true,
@@ -201,26 +201,26 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 			),
 			'default layout and axial block gap support'   => array(
 				'args'            => array(
-					'selector'              => '.wp-layout',
+					'selector'              => '.fp-layout',
 					'has_block_gap_support' => true,
 					'gap_value'             => array( 'top' => '1em' ),
 				),
-				'expected_output' => '.wp-layout > *{margin-block-start:0;margin-block-end:0;}.wp-layout > * + *{margin-block-start:1em;margin-block-end:0;}',
+				'expected_output' => '.fp-layout > *{margin-block-start:0;margin-block-end:0;}.fp-layout > * + *{margin-block-start:1em;margin-block-end:0;}',
 			),
 			'constrained layout with sizes'                => array(
 				'args'            => array(
-					'selector' => '.wp-layout',
+					'selector' => '.fp-layout',
 					'layout'   => array(
 						'type'        => 'constrained',
 						'contentSize' => '800px',
 						'wideSize'    => '1200px',
 					),
 				),
-				'expected_output' => '.wp-layout > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:800px;margin-left:auto !important;margin-right:auto !important;}.wp-layout > .alignwide{max-width:1200px;}.wp-layout .alignfull{max-width:none;}',
+				'expected_output' => '.fp-layout > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:800px;margin-left:auto !important;margin-right:auto !important;}.fp-layout > .alignwide{max-width:1200px;}.fp-layout .alignfull{max-width:none;}',
 			),
 			'constrained layout with sizes and block spacing' => array(
 				'args'            => array(
-					'selector'      => '.wp-layout',
+					'selector'      => '.fp-layout',
 					'layout'        => array(
 						'type'        => 'constrained',
 						'contentSize' => '800px',
@@ -233,44 +233,44 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						),
 					),
 				),
-				'expected_output' => '.wp-layout > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:800px;margin-left:auto !important;margin-right:auto !important;}.wp-layout > .alignwide{max-width:1200px;}.wp-layout .alignfull{max-width:none;}.wp-layout > .alignfull{margin-right:calc(10px * -1);margin-left:calc(20px * -1);}',
+				'expected_output' => '.fp-layout > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:800px;margin-left:auto !important;margin-right:auto !important;}.fp-layout > .alignwide{max-width:1200px;}.fp-layout .alignfull{max-width:none;}.fp-layout > .alignfull{margin-right:calc(10px * -1);margin-left:calc(20px * -1);}',
 			),
 			'constrained layout with block gap support'    => array(
 				'args'            => array(
-					'selector'              => '.wp-layout',
+					'selector'              => '.fp-layout',
 					'layout'                => array(
 						'type' => 'constrained',
 					),
 					'has_block_gap_support' => true,
 					'gap_value'             => '2.5rem',
 				),
-				'expected_output' => '.wp-layout > *{margin-block-start:0;margin-block-end:0;}.wp-layout > * + *{margin-block-start:2.5rem;margin-block-end:0;}',
+				'expected_output' => '.fp-layout > *{margin-block-start:0;margin-block-end:0;}.fp-layout > * + *{margin-block-start:2.5rem;margin-block-end:0;}',
 			),
 			'constrained layout with axial block gap support' => array(
 				'args'            => array(
-					'selector'              => '.wp-layout',
+					'selector'              => '.fp-layout',
 					'layout'                => array(
 						'type' => 'constrained',
 					),
 					'has_block_gap_support' => true,
 					'gap_value'             => array( 'top' => '2.5rem' ),
 				),
-				'expected_output' => '.wp-layout > *{margin-block-start:0;margin-block-end:0;}.wp-layout > * + *{margin-block-start:2.5rem;margin-block-end:0;}',
+				'expected_output' => '.fp-layout > *{margin-block-start:0;margin-block-end:0;}.fp-layout > * + *{margin-block-start:2.5rem;margin-block-end:0;}',
 			),
 			'constrained layout with block gap support and spacing preset' => array(
 				'args'            => array(
-					'selector'              => '.wp-layout',
+					'selector'              => '.fp-layout',
 					'layout'                => array(
 						'type' => 'constrained',
 					),
 					'has_block_gap_support' => true,
 					'gap_value'             => 'var:preset|spacing|50',
 				),
-				'expected_output' => '.wp-layout > *{margin-block-start:0;margin-block-end:0;}.wp-layout > * + *{margin-block-start:var(--wp--preset--spacing--50);margin-block-end:0;}',
+				'expected_output' => '.fp-layout > *{margin-block-start:0;margin-block-end:0;}.fp-layout > * + *{margin-block-start:var(--fp--preset--spacing--50);margin-block-end:0;}',
 			),
 			'flex layout with no args should return empty value' => array(
 				'args'            => array(
-					'selector' => '.wp-layout',
+					'selector' => '.fp-layout',
 					'layout'   => array(
 						'type' => 'flex',
 					),
@@ -279,7 +279,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 			),
 			'horizontal flex layout should return empty value' => array(
 				'args'            => array(
-					'selector' => '.wp-layout',
+					'selector' => '.fp-layout',
 					'layout'   => array(
 						'type'        => 'flex',
 						'orientation' => 'horizontal',
@@ -289,7 +289,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 			),
 			'flex layout with properties'                  => array(
 				'args'            => array(
-					'selector' => '.wp-layout',
+					'selector' => '.fp-layout',
 					'layout'   => array(
 						'type'              => 'flex',
 						'orientation'       => 'horizontal',
@@ -298,11 +298,11 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						'verticalAlignment' => 'bottom',
 					),
 				),
-				'expected_output' => '.wp-layout{flex-wrap:nowrap;justify-content:flex-start;align-items:flex-end;}',
+				'expected_output' => '.fp-layout{flex-wrap:nowrap;justify-content:flex-start;align-items:flex-end;}',
 			),
 			'flex layout with properties and block gap'    => array(
 				'args'            => array(
-					'selector'              => '.wp-layout',
+					'selector'              => '.fp-layout',
 					'layout'                => array(
 						'type'              => 'flex',
 						'orientation'       => 'horizontal',
@@ -313,11 +313,11 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 					'has_block_gap_support' => true,
 					'gap_value'             => '29px',
 				),
-				'expected_output' => '.wp-layout{flex-wrap:nowrap;gap:29px;justify-content:flex-start;align-items:flex-end;}',
+				'expected_output' => '.fp-layout{flex-wrap:nowrap;gap:29px;justify-content:flex-start;align-items:flex-end;}',
 			),
 			'flex layout with properties and axial block gap' => array(
 				'args'            => array(
-					'selector'              => '.wp-layout',
+					'selector'              => '.fp-layout',
 					'layout'                => array(
 						'type'              => 'flex',
 						'orientation'       => 'horizontal',
@@ -331,11 +331,11 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						'left' => '2px',
 					),
 				),
-				'expected_output' => '.wp-layout{flex-wrap:nowrap;gap:1px 2px;justify-content:flex-start;align-items:flex-end;}',
+				'expected_output' => '.fp-layout{flex-wrap:nowrap;gap:1px 2px;justify-content:flex-start;align-items:flex-end;}',
 			),
 			'flex layout with properties and axial block gap using spacing preset' => array(
 				'args'            => array(
-					'selector'              => '.wp-layout',
+					'selector'              => '.fp-layout',
 					'layout'                => array(
 						'type'              => 'flex',
 						'orientation'       => 'horizontal',
@@ -349,11 +349,11 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 					),
 					'fallback_gap_value'    => '11px',
 				),
-				'expected_output' => '.wp-layout{flex-wrap:nowrap;gap:11px var(--wp--preset--spacing--40);justify-content:flex-start;align-items:flex-end;}',
+				'expected_output' => '.fp-layout{flex-wrap:nowrap;gap:11px var(--fp--preset--spacing--40);justify-content:flex-start;align-items:flex-end;}',
 			),
 			'vertical flex layout with properties'         => array(
 				'args'            => array(
-					'selector' => '.wp-layout',
+					'selector' => '.fp-layout',
 					'layout'   => array(
 						'type'              => 'flex',
 						'orientation'       => 'vertical',
@@ -362,40 +362,40 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						'verticalAlignment' => 'bottom',
 					),
 				),
-				'expected_output' => '.wp-layout{flex-wrap:nowrap;flex-direction:column;align-items:flex-start;justify-content:flex-end;}',
+				'expected_output' => '.fp-layout{flex-wrap:nowrap;flex-direction:column;align-items:flex-start;justify-content:flex-end;}',
 			),
 			'default grid layout'                          => array(
 				'args'            => array(
-					'selector' => '.wp-layout',
+					'selector' => '.fp-layout',
 					'layout'   => array(
 						'type' => 'grid',
 					),
 				),
-				'expected_output' => '.wp-layout{grid-template-columns:repeat(auto-fill, minmax(min(12rem, 100%), 1fr));container-type:inline-size;}',
+				'expected_output' => '.fp-layout{grid-template-columns:repeat(auto-fill, minmax(min(12rem, 100%), 1fr));container-type:inline-size;}',
 			),
 			'grid layout with columnCount'                 => array(
 				'args'            => array(
-					'selector' => '.wp-layout',
+					'selector' => '.fp-layout',
 					'layout'   => array(
 						'type'        => 'grid',
 						'columnCount' => 3,
 					),
 				),
-				'expected_output' => '.wp-layout{grid-template-columns:repeat(3, minmax(0, 1fr));}',
+				'expected_output' => '.fp-layout{grid-template-columns:repeat(3, minmax(0, 1fr));}',
 			),
 			'default layout with blockGap to verify converting gap value into valid CSS' => array(
 				'args'            => array(
-					'selector'              => '.wp-block-group.wp-container-6',
+					'selector'              => '.fp-block-group.fp-container-6',
 					'layout'                => array(
 						'type' => 'default',
 					),
 					'has_block_gap_support' => true,
 					'gap_value'             => 'var:preset|spacing|70',
 					'block_spacing'         => array(
-						'blockGap' => 'var(--wp--preset--spacing--70)',
+						'blockGap' => 'var(--fp--preset--spacing--70)',
 					),
 				),
-				'expected_output' => '.wp-block-group.wp-container-6 > *{margin-block-start:0;margin-block-end:0;}.wp-block-group.wp-container-6 > * + *{margin-block-start:var(--wp--preset--spacing--70);margin-block-end:0;}',
+				'expected_output' => '.fp-block-group.fp-container-6 > *{margin-block-start:0;margin-block-end:0;}.fp-block-group.fp-container-6 > * + *{margin-block-start:var(--fp--preset--spacing--70);margin-block-end:0;}',
 			),
 		);
 	}
@@ -425,7 +425,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 		return array(
 			'single wrapper block layout with flow type'   => array(
 				'args'            => array(
-					'block_content' => '<div class="wp-block-group"></div>',
+					'block_content' => '<div class="fp-block-group"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -434,17 +434,17 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="wp-block-group"></div>',
+						'innerHTML'    => '<div class="fp-block-group"></div>',
 						'innerContent' => array(
-							'<div class="wp-block-group"></div>',
+							'<div class="fp-block-group"></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="wp-block-group is-layout-flow wp-block-group-is-layout-flow"></div>',
+				'expected_output' => '<div class="fp-block-group is-layout-flow fp-block-group-is-layout-flow"></div>',
 			),
 			'single wrapper block layout with constrained type' => array(
 				'args'            => array(
-					'block_content' => '<div class="wp-block-group"></div>',
+					'block_content' => '<div class="fp-block-group"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -453,17 +453,17 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="wp-block-group"></div>',
+						'innerHTML'    => '<div class="fp-block-group"></div>',
 						'innerContent' => array(
-							'<div class="wp-block-group"></div>',
+							'<div class="fp-block-group"></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained"></div>',
+				'expected_output' => '<div class="fp-block-group is-layout-constrained fp-block-group-is-layout-constrained"></div>',
 			),
 			'multiple wrapper block layout with flow type' => array(
 				'args'            => array(
-					'block_content' => '<div class="wp-block-group"><div class="wp-block-group__inner-wrapper"></div></div>',
+					'block_content' => '<div class="fp-block-group"><div class="fp-block-group__inner-wrapper"></div></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -472,15 +472,15 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="wp-block-group"><div class="wp-block-group__inner-wrapper"></div></div>',
+						'innerHTML'    => '<div class="fp-block-group"><div class="fp-block-group__inner-wrapper"></div></div>',
 						'innerContent' => array(
-							'<div class="wp-block-group"><div class="wp-block-group__inner-wrapper">',
+							'<div class="fp-block-group"><div class="fp-block-group__inner-wrapper">',
 							' ',
 							' </div></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="wp-block-group"><div class="wp-block-group__inner-wrapper is-layout-flow wp-block-group-is-layout-flow"></div></div>',
+				'expected_output' => '<div class="fp-block-group"><div class="fp-block-group__inner-wrapper is-layout-flow fp-block-group-is-layout-flow"></div></div>',
 			),
 			'block with child layout'                      => array(
 				'args'            => array(
@@ -501,11 +501,11 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						),
 					),
 				),
-				'expected_output' => '<p class="wp-container-content-b7aa651c">Some text.</p>',
+				'expected_output' => '<p class="fp-container-content-b7aa651c">Some text.</p>',
 			),
 			'single wrapper block layout with flex type'   => array(
 				'args'            => array(
-					'block_content' => '<div class="wp-block-group"></div>',
+					'block_content' => '<div class="fp-block-group"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -516,17 +516,17 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="wp-block-group"></div>',
+						'innerHTML'    => '<div class="fp-block-group"></div>',
 						'innerContent' => array(
-							'<div class="wp-block-group"></div>',
+							'<div class="fp-block-group"></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="wp-block-group is-horizontal is-nowrap is-layout-flex wp-container-core-group-is-layout-67f0b8e2 wp-block-group-is-layout-flex"></div>',
+				'expected_output' => '<div class="fp-block-group is-horizontal is-nowrap is-layout-flex fp-container-core-group-is-layout-67f0b8e2 fp-block-group-is-layout-flex"></div>',
 			),
 			'single wrapper block layout with grid type'   => array(
 				'args'            => array(
-					'block_content' => '<div class="wp-block-group"></div>',
+					'block_content' => '<div class="fp-block-group"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -535,13 +535,13 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="wp-block-group"></div>',
+						'innerHTML'    => '<div class="fp-block-group"></div>',
 						'innerContent' => array(
-							'<div class="wp-block-group"></div>',
+							'<div class="fp-block-group"></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="wp-block-group is-layout-grid wp-container-core-group-is-layout-9649a0d9 wp-block-group-is-layout-grid"></div>',
+				'expected_output' => '<div class="fp-block-group is-layout-grid fp-container-core-group-is-layout-9649a0d9 fp-block-group-is-layout-grid"></div>',
 			),
 		);
 	}
@@ -570,7 +570,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 		return array(
 			'group block with existing inner container'    => array(
 				'args'            => array(
-					'block_content' => '<div class="wp-block-group"><div class="wp-block-group__inner-container"></div></div>',
+					'block_content' => '<div class="fp-block-group"><div class="fp-block-group__inner-container"></div></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -579,19 +579,19 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="wp-block-group"><div class="wp-block-group__inner-container"></div></div>',
+						'innerHTML'    => '<div class="fp-block-group"><div class="fp-block-group__inner-container"></div></div>',
 						'innerContent' => array(
-							'<div class="wp-block-group"><div class="wp-block-group__inner-container">',
+							'<div class="fp-block-group"><div class="fp-block-group__inner-container">',
 							' ',
 							' </div></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="wp-block-group"><div class="wp-block-group__inner-container"></div></div>',
+				'expected_output' => '<div class="fp-block-group"><div class="fp-block-group__inner-container"></div></div>',
 			),
 			'group block with no existing inner container' => array(
 				'args'            => array(
-					'block_content' => '<div class="wp-block-group"></div>',
+					'block_content' => '<div class="fp-block-group"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -600,19 +600,19 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="wp-block-group"></div>',
+						'innerHTML'    => '<div class="fp-block-group"></div>',
 						'innerContent' => array(
-							'<div class="wp-block-group">',
+							'<div class="fp-block-group">',
 							' ',
 							' </div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="wp-block-group"><div class="wp-block-group__inner-container"></div></div>',
+				'expected_output' => '<div class="fp-block-group"><div class="fp-block-group__inner-container"></div></div>',
 			),
 			'group block with layout classnames'           => array(
 				'args'            => array(
-					'block_content' => '<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained"></div>',
+					'block_content' => '<div class="fp-block-group is-layout-constrained fp-block-group-is-layout-constrained"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -621,15 +621,15 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="wp-block-group"></div>',
+						'innerHTML'    => '<div class="fp-block-group"></div>',
 						'innerContent' => array(
-							'<div class="wp-block-group">',
+							'<div class="fp-block-group">',
 							' ',
 							' </div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"></div></div>',
+				'expected_output' => '<div class="fp-block-group"><div class="fp-block-group__inner-container is-layout-constrained fp-block-group-is-layout-constrained"></div></div>',
 			),
 		);
 	}
@@ -648,13 +648,13 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 	public function test_layout_support_flag_renders_consistent_container_hash( $block_attrs, $expected_class ) {
 		switch_theme( 'default' );
 
-		$block_content = '<div class="wp-block-group"></div>';
+		$block_content = '<div class="fp-block-group"></div>';
 		$block         = array(
 			'blockName'    => 'core/group',
 			'innerBlocks'  => array(),
-			'innerHTML'    => '<div class="wp-block-group"></div>',
+			'innerHTML'    => '<div class="fp-block-group"></div>',
 			'innerContent' => array(
-				'<div class="wp-block-group"></div>',
+				'<div class="fp-block-group"></div>',
 			),
 			'attrs'        => $block_attrs,
 		);
@@ -669,7 +669,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 		remove_theme_support( 'appearance-tools' );
 
 		// Process the output and look for the expected class in the first rendered element.
-		$processor = new WP_HTML_Tag_Processor( $output );
+		$processor = new FP_HTML_Tag_Processor( $output );
 		$processor->next_tag();
 
 		$this->assertTrue(
@@ -696,7 +696,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						),
 					),
 				),
-				'expected_class'   => 'wp-container-core-group-is-layout-c5c7d83f',
+				'expected_class'   => 'fp-container-core-group-is-layout-c5c7d83f',
 			),
 			'default type block gap 24px'      => array(
 				'block_attributes' => array(
@@ -709,7 +709,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						),
 					),
 				),
-				'expected_class'   => 'wp-container-core-group-is-layout-634f0b9d',
+				'expected_class'   => 'fp-container-core-group-is-layout-634f0b9d',
 			),
 			'constrained type justified left'  => array(
 				'block_attributes' => array(
@@ -718,7 +718,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						'justifyContent' => 'left',
 					),
 				),
-				'expected_class'   => 'wp-container-core-group-is-layout-12dd3699',
+				'expected_class'   => 'fp-container-core-group-is-layout-12dd3699',
 			),
 			'constrained type justified right' => array(
 				'block_attributes' => array(
@@ -727,7 +727,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						'justifyContent' => 'right',
 					),
 				),
-				'expected_class'   => 'wp-container-core-group-is-layout-f1f2ed93',
+				'expected_class'   => 'fp-container-core-group-is-layout-f1f2ed93',
 			),
 			'flex type horizontal'             => array(
 				'block_attributes' => array(
@@ -737,7 +737,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						'flexWrap'    => 'nowrap',
 					),
 				),
-				'expected_class'   => 'wp-container-core-group-is-layout-2487dcaa',
+				'expected_class'   => 'fp-container-core-group-is-layout-2487dcaa',
 			),
 			'flex type vertical'               => array(
 				'block_attributes' => array(
@@ -746,7 +746,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						'orientation' => 'vertical',
 					),
 				),
-				'expected_class'   => 'wp-container-core-group-is-layout-fe9cc265',
+				'expected_class'   => 'fp-container-core-group-is-layout-fe9cc265',
 			),
 			'grid type'                        => array(
 				'block_attributes' => array(
@@ -754,7 +754,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						'type' => 'grid',
 					),
 				),
-				'expected_class'   => 'wp-container-core-group-is-layout-478b6e6b',
+				'expected_class'   => 'fp-container-core-group-is-layout-478b6e6b',
 			),
 			'grid type 3 columns'              => array(
 				'block_attributes' => array(
@@ -763,7 +763,7 @@ class WP_Block_Supports_Layout_Test extends WP_UnitTestCase {
 						'columnCount' => 3,
 					),
 				),
-				'expected_class'   => 'wp-container-core-group-is-layout-d3b710ac',
+				'expected_class'   => 'fp-container-core-group-is-layout-d3b710ac',
 			),
 		);
 	}

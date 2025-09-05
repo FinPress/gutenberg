@@ -22,7 +22,7 @@ export function maybeWarnDeprecated36pxSize( {
 		return;
 	}
 
-	deprecated( `36px default size for wp.components.${ componentName }`, {
+	deprecated( `36px default size for fp.components.${ componentName }`, {
 		since: '6.8',
 		version: '7.1',
 		hint: 'Set the `__next40pxDefaultSize` prop to true to start opting into the new default size, which will become the default in a future version.',

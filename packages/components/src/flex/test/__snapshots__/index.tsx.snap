@@ -10,13 +10,13 @@ Snapshot Diff:
     class="components-flex css-1hwd9hm-PolymorphicDiv-Flex-base-ItemsRow e19lxcc00"
 -   data-testid="flex"
 +   data-testid="base-flex"
-    data-wp-c16t="true"
-    data-wp-component="Flex"
+    data-fp-c16t="true"
+    data-fp-component="Flex"
   >
     <div
       class="components-flex-item css-eno349-PolymorphicDiv-Item-sx-Base e19lxcc00"
-      data-wp-c16t="true"
-      data-wp-component="FlexItem"
+      data-fp-c16t="true"
+      data-fp-component="FlexItem"
     >
       Item
     </div>
@@ -26,8 +26,8 @@ Snapshot Diff:
 -   <div />
     <div
       class="components-flex-item components-flex-block css-10m3u8l-PolymorphicDiv-Item-sx-Base-block e19lxcc00"
-      data-wp-c16t="true"
-      data-wp-component="FlexBlock"
+      data-fp-c16t="true"
+      data-fp-component="FlexBlock"
     >
 `;
 
@@ -104,20 +104,20 @@ exports[`props should render correctly 1`] = `
 <div
   class="components-flex emotion-0 emotion-1"
   data-testid="base-flex"
-  data-wp-c16t="true"
-  data-wp-component="Flex"
+  data-fp-c16t="true"
+  data-fp-component="Flex"
 >
   <div
     class="components-flex-item emotion-2 emotion-1"
-    data-wp-c16t="true"
-    data-wp-component="FlexItem"
+    data-fp-c16t="true"
+    data-fp-component="FlexItem"
   >
     Item
   </div>
   <div
     class="components-flex-item components-flex-block emotion-4 emotion-1"
-    data-wp-c16t="true"
-    data-wp-component="FlexBlock"
+    data-fp-c16t="true"
+    data-fp-component="FlexBlock"
   >
     Item
   </div>

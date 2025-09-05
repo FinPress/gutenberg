@@ -82,7 +82,7 @@ function PullQuoteEdit( {
 									citation: nextCitation,
 								} )
 							}
-							className="wp-block-pullquote__citation"
+							className="fp-block-pullquote__citation"
 							__unstableMobileNoFocusOnMount
 							textAlign="center"
 							__unstableOnSplitAtEnd={ () =>

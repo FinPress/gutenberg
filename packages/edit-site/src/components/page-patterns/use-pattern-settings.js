@@ -19,8 +19,8 @@ export default function usePatternSettings() {
 	}, [] );
 
 	const settingsBlockPatterns =
-		storedSettings.__experimentalAdditionalBlockPatterns ?? // WP 6.0
-		storedSettings.__experimentalBlockPatterns; // WP 5.9
+		storedSettings.__experimentalAdditionalBlockPatterns ?? // FP 6.0
+		storedSettings.__experimentalBlockPatterns; // FP 5.9
 
 	const restBlockPatterns = useSelect(
 		( select ) => select( coreStore ).getBlockPatterns(),

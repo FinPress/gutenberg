@@ -45,8 +45,8 @@ To achieve that the command first prepares the following folder structure:
     ├── tests/test/emptytheme
     |   The theme used for the tests environment. (site editor)
     │
-    │── envs/branch1/.wp-env.json
-    │   The wp-env config file for branch1 (similar to all other branches except the plugin folder).
+    │── envs/branch1/.fp-env.json
+    │   The fp-env config file for branch1 (similar to all other branches except the plugin folder).
     │── envs/branch1/plugin
     │   A built clone of the Gutenberg plugin for branch1 (git checkout branch1)
     │
@@ -73,15 +73,15 @@ Our performance job runs GitHub CI which means that we can't trust the consisten
 
 ### Update the reference commit
 
-Gutenberg supports only two WP versions, this impacts the performance job in two ways:
+Gutenberg supports only two FP versions, this impacts the performance job in two ways:
 
- - The base WP version used to run the performance job needs to be updated, when the minimum version supported by Gutenberg changes. In order to do that, we rely on the `Tested up to` flag of the plugin's `readme.txt` file. So each time that flag is changed, the version used for the performance job is changed as well.
+ - The base FP version used to run the performance job needs to be updated, when the minimum version supported by Gutenberg changes. In order to do that, we rely on the `Tested up to` flag of the plugin's `readme.txt` file. So each time that flag is changed, the version used for the performance job is changed as well.
 
- - Updating the WP version used for performance jobs means that there's a high chance that the reference commit used for performance test stability becomes incompatible with the WP version that is used. So every time, the `Tested up to` flag is updated in the `readme.txt` is changed, we also have to update the reference commit that is used in `.github/workflows/performance.yml`.
+ - Updating the FP version used for performance jobs means that there's a high chance that the reference commit used for performance test stability becomes incompatible with the FP version that is used. So every time, the `Tested up to` flag is updated in the `readme.txt` is changed, we also have to update the reference commit that is used in `.github/workflows/performance.yml`.
 
 The new reference commit hash that is chosen needs to meet the following requirements:
 
- - Be compatible with the new WP version used in the "Tested up to" flag.
+ - Be compatible with the new FP version used in the "Tested up to" flag.
  - Is already tracked on "codevitals.run" for all existing metrics.
 
 When releasing a plugin update with changes to the minimum FinPress version requirements, the end-to-end test GitHub Action workflow in Core SVN will need to be updated for any branch losing support. Otherwise the first run of that workflow on that branch following the release will fail.

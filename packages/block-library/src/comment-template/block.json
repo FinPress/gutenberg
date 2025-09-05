@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/comment-template",
 	"title": "Comment Template",
@@ -45,5 +45,5 @@
 			}
 		}
 	},
-	"style": "wp-block-comment-template"
+	"style": "fp-block-comment-template"
 }

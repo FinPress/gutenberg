@@ -136,22 +136,22 @@ export default function SearchEdit( {
 		return clsx(
 			className,
 			'button-inside' === buttonPosition
-				? 'wp-block-search__button-inside'
+				? 'fp-block-search__button-inside'
 				: undefined,
 			'button-outside' === buttonPosition
-				? 'wp-block-search__button-outside'
+				? 'fp-block-search__button-outside'
 				: undefined,
 			'no-button' === buttonPosition
-				? 'wp-block-search__no-button'
+				? 'fp-block-search__no-button'
 				: undefined,
 			'button-only' === buttonPosition
-				? 'wp-block-search__button-only'
+				? 'fp-block-search__button-only'
 				: undefined,
 			! buttonUseIcon && 'no-button' !== buttonPosition
-				? 'wp-block-search__text-button'
+				? 'fp-block-search__text-button'
 				: undefined,
 			buttonUseIcon && 'no-button' !== buttonPosition
-				? 'wp-block-search__icon-button'
+				? 'fp-block-search__icon-button'
 				: undefined
 		);
 	};
@@ -306,7 +306,7 @@ export default function SearchEdit( {
 				<PlainText
 					ref={ textInputRef }
 					isSelected={ isPlaceholderSelected }
-					className="wp-block-search__input"
+					className="fp-block-search__input"
 					style={ inputStyle }
 					numberOfLines={ 1 }
 					ellipsizeMode="tail" // Currently only works on ios.
@@ -394,7 +394,7 @@ export default function SearchEdit( {
 						onLayout={ onLayoutButton }
 					>
 						<RichText
-							className="wp-block-search__button"
+							className="fp-block-search__button"
 							identifier="buttonText"
 							tagName="p"
 							style={ richTextButtonStyle }
@@ -448,7 +448,7 @@ export default function SearchEdit( {
 					accessibilityLabel={ getAccessibilityLabelForLabel() }
 				>
 					<RichText
-						className="wp-block-search__label"
+						className="fp-block-search__label"
 						identifier="label"
 						tagName="p"
 						style={ styles.richTextLabel }

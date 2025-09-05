@@ -247,7 +247,7 @@ const v12 = {
 				width: true,
 			},
 		},
-		__experimentalSelector: '.wp-block-button__link',
+		__experimentalSelector: '.fp-block-button__link',
 		interactivity: {
 			clientNavigation: true,
 		},
@@ -275,7 +275,7 @@ const v12 = {
 		const spacingProps = getSpacingClassesAndStyles( attributes );
 		const shadowProps = getShadowClassesAndStyles( attributes );
 		const buttonClasses = clsx(
-			'wp-block-button__link',
+			'fp-block-button__link',
 			colorProps.className,
 			borderProps.className,
 			{
@@ -298,7 +298,7 @@ const v12 = {
 		// A title will no longer be assigned for new or updated button block links.
 
 		const wrapperClasses = clsx( className, {
-			[ `has-custom-width wp-block-button__width-${ width }` ]: width,
+			[ `has-custom-width fp-block-button__width-${ width }` ]: width,
 			[ `has-custom-font-size` ]: fontSize || style?.typography?.fontSize,
 		} );
 
@@ -401,7 +401,7 @@ const v11 = {
 				radius: true,
 			},
 		},
-		__experimentalSelector: '.wp-block-button__link',
+		__experimentalSelector: '.fp-block-button__link',
 	},
 	save( { attributes, className } ) {
 		const { fontSize, linkTarget, rel, style, text, title, url, width } =
@@ -415,7 +415,7 @@ const v11 = {
 		const colorProps = getColorClassesAndStyles( attributes );
 		const spacingProps = getSpacingClassesAndStyles( attributes );
 		const buttonClasses = clsx(
-			'wp-block-button__link',
+			'fp-block-button__link',
 			colorProps.className,
 			borderProps.className,
 			{
@@ -435,7 +435,7 @@ const v11 = {
 		// A title will no longer be assigned for new or updated button block links.
 
 		const wrapperClasses = clsx( className, {
-			[ `has-custom-width wp-block-button__width-${ width }` ]: width,
+			[ `has-custom-width fp-block-button__width-${ width }` ]: width,
 			[ `has-custom-font-size` ]: fontSize || style?.typography?.fontSize,
 		} );
 
@@ -527,7 +527,7 @@ const v10 = {
 			radius: true,
 			__experimentalSkipSerialization: true,
 		},
-		__experimentalSelector: '.wp-block-button__link',
+		__experimentalSelector: '.fp-block-button__link',
 	},
 	save( { attributes, className } ) {
 		const { fontSize, linkTarget, rel, style, text, title, url, width } =
@@ -541,7 +541,7 @@ const v10 = {
 		const colorProps = getColorClassesAndStyles( attributes );
 		const spacingProps = getSpacingClassesAndStyles( attributes );
 		const buttonClasses = clsx(
-			'wp-block-button__link',
+			'fp-block-button__link',
 			colorProps.className,
 			borderProps.className,
 			{
@@ -561,7 +561,7 @@ const v10 = {
 		// A title will no longer be assigned for new or updated button block links.
 
 		const wrapperClasses = clsx( className, {
-			[ `has-custom-width wp-block-button__width-${ width }` ]: width,
+			[ `has-custom-width fp-block-button__width-${ width }` ]: width,
 			[ `has-custom-font-size` ]: fontSize || style?.typography?.fontSize,
 		} );
 
@@ -604,7 +604,7 @@ const deprecated = [
 				__experimentalFontFamily: true,
 			},
 			reusable: false,
-			__experimentalSelector: '.wp-block-button__link',
+			__experimentalSelector: '.fp-block-button__link',
 		},
 		attributes: {
 			...blockAttributes,
@@ -658,7 +658,7 @@ const deprecated = [
 			const borderRadius = style?.border?.radius;
 			const colorProps = getColorClassesAndStyles( attributes );
 			const buttonClasses = clsx(
-				'wp-block-button__link',
+				'fp-block-button__link',
 				colorProps.className,
 				{
 					'no-border-radius': style?.border?.radius === 0,
@@ -674,7 +674,7 @@ const deprecated = [
 			// A title will no longer be assigned for new or updated button block links.
 
 			const wrapperClasses = clsx( className, {
-				[ `has-custom-width wp-block-button__width-${ width }` ]: width,
+				[ `has-custom-width fp-block-button__width-${ width }` ]: width,
 				[ `has-custom-font-size` ]:
 					fontSize || style?.typography?.fontSize,
 			} );
@@ -705,7 +705,7 @@ const deprecated = [
 				__experimentalSkipSerialization: true,
 			},
 			reusable: false,
-			__experimentalSelector: '.wp-block-button__link',
+			__experimentalSelector: '.fp-block-button__link',
 		},
 		attributes: {
 			...blockAttributes,
@@ -748,7 +748,7 @@ const deprecated = [
 				attributes;
 			const colorProps = getColorClassesAndStyles( attributes );
 			const buttonClasses = clsx(
-				'wp-block-button__link',
+				'fp-block-button__link',
 				colorProps.className,
 				{
 					'no-border-radius': borderRadius === 0,
@@ -764,7 +764,7 @@ const deprecated = [
 			// A title will no longer be assigned for new or updated button block links.
 
 			const wrapperClasses = clsx( className, {
-				[ `has-custom-width wp-block-button__width-${ width }` ]: width,
+				[ `has-custom-width fp-block-button__width-${ width }` ]: width,
 			} );
 
 			return (
@@ -793,7 +793,7 @@ const deprecated = [
 				__experimentalSkipSerialization: true,
 			},
 			reusable: false,
-			__experimentalSelector: '.wp-block-button__link',
+			__experimentalSelector: '.fp-block-button__link',
 		},
 		attributes: {
 			...blockAttributes,
@@ -836,7 +836,7 @@ const deprecated = [
 				attributes;
 			const colorProps = getColorClassesAndStyles( attributes );
 			const buttonClasses = clsx(
-				'wp-block-button__link',
+				'fp-block-button__link',
 				colorProps.className,
 				{
 					'no-border-radius': borderRadius === 0,
@@ -852,7 +852,7 @@ const deprecated = [
 			// A title will no longer be assigned for new or updated button block links.
 
 			const wrapperClasses = clsx( className, {
-				[ `has-custom-width wp-block-button__width-${ width }` ]: width,
+				[ `has-custom-width fp-block-button__width-${ width }` ]: width,
 			} );
 
 			return (
@@ -914,7 +914,7 @@ const deprecated = [
 		save( { attributes } ) {
 			const { borderRadius, linkTarget, rel, text, title, url } =
 				attributes;
-			const buttonClasses = clsx( 'wp-block-button__link', {
+			const buttonClasses = clsx( 'fp-block-button__link', {
 				'no-border-radius': borderRadius === 0,
 			} );
 			const buttonStyle = {
@@ -1012,7 +1012,7 @@ const deprecated = [
 				getColorClassName( 'background-color', backgroundColor );
 			const gradientClass = __experimentalGetGradientClass( gradient );
 
-			const buttonClasses = clsx( 'wp-block-button__link', {
+			const buttonClasses = clsx( 'fp-block-button__link', {
 				'has-text-color': textColor || customTextColor,
 				[ textClass ]: textClass,
 				'has-background':
@@ -1130,7 +1130,7 @@ const deprecated = [
 				backgroundColor
 			);
 
-			const buttonClasses = clsx( 'wp-block-button__link', {
+			const buttonClasses = clsx( 'fp-block-button__link', {
 				'has-text-color': textColor || customTextColor,
 				[ textClass ]: textClass,
 				'has-background': backgroundColor || customBackgroundColor,
@@ -1198,7 +1198,7 @@ const deprecated = [
 				backgroundColor
 			);
 
-			const buttonClasses = clsx( 'wp-block-button__link', {
+			const buttonClasses = clsx( 'fp-block-button__link', {
 				'has-text-color': textColor || customTextColor,
 				[ textClass ]: textClass,
 				'has-background': backgroundColor || customBackgroundColor,
@@ -1248,7 +1248,7 @@ const deprecated = [
 				color: textColor,
 			};
 
-			const linkClass = 'wp-block-button__link';
+			const linkClass = 'fp-block-button__link';
 
 			return (
 				<div className={ `align${ align }` }>

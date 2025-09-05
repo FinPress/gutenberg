@@ -25,7 +25,7 @@ To complete this tutorial, you will need:
 If you don't have one or more of these items, the [Block Development Environment](https://developer.finpress.org/block-editor/getting-started/devenv/) documentation will help you get started. Come back here once you are all set up.
 
 <div class="callout callout-info">
-	This tutorial uses <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-wp-env/"><code>wp-env</code></a> to create a local FinPress development environment. However, feel free to use any development environment that meets the abovementioned prerequisites.
+	This tutorial uses <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-env/"><code>fp-env</code></a> to create a local FinPress development environment. However, feel free to use any development environment that meets the abovementioned prerequisites.
 </div>
 
 ## Scaffolding the block
@@ -36,12 +36,12 @@ The first step in creating the Copyright Date Block is to scaffold the initial b
 	Review the <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-create-block/">Get started with create-block</a> documentation for an introduction to using this package.
 </div>
 
-You can use `create-block` from just about any directory (folder) on your computer and then use `wp-env` to create a local FinPress development environment with your new block plugin installed and activated.
+You can use `create-block` from just about any directory (folder) on your computer and then use `fp-env` to create a local FinPress development environment with your new block plugin installed and activated.
 
 Therefore, choose a directory to place the block plugin or optionally create a new folder called "Block Tutorial". Open your terminal and `cd` to this directory. Then run the following command.
 
 <div class="callout callout-info">
-	If you are not using <code>wp-env</code>, instead, navigate to the <code>plugins/</code> folder in your local FinPress installation using the terminal and run the following command.
+	If you are not using <code>fp-env</code>, instead, navigate to the <code>plugins/</code> folder in your local FinPress installation using the terminal and run the following command.
 </div>
 
 ```bash
@@ -86,7 +86,7 @@ Open the `block.json` file in the `/src` folder.
 
 ```json
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "create-block/copyright-date-block",
 	"version": "0.1.0",
@@ -173,7 +173,7 @@ Your final `block.json` file should look like this:
 
 ```json
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "create-block/copyright-date-block",
 	"version": "0.1.0",
@@ -658,7 +658,7 @@ This variable should display the value of the `startingYear` attribute and the `
 	<ul>
 		<li><code>$attributes</code> (array): The block attributes.</li>
 		<li><code>$content</code> (string): The block default content.</li>
-		<li><code>$block</code> (WP_Block): The block instance.</li>
+		<li><code>$block</code> (FP_Block): The block instance.</li>
 	</ul>
 </div>
 
@@ -706,15 +706,15 @@ Statically rendered blocks will always store the block markup, attributes, and o
 You will see the following if you switch to the Code editor from within the Editor.
 
 ```html
-<!-- wp:create-block/copyright-date-block {"showStartingYear":true,"startingYear":"2017"} /-->
+<!-- fp:create-block/copyright-date-block {"showStartingYear":true,"startingYear":"2017"} /-->
 ```
 
 Compare this to a statically rendered block like the Paragraph block.
 
 ```html
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>This is a test.</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 ```
 
 The HTML of the paragraph is stored in post content and saved in the database.
@@ -780,7 +780,7 @@ Don't worry, the error is expected. If you open the inspector in your browser, y
 This block validation error occurs because the `save()` function returns block content, but no HTML is stored in the block markup since the previously saved block was dynamic. Remember that this is what the markup currently looks like.
 
 ```html
-<!-- wp:create-block/copyright-date-block {"showStartingYear":true,"startingYear":"2017"} /-->
+<!-- fp:create-block/copyright-date-block {"showStartingYear":true,"startingYear":"2017"} /-->
 ```
 
 You will see more of these errors as you update the `save()` function in subsequent steps. Just click "Attempt Block Recovery" and update the page.
@@ -788,9 +788,9 @@ You will see more of these errors as you update the `save()` function in subsequ
 After performing block recovery, open the Code editor and you will see the markup now looks like this.
 
 ```html
-<!-- wp:create-block/copyright-date-block {"showStartingYear":true,"startingYear":"2017"} -->
-<p class="wp-block-create-block-copyright-date-block">Copyright Date Block – hello from the saved content!</p>
-<!-- /wp:create-block/copyright-date-block -->
+<!-- fp:create-block/copyright-date-block {"showStartingYear":true,"startingYear":"2017"} -->
+<p class="fp-block-create-block-copyright-date-block">Copyright Date Block – hello from the saved content!</p>
+<!-- /fp:create-block/copyright-date-block -->
 ```
 
 You will often encounter block validation errors when building a block with static rendering, and that's ok. The output of the `save()` function must match the HTML in the post content exactly, which may end up out of sync as you add functionality. So long as there are no validation errors when you're completely finished building the block, you will be all set.
@@ -828,9 +828,9 @@ export default function save( { attributes } ) {
 Save the file and refresh the Editor. Click "Attempt Block Recovery" and update the page. Check the Code editor, and the block markup should now look something like this.
 
 ```html
-<!-- wp:create-block/copyright-date-block {"showStartingYear":true,"startingYear":"2017"} -->
-<p class="wp-block-create-block-copyright-date-block">© 2017–2023</p>
-<!-- /wp:create-block/copyright-date-block -->
+<!-- fp:create-block/copyright-date-block {"showStartingYear":true,"startingYear":"2017"} -->
+<p class="fp-block-create-block-copyright-date-block">© 2017–2023</p>
+<!-- /fp:create-block/copyright-date-block -->
 ```
 
 At this point, it might look like you're done. The block content is now saved as HTML in the database and the output on the front end is dynamically rendered. However, there are still a few things that need to be addressed.
@@ -993,7 +993,7 @@ if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrent
 	$block_content = '<p ' . get_block_wrapper_attributes() . '>© ' . esc_html( $display_date ) . '</p>';
 }
 
-echo wp_kses_post( $block_content );
+echo fp_kses_post( $block_content );
 ```
 
 That's it! You now have a block that utilizes both dynamic and static rendering.

@@ -14,7 +14,7 @@ _This package assumes that your code will run in an **ES2015+** environment. If 
 
 ## Getting Started
 
-You need to include `wp-annotations` as a dependency of the JavaScript file in which you wish to use the Annotations API.
+You need to include `fp-annotations` as a dependency of the JavaScript file in which you wish to use the Annotations API.
 
 ## Usage
 

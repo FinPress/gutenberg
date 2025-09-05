@@ -9,7 +9,7 @@ import {
 	WritingFlow,
 	__unstableEditorStyles as EditorStyles,
 } from '@finpress/block-editor';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useSelect } from '@finpress/data';
 import { useMemo } from '@finpress/element';
 import { store as preferencesStore } from '@finpress/preferences';
@@ -31,7 +31,7 @@ export default function WidgetAreasBlockEditorContent( {
 			),
 		[]
 	);
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 
 	const styles = useMemo( () => {
 		return hasThemeStyles ? blockEditorSettings.styles : [];
@@ -40,7 +40,7 @@ export default function WidgetAreasBlockEditorContent( {
 	return (
 		<div className="edit-widgets-block-editor">
 			<Notices />
-			{ ! isLargeViewport && <BlockToolbar hideDragHandle /> }
+			{ ! isLargeviewport && <BlockToolbar hideDragHandle /> }
 			<BlockTools>
 				<KeyboardShortcuts />
 				<EditorStyles

@@ -6,7 +6,7 @@ import { create } from '@storybook/theming/create';
 export default create( {
 	base: 'light',
 	brandTitle: 'FinPress Components',
-	brandImage: './wp-logo@2x.png',
+	brandImage: './fp-logo@2x.png',
 
 	// Typography
 	fontBase:

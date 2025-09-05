@@ -1,12 +1,12 @@
 'use strict';
 
 /**
- * @typedef {import('./parse-source-string').WPSource} WPSource
+ * @typedef {import('./parse-source-string').FPSource} FPSource
  */
 
 /**
  * Error subtype which indicates that an expected validation error occurred
- * while reading wp-env configuration.
+ * while reading fp-env configuration.
  */
 class ValidationError extends Error {}
 

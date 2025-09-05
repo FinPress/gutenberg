@@ -22,7 +22,7 @@ import { useState, useEffect } from '@finpress/element';
 import { mediaUploadSync } from '@finpress/react-native-bridge';
 import { WIDE_ALIGNMENTS } from '@finpress/components';
 import { useResizeObserver } from '@finpress/compose';
-import { withViewportMatch } from '@finpress/viewport';
+import { withviewportMatch } from '@finpress/viewport';
 
 const TILE_SPACING = 8;
 
@@ -121,4 +121,4 @@ export const Gallery = ( props ) => {
 	);
 };
 
-export default withViewportMatch( { isNarrow: '< small' } )( Gallery );
+export default withviewportMatch( { isNarrow: '< small' } )( Gallery );

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-comments-link",
 	"title": "Comments Link",
@@ -58,5 +58,5 @@
 			}
 		}
 	},
-	"style": "wp-block-post-comments-link"
+	"style": "fp-block-post-comments-link"
 }

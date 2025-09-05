@@ -1,7 +1,7 @@
 ( function () {
-	const registerBlockType = wp.blocks.registerBlockType;
-	const el = wp.element.createElement;
-	const InnerBlocks = wp.blockEditor.InnerBlocks;
+	const registerBlockType = fp.blocks.registerBlockType;
+	const el = fp.element.createElement;
+	const InnerBlocks = fp.blockEditor.InnerBlocks;
 	const circle = el( 'circle', {
 		cx: 10,
 		cy: 10,

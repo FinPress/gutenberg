@@ -231,7 +231,7 @@ describe( 'getFontStylesAndWeights', () => {
 				fontFamily: 'AR One Sans',
 				fontStyle: 'normal',
 				fontWeight: '400 700',
-				src: 'http://www.finpress.org/wp-content/uploads/fonts/AROneSans-VariableFont_ARRRwght.ttf',
+				src: 'http://www.finpress.org/fp-content/uploads/fonts/AROneSans-VariableFont_ARRRwght.ttf',
 			},
 		];
 
@@ -341,36 +341,36 @@ describe( 'getFontStylesAndWeights', () => {
 				fontFamily: 'Piazzolla',
 				fontStyle: 'normal',
 				fontWeight: '400',
-				src: 'http://www.finpress.org/wp-content/uploads/fonts/N0b52SlTPu5rIkWIZjVKKtYtfxYqZ4RJBFzFfYUjkSDdlqZgy7LYxnL31AHfAAy5.woff2',
+				src: 'http://www.finpress.org/fp-content/uploads/fonts/N0b52SlTPu5rIkWIZjVKKtYtfxYqZ4RJBFzFfYUjkSDdlqZgy7LYxnL31AHfAAy5.woff2',
 			},
 			{
 				fontFamily: 'Piazzolla',
 				fontStyle: 'normal',
 				fontWeight: 600,
-				src: 'http://www.finpress.org/wp-content/uploads/fonts/N0b52SlTPu5rIkWIZjVKKtYtfxYqZ4RJBFzFfYUjkSDdlqZgy7JxwXL31AHfAAy5.woff2',
+				src: 'http://www.finpress.org/fp-content/uploads/fonts/N0b52SlTPu5rIkWIZjVKKtYtfxYqZ4RJBFzFfYUjkSDdlqZgy7JxwXL31AHfAAy5.woff2',
 			},
 			{
 				fontFamily: 'Piazzolla',
 				fontStyle: 'normal',
-				src: 'http://www.finpress.org/wp-content/uploads/fonts/N0b52SlTPu5rIkWIZjVKKtYtfxYqZ4RJBFzFfYUjkSDdlqZgy7JxwXL31AHfAAy5.woff2',
+				src: 'http://www.finpress.org/fp-content/uploads/fonts/N0b52SlTPu5rIkWIZjVKKtYtfxYqZ4RJBFzFfYUjkSDdlqZgy7JxwXL31AHfAAy5.woff2',
 			},
 			{
 				fontFamily: 'Piazzolla',
 				fontStyle: 'normal',
 				fontWeight: '900',
-				src: 'http://www.finpress.org/wp-content/uploads/fonts/N0b52SlTPu5rIkWIZjVKKtYtfxYqZ4RJBFzFfYUjkSDdlqZgy7JxwXL31AHfAAy5.woff2',
+				src: 'http://www.finpress.org/fp-content/uploads/fonts/N0b52SlTPu5rIkWIZjVKKtYtfxYqZ4RJBFzFfYUjkSDdlqZgy7JxwXL31AHfAAy5.woff2',
 			},
 			{
 				fontFamily: 'Piazzolla',
 				fontStyle: 'italic',
 				fontWeight: '300',
-				src: 'http://www.finpress.org/wp-content/uploads/fonts/N0b72SlTPu5rIkWIZjVgI-TckS03oGpPETyEJ88Rbvi0_TzOzKcQhcSx3gD9BRy5m5M.woff2',
+				src: 'http://www.finpress.org/fp-content/uploads/fonts/N0b72SlTPu5rIkWIZjVgI-TckS03oGpPETyEJ88Rbvi0_TzOzKcQhcSx3gD9BRy5m5M.woff2',
 			},
 			{
 				fontFamily: 'Piazzolla',
 				fontStyle: 'italic',
 				fontWeight: '900',
-				src: 'http://www.finpress.org/wp-content/uploads/fonts/N0b72SlTPu5rIkWIZjVgI-TckS03oGpPETyEJ88Rbvi0_TzOzKcQhTO23gD9BRy5m5M.woff2',
+				src: 'http://www.finpress.org/fp-content/uploads/fonts/N0b72SlTPu5rIkWIZjVgI-TckS03oGpPETyEJ88Rbvi0_TzOzKcQhTO23gD9BRy5m5M.woff2',
 			},
 		];
 		expect( getFontStylesAndWeights( fontFamilyFaces ) ).toEqual( {
@@ -479,7 +479,7 @@ describe( 'getFontStylesAndWeights', () => {
 				fontFamily: 'Piazzolla',
 				fontStyle: 'normal',
 				fontWeight: '400',
-				src: 'http://www.finpress.org/wp-content/uploads/fonts/N0b52SlTPu5rIkWIZjVKKtYtfxYqZ4RJBFzFfYUjkSDdlqZgy7LYxnL31AHfAAy5.woff2',
+				src: 'http://www.finpress.org/fp-content/uploads/fonts/N0b52SlTPu5rIkWIZjVKKtYtfxYqZ4RJBFzFfYUjkSDdlqZgy7LYxnL31AHfAAy5.woff2',
 			},
 		];
 		expect( getFontStylesAndWeights( fontFamilyFaces ) ).toEqual( {
@@ -547,7 +547,7 @@ describe( 'getFontStylesAndWeights', () => {
 			{
 				fontFamily: 'AR One Sans',
 				fontStyle: 'normal',
-				src: 'http://www.finpress.org/wp-content/uploads/fonts/AROneSans-VariableFont_ARRRwght.ttf',
+				src: 'http://www.finpress.org/fp-content/uploads/fonts/AROneSans-VariableFont_ARRRwght.ttf',
 			},
 		];
 		expect( getFontStylesAndWeights( fontFamilyFaces ) ).toEqual( {
@@ -596,7 +596,7 @@ describe( 'getFontStylesAndWeights', () => {
 				fontFamily: 'AR One Sans',
 				fontStyle: 'normal',
 				fontWeight: 400,
-				src: 'http://www.finpress.org/wp-content/uploads/fonts/AROneSans-VariableFont_ARRRwght.ttf',
+				src: 'http://www.finpress.org/fp-content/uploads/fonts/AROneSans-VariableFont_ARRRwght.ttf',
 			},
 		];
 		expect( getFontStylesAndWeights( fontFamilyFaces ) ).toEqual( {

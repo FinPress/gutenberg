@@ -6,7 +6,7 @@ Also, this tutorial will lean heavily on Redux concepts such as state, actions, 
 
 ## Creating a plugin
 
-We'll do all the development inside of a FinPress plugin. Let's start by creating a `wp-content/plugins/my-first-gutenberg-app` directory in your local FinPress environment. We will need to create four files inside that directory:
+We'll do all the development inside of a FinPress plugin. Let's start by creating a `fp-content/plugins/my-first-gutenberg-app` directory in your local FinPress environment. We will need to create four files inside that directory:
 
 -   my-first-gutenberg-app.php – to create a new admin page
 -   src/index.js – for our JavaScript application
@@ -40,7 +40,7 @@ window.addEventListener(
 **src/style.css:**
 
 ```css
-.toplevel_page_my-first-gutenberg-app #wpcontent {
+.toplevel_page_my-first-gutenberg-app #fpcontent {
 	background: #fff;
 	height: 1000px;
 }
@@ -122,7 +122,7 @@ function my_admin_menu() {
 
 add_action( 'admin_menu', 'my_admin_menu' );
 
-function load_custom_wp_admin_scripts( $hook ) {
+function load_custom_fp_admin_scripts( $hook ) {
 	// Load only on ?page=my-first-gutenberg-app.
 	if ( 'toplevel_page_my-first-gutenberg-app' !== $hook ) {
 		return;
@@ -135,29 +135,29 @@ function load_custom_wp_admin_scripts( $hook ) {
 
 	// Enqueue CSS dependencies.
 	foreach ( $asset_file['dependencies'] as $style ) {
-		wp_enqueue_style( $style );
+		fp_enqueue_style( $style );
 	}
 
 	// Load our app.js.
-	wp_register_script(
+	fp_register_script(
 		'my-first-gutenberg-app',
 		plugins_url( 'build/index.js', __FILE__ ),
 		$asset_file['dependencies'],
 		$asset_file['version']
 	);
-	wp_enqueue_script( 'my-first-gutenberg-app' );
+	fp_enqueue_script( 'my-first-gutenberg-app' );
 
 	// Load our style.css.
-	wp_register_style(
+	fp_register_style(
 		'my-first-gutenberg-app',
 		plugins_url( 'build/style-index.css', __FILE__ ),
 		array(),
 		$asset_file['version']
 	);
-	wp_enqueue_style( 'my-first-gutenberg-app' );
+	fp_enqueue_style( 'my-first-gutenberg-app' );
 }
 
-add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_scripts' );
+add_action( 'admin_enqueue_scripts', 'load_custom_fp_admin_scripts' );
 ```
 
 **package.json:**
@@ -184,11 +184,11 @@ add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_scripts' );
     "@finpress/scripts": "^24.0.0"
   },
   "scripts": {
-    "build": "wp-scripts build",
-    "format": "wp-scripts format",
-    "lint:js": "wp-scripts lint-js",
-    "packages-update": "wp-scripts packages-update",
-    "start": "wp-scripts start"
+    "build": "fp-scripts build",
+    "format": "fp-scripts format",
+    "lint:js": "fp-scripts lint-js",
+    "packages-update": "fp-scripts packages-update",
+    "start": "fp-scripts start"
   }
 }
 ```

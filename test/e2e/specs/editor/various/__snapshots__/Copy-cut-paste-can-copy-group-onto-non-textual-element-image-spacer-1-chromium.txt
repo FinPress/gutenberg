@@ -1,9 +1,9 @@
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p></p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Click</a></div>
-<!-- /wp:button --></div>
-<!-- /wp:buttons -->
+<!-- fp:buttons -->
+<div class="fp-block-buttons"><!-- fp:button -->
+<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">Click</a></div>
+<!-- /fp:button --></div>
+<!-- /fp:buttons -->

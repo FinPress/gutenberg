@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/query-pagination",
 	"title": "Pagination",
@@ -64,6 +64,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-query-pagination-editor",
-	"style": "wp-block-query-pagination"
+	"editorStyle": "fp-block-query-pagination-editor",
+	"style": "fp-block-query-pagination"
 }

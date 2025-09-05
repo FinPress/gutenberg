@@ -14,13 +14,13 @@ const { loadConfig, ValidationError } = require( './config' );
 const buildDockerComposeConfig = require( './build-docker-compose-config' );
 
 /**
- * @typedef {import('./config').WPConfig} WPConfig
+ * @typedef {import('./config').FPConfig} FPConfig
  */
 
 /**
  * Initializes the local environment so that Docker commands can be run. Reads
- * ./.wp-env.json, creates ~/.wp-env, ~/.wp-env/docker-compose.yml, and
- * ~/.wp-env/Dockerfile.
+ * ./.fp-env.json, creates ~/.fp-env, ~/.fp-env/docker-compose.yml, and
+ * ~/.fp-env/Dockerfile.
  *
  * @param {Object}  options
  * @param {Object}  options.spinner      A CLI spinner which indicates progress.
@@ -32,7 +32,7 @@ const buildDockerComposeConfig = require( './build-docker-compose-config' );
  *                                       and Dockerfile. By default, this is false
  *                                       and only the `start` command writes any
  *                                       changes.
- * @return {WPConfig} The-env config object.
+ * @return {FPConfig} The-env config object.
  */
 module.exports = async function initConfig( {
 	spinner,
@@ -73,10 +73,10 @@ module.exports = async function initConfig( {
 
 	/**
 	 * We avoid writing changes most of the time so that we can better pass params
-	 * to the start command. For example, say you start wp-env with Xdebug enabled.
-	 * If you then run another command, like opening bash in the wp instance, it
+	 * to the start command. For example, say you start fp-env with Xdebug enabled.
+	 * If you then run another command, like opening bash in the fp instance, it
 	 * would turn off Xdebug in the Dockerfile because it wouldn't have the --xdebug
-	 * arg. This basically makes it such that wp-env start is the only command
+	 * arg. This basically makes it such that fp-env start is the only command
 	 * which updates any of the Docker configuration.
 	 */
 	if ( writeChanges ) {
@@ -106,7 +106,7 @@ module.exports = async function initConfig( {
 		}
 	} else if ( ! existsSync( config.workDirectoryPath ) ) {
 		spinner.fail(
-			'wp-env has not yet been initialized. Please run `wp-env start` to install the FinPress instance before using any other commands. This is only necessary to set up the environment for the first time; it is typically not necessary for the instance to be running after that in order to use other commands.'
+			'fp-env has not yet been initialized. Please run `fp-env start` to install the FinPress instance before using any other commands. This is only necessary to set up the environment for the first time; it is typically not necessary for the instance to be running after that in order to use other commands.'
 		);
 		process.exit( 1 );
 	}
@@ -115,10 +115,10 @@ module.exports = async function initConfig( {
 };
 
 /**
- * Generates the Dockerfile used by wp-env's `finpress` and `tests-finpress` instances.
+ * Generates the Dockerfile used by fp-env's `finpress` and `tests-finpress` instances.
  *
  * @param {string}   env    The environment we're installing -- development or tests.
- * @param {WPConfig} config The configuration object.
+ * @param {FPConfig} config The configuration object.
  * @return {string} The dockerfile contents.
  */
 function finpressDockerFileContents( env, config ) {
@@ -154,10 +154,10 @@ ${ installDependencies( 'finpress', env, config ) }`;
 }
 
 /**
- * Generates the Dockerfile used by wp-env's `cli` and `tests-cli` instances.
+ * Generates the Dockerfile used by fp-env's `cli` and `tests-cli` instances.
  *
  * @param {string}   env    The environment we're installing -- development or tests.
- * @param {WPConfig} config The configuration object.
+ * @param {FPConfig} config The configuration object.
  * @return {string} The dockerfile contents.
  */
 function cliDockerFileContents( env, config ) {
@@ -194,7 +194,7 @@ CMD [ "/bin/sh", "-c", "while true; do sleep 2073600; done" ]
  *
  * @param {string}   service The kind of service that we're installing dependencies on ('finpress' or 'cli').
  * @param {string}   env     The environment we're installing dependencies for ('development' or 'tests').
- * @param {WPConfig} config  The configuration object.
+ * @param {FPConfig} config  The configuration object.
  * @return {string} The Dockerfile content for installing dependencies.
  */
 function installDependencies( service, env, config ) {

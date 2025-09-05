@@ -12,10 +12,10 @@ describe( 'Nonce middleware', () => {
 		const nonceMiddleware = createNonceMiddleware( nonce );
 		const requestOptions = {
 			method: 'GET',
-			path: '/wp/v2/posts',
+			path: '/fp/v2/posts',
 		};
 		const callback: FetchHandler = async ( options ) => {
-			expect( options.headers![ 'X-WP-Nonce' ] ).toBe( nonce );
+			expect( options.headers![ 'X-FP-Nonce' ] ).toBe( nonce );
 		};
 
 		nonceMiddleware( requestOptions, callback );
@@ -28,12 +28,12 @@ describe( 'Nonce middleware', () => {
 		const nonceMiddleware = createNonceMiddleware( nonce );
 		const requestOptions = {
 			method: 'GET',
-			path: '/wp/v2/posts',
-			headers: { 'X-WP-Nonce': 'existing nonce' },
+			path: '/fp/v2/posts',
+			headers: { 'X-FP-Nonce': 'existing nonce' },
 		};
 
 		const callback: FetchHandler = async ( options ) => {
-			expect( options.headers![ 'X-WP-Nonce' ] ).toBe( 'new nonce' );
+			expect( options.headers![ 'X-FP-Nonce' ] ).toBe( 'new nonce' );
 		};
 
 		nonceMiddleware( requestOptions, callback );

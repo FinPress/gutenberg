@@ -4,7 +4,7 @@
 import type { useKeyboardShortcut } from '@finpress/compose';
 
 // TODO: We wouldn't have to do this if this type was exported from `@finpress/compose`.
-type WPKeyboardShortcutConfig = NonNullable<
+type FPKeyboardShortcutConfig = NonNullable<
 	Parameters< typeof useKeyboardShortcut >[ 2 ]
 >;
 
@@ -14,7 +14,7 @@ export type KeyboardShortcutProps = {
 	 * @see {@link https://craig.is/killing/mice Mousetrap documentation}
 	 */
 	callback: ( event: Mousetrap.ExtendedKeyboardEvent, combo: string ) => void;
-} & Pick< WPKeyboardShortcutConfig, 'bindGlobal' | 'eventName' | 'target' >;
+} & Pick< FPKeyboardShortcutConfig, 'bindGlobal' | 'eventName' | 'target' >;
 
 export type KeyboardShortcutsProps = {
 	/**

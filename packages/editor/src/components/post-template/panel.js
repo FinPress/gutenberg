@@ -48,7 +48,7 @@ export default function PostTemplatePanel() {
 		const canCreateTemplates =
 			select( coreStore ).canUser( 'create', {
 				kind: 'postType',
-				name: 'wp_template',
+				name: 'fp_template',
 			} ) ?? false;
 		return canCreateTemplates;
 	}, [] );
@@ -57,7 +57,7 @@ export default function PostTemplatePanel() {
 		return (
 			select( coreStore ).canUser( 'read', {
 				kind: 'postType',
-				name: 'wp_template',
+				name: 'fp_template',
 			} ) ?? false
 		);
 	}, [] );

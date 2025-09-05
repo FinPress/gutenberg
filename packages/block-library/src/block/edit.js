@@ -115,7 +115,7 @@ function ReusableBlockControl( {
 		( select ) =>
 			!! select( coreStore ).canUser( 'update', {
 				kind: 'postType',
-				name: 'wp_block',
+				name: 'fp_block',
 				id: recordId,
 			} ),
 		[ recordId ]
@@ -157,10 +157,10 @@ function ReusableBlockEdit( {
 } ) {
 	const { record, hasResolved } = useEntityRecord(
 		'postType',
-		'wp_block',
+		'fp_block',
 		ref
 	);
-	const [ blocks ] = useEntityBlockEditor( 'postType', 'wp_block', {
+	const [ blocks ] = useEntityBlockEditor( 'postType', 'fp_block', {
 		id: ref,
 	} );
 	const isMissing = hasResolved && ! record;
@@ -212,7 +212,7 @@ function ReusableBlockEdit( {
 	const handleEditOriginal = () => {
 		onNavigateToEntityRecord( {
 			postId: ref,
-			postType: 'wp_block',
+			postType: 'fp_block',
 		} );
 	};
 

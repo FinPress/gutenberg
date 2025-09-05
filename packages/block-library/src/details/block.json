@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/details",
 	"title": "Details",
@@ -22,7 +22,7 @@
 			"type": "string",
 			"source": "attribute",
 			"attribute": "name",
-			"selector": ".wp-block-details"
+			"selector": ".fp-block-details"
 		},
 		"allowedBlocks": {
 			"type": "array"
@@ -78,6 +78,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-details-editor",
-	"style": "wp-block-details"
+	"editorStyle": "fp-block-details-editor",
+	"style": "fp-block-details"
 }

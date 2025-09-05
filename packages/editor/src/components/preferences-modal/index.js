@@ -3,7 +3,7 @@
  */
 
 import { __ } from '@finpress/i18n';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useSelect, useDispatch } from '@finpress/data';
 import { useMemo } from '@finpress/element';
 import {
@@ -54,7 +54,7 @@ export default function EditorPreferencesModal( { extraSections = {} } ) {
 }
 
 function PreferencesModalContents( { extraSections = {} } ) {
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 	const showBlockBreadcrumbsOption = useSelect(
 		( select ) => {
 			const { getEditorSettings } = select( editorStore );
@@ -63,11 +63,11 @@ function PreferencesModalContents( { extraSections = {} } ) {
 			const isDistractionFreeEnabled = get( 'core', 'distractionFree' );
 			return (
 				! isDistractionFreeEnabled &&
-				isLargeViewport &&
+				isLargeviewport &&
 				isRichEditingEnabled
 			);
 		},
-		[ isLargeViewport ]
+		[ isLargeviewport ]
 	);
 	const { setIsListViewOpened, setIsInserterOpened } =
 		useDispatch( editorStore );
@@ -163,7 +163,7 @@ function PreferencesModalContents( { extraSections = {} } ) {
 									/>
 								</PageAttributesCheck>
 							</PreferencesModalSection>
-							{ isLargeViewport && (
+							{ isLargeviewport && (
 								<PreferencesModalSection
 									title={ __( 'Publishing' ) }
 								>
@@ -336,7 +336,7 @@ function PreferencesModalContents( { extraSections = {} } ) {
 			setIsInserterOpened,
 			setIsListViewOpened,
 			setPreference,
-			isLargeViewport,
+			isLargeviewport,
 		]
 	);
 

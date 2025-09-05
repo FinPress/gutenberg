@@ -182,7 +182,7 @@ const resetPostAction: Action< Template | TemplatePart > = {
 		return (
 			isTemplateOrTemplatePart( item ) &&
 			item?.source === 'custom' &&
-			( Boolean( item.type === 'wp_template' && item?.plugin ) ||
+			( Boolean( item.type === 'fp_template' && item?.plugin ) ||
 				item?.has_theme_file )
 		);
 	},
@@ -227,7 +227,7 @@ const resetPostAction: Action< Template | TemplatePart > = {
 				);
 			} catch ( error ) {
 				let fallbackErrorMessage;
-				if ( items[ 0 ].type === 'wp_template' ) {
+				if ( items[ 0 ].type === 'fp_template' ) {
 					fallbackErrorMessage =
 						items.length === 1
 							? __(

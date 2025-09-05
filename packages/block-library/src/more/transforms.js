@@ -8,7 +8,7 @@ const transforms = {
 		{
 			type: 'raw',
 			schema: {
-				'wp-block': { attributes: [ 'data-block' ] },
+				'fp-block': { attributes: [ 'data-block' ] },
 			},
 			isMatch: ( node ) =>
 				node.dataset && node.dataset.block === 'core/more',

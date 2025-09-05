@@ -2,13 +2,13 @@
 	{
 		"blockName": "core/file",
 		"attrs": {
-			"href": "http://localhost:8888/wp-content/uploads/2018/05/keycodes.js",
+			"href": "http://localhost:8888/fp-content/uploads/2018/05/keycodes.js",
 			"showDownloadButton": true
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"wp-block-file\"><a href=\"http://localhost:8888/wp-content/uploads/2018/05/keycodes.js\" class=\"wp-block-file__button wp-element-button\" download>Download</a></div>\n",
+		"innerHTML": "\n<div class=\"fp-block-file\"><a href=\"http://localhost:8888/fp-content/uploads/2018/05/keycodes.js\" class=\"fp-block-file__button fp-element-button\" download>Download</a></div>\n",
 		"innerContent": [
-			"\n<div class=\"wp-block-file\"><a href=\"http://localhost:8888/wp-content/uploads/2018/05/keycodes.js\" class=\"wp-block-file__button wp-element-button\" download>Download</a></div>\n"
+			"\n<div class=\"fp-block-file\"><a href=\"http://localhost:8888/fp-content/uploads/2018/05/keycodes.js\" class=\"fp-block-file__button fp-element-button\" download>Download</a></div>\n"
 		]
 	}
 ]

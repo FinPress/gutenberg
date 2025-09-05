@@ -55,7 +55,7 @@ _::-webkit-full-page-media, _:future, :root [data-has-multi-selection="true"] .b
 			right: 0;
 			bottom: 0;
 			left: 0;
-			background: var(--wp-admin-theme-color);
+			background: var(--fp-admin-theme-color);
 			opacity: 0.4;
 
 			@media not ( prefers-reduced-motion ) {
@@ -180,7 +180,7 @@ _::-webkit-full-page-media, _:future, :root [data-has-multi-selection="true"] .b
 
 	// Reusable blocks parent border.
 	&.is-reusable.has-child-selected::after {
-		box-shadow: 0 0 0 1px var(--wp-admin-theme-color);
+		box-shadow: 0 0 0 1px var(--fp-admin-theme-color);
 	}
 
 	// Clear floats.
@@ -211,18 +211,18 @@ _::-webkit-full-page-media, _:future, :root [data-has-multi-selection="true"] .b
 }
 
 // Colorize outlines for template parts and synced patterns (.is-reusable).
-.is-outline-mode .block-editor-block-list__block:not(.remove-outline).wp-block-template-part,
+.is-outline-mode .block-editor-block-list__block:not(.remove-outline).fp-block-template-part,
 .is-outline-mode .block-editor-block-list__block:not(.remove-outline).is-reusable {
 
 	&.is-hovered::after,
 	&.is-selected::after,
 	&.is-highlighted::after {
-		outline-color: var(--wp-block-synced-color);
+		outline-color: var(--fp-block-synced-color);
 	}
 
 	&.block-editor-block-list__block:not([contenteditable]):focus {
 		&::after {
-			outline-color: var(--wp-block-synced-color);
+			outline-color: var(--fp-block-synced-color);
 		}
 	}
 }
@@ -230,22 +230,22 @@ _::-webkit-full-page-media, _:future, :root [data-has-multi-selection="true"] .b
 // Add fade in/out background for editable blocks in synced patterns.
 @keyframes block-editor-is-editable__animation {
 	from {
-		background-color: rgba(var(--wp-admin-theme-color--rgb), 0.1);
+		background-color: rgba(var(--fp-admin-theme-color--rgb), 0.1);
 	}
 	to {
-		background-color: rgba(var(--wp-admin-theme-color--rgb), 0);
+		background-color: rgba(var(--fp-admin-theme-color--rgb), 0);
 	}
 }
 
 @keyframes block-editor-is-editable__animation_reduce-motion {
 	0% {
-		background-color: rgba(var(--wp-admin-theme-color--rgb), 0.1);
+		background-color: rgba(var(--fp-admin-theme-color--rgb), 0.1);
 	}
 	99% {
-		background-color: rgba(var(--wp-admin-theme-color--rgb), 0.1);
+		background-color: rgba(var(--fp-admin-theme-color--rgb), 0.1);
 	}
 	100% {
-		background-color: rgba(var(--wp-admin-theme-color--rgb), 0);
+		background-color: rgba(var(--fp-admin-theme-color--rgb), 0);
 	}
 }
 
@@ -296,25 +296,25 @@ _::-webkit-full-page-media, _:future, :root [data-has-multi-selection="true"] .b
 	}
 }
 
-.wp-block[data-align="left"] > *,
-.wp-block[data-align="right"] > *,
-.wp-block.alignleft,
-.wp-block.alignright {
+.fp-block[data-align="left"] > *,
+.fp-block[data-align="right"] > *,
+.fp-block.alignleft,
+.fp-block.alignright {
 	// Without z-index, won't be clickable as "above" adjacent content.
-	z-index: z-index("{core/image aligned left or right} .wp-block");
+	z-index: z-index("{core/image aligned left or right} .fp-block");
 }
 
-.wp-site-blocks > [data-align="left"] {
+.fp-site-blocks > [data-align="left"] {
 	float: left;
 	margin-right: 2em;
 }
 
-.wp-site-blocks > [data-align="right"] {
+.fp-site-blocks > [data-align="right"] {
 	float: right;
 	margin-left: 2em;
 }
 
-.wp-site-blocks > [data-align="center"] {
+.fp-site-blocks > [data-align="center"] {
 	justify-content: center;
 	margin-left: auto;
 	margin-right: auto;
@@ -341,7 +341,7 @@ _::-webkit-full-page-media, _:future, :root [data-has-multi-selection="true"] .b
 
 // Hide the appender that sits at the end of block lists, when inside a nested block,
 // unless the block itself, or a parent, is selected.
-.wp-block .block-list-appender .block-editor-inserter__toggle {
+.fp-block .block-list-appender .block-editor-inserter__toggle {
 	@media not ( prefers-reduced-motion ) {
 		animation: block-editor-inserter__toggle__fade-in-animation 0.1s ease;
 		animation-fill-mode: forwards;
@@ -377,7 +377,7 @@ _::-webkit-full-page-media, _:future, :root [data-has-multi-selection="true"] .b
 	}
 
 	&:focus {
-		box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+		box-shadow: inset 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
 	}
 }
 
@@ -420,7 +420,7 @@ _::-webkit-full-page-media, _:future, :root [data-has-multi-selection="true"] .b
 
 	.is-zoomed-out & {
 		// Maintains an absolute font-size by counter-scaling based on the zoom level.
-		font-size: calc(#{$default-font-size} / var(--wp-block-editor-iframe-zoom-out-scale));
+		font-size: calc(#{$default-font-size} / var(--fp-block-editor-iframe-zoom-out-scale));
 	}
 
 	&.is-dragged-over {
@@ -433,7 +433,7 @@ _::-webkit-full-page-media, _:future, :root [data-has-multi-selection="true"] .b
 .block-editor-block-list__layout.is-root-container.has-global-padding > .block-editor-block-list__zoom-out-separator {
 	max-width: none;
 	// Additional -1px is required to avoid sub pixel rounding errors allowing background to show.
-	margin: 0 calc(-1 * var(--wp--style--root--padding-right) - 1px) 0 calc(-1 * var(--wp--style--root--padding-left) - 1px) !important;
+	margin: 0 calc(-1 * var(--fp--style--root--padding-right) - 1px) 0 calc(-1 * var(--fp--style--root--padding-left) - 1px) !important;
 }
 
 // This only works in Firefox, Chrome and Safari don't accept a custom cursor

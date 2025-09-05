@@ -31,7 +31,7 @@ export function enhanceTemplatePartVariations( settings, name ) {
 				select( coreDataStore );
 			const entity = getEntityRecord(
 				'postType',
-				'wp_template_part',
+				'fp_template_part',
 				`${ theme || getCurrentTheme()?.stylesheet }//${ slug }`
 			);
 

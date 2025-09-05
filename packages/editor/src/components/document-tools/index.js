@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useSelect, useDispatch } from '@finpress/data';
 import { __, _x } from '@finpress/i18n';
 import { NavigableToolbar, ToolSelector } from '@finpress/block-editor';
@@ -62,7 +62,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 			showTools:
 				!! window?.__experimentalEditorWriteMode &&
 				( getRenderingMode() !== 'post-only' ||
-					getCurrentPostType() === 'wp_template' ),
+					getCurrentPostType() === 'fp_template' ),
 		};
 	}, [] );
 
@@ -79,8 +79,8 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 		}
 	};
 
-	const isLargeViewport = useViewportMatch( 'medium' );
-	const isWideViewport = useViewportMatch( 'wide' );
+	const isLargeviewport = useviewportMatch( 'medium' );
+	const isWideviewport = useviewportMatch( 'wide' );
 
 	/* translators: accessibility text for the editor toolbar */
 	const toolbarAriaLabel = __( 'Document tools' );
@@ -132,9 +132,9 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 						aria-expanded={ isInserterOpened }
 					/>
 				) }
-				{ ( isWideViewport || ! showIconLabels ) && (
+				{ ( isWideviewport || ! showIconLabels ) && (
 					<>
-						{ showTools && isLargeViewport && (
+						{ showTools && isLargeviewport && (
 							<ToolbarItem
 								as={ ToolSelector }
 								showTooltip={ ! showIconLabels }

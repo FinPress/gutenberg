@@ -1,47 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Pullquote block transforms to Columns block 1`] = `
-"<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column {"width":"100%"} -->
-<div class="wp-block-column" style="flex-basis:100%"><!-- wp:pullquote -->
-<figure class="wp-block-pullquote"><blockquote><p>One of the hardest things to do in technology is disrupt yourself.</p><cite>Matt Mullenweg</cite></blockquote></figure>
-<!-- /wp:pullquote --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->"
+"<!-- fp:columns -->
+<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
+<div class="fp-block-column" style="flex-basis:100%"><!-- fp:pullquote -->
+<figure class="fp-block-pullquote"><blockquote><p>One of the hardest things to do in technology is disrupt yourself.</p><cite>Matt Mullenweg</cite></blockquote></figure>
+<!-- /fp:pullquote --></div>
+<!-- /fp:column --></div>
+<!-- /fp:columns -->"
 `;
 
 exports[`Pullquote block transforms to Group block 1`] = `
-"<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:pullquote -->
-<figure class="wp-block-pullquote"><blockquote><p>One of the hardest things to do in technology is disrupt yourself.</p><cite>Matt Mullenweg</cite></blockquote></figure>
-<!-- /wp:pullquote --></div>
-<!-- /wp:group -->"
+"<!-- fp:group {"layout":{"type":"constrained"}} -->
+<div class="fp-block-group"><!-- fp:pullquote -->
+<figure class="fp-block-pullquote"><blockquote><p>One of the hardest things to do in technology is disrupt yourself.</p><cite>Matt Mullenweg</cite></blockquote></figure>
+<!-- /fp:pullquote --></div>
+<!-- /fp:group -->"
 `;
 
 exports[`Pullquote block transforms to Heading block 1`] = `
-"<!-- wp:heading -->
-<h2 class="wp-block-heading">One of the hardest things to do in technology is disrupt yourself.</h2>
-<!-- /wp:heading -->
+"<!-- fp:heading -->
+<h2 class="fp-block-heading">One of the hardest things to do in technology is disrupt yourself.</h2>
+<!-- /fp:heading -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Matt Mullenweg</h2>
-<!-- /wp:heading -->"
+<!-- fp:heading -->
+<h2 class="fp-block-heading">Matt Mullenweg</h2>
+<!-- /fp:heading -->"
 `;
 
 exports[`Pullquote block transforms to Paragraph block 1`] = `
-"<!-- wp:paragraph -->
+"<!-- fp:paragraph -->
 <p>One of the hardest things to do in technology is disrupt yourself.</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Matt Mullenweg</p>
-<!-- /wp:paragraph -->"
+<!-- /fp:paragraph -->"
 `;
 
 exports[`Pullquote block transforms to Quote block 1`] = `
-"<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+"<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>One of the hardest things to do in technology is disrupt yourself.</p>
-<!-- /wp:paragraph --><cite>Matt Mullenweg</cite></blockquote>
-<!-- /wp:quote -->"
+<!-- /fp:paragraph --><cite>Matt Mullenweg</cite></blockquote>
+<!-- /fp:quote -->"
 `;

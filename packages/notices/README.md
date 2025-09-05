@@ -14,7 +14,7 @@ _This package assumes that your code will run in an **ES2015+** environment. If 
 
 ## Usage
 
-When imported, the notices module registers a data store on the `core/notices` namespace. In FinPress, this is accessed from `wp.data.dispatch( 'core/notices' )`.
+When imported, the notices module registers a data store on the `core/notices` namespace. In FinPress, this is accessed from `fp.data.dispatch( 'core/notices' )`.
 
 For more information about consuming from a data store, refer to [the `@finpress/data` documentation on _Data Access and Manipulation_](https://github.com/FinPress/gutenberg/tree/HEAD/packages/data/README.md#data-access-and-manipulation).
 

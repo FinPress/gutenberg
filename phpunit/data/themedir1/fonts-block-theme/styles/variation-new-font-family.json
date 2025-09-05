@@ -34,7 +34,7 @@
 	},
 	"styles": {
 		"typography": {
-			"fontFamily": "var(--wp--preset--font-family--open-sans)"
+			"fontFamily": "var(--fp--preset--font-family--open-sans)"
 		}
 	}
 }

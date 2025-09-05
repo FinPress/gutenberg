@@ -48,7 +48,7 @@ describe( 'Shortcode block', () => {
 
 	it( 'edits content', async () => {
 		const screen = await initializeEditor( {
-			initialHtml: '<!-- wp:shortcode /-->',
+			initialHtml: '<!-- fp:shortcode /-->',
 		} );
 		const [ shortcodeBlock ] = screen.getAllByLabelText(
 			/Shortcode Block\. Row 1/

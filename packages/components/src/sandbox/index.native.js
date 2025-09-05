@@ -62,7 +62,7 @@ const observeAndResizeJS = `
 		// Hack: Remove viewport unit styles, as these are relative
 		// the iframe root and interfere with our mechanism for
 		// determining the unconstrained page bounds.
-		function removeViewportStyles( ruleOrNode ) {
+		function removeviewportStyles( ruleOrNode ) {
 			if ( ruleOrNode.style ) {
 				[ 'width', 'height', 'minHeight', 'maxHeight' ].forEach( function (
 					style
@@ -78,14 +78,14 @@ const observeAndResizeJS = `
 
 		Array.prototype.forEach.call(
 			document.querySelectorAll( '[style]' ),
-			removeViewportStyles
+			removeviewportStyles
 		);
 		Array.prototype.forEach.call(
 			document.styleSheets,
 			function ( stylesheet ) {
 				Array.prototype.forEach.call(
 					stylesheet.cssRules || stylesheet.rules,
-					removeViewportStyles
+					removeviewportStyles
 				);
 			}
 		);
@@ -118,11 +118,11 @@ const style = `
 		margin-bottom: 0 !important;
 	}
 
-	.wp-block-embed__wrapper {
+	.fp-block-embed__wrapper {
 		position: relative;
 	}
 
-	body.wp-has-aspect-ratio > div iframe {
+	body.fp-has-aspect-ratio > div iframe {
 		height: 100%;
 		overflow: hidden; /* If it has an aspect ratio, it shouldn't scroll. */
 	}
@@ -133,12 +133,12 @@ const style = `
 	 * These styles have been copied from the web version (https://github.com/FinPress/gutenberg/blob/7901895ca20cf61e402925e31571d659dab64721/packages/block-library/src/embed/style.scss#L42-L89) and
 	 * adapted for the native version.
 	 */
-	.wp-has-aspect-ratio.wp-block-embed__wrapper::before {
+	.fp-has-aspect-ratio.fp-block-embed__wrapper::before {
 		content: "";
 		display: block;
 		padding-top: 50%; // Default to 2:1 aspect ratio.
 	}
-	.wp-has-aspect-ratio iframe {
+	.fp-has-aspect-ratio iframe {
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -147,25 +147,25 @@ const style = `
 		height: 100%;
 		width: 100%;
 	}
-	.wp-embed-aspect-21-9.wp-block-embed__wrapper::before {
+	.fp-embed-aspect-21-9.fp-block-embed__wrapper::before {
 		padding-top: 42.85%; // 9 / 21 * 100
 	}
-	.wp-embed-aspect-18-9.wp-block-embed__wrapper::before {
+	.fp-embed-aspect-18-9.fp-block-embed__wrapper::before {
 		padding-top: 50%; // 9 / 18 * 100
 	}
-	.wp-embed-aspect-16-9.wp-block-embed__wrapper::before {
+	.fp-embed-aspect-16-9.fp-block-embed__wrapper::before {
 		padding-top: 56.25%; // 9 / 16 * 100
 	}
-	.wp-embed-aspect-4-3.wp-block-embed__wrapper::before {
+	.fp-embed-aspect-4-3.fp-block-embed__wrapper::before {
 		padding-top: 75%; // 3 / 4 * 100
 	}
-	.wp-embed-aspect-1-1.wp-block-embed__wrapper::before {
+	.fp-embed-aspect-1-1.fp-block-embed__wrapper::before {
 		padding-top: 100%; // 1 / 1 * 100
 	}
-	.wp-embed-aspect-9-16.wp-block-embed__wrapper::before {
+	.fp-embed-aspect-9-16.fp-block-embed__wrapper::before {
 		padding-top: 177.77%; // 16 / 9 * 100
 	}
-	.wp-embed-aspect-1-2.wp-block-embed__wrapper::before {
+	.fp-embed-aspect-1-2.fp-block-embed__wrapper::before {
 		padding-top: 200%; // 2 / 1 * 100
 	}
 `;
@@ -218,7 +218,7 @@ const Sandbox = forwardRef( function Sandbox(
 		// that expect the scripts to be part of the body.
 
 		// Avoid comma issues with props.viewportProps.
-		const addViewportProps = viewportProps
+		const addviewportProps = viewportProps
 			.trim()
 			.replace( /(^[^,])/, ', $1' );
 
@@ -228,7 +228,7 @@ const Sandbox = forwardRef( function Sandbox(
 					<title>{ title }</title>
 					<meta
 						name="viewport"
-						content={ `width=device-width, initial-scale=1${ addViewportProps }` }
+						content={ `width=device-width, initial-scale=1${ addviewportProps }` }
 					></meta>
 					<style dangerouslySetInnerHTML={ { __html: style } } />
 					{ styles.map( ( rules, i ) => (

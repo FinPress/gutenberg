@@ -32,7 +32,7 @@ test.describe( 'Nonce', () => {
 					response
 						.url()
 						.includes(
-							'/wp-admin/admin-ajax.php?action=rest-nonce'
+							'/fp-admin/admin-ajax.php?action=rest-nonce'
 						) &&
 					response.status() === 200
 				) {

@@ -106,7 +106,7 @@ Example:
 
 -   Required: No
 
-### `units`: `WPUnitControlUnit[]`
+### `units`: `FPUnitControlUnit[]`
 
 Collection of available units.
 

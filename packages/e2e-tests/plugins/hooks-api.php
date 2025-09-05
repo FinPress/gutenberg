@@ -11,16 +11,16 @@
  * Registers a custom script for the plugin.
  */
 function enqueue_hooks_plugin_script() {
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-hooks-api',
 		plugins_url( 'hooks-api/index.js', __FILE__ ),
 		array(
-			'wp-blocks',
-			'wp-components',
-			'wp-element',
-			'wp-block-editor',
-			'wp-hooks',
-			'wp-i18n',
+			'fp-blocks',
+			'fp-components',
+			'fp-element',
+			'fp-block-editor',
+			'fp-hooks',
+			'fp-i18n',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'hooks-api/index.js' ),
 		true

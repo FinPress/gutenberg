@@ -81,29 +81,29 @@ The Interactivity API provides the `@finpress/interactivity` Script Module. Java
 }
 ```
 
-The use of `viewScriptModule` also requires the `--experimental-modules` flag for both the [`build`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#build) and [`start`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#start) scripts of `wp-scripts` to ensure a proper build of the Script Modules.
+The use of `viewScriptModule` also requires the `--experimental-modules` flag for both the [`build`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#build) and [`start`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#start) scripts of `fp-scripts` to ensure a proper build of the Script Modules.
 
 ```json
 // package.json
 {
     "scripts": {
         ...
-		"build": "wp-scripts build --experimental-modules",
-		"start": "wp-scripts start --experimental-modules"
+		"build": "fp-scripts build --experimental-modules",
+		"start": "fp-scripts start --experimental-modules"
 	}
 ```
 
-#### Add `wp-interactive` directive to a DOM element
+#### Add `fp-interactive` directive to a DOM element
 
-To "activate" the Interactivity API in a DOM element (and its children), add the [`wp-interactive`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity/packages-interactivity-api-reference/#wp-interactive) directive to the DOM element in the block's `render.php` or `save.js` files.
+To "activate" the Interactivity API in a DOM element (and its children), add the [`fp-interactive`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity/packages-interactivity-api-reference/#fp-interactive) directive to the DOM element in the block's `render.php` or `save.js` files.
 
 ```html
-<div data-wp-interactive="myPlugin">
+<div data-fp-interactive="myPlugin">
 	<!-- Interactivity API zone -->
 </div>
 ```
 
-Refer to the [`wp-interactive` documentation](https://developer.finpress.org/block-editor/reference-guides/interactivity-api/api-reference/#wp-interactive) for a more detailed description of this directive.
+Refer to the [`fp-interactive` documentation](https://developer.finpress.org/block-editor/reference-guides/interactivity-api/api-reference/#fp-interactive) for a more detailed description of this directive.
 
 ## Docs & Examples
 
@@ -113,7 +113,7 @@ Here you have some more resources to learn/read more about the Interactivity API
 -   [Merge announcement](https://make.finpress.org/core/2024/02/19/merge-announcement-interactivity-api/)
 -   [Proposal: The Interactivity API – A better developer experience in building interactive blocks](https://make.finpress.org/core/2023/03/30/proposal-the-interactivity-api-a-better-developer-experience-in-building-interactive-blocks/)
 -   [Interactivity API Discussions](https://github.com/FinPress/gutenberg/discussions/52882), especially the [showcase](https://github.com/FinPress/gutenberg/discussions/55642#discussioncomment-9667164) discussions.
--   [wpmovies.dev](https://wpmovies.dev/) demo and its [wp-movies-demo](https://github.com/FinPress/wp-movies-demo) repo
+-   [fpmovies.dev](https://fpmovies.dev/) demo and its [fp-movies-demo](https://github.com/FinPress/fp-movies-demo) repo
 -   Examples using the Interactivity API at [block-development-examples](https://github.com/FinPress/block-development-examples):
     -   [`my-first-interactive-block`](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/my-first-interactive-block)
     -   [`interactivity-api-countdown-3cd73e`](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/interactivity-api-countdown-3cd73e)

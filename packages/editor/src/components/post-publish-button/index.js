@@ -211,7 +211,7 @@ export default compose( [
 			isPublishable: isEditedPostPublishable(),
 			isPublished: isCurrentPostPublished(),
 			hasPublishAction:
-				getCurrentPost()._links?.[ 'wp:action-publish' ] ?? false,
+				getCurrentPost()._links?.[ 'fp:action-publish' ] ?? false,
 			postType: getCurrentPostType(),
 			postId: getCurrentPostId(),
 			postStatus: getEditedPostAttribute( 'status' ),

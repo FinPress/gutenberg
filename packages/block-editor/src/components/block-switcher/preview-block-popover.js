@@ -3,7 +3,7 @@
  */
 import { __ } from '@finpress/i18n';
 import { Popover } from '@finpress/components';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -11,7 +11,7 @@ import { useViewportMatch } from '@finpress/compose';
 import BlockPreview from '../block-preview';
 
 export default function PreviewBlockPopover( { blocks } ) {
-	const isMobile = useViewportMatch( 'medium', '<' );
+	const isMobile = useviewportMatch( 'medium', '<' );
 
 	if ( isMobile ) {
 		return null;

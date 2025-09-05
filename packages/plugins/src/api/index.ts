@@ -14,7 +14,7 @@ import type { IconType } from '@finpress/components';
 /**
  * Defined behavior of a plugin type.
  */
-export interface WPPlugin {
+export interface FPPlugin {
 	/**
 	 * A string identifying the plugin. Must be unique across all registered plugins.
 	 */
@@ -39,12 +39,12 @@ export interface WPPlugin {
 	scope?: string;
 }
 
-type PluginSettings = Omit< WPPlugin, 'name' >;
+type PluginSettings = Omit< FPPlugin, 'name' >;
 
 /**
  * Plugin definitions keyed by plugin name.
  */
-const plugins = {} as Record< string, WPPlugin >;
+const plugins = {} as Record< string, FPPlugin >;
 
 /**
  * Registers a plugin to the editor.
@@ -57,10 +57,10 @@ const plugins = {} as Record< string, WPPlugin >;
  * ```js
  * // Using ES5 syntax
  * var el = React.createElement;
- * var Fragment = wp.element.Fragment;
- * var PluginSidebar = wp.editor.PluginSidebar;
- * var PluginSidebarMoreMenuItem = wp.editor.PluginSidebarMoreMenuItem;
- * var registerPlugin = wp.plugins.registerPlugin;
+ * var Fragment = fp.element.Fragment;
+ * var PluginSidebar = fp.editor.PluginSidebar;
+ * var PluginSidebarMoreMenuItem = fp.editor.PluginSidebarMoreMenuItem;
+ * var registerPlugin = fp.plugins.registerPlugin;
  * var moreIcon = React.createElement( 'svg' ); //... svg element.
  *
  * function Component() {
@@ -193,7 +193,7 @@ export function registerPlugin(
  * @example
  * ```js
  * // Using ES5 syntax
- * var unregisterPlugin = wp.plugins.unregisterPlugin;
+ * var unregisterPlugin = fp.plugins.unregisterPlugin;
  *
  * unregisterPlugin( 'plugin-name' );
  * ```
@@ -209,7 +209,7 @@ export function registerPlugin(
  * @return The previous plugin settings object, if it has been
  *         successfully unregistered; otherwise `undefined`.
  */
-export function unregisterPlugin( name: string ): WPPlugin | undefined {
+export function unregisterPlugin( name: string ): FPPlugin | undefined {
 	if ( ! plugins[ name ] ) {
 		console.error( 'Plugin "' + name + '" is not registered.' );
 		return;
@@ -229,7 +229,7 @@ export function unregisterPlugin( name: string ): WPPlugin | undefined {
  *
  * @return Plugin setting.
  */
-export function getPlugin( name: string ): WPPlugin | undefined {
+export function getPlugin( name: string ): FPPlugin | undefined {
 	return plugins[ name ];
 }
 
@@ -241,7 +241,7 @@ export function getPlugin( name: string ): WPPlugin | undefined {
  *
  * @return The list of plugins without a scope or for a given scope.
  */
-export function getPlugins( scope?: string ): WPPlugin[] {
+export function getPlugins( scope?: string ): FPPlugin[] {
 	return Object.values( plugins ).filter(
 		( plugin ) => plugin.scope === scope
 	);

@@ -56,8 +56,8 @@ describe( 'getComputedFluidTypographyValue()', () => {
 	it( 'should return a fluid font size when given a min and max viewport width', () => {
 		const fluidTypographyValues = getComputedFluidTypographyValue( {
 			fontSize: '30px',
-			minimumViewportWidth: '500px',
-			maximumViewportWidth: '1000px',
+			minimumviewportWidth: '500px',
+			maximumviewportWidth: '1000px',
 		} );
 		expect( fluidTypographyValues ).toBe(
 			'clamp(18.959px, 1.185rem + ((1vw - 5px) * 2.208), 30px)'
@@ -67,8 +67,8 @@ describe( 'getComputedFluidTypographyValue()', () => {
 	it( 'should return `null` when maximum and minimum viewport width are equal', () => {
 		const fluidTypographyValues = getComputedFluidTypographyValue( {
 			fontSize: '30px',
-			minimumViewportWidth: '500px',
-			maximumViewportWidth: '500px',
+			minimumviewportWidth: '500px',
+			maximumviewportWidth: '500px',
 		} );
 		expect( fluidTypographyValues ).toBeNull();
 	} );
@@ -83,18 +83,18 @@ describe( 'getComputedFluidTypographyValue()', () => {
 		);
 	} );
 
-	it( 'should return null when maximumViewportWidth is not a supported value or unit', () => {
+	it( 'should return null when maximumviewportWidth is not a supported value or unit', () => {
 		const fluidTypographyValues = getComputedFluidTypographyValue( {
 			fontSize: '30px',
-			maximumViewportWidth: 'min(calc(100% - 60px), 1200px)',
+			maximumviewportWidth: 'min(calc(100% - 60px), 1200px)',
 		} );
 		expect( fluidTypographyValues ).toBeNull();
 	} );
 
-	it( 'should return `null` font size when minimumViewportWidth is not a supported value or unit', () => {
+	it( 'should return `null` font size when minimumviewportWidth is not a supported value or unit', () => {
 		const fluidTypographyValues = getComputedFluidTypographyValue( {
 			fontSize: '33px',
-			minimumViewportWidth: 'calc(100% - 60px)',
+			minimumviewportWidth: 'calc(100% - 60px)',
 		} );
 		expect( fluidTypographyValues ).toBeNull();
 	} );

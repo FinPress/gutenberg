@@ -114,9 +114,9 @@
 				"innerContent": [ "\n", null, "\n" ]
 			}
 		],
-		"innerHTML": "\n<div class=\"wp-block-query alignwide has-pale-cyan-blue-color has-text-color has-background has-link-color\" style=\"background-color:#284d5f\">\n\n\n\n</div>\n",
+		"innerHTML": "\n<div class=\"fp-block-query alignwide has-pale-cyan-blue-color has-text-color has-background has-link-color\" style=\"background-color:#284d5f\">\n\n\n\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"wp-block-query alignwide has-pale-cyan-blue-color has-text-color has-background has-link-color\" style=\"background-color:#284d5f\">",
+			"\n<div class=\"fp-block-query alignwide has-pale-cyan-blue-color has-text-color has-background has-link-color\" style=\"background-color:#284d5f\">",
 			null,
 			"\n\n",
 			null,

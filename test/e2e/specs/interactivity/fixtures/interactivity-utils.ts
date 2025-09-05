@@ -25,11 +25,11 @@ const generateBlockMarkup = ( [
 		: type;
 
 	if ( ! innerBlocks ) {
-		return `<!-- wp:${ typeAndAttributes } /-->`;
+		return `<!-- fp:${ typeAndAttributes } /-->`;
 	}
-	return `<!-- wp:${ typeAndAttributes } -->${ innerBlocks
+	return `<!-- fp:${ typeAndAttributes } -->${ innerBlocks
 		.map( generateBlockMarkup )
-		.join( '' ) }<!--/ wp:${ type } -->`;
+		.join( '' ) }<!--/ fp:${ type } -->`;
 };
 
 export default class InteractivityUtils {

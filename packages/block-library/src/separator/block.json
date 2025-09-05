@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/separator",
 	"title": "Separator",
@@ -43,6 +43,6 @@
 		{ "name": "wide", "label": "Wide Line" },
 		{ "name": "dots", "label": "Dots" }
 	],
-	"editorStyle": "wp-block-separator-editor",
-	"style": "wp-block-separator"
+	"editorStyle": "fp-block-separator-editor",
+	"style": "fp-block-separator"
 }

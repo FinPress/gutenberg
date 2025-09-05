@@ -13,7 +13,7 @@ import ImportDropdown from './components/import-dropdown';
 // Setup Export Links.
 document.body.addEventListener( 'click', ( event ) => {
 	if (
-		! event.target.classList.contains( 'wp-list-reusable-blocks__export' )
+		! event.target.classList.contains( 'fp-list-reusable-blocks__export' )
 	) {
 		return;
 	}
@@ -33,7 +33,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		notice.className = 'notice notice-success is-dismissible';
 		notice.innerHTML = `<p>${ __( 'Pattern imported successfully!' ) }</p>`;
 
-		const headerEnd = document.querySelector( '.wp-header-end' );
+		const headerEnd = document.querySelector( '.fp-header-end' );
 		if ( ! headerEnd ) {
 			return;
 		}

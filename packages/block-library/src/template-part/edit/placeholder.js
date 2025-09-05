@@ -39,7 +39,7 @@ export default function TemplatePartPlaceholder( {
 				isBlockBasedTheme: getCurrentTheme()?.is_block_theme,
 				canCreateTemplatePart: canUser( 'create', {
 					kind: 'postType',
-					name: 'wp_template_part',
+					name: 'fp_template_part',
 				} ),
 			};
 		},

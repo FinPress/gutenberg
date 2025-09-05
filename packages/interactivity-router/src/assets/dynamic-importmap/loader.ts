@@ -43,7 +43,7 @@ export const initPromise = lexer.init;
  */
 const initialImportMapElement =
 	window.document.querySelector< HTMLScriptElement >(
-		'script#wp-importmap[type=importmap]'
+		'script#fp-importmap[type=importmap]'
 	);
 
 /**
@@ -191,7 +191,7 @@ function resolveDeps( load: ModuleLoad, seen: Record< string, any > ) {
 			// dynamic import
 			else {
 				pushStringTo( statementStart );
-				resolvedSource += `wpInteractivityRouterImport(`;
+				resolvedSource += `fpInteractivityRouterImport(`;
 				dynamicImportEndStack.push( statementEnd - 1 );
 				lastIndex = start;
 			}

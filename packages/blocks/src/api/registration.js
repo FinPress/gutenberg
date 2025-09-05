@@ -16,7 +16,7 @@ import { unlock } from '../lock-unlock';
  * An icon type definition. One of a Dashicon slug, an element,
  * or a component.
  *
- * @typedef {(string|Element|Component)} WPIcon
+ * @typedef {(string|Element|Component)} FPIcon
  *
  * @see https://developer.finpress.org/resource/dashicons/
  */
@@ -25,15 +25,15 @@ import { unlock } from '../lock-unlock';
  * Render behavior of a block type icon; one of a Dashicon slug, an element,
  * or a component.
  *
- * @typedef {WPIcon} WPBlockTypeIconRender
+ * @typedef {FPIcon} FPBlockTypeIconRender
  */
 
 /**
  * An object describing a normalized block type icon.
  *
- * @typedef {Object} WPBlockTypeIconDescriptor
+ * @typedef {Object} FPBlockTypeIconDescriptor
  *
- * @property {WPBlockTypeIconRender} src         Render behavior of the icon,
+ * @property {FPBlockTypeIconRender} src         Render behavior of the icon,
  *                                               one of a Dashicon slug, an
  *                                               element, or a component.
  * @property {string}                background  Optimal background hex string
@@ -49,19 +49,19 @@ import { unlock } from '../lock-unlock';
  * either a Dashicon slug, an element, a component, or an object describing
  * the icon.
  *
- * @typedef {(WPBlockTypeIconDescriptor|WPBlockTypeIconRender)} WPBlockTypeIcon
+ * @typedef {(FPBlockTypeIconDescriptor|FPBlockTypeIconRender)} FPBlockTypeIcon
  */
 
 /**
  * Named block variation scopes.
  *
- * @typedef {'block'|'inserter'|'transform'} WPBlockVariationScope
+ * @typedef {'block'|'inserter'|'transform'} FPBlockVariationScope
  */
 
 /**
  * An object describing a variation defined for the block type.
  *
- * @typedef {Object} WPBlockVariation
+ * @typedef {Object} FPBlockVariation
  *
  * @property {string}                  name          The unique and machine-readable name.
  * @property {string}                  title         A human-readable variation title.
@@ -69,7 +69,7 @@ import { unlock } from '../lock-unlock';
  * @property {string}                  [category]    Block type category classification,
  *                                                   used in search interfaces to arrange
  *                                                   block types by category.
- * @property {WPIcon}                  [icon]        An icon helping to visualize the variation.
+ * @property {FPIcon}                  [icon]        An icon helping to visualize the variation.
  * @property {boolean}                 [isDefault]   Indicates whether the current variation is
  *                                                   the default one. Defaults to `false`.
  * @property {Object}                  [attributes]  Values which override block attributes.
@@ -78,7 +78,7 @@ import { unlock } from '../lock-unlock';
  *                                                   the block preview. You can set to
  *                                                   `undefined` to disable the preview shown
  *                                                   for the block type.
- * @property {WPBlockVariationScope[]} [scope]       The list of scopes where the variation
+ * @property {FPBlockVariationScope[]} [scope]       The list of scopes where the variation
  *                                                   is applicable. When not provided, it
  *                                                   assumes all available scopes.
  * @property {string[]}                [keywords]    An array of terms (which can be translated)
@@ -99,7 +99,7 @@ import { unlock } from '../lock-unlock';
 /**
  * Defined behavior of a block type.
  *
- * @typedef {Object} WPBlockType
+ * @typedef {Object} FPBlockType
  *
  * @property {string}             name          Block type's namespaced name.
  * @property {string}             title         Human-readable block type label.
@@ -107,7 +107,7 @@ import { unlock } from '../lock-unlock';
  * @property {string}             [category]    Block type category classification,
  *                                              used in search interfaces to arrange
  *                                              block types by category.
- * @property {WPBlockTypeIcon}    [icon]        Block type icon.
+ * @property {FPBlockTypeIcon}    [icon]        Block type icon.
  * @property {string[]}           [keywords]    Additional keywords to produce block
  *                                              type as result in search interfaces.
  * @property {Object}             [attributes]  Block type attributes.
@@ -117,7 +117,7 @@ import { unlock } from '../lock-unlock';
  * @property {Component}          edit          Component rendering an element to
  *                                              manipulate the attributes of a block
  *                                              in the context of an editor.
- * @property {WPBlockVariation[]} [variations]  The list of block variations.
+ * @property {FPBlockVariation[]} [variations]  The list of block variations.
  * @property {Object}             [example]     Example provides structured data for
  *                                              the block preview. When not defined
  *                                              then no preview is shown.
@@ -126,7 +126,7 @@ import { unlock } from '../lock-unlock';
 /**
  * An object describing a Block Bindings source.
  *
- * @typedef {Object} WPBlockBindingsSource
+ * @typedef {Object} FPBlockBindingsSource
  *
  * @property {string}   name               The unique and machine-readable name.
  * @property {string}   [label]            Human-readable label. Optional when it is defined in the server.
@@ -232,7 +232,7 @@ function getBlockSettingsFromMetadata( { textdomain, ...metadata } ) {
  * } );
  * ```
  *
- * @return {WPBlockType | undefined} The block, if it has been successfully registered;
+ * @return {FPBlockType | undefined} The block, if it has been successfully registered;
  *                    otherwise `undefined`.
  */
 export function registerBlockType( blockNameOrMetadata, settings ) {
@@ -391,7 +391,7 @@ export function unregisterBlockCollection( namespace ) {
  * };
  * ```
  *
- * @return {WPBlockType | undefined} The previous block value, if it has been successfully
+ * @return {FPBlockType | undefined} The previous block value, if it has been successfully
  *                    unregistered; otherwise `undefined`.
  */
 export function unregisterBlockType( name ) {
@@ -698,9 +698,9 @@ export const unregisterBlockStyle = ( blockName, styleVariationName ) => {
  * @ignore
  *
  * @param {string}                blockName Name of block (example: “core/columns”).
- * @param {WPBlockVariationScope} [scope]   Block variation scope name.
+ * @param {FPBlockVariationScope} [scope]   Block variation scope name.
  *
- * @return {(WPBlockVariation[]|void)} Block variations.
+ * @return {(FPBlockVariation[]|void)} Block variations.
  */
 export const getBlockVariations = ( blockName, scope ) => {
 	return select( blocksStore ).getBlockVariations( blockName, scope );
@@ -713,7 +713,7 @@ export const getBlockVariations = ( blockName, scope ) => {
  * [the official documentation ](https://developer.finpress.org/block-editor/reference-guides/block-api/block-variations/).
  *
  * @param {string}           blockName Name of the block (example: “core/columns”).
- * @param {WPBlockVariation} variation Object describing a block variation.
+ * @param {FPBlockVariation} variation Object describing a block variation.
  *
  * @example
  * ```js
@@ -782,7 +782,7 @@ export const unregisterBlockVariation = ( blockName, variationName ) => {
  *
  * @since 6.7.0 Introduced in FinPress core.
  *
- * @param {WPBlockBindingsSource} source Object describing a block bindings source.
+ * @param {FPBlockBindingsSource} source Object describing a block bindings source.
  *
  * @example
  * ```js

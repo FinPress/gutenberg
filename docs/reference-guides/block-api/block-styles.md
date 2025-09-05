@@ -5,7 +5,7 @@ Block Styles allow alternative styles to be applied to existing blocks. They wor
 _Example:_
 
 ```js
-wp.blocks.registerBlockStyle( 'core/quote', {
+fp.blocks.registerBlockStyle( 'core/quote', {
 	name: 'fancy-quote',
 	label: 'Fancy Quote',
 } );
@@ -15,26 +15,26 @@ The example above registers a block style named `fancy-quote` to the `core/quote
 
 By adding `isDefault: true` you can mark the registered block style as the one that is recognized as active when no custom class name is provided. It also means that there will be no custom class name added to the HTML output for the style that is marked as default.
 
-To remove a block style use `wp.blocks.unregisterBlockStyle()`.
+To remove a block style use `fp.blocks.unregisterBlockStyle()`.
 
 _Example:_
 
 ```js
-wp.blocks.unregisterBlockStyle( 'core/quote', 'large' );
+fp.blocks.unregisterBlockStyle( 'core/quote', 'large' );
 ```
 
 The above removes the block style named `large` from the `core/quote` block.
 
-**Important:** When unregistering a block style, there can be a [race condition](https://en.wikipedia.org/wiki/Race_condition) on which code runs first: registering the style, or unregistering the style. You want your unregister code to run last. The way to do that is specify the component that is registering the style as a dependency, in this case `wp-edit-post`. Additionally, using `wp.domReady()` ensures the unregister code runs once the dom is loaded.
+**Important:** When unregistering a block style, there can be a [race condition](https://en.wikipedia.org/wiki/Race_condition) on which code runs first: registering the style, or unregistering the style. You want your unregister code to run last. The way to do that is specify the component that is registering the style as a dependency, in this case `fp-edit-post`. Additionally, using `fp.domReady()` ensures the unregister code runs once the dom is loaded.
 
 Enqueue your JavaScript with the following PHP code:
 
 ```php
 function myguten_enqueue() {
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'myguten-script',
 		plugins_url( 'myguten.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post' ),
+		array( 'fp-blocks', 'fp-dom-ready', 'fp-edit-post' ),
 		filemtime( plugin_dir_path( __FILE__ ) . '/myguten.js' )
 	);
 }
@@ -44,8 +44,8 @@ add_action( 'enqueue_block_editor_assets', 'myguten_enqueue' );
 The JavaScript code in `myguten.js`:
 
 ```js
-wp.domReady( function () {
-	wp.blocks.unregisterBlockStyle( 'core/quote', 'large' );
+fp.domReady( function () {
+	fp.blocks.unregisterBlockStyle( 'core/quote', 'large' );
 } );
 ```
 
@@ -80,7 +80,7 @@ register_block_style(
     array(
         'name'         => 'blue-quote',
         'label'        => __( 'Blue Quote', 'textdomain' ),
-        'inline_style' => '.wp-block-quote.is-style-blue-quote { color: blue; }',
+        'inline_style' => '.fp-block-quote.is-style-blue-quote { color: blue; }',
     )
 );
 ```
@@ -90,7 +90,7 @@ Alternatively, if a stylesheet was already registered which contains the CSS for
 The following code sample provides an example of this use case:
 
 ```php
-wp_register_style( 'myguten-style', get_template_directory_uri() . '/custom-style.css' );
+fp_register_style( 'myguten-style', get_template_directory_uri() . '/custom-style.css' );
 
 // ...
 

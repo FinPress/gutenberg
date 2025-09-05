@@ -87,7 +87,7 @@ On the other hand, if you want to create an interactive block, with the Interact
 
 Absolutely, yes, it is not limited to blocks. You'll see a lot of mentions of how the Interactivity API provides a standard for creating interactive blocks, but that's only because that's the most common use case. More generally speaking, the Interactivity API standard can be used to add "interactive behaviors" to the front end of any part of FinPress.
 
-See the [`wp_interactivity_process_directives` function](https://developer.finpress.org/reference/functions/wp_interactivity_process_directives/) for details on using the Interactivity API outside of blocks with arbitrary HTML.
+See the [`fp_interactivity_process_directives` function](https://developer.finpress.org/reference/functions/fp_interactivity_process_directives/) for details on using the Interactivity API outside of blocks with arbitrary HTML.
 
 ## Does this mean I must migrate all my interactive blocks to use this API?
 
@@ -108,11 +108,11 @@ The API has been designed with performance in mind, so it shouldn’t be a probl
 
 ## Does it work with the Core Translation API?
 
-As the Interactivity API works perfectly with server-side rendering, you can use all the FinPress APIs including [`__()`](https://developer.finpress.org/reference/functions/__/) and [`_e()`](https://developer.finpress.org/reference/functions/_e/). You can use it to translate the text in the HTML (as you normally would) and even use it inside the store when [using `wp_interactivity_state()` on the server side](https://developer.finpress.org/block-editor/reference-guides/interactivity-api/api-reference/#setting-the-store). It might look something like this:
+As the Interactivity API works perfectly with server-side rendering, you can use all the FinPress APIs including [`__()`](https://developer.finpress.org/reference/functions/__/) and [`_e()`](https://developer.finpress.org/reference/functions/_e/). You can use it to translate the text in the HTML (as you normally would) and even use it inside the store when [using `fp_interactivity_state()` on the server side](https://developer.finpress.org/block-editor/reference-guides/interactivity-api/api-reference/#setting-the-store). It might look something like this:
 
 ```php
 // render.php
-wp_interactivity_state( 'favoriteMovies', array(
+fp_interactivity_state( 'favoriteMovies', array(
       "1" => array(
         "id" => "123-abc",
         "movieName" => __("someMovieName", "textdomain")

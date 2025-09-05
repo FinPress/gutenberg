@@ -1,10 +1,10 @@
 ( function () {
-	const { createElement: el, Fragment } = wp.element;
-	const { registerBlockType } = wp.blocks;
-	const { InspectorControls, useBlockProps } = wp.blockEditor;
-	const ServerSideRender = wp.serverSideRender;
+	const { createElement: el, Fragment } = fp.element;
+	const { registerBlockType } = fp.blocks;
+	const { InspectorControls, useBlockProps } = fp.blockEditor;
+	const ServerSideRender = fp.serverSideRender;
 	const { PanelBody, __experimentalNumberControl: NumberControl } =
-		wp.components;
+		fp.components;
 
 	registerBlockType( 'test/server-side-rendered-block', {
 		apiVersion: 3,

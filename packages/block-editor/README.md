@@ -453,8 +453,8 @@ const fontSize = getComputedFluidTypographyValue( {
 _Parameters_
 
 -   _args_ `Object`:
--   _args.minimumViewportWidth_ `?string`: Minimum viewport size from which type will have fluidity. Optional if fontSize is specified.
--   _args.maximumViewportWidth_ `?string`: Maximum size up to which type will have fluidity. Optional if fontSize is specified.
+-   _args.minimumviewportWidth_ `?string`: Minimum viewport size from which type will have fluidity. Optional if fontSize is specified.
+-   _args.maximumviewportWidth_ `?string`: Maximum size up to which type will have fluidity. Optional if fontSize is specified.
 -   _args.fontSize_ `[string|number]`: Size to derive maximumFontSize and minimumFontSize from, if necessary. Optional if minimumFontSize and maximumFontSize are specified.
 -   _args.maximumFontSize_ `?string`: Maximum font size for any clamp() calculation. Optional.
 -   _args.minimumFontSize_ `?string`: Minimum font size for any clamp() calculation. Optional.
@@ -584,7 +584,7 @@ Dropdown for selecting a heading level (1 through 6) or paragraph (0).
 
 _Parameters_
 
--   _props_ `WPHeadingLevelDropdownProps`: Component props.
+-   _props_ `FPHeadingLevelDropdownProps`: Component props.
 
 _Returns_
 
@@ -665,7 +665,7 @@ Renders a link control. A link control is a controlled input which maintains a v
 
 _Parameters_
 
--   _props_ `WPLinkControlProps`: Component props.
+-   _props_ `FPLinkControlProps`: Component props.
 
 ### MediaPlaceholder
 
@@ -931,7 +931,7 @@ _Parameters_
 
 _Returns_
 
--   `?WPBlockBindingsUtils`: Object containing the block bindings utils.
+-   `?FPBlockBindingsUtils`: Object containing the block bindings utils.
 
 _Changelog_
 
@@ -953,7 +953,7 @@ _Parameters_
 
 _Returns_
 
--   `?WPBlockDisplayInformation`: Block's display information, or `null` when the block or its type not found.
+-   `?FPBlockDisplayInformation`: Block's display information, or `null` when the block or its type not found.
 
 ### useBlockEditContext
 

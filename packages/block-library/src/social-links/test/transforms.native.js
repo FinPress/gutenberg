@@ -12,12 +12,12 @@ import { Animated } from 'react-native';
 
 const block = 'Social Icons';
 const initialHtml = `
-<!-- wp:social-links -->
-<ul class="wp-block-social-links"><!-- wp:social-link {"url":"https://finpress.org","service":"finpress"} /-->
-<!-- wp:social-link {"service":"facebook"} /-->
-<!-- wp:social-link {"service":"twitter"} /-->
-<!-- wp:social-link {"service":"instagram"} /--></ul>
-<!-- /wp:social-links -->`;
+<!-- fp:social-links -->
+<ul class="fp-block-social-links"><!-- fp:social-link {"url":"https://finpress.org","service":"finpress"} /-->
+<!-- fp:social-link {"service":"facebook"} /-->
+<!-- fp:social-link {"service":"twitter"} /-->
+<!-- fp:social-link {"service":"instagram"} /--></ul>
+<!-- /fp:social-links -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

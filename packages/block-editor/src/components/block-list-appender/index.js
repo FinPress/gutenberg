@@ -76,7 +76,7 @@ export default function BlockListAppender( {
 			//
 			// See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
 			tabIndex={ -1 }
-			className={ clsx( 'block-list-appender wp-block', className, {
+			className={ clsx( 'block-list-appender fp-block', className, {
 				'is-drag-over': isDragOver,
 			} ) }
 			// Needed in case the whole editor is content editable (for multi
@@ -87,7 +87,7 @@ export default function BlockListAppender( {
 			// The appender exists to let you add the first Paragraph before
 			// any is inserted. To that end, this appender should visually be
 			// presented as a block. That means theme CSS should style it as if
-			// it were an empty paragraph block. That means a `wp-block` class to
+			// it were an empty paragraph block. That means a `fp-block` class to
 			// ensure the width is correct, and a [data-block] attribute to ensure
 			// the correct margin is applied, especially for classic themes which
 			// have commonly targeted that attribute for margins.

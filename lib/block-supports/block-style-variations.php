@@ -61,7 +61,7 @@ function gutenberg_resolve_block_style_variation_ref_values( &$variation_data, $
 				}
 
 				$value_path = explode( '.', $value['ref'] ?? '' );
-				$ref_value  = _wp_array_get( $theme_json, $value_path );
+				$ref_value  = _fp_array_get( $theme_json, $value_path );
 
 				// Only update the current value if the referenced path matched a value.
 				if ( null === $ref_value ) {
@@ -101,7 +101,7 @@ function gutenberg_render_block_style_variation_support_styles( $parsed_block ) 
 		return $parsed_block;
 	}
 
-	$tree       = WP_Theme_JSON_Resolver_Gutenberg::get_merged_data();
+	$tree       = FP_Theme_JSON_Resolver_Gutenberg::get_merged_data();
 	$theme_json = $tree->get_raw_data();
 
 	// Only the first block style variation with data is supported.
@@ -122,7 +122,7 @@ function gutenberg_render_block_style_variation_support_styles( $parsed_block ) 
 	// theme_json data.
 	gutenberg_resolve_block_style_variation_ref_values( $variation_data, $theme_json );
 
-	$variation_instance = wp_unique_id( $variation . '--' );
+	$variation_instance = fp_unique_id( $variation . '--' );
 	$class_name         = "is-style-$variation_instance";
 	$updated_class_name = $parsed_block['attrs']['className'] . " $class_name";
 
@@ -148,14 +148,14 @@ function gutenberg_render_block_style_variation_support_styles( $parsed_block ) 
 	unset( $variation_data['elements'] );
 	unset( $variation_data['blocks'] );
 
-	_wp_array_set(
+	_fp_array_set(
 		$blocks_data,
 		array( $parsed_block['blockName'], 'variations', $variation_instance ),
 		$variation_data
 	);
 
 	$config = array(
-		'version' => WP_Theme_JSON_Gutenberg::LATEST_SCHEMA,
+		'version' => FP_Theme_JSON_Gutenberg::LATEST_SCHEMA,
 		'styles'  => array(
 			'elements' => $elements_data,
 			'blocks'   => $blocks_data,
@@ -164,14 +164,14 @@ function gutenberg_render_block_style_variation_support_styles( $parsed_block ) 
 
 	// Turn off filter that excludes block nodes. They are needed here for the variation's inner block types.
 	if ( ! is_admin() ) {
-		remove_filter( 'wp_theme_json_get_style_nodes', 'wp_filter_out_block_nodes' );
+		remove_filter( 'fp_theme_json_get_style_nodes', 'fp_filter_out_block_nodes' );
 	}
 
 	// Temporarily prevent variation instance from being sanitized while processing theme.json.
-	$styles_registry = WP_Block_Styles_Registry::get_instance();
+	$styles_registry = FP_Block_Styles_Registry::get_instance();
 	$styles_registry->register( $parsed_block['blockName'], array( 'name' => $variation_instance ) );
 
-	$variation_theme_json = new WP_Theme_JSON_Gutenberg( $config, 'blocks' );
+	$variation_theme_json = new FP_Theme_JSON_Gutenberg( $config, 'blocks' );
 	$variation_styles     = $variation_theme_json->get_stylesheet(
 		array( 'styles' ),
 		array( 'custom' ),
@@ -187,21 +187,21 @@ function gutenberg_render_block_style_variation_support_styles( $parsed_block ) 
 
 	// Restore filter that excludes block nodes.
 	if ( ! is_admin() ) {
-		add_filter( 'wp_theme_json_get_style_nodes', 'wp_filter_out_block_nodes' );
+		add_filter( 'fp_theme_json_get_style_nodes', 'fp_filter_out_block_nodes' );
 	}
 
 	if ( empty( $variation_styles ) ) {
 		return $parsed_block;
 	}
 
-	wp_register_style( 'block-style-variation-styles', false, array( 'wp-block-library', 'global-styles' ) );
-	wp_add_inline_style( 'block-style-variation-styles', $variation_styles );
+	fp_register_style( 'block-style-variation-styles', false, array( 'fp-block-library', 'global-styles' ) );
+	fp_add_inline_style( 'block-style-variation-styles', $variation_styles );
 
 	/*
 	 * Add variation instance class name to block's className string so it can
 	 * be enforced in the block markup via render_block filter.
 	 */
-	_wp_array_set( $parsed_block, array( 'attrs', 'className' ), $updated_class_name );
+	_fp_array_set( $parsed_block, array( 'attrs', 'className' ), $updated_class_name );
 
 	return $parsed_block;
 }
@@ -235,7 +235,7 @@ function gutenberg_render_block_style_variation_class_name( $block_content, $blo
 		return $block_content;
 	}
 
-	$tags = new WP_HTML_Tag_Processor( $block_content );
+	$tags = new FP_HTML_Tag_Processor( $block_content );
 
 	if ( $tags->next_tag() ) {
 		/*
@@ -255,27 +255,27 @@ function gutenberg_render_block_style_variation_class_name( $block_content, $blo
  * @since 6.6.0
  */
 function gutenberg_enqueue_block_style_variation_styles() {
-	wp_enqueue_style( 'block-style-variation-styles' );
+	fp_enqueue_style( 'block-style-variation-styles' );
 }
 
 // Register the block support.
-WP_Block_Supports::get_instance()->register( 'block-style-variation', array() );
+FP_Block_Supports::get_instance()->register( 'block-style-variation', array() );
 
 // Remove core filters and action.
-if ( function_exists( 'wp_render_block_style_variation_support_styles' ) ) {
-	remove_filter( 'render_block_data', 'wp_render_block_style_variation_support_styles' );
+if ( function_exists( 'fp_render_block_style_variation_support_styles' ) ) {
+	remove_filter( 'render_block_data', 'fp_render_block_style_variation_support_styles' );
 }
-if ( function_exists( 'wp_render_block_style_variation_class_name' ) ) {
-	remove_filter( 'render_block', 'wp_render_block_style_variation_class_name' );
+if ( function_exists( 'fp_render_block_style_variation_class_name' ) ) {
+	remove_filter( 'render_block', 'fp_render_block_style_variation_class_name' );
 }
-if ( function_exists( 'wp_enqueue_block_style_variation_styles' ) ) {
-	remove_action( 'wp_enqueue_scripts', 'wp_enqueue_block_style_variation_styles' );
+if ( function_exists( 'fp_enqueue_block_style_variation_styles' ) ) {
+	remove_action( 'fp_enqueue_scripts', 'fp_enqueue_block_style_variation_styles' );
 }
 
 // Add Gutenberg filters and action.
 add_filter( 'render_block_data', 'gutenberg_render_block_style_variation_support_styles' );
 add_filter( 'render_block', 'gutenberg_render_block_style_variation_class_name', 10, 2 );
-add_action( 'wp_enqueue_scripts', 'gutenberg_enqueue_block_style_variation_styles', 1 );
+add_action( 'fp_enqueue_scripts', 'gutenberg_enqueue_block_style_variation_styles', 1 );
 
 /**
  * Registers block style variations read in from theme.json partials.
@@ -289,14 +289,14 @@ function gutenberg_register_block_style_variations_from_theme_json_partials( $va
 		return;
 	}
 
-	$registry = WP_Block_Styles_Registry::get_instance();
+	$registry = FP_Block_Styles_Registry::get_instance();
 
 	foreach ( $variations as $variation ) {
 		if ( empty( $variation['blockTypes'] ) || empty( $variation['styles'] ) ) {
 			continue;
 		}
 
-		$variation_name  = $variation['slug'] ?? _wp_to_kebab_case( $variation['title'] );
+		$variation_name  = $variation['slug'] ?? _fp_to_kebab_case( $variation['title'] );
 		$variation_label = $variation['title'] ?? $variation_name;
 
 		foreach ( $variation['blockTypes'] as $block_type ) {

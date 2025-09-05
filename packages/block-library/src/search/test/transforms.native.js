@@ -11,7 +11,7 @@ import {
 
 const block = 'Search';
 const initialHtml = `
-<!-- wp:search {"label":"Search","buttonText":"Search"} /-->`;
+<!-- fp:search {"label":"Search","buttonText":"Search"} /-->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

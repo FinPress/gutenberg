@@ -80,10 +80,10 @@ export function Navigation( {
 	const navigationTree = useCreateNavigationTree();
 	const defaultSlideOrigin = isRTL() ? 'right' : 'left';
 
-	deprecated( 'wp.components.Navigation (and all subcomponents)', {
+	deprecated( 'fp.components.Navigation (and all subcomponents)', {
 		since: '6.8',
 		version: '7.1',
-		alternative: 'wp.components.Navigator',
+		alternative: 'fp.components.Navigator',
 	} );
 
 	const setActiveMenu: NavigationContextType[ 'setActiveMenu' ] = (

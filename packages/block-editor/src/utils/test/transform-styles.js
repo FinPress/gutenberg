@@ -46,7 +46,7 @@ describe( 'transformStyles', () => {
 			expect( invalidCSS ).toBe( null );
 
 			expect( console ).toHaveWarnedWith(
-				'wp.blockEditor.transformStyles Failed to transform CSS.',
+				'fp.blockEditor.transformStyles Failed to transform CSS.',
 				'<css input>:1:1: Unclosed block\n> 1 | h1 { color: red;\n    | ^'
 				//                                                        ^^^^ In PostCSS, a tab is equal four spaces
 			);
@@ -293,7 +293,7 @@ describe( 'transformStyles', () => {
 
 		it( 'should ignore keyframes', () => {
 			const input = `
-			@keyframes __wp-base-styles-fade-in {
+			@keyframes __fp-base-styles-fade-in {
 				from {
 					opacity: 0;
 				}
@@ -434,7 +434,7 @@ describe( 'transformStyles', () => {
 
 		it( 'should not try to wrap items within `:where` selectors', () => {
 			const input =
-				':where(.wp-element-button:active, .wp-block-button__link:active) { color: blue; }';
+				':where(.fp-element-button:active, .fp-block-button__link:active) { color: blue; }';
 			const output = transformStyles(
 				[
 					{
@@ -444,14 +444,14 @@ describe( 'transformStyles', () => {
 				'.my-namespace'
 			);
 			const expected =
-				'.my-namespace :where(.wp-element-button:active, .wp-block-button__link:active) { color: blue; }';
+				'.my-namespace :where(.fp-element-button:active, .fp-block-button__link:active) { color: blue; }';
 
 			expect( output ).toEqual( [ expected ] );
 		} );
 
 		it( 'should not try to prefix pseudo elements on `:where` selectors', () => {
 			const input =
-				':where(.wp-element-button, .wp-block-button__link)::before { color: blue; }';
+				':where(.fp-element-button, .fp-block-button__link)::before { color: blue; }';
 			const output = transformStyles(
 				[
 					{
@@ -461,14 +461,14 @@ describe( 'transformStyles', () => {
 				'.my-namespace'
 			);
 			const expected =
-				'.my-namespace :where(.wp-element-button, .wp-block-button__link)::before { color: blue; }';
+				'.my-namespace :where(.fp-element-button, .fp-block-button__link)::before { color: blue; }';
 
 			expect( output ).toEqual( [ expected ] );
 		} );
 	} );
 
 	it( 'should not break with data urls', () => {
-		const input = `.wp-block-group {
+		const input = `.fp-block-group {
 			background-image: url("data:image/svg+xml,%3Csvg%3E.b%7Bclip-path:url(test);%7D%3C/svg%3E");
 			color: red !important;
 		  }`;
@@ -476,7 +476,7 @@ describe( 'transformStyles', () => {
 		const output = transformStyles( [
 			{
 				css: input,
-				baseURL: 'http://wp-site.local/themes/gut/css/',
+				baseURL: 'http://fp-site.local/themes/gut/css/',
 			},
 		] );
 
@@ -489,11 +489,11 @@ describe( 'transformStyles', () => {
 			const output = transformStyles( [
 				{
 					css: input,
-					baseURL: 'http://wp-site.local/themes/gut/css/',
+					baseURL: 'http://fp-site.local/themes/gut/css/',
 				},
 			] );
 			const expected =
-				'h1 { background: url(http://wp-site.local/themes/gut/css/images/test.png); }';
+				'h1 { background: url(http://fp-site.local/themes/gut/css/images/test.png); }';
 
 			expect( output ).toEqual( [ expected ] );
 		} );
@@ -503,11 +503,11 @@ describe( 'transformStyles', () => {
 			const output = transformStyles( [
 				{
 					css: input,
-					baseURL: 'http://wp-site.local/themes/gut/css/',
+					baseURL: 'http://fp-site.local/themes/gut/css/',
 				},
 			] );
 			const expected =
-				'h1 { background: url(http://wp-site.local/themes/gut/images/test.png); }';
+				'h1 { background: url(http://fp-site.local/themes/gut/images/test.png); }';
 
 			expect( output ).toEqual( [ expected ] );
 		} );
@@ -517,18 +517,18 @@ describe( 'transformStyles', () => {
 			const output = transformStyles( [
 				{
 					css: input,
-					baseURL: 'http://wp-site.local/themes/gut/css/',
+					baseURL: 'http://fp-site.local/themes/gut/css/',
 				},
 			] );
 			expect( output ).toEqual( [ input ] );
 		} );
 
 		it( 'should not replace remote paths', () => {
-			const input = `h1 { background: url(http://wp.org/images/test.png); }`;
+			const input = `h1 { background: url(http://fp.org/images/test.png); }`;
 			const output = transformStyles( [
 				{
 					css: input,
-					baseURL: 'http://wp-site.local/themes/gut/css/',
+					baseURL: 'http://fp-site.local/themes/gut/css/',
 				},
 			] );
 

@@ -62,8 +62,8 @@ const SocialLinkEdit = ( {
 	const [ isLinkSheetVisible, setIsLinkSheetVisible ] = useState( false );
 	const [ hasUrl, setHasUrl ] = useState( !! url );
 	const activeIcon =
-		styles[ `wp-social-link-${ service }` ] ||
-		styles[ `wp-social-link` ] ||
+		styles[ `fp-social-link-${ service }` ] ||
+		styles[ `fp-social-link` ] ||
 		DEFAULT_ACTIVE_ICON_STYLES;
 	const animatedValue = useRef( new Animated.Value( 0 ) ).current;
 

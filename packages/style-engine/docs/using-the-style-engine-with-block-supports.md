@@ -26,14 +26,14 @@ For example:
 
 Using this object, the Style Engine can generate the classes and CSS required to style the block element.
 
-The global function `wp_style_engine_get_styles` accepts a style object as its first argument, and will output compiled CSS and an array of CSS declaration property/value pairs.
+The global function `fp_style_engine_get_styles` accepts a style object as its first argument, and will output compiled CSS and an array of CSS declaration property/value pairs.
 
 ```php
 $block_styles =  array(
 	'spacing' => array( 'padding' => '10px', 'margin' => array( 'top' => '1em') ),
 	'typography' => array( 'fontSize' => '2.2rem' ),
 );
-$styles = wp_style_engine_get_styles(
+$styles = fp_style_engine_get_styles(
 	$block_styles
 );
 print_r( $styles );
@@ -47,13 +47,13 @@ array(
 ```
 
 ## Use case
-When [registering a block support](https://developer.finpress.org/reference/classes/wp_block_supports/register/), it is possible to pass an 'apply' callback in the block support config array to add or extend block support attributes with "class" or "style" properties.
+When [registering a block support](https://developer.finpress.org/reference/classes/fp_block_supports/register/), it is possible to pass an 'apply' callback in the block support config array to add or extend block support attributes with "class" or "style" properties.
 
 If a block has opted into the block support, the values of "class" and "style" will be applied to the block element's "class" and "style" attributes accordingly when rendered in the frontend HTML. Note, this applies only to server-side rendered blocks, for example, the [Site Title block](https://developer.finpress.org/block-editor/reference-guides/core-blocks/#site-title).
 
 The callback receives `$block_type` and `$block_attributes` as arguments. The `style` attribute within `$block_attributes` only contains the raw style object, if any styles have been set for the block, and not any CSS or classnames to be applied to the block's HTML elements.
 
-Here is where `wp_style_engine_get_styles` comes in handy: it will generate CSS and, if appropriate, classnames to be added to the "style" and "class" HTML attributes in the final rendered block markup.
+Here is where `fp_style_engine_get_styles` comes in handy: it will generate CSS and, if appropriate, classnames to be added to the "style" and "class" HTML attributes in the final rendered block markup.
 
 Here is a _very_ simplified version of how the [color block support](https://github.com/FinPress/gutenberg/tree/HEAD/lib/block-supports/color.php) works:
 
@@ -63,7 +63,7 @@ function gutenberg_apply_colors_support( $block_type, $block_attributes ) {
 	$block_color_styles = isset( $block_attributes['style']['color'] ) ? $block_attributes['style']['color'] : null;
 
 	// Since we only want the color styles, pass the color styles only to the Style Engine.
-	$styles = wp_style_engine_get_styles( array( 'color' => $block_color_styles ) );
+	$styles = fp_style_engine_get_styles( array( 'color' => $block_color_styles ) );
 
 	// Return the generated styles to be applied to the block's HTML element.
 	return array(
@@ -73,7 +73,7 @@ function gutenberg_apply_colors_support( $block_type, $block_attributes ) {
 }
 
 // Register the block support.
-WP_Block_Supports::get_instance()->register(
+FP_Block_Supports::get_instance()->register(
 	'colors',
 	array(
 		'register_attribute' => 'gutenberg_register_colors_support',
@@ -105,7 +105,7 @@ If a block either:
 
 it's likely that you'll want to remove those style values from the style object before passing it to the Style Engine with help of two functions:
 
-- wp_should_skip_block_supports_serialization()
+- fp_should_skip_block_supports_serialization()
 - block_has_support()
 
 We can now update the "apply" callback code above so that we'll only return "style" and "class", where a block has support, and it doesn't skip serialization:
@@ -123,13 +123,13 @@ function gutenberg_apply_colors_support( $block_type, $block_attributes ) {
 	// Checks for support and skip serialization.
 	$has_text_support                        = block_has_support( $block_type, array( 'color', 'text' ), false );
 	$has_background_support                  = block_has_support( $block_type, array( 'color', 'background' ), false );
-	$skips_serialization_of_color_text       = wp_should_skip_block_supports_serialization( $block_type, 'color', 'text' );
-	$skips_serialization_of_color_background = wp_should_skip_block_supports_serialization( $block_type, 'color', 'background' );
+	$skips_serialization_of_color_text       = fp_should_skip_block_supports_serialization( $block_type, 'color', 'text' );
+	$skips_serialization_of_color_background = fp_should_skip_block_supports_serialization( $block_type, 'color', 'background' );
 
 	// Get the color styles from the style object.
 	$block_color_styles = isset( $block_attributes['style']['color'] ) ? $block_attributes['style']['color'] : null;
 
-	// The mutated styles object we're going to pass to wp_style_engine_get_styles().
+	// The mutated styles object we're going to pass to fp_style_engine_get_styles().
 	$color_block_styles = array();
 
 	// Set the color style values according to whether the block has support and does not skip serialization.
@@ -143,7 +143,7 @@ function gutenberg_apply_colors_support( $block_type, $block_attributes ) {
 	}
 
 	// Pass the color styles, excluding those that have no support or skip serialization, to the Style Engine.
-	$styles = wp_style_engine_get_styles( array( 'color' => $block_color_styles ) );
+	$styles = fp_style_engine_get_styles( array( 'color' => $block_color_styles ) );
 
 	// Return the generated styles to be applied to the block's HTML element.
 	return array(
@@ -165,7 +165,7 @@ To discern CSS values from preset values, the Style Engine expects a special for
 
 Preset values must follow the pattern `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`.
 
-When the Style Engine encounters these values, it will parse them and create a CSS value of `var(--wp--preset--font-size--small)` and/or generate a classname if required.
+When the Style Engine encounters these values, it will parse them and create a CSS value of `var(--fp--preset--font-size--small)` and/or generate a classname if required.
 
 Example:
 
@@ -183,19 +183,19 @@ $block_styles =  array(
 	'spacing'    => array( 'padding' => '10px', 'margin' => array( 'top' => '1em') ),
 );
 
-$styles = wp_style_engine_get_styles(
+$styles = fp_style_engine_get_styles(
     $block_styles
 );
 print_r( $styles );
 
 /*
 array(
-	'css'          => 'background-color:var(--wp--preset--color--blue);padding:10px;margin-top:1em;font-size:var(--wp--preset--font-size--small);',
+	'css'          => 'background-color:var(--fp--preset--color--blue);padding:10px;margin-top:1em;font-size:var(--fp--preset--font-size--small);',
 	'declarations' => array(
-		'background-color' => 'var(--wp--preset--color--blue)',
+		'background-color' => 'var(--fp--preset--color--blue)',
 		'padding' => '10px',
 		'margin-top' => '1em',
-		'font-size' => 'var(--wp--preset--font-size--small)',
+		'font-size' => 'var(--fp--preset--font-size--small)',
 	),
     'classnames'   => 'has-background has-blue-background-color has-small-font-size',
 )
@@ -213,7 +213,7 @@ $options = array(
 	'convert_vars_to_classnames' => true,
 );
 
-$styles = wp_style_engine_get_styles(
+$styles = fp_style_engine_get_styles(
 	$block_styles,
 	$options
 );

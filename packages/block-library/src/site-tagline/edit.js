@@ -54,7 +54,7 @@ export default function SiteTaglineEdit( {
 	const blockProps = useBlockProps( {
 		className: clsx( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
-			'wp-block-site-tagline__placeholder': ! canUserEdit && ! tagline,
+			'fp-block-site-tagline__placeholder': ! canUserEdit && ! tagline,
 		} ),
 	} );
 	const siteTaglineContent = canUserEdit ? (

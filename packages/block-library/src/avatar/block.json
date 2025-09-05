@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/avatar",
 	"title": "Avatar",
@@ -58,11 +58,11 @@
 		}
 	},
 	"selectors": {
-		"border": ".wp-block-avatar img",
+		"border": ".fp-block-avatar img",
 		"filter": {
-			"duotone": ".wp-block-avatar img"
+			"duotone": ".fp-block-avatar img"
 		}
 	},
-	"editorStyle": "wp-block-avatar-editor",
-	"style": "wp-block-avatar"
+	"editorStyle": "fp-block-avatar-editor",
+	"style": "fp-block-avatar"
 }

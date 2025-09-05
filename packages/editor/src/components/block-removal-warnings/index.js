@@ -25,7 +25,7 @@ const BLOCK_REMOVAL_RULES = [
 	{
 		// Template blocks.
 		// The warning is only shown when a user manipulates templates or template parts.
-		postTypes: [ 'wp_template', 'wp_template_part' ],
+		postTypes: [ 'fp_template', 'fp_template_part' ],
 		callback( removedBlocks ) {
 			const removedTemplateBlocks = removedBlocks.filter( ( { name } ) =>
 				TEMPLATE_BLOCKS.includes( name )
@@ -42,7 +42,7 @@ const BLOCK_REMOVAL_RULES = [
 	{
 		// Pattern overrides.
 		// The warning is only shown when the user edits a pattern.
-		postTypes: [ 'wp_block' ],
+		postTypes: [ 'fp_block' ],
 		callback( removedBlocks ) {
 			const removedBlocksWithOverrides = removedBlocks.filter(
 				( { attributes } ) =>

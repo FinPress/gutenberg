@@ -55,7 +55,7 @@ function PostTitleRaw( _, forwardedRef ) {
 		setIsSelected( false );
 	}
 
-	// The wp-block className is important for editor styles.
+	// The fp-block className is important for editor styles.
 	// This same block is used in both the visual and the code editor.
 	const className = clsx( DEFAULT_CLASSNAMES, {
 		'is-selected': isSelected,

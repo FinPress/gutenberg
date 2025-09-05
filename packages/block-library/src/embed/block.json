@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/embed",
 	"title": "Embed",
@@ -49,6 +49,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-embed-editor",
-	"style": "wp-block-embed"
+	"editorStyle": "fp-block-embed-editor",
+	"style": "fp-block-embed"
 }

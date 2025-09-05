@@ -169,7 +169,7 @@ function BlockListBlock( {
 	if ( isAligned ) {
 		blockEdit = (
 			<div
-				className={ clsx( 'wp-block', isSticky && className ) }
+				className={ clsx( 'fp-block', isSticky && className ) }
 				data-align={ wrapperProps[ 'data-align' ] }
 			>
 				{ blockEdit }

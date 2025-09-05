@@ -4,77 +4,77 @@
 const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 const EDITOR_ZOOM_OUT_CONTENT = `
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group"><!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
-<div class="wp-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:paragraph -->
+<!-- fp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="fp-block-group"><!-- fp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+<div class="fp-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fp:paragraph -->
 <p>First Section Start</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<!-- fp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
 <p>First Section Center</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>First Section End</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
+<!-- /fp:paragraph --></div>
+<!-- /fp:group -->
 
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
-<div class="wp-block-group has-base-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:paragraph -->
+<!-- fp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+<div class="fp-block-group has-base-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fp:paragraph -->
 <p>Second Section Start</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<!-- fp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
 <p>Second Section Center</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Second Section End</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
+<!-- /fp:paragraph --></div>
+<!-- /fp:group -->
 
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
-<div class="wp-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:paragraph -->
+<!-- fp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+<div class="fp-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fp:paragraph -->
 <p>Third Section Start</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<!-- fp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
 <p>Third Section Center</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Third Section End</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
+<!-- /fp:paragraph --></div>
+<!-- /fp:group -->
 
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
-<div class="wp-block-group has-base-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:paragraph -->
+<!-- fp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+<div class="fp-block-group has-base-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fp:paragraph -->
 <p>Fourth Section Start</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<!-- fp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
 <p>Fourth Section Center</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Fourth Section End</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group --></main>
-<!-- /wp:group -->`;
+<!-- /fp:paragraph --></div>
+<!-- /fp:group --></main>
+<!-- /fp:group -->`;
 
-const EDITOR_ZOOM_OUT_CONTENT_NO_SECTION_ROOT = `<!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
-<div class="wp-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:paragraph -->
+const EDITOR_ZOOM_OUT_CONTENT_NO_SECTION_ROOT = `<!-- fp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+<div class="fp-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fp:paragraph -->
 <p>First Section Start</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<!-- fp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
 <p>First Section Center</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>First Section End</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->`;
+<!-- /fp:paragraph --></div>
+<!-- /fp:group -->`;
 
 test.describe( 'Zoom Out', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -83,14 +83,14 @@ test.describe( 'Zoom Out', () => {
 
 	test.afterAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'twentytwentyone' );
-		await requestUtils.deleteAllTemplates( 'wp_template' );
-		await requestUtils.deleteAllTemplates( 'wp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template_part' );
 	} );
 
 	test.beforeEach( async ( { admin } ) => {
 		await admin.visitSiteEditor( {
 			postId: 'twentytwentyfour//index',
-			postType: 'wp_template',
+			postType: 'fp_template',
 			canvas: 'edit',
 		} );
 	} );
@@ -134,7 +134,7 @@ test.describe( 'Zoom Out', () => {
 			const { activeElement } =
 				document.activeElement?.contentDocument ?? document;
 			window.scrollContainer =
-				window.wp.dom.getScrollContainer( activeElement );
+				window.fp.dom.getScrollContainer( activeElement );
 			return window.scrollContainer;
 		} );
 
@@ -188,50 +188,50 @@ test.describe( 'Zoom Out', () => {
 		await secondSectionCenter.scrollIntoViewIfNeeded();
 
 		// Because the text is spread with a group height of 100vh, they should both be visible.
-		await expect( firstSectionEnd ).not.toBeInViewport();
-		await expect( secondSectionStart ).toBeInViewport();
-		await expect( secondSectionEnd ).toBeInViewport();
-		await expect( thirdSectionStart ).not.toBeInViewport();
+		await expect( firstSectionEnd ).not.toBeInviewport();
+		await expect( secondSectionStart ).toBeInviewport();
+		await expect( secondSectionEnd ).toBeInviewport();
+		await expect( thirdSectionStart ).not.toBeInviewport();
 
 		// After zooming, if we zoomed out with the correct central point, they should both still be visible when toggling zoom out state
 		// Enter Zoom Out
 		await page.getByRole( 'button', { name: 'Zoom Out' } ).click();
-		await expect( firstSectionEnd ).toBeInViewport();
-		await expect( secondSectionStart ).toBeInViewport();
-		await expect( secondSectionEnd ).toBeInViewport();
-		await expect( thirdSectionStart ).toBeInViewport();
+		await expect( firstSectionEnd ).toBeInviewport();
+		await expect( secondSectionStart ).toBeInviewport();
+		await expect( secondSectionEnd ).toBeInviewport();
+		await expect( thirdSectionStart ).toBeInviewport();
 
 		// Exit Zoom Out
 		await page.getByRole( 'button', { name: 'Zoom Out' } ).click();
-		await expect( firstSectionEnd ).not.toBeInViewport();
-		await expect( secondSectionStart ).toBeInViewport();
-		await expect( secondSectionEnd ).toBeInViewport();
-		await expect( thirdSectionStart ).not.toBeInViewport();
+		await expect( firstSectionEnd ).not.toBeInviewport();
+		await expect( secondSectionStart ).toBeInviewport();
+		await expect( secondSectionEnd ).toBeInviewport();
+		await expect( thirdSectionStart ).not.toBeInviewport();
 
 		// Test for third section
 		// Playwright scrolls it to the center of the viewport, so this is what we scroll to.
 		await thirdSectionCenter.scrollIntoViewIfNeeded();
 
 		// Because the text is spread with a group height of 100vh, they should both be visible.
-		await expect( secondSectionEnd ).not.toBeInViewport();
-		await expect( thirdSectionStart ).toBeInViewport();
-		await expect( thirdSectionEnd ).toBeInViewport();
-		await expect( fourthSectionStart ).not.toBeInViewport();
+		await expect( secondSectionEnd ).not.toBeInviewport();
+		await expect( thirdSectionStart ).toBeInviewport();
+		await expect( thirdSectionEnd ).toBeInviewport();
+		await expect( fourthSectionStart ).not.toBeInviewport();
 
 		// After zooming, if we zoomed out with the correct central point, they should both still be visible when toggling zoom out state
 		// Enter Zoom Out
 		await page.getByRole( 'button', { name: 'Zoom Out' } ).click();
-		await expect( secondSectionEnd ).toBeInViewport();
-		await expect( thirdSectionStart ).toBeInViewport();
-		await expect( thirdSectionEnd ).toBeInViewport();
-		await expect( fourthSectionStart ).toBeInViewport();
+		await expect( secondSectionEnd ).toBeInviewport();
+		await expect( thirdSectionStart ).toBeInviewport();
+		await expect( thirdSectionEnd ).toBeInviewport();
+		await expect( fourthSectionStart ).toBeInviewport();
 
 		// Exit Zoom Out
 		await page.getByRole( 'button', { name: 'Zoom Out' } ).click();
-		await expect( secondSectionEnd ).not.toBeInViewport();
-		await expect( thirdSectionStart ).toBeInViewport();
-		await expect( thirdSectionEnd ).toBeInViewport();
-		await expect( fourthSectionStart ).not.toBeInViewport();
+		await expect( secondSectionEnd ).not.toBeInviewport();
+		await expect( thirdSectionStart ).toBeInviewport();
+		await expect( thirdSectionEnd ).toBeInviewport();
+		await expect( fourthSectionStart ).not.toBeInviewport();
 	} );
 
 	test( 'Zoom out selected section has four items in options menu', async ( {

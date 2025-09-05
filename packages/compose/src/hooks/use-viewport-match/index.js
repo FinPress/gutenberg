@@ -9,7 +9,7 @@ import { createContext, useContext } from '@finpress/element';
 import useMediaQuery from '../use-media-query';
 
 /**
- * @typedef {"xhuge" | "huge" | "wide" | "xlarge" | "large" | "medium" | "small" | "mobile"} WPBreakpoint
+ * @typedef {"xhuge" | "huge" | "wide" | "xlarge" | "large" | "medium" | "small" | "mobile"} FPBreakpoint
  */
 
 /**
@@ -17,7 +17,7 @@ import useMediaQuery from '../use-media-query';
  *
  * @see _breakpoints.scss
  *
- * @type {Record<WPBreakpoint, number>}
+ * @type {Record<FPBreakpoint, number>}
  */
 const BREAKPOINTS = {
 	xhuge: 1920,
@@ -31,13 +31,13 @@ const BREAKPOINTS = {
 };
 
 /**
- * @typedef {">=" | "<"} WPViewportOperator
+ * @typedef {">=" | "<"} FPviewportOperator
  */
 
 /**
  * Object mapping media query operators to the condition to be used.
  *
- * @type {Record<WPViewportOperator, string>}
+ * @type {Record<FPviewportOperator, string>}
  */
 const CONDITIONS = {
 	'>=': 'min-width',
@@ -47,34 +47,34 @@ const CONDITIONS = {
 /**
  * Object mapping media query operators to a function that given a breakpointValue and a width evaluates if the operator matches the values.
  *
- * @type {Record<WPViewportOperator, (breakpointValue: number, width: number) => boolean>}
+ * @type {Record<FPviewportOperator, (breakpointValue: number, width: number) => boolean>}
  */
 const OPERATOR_EVALUATORS = {
 	'>=': ( breakpointValue, width ) => width >= breakpointValue,
 	'<': ( breakpointValue, width ) => width < breakpointValue,
 };
 
-const ViewportMatchWidthContext = createContext(
+const viewportMatchWidthContext = createContext(
 	/** @type {null | number} */ ( null )
 );
 
 /**
  * Returns true if the viewport matches the given query, or false otherwise.
  *
- * @param {WPBreakpoint}       breakpoint      Breakpoint size name.
- * @param {WPViewportOperator} [operator=">="] Viewport operator.
+ * @param {FPBreakpoint}       breakpoint      Breakpoint size name.
+ * @param {FPviewportOperator} [operator=">="] viewport operator.
  *
  * @example
  *
  * ```js
- * useViewportMatch( 'huge', '<' );
- * useViewportMatch( 'medium' );
+ * useviewportMatch( 'huge', '<' );
+ * useviewportMatch( 'medium' );
  * ```
  *
  * @return {boolean} Whether viewport matches query.
  */
-const useViewportMatch = ( breakpoint, operator = '>=' ) => {
-	const simulatedWidth = useContext( ViewportMatchWidthContext );
+const useviewportMatch = ( breakpoint, operator = '>=' ) => {
+	const simulatedWidth = useContext( viewportMatchWidthContext );
 	const mediaQuery =
 		! simulatedWidth &&
 		`(${ CONDITIONS[ operator ] }: ${ BREAKPOINTS[ breakpoint ] }px)`;
@@ -88,7 +88,7 @@ const useViewportMatch = ( breakpoint, operator = '>=' ) => {
 	return mediaQueryResult;
 };
 
-useViewportMatch.__experimentalWidthProvider =
-	ViewportMatchWidthContext.Provider;
+useviewportMatch.__experimentalWidthProvider =
+	viewportMatchWidthContext.Provider;
 
-export default useViewportMatch;
+export default useviewportMatch;

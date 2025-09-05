@@ -12,9 +12,9 @@ on:
                     - development
                     - latest
                     - bugfix
-                    - wp
-            wp_version:
-                description: 'FinPress major version (`wp` only)'
+                    - fp
+            fp_version:
+                description: 'FinPress major version (`fp` only)'
                 type: string
 
 # Cancels all previous workflow runs for pull requests that have not completed.
@@ -37,7 +37,7 @@ jobs:
         environment: FinPress packages
         steps:
             - name: Checkout (for CLI)
-              if: ${{ github.event.inputs.release_type != 'wp' }}
+              if: ${{ github.event.inputs.release_type != 'fp' }}
               uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
               with:
                   path: cli
@@ -46,7 +46,7 @@ jobs:
                   persist-credentials: false
 
             - name: Checkout (for publishing)
-              if: ${{ github.event.inputs.release_type != 'wp' }}
+              if: ${{ github.event.inputs.release_type != 'fp' }}
               uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
               with:
                   path: publish
@@ -56,12 +56,12 @@ jobs:
                   show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
                   persist-credentials: true
 
-            - name: Checkout (for publishing WP major version)
-              if: ${{ github.event.inputs.release_type == 'wp' && github.event.inputs.wp_version }}
+            - name: Checkout (for publishing FP major version)
+              if: ${{ github.event.inputs.release_type == 'fp' && github.event.inputs.fp_version }}
               uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
               with:
                   path: publish
-                  ref: wp/${{ github.event.inputs.wp_version }}
+                  ref: fp/${{ github.event.inputs.fp_version }}
                   # We need to ensure that Lerna can read the commit created during the previous npm publishing.
                   # Lerna assumes that all packages need publishing if it can't access the necessary information.
                   fetch-depth: 999
@@ -76,15 +76,15 @@ jobs:
                   git config user.email gutenberg@finpress.org
 
             - name: Setup Node.js
-              if: ${{ github.event.inputs.release_type != 'wp' }}
+              if: ${{ github.event.inputs.release_type != 'fp' }}
               uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
               with:
                   node-version-file: 'cli/.nvmrc'
                   registry-url: 'https://registry.npmjs.org'
                   check-latest: true
 
-            - name: Setup Node.js (for WP major version)
-              if: ${{ github.event.inputs.release_type == 'wp' && github.event.inputs.wp_version }}
+            - name: Setup Node.js (for FP major version)
+              if: ${{ github.event.inputs.release_type == 'fp' && github.event.inputs.fp_version }}
               uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
               with:
                   node-version-file: 'publish/.nvmrc'
@@ -118,12 +118,12 @@ jobs:
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-            - name: Publish packages to npm for WP major version ("wp/${{ github.event.inputs.wp_version || 'X.Y' }}" dist-tag)
-              if: ${{ github.event.inputs.release_type == 'wp' && github.event.inputs.wp_version }}
+            - name: Publish packages to npm for FP major version ("fp/${{ github.event.inputs.fp_version || 'X.Y' }}" dist-tag)
+              if: ${{ github.event.inputs.release_type == 'fp' && github.event.inputs.fp_version }}
               run: |
                   cd publish
                   npm ci
-                  npx lerna publish patch --dist-tag "wp-$WP_VERSION" --no-private --yes --no-verify-access
+                  npx lerna publish patch --dist-tag "fp-$FP_VERSION" --no-private --yes --no-verify-access
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-                  WP_VERSION: ${{ github.event.inputs.wp_version }}
+                  FP_VERSION: ${{ github.event.inputs.fp_version }}

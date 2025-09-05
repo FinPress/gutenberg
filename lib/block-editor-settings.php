@@ -13,7 +13,7 @@
  * This hook should run first as it completely replaces the core settings that
  * other hooks may need to update.
  *
- * Note: The settings that are WP version specific should be handled inside the `compat` directory.
+ * Note: The settings that are FP version specific should be handled inside the `compat` directory.
  *
  * @param array $settings Existing block editor settings.
  *
@@ -41,7 +41,7 @@ function gutenberg_get_block_editor_settings( $settings ) {
 		}
 	}
 
-	if ( wp_theme_has_theme_json() ) {
+	if ( fp_theme_has_theme_json() ) {
 		$block_classes = array(
 			'css'            => 'styles',
 			'__unstableType' => 'theme',
@@ -55,7 +55,7 @@ function gutenberg_get_block_editor_settings( $settings ) {
 
 		// Get any additional css from the customizer and add it before global styles custom CSS.
 		$global_styles[] = array(
-			'css'            => wp_get_custom_css(),
+			'css'            => fp_get_custom_css(),
 			'__unstableType' => 'user',
 			'isGlobalStyles' => false,
 		);
@@ -83,7 +83,7 @@ function gutenberg_get_block_editor_settings( $settings ) {
 		}
 		// Get any additional css from the customizer.
 		$global_styles[] = array(
-			'css'            => wp_get_custom_css(),
+			'css'            => fp_get_custom_css(),
 			'__unstableType' => 'user',
 			'isGlobalStyles' => false,
 		);

@@ -146,7 +146,7 @@ Object that contains functions that return the available modifier depending on p
 
 _Type_
 
--   `WPModifierHandler< WPModifier >`
+-   `FPModifierHandler< FPModifier >`
 
 ### PAGEDOWN
 

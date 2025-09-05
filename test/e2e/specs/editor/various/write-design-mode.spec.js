@@ -13,7 +13,7 @@ test.describe( 'Write/Design mode', () => {
 		} );
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//index',
-			postType: 'wp_template',
+			postType: 'fp_template',
 			canvas: 'edit',
 		} );
 	} );
@@ -93,7 +93,7 @@ test.describe( 'Write/Design mode', () => {
 
 		const getSelectedBlock = async () =>
 			await page.evaluate( () =>
-				window.wp.data
+				window.fp.data
 					.select( 'core/block-editor' )
 					.getSelectedBlockClientId()
 			);

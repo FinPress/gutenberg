@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  * @return string  Returns the post link.
  */
 function render_block_core_read_more( $attributes, $content, $block ) {
@@ -36,7 +36,7 @@ function render_block_core_read_more( $attributes, $content, $block ) {
 	);
 	$justify_class_name = empty( $attributes['justifyContent'] ) ? '' : "is-justified-{$attributes['justifyContent']}";
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $justify_class_name ) );
-	$more_text          = ! empty( $attributes['content'] ) ? wp_kses_post( $attributes['content'] ) : __( 'Read more' );
+	$more_text          = ! empty( $attributes['content'] ) ? fp_kses_post( $attributes['content'] ) : __( 'Read more' );
 	return sprintf(
 		'<a %1s href="%2s" target="%3s">%4s<span class="screen-reader-text">%5s</span></a>',
 		$wrapper_attributes,

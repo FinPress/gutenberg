@@ -39,9 +39,9 @@ export default function WidgetAreaInnerBlocks( { id } ) {
 		<div
 			data-widget-area-id={ id }
 			className={ clsx(
-				'wp-block-widget-area__inner-blocks block-editor-inner-blocks editor-styles-wrapper',
+				'fp-block-widget-area__inner-blocks block-editor-inner-blocks editor-styles-wrapper',
 				{
-					'wp-block-widget-area__highlight-drop-zone':
+					'fp-block-widget-area__highlight-drop-zone':
 						shouldHighlightDropZone,
 				}
 			) }

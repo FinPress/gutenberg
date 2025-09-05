@@ -11,9 +11,9 @@ import {
 
 const block = 'Page Break';
 const initialHtml = `
-<!-- wp:nextpage -->
+<!-- fp:nextpage -->
 <!--nextpage-->
-<!-- /wp:nextpage -->`;
+<!-- /fp:nextpage -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

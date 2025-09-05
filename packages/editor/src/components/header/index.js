@@ -3,7 +3,7 @@
  */
 import { store as blockEditorStore } from '@finpress/block-editor';
 import { useSelect } from '@finpress/data';
-import { useMediaQuery, useViewportMatch } from '@finpress/compose';
+import { useMediaQuery, useviewportMatch } from '@finpress/compose';
 import { __unstableMotion as motion } from '@finpress/components';
 import { store as preferencesStore } from '@finpress/preferences';
 import { useState } from '@finpress/element';
@@ -58,8 +58,8 @@ function Header( {
 	setEntitiesSavedStatesCallback,
 	title,
 } ) {
-	const isWideViewport = useViewportMatch( 'large' );
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isWideviewport = useviewportMatch( 'large' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 	const isTooNarrowForDocumentBar = useMediaQuery( '(max-width: 403px)' );
 	const {
 		postType,
@@ -92,7 +92,7 @@ function Header( {
 	}, [] );
 
 	const canBeZoomedOut =
-		[ 'post', 'page', 'wp_template' ].includes( postType ) &&
+		[ 'post', 'page', 'fp_template' ].includes( postType ) &&
 		hasSectionRootClientId;
 
 	const disablePreviewOption =
@@ -135,7 +135,7 @@ function Header( {
 				<DocumentTools
 					disableBlockTools={ forceDisableBlockTools || isTextEditor }
 				/>
-				{ hasFixedToolbar && isLargeViewport && (
+				{ hasFixedToolbar && isLargeviewport && (
 					<CollapsibleBlockToolbar
 						isCollapsed={ isBlockToolsCollapsed }
 						onToggle={ setIsBlockToolsCollapsed }
@@ -179,11 +179,11 @@ function Header( {
 					forceIsAutosaveable={ forceIsDirty }
 				/>
 
-				{ isWideViewport && canBeZoomedOut && (
+				{ isWideviewport && canBeZoomedOut && (
 					<ZoomOutToggle disabled={ forceDisableBlockTools } />
 				) }
 
-				{ ( isWideViewport || ! showIconLabels ) && (
+				{ ( isWideviewport || ! showIconLabels ) && (
 					<PinnedItems.Slot scope="core" />
 				) }
 

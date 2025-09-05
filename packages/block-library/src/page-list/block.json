@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/page-list",
 	"title": "Page List",
@@ -78,6 +78,6 @@
 			}
 		}
 	},
-	"editorStyle": "wp-block-page-list-editor",
-	"style": "wp-block-page-list"
+	"editorStyle": "fp-block-page-list-editor",
+	"style": "fp-block-page-list"
 }

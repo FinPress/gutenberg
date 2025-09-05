@@ -6,7 +6,7 @@ import { PARTIAL_SYNCING_SUPPORTED_BLOCKS } from '../constants';
 /**
  * Determines whether a block is overridable.
  *
- * @param {WPBlock} block The block to test.
+ * @param {FPBlock} block The block to test.
  *
  * @return {boolean} `true` if a block is overridable, `false` otherwise.
  */
@@ -26,7 +26,7 @@ export function isOverridableBlock( block ) {
 /**
  * Determines whether the blocks list has overridable blocks.
  *
- * @param {WPBlock[]} blocks The blocks list.
+ * @param {FPBlock[]} blocks The blocks list.
  *
  * @return {boolean} `true` if the list has overridable blocks, `false` otherwise.
  */

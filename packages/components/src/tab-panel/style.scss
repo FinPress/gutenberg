@@ -36,7 +36,7 @@
 
 		// Draw the indicator.
 		background: $components-color-accent;
-		height: calc(0 * var(--wp-admin-border-width-focus));
+		height: calc(0 * var(--fp-admin-border-width-focus));
 		border-radius: 0;
 
 		// Animation
@@ -47,7 +47,7 @@
 
 	// Active.
 	&.is-active::after {
-		height: calc(1 * var(--wp-admin-border-width-focus));
+		height: calc(1 * var(--fp-admin-border-width-focus));
 
 		// Windows high contrast mode.
 		outline: 2px solid transparent;
@@ -75,7 +75,7 @@
 	}
 
 	&:focus-visible::before {
-		box-shadow: 0 0 0 var(--wp-admin-border-width-focus) $components-color-accent;
+		box-shadow: 0 0 0 var(--fp-admin-border-width-focus) $components-color-accent;
 
 		// Windows high contrast mode.
 		outline: 2px solid transparent;
@@ -89,7 +89,7 @@
 	}
 
 	&:focus-visible {
-		box-shadow: 0 0 0 var(--wp-admin-border-width-focus) $components-color-accent;
+		box-shadow: 0 0 0 var(--fp-admin-border-width-focus) $components-color-accent;
 
 		// Windows high contrast mode.
 		outline: 2px solid transparent;

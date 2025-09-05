@@ -87,8 +87,8 @@ function ButtonBlockAppender(
  * @deprecated
  */
 export const ButtonBlockerAppender = forwardRef( ( props, ref ) => {
-	deprecated( `wp.blockEditor.ButtonBlockerAppender`, {
-		alternative: 'wp.blockEditor.ButtonBlockAppender',
+	deprecated( `fp.blockEditor.ButtonBlockerAppender`, {
+		alternative: 'fp.blockEditor.ButtonBlockAppender',
 		since: '5.9',
 	} );
 

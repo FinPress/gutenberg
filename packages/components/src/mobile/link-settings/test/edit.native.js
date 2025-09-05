@@ -50,9 +50,9 @@ describe.each( [
 		{
 			type: 'core/button',
 			initialHtml: `
-				<!-- wp:button {"style":{"border":{"radius":"5px"}}} -->
-				<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" style="border-radius:5px">Link</a></div>
-				<!-- /wp:button -->
+				<!-- fp:button {"style":{"border":{"radius":"5px"}}} -->
+				<div class="fp-block-button"><a class="fp-block-button__link fp-element-button" style="border-radius:5px">Link</a></div>
+				<!-- /fp:button -->
 			`,
 			toJSON: () => 'core/button',
 		},
@@ -61,11 +61,11 @@ describe.each( [
 		{
 			type: 'core/image',
 			initialHtml: `
-				<!-- wp:image {"id":20,"sizeSlug":"large","linkDestination":"custom"} -->
-				<figure class="wp-block-image size-large">
-					<img class="wp-image-20" src="https://tonytahmouchtest.files.finpress.com/2021/10/img_0111-2.jpg?w=1024" alt="" />
+				<!-- fp:image {"id":20,"sizeSlug":"large","linkDestination":"custom"} -->
+				<figure class="fp-block-image size-large">
+					<img class="fp-image-20" src="https://tonytahmouchtest.files.finpress.com/2021/10/img_0111-2.jpg?w=1024" alt="" />
 				</figure>
-				<!-- /wp:image -->
+				<!-- /fp:image -->
 			`,
 			toJSON: () => 'core/image',
 		},

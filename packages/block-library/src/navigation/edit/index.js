@@ -342,7 +342,7 @@ function Navigation( {
 	// If the block has inner blocks, but no menu id, then these blocks are either:
 	// - inserted via a pattern.
 	// - inserted directly via Code View (or otherwise).
-	// - from an older version of navigation block added before the block used a wp_navigation entity.
+	// - from an older version of navigation block added before the block used a fp_navigation entity.
 	// Consider this state as 'unsaved' and offer an uncontrolled version of inner blocks,
 	// that automatically saves the menu as an entity when changes are made to the inner blocks.
 	const hasUnsavedBlocks = hasUncontrolledInnerBlocks && ! isEntityAvailable;
@@ -570,7 +570,7 @@ function Navigation( {
 		canUserCreateNavigationMenus || canUserUpdateNavigationMenu;
 
 	const overlayMenuPreviewClasses = clsx(
-		'wp-block-navigation__overlay-menu-preview',
+		'fp-block-navigation__overlay-menu-preview',
 		{ open: overlayMenuPreview }
 	);
 
@@ -698,7 +698,7 @@ function Navigation( {
 
 						{ hasSubmenus && (
 							<>
-								<h3 className="wp-block-navigation__submenu-header">
+								<h3 className="fp-block-navigation__submenu-header">
 									{ __( 'Submenus' ) }
 								</h3>
 								<ToolsPanelItem
@@ -760,7 +760,7 @@ function Navigation( {
 										spokenMessage={ null }
 										status="warning"
 										isDismissible={ false }
-										className="wp-block-navigation__submenu-accessibility-notice"
+										className="fp-block-navigation__submenu-accessibility-notice"
 									>
 										{ submenuAccessibilityNotice }
 									</Notice>
@@ -919,7 +919,7 @@ function Navigation( {
 	}
 
 	return (
-		<EntityProvider kind="postType" type="wp_navigation" id={ ref }>
+		<EntityProvider kind="postType" type="fp_navigation" id={ ref }>
 			<RecursionProvider uniqueId={ recursionId }>
 				<MenuInspectorControls
 					clientId={ clientId }
@@ -958,7 +958,7 @@ function Navigation( {
 							) }
 						<ManageMenusButton
 							disabled={ isManageMenusButtonDisabled }
-							className="wp-block-navigation-manage-menus-button"
+							className="fp-block-navigation-manage-menus-button"
 						/>
 					</InspectorControls>
 				) }
@@ -972,8 +972,8 @@ function Navigation( {
 					}
 				>
 					{ isLoading && ! isHiddenByDefault && (
-						<div className="wp-block-navigation__loading-indicator-container">
-							<Spinner className="wp-block-navigation__loading-indicator" />
+						<div className="fp-block-navigation__loading-indicator-container">
+							<Spinner className="fp-block-navigation__loading-indicator" />
 						</div>
 					) }
 

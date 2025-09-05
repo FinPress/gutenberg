@@ -19,8 +19,8 @@ module.exports = {
 		render: 'file:./render.php',
 		example: {},
 		customScripts: {
-			build: 'wp-scripts build --experimental-modules',
-			start: 'wp-scripts start --experimental-modules',
+			build: 'fp-scripts build --experimental-modules',
+			start: 'fp-scripts start --experimental-modules',
 		},
 	},
 	variants: {

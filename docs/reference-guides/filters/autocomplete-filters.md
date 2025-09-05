@@ -38,7 +38,7 @@ function appendAcronymCompleter( completers, blockName ) {
 }
 
 // Adding the filter
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'editor.Autocomplete.completers',
 	'my-plugin/autocompleters/acronym',
 	appendAcronymCompleter

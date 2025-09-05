@@ -58,7 +58,7 @@ export default function usePatternCategories() {
 
 		// Update the category counts to reflect user registered patterns.
 		userPatterns.forEach( ( pattern ) => {
-			pattern.wp_pattern_category?.forEach( ( catId ) => {
+			pattern.fp_pattern_category?.forEach( ( catId ) => {
 				const category = userPatternCategories.find(
 					( cat ) => cat.id === catId
 				)?.name;
@@ -68,8 +68,8 @@ export default function usePatternCategories() {
 			} );
 			// If the pattern has no categories, add it to uncategorized.
 			if (
-				! pattern.wp_pattern_category?.length ||
-				! pattern.wp_pattern_category?.some( ( catId ) =>
+				! pattern.fp_pattern_category?.length ||
+				! pattern.fp_pattern_category?.some( ( catId ) =>
 					userPatternCategories.find( ( cat ) => cat.id === catId )
 				)
 			) {

@@ -1,3 +1,3 @@
-/* wp:polyfill */
+/* fp:polyfill */
 
 // Nothing else, really.

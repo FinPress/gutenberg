@@ -10,15 +10,15 @@ import {
 /**
  * Internal dependencies
  */
-import withViewportMatch from './with-viewport-match';
+import withviewportMatch from './with-viewport-match';
 
 /**
  * Higher-order component creator, creating a new component which renders if
  * the viewport query is satisfied.
  *
- * @see withViewportMatches
+ * @see withviewportMatches
  *
- * @param {string} query Viewport query.
+ * @param {string} query viewport query.
  *
  * @example
  *
@@ -27,20 +27,20 @@ import withViewportMatch from './with-viewport-match';
  * 	return <div>I'm only rendered on mobile viewports!</div>;
  * }
  *
- * MyMobileComponent = ifViewportMatches( '< small' )( MyMobileComponent );
+ * MyMobileComponent = ifviewportMatches( '< small' )( MyMobileComponent );
  * ```
  *
  * @return {Function} Higher-order component.
  */
-const ifViewportMatches = ( query ) =>
+const ifviewportMatches = ( query ) =>
 	createHigherOrderComponent(
 		compose( [
-			withViewportMatch( {
-				isViewportMatch: query,
+			withviewportMatch( {
+				isviewportMatch: query,
 			} ),
-			ifCondition( ( props ) => props.isViewportMatch ),
+			ifCondition( ( props ) => props.isviewportMatch ),
 		] ),
-		'ifViewportMatches'
+		'ifviewportMatches'
 	);
 
-export default ifViewportMatches;
+export default ifviewportMatches;

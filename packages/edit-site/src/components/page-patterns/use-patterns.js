@@ -147,7 +147,7 @@ const selectPatterns = createSelector(
 			// Non-user patterns are all unsynced for the time being.
 			patterns = patterns.filter( ( pattern ) => {
 				return pattern.type === PATTERN_TYPES.user
-					? ( pattern.wp_pattern_sync_status ||
+					? ( pattern.fp_pattern_sync_status ||
 							PATTERN_SYNC_TYPES.full ) === syncStatus
 					: syncStatus === PATTERN_SYNC_TYPES.unsynced;
 			} );
@@ -158,7 +158,7 @@ const selectPatterns = createSelector(
 				categoryId,
 				hasCategory: ( item, currentCategory ) => {
 					if ( item.type === PATTERN_TYPES.user ) {
-						return item.wp_pattern_category?.some(
+						return item.fp_pattern_category?.some(
 							( catId ) =>
 								userPatternCategories.find(
 									( cat ) => cat.id === catId
@@ -174,8 +174,8 @@ const selectPatterns = createSelector(
 					if ( item.type === PATTERN_TYPES.user ) {
 						return (
 							userPatternCategories?.length &&
-							( ! item.wp_pattern_category?.length ||
-								! item.wp_pattern_category?.some( ( catId ) =>
+							( ! item.fp_pattern_category?.length ||
+								! item.fp_pattern_category?.some( ( catId ) =>
 									userPatternCategories.find(
 										( cat ) => cat.id === catId
 									)
@@ -227,7 +227,7 @@ const selectUserPatterns = createSelector(
 		if ( syncStatus ) {
 			patterns = patterns.filter(
 				( pattern ) =>
-					pattern.wp_pattern_sync_status ||
+					pattern.fp_pattern_sync_status ||
 					PATTERN_SYNC_TYPES.full === syncStatus
 			);
 		}

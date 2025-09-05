@@ -12,7 +12,7 @@ export default function WelcomeGuide( { postType } ) {
 			<WelcomeGuideEditor />
 			<WelcomeGuideStyles />
 			{ postType === 'page' && <WelcomeGuidePage /> }
-			{ postType === 'wp_template' && <WelcomeGuideTemplate /> }
+			{ postType === 'fp_template' && <WelcomeGuideTemplate /> }
 		</>
 	);
 }

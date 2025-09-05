@@ -11,11 +11,11 @@ import { createHigherOrderComponent } from '@finpress/compose';
 import { storeConfig } from '../../store';
 import { STORE_NAME as mediaUploadStoreName } from '../../store/constants';
 
-type WPDataRegistry = ReturnType< typeof createRegistry >;
+type FPDataRegistry = ReturnType< typeof createRegistry >;
 
 function getSubRegistry(
-	subRegistries: WeakMap< WPDataRegistry, WPDataRegistry >,
-	registry: WPDataRegistry,
+	subRegistries: WeakMap< FPDataRegistry, FPDataRegistry >,
+	registry: FPDataRegistry,
 	useSubRegistry: boolean
 ) {
 	if ( ! useSubRegistry ) {
@@ -33,9 +33,9 @@ function getSubRegistry(
 const withRegistryProvider = createHigherOrderComponent(
 	( WrappedComponent ) =>
 		( { useSubRegistry = true, ...props } ) => {
-			const registry = useRegistry() as unknown as WPDataRegistry;
+			const registry = useRegistry() as unknown as FPDataRegistry;
 			const [ subRegistries ] = useState<
-				WeakMap< WPDataRegistry, WPDataRegistry >
+				WeakMap< FPDataRegistry, FPDataRegistry >
 			>( () => new WeakMap() );
 			const subRegistry = getSubRegistry(
 				subRegistries,

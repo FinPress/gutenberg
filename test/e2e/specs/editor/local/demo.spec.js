@@ -16,7 +16,7 @@ test.describe( 'New editor state', () => {
 		} );
 
 		const isDirty = await page.evaluate( () => {
-			return window.wp.data.select( 'core/editor' ).isEditedPostDirty();
+			return window.fp.data.select( 'core/editor' ).isEditedPostDirty();
 		} );
 		expect( isDirty ).toBe( true );
 

@@ -165,7 +165,7 @@ function Iframe( {
 				( name ) =>
 					name.startsWith( 'admin-color-' ) ||
 					name.startsWith( 'post-type-' ) ||
-					name === 'wp-embed-responsive'
+					name === 'fp-embed-responsive'
 			)
 		);
 
@@ -374,7 +374,7 @@ function Iframe( {
 					isZoomedOut && 'is-zoomed-out'
 				) }
 				style={ {
-					'--wp-block-editor-iframe-zoom-out-scale-container-width':
+					'--fp-block-editor-iframe-zoom-out-scale-container-width':
 						isZoomedOut && `${ scaleContainerWidth }px`,
 				} }
 			>

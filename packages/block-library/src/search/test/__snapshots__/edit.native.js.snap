@@ -3,7 +3,7 @@
 exports[`Search Block renders block with button inside option 1`] = `
 <View
   accessibilityElementsHidden={true}
-  className="wp-block-search__button-inside wp-block-search__text-button"
+  className="fp-block-search__button-inside fp-block-search__text-button"
   importantForAccessibility="no-hide-descendants"
 >
   <View
@@ -97,7 +97,7 @@ exports[`Search Block renders block with button inside option 1`] = `
       accessible={true}
     >
       <TextInput
-        className="wp-block-search__input"
+        className="fp-block-search__input"
         ellipsizeMode="tail"
         fontFamily="serif"
         isSelected={false}
@@ -217,7 +217,7 @@ exports[`Search Block renders block with button inside option 1`] = `
 exports[`Search Block renders block with icon button option matches snapshot 1`] = `
 <View
   accessibilityElementsHidden={true}
-  className="wp-block-search__button-outside wp-block-search__icon-button"
+  className="fp-block-search__button-outside fp-block-search__icon-button"
   importantForAccessibility="no-hide-descendants"
 >
   <View
@@ -311,7 +311,7 @@ exports[`Search Block renders block with icon button option matches snapshot 1`]
       accessible={true}
     >
       <TextInput
-        className="wp-block-search__input"
+        className="fp-block-search__input"
         ellipsizeMode="tail"
         fontFamily="serif"
         isSelected={false}
@@ -363,7 +363,7 @@ exports[`Search Block renders block with icon button option matches snapshot 1`]
 exports[`Search Block renders block with label hidden matches snapshot 1`] = `
 <View
   accessibilityElementsHidden={true}
-  className="wp-block-search__button-outside wp-block-search__text-button"
+  className="fp-block-search__button-outside fp-block-search__text-button"
   importantForAccessibility="no-hide-descendants"
 >
   <View
@@ -381,7 +381,7 @@ exports[`Search Block renders block with label hidden matches snapshot 1`] = `
       accessible={true}
     >
       <TextInput
-        className="wp-block-search__input"
+        className="fp-block-search__input"
         ellipsizeMode="tail"
         fontFamily="serif"
         isSelected={false}
@@ -501,7 +501,7 @@ exports[`Search Block renders block with label hidden matches snapshot 1`] = `
 exports[`Search Block renders with default configuration matches snapshot 1`] = `
 <View
   accessibilityElementsHidden={true}
-  className="wp-block-search__button-outside wp-block-search__text-button"
+  className="fp-block-search__button-outside fp-block-search__text-button"
   importantForAccessibility="no-hide-descendants"
 >
   <View
@@ -595,7 +595,7 @@ exports[`Search Block renders with default configuration matches snapshot 1`] = 
       accessible={true}
     >
       <TextInput
-        className="wp-block-search__input"
+        className="fp-block-search__input"
         ellipsizeMode="tail"
         fontFamily="serif"
         isSelected={false}
@@ -715,7 +715,7 @@ exports[`Search Block renders with default configuration matches snapshot 1`] = 
 exports[`Search Block renders with no-button option matches snapshot 1`] = `
 <View
   accessibilityElementsHidden={true}
-  className="wp-block-search__no-button"
+  className="fp-block-search__no-button"
   importantForAccessibility="no-hide-descendants"
 >
   <View
@@ -800,7 +800,7 @@ exports[`Search Block renders with no-button option matches snapshot 1`] = `
     accessible={true}
   >
     <TextInput
-      className="wp-block-search__input"
+      className="fp-block-search__input"
       ellipsizeMode="tail"
       fontFamily="serif"
       isSelected={false}

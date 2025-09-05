@@ -202,7 +202,7 @@ const v7toV11BlockSupports = {
 	},
 	color: {
 		__experimentalDuotone:
-			'> .wp-block-cover__image-background, > .wp-block-cover__video-background',
+			'> .fp-block-cover__image-background, > .fp-block-cover__video-background',
 		text: false,
 		background: false,
 	},
@@ -233,7 +233,7 @@ const v12BlockSupports = {
 	},
 	color: {
 		__experimentalDuotone:
-			'> .wp-block-cover__image-background, > .wp-block-cover__video-background',
+			'> .fp-block-cover__image-background, > .fp-block-cover__video-background',
 		heading: true,
 		text: true,
 		background: false,
@@ -343,8 +343,8 @@ const v14 = {
 		);
 
 		const imgClasses = clsx(
-			'wp-block-cover__image-background',
-			id ? `wp-image-${ id }` : null,
+			'fp-block-cover__image-background',
+			id ? `fp-image-${ id }` : null,
 			{
 				[ `size-${ sizeSlug }` ]: sizeSlug,
 				'has-parallax': hasParallax,
@@ -359,15 +359,15 @@ const v14 = {
 				<span
 					aria-hidden="true"
 					className={ clsx(
-						'wp-block-cover__background',
+						'fp-block-cover__background',
 						overlayColorClass,
 						dimRatioToClass( dimRatio ),
 						{
 							'has-background-dim': dimRatio !== undefined,
 							// For backwards compatibility. Former versions of the Cover Block applied
-							// `.wp-block-cover__gradient-background` in the presence of
+							// `.fp-block-cover__gradient-background` in the presence of
 							// media, a gradient and a dim.
-							'wp-block-cover__gradient-background':
+							'fp-block-cover__gradient-background':
 								url && gradientValue && dimRatio !== 0,
 							'has-background-gradient': gradientValue,
 							[ gradientClass ]: gradientClass,
@@ -399,7 +399,7 @@ const v14 = {
 				{ isVideoBackground && url && (
 					<video
 						className={ clsx(
-							'wp-block-cover__video-background',
+							'fp-block-cover__video-background',
 							'intrinsic-ignore'
 						) }
 						autoPlay
@@ -414,7 +414,7 @@ const v14 = {
 				) }
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-cover__inner-container',
+						className: 'fp-block-cover__inner-container',
 					} ) }
 				/>
 			</Tag>
@@ -495,8 +495,8 @@ const v13 = {
 		);
 
 		const imgClasses = clsx(
-			'wp-block-cover__image-background',
-			id ? `wp-image-${ id }` : null,
+			'fp-block-cover__image-background',
+			id ? `fp-image-${ id }` : null,
 			{
 				'has-parallax': hasParallax,
 				'is-repeated': isRepeated,
@@ -510,15 +510,15 @@ const v13 = {
 				<span
 					aria-hidden="true"
 					className={ clsx(
-						'wp-block-cover__background',
+						'fp-block-cover__background',
 						overlayColorClass,
 						dimRatioToClass( dimRatio ),
 						{
 							'has-background-dim': dimRatio !== undefined,
 							// For backwards compatibility. Former versions of the Cover Block applied
-							// `.wp-block-cover__gradient-background` in the presence of
+							// `.fp-block-cover__gradient-background` in the presence of
 							// media, a gradient and a dim.
-							'wp-block-cover__gradient-background':
+							'fp-block-cover__gradient-background':
 								url && gradientValue && dimRatio !== 0,
 							'has-background-gradient': gradientValue,
 							[ gradientClass ]: gradientClass,
@@ -549,7 +549,7 @@ const v13 = {
 				{ isVideoBackground && url && (
 					<video
 						className={ clsx(
-							'wp-block-cover__video-background',
+							'fp-block-cover__video-background',
 							'intrinsic-ignore'
 						) }
 						autoPlay
@@ -564,7 +564,7 @@ const v13 = {
 				) }
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-cover__inner-container',
+						className: 'fp-block-cover__inner-container',
 					} ) }
 				/>
 			</Tag>
@@ -658,8 +658,8 @@ const v12 = {
 		);
 
 		const imgClasses = clsx(
-			'wp-block-cover__image-background',
-			id ? `wp-image-${ id }` : null,
+			'fp-block-cover__image-background',
+			id ? `fp-image-${ id }` : null,
 			{
 				'has-parallax': hasParallax,
 				'is-repeated': isRepeated,
@@ -673,15 +673,15 @@ const v12 = {
 				<span
 					aria-hidden="true"
 					className={ clsx(
-						'wp-block-cover__background',
+						'fp-block-cover__background',
 						overlayColorClass,
 						dimRatioToClass( dimRatio ),
 						{
 							'has-background-dim': dimRatio !== undefined,
 							// For backwards compatibility. Former versions of the Cover Block applied
-							// `.wp-block-cover__gradient-background` in the presence of
+							// `.fp-block-cover__gradient-background` in the presence of
 							// media, a gradient and a dim.
-							'wp-block-cover__gradient-background':
+							'fp-block-cover__gradient-background':
 								url && gradientValue && dimRatio !== 0,
 							'has-background-gradient': gradientValue,
 							[ gradientClass ]: gradientClass,
@@ -712,7 +712,7 @@ const v12 = {
 				{ isVideoBackground && url && (
 					<video
 						className={ clsx(
-							'wp-block-cover__video-background',
+							'fp-block-cover__video-background',
 							'intrinsic-ignore'
 						) }
 						autoPlay
@@ -727,7 +727,7 @@ const v12 = {
 				) }
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-cover__inner-container',
+						className: 'fp-block-cover__inner-container',
 					} ) }
 				/>
 			</Tag>
@@ -807,8 +807,8 @@ const v11 = {
 		);
 
 		const imgClasses = clsx(
-			'wp-block-cover__image-background',
-			id ? `wp-image-${ id }` : null,
+			'fp-block-cover__image-background',
+			id ? `fp-image-${ id }` : null,
 			{
 				'has-parallax': hasParallax,
 				'is-repeated': isRepeated,
@@ -822,15 +822,15 @@ const v11 = {
 				<span
 					aria-hidden="true"
 					className={ clsx(
-						'wp-block-cover__background',
+						'fp-block-cover__background',
 						overlayColorClass,
 						dimRatioToClass( dimRatio ),
 						{
 							'has-background-dim': dimRatio !== undefined,
 							// For backwards compatibility. Former versions of the Cover Block applied
-							// `.wp-block-cover__gradient-background` in the presence of
+							// `.fp-block-cover__gradient-background` in the presence of
 							// media, a gradient and a dim.
-							'wp-block-cover__gradient-background':
+							'fp-block-cover__gradient-background':
 								url && gradientValue && dimRatio !== 0,
 							'has-background-gradient': gradientValue,
 							[ gradientClass ]: gradientClass,
@@ -861,7 +861,7 @@ const v11 = {
 				{ isVideoBackground && url && (
 					<video
 						className={ clsx(
-							'wp-block-cover__video-background',
+							'fp-block-cover__video-background',
 							'intrinsic-ignore'
 						) }
 						autoPlay
@@ -876,7 +876,7 @@ const v11 = {
 				) }
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-cover__inner-container',
+						className: 'fp-block-cover__inner-container',
 					} ) }
 				/>
 			</div>
@@ -962,15 +962,15 @@ const v10 = {
 				<span
 					aria-hidden="true"
 					className={ clsx(
-						'wp-block-cover__background',
+						'fp-block-cover__background',
 						overlayColorClass,
 						dimRatioToClass( dimRatio ),
 						{
 							'has-background-dim': dimRatio !== undefined,
 							// For backwards compatibility. Former versions of the Cover Block applied
-							// `.wp-block-cover__gradient-background` in the presence of
+							// `.fp-block-cover__gradient-background` in the presence of
 							// media, a gradient and a dim.
-							'wp-block-cover__gradient-background':
+							'fp-block-cover__gradient-background':
 								url && gradientValue && dimRatio !== 0,
 							'has-background-gradient': gradientValue,
 							[ gradientClass ]: gradientClass,
@@ -985,8 +985,8 @@ const v10 = {
 					url && (
 						<img
 							className={ clsx(
-								'wp-block-cover__image-background',
-								id ? `wp-image-${ id }` : null
+								'fp-block-cover__image-background',
+								id ? `fp-image-${ id }` : null
 							) }
 							alt={ alt }
 							src={ url }
@@ -998,7 +998,7 @@ const v10 = {
 				{ isVideoBackground && url && (
 					<video
 						className={ clsx(
-							'wp-block-cover__video-background',
+							'fp-block-cover__video-background',
 							'intrinsic-ignore'
 						) }
 						autoPlay
@@ -1013,7 +1013,7 @@ const v10 = {
 				) }
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-cover__inner-container',
+						className: 'fp-block-cover__inner-container',
 					} ) }
 				/>
 			</div>
@@ -1097,15 +1097,15 @@ const v9 = {
 				<span
 					aria-hidden="true"
 					className={ clsx(
-						'wp-block-cover__background',
+						'fp-block-cover__background',
 						overlayColorClass,
 						dimRatioToClass( dimRatio ),
 						{
 							'has-background-dim': dimRatio !== undefined,
 							// For backwards compatibility. Former versions of the Cover Block applied
-							// `.wp-block-cover__gradient-background` in the presence of
+							// `.fp-block-cover__gradient-background` in the presence of
 							// media, a gradient and a dim.
-							'wp-block-cover__gradient-background':
+							'fp-block-cover__gradient-background':
 								url && gradientValue && dimRatio !== 0,
 							'has-background-gradient': gradientValue,
 							[ gradientClass ]: gradientClass,
@@ -1117,8 +1117,8 @@ const v9 = {
 				{ isImageBackground && isImgElement && url && (
 					<img
 						className={ clsx(
-							'wp-block-cover__image-background',
-							id ? `wp-image-${ id }` : null
+							'fp-block-cover__image-background',
+							id ? `fp-image-${ id }` : null
 						) }
 						alt={ alt }
 						src={ url }
@@ -1130,7 +1130,7 @@ const v9 = {
 				{ isVideoBackground && url && (
 					<video
 						className={ clsx(
-							'wp-block-cover__video-background',
+							'fp-block-cover__video-background',
 							'intrinsic-ignore'
 						) }
 						autoPlay
@@ -1145,7 +1145,7 @@ const v9 = {
 				) }
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-cover__inner-container',
+						className: 'fp-block-cover__inner-container',
 					} ) }
 				/>
 			</div>
@@ -1154,7 +1154,7 @@ const v9 = {
 	migrate: migrateTag,
 };
 
-// v8: deprecated to remove duplicated gradient classes and swap `wp-block-cover__gradient-background` for `wp-block-cover__background`.
+// v8: deprecated to remove duplicated gradient classes and swap `fp-block-cover__gradient-background` for `fp-block-cover__background`.
 const v8 = {
 	attributes: v8ToV11BlockAttributes,
 	supports: v7toV11BlockSupports,
@@ -1229,7 +1229,7 @@ const v8 = {
 					className={ clsx(
 						overlayColorClass,
 						dimRatioToClass( dimRatio ),
-						'wp-block-cover__gradient-background',
+						'fp-block-cover__gradient-background',
 						gradientClass,
 						{
 							'has-background-dim': dimRatio !== undefined,
@@ -1244,8 +1244,8 @@ const v8 = {
 				{ isImageBackground && isImgElement && url && (
 					<img
 						className={ clsx(
-							'wp-block-cover__image-background',
-							id ? `wp-image-${ id }` : null
+							'fp-block-cover__image-background',
+							id ? `fp-image-${ id }` : null
 						) }
 						alt={ alt }
 						src={ url }
@@ -1257,7 +1257,7 @@ const v8 = {
 				{ isVideoBackground && url && (
 					<video
 						className={ clsx(
-							'wp-block-cover__video-background',
+							'fp-block-cover__video-background',
 							'intrinsic-ignore'
 						) }
 						autoPlay
@@ -1272,7 +1272,7 @@ const v8 = {
 				) }
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-cover__inner-container',
+						className: 'fp-block-cover__inner-container',
 					} ) }
 				/>
 			</div>
@@ -1382,7 +1382,7 @@ const v7 = {
 					<span
 						aria-hidden="true"
 						className={ clsx(
-							'wp-block-cover__gradient-background',
+							'fp-block-cover__gradient-background',
 							gradientClass
 						) }
 						style={
@@ -1395,8 +1395,8 @@ const v7 = {
 				{ isImageBackground && isImgElement && url && (
 					<img
 						className={ clsx(
-							'wp-block-cover__image-background',
-							id ? `wp-image-${ id }` : null
+							'fp-block-cover__image-background',
+							id ? `fp-image-${ id }` : null
 						) }
 						alt={ alt }
 						src={ url }
@@ -1408,7 +1408,7 @@ const v7 = {
 				{ isVideoBackground && url && (
 					<video
 						className={ clsx(
-							'wp-block-cover__video-background',
+							'fp-block-cover__video-background',
 							'intrinsic-ignore'
 						) }
 						autoPlay
@@ -1421,7 +1421,7 @@ const v7 = {
 						data-object-position={ objectPosition }
 					/>
 				) }
-				<div className="wp-block-cover__inner-container">
+				<div className="fp-block-cover__inner-container">
 					<InnerBlocks.Content />
 				</div>
 			</div>
@@ -1533,7 +1533,7 @@ const v6 = {
 					<span
 						aria-hidden="true"
 						className={ clsx(
-							'wp-block-cover__gradient-background',
+							'fp-block-cover__gradient-background',
 							gradientClass
 						) }
 						style={
@@ -1545,7 +1545,7 @@ const v6 = {
 				) }
 				{ isVideoBackground && url && (
 					<video
-						className="wp-block-cover__video-background"
+						className="fp-block-cover__video-background"
 						autoPlay
 						muted
 						loop
@@ -1554,7 +1554,7 @@ const v6 = {
 						style={ videoStyle }
 					/>
 				) }
-				<div className="wp-block-cover__inner-container">
+				<div className="fp-block-cover__inner-container">
 					<InnerBlocks.Content />
 				</div>
 			</div>
@@ -1632,7 +1632,7 @@ const v5 = {
 					<span
 						aria-hidden="true"
 						className={ clsx(
-							'wp-block-cover__gradient-background',
+							'fp-block-cover__gradient-background',
 							gradientClass
 						) }
 						style={
@@ -1644,14 +1644,14 @@ const v5 = {
 				) }
 				{ VIDEO_BACKGROUND_TYPE === backgroundType && url && (
 					<video
-						className="wp-block-cover__video-background"
+						className="fp-block-cover__video-background"
 						autoPlay
 						muted
 						loop
 						src={ url }
 					/>
 				) }
-				<div className="wp-block-cover__inner-container">
+				<div className="fp-block-cover__inner-container">
 					<InnerBlocks.Content />
 				</div>
 			</div>
@@ -1729,7 +1729,7 @@ const v4 = {
 					<span
 						aria-hidden="true"
 						className={ clsx(
-							'wp-block-cover__gradient-background',
+							'fp-block-cover__gradient-background',
 							gradientClass
 						) }
 						style={
@@ -1741,14 +1741,14 @@ const v4 = {
 				) }
 				{ VIDEO_BACKGROUND_TYPE === backgroundType && url && (
 					<video
-						className="wp-block-cover__video-background"
+						className="fp-block-cover__video-background"
 						autoPlay
 						muted
 						loop
 						src={ url }
 					/>
 				) }
-				<div className="wp-block-cover__inner-container">
+				<div className="fp-block-cover__inner-container">
 					<InnerBlocks.Content />
 				</div>
 			</div>
@@ -1816,7 +1816,7 @@ const v3 = {
 			<div className={ classes } style={ style }>
 				{ VIDEO_BACKGROUND_TYPE === backgroundType && url && (
 					<video
-						className="wp-block-cover__video-background"
+						className="fp-block-cover__video-background"
 						autoPlay
 						muted
 						loop
@@ -1826,7 +1826,7 @@ const v3 = {
 				{ ! RichText.isEmpty( title ) && (
 					<RichText.Content
 						tagName="p"
-						className="wp-block-cover-text"
+						className="fp-block-cover-text"
 						value={ title }
 					/>
 				) }
@@ -1896,7 +1896,7 @@ const v2 = {
 		}
 
 		const classes = clsx(
-			'wp-block-cover-image',
+			'fp-block-cover-image',
 			dimRatioToClassV1( dimRatio ),
 			overlayColorClass,
 			{
@@ -1912,7 +1912,7 @@ const v2 = {
 				{ ! RichText.isEmpty( title ) && (
 					<RichText.Content
 						tagName="p"
-						className="wp-block-cover-image-text"
+						className="fp-block-cover-image-text"
 						value={ title }
 					/>
 				) }
@@ -1965,7 +1965,7 @@ const v1 = {
 		const { url, title, hasParallax, dimRatio, align } = attributes;
 		const style = backgroundImageStyles( url );
 		const classes = clsx(
-			'wp-block-cover-image',
+			'fp-block-cover-image',
 			dimRatioToClassV1( dimRatio ),
 			{
 				'has-background-dim': dimRatio !== 0,

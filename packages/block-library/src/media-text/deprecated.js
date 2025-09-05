@@ -307,7 +307,7 @@ const v7 = {
 		const newRel = ! rel ? undefined : rel;
 
 		const imageClasses = clsx( {
-			[ `wp-image-${ mediaId }` ]: mediaId && mediaType === 'image',
+			[ `fp-image-${ mediaId }` ]: mediaId && mediaType === 'image',
 			[ `size-${ mediaSizeSlug }` ]: mediaId && mediaType === 'image',
 		} );
 
@@ -363,11 +363,11 @@ const v7 = {
 				<div { ...useBlockProps.save( { className, style } ) }>
 					<div
 						{ ...useInnerBlocksProps.save( {
-							className: 'wp-block-media-text__content',
+							className: 'fp-block-media-text__content',
 						} ) }
 					/>
 					<figure
-						className="wp-block-media-text__media"
+						className="fp-block-media-text__media"
 						style={ backgroundStyles }
 					>
 						{ ( mediaTypeRenders[ mediaType ] || noop )() }
@@ -378,14 +378,14 @@ const v7 = {
 		return (
 			<div { ...useBlockProps.save( { className, style } ) }>
 				<figure
-					className="wp-block-media-text__media"
+					className="fp-block-media-text__media"
 					style={ backgroundStyles }
 				>
 					{ ( mediaTypeRenders[ mediaType ] || noop )() }
 				</figure>
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-media-text__content',
+						className: 'fp-block-media-text__content',
 					} ) }
 				/>
 			</div>
@@ -420,7 +420,7 @@ const v6 = {
 		const newRel = ! rel ? undefined : rel;
 
 		const imageClasses = clsx( {
-			[ `wp-image-${ mediaId }` ]: mediaId && mediaType === 'image',
+			[ `fp-image-${ mediaId }` ]: mediaId && mediaType === 'image',
 			[ `size-${ mediaSizeSlug }` ]: mediaId && mediaType === 'image',
 		} );
 
@@ -476,11 +476,11 @@ const v6 = {
 				<div { ...useBlockProps.save( { className, style } ) }>
 					<div
 						{ ...useInnerBlocksProps.save( {
-							className: 'wp-block-media-text__content',
+							className: 'fp-block-media-text__content',
 						} ) }
 					/>
 					<figure
-						className="wp-block-media-text__media"
+						className="fp-block-media-text__media"
 						style={ backgroundStyles }
 					>
 						{ ( mediaTypeRenders[ mediaType ] || noop )() }
@@ -491,14 +491,14 @@ const v6 = {
 		return (
 			<div { ...useBlockProps.save( { className, style } ) }>
 				<figure
-					className="wp-block-media-text__media"
+					className="fp-block-media-text__media"
 					style={ backgroundStyles }
 				>
 					{ ( mediaTypeRenders[ mediaType ] || noop )() }
 				</figure>
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-media-text__content',
+						className: 'fp-block-media-text__content',
 					} ) }
 				/>
 			</div>
@@ -549,7 +549,7 @@ const v5 = {
 		const newRel = ! rel ? undefined : rel;
 
 		const imageClasses = clsx( {
-			[ `wp-image-${ mediaId }` ]: mediaId && mediaType === 'image',
+			[ `fp-image-${ mediaId }` ]: mediaId && mediaType === 'image',
 			[ `size-${ mediaSizeSlug }` ]: mediaId && mediaType === 'image',
 		} );
 
@@ -605,11 +605,11 @@ const v5 = {
 				<div { ...useBlockProps.save( { className, style } ) }>
 					<div
 						{ ...useInnerBlocksProps.save( {
-							className: 'wp-block-media-text__content',
+							className: 'fp-block-media-text__content',
 						} ) }
 					/>
 					<figure
-						className="wp-block-media-text__media"
+						className="fp-block-media-text__media"
 						style={ backgroundStyles }
 					>
 						{ ( mediaTypeRenders[ mediaType ] || noop )() }
@@ -620,14 +620,14 @@ const v5 = {
 		return (
 			<div { ...useBlockProps.save( { className, style } ) }>
 				<figure
-					className="wp-block-media-text__media"
+					className="fp-block-media-text__media"
 					style={ backgroundStyles }
 				>
 					{ ( mediaTypeRenders[ mediaType ] || noop )() }
 				</figure>
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-media-text__content',
+						className: 'fp-block-media-text__content',
 					} ) }
 				/>
 			</div>
@@ -663,7 +663,7 @@ const v4 = {
 		const newRel = ! rel ? undefined : rel;
 
 		const imageClasses = clsx( {
-			[ `wp-image-${ mediaId }` ]: mediaId && mediaType === 'image',
+			[ `fp-image-${ mediaId }` ]: mediaId && mediaType === 'image',
 			[ `size-${ mediaSizeSlug }` ]: mediaId && mediaType === 'image',
 		} );
 
@@ -718,14 +718,14 @@ const v4 = {
 		return (
 			<div { ...useBlockProps.save( { className, style } ) }>
 				<figure
-					className="wp-block-media-text__media"
+					className="fp-block-media-text__media"
 					style={ backgroundStyles }
 				>
 					{ ( mediaTypeRenders[ mediaType ] || noop )() }
 				</figure>
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-media-text__content',
+						className: 'fp-block-media-text__content',
 					} ) }
 				/>
 			</div>
@@ -817,7 +817,7 @@ const v3 = {
 				alt={ mediaAlt }
 				className={
 					mediaId && mediaType === 'image'
-						? `wp-image-${ mediaId }`
+						? `fp-image-${ mediaId }`
 						: null
 				}
 			/>
@@ -873,12 +873,12 @@ const v3 = {
 		return (
 			<div className={ className } style={ style }>
 				<figure
-					className="wp-block-media-text__media"
+					className="fp-block-media-text__media"
 					style={ backgroundStyles }
 				>
 					{ ( mediaTypeRenders[ mediaType ] || noop )() }
 				</figure>
-				<div className="wp-block-media-text__content">
+				<div className="fp-block-media-text__content">
 					<InnerBlocks.Content />
 				</div>
 			</div>
@@ -936,7 +936,7 @@ const v2 = {
 					alt={ mediaAlt }
 					className={
 						mediaId && mediaType === 'image'
-							? `wp-image-${ mediaId }`
+							? `fp-image-${ mediaId }`
 							: null
 					}
 				/>
@@ -975,12 +975,12 @@ const v2 = {
 		return (
 			<div className={ className } style={ style }>
 				<figure
-					className="wp-block-media-text__media"
+					className="fp-block-media-text__media"
 					style={ backgroundStyles }
 				>
 					{ ( mediaTypeRenders[ mediaType ] || noop )() }
 				</figure>
-				<div className="wp-block-media-text__content">
+				<div className="fp-block-media-text__content">
 					<InnerBlocks.Content />
 				</div>
 			</div>
@@ -988,7 +988,7 @@ const v2 = {
 	},
 };
 
-// Version without the wp-image-#### class on image
+// Version without the fp-image-#### class on image
 // See: https://github.com/FinPress/gutenberg/pull/11922
 const v1 = {
 	attributes: {
@@ -1047,10 +1047,10 @@ const v1 = {
 		};
 		return (
 			<div className={ className } style={ style }>
-				<figure className="wp-block-media-text__media">
+				<figure className="fp-block-media-text__media">
 					{ ( mediaTypeRenders[ mediaType ] || noop )() }
 				</figure>
-				<div className="wp-block-media-text__content">
+				<div className="fp-block-media-text__content">
 					<InnerBlocks.Content />
 				</div>
 			</div>

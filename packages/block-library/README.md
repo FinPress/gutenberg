@@ -98,12 +98,12 @@ To find out more about contributing to this package or Gutenberg as a whole, ple
 
     This file is used when using the option to register individual block from the `@finpress/block-library` package.
 
-4.  If the block exposes a script module on the front end, it must be included in the package's `package.json` file in the `wpScriptModules` object. This will include the script module when it's bundled for use in FinPress. See [the packages README for more details.](../README.md):
+4.  If the block exposes a script module on the front end, it must be included in the package's `package.json` file in the `fpScriptModules` object. This will include the script module when it's bundled for use in FinPress. See [the packages README for more details.](../README.md):
 
     ```json
     {
     	"name": "@finpress/block-library",
-    	"wpScriptModuleExports": {
+    	"fpScriptModuleExports": {
     		"./blinking-paragraph/view": "./build-module/blinking-paragraph/view.js",
     		"./image/view": "./build-module/image/view.js"
     		// Add any new script modules here.
@@ -117,7 +117,7 @@ To find out more about contributing to this package or Gutenberg as a whole, ple
     function render_block_core_blinking_paragraph( $attributes, $content ) {
         $should_load_view_script = ! empty( $attributes['isInteractive'] );
         if ( $should_load_view_script ) {
-    	    wp_enqueue_script_module( '@finpress/block-library/blinking-paragraph' );
+    	    fp_enqueue_script_module( '@finpress/block-library/blinking-paragraph' );
         }
 
     	return $content;
@@ -149,10 +149,10 @@ Unlike in [PHP code in the /lib directory](https://github.com/FinPress/gutenberg
 
 There are times, however, when blocks may need to use Gutenberg functions even when a Core-equivalent exists, for example, where a Gutenberg function relies on code that is only available in the plugin.
 
-In such cases, you can use the corresponding Core `wp_` function in the block PHP code, and add its name to [a list of prefixed functions in the Webpack configuration file](https://github.com/FinPress/gutenberg/blob/trunk/tools/webpack/blocks.js#L30).
+In such cases, you can use the corresponding Core `fp_` function in the block PHP code, and add its name to [a list of prefixed functions in the Webpack configuration file](https://github.com/FinPress/gutenberg/blob/trunk/tools/webpack/blocks.js#L30).
 
-At build time, Webpack will search for `wp_` functions in that list and replace them with their `gutenberg_` equivalents. This process ensures that the plugin calls the `gutenberg_` functions, but the block will still call the Core `wp_` function when updates are back ported.
+At build time, Webpack will search for `fp_` functions in that list and replace them with their `gutenberg_` equivalents. This process ensures that the plugin calls the `gutenberg_` functions, but the block will still call the Core `fp_` function when updates are back ported.
 
-Webpack assumes that, prefixes aside, the functions' names are identical: `wp_get_something_useful()` will be replaced with `gutenberg_get_something_useful()`.
+Webpack assumes that, prefixes aside, the functions' names are identical: `fp_get_something_useful()` will be replaced with `gutenberg_get_something_useful()`.
 
 <br /><br /><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

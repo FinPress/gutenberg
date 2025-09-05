@@ -24,9 +24,9 @@ function UnforwardedButtonGroup(
 	const classes = clsx( 'components-button-group', className );
 
 	if ( ! __shouldNotWarnDeprecated ) {
-		deprecated( 'wp.components.ButtonGroup', {
+		deprecated( 'fp.components.ButtonGroup', {
 			since: '6.8',
-			alternative: 'wp.components.__experimentalToggleGroupControl',
+			alternative: 'fp.components.__experimentalToggleGroupControl',
 		} );
 	}
 

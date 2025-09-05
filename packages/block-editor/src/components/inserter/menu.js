@@ -16,7 +16,7 @@ import {
 } from '@finpress/element';
 import { VisuallyHidden, SearchControl, Popover } from '@finpress/components';
 import { __ } from '@finpress/i18n';
-import { useDebouncedInput, useViewportMatch } from '@finpress/compose';
+import { useDebouncedInput, useviewportMatch } from '@finpress/compose';
 import { useSelect } from '@finpress/data';
 
 /**
@@ -74,7 +74,7 @@ function InserterMenu(
 	const [ patternFilter, setPatternFilter ] = useState( 'all' );
 	const [ selectedMediaCategory, setSelectedMediaCategory ] =
 		useState( null );
-	const isLargeViewport = useViewportMatch( 'large' );
+	const isLargeviewport = useviewportMatch( 'large' );
 
 	function getInitialTab() {
 		if ( __experimentalInitialTab ) {
@@ -93,7 +93,7 @@ function InserterMenu(
 		hasSectionRootClientId &&
 		( selectedTab === 'patterns' || selectedTab === 'media' );
 
-	useZoomOut( shouldUseZoomOut && isLargeViewport );
+	useZoomOut( shouldUseZoomOut && isLargeviewport );
 
 	const [ destinationRootClientId, onInsertBlocks, onToggleInsertionPoint ] =
 		useInsertionPoint( {

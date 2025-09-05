@@ -19,7 +19,7 @@ import { getFilesFromDataTransfer } from '@finpress/dom';
 import { store as blockEditorStore } from '../../store';
 
 /** @typedef {import('react').SyntheticEvent} SyntheticEvent */
-/** @typedef {import('./types').WPDropOperation} WPDropOperation */
+/** @typedef {import('./types').FPDropOperation} FPDropOperation */
 
 /**
  * Retrieve the data for a block drop event.
@@ -44,7 +44,7 @@ export function parseDropEvent( event ) {
 	try {
 		result = Object.assign(
 			result,
-			JSON.parse( event.dataTransfer.getData( 'wp-blocks' ) )
+			JSON.parse( event.dataTransfer.getData( 'fp-blocks' ) )
 		);
 	} catch ( err ) {
 		return result;
@@ -214,7 +214,7 @@ export function onHTMLDrop( insertOrReplaceBlocks ) {
  * @param {string}          targetRootClientId  The root client id where the block(s) will be inserted.
  * @param {number}          targetBlockIndex    The index where the block(s) will be inserted.
  * @param {Object}          options             The optional options.
- * @param {WPDropOperation} [options.operation] The type of operation to perform on drop. Could be `insert` or `replace` for now.
+ * @param {FPDropOperation} [options.operation] The type of operation to perform on drop. Could be `insert` or `replace` for now.
  *
  * @return {Function} A function to be passed to the onDrop handler.
  */

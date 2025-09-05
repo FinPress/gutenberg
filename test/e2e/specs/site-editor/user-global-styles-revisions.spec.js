@@ -19,8 +19,8 @@ test.describe( 'Style Revisions', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await Promise.all( [
 			requestUtils.activateTheme( 'emptytheme' ),
-			requestUtils.deleteAllTemplates( 'wp_template' ),
-			requestUtils.deleteAllTemplates( 'wp_template_part' ),
+			requestUtils.deleteAllTemplates( 'fp_template' ),
+			requestUtils.deleteAllTemplates( 'fp_template_part' ),
 		] );
 		stylesPostId = await requestUtils.getCurrentThemeGlobalStylesPostId();
 	} );
@@ -304,7 +304,7 @@ class UserGlobalStylesRevisions {
 	async saveRevision( stylesPostId, styles = {}, settings = {} ) {
 		await this.page.evaluate(
 			async ( [ _stylesPostId, _styles, _settings ] ) => {
-				window.wp.data
+				window.fp.data
 					.dispatch( 'core' )
 					.editEntityRecord( 'root', 'globalStyles', _stylesPostId, {
 						id: _stylesPostId,

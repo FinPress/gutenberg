@@ -42,13 +42,13 @@ test.describe( 'Draggable block', () => {
 
 		// Confirm correct setup.
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- wp:paragraph -->
+			.toBe( `<!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>2</p>
-<!-- /wp:paragraph -->` );
+<!-- /fp:paragraph -->` );
 
 		await editor.canvas
 			.locator( 'role=document[name="Block: Paragraph"i] >> text=2' )
@@ -87,13 +87,13 @@ test.describe( 'Draggable block', () => {
 		await page.mouse.up();
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- wp:paragraph -->
+			.toBe( `<!-- fp:paragraph -->
 <p>2</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph -->` );
+<!-- /fp:paragraph -->` );
 	} );
 
 	test( 'can drag and drop to the bottom of a vertical block list', async ( {
@@ -107,13 +107,13 @@ test.describe( 'Draggable block', () => {
 
 		// Confirm correct setup.
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- wp:paragraph -->
+			.toBe( `<!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>2</p>
-<!-- /wp:paragraph -->` );
+<!-- /fp:paragraph -->` );
 
 		await editor.canvas
 			.locator( 'role=document[name="Block: Paragraph"i] >> text=1' )
@@ -160,13 +160,13 @@ test.describe( 'Draggable block', () => {
 		await page.mouse.up();
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- wp:paragraph -->
+			.toBe( `<!-- fp:paragraph -->
 <p>2</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph -->` );
+<!-- /fp:paragraph -->` );
 	} );
 
 	test( 'can drag and drop to the start of a horizontal block list', async ( {
@@ -236,15 +236,15 @@ test.describe( 'Draggable block', () => {
 		await page.mouse.up();
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-<div class="wp-block-group"><!-- wp:paragraph -->
+			.toBe( `<!-- fp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="fp-block-group"><!-- fp:paragraph -->
 <p>2</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->` );
+<!-- /fp:paragraph --></div>
+<!-- /fp:group -->` );
 	} );
 
 	test( 'can drag and drop to the end of a horizontal block list', async ( {
@@ -318,15 +318,15 @@ test.describe( 'Draggable block', () => {
 		await page.mouse.up();
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-<div class="wp-block-group"><!-- wp:paragraph -->
+			.toBe( `<!-- fp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="fp-block-group"><!-- fp:paragraph -->
 <p>2</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->` );
+<!-- /fp:paragraph --></div>
+<!-- /fp:group -->` );
 	} );
 
 	test( 'can drag and drop to an empty parent block like Group or Columns', async ( {
@@ -368,7 +368,7 @@ test.describe( 'Draggable block', () => {
 
 		// Deselect the block to hide the block toolbar.
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/block-editor' ).clearSelectedBlock()
+			window.fp.data.dispatch( 'core/block-editor' ).clearSelectedBlock()
 		);
 
 		const testImageName = '10x10_e2e_test_image_z9T8jK.png';

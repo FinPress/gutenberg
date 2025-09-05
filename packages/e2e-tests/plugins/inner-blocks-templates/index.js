@@ -1,9 +1,9 @@
 ( function () {
-	const registerBlockType = wp.blocks.registerBlockType;
-	const createBlock = wp.blocks.createBlock;
-	const el = wp.element.createElement;
-	const { InnerBlocks, useBlockProps } = wp.blockEditor;
-	const useState = window.wp.element.useState;
+	const registerBlockType = fp.blocks.registerBlockType;
+	const createBlock = fp.blocks.createBlock;
+	const el = fp.element.createElement;
+	const { InnerBlocks, useBlockProps } = fp.blockEditor;
+	const useState = window.fp.element.useState;
 
 	const TEMPLATE = [
 		[

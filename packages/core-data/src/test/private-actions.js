@@ -26,7 +26,7 @@ describe( 'editMediaEntity', () => {
 				{
 					kind: 'postType',
 					name: 'attachment',
-					baseURL: '/wp/v2/media',
+					baseURL: '/fp/v2/media',
 				},
 			] ),
 		};
@@ -94,7 +94,7 @@ describe( 'editMediaEntity', () => {
 		} );
 
 		expect( apiFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/media/123/edit',
+			path: '/fp/v2/media/123/edit',
 			method: 'POST',
 			data: edits,
 		} );
@@ -186,7 +186,7 @@ describe( 'editMediaEntity', () => {
 		} )( { dispatch, resolveSelect } );
 
 		expect( customFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/media/123/edit',
+			path: '/fp/v2/media/123/edit',
 			method: 'POST',
 			data: edits,
 		} );

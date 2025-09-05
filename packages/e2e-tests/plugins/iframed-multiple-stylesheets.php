@@ -10,23 +10,23 @@
 add_action(
 	'init',
 	static function () {
-		wp_register_script(
+		fp_register_script(
 			'iframed-multiple-stylesheets-editor-script',
 			plugin_dir_url( __FILE__ ) . 'iframed-multiple-stylesheets/editor.js',
 			array(
-				'wp-blocks',
-				'wp-block-editor',
-				'wp-element',
+				'fp-blocks',
+				'fp-block-editor',
+				'fp-element',
 			),
 			filemtime( plugin_dir_path( __FILE__ ) . 'iframed-multiple-stylesheets/editor.js' )
 		);
-		wp_register_style(
+		fp_register_style(
 			'iframed-multiple-stylesheets-style',
 			plugin_dir_url( __FILE__ ) . 'iframed-multiple-stylesheets/style.css',
 			array(),
 			filemtime( plugin_dir_path( __FILE__ ) . 'iframed-multiple-stylesheets/style.css' )
 		);
-		wp_register_style(
+		fp_register_style(
 			'iframed-multiple-stylesheets-style2',
 			plugin_dir_url( __FILE__ ) . 'iframed-multiple-stylesheets/style2.css',
 			array(),

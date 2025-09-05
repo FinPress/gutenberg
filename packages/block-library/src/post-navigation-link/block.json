@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-navigation-link",
 	"title": "Post Navigation Link",
@@ -60,5 +60,5 @@
 			"clientNavigation": true
 		}
 	},
-	"style": "wp-block-post-navigation-link"
+	"style": "fp-block-post-navigation-link"
 }

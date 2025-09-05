@@ -73,7 +73,7 @@ export default function WidgetAreaEdit( {
 						// widgets may have unintended consequences (e.g.  TinyMCE
 						// not being properly reinitialized)
 						<DisclosureContent
-							className="wp-block-widget-area__panel-body-content"
+							className="fp-block-widget-area__panel-body-content"
 							visible={ opened }
 						>
 							<EntityProvider

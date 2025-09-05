@@ -8,10 +8,10 @@
  */
 
 /**
- * Add a non-WP_Widget marquee widget.
+ * Add a non-FP_Widget marquee widget.
  */
 function marquee_greeting_init() {
-	wp_register_sidebar_widget(
+	fp_register_sidebar_widget(
 		'marquee_greeting',
 		'Marquee Greeting',
 		static function () {
@@ -20,7 +20,7 @@ function marquee_greeting_init() {
 		}
 	);
 
-	wp_register_widget_control(
+	fp_register_widget_control(
 		'marquee_greeting',
 		'Marquee Greeting',
 		static function () {

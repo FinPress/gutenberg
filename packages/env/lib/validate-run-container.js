@@ -24,12 +24,12 @@ function validateRunContainer( value ) {
 	// Give special errors for deprecated containers.
 	if ( value === 'phpunit' ) {
 		throw new Error(
-			"The 'phpunit' container has been removed. Please use 'wp-env run tests-cli --env-cwd=wp-content/path/to/plugin phpunit' instead."
+			"The 'phpunit' container has been removed. Please use 'fp-env run tests-cli --env-cwd=fp-content/path/to/plugin phpunit' instead."
 		);
 	}
 	if ( value === 'composer' ) {
 		throw new Error(
-			"The 'composer' container has been removed. Please use 'wp-env run cli --env-cwd=wp-content/path/to/plugin composer' instead."
+			"The 'composer' container has been removed. Please use 'fp-env run cli --env-cwd=fp-content/path/to/plugin composer' instead."
 		);
 	}
 

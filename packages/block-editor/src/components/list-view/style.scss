@@ -39,7 +39,7 @@
 
 		// Ensure that on hover, the admin color is still used.
 		&:hover {
-			color: var(--wp-admin-theme-color);
+			color: var(--fp-admin-theme-color);
 		}
 
 		svg {
@@ -65,20 +65,20 @@
 
 	// The background has to be applied to the td, not tr, or border-radius won't work.
 	&.is-selected td {
-		background: var(--wp-admin-theme-color);
+		background: var(--fp-admin-theme-color);
 	}
 	&.is-selected.is-synced td {
-		background: var(--wp-block-synced-color);
+		background: var(--fp-block-synced-color);
 	}
 	&.is-synced:not(.is-selected) .block-editor-list-view-block-contents {
 		&:hover,
 		&:focus,
 		.block-editor-block-icon {
-			color: var(--wp-block-synced-color);
+			color: var(--fp-block-synced-color);
 		}
 
 		&:focus::after {
-			box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus) var(--wp-block-synced-color);
+			box-shadow: inset 0 0 0 var(--fp-admin-border-width-focus) var(--fp-block-synced-color);
 		}
 	}
 	&.is-selected .block-editor-list-view-block-contents,
@@ -89,20 +89,20 @@
 		&::after {
 			box-shadow:
 				inset 0 0 0 1px $white,
-				0 0 0 var(--wp-admin-border-width-focus)
-				var(--wp-admin-theme-color);
+				0 0 0 var(--fp-admin-border-width-focus)
+				var(--fp-admin-theme-color);
 		}
 	}
 	&.is-selected.is-synced .block-editor-list-view-block-contents:focus {
 		&::after {
 			box-shadow:
 				inset 0 0 0 1px $white,
-				0 0 0 var(--wp-admin-border-width-focus)
-				var(--wp-block-synced-color);
+				0 0 0 var(--fp-admin-border-width-focus)
+				var(--fp-block-synced-color);
 		}
 	}
 	&.is-selected .block-editor-list-view-block__menu:focus {
-		box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus) $white;
+		box-shadow: inset 0 0 0 var(--fp-admin-border-width-focus) $white;
 	}
 
 	// Border radius for corners of the selected item.
@@ -119,10 +119,10 @@
 		border-bottom-right-radius: $radius-small;
 	}
 	&.is-branch-selected:not(.is-selected):not(.is-synced-branch) {
-		background: rgba(var(--wp-admin-theme-color--rgb), 0.04);
+		background: rgba(var(--fp-admin-theme-color--rgb), 0.04);
 	}
 	&.is-synced-branch.is-branch-selected {
-		background: rgba(var(--wp-block-synced-color--rgb), 0.04);
+		background: rgba(var(--fp-block-synced-color--rgb), 0.04);
 	}
 	&.is-branch-selected.is-first-selected td:first-child {
 		border-top-left-radius: $radius-small;
@@ -187,7 +187,7 @@
 		@media not ( prefers-reduced-motion ) {
 			transition: transform 0.2s;
 		}
-		transform: translateY(calc(var(--wp-admin--list-view-dragged-items-height, 32px) * -1));
+		transform: translateY(calc(var(--fp-admin--list-view-dragged-items-height, 32px) * -1));
 
 	}
 
@@ -195,7 +195,7 @@
 		@media not ( prefers-reduced-motion ) {
 			transition: transform 0.2s;
 		}
-		transform: translateY(calc(-32px + var(--wp-admin--list-view-dragged-items-height, 32px) * -1));
+		transform: translateY(calc(-32px + var(--fp-admin--list-view-dragged-items-height, 32px) * -1));
 
 	}
 
@@ -204,7 +204,7 @@
 			transition: transform 0.2s;
 		}
 		transform:
-			translateY(calc(32px + var(--wp-admin--list-view-dragged-items-height, 32px) *
+			translateY(calc(32px + var(--fp-admin--list-view-dragged-items-height, 32px) *
 			-1));
 
 	}
@@ -266,8 +266,8 @@
 			left: 0;
 			border-radius: inherit;
 			box-shadow:
-				inset 0 0 0 var(--wp-admin-border-width-focus)
-				var(--wp-admin-theme-color);
+				inset 0 0 0 var(--fp-admin-border-width-focus)
+				var(--fp-admin-theme-color);
 			z-index: 2;
 			pointer-events: none;
 		}
@@ -281,8 +281,8 @@
 	&.is-nesting .block-editor-list-view__menu,
 	.block-editor-list-view-block__menu:focus {
 		box-shadow:
-			inset 0 0 0 var(--wp-admin-border-width-focus)
-			var(--wp-admin-theme-color);
+			inset 0 0 0 var(--fp-admin-border-width-focus)
+			var(--fp-admin-theme-color);
 		z-index: 1;
 	}
 
@@ -438,7 +438,7 @@
 
 	&.is-selected .block-editor-list-view-block-select-button__image {
 		&:not(:only-child) {
-			box-shadow: 0 0 0 $radius-small var(--wp-admin-theme-color);
+			box-shadow: 0 0 0 $radius-small var(--fp-admin-theme-color);
 		}
 	}
 }
@@ -514,7 +514,7 @@ svg {
 	pointer-events: none;
 
 	.block-editor-list-view-drop-indicator__line {
-		background: var(--wp-admin-theme-color);
+		background: var(--fp-admin-theme-color);
 		height: 4px;
 		border-radius: 4px;
 	}
@@ -530,14 +530,14 @@ svg {
 	}
 
 	.block-editor-list-view-drop-indicator__line {
-		background: rgba(var(--wp-admin-theme-color--rgb), 0.04);
+		background: rgba(var(--fp-admin-theme-color--rgb), 0.04);
 		height: 32px;
 		border-radius: 4px;
 		overflow: hidden;
 	}
 
 	.block-editor-list-view-drop-indicator__line--darker {
-		background: rgba(var(--wp-admin-theme-color--rgb), 0.09);
+		background: rgba(var(--fp-admin-theme-color--rgb), 0.09);
 	}
 }
 
@@ -562,7 +562,7 @@ svg {
 
 	&:hover,
 	&:focus {
-		background: var(--wp-admin-theme-color);
+		background: var(--fp-admin-theme-color);
 		color: #fff;
 	}
 }

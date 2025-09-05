@@ -1,7 +1,7 @@
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { BlockBreadcrumb } from '@finpress/block-editor';
 import { useEffect } from '@finpress/element';
 import { useDispatch, useSelect } from '@finpress/data';
@@ -33,8 +33,8 @@ const interfaceLabels = {
 };
 
 function Interface( { blockEditorSettings } ) {
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
-	const isHugeViewport = useViewportMatch( 'huge', '>=' );
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
+	const isHugeviewport = useviewportMatch( 'huge', '>=' );
 	const { setIsInserterOpened, setIsListViewOpened, closeGeneralSidebar } =
 		useDispatch( editWidgetsStore );
 	const {
@@ -59,17 +59,17 @@ function Interface( { blockEditorSettings } ) {
 
 	// Inserter and Sidebars are mutually exclusive
 	useEffect( () => {
-		if ( hasSidebarEnabled && ! isHugeViewport ) {
+		if ( hasSidebarEnabled && ! isHugeviewport ) {
 			setIsInserterOpened( false );
 			setIsListViewOpened( false );
 		}
-	}, [ hasSidebarEnabled, isHugeViewport ] );
+	}, [ hasSidebarEnabled, isHugeviewport ] );
 
 	useEffect( () => {
-		if ( ( isInserterOpened || isListViewOpened ) && ! isHugeViewport ) {
+		if ( ( isInserterOpened || isListViewOpened ) && ! isHugeviewport ) {
 			closeGeneralSidebar();
 		}
-	}, [ isInserterOpened, isListViewOpened, isHugeViewport ] );
+	}, [ isInserterOpened, isListViewOpened, isHugeviewport ] );
 
 	const secondarySidebarLabel = isListViewOpened
 		? __( 'List View' )
@@ -95,7 +95,7 @@ function Interface( { blockEditorSettings } ) {
 			}
 			footer={
 				hasBlockBreadCrumbsEnabled &&
-				! isMobileViewport && (
+				! isMobileviewport && (
 					<div className="edit-widgets-layout__footer">
 						<BlockBreadcrumb rootLabelText={ __( 'Widgets' ) } />
 					</div>

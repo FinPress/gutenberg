@@ -11,7 +11,7 @@ import apiFetch from '@finpress/api-fetch';
  * const responses = [
  *     {
  *         request: {
- *             path: `/wp/v2/media/1?context=edit`,
+ *             path: `/fp/v2/media/1?context=edit`,
  *         },
  *         response: {
  *             source_url: 'https://image-1.jpg',
@@ -20,7 +20,7 @@ import apiFetch from '@finpress/api-fetch';
  *     },
  *     {
  *         request: {
- *             path: `/wp/v2/media/2?context=edit`,
+ *             path: `/fp/v2/media/2?context=edit`,
  *         },
  *         response: {
  *             source_url: 'https://image-2.jpg',

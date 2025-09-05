@@ -16,9 +16,9 @@ describe( 'Parser', () => {
 	const originalBlockHtml = `<p>${ innerContent }</p>`;
 
 	const gbBlockHtml = `
-		<!-- wp:paragraph -->
+		<!-- fp:paragraph -->
 		${ originalBlockHtml }
-		<!-- /wp:code -->`;
+		<!-- /fp:code -->`;
 
 	it( 'parses the paragraph block ok', () => {
 		const blockInstance = parse( gbBlockHtml )[ 0 ];

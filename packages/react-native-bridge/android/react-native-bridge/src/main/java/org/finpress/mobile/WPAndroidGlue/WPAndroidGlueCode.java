@@ -1,4 +1,4 @@
-package org.finpress.mobile.WPAndroidGlue;
+package org.finpress.mobile.FPAndroidGlue;
 
 import android.app.Activity;
 import android.app.Application;
@@ -77,7 +77,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 
 
-public class WPAndroidGlueCode {
+public class FPAndroidGlueCode {
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
     private ReactContext mReactContext;
@@ -989,7 +989,7 @@ public class WPAndroidGlueCode {
             new Thread(new Runnable() {
                 @Override public void run() {
                     // We need to synchronize access to (and overwriting of) the latch to avoid race conditions
-                    synchronized (WPAndroidGlueCode.this) {
+                    synchronized (FPAndroidGlueCode.this) {
                         mGetContentCountDownLatch = new CountDownLatch(1);
 
                         mRnReactNativeGutenbergBridgePackage.getRNReactNativeGutenbergBridgeModule().getHtmlFromJS();
@@ -1083,7 +1083,7 @@ public class WPAndroidGlueCode {
             }
         } else {
             // save the URL, we'll add it once Editor is mounted
-            synchronized (WPAndroidGlueCode.this) {
+            synchronized (FPAndroidGlueCode.this) {
                 mMediaToAddAfterMounting.put(media.getId(), media);
             }
         }

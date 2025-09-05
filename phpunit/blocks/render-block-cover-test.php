@@ -11,7 +11,7 @@
  *
  * @group blocks
  */
-class Tests_Blocks_Render_Cover extends WP_UnitTestCase {
+class Tests_Blocks_Render_Cover extends FP_UnitTestCase {
 	/**
 	 * Post object.
 	 *
@@ -29,7 +29,7 @@ class Tests_Blocks_Render_Cover extends WP_UnitTestCase {
 	/**
 	 * Setup method.
 	 */
-	public static function wpSetUpBeforeClass() {
+	public static function fpSetUpBeforeClass() {
 		self::$post = self::factory()->post->create_and_get();
 		$file       = DIR_TESTDATA . '/images/canola.jpg';
 
@@ -47,9 +47,9 @@ class Tests_Blocks_Render_Cover extends WP_UnitTestCase {
 	/**
 	 * Tear down method.
 	 */
-	public static function wpTearDownAfterClass() {
-		wp_delete_post( self::$post->ID, true );
-		wp_delete_post( self::$attachment_id, true );
+	public static function fpTearDownAfterClass() {
+		fp_delete_post( self::$post->ID, true );
+		fp_delete_post( self::$attachment_id, true );
 	}
 
 	/**
@@ -59,13 +59,13 @@ class Tests_Blocks_Render_Cover extends WP_UnitTestCase {
 	 */
 	public function test_gutenberg_render_block_core_cover() {
 
-		global $wp_query;
+		global $fp_query;
 
 		// Fake being in the loop.
-		$wp_query->in_the_loop = true;
-		$wp_query->post        = self::$post;
+		$fp_query->in_the_loop = true;
+		$fp_query->post        = self::$post;
 
-		$wp_query->posts = array( self::$post );
+		$fp_query->posts = array( self::$post );
 		$GLOBALS['post'] = self::$post;
 
 		$attributes = array(
@@ -76,10 +76,10 @@ class Tests_Blocks_Render_Cover extends WP_UnitTestCase {
 			'minHeight'        => '100px',
 		);
 
-		$content  = '<div class="wp-block-cover" style="min-height:100px"><span></span><div class="wp-block-cover__inner-container"></div></div>';
+		$content  = '<div class="fp-block-cover" style="min-height:100px"><span></span><div class="fp-block-cover__inner-container"></div></div>';
 		$rendered = gutenberg_render_block_core_cover( $attributes, $content );
 
-		$this->assertStringContainsString( wp_get_attachment_image_url( self::$attachment_id, 'full' ), $rendered );
+		$this->assertStringContainsString( fp_get_attachment_image_url( self::$attachment_id, 'full' ), $rendered );
 		$this->assertStringContainsString( 'background-image', $rendered );
 		$this->assertStringContainsString( 'min-height', $rendered );
 
@@ -102,10 +102,10 @@ class Tests_Blocks_Render_Cover extends WP_UnitTestCase {
 	 */
 	public function test_gutenberg_render_block_core_cover_fixed_or_repeated_background() {
 
-		global $wp_query;
+		global $fp_query;
 
 		// Fake being in the loop.
-		$wp_query->post  = self::$post;
+		$fp_query->post  = self::$post;
 		$GLOBALS['post'] = self::$post;
 
 		$attributes = array(
@@ -120,10 +120,10 @@ class Tests_Blocks_Render_Cover extends WP_UnitTestCase {
 			),
 		);
 
-		$content  = '<div class="wp-block-cover"><span></span><div class="wp-block-cover__inner-container"></div></div>';
+		$content  = '<div class="fp-block-cover"><span></span><div class="fp-block-cover__inner-container"></div></div>';
 		$rendered = gutenberg_render_block_core_cover( $attributes, $content );
 
-		$this->assertStringContainsString( wp_get_attachment_image_url( self::$attachment_id, 'full' ), $rendered );
+		$this->assertStringContainsString( fp_get_attachment_image_url( self::$attachment_id, 'full' ), $rendered );
 		$this->assertStringContainsString( 'object-position', $rendered );
 		$this->assertStringNotContainsString( 'background-image', $rendered );
 		$this->assertStringNotContainsString( 'min-height', $rendered );

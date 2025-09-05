@@ -423,14 +423,14 @@ test.describe( 'Widgets screen', () => {
 		// Get the default empty instance of a legacy search widget.
 		const { instance: defaultSearchInstance } = await requestUtils.rest( {
 			method: 'POST',
-			path: '/wp/v2/widget-types/search/encode',
+			path: '/fp/v2/widget-types/search/encode',
 			data: { instance: {} },
 		} );
 
 		// Create a search widget in the first sidebar using the default instance.
 		const widget = await requestUtils.rest( {
 			method: 'POST',
-			path: '/wp/v2/widgets',
+			path: '/fp/v2/widgets',
 			data: {
 				id_base: 'search',
 				sidebar: 'sidebar-1',
@@ -440,7 +440,7 @@ test.describe( 'Widgets screen', () => {
 		// Add it to the first widget area. The above request for some reason isn't enough.
 		await requestUtils.rest( {
 			method: 'POST',
-			path: '/wp/v2/sidebars/sidebar-1',
+			path: '/fp/v2/sidebars/sidebar-1',
 			data: {
 				widgets: [ widget.id ],
 			},
@@ -629,7 +629,7 @@ test.describe( 'Widgets screen', () => {
 		pageUtils,
 		widgetsScreen,
 	} ) => {
-		await pageUtils.setBrowserViewport( 'small' );
+		await pageUtils.setBrowserviewport( 'small' );
 
 		const firstWidgetArea = widgetsScreen.widgetAreas.first();
 

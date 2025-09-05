@@ -171,7 +171,7 @@ export default compose( [
 
 		return {
 			hasPublishAction:
-				getCurrentPost()._links?.[ 'wp:action-publish' ] ?? false,
+				getCurrentPost()._links?.[ 'fp:action-publish' ] ?? false,
 			isPostTypeViewable: postType?.viewable,
 			isBeingScheduled: isEditedPostBeingScheduled(),
 			isDirty: isEditedPostDirty(),

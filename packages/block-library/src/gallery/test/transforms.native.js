@@ -11,19 +11,19 @@ import {
 
 const block = 'Gallery';
 const initialHtml = `
-<!-- wp:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
-<figure class="wp-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon.png" alt=""/><figcaption class="wp-element-caption">Paragraph</figcaption></figure>
-<!-- /wp:image -->
+<!-- fp:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
+<figure class="fp-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon.png" alt=""/><figcaption class="fp-element-caption">Paragraph</figcaption></figure>
+<!-- /fp:image -->
 
-<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Heading.png" alt=""/><figcaption class="wp-element-caption">Heading</figcaption></figure>
-<!-- /wp:image -->
+<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Heading.png" alt=""/><figcaption class="fp-element-caption">Heading</figcaption></figure>
+<!-- /fp:image -->
 
-<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Subheading.png" alt=""/><figcaption class="wp-element-caption">Subheading</figcaption></figure>
-<!-- /wp:image --></figure>
-<!-- /wp:gallery -->`;
+<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Subheading.png" alt=""/><figcaption class="fp-element-caption">Subheading</figcaption></figure>
+<!-- /fp:image --></figure>
+<!-- /fp:gallery -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ 'Image', ...transformsWithInnerBlocks ];

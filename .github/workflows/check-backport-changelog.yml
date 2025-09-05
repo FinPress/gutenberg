@@ -49,7 +49,7 @@ jobs:
 
                   # Confirm that there is an entry containing the Gutenberg PR link
                   if [[ -z "${changelog_file}" ]]; then
-                    echo "Please create a core backport PR and add a file with the path <wp-release-number>/<core-pr-number>.md in the $changelog_folder folder with the core backport PR URL and a list item with this PR URL."
+                    echo "Please create a core backport PR and add a file with the path <fp-release-number>/<core-pr-number>.md in the $changelog_folder folder with the core backport PR URL and a list item with this PR URL."
                     echo "If changes are related to an existing, open core PR, you may add this PR URL to the core PR's file."
                     echo "See $changelog_folder/readme.md for more information."
                     exit 1

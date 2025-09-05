@@ -14,7 +14,7 @@ import {
 import { __, _x } from '@finpress/i18n';
 import {
 	useReducedMotion,
-	useViewportMatch,
+	useviewportMatch,
 	useResizeObserver,
 } from '@finpress/compose';
 
@@ -88,7 +88,7 @@ function InterfaceSkeleton(
 ) {
 	const [ secondarySidebarResizeListener, secondarySidebarSize ] =
 		useResizeObserver();
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
 	const disableMotion = useReducedMotion();
 	const defaultTransition = {
 		type: 'tween',
@@ -131,22 +131,22 @@ function InterfaceSkeleton(
 							className="interface-interface-skeleton__header"
 							aria-label={ mergedLabels.header }
 							initial={
-								isDistractionFree && ! isMobileViewport
+								isDistractionFree && ! isMobileviewport
 									? 'distractionFreeHidden'
 									: 'hidden'
 							}
 							whileHover={
-								isDistractionFree && ! isMobileViewport
+								isDistractionFree && ! isMobileviewport
 									? 'distractionFreeHover'
 									: 'visible'
 							}
 							animate={
-								isDistractionFree && ! isMobileViewport
+								isDistractionFree && ! isMobileviewport
 									? 'distractionFreeDisabled'
 									: 'visible'
 							}
 							exit={
-								isDistractionFree && ! isMobileViewport
+								isDistractionFree && ! isMobileviewport
 									? 'distractionFreeHidden'
 									: 'hidden'
 							}
@@ -181,7 +181,7 @@ function InterfaceSkeleton(
 								<motion.div
 									style={ {
 										position: 'absolute',
-										width: isMobileViewport
+										width: isMobileviewport
 											? '100vw'
 											: 'fit-content',
 										height: '100%',

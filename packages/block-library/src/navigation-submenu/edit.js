@@ -109,16 +109,16 @@ const useIsDraggingWithin = ( elementRef ) => {
 };
 
 /**
- * @typedef {'post-type'|'custom'|'taxonomy'|'post-type-archive'} WPNavigationLinkKind
+ * @typedef {'post-type'|'custom'|'taxonomy'|'post-type-archive'} FPNavigationLinkKind
  */
 
 /**
  * Navigation Link Block Attributes
  *
- * @typedef {Object} WPNavigationLinkBlockAttributes
+ * @typedef {Object} FPNavigationLinkBlockAttributes
  *
  * @property {string}               [label]         Link text.
- * @property {WPNavigationLinkKind} [kind]          Kind is used to differentiate between term and post ids to check post draft status.
+ * @property {FPNavigationLinkKind} [kind]          Kind is used to differentiate between term and post ids to check post draft status.
  * @property {string}               [type]          The type such as post, page, tag, category and other custom types.
  * @property {string}               [rel]           The relationship of the linked URL.
  * @property {number}               [id]            A post or term id.
@@ -285,7 +285,7 @@ export default function NavigationSubmenuEdit( {
 
 	const blockProps = useBlockProps( {
 		ref: useMergeRefs( [ setPopoverAnchor, listItemRef ] ),
-		className: clsx( 'wp-block-navigation-item', {
+		className: clsx( 'fp-block-navigation-item', {
 			'is-editing': isSelected || isParentOfSelectedBlock,
 			'is-dragging-within': isDraggingWithin,
 			'has-link': !! url,
@@ -378,7 +378,7 @@ export default function NavigationSubmenuEdit( {
 						icon={ removeSubmenu }
 						title={ __( 'Convert to Link' ) }
 						onClick={ transformToLink }
-						className="wp-block-navigation__submenu__revert"
+						className="fp-block-navigation__submenu__revert"
 						disabled={ ! canConvertToLink }
 					/>
 				</ToolbarGroup>
@@ -500,12 +500,12 @@ export default function NavigationSubmenuEdit( {
 			</InspectorControls>
 			<div { ...blockProps }>
 				{ /* eslint-disable jsx-a11y/anchor-is-valid */ }
-				<ParentElement className="wp-block-navigation-item__content">
+				<ParentElement className="fp-block-navigation-item__content">
 					{ /* eslint-enable */ }
 					<RichText
 						ref={ ref }
 						identifier="label"
-						className="wp-block-navigation-item__label"
+						className="fp-block-navigation-item__label"
 						value={ label }
 						onChange={ ( labelValue ) =>
 							setAttributes( { label: labelValue } )
@@ -523,7 +523,7 @@ export default function NavigationSubmenuEdit( {
 						} }
 					/>
 					{ description && (
-						<span className="wp-block-navigation-item__description">
+						<span className="fp-block-navigation-item__description">
 							{ description }
 						</span>
 					) }
@@ -556,7 +556,7 @@ export default function NavigationSubmenuEdit( {
 					) }
 				</ParentElement>
 				{ ( showSubmenuIcon || openSubmenusOnClick ) && (
-					<span className="wp-block-navigation__submenu-icon">
+					<span className="fp-block-navigation__submenu-icon">
 						<ItemSubmenuIcon />
 					</span>
 				) }

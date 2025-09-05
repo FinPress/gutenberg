@@ -28,13 +28,13 @@ const {
 } = require( '../utils' );
 
 /**
- * @typedef {import('../../env/lib/config/load-config').WPConfig} WPConfig
+ * @typedef {import('../../env/lib/config/load-config').FPConfig} FPConfig
  */
 
 /**
  * Loads any configuration from a given directory.
  *
- * @type {(configDirectoryPath: string) => Promise<WPConfig> | null}
+ * @type {(configDirectoryPath: string) => Promise<FPConfig> | null}
  */
 let loadConfig = null;
 
@@ -44,7 +44,7 @@ try {
 } catch ( error ) {
 	// eslint-disable-next-line no-console
 	console.log(
-		'Notice: Could not find @finpress/env package. Using WP_BASE_URL environment variable or else the default http://localhost:8889 URL for tests.'
+		'Notice: Could not find @finpress/env package. Using FP_BASE_URL environment variable or else the default http://localhost:8889 URL for tests.'
 	);
 }
 
@@ -66,8 +66,8 @@ const config =
 		: [];
 
 // Set the default artifacts path.
-if ( ! process.env.WP_ARTIFACTS_PATH ) {
-	process.env.WP_ARTIFACTS_PATH = resolve(
+if ( ! process.env.FP_ARTIFACTS_PATH ) {
+	process.env.FP_ARTIFACTS_PATH = resolve(
 		process.env.GITHUB_WORKSPACE || process.cwd(),
 		'artifacts'
 	);
@@ -94,8 +94,8 @@ function spawnProcess() {
 
 if ( loadConfig ) {
 	loadConfig( path.resolve( '.' ) ).then( ( envConfig ) => {
-		if ( ! process.env.WP_BASE_URL && envConfig?.env?.tests?.port ) {
-			process.env.WP_BASE_URL = `http://localhost:${ envConfig.env.tests.port }`;
+		if ( ! process.env.FP_BASE_URL && envConfig?.env?.tests?.port ) {
+			process.env.FP_BASE_URL = `http://localhost:${ envConfig.env.tests.port }`;
 		}
 		spawnProcess();
 	} );

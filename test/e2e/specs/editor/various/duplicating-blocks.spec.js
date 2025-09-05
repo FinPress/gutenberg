@@ -21,30 +21,30 @@ test.describe( 'Duplicating blocks', () => {
 		await page.click( 'role=menuitem[name=/Duplicate/i]' );
 
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p>Clone me</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Clone me</p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 
 		// Test: Duplicate using the keyboard shortccut.
 		await pageUtils.pressKeys( 'primaryShift+d' );
 
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p>Clone me</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Clone me</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Clone me</p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 	} );
 } );

@@ -19,12 +19,12 @@ function Edit( { attributes: { uniqueId } } ) {
 	const hasRecursion = useHasRecursion( uniqueId );
 
 	if ( hasRecursion ) {
-		return <div data-testid={ `wp-block__${ name }--halted` }>Halt</div>;
+		return <div data-testid={ `fp-block__${ name }--halted` }>Halt</div>;
 	}
 
 	return (
 		<RecursionProvider uniqueId={ uniqueId }>
-			<div data-testid={ `wp-block__${ name }` }>
+			<div data-testid={ `fp-block__${ name }` }>
 				{ uniqueId === 'SIMPLE' && <p>Done</p> }
 				{ uniqueId === 'SINGLY-RECURSIVE' && (
 					<Edit attributes={ { uniqueId } } />
@@ -57,10 +57,10 @@ describe( 'useHasRecursion/RecursionProvider', () => {
 			</BlockEditContextProvider>
 		);
 		expect(
-			screen.getByTestId( 'wp-block__reusable-block' )
+			screen.getByTestId( 'fp-block__reusable-block' )
 		).toBeVisible();
 		expect(
-			screen.queryByTestId( 'wp-block__reusable-block--halted' )
+			screen.queryByTestId( 'fp-block__reusable-block--halted' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -72,10 +72,10 @@ describe( 'useHasRecursion/RecursionProvider', () => {
 			</BlockEditContextProvider>
 		);
 		expect(
-			screen.getAllByTestId( 'wp-block__reusable-block' )
+			screen.getAllByTestId( 'fp-block__reusable-block' )
 		).toHaveLength( 2 );
 		expect(
-			screen.queryByTestId( 'wp-block__reusable-block--halted' )
+			screen.queryByTestId( 'fp-block__reusable-block--halted' )
 		).not.toBeInTheDocument();
 	} );
 
@@ -86,10 +86,10 @@ describe( 'useHasRecursion/RecursionProvider', () => {
 			</BlockEditContextProvider>
 		);
 		expect(
-			screen.getByTestId( 'wp-block__reusable-block' )
+			screen.getByTestId( 'fp-block__reusable-block' )
 		).toBeVisible();
 		expect(
-			screen.getByTestId( 'wp-block__reusable-block--halted' )
+			screen.getByTestId( 'fp-block__reusable-block--halted' )
 		).toBeVisible();
 	} );
 
@@ -100,11 +100,11 @@ describe( 'useHasRecursion/RecursionProvider', () => {
 			</BlockEditContextProvider>
 		);
 		expect(
-			screen.getByTestId( 'wp-block__reusable-block' )
+			screen.getByTestId( 'fp-block__reusable-block' )
 		).toBeVisible();
-		expect( screen.getByTestId( 'wp-block__another-block' ) ).toBeVisible();
+		expect( screen.getByTestId( 'fp-block__another-block' ) ).toBeVisible();
 		expect(
-			screen.getByTestId( 'wp-block__another-block--halted' )
+			screen.getByTestId( 'fp-block__another-block--halted' )
 		).toBeVisible();
 	} );
 
@@ -115,10 +115,10 @@ describe( 'useHasRecursion/RecursionProvider', () => {
 			</BlockEditContextProvider>
 		);
 		expect(
-			screen.getAllByTestId( 'wp-block__reusable-block' )
+			screen.getAllByTestId( 'fp-block__reusable-block' )
 		).toHaveLength( 2 );
 		expect(
-			screen.getByTestId( 'wp-block__reusable-block--halted' )
+			screen.getByTestId( 'fp-block__reusable-block--halted' )
 		).toBeVisible();
 	} );
 } );

@@ -36,7 +36,7 @@ export default function WelcomeGuide() {
 
 	const isEntirelyBlockWidgets = widgetAreas?.every(
 		( widgetArea ) =>
-			widgetArea.id === 'wp_inactive_widgets' ||
+			widgetArea.id === 'fp_inactive_widgets' ||
 			widgetArea.widgets.every( ( widgetId ) =>
 				widgetId.startsWith( 'block-' )
 			)
@@ -44,7 +44,7 @@ export default function WelcomeGuide() {
 
 	const numWidgetAreas =
 		widgetAreas?.filter(
-			( widgetArea ) => widgetArea.id !== 'wp_inactive_widgets'
+			( widgetArea ) => widgetArea.id !== 'fp_inactive_widgets'
 		).length ?? 0;
 
 	return (

@@ -1,39 +1,39 @@
 <?php
 /**
- * HTML for testing the directive `data-wp-watch`.
+ * HTML for testing the directive `data-fp-watch`.
  *
  * @package gutenberg-test-interactive-blocks
  */
 ?>
 
-<div data-wp-interactive="directive-watch">
-	<div data-wp-show-mock="state.isOpen">
+<div data-fp-interactive="directive-watch">
+	<div data-fp-show-mock="state.isOpen">
 		<input
 			data-testid="input"
-			data-wp-watch="callbacks.elementAddedToTheDOM"
+			data-fp-watch="callbacks.elementAddedToTheDOM"
 		/>
 	</div>
 
 	<div
-		data-wp-text="state.elementInTheDOM"
+		data-fp-text="state.elementInTheDOM"
 		data-testid="element in the DOM"
 	></div>
 
-	<div data-wp-watch="callbacks.changeFocus"></div>
+	<div data-fp-watch="callbacks.changeFocus"></div>
 
 	<div
 		data-testid="short-circuit infinite loops"
-		data-wp-watch="callbacks.infiniteLoop"
-		data-wp-text="state.counter"
+		data-fp-watch="callbacks.infiniteLoop"
+		data-fp-text="state.counter"
 	>
 		0
 	</div>
 
-	<button data-testid="toggle" data-wp-on--click="actions.toggle">
+	<button data-testid="toggle" data-fp-on--click="actions.toggle">
 		Update
 	</button>
 
-	<button data-testid="increment" data-wp-on--click="actions.increment">
+	<button data-testid="increment" data-fp-on--click="actions.increment">
 		Increment
 	</button>
 </div>

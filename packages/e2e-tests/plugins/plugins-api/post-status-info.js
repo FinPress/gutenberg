@@ -1,8 +1,8 @@
 ( function () {
-	const el = wp.element.createElement;
-	const __ = wp.i18n.__;
-	const registerPlugin = wp.plugins.registerPlugin;
-	const PluginPostStatusInfo = wp.editor.PluginPostStatusInfo;
+	const el = fp.element.createElement;
+	const __ = fp.i18n.__;
+	const registerPlugin = fp.plugins.registerPlugin;
+	const PluginPostStatusInfo = fp.editor.PluginPostStatusInfo;
 
 	function MyPostStatusInfoPlugin() {
 		return el(

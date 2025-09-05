@@ -11,9 +11,9 @@ import {
 
 const block = 'Heading';
 const initialHtml = `
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Example text</h2>
-<!-- /wp:heading -->`;
+<!-- fp:heading -->
+<h2 class="fp-block-heading">Example text</h2>
+<!-- /fp:heading -->`;
 
 const transformsWithInnerBlocks = [ 'List', 'Quote', 'Columns', 'Group' ];
 const blockTransforms = [

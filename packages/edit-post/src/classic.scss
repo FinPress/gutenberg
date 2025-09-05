@@ -2,7 +2,7 @@
 // Specificity is kept at this level as many classic themes output
 // rules like figure { margin: 0; } which would break centering.
 // These rules should also not apply to direct children of flex layout blocks.
-.editor-styles-wrapper :where(:not(.is-layout-flex, .is-layout-grid)) > .wp-block {
+.editor-styles-wrapper :where(:not(.is-layout-flex, .is-layout-grid)) > .fp-block {
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -13,7 +13,7 @@
 // These margins should match the padding value above.
 html :where(.editor-styles-wrapper) {
 	padding: 8px;
-	.block-editor-block-list__layout.is-root-container > .wp-block[data-align="full"] {
+	.block-editor-block-list__layout.is-root-container > .fp-block[data-align="full"] {
 		margin-left: -8px;
 		margin-right: -8px;
 	}
@@ -21,7 +21,7 @@ html :where(.editor-styles-wrapper) {
 
 // Deprecated style needed for the block widths and alignments.
 // for themes that don't support the new layout (theme.json).
-html :where(.wp-block) {
+html :where(.fp-block) {
 	max-width: $content-width;
 
 	// Provide every block with a default base margin. This margin provides a consistent spacing
@@ -75,13 +75,13 @@ html :where(.wp-block) {
 
 // Full Width Blocks
 // specificity required to only target immediate child Blocks of a Group
-.wp-block-group > [data-align="full"] {
+.fp-block-group > [data-align="full"] {
 	margin-left: auto;
 	margin-right: auto;
 }
 
 // Full Width Blocks with a background (ie: has padding)
-.wp-block-group.has-background > [data-align="full"] {
+.fp-block-group.has-background > [data-align="full"] {
 	// note: using position `left` causes hoz scrollbars so
 	// we opt to use margin instead
 	// the 30px matches the hoz padding applied in `theme.scss`
@@ -97,10 +97,10 @@ html :where(.wp-block) {
 /**
 * Group: Full Width Alignment
 */
-[data-align="full"] .wp-block-group {
+[data-align="full"] .fp-block-group {
 	// Non-full Width Blocks
 	// specificity required to only target immediate child Blocks of Group
-	> .wp-block {
+	> .fp-block {
 		padding-left: $block-padding;
 		padding-right: $block-padding;
 

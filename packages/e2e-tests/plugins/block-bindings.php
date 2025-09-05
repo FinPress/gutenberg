@@ -15,7 +15,7 @@
  */
 function gutenberg_test_block_bindings_registration() {
 	// Define fields list.
-	$upload_dir  = wp_upload_dir();
+	$upload_dir  = fp_upload_dir();
 	$testing_url = $upload_dir['url'] . '/1024x768_e2e_test_image_size.jpeg';
 	$fields_list = array(
 		'text_field'  => array(
@@ -36,23 +36,23 @@ function gutenberg_test_block_bindings_registration() {
 	);
 
 	// Enqueue a custom script for the plugin.
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-block-bindings',
 		plugins_url( 'block-bindings/index.js', __FILE__ ),
 		array(
-			'wp-blocks',
-			'wp-block-editor',
-			'wp-components',
-			'wp-compose',
-			'wp-element',
-			'wp-hooks',
+			'fp-blocks',
+			'fp-block-editor',
+			'fp-components',
+			'fp-compose',
+			'fp-element',
+			'fp-hooks',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block-bindings/index.js' ),
 		true
 	);
 
 	// Pass data to the script.
-	wp_localize_script(
+	fp_localize_script(
 		'gutenberg-test-block-bindings',
 		'testingBindings',
 		array(

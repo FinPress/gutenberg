@@ -10,17 +10,17 @@ const exclusions = require( './polyfill-exclusions' );
 const replacePolyfills = require( './replace-polyfills' );
 
 module.exports = ( api ) => {
-	let wpBuildOpts = {};
-	const isWPBuild = ( name ) =>
-		[ 'WP_BUILD_MAIN', 'WP_BUILD_MODULE' ].some(
+	let fpBuildOpts = {};
+	const isFPBuild = ( name ) =>
+		[ 'FP_BUILD_MAIN', 'FP_BUILD_MODULE' ].some(
 			( buildName ) => name === buildName
 		);
 
 	const isTestEnv = api.env() === 'test';
 
 	api.caller( ( caller ) => {
-		if ( caller && isWPBuild( caller.name ) ) {
-			wpBuildOpts = { ...caller };
+		if ( caller && isFPBuild( caller.name ) ) {
+			fpBuildOpts = { ...caller };
 			return caller.name;
 		}
 		return undefined;
@@ -33,7 +33,7 @@ module.exports = ( api ) => {
 				'proposal-nullish-coalescing-operator',
 				'proposal-logical-assignment-operators',
 			],
-			...( wpBuildOpts.addPolyfillComments
+			...( fpBuildOpts.addPolyfillComments
 				? {
 						useBuiltIns: 'usage',
 						exclude: exclusions,
@@ -57,8 +57,8 @@ module.exports = ( api ) => {
 			};
 		}
 
-		if ( isWPBuild( wpBuildOpts.name ) ) {
-			opts.modules = wpBuildOpts.modules;
+		if ( isFPBuild( fpBuildOpts.name ) ) {
+			opts.modules = fpBuildOpts.modules;
 		}
 
 		return [ require.resolve( '@babel/preset-env' ), opts ];
@@ -74,8 +74,8 @@ module.exports = ( api ) => {
 			useESModules: false,
 		};
 
-		if ( wpBuildOpts.name === 'WP_BUILD_MODULE' ) {
-			opts.useESModules = wpBuildOpts.useESModules;
+		if ( fpBuildOpts.name === 'FP_BUILD_MODULE' ) {
+			opts.useESModules = fpBuildOpts.useESModules;
 		}
 
 		return [ require.resolve( '@babel/plugin-transform-runtime' ), opts ];
@@ -95,7 +95,7 @@ module.exports = ( api ) => {
 				},
 			],
 			maybeGetPluginTransformRuntime(),
-			wpBuildOpts.addPolyfillComments && replacePolyfills,
+			fpBuildOpts.addPolyfillComments && replacePolyfills,
 		].filter( Boolean ),
 	};
 };

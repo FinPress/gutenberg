@@ -15,7 +15,7 @@ import apiFetch from '@finpress/api-fetch';
 
 const block = 'Latest Posts';
 const initialHtml = `
-<!-- wp:latest-posts {"displayPostContent":true,"displayPostDate":true} /-->`;
+<!-- fp:latest-posts {"displayPostContent":true,"displayPostDate":true} /-->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];
@@ -24,7 +24,7 @@ setupCoreBlocks();
 
 describe( `${ block } block transforms`, () => {
 	beforeAll( () => {
-		// Mock response of the request made from Latest Posts block to path "/wp/v2/categories".
+		// Mock response of the request made from Latest Posts block to path "/fp/v2/categories".
 		apiFetch.mockResolvedValue( [
 			{
 				slug: 'uncategorized',

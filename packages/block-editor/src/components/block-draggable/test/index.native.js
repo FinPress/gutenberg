@@ -45,39 +45,39 @@ const BLOCKS = [
 	{
 		name: 'Paragraph',
 		html: `
-		<!-- wp:paragraph -->
+		<!-- fp:paragraph -->
 		<p>This is a paragraph.</p>
-		<!-- /wp:paragraph -->`,
+		<!-- /fp:paragraph -->`,
 		layout: { x: 0, y: 0, width: 100, height: 100 },
 	},
 	{
 		name: 'Image',
 		html: `
-		<!-- wp:image {"sizeSlug":"large"} -->
-		<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/></figure>
-		<!-- /wp:image -->`,
+		<!-- fp:image {"sizeSlug":"large"} -->
+		<figure class="fp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/></figure>
+		<!-- /fp:image -->`,
 		layout: { x: 0, y: 100, width: 100, height: 100 },
 	},
 	{
 		name: 'Spacer',
 		html: `
-		<!-- wp:spacer -->
-		<div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
-		<!-- /wp:spacer -->`,
+		<!-- fp:spacer -->
+		<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
+		<!-- /fp:spacer -->`,
 		layout: { x: 0, y: 200, width: 100, height: 100 },
 	},
 	{
 		name: 'Gallery',
 		html: `
-		<!-- wp:gallery {"linkTo":"none"} -->
-		<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-		<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/></figure>
-		<!-- /wp:image -->
+		<!-- fp:gallery {"linkTo":"none"} -->
+		<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
+		<figure class="fp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/></figure>
+		<!-- /fp:image -->
 
-		<!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-		<figure class="wp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/></figure>
-		<!-- /wp:image --></figure>
-		<!-- /wp:gallery -->`,
+		<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
+		<figure class="fp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt=""/></figure>
+		<!-- /fp:image --></figure>
+		<!-- /fp:gallery -->`,
 		layout: { x: 0, y: 300, width: 100, height: 100 },
 		nestedBlocks: [
 			{ name: 'Image', layout: { x: 0, y: 300, width: 50, height: 50 } },

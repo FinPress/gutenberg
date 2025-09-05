@@ -12,5 +12,5 @@ import { plugins, use } from '@finpress/data';
 use( plugins.persistence );
 
 // FinPress Globals Usage
-wp.data.use( wp.data.plugins.persistence );
+fp.data.use( fp.data.plugins.persistence );
 ```

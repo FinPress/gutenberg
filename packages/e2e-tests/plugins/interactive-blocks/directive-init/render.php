@@ -1,41 +1,41 @@
 <?php
 /**
- * HTML for testing the directive `data-wp-init`.
+ * HTML for testing the directive `data-fp-init`.
  *
  * @package gutenberg-test-interactive-blocks
  */
 ?>
 
-<div data-wp-interactive="directive-init">
+<div data-fp-interactive="directive-init">
 	<div
 		data-testid="single init"
-		data-wp-context='{"isReady":[false],"calls":[0]}'
-		data-wp-init="actions.initOne"
+		data-fp-context='{"isReady":[false],"calls":[0]}'
+		data-fp-init="actions.initOne"
 	>
-		<p data-wp-text="state.isReady" data-testid="isReady">false</p>
-		<p data-wp-text="state.calls" data-testid="calls">0</p>
-		<button data-wp-on--click="actions.reset">reset</button>
+		<p data-fp-text="state.isReady" data-testid="isReady">false</p>
+		<p data-fp-text="state.calls" data-testid="calls">0</p>
+		<button data-fp-on--click="actions.reset">reset</button>
 	</div>
 	<div
 		data-testid="multiple inits"
-		data-wp-context='{"isReady":[false,false],"calls":[0,0]}'
-		data-wp-init--one="actions.initOne"
-		data-wp-init--two="actions.initTwo"
+		data-fp-context='{"isReady":[false,false],"calls":[0,0]}'
+		data-fp-init--one="actions.initOne"
+		data-fp-init--two="actions.initTwo"
 	>
-		<p data-wp-text="state.isReady" data-testid="isReady">false,false</p>
-		<p data-wp-text="state.calls" data-testid="calls">0,0</p>
+		<p data-fp-text="state.isReady" data-testid="isReady">false,false</p>
+		<p data-fp-text="state.calls" data-testid="calls">0,0</p>
 	</div>
 	<div
 		data-testid="init show"
-		data-wp-context='{"isVisible":true,"isMounted":false}'
+		data-fp-context='{"isVisible":true,"isMounted":false}'
 	>
-		<div data-wp-show-mock="context.isVisible" data-testid="show">
-			<span data-wp-init="actions.initMount">Initially visible</span>
+		<div data-fp-show-mock="context.isVisible" data-testid="show">
+			<span data-fp-init="actions.initMount">Initially visible</span>
 		</div>
-		<button data-wp-on--click="actions.toggle" data-testid="toggle">
+		<button data-fp-on--click="actions.toggle" data-testid="toggle">
 			toggle
 		</button>
-		<p data-wp-text="state.isMounted" data-testid="isMounted">
+		<p data-fp-text="state.isMounted" data-testid="isMounted">
 			true
 		</p>
 	</div>

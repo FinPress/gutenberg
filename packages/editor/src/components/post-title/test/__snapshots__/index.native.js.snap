@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PostTitle does not update title with existing content when pasting HTML 1`] = `
-"<!-- wp:heading -->
-<h2 class="wp-block-heading">Howdy</h2>
-<!-- /wp:heading -->
+"<!-- fp:heading -->
+<h2 class="fp-block-heading">Howdy</h2>
+<!-- /fp:heading -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading">This is a heading.</h2>
-<!-- /wp:heading -->
+<!-- fp:heading -->
+<h2 class="fp-block-heading">This is a heading.</h2>
+<!-- /fp:heading -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>This is a paragraph.</p>
-<!-- /wp:paragraph -->"
+<!-- /fp:paragraph -->"
 `;
 
 exports[`PostTitle populates empty title with first block content when pasting HTML 1`] = `
-"<!-- wp:heading -->
-<h2 class="wp-block-heading">This is a heading.</h2>
-<!-- /wp:heading -->
+"<!-- fp:heading -->
+<h2 class="fp-block-heading">This is a heading.</h2>
+<!-- /fp:heading -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>This is a paragraph.</p>
-<!-- /wp:paragraph -->"
+<!-- /fp:paragraph -->"
 `;

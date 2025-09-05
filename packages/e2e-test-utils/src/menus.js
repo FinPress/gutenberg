@@ -3,12 +3,12 @@
  */
 import { rest, batch } from './rest-api';
 
-const menusEndpoint = '/wp/v2/menus';
-const menuItemsEndpoint = '/wp/v2/menu-items';
+const menusEndpoint = '/fp/v2/menus';
+const menuItemsEndpoint = '/fp/v2/menu-items';
 
 const menuItemObjectRequests = {
 	post: ( menuItem ) => ( {
-		path: '/wp/v2/posts',
+		path: '/fp/v2/posts',
 		method: 'POST',
 		data: {
 			title: menuItem.title,
@@ -16,7 +16,7 @@ const menuItemObjectRequests = {
 		},
 	} ),
 	page: ( menuItem ) => ( {
-		path: '/wp/v2/pages',
+		path: '/fp/v2/pages',
 		method: 'POST',
 		data: {
 			title: menuItem.title,

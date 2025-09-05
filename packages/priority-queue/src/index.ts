@@ -6,36 +6,36 @@ import requestIdleCallback from './request-idle-callback';
 /**
  * Enqueued callback to invoke once idle time permits.
  */
-export type WPPriorityQueueCallback = VoidFunction;
+export type FPPriorityQueueCallback = VoidFunction;
 
 /**
  * An object used to associate callbacks in a particular context grouping.
  */
-export type WPPriorityQueueContext = object;
+export type FPPriorityQueueContext = object;
 
 /**
  * Interface for the priority queue instance.
  */
-export interface WPPriorityQueue {
+export interface FPPriorityQueue {
 	/**
 	 * Add a callback to the queue for a given context.
 	 */
 	add: (
-		element: WPPriorityQueueContext,
-		item: WPPriorityQueueCallback
+		element: FPPriorityQueueContext,
+		item: FPPriorityQueueCallback
 	) => void;
 
 	/**
 	 * Flush and run the callback for a given context immediately.
 	 * @return true if a callback was run, false otherwise.
 	 */
-	flush: ( element: WPPriorityQueueContext ) => boolean;
+	flush: ( element: FPPriorityQueueContext ) => boolean;
 
 	/**
 	 * Cancel (remove) the callback for a given context without running it.
 	 * @return true if a callback was cancelled, false otherwise.
 	 */
-	cancel: ( element: WPPriorityQueueContext ) => boolean;
+	cancel: ( element: FPPriorityQueueContext ) => boolean;
 
 	/**
 	 * Reset the entire queue, clearing pending callbacks.
@@ -63,12 +63,12 @@ export interface WPPriorityQueue {
  * queue.add( ctx2, () => console.log( 'This will be printed second' ) );
  *```
  *
- * @return {WPPriorityQueue} Queue object with `add`, `flush` and `reset` methods.
+ * @return {FPPriorityQueue} Queue object with `add`, `flush` and `reset` methods.
  */
-export const createQueue = (): WPPriorityQueue => {
+export const createQueue = (): FPPriorityQueue => {
 	const waitingList = new Map<
-		WPPriorityQueueContext,
-		WPPriorityQueueCallback
+		FPPriorityQueueContext,
+		FPPriorityQueueCallback
 	>();
 	let isRunning = false;
 
@@ -117,12 +117,12 @@ export const createQueue = (): WPPriorityQueue => {
 	 * in their second parameter. Missing dependencies can cause unexpected
 	 * loops and race conditions in the queue.
 	 *
-	 * @param {WPPriorityQueueContext}  element Context object.
-	 * @param {WPPriorityQueueCallback} item    Callback function.
+	 * @param {FPPriorityQueueContext}  element Context object.
+	 * @param {FPPriorityQueueCallback} item    Callback function.
 	 */
-	const add: WPPriorityQueue[ 'add' ] = (
-		element: WPPriorityQueueContext,
-		item: WPPriorityQueueCallback
+	const add: FPPriorityQueue[ 'add' ] = (
+		element: FPPriorityQueueContext,
+		item: FPPriorityQueueCallback
 	) => {
 		waitingList.set( element, item );
 		if ( ! isRunning ) {
@@ -135,12 +135,12 @@ export const createQueue = (): WPPriorityQueue => {
 	 * Flushes queue for a given context, returning true if the flush was
 	 * performed, or false if there is no queue for the given context.
 	 *
-	 * @param {WPPriorityQueueContext} element Context object.
+	 * @param {FPPriorityQueueContext} element Context object.
 	 *
 	 * @return {boolean} Whether flush was performed.
 	 */
-	const flush: WPPriorityQueue[ 'flush' ] = (
-		element: WPPriorityQueueContext
+	const flush: FPPriorityQueue[ 'flush' ] = (
+		element: FPPriorityQueueContext
 	) => {
 		const callback = waitingList.get( element );
 		if ( undefined === callback ) {
@@ -158,12 +158,12 @@ export const createQueue = (): WPPriorityQueue => {
 	 * executing them. Returns `true` if there were scheduled callbacks to cancel,
 	 * or `false` if there was is no queue for the given context.
 	 *
-	 * @param {WPPriorityQueueContext} element Context object.
+	 * @param {FPPriorityQueueContext} element Context object.
 	 *
 	 * @return {boolean} Whether any callbacks got cancelled.
 	 */
-	const cancel: WPPriorityQueue[ 'cancel' ] = (
-		element: WPPriorityQueueContext
+	const cancel: FPPriorityQueue[ 'cancel' ] = (
+		element: FPPriorityQueueContext
 	) => {
 		return waitingList.delete( element );
 	};
@@ -171,7 +171,7 @@ export const createQueue = (): WPPriorityQueue => {
 	/**
 	 * Reset the queue without running the pending callbacks.
 	 */
-	const reset: WPPriorityQueue[ 'reset' ] = () => {
+	const reset: FPPriorityQueue[ 'reset' ] = () => {
 		waitingList.clear();
 		isRunning = false;
 	};

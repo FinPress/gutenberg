@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/heading",
 	"title": "Heading",
@@ -75,6 +75,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-heading-editor",
-	"style": "wp-block-heading"
+	"editorStyle": "fp-block-heading-editor",
+	"style": "fp-block-heading"
 }

@@ -18,7 +18,7 @@ import withDispatch from '../../with-dispatch';
 import { createRegistry } from '../../../registry';
 import { RegistryProvider } from '../../registry-provider';
 
-/* eslint-disable @finpress/wp-global-usage */
+/* eslint-disable @finpress/fp-global-usage */
 describe( 'withSelect', () => {
 	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
 
@@ -627,4 +627,4 @@ describe( 'withSelect', () => {
 		expect( screen.getByRole( 'status' ) ).toHaveTextContent( 'second' );
 	} );
 } );
-/* eslint-enable @finpress/wp-global-usage */
+/* eslint-enable @finpress/fp-global-usage */

@@ -4,19 +4,19 @@ Blocks are stored in the database or within HTML templates using a unique [HTML-
 
 Here are a few guidelines for the markup that defines a block:
 
-- Core blocks begin with the `wp:` prefix, followed by the block name (e.g., `wp:image`). Notably, the `core` namespace is omitted.
-- Custom blocks begin with the `wp:` prefix, followed by the block namespace and name (e.g., `wp:namespace/name`).
+- Core blocks begin with the `fp:` prefix, followed by the block name (e.g., `fp:image`). Notably, the `core` namespace is omitted.
+- Custom blocks begin with the `fp:` prefix, followed by the block namespace and name (e.g., `fp:namespace/name`).
 - The comment can be a single line, self-closing, or wrapper for HTML content.
 - Block settings and attributes are stored as a JSON object inside the block comment.
 
 The following is the simplified markup representation of an Image block:
 
 ```html
-<!-- wp:image {"sizeSlug":"large"} -->
-<figure class="wp-block-image size-large">
+<!-- fp:image {"sizeSlug":"large"} -->
+<figure class="fp-block-image size-large">
     <img src="source.jpg" alt="" />
 </figure>
-<!-- /wp:image -->
+<!-- /fp:image -->
 ```
 
 The markup for a block is crucial both in the Block Editor and for displaying the block on the front end:
@@ -33,7 +33,7 @@ When a block is saved, the `save` function—defined when the [block is register
 Here is the markup representation of a dynamically rendered block (`save` = `null`). Notice there is no HTML markup besides the comment.
 
 ```html
-<!-- wp:latest-posts {"postsToShow":4,"displayPostDate":true} /-->
+<!-- fp:latest-posts {"postsToShow":4,"displayPostDate":true} /-->
 ```
 
 When a block has a `save` function, the Block Editor checks that the markup created by the `save` function is identical to the block's markup saved to the database:

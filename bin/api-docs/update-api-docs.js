@@ -10,13 +10,13 @@ const { readFile } = require( 'fs' ).promises;
 /**
  * README file tokens, defined as a tuple of token identifier, source path.
  *
- * @typedef {[string,string]} WPReadmeFileTokens
+ * @typedef {[string,string]} FPReadmeFileTokens
  */
 
 /**
  * README file data, defined as a tuple of README file path, token details.
  *
- * @typedef {[string,WPReadmeFileTokens]} WPReadmeFileData
+ * @typedef {[string,FPReadmeFileTokens]} FPReadmeFileData
  */
 
 /**
@@ -203,7 +203,7 @@ glob.stream( [
 	`${ DATA_DOCS_DIR }/${ getDataDocumentationPattern( files ) }`,
 ] )
 	.pipe( filterTokenTransform )
-	.on( 'data', async ( /** @type {WPReadmeFileData} */ data ) => {
+	.on( 'data', async ( /** @type {FPReadmeFileData} */ data ) => {
 		const [ file, tokens ] = data;
 		const output = relative( ROOT_DIR, file );
 

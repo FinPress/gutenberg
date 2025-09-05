@@ -304,7 +304,7 @@ describe( 'Function dateI18n', () => {
 		[ 'j/n/y', '18/6/19' ],
 		[ 'd/m/y', '18/06/19' ],
 		[ 'D j M Y', 'es_Tue 18 es_Jun 2019' ],
-		[ 'l jS F Y', 'es_Tuesday 18th es_June 2019' ], // Day ordinal should be in English, matching wp_date().
+		[ 'l jS F Y', 'es_Tuesday 18th es_June 2019' ], // Day ordinal should be in English, matching fp_date().
 		[ 'N w', '2 2' ],
 		[ 'z', '168' ],
 		[ 'W', '25' ],
@@ -514,7 +514,7 @@ describe( 'Function gmdateI18n', () => {
 		[ 'j/n/y', '18/6/19' ],
 		[ 'd/m/y', '18/06/19' ],
 		[ 'D j M Y', 'es_Tue 18 es_Jun 2019' ],
-		[ 'l jS F Y', 'es_Tuesday 18th es_June 2019' ], // Day ordinal should be in English, matching wp_date().
+		[ 'l jS F Y', 'es_Tuesday 18th es_June 2019' ], // Day ordinal should be in English, matching fp_date().
 		[ 'N w', '2 2' ],
 		[ 'z', '168' ],
 		[ 'W', '25' ],

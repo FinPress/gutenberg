@@ -33,6 +33,6 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-		box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color), inset 0 0 0 calc(#{ $border-width } + var(--wp-admin-border-width-focus)) $white;
+		box-shadow: inset 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color), inset 0 0 0 calc(#{ $border-width } + var(--fp-admin-border-width-focus)) $white;
 	}
 }

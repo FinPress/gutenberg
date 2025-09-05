@@ -7,7 +7,7 @@ test.describe( 'Templates', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await Promise.all( [
 			requestUtils.activateTheme( 'emptytheme' ),
-			requestUtils.deleteAllTemplates( 'wp_template' ),
+			requestUtils.deleteAllTemplates( 'fp_template' ),
 		] );
 	} );
 
@@ -16,11 +16,11 @@ test.describe( 'Templates', () => {
 	} );
 
 	test.afterEach( async ( { requestUtils } ) => {
-		await requestUtils.deleteAllTemplates( 'wp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
 	} );
 
 	test( 'Sorting', async ( { admin, page } ) => {
-		await admin.visitSiteEditor( { postType: 'wp_template' } );
+		await admin.visitSiteEditor( { postType: 'fp_template' } );
 
 		// Wait for the template list to be visible.
 		await expect(
@@ -40,12 +40,12 @@ test.describe( 'Templates', () => {
 	} );
 
 	test( 'Filtering', async ( { requestUtils, admin, page } ) => {
-		await requestUtils.createTemplate( 'wp_template', {
+		await requestUtils.createTemplate( 'fp_template', {
 			slug: 'date',
 			title: 'Date Archives',
 			content: 'hi',
 		} );
-		await admin.visitSiteEditor( { postType: 'wp_template' } );
+		await admin.visitSiteEditor( { postType: 'fp_template' } );
 		// Global search.
 		await page.getByRole( 'searchbox', { name: 'Search' } ).fill( 'tag' );
 		const titles = page.locator( '.fields-field__title' );
@@ -80,7 +80,7 @@ test.describe( 'Templates', () => {
 	} );
 
 	test( 'Field visibility', async ( { admin, page } ) => {
-		await admin.visitSiteEditor( { postType: 'wp_template' } );
+		await admin.visitSiteEditor( { postType: 'fp_template' } );
 
 		await page.getByRole( 'button', { name: 'Layout' } ).click();
 		await page.getByRole( 'menuitemradio', { name: 'Table' } ).click();

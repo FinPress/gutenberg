@@ -8,7 +8,7 @@ describe( 'Media Upload Middleware', () => {
 	it( 'should defer to the next middleware with the same options', () => {
 		expect.hasAssertions();
 
-		const originalOptions = { path: '/wp/v2/media' };
+		const originalOptions = { path: '/fp/v2/media' };
 		const next: FetchHandler = async ( options ) => {
 			expect( options ).toBe( originalOptions );
 		};
@@ -19,7 +19,7 @@ describe( 'Media Upload Middleware', () => {
 	it( 'should change options not to parse', () => {
 		expect.hasAssertions();
 
-		const requestOptions = { method: 'POST', path: '/wp/v2/media' };
+		const requestOptions = { method: 'POST', path: '/fp/v2/media' };
 		const next = ( options ) => {
 			expect( options.parse ).toBe( false );
 

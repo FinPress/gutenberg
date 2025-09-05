@@ -47,9 +47,9 @@ function UnforwardedRadioGroup(
 		[ radioStore, disabled ]
 	);
 
-	deprecated( 'wp.components.__experimentalRadioGroup', {
+	deprecated( 'fp.components.__experimentalRadioGroup', {
 		alternative:
-			'wp.components.RadioControl or wp.components.__experimentalToggleGroupControl',
+			'fp.components.RadioControl or fp.components.__experimentalToggleGroupControl',
 		since: '6.8',
 	} );
 

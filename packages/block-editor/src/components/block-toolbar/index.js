@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { __ } from '@finpress/i18n';
 import { useSelect } from '@finpress/data';
 import { useRef } from '@finpress/element';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import {
 	getBlockType,
 	hasBlockSupport,
@@ -172,7 +172,7 @@ export function PrivateBlockToolbar( {
 		ref: nodeRef,
 	} );
 
-	const isLargeViewport = ! useViewportMatch( 'medium', '<' );
+	const isLargeviewport = ! useviewportMatch( 'medium', '<' );
 
 	const hasBlockToolbar = useHasBlockToolbar();
 	if ( ! hasBlockToolbar ) {
@@ -210,7 +210,7 @@ export function PrivateBlockToolbar( {
 			key={ toolbarKey }
 		>
 			<div ref={ toolbarWrapperRef } className={ innerClasses }>
-				{ showParentSelector && ! isMultiToolbar && isLargeViewport && (
+				{ showParentSelector && ! isMultiToolbar && isLargeviewport && (
 					<BlockParentSelector />
 				) }
 				{ ( shouldShowVisualToolbar || isMultiToolbar ) &&

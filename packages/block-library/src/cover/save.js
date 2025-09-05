@@ -94,8 +94,8 @@ export default function save( { attributes } ) {
 	);
 
 	const imgClasses = clsx(
-		'wp-block-cover__image-background',
-		id ? `wp-image-${ id }` : null,
+		'fp-block-cover__image-background',
+		id ? `fp-image-${ id }` : null,
 		{
 			[ `size-${ sizeSlug }` ]: sizeSlug,
 			'has-parallax': hasParallax,
@@ -130,7 +130,7 @@ export default function save( { attributes } ) {
 			{ isVideoBackground && url && (
 				<video
 					className={ clsx(
-						'wp-block-cover__video-background',
+						'fp-block-cover__video-background',
 						'intrinsic-ignore'
 					) }
 					autoPlay
@@ -145,24 +145,24 @@ export default function save( { attributes } ) {
 				/>
 			) }
 
-			{ /* The `wp-block-cover__background` needs to be immediately before
-			the `wp-block-cover__inner-container`, so the exclusion CSS selector
-			`.wp-block-cover__background + .wp-block-cover__inner-container`
+			{ /* The `fp-block-cover__background` needs to be immediately before
+			the `fp-block-cover__inner-container`, so the exclusion CSS selector
+			`.fp-block-cover__background + .fp-block-cover__inner-container`
 			works properly. If it needs to be changed in the future, the
 			selector for the backward compatibility for v14 deprecation also
 			needs change. */ }
 			<span
 				aria-hidden="true"
 				className={ clsx(
-					'wp-block-cover__background',
+					'fp-block-cover__background',
 					overlayColorClass,
 					dimRatioToClass( dimRatio ),
 					{
 						'has-background-dim': dimRatio !== undefined,
 						// For backwards compatibility. Former versions of the Cover Block applied
-						// `.wp-block-cover__gradient-background` in the presence of
+						// `.fp-block-cover__gradient-background` in the presence of
 						// media, a gradient and a dim.
-						'wp-block-cover__gradient-background':
+						'fp-block-cover__gradient-background':
 							url && gradientValue && dimRatio !== 0,
 						'has-background-gradient': gradientValue,
 						[ gradientClass ]: gradientClass,
@@ -173,7 +173,7 @@ export default function save( { attributes } ) {
 
 			<div
 				{ ...useInnerBlocksProps.save( {
-					className: 'wp-block-cover__inner-container',
+					className: 'fp-block-cover__inner-container',
 				} ) }
 			/>
 		</Tag>

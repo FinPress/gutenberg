@@ -6,22 +6,22 @@
  */
 ?>
 
-<div data-wp-interactive="directive-priorities">
+<div data-fp-interactive="directive-priorities">
 	<pre data-testid="execution order"></pre>
 
 	<!-- Element with test directives -->
 	<div
 		data-testid="test directives"
-		data-wp-test-attribute
-		data-wp-test-children
-		data-wp-test-text
-		data-wp-test-context
+		data-fp-test-attribute
+		data-fp-test-children
+		data-fp-test-text
+		data-fp-test-context
 	></div>
 </div>
 
 <div data-testid="non-existent-directives">
-	<!-- WARNING: the `div` with `data-wp-non-existent-directive` should remain
+	<!-- WARNING: the `div` with `data-fp-non-existent-directive` should remain
 		inline (i.e., without new line or blank characters in between) to
 		ensure it is the only child node. Otherwise, tests could fail. -->
-	<div data-wp-interactive="directive-priorities"><div data-wp-non-existent-directive></div></div>
+	<div data-fp-interactive="directive-priorities"><div data-fp-non-existent-directive></div></div>
 </div>

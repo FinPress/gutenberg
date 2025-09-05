@@ -7,9 +7,9 @@ test.describe( 'RichText deprecated multiline', () => {
 	test.beforeEach( async ( { admin, page, editor } ) => {
 		await admin.createNewPost();
 		await page.evaluate( () => {
-			const registerBlockType = window.wp.blocks.registerBlockType;
-			const { useBlockProps, RichText } = window.wp.blockEditor;
-			const el = window.wp.element.createElement;
+			const registerBlockType = window.fp.blocks.registerBlockType;
+			const { useBlockProps, RichText } = window.fp.blockEditor;
+			const el = window.fp.element.createElement;
 			registerBlockType( 'core/rich-text-deprecated-multiline', {
 				apiVersion: 3,
 				title: 'Deprecated RichText multiline',
@@ -62,9 +62,9 @@ test.describe( 'RichText deprecated multiline', () => {
 
 		// Test serialised output.
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:rich-text-deprecated-multiline -->
+			`<!-- fp:rich-text-deprecated-multiline -->
 <blockquote><p>1</p><p>2</p></blockquote>
-<!-- /wp:rich-text-deprecated-multiline -->`
+<!-- /fp:rich-text-deprecated-multiline -->`
 		);
 	} );
 

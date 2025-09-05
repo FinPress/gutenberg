@@ -4,7 +4,7 @@
 import {
 	createHigherOrderComponent,
 	pure,
-	useViewportMatch,
+	useviewportMatch,
 } from '@finpress/compose';
 
 /**
@@ -12,7 +12,7 @@ import {
  * the given prop names, where the value passed to the underlying component is
  * the result of the query assigned as the object's value.
  *
- * @see isViewportMatch
+ * @see isviewportMatch
  *
  * @param {Object} queries Object of prop name to viewport query.
  *
@@ -25,12 +25,12 @@ import {
  * 	);
  * }
  *
- * MyComponent = withViewportMatch( { isMobile: '< small' } )( MyComponent );
+ * MyComponent = withviewportMatch( { isMobile: '< small' } )( MyComponent );
  * ```
  *
  * @return {Function} Higher-order component.
  */
-const withViewportMatch = ( queries ) => {
+const withviewportMatch = ( queries ) => {
 	const queryEntries = Object.entries( queries );
 	const useViewPortQueriesResult = () =>
 		Object.fromEntries(
@@ -44,7 +44,7 @@ const withViewportMatch = ( queries ) => {
 				// we are respecting that as from the static query of the HOC we generate
 				// a hook that calls other hooks always in the same order (because the query never changes).
 				// eslint-disable-next-line react-hooks/rules-of-hooks
-				return [ key, useViewportMatch( breakpointName, operator ) ];
+				return [ key, useviewportMatch( breakpointName, operator ) ];
 			} )
 		);
 	return createHigherOrderComponent( ( WrappedComponent ) => {
@@ -52,7 +52,7 @@ const withViewportMatch = ( queries ) => {
 			const queriesResult = useViewPortQueriesResult();
 			return <WrappedComponent { ...props } { ...queriesResult } />;
 		} );
-	}, 'withViewportMatch' );
+	}, 'withviewportMatch' );
 };
 
-export default withViewportMatch;
+export default withviewportMatch;

@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useSelect } from '@finpress/data';
 
 /**
@@ -19,7 +19,7 @@ jest.mock( '@finpress/data/src/components/use-select', () => jest.fn() );
 
 describe( 'PostPublishButtonOrToggle should render a', () => {
 	afterEach( () => {
-		useViewportMatch.mockRestore();
+		useviewportMatch.mockRestore();
 	} );
 
 	it( 'button when the post is published (1)', () => {
@@ -56,7 +56,7 @@ describe( 'PostPublishButtonOrToggle should render a', () => {
 	} );
 
 	it( 'toggle when post is not (1), (2), (3), the viewport is <= medium, and the publish sidebar is enabled', () => {
-		useViewportMatch.mockReturnValue( true );
+		useviewportMatch.mockReturnValue( true );
 		useSelect.mockImplementation( () => ( {
 			isPublishSidebarEnabled: true,
 		} ) );

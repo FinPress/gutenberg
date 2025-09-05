@@ -1,5 +1,5 @@
-export const COMPONENT_NAMESPACE = 'data-wp-component';
-export const CONNECTED_NAMESPACE = 'data-wp-c16t';
+export const COMPONENT_NAMESPACE = 'data-fp-component';
+export const CONNECTED_NAMESPACE = 'data-fp-c16t';
 
 /**
  * Special key where the connected namespaces are stored.

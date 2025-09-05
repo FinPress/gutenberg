@@ -36,7 +36,7 @@ export const settings = {
 			select( coreDataStore );
 		const entity = getEditedEntityRecord(
 			'postType',
-			'wp_template_part',
+			'fp_template_part',
 			( theme || getCurrentTheme()?.stylesheet ) + '//' + slug
 		);
 		if ( ! entity ) {

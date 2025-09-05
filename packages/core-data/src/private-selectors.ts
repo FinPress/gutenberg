@@ -160,7 +160,7 @@ export const getHomePage = createRegistrySelector( ( select ) =>
 			if ( ! frontPageTemplateId ) {
 				return null;
 			}
-			return { postType: 'wp_template', postId: frontPageTemplateId };
+			return { postType: 'fp_template', postId: frontPageTemplateId };
 		},
 		( state ) => [
 			getEntityRecord( state, 'root', '__unstableBase' ),
@@ -202,7 +202,7 @@ export const getTemplateId = createRegistrySelector(
 			// template, we want to fall back to the page template.
 			const templates = select( STORE_NAME ).getEntityRecords(
 				'postType',
-				'wp_template',
+				'fp_template',
 				{
 					per_page: -1,
 				}
@@ -238,7 +238,7 @@ export const getTemplateId = createRegistrySelector(
 		const currentTemplateSlug = editedEntity.template;
 		if ( currentTemplateSlug ) {
 			const currentTemplate = select( STORE_NAME )
-				.getEntityRecords( 'postType', 'wp_template', {
+				.getEntityRecords( 'postType', 'fp_template', {
 					per_page: -1,
 				} )
 				?.find( ( { slug } ) => slug === currentTemplateSlug );

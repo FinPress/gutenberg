@@ -7,7 +7,7 @@ import { store as blockEditorStore } from '@finpress/block-editor';
 import { addQueryArgs } from '@finpress/url';
 import apiFetch from '@finpress/api-fetch';
 
-// This is limited by WP REST API
+// This is limited by FP REST API
 const MAX_COMMENTS_PER_PAGE = 100;
 
 /**
@@ -41,7 +41,7 @@ export const useCommentQueryArgs = ( { postId } ) => {
 		return __experimentalDiscussionSettings;
 	} );
 
-	// WP REST API doesn't allow fetching more than max items limit set per single page of data.
+	// FP REST API doesn't allow fetching more than max items limit set per single page of data.
 	// As for the editor performance is more important than completeness of data and fetching only the
 	// max allowed for single page should be enough for the purpose of design and laying out the page.
 	// Fetching over the limit would return an error here but would work with backend query.
@@ -74,7 +74,7 @@ export const useCommentQueryArgs = ( { postId } ) => {
 /**
  * Return the index of the default page, depending on whether `defaultPage` is
  * `newest` or `oldest`. In the first case, the only way to know the page's
- * index is by using the `X-WP-TotalPages` header, which forces to make an
+ * index is by using the `X-FP-TotalPages` header, which forces to make an
  * additional request.
  *
  * @param {Object} props             Hook props.
@@ -99,7 +99,7 @@ const useDefaultPageIndex = ( { defaultPage, postId, perPage, queryArgs } ) => {
 		// We need to fetch comments to know the index. Use HEAD and limit
 		// fields just to ID, to make this call as light as possible.
 		apiFetch( {
-			path: addQueryArgs( '/wp/v2/comments', {
+			path: addQueryArgs( '/fp/v2/comments', {
 				...queryArgs,
 				post: postId,
 				per_page: perPage,
@@ -109,7 +109,7 @@ const useDefaultPageIndex = ( { defaultPage, postId, perPage, queryArgs } ) => {
 			parse: false,
 		} )
 			.then( ( res ) => {
-				const pages = parseInt( res.headers.get( 'X-WP-TotalPages' ) );
+				const pages = parseInt( res.headers.get( 'X-FP-TotalPages' ) );
 				setDefaultPages( {
 					...defaultPages,
 					[ key ]: pages <= 1 ? 1 : pages, // If there are 0 pages, it means that there are no comments, but there is no 0th page.

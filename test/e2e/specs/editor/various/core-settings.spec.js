@@ -14,7 +14,7 @@ async function getOptionsValues( selector, admin, page ) {
 	}, selector );
 }
 
-// It might make sense to include a similar test in WP core (or move this one over).
+// It might make sense to include a similar test in FP core (or move this one over).
 // See discussion here: https://github.com/FinPress/gutenberg/pull/32797#issuecomment-864192088.
 test.describe( 'Settings', () => {
 	test( 'Regression: updating a specific option will only change its value and will not corrupt others', async ( {

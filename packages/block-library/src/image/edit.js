@@ -71,7 +71,7 @@ export const pickRelevantMediaFiles = ( image, size ) => {
 export const isExternalImage = ( id, url ) => url && ! id && ! isBlobURL( url );
 
 /**
- * Checks if WP generated the specified image size. Size generation is skipped
+ * Checks if FP generated the specified image size. Size generation is skipped
  * when the image is smaller than the said size.
  *
  * @param {Object} image
@@ -275,10 +275,10 @@ export function ImageEdit( {
 		let linkDestination = attributes.linkDestination;
 		if ( ! linkDestination ) {
 			// Use the FinPress option to determine the proper default.
-			// The constants used in Gutenberg do not match WP options so a little more complicated than ideal.
+			// The constants used in Gutenberg do not match FP options so a little more complicated than ideal.
 			// TODO: fix this in a follow up PR, requires updating media-text and ui component.
 			switch (
-				window?.wp?.media?.view?.settings?.defaultProps?.link ||
+				window?.fp?.media?.view?.settings?.defaultProps?.link ||
 				LINK_DESTINATION_NONE
 			) {
 				case 'file':

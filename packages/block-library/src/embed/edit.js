@@ -271,7 +271,7 @@ const EmbedEdit = ( props ) => {
 				className={ clsx( blockProps.className, className, {
 					[ `is-type-${ type }` ]: type,
 					[ `is-provider-${ providerNameSlug }` ]: providerNameSlug,
-					[ `wp-block-embed-${ providerNameSlug }` ]:
+					[ `fp-block-embed-${ providerNameSlug }` ]:
 						providerNameSlug,
 				} ) }
 			>

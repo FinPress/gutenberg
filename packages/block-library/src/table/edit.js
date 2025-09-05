@@ -428,7 +428,7 @@ function TableEdit( {
 									{
 										[ `has-text-align-${ align }` ]: align,
 									},
-									'wp-block-table__cell-content'
+									'fp-block-table__cell-content'
 								) }
 							>
 								<RichText

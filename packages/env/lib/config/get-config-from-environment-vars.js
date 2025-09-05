@@ -9,19 +9,19 @@ const {
 const { checkPort, checkVersion, checkString } = require( './validate-config' );
 
 /**
- * @typedef {import('./parse-source-string').WPSource} WPSource
+ * @typedef {import('./parse-source-string').FPSource} FPSource
  */
 
 /**
  * Environment variable configuration.
  *
- * @typedef WPEnvironmentVariableConfig
+ * @typedef FPEnvironmentVariableConfig
  * @property {?number}                  port             An override for the development environment's port.
  * @property {?number}                  mysqlPort        An override for the development environment's MySQL port.
  * @property {?number}                  testsPort        An override for the testing environment's port.
  * @property {?number}                  testsMysqlPort   An override for the testing environment's MySQL port.
  * @property {?number}                  phpmyadminPort   An override for the development environment's phpMyAdmin port.
- * @property {?WPSource}                coreSource       An override for all environment's coreSource.
+ * @property {?FPSource}                coreSource       An override for all environment's coreSource.
  * @property {?string}                  phpVersion       An override for all environment's PHP version.
  * @property {?boolean}                 multisite        An override for if environmen should be multisite.
  * @property {?Object.<string, string>} lifecycleScripts An override for various lifecycle scripts.
@@ -30,47 +30,47 @@ const { checkPort, checkVersion, checkString } = require( './validate-config' );
 /**
  * Gets configuration options from environment variables.
  *
- * @param {string} cacheDirectoryPath Path to the work directory located in ~/.wp-env.
+ * @param {string} cacheDirectoryPath Path to the work directory located in ~/.fp-env.
  *
- * @return {WPEnvironmentVariableConfig} Any configuration options parsed from the environment variables.
+ * @return {FPEnvironmentVariableConfig} Any configuration options parsed from the environment variables.
  */
 module.exports = function getConfigFromEnvironmentVars( cacheDirectoryPath ) {
 	const environmentConfig = {
-		port: getPortFromEnvironmentVariable( 'WP_ENV_PORT' ),
-		mysqlPort: getPortFromEnvironmentVariable( 'WP_ENV_MYSQL_PORT' ),
-		testsPort: getPortFromEnvironmentVariable( 'WP_ENV_TESTS_PORT' ),
+		port: getPortFromEnvironmentVariable( 'FP_ENV_PORT' ),
+		mysqlPort: getPortFromEnvironmentVariable( 'FP_ENV_MYSQL_PORT' ),
+		testsPort: getPortFromEnvironmentVariable( 'FP_ENV_TESTS_PORT' ),
 		testsMysqlPort: getPortFromEnvironmentVariable(
-			'WP_ENV_TESTS_MYSQL_PORT'
+			'FP_ENV_TESTS_MYSQL_PORT'
 		),
 		phpmyadminPort: getPortFromEnvironmentVariable(
-			'WP_ENV_PHPMYADMIN_PORT'
+			'FP_ENV_PHPMYADMIN_PORT'
 		),
 		testsPhpmyadminPort: getPortFromEnvironmentVariable(
-			'WP_ENV_TESTS_PHPMYADMIN_PORT'
+			'FP_ENV_TESTS_PHPMYADMIN_PORT'
 		),
 		lifecycleScripts: getLifecycleScriptOverrides(),
 	};
 
-	if ( process.env.WP_ENV_CORE ) {
+	if ( process.env.FP_ENV_CORE ) {
 		environmentConfig.coreSource = includeTestsPath(
-			parseSourceString( process.env.WP_ENV_CORE, {
+			parseSourceString( process.env.FP_ENV_CORE, {
 				cacheDirectoryPath,
 			} ),
 			{ cacheDirectoryPath }
 		);
 	}
 
-	if ( process.env.WP_ENV_PHP_VERSION ) {
+	if ( process.env.FP_ENV_PHP_VERSION ) {
 		checkVersion(
 			'environment variable',
-			'WP_ENV_PHP_VERSION',
-			process.env.WP_ENV_PHP_VERSION
+			'FP_ENV_PHP_VERSION',
+			process.env.FP_ENV_PHP_VERSION
 		);
-		environmentConfig.phpVersion = process.env.WP_ENV_PHP_VERSION;
+		environmentConfig.phpVersion = process.env.FP_ENV_PHP_VERSION;
 	}
 
-	if ( process.env.WP_ENV_MULTISITE ) {
-		environmentConfig.multisite = !! process.env.WP_ENV_MULTISITE;
+	if ( process.env.FP_ENV_MULTISITE ) {
+		environmentConfig.multisite = !! process.env.FP_ENV_MULTISITE;
 	}
 
 	return environmentConfig;
@@ -79,7 +79,7 @@ module.exports = function getConfigFromEnvironmentVars( cacheDirectoryPath ) {
 /**
  * Parses an environment variable which should be a port.
  *
- * @param {string} varName The environment variable to check (e.g. WP_ENV_PORT).
+ * @param {string} varName The environment variable to check (e.g. FP_ENV_PORT).
  *
  * @return {number} The parsed port number.
  */
@@ -106,9 +106,9 @@ function getLifecycleScriptOverrides() {
 
 	// Find all of the lifecycle script overrides and parse them.
 	const lifecycleEnvironmentVars = {
-		WP_ENV_LIFECYCLE_SCRIPT_AFTER_START: 'afterStart',
-		WP_ENV_LIFECYCLE_SCRIPT_AFTER_CLEAN: 'afterClean',
-		WP_ENV_LIFECYCLE_SCRIPT_AFTER_DESTROY: 'afterDestroy',
+		FP_ENV_LIFECYCLE_SCRIPT_AFTER_START: 'afterStart',
+		FP_ENV_LIFECYCLE_SCRIPT_AFTER_CLEAN: 'afterClean',
+		FP_ENV_LIFECYCLE_SCRIPT_AFTER_DESTROY: 'afterDestroy',
 	};
 	for ( const envVar in lifecycleEnvironmentVars ) {
 		const scriptValue = process.env[ envVar ];

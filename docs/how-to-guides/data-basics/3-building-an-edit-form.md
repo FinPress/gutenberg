@@ -27,7 +27,7 @@ function PagesList( { hasResolved, pages } ) {
 	}
 
 	return (
-		<table className="wp-list-table widefat fixed striped table-view-list">
+		<table className="fp-list-table widefat fixed striped table-view-list">
 			<thead>
 				<tr>
 					<td>Title</td>
@@ -127,7 +127,7 @@ In this case, we need to use the [`getEntityRecord`](/docs/reference-guides/data
 Here's how you can try it in your browser's dev tools:
 
 ```js
-wp.data.select( 'core' ).getEntityRecord( 'postType', 'page', 9 );  // Replace 9 with an actual page ID
+fp.data.select( 'core' ).getEntityRecord( 'postType', 'page', 9 );  // Replace 9 with an actual page ID
 ```
 
 Let's update `EditPageForm` accordingly:
@@ -181,10 +181,10 @@ Updating entity records in Gutenberg Data is similar but instead of using `setTi
 
 ```js
 // We need a valid page ID to call editEntityRecord, so let's get the first available one using getEntityRecords.
-const pageId = wp.data.select( 'core' ).getEntityRecords( 'postType', 'page' )[0].id;
+const pageId = fp.data.select( 'core' ).getEntityRecords( 'postType', 'page' )[0].id;
 
 // Update the title
-wp.data.dispatch( 'core' ).editEntityRecord( 'postType', 'page', pageId, { title: 'updated title' } );
+fp.data.dispatch( 'core' ).editEntityRecord( 'postType', 'page', pageId, { title: 'updated title' } );
 ```
 
 At this point, you may ask _how_ is `editEntityRecord` better than `useState`? The answer is that it offers a few features you wouldn't otherwise get.
@@ -198,7 +198,7 @@ Lastly, because the changes live in the _Redux_ state, they are "global" and can
 To that last point, let's see what happens when we use `getEntityRecord` to access the entity record we just updated:
 
 ```js
-wp.data.select( 'core' ).getEntityRecord( 'postType', 'page', pageId ).title
+fp.data.select( 'core' ).getEntityRecord( 'postType', 'page', pageId ).title
 ```
 
 It doesn't reflect the edits. What's going on?
@@ -210,10 +210,10 @@ Gutenberg Data solves this problem by making a distinction between *Entity Recor
 Let's see what happens if we call `getEditedEntityRecord`:
 
 ```js
-wp.data.select( 'core' ).getEditedEntityRecord( 'postType', 'page', pageId ).title
+fp.data.select( 'core' ).getEditedEntityRecord( 'postType', 'page', pageId ).title
 // "updated title"
 
-wp.data.select( 'core' ).getEntityRecord( 'postType', 'page', pageId ).title
+fp.data.select( 'core' ).getEntityRecord( 'postType', 'page', pageId ).title
 // { "rendered": "<original, unchanged title>", "raw": "..." }
 ```
 
@@ -272,15 +272,15 @@ Here's an example you may try in your browser's dev tools:
 
 ```js
 // Replace 9 with an actual page ID
-wp.data.dispatch( 'core' ).editEntityRecord( 'postType', 'page', 9, { title: 'updated title' } );
-wp.data.dispatch( 'core' ).saveEditedEntityRecord( 'postType', 'page', 9 );
+fp.data.dispatch( 'core' ).editEntityRecord( 'postType', 'page', 9, { title: 'updated title' } );
+fp.data.dispatch( 'core' ).saveEditedEntityRecord( 'postType', 'page', 9 );
 ```
 
 The above snippet saved a new title. Unlike before, `getEntityRecord` now reflects the updated title:
 
 ```js
 // Replace 9 with an actual page ID
-wp.data.select( 'core' ).getEntityRecord( 'postType', 'page', 9 ).title.rendered
+fp.data.select( 'core' ).getEntityRecord( 'postType', 'page', 9 ).title.rendered
 // "updated title"
 ```
 
@@ -348,7 +348,7 @@ Great! Now, let's display an error message. The failure details can be grabbed u
 
 ```js
 // Replace 9 with an actual page ID
-wp.data.select( 'core' ).getLastEntitySaveError( 'postType', 'page', 9 )
+fp.data.select( 'core' ).getLastEntitySaveError( 'postType', 'page', 9 )
 ```
 
 Here's how we can use it in `EditPageForm`:

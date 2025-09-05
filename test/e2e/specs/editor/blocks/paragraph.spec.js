@@ -126,9 +126,9 @@ test.describe( 'Paragraph', () => {
 			await page.mouse.up();
 
 			await expect.poll( editor.getEditedPostContent )
-				.toBe( `<!-- wp:heading -->
-<h2 class="wp-block-heading">My Heading</h2>
-<!-- /wp:heading -->` );
+				.toBe( `<!-- fp:heading -->
+<h2 class="fp-block-heading">My Heading</h2>
+<!-- /fp:heading -->` );
 		} );
 
 		test( 'should allow dropping HTML on an empty paragraph block', async ( {
@@ -139,7 +139,7 @@ test.describe( 'Paragraph', () => {
 			await editor.insertBlock( { name: 'core/paragraph' } );
 
 			await draggingUtils.simulateDraggingHTML(
-				'<h2 class="wp-block-heading">My Heading</h2>'
+				'<h2 class="fp-block-heading">My Heading</h2>'
 			);
 
 			const emptyParagraph = editor.canvas.locator(
@@ -154,9 +154,9 @@ test.describe( 'Paragraph', () => {
 			await page.mouse.up();
 
 			await expect.poll( editor.getEditedPostContent )
-				.toBe( `<!-- wp:heading -->
-<h2 class="wp-block-heading">My Heading</h2>
-<!-- /wp:heading -->` );
+				.toBe( `<!-- fp:heading -->
+<h2 class="fp-block-heading">My Heading</h2>
+<!-- /fp:heading -->` );
 		} );
 
 		test.describe( 'Dragging positions', () => {
@@ -165,13 +165,13 @@ test.describe( 'Paragraph', () => {
 				draggingUtils,
 			} ) => {
 				await editor.setContent( `
-					<!-- wp:paragraph -->
+					<!-- fp:paragraph -->
 					<p></p>
-					<!-- /wp:paragraph -->
+					<!-- /fp:paragraph -->
 
-					<!-- wp:heading -->
+					<!-- fp:heading -->
 					<h2>Heading</h2>
-					<!-- /wp:heading -->
+					<!-- /fp:heading -->
 				` );
 
 				const emptyParagraph = editor.canvas.locator(
@@ -297,13 +297,13 @@ test.describe( 'Paragraph', () => {
 				draggingUtils,
 			} ) => {
 				await editor.setContent( `
-					<!-- wp:heading -->
+					<!-- fp:heading -->
 					<h2>Heading</h2>
-					<!-- /wp:heading -->
+					<!-- /fp:heading -->
 
-					<!-- wp:paragraph -->
+					<!-- fp:paragraph -->
 					<p></p>
-					<!-- /wp:paragraph -->
+					<!-- /fp:paragraph -->
 				` );
 
 				const emptyParagraph = editor.canvas.locator(
@@ -407,13 +407,13 @@ test.describe( 'Paragraph', () => {
 				draggingUtils,
 			} ) => {
 				await editor.setContent( `
-					<!-- wp:paragraph -->
+					<!-- fp:paragraph -->
 					<p></p>
-					<!-- /wp:paragraph -->
+					<!-- /fp:paragraph -->
 
-					<!-- wp:paragraph -->
+					<!-- fp:paragraph -->
 					<p></p>
-					<!-- /wp:paragraph -->
+					<!-- /fp:paragraph -->
 				` );
 
 				const firstEmptyParagraph = editor.canvas

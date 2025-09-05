@@ -62,9 +62,9 @@ export function convertLegacyBlockNameAndAttributes( name, attributes ) {
 	if ( name === 'core/comments-query-loop' ) {
 		name = 'core/comments';
 		const { className = '' } = newAttributes;
-		if ( ! className.includes( 'wp-block-comments-query-loop' ) ) {
+		if ( ! className.includes( 'fp-block-comments-query-loop' ) ) {
 			newAttributes.className = [
-				'wp-block-comments-query-loop',
+				'fp-block-comments-query-loop',
 				className,
 			].join( ' ' );
 		}
@@ -76,7 +76,7 @@ export function convertLegacyBlockNameAndAttributes( name, attributes ) {
 		newAttributes.legacy = true;
 	}
 
-	// Column count was stored as a string from WP 6.3-6.6. Convert it to a number.
+	// Column count was stored as a string from FP 6.3-6.6. Convert it to a number.
 	if (
 		attributes.layout?.type === 'grid' &&
 		typeof attributes.layout?.columnCount === 'string'
@@ -87,7 +87,7 @@ export function convertLegacyBlockNameAndAttributes( name, attributes ) {
 		};
 	}
 
-	// Column span and row span were stored as strings in WP 6.6. Convert them to numbers.
+	// Column span and row span were stored as strings in FP 6.6. Convert them to numbers.
 	if ( typeof attributes.style?.layout?.columnSpan === 'string' ) {
 		const columnSpanNumber = parseInt(
 			attributes.style.layout.columnSpan,

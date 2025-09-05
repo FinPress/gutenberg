@@ -112,24 +112,24 @@ const GLOBAL_STYLES_RAW_FEATURES = {
 
 const GLOBAL_STYLES_RAW_STYLES = {
 	color: {
-		background: 'var(--wp--preset--color--foreground)',
-		text: 'var(--wp--preset--color--tertiary)',
+		background: 'var(--fp--preset--color--foreground)',
+		text: 'var(--fp--preset--color--tertiary)',
 	},
 	elements: {
 		h1: {
 			typography: {
-				fontSize: 'var(--wp--preset--font-size--xx-large)',
+				fontSize: 'var(--fp--preset--font-size--xx-large)',
 				lineHeight: '1.15',
 			},
 		},
 		h2: {
 			typography: {
-				fontSize: 'var(--wp--preset--font-size--x-large)',
+				fontSize: 'var(--fp--preset--font-size--x-large)',
 			},
 		},
 		h3: {
 			typography: {
-				fontSize: 'var(--wp--preset--font-size--large)',
+				fontSize: 'var(--fp--preset--font-size--large)',
 			},
 		},
 		h4: {
@@ -140,32 +140,32 @@ const GLOBAL_STYLES_RAW_STYLES = {
 		},
 		h5: {
 			typography: {
-				fontSize: 'var(--wp--preset--font-size--medium)',
+				fontSize: 'var(--fp--preset--font-size--medium)',
 			},
 		},
 		h6: {
 			typography: {
-				fontSize: 'var(--wp--preset--font-size--small)',
+				fontSize: 'var(--fp--preset--font-size--small)',
 			},
 		},
 		heading: {
 			color: {
-				text: 'var(--wp--preset--color--tertiary)',
+				text: 'var(--fp--preset--color--tertiary)',
 			},
 			typography: {
-				fontFamily: 'var(--wp--preset--font-family--heading)',
+				fontFamily: 'var(--fp--preset--font-family--heading)',
 				lineHeight: '1.2',
 			},
 		},
 		link: {
 			color: {
-				text: 'var(--wp--preset--color--tertiary)',
+				text: 'var(--fp--preset--color--tertiary)',
 			},
 		},
 	},
 	typography: {
-		fontFamily: 'var(--wp--preset--font-family--body)',
-		fontSize: 'var(--wp--preset--font-size--medium)',
+		fontFamily: 'var(--fp--preset--font-family--body)',
+		fontSize: 'var(--fp--preset--font-size--medium)',
 		lineHeight: '1.55',
 	},
 };

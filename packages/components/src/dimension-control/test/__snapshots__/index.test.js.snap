@@ -37,7 +37,7 @@ exports[`DimensionControl rendering renders with custom sizes 1`] = `
   position: relative;
   border-radius: 2px;
   padding-top: 0;
-  color: var(--wp-components-color-foreground, #1e1e1e);
+  color: var(--fp-components-color-foreground, #1e1e1e);
   cursor: pointer;
 }
 
@@ -46,8 +46,8 @@ exports[`DimensionControl rendering renders with custom sizes 1`] = `
 }
 
 .emotion-6:focus-within:not( :has( :is( .em5sgkm8, .emotion-19 ):focus-within ) ) .emotion-26 {
-  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
-  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  border-color: var(--fp-components-color-accent, var(--fp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--fp-components-color-accent, var(--fp-admin-theme-color, #3858e9));
   outline: 2px solid transparent;
   outline-offset: -2px;
 }
@@ -63,7 +63,7 @@ exports[`DimensionControl rendering renders with custom sizes 1`] = `
 }
 
 .emotion-12 {
-  color: var(--wp-components-color-foreground, #1e1e1e);
+  color: var(--fp-components-color-foreground, #1e1e1e);
   line-height: 1.4;
   margin: 0;
   text-wrap: balance;
@@ -103,7 +103,7 @@ exports[`DimensionControl rendering renders with custom sizes 1`] = `
   -ms-flex: 1;
   flex: 1;
   position: relative;
-  background-color: var(--wp-components-color-background, #fff);
+  background-color: var(--fp-components-color-background, #fff);
   width: 100%;
 }
 
@@ -176,7 +176,7 @@ exports[`DimensionControl rendering renders with custom sizes 1`] = `
 
 .emotion-25.emotion-25.emotion-25 {
   box-sizing: border-box;
-  border-color: var(--wp-components-color-gray-600, #949494);
+  border-color: var(--fp-components-color-gray-600, #949494);
   border-radius: inherit;
   border-style: solid;
   border-width: 1px;
@@ -200,18 +200,18 @@ exports[`DimensionControl rendering renders with custom sizes 1`] = `
     >
       <div
         class="components-flex components-input-base emotion-4 emotion-5 emotion-6 emotion-7"
-        data-wp-c16t="true"
-        data-wp-component="InputBase"
+        data-fp-c16t="true"
+        data-fp-component="InputBase"
       >
         <div
           class="components-flex-item emotion-8 emotion-9 emotion-7"
-          data-wp-c16t="true"
-          data-wp-component="FlexItem"
+          data-fp-c16t="true"
+          data-fp-component="FlexItem"
         >
           <label
             class="components-truncate components-text components-input-control__label emotion-11 emotion-12 emotion-7"
-            data-wp-c16t="true"
-            data-wp-component="Text"
+            data-fp-c16t="true"
+            data-fp-component="Text"
             for="inspector-select-control-3"
           >
             Custom Dimension
@@ -250,8 +250,8 @@ exports[`DimensionControl rendering renders with custom sizes 1`] = `
           >
             <div
               class="components-input-control-suffix-wrapper emotion-20 emotion-21 emotion-22"
-              data-wp-c16t="true"
-              data-wp-component="InputControlSuffixWrapper"
+              data-fp-c16t="true"
+              data-fp-component="InputControlSuffixWrapper"
             >
               <div
                 class="emotion-23 emotion-24"
@@ -319,7 +319,7 @@ exports[`DimensionControl rendering renders with defaults 1`] = `
   position: relative;
   border-radius: 2px;
   padding-top: 0;
-  color: var(--wp-components-color-foreground, #1e1e1e);
+  color: var(--fp-components-color-foreground, #1e1e1e);
   cursor: pointer;
 }
 
@@ -328,8 +328,8 @@ exports[`DimensionControl rendering renders with defaults 1`] = `
 }
 
 .emotion-6:focus-within:not( :has( :is( .em5sgkm8, .emotion-19 ):focus-within ) ) .emotion-26 {
-  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
-  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  border-color: var(--fp-components-color-accent, var(--fp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--fp-components-color-accent, var(--fp-admin-theme-color, #3858e9));
   outline: 2px solid transparent;
   outline-offset: -2px;
 }
@@ -345,7 +345,7 @@ exports[`DimensionControl rendering renders with defaults 1`] = `
 }
 
 .emotion-12 {
-  color: var(--wp-components-color-foreground, #1e1e1e);
+  color: var(--fp-components-color-foreground, #1e1e1e);
   line-height: 1.4;
   margin: 0;
   text-wrap: balance;
@@ -385,7 +385,7 @@ exports[`DimensionControl rendering renders with defaults 1`] = `
   -ms-flex: 1;
   flex: 1;
   position: relative;
-  background-color: var(--wp-components-color-background, #fff);
+  background-color: var(--fp-components-color-background, #fff);
   width: 100%;
 }
 
@@ -458,7 +458,7 @@ exports[`DimensionControl rendering renders with defaults 1`] = `
 
 .emotion-25.emotion-25.emotion-25 {
   box-sizing: border-box;
-  border-color: var(--wp-components-color-gray-600, #949494);
+  border-color: var(--fp-components-color-gray-600, #949494);
   border-radius: inherit;
   border-style: solid;
   border-width: 1px;
@@ -482,18 +482,18 @@ exports[`DimensionControl rendering renders with defaults 1`] = `
     >
       <div
         class="components-flex components-input-base emotion-4 emotion-5 emotion-6 emotion-7"
-        data-wp-c16t="true"
-        data-wp-component="InputBase"
+        data-fp-c16t="true"
+        data-fp-component="InputBase"
       >
         <div
           class="components-flex-item emotion-8 emotion-9 emotion-7"
-          data-wp-c16t="true"
-          data-wp-component="FlexItem"
+          data-fp-c16t="true"
+          data-fp-component="FlexItem"
         >
           <label
             class="components-truncate components-text components-input-control__label emotion-11 emotion-12 emotion-7"
-            data-wp-c16t="true"
-            data-wp-component="Text"
+            data-fp-c16t="true"
+            data-fp-component="Text"
             for="inspector-select-control-0"
           >
             Padding
@@ -542,8 +542,8 @@ exports[`DimensionControl rendering renders with defaults 1`] = `
           >
             <div
               class="components-input-control-suffix-wrapper emotion-20 emotion-21 emotion-22"
-              data-wp-c16t="true"
-              data-wp-component="InputControlSuffixWrapper"
+              data-fp-c16t="true"
+              data-fp-component="InputControlSuffixWrapper"
             >
               <div
                 class="emotion-23 emotion-24"
@@ -611,7 +611,7 @@ exports[`DimensionControl rendering renders with icon and custom icon label 1`] 
   position: relative;
   border-radius: 2px;
   padding-top: 0;
-  color: var(--wp-components-color-foreground, #1e1e1e);
+  color: var(--fp-components-color-foreground, #1e1e1e);
   cursor: pointer;
 }
 
@@ -620,8 +620,8 @@ exports[`DimensionControl rendering renders with icon and custom icon label 1`] 
 }
 
 .emotion-6:focus-within:not( :has( :is( .em5sgkm8, .emotion-19 ):focus-within ) ) .emotion-26 {
-  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
-  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  border-color: var(--fp-components-color-accent, var(--fp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--fp-components-color-accent, var(--fp-admin-theme-color, #3858e9));
   outline: 2px solid transparent;
   outline-offset: -2px;
 }
@@ -637,7 +637,7 @@ exports[`DimensionControl rendering renders with icon and custom icon label 1`] 
 }
 
 .emotion-12 {
-  color: var(--wp-components-color-foreground, #1e1e1e);
+  color: var(--fp-components-color-foreground, #1e1e1e);
   line-height: 1.4;
   margin: 0;
   text-wrap: balance;
@@ -677,7 +677,7 @@ exports[`DimensionControl rendering renders with icon and custom icon label 1`] 
   -ms-flex: 1;
   flex: 1;
   position: relative;
-  background-color: var(--wp-components-color-background, #fff);
+  background-color: var(--fp-components-color-background, #fff);
   width: 100%;
 }
 
@@ -750,7 +750,7 @@ exports[`DimensionControl rendering renders with icon and custom icon label 1`] 
 
 .emotion-25.emotion-25.emotion-25 {
   box-sizing: border-box;
-  border-color: var(--wp-components-color-gray-600, #949494);
+  border-color: var(--fp-components-color-gray-600, #949494);
   border-radius: inherit;
   border-style: solid;
   border-width: 1px;
@@ -774,18 +774,18 @@ exports[`DimensionControl rendering renders with icon and custom icon label 1`] 
     >
       <div
         class="components-flex components-input-base emotion-4 emotion-5 emotion-6 emotion-7"
-        data-wp-c16t="true"
-        data-wp-component="InputBase"
+        data-fp-c16t="true"
+        data-fp-component="InputBase"
       >
         <div
           class="components-flex-item emotion-8 emotion-9 emotion-7"
-          data-wp-c16t="true"
-          data-wp-component="FlexItem"
+          data-fp-c16t="true"
+          data-fp-component="FlexItem"
         >
           <label
             class="components-truncate components-text components-input-control__label emotion-11 emotion-12 emotion-7"
-            data-wp-c16t="true"
-            data-wp-component="Text"
+            data-fp-c16t="true"
+            data-fp-component="Text"
             for="inspector-select-control-2"
           >
             <svg
@@ -846,8 +846,8 @@ exports[`DimensionControl rendering renders with icon and custom icon label 1`] 
           >
             <div
               class="components-input-control-suffix-wrapper emotion-20 emotion-21 emotion-22"
-              data-wp-c16t="true"
-              data-wp-component="InputControlSuffixWrapper"
+              data-fp-c16t="true"
+              data-fp-component="InputControlSuffixWrapper"
             >
               <div
                 class="emotion-23 emotion-24"
@@ -915,7 +915,7 @@ exports[`DimensionControl rendering renders with icon and default icon label 1`]
   position: relative;
   border-radius: 2px;
   padding-top: 0;
-  color: var(--wp-components-color-foreground, #1e1e1e);
+  color: var(--fp-components-color-foreground, #1e1e1e);
   cursor: pointer;
 }
 
@@ -924,8 +924,8 @@ exports[`DimensionControl rendering renders with icon and default icon label 1`]
 }
 
 .emotion-6:focus-within:not( :has( :is( .em5sgkm8, .emotion-19 ):focus-within ) ) .emotion-26 {
-  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
-  box-shadow: 0 0 0 0.5px var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+  border-color: var(--fp-components-color-accent, var(--fp-admin-theme-color, #3858e9));
+  box-shadow: 0 0 0 0.5px var(--fp-components-color-accent, var(--fp-admin-theme-color, #3858e9));
   outline: 2px solid transparent;
   outline-offset: -2px;
 }
@@ -941,7 +941,7 @@ exports[`DimensionControl rendering renders with icon and default icon label 1`]
 }
 
 .emotion-12 {
-  color: var(--wp-components-color-foreground, #1e1e1e);
+  color: var(--fp-components-color-foreground, #1e1e1e);
   line-height: 1.4;
   margin: 0;
   text-wrap: balance;
@@ -981,7 +981,7 @@ exports[`DimensionControl rendering renders with icon and default icon label 1`]
   -ms-flex: 1;
   flex: 1;
   position: relative;
-  background-color: var(--wp-components-color-background, #fff);
+  background-color: var(--fp-components-color-background, #fff);
   width: 100%;
 }
 
@@ -1054,7 +1054,7 @@ exports[`DimensionControl rendering renders with icon and default icon label 1`]
 
 .emotion-25.emotion-25.emotion-25 {
   box-sizing: border-box;
-  border-color: var(--wp-components-color-gray-600, #949494);
+  border-color: var(--fp-components-color-gray-600, #949494);
   border-radius: inherit;
   border-style: solid;
   border-width: 1px;
@@ -1078,18 +1078,18 @@ exports[`DimensionControl rendering renders with icon and default icon label 1`]
     >
       <div
         class="components-flex components-input-base emotion-4 emotion-5 emotion-6 emotion-7"
-        data-wp-c16t="true"
-        data-wp-component="InputBase"
+        data-fp-c16t="true"
+        data-fp-component="InputBase"
       >
         <div
           class="components-flex-item emotion-8 emotion-9 emotion-7"
-          data-wp-c16t="true"
-          data-wp-component="FlexItem"
+          data-fp-c16t="true"
+          data-fp-component="FlexItem"
         >
           <label
             class="components-truncate components-text components-input-control__label emotion-11 emotion-12 emotion-7"
-            data-wp-c16t="true"
-            data-wp-component="Text"
+            data-fp-c16t="true"
+            data-fp-component="Text"
             for="inspector-select-control-1"
           >
             <svg
@@ -1150,8 +1150,8 @@ exports[`DimensionControl rendering renders with icon and default icon label 1`]
           >
             <div
               class="components-input-control-suffix-wrapper emotion-20 emotion-21 emotion-22"
-              data-wp-c16t="true"
-              data-wp-component="InputControlSuffixWrapper"
+              data-fp-c16t="true"
+              data-fp-component="InputControlSuffixWrapper"
             >
               <div
                 class="emotion-23 emotion-24"

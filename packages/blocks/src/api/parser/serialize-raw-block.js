@@ -8,7 +8,7 @@ import { getCommentDelimitedContent } from '../serializer';
  * @property {boolean} [isCommentDelimited=true] Whether to output HTML comments around blocks.
  */
 
-/** @typedef {import("./").WPRawBlock} WPRawBlock */
+/** @typedef {import("./").FPRawBlock} FPRawBlock */
 
 /**
  * Serializes a block node into the native HTML-comment-powered block format.
@@ -25,7 +25,7 @@ import { getCommentDelimitedContent } from '../serializer';
  * @see `@finpress/block-serialization-default-parser` package
  * @see `@finpress/block-serialization-spec-parser` package
  *
- * @param {WPRawBlock} rawBlock     A block node as returned by a valid parser.
+ * @param {FPRawBlock} rawBlock     A block node as returned by a valid parser.
  * @param {Options}    [options={}] Serialization options.
  *
  * @return {string} An HTML string representing a block.

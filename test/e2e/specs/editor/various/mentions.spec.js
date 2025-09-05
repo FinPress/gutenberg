@@ -33,9 +33,9 @@ test.describe( 'autocomplete mentions', () => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( '.' );
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p>I am @admin.</p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 	} );
 
@@ -56,9 +56,9 @@ test.describe( 'autocomplete mentions', () => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( ' ' );
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p>Stuck in the middle with @testuser you</p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 	} );
 
@@ -81,9 +81,9 @@ test.describe( 'autocomplete mentions', () => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( '.' );
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p>I am @testuser @admin.</p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 	} );
 } );

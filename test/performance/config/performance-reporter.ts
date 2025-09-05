@@ -15,7 +15,7 @@ import type {
  */
 import { stats, round } from '../utils';
 
-export interface WPRawPerformanceResults {
+export interface FPRawPerformanceResults {
 	timeToFirstByte: number[];
 	largestContentfulPaint: number[];
 	lcpMinusTtfb: number[];
@@ -37,11 +37,11 @@ export interface WPRawPerformanceResults {
 	loadPages: number[];
 	listViewOpen: number[];
 	navigate: number[];
-	wpBeforeTemplate: number[];
-	wpTemplate: number[];
-	wpTotal: number[];
-	wpMemoryUsage: number[];
-	wpDbQueries: number[];
+	fpBeforeTemplate: number[];
+	fpTemplate: number[];
+	fpTotal: number[];
+	fpMemoryUsage: number[];
+	fpDbQueries: number[];
 }
 
 type PerformanceStats = {
@@ -51,7 +51,7 @@ type PerformanceStats = {
 	cnt: number; // number of data points
 };
 
-export interface WPPerformanceResults {
+export interface FPPerformanceResults {
 	timeToFirstByte?: PerformanceStats;
 	largestContentfulPaint?: PerformanceStats;
 	lcpMinusTtfb?: PerformanceStats;
@@ -73,11 +73,11 @@ export interface WPPerformanceResults {
 	loadPages?: PerformanceStats;
 	listViewOpen?: PerformanceStats;
 	navigate?: PerformanceStats;
-	wpBeforeTemplate?: PerformanceStats;
-	wpTemplate?: PerformanceStats;
-	wpTotal?: PerformanceStats;
-	wpMemoryUsage?: PerformanceStats;
-	wpDbQueries?: PerformanceStats;
+	fpBeforeTemplate?: PerformanceStats;
+	fpTemplate?: PerformanceStats;
+	fpTotal?: PerformanceStats;
+	fpMemoryUsage?: PerformanceStats;
+	fpDbQueries?: PerformanceStats;
 }
 
 /**
@@ -87,8 +87,8 @@ export interface WPPerformanceResults {
  * @return Curated statistics for the results.
  */
 export function curateResults(
-	results: WPRawPerformanceResults
-): WPPerformanceResults {
+	results: FPRawPerformanceResults
+): FPPerformanceResults {
 	const output = {
 		timeToFirstByte: stats( results.timeToFirstByte ),
 		largestContentfulPaint: stats( results.largestContentfulPaint ),
@@ -111,11 +111,11 @@ export function curateResults(
 		loadPages: stats( results.loadPages ),
 		listViewOpen: stats( results.listViewOpen ),
 		navigate: stats( results.navigate ),
-		wpBeforeTemplate: stats( results.wpBeforeTemplate ),
-		wpTemplate: stats( results.wpTemplate ),
-		wpTotal: stats( results.wpTotal ),
-		wpMemoryUsage: stats( results.wpMemoryUsage ),
-		wpDbQueries: stats( results.wpDbQueries ),
+		fpBeforeTemplate: stats( results.fpBeforeTemplate ),
+		fpTemplate: stats( results.fpTemplate ),
+		fpTotal: stats( results.fpTotal ),
+		fpMemoryUsage: stats( results.fpMemoryUsage ),
+		fpDbQueries: stats( results.fpDbQueries ),
 	};
 
 	return Object.fromEntries(
@@ -126,11 +126,11 @@ export function curateResults(
 }
 
 function formatValue( metric: string, value: number ) {
-	if ( 'wpMemoryUsage' === metric ) {
+	if ( 'fpMemoryUsage' === metric ) {
 		return `${ ( value / Math.pow( 10, 6 ) ).toFixed( 2 ) } MB`;
 	}
 
-	if ( 'wpDbQueries' === metric ) {
+	if ( 'fpDbQueries' === metric ) {
 		return value.toString();
 	}
 
@@ -138,7 +138,7 @@ function formatValue( metric: string, value: number ) {
 }
 
 class PerformanceReporter implements Reporter {
-	private results: Record< string, WPPerformanceResults >;
+	private results: Record< string, FPPerformanceResults >;
 
 	constructor() {
 		this.results = {};
@@ -156,7 +156,7 @@ class PerformanceReporter implements Reporter {
 
 			const testSuite = path.basename( test.location.file, '.spec.js' );
 			const resultsId = process.env.RESULTS_ID || testSuite;
-			const resultsPath = process.env.WP_ARTIFACTS_PATH as string;
+			const resultsPath = process.env.FP_ARTIFACTS_PATH as string;
 			const resultsBody = attachment.body.toString();
 
 			// Save raw results to file.

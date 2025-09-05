@@ -25,11 +25,11 @@ You should use global state when:
 
 -   **Initializing the global state**
 
-    Typically, the initial global state values should be defined on the server using the `wp_interactivity_state` function:
+    Typically, the initial global state values should be defined on the server using the `fp_interactivity_state` function:
 
     ```php
     // Populates the initial global state values.
-    wp_interactivity_state( 'myPlugin', array(
+    fp_interactivity_state( 'myPlugin', array(
       'isDarkTheme' => true,
       'show'        => false,
       'helloText'   => __( 'world' ),
@@ -42,14 +42,14 @@ You should use global state when:
 
         ```html
         <div
-        	data-wp-interactive="myPlugin"
-        	data-wp-class--is-dark-theme="state.isDarkTheme"
+        	data-fp-interactive="myPlugin"
+        	data-fp-class--is-dark-theme="state.isDarkTheme"
         	class="my-plugin"
         >
-        	<div data-wp-bind--hidden="!state.show">
-        		Hello <span data-wp-text="state.helloText"></span>
+        	<div data-fp-bind--hidden="!state.show">
+        		Hello <span data-fp-text="state.helloText"></span>
         	</div>
-        	<button data-wp-on-async--click="actions.toggle">Toggle</button>
+        	<button data-fp-on-async--click="actions.toggle">Toggle</button>
         </div>
         ```
 
@@ -57,14 +57,14 @@ You should use global state when:
 
         ```html
         <div
-        	data-wp-interactive="myPlugin"
-        	data-wp-class--is-dark-theme="state.isDarkTheme"
+        	data-fp-interactive="myPlugin"
+        	data-fp-class--is-dark-theme="state.isDarkTheme"
         	class="my-plugin is-dark-theme"
         >
-        	<div hidden data-wp-bind--hidden="!state.show">
-        		Hello <span data-wp-text="state.helloText">world</span>
+        	<div hidden data-fp-bind--hidden="!state.show">
+        		Hello <span data-fp-text="state.helloText">world</span>
         	</div>
-        	<button data-wp-on-async--click="actions.toggle">Toggle</button>
+        	<button data-fp-on-async--click="actions.toggle">Toggle</button>
         </div>
         ```
 
@@ -93,8 +93,8 @@ You should use global state when:
     In the HTML markup, you can access the global state values directly by referencing `state` in the directive attribute values:
 
     ```html
-    <div data-wp-bind--hidden="!state.show">
-    	<span data-wp-text="state.helloText"></span>
+    <div data-fp-bind--hidden="!state.show">
+    	<span data-fp-text="state.helloText"></span>
     </div>
     ```
 
@@ -129,10 +129,10 @@ You should use global state when:
     } );
     ```
 
-    The global state initialized on the server using the `wp_interactivity_state` function is also included in that object because it is automatically serialized from the server to the client:
+    The global state initialized on the server using the `fp_interactivity_state` function is also included in that object because it is automatically serialized from the server to the client:
 
     ```php
-    wp_interactivity_state( 'myPlugin', array(
+    fp_interactivity_state( 'myPlugin', array(
       'someValue' => 1,
     ));
     ```
@@ -199,16 +199,16 @@ In this example, there are two independent interactive blocks. One displays a co
 
     ```php
     <?php
-    wp_interactivity_state( 'myCounterPlugin', array(
+    fp_interactivity_state( 'myCounterPlugin', array(
       'counter' => 0
     ));
     ?>
 
     <div
-      data-wp-interactive="myCounterPlugin"
+      data-fp-interactive="myCounterPlugin"
       <?php echo get_block_wrapper_attributes(); ?>
     >
-      Counter: <span data-wp-text="state.counter"></span>
+      Counter: <span data-fp-text="state.counter"></span>
     </div>
     ```
 
@@ -216,10 +216,10 @@ In this example, there are two independent interactive blocks. One displays a co
 
     ```php
     <div
-      data-wp-interactive="myCounterPlugin"
+      data-fp-interactive="myCounterPlugin"
       <?php echo get_block_wrapper_attributes(); ?>
     >
-      <button data-wp-on-async--click="actions.increment">
+      <button data-fp-on-async--click="actions.increment">
         Increment
       </button>
     </div>
@@ -237,9 +237,9 @@ In this example, there are two independent interactive blocks. One displays a co
 
 In this example:
 
-1. The global state is initialized on the server using `wp_interactivity_state`, setting an initial `counter` of 0.
-2. The Counter Block displays the current counter using `data-wp-text="state.counter"`, which reads from the global state.
-3. The Increment Block contains a button that triggers the `increment` action when clicked, using `data-wp-on-async--click="actions.increment"`.
+1. The global state is initialized on the server using `fp_interactivity_state`, setting an initial `counter` of 0.
+2. The Counter Block displays the current counter using `data-fp-text="state.counter"`, which reads from the global state.
+3. The Increment Block contains a button that triggers the `increment` action when clicked, using `data-fp-on-async--click="actions.increment"`.
 4. In JavaScript, the `increment` action directly modifies the global state by incrementing `state.counter`.
 
 Both blocks are independent and can be placed anywhere on the page. They don't need to be nested or directly related in the DOM structure. Multiple instances of these interactive blocks can be added to the page, and they will all share and update the same global counter value.
@@ -260,22 +260,22 @@ You should use local context when:
 
 -   **Initializing the local context**
 
-    The local context is initialized directly within the HTML structure using the `data-wp-context` directive. This directive accepts a JSON string that defines the initial values for that piece of context.
+    The local context is initialized directly within the HTML structure using the `data-fp-context` directive. This directive accepts a JSON string that defines the initial values for that piece of context.
 
     ```html
-    <div data-wp-context='{ "counter": 0 }'>
+    <div data-fp-context='{ "counter": 0 }'>
     	<!-- Child elements will have access to `context.counter` -->
     </div>
     ```
 
-    You can also initialize the local context on the server using the `wp_interactivity_data_wp_context` PHP helper, which ensures proper escaping and formatting of the stringified values:
+    You can also initialize the local context on the server using the `fp_interactivity_data_fp_context` PHP helper, which ensures proper escaping and formatting of the stringified values:
 
     ```php
     <?php
     $context = array( 'counter' => 0 );
     ?>
 
-    <div <?php echo wp_interactivity_data_wp_context( $context ); ?>>
+    <div <?php echo fp_interactivity_data_fp_context( $context ); ?>>
       <!-- Child elements will have access to `context.counter` -->
     </div>
     ```
@@ -285,8 +285,8 @@ You should use local context when:
     In the HTML markup, you can access the local context values directly by referencing `context` in the directive values:
 
     ```html
-    <div data-wp-bind--hidden="!context.isOpen">
-    	<span data-wp-text="context.counter"></span>
+    <div data-fp-bind--hidden="!context.isOpen">
+    	<span data-fp-text="context.counter"></span>
     </div>
     ```
 
@@ -339,13 +339,13 @@ You should use local context when:
     Local contexts can be nested, with child contexts inheriting and potentially overriding values from parent contexts:
 
     ```html
-    <div data-wp-context='{ "theme": "light", "counter": 0 }'>
-    	<p>Theme: <span data-wp-text="context.theme"></span></p>
-    	<p>Counter: <span data-wp-text="context.counter"></span></p>
+    <div data-fp-context='{ "theme": "light", "counter": 0 }'>
+    	<p>Theme: <span data-fp-text="context.theme"></span></p>
+    	<p>Counter: <span data-fp-text="context.counter"></span></p>
 
-    	<div data-wp-context='{ "theme": "dark" }'>
-    		<p>Theme: <span data-wp-text="context.theme"></span></p>
-    		<p>Counter: <span data-wp-text="context.counter"></span></p>
+    	<div data-fp-context='{ "theme": "dark" }'>
+    		<p>Theme: <span data-fp-text="context.theme"></span></p>
+    		<p>Counter: <span data-fp-text="context.counter"></span></p>
     	</div>
     </div>
     ```
@@ -358,12 +358,12 @@ In this example, there is a single interactive block that shows a counter and ca
 
 ```php
 <div
-  data-wp-interactive="myCounterPlugin"
+  data-fp-interactive="myCounterPlugin"
   <?php echo get_block_wrapper_attributes(); ?>
-  data-wp-context='{ "counter": 0 }'
+  data-fp-context='{ "counter": 0 }'
 >
-  <p>Counter: <span data-wp-text="context.counter"></span></p>
-  <button data-wp-on-async--click="actions.increment">Increment</button>
+  <p>Counter: <span data-fp-text="context.counter"></span></p>
+  <button data-fp-on-async--click="actions.increment">Increment</button>
 </div>
 ```
 
@@ -380,9 +380,9 @@ store( 'myCounterPlugin', {
 
 In this example:
 
-1. A local context with an initial `counter` value of `0` is defined using the `data-wp-context` directive.
-2. The counter is displayed using `data-wp-text="context.counter"`, which reads from the local context.
-3. The increment button uses `data-wp-on-async--click="actions.increment"` to trigger the increment action.
+1. A local context with an initial `counter` value of `0` is defined using the `data-fp-context` directive.
+2. The counter is displayed using `data-fp-text="context.counter"`, which reads from the local context.
+3. The increment button uses `data-fp-on-async--click="actions.increment"` to trigger the increment action.
 4. In JavaScript, the `getContext` function is used to access and modify the local context for each block instance.
 
 A user will be able to add multiple instances of this block to a page, and each will maintain its own independent counter. Clicking the "Increment" button on one block will only affect that specific block's counter and not the others.
@@ -420,12 +420,12 @@ You should use derived state:
 
 -   **Initializing the derived state**
 
-    Typically, the derived state should be initialized on the server using the `wp_interactivity_state` function in the exact same way as the global state.
+    Typically, the derived state should be initialized on the server using the `fp_interactivity_state` function in the exact same way as the global state.
 
     -   When the initial value is known and static, it can be defined directly:
 
         ```php
-        wp_interactivity_state( 'myCounterPlugin', array(
+        fp_interactivity_state( 'myCounterPlugin', array(
           'counter' => 1, // This is global state.
           'double'  => 2, // This is derived state.
         ));
@@ -437,7 +437,7 @@ You should use derived state:
         $counter = 1;
         $double  = $counter * 2;
 
-        wp_interactivity_state( 'myCounterPlugin', array(
+        fp_interactivity_state( 'myCounterPlugin', array(
           'counter' => $counter, // This is global state.
           'double'  => $double,  // This is derived state.
         ));
@@ -456,20 +456,20 @@ You should use derived state:
     // This is the local context.
     $context = array( 'counter' => $counter );
 
-    wp_interactivity_state( 'myCounterPlugin', array(
+    fp_interactivity_state( 'myCounterPlugin', array(
       'double' => $counter * 2, // This is derived state.
     ));
     ?>
 
     <div
-      data-wp-interactive="myCounterPlugin"
-      <?php echo wp_interactivity_data_wp_context( $context ); ?>
+      data-fp-interactive="myCounterPlugin"
+      <?php echo fp_interactivity_data_fp_context( $context ); ?>
     >
       <div>
-        Counter: <span data-wp-text="context.counter"></span>
+        Counter: <span data-fp-text="context.counter"></span>
       </div>
       <div>
-        Double: <span data-wp-text="state.double"></span>
+        Double: <span data-fp-text="state.double"></span>
       </div>
     </div>
     ```
@@ -509,26 +509,26 @@ You should use derived state:
 
     ```php
     <?php
-    wp_interactivity_state( 'myProductPlugin', array(
+    fp_interactivity_state( 'myProductPlugin', array(
       'list'    => array( 1, 2, 3 ),
       'factor'  => 3,
       'product' => function() {
-        $state   = wp_interactivity_state();
-        $context = wp_interactivity_get_context();
+        $state   = fp_interactivity_state();
+        $context = fp_interactivity_get_context();
         return $context['item'] * $state['factor'];
       }
     ));
     ?>
 
     <template
-      data-wp-interactive="myProductPlugin"
-      data-wp-each="state.list"
+      data-fp-interactive="myProductPlugin"
+      data-fp-each="state.list"
     >
-      <span data-wp-text="state.product"></span>
+      <span data-fp-text="state.product"></span>
     </template>
     ```
 
-    This `data-wp-each` template will render this HTML (directives omitted):
+    This `data-fp-each` template will render this HTML (directives omitted):
 
     ```html
     <span>3</span>
@@ -541,7 +541,7 @@ You should use derived state:
     In the HTML markup, the syntax for the derived state is the same as the one for the global state, just by referencing `state` in the directive attribute values.
 
     ```html
-    <span data-wp-text="state.double"></span>
+    <span data-fp-text="state.double"></span>
     ```
 
     The same happens in JavaScript. Both global state and derived state can be consumed through the `state` property of the store:
@@ -669,21 +669,21 @@ store( 'myCounterPlugin', {
 ```
 
 ```html
-<div data-wp-interactive="myCounterPlugin">
+<div data-fp-interactive="myCounterPlugin">
 	<!-- This will render "Double: 2" -->
-	<div data-wp-context='{ "counter": 1 }'>
-		Double: <span data-wp-text="state.double"></span>
+	<div data-fp-context='{ "counter": 1 }'>
+		Double: <span data-fp-text="state.double"></span>
 
 		<!-- This button will increment the local counter. -->
-		<button data-wp-on-async--click="actions.increment">Increment</button>
+		<button data-fp-on-async--click="actions.increment">Increment</button>
 	</div>
 
 	<!-- This will render "Double: 4" -->
-	<div data-wp-context='{ "counter": 2 }'>
-		Double: <span data-wp-text="state.double"></span>
+	<div data-fp-context='{ "counter": 2 }'>
+		Double: <span data-fp-text="state.double"></span>
 
 		<!-- This button will increment the local counter. -->
-		<button data-wp-on-async--click="actions.increment">Increment</button>
+		<button data-fp-on-async--click="actions.increment">Increment</button>
 	</div>
 </div>
 ```
@@ -696,12 +696,12 @@ Let's now consider a scenario where there is a global tax rate and local product
 
 ```html
 <div
-	data-wp-interactive="myProductPlugin"
-	data-wp-context='{ "priceWithoutTax": 100 }'
+	data-fp-interactive="myProductPlugin"
+	data-fp-context='{ "priceWithoutTax": 100 }'
 >
-	<p>Product Price: $<span data-wp-text="context.priceWithoutTax"></span></p>
-	<p>Tax Rate: <span data-wp-text="state.taxRatePercentage"></span></p>
-	<p>Price (inc. tax): $<span data-wp-text="state.priceWithTax"></span></p>
+	<p>Product Price: $<span data-fp-text="context.priceWithoutTax"></span></p>
+	<p>Tax Rate: <span data-fp-text="state.taxRatePercentage"></span></p>
+	<p>Price (inc. tax): $<span data-fp-text="state.priceWithTax"></span></p>
 </div>
 ```
 
@@ -750,7 +750,7 @@ The `getServerState()` function returns a read-only reactive object. This means 
 Let's consider a quiz that has multiple questions. Each question is a separate page. When the user navigates to a new question, the server provides the new question and the time left to answer all the questions.
 
 ```php
-<div <?php echo wp_interactivity_state( 'myPlugin', array(
+<div <?php echo fp_interactivity_state( 'myPlugin', array(
 	'question' => get_question_for_page( get_the_ID() ),
 	'timeLeft' => 5 * 60, // Time to answer all the questions.
 ) ); ?>>
@@ -762,7 +762,7 @@ import { store, getServerState } from '@finpress/interactivity';
 store( 'myPlugin', {
 	actions: {
 		// This action would be triggered by a directive, like:
-		// <button data-wp-on-click="actions.nextQuestion">Next Question</button>
+		// <button data-fp-on-click="actions.nextQuestion">Next Question</button>
 		*nextQuestion() {
 			event.preventDefault( event );
 			const { actions } = yield import(
@@ -773,7 +773,7 @@ store( 'myPlugin', {
 	},
 	callbacks: {
 		// This callback would be triggered by a directive, like:
-		// <div data-wp-watch="callbacks.updateQuestion"></div>
+		// <div data-fp-watch="callbacks.updateQuestion"></div>
 		updateQuestion() {
 			const serverState = getServerState();
 
@@ -794,7 +794,7 @@ The `getServerContext()` function returns a read-only reactive object. This mean
 Consider a quiz that has multiple questions. Each question is a separate page. When the user navigates to a new question, the server provides the new question and the time left to answer all the questions.
 
 ```php
-<div <?php echo wp_interactivity_data_wp_context( array(
+<div <?php echo fp_interactivity_data_fp_context( array(
 	'currentQuestion' => get_question_for_page( get_the_ID() ),
 ), ); ?>>
 ```
@@ -805,7 +805,7 @@ import { store, getServerContext } from '@finpress/interactivity';
 store( 'myPlugin', {
 	actions: {
 		// This action would be triggered by a directive, like:
-		// <button data-wp-on-click="actions.nextQuestion">Next Question</button>
+		// <button data-fp-on-click="actions.nextQuestion">Next Question</button>
 		*nextQuestion() {
 			event.preventDefault( event );
 			const { actions } = yield import(
@@ -816,7 +816,7 @@ store( 'myPlugin', {
 	},
 	callbacks: {
 		// This callback would be triggered by a directive, like:
-		// <div data-wp-watch="callbacks.updateQuestion"></div>
+		// <div data-fp-watch="callbacks.updateQuestion"></div>
 		updateQuestion() {
 			const serverContext = getServerContext();
 			const context = getContext();

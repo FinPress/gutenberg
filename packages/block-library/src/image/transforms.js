@@ -47,7 +47,7 @@ const imageSchema = {
 			'aligncenter',
 			'alignright',
 			'alignnone',
-			/^wp-image-\d+$/,
+			/^fp-image-\d+$/,
 		],
 	},
 };
@@ -89,7 +89,7 @@ const transforms = {
 					);
 				const anchor = node.id === '' ? undefined : node.id;
 				const align = alignMatches ? alignMatches[ 1 ] : undefined;
-				const idMatches = /(?:^|\s)wp-image-(\d+)(?:$|\s)/.exec(
+				const idMatches = /(?:^|\s)fp-image-(\d+)(?:$|\s)/.exec(
 					className
 				);
 				const id = idMatches ? Number( idMatches[ 1 ] ) : undefined;

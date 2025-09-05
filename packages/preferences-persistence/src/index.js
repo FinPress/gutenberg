@@ -22,7 +22,7 @@ export { create };
  * @return {Object} The persistence layer initialized with the preloaded data.
  */
 export function __unstableCreatePersistenceLayer( serverData, userId ) {
-	const localStorageRestoreKey = `WP_PREFERENCES_USER_${ userId }`;
+	const localStorageRestoreKey = `FP_PREFERENCES_USER_${ userId }`;
 	const localData = JSON.parse(
 		window.localStorage.getItem( localStorageRestoreKey )
 	);

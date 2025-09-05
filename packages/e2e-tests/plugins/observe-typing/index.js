@@ -1,8 +1,8 @@
 ( function () {
-	const { registerBlockType } = wp.blocks;
-	const { useBlockProps, BlockControls } = wp.blockEditor;
-	const { Dropdown, ToolbarButton, TextControl } = wp.components;
-	const { createElement: el, useState } = wp.element;
+	const { registerBlockType } = fp.blocks;
+	const { useBlockProps, BlockControls } = fp.blockEditor;
+	const { Dropdown, ToolbarButton, TextControl } = fp.components;
+	const { createElement: el, useState } = fp.element;
 
 	registerBlockType( 'e2e-tests/observe-typing', {
 		apiVersion: 3,

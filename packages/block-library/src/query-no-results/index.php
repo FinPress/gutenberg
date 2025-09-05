@@ -10,11 +10,11 @@
  *
  * @since 6.0.0
  *
- * @global WP_Query $wp_query FinPress Query object.
+ * @global FP_Query $fp_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  *
  * @return string Returns the wrapper for the no results block.
  */
@@ -29,11 +29,11 @@ function render_block_core_query_no_results( $attributes, $content, $block ) {
 	// Override the custom query with the global query if needed.
 	$use_global_query = ( isset( $block->context['query']['inherit'] ) && $block->context['query']['inherit'] );
 	if ( $use_global_query ) {
-		global $wp_query;
-		$query = $wp_query;
+		global $fp_query;
+		$query = $fp_query;
 	} else {
 		$query_args = build_query_vars_from_query_block( $block, $page );
-		$query      = new WP_Query( $query_args );
+		$query      = new FP_Query( $query_args );
 	}
 
 	if ( $query->post_count > 0 ) {

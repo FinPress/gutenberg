@@ -11,14 +11,14 @@
  * Registers a custom script for the plugin.
  */
 function enqueue_child_blocks_script() {
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-child-blocks',
 		plugins_url( 'child-blocks/index.js', __FILE__ ),
 		array(
-			'wp-blocks',
-			'wp-block-editor',
-			'wp-element',
-			'wp-i18n',
+			'fp-blocks',
+			'fp-block-editor',
+			'fp-element',
+			'fp-i18n',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'child-blocks/index.js' ),
 		true

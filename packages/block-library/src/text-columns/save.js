@@ -12,7 +12,7 @@ export default function save( { attributes } ) {
 			} ) }
 		>
 			{ Array.from( { length: columns } ).map( ( _, index ) => (
-				<div className="wp-block-column" key={ `column-${ index }` }>
+				<div className="fp-block-column" key={ `column-${ index }` }>
 					<RichText.Content
 						tagName="p"
 						value={ content?.[ index ]?.children }

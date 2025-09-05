@@ -57,5 +57,5 @@ extension SourceFile {
     static let localStorage  = SourceFile(name: "local-storage-overrides", type: .json)
     static let preventAutosaves = SourceFile(name: "prevent-autosaves", type: .js)
     static let supportedBlocks = SourceFile(name: "supported-blocks", type: .json)
-    static let wpBarsStyle = SourceFile(name: "wp-bar-override", type: .css)
+    static let fpBarsStyle = SourceFile(name: "fp-bar-override", type: .css)
 }

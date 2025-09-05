@@ -134,7 +134,7 @@ export default function TemplatePartEdit( {
 
 			const getEntityArgs = [
 				'postType',
-				'wp_template_part',
+				'fp_template_part',
 				templatePartId,
 			];
 			const entityRecord = templatePartId
@@ -151,7 +151,7 @@ export default function TemplatePartEdit( {
 			const _canUserEdit = hasResolvedEntity
 				? select( coreStore ).canUser( 'update', {
 						kind: 'postType',
-						name: 'wp_template_part',
+						name: 'fp_template_part',
 						id: templatePartId,
 				  } )
 				: false;
@@ -182,7 +182,7 @@ export default function TemplatePartEdit( {
 	const onPatternSelect = async ( pattern ) => {
 		await editEntityRecord(
 			'postType',
-			'wp_template_part',
+			'fp_template_part',
 			templatePartId,
 			{
 				blocks: pattern.blocks,
@@ -243,7 +243,7 @@ export default function TemplatePartEdit( {
 								onClick={ () =>
 									onNavigateToEntityRecord( {
 										postId: templatePartId,
-										postType: 'wp_template_part',
+										postType: 'fp_template_part',
 									} )
 								}
 							>

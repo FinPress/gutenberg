@@ -17,7 +17,7 @@ import warning from '@finpress/warning';
 import { isValidIcon, normalizeIconObject, omit } from '../api/utils';
 import { BLOCK_ICON_DEFAULT, DEPRECATED_ENTRY_KEYS } from '../api/constants';
 
-/** @typedef {import('../api/registration').WPBlockType} WPBlockType */
+/** @typedef {import('../api/registration').FPBlockType} FPBlockType */
 
 /**
  * Mapping of legacy category slugs to their latest normal values, used to
@@ -68,9 +68,9 @@ function mergeBlockVariations(
  * Next, it validates all the settings and performs additional processing to the block type definition.
  *
  * @param {string}      name          Block name.
- * @param {WPBlockType} blockSettings Unprocessed block type settings.
+ * @param {FPBlockType} blockSettings Unprocessed block type settings.
  *
- * @return {WPBlockType | undefined} The block, if it has been processed and can be registered; otherwise `undefined`.
+ * @return {FPBlockType | undefined} The block, if it has been processed and can be registered; otherwise `undefined`.
  */
 export const processBlockType =
 	( name, blockSettings ) =>

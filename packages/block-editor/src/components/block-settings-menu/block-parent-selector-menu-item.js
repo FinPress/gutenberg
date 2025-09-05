@@ -3,7 +3,7 @@
  */
 import { useRef } from '@finpress/element';
 import { MenuItem } from '@finpress/components';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useDispatch } from '@finpress/data';
 import { __, sprintf } from '@finpress/i18n';
 
@@ -18,7 +18,7 @@ export default function BlockParentSelectorMenuItem( {
 	parentClientId,
 	parentBlockType,
 } ) {
-	const isSmallViewport = useViewportMatch( 'medium', '<' );
+	const isSmallviewport = useviewportMatch( 'medium', '<' );
 	const { selectBlock } = useDispatch( blockEditorStore );
 
 	// Allows highlighting the parent block outline when focusing or hovering
@@ -29,7 +29,7 @@ export default function BlockParentSelectorMenuItem( {
 		highlightParent: true,
 	} );
 
-	if ( ! isSmallViewport ) {
+	if ( ! isSmallviewport ) {
 		return null;
 	}
 

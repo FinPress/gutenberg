@@ -650,7 +650,7 @@ describe( 'Navigator', () => {
 		render( <Navigator.Screen path="not-valid">Test</Navigator.Screen> );
 
 		expect( console ).toHaveWarnedWith(
-			'wp.components.Navigator.Screen: the `path` should follow a URL-like scheme; it should start with and be separated by the `/` character.'
+			'fp.components.Navigator.Screen: the `path` should follow a URL-like scheme; it should start with and be separated by the `/` character.'
 		);
 	} );
 
@@ -884,7 +884,7 @@ describe( 'Navigator', () => {
 
 			// Rendering `NavigatorToParentButton` logs a deprecation notice
 			expect( console ).toHaveWarnedWith(
-				'wp.components.NavigatorToParentButton is deprecated since version 6.7. Please use wp.components.Navigator.BackButton instead.'
+				'fp.components.NavigatorToParentButton is deprecated since version 6.7. Please use fp.components.Navigator.BackButton instead.'
 			);
 		} );
 
@@ -907,7 +907,7 @@ describe( 'Navigator', () => {
 			).toHaveFocus();
 
 			expect( console ).toHaveWarnedWith(
-				'wp.components.useNavigator().goToParent is deprecated since version 6.7. Please use wp.components.useNavigator().goBack instead.'
+				'fp.components.useNavigator().goToParent is deprecated since version 6.7. Please use fp.components.useNavigator().goBack instead.'
 			);
 		} );
 	} );

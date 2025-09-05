@@ -20,6 +20,6 @@ export const PRELOADED_NAVIGATION_MENUS_QUERY = {
 
 export const SELECT_NAVIGATION_MENUS_ARGS = [
 	'postType',
-	'wp_navigation',
+	'fp_navigation',
 	PRELOADED_NAVIGATION_MENUS_QUERY,
 ];

@@ -3,56 +3,56 @@ export const jsTester = ( parse ) => () => {
 		test( 'output is an array', () => {
 			expect( parse( '' ) ).toEqual( expect.any( Array ) );
 			expect( parse( 'test' ) ).toEqual( expect.any( Array ) );
-			expect( parse( '<!-- wp:void /-->' ) ).toEqual(
+			expect( parse( '<!-- fp:void /-->' ) ).toEqual(
 				expect.any( Array )
 			);
 			expect(
-				parse( '<!-- wp:block --><!-- wp:inner /--><!-- /wp:block -->' )
+				parse( '<!-- fp:block --><!-- fp:inner /--><!-- /fp:block -->' )
 			).toEqual( expect.any( Array ) );
-			expect( parse( '<!-- wp:first /--><!-- wp:second /-->' ) ).toEqual(
+			expect( parse( '<!-- fp:first /--><!-- fp:second /-->' ) ).toEqual(
 				expect.any( Array )
 			);
 		} );
 
 		test( 'parses blocks of various types', () => {
-			expect( parse( '<!-- wp:void /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:void /-->' )[ 0 ] ).toHaveProperty(
 				'blockName',
 				'core/void'
 			);
-			expect( parse( '<!-- wp:void {} /-->' )[ 0 ] ).toHaveProperty(
-				'blockName',
-				'core/void'
-			);
-			expect(
-				parse( '<!-- wp:void {"value":true} /-->' )[ 0 ]
-			).toHaveProperty( 'blockName', 'core/void' );
-			expect( parse( '<!-- wp:void {"a":{}} /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:void {} /-->' )[ 0 ] ).toHaveProperty(
 				'blockName',
 				'core/void'
 			);
 			expect(
-				parse( '<!-- wp:void { "value" : true } /-->' )[ 0 ]
+				parse( '<!-- fp:void {"value":true} /-->' )[ 0 ]
+			).toHaveProperty( 'blockName', 'core/void' );
+			expect( parse( '<!-- fp:void {"a":{}} /-->' )[ 0 ] ).toHaveProperty(
+				'blockName',
+				'core/void'
+			);
+			expect(
+				parse( '<!-- fp:void { "value" : true } /-->' )[ 0 ]
 			).toHaveProperty( 'blockName', 'core/void' );
 			expect(
-				parse( '<!-- wp:void {\n\t"value" : true\n} /-->' )[ 0 ]
+				parse( '<!-- fp:void {\n\t"value" : true\n} /-->' )[ 0 ]
 			).toHaveProperty( 'blockName', 'core/void' );
 			expect(
-				parse( '<!-- wp:block --><!-- /wp:block -->' )[ 0 ]
+				parse( '<!-- fp:block --><!-- /fp:block -->' )[ 0 ]
 			).toHaveProperty( 'blockName', 'core/block' );
 			expect(
-				parse( '<!-- wp:block {} --><!-- /wp:block -->' )[ 0 ]
+				parse( '<!-- fp:block {} --><!-- /fp:block -->' )[ 0 ]
 			).toHaveProperty( 'blockName', 'core/block' );
 			expect(
 				parse(
-					'<!-- wp:block {"value":true} --><!-- /wp:block -->'
+					'<!-- fp:block {"value":true} --><!-- /fp:block -->'
 				)[ 0 ]
 			).toHaveProperty( 'blockName', 'core/block' );
 			expect(
-				parse( '<!-- wp:block {} -->inner<!-- /wp:block -->' )[ 0 ]
+				parse( '<!-- fp:block {} -->inner<!-- /fp:block -->' )[ 0 ]
 			).toHaveProperty( 'blockName', 'core/block' );
 			expect(
 				parse(
-					'<!-- wp:block {"value":{"a" : "true"}} -->inner<!-- /wp:block -->'
+					'<!-- fp:block {"value":{"a" : "true"}} -->inner<!-- /fp:block -->'
 				)[ 0 ]
 			).toHaveProperty( 'blockName', 'core/block' );
 		} );
@@ -62,15 +62,15 @@ export const jsTester = ( parse ) => () => {
 				'blockName',
 				null
 			);
-			expect( parse( '<!-- wp:more /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:more /-->' )[ 0 ] ).toHaveProperty(
 				'blockName',
 				'core/more'
 			);
-			expect( parse( '<!-- wp:core/more /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:core/more /-->' )[ 0 ] ).toHaveProperty(
 				'blockName',
 				'core/more'
 			);
-			expect( parse( '<!-- wp:my/more /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:my/more /-->' )[ 0 ] ).toHaveProperty(
 				'blockName',
 				'my/more'
 			);
@@ -81,32 +81,32 @@ export const jsTester = ( parse ) => () => {
 				'attrs',
 				{}
 			);
-			expect( parse( '<!-- wp:void /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:void /-->' )[ 0 ] ).toHaveProperty(
 				'attrs',
 				{}
 			);
-			expect( parse( '<!-- wp:void {} /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:void {} /-->' )[ 0 ] ).toHaveProperty(
 				'blockName',
 				'core/void'
 			);
-			expect( parse( '<!-- wp:void {} /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:void {} /-->' )[ 0 ] ).toHaveProperty(
 				'attrs',
 				{}
 			);
 			expect(
-				parse( '<!-- wp:void {"key": "value"} /-->' )[ 0 ]
+				parse( '<!-- fp:void {"key": "value"} /-->' )[ 0 ]
 			).toHaveProperty( 'attrs', {
 				key: 'value',
 			} );
 			expect(
-				parse( '<!-- wp:block --><!-- /wp:block -->' )[ 0 ]
+				parse( '<!-- fp:block --><!-- /fp:block -->' )[ 0 ]
 			).toHaveProperty( 'attrs', {} );
 			expect(
-				parse( '<!-- wp:block {} --><!-- /wp:block -->' )[ 0 ]
+				parse( '<!-- fp:block {} --><!-- /fp:block -->' )[ 0 ]
 			).toHaveProperty( 'attrs', {} );
 			expect(
 				parse(
-					'<!-- wp:block {"key": "value"} --><!-- /wp:block -->'
+					'<!-- fp:block {"key": "value"} --><!-- /fp:block -->'
 				)[ 0 ]
 			).toHaveProperty( 'attrs', { key: 'value' } );
 		} );
@@ -115,16 +115,16 @@ export const jsTester = ( parse ) => () => {
 			expect(
 				parse( 'freeform has empty innerBlocks' )[ 0 ]
 			).toHaveProperty( 'innerBlocks', [] );
-			expect( parse( '<!-- wp:void /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:void /-->' )[ 0 ] ).toHaveProperty(
 				'innerBlocks',
 				[]
 			);
 			expect(
-				parse( '<!-- wp:block --><!-- /wp:block -->' )[ 0 ]
+				parse( '<!-- fp:block --><!-- /fp:block -->' )[ 0 ]
 			).toHaveProperty( 'innerBlocks', [] );
 
 			const withInner = parse(
-				'<!-- wp:block --><!-- wp:inner /--><!-- /wp:block -->'
+				'<!-- fp:block --><!-- fp:inner /--><!-- /fp:block -->'
 			)[ 0 ];
 			expect( withInner ).toHaveProperty(
 				'innerBlocks',
@@ -133,7 +133,7 @@ export const jsTester = ( parse ) => () => {
 			expect( withInner.innerBlocks ).toHaveLength( 1 );
 
 			const withTwoInner = parse(
-				'<!-- wp:block -->a<!-- wp:first /-->b<!-- wp:second /-->c<!-- /wp:block -->'
+				'<!-- fp:block -->a<!-- fp:first /-->b<!-- fp:second /-->c<!-- /fp:block -->'
 			)[ 0 ];
 			expect( withTwoInner ).toHaveProperty(
 				'innerBlocks',
@@ -147,15 +147,15 @@ export const jsTester = ( parse ) => () => {
 				'innerHTML',
 				expect.any( String )
 			);
-			expect( parse( '<!-- wp:test /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:test /-->' )[ 0 ] ).toHaveProperty(
 				'innerHTML',
 				expect.any( String )
 			);
 			expect(
-				parse( '<!-- wp:test --><!-- /wp:test -->' )[ 0 ]
+				parse( '<!-- fp:test --><!-- /fp:test -->' )[ 0 ]
 			).toHaveProperty( 'innerHTML', expect.any( String ) );
 			expect(
-				parse( '<!-- wp:test -->test<!-- /wp:test -->' )[ 0 ]
+				parse( '<!-- fp:test -->test<!-- /fp:test -->' )[ 0 ]
 			).toHaveProperty( 'innerHTML', expect.any( String ) );
 		} );
 	} );
@@ -164,7 +164,7 @@ export const jsTester = ( parse ) => () => {
 		test( 'parse() accepts inputs with multiple Reusable blocks', () => {
 			expect(
 				parse(
-					'<!-- wp:block {"ref":313} /--><!-- wp:block {"ref":482} /-->'
+					'<!-- fp:block {"ref":313} /--><!-- fp:block {"ref":482} /-->'
 				)
 			).toEqual( [
 				expect.objectContaining( {
@@ -179,21 +179,21 @@ export const jsTester = ( parse ) => () => {
 		} );
 
 		test( 'treats void blocks and empty blocks identically', () => {
-			expect( parse( '<!-- wp:block /-->' ) ).toEqual(
-				parse( '<!-- wp:block --><!-- /wp:block -->' )
+			expect( parse( '<!-- fp:block /-->' ) ).toEqual(
+				parse( '<!-- fp:block --><!-- /fp:block -->' )
 			);
 
-			expect( parse( '<!-- wp:my/bus { "is": "fast" } /-->' ) ).toEqual(
+			expect( parse( '<!-- fp:my/bus { "is": "fast" } /-->' ) ).toEqual(
 				parse(
-					'<!-- wp:my/bus { "is": "fast" } --><!-- /wp:my/bus -->'
+					'<!-- fp:my/bus { "is": "fast" } --><!-- /fp:my/bus -->'
 				)
 			);
 		} );
 
 		test( 'should grab HTML soup before block openers', () => {
 			[
-				'<p>Break me</p><!-- wp:block /-->',
-				'<p>Break me</p><!-- wp:block --><!-- /wp:block -->',
+				'<p>Break me</p><!-- fp:block /-->',
+				'<p>Break me</p><!-- fp:block --><!-- /fp:block -->',
 			].forEach( ( input ) =>
 				expect( parse( input ) ).toEqual( [
 					expect.objectContaining( { innerHTML: '<p>Break me</p>' } ),
@@ -207,8 +207,8 @@ export const jsTester = ( parse ) => () => {
 
 		test( 'should grab HTML soup before inner block openers', () =>
 			[
-				'<!-- wp:outer --><p>Break me</p><!-- wp:block /--><!-- /wp:outer -->',
-				'<!-- wp:outer --><p>Break me</p><!-- wp:block --><!-- /wp:block --><!-- /wp:outer -->',
+				'<!-- fp:outer --><p>Break me</p><!-- fp:block /--><!-- /fp:outer -->',
+				'<!-- fp:outer --><p>Break me</p><!-- fp:block --><!-- /fp:block --><!-- /fp:outer -->',
 			].forEach( ( input ) =>
 				expect( parse( input ) ).toEqual( [
 					expect.objectContaining( {
@@ -225,8 +225,8 @@ export const jsTester = ( parse ) => () => {
 
 		test( 'should grab HTML soup after blocks', () =>
 			[
-				'<!-- wp:block /--><p>Break me</p>',
-				'<!-- wp:block --><!-- /wp:block --><p>Break me</p>',
+				'<!-- fp:block /--><p>Break me</p>',
+				'<!-- fp:block --><!-- /fp:block --><p>Break me</p>',
 			].forEach( ( input ) =>
 				expect( parse( input ) ).toEqual( [
 					expect.objectContaining( {
@@ -243,7 +243,7 @@ export const jsTester = ( parse ) => () => {
 			expect( parse( 'test' )[ 0 ] ).toHaveProperty( 'innerContent', [
 				'test',
 			] );
-			expect( parse( '<!-- wp:void /-->' )[ 0 ] ).toHaveProperty(
+			expect( parse( '<!-- fp:void /-->' )[ 0 ] ).toHaveProperty(
 				'innerContent',
 				[]
 			);
@@ -251,14 +251,14 @@ export const jsTester = ( parse ) => () => {
 
 		test( 'innerContent contains innerHTML', () => {
 			expect(
-				parse( '<!-- wp:block -->Inner<!-- /wp:block -->' )[ 0 ]
+				parse( '<!-- fp:block -->Inner<!-- /fp:block -->' )[ 0 ]
 			).toHaveProperty( 'innerContent', [ 'Inner' ] );
 		} );
 
 		test( 'block locations become null', () => {
 			expect(
 				parse(
-					'<!-- wp:block --><!-- wp:void /--><!-- /wp:block -->'
+					'<!-- fp:block --><!-- fp:void /--><!-- /fp:block -->'
 				)[ 0 ]
 			).toHaveProperty( 'innerContent', [ null ] );
 		} );
@@ -266,7 +266,7 @@ export const jsTester = ( parse ) => () => {
 		test( 'HTML soup appears after blocks', () => {
 			expect(
 				parse(
-					'<!-- wp:block --><!-- wp:void /-->After<!-- /wp:block -->'
+					'<!-- fp:block --><!-- fp:void /-->After<!-- /fp:block -->'
 				)[ 0 ]
 			).toHaveProperty( 'innerContent', [ null, 'After' ] );
 		} );
@@ -274,7 +274,7 @@ export const jsTester = ( parse ) => () => {
 		test( 'HTML soup appears before blocks', () => {
 			expect(
 				parse(
-					'<!-- wp:block -->Before<!-- wp:void /--><!-- /wp:block -->'
+					'<!-- fp:block -->Before<!-- fp:void /--><!-- /fp:block -->'
 				)[ 0 ]
 			).toHaveProperty( 'innerContent', [ 'Before', null ] );
 		} );
@@ -282,7 +282,7 @@ export const jsTester = ( parse ) => () => {
 		test( 'blocks follow each other', () => {
 			expect(
 				parse(
-					'<!-- wp:block --><!-- wp:void /--><!-- wp:void /--><!-- /wp:block -->'
+					'<!-- fp:block --><!-- fp:void /--><!-- fp:void /--><!-- /fp:block -->'
 				)[ 0 ]
 			).toHaveProperty( 'innerContent', [ null, null ] );
 		} );
@@ -297,7 +297,7 @@ export const jsTester = ( parse ) => () => {
 			expect(
 				() =>
 					( parsed = parse(
-						`<!-- wp:fake {"a":"${ as }"} /-->`
+						`<!-- fp:fake {"a":"${ as }"} /-->`
 					)[ 0 ] )
 			).not.toThrow();
 			expect( parsed.attrs.a ).toHaveLength( length );
@@ -308,7 +308,7 @@ export const jsTester = ( parse ) => () => {
 				let parsed;
 
 				expect(
-					() => ( parsed = parse( '<!-- wp:block / -->' )[ 0 ] )
+					() => ( parsed = parse( '<!-- fp:block / -->' )[ 0 ] )
 				).not.toThrow();
 				expect( parsed.blockName ).toBeNull();
 			} );

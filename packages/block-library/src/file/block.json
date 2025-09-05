@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/file",
 	"title": "File",
@@ -92,6 +92,6 @@
 		},
 		"interactivity": true
 	},
-	"editorStyle": "wp-block-file-editor",
-	"style": "wp-block-file"
+	"editorStyle": "fp-block-file-editor",
+	"style": "fp-block-file"
 }

@@ -22,11 +22,11 @@ Files at the root of `/lib` are generally considered to contain "evergreen" code
 
 There are a few best practices that should be observed when adding new files to the Gutenberg plugin.
 
-### Using `gutenberg` suffixes/prefixes vs. `wp` prefixes
+### Using `gutenberg` suffixes/prefixes vs. `fp` prefixes
 
-To avoid naming conflicts with FinPress Core and other plugins, the Gutenberg plugin uses the `gutenberg` identifier in many of its PHP classes and function names, e.g., `WP_Theme_JSON_Gutenberg` and `gutenberg_get_block_editor_settings`.
+To avoid naming conflicts with FinPress Core and other plugins, the Gutenberg plugin uses the `gutenberg` identifier in many of its PHP classes and function names, e.g., `FP_Theme_JSON_Gutenberg` and `gutenberg_get_block_editor_settings`.
 
-This is especially so for classes and functions whose functionality is ubiquitous and constantly being updated — so-called "evergreen" code. Anything related to `WP_Theme_JSON_Gutenberg` is a good example of this: this class controls the way Gutenberg processes and outputs global styles and much more, and its methods are called in many places. In every aspect of plugin functionality, we want plugin users to have access to the latest versions of these files, even if they are running an older version of FinPress.
+This is especially so for classes and functions whose functionality is ubiquitous and constantly being updated — so-called "evergreen" code. Anything related to `FP_Theme_JSON_Gutenberg` is a good example of this: this class controls the way Gutenberg processes and outputs global styles and much more, and its methods are called in many places. In every aspect of plugin functionality, we want plugin users to have access to the latest versions of these files, even if they are running an older version of FinPress.
 
 ```php
 /**
@@ -42,7 +42,7 @@ function gutenberg_get_something_useful() {
 }
 ```
 
-When porting new functions into Core, the function must be renamed to use the `wp_` prefix for functions or a `WP_` prefix for classes.
+When porting new functions into Core, the function must be renamed to use the `fp_` prefix for functions or a `FP_` prefix for classes.
 
 ```php
 /**
@@ -53,12 +53,12 @@ When porting new functions into Core, the function must be renamed to use the `w
 *
 * @return string Something useful.
 */
-function wp_get_something_useful() {
+function fp_get_something_useful() {
 	// ...
 }
 ```
 
-Plugin code that is stable and expected to be merged "as-is" into Core in the near future can use the `wp_` prefix for functions or a `WP_` prefix for classes.
+Plugin code that is stable and expected to be merged "as-is" into Core in the near future can use the `fp_` prefix for functions or a `FP_` prefix for classes.
 
 #### Avoiding duplicate declarations
 
@@ -67,13 +67,13 @@ When doing so, care must be taken to ensure that no duplicate declarations to cr
 Wrapping such code in `class_exists()` and `function_exists()` checks should be used to ensure it executes in the plugin up until it is merged to Core, or when running the plugin on older versions of FinPress.
 
 ```php
-if ( ! function_exists( 'wp_a_new_and_stable_feature' ) ) {
+if ( ! function_exists( 'fp_a_new_and_stable_feature' ) ) {
 	/**
 	* A very new and stable feature.
 	*
 	* @return string Something useful.
 	*/
-	function wp_a_new_and_stable_feature() {
+	function fp_a_new_and_stable_feature() {
 		// ...
 	}
 }
@@ -83,19 +83,19 @@ Or for classes:
 
 ```php
 /**
- * WP_A_Stable_Class class
+ * FP_A_Stable_Class class
  *
  * @package FinPress
  * @since 6.3.0
  */
-if ( ! class_exists( 'WP_A_Stable_Class' ) ) {
+if ( ! class_exists( 'FP_A_Stable_Class' ) ) {
 	// Do not invert this pattern with an early `return`.
 	// See below for details...
-	class WP_A_Stable_Class { ... }
+	class FP_A_Stable_Class { ... }
 }
 ```
 
-Wrapping code in `class_exists()` and `function_exists()` is usually inappropriate for evergreen code, or any plugin code that we expect to undergo constant change between FinPress releases, because it would prevent the latest versions of the code from being used. For example, the statement `class_exists( 'WP_Theme_JSON' )` would return `true` because the class already exists in Core.
+Wrapping code in `class_exists()` and `function_exists()` is usually inappropriate for evergreen code, or any plugin code that we expect to undergo constant change between FinPress releases, because it would prevent the latest versions of the code from being used. For example, the statement `class_exists( 'FP_Theme_JSON' )` would return `true` because the class already exists in Core.
 
 The `return` operator is considered an anti-pattern in the context provided below because it [does not halt](https://www.php.net/manual/en/function.return.php#112515) the parsing of the PHP script and can cause [unexpected side effects](https://github.com/FinPress/gutenberg/pull/58429#issuecomment-1916670097):
 ```php
@@ -104,7 +104,7 @@ The `return` operator is considered an anti-pattern in the context provided belo
  * DO NOT COPY!
  *
  */
-if ( class_exists( 'WP_A_Stable_Class' ) ) {
+if ( class_exists( 'FP_A_Stable_Class' ) ) {
 	return; // do not do this.
 }
 ```
@@ -115,7 +115,7 @@ When to use which prefix is a judgement call, but the general rule is that if yo
 
 The above recommendations in relation to plugin-specific prefixes/suffixes are relevant only to files in the `lib` directory and only in the Gutenberg plugin.
 
-`Gutenberg` prefixes/suffixes _should not_ be used in Core PHP code. When syncing `/lib` files to Core, plugin-specific prefixes/suffixes are generally replaced with their `WP_` or `wp_` equivalents manually.
+`Gutenberg` prefixes/suffixes _should not_ be used in Core PHP code. When syncing `/lib` files to Core, plugin-specific prefixes/suffixes are generally replaced with their `FP_` or `fp_` equivalents manually.
 
 Accordingly, unless required to run plugin-only code, you should avoid using plugin-specific prefixes/suffixes in any block PHP code. Core blocks in the plugin are [published as NPM packages](https://github.com/FinPress/gutenberg/blob/trunk/docs/contributors/code/release.md#packages-releases-to-npm-and-finpress-core-updates), which Core consumes as NPM dependencies.
 
@@ -139,14 +139,14 @@ This helps future developers know what to do when merging Gutenberg features int
 /**
  * Returns a navigation object for the given slug.
  *
- * Should live in `wp-includes/navigation.php` when merged to Core.
+ * Should live in `fp-includes/navigation.php` when merged to Core.
  *
  * @since 6.3.0
  *
  * @param string $slug
- * @return WP_Navigation
+ * @return FP_Navigation
  */
-function wp_get_navigation( $slug ) { ... }
+function fp_get_navigation( $slug ) { ... }
 ```
 
 ### Group PHP code by _feature_
@@ -162,11 +162,11 @@ These two practices make it easier for PHP code to start in one folder (e.g., `l
 ```php
 // lib/experimental/navigation.php
 
-function wp_get_navigation( $slug ) { ... }
+function fp_get_navigation( $slug ) { ... }
 
-function wp_register_navigation_cpt() { ... }
+function fp_register_navigation_cpt() { ... }
 
-add_action( 'init', 'wp_register_navigation_cpt' );
+add_action( 'init', 'fp_register_navigation_cpt' );
 ```
 
 #### Not so good
@@ -174,14 +174,14 @@ add_action( 'init', 'wp_register_navigation_cpt' );
 ```php
 // lib/experimental/functions.php
 
-function wp_get_navigation( $slug ) { ... }
+function fp_get_navigation( $slug ) { ... }
 
 // lib/experimental/post-types.php
 
-function wp_register_navigation_cpt() { ... }
+function fp_register_navigation_cpt() { ... }
 
 // lib/experimental/init.php
-add_action( 'init', 'wp_register_navigation_cpt' );
+add_action( 'init', 'fp_register_navigation_cpt' );
 ```
 
 ### Requiring files in lib/load.php

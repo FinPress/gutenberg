@@ -14,7 +14,7 @@ import {
 } from '@finpress/components';
 import {
 	useReducedMotion,
-	useViewportMatch,
+	useviewportMatch,
 	useResizeObserver,
 	usePrevious,
 } from '@finpress/compose';
@@ -55,7 +55,7 @@ const ANIMATION_DURATION = 0.3;
 function Layout() {
 	const { query, name: routeKey, areas, widths } = useLocation();
 	const { canvas = 'view' } = query;
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
 	const toggleRef = useRef();
 	const navigateRegionsProps = useNavigateRegions();
 	const disableMotion = useReducedMotion();
@@ -107,7 +107,7 @@ function Layout() {
 						The NavigableRegion must always be rendered and not use
 						`inert` otherwise `useNavigateRegions` will fail.
 					*/ }
-					{ ( ! isMobileViewport || ! areas.mobile ) && (
+					{ ( ! isMobileviewport || ! areas.mobile ) && (
 						<NavigableRegion
 							ariaLabel={ __( 'Navigation' ) }
 							className="edit-site-layout__sidebar-region"
@@ -123,7 +123,7 @@ function Layout() {
 											duration:
 												// Disable transition in mobile to emulate a full page transition.
 												disableMotion ||
-												isMobileViewport
+												isMobileviewport
 													? 0
 													: ANIMATION_DURATION,
 											ease: 'easeOut',
@@ -158,7 +158,7 @@ function Layout() {
 
 					<EditorSnackbars />
 
-					{ isMobileViewport && areas.mobile && (
+					{ isMobileviewport && areas.mobile && (
 						<div className="edit-site-layout__mobile">
 							<SidebarNavigationProvider>
 								{ canvas !== 'edit' ? (
@@ -186,7 +186,7 @@ function Layout() {
 						</div>
 					) }
 
-					{ ! isMobileViewport &&
+					{ ! isMobileviewport &&
 						areas.content &&
 						canvas !== 'edit' && (
 							<div
@@ -199,7 +199,7 @@ function Layout() {
 							</div>
 						) }
 
-					{ ! isMobileViewport && areas.edit && canvas !== 'edit' && (
+					{ ! isMobileviewport && areas.edit && canvas !== 'edit' && (
 						<div
 							className="edit-site-layout__area"
 							style={ {
@@ -210,7 +210,7 @@ function Layout() {
 						</div>
 					) }
 
-					{ ! isMobileViewport && areas.preview && (
+					{ ! isMobileviewport && areas.preview && (
 						<div className="edit-site-layout__canvas-container">
 							{ canvasResizer }
 							{ !! canvasSize.width && (

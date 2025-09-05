@@ -20,14 +20,14 @@ export async function setPreferences(
 	context: PreferencesContext,
 	preferences: Record< string, any >
 ) {
-	await this.page.waitForFunction( () => window?.wp?.data );
+	await this.page.waitForFunction( () => window?.fp?.data );
 
 	await this.page.evaluate(
 		async ( props ) => {
 			for ( const [ key, value ] of Object.entries(
 				props.preferences
 			) ) {
-				await window.wp.data
+				await window.fp.data
 					.dispatch( 'core/preferences' )
 					.set( props.context, key, value );
 			}

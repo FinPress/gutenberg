@@ -10,7 +10,7 @@ const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 test.describe( 'Managing reusable blocks', () => {
 	test.beforeEach( async ( { admin } ) => {
-		await admin.visitAdminPage( 'edit.php', 'post_type=wp_block' );
+		await admin.visitAdminPage( 'edit.php', 'post_type=fp_block' );
 	} );
 
 	test( 'Should import reusable blocks', async ( { page } ) => {

@@ -105,7 +105,7 @@ function block_core_home_link_build_li_wrapper_attributes( $context ) {
 		$font_sizes['css_classes']
 	);
 	$style_attribute = ( $colors['inline_styles'] . $font_sizes['inline_styles'] );
-	$classes[]       = 'wp-block-navigation-item';
+	$classes[]       = 'fp-block-navigation-item';
 
 	if ( is_front_page() ) {
 		$classes[] = 'current-menu-item';
@@ -131,7 +131,7 @@ function block_core_home_link_build_li_wrapper_attributes( $context ) {
  *
  * @param array    $attributes The block attributes.
  * @param string   $content    The saved content.
- * @param WP_Block $block      The parsed block.
+ * @param FP_Block $block      The parsed block.
  *
  * @return string Returns the post content with the home url added.
  */
@@ -149,11 +149,11 @@ function render_block_core_home_link( $attributes, $content, $block ) {
 	}
 
 	return sprintf(
-		'<li %1$s><a class="wp-block-home-link__content wp-block-navigation-item__content" href="%2$s" rel="home"%3$s>%4$s</a></li>',
+		'<li %1$s><a class="fp-block-home-link__content fp-block-navigation-item__content" href="%2$s" rel="home"%3$s>%4$s</a></li>',
 		block_core_home_link_build_li_wrapper_attributes( $block->context ),
 		esc_url( home_url() ),
 		$aria_current,
-		wp_kses_post( $attributes['label'] )
+		fp_kses_post( $attributes['label'] )
 	);
 }
 
@@ -163,7 +163,7 @@ function render_block_core_home_link( $attributes, $content, $block ) {
  * @since 6.0.0
  *
  * @uses render_block_core_home_link()
- * @throws WP_Error An WP_Error exception parsing the block definition.
+ * @throws FP_Error An FP_Error exception parsing the block definition.
  */
 function register_block_core_home_link() {
 	register_block_type_from_metadata(

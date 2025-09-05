@@ -16,9 +16,9 @@ This reference guide lists the settings and style properties defined in the `the
 
 This documentation was generated from the JSON schema for theme.json.
 
-The last schema for version 2 is available at `https://schemas.wp.org/wp/6.5/theme.json`.
+The last schema for version 2 is available at `https://schemas.fp.org/fp/6.5/theme.json`.
 
-Theme.json schemas for each FinPress version are available at `https://schemas.wp.org/wp/{{version}}/theme.json`. For example a schema for FinPress 5.9 is available at `https://schemas.wp.org/wp/5.9/theme.json`.
+Theme.json schemas for each FinPress version are available at `https://schemas.fp.org/fp/{{version}}/theme.json`. For example a schema for FinPress 5.9 is available at `https://schemas.fp.org/fp/5.9/theme.json`.
 
 See [Developing with theme.json](/docs/how-to-guides/themes/global-settings-and-styles.md#developing-with-themejson) for how to use the JSON schema in your editor.
 
@@ -173,7 +173,7 @@ Settings related to typography.
 | customFontSize | boolean | true |  |
 | fontStyle | boolean | true |  |
 | fontWeight | boolean | true |  |
-| fluid | object, boolean | false | _{maxViewportWidth, minFontSize, minViewportWidth}_  |
+| fluid | object, boolean | false | _{maxviewportWidth, minFontSize, minviewportWidth}_  |
 | letterSpacing | boolean | true |  |
 | lineHeight | boolean | false |  |
 | textColumns | boolean | false |  |
@@ -188,7 +188,7 @@ Settings related to typography.
 
 ### custom
 
-Generate custom CSS custom properties of the form `--wp--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.
+Generate custom CSS custom properties of the form `--fp--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.
 
 ---
 

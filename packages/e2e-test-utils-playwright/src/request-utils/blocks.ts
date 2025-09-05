@@ -11,7 +11,7 @@ type CreateBlockPayload = {
 	status: 'publish' | 'future' | 'draft' | 'pending' | 'private';
 	content?: string;
 	meta?: unknown;
-	wp_pattern_category?: number[];
+	fp_pattern_category?: number[];
 };
 
 /**
@@ -24,7 +24,7 @@ export async function deleteAllBlocks( this: RequestUtils ) {
 	// List all blocks.
 	// https://developer.finpress.org/rest-api/reference/blocks/#list-editor-blocks
 	const blocks = await this.rest( {
-		path: '/wp/v2/blocks',
+		path: '/fp/v2/blocks',
 		params: {
 			per_page: 100,
 			// All possible statuses.
@@ -34,11 +34,11 @@ export async function deleteAllBlocks( this: RequestUtils ) {
 
 	// Delete blocks.
 	// https://developer.finpress.org/rest-api/reference/blocks/#delete-a-editor-block
-	// "/wp/v2/posts" not yet supports batch requests.
+	// "/fp/v2/posts" not yet supports batch requests.
 	await this.batchRest(
 		blocks.map( ( block: { id: number } ) => ( {
 			method: 'DELETE',
-			path: `/wp/v2/blocks/${ block.id }?force=true`,
+			path: `/fp/v2/blocks/${ block.id }?force=true`,
 		} ) )
 	);
 }
@@ -55,7 +55,7 @@ export async function createBlock(
 	payload: CreateBlockPayload
 ) {
 	const block = await this.rest( {
-		path: '/wp/v2/blocks',
+		path: '/fp/v2/blocks',
 		method: 'POST',
 		data: { ...payload },
 	} );

@@ -1,30 +1,30 @@
-%wpBlockPreformattedLightColor {
+%fpBlockPreformattedLightColor {
 	background-color: $gray-light;
 }
 
-%wpBlockPreformattedDarkColor {
+%fpBlockPreformattedDarkColor {
 	background-color: $gray-100;
 }
 
-.wpBlockPreformattedLight {
-	@extend %wpBlockPreformattedLightColor;
+.fpBlockPreformattedLight {
+	@extend %fpBlockPreformattedLightColor;
 	padding: 12px 16px;
 	border-radius: 4px;
 }
 
-.wpRichTextLight {
-	@extend %wpBlockPreformattedLightColor;
+.fpRichTextLight {
+	@extend %fpBlockPreformattedLightColor;
 }
 
-.wpBlockPreformattedDark {
-	@extend %wpBlockPreformattedDarkColor;
+.fpBlockPreformattedDark {
+	@extend %fpBlockPreformattedDarkColor;
 }
 
-.wpRichTextDark {
-	@extend %wpBlockPreformattedDarkColor;
+.fpRichTextDark {
+	@extend %fpBlockPreformattedDarkColor;
 }
 
-.wp-block-preformatted__no-background {
+.fp-block-preformatted__no-background {
 	background: transparent;
 	padding: 0;
 }

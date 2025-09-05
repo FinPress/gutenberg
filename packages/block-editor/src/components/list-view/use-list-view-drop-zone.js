@@ -20,18 +20,18 @@ import {
 import useOnBlockDrop from '../use-on-block-drop';
 import { store as blockEditorStore } from '../../store';
 
-/** @typedef {import('../../utils/math').WPPoint} WPPoint */
+/** @typedef {import('../../utils/math').FPPoint} FPPoint */
 
 /**
  * The type of a drag event.
  *
- * @typedef {'default'|'file'|'html'} WPDragEventType
+ * @typedef {'default'|'file'|'html'} FPDragEventType
  */
 
 /**
  * An object representing data for blocks in the DOM used by drag and drop.
  *
- * @typedef {Object} WPListViewDropZoneBlock
+ * @typedef {Object} FPListViewDropZoneBlock
  * @property {string}  clientId                        The client id for the block.
  * @property {string}  rootClientId                    The root client id for the block.
  * @property {number}  blockIndex                      The block's index.
@@ -46,13 +46,13 @@ import { store as blockEditorStore } from '../../store';
 /**
  * An array representing data for blocks in the DOM used by drag and drop.
  *
- * @typedef {WPListViewDropZoneBlock[]} WPListViewDropZoneBlocks
+ * @typedef {FPListViewDropZoneBlock[]} FPListViewDropZoneBlocks
  */
 
 /**
  * An object containing details of a drop target.
  *
- * @typedef {Object} WPListViewDropZoneTarget
+ * @typedef {Object} FPListViewDropZoneTarget
  * @property {string}                  blockIndex   The insertion index.
  * @property {string}                  rootClientId The root client id for the block.
  * @property {string|undefined}        clientId     The client id for the block.
@@ -70,7 +70,7 @@ export const NESTING_LEVEL_INDENTATION = 24;
  *
  * Determined based on nesting level indentation of the current block.
  *
- * @param {WPPoint} point        The point representing the cursor position when dragging.
+ * @param {FPPoint} point        The point representing the cursor position when dragging.
  * @param {DOMRect} rect         The rectangle.
  * @param {number}  nestingLevel The nesting level of the block.
  * @param {boolean} rtl          Whether the editor is in RTL mode.
@@ -97,7 +97,7 @@ function isUpGesture( point, rect, nestingLevel = 1, rtl = false ) {
  * of parent blocks, where the first item is the block the user
  * is hovering over, and the last item is the root block.
  *
- * @param {WPPoint} point        The point representing the cursor position when dragging.
+ * @param {FPPoint} point        The point representing the cursor position when dragging.
  * @param {DOMRect} rect         The rectangle.
  * @param {number}  nestingLevel The nesting level of the block.
  * @param {boolean} rtl          Whether the editor is in RTL mode.
@@ -129,9 +129,9 @@ function getDesiredRelativeParentLevel(
 /**
  * Returns an array of the parent blocks of the block the user is dropping to.
  *
- * @param {WPListViewDropZoneBlock}  candidateBlockData The block the user is dropping to.
- * @param {WPListViewDropZoneBlocks} blocksData         Data about the blocks in list view.
- * @return {WPListViewDropZoneBlocks} An array of block parents, including the block the user is dropping to.
+ * @param {FPListViewDropZoneBlock}  candidateBlockData The block the user is dropping to.
+ * @param {FPListViewDropZoneBlocks} blocksData         Data about the blocks in list view.
+ * @return {FPListViewDropZoneBlocks} An array of block parents, including the block the user is dropping to.
  */
 function getCandidateBlockParents( candidateBlockData, blocksData ) {
 	const candidateBlockParents = [];
@@ -153,9 +153,9 @@ function getCandidateBlockParents( candidateBlockData, blocksData ) {
  * block. This is used to determine the block that the user is dropping to,
  * while ignoring the dragged block.
  *
- * @param {WPListViewDropZoneBlocks} blocksData Data about the blocks in list view.
+ * @param {FPListViewDropZoneBlocks} blocksData Data about the blocks in list view.
  * @param {number}                   index      The index to begin searching from.
- * @return {WPListViewDropZoneBlock | undefined} The next non-dragged block.
+ * @return {FPListViewDropZoneBlock | undefined} The next non-dragged block.
  */
 function getNextNonDraggedBlock( blocksData, index ) {
 	const nextBlockData = blocksData[ index + 1 ];
@@ -174,7 +174,7 @@ function getNextNonDraggedBlock( blocksData, index ) {
  * the indentation of the next level of nesting. The vertical position of the
  * cursor must also be within the block.
  *
- * @param {WPPoint} point        The point representing the cursor position when dragging.
+ * @param {FPPoint} point        The point representing the cursor position when dragging.
  * @param {DOMRect} rect         The rectangle.
  * @param {number}  nestingLevel The nesting level of the block.
  * @param {boolean} rtl          Whether the editor is in RTL mode.
@@ -198,11 +198,11 @@ const ALLOWED_DROP_EDGES = [ 'top', 'bottom' ];
 /**
  * Given blocks data and the cursor position, compute the drop target.
  *
- * @param {WPListViewDropZoneBlocks} blocksData Data about the blocks in list view.
- * @param {WPPoint}                  position   The point representing the cursor position when dragging.
+ * @param {FPListViewDropZoneBlocks} blocksData Data about the blocks in list view.
+ * @param {FPPoint}                  position   The point representing the cursor position when dragging.
  * @param {boolean}                  rtl        Whether the editor is in RTL mode.
  *
- * @return {WPListViewDropZoneTarget | undefined} An object containing data about the drop target.
+ * @return {FPListViewDropZoneTarget | undefined} An object containing data about the drop target.
  */
 export function getListViewDropTarget( blocksData, position, rtl = false ) {
 	let candidateEdge;
@@ -415,7 +415,7 @@ const EXPAND_THROTTLE_OPTIONS = {
  * @param {Object}       [props.expandedState]    The expanded state of the blocks in the list view.
  * @param {Function}     [props.setExpandedState] Function to set the expanded state of a list of block clientIds.
  *
- * @return {WPListViewDropZoneTarget} The drop target.
+ * @return {FPListViewDropZoneTarget} The drop target.
  */
 export default function useListViewDropZone( {
 	dropZoneElement,

@@ -6,7 +6,7 @@ import { store as blockEditorStore } from '@finpress/block-editor';
 const CONTENT = 'content';
 
 /**
- * @type {WPBlockBindingsSource}
+ * @type {FPBlockBindingsSource}
  */
 export default {
 	name: 'core/pattern-overrides',

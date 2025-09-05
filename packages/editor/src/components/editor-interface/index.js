@@ -11,7 +11,7 @@ import { useSelect } from '@finpress/data';
 import { __, _x } from '@finpress/i18n';
 import { store as preferencesStore } from '@finpress/preferences';
 import { BlockBreadcrumb, BlockToolbar } from '@finpress/block-editor';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useState, useCallback } from '@finpress/element';
 
 /**
@@ -88,7 +88,7 @@ export default function EditorInterface( {
 				postTypeLabel || _x( 'Document', 'noun, breadcrumb' ),
 		};
 	}, [] );
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 	const secondarySidebarLabel = isListViewOpened
 		? __( 'Document Overview' )
 		: __( 'Block Library' );
@@ -162,7 +162,7 @@ export default function EditorInterface( {
 										/>
 									) }
 									{ ! isPreviewMode &&
-										! isLargeViewport &&
+										! isLargeviewport &&
 										mode === 'visual' && (
 											<BlockToolbar hideDragHandle />
 										) }
@@ -188,7 +188,7 @@ export default function EditorInterface( {
 			footer={
 				! isPreviewMode &&
 				! isDistractionFree &&
-				isLargeViewport &&
+				isLargeviewport &&
 				showBlockBreadcrumbs &&
 				mode === 'visual' && (
 					<BlockBreadcrumb rootLabelText={ documentLabel } />

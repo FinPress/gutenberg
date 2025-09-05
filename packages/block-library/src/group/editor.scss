@@ -1,7 +1,7 @@
 /**
  * Group: All Alignment Settings
  */
-.wp-block-group {
+.fp-block-group {
 	// Ensure not rendering outside the element
 	// as -1px causes overflow-x scrollbars
 	.block-editor-block-list__insertion-point {
@@ -24,7 +24,7 @@
 }
 
 // Affect the appender of the Row and Stack variants.
-.wp-block-group.is-layout-flex.block-editor-block-list__block > .block-list-appender:only-child {
+.fp-block-group.is-layout-flex.block-editor-block-list__block > .block-list-appender:only-child {
 	gap: inherit;
 
 	&,

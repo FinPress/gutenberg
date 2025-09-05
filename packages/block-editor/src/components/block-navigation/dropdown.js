@@ -43,9 +43,9 @@ function BlockNavigationDropdownToggle( {
 }
 
 function BlockNavigationDropdown( { isDisabled, ...props }, ref ) {
-	deprecated( 'wp.blockEditor.BlockNavigationDropdown', {
+	deprecated( 'fp.blockEditor.BlockNavigationDropdown', {
 		since: '6.1',
-		alternative: 'wp.components.Dropdown and wp.blockEditor.ListView',
+		alternative: 'fp.components.Dropdown and fp.blockEditor.ListView',
 	} );
 
 	const hasBlocks = useSelect(

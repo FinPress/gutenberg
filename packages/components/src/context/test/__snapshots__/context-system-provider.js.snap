@@ -4,8 +4,8 @@ exports[`props should render _override props 1`] = `
 <div>
   <div
     class="components-component test-component emotion-0 emotion-1"
-    data-wp-c16t="true"
-    data-wp-component="Component"
+    data-fp-c16t="true"
+    data-fp-component="Component"
   >
     Code is Poetry
   </div>
@@ -16,8 +16,8 @@ exports[`props should render context props 1`] = `
 <div>
   <div
     class="components-component emotion-0 emotion-1"
-    data-wp-c16t="true"
-    data-wp-component="Component"
+    data-fp-c16t="true"
+    data-fp-component="Component"
   >
     Code is Poetry
   </div>
@@ -28,8 +28,8 @@ exports[`props should render correctly 1`] = `
 <div>
   <div
     class="components-component emotion-0 emotion-1"
-    data-wp-c16t="true"
-    data-wp-component="Component"
+    data-fp-c16t="true"
+    data-fp-component="Component"
   />
 </div>
 `;

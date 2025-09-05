@@ -4,7 +4,7 @@
 import { logged } from './utils';
 
 function isDev(): boolean {
-	// eslint-disable-next-line @finpress/wp-global-usage
+	// eslint-disable-next-line @finpress/fp-global-usage
 	return globalThis.SCRIPT_DEBUG === true;
 }
 

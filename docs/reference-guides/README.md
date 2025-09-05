@@ -68,4 +68,4 @@
     -   [**core/preferences**: Preferences](/docs/reference-guides/data/data-core-preferences.md)
     -   [**core/reusable-blocks**: Reusable blocks](/docs/reference-guides/data/data-core-reusable-blocks.md)
     -   [**core/rich-text**: Rich Text](/docs/reference-guides/data/data-core-rich-text.md)
-    -   [**core/viewport**: The Viewport Data](/docs/reference-guides/data/data-core-viewport.md)
+    -   [**core/viewport**: The viewport Data](/docs/reference-guides/data/data-core-viewport.md)

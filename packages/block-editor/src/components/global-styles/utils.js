@@ -6,7 +6,7 @@ import fastDeepEqual from 'fast-deep-equal/es6';
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { getCSSValueFromRawStyle } from '@finpress/style-engine';
 
 /**
@@ -51,7 +51,7 @@ export const PRESET_METADATA = [
 		path: [ 'color', 'duotone' ],
 		valueKey: 'colors',
 		cssVarInfix: 'duotone',
-		valueFunc: ( { slug } ) => `url( '#wp-duotone-${ slug }' )`,
+		valueFunc: ( { slug } ) => `url( '#fp-duotone-${ slug }' )`,
 		classes: [],
 	},
 	{
@@ -148,7 +148,7 @@ export const STYLE_PATH_TO_PRESET_BLOCK_ATTRIBUTE = {
 };
 
 export function useToolsPanelDropdownMenuProps() {
-	const isMobile = useViewportMatch( 'medium', '<' );
+	const isMobile = useviewportMatch( 'medium', '<' );
 	return ! isMobile
 		? {
 				popoverProps: {
@@ -323,7 +323,7 @@ export function getValueFromVariable( features, blockName, variable ) {
 		}
 	}
 	const USER_VALUE_PREFIX = 'var:';
-	const THEME_VALUE_PREFIX = 'var(--wp--';
+	const THEME_VALUE_PREFIX = 'var(--fp--';
 	const THEME_VALUE_SUFFIX = ')';
 
 	let parsedVar;
@@ -338,7 +338,7 @@ export function getValueFromVariable( features, blockName, variable ) {
 			.slice( THEME_VALUE_PREFIX.length, -THEME_VALUE_SUFFIX.length )
 			.split( '--' );
 	} else {
-		// We don't know how to parse the value: either is raw of uses complex CSS such as `calc(1px * var(--wp--variable) )`
+		// We don't know how to parse the value: either is raw of uses complex CSS such as `calc(1px * var(--fp--variable) )`
 		return variable;
 	}
 
@@ -404,13 +404,13 @@ export function scopeSelector( scope, selector ) {
  * ```js
  * const scope = '.custom-scope';
  * const selectors = {
- *     color: '.wp-my-block p',
- *     typography: { fontSize: '.wp-my-block caption' },
+ *     color: '.fp-my-block p',
+ *     typography: { fontSize: '.fp-my-block caption' },
  * };
  * const result = scopeFeatureSelector( scope, selectors );
  * // result is {
- * //     color: '.custom-scope .wp-my-block p',
- * //     typography: { fonSize: '.custom-scope .wp-my-block caption' },
+ * //     color: '.custom-scope .fp-my-block p',
+ * //     typography: { fonSize: '.custom-scope .fp-my-block caption' },
  * // }
  * ```
  *
@@ -501,8 +501,8 @@ export function areGlobalStyleConfigsEqual( original, variation ) {
  * selector.
  *
  * For example, take the Button block which has a compound selector:
- * `.wp-block-button .wp-block-button__link`. With a variation named 'custom',
- * the class `.is-style-custom` should be added to the `.wp-block-button`
+ * `.fp-block-button .fp-block-button__link`. With a variation named 'custom',
+ * the class `.is-style-custom` should be added to the `.fp-block-button`
  * ancestor only.
  *
  * This function will take into account comma separated and complex selectors.
@@ -612,7 +612,7 @@ export function getResolvedValue( ruleValue, tree ) {
 	if ( resolvedValue?.url ) {
 		resolvedValue.url = getResolvedThemeFilePath(
 			resolvedValue.url,
-			tree?._links?.[ 'wp:theme-file' ]
+			tree?._links?.[ 'fp:theme-file' ]
 		);
 	}
 

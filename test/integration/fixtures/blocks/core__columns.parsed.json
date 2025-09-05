@@ -28,9 +28,9 @@
 						]
 					}
 				],
-				"innerHTML": "\n\t<div class=\"wp-block-column\">\n\t\t\n\t\t\n\t</div>\n\t",
+				"innerHTML": "\n\t<div class=\"fp-block-column\">\n\t\t\n\t\t\n\t</div>\n\t",
 				"innerContent": [
-					"\n\t<div class=\"wp-block-column\">\n\t\t",
+					"\n\t<div class=\"fp-block-column\">\n\t\t",
 					null,
 					"\n\t\t",
 					null,
@@ -60,9 +60,9 @@
 						]
 					}
 				],
-				"innerHTML": "\n\t<div class=\"wp-block-column\">\n\t\t\n\t\t\n\t</div>\n\t",
+				"innerHTML": "\n\t<div class=\"fp-block-column\">\n\t\t\n\t\t\n\t</div>\n\t",
 				"innerContent": [
-					"\n\t<div class=\"wp-block-column\">\n\t\t",
+					"\n\t<div class=\"fp-block-column\">\n\t\t",
 					null,
 					"\n\t\t",
 					null,
@@ -70,9 +70,9 @@
 				]
 			}
 		],
-		"innerHTML": "\n<div class=\"wp-block-columns has-background has-secondary-background-color\">\n\t\n\t\n</div>\n",
+		"innerHTML": "\n<div class=\"fp-block-columns has-background has-secondary-background-color\">\n\t\n\t\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"wp-block-columns has-background has-secondary-background-color\">\n\t",
+			"\n<div class=\"fp-block-columns has-background has-secondary-background-color\">\n\t",
 			null,
 			"\n\t",
 			null,

@@ -32,19 +32,19 @@ const getTestComponent = ( attributes = {} ) => {
 
 const getLabel = ( instance ) => {
 	return instance.UNSAFE_getByProps( {
-		className: 'wp-block-search__label',
+		className: 'fp-block-search__label',
 	} );
 };
 
 const getButton = ( instance ) => {
 	return instance.UNSAFE_getByProps( {
-		className: 'wp-block-search__button',
+		className: 'fp-block-search__button',
 	} );
 };
 
 const getSearchInput = ( instance ) => {
 	return instance.UNSAFE_getByProps( {
-		className: 'wp-block-search__input',
+		className: 'fp-block-search__input',
 	} );
 };
 
@@ -110,7 +110,7 @@ describe( 'Search Block', () => {
 
 		it( 'verify button element has not been rendered', () => {
 			expect(
-				hasComponent( instance, 'wp-block-search__button' )
+				hasComponent( instance, 'fp-block-search__button' )
 			).toEqual( false );
 		} );
 
@@ -158,7 +158,7 @@ describe( 'Search Block', () => {
 
 		it( 'verify label has not been rendered', () => {
 			expect(
-				hasComponent( instance, 'wp-block-search__label' )
+				hasComponent( instance, 'fp-block-search__label' )
 			).toEqual( false );
 		} );
 

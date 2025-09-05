@@ -498,10 +498,10 @@ describe( 'getEntityRecords', () => {
 			'root',
 			'postType'
 		);
-		const wpBlockFirstRecords = getEntityRecords(
+		const fpBlockFirstRecords = getEntityRecords(
 			state,
 			'postType',
-			'wp_block'
+			'fp_block'
 		);
 
 		// Simulate update states.
@@ -512,14 +512,14 @@ describe( 'getEntityRecords', () => {
 			'root',
 			'postType'
 		);
-		const wpBlockSecondRecords = getEntityRecords(
+		const fpBlockSecondRecords = getEntityRecords(
 			state,
 			'postType',
-			'wp_block'
+			'fp_block'
 		);
 
 		expect( postTypeFirstRecords ).toBe( postTypeSecondRecords );
-		expect( wpBlockFirstRecords ).toBe( wpBlockSecondRecords );
+		expect( fpBlockFirstRecords ).toBe( fpBlockSecondRecords );
 	} );
 } );
 

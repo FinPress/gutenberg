@@ -209,11 +209,11 @@ describe( 'toVdom', () => {
 			console.warn = jest.fn();
 
 			toVdom(
-				createElementFromHTML( `<div data-wp-invalid[name]></div>` )
+				createElementFromHTML( `<div data-fp-invalid[name]></div>` )
 			);
 
 			expect( console.warn ).toHaveBeenCalledWith(
-				`Found malformed directive name: data-wp-invalid[name].`
+				`Found malformed directive name: data-fp-invalid[name].`
 			);
 
 			console.warn = originalWarn;
@@ -223,14 +223,14 @@ describe( 'toVdom', () => {
 	describe( 'Directive processing', () => {
 		it( 'should process simple directives', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-test-one data-wp-test-two="test value"></div>`
+				`<div data-fp-test-one data-fp-test-two="test value"></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-test-one': '',
-						'data-wp-test-two': 'test value',
+						'data-fp-test-one': '',
+						'data-fp-test-two': 'test value',
 						__directives: {
 							'test-one': [
 								{
@@ -255,13 +255,13 @@ describe( 'toVdom', () => {
 
 		it( 'should parse JSON values in directives', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-test='{"key": "value"}'></div>`
+				`<div data-fp-test='{"key": "value"}'></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-test': '{"key": "value"}',
+						'data-fp-test': '{"key": "value"}',
 						__directives: {
 							test: [
 								{
@@ -279,13 +279,13 @@ describe( 'toVdom', () => {
 
 		it( 'should handle malformed JSON and keep as string', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-test="{malformed: json}"></div>`
+				`<div data-fp-test="{malformed: json}"></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-test': '{malformed: json}',
+						'data-fp-test': '{malformed: json}',
 						__directives: {
 							test: [
 								{
@@ -303,14 +303,14 @@ describe( 'toVdom', () => {
 
 		it( 'should process directive suffixes', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-test--one="test value 1" data-wp-test--two="test value 2"></div>`
+				`<div data-fp-test--one="test value 1" data-fp-test--two="test value 2"></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-test--one': 'test value 1',
-						'data-wp-test--two': 'test value 2',
+						'data-fp-test--one': 'test value 1',
+						'data-fp-test--two': 'test value 2',
 						__directives: {
 							test: [
 								{
@@ -333,14 +333,14 @@ describe( 'toVdom', () => {
 
 		it( 'should preserve values that JSON would parse but are not objects', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-test--one='true' data-wp-test--two='"test value"'></div>`
+				`<div data-fp-test--one='true' data-fp-test--two='"test value"'></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-test--one': 'true',
-						'data-wp-test--two': '"test value"',
+						'data-fp-test--one': 'true',
+						'data-fp-test--two': '"test value"',
 						__directives: {
 							test: [
 								{
@@ -363,13 +363,13 @@ describe( 'toVdom', () => {
 
 		it( 'should handle directives in template elements', () => {
 			const template = createElementFromHTML(
-				`<template data-wp-test="test value"><div></div></template>`
+				`<template data-fp-test="test value"><div></div></template>`
 			);
 			expect( toVdom( template ) ).toMatchVNode(
 				h(
 					'template' as any,
 					{
-						'data-wp-test': 'test value',
+						'data-fp-test': 'test value',
 						__directives: {
 							test: [
 								{
@@ -388,7 +388,7 @@ describe( 'toVdom', () => {
 
 		it( 'should handle directives inside template elements', () => {
 			const template = createElementFromHTML(
-				`<template><div data-wp-test="test value"></div></template>`
+				`<template><div data-fp-test="test value"></div></template>`
 			);
 			expect( toVdom( template ) ).toMatchVNode(
 				h(
@@ -398,7 +398,7 @@ describe( 'toVdom', () => {
 							h(
 								'div' as any,
 								{
-									'data-wp-test': 'test value',
+									'data-fp-test': 'test value',
 									__directives: {
 										test: [
 											{
@@ -422,13 +422,13 @@ describe( 'toVdom', () => {
 	describe( 'Namespaces', () => {
 		it( 'should process directives with a custom namespace', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-test="my-namespace::test value"></div>`
+				`<div data-fp-test="my-namespace::test value"></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-test': 'my-namespace::test value',
+						'data-fp-test': 'my-namespace::test value',
 						__directives: {
 							test: [
 								{
@@ -446,13 +446,13 @@ describe( 'toVdom', () => {
 
 		it( 'should parse JSON values with a custom namespace', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-test='my-namespace::{"key": "value"}'></div>`
+				`<div data-fp-test='my-namespace::{"key": "value"}'></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-test': 'my-namespace::{"key": "value"}',
+						'data-fp-test': 'my-namespace::{"key": "value"}',
 						__directives: {
 							test: [
 								{
@@ -470,14 +470,14 @@ describe( 'toVdom', () => {
 
 		it( 'should use the default namespace provided in the same element', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-interactive="my-namespace" data-wp-test="test value"></div>`
+				`<div data-fp-interactive="my-namespace" data-fp-test="test value"></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-interactive': 'my-namespace',
-						'data-wp-test': 'test value',
+						'data-fp-interactive': 'my-namespace',
+						'data-fp-test': 'test value',
 						__directives: {
 							test: [
 								{
@@ -495,20 +495,20 @@ describe( 'toVdom', () => {
 
 		it( 'should override the default namespace provided in a parent element', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-interactive="parent-namespace"><div data-wp-interactive="my-namespace" data-wp-test="test value"></div></div>`
+				`<div data-fp-interactive="parent-namespace"><div data-fp-interactive="my-namespace" data-fp-test="test value"></div></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-interactive': 'parent-namespace',
+						'data-fp-interactive': 'parent-namespace',
 					},
 					[
 						h(
 							'div' as any,
 							{
-								'data-wp-interactive': 'my-namespace',
-								'data-wp-test': 'test value',
+								'data-fp-interactive': 'my-namespace',
+								'data-fp-test': 'test value',
 								__directives: {
 									test: [
 										{
@@ -528,15 +528,15 @@ describe( 'toVdom', () => {
 
 		it( 'should handle default namespaces provided in the a JSON object', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-interactive='{ "namespace": "my-namespace" }' data-wp-test="test value"></div>`
+				`<div data-fp-interactive='{ "namespace": "my-namespace" }' data-fp-test="test value"></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-interactive':
+						'data-fp-interactive':
 							'{ "namespace": "my-namespace" }',
-						'data-wp-test': 'test value',
+						'data-fp-test': 'test value',
 						__directives: {
 							test: [
 								{
@@ -554,26 +554,26 @@ describe( 'toVdom', () => {
 
 		it( 'should recover the parent default namespace after a closing element', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-interactive="parent-namespace"><div data-wp-interactive="child-namespace"></div><div data-wp-test="test value"></div></div>`
+				`<div data-fp-interactive="parent-namespace"><div data-fp-interactive="child-namespace"></div><div data-fp-test="test value"></div></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-interactive': 'parent-namespace',
+						'data-fp-interactive': 'parent-namespace',
 					},
 					[
 						h(
 							'div' as any,
 							{
-								'data-wp-interactive': 'child-namespace',
+								'data-fp-interactive': 'child-namespace',
 							},
 							[]
 						),
 						h(
 							'div' as any,
 							{
-								'data-wp-test': 'test value',
+								'data-fp-test': 'test value',
 								__directives: {
 									test: [
 										{
@@ -593,21 +593,21 @@ describe( 'toVdom', () => {
 
 		it( 'should reset the default namespace after that last closing element', () => {
 			const element = createElementFromHTML(
-				`<div><div data-wp-interactive="my-namespace"></div><div data-wp-test="test value"></div></div>`
+				`<div><div data-fp-interactive="my-namespace"></div><div data-fp-test="test value"></div></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h( 'div' as any, null, [
 					h(
 						'div' as any,
 						{
-							'data-wp-interactive': 'my-namespace',
+							'data-fp-interactive': 'my-namespace',
 						},
 						[]
 					),
 					h(
 						'div' as any,
 						{
-							'data-wp-test': 'test value',
+							'data-fp-test': 'test value',
 							__directives: {
 								test: [
 									{
@@ -626,14 +626,14 @@ describe( 'toVdom', () => {
 
 		it( 'should override the default namespace with a custom one in the same element', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-interactive="my-namespace" data-wp-test="custom-namespace::test value"></div>`
+				`<div data-fp-interactive="my-namespace" data-fp-test="custom-namespace::test value"></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-interactive': 'my-namespace',
-						'data-wp-test': 'custom-namespace::test value',
+						'data-fp-interactive': 'my-namespace',
+						'data-fp-test': 'custom-namespace::test value',
 						__directives: {
 							test: [
 								{
@@ -651,19 +651,19 @@ describe( 'toVdom', () => {
 
 		it( 'should override the default namespace with a custom one in a child element', () => {
 			const element = createElementFromHTML(
-				`<div data-wp-interactive="my-namespace"><div data-wp-test="custom-namespace::test value"></div></div>`
+				`<div data-fp-interactive="my-namespace"><div data-fp-test="custom-namespace::test value"></div></div>`
 			);
 			expect( toVdom( element ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-interactive': 'my-namespace',
+						'data-fp-interactive': 'my-namespace',
 					},
 					[
 						h(
 							'div' as any,
 							{
-								'data-wp-test': 'custom-namespace::test value',
+								'data-fp-test': 'custom-namespace::test value',
 								__directives: {
 									test: [
 										{
@@ -683,18 +683,18 @@ describe( 'toVdom', () => {
 
 		it( 'should pass down namespaces defined in template elements', () => {
 			const template = createElementFromHTML(
-				`<template data-wp-interactive="my-namespace"><div data-wp-test="test value"></div></template>`
+				`<template data-fp-interactive="my-namespace"><div data-fp-test="test value"></div></template>`
 			);
 			expect( toVdom( template ) ).toMatchVNode(
 				h(
 					'template' as any,
 					{
-						'data-wp-interactive': 'my-namespace',
+						'data-fp-interactive': 'my-namespace',
 						content: [
 							h(
 								'div' as any,
 								{
-									'data-wp-test': 'test value',
+									'data-fp-test': 'test value',
 									__directives: {
 										test: [
 											{
@@ -716,13 +716,13 @@ describe( 'toVdom', () => {
 
 		it( 'should pass down namespaces defined in template parents', () => {
 			const template = createElementFromHTML(
-				`<div data-wp-interactive="my-namespace"><template><div data-wp-test="test value"></div></template></div>`
+				`<div data-fp-interactive="my-namespace"><template><div data-fp-test="test value"></div></template></div>`
 			);
 			expect( toVdom( template ) ).toMatchVNode(
 				h(
 					'div' as any,
 					{
-						'data-wp-interactive': 'my-namespace',
+						'data-fp-interactive': 'my-namespace',
 					},
 					[
 						h(
@@ -732,7 +732,7 @@ describe( 'toVdom', () => {
 									h(
 										'div' as any,
 										{
-											'data-wp-test': 'test value',
+											'data-fp-test': 'test value',
 											__directives: {
 												test: [
 													{
@@ -759,7 +759,7 @@ describe( 'toVdom', () => {
 	describe( 'Hydrated islands', () => {
 		it( 'should add a topmost island', () => {
 			const element = createElementFromHTML( `
-				<div data-wp-interactive="my-namespace"></div>
+				<div data-fp-interactive="my-namespace"></div>
 			` );
 			toVdom( element );
 			expect( hydratedIslands.has( element ) ).toBe( true );
@@ -767,9 +767,9 @@ describe( 'toVdom', () => {
 
 		it( 'should add nested islands', () => {
 			const outer = createElementFromHTML(
-				`<div data-wp-interactive="outer"><div data-wp-interactive="inner"></div></div>`
+				`<div data-fp-interactive="outer"><div data-fp-interactive="inner"></div></div>`
 			);
-			const inner = outer.querySelector( '[data-wp-interactive="inner"' );
+			const inner = outer.querySelector( '[data-fp-interactive="inner"' );
 			toVdom( outer );
 			expect( hydratedIslands.has( outer ) ).toBe( true );
 			expect( hydratedIslands.has( inner! ) ).toBe( true );

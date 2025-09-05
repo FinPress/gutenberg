@@ -8,10 +8,10 @@ module.exports = ( environment = '', file ) => {
 	 */
 	const callerOpts = {
 		caller: {
-			name: `WP_BUILD_${ environment.toUpperCase() }`,
+			name: `FP_BUILD_${ environment.toUpperCase() }`,
 		},
 	};
-	// Add `/* wp:polyfill */` magic comment where needed.
+	// Add `/* fp:polyfill */` magic comment where needed.
 	callerOpts.caller.addPolyfillComments = true;
 	switch ( environment ) {
 		case 'main':

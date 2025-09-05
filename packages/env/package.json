@@ -33,7 +33,7 @@
 	],
 	"main": "lib/env.js",
 	"bin": {
-		"wp-env": "bin/wp-env"
+		"fp-env": "bin/fp-env"
 	},
 	"dependencies": {
 		"@inquirer/prompts": "^7.2.0",

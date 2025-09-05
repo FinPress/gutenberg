@@ -13,14 +13,14 @@ import deprecated from '@finpress/deprecated';
 const { Fill, Slot } = createSlotFill( 'PluginTemplateSettingPanel' );
 
 const PluginTemplateSettingPanel = ( { children } ) => {
-	deprecated( 'wp.editSite.PluginTemplateSettingPanel', {
+	deprecated( 'fp.editSite.PluginTemplateSettingPanel', {
 		since: '6.6',
 		version: '6.8',
-		alternative: 'wp.editor.PluginDocumentSettingPanel',
+		alternative: 'fp.editor.PluginDocumentSettingPanel',
 	} );
 	const isCurrentEntityTemplate = useSelect(
 		( select ) =>
-			select( editorStore ).getCurrentPostType() === 'wp_template',
+			select( editorStore ).getCurrentPostType() === 'fp_template',
 		[]
 	);
 	if ( ! isCurrentEntityTemplate ) {
@@ -35,7 +35,7 @@ PluginTemplateSettingPanel.Slot = Slot;
  * Renders items in the Template Sidebar below the main information
  * like the Template Card.
  *
- * @deprecated since 6.6. Use `wp.editor.PluginDocumentSettingPanel` instead.
+ * @deprecated since 6.6. Use `fp.editor.PluginDocumentSettingPanel` instead.
  *
  * @example
  * ```jsx

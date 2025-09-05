@@ -1,12 +1,12 @@
 /**
  * Internal dependencies
  */
-import { isViewportMatch } from '../selectors';
+import { isviewportMatch } from '../selectors';
 
 describe( 'selectors', () => {
-	describe( 'isViewportMatch()', () => {
+	describe( 'isviewportMatch()', () => {
 		it( 'should return with omitted operator defaulting to >=', () => {
-			const result = isViewportMatch(
+			const result = isviewportMatch(
 				{
 					'>= wide': true,
 					'< wide': false,
@@ -18,7 +18,7 @@ describe( 'selectors', () => {
 		} );
 
 		it( 'should return with known query value', () => {
-			const result = isViewportMatch(
+			const result = isviewportMatch(
 				{
 					'>= wide': false,
 					'< wide': true,

@@ -14,7 +14,7 @@ import type {
 import { dragFiles } from './drag-files';
 import { isCurrentURL } from './is-current-url';
 import { setClipboardData, pressKeys } from './press-keys';
-import { setBrowserViewport } from './set-browser-viewport';
+import { setBrowserviewport } from './set-browser-viewport';
 import { emulateNetworkConditions } from './emulate-network-conditions';
 
 type PageUtilConstructorParams = {
@@ -41,9 +41,9 @@ class PageUtils {
 	isCurrentURL: typeof isCurrentURL = isCurrentURL.bind( this );
 	/** @borrows pressKeys as this.pressKeys */
 	pressKeys: typeof pressKeys = pressKeys.bind( this );
-	/** @borrows setBrowserViewport as this.setBrowserViewport */
-	setBrowserViewport: typeof setBrowserViewport =
-		setBrowserViewport.bind( this );
+	/** @borrows setBrowserviewport as this.setBrowserviewport */
+	setBrowserviewport: typeof setBrowserviewport =
+		setBrowserviewport.bind( this );
 	/** @borrows setClipboardData as this.setClipboardData */
 	setClipboardData: typeof setClipboardData = setClipboardData.bind( this );
 	/** @borrows emulateNetworkConditions as this.emulateNetworkConditions */

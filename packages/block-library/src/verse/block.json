@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/verse",
 	"title": "Verse",
@@ -74,6 +74,6 @@
 			"clientNavigation": true
 		}
 	},
-	"style": "wp-block-verse",
-	"editorStyle": "wp-block-verse-editor"
+	"style": "fp-block-verse",
+	"editorStyle": "fp-block-verse-editor"
 }

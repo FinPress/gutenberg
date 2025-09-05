@@ -27,7 +27,7 @@ import getSidebarSection from './controls/sidebar-section';
 import getSidebarControl from './controls/sidebar-control';
 import './filters';
 
-const { wp } = window;
+const { fp } = window;
 
 const DISABLED_BLOCKS = [
 	'core/more',
@@ -77,15 +77,15 @@ export function initialize( editorName, blockEditorSettings ) {
 
 	const SidebarControl = getSidebarControl( blockEditorSettings );
 
-	wp.customize.sectionConstructor.sidebar = getSidebarSection();
-	wp.customize.controlConstructor.sidebar_block_editor = SidebarControl;
+	fp.customize.sectionConstructor.sidebar = getSidebarSection();
+	fp.customize.controlConstructor.sidebar_block_editor = SidebarControl;
 
 	const container = document.createElement( 'div' );
 	document.body.appendChild( container );
 
-	wp.customize.bind( 'ready', () => {
+	fp.customize.bind( 'ready', () => {
 		const sidebarControls = [];
-		wp.customize.control.each( ( control ) => {
+		fp.customize.control.each( ( control ) => {
 			if ( control instanceof SidebarControl ) {
 				sidebarControls.push( control );
 			}
@@ -94,7 +94,7 @@ export function initialize( editorName, blockEditorSettings ) {
 		createRoot( container ).render(
 			<StrictMode>
 				<CustomizeWidgets
-					api={ wp.customize }
+					api={ fp.customize }
 					sidebarControls={ sidebarControls }
 					blockEditorSettings={ blockEditorSettings }
 				/>

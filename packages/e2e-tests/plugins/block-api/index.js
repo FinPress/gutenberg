@@ -1,8 +1,8 @@
 ( function () {
-	const { registerBlockType } = wp.blocks;
-	const { useBlockProps } = wp.blockEditor;
-	const { createElement: el } = wp.element;
-	const { addFilter } = wp.hooks;
+	const { registerBlockType } = fp.blocks;
+	const { useBlockProps } = fp.blockEditor;
+	const { createElement: el } = fp.element;
+	const { addFilter } = fp.hooks;
 
 	registerBlockType( 'e2e-tests/hello-world', {
 		apiVersion: 3,

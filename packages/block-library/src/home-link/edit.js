@@ -22,7 +22,7 @@ export default function HomeEdit( { attributes, setAttributes, context } ) {
 
 	const { textColor, backgroundColor, style } = context;
 	const blockProps = useBlockProps( {
-		className: clsx( 'wp-block-navigation-item', {
+		className: clsx( 'fp-block-navigation-item', {
 			'has-text-color': !! textColor || !! style?.color?.text,
 			[ `has-${ textColor }-color` ]: !! textColor,
 			'has-background': !! backgroundColor || !! style?.color?.background,
@@ -37,13 +37,13 @@ export default function HomeEdit( { attributes, setAttributes, context } ) {
 	return (
 		<div { ...blockProps }>
 			<a
-				className="wp-block-home-link__content wp-block-navigation-item__content"
+				className="fp-block-home-link__content fp-block-navigation-item__content"
 				href={ homeUrl }
 				onClick={ preventDefault }
 			>
 				<RichText
 					identifier="label"
-					className="wp-block-home-link__label"
+					className="fp-block-home-link__label"
 					value={ attributes.label ?? __( 'Home' ) }
 					onChange={ ( labelValue ) => {
 						setAttributes( { label: labelValue } );

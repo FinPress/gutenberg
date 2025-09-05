@@ -12,7 +12,7 @@
  *
  * @param  array    $attributes Block attributes.
  * @param  string   $content    Block default content.
- * @param  WP_Block $block      Block instance.
+ * @param  FP_Block $block      Block instance.
  * @return string Returns the rendered post author name block.
  */
 function render_block_core_post_author_name( $attributes, $content, $block ) {
@@ -32,7 +32,7 @@ function render_block_core_post_author_name( $attributes, $content, $block ) {
 
 	$author_name = get_the_author_meta( 'display_name', $author_id );
 	if ( isset( $attributes['isLink'] ) && $attributes['isLink'] ) {
-		$author_name = sprintf( '<a href="%1$s" target="%2$s" class="wp-block-post-author-name__link">%3$s</a>', get_author_posts_url( $author_id ), esc_attr( $attributes['linkTarget'] ), $author_name );
+		$author_name = sprintf( '<a href="%1$s" target="%2$s" class="fp-block-post-author-name__link">%3$s</a>', get_author_posts_url( $author_id ), esc_attr( $attributes['linkTarget'] ), $author_name );
 	}
 
 	$classes = array();

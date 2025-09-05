@@ -76,10 +76,10 @@ export const __experimentalGetPreviewDeviceType = createRegistrySelector(
 export const getCanUserCreateMedia = createRegistrySelector(
 	( select ) => () => {
 		deprecated(
-			`wp.data.select( 'core/edit-site' ).getCanUserCreateMedia()`,
+			`fp.data.select( 'core/edit-site' ).getCanUserCreateMedia()`,
 			{
 				since: '6.7',
-				alternative: `wp.data.select( 'core' ).canUser( 'create', { kind: 'postType', type: 'attachment' } )`,
+				alternative: `fp.data.select( 'core' ).canUser( 'create', { kind: 'postType', type: 'attachment' } )`,
 			}
 		);
 
@@ -98,11 +98,11 @@ export const getReusableBlocks = createRegistrySelector( ( select ) => () => {
 	deprecated( `select( 'core/edit-site' ).getReusableBlocks()`, {
 		since: '6.5',
 		version: '6.8',
-		alternative: `select( 'core/core' ).getEntityRecords( 'postType', 'wp_block' )`,
+		alternative: `select( 'core/core' ).getEntityRecords( 'postType', 'fp_block' )`,
 	} );
 	const isWeb = Platform.OS === 'web';
 	return isWeb
-		? select( coreDataStore ).getEntityRecords( 'postType', 'wp_block', {
+		? select( coreDataStore ).getEntityRecords( 'postType', 'fp_block', {
 				per_page: -1,
 		  } )
 		: [];
@@ -133,7 +133,7 @@ export function getHomeTemplateId() {
 }
 
 /**
- * Returns the current edited post type (wp_template or wp_template_part).
+ * Returns the current edited post type (fp_template or fp_template_part).
  *
  * @deprecated
  * @param {Object} state Global application state.

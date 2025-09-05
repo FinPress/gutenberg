@@ -2,10 +2,10 @@
  * Function returning a sessionStorage key to set or retrieve a given post's
  * automatic session backup.
  *
- * Keys are crucially prefixed with 'wp-autosave-' so that wp-login.php's
+ * Keys are crucially prefixed with 'fp-autosave-' so that fp-login.php's
  * `loggedout` handler can clear sessionStorage of any user-private content.
  *
- * @see https://github.com/FinPress/finpress-develop/blob/6dad32d2aed47e6c0cf2aee8410645f6d7aba6bd/src/wp-login.php#L103
+ * @see https://github.com/FinPress/finpress-develop/blob/6dad32d2aed47e6c0cf2aee8410645f6d7aba6bd/src/fp-login.php#L103
  *
  * @param {string}  postId    Post ID.
  * @param {boolean} isPostNew Whether post new.
@@ -13,7 +13,7 @@
  * @return {string} sessionStorage key
  */
 function postKey( postId, isPostNew ) {
-	return `wp-autosave-block-editor-post-${
+	return `fp-autosave-block-editor-post-${
 		isPostNew ? 'auto-draft' : postId
 	}`;
 }

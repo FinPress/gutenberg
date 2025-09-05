@@ -8,7 +8,7 @@ import {
 	getUnitsWithCurrentUnit,
 	parseQuantityAndUnitFromRawValue,
 } from '../utils';
-import type { WPUnitControlUnit } from '../types';
+import type { FPUnitControlUnit } from '../types';
 
 describe( 'UnitControl utils', () => {
 	describe( 'useCustomUnits', () => {
@@ -154,7 +154,7 @@ describe( 'UnitControl utils', () => {
 
 		it( 'should return empty array where available units is set to an empty array', () => {
 			const preferredUnits = [ '%', 'px' ];
-			const availableUnits: WPUnitControlUnit[] = [];
+			const availableUnits: FPUnitControlUnit[] = [];
 
 			expect(
 				filterUnitsWithSettings( preferredUnits, availableUnits )
@@ -308,7 +308,7 @@ describe( 'UnitControl utils', () => {
 			[ 'max(4.5em, 3vh)', undefined, undefined ],
 			[ 'min(10px, 1rem)', undefined, undefined ],
 			[ 'minmax(30px, auto)', undefined, undefined ],
-			[ 'var(--wp--font-size)', undefined, undefined ],
+			[ 'var(--fp--font-size)', undefined, undefined ],
 		];
 
 		test.each( cases )(

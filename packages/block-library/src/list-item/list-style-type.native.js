@@ -42,12 +42,12 @@ function OrderedList( {
 	style,
 } ) {
 	const orderedStyles = [
-		styles[ 'wp-block-list-item__list-item-container--ordered' ],
+		styles[ 'fp-block-list-item__list-item-container--ordered' ],
 		Platform.isIOS &&
-			styles[ 'wp-block-list-item__list-item-ordered--default' ],
+			styles[ 'fp-block-list-item__list-item-ordered--default' ],
 		Platform.isIOS &&
 			style?.fontSize &&
-			styles[ 'wp-block-list-item__list-item-ordered--custom' ],
+			styles[ 'fp-block-list-item__list-item-ordered--custom' ],
 	];
 	const numberStyle = [ { fontSize, color } ];
 
@@ -79,7 +79,7 @@ function IconList( { fontSize, color, defaultFontSize, indentationLevel } ) {
 	}
 
 	const listStyles = [
-		styles[ 'wp-block-list-item__list-item-container' ],
+		styles[ 'fp-block-list-item__list-item-container' ],
 		{ marginTop: fontSize / 2 },
 	];
 
@@ -100,7 +100,7 @@ export default function ListStyleType( {
 	style,
 } ) {
 	let defaultFontSize =
-		styles[ 'wp-block-list-item__list-item--default' ].fontSize;
+		styles[ 'fp-block-list-item__list-item--default' ].fontSize;
 
 	if ( style?.baseColors?.typography?.fontSize ) {
 		defaultFontSize = parseInt( style.baseColors.typography.fontSize, 10 );
@@ -112,8 +112,8 @@ export default function ListStyleType( {
 	);
 
 	const colorWithPreferredScheme = usePreferredColorSchemeStyle(
-		styles[ 'wp-block-list-item__list-item--default' ],
-		styles[ 'wp-block-list-item__list-item--default--dark' ]
+		styles[ 'fp-block-list-item__list-item--default' ],
+		styles[ 'fp-block-list-item__list-item--default--dark' ]
 	);
 
 	const defaultColor = style?.baseColors?.color?.text

@@ -28,22 +28,22 @@ add_action( 'init', 'init_test_meta_attribute_block_plugin' );
  * Enqueues block assets for the custom meta test block.
  */
 function enqueue_test_meta_attribute_block() {
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-meta-attribute-block-early',
 		plugins_url( 'meta-attribute-block/early.js', __FILE__ ),
 		array(
-			'wp-blocks',
-			'wp-element',
+			'fp-blocks',
+			'fp-element',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'meta-attribute-block/early.js' )
 	);
 
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-meta-attribute-block-late',
 		plugins_url( 'meta-attribute-block/late.js', __FILE__ ),
 		array(
-			'wp-blocks',
-			'wp-element',
+			'fp-blocks',
+			'fp-element',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'meta-attribute-block/late.js' ),
 		true

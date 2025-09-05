@@ -19,33 +19,33 @@ To opt into this, include `core/post-content` in the Block Types for your patter
   */
 ?>
 
-<!-- wp:heading {"lock":{"move":false,"remove":true}} -->
+<!-- fp:heading {"lock":{"move":false,"remove":true}} -->
 <h2>Details</h2>
-<!-- /wp:heading -->
+<!-- /fp:heading -->
 
-<!-- wp:heading {"lock":{"move":false,"remove":true}} -->
+<!-- fp:heading {"lock":{"move":false,"remove":true}} -->
 <h2>Directions</h2>
-<!-- /wp:heading -->
+<!-- /fp:heading -->
 
-<!-- wp:heading {"lock":{"move":false,"remove":true}} -->
+<!-- fp:heading {"lock":{"move":false,"remove":true}} -->
 <h2>RSVP</h2>
-<!-- /wp:heading -->
+<!-- /fp:heading -->
 
-<!-- wp:paragraph {"lock":{"move":true,"remove":true}} -->
+<!-- fp:paragraph {"lock":{"move":true,"remove":true}} -->
 <p>To RSVP, please join the #fse-outreach-experiment in Make Slack. </p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"lock":{"move":true,"remove":false}} -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Learn more</a></div>
-<!-- /wp:button --></div>
-<!-- /wp:buttons -->
+<!-- fp:buttons -->
+<div class="fp-block-buttons"><!-- fp:button {"lock":{"move":true,"remove":false}} -->
+<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">Learn more</a></div>
+<!-- /fp:button --></div>
+<!-- /fp:buttons -->
 
-<!-- wp:cover {"useFeaturedImage":true,"dimRatio":80,"overlayColor":"primary","contentPosition":"center center","align":"full"} -->
-<div class="wp-block-cover alignfull"><span aria-hidden="true" class="wp-block-cover__background has-primary-background-color has-background-dim-80 has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:paragraph {"align":"center","placeholder":"Write titleā¦","fontSize":"large"} -->
+<!-- fp:cover {"useFeaturedImage":true,"dimRatio":80,"overlayColor":"primary","contentPosition":"center center","align":"full"} -->
+<div class="fp-block-cover alignfull"><span aria-hidden="true" class="fp-block-cover__background has-primary-background-color has-background-dim-80 has-background-dim"></span><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"align":"center","placeholder":"Write titleā¦","fontSize":"large"} -->
 <p class="has-text-align-center has-large-font-size">We hope to see you there!</p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:cover -->
+<!-- /fp:paragraph --></div></div>
+<!-- /fp:cover -->
 ```
 
 Read more about this functionality in the [Page creation patterns in FinPress 6.0 dev note](https://make.finpress.org/core/2022/05/03/page-creation-patterns-in-finpress-6-0/) and [note that FinPress 6.1 brought this functionality to all post types](https://make.finpress.org/core/2022/10/10/miscellaneous-editor-changes-for-finpress-6-1/#start-content-patterns-for-all-post-types).  
@@ -58,11 +58,11 @@ To opt into this, a pattern needs to specify a property called `templateTypes`, 
 
 ```php
 register_block_pattern(
-  'wp-my-theme/404-template-pattern',
+  'fp-my-theme/404-template-pattern',
   array(
-      'title'         => __( '404 Only template pattern', 'wp-my-theme' ),
+      'title'         => __( '404 Only template pattern', 'fp-my-theme' ),
       'templateTypes' => array( '404' ),
-      'content'       => '<!-- wp:paragraph {"align":"center","fontSize":"x-large"} --><p class="has-text-align-center has-x-large-font-size">404 pattern</p><!-- /wp:paragraph -->',
+      'content'       => '<!-- fp:paragraph {"align":"center","fontSize":"x-large"} --><p class="has-text-align-center has-x-large-font-size">404 pattern</p><!-- /fp:paragraph -->',
   )
 );
 ```

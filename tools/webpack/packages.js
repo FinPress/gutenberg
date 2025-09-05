@@ -36,7 +36,7 @@ const FINPRESS_NAMESPACE = '@finpress/';
 // !!
 const BUNDLED_PACKAGES = [
 	'@finpress/dataviews',
-	'@finpress/dataviews/wp',
+	'@finpress/dataviews/fp',
 	'@finpress/icons',
 	'@finpress/interface',
 	'@finpress/sync',
@@ -51,11 +51,11 @@ const bundledPackagesPhpConfig = [
 		from: './packages/style-engine/',
 		to: 'build/style-engine/',
 		replaceClasses: [
-			'WP_Style_Engine_CSS_Declarations',
-			'WP_Style_Engine_CSS_Rules_Store',
-			'WP_Style_Engine_CSS_Rule',
-			'WP_Style_Engine_Processor',
-			'WP_Style_Engine',
+			'FP_Style_Engine_CSS_Declarations',
+			'FP_Style_Engine_CSS_Rules_Store',
+			'FP_Style_Engine_CSS_Rule',
+			'FP_Style_Engine_Processor',
+			'FP_Style_Engine',
 		],
 	},
 ].map( ( { from, to, replaceClasses } ) => ( {
@@ -80,10 +80,10 @@ const bundledPackagesPhpConfig = [
 			content.matchAll( /^\s*function ([^\(]+)/gm )
 		).reduce( ( result, [ , functionName ] ) => {
 			// Prepend the Gutenberg prefix, substituting any
-			// other core prefix (e.g. "wp_").
+			// other core prefix (e.g. "fp_").
 			return result.replace(
 				new RegExp( functionName, 'g' ),
-				( match ) => functionPrefix + match.replace( /^wp_/, '' )
+				( match ) => functionPrefix + match.replace( /^fp_/, '' )
 			);
 		}, content );
 		return content;
@@ -97,7 +97,7 @@ for ( const packageDir of packageDirs ) {
 		`${ FINPRESS_NAMESPACE }${ packageDir }/package.json`
 	);
 
-	if ( ! packageJson.wpScript ) {
+	if ( ! packageJson.fpScript ) {
 		continue;
 	}
 
@@ -135,7 +135,7 @@ module.exports = {
 			{
 				import: `./packages/${ packageName }`,
 				library: {
-					name: [ 'wp', camelCaseDash( packageName ) ],
+					name: [ 'fp', camelCaseDash( packageName ) ],
 					type: 'window',
 					export: exportDefaultPackages.includes( packageName )
 						? 'default'
@@ -145,7 +145,7 @@ module.exports = {
 		] )
 	),
 	output: {
-		devtoolNamespace: 'wp',
+		devtoolNamespace: 'fp',
 		filename: './build/[name]/index.min.js',
 		path: join( __dirname, '..', '..' ),
 		devtoolModuleFilenameTemplate: ( info ) => {

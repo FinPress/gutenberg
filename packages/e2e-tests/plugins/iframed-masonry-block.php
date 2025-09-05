@@ -10,19 +10,19 @@
 add_action(
 	'init',
 	static function () {
-		wp_register_script(
+		fp_register_script(
 			'iframed-masonry-block-editor',
 			plugin_dir_url( __FILE__ ) . 'iframed-masonry-block/editor.js',
 			array(
-				'wp-blocks',
-				'wp-block-editor',
-				'wp-element',
-				'wp-compose',
+				'fp-blocks',
+				'fp-block-editor',
+				'fp-element',
+				'fp-compose',
 				'masonry',
 			),
 			filemtime( plugin_dir_path( __FILE__ ) . 'iframed-masonry-block/editor.js' )
 		);
-		wp_register_script(
+		fp_register_script(
 			'iframed-masonry-block-script',
 			plugin_dir_url( __FILE__ ) . 'iframed-masonry-block/script.js',
 			array( 'masonry' ),

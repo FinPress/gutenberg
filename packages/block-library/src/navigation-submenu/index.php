@@ -31,7 +31,7 @@ function block_core_navigation_submenu_build_css_font_sizes( $context ) {
 		// Add the custom font size inline style.
 		$font_sizes['inline_styles'] = sprintf(
 			'font-size: %s;',
-			wp_get_typography_font_size_value(
+			fp_get_typography_font_size_value(
 				array(
 					'size' => $context['style']['typography']['fontSize'],
 				)
@@ -60,7 +60,7 @@ function block_core_navigation_submenu_render_submenu_icon() {
  *
  * @param array    $attributes The block attributes.
  * @param string   $content    The saved content.
- * @param WP_Block $block      The parsed block.
+ * @param FP_Block $block      The parsed block.
  *
  * @return string Returns the post content with the legacy widget added.
  */
@@ -99,7 +99,7 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 		$show_submenu_indicators;
 
 	$classes = array(
-		'wp-block-navigation-item',
+		'fp-block-navigation-item',
 	);
 	$classes = array_merge(
 		$classes,
@@ -128,13 +128,13 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 	$label = '';
 
 	if ( isset( $attributes['label'] ) ) {
-		$label .= wp_kses_post( $attributes['label'] );
+		$label .= fp_kses_post( $attributes['label'] );
 	}
 
 	$aria_label = sprintf(
 		/* translators: Accessibility text. %s: Parent page title. */
 		__( '%s submenu' ),
-		wp_strip_all_tags( $label )
+		fp_strip_all_tags( $label )
 	);
 
 	$html = '<li ' . $wrapper_attributes . '>';
@@ -144,7 +144,7 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 	if ( ! $open_on_click ) {
 		$item_url = isset( $attributes['url'] ) ? $attributes['url'] : '';
 		// Start appending HTML attributes to anchor tag.
-		$html .= '<a class="wp-block-navigation-item__content"';
+		$html .= '<a class="fp-block-navigation-item__content"';
 
 		// The href attribute on a and area elements is not required;
 		// when those elements do not have href attributes they do not create hyperlinks.
@@ -176,14 +176,14 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 		$html .= '>';
 		// End appending HTML attributes to anchor tag.
 
-		$html .= '<span class="wp-block-navigation-item__label">';
+		$html .= '<span class="fp-block-navigation-item__label">';
 		$html .= $label;
 		$html .= '</span>';
 
 		// Add description if available.
 		if ( ! empty( $attributes['description'] ) ) {
-			$html .= '<span class="wp-block-navigation-item__description">';
-			$html .= wp_kses_post( $attributes['description'] );
+			$html .= '<span class="fp-block-navigation-item__description">';
+			$html .= fp_kses_post( $attributes['description'] );
 			$html .= '</span>';
 		}
 
@@ -193,14 +193,14 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 		if ( $show_submenu_indicators ) {
 			// The submenu icon is rendered in a button here
 			// so that there's a clickable element to open the submenu.
-			$html .= '<button aria-label="' . esc_attr( $aria_label ) . '" class="wp-block-navigation__submenu-icon wp-block-navigation-submenu__toggle" aria-expanded="false">' . block_core_navigation_submenu_render_submenu_icon() . '</button>';
+			$html .= '<button aria-label="' . esc_attr( $aria_label ) . '" class="fp-block-navigation__submenu-icon fp-block-navigation-submenu__toggle" aria-expanded="false">' . block_core_navigation_submenu_render_submenu_icon() . '</button>';
 		}
 	} else {
 		// If menus open on click, we render the parent as a button.
-		$html .= '<button aria-label="' . esc_attr( $aria_label ) . '" class="wp-block-navigation-item__content wp-block-navigation-submenu__toggle" aria-expanded="false">';
+		$html .= '<button aria-label="' . esc_attr( $aria_label ) . '" class="fp-block-navigation-item__content fp-block-navigation-submenu__toggle" aria-expanded="false">';
 
 		// Wrap title with span to isolate it from submenu icon.
-		$html .= '<span class="wp-block-navigation-item__label">';
+		$html .= '<span class="fp-block-navigation-item__label">';
 
 		$html .= $label;
 
@@ -208,14 +208,14 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 
 		// Add description if available.
 		if ( ! empty( $attributes['description'] ) ) {
-			$html .= '<span class="wp-block-navigation-item__description">';
-			$html .= wp_kses_post( $attributes['description'] );
+			$html .= '<span class="fp-block-navigation-item__description">';
+			$html .= fp_kses_post( $attributes['description'] );
 			$html .= '</span>';
 		}
 
 		$html .= '</button>';
 
-		$html .= '<span class="wp-block-navigation__submenu-icon">' . block_core_navigation_submenu_render_submenu_icon() . '</span>';
+		$html .= '<span class="fp-block-navigation__submenu-icon">' . block_core_navigation_submenu_render_submenu_icon() . '</span>';
 
 	}
 
@@ -235,10 +235,10 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 			$attributes['style']['color']['background'] = $block->context['customOverlayBackgroundColor'];
 		}
 
-		// This allows us to be able to get a response from wp_apply_colors_support.
+		// This allows us to be able to get a response from fp_apply_colors_support.
 		$block->block_type->supports['color'] = true;
-		$colors_supports                      = wp_apply_colors_support( $block->block_type, $attributes );
-		$css_classes                          = 'wp-block-navigation__submenu-container';
+		$colors_supports                      = fp_apply_colors_support( $block->block_type, $attributes );
+		$css_classes                          = 'fp-block-navigation__submenu-container';
 		if ( array_key_exists( 'class', $colors_supports ) ) {
 			$css_classes .= ' ' . $colors_supports['class'];
 		}
@@ -254,8 +254,8 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 		}
 
 		if ( strpos( $inner_blocks_html, 'current-menu-item' ) ) {
-			$tag_processor = new WP_HTML_Tag_Processor( $html );
-			while ( $tag_processor->next_tag( array( 'class_name' => 'wp-block-navigation-item' ) ) ) {
+			$tag_processor = new FP_HTML_Tag_Processor( $html );
+			while ( $tag_processor->next_tag( array( 'class_name' => 'fp-block-navigation-item' ) ) ) {
 				$tag_processor->add_class( 'current-menu-ancestor' );
 			}
 			$html = $tag_processor->get_updated_html();
@@ -287,7 +287,7 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
  * @since 5.9.0
  *
  * @uses render_block_core_navigation_submenu()
- * @throws WP_Error An WP_Error exception parsing the block definition.
+ * @throws FP_Error An FP_Error exception parsing the block definition.
  */
 function register_block_core_navigation_submenu() {
 	register_block_type_from_metadata(

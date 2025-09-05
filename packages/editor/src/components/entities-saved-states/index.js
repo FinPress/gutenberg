@@ -103,8 +103,8 @@ export function EntitiesSavedStatesExtensible( {
 	// Sort entity groups.
 	const {
 		site: siteSavables,
-		wp_template: templateSavables,
-		wp_template_part: templatePartSavables,
+		fp_template: templateSavables,
+		fp_template_part: templatePartSavables,
 		...contentSavables
 	} = partitionedSavables;
 	const sortedPartitionedSavables = [

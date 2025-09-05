@@ -1,9 +1,9 @@
-/** @typedef {import('./registry').WPDataRegistry} WPDataRegistry */
+/** @typedef {import('./registry').FPDataRegistry} FPDataRegistry */
 
 /**
  * Creates a middleware handling resolvers cache invalidation.
  *
- * @param {WPDataRegistry} registry  Registry for which to create the middleware.
+ * @param {FPDataRegistry} registry  Registry for which to create the middleware.
  * @param {string}         storeName Name of the store for which to create the middleware.
  *
  * @return {Function} Middleware function.

@@ -23,7 +23,7 @@
 	}
 }
 
-.wp-block-query__enhanced-pagination-modal {
+.fp-block-query__enhanced-pagination-modal {
 	@include break-small() {
 		max-width: $break-mobile;
 	}
@@ -55,6 +55,6 @@
 
 // Provide special styling for the placeholder.
 // @todo this particular minimal style of placeholder could be componentized further.
-.wp-block-query > .block-editor-media-placeholder.is-small {
+.fp-block-query > .block-editor-media-placeholder.is-small {
 	min-height: 60px;
 }

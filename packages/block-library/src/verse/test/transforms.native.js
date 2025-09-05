@@ -11,9 +11,9 @@ import {
 
 const block = 'Verse';
 const initialHtml = `
-<!-- wp:verse {"textAlign":"center"} -->
-<pre class="wp-block-verse has-text-align-center">Come<br>Home.</pre>
-<!-- /wp:verse -->`;
+<!-- fp:verse {"textAlign":"center"} -->
+<pre class="fp-block-verse has-text-align-center">Come<br>Home.</pre>
+<!-- /fp:verse -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [

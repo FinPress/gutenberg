@@ -1,10 +1,10 @@
 ( function () {
-	const el = wp.element.createElement;
-	const Fragment = wp.element.Fragment;
-	const __ = wp.i18n.__;
-	const registerPlugin = wp.plugins.registerPlugin;
-	const PluginPostPublishPanel = wp.editor.PluginPostPublishPanel;
-	const PluginPrePublishPanel = wp.editor.PluginPrePublishPanel;
+	const el = fp.element.createElement;
+	const Fragment = fp.element.Fragment;
+	const __ = fp.i18n.__;
+	const registerPlugin = fp.plugins.registerPlugin;
+	const PluginPostPublishPanel = fp.editor.PluginPostPublishPanel;
+	const PluginPrePublishPanel = fp.editor.PluginPrePublishPanel;
 
 	function PanelContent() {
 		return el( 'p', {}, __( 'Here is the panel content!' ) );

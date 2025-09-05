@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-comments-count",
 	"title": "Comments Count",
@@ -51,5 +51,5 @@
 			"clientNavigation": true
 		}
 	},
-	"style": "wp-block-post-comments-count"
+	"style": "fp-block-post-comments-count"
 }

@@ -6,7 +6,7 @@ import {
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
 } from '@finpress/block-editor';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useCallback, useRef } from '@finpress/element';
 import { store as preferencesStore } from '@finpress/preferences';
 import { ESCAPE } from '@finpress/keycodes';
@@ -60,7 +60,7 @@ export default function InserterSidebar() {
 	const { setIsInserterOpened } = useDispatch( editorStore );
 	const { disableComplementaryArea } = useDispatch( interfaceStore );
 
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
 	const libraryRef = useRef();
 
 	// When closing the inserter, focus should return to the toggle button.
@@ -84,7 +84,7 @@ export default function InserterSidebar() {
 			<PrivateInserterLibrary
 				showMostUsedBlocks={ showMostUsedBlocks }
 				showInserterHelpPanel
-				shouldFocusBlock={ isMobileViewport }
+				shouldFocusBlock={ isMobileviewport }
 				rootClientId={ blockSectionRootClientId }
 				onSelect={ inserter.onSelect }
 				__experimentalInitialTab={ inserter.tab }

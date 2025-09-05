@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/shortcode",
 	"title": "Shortcode",
@@ -18,5 +18,5 @@
 		"customClassName": false,
 		"html": false
 	},
-	"editorStyle": "wp-block-shortcode-editor"
+	"editorStyle": "fp-block-shortcode-editor"
 }

@@ -663,8 +663,8 @@ describe( 'validation', () => {
 
 		it( 'should return false if supplied malformed HTML', () => {
 			const isEquivalent = isEquivalentHTML(
-				'<blockquote class="wp-block-quote">fsdfsdfsd<p>fdsfsdfsdd</pfd fd fd></blockquote>',
-				'<blockquote class="wp-block-quote">fsdfsdfsd<p>fdsfsdfsdd</p></blockquote>'
+				'<blockquote class="fp-block-quote">fsdfsdfsd<p>fdsfsdfsdd</pfd fd fd></blockquote>',
+				'<blockquote class="fp-block-quote">fsdfsdfsd<p>fdsfsdfsdd</p></blockquote>'
 			);
 
 			expect( console ).toHaveWarned();

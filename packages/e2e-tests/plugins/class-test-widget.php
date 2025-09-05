@@ -10,7 +10,7 @@
 /**
  * Test widget to be used in e2e tests.
  */
-class Test_Widget extends WP_Widget {
+class Test_Widget extends FP_Widget {
 	/**
 	 * Sets up a new test widget instance.
 	 */
@@ -59,7 +59,7 @@ class Test_Widget extends WP_Widget {
 	 * @since 4.8.1
 	 *
 	 * @param array $new_instance New settings for this instance as input by the user via
-	 *                            WP_Widget::form().
+	 *                            FP_Widget::form().
 	 * @param array $old_instance Old settings for this instance.
 	 *
 	 * @return array Settings to save or bool false to cancel saving.

@@ -71,7 +71,7 @@ test.describe( 'Pages', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'emptytheme' );
 		await Promise.all( [
-			requestUtils.deleteAllTemplates( 'wp_template' ),
+			requestUtils.deleteAllTemplates( 'fp_template' ),
 			requestUtils.deleteAllPages(),
 		] );
 	} );
@@ -79,14 +79,14 @@ test.describe( 'Pages', () => {
 	test.afterAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'twentytwentyone' );
 		await Promise.all( [
-			requestUtils.deleteAllTemplates( 'wp_template' ),
+			requestUtils.deleteAllTemplates( 'fp_template' ),
 			requestUtils.deleteAllPages(),
 		] );
 	} );
 
 	test.beforeEach( async ( { requestUtils, admin } ) => {
 		await Promise.all( [
-			requestUtils.deleteAllTemplates( 'wp_template' ),
+			requestUtils.deleteAllTemplates( 'fp_template' ),
 			requestUtils.deleteAllPages(),
 		] );
 		await admin.visitSiteEditor();

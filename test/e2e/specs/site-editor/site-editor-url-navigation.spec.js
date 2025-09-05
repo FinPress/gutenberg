@@ -15,8 +15,8 @@ test.describe( 'Site editor url navigation', () => {
 	test.beforeEach( async ( { requestUtils } ) => {
 		await Promise.all( [
 			requestUtils.deleteAllPosts(),
-			requestUtils.deleteAllTemplates( 'wp_template' ),
-			requestUtils.deleteAllTemplates( 'wp_template_part' ),
+			requestUtils.deleteAllTemplates( 'fp_template' ),
+			requestUtils.deleteAllTemplates( 'fp_template_part' ),
 		] );
 	} );
 
@@ -44,7 +44,7 @@ test.describe( 'Site editor url navigation', () => {
 			.click();
 		await page.getByRole( 'option', { name: 'Demo' } ).click();
 		await expect( page ).toHaveURL(
-			'/wp-admin/site-editor.php?p=%2Fwp_template%2Femptytheme%2F%2Fsingle-post-demo&canvas=edit'
+			'/fp-admin/site-editor.php?p=%2Ffp_template%2Femptytheme%2F%2Fsingle-post-demo&canvas=edit'
 		);
 	} );
 
@@ -63,7 +63,7 @@ test.describe( 'Site editor url navigation', () => {
 		await page.type( 'role=dialog >> role=textbox[name="Name"i]', 'Demo' );
 		await page.keyboard.press( 'Enter' );
 		await expect( page ).toHaveURL(
-			'/wp-admin/site-editor.php?p=%2Fwp_template_part%2Femptytheme%2F%2Fdemo&canvas=edit'
+			'/fp-admin/site-editor.php?p=%2Ffp_template_part%2Femptytheme%2F%2Fdemo&canvas=edit'
 		);
 	} );
 

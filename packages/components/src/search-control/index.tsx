@@ -33,7 +33,7 @@ function SuffixItem( {
 	}
 
 	if ( onClose ) {
-		deprecated( '`onClose` prop in wp.components.SearchControl', {
+		deprecated( '`onClose` prop in fp.components.SearchControl', {
 			since: '6.8',
 		} );
 	}
@@ -89,7 +89,7 @@ function UnforwardedSearchControl(
 				// to provide backwards compatible margin for SearchControl.
 				// (In a standard InputControl, the BaseControl `__nextHasNoMarginBottom` is always set to true.)
 				_overrides: { __nextHasNoMarginBottom },
-				__associatedWPComponentName: 'SearchControl',
+				__associatedFPComponentName: 'SearchControl',
 			},
 			// `isBorderless` is still experimental and not a public prop for InputControl yet.
 			InputBase: { isBorderless: true },

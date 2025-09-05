@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  * @return string Return the post comment's author.
  */
 function render_block_core_comment_author_name( $attributes, $content, $block ) {
@@ -21,7 +21,7 @@ function render_block_core_comment_author_name( $attributes, $content, $block ) 
 	}
 
 	$comment            = get_comment( $block->context['commentId'] );
-	$commenter          = wp_get_current_commenter();
+	$commenter          = fp_get_current_commenter();
 	$show_pending_links = isset( $commenter['comment_author'] ) && $commenter['comment_author'];
 	if ( empty( $comment ) ) {
 		return '';
@@ -43,7 +43,7 @@ function render_block_core_comment_author_name( $attributes, $content, $block ) 
 		$comment_author = sprintf( '<a rel="external nofollow ugc" href="%1s" target="%2s" >%3s</a>', esc_url( $link ), esc_attr( $attributes['linkTarget'] ), $comment_author );
 	}
 	if ( '0' === $comment->comment_approved && ! $show_pending_links ) {
-		$comment_author = wp_kses( $comment_author, array() );
+		$comment_author = fp_kses( $comment_author, array() );
 	}
 
 	return sprintf(

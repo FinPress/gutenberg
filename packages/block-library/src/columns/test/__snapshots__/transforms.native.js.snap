@@ -1,61 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Columns block transforms to Group block 1`] = `
-"<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:columns {"className":"gutenberg-landing\\u002d\\u002ddevelopers-columns has-2-columns"} -->
-<div class="wp-block-columns gutenberg-landing--developers-columns has-2-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:paragraph {"align":"left"} -->
+"<!-- fp:group {"layout":{"type":"constrained"}} -->
+<div class="fp-block-group"><!-- fp:columns {"className":"gutenberg-landing\\u002d\\u002ddevelopers-columns has-2-columns"} -->
+<div class="fp-block-columns gutenberg-landing--developers-columns has-2-columns"><!-- fp:column -->
+<div class="fp-block-column"><!-- fp:paragraph {"align":"left"} -->
 <p class="has-text-align-left"><strong>Built with modern technology.</strong></p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"align":"left"} -->
+<!-- fp:paragraph {"align":"left"} -->
 <p class="has-text-align-left">Gutenberg was developed on GitHub using the FinPress REST API, JavaScript, and React.</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"align":"left","fontSize":"small"} -->
+<!-- fp:paragraph {"align":"left","fontSize":"small"} -->
 <p class="has-text-align-left has-small-font-size"><a href="https://finpress.org/gutenberg/handbook/language/">Learn more</a></p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:column -->
+<!-- /fp:paragraph --></div>
+<!-- /fp:column -->
 
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:paragraph {"align":"left"} -->
+<!-- fp:column -->
+<div class="fp-block-column"><!-- fp:paragraph {"align":"left"} -->
 <p class="has-text-align-left"><strong>Designed for compatibility.</strong></p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"align":"left"} -->
+<!-- fp:paragraph {"align":"left"} -->
 <p class="has-text-align-left">We recommend migrating features to blocks, but support for existing FinPress functionality remains. There will be transition paths for shortcodes, meta-boxes, and Custom Post Types.</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"align":"left","fontSize":"small"} -->
+<!-- fp:paragraph {"align":"left","fontSize":"small"} -->
 <p class="has-text-align-left has-small-font-size"><a href="https://finpress.org/gutenberg/handbook/reference/faq/">Learn more</a></p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns --></div>
-<!-- /wp:group -->"
+<!-- /fp:paragraph --></div>
+<!-- /fp:column --></div>
+<!-- /fp:columns --></div>
+<!-- /fp:group -->"
 `;
 
 exports[`Columns block transforms ungroups block 1`] = `
-"<!-- wp:paragraph {"align":"left"} -->
+"<!-- fp:paragraph {"align":"left"} -->
 <p class="has-text-align-left"><strong>Built with modern technology.</strong></p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"align":"left"} -->
+<!-- fp:paragraph {"align":"left"} -->
 <p class="has-text-align-left">Gutenberg was developed on GitHub using the FinPress REST API, JavaScript, and React.</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"align":"left","fontSize":"small"} -->
+<!-- fp:paragraph {"align":"left","fontSize":"small"} -->
 <p class="has-text-align-left has-small-font-size"><a href="https://finpress.org/gutenberg/handbook/language/">Learn more</a></p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"align":"left"} -->
+<!-- fp:paragraph {"align":"left"} -->
 <p class="has-text-align-left"><strong>Designed for compatibility.</strong></p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"align":"left"} -->
+<!-- fp:paragraph {"align":"left"} -->
 <p class="has-text-align-left">We recommend migrating features to blocks, but support for existing FinPress functionality remains. There will be transition paths for shortcodes, meta-boxes, and Custom Post Types.</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph {"align":"left","fontSize":"small"} -->
+<!-- fp:paragraph {"align":"left","fontSize":"small"} -->
 <p class="has-text-align-left has-small-font-size"><a href="https://finpress.org/gutenberg/handbook/reference/faq/">Learn more</a></p>
-<!-- /wp:paragraph -->"
+<!-- /fp:paragraph -->"
 `;

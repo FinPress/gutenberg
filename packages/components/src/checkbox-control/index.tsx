@@ -95,7 +95,7 @@ export function CheckboxControl(
 	return (
 		<BaseControl
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-			__associatedWPComponentName="CheckboxControl"
+			__associatedFPComponentName="CheckboxControl"
 			label={ heading }
 			id={ id }
 			help={

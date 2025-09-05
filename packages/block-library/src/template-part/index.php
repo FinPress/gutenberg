@@ -10,7 +10,7 @@
  *
  * @since 5.9.0
  *
- * @global WP_Embed $wp_embed FinPress Embed object.
+ * @global FP_Embed $fp_embed FinPress Embed object.
  *
  * @param array $attributes The block attributes.
  *
@@ -21,19 +21,19 @@ function render_block_core_template_part( $attributes ) {
 
 	$template_part_id = null;
 	$content          = null;
-	$area             = WP_TEMPLATE_PART_AREA_UNCATEGORIZED;
+	$area             = FP_TEMPLATE_PART_AREA_UNCATEGORIZED;
 	$theme            = isset( $attributes['theme'] ) ? $attributes['theme'] : get_stylesheet();
 
 	if ( isset( $attributes['slug'] ) && get_stylesheet() === $theme ) {
 		$template_part_id    = $theme . '//' . $attributes['slug'];
-		$template_part_query = new WP_Query(
+		$template_part_query = new FP_Query(
 			array(
-				'post_type'           => 'wp_template_part',
+				'post_type'           => 'fp_template_part',
 				'post_status'         => 'publish',
 				'post_name__in'       => array( $attributes['slug'] ),
 				'tax_query'           => array(
 					array(
-						'taxonomy' => 'wp_theme',
+						'taxonomy' => 'fp_theme',
 						'field'    => 'name',
 						'terms'    => $theme,
 					),
@@ -59,7 +59,7 @@ function render_block_core_template_part( $attributes ) {
 			 *
 			 * @param string  $template_part_id   The requested template part namespaced to the theme.
 			 * @param array   $attributes         The block attributes.
-			 * @param WP_Post $template_part_post The template part post object.
+			 * @param FP_Post $template_part_post The template part post object.
 			 * @param string  $content            The template part content.
 			 */
 			do_action( 'render_block_core_template_part_post', $template_part_id, $attributes, $template_part_post, $content );
@@ -68,7 +68,7 @@ function render_block_core_template_part( $attributes ) {
 			// Else, if the template part was provided by the active theme,
 			// render the corresponding file content.
 			if ( 0 === validate_file( $attributes['slug'] ) ) {
-				$block_template = get_block_file_template( $template_part_id, 'wp_template_part' );
+				$block_template = get_block_file_template( $template_part_id, 'fp_template_part' );
 
 				if ( isset( $block_template->content ) ) {
 					$content = $block_template->content;
@@ -78,7 +78,7 @@ function render_block_core_template_part( $attributes ) {
 				}
 
 				// Needed for the `render_block_core_template_part_file` and `render_block_core_template_part_none` actions below.
-				$block_template_file = _get_block_template_file( 'wp_template_part', $attributes['slug'] );
+				$block_template_file = _get_block_template_file( 'fp_template_part', $attributes['slug'] );
 				if ( $block_template_file ) {
 					$template_part_file_path = $block_template_file['path'];
 				}
@@ -111,9 +111,9 @@ function render_block_core_template_part( $attributes ) {
 		}
 	}
 
-	// WP_DEBUG_DISPLAY must only be honored when WP_DEBUG. This precedent
-	// is set in `wp_debug_mode()`.
-	$is_debug = WP_DEBUG && WP_DEBUG_DISPLAY;
+	// FP_DEBUG_DISPLAY must only be honored when FP_DEBUG. This precedent
+	// is set in `fp_debug_mode()`.
+	$is_debug = FP_DEBUG && FP_DEBUG_DISPLAY;
 
 	if ( is_null( $content ) ) {
 		if ( $is_debug && isset( $attributes['slug'] ) ) {
@@ -146,7 +146,7 @@ function render_block_core_template_part( $attributes ) {
 
 	// If $area is not allowed, set it back to the uncategorized default.
 	if ( ! $area_definition ) {
-		$area = WP_TEMPLATE_PART_AREA_UNCATEGORIZED;
+		$area = FP_TEMPLATE_PART_AREA_UNCATEGORIZED;
 	}
 
 	// Run through the actions that are typically taken on the_content.
@@ -155,13 +155,13 @@ function render_block_core_template_part( $attributes ) {
 	$seen_ids[ $template_part_id ] = true;
 	$content                       = do_blocks( $content );
 	unset( $seen_ids[ $template_part_id ] );
-	$content = wptexturize( $content );
+	$content = fptexturize( $content );
 	$content = convert_smilies( $content );
-	$content = wp_filter_content_tags( $content, "template_part_{$area}" );
+	$content = fp_filter_content_tags( $content, "template_part_{$area}" );
 
 	// Handle embeds for block template parts.
-	global $wp_embed;
-	$content = $wp_embed->autoembed( $content );
+	global $fp_embed;
+	$content = $fp_embed->autoembed( $content );
 
 	if ( empty( $attributes['tagName'] ) || tag_escape( $attributes['tagName'] ) !== $attributes['tagName'] ) {
 		$area_tag = 'div';
@@ -226,7 +226,7 @@ function build_template_part_block_area_variations( $instance_variations ) {
  */
 function build_template_part_block_instance_variations() {
 	// Block themes are unavailable during installation.
-	if ( wp_installing() ) {
+	if ( fp_installing() ) {
 		return array();
 	}
 
@@ -237,9 +237,9 @@ function build_template_part_block_instance_variations() {
 	$variations     = array();
 	$template_parts = get_block_templates(
 		array(
-			'post_type' => 'wp_template_part',
+			'post_type' => 'fp_template_part',
 		),
-		'wp_template_part'
+		'fp_template_part'
 	);
 
 	$defined_areas = get_allowed_block_template_part_areas();

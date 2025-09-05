@@ -1,7 +1,7 @@
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import {
 	__experimentalVStack as VStack,
 	__experimentalPaletteEdit as PaletteEdit,
@@ -65,8 +65,8 @@ export default function GradientPalettePanel( { name } ) {
 		...( defaultDuotone && defaultDuotoneEnabled ? defaultDuotone : [] ),
 	];
 
-	const isMobileViewport = useViewportMatch( 'small', '<' );
-	const popoverProps = isMobileViewport ? mobilePopoverProps : undefined;
+	const isMobileviewport = useviewportMatch( 'small', '<' );
+	const popoverProps = isMobileviewport ? mobilePopoverProps : undefined;
 
 	return (
 		<VStack

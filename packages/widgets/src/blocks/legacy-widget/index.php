@@ -10,18 +10,18 @@
  *
  * @since 5.8.0
  *
- * @global WP_Widget_Factory $wp_widget_factory.
+ * @global FP_Widget_Factory $fp_widget_factory.
  *
  * @param array $attributes The block attributes.
  *
  * @return string Rendered block.
  */
 function render_block_core_legacy_widget( $attributes ) {
-	global $wp_widget_factory;
+	global $fp_widget_factory;
 
 	if ( isset( $attributes['id'] ) ) {
-		$sidebar_id = wp_find_widgets_sidebar( $attributes['id'] );
-		return wp_render_widget( $attributes['id'], $sidebar_id );
+		$sidebar_id = fp_find_widgets_sidebar( $attributes['id'] );
+		return fp_render_widget( $attributes['id'], $sidebar_id );
 	}
 
 	if ( ! isset( $attributes['idBase'] ) ) {
@@ -29,8 +29,8 @@ function render_block_core_legacy_widget( $attributes ) {
 	}
 
 	$id_base       = $attributes['idBase'];
-	$widget_key    = $wp_widget_factory->get_widget_key( $id_base );
-	$widget_object = $wp_widget_factory->get_widget_object( $id_base );
+	$widget_key    = $fp_widget_factory->get_widget_key( $id_base );
+	$widget_object = $fp_widget_factory->get_widget_object( $id_base );
 
 	if ( ! $widget_key || ! $widget_object ) {
 		return '';
@@ -38,7 +38,7 @@ function render_block_core_legacy_widget( $attributes ) {
 
 	if ( isset( $attributes['instance']['encoded'], $attributes['instance']['hash'] ) ) {
 		$serialized_instance = base64_decode( $attributes['instance']['encoded'] );
-		if ( ! hash_equals( wp_hash( $serialized_instance ), (string) $attributes['instance']['hash'] ) ) {
+		if ( ! hash_equals( fp_hash( $serialized_instance ), (string) $attributes['instance']['hash'] ) ) {
 			return '';
 		}
 		$instance = unserialize( $serialized_instance );
@@ -97,7 +97,7 @@ function handle_legacy_widget_preview_iframe() {
 		<meta charset="<?php bloginfo( 'charset' ); ?>" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="profile" href="https://gmpg.org/xfn/11" />
-		<?php wp_head(); ?>
+		<?php fp_head(); ?>
 		<style>
 			/* Reset theme styles */
 			html, body, #page, #content {
@@ -137,13 +137,13 @@ function handle_legacy_widget_preview_iframe() {
 		<div id="page" class="site">
 			<div id="content" class="site-content">
 				<?php
-				$registry = WP_Block_Type_Registry::get_instance();
+				$registry = FP_Block_Type_Registry::get_instance();
 				$block    = $registry->get_registered( 'core/legacy-widget' );
 				echo $block->render( $_GET['legacy-widget-preview'] );
 				?>
 			</div><!-- #content -->
 		</div><!-- #page -->
-		<?php wp_footer(); ?>
+		<?php fp_footer(); ?>
 	</body>
 	</html>
 	<?php

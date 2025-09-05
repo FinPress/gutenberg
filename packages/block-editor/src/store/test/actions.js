@@ -1294,7 +1294,7 @@ describe( 'actions', () => {
 			);
 
 			expect( consoleWarn ).toHaveBeenCalledWith(
-				"__unstableIsPreviewMode argument in wp.data.dispatch('core/block-editor').updateSettings is deprecated since version 6.8. Please use isPreviewMode instead."
+				"__unstableIsPreviewMode argument in fp.data.dispatch('core/block-editor').updateSettings is deprecated since version 6.8. Please use isPreviewMode instead."
 			);
 
 			consoleWarn.mockClear();

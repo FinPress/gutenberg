@@ -172,7 +172,7 @@ export function getAuthors(
 	} );
 
 	const path = addQueryArgs(
-		'/wp/v2/users/?who=authors&per_page=100',
+		'/fp/v2/users/?who=authors&per_page=100',
 		query
 	);
 	return getUserQueryResults( state, path );
@@ -219,9 +219,9 @@ export const getUserQueryResults = createSelector(
  * @return Array of entities with config matching kind.
  */
 export function getEntitiesByKind( state: State, kind: string ): Array< any > {
-	deprecated( "wp.data.select( 'core' ).getEntitiesByKind()", {
+	deprecated( "fp.data.select( 'core' ).getEntitiesByKind()", {
 		since: '6.0',
-		alternative: "wp.data.select( 'core' ).getEntitiesConfig()",
+		alternative: "fp.data.select( 'core' ).getEntitiesConfig()",
 	} );
 	return getEntitiesConfig( state, kind );
 }
@@ -252,9 +252,9 @@ export const getEntitiesConfig = createSelector(
  * @return Entity config
  */
 export function getEntity( state: State, kind: string, name: string ): any {
-	deprecated( "wp.data.select( 'core' ).getEntity()", {
+	deprecated( "fp.data.select( 'core' ).getEntity()", {
 		since: '6.0',
-		alternative: "wp.data.select( 'core' ).getEntityConfig()",
+		alternative: "fp.data.select( 'core' ).getEntityConfig()",
 	} );
 	return getEntityConfig( state, kind, name );
 }
@@ -1213,9 +1213,9 @@ export function canUserEditEntityRecord(
 	name: string,
 	recordId: EntityRecordKey
 ): boolean | undefined {
-	deprecated( `wp.data.select( 'core' ).canUserEditEntityRecord()`, {
+	deprecated( `fp.data.select( 'core' ).canUserEditEntityRecord()`, {
 		since: '6.7',
-		alternative: `wp.data.select( 'core' ).canUser( 'update', { kind, name, id } )`,
+		alternative: `fp.data.select( 'core' ).canUser( 'update', { kind, name, id } )`,
 	} );
 
 	return canUser( state, 'update', { kind, name, id: recordId } );

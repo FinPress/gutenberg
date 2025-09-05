@@ -85,14 +85,14 @@ describe( 'typography utils', () => {
 
 			{
 				message:
-					'should return  clamp value with `minViewportWidth` override',
+					'should return  clamp value with `minviewportWidth` override',
 				preset: {
 					size: '28px',
 				},
 				settings: {
 					typography: {
 						fluid: {
-							minViewportWidth: '500px',
+							minviewportWidth: '500px',
 						},
 					},
 				},
@@ -102,14 +102,14 @@ describe( 'typography utils', () => {
 
 			{
 				message:
-					'should return  clamp value with `maxViewportWidth` override',
+					'should return  clamp value with `maxviewportWidth` override',
 				preset: {
 					size: '28px',
 				},
 				settings: {
 					typography: {
 						fluid: {
-							maxViewportWidth: '500px',
+							maxviewportWidth: '500px',
 						},
 					},
 				},
@@ -137,14 +137,14 @@ describe( 'typography utils', () => {
 
 			{
 				message:
-					'should return clamp value with `maxViewportWidth` preferred over fallback `layout.wideSize` value',
+					'should return clamp value with `maxviewportWidth` preferred over fallback `layout.wideSize` value',
 				preset: {
 					size: '28px',
 				},
 				settings: {
 					typography: {
 						fluid: {
-							maxViewportWidth: '1000px',
+							maxviewportWidth: '1000px',
 						},
 					},
 					layout: {
@@ -205,7 +205,7 @@ describe( 'typography utils', () => {
 				settings: {
 					typography: {
 						fluid: {
-							maxViewportWidth: '1200px',
+							maxviewportWidth: '1200px',
 						},
 					},
 				},
@@ -222,7 +222,7 @@ describe( 'typography utils', () => {
 				settings: {
 					typography: {
 						fluid: {
-							minViewportWidth: '800px',
+							minviewportWidth: '800px',
 						},
 					},
 				},
@@ -341,7 +341,7 @@ describe( 'typography utils', () => {
 
 			{
 				message:
-					'should apply maxViewportWidth as maximum viewport width',
+					'should apply maxviewportWidth as maximum viewport width',
 				preset: {
 					size: '80px',
 					fluid: {
@@ -352,7 +352,7 @@ describe( 'typography utils', () => {
 				settings: {
 					typography: {
 						fluid: {
-							maxViewportWidth: '1100px',
+							maxviewportWidth: '1100px',
 						},
 					},
 				},
@@ -674,8 +674,8 @@ describe( 'typography utils', () => {
 					typography: {
 						fluid: {
 							minFontSize: '16px',
-							maxViewportWidth: '1200px',
-							minViewportWidth: '640px',
+							maxviewportWidth: '1200px',
+							minviewportWidth: '640px',
 						},
 					},
 				},
@@ -759,7 +759,7 @@ describe( 'typography utils', () => {
 									fontFamily: 'ABeeZee, sans-serif',
 									fontFace: [
 										{
-											src: 'http://www.finpress.org/wp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
+											src: 'http://www.finpress.org/fp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
 											fontWeight: '400',
 											fontStyle: 'italic',
 											fontFamily: 'ABeeZee',
@@ -779,7 +779,7 @@ describe( 'typography utils', () => {
 									fontFamily: 'ABeeZee',
 									fontStyle: 'italic',
 									fontWeight: '400',
-									src: 'http://www.finpress.org/wp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
+									src: 'http://www.finpress.org/fp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
 								},
 							],
 							fontFamily: 'ABeeZee, sans-serif',
@@ -845,7 +845,7 @@ describe( 'typography utils', () => {
 									fontFamily: 'ABeeZee, sans-serif',
 									fontFace: [
 										{
-											src: 'http://www.finpress.org/wp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
+											src: 'http://www.finpress.org/fp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
 											fontWeight: '400',
 											fontStyle: 'italic',
 											fontFamily: 'ABeeZee',
@@ -863,7 +863,7 @@ describe( 'typography utils', () => {
 							fontFamily: 'ABeeZee',
 							fontStyle: 'italic',
 							fontWeight: '400',
-							src: 'http://www.finpress.org/wp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
+							src: 'http://www.finpress.org/fp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
 						},
 					],
 					fontFamilies: [
@@ -912,7 +912,7 @@ describe( 'typography utils', () => {
 									fontFamily: 'ABeeZee',
 									fontStyle: 'italic',
 									fontWeight: '400',
-									src: 'http://www.finpress.org/wp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
+									src: 'http://www.finpress.org/fp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
 								},
 							],
 							fontFamily: 'ABeeZee, sans-serif',
@@ -1428,18 +1428,18 @@ describe( 'typography utils', () => {
 					layout: { wideSize: '1000rem' },
 				},
 				expected: {
-					fluid: { maxViewportWidth: '1000rem', minFontSize: '16px' },
+					fluid: { maxviewportWidth: '1000rem', minFontSize: '16px' },
 				},
 			},
 
 			{
 				message:
-					'should prioritize fluid `maxViewportWidth` over `layout.wideSize`',
+					'should prioritize fluid `maxviewportWidth` over `layout.wideSize`',
 				settings: {
-					typography: { fluid: { maxViewportWidth: '10px' } },
+					typography: { fluid: { maxviewportWidth: '10px' } },
 					layout: { wideSize: '1000rem' },
 				},
-				expected: { fluid: { maxViewportWidth: '10px' } },
+				expected: { fluid: { maxviewportWidth: '10px' } },
 			},
 			{
 				message: 'should not merge `layout.wideSize` if it is fluid',

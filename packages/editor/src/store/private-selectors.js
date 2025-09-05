@@ -91,8 +91,8 @@ export function getInserterSidebarToggleRef( state ) {
 	return state.inserterSidebarToggleRef;
 }
 const CARD_ICONS = {
-	wp_block: symbol,
-	wp_navigation: navigation,
+	fp_block: symbol,
+	fp_navigation: navigation,
 	page: pageIcon,
 	post: verse,
 };
@@ -101,8 +101,8 @@ export const getPostIcon = createRegistrySelector(
 	( select ) => ( state, postType, options ) => {
 		{
 			if (
-				postType === 'wp_template_part' ||
-				postType === 'wp_template'
+				postType === 'fp_template_part' ||
+				postType === 'fp_template'
 			) {
 				const templateAreas =
 					select( coreStore ).getCurrentTheme()

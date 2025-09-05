@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import {
 	DropdownMenu,
 	MenuGroup,
@@ -52,7 +52,7 @@ export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
 		return {
 			deviceType: getDeviceType(),
 			homeUrl: getEntityRecord( 'root', '__unstableBase' )?.home,
-			isTemplate: _currentPostType === 'wp_template',
+			isTemplate: _currentPostType === 'fp_template',
 			isViewable: getPostType( _currentPostType )?.viewable ?? false,
 			showIconLabels: get( 'core', 'showIconLabels' ),
 			isTemplateHidden: getRenderingMode() === 'post-only',
@@ -69,7 +69,7 @@ export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
 		resetZoomLevel();
 	};
 
-	const isMobile = useViewportMatch( 'medium', '<' );
+	const isMobile = useviewportMatch( 'medium', '<' );
 	if ( isMobile ) {
 		return null;
 	}

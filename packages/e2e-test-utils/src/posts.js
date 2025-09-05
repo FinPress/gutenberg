@@ -20,7 +20,7 @@ import { visitAdminPage } from './visit-admin-page';
  */
 export async function trashAllPosts( postType = 'post', postStatus ) {
 	await switchUserToAdmin();
-	// Visit `/wp-admin/edit.php` so we can see a list of posts and delete them.
+	// Visit `/fp-admin/edit.php` so we can see a list of posts and delete them.
 	const query = addQueryArgs( '', {
 		post_type: postType,
 		post_status: postStatus,

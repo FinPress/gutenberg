@@ -2,7 +2,7 @@
  * FinPress dependencies
  */
 import { __ } from '@finpress/i18n';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { Button } from '@finpress/components';
 import { useCallback, useMemo } from '@finpress/element';
 
@@ -28,7 +28,7 @@ function MediaTab( {
 	children,
 } ) {
 	const mediaCategories = useMediaCategories( rootClientId );
-	const isMobile = useViewportMatch( 'medium', '<' );
+	const isMobile = useviewportMatch( 'medium', '<' );
 	const baseCssClass = 'block-editor-inserter__media-tabs';
 	const onSelectMedia = useCallback(
 		( media ) => {

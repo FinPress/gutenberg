@@ -114,7 +114,7 @@ describe.each( [
 
 		expect( label ).toBeInTheDocument();
 		expect( label ).toHaveAttribute(
-			'data-wp-component',
+			'data-fp-component',
 			'VisuallyHidden'
 		);
 	} );

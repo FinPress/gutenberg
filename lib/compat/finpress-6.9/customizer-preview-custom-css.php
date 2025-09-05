@@ -12,7 +12,7 @@
  * This was committed to finpress-develop trunk in <https://core.trac.finpress.org/changeset/60522>.
  */
 function gutenberg_add_customizer_block_theme_custom_css_preview_js() {
-	if ( ! wp_is_block_theme() ) {
+	if ( ! fp_is_block_theme() ) {
 		return;
 	}
 
@@ -20,13 +20,13 @@ function gutenberg_add_customizer_block_theme_custom_css_preview_js() {
 
 	$js_function = <<<JS
 		( settingId ) => {
-			wp.customize.bind( 'preview-ready', () => {
+			fp.customize.bind( 'preview-ready', () => {
 				// Skip running logic that is already merged in trunk.
-				if ( window._wpCustomizeSettings.theme.isBlockTheme ) {
+				if ( window._fpCustomizeSettings.theme.isBlockTheme ) {
 					return;
 				}
 
-				wp.customize( settingId, function ( setting ) {
+				fp.customize( settingId, function ( setting ) {
 					setting.bind( function ( newValue ) {
 						const style = document.querySelector( 'style#global-styles-inline-css' );
 						if ( ! style ) {
@@ -47,9 +47,9 @@ function gutenberg_add_customizer_block_theme_custom_css_preview_js() {
 			} );
 		}
 JS;
-	wp_add_inline_script(
+	fp_add_inline_script(
 		'customize-preview',
-		sprintf( '( %s )( %s )', $js_function, wp_json_encode( $setting_id, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES ) )
+		sprintf( '( %s )( %s )', $js_function, fp_json_encode( $setting_id, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES ) )
 	);
 }
 

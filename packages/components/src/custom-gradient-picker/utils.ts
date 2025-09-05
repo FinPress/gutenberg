@@ -45,7 +45,7 @@ export function getGradientAstWithDefault( value?: string | null ) {
 	} catch ( error ) {
 		// eslint-disable-next-line no-console
 		console.warn(
-			'wp.components.CustomGradientPicker failed to parse the gradient with error',
+			'fp.components.CustomGradientPicker failed to parse the gradient with error',
 			error
 		);
 

@@ -26,10 +26,10 @@ test.describe( 'HTML block', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- wp:html -->
+			`<!-- fp:html -->
 <p>Pythagorean theorem: 
 <var>a</var><sup>2</sup> + <var>b</var><sup>2</sup> = <var>c</var><sup>2</sup> </p>
-<!-- /wp:html -->`
+<!-- /fp:html -->`
 		);
 	} );
 

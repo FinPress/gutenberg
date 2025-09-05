@@ -1,12 +1,12 @@
 ( function () {
-	const el = wp.element.createElement;
-	const Fragment = wp.element.Fragment;
-	const Button = wp.components.Button;
-	const PanelBody = wp.components.PanelBody;
-	const InspectorControls = wp.blockEditor.InspectorControls;
-	const addFilter = wp.hooks.addFilter;
-	const createBlock = wp.blocks.createBlock;
-	const __ = wp.i18n.__;
+	const el = fp.element.createElement;
+	const Fragment = fp.element.Fragment;
+	const Button = fp.components.Button;
+	const PanelBody = fp.components.PanelBody;
+	const InspectorControls = fp.blockEditor.InspectorControls;
+	const addFilter = fp.hooks.addFilter;
+	const createBlock = fp.blocks.createBlock;
+	const __ = fp.i18n.__;
 
 	function ResetBlockButton( props ) {
 		return el(

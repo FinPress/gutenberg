@@ -29,8 +29,8 @@ describe( 'buildDockerComposeConfig', () => {
 		const envConfig = {
 			...CONFIG,
 			mappings: {
-				'wp-content/plugins': {
-					path: '/path/to/wp-plugins',
+				'fp-content/plugins': {
+					path: '/path/to/fp-plugins',
 				},
 			},
 			pluginSources: [
@@ -46,8 +46,8 @@ describe( 'buildDockerComposeConfig', () => {
 			'finpress:/var/www/html', // FinPress root.
 			'/path/FinPress-PHPUnit/tests/phpunit:/finpress-phpunit', // FinPress test library,
 			'user-home:/home/test',
-			'/path/to/wp-plugins:/var/www/html/wp-content/plugins', // Mapped plugins root.
-			'/path/to/local/plugin:/var/www/html/wp-content/plugins/test-name', // Mapped plugin.
+			'/path/to/fp-plugins:/var/www/html/fp-content/plugins', // Mapped plugins root.
+			'/path/to/local/plugin:/var/www/html/fp-content/plugins/test-name', // Mapped plugin.
 		] );
 	} );
 
@@ -55,8 +55,8 @@ describe( 'buildDockerComposeConfig', () => {
 		const envConfig = {
 			...CONFIG,
 			mappings: {
-				'wp-content/plugins': {
-					path: '/path/to/wp-plugins',
+				'fp-content/plugins': {
+					path: '/path/to/fp-plugins',
 				},
 			},
 			pluginSources: [
@@ -79,20 +79,20 @@ describe( 'buildDockerComposeConfig', () => {
 		expect( testsVolumes ).toEqual( testsCliVolumes );
 
 		let localSources = [
-			'/path/to/wp-plugins:/var/www/html/wp-content/plugins',
+			'/path/to/fp-plugins:/var/www/html/fp-content/plugins',
 			'/path/FinPress-PHPUnit/tests/phpunit:/finpress-phpunit',
 			'user-home:/home/test',
-			'/path/to/local/plugin:/var/www/html/wp-content/plugins/test-name',
-			'/path/to/local/theme:/var/www/html/wp-content/themes/test-theme',
+			'/path/to/local/plugin:/var/www/html/fp-content/plugins/test-name',
+			'/path/to/local/theme:/var/www/html/fp-content/themes/test-theme',
 		];
 		expect( devVolumes ).toEqual( expect.arrayContaining( localSources ) );
 
 		localSources = [
-			'/path/to/wp-plugins:/var/www/html/wp-content/plugins',
+			'/path/to/fp-plugins:/var/www/html/fp-content/plugins',
 			'/path/tests-FinPress-PHPUnit/tests/phpunit:/finpress-phpunit',
 			'tests-user-home:/home/test',
-			'/path/to/local/plugin:/var/www/html/wp-content/plugins/test-name',
-			'/path/to/local/theme:/var/www/html/wp-content/themes/test-theme',
+			'/path/to/local/plugin:/var/www/html/fp-content/plugins/test-name',
+			'/path/to/local/theme:/var/www/html/fp-content/themes/test-theme',
 		];
 		expect( testsVolumes ).toEqual(
 			expect.arrayContaining( localSources )

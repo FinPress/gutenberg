@@ -21,7 +21,7 @@ test.describe( 'Publishing', () => {
 					.fill( 'E2E Test Post' );
 
 				await page.evaluate( () =>
-					window.wp.data
+					window.fp.data
 						.dispatch( 'core/editor' )
 						.lockPostSaving( 'futurelock' )
 				);
@@ -50,7 +50,7 @@ test.describe( 'Publishing', () => {
 					.fill( 'E2E Test Post' );
 
 				await page.evaluate( () =>
-					window.wp.data
+					window.fp.data
 						.dispatch( 'core/editor' )
 						.lockPostSaving( 'futurelock' )
 				);
@@ -130,14 +130,14 @@ test.describe( 'Publishing', () => {
 				await editor.setPreferences( 'core', {
 					isPublishSidebarEnabled: false,
 				} );
-				await pageUtils.setBrowserViewport( 'small' );
+				await pageUtils.setBrowserviewport( 'small' );
 			} );
 
 			test.afterEach( async ( { editor, pageUtils } ) => {
 				await editor.setPreferences( 'core', {
 					isPublishSidebarEnabled: true,
 				} );
-				await pageUtils.setBrowserViewport( 'large' );
+				await pageUtils.setBrowserviewport( 'large' );
 			} );
 
 			test( 'should ignore the pre-publish checks and show the publish panel', async ( {

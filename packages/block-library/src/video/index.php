@@ -37,7 +37,7 @@ function render_block_core_video( array $attributes, string $content ): string {
 	}
 
 	// Get the width and height metadata for the video, and abort if absent or invalid.
-	$metadata = wp_get_attachment_metadata( $attributes['id'] );
+	$metadata = fp_get_attachment_metadata( $attributes['id'] );
 	if (
 		! isset( $metadata['width'], $metadata['height'] ) ||
 		! ( is_int( $metadata['width'] ) && is_int( $metadata['height'] ) ) ||
@@ -47,7 +47,7 @@ function render_block_core_video( array $attributes, string $content ): string {
 	}
 
 	// Locate the VIDEO tag to add the dimensions.
-	$p = new WP_HTML_Tag_Processor( $content );
+	$p = new FP_HTML_Tag_Processor( $content );
 	if ( ! $p->next_tag( array( 'tag_name' => 'VIDEO' ) ) ) {
 		return $content;
 	}
@@ -59,7 +59,7 @@ function render_block_core_video( array $attributes, string $content ): string {
 	 * The aspect-ratio style is needed due to an issue with the CSS spec: <https://github.com/w3c/csswg-drafts/issues/7524>.
 	 * Note that a style rule using attr() like the following cannot currently be used:
 	 *
-	 *     .wp-block-video video[width][height] {
+	 *     .fp-block-video video[width][height] {
 	 *         aspect-ratio: attr(width type(<number>)) / attr(height type(<number>));
 	 *     }
 	 *

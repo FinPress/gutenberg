@@ -14,7 +14,7 @@
 
 body.js.appearance_page_gutenberg-widgets,
 body.js.widgets-php {
-	@include wp-admin-reset( ".blocks-widgets-container" );
+	@include fp-admin-reset( ".blocks-widgets-container" );
 }
 
 .blocks-widgets-container {
@@ -30,7 +30,7 @@ body.js.widgets-php {
 		min-height: calc(100vh - #{ $admin-bar-height-big });
 	}
 
-	// The WP header height changes at this breakpoint.
+	// The FP header height changes at this breakpoint.
 	@include break-medium {
 		min-height: calc(100vh - #{ $admin-bar-height });
 	}

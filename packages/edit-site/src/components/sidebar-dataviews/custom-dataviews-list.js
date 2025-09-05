@@ -40,7 +40,7 @@ function RenameItemModalContent( { dataviewId, currentTitle, setIsRenaming } ) {
 				event.preventDefault();
 				await editEntityRecord(
 					'postType',
-					'wp_dataviews',
+					'fp_dataviews',
 					dataviewId,
 					{
 						title,
@@ -92,7 +92,7 @@ function CustomDataViewItem( { dataviewId, isActive } ) {
 			return {
 				dataview: getEditedEntityRecord(
 					'postType',
-					'wp_dataviews',
+					'fp_dataviews',
 					dataviewId
 				),
 			};
@@ -139,7 +139,7 @@ function CustomDataViewItem( { dataviewId, isActive } ) {
 									onClick={ async () => {
 										await deleteEntityRecord(
 											'postType',
-											'wp_dataviews',
+											'fp_dataviews',
 											dataview.id,
 											{
 												force: true,
@@ -187,14 +187,14 @@ export function useCustomDataViews( type ) {
 		const { getEntityRecords } = select( coreStore );
 		const dataViewTypeRecords = getEntityRecords(
 			'taxonomy',
-			'wp_dataviews_type',
+			'fp_dataviews_type',
 			{ slug: type }
 		);
 		if ( ! dataViewTypeRecords || dataViewTypeRecords.length === 0 ) {
 			return EMPTY_ARRAY;
 		}
-		const dataViews = getEntityRecords( 'postType', 'wp_dataviews', {
-			wp_dataviews_type: dataViewTypeRecords[ 0 ].id,
+		const dataViews = getEntityRecords( 'postType', 'fp_dataviews', {
+			fp_dataviews_type: dataViewTypeRecords[ 0 ].id,
 			orderby: 'date',
 			order: 'asc',
 		} );

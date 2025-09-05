@@ -125,7 +125,7 @@ const directivePriorities: Record< string, number > = {};
  * @example
  * ```js
  * directive(
- *   'alert', // Name without the `data-wp-` prefix.
+ *   'alert', // Name without the `data-fp-` prefix.
  *   ( { directives: { alert }, element, evaluate } ) => {
  *     const defaultEntry = alert.find( isDefaultDirectiveSuffix );
  *     element.props.onclick = () => { alert( evaluate( defaultEntry ) ); }
@@ -138,11 +138,11 @@ const directivePriorities: Record< string, number > = {};
  * from the store under the inherited namespace, using `evaluate`.
  *
  * When the HTML is processed by the Interactivity API, any element containing
- * the `data-wp-alert` directive will have the `onclick` event handler, e.g.,
+ * the `data-fp-alert` directive will have the `onclick` event handler, e.g.,
  *
  * ```html
- * <div data-wp-interactive="messages">
- *   <button data-wp-alert="state.alert">Click me!</button>
+ * <div data-fp-interactive="messages">
+ *   <button data-fp-alert="state.alert">Click me!</button>
  * </div>
  * ```
  * Note that, in the previous example, the directive callback gets the path
@@ -151,10 +151,10 @@ const directivePriorities: Record< string, number > = {};
  * attribute, followed by the suffix, like in the following HTML snippet:
  *
  * ```html
- * <div data-wp-interactive="myblock">
+ * <div data-fp-interactive="myblock">
  *   <button
- *     data-wp-color--text="state.text"
- *     data-wp-color--background="state.background"
+ *     data-fp-color--text="state.text"
+ *     data-fp-color--background="state.background"
  *   >Click me!</button>
  * </div>
  * ```
@@ -185,7 +185,7 @@ const directivePriorities: Record< string, number > = {};
  * )
  * ```
  *
- * @param name             Directive name, without the `data-wp-` prefix.
+ * @param name             Directive name, without the `data-fp-` prefix.
  * @param callback         Function that runs the directive logic.
  * @param options          Options object.
  * @param options.priority Option to control the directive execution order. The

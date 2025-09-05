@@ -66,7 +66,7 @@ function NavigationMenuSelector( {
 
 	const [ currentTitle ] = useEntityProp(
 		'postType',
-		'wp_navigation',
+		'fp_navigation',
 		'title'
 	);
 

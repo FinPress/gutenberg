@@ -85,7 +85,7 @@ describe( 'Cover block', () => {
 
 			// eslint-disable-next-line testing-library/no-node-access
 			const overlay = container.getElementsByClassName(
-				'wp-block-cover__background'
+				'fp-block-cover__background'
 			);
 			expect( overlay[ 0 ] ).toHaveStyle(
 				`background-color: ${ color }`
@@ -274,7 +274,7 @@ describe( 'Cover block', () => {
 
 				// eslint-disable-next-line testing-library/no-node-access
 				const overlay = container.getElementsByClassName(
-					'wp-block-cover__background'
+					'fp-block-cover__background'
 				);
 
 				expect( overlay[ 0 ] ).toHaveClass( 'has-background-dim-100' );
@@ -307,7 +307,7 @@ describe( 'Cover block', () => {
 
 				// eslint-disable-next-line testing-library/no-node-access
 				const overlay = container.getElementsByClassName(
-					'wp-block-cover__background'
+					'fp-block-cover__background'
 				);
 
 				expect( overlay[ 0 ] ).toHaveClass( 'has-background-dim-100' );

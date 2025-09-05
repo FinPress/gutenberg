@@ -30,7 +30,7 @@ export interface Media {
 async function listMedia( this: RequestUtils ) {
 	const response = await this.rest< Media[] >( {
 		method: 'GET',
-		path: '/wp/v2/media',
+		path: '/fp/v2/media',
 		params: {
 			per_page: 100,
 		},
@@ -57,7 +57,7 @@ async function uploadMedia(
 
 	const response = await this.rest< Media >( {
 		method: 'POST',
-		path: '/wp/v2/media',
+		path: '/fp/v2/media',
 		multipart: {
 			file,
 		},
@@ -76,7 +76,7 @@ async function uploadMedia(
 async function deleteMedia( this: RequestUtils, mediaId: number ) {
 	const response = await this.rest( {
 		method: 'DELETE',
-		path: `/wp/v2/media/${ mediaId }`,
+		path: `/fp/v2/media/${ mediaId }`,
 		params: { force: true },
 	} );
 

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/text-columns",
 	"title": "Text Columns (deprecated)",
@@ -34,6 +34,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-text-columns-editor",
-	"style": "wp-block-text-columns"
+	"editorStyle": "fp-block-text-columns-editor",
+	"style": "fp-block-text-columns"
 }

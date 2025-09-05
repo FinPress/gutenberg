@@ -37,7 +37,7 @@ describe( 'defaultRequestToExternal', () => {
 
 	test( 'Handles known @finpress request', () => {
 		expect( defaultRequestToExternal( '@finpress/i18n' ) ).toEqual( [
-			'wp',
+			'fp',
 			'i18n',
 		] );
 	} );
@@ -45,7 +45,7 @@ describe( 'defaultRequestToExternal', () => {
 	test( 'Handles future @finpress namespace packages', () => {
 		expect(
 			defaultRequestToExternal( '@finpress/some-future-package' )
-		).toEqual( [ 'wp', 'someFuturePackage' ] );
+		).toEqual( [ 'fp', 'someFuturePackage' ] );
 	} );
 } );
 
@@ -55,12 +55,12 @@ describe( 'defaultRequestToHandle', () => {
 	} );
 
 	test( 'Handles known @finpress request', () => {
-		expect( defaultRequestToHandle( '@finpress/i18n' ) ).toBe( 'wp-i18n' );
+		expect( defaultRequestToHandle( '@finpress/i18n' ) ).toBe( 'fp-i18n' );
 	} );
 
 	test( 'Handles  @finpress request', () => {
 		expect(
 			defaultRequestToHandle( '@finpress/some-future-package' )
-		).toBe( 'wp-some-future-package' );
+		).toBe( 'fp-some-future-package' );
 	} );
 } );

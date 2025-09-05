@@ -7,7 +7,7 @@ import { Blob as BlobPolyfill, File as FilePolyfill } from 'node:buffer';
 jest.mock( '@finpress/compose', () => {
 	return {
 		...jest.requireActual( '@finpress/compose' ),
-		useViewportMatch: jest.fn(),
+		useviewportMatch: jest.fn(),
 	};
 } );
 

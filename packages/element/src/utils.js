@@ -1,7 +1,7 @@
 /**
- * Checks if the provided WP element is empty.
+ * Checks if the provided FP element is empty.
  *
- * @param {*} element WP element to check.
+ * @param {*} element FP element to check.
  * @return {boolean} True when an element is considered empty.
  */
 export const isEmptyElement = ( element ) => {

@@ -1,4 +1,4 @@
-.wp-block-post-template {
+.fp-block-post-template {
 	margin-top: 0;
 	margin-bottom: 0;
 	max-width: 100%;
@@ -30,28 +30,28 @@
 }
 
 @media ( max-width: $break-small ) {
-	// Temporary specificity bump until "wp-container" layout specificity is revisited.
-	.wp-block-post-template-is-layout-grid.wp-block-post-template-is-layout-grid.wp-block-post-template-is-layout-grid.wp-block-post-template-is-layout-grid {
+	// Temporary specificity bump until "fp-container" layout specificity is revisited.
+	.fp-block-post-template-is-layout-grid.fp-block-post-template-is-layout-grid.fp-block-post-template-is-layout-grid.fp-block-post-template-is-layout-grid {
 		grid-template-columns: 1fr;
 	}
 }
 
-.wp-block-post-template-is-layout-constrained > li > .alignright,
-.wp-block-post-template-is-layout-flow > li > .alignright {
+.fp-block-post-template-is-layout-constrained > li > .alignright,
+.fp-block-post-template-is-layout-flow > li > .alignright {
 	float: right;
 	margin-inline-start: 2em;
 	margin-inline-end: 0;
 }
 
-.wp-block-post-template-is-layout-constrained > li > .alignleft,
-.wp-block-post-template-is-layout-flow > li > .alignleft {
+.fp-block-post-template-is-layout-constrained > li > .alignleft,
+.fp-block-post-template-is-layout-flow > li > .alignleft {
 	float: left;
 	margin-inline-start: 0;
 	margin-inline-end: 2em;
 }
 
-.wp-block-post-template-is-layout-constrained > li > .aligncenter,
-.wp-block-post-template-is-layout-flow > li > .aligncenter {
+.fp-block-post-template-is-layout-constrained > li > .aligncenter,
+.fp-block-post-template-is-layout-flow > li > .aligncenter {
 	margin-inline-start: auto;
 	margin-inline-end: auto;
 }

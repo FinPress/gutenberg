@@ -34,7 +34,7 @@ describe( 'block.json schema', () => {
 		// We want to validate the block.json file using the local schema.
 		const { $schema, ...blockMetadata } = require( filepath );
 
-		expect( $schema ).toBe( 'https://schemas.wp.org/trunk/block.json' );
+		expect( $schema ).toBe( 'https://schemas.fp.org/trunk/block.json' );
 
 		const result = ajv.validate( blockSchema, blockMetadata ) || ajv.errors;
 

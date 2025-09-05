@@ -1,4 +1,4 @@
-.wp-block-embed {
+.fp-block-embed {
 	// Remove the left and right margin the figure is born with.
 	margin-left: 0;
 	margin-right: 0;
@@ -12,7 +12,7 @@
 		justify-content: center;
 	}
 
-	.wp-block-embed__placeholder-input {
+	.fp-block-embed__placeholder-input {
 		flex: 1 1 auto;
 	}
 
@@ -22,10 +22,10 @@
 	}
 }
 
-.wp-block-embed__learn-more {
-	@at-root .wp-block-post-content & {
+.fp-block-embed__learn-more {
+	@at-root .fp-block-post-content & {
 		a {
-			color: var(--wp-admin-theme-color);
+			color: var(--fp-admin-theme-color);
 		}
 	}
 }
@@ -39,14 +39,14 @@
 	opacity: 0;
 }
 
-.wp-block[data-align="left"],
-.wp-block[data-align="right"] {
-	> .wp-block-embed {
+.fp-block[data-align="left"],
+.fp-block[data-align="right"] {
+	> .fp-block-embed {
 		max-width: 360px;
 		width: 100%;
 
 		// Unless these have a min-width, they collapse when floated.
-		.wp-block-embed__wrapper {
+		.fp-block-embed__wrapper {
 			min-width: $break-zoomed-in;
 		}
 	}

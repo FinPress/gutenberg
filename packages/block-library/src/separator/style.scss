@@ -1,4 +1,4 @@
-.wp-block-separator {
+.fp-block-separator {
 	border-top: 2px solid currentColor;
 	// Default, thin style, is stored in theme.scss so it can be opted out of
 
@@ -9,7 +9,7 @@
 }
 
 // Dots block style variation
-:root :where(.wp-block-separator.is-style-dots) {
+:root :where(.fp-block-separator.is-style-dots) {
 	text-align: center;
 	line-height: 1;
 	height: auto;
@@ -28,7 +28,7 @@
 // The following overrides should be enforced regardless of global styles.
 // The dots block style uses a pseudo element to render the dots. Background
 // color and borders would break this aesthetic.
-.wp-block-separator.is-style-dots {
+.fp-block-separator.is-style-dots {
 	// Override any background themes often set on the hr tag for this style.
 	// also override the color set in the editor since it's intended for normal HR
 	background: none !important;

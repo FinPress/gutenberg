@@ -190,7 +190,7 @@ test.describe( 'Plugins API', () => {
 			page,
 			pageUtils,
 		} ) => {
-			await pageUtils.setBrowserViewport( 'medium' );
+			await pageUtils.setBrowserviewport( 'medium' );
 
 			await page
 				.getByRole( 'region', { name: 'Editor top bar' } )
@@ -212,7 +212,7 @@ test.describe( 'Plugins API', () => {
 					} )
 			).toBeVisible();
 
-			await pageUtils.setBrowserViewport( 'large' );
+			await pageUtils.setBrowserviewport( 'large' );
 		} );
 	} );
 

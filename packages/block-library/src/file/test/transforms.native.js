@@ -11,9 +11,9 @@ import {
 
 const block = 'File';
 const initialHtml = `
-<!-- wp:file {"id":3,"href":"https://finpress.org/latest.zip"} -->
-<div class="wp-block-file"><a href="https://finpress.org/latest.zip">FinPress.zip</a><a href="https://finpress.org/latest.zip" class="wp-block-file__button wp-element-button" download>Download</a></div>
-<!-- /wp:file -->`;
+<!-- fp:file {"id":3,"href":"https://finpress.org/latest.zip"} -->
+<div class="fp-block-file"><a href="https://finpress.org/latest.zip">FinPress.zip</a><a href="https://finpress.org/latest.zip" class="fp-block-file__button fp-element-button" download>Download</a></div>
+<!-- /fp:file -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  *
  * @return string Returns the previous posts link for the query.
  */
@@ -45,10 +45,10 @@ function render_block_core_query_pagination_previous( $attributes, $content, $bl
 		$content = get_previous_posts_link( $label );
 		remove_filter( 'previous_posts_link_attributes', $filter_link_attributes );
 	} else {
-		$block_query     = new WP_Query( build_query_vars_from_query_block( $block, $page ) );
+		$block_query     = new FP_Query( build_query_vars_from_query_block( $block, $page ) );
 		$block_max_pages = $block_query->max_num_pages;
 		$total           = ! $max_page || $max_page > $block_max_pages ? $block_max_pages : $max_page;
-		wp_reset_postdata();
+		fp_reset_postdata();
 
 		if ( 1 < $page && $page <= $total ) {
 			$content = sprintf(
@@ -61,17 +61,17 @@ function render_block_core_query_pagination_previous( $attributes, $content, $bl
 	}
 
 	if ( $enhanced_pagination && isset( $content ) ) {
-		$p = new WP_HTML_Tag_Processor( $content );
+		$p = new FP_HTML_Tag_Processor( $content );
 		if ( $p->next_tag(
 			array(
 				'tag_name'   => 'a',
-				'class_name' => 'wp-block-query-pagination-previous',
+				'class_name' => 'fp-block-query-pagination-previous',
 			)
 		) ) {
-			$p->set_attribute( 'data-wp-key', 'query-pagination-previous' );
-			$p->set_attribute( 'data-wp-on--click', 'core/query::actions.navigate' );
-			$p->set_attribute( 'data-wp-on-async--mouseenter', 'core/query::actions.prefetch' );
-			$p->set_attribute( 'data-wp-watch', 'core/query::callbacks.prefetch' );
+			$p->set_attribute( 'data-fp-key', 'query-pagination-previous' );
+			$p->set_attribute( 'data-fp-on--click', 'core/query::actions.navigate' );
+			$p->set_attribute( 'data-fp-on-async--mouseenter', 'core/query::actions.prefetch' );
+			$p->set_attribute( 'data-fp-watch', 'core/query::callbacks.prefetch' );
 			$content = $p->get_updated_html();
 		}
 	}

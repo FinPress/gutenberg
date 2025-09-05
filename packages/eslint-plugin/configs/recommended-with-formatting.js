@@ -1,5 +1,5 @@
 // Exclude bundled FinPress packages from the list.
-const wpPackagesRegExp = '^@finpress/(?!(icons|interface|style-engine))';
+const fpPackagesRegExp = '^@finpress/(?!(icons|interface|style-engine))';
 
 const config = {
 	extends: [
@@ -17,10 +17,10 @@ const config = {
 		window: true,
 		document: true,
 		SCRIPT_DEBUG: 'readonly',
-		wp: 'readonly',
+		fp: 'readonly',
 	},
 	settings: {
-		'import/internal-regex': wpPackagesRegExp,
+		'import/internal-regex': fpPackagesRegExp,
 		'import/extensions': [ '.js', '.jsx' ],
 	},
 	rules: {
@@ -33,7 +33,7 @@ const config = {
 		'import/no-unresolved': [
 			'error',
 			{
-				ignore: [ wpPackagesRegExp ],
+				ignore: [ fpPackagesRegExp ],
 			},
 		],
 		'import/default': 'warn',

@@ -71,7 +71,7 @@ function createTestRegistry() {
 	const mediaEntityConfig = {
 		name: 'media',
 		kind: 'root',
-		baseURL: '/wp/v2/media',
+		baseURL: '/fp/v2/media',
 		baseURLParams: { context: 'edit' },
 		plural: 'mediaItems',
 		label: 'Media',

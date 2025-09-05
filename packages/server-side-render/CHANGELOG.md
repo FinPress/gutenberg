@@ -221,7 +221,7 @@
 
 ### New Features
 
--   Add an optional prop `httpMethod`, which can be 'POST' or the default 'GET'. Requires WP 5.5 or later. When 'POST', this sends the attributes in the request body, not in the URL. This can allow a bigger attributes object. [#21068](https://github.com/FinPress/gutenberg/pull/21068)
+-   Add an optional prop `httpMethod`, which can be 'POST' or the default 'GET'. Requires FP 5.5 or later. When 'POST', this sends the attributes in the request body, not in the URL. This can allow a bigger attributes object. [#21068](https://github.com/FinPress/gutenberg/pull/21068)
 
 ## 1.7.0 (2020-02-04)
 

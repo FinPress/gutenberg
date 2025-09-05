@@ -34,9 +34,9 @@ test.describe( 'Using Format API', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p>First <a href="https://example.com" class="my-plugin-link">paragraph</a></p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 	} );
 
@@ -49,16 +49,16 @@ test.describe( 'Using Format API', () => {
 			attributes: { content: '<big>test</big>' },
 		} );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p><big>test</big></p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 		await page.keyboard.press( 'ArrowRight' );
 		await editor.clickBlockToolbarButton( 'Clear Unknown Formatting' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p>test</p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 	} );
 } );

@@ -5,7 +5,7 @@
  *
  * @package Gutenberg
  */
-class GutenbergHierarchicalSortTest extends WP_UnitTestCase {
+class GutenbergHierarchicalSortTest extends FP_UnitTestCase {
 
 	public function test_return_all_post_ids() {
 		/*

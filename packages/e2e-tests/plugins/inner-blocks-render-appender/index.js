@@ -1,9 +1,9 @@
 ( function () {
-	const { wp } = window;
-	const { registerBlockType } = wp.blocks;
-	const { createElement: el } = wp.element;
-	const { InnerBlocks } = wp.blockEditor;
-	const { useSelect } = wp.data;
+	const { fp } = window;
+	const { registerBlockType } = fp.blocks;
+	const { createElement: el } = fp.element;
+	const { InnerBlocks } = fp.blockEditor;
+	const { useSelect } = fp.data;
 
 	const allowedBlocks = [ 'core/quote', 'core/video' ];
 

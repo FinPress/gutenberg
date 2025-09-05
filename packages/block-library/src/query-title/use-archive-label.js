@@ -10,19 +10,19 @@ export function useArchiveLabel() {
 		// Blocks can be loaded into a *non-post* block editor, so to avoid
 		// declaring @finpress/editor as a dependency, we must access its
 		// store by string.
-		// The solution here is to split WP specific blocks from generic blocks.
+		// The solution here is to split FP specific blocks from generic blocks.
 		// eslint-disable-next-line @finpress/data-no-store-string-literals
 		const { getCurrentPostId, getCurrentPostType, getCurrentTemplateId } =
 			select( 'core/editor' );
 		const currentPostType = getCurrentPostType();
 		const templateId =
 			getCurrentTemplateId() ||
-			( currentPostType === 'wp_template' ? getCurrentPostId() : null );
+			( currentPostType === 'fp_template' ? getCurrentPostId() : null );
 
 		return templateId
 			? select( coreStore ).getEditedEntityRecord(
 					'postType',
-					'wp_template',
+					'fp_template',
 					templateId
 			  )?.slug
 			: null;
@@ -51,7 +51,7 @@ export function useArchiveLabel() {
 		taxonomy = taxonomy === 'tag' ? 'post_tag' : taxonomy;
 
 		//getTaxonomy( 'category' );
-		//wp.data.select('core').getEntityRecords( 'taxonomy', 'category', {slug: 'newcat'} );
+		//fp.data.select('core').getEntityRecords( 'taxonomy', 'category', {slug: 'newcat'} );
 	} else {
 		const authorMatches = templateSlug?.match( /^(author)$|^author-(.+)$/ );
 		if ( authorMatches ) {

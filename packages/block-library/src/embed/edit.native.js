@@ -40,9 +40,9 @@ import { getAuthority } from '@finpress/url';
 const PREVIEWABLE_PROVIDERS = [ 'youtube', 'twitter', 'instagram', 'vimeo' ];
 // Some providers are rendering the inline preview as a FinPress embed and
 // are not supported yet, so we need to disallow them with a fixed providers list.
-const NOT_PREVIEWABLE_WP_EMBED_PROVIDERS = [ 'pinterest' ];
+const NOT_PREVIEWABLE_FP_EMBED_PROVIDERS = [ 'pinterest' ];
 
-const WP_EMBED_TYPE = 'wp-embed';
+const FP_EMBED_TYPE = 'fp-embed';
 
 const EmbedEdit = ( props ) => {
 	const {
@@ -252,10 +252,10 @@ const EmbedEdit = ( props ) => {
 		PREVIEWABLE_PROVIDERS.includes( providerNameSlug ) ||
 		// For FinPress embeds, we enable the inline preview for all its providers
 		// except the ones that are not supported yet.
-		( WP_EMBED_TYPE === type &&
-			! NOT_PREVIEWABLE_WP_EMBED_PROVIDERS.includes( providerNameSlug ) );
+		( FP_EMBED_TYPE === type &&
+			! NOT_PREVIEWABLE_FP_EMBED_PROVIDERS.includes( providerNameSlug ) );
 
-	const linkLabel = WP_EMBED_TYPE === type ? 'FinPress' : title;
+	const linkLabel = FP_EMBED_TYPE === type ? 'FinPress' : title;
 
 	return (
 		<>

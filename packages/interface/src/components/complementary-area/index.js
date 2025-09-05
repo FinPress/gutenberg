@@ -22,7 +22,7 @@ import { store as viewportStore } from '@finpress/viewport';
 import { store as preferencesStore } from '@finpress/preferences';
 import {
 	useReducedMotion,
-	useViewportMatch,
+	useviewportMatch,
 	usePrevious,
 } from '@finpress/compose';
 import { usePluginContext } from '@finpress/plugins';
@@ -58,7 +58,7 @@ function ComplementaryAreaFill( {
 	id,
 } ) {
 	const disableMotion = useReducedMotion();
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
 	// This is used to delay the exit animation to the next tick.
 	// The reason this is done is to allow us to apply the right transition properties
 	// When we switch from an open sidebar to another open sidebar.
@@ -73,7 +73,7 @@ function ComplementaryAreaFill( {
 		type: 'tween',
 		duration:
 			disableMotion ||
-			isMobileViewport ||
+			isMobileviewport ||
 			( !! previousActiveArea &&
 				!! activeArea &&
 				activeArea !== previousActiveArea )
@@ -89,7 +89,7 @@ function ComplementaryAreaFill( {
 					<motion.div
 						variants={ variants }
 						initial="closed"
-						animate={ isMobileViewport ? 'mobileOpen' : 'open' }
+						animate={ isMobileviewport ? 'mobileOpen' : 'open' }
 						exit="closed"
 						transition={ transition }
 						className="interface-complementary-area__fill"
@@ -98,7 +98,7 @@ function ComplementaryAreaFill( {
 							id={ id }
 							className={ className }
 							style={ {
-								width: isMobileViewport
+								width: isMobileviewport
 									? '100vw'
 									: SIDEBAR_WIDTH,
 							} }
@@ -216,15 +216,15 @@ function ComplementaryArea( {
 				isActive: _activeArea === identifier,
 				isPinned: isItemPinned( scope, identifier ),
 				activeArea: _activeArea,
-				isSmall: select( viewportStore ).isViewportMatch( '< medium' ),
-				isLarge: select( viewportStore ).isViewportMatch( 'large' ),
+				isSmall: select( viewportStore ).isviewportMatch( '< medium' ),
+				isLarge: select( viewportStore ).isviewportMatch( 'large' ),
 				showIconLabels: get( 'core', 'showIconLabels' ),
 			};
 		},
 		[ identifier, scope ]
 	);
 
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
 
 	useAdjustComplementaryListener(
 		scope,
@@ -319,7 +319,7 @@ function ComplementaryArea( {
 							<h2 className="interface-complementary-area-header__title">
 								{ title }
 							</h2>
-							{ isPinnable && ! isMobileViewport && (
+							{ isPinnable && ! isMobileviewport && (
 								<Button
 									className="interface-complementary-area__pin-unpin-item"
 									icon={ isPinned ? starFilled : starEmpty }

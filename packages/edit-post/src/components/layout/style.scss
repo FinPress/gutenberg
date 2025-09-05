@@ -39,12 +39,12 @@
 		padding-inline: $grid-unit-30 $grid-unit-15;
 
 		&:is(:hover, :focus-visible) {
-			color: var(--wp-admin-theme-color);
+			color: var(--fp-admin-theme-color);
 		}
 		&:focus-visible::after {
 			content: "";
 			position: absolute;
-			inset: var(--wp-admin-border-width-focus);
+			inset: var(--fp-admin-border-width-focus);
 			@include button-style__focus();
 		}
 		> svg {
@@ -80,7 +80,7 @@
 		}
 
 		&:is(:hover, :focus-within) > button::before {
-			background-color: var(--wp-admin-theme-color);
+			background-color: var(--fp-admin-theme-color);
 			width: $grid-unit-80 + $grid-unit-20;
 		}
 	}

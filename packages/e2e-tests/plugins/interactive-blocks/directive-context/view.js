@@ -53,21 +53,21 @@ store( 'directive-context', {
 
 const html = `
 		<div
-			data-wp-interactive="directive-context-navigate"
-			data-wp-router-region="navigation"
-			data-wp-context='{ "text": "second page", "text2": "second page" }'
+			data-fp-interactive="directive-context-navigate"
+			data-fp-router-region="navigation"
+			data-fp-context='{ "text": "second page", "text2": "second page" }'
 		>
-			<div data-wp-context='{}'>
-				<div data-testid="navigation inherited text" data-wp-text="context.text"></div>
-				<div data-testid="navigation inherited text2" data-wp-text="context.text2"></div>
+			<div data-fp-context='{}'>
+				<div data-testid="navigation inherited text" data-fp-text="context.text"></div>
+				<div data-testid="navigation inherited text2" data-fp-text="context.text2"></div>
 			</div>
-			<div data-testid="navigation text" data-wp-text="context.text"></div>
-			<div data-testid="navigation new text" data-wp-text="context.newText"></div>
-			<button data-testid="toggle text" data-wp-on--click="actions.toggleText">Toggle Text</button>
-			<button data-testid="add new text" data-wp-on--click="actions.addNewText">Add New Text</button>
-			<button data-testid="add text2" data-wp-on--click="actions.addText2">Add Text 2</button>
-			<button data-testid="navigate" data-wp-on--click="actions.navigate">Navigate</button>
-			<button data-testid="async navigate" data-wp-on--click="actions.asyncNavigate">Async Navigate</button>
+			<div data-testid="navigation text" data-fp-text="context.text"></div>
+			<div data-testid="navigation new text" data-fp-text="context.newText"></div>
+			<button data-testid="toggle text" data-fp-on--click="actions.toggleText">Toggle Text</button>
+			<button data-testid="add new text" data-fp-on--click="actions.addNewText">Add New Text</button>
+			<button data-testid="add text2" data-fp-on--click="actions.addText2">Add Text 2</button>
+			<button data-testid="navigate" data-fp-on--click="actions.navigate">Navigate</button>
+			<button data-testid="async navigate" data-fp-on--click="actions.asyncNavigate">Async Navigate</button>
 		</div>`;
 
 const { actions } = store( 'directive-context-navigate', {

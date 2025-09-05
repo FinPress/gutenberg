@@ -29,8 +29,8 @@ import { getFontStylesAndWeights } from '../../utils/get-font-styles-and-weights
 
 /**
  * @typedef {Object} TypographySettings
- * @property {?string} minViewportWidth  Minimum viewport size from which type will have fluidity. Optional if size is specified.
- * @property {?string} maxViewportWidth  Maximum size up to which type will have fluidity. Optional if size is specified.
+ * @property {?string} minviewportWidth  Minimum viewport size from which type will have fluidity. Optional if size is specified.
+ * @property {?string} maxviewportWidth  Maximum size up to which type will have fluidity. Optional if size is specified.
  * @property {?number} scaleFactor       A scale factor to determine how fast a font scales within boundaries. Optional.
  * @property {?number} minFontSizeFactor How much to scale defaultFontSize by to derive minimumFontSize. Optional.
  * @property {?string} minFontSize       The smallest a calculated font size may be. Optional.
@@ -40,7 +40,7 @@ import { getFontStylesAndWeights } from '../../utils/get-font-styles-and-weights
  * Returns a font-size value based on a given font-size preset.
  * Takes into account fluid typography parameters and attempts to return a css formula depending on available, valid values.
  *
- * The Core PHP equivalent is wp_get_typography_font_size_value().
+ * The Core PHP equivalent is fp_get_typography_font_size_value().
  *
  * @param {Preset}                     preset
  * @param {Object}                     settings
@@ -86,8 +86,8 @@ export function getTypographyFontSizeValue( preset, settings ) {
 		maximumFontSize: preset?.fluid?.max,
 		fontSize: defaultSize,
 		minimumFontSizeLimit: fluidTypographySettings?.minFontSize,
-		maximumViewportWidth: fluidTypographySettings?.maxViewportWidth,
-		minimumViewportWidth: fluidTypographySettings?.minViewportWidth,
+		maximumviewportWidth: fluidTypographySettings?.maxviewportWidth,
+		minimumviewportWidth: fluidTypographySettings?.minviewportWidth,
 	} );
 
 	if ( !! fluidFontSizeValue ) {
@@ -118,16 +118,16 @@ function isFluidTypographyEnabled( typographySettings ) {
 export function getFluidTypographyOptionsFromSettings( settings ) {
 	const typographySettings = settings?.typography;
 	const layoutSettings = settings?.layout;
-	const defaultMaxViewportWidth = getTypographyValueAndUnit(
+	const defaultMaxviewportWidth = getTypographyValueAndUnit(
 		layoutSettings?.wideSize
 	)
 		? layoutSettings?.wideSize
 		: null;
 	return isFluidTypographyEnabled( typographySettings ) &&
-		defaultMaxViewportWidth
+		defaultMaxviewportWidth
 		? {
 				fluid: {
-					maxViewportWidth: defaultMaxViewportWidth,
+					maxviewportWidth: defaultMaxviewportWidth,
 					...typographySettings.fluid,
 				},
 		  }

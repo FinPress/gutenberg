@@ -301,7 +301,7 @@ export const isEditorPanelOpened = createRegistrySelector(
 /**
  * Returns true if a modal is active, or false otherwise.
  *
- * @deprecated since WP 6.3 use `core/interface` store's selector with the same name instead.
+ * @deprecated since FP 6.3 use `core/interface` store's selector with the same name instead.
  *
  * @param {Object} state     Global application state.
  * @param {string} modalName A string that uniquely identifies the modal.
@@ -533,7 +533,7 @@ export const isEditingTemplate = createRegistrySelector( ( select ) => () => {
 		since: '6.5',
 		alternative: `select( 'core/editor' ).getRenderingMode`,
 	} );
-	return select( editorStore ).getCurrentPostType() === 'wp_template';
+	return select( editorStore ).getCurrentPostType() === 'fp_template';
 } );
 
 /**
@@ -565,7 +565,7 @@ export const getEditedPostTemplate = createRegistrySelector(
 		}
 		return select( coreStore ).getEditedEntityRecord(
 			'postType',
-			'wp_template',
+			'fp_template',
 			templateId
 		);
 	}

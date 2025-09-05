@@ -9,7 +9,7 @@
 /**
  * Tests for various cases in Navigation Submenu rendering
  */
-class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
+class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 	private static $category;
 	private static $page;
 	private static $draft;
@@ -38,15 +38,15 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 
-		$this->original_block_supports      = WP_Block_Supports::$block_to_render;
-		WP_Block_Supports::$block_to_render = array(
+		$this->original_block_supports      = FP_Block_Supports::$block_to_render;
+		FP_Block_Supports::$block_to_render = array(
 			'attrs'     => array(),
 			'blockName' => '',
 		);
 	}
 
 	public function tear_down() {
-		WP_Block_Supports::$block_to_render = $this->original_block_supports;
+		FP_Block_Supports::$block_to_render = $this->original_block_supports;
 		parent::tear_down();
 	}
 
@@ -58,9 +58,9 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 		$page_id = self::$page->ID;
 
 		$parsed_blocks = parse_blocks(
-			'<!-- wp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
-            <!-- wp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
-        <!-- /wp:navigation-submenu -->'
+			'<!-- fp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
+            <!-- fp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
+        <!-- /fp:navigation-submenu -->'
 		);
 
 		$this->assertEquals( 1, count( $parsed_blocks ), 'Submenu block not parsable.' );
@@ -73,7 +73,7 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 			'overlayBackgroundColor' => 'yellow',
 		);
 
-		$navigation_submenu_block = new WP_Block( $block, $context );
+		$navigation_submenu_block = new FP_Block( $block, $context );
 
 		$rendered_html = gutenberg_render_block_core_navigation_submenu(
 			$navigation_submenu_block->attributes,
@@ -81,17 +81,17 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 			$navigation_submenu_block
 		);
 
-		$tags = new WP_HTML_Tag_Processor( $rendered_html );
+		$tags = new FP_HTML_Tag_Processor( $rendered_html );
 		$tags->next_tag(
 			array(
 				'tag_name'   => 'ul',
-				'class_name' => 'wp-block-navigation__submenu-container',
+				'class_name' => 'fp-block-navigation__submenu-container',
 			)
 		);
 		$tags->get_attribute( 'class' );
 
 		$this->assertEquals(
-			'wp-block-navigation__submenu-container has-text-color has-purple-color has-background has-yellow-background-color',
+			'fp-block-navigation__submenu-container has-text-color has-purple-color has-background has-yellow-background-color',
 			$tags->get_attribute( 'class' ),
 			'Submenu block colors inherited from context not applied correctly'
 		);
@@ -105,9 +105,9 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 		$page_id = self::$page->ID;
 
 		$parsed_blocks = parse_blocks(
-			'<!-- wp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
-            <!-- wp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
-        <!-- /wp:navigation-submenu -->'
+			'<!-- fp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
+            <!-- fp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
+        <!-- /fp:navigation-submenu -->'
 		);
 
 		$this->assertEquals( 1, count( $parsed_blocks ), 'Submenu block not parsable.' );
@@ -120,10 +120,10 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 			'customOverlayBackgroundColor' => '#E10E0E',
 		);
 
-		$navigation_submenu_block = new WP_Block( $block, $context );
+		$navigation_submenu_block = new FP_Block( $block, $context );
 
 		$this->assertStringContainsString(
-			'<ul style="color:' . $context['customOverlayTextColor'] . ';background-color:' . $context['customOverlayBackgroundColor'] . ';" class="wp-block-navigation__submenu-container has-text-color has-background">',
+			'<ul style="color:' . $context['customOverlayTextColor'] . ';background-color:' . $context['customOverlayBackgroundColor'] . ';" class="fp-block-navigation__submenu-container has-text-color has-background">',
 			gutenberg_render_block_core_navigation_submenu(
 				$navigation_submenu_block->attributes,
 				array(),
@@ -141,9 +141,9 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 		$page_id = self::$page->ID;
 
 		$parsed_blocks = parse_blocks(
-			'<!-- wp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
-            <!-- wp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
-        <!-- /wp:navigation-submenu -->'
+			'<!-- fp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
+            <!-- fp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
+        <!-- /fp:navigation-submenu -->'
 		);
 
 		$this->assertEquals( 1, count( $parsed_blocks ), 'Submenu block not parsable.' );
@@ -156,10 +156,10 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 			'customOverlayBackgroundColor' => '#E10E0E',
 		);
 
-		$navigation_submenu_block = new WP_Block( $block, $context );
+		$navigation_submenu_block = new FP_Block( $block, $context );
 
 		$this->assertStringContainsString(
-			'<ul style="background-color:' . $context['customOverlayBackgroundColor'] . ';" class="wp-block-navigation__submenu-container has-text-color has-' . $context['overlayTextColor'] . '-color has-background">',
+			'<ul style="background-color:' . $context['customOverlayBackgroundColor'] . ';" class="fp-block-navigation__submenu-container has-text-color has-' . $context['overlayTextColor'] . '-color has-background">',
 			gutenberg_render_block_core_navigation_submenu(
 				$navigation_submenu_block->attributes,
 				array(),
@@ -177,9 +177,9 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 		$page_id = self::$page->ID;
 
 		$parsed_blocks = parse_blocks(
-			'<!-- wp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
-            <!-- wp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
-        <!-- /wp:navigation-submenu -->'
+			'<!-- fp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
+            <!-- fp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
+        <!-- /fp:navigation-submenu -->'
 		);
 
 		$this->assertEquals( 1, count( $parsed_blocks ), 'Submenu block not parsable.' );
@@ -189,7 +189,7 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 		// Intentionally empty - no colors.
 		$context = array();
 
-		$navigation_submenu_block = new WP_Block( $block, $context );
+		$navigation_submenu_block = new FP_Block( $block, $context );
 
 		$actual = gutenberg_render_block_core_navigation_submenu(
 			$navigation_submenu_block->attributes,
@@ -198,7 +198,7 @@ class Render_Block_Navigation_Submenu_Test extends WP_UnitTestCase {
 		);
 
 		$this->assertStringContainsString(
-			'<ul class="wp-block-navigation__submenu-container">',
+			'<ul class="fp-block-navigation__submenu-container">',
 			$actual,
 			'Submenu block should not apply colors if missing from context'
 		);

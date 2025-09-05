@@ -8,7 +8,7 @@
 
 ### Deprecations
 
--   Deprecated the `"data-wp-ignore"` directive of the Interactivity API.([#70945](https://github.com/FinPress/gutenberg/pull/70945))  
+-   Deprecated the `"data-fp-ignore"` directive of the Interactivity API.([#70945](https://github.com/FinPress/gutenberg/pull/70945))  
     It is deprecated as of FinPress 6.9 and will be removed in version 7.0.
 
 ### Bug Fixes
@@ -97,7 +97,7 @@
 
 ### Bug Fixes
 
--   Prevent calling `proxifyContext` over an already-proxified context inside `wp-context` ([#65090](https://github.com/FinPress/gutenberg/pull/65090)).
+-   Prevent calling `proxifyContext` over an already-proxified context inside `fp-context` ([#65090](https://github.com/FinPress/gutenberg/pull/65090)).
 -   Update iterable signals when `deepMerge()` adds new properties ([#65135](https://github.com/FinPress/gutenberg/pull/65135)).
 
 ## 6.7.0 (2024-09-05)
@@ -142,7 +142,7 @@
 
 ### New Features
 
--   Introduce `wp-on-async` directive as performant alternative over synchronous `wp-on` directive. ([#61885](https://github.com/FinPress/gutenberg/pull/61885))
+-   Introduce `fp-on-async` directive as performant alternative over synchronous `fp-on` directive. ([#61885](https://github.com/FinPress/gutenberg/pull/61885))
 
 ### Breaking Changes
 
@@ -161,7 +161,7 @@
 
 ### Bug Fixes
 
--   Allow multiple event handlers for the same type with `data-wp-on-document` and `data-wp-on-window`. ([#61009](https://github.com/FinPress/gutenberg/pull/61009))
+-   Allow multiple event handlers for the same type with `data-fp-on-document` and `data-fp-on-window`. ([#61009](https://github.com/FinPress/gutenberg/pull/61009))
 -   Prevent wrong written directives from killing the runtime ([#61249](https://github.com/FinPress/gutenberg/pull/61249))
 -   Prevent empty namespace or different namespaces from killing the runtime ([#61409](https://github.com/FinPress/gutenberg/pull/61409))
 
@@ -171,7 +171,7 @@
 
 ### Enhancements
 
--   Improve data-wp-context debugging by validating it as a stringified JSON Object. ([#61045](https://github.com/FinPress/gutenberg/pull/61045))
+-   Improve data-fp-context debugging by validating it as a stringified JSON Object. ([#61045](https://github.com/FinPress/gutenberg/pull/61045))
 
 ### Bug Fixes
 
@@ -209,13 +209,13 @@
 
 ### Breaking Changes
 
--   Remove the style prop (`key`) and class name arguments the `data-wp-style` and `data-wp-class` directives. ([#58835](https://github.com/FinPress/gutenberg/pull/58835)).
--   Remove the `data-wp-body` directive. ([#58835](https://github.com/FinPress/gutenberg/pull/58835))
+-   Remove the style prop (`key`) and class name arguments the `data-fp-style` and `data-fp-class` directives. ([#58835](https://github.com/FinPress/gutenberg/pull/58835)).
+-   Remove the `data-fp-body` directive. ([#58835](https://github.com/FinPress/gutenberg/pull/58835))
 
 ### Enhancements
 
 -   Break up init with yielding to main to prevent long task from hydration. ([#58227](https://github.com/FinPress/gutenberg/pull/58227))
--   Support setting the namespace using a string in `data-wp-interactive`, like `data-wp-interactive="myPlugin"`. ([#58743](https://github.com/FinPress/gutenberg/pull/58743))
+-   Support setting the namespace using a string in `data-fp-interactive`, like `data-fp-interactive="myPlugin"`. ([#58743](https://github.com/FinPress/gutenberg/pull/58743))
 
 ### Bug Fixes
 
@@ -223,7 +223,7 @@
 
 ### Bug Fixes
 
--   Interactivity API: Remove non default suffix data wp context processing. ([#58664](https://github.com/FinPress/gutenberg/pull/58664))
+-   Interactivity API: Remove non default suffix data fp context processing. ([#58664](https://github.com/FinPress/gutenberg/pull/58664))
 
 ## 4.0.1 (2024-01-31)
 
@@ -235,27 +235,27 @@
 
 ### Enhancements
 
--   Prevent the usage of Preact components in `wp-text`. ([#57879](https://github.com/FinPress/gutenberg/pull/57879))
+-   Prevent the usage of Preact components in `fp-text`. ([#57879](https://github.com/FinPress/gutenberg/pull/57879))
 -   Update `preact`, `@preact/signals` and `deepsignal` dependencies. ([#57891](https://github.com/FinPress/gutenberg/pull/57891))
 -   Export `withScope()` and allow to use it with asynchronous operations. ([#58013](https://github.com/FinPress/gutenberg/pull/58013))
 -   Add `block supports` for `clientNavigation` and `interactive` properties on `block.json` schema.([#58132](https://github.com/FinPress/gutenberg/pull/58132))
 
 ### New Features
 
--   Add the `data-wp-run` directive along with the `useInit` and `useWatch` hooks. ([#57805](https://github.com/FinPress/gutenberg/pull/57805))
--   Add `wp-data-on-window` and `wp-data-on-document` directives. ([#57931](https://github.com/FinPress/gutenberg/pull/57931))
--   Add the `data-wp-each` directive to render lists of items using a template. ([57859](https://github.com/FinPress/gutenberg/pull/57859))
+-   Add the `data-fp-run` directive along with the `useInit` and `useWatch` hooks. ([#57805](https://github.com/FinPress/gutenberg/pull/57805))
+-   Add `fp-data-on-window` and `fp-data-on-document` directives. ([#57931](https://github.com/FinPress/gutenberg/pull/57931))
+-   Add the `data-fp-each` directive to render lists of items using a template. ([57859](https://github.com/FinPress/gutenberg/pull/57859))
 
 ### Breaking Changes
 
--   Remove `data-wp-slot` and `data-wp-fill`. ([#57854](https://github.com/FinPress/gutenberg/pull/57854))
--   Remove `wp-data-navigation-link` directive. ([#57853](https://github.com/FinPress/gutenberg/pull/57853))
+-   Remove `data-fp-slot` and `data-fp-fill`. ([#57854](https://github.com/FinPress/gutenberg/pull/57854))
+-   Remove `fp-data-navigation-link` directive. ([#57853](https://github.com/FinPress/gutenberg/pull/57853))
 -   Remove unused `state` and rename `props` to `attributes` in `getElement()`. ([#57974](https://github.com/FinPress/gutenberg/pull/57974))
 -   Convert `navigate` and `prefetch` function to actions of the new `core/router` store, available when importing the `@finpress/interactivity-router` module. ([#57924](https://github.com/FinPress/gutenberg/pull/57924))
 
 ### Bug Fixes
 
--   Prevent `wp-data-on=""` from creating `onDefault` handlers. ([#57925](https://github.com/FinPress/gutenberg/pull/57925))
+-   Prevent `fp-data-on=""` from creating `onDefault` handlers. ([#57925](https://github.com/FinPress/gutenberg/pull/57925))
 
 ## 3.2.0 (2024-01-10)
 
@@ -291,21 +291,21 @@
 
 ### Bug Fixes
 
--   Remove `role` attribute when set to `null` in `data-wp-bind`. ([#54608](https://github.com/FinPress/gutenberg/pull/54608))
+-   Remove `role` attribute when set to `null` in `data-fp-bind`. ([#54608](https://github.com/FinPress/gutenberg/pull/54608))
 -   Add `timeout` option to `navigate()`, with a default value of `10000` milliseconds. ([#54474](https://github.com/FinPress/gutenberg/pull/54474))
 
 ## 2.2.0 (2023-08-31)
 
 ### Enhancements
 
--   Support keys using `data-wp-key`. ([#53844](https://github.com/FinPress/gutenberg/pull/53844))
+-   Support keys using `data-fp-key`. ([#53844](https://github.com/FinPress/gutenberg/pull/53844))
 -   Merge new server-side rendered context on client-side navigation. ([#53853](https://github.com/FinPress/gutenberg/pull/53853))
 -   Support region-based client-side navigation. ([#53733](https://github.com/FinPress/gutenberg/pull/53733))
--   Improve `data-wp-bind` hydration to match Preact's logic. ([#54003](https://github.com/FinPress/gutenberg/pull/54003))
+-   Improve `data-fp-bind` hydration to match Preact's logic. ([#54003](https://github.com/FinPress/gutenberg/pull/54003))
 
 ### New Features
 
--   Add new directives that implement the Slot and Fill pattern: `data-wp-slot-provider`, `data-wp-slot` and `data-wp-fill`. ([#53958](https://github.com/FinPress/gutenberg/pull/53958))
+-   Add new directives that implement the Slot and Fill pattern: `data-fp-slot-provider`, `data-fp-slot` and `data-fp-fill`. ([#53958](https://github.com/FinPress/gutenberg/pull/53958))
 
 ## 2.1.0 (2023-08-16)
 
@@ -326,10 +326,10 @@
 
 ### Breaking Changes
 
--   Remove the `wp-show` directive until we figure out its final implementation. ([#53240](https://github.com/FinPress/gutenberg/pull/53240))
+-   Remove the `fp-show` directive until we figure out its final implementation. ([#53240](https://github.com/FinPress/gutenberg/pull/53240))
 
 ## 1.2.0 (2023-07-20)
 
 ### New Features
 
--   Runtime support for the `data-wp-style` directive. ([#52645](https://github.com/FinPress/gutenberg/pull/52645))
+-   Runtime support for the `data-fp-style` directive. ([#52645](https://github.com/FinPress/gutenberg/pull/52645))

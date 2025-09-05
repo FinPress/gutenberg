@@ -78,7 +78,7 @@ const v2 = {
 			if ( displayType === 'modified' ) {
 				className = clsx(
 					className,
-					'wp-block-post-date__modified-date'
+					'fp-block-post-date__modified-date'
 				);
 			}
 

@@ -213,8 +213,8 @@ export function __experimentalUseResourcePermissions(
 	resource: string,
 	id?: unknown
 ) {
-	deprecated( `wp.data.__experimentalUseResourcePermissions`, {
-		alternative: 'wp.data.useResourcePermissions',
+	deprecated( `fp.data.__experimentalUseResourcePermissions`, {
+		alternative: 'fp.data.useResourcePermissions',
 		since: '6.1',
 	} );
 	return useResourcePermissions( resource, id );

@@ -9,7 +9,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useCallback, useRef, useEffect, Platform } from '@finpress/element';
 import { compose, usePreferredColorSchemeStyle } from '@finpress/compose';
 import { withSelect, withDispatch } from '@finpress/data';
-import { withViewportMatch } from '@finpress/viewport';
+import { withviewportMatch } from '@finpress/viewport';
 import { __ } from '@finpress/i18n';
 import {
 	Inserter,
@@ -251,5 +251,5 @@ export default compose( [
 			insertBlock,
 		};
 	} ),
-	withViewportMatch( { isLargeViewport: 'medium' } ),
+	withviewportMatch( { isLargeviewport: 'medium' } ),
 ] )( HeaderToolbar );

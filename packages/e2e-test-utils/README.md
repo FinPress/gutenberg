@@ -182,11 +182,11 @@ _Parameters_
 
 ### createURL
 
-Creates new URL by parsing base URL, WPPath and query string.
+Creates new URL by parsing base URL, FPPath and query string.
 
 _Parameters_
 
--   _WPPath_ `string`: String to be serialized as pathname.
+-   _FPPath_ `string`: String to be serialized as pathname.
 -   _query_ `?string`: String to be serialized as query portion of URL.
 
 _Returns_
@@ -239,7 +239,7 @@ Delete all the templates of given type.
 
 _Parameters_
 
--   _type_ `('wp_template'|'wp_template_part')`: - Template type to delete.
+-   _type_ `('fp_template'|'fp_template_part')`: - Template type to delete.
 
 ### deleteAllWidgets
 
@@ -353,7 +353,7 @@ _Returns_
 
 ### getAllBlocks
 
-Returns an array with all blocks; Equivalent to calling wp.data.select( 'core/block-editor' ).getBlocks();
+Returns an array with all blocks; Equivalent to calling fp.data.select( 'core/block-editor' ).getBlocks();
 
 _Returns_
 
@@ -474,7 +474,7 @@ _Parameters_
 
 ### installPlugin
 
-Installs a plugin from the WP.org repository.
+Installs a plugin from the FP.org repository.
 
 _Parameters_
 
@@ -483,7 +483,7 @@ _Parameters_
 
 ### installTheme
 
-Installs a theme from the WP.org repository.
+Installs a theme from the FP.org repository.
 
 _Parameters_
 
@@ -497,7 +497,7 @@ Checks if current URL is a FinPress path.
 
 _Parameters_
 
--   _WPPath_ `string`: String to be serialized as pathname.
+-   _FPPath_ `string`: String to be serialized as pathname.
 -   _query_ `?string`: String to be serialized as query portion of URL.
 
 _Returns_
@@ -705,13 +705,13 @@ _Parameters_
 
 -   _clientId_ `string`: Identified of the block.
 
-### setBrowserViewport
+### setBrowserviewport
 
 Sets browser viewport to specified type.
 
 _Parameters_
 
--   _viewport_ `WPViewport`: Viewport name or dimensions object to assign.
+-   _viewport_ `FPviewport`: viewport name or dimensions object to assign.
 
 ### setClipboardData
 
@@ -900,14 +900,14 @@ _Parameters_
 
 ### waitForWindowDimensions
 
-Function that waits until the page viewport has the required dimensions. It is being used to address a problem where after using setViewport the execution may continue, without the new dimensions being applied. <https://github.com/GoogleChrome/puppeteer/issues/1751>
+Function that waits until the page viewport has the required dimensions. It is being used to address a problem where after using setviewport the execution may continue, without the new dimensions being applied. <https://github.com/GoogleChrome/puppeteer/issues/1751>
 
 _Parameters_
 
 -   _width_ `number`: Width of the window.
 -   _height_ `number`: Height of the window.
 
-### wpDataSelect
+### fpDataSelect
 
 Queries the FinPress data module.
 

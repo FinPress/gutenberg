@@ -216,7 +216,7 @@ For each user feature we should also add a importance categorization label  to i
 
 ## 1.100.1
 
--   [**] Add WP hook for registering non-core blocks [#52791]
+-   [**] Add FP hook for registering non-core blocks [#52791]
 
 ## 1.100.0
 
@@ -316,7 +316,7 @@ For each user feature we should also add a importance categorization label  to i
 ## 1.88.0
 
 -   [*] Bump Android `minSdkVersion` to 24 [#47604]
--   [*] Update React Native Reanimated to 2.9.1-wp-3 [#47574]
+-   [*] Update React Native Reanimated to 2.9.1-fp-3 [#47574]
 -   [*] Bump Aztec version to `1.6.3` [#47610]
 
 ## 1.87.3
@@ -609,7 +609,7 @@ For each user feature we should also add a importance categorization label  to i
 
 ## 1.62.0
 
--   [**] [Embed block] Implement WP embed preview component [#34004]
+-   [**] [Embed block] Implement FP embed preview component [#34004]
 -   [*] [Embed block] Fix content disappearing on Android when switching light/dark mode [#34207]
 -   [*] Embed block: Add device's locale to preview content [#33858]
 -   [**] Fix Android-only issue of main toolbar initial position being wrong when RTL [#34617]
@@ -695,14 +695,14 @@ For each user feature we should also add a importance categorization label  to i
 
 -   [*] Gallery block - Fix gallery images caption text formatting [#32351]
 -   [*] Image block: "Set as featured" button within image block settings. (Android only) [#31705]
--   [***] Audio block now available on WP.com sites on the free plan. [#31966]
+-   [***] Audio block now available on FP.com sites on the free plan. [#31966]
 
 ## 1.54.0
 
 -   [***] Slash inserter [#29772]
 -   [*] Audio block: Add Insert from URL functionality. [#27817]
 -   [*] The BottomSheet Cell component now supports the help prop so that a hint can be supplied to all Cell based components. [#30885]
--   [***] Enable reusable block only in WP.com sites [#31744]
+-   [***] Enable reusable block only in FP.com sites [#31744]
 
 ## 1.53.1
 

@@ -12,8 +12,8 @@ exports[`props should render correctly 1`] = `
 <hr
   aria-orientation="horizontal"
   class="components-divider emotion-0 emotion-1"
-  data-wp-c16t="true"
-  data-wp-component="Divider"
+  data-fp-c16t="true"
+  data-fp-component="Divider"
   role="separator"
 />
 `;

@@ -19,16 +19,16 @@ const isObject = ( item: unknown ): item is Record< string, unknown > =>
 
 /**
  * This regex pattern must be kept in sync with the server-side implementation in
- * wp-includes/interactivity-api/class-wp-interactivity-api.php.
+ * fp-includes/interactivity-api/class-fp-interactivity-api.php.
  *
  * The pattern validates directive attribute names to ensure consistency between
  * client and server processing. Invalid directive names (containing characters like
  * square brackets or colons) should be ignored by both client and server.
  *
- * @see https://github.com/FinPress/finpress-develop/blob/trunk/src/wp-includes/interactivity-api/class-wp-interactivity-api.php
+ * @see https://github.com/FinPress/finpress-develop/blob/trunk/src/fp-includes/interactivity-api/class-fp-interactivity-api.php
  */
 const directiveParser = new RegExp(
-	`^data-${ p }-` + // ${p} must be a prefix string, like 'wp'.
+	`^data-${ p }-` + // ${p} must be a prefix string, like 'fp'.
 		// Match alphanumeric characters including hyphen-separated
 		// segments. It excludes underscore intentionally to prevent confusion.
 		// E.g., "custom-directive".

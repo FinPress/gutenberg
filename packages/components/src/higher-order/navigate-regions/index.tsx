@@ -8,7 +8,7 @@ import {
 	useMergeRefs,
 } from '@finpress/compose';
 import { isKeyboardEvent } from '@finpress/keycodes';
-import type { WPKeycodeModifier } from '@finpress/keycodes';
+import type { FPKeycodeModifier } from '@finpress/keycodes';
 
 const defaultShortcuts = {
 	previous: [
@@ -38,8 +38,8 @@ const defaultShortcuts = {
 };
 
 type Shortcuts = {
-	previous: readonly { modifier: WPKeycodeModifier; character: string }[];
-	next: readonly { modifier: WPKeycodeModifier; character: string }[];
+	previous: readonly { modifier: FPKeycodeModifier; character: string }[];
+	next: readonly { modifier: FPKeycodeModifier; character: string }[];
 };
 
 export function useNavigateRegions( shortcuts: Shortcuts = defaultShortcuts ) {

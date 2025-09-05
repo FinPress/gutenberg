@@ -16,22 +16,22 @@ const debug = require( './debug' );
 /**
  * Automation task function.
  *
- * @typedef {( payload: any, octokit: ReturnType<getOctokit> ) => void} WPAutomationTask
+ * @typedef {( payload: any, octokit: ReturnType<getOctokit> ) => void} FPAutomationTask
  */
 
 /**
  * Full list of automations, matched by given properties against the incoming
  * payload object.
  *
- * @typedef WPAutomation
+ * @typedef FPAutomation
  *
  * @property {string}           event    Webhook event name to match.
  * @property {string}           [action] Action to match, if applicable.
- * @property {WPAutomationTask} task     Task to run.
+ * @property {FPAutomationTask} task     Task to run.
  */
 
 /**
- * @type {WPAutomation[]}
+ * @type {FPAutomation[]}
  */
 const automations = [
 	{

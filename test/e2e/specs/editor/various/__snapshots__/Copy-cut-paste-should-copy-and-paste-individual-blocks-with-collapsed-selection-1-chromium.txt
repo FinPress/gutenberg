@@ -1,7 +1,7 @@
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Copy - collapsed selection</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>2</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->

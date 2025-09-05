@@ -80,7 +80,7 @@ describe( 'Edit', () => {
 		render( <Edit name="core/test-block" attributes={ attributes } /> );
 
 		const editElement = screen.getByTestId( 'foo-bar' );
-		expect( editElement ).toHaveClass( 'wp-block-test-block' );
+		expect( editElement ).toHaveClass( 'fp-block-test-block' );
 		expect( editElement ).toHaveClass( 'my-class' );
 	} );
 

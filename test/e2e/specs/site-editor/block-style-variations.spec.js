@@ -277,7 +277,7 @@ class SiteEditorBlockStyleVariations {
 	async saveRevision( stylesPostId, styles = {}, settings = {} ) {
 		await this.page.evaluate(
 			async ( [ _stylesPostId, _styles, _settings ] ) => {
-				window.wp.data
+				window.fp.data
 					.dispatch( 'core' )
 					.editEntityRecord( 'root', 'globalStyles', _stylesPostId, {
 						id: _stylesPostId,

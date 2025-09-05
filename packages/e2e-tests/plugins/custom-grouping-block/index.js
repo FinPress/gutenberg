@@ -1,7 +1,7 @@
 ( function () {
-	const el = wp.element.createElement;
-	const { InnerBlocks, useBlockProps } = wp.blockEditor;
-	const { createBlock, registerBlockType } = wp.blocks;
+	const el = fp.element.createElement;
+	const { InnerBlocks, useBlockProps } = fp.blockEditor;
+	const { createBlock, registerBlockType } = fp.blocks;
 
 	registerBlockType( 'test/alternative-group-block', {
 		apiVersion: 3,

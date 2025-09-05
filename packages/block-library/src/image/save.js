@@ -50,7 +50,7 @@ export default function save( { attributes } ) {
 	} );
 
 	const imageClasses = clsx( borderProps.className, {
-		[ `wp-image-${ id }` ]: !! id,
+		[ `fp-image-${ id }` ]: !! id,
 	} );
 
 	const image = (

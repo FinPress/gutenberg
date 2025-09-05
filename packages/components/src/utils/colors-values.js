@@ -29,28 +29,28 @@ const ALERT = {
 
 // Should match packages/components/src/utils/theme-variables.scss
 const THEME = {
-	accent: `var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9))`,
-	accentDarker10: `var(--wp-components-color-accent-darker-10, var(--wp-admin-theme-color-darker-10, #2145e6))`,
-	accentDarker20: `var(--wp-components-color-accent-darker-20, var(--wp-admin-theme-color-darker-20, #183ad6))`,
+	accent: `var(--fp-components-color-accent, var(--fp-admin-theme-color, #3858e9))`,
+	accentDarker10: `var(--fp-components-color-accent-darker-10, var(--fp-admin-theme-color-darker-10, #2145e6))`,
+	accentDarker20: `var(--fp-components-color-accent-darker-20, var(--fp-admin-theme-color-darker-20, #183ad6))`,
 	/** Used when placing text on the accent color. */
-	accentInverted: `var(--wp-components-color-accent-inverted, ${ white })`,
+	accentInverted: `var(--fp-components-color-accent-inverted, ${ white })`,
 
-	background: `var(--wp-components-color-background, ${ white })`,
+	background: `var(--fp-components-color-background, ${ white })`,
 
-	foreground: `var(--wp-components-color-foreground, ${ GRAY[ 900 ] })`,
+	foreground: `var(--fp-components-color-foreground, ${ GRAY[ 900 ] })`,
 	/** Used when placing text on the foreground color. */
-	foregroundInverted: `var(--wp-components-color-foreground-inverted, ${ white })`,
+	foregroundInverted: `var(--fp-components-color-foreground-inverted, ${ white })`,
 
 	gray: {
 		/** @deprecated Use `COLORS.theme.foreground` instead. */
-		900: `var(--wp-components-color-foreground, ${ GRAY[ 900 ] })`,
-		800: `var(--wp-components-color-gray-800, ${ GRAY[ 800 ] })`,
-		700: `var(--wp-components-color-gray-700, ${ GRAY[ 700 ] })`,
-		600: `var(--wp-components-color-gray-600, ${ GRAY[ 600 ] })`,
-		400: `var(--wp-components-color-gray-400, ${ GRAY[ 400 ] })`,
-		300: `var(--wp-components-color-gray-300, ${ GRAY[ 300 ] })`,
-		200: `var(--wp-components-color-gray-200, ${ GRAY[ 200 ] })`,
-		100: `var(--wp-components-color-gray-100, ${ GRAY[ 100 ] })`,
+		900: `var(--fp-components-color-foreground, ${ GRAY[ 900 ] })`,
+		800: `var(--fp-components-color-gray-800, ${ GRAY[ 800 ] })`,
+		700: `var(--fp-components-color-gray-700, ${ GRAY[ 700 ] })`,
+		600: `var(--fp-components-color-gray-600, ${ GRAY[ 600 ] })`,
+		400: `var(--fp-components-color-gray-400, ${ GRAY[ 400 ] })`,
+		300: `var(--fp-components-color-gray-300, ${ GRAY[ 300 ] })`,
+		200: `var(--fp-components-color-gray-200, ${ GRAY[ 200 ] })`,
+		100: `var(--fp-components-color-gray-100, ${ GRAY[ 100 ] })`,
 	},
 };
 

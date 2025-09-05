@@ -15,9 +15,9 @@ import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const CONTEXT_VALUE = {
 	BaseControl: {
-		// Temporary during deprecation grace period: Overrides the underlying `__associatedWPComponentName`
+		// Temporary during deprecation grace period: Overrides the underlying `__associatedFPComponentName`
 		// via the context system to override the value set by SelectControl.
-		_overrides: { __associatedWPComponentName: 'TreeSelect' },
+		_overrides: { __associatedFPComponentName: 'TreeSelect' },
 	},
 };
 

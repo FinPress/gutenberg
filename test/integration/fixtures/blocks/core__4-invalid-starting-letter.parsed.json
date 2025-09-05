@@ -3,7 +3,7 @@
 		"blockName": null,
 		"attrs": {},
 		"innerBlocks": [],
-		"innerHTML": "<!-- wp:core/4-invalid /-->",
-		"innerContent": [ "<!-- wp:core/4-invalid /-->" ]
+		"innerHTML": "<!-- fp:core/4-invalid /-->",
+		"innerContent": [ "<!-- fp:core/4-invalid /-->" ]
 	}
 ]

@@ -1,8 +1,8 @@
-pre.wp-block-verse {
+pre.fp-block-verse {
 	overflow: auto;
 	white-space: pre-wrap;
 }
 
-:where(pre.wp-block-verse) {
+:where(pre.fp-block-verse) {
 	font-family: inherit;
 }

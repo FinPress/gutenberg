@@ -1,7 +1,7 @@
 ( function () {
-	const { createElement: el, Fragment } = wp.element;
-	const { registerBlockType } = wp.blocks;
-	const { InnerBlocks } = wp.blockEditor;
+	const { createElement: el, Fragment } = fp.element;
+	const { registerBlockType } = fp.blocks;
+	const { InnerBlocks } = fp.blockEditor;
 
 	registerBlockType( 'gutenberg/test-context-provider', {
 		title: 'Test Context Provider',

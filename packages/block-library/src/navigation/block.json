@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/navigation",
 	"title": "Navigation",
@@ -140,6 +140,6 @@
 		"interactivity": true,
 		"renaming": false
 	},
-	"editorStyle": "wp-block-navigation-editor",
-	"style": "wp-block-navigation"
+	"editorStyle": "fp-block-navigation-editor",
+	"style": "fp-block-navigation"
 }

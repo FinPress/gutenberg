@@ -20,11 +20,11 @@ export default function PostSyncStatus() {
 		const { getEditedPostAttribute } = select( editorStore );
 		const meta = getEditedPostAttribute( 'meta' );
 
-		// When the post is first created, the top level wp_pattern_sync_status is not set so get meta value instead.
+		// When the post is first created, the top level fp_pattern_sync_status is not set so get meta value instead.
 		const currentSyncStatus =
-			meta?.wp_pattern_sync_status === 'unsynced'
+			meta?.fp_pattern_sync_status === 'unsynced'
 				? 'unsynced'
-				: getEditedPostAttribute( 'wp_pattern_sync_status' );
+				: getEditedPostAttribute( 'fp_pattern_sync_status' );
 
 		return {
 			syncStatus: currentSyncStatus,
@@ -32,7 +32,7 @@ export default function PostSyncStatus() {
 		};
 	} );
 
-	if ( postType !== 'wp_block' ) {
+	if ( postType !== 'fp_block' ) {
 		return null;
 	}
 

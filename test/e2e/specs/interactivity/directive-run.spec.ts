@@ -3,7 +3,7 @@
  */
 import { test, expect } from './fixtures';
 
-test.describe( 'data-wp-run', () => {
+test.describe( 'data-fp-run', () => {
 	test.beforeAll( async ( { interactivityUtils: utils } ) => {
 		await utils.activatePlugins();
 		await utils.addPostWithBlock( 'test/directive-run' );
@@ -45,7 +45,7 @@ test.describe( 'data-wp-run', () => {
 
 	test( 'should allow executing hooks', async ( { page } ) => {
 		await page.getByTestId( 'toggle' ).click();
-		const results = page.getByTestId( 'wp-run hooks results' );
+		const results = page.getByTestId( 'fp-run hooks results' );
 		await expect( results ).toHaveAttribute( 'data-init', 'initialized' );
 
 		await expect( results ).toHaveAttribute( 'data-watch', '0' );

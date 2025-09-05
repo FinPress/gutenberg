@@ -34,12 +34,12 @@ export function useAlternativeTemplateParts( area, excludedId ) {
 		return {
 			templateParts: getEntityRecords(
 				'postType',
-				'wp_template_part',
+				'fp_template_part',
 				query
 			),
 			isResolving: _isResolving( 'getEntityRecords', [
 				'postType',
-				'wp_template_part',
+				'fp_template_part',
 				query,
 			] ),
 		};
@@ -99,7 +99,7 @@ export function useCreateTemplatePartFromBlocks( area, setAttributes ) {
 		// Currently template parts only allow latin chars.
 		// Fallback slug will receive suffix by default.
 		const cleanSlug =
-			kebabCase( title ).replace( /[^\w-]+/g, '' ) || 'wp-custom-part';
+			kebabCase( title ).replace( /[^\w-]+/g, '' ) || 'fp-custom-part';
 
 		// If we have `area` set from block attributes, means an exposed
 		// block variation was inserted. So add this prop to the template
@@ -115,7 +115,7 @@ export function useCreateTemplatePartFromBlocks( area, setAttributes ) {
 		};
 		const templatePart = await saveEntityRecord(
 			'postType',
-			'wp_template_part',
+			'fp_template_part',
 			record
 		);
 		setAttributes( {

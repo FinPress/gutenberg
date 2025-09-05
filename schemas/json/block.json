@@ -259,7 +259,7 @@
 					"default": false
 				},
 				"className": {
-					"description": "By default, the class .wp-block-your-block-name is added to the root element of your saved markup. This helps having a consistent mechanism for styling blocks that themes and plugins can rely on. If, for whatever reason, a class is not desired on the markup, this functionality can be disabled.",
+					"description": "By default, the class .fp-block-your-block-name is added to the root element of your saved markup. This helps having a consistent mechanism for styling blocks that themes and plugins can rely on. If, for whatever reason, a class is not desired on the markup, this functionality can be disabled.",
 					"type": "boolean",
 					"default": true
 				},
@@ -649,7 +649,7 @@
 			"type": "object",
 			"properties": {
 				"root": {
-					"description": "The primary CSS class to apply to the block. This replaces the `.wp-block-name` class if set.",
+					"description": "The primary CSS class to apply to the block. This replaces the `.fp-block-name` class if set.",
 					"type": "string"
 				},
 				"border": {

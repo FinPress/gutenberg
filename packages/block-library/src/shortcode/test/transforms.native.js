@@ -11,9 +11,9 @@ import {
 
 const block = 'Shortcode';
 const initialHtml = `
-<!-- wp:shortcode -->
+<!-- fp:shortcode -->
 [youtube https://www.youtube.com/watch?v=ssfHW5lwFZg]
-<!-- /wp:shortcode -->`;
+<!-- /fp:shortcode -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

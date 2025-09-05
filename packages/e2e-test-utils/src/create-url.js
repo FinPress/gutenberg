@@ -6,19 +6,19 @@ import { join } from 'path';
 /**
  * Internal dependencies
  */
-import { WP_BASE_URL } from './shared/config';
+import { FP_BASE_URL } from './shared/config';
 
 /**
- * Creates new URL by parsing base URL, WPPath and query string.
+ * Creates new URL by parsing base URL, FPPath and query string.
  *
- * @param {string}  WPPath String to be serialized as pathname.
+ * @param {string}  FPPath String to be serialized as pathname.
  * @param {?string} query  String to be serialized as query portion of URL.
  * @return {string} String which represents full URL.
  */
-export function createURL( WPPath, query = '' ) {
-	const url = new URL( WP_BASE_URL );
+export function createURL( FPPath, query = '' ) {
+	const url = new URL( FP_BASE_URL );
 
-	url.pathname = join( url.pathname, WPPath );
+	url.pathname = join( url.pathname, FPPath );
 	url.search = query;
 
 	return url.href;

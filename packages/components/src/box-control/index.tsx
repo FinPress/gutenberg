@@ -171,7 +171,7 @@ function BoxControl( {
 		const definedProp = presets ? 'presets' : 'presetKey';
 		const missingProp = presets ? 'presetKey' : 'presets';
 		warning(
-			`wp.components.BoxControl: the '${ missingProp }' prop is required when the '${ definedProp }' prop is defined.`
+			`fp.components.BoxControl: the '${ missingProp }' prop is required when the '${ definedProp }' prop is defined.`
 		);
 	}
 

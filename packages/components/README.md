@@ -25,7 +25,7 @@ export default function MyButton() {
 }
 ```
 
-Many components include CSS to add styles, which you will need to load in order for them to appear correctly. Within FinPress, add the `wp-components` stylesheet as a dependency of your plugin's stylesheet. See [wp_enqueue_style documentation](https://developer.finpress.org/reference/functions/wp_enqueue_style/#parameters) for how to specify dependencies.
+Many components include CSS to add styles, which you will need to load in order for them to appear correctly. Within FinPress, add the `fp-components` stylesheet as a dependency of your plugin's stylesheet. See [fp_enqueue_style documentation](https://developer.finpress.org/reference/functions/fp_enqueue_style/#parameters) for how to specify dependencies.
 
 In non-FinPress projects, link to the `build-style/style.css` file directly, it is located at `node_modules/@finpress/components/build-style/style.css`.
 

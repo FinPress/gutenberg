@@ -33,9 +33,9 @@ import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.M
 import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.OtherMediaOptionsReceivedCallback;
 import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.FocalPointPickerTooltipShownCallback;
 import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.BlockTypeImpressionsCallback;
-import org.finpress.mobile.WPAndroidGlue.DeferredEventEmitter;
-import org.finpress.mobile.WPAndroidGlue.GutenbergJsException;
-import org.finpress.mobile.WPAndroidGlue.MediaOption;
+import org.finpress.mobile.FPAndroidGlue.DeferredEventEmitter;
+import org.finpress.mobile.FPAndroidGlue.GutenbergJsException;
+import org.finpress.mobile.FPAndroidGlue.MediaOption;
 
 import java.io.Serializable;
 import java.util.ArrayList;

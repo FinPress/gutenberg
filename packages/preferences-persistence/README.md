@@ -25,7 +25,7 @@ const persistenceLayer = create();
 Next, configure the preferences package to use this persistence layer:
 
 ```js
-wp.data( 'core/preferences' ).setPersistenceLayer( persistenceLayer );
+fp.data( 'core/preferences' ).setPersistenceLayer( persistenceLayer );
 ```
 
 ## Reference

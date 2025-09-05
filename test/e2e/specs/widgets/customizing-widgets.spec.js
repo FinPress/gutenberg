@@ -60,7 +60,7 @@ test.describe( 'Widgets Customizer', () => {
 
 		// Clear block selection, so the block toolbar isn't visible.
 		await page.evaluate( () => {
-			window.wp.data.dispatch( 'core/block-editor' ).clearSelectedBlock();
+			window.fp.data.dispatch( 'core/block-editor' ).clearSelectedBlock();
 		} );
 
 		await widgetsCustomizerPage.addBlock( 'Heading' );
@@ -124,7 +124,7 @@ test.describe( 'Widgets Customizer', () => {
 		);
 
 		await requestUtils.addWidgetBlock(
-			`<!-- wp:paragraph -->\n<p>First Paragraph</p>\n<!-- /wp:paragraph -->`,
+			`<!-- fp:paragraph -->\n<p>First Paragraph</p>\n<!-- /fp:paragraph -->`,
 			'sidebar-1'
 		);
 
@@ -239,11 +239,11 @@ test.describe( 'Widgets Customizer', () => {
 		widgetsCustomizerPage,
 	} ) => {
 		await requestUtils.addWidgetBlock(
-			`<!-- wp:paragraph -->\n<p>First Paragraph</p>\n<!-- /wp:paragraph -->`,
+			`<!-- fp:paragraph -->\n<p>First Paragraph</p>\n<!-- /fp:paragraph -->`,
 			'sidebar-1'
 		);
 		await requestUtils.addWidgetBlock(
-			`<!-- wp:heading -->\n<h2 class="wp-block-heading">First Heading</h2>\n<!-- /wp:heading -->`,
+			`<!-- fp:heading -->\n<h2 class="fp-block-heading">First Heading</h2>\n<!-- /fp:heading -->`,
 			'sidebar-1'
 		);
 
@@ -298,7 +298,7 @@ test.describe( 'Widgets Customizer', () => {
 		widgetsCustomizerPage,
 	} ) => {
 		await requestUtils.addWidgetBlock(
-			`<!-- wp:paragraph -->\n<p>First Paragraph</p>\n<!-- /wp:paragraph -->`,
+			`<!-- fp:paragraph -->\n<p>First Paragraph</p>\n<!-- /fp:paragraph -->`,
 			'sidebar-1'
 		);
 
@@ -419,7 +419,7 @@ test.describe( 'Widgets Customizer', () => {
 
 		// Wait for publishing to finish.
 		await Promise.all( [
-			page.waitForResponse( '/wp-admin/admin-ajax.php' ),
+			page.waitForResponse( '/fp-admin/admin-ajax.php' ),
 			page.click( 'role=button[name="Publish"i]' ),
 		] );
 		await expect(
@@ -441,7 +441,7 @@ test.describe( 'Widgets Customizer', () => {
 		widgetsCustomizerPage,
 	} ) => {
 		await requestUtils.addWidgetBlock(
-			`<!-- wp:paragraph -->\n<p>First Paragraph</p>\n<!-- /wp:paragraph -->`,
+			`<!-- fp:paragraph -->\n<p>First Paragraph</p>\n<!-- /fp:paragraph -->`,
 			'sidebar-1'
 		);
 
@@ -474,7 +474,7 @@ test.describe( 'Widgets Customizer', () => {
 		widgetsCustomizerPage,
 	} ) => {
 		await requestUtils.addWidgetBlock(
-			`<!-- wp:paragraph -->\n<p>First Paragraph</p>\n<!-- /wp:paragraph -->`,
+			`<!-- fp:paragraph -->\n<p>First Paragraph</p>\n<!-- /fp:paragraph -->`,
 			'sidebar-1'
 		);
 
@@ -536,7 +536,7 @@ test.describe( 'Widgets Customizer', () => {
 
 		// Click Publish
 		await Promise.all( [
-			page.waitForResponse( '/wp-admin/admin-ajax.php' ),
+			page.waitForResponse( '/fp-admin/admin-ajax.php' ),
 			page.click( 'role=button[name="Publish"i]' ),
 		] );
 		// Wait for publishing to finish.
@@ -589,7 +589,7 @@ test.describe( 'Widgets Customizer', () => {
 
 		// Click Publish
 		await Promise.all( [
-			page.waitForResponse( '/wp-admin/admin-ajax.php' ),
+			page.waitForResponse( '/fp-admin/admin-ajax.php' ),
 			page.click( 'role=button[name="Publish"i]' ),
 		] );
 

@@ -4,7 +4,7 @@
 import { __ } from '@finpress/i18n';
 import { useMemo, useState } from '@finpress/element';
 import { privateApis as routerPrivateApis } from '@finpress/router';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { Button } from '@finpress/components';
 import { addQueryArgs, removeQueryArgs } from '@finpress/url';
 import { seen } from '@finpress/icons';
@@ -70,14 +70,14 @@ export default function GlobalStylesUIWrapper() {
 	const [ isStyleBookOpened, setIsStyleBookOpened ] = useState(
 		path.includes( 'preview=stylebook' )
 	);
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
 	const [ section, onChangeSection ] = useSection();
 
 	return (
 		<>
 			<Page
 				actions={
-					! isMobileViewport ? (
+					! isMobileviewport ? (
 						<GlobalStylesPageActions
 							isStyleBookOpened={ isStyleBookOpened }
 							setIsStyleBookOpened={ setIsStyleBookOpened }

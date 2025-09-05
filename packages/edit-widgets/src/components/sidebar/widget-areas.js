@@ -36,7 +36,7 @@ export default function WidgetAreas( { selectedWidgetAreaId } ) {
 			// eslint-disable-next-line no-restricted-syntax -- 'sidebar' is a common web design term for layouts
 			'Widget Areas are global parts in your site’s layout that can accept blocks. These vary by theme, but are typically parts like your Sidebar or Footer.'
 		);
-	} else if ( selectedWidgetAreaId === 'wp_inactive_widgets' ) {
+	} else if ( selectedWidgetAreaId === 'fp_inactive_widgets' ) {
 		description = __(
 			'Blocks in this Widget Area will not be displayed in your site.'
 		);

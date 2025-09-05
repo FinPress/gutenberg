@@ -8,7 +8,7 @@ import { __ } from '@finpress/i18n';
 export default function NavigationMenuNameControl() {
 	const [ title, updateTitle ] = useEntityProp(
 		'postType',
-		'wp_navigation',
+		'fp_navigation',
 		'title'
 	);
 

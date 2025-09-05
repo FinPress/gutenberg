@@ -6,9 +6,9 @@
 			"attr2": "Two"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<p>Testing missing block with some</p>\n<div class=\"wp-some-class\">\n\tHTML <span style=\"color: red;\">content</span>\n</div>\n",
+		"innerHTML": "\n<p>Testing missing block with some</p>\n<div class=\"fp-some-class\">\n\tHTML <span style=\"color: red;\">content</span>\n</div>\n",
 		"innerContent": [
-			"\n<p>Testing missing block with some</p>\n<div class=\"wp-some-class\">\n\tHTML <span style=\"color: red;\">content</span>\n</div>\n"
+			"\n<p>Testing missing block with some</p>\n<div class=\"fp-some-class\">\n\tHTML <span style=\"color: red;\">content</span>\n</div>\n"
 		]
 	}
 ]

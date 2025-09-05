@@ -1,15 +1,15 @@
 ( function () {
-	const Button = wp.components.Button;
-	const PanelBody = wp.components.PanelBody;
-	const select = wp.data.select;
-	const dispatch = wp.data.dispatch;
-	const Fragment = wp.element.Fragment;
-	const el = wp.element.createElement;
-	const Component = wp.element.Component;
-	const __ = wp.i18n.__;
-	const registerPlugin = wp.plugins.registerPlugin;
-	const PluginSidebar = wp.editor.PluginSidebar;
-	const PluginSidebarMoreMenuItem = wp.editor.PluginSidebarMoreMenuItem;
+	const Button = fp.components.Button;
+	const PanelBody = fp.components.PanelBody;
+	const select = fp.data.select;
+	const dispatch = fp.data.dispatch;
+	const Fragment = fp.element.Fragment;
+	const el = fp.element.createElement;
+	const Component = fp.element.Component;
+	const __ = fp.i18n.__;
+	const registerPlugin = fp.plugins.registerPlugin;
+	const PluginSidebar = fp.editor.PluginSidebar;
+	const PluginSidebarMoreMenuItem = fp.editor.PluginSidebarMoreMenuItem;
 
 	class SidebarContents extends Component {
 		constructor( props ) {

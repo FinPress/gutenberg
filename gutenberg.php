@@ -15,7 +15,7 @@
 ### BEGIN AUTO-GENERATED DEFINES
 defined( 'GUTENBERG_DEVELOPMENT_MODE' ) or define( 'GUTENBERG_DEVELOPMENT_MODE', true );
 ### END AUTO-GENERATED DEFINES
-defined( 'GUTENBERG_MINIMUM_WP_VERSION' ) or define( 'GUTENBERG_MINIMUM_WP_VERSION', '6.7' );
+defined( 'GUTENBERG_MINIMUM_FP_VERSION' ) or define( 'GUTENBERG_MINIMUM_FP_VERSION', '6.7' );
 
 
 gutenberg_pre_init();
@@ -28,7 +28,7 @@ gutenberg_pre_init();
 function gutenberg_finpress_version_notice() {
 	echo '<div class="error"><p>';
 	/* translators: %s: Minimum required version */
-	printf( __( 'Gutenberg requires FinPress %s or later to function properly. Please upgrade FinPress before activating Gutenberg.', 'gutenberg' ), GUTENBERG_MINIMUM_WP_VERSION );
+	printf( __( 'Gutenberg requires FinPress %s or later to function properly. Please upgrade FinPress before activating Gutenberg.', 'gutenberg' ), GUTENBERG_MINIMUM_FP_VERSION );
 	echo '</p></div>';
 
 	deactivate_plugins( array( 'gutenberg/gutenberg.php' ) );
@@ -50,26 +50,26 @@ function gutenberg_build_files_notice() {
  *
  * @since 1.5.0
  *
- * @global string $wp_version             The FinPress version string.
+ * @global string $fp_version             The FinPress version string.
  *
  */
 function gutenberg_pre_init() {
-	global $wp_version;
+	global $fp_version;
 	if ( defined( 'GUTENBERG_DEVELOPMENT_MODE' ) && GUTENBERG_DEVELOPMENT_MODE && ! file_exists( __DIR__ . '/build/blocks' ) ) {
 		add_action( 'admin_notices', 'gutenberg_build_files_notice' );
 		return;
 	}
 
-	// Get unmodified $wp_version.
-	include ABSPATH . WPINC . '/version.php';
+	// Get unmodified $fp_version.
+	include ABSPATH . FPINC . '/version.php';
 
 	// Strip '-src' from the version string. Messes up version_compare().
-	$version = str_replace( '-src', '', $wp_version );
+	$version = str_replace( '-src', '', $fp_version );
 
 	// Compare against major release versions (X.Y) rather than minor (X.Y.Z)
 	// unless a minor release is the actual minimum requirement. FinPress reports
 	// X.Y for its major releases.
-	if ( version_compare( $version, GUTENBERG_MINIMUM_WP_VERSION, '<' ) ) {
+	if ( version_compare( $version, GUTENBERG_MINIMUM_FP_VERSION, '<' ) ) {
 		add_action( 'admin_notices', 'gutenberg_finpress_version_notice' );
 		return;
 	}

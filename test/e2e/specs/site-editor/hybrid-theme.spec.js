@@ -29,11 +29,11 @@ test.describe( 'Hybrid theme', () => {
 	} ) => {
 		await admin.visitAdminPage(
 			'site-editor.php',
-			'path=/wp_template_part/all'
+			'path=/fp_template_part/all'
 		);
 
 		await expect( page ).toHaveURL(
-			'/wp-admin/site-editor.php?p=%2Fpattern&postType=wp_template_part'
+			'/fp-admin/site-editor.php?p=%2Fpattern&postType=fp_template_part'
 		);
 
 		await expect(
@@ -76,7 +76,7 @@ test.describe( 'Hybrid theme', () => {
 	test( 'can not export Site Editor Templates', async ( { admin, page } ) => {
 		await admin.visitSiteEditor( {
 			postId: 'gutenberg-test-themes/emptyhybrid//header',
-			postType: 'wp_template_part',
+			postType: 'fp_template_part',
 			canvas: 'edit',
 		} );
 

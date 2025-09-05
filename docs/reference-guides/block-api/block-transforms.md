@@ -48,7 +48,7 @@ A transformation of type `block` is an object that takes the following parameter
 
 **Example: from Paragraph block to Heading block**
 
-To declare this transformation we add the following code into the heading block configuration, which uses the `createBlock` function from the [`wp-blocks` package](/packages/blocks/README.md#createBlock).
+To declare this transformation we add the following code into the heading block configuration, which uses the `createBlock` function from the [`fp-blocks` package](/packages/blocks/README.md#createBlock).
 
 ```js
 transforms: {
@@ -270,8 +270,8 @@ A transformation of type `shortcode` is an object that takes the following param
 
 -   **type** _(string)_: the value `shortcode`.
 -   **tag** _(string|array)_: the shortcode tag or list of shortcode aliases this transform can work with.
--   **transform** _(function, optional)_: a callback that receives the shortcode attributes as the first argument and the [WPShortcodeMatch](/packages/shortcode/README.md#next) as the second. It should return a block object or an array of block objects. When this parameter is defined, it will take precedence over the `attributes` parameter.
--   **attributes** _(object, optional)_: object representing where the block attributes should be sourced from, according to the attributes shape defined by the [block configuration object](/docs/reference-guides/block-api/block-registration.md). If a particular attribute contains a `shortcode` key, it should be a function that receives the shortcode attributes as the first arguments and the [WPShortcodeMatch](/packages/shortcode/README.md#next) as second, and returns a value for the attribute that will be sourced in the block's comment.
+-   **transform** _(function, optional)_: a callback that receives the shortcode attributes as the first argument and the [FPShortcodeMatch](/packages/shortcode/README.md#next) as the second. It should return a block object or an array of block objects. When this parameter is defined, it will take precedence over the `attributes` parameter.
+-   **attributes** _(object, optional)_: object representing where the block attributes should be sourced from, according to the attributes shape defined by the [block configuration object](/docs/reference-guides/block-api/block-registration.md). If a particular attribute contains a `shortcode` key, it should be a function that receives the shortcode attributes as the first arguments and the [FPShortcodeMatch](/packages/shortcode/README.md#next) as second, and returns a value for the attribute that will be sourced in the block's comment.
 -   **isMatch** _(function, optional)_: a callback that receives the shortcode attributes per the [Shortcode API](https://codex.finpress.org/Shortcode_API) and should return a boolean. Returning `false` from this function will prevent the shortcode to be transformed into this block.
 -   **priority** _(number, optional)_: controls the priority with which a transform is applied, where a lower value will take precedence over higher values. This behaves much like a [FinPress hook](https://developer.finpress.org/reference/#Hook_to_FinPress). Like hooks, the default priority is `10` when not otherwise set.
 

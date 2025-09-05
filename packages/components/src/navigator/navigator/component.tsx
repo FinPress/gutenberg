@@ -247,9 +247,9 @@ function UnconnectedNavigator(
 			goTo: ( path: string, options?: NavigateOptions ) =>
 				dispatch( { type: 'goto', path, options } ),
 			goToParent: ( options: NavigateToParentOptions | undefined ) => {
-				deprecated( `wp.components.useNavigator().goToParent`, {
+				deprecated( `fp.components.useNavigator().goToParent`, {
 					since: '6.7',
-					alternative: 'wp.components.useNavigator().goBack',
+					alternative: 'fp.components.useNavigator().goBack',
 				} );
 				dispatch( { type: 'gotoparent', options } );
 			},

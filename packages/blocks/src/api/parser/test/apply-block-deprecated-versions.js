@@ -45,7 +45,7 @@ describe( 'applyBlockDeprecatedVersions', () => {
 		const block = deepFreeze( {
 			name: 'core/test-block',
 			attributes: {},
-			originalContent: '<span class="wp-block-test-block">Bananas</span>',
+			originalContent: '<span class="fp-block-test-block">Bananas</span>',
 			isValid: false,
 		} );
 		const blockType = registerBlockType(
@@ -67,7 +67,7 @@ describe( 'applyBlockDeprecatedVersions', () => {
 		const block = deepFreeze( {
 			name: 'core/test-block',
 			attributes: {},
-			originalContent: '<span class="wp-block-test-block">Bananas</span>',
+			originalContent: '<span class="fp-block-test-block">Bananas</span>',
 			isValid: false,
 		} );
 		const blockType = registerBlockType( 'core/test-block', {

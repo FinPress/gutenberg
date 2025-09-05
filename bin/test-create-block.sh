@@ -29,7 +29,7 @@ trap cleanup EXIT
 # First test block
 
 status "Scaffolding Example Static (ES5) block..."
-npx wp-create-block example-static-es5 -t es5
+npx fp-create-block example-static-es5 -t es5
 cd example-static-es5
 
 status "Verifying project..."
@@ -45,7 +45,7 @@ cd ..
 # Second test block
 
 status "Scaffolding Example Static block..."
-npx wp-create-block example-static --no-wp-scripts
+npx fp-create-block example-static --no-fp-scripts
 cd example-static
 
 status "Verifying project..."
@@ -63,10 +63,10 @@ if [ "$expected" -ne "$actual" ]; then
 fi
 
 status "Formatting files..."
-../node_modules/.bin/wp-scripts format
+../node_modules/.bin/fp-scripts format
 
 status "Building block..."
-../node_modules/.bin/wp-scripts build
+../node_modules/.bin/fp-scripts build
 
 status "Verifying build..."
 expected=9
@@ -77,10 +77,10 @@ if [ "$expected" -ne "$actual" ]; then
 fi
 
 status "Linting CSS files..."
-../node_modules/.bin/wp-scripts lint-style
+../node_modules/.bin/fp-scripts lint-style
 
 status "Linting JavaScript files..."
-../node_modules/.bin/wp-scripts lint-js
+../node_modules/.bin/fp-scripts lint-js
 
 status "Creating a plugin zip file..."
-../node_modules/.bin/wp-scripts plugin-zip
+../node_modules/.bin/fp-scripts plugin-zip

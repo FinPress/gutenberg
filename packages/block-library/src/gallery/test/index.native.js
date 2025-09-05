@@ -599,15 +599,15 @@ describe( 'Gallery block', () => {
 	it( 'overrides "Link" setting of gallery items', async () => {
 		// Initialize with a gallery that contains two items, the latter includes "linkDestination" attribute
 		const screen = await initializeWithGalleryBlock( {
-			html: `<!-- wp:gallery {"linkTo":"none"} -->
-		<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":${ media[ 0 ].localId }} -->
-		<figure class="wp-block-image"><img src="${ media[ 0 ].localUrl }" alt="" class="wp-image-${ media[ 0 ].localId }"/></figure>
-		<!-- /wp:image -->
+			html: `<!-- fp:gallery {"linkTo":"none"} -->
+		<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":${ media[ 0 ].localId }} -->
+		<figure class="fp-block-image"><img src="${ media[ 0 ].localUrl }" alt="" class="fp-image-${ media[ 0 ].localId }"/></figure>
+		<!-- /fp:image -->
 
-		<!-- wp:image {"id":${ media[ 1 ].localId },"linkDestination":"attachment"} -->
-		<figure class="wp-block-image"><img src="${ media[ 1 ].localUrl }" alt="" class="wp-image-${ media[ 1 ].localId }"/></figure>
-		<!-- /wp:image --></figure>
-		<!-- /wp:gallery -->`,
+		<!-- fp:image {"id":${ media[ 1 ].localId },"linkDestination":"attachment"} -->
+		<figure class="fp-block-image"><img src="${ media[ 1 ].localUrl }" alt="" class="fp-image-${ media[ 1 ].localId }"/></figure>
+		<!-- /fp:image --></figure>
+		<!-- /fp:gallery -->`,
 			numberOfItems: 2,
 		} );
 		const { getByText } = screen;

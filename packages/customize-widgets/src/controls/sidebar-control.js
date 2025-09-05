@@ -14,7 +14,7 @@ const getInserterId = ( controlId ) => `widgets-inserter-${ controlId }`;
 
 export default function getSidebarControl() {
 	const {
-		wp: { customize },
+		fp: { customize },
 	} = window;
 
 	return class SidebarControl extends customize.Control {

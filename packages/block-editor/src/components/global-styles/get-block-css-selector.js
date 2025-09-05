@@ -45,7 +45,7 @@ export function getBlockCSSSelector(
 	} else {
 		// If no root selector found, generate default block class selector.
 		rootSelector =
-			'.wp-block-' + name.replace( 'core/', '' ).replace( '/', '-' );
+			'.fp-block-' + name.replace( 'core/', '' ).replace( '/', '-' );
 	}
 
 	// Return selector if it's the root target we are looking for.

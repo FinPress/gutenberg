@@ -53,10 +53,10 @@ export function getResolutionState( state, selectorName, args ) {
  * @return {boolean | undefined} isResolving value.
  */
 export function getIsResolving( state, selectorName, args ) {
-	deprecated( 'wp.data.select( store ).getIsResolving', {
+	deprecated( 'fp.data.select( store ).getIsResolving', {
 		since: '6.6',
 		version: '6.8',
-		alternative: 'wp.data.select( store ).getResolutionState',
+		alternative: 'fp.data.select( store ).getResolutionState',
 	} );
 
 	const resolutionState = getResolutionState( state, selectorName, args );

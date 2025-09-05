@@ -1,7 +1,7 @@
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import {
 	Navigator,
 	__experimentalItemGroup as ItemGroup,
@@ -29,7 +29,7 @@ const { Tabs } = unlock( componentsPrivateApis );
 const PREFERENCES_MENU = 'preferences-menu';
 
 export default function PreferencesModalTabs( { sections } ) {
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 
 	// This is also used to sync the two different rendered components
 	// between small and large viewports.
@@ -59,7 +59,7 @@ export default function PreferencesModalTabs( { sections } ) {
 
 	let modalContent;
 	// We render different components based on the viewport size.
-	if ( isLargeViewport ) {
+	if ( isLargeviewport ) {
 		modalContent = (
 			<div className="preferences__tabs">
 				<Tabs

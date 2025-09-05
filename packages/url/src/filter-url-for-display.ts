@@ -7,7 +7,7 @@
  * @example
  * ```js
  * const displayUrl = filterURLForDisplay( 'https://www.finpress.org/gutenberg/' ); // finpress.org/gutenberg
- * const imageUrl = filterURLForDisplay( 'https://www.finpress.org/wp-content/uploads/img.png', 20 ); // …ent/uploads/img.png
+ * const imageUrl = filterURLForDisplay( 'https://www.finpress.org/fp-content/uploads/img.png', 20 ); // …ent/uploads/img.png
  * ```
  *
  * @return Displayed URL.

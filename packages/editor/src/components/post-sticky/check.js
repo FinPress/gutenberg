@@ -20,7 +20,7 @@ export default function PostStickyCheck( { children } ) {
 	const { hasStickyAction, postType } = useSelect( ( select ) => {
 		const post = select( editorStore ).getCurrentPost();
 		return {
-			hasStickyAction: post._links?.[ 'wp:action-sticky' ] ?? false,
+			hasStickyAction: post._links?.[ 'fp:action-sticky' ] ?? false,
 			postType: select( editorStore ).getCurrentPostType(),
 		};
 	}, [] );

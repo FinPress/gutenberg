@@ -8,11 +8,11 @@
  * @covers ::gutenberg_render_block_core_post_title
  * @group blocks
  */
-class Tests_Blocks_RenderBlockCorePostTitle extends WP_UnitTestCase {
+class Tests_Blocks_RenderBlockCorePostTitle extends FP_UnitTestCase {
 	/**
 	 * Post object.
 	 *
-	 * @var WP_Post
+	 * @var FP_Post
 	 */
 	protected static $post;
 
@@ -26,16 +26,16 @@ class Tests_Blocks_RenderBlockCorePostTitle extends WP_UnitTestCase {
 	/**
 	 * Block object.
 	 *
-	 * @var WP_Block
+	 * @var FP_Block
 	 */
 	protected static $block;
 
 	/**
 	 * Setup method.
 	 *
-	 * @param WP_UnitTest_Factory $factory Helper that lets us create fake data.
+	 * @param FP_UnitTest_Factory $factory Helper that lets us create fake data.
 	 */
-	public static function wpSetUpBeforeClass( WP_UnitTest_Factory $factory ) {
+	public static function fpSetUpBeforeClass( FP_UnitTest_Factory $factory ) {
 		self::$post = $factory->post->create_and_get( array( 'post_title' => 'Post title block Unit Test' ) );
 
 		self::$attributes = array(
@@ -58,15 +58,15 @@ class Tests_Blocks_RenderBlockCorePostTitle extends WP_UnitTestCase {
 			'innerHTML'    => array(),
 		);
 
-		WP_Block_Supports::init();
-		WP_Block_Supports::$block_to_render = $block_args;
+		FP_Block_Supports::init();
+		FP_Block_Supports::$block_to_render = $block_args;
 	}
 
 	/**
 	 * Tear down method.
 	 */
-	public static function wpTearDownAfterClass() {
-		wp_delete_post( self::$post->ID, true );
+	public static function fpTearDownAfterClass() {
+		fp_delete_post( self::$post->ID, true );
 	}
 
 	/**

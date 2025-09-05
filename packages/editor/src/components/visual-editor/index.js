@@ -22,7 +22,7 @@ import { parse } from '@finpress/blocks';
 import { store as coreStore } from '@finpress/core-data';
 import {
 	useMergeRefs,
-	useViewportMatch,
+	useviewportMatch,
 	useResizeObserver,
 } from '@finpress/compose';
 
@@ -110,7 +110,7 @@ function VisualEditor( {
 	const effectContentHeight = useResizeObserver( ( [ entry ] ) => {
 		setContentHeight( entry.borderBoxSize[ 0 ].blockSize );
 	} );
-	const isMobileViewport = useViewportMatch( 'small', '<' );
+	const isMobileviewport = useviewportMatch( 'small', '<' );
 	const {
 		renderingMode,
 		postContentAttributes,
@@ -321,8 +321,8 @@ function VisualEditor( {
 	}, [ autoFocus, isCleanNewPost ] );
 
 	// Add some styles for alignwide/alignfull Post Content and its children.
-	const alignCSS = `.is-root-container.alignwide { max-width: var(--wp--style--global--wide-size); margin-left: auto; margin-right: auto;}
-		.is-root-container.alignwide:where(.is-layout-flow) > :not(.alignleft):not(.alignright) { max-width: var(--wp--style--global--wide-size);}
+	const alignCSS = `.is-root-container.alignwide { max-width: var(--fp--style--global--wide-size); margin-left: auto; margin-right: auto;}
+		.is-root-container.alignwide:where(.is-layout-flow) > :not(.alignleft):not(.alignright) { max-width: var(--fp--style--global--wide-size);}
 		.is-root-container.alignfull { max-width: none; margin-left: auto; margin-right: auto;}
 		.is-root-container.alignfull:where(.is-layout-flow) > :not(.alignleft):not(.alignright) { max-width: none;}`;
 
@@ -336,7 +336,7 @@ function VisualEditor( {
 		// Disable in previews / view mode.
 		! isPreview &&
 		// Disable resizing in mobile viewport.
-		! isMobileViewport &&
+		! isMobileviewport &&
 		// Disable resizing in zoomed-out mode.
 		! isZoomedOut;
 
@@ -461,8 +461,8 @@ function VisualEditor( {
 								'is-' + deviceType.toLowerCase() + '-preview',
 								renderingMode !== 'post-only' ||
 									isDesignPostType
-									? 'wp-site-blocks'
-									: `${ blockListLayoutClass } wp-block-post-content`, // Ensure root level blocks receive default/flow blockGap styling rules.
+									? 'fp-site-blocks'
+									: `${ blockListLayoutClass } fp-block-post-content`, // Ensure root level blocks receive default/flow blockGap styling rules.
 								{
 									'has-global-padding':
 										renderingMode === 'post-only' &&

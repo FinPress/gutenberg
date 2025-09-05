@@ -11,12 +11,12 @@
 <section>
 	<h2>Region 1</h2>
 	<div
-		data-wp-interactive="router-regions"
-		data-wp-router-region="region-1"
+		data-fp-interactive="router-regions"
+		data-fp-router-region="region-1"
 	>
 		<p
 			data-testid="region-1-text"
-			data-wp-text="state.region1.text"
+			data-fp-text="state.region1.text"
 		>not hydrated</p>
 		<p
 			data-testid="region-1-ssr"
@@ -24,20 +24,20 @@
 
 		<button
 			data-testid="state-counter"
-			data-wp-text="state.counter.value"
-			data-wp-on--click="actions.counter.increment"
+			data-fp-text="state.counter.value"
+			data-fp-on--click="actions.counter.increment"
 		>NaN</button>
 
 		<?php if ( isset( $attributes['next'] ) ) : ?>
 			<a
 				data-testid="next"
-				data-wp-on--click="actions.router.navigate"
+				data-fp-on--click="actions.router.navigate"
 				href="<?php echo $attributes['next']; ?>"
 			>Next</a>
 		<?php else : ?>
 			<a
 				data-testid="back"
-				data-wp-on--click="actions.router.back"
+				data-fp-on--click="actions.router.back"
 				href="#"
 			>Back</a>
 		<?php endif; ?>
@@ -47,19 +47,19 @@
 <div>
 	<p
 		data-testid="no-region-text-1"
-		data-wp-text="state.region1.text"
+		data-fp-text="state.region1.text"
 	>not hydrated</p>
 </div>
 
 <section>
 	<h2>Region 2</h2>
 	<div
-		data-wp-interactive="router-regions"
-		data-wp-router-region="region-2"
+		data-fp-interactive="router-regions"
+		data-fp-router-region="region-2"
 	>
 		<p
 			data-testid="region-2-text"
-			data-wp-text="state.region2.text"
+			data-fp-text="state.region2.text"
 		>not hydrated</p>
 		<p
 			data-testid="region-2-ssr"
@@ -67,41 +67,41 @@
 
 		<button
 			data-testid="context-counter"
-			data-wp-context='{ "counter": { "initialValue": 0 } }'
-			data-wp-init="actions.counter.init"
-			data-wp-text="context.counter.value"
-			data-wp-on--click="actions.counter.increment"
+			data-fp-context='{ "counter": { "initialValue": 0 } }'
+			data-fp-init="actions.counter.init"
+			data-fp-text="context.counter.value"
+			data-fp-on--click="actions.counter.increment"
 		>NaN</button>
 
 		<div>
 			<div>
 				<p
 					data-testid="no-region-text-2"
-					data-wp-text="state.region2.text"
+					data-fp-text="state.region2.text"
 				>not hydrated</p>
 			</div>
 
 			<section>
 				<h2>Nested region</h2>
 				<div
-					data-wp-interactive="router-regions"
-					data-wp-router-region="nested-region"
+					data-fp-interactive="router-regions"
+					data-fp-router-region="nested-region"
 				>
 					<p data-testid="nested-region-ssr">
 						content from page <?php echo $attributes['page']; ?>
 					</p>
 
-					<button data-testid="add-item" data-wp-on--click="actions.addItem">
+					<button data-testid="add-item" data-fp-on--click="actions.addItem">
 						Add item
 					</button>
 
 					<ul>
-						<template data-wp-each="state.items">
-							<li data-testid="nested-item" data-wp-key="context.item" data-wp-text="context.item"></li>	
+						<template data-fp-each="state.items">
+							<li data-testid="nested-item" data-fp-key="context.item" data-fp-text="context.item"></li>	
 						</template>
-						<li data-testid="nested-item" data-wp-each-child>item 1</li>
-						<li data-testid="nested-item" data-wp-each-child>item 2</li>
-						<li data-testid="nested-item" data-wp-each-child>item 3</li>
+						<li data-testid="nested-item" data-fp-each-child>item 1</li>
+						<li data-testid="nested-item" data-fp-each-child>item 2</li>
+						<li data-testid="nested-item" data-fp-each-child>item 3</li>
 					</ul>
 				</div>
 			</section>
@@ -109,13 +109,13 @@
 	</div>
 </section>
 
-<div data-wp-interactive="router-regions">
-	<div data-wp-router-region="invalid-region-1">
+<div data-fp-interactive="router-regions">
+	<div data-fp-router-region="invalid-region-1">
 		<p data-testid="invalid-region-text-1">
 			content from page <?php echo $attributes['page']; ?>
 		</p>
 	</div>
-	<div data-wp-interactive="router-regions" data-wp-router-region="invalid-region-2">
+	<div data-fp-interactive="router-regions" data-fp-router-region="invalid-region-2">
 		<p data-testid="invalid-region-text-2">
 			content from page <?php echo $attributes['page']; ?>
 		</p>
@@ -129,19 +129,19 @@
 	 * as defined in the `regionsWithAttachTo` attribute.
 	 *
 	 * Each object inside such an attribute have the following properties:
-	 * - `type`: the type of the HTML element where the `data-wp-router-region` directive is defined, e.g. 'div'.
-	 * - `data`: the data passed to the `data-wp-router-region` directive, i.e., `id` and `attachTo`.
+	 * - `type`: the type of the HTML element where the `data-fp-router-region` directive is defined, e.g. 'div'.
+	 * - `data`: the data passed to the `data-fp-router-region` directive, i.e., `id` and `attachTo`.
 	 * - `hasDirectives`: a boolean indicating that the top element of the router region have actual directives that
 	 *     make the element to be wrapped in a `Directives` component.
 	 */
 	foreach ( $attributes['regionsWithAttachTo'] ?? array() as $region ) {
 		$region_type    = esc_attr( $region['type'] );
 		$region_id      = esc_attr( $region['data']['id'] );
-		$region_data    = wp_json_encode( $region['data'] );
+		$region_data    = fp_json_encode( $region['data'] );
 		$has_directives = isset( $region['hasDirectives'] )
-			? ' data-wp-init="callbacks.init"'
+			? ' data-fp-init="callbacks.init"'
 			: '';
-		$context_data   = wp_interactivity_data_wp_context(
+		$context_data   = fp_interactivity_data_fp_context(
 			array(
 				'text'    => $region['data']['id'],
 				'counter' => array(
@@ -153,8 +153,8 @@
 
 		$html = <<<HTML
 		<$region_type
-			data-wp-interactive="router-regions"
-			data-wp-router-region='$region_data'
+			data-fp-interactive="router-regions"
+			data-fp-router-region='$region_data'
 			data-testid="$region_id"
 			$has_directives
 		>
@@ -162,14 +162,14 @@
 				<h2>Region with <code>attachTo</code></h2>
 				<p
 					data-testid="text"
-					data-wp-text="context.text"
+					data-fp-text="context.text"
 				>not hydrated</p>
 
 				<p> Client value:
 					<button
 						data-testid="client-counter"
-						data-wp-text="context.counter.value"
-						data-wp-on--click="actions.counter.increment"
+						data-fp-text="context.counter.value"
+						data-fp-on--click="actions.counter.increment"
 					>
 						NaN
 					</button>
@@ -177,8 +177,8 @@
 				<p> Server value:
 					<output
 						data-testid="server-counter"
-						data-wp-text="context.counter.serverValue"
-						data-wp-watch="actions.counter.updateCounterFromServer"
+						data-fp-text="context.counter.serverValue"
+						data-fp-watch="actions.counter.updateCounterFromServer"
 					>
 						NaN
 					</output>
@@ -194,12 +194,12 @@ HTML;
 
 <!--
 	Count of times the `actions.init` function has been executed.
-	Used to verify that `data-wp-init` works on regions with `attachTo`.
+	Used to verify that `data-fp-init` works on regions with `attachTo`.
 -->
 <div
-	data-wp-interactive="router-regions"
+	data-fp-interactive="router-regions"
 	data-testid="init-count"
-	data-wp-text="state.initCount"
+	data-fp-text="state.initCount"
 >
 	NaN
 </div>

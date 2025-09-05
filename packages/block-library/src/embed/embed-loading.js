@@ -4,7 +4,7 @@
 import { Spinner } from '@finpress/components';
 
 const EmbedLoading = () => (
-	<div className="wp-block-embed is-loading">
+	<div className="fp-block-embed is-loading">
 		<Spinner />
 	</div>
 );

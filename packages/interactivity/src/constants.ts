@@ -1,1 +1,1 @@
-export const directivePrefix: string = 'wp';
+export const directivePrefix: string = 'fp';

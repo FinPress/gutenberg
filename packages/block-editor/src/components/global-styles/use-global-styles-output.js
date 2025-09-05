@@ -40,8 +40,8 @@ import { unlock } from '../../lock-unlock';
 
 // Elements that rely on class names in their selectors.
 const ELEMENT_CLASS_NAMES = {
-	button: 'wp-element-button',
-	caption: 'wp-element-caption',
+	button: 'fp-element-button',
+	caption: 'fp-element-caption',
 };
 
 // List of block support features that can have their related styles
@@ -75,7 +75,7 @@ function getPresetsDeclarations( blockPresets = {}, mergedSettings ) {
 					presetByOrigin[ origin ].forEach( ( value ) => {
 						if ( valueKey && ! valueFunc ) {
 							declarations.push(
-								`--wp--preset--${ cssVarInfix }--${ kebabCase(
+								`--fp--preset--${ cssVarInfix }--${ kebabCase(
 									value.slug
 								) }: ${ value[ valueKey ] }`
 							);
@@ -84,7 +84,7 @@ function getPresetsDeclarations( blockPresets = {}, mergedSettings ) {
 							typeof valueFunc === 'function'
 						) {
 							declarations.push(
-								`--wp--preset--${ cssVarInfix }--${ kebabCase(
+								`--fp--preset--${ cssVarInfix }--${ kebabCase(
 									value.slug
 								) }: ${ valueFunc( value, mergedSettings ) }`
 							);
@@ -132,7 +132,7 @@ function getPresetsClasses( blockSelector = '*', blockPresets = {} ) {
 										`${ selector }${ classSelectorToUse }`
 								)
 								.join( ',' );
-							const value = `var(--wp--preset--${ cssVarInfix }--${ kebabCase(
+							const value = `var(--fp--preset--${ cssVarInfix }--${ kebabCase(
 								slug
 							) })`;
 							declarations += `${ selectorToUse }{${ propertyName }: ${ value } !important;}`;
@@ -161,7 +161,7 @@ function getPresetsSvgFilters( blockPresets = {} ) {
 			.flatMap( ( origin ) =>
 				presetByOrigin[ origin ].map( ( preset ) =>
 					getDuotoneFilter(
-						`wp-duotone-${ preset.slug }`,
+						`fp-duotone-${ preset.slug }`,
 						preset.colors
 					)
 				)
@@ -334,7 +334,7 @@ export function getStylesDeclarations(
 			// Root-level padding styles don't currently support strings with CSS shorthand values.
 			// This may change: https://github.com/FinPress/gutenberg/issues/40132.
 			if (
-				key === '--wp--style--root--padding' &&
+				key === '--fp--style--root--padding' &&
 				( typeof styleValue === 'string' || ! useRootPaddingAlign )
 			) {
 				return declarations;
@@ -554,7 +554,7 @@ export function getLayoutStyles( {
 		);
 		// For backwards compatibility, ensure the legacy block gap CSS variable is still available.
 		if ( selector === ROOT_BLOCK_SELECTOR && hasBlockGapSupport ) {
-			ruleset += `${ ROOT_CSS_PROPERTIES_SELECTOR } { --wp--style--block-gap: ${ gapValue }; }`;
+			ruleset += `${ ROOT_CSS_PROPERTIES_SELECTOR } { --fp--style--block-gap: ${ gapValue }; }`;
 		}
 	}
 
@@ -871,7 +871,7 @@ export const toCustomProperties = ( tree, blockSelectors ) => {
 	let ruleset = '';
 	settings.forEach( ( { presets, custom, selector } ) => {
 		const declarations = getPresetsDeclarations( presets, tree?.settings );
-		const customProps = flattenTree( custom, '--wp--custom--', '--' );
+		const customProps = flattenTree( custom, '--fp--custom--', '--' );
 		if ( customProps.length > 0 ) {
 			declarations.push( ...customProps );
 		}
@@ -916,10 +916,10 @@ export const toStyles = (
 	if ( options.presets && ( contentSize || wideSize ) ) {
 		ruleset += `${ ROOT_CSS_PROPERTIES_SELECTOR } {`;
 		ruleset = contentSize
-			? ruleset + ` --wp--style--global--content-size: ${ contentSize };`
+			? ruleset + ` --fp--style--global--content-size: ${ contentSize };`
 			: ruleset;
 		ruleset = wideSize
-			? ruleset + ` --wp--style--global--wide-size: ${ wideSize };`
+			? ruleset + ` --fp--style--global--wide-size: ${ wideSize };`
 			: ruleset;
 		ruleset += '}';
 	}
@@ -938,14 +938,14 @@ export const toStyles = (
 		// Root padding styles should be output for full templates, patterns and template parts.
 		if ( options.rootPadding && useRootPaddingAlign ) {
 			/*
-			 * These rules reproduce the ones from https://github.com/FinPress/gutenberg/blob/79103f124925d1f457f627e154f52a56228ed5ad/lib/class-wp-theme-json-gutenberg.php#L2508
+			 * These rules reproduce the ones from https://github.com/FinPress/gutenberg/blob/79103f124925d1f457f627e154f52a56228ed5ad/lib/class-fp-theme-json-gutenberg.php#L2508
 			 * almost exactly, but for the selectors that target block wrappers in the front end. This code only runs in the editor, so it doesn't need those selectors.
 			 */
-			ruleset += `padding-right: 0; padding-left: 0; padding-top: var(--wp--style--root--padding-top); padding-bottom: var(--wp--style--root--padding-bottom) }
-				.has-global-padding { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); }
-				.has-global-padding > .alignfull { margin-right: calc(var(--wp--style--root--padding-right) * -1); margin-left: calc(var(--wp--style--root--padding-left) * -1); }
-				.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.wp-block-block, .alignfull)) { padding-right: 0; padding-left: 0; }
-				.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.wp-block-block, .alignfull)) > .alignfull { margin-left: 0; margin-right: 0;
+			ruleset += `padding-right: 0; padding-left: 0; padding-top: var(--fp--style--root--padding-top); padding-bottom: var(--fp--style--root--padding-bottom) }
+				.has-global-padding { padding-right: var(--fp--style--root--padding-right); padding-left: var(--fp--style--root--padding-left); }
+				.has-global-padding > .alignfull { margin-right: calc(var(--fp--style--root--padding-right) * -1); margin-left: calc(var(--fp--style--root--padding-left) * -1); }
+				.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.fp-block-block, .alignfull)) { padding-right: 0; padding-left: 0; }
+				.has-global-padding :where(:not(.alignfull.is-layout-flow) > .has-global-padding:not(.fp-block-block, .alignfull)) > .alignfull { margin-left: 0; margin-right: 0;
 				`;
 		}
 
@@ -1138,13 +1138,13 @@ export const toStyles = (
 		/* Add alignment / layout styles */
 		ruleset =
 			ruleset +
-			'.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }';
+			'.fp-site-blocks > .alignleft { float: left; margin-right: 2em; }';
 		ruleset =
 			ruleset +
-			'.wp-site-blocks > .alignright { float: right; margin-left: 2em; }';
+			'.fp-site-blocks > .alignright { float: right; margin-left: 2em; }';
 		ruleset =
 			ruleset +
-			'.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }';
+			'.fp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }';
 	}
 
 	if ( options.blockGap && hasBlockGapSupport ) {
@@ -1153,13 +1153,13 @@ export const toStyles = (
 			getGapCSSValue( tree?.styles?.spacing?.blockGap ) || '0.5em';
 		ruleset =
 			ruleset +
-			`:root :where(.wp-site-blocks) > * { margin-block-start: ${ gapValue }; margin-block-end: 0; }`;
+			`:root :where(.fp-site-blocks) > * { margin-block-start: ${ gapValue }; margin-block-end: 0; }`;
 		ruleset =
 			ruleset +
-			':root :where(.wp-site-blocks) > :first-child { margin-block-start: 0; }';
+			':root :where(.fp-site-blocks) > :first-child { margin-block-start: 0; }';
 		ruleset =
 			ruleset +
-			':root :where(.wp-site-blocks) > :last-child { margin-block-end: 0; }';
+			':root :where(.fp-site-blocks) > :last-child { margin-block-end: 0; }';
 	}
 
 	if ( options.presets ) {

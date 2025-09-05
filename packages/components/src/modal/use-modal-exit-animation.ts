@@ -37,7 +37,7 @@ export function useModalExitAnimation() {
 
 				if ( ! frameEl ) {
 					warning(
-						"wp.components.Modal: the Modal component can't be closed with an exit animation because of a missing reference to the modal frame element."
+						"fp.components.Modal: the Modal component can't be closed with an exit animation because of a missing reference to the modal frame element."
 					);
 					closeModalResolve();
 					return;

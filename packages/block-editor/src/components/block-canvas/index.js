@@ -1,7 +1,7 @@
 /**
  * FinPress dependencies
  */
-import { useMergeRefs, useViewportMatch } from '@finpress/compose';
+import { useMergeRefs, useviewportMatch } from '@finpress/compose';
 import { useRef } from '@finpress/element';
 import { useSelect } from '@finpress/data';
 
@@ -35,7 +35,7 @@ export function ExperimentalBlockCanvas( {
 	iframeProps,
 } ) {
 	useBlockCommands();
-	const isTabletViewport = useViewportMatch( 'medium', '<' );
+	const isTabletviewport = useviewportMatch( 'medium', '<' );
 	const resetTypingRef = useMouseMoveTypingReset();
 	const clearerRef = useBlockSelectionClearer();
 	const localRef = useRef();
@@ -45,7 +45,7 @@ export function ExperimentalBlockCanvas( {
 		[]
 	);
 	const zoomOutIframeProps =
-		zoomLevel !== 100 && ! isTabletViewport
+		zoomLevel !== 100 && ! isTabletviewport
 			? {
 					scale: zoomLevel,
 					frameSize: '40px',

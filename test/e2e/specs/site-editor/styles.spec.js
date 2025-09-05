@@ -20,9 +20,9 @@ test.describe( 'Styles', () => {
 	} ) => {
 		const { id } = await requestUtils.createPage( {
 			title: 'Social Icons',
-			content: `<!-- wp:social-links -->
-<ul class="wp-block-social-links"></ul>
-<!-- /wp:social-links -->`,
+			content: `<!-- fp:social-links -->
+<ul class="fp-block-social-links"></ul>
+<!-- /fp:social-links -->`,
 			status: 'publish',
 		} );
 		await admin.visitSiteEditor( {

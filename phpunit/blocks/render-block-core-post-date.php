@@ -8,11 +8,11 @@
  * @covers ::gutenberg_render_block_core_post_date
  * @group blocks
  */
-class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
+class Test_Render_Block_Core_Post_Date extends FP_UnitTestCase {
 
 	protected static $post_id;
 
-	public static function wpSetUpBeforeClass( $factory ) {
+	public static function fpSetUpBeforeClass( $factory ) {
 		self::$post_id = $factory->post->create(
 			array(
 				'post_type'    => 'post',
@@ -38,7 +38,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 			'datetime' => $expected_date,
 		);
 
-		$block = new WP_Block(
+		$block = new FP_Block(
 			array(
 				'blockName' => 'core/post-date',
 				'attrs'     => $attributes,
@@ -76,7 +76,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 			),
 		);
 
-		$block = new WP_Block(
+		$block = new FP_Block(
 			array(
 				'blockName' => 'core/post-date',
 				'attrs'     => $attributes,
@@ -116,7 +116,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 			$attributes['displayType'] = 'modified';
 		}
 
-		$block = new WP_Block(
+		$block = new FP_Block(
 			array(
 				'blockName' => 'core/post-date',
 				'attrs'     => $attributes,
@@ -144,7 +144,7 @@ class Test_Render_Block_Core_Post_Date extends WP_UnitTestCase {
 			),
 		);
 
-		$block = new WP_Block(
+		$block = new FP_Block(
 			array(
 				'blockName' => 'core/post-date',
 				'attrs'     => $attributes,

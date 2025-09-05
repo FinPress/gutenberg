@@ -195,7 +195,7 @@ describe( 'Default and Responsive modes', () => {
 	} );
 
 	it( 'should render controls for a set of custom viewports in responsive mode when provided', () => {
-		const customViewportSet = [
+		const customviewportSet = [
 			{
 				id: 'tiny',
 				label: 'Tiny',
@@ -224,27 +224,27 @@ describe( 'Default and Responsive modes', () => {
 				property="padding"
 				isResponsive
 				renderDefaultControl={ mockRenderDefaultControl }
-				viewports={ customViewportSet }
+				viewports={ customviewportSet }
 			/>
 		);
 
 		const defaultRenderControlCall = 1;
 
 		// Get array of labels which match those in the custom viewports provided
-		const responsiveViewportsLabels = [];
-		customViewportSet.forEach( ( { label } ) => {
-			responsiveViewportsLabels.push(
+		const responsiveviewportsLabels = [];
+		customviewportSet.forEach( ( { label } ) => {
+			responsiveviewportsLabels.push(
 				screen.getByRole( 'combobox', {
 					name: `${ label } Controls the padding property for ${ label } viewports.`,
 				} )
 			);
 		} );
 
-		expect( responsiveViewportsLabels ).toHaveLength(
-			customViewportSet.length
+		expect( responsiveviewportsLabels ).toHaveLength(
+			customviewportSet.length
 		);
 		expect( mockRenderDefaultControl ).toHaveBeenCalledTimes(
-			customViewportSet.length + defaultRenderControlCall
+			customviewportSet.length + defaultRenderControlCall
 		);
 	} );
 
@@ -308,7 +308,7 @@ describe( 'Default and Responsive modes', () => {
 				return (
 					<Fragment key={ `${ inputId }-${ id }` }>
 						<label htmlFor={ `${ inputId }-${ id }` }>
-							Custom Viewport { label }
+							Custom viewport { label }
 						</label>
 						<input
 							id={ `${ inputId }-${ id }` }

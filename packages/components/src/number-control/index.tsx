@@ -66,7 +66,7 @@ function UnforwardedNumberControl(
 	} );
 
 	if ( hideHTMLArrows ) {
-		deprecated( 'wp.components.NumberControl hideHTMLArrows prop ', {
+		deprecated( 'fp.components.NumberControl hideHTMLArrows prop ', {
 			alternative: 'spinControls="none"',
 			since: '6.2',
 			version: '6.3',

@@ -4,7 +4,7 @@
 import { DEFAULT_CONTEXT, DEFAULT_STATUS } from './constants';
 
 /**
- * @typedef {Object} WPNoticeAction Object describing a user action option associated with a notice.
+ * @typedef {Object} FPNoticeAction Object describing a user action option associated with a notice.
  *
  * @property {string}    label   Message to use as action label.
  * @property {?string}   url     Optional URL of resource if action incurs
@@ -34,7 +34,7 @@ let uniqueId = 0;
  *                                                             content should be
  *                                                             announced to screen
  *                                                             readers.
- * @param {Array<WPNoticeAction>} [options.actions]            User actions to be
+ * @param {Array<FPNoticeAction>} [options.actions]            User actions to be
  *                                                             presented with notice.
  * @param {string}                [options.icon]               An icon displayed with the notice.
  *                                                             Only used when type is set to `snackbar`.

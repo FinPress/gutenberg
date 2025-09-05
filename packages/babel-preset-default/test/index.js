@@ -35,11 +35,11 @@ describe( 'Babel preset default', () => {
 			envName: 'production',
 			presets: [ babelPresetDefault ],
 			caller: {
-				name: 'WP_BUILD_MAIN',
+				name: 'FP_BUILD_MAIN',
 				addPolyfillComments: true,
 			},
 		} );
 
-		expect( output.code ).toContain( '/* wp:polyfill */' );
+		expect( output.code ).toContain( '/* fp:polyfill */' );
 	} );
 } );

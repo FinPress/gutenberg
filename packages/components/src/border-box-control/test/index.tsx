@@ -86,7 +86,7 @@ describe( 'BorderBoxControl', () => {
 			// and do not have `display: none` styling, we can't rely on
 			// `.toBeInTheDocument()` or `.toBeVisible()` assertions.
 			expect( label ).toHaveAttribute(
-				'data-wp-component',
+				'data-fp-component',
 				'VisuallyHidden'
 			);
 		} );

@@ -242,7 +242,7 @@ function UnforwardedRangeControl(
 	return (
 		<BaseControl
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-			__associatedWPComponentName="RangeControl"
+			__associatedFPComponentName="RangeControl"
 			className={ classes }
 			label={ label }
 			hideLabelFromVision={ hideLabelFromVision }

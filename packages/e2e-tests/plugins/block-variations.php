@@ -11,14 +11,14 @@
  * Registers a custom script for the plugin.
  */
 function enqueue_block_variations_plugin_script() {
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-block-variations',
 		plugins_url( 'block-variations/index.js', __FILE__ ),
 		array(
-			'wp-blocks',
-			'wp-element',
-			'wp-i18n',
-			'wp-primitives',
+			'fp-blocks',
+			'fp-element',
+			'fp-i18n',
+			'fp-primitives',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block-variations/index.js' ),
 		true

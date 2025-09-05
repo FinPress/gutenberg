@@ -39,7 +39,7 @@ function PostPublishPanelPrepublish( { children } ) {
 
 		return {
 			hasPublishAction:
-				getCurrentPost()._links?.[ 'wp:action-publish' ] ?? false,
+				getCurrentPost()._links?.[ 'fp:action-publish' ] ?? false,
 			isBeingScheduled: isEditedPostBeingScheduled(),
 			isRequestingSiteIcon: isResolving( 'getEntityRecord', [
 				'root',

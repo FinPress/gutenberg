@@ -19,7 +19,7 @@ import { decodeEntities } from '@finpress/html-entities';
 import { useState, memo, useRef, useEffect } from '@finpress/element';
 import { useSelect, useDispatch } from '@finpress/data';
 import { store as coreStore } from '@finpress/core-data';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import {
 	archive,
 	blockMeta,
@@ -164,7 +164,7 @@ function NewTemplateModal( { onClose } ) {
 	const { createErrorNotice, createSuccessNotice } =
 		useDispatch( noticesStore );
 	const containerRef = useRef( null );
-	const isMobile = useViewportMatch( 'medium', '<' );
+	const isMobile = useviewportMatch( 'medium', '<' );
 
 	const homeUrl = useSelect( ( select ) => {
 		// Site index.
@@ -195,7 +195,7 @@ function NewTemplateModal( { onClose } ) {
 		}
 	}, [ modalContent ] );
 
-	async function createTemplate( template, isWPSuggestion = true ) {
+	async function createTemplate( template, isFPSuggestion = true ) {
 		if ( isSubmitting ) {
 			return;
 		}
@@ -212,7 +212,7 @@ function NewTemplateModal( { onClose } ) {
 					status: 'publish',
 					title,
 					// This adds a post meta field in template that is part of `is_custom` value calculation.
-					is_wp_suggestion: isWPSuggestion,
+					is_fp_suggestion: isFPSuggestion,
 				},
 				{ throwOnError: true }
 			);

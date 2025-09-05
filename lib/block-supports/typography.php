@@ -8,10 +8,10 @@
 /**
  * Registers the style and typography block attributes for block types that support it.
  *
- * @param WP_Block_Type $block_type Block Type.
+ * @param FP_Block_Type $block_type Block Type.
  */
 function gutenberg_register_typography_support( $block_type ) {
-	if ( ! $block_type instanceof WP_Block_Type ) {
+	if ( ! $block_type instanceof FP_Block_Type ) {
 		return;
 	}
 
@@ -72,13 +72,13 @@ function gutenberg_register_typography_support( $block_type ) {
  * to the incoming attributes array. This will be applied to the block markup in
  * the front-end.
  *
- * @param  WP_Block_Type $block_type       Block type.
+ * @param  FP_Block_Type $block_type       Block type.
  * @param  array         $block_attributes Block attributes.
  *
  * @return array Typography CSS classes and inline styles.
  */
 function gutenberg_apply_typography_support( $block_type, $block_attributes ) {
-	if ( ! $block_type instanceof WP_Block_Type ) {
+	if ( ! $block_type instanceof FP_Block_Type ) {
 		return array();
 	}
 
@@ -87,7 +87,7 @@ function gutenberg_apply_typography_support( $block_type, $block_attributes ) {
 		return array();
 	}
 
-	if ( wp_should_skip_block_supports_serialization( $block_type, 'typography' ) ) {
+	if ( fp_should_skip_block_supports_serialization( $block_type, 'typography' ) ) {
 		return array();
 	}
 
@@ -104,17 +104,17 @@ function gutenberg_apply_typography_support( $block_type, $block_attributes ) {
 	$has_writing_mode_support    = $typography_supports['__experimentalWritingMode'] ?? false;
 
 	// Whether to skip individual block support features.
-	$should_skip_font_size       = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'fontSize' );
-	$should_skip_font_family     = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'fontFamily' );
-	$should_skip_font_style      = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'fontStyle' );
-	$should_skip_font_weight     = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'fontWeight' );
-	$should_skip_line_height     = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'lineHeight' );
-	$should_skip_text_align      = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'textAlign' );
-	$should_skip_text_columns    = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'textColumns' );
-	$should_skip_text_decoration = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'textDecoration' );
-	$should_skip_text_transform  = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'textTransform' );
-	$should_skip_letter_spacing  = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'letterSpacing' );
-	$should_skip_writing_mode    = wp_should_skip_block_supports_serialization( $block_type, 'typography', 'writingMode' );
+	$should_skip_font_size       = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'fontSize' );
+	$should_skip_font_family     = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'fontFamily' );
+	$should_skip_font_style      = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'fontStyle' );
+	$should_skip_font_weight     = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'fontWeight' );
+	$should_skip_line_height     = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'lineHeight' );
+	$should_skip_text_align      = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'textAlign' );
+	$should_skip_text_columns    = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'textColumns' );
+	$should_skip_text_decoration = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'textDecoration' );
+	$should_skip_text_transform  = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'textTransform' );
+	$should_skip_letter_spacing  = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'letterSpacing' );
+	$should_skip_writing_mode    = fp_should_skip_block_supports_serialization( $block_type, 'typography', 'writingMode' );
 
 	$typography_block_styles = array();
 	if ( $has_font_size_support && ! $should_skip_font_size ) {
@@ -206,7 +206,7 @@ function gutenberg_apply_typography_support( $block_type, $block_attributes ) {
  *
  * Note: This function is for backwards compatibility.
  * * It is necessary to parse older blocks whose typography styles contain presets.
- * * It mostly replaces the deprecated `wp_typography_get_css_variable_inline_style()`,
+ * * It mostly replaces the deprecated `fp_typography_get_css_variable_inline_style()`,
  *   but skips compiling a CSS declaration as the style engine takes over this role.
  *
  * @link https://github.com/finpress/gutenberg/pull/27555
@@ -230,10 +230,10 @@ function gutenberg_typography_get_preset_inline_style_value( $style_value, $css_
 	 * Get the style value from the string and return CSS style.
 	 */
 	$index_to_splice = strrpos( $style_value, '|' ) + 1;
-	$slug            = _wp_to_kebab_case( substr( $style_value, $index_to_splice ) );
+	$slug            = _fp_to_kebab_case( substr( $style_value, $index_to_splice ) );
 
-	// Return the actual CSS inline style value e.g. `var(--wp--preset--text-decoration--underline);`.
-	return sprintf( 'var(--wp--preset--%s--%s);', $css_property, $slug );
+	// Return the actual CSS inline style value e.g. `var(--fp--preset--text-decoration--underline);`.
+	return sprintf( 'var(--fp--preset--%s--%s);', $css_property, $slug );
 }
 
 /**
@@ -304,7 +304,7 @@ function gutenberg_get_typography_value_and_unit( $raw_value, $options = array()
 		'acceptable_units' => array( 'rem', 'px', 'em' ),
 	);
 
-	$options = wp_parse_args( $options, $defaults );
+	$options = fp_parse_args( $options, $defaults );
 
 	$acceptable_units_group = implode( '|', $options['acceptable_units'] );
 	$pattern                = '/^(\d*\.?\d+)(' . $acceptable_units_group . '){1,1}$/';
@@ -398,7 +398,7 @@ function gutenberg_get_computed_fluid_typography_value( $args = array() ) {
 		)
 	);
 
-	// Viewport widths defined for fluid typography. Normalize units.
+	// viewport widths defined for fluid typography. Normalize units.
 	$maximum_viewport_width = gutenberg_get_typography_value_and_unit(
 		$maximum_viewport_width_raw,
 		array(
@@ -492,7 +492,7 @@ function gutenberg_get_typography_font_size_value( $preset, $settings = array() 
 
 	// Fallback to global settings as default.
 	$global_settings     = gutenberg_get_global_settings();
-	$settings            = wp_parse_args(
+	$settings            = fp_parse_args(
 		$settings,
 		$global_settings
 	);
@@ -521,10 +521,10 @@ function gutenberg_get_typography_font_size_value( $preset, $settings = array() 
 	$default_minimum_font_size_limit      = '14px';
 
 	// Defaults overrides.
-	$minimum_viewport_width = isset( $fluid_settings['minViewportWidth'] ) ? $fluid_settings['minViewportWidth'] : $default_minimum_viewport_width;
+	$minimum_viewport_width = isset( $fluid_settings['minviewportWidth'] ) ? $fluid_settings['minviewportWidth'] : $default_minimum_viewport_width;
 	$maximum_viewport_width = isset( $layout_settings['wideSize'] ) && ! empty( gutenberg_get_typography_value_and_unit( $layout_settings['wideSize'] ) ) ? $layout_settings['wideSize'] : $default_maximum_viewport_width;
-	if ( isset( $fluid_settings['maxViewportWidth'] ) ) {
-		$maximum_viewport_width = $fluid_settings['maxViewportWidth'];
+	if ( isset( $fluid_settings['maxviewportWidth'] ) ) {
+		$maximum_viewport_width = $fluid_settings['maxviewportWidth'];
 	}
 	$has_min_font_size       = isset( $fluid_settings['minFontSize'] ) && ! empty( gutenberg_get_typography_value_and_unit( $fluid_settings['minFontSize'] ) );
 	$minimum_font_size_limit = $has_min_font_size ? $fluid_settings['minFontSize'] : $default_minimum_font_size_limit;
@@ -608,7 +608,7 @@ function gutenberg_get_typography_font_size_value( $preset, $settings = array() 
 }
 
 // Register the block support.
-WP_Block_Supports::get_instance()->register(
+FP_Block_Supports::get_instance()->register(
 	'typography',
 	array(
 		'register_attribute' => 'gutenberg_register_typography_support',
@@ -616,7 +616,7 @@ WP_Block_Supports::get_instance()->register(
 	)
 );
 
-if ( function_exists( 'wp_render_typography_support' ) ) {
-	remove_filter( 'render_block', 'wp_render_typography_support' );
+if ( function_exists( 'fp_render_typography_support' ) ) {
+	remove_filter( 'render_block', 'fp_render_typography_support' );
 }
 add_filter( 'render_block', 'gutenberg_render_typography_support', 10, 2 );

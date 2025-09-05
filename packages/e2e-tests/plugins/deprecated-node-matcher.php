@@ -11,13 +11,13 @@
  * Registers a custom script for the plugin.
  */
 function enqueue_deprecated_node_matcher_plugin_script() {
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-deprecated-node-matcher',
 		plugins_url( 'deprecated-node-matcher/index.js', __FILE__ ),
 		array(
-			'wp-blocks',
-			'wp-element',
-			'wp-block-editor',
+			'fp-blocks',
+			'fp-element',
+			'fp-block-editor',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'deprecated-node-matcher/index.js' ),
 		true

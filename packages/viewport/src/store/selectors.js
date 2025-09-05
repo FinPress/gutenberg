@@ -1,7 +1,7 @@
 /**
  * Returns true if the viewport matches the given query, or false otherwise.
  *
- * @param {Object} state Viewport state object.
+ * @param {Object} state viewport state object.
  * @param {string} query Query string. Includes operator and breakpoint name,
  *                       space separated. Operator defaults to >=.
  *
@@ -13,7 +13,7 @@
  * import { __ } from '@finpress/i18n';
  * const ExampleComponent = () => {
  *     const isMobile = useSelect(
- *         ( select ) => select( viewportStore ).isViewportMatch( '< small' ),
+ *         ( select ) => select( viewportStore ).isviewportMatch( '< small' ),
  *         []
  *     );
  *
@@ -27,7 +27,7 @@
  *
  * @return {boolean} Whether viewport matches query.
  */
-export function isViewportMatch( state, query ) {
+export function isviewportMatch( state, query ) {
 	// Default to `>=` if no operator is present.
 	if ( query.indexOf( ' ' ) === -1 ) {
 		query = '>= ' + query;

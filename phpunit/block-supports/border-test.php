@@ -6,7 +6,7 @@
  * @package Gutenberg
  */
 
-class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
+class FP_Block_Supports_Border_Test extends FP_UnitTestCase {
 	/**
 	 * @var string|null
 	 */
@@ -29,7 +29,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 	 * @param string $block_name Name for the test block.
 	 * @param array  $supports   Array defining block support configuration.
 	 *
-	 * @return WP_Block_Type The block type for the newly registered test block.
+	 * @return FP_Block_Type The block type for the newly registered test block.
 	 */
 	private function register_bordered_block_with_support( $block_name, $supports = array() ) {
 		$this->test_block_name = $block_name;
@@ -48,7 +48,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 				'supports'    => $supports,
 			)
 		);
-		$registry = WP_Block_Type_Registry::get_instance();
+		$registry = FP_Block_Type_Registry::get_instance();
 
 		return $registry->get_registered( $this->test_block_name );
 	}
@@ -454,7 +454,7 @@ class WP_Block_Supports_Border_Test extends WP_UnitTestCase {
 		);
 		$actual      = gutenberg_apply_border_support( $block_type, $block_attrs );
 		$expected    = array(
-			'style' => 'border-top-width:2px;border-top-color:var(--wp--preset--color--red);border-top-style:dashed;border-right-width:0.25rem;border-right-color:var(--wp--preset--color--green);border-right-style:dotted;border-bottom-width:0.5em;border-bottom-color:var(--wp--preset--color--blue);border-bottom-style:solid;border-left-width:1px;border-left-color:var(--wp--preset--color--yellow);border-left-style:solid;',
+			'style' => 'border-top-width:2px;border-top-color:var(--fp--preset--color--red);border-top-style:dashed;border-right-width:0.25rem;border-right-color:var(--fp--preset--color--green);border-right-style:dotted;border-bottom-width:0.5em;border-bottom-color:var(--fp--preset--color--blue);border-bottom-style:solid;border-left-width:1px;border-left-color:var(--fp--preset--color--yellow);border-left-style:solid;',
 		);
 
 		$this->assertSame( $expected, $actual );

@@ -38,25 +38,25 @@ As directives are HTML attributes, they are perfect for dynamic blocks and PHP.
 _Dynamic block example_
 ```html
 <div
-  data-wp-interactive='wpmovies'
-  <?php echo wp_interactivity_data_wp_context( array( 'isOpen' => false ) ); ?>
-  data-wp-watch="callbacks.logIsOpen"
+  data-fp-interactive='fpmovies'
+  <?php echo fp_interactivity_data_fp_context( array( 'isOpen' => false ) ); ?>
+  data-fp-watch="callbacks.logIsOpen"
 >
   <button
-    data-wp-on--click="actions.toggle"
-    data-wp-bind--aria-expanded="context.isOpen"
+    data-fp-on--click="actions.toggle"
+    data-fp-bind--aria-expanded="context.isOpen"
     aria-controls="p-1"
   >
     Toggle
   </button>
  
-  <p id="p-1" data-wp-bind--hidden="!context.isOpen">
+  <p id="p-1" data-fp-bind--hidden="!context.isOpen">
     This element is now visible!
   </p>
 </div>
 ```
 
-As you can see, directives like [`data-wp-on--click`](https://developer.finpress.org/block-editor/reference-guides/interactivity-api/api-reference/#wp-on) or [`data-wp-bind--hidden`](https://developer.finpress.org/block-editor/reference-guides/interactivity-api/api-reference/#wp-bind) are added as custom HTML attributes. FinPress can process this HTML on the server, handling the directives’ logic and creating the appropriate markup.
+As you can see, directives like [`data-fp-on--click`](https://developer.finpress.org/block-editor/reference-guides/interactivity-api/api-reference/#fp-on) or [`data-fp-bind--hidden`](https://developer.finpress.org/block-editor/reference-guides/interactivity-api/api-reference/#fp-bind) are added as custom HTML attributes. FinPress can process this HTML on the server, handling the directives’ logic and creating the appropriate markup.
 
 ### Backward compatible
 
@@ -111,7 +111,7 @@ This is the same use case shared above but serves as an example of declarative c
  
 import { store, getContext } from "@finpress/interactivity";
  
-store( 'wpmovies', {
+store( 'fpmovies', {
   actions: {
     toggle: () => {
       const context = getContext();
@@ -125,18 +125,18 @@ store( 'wpmovies', {
 <!-- Render.php file -->
  
 <div
-  data-wp-interactive='wpmovies'
-  <?php echo wp_interactivity_data_wp_context( array( 'isOpen' => true ) ); ?>
+  data-fp-interactive='fpmovies'
+  <?php echo fp_interactivity_data_fp_context( array( 'isOpen' => true ) ); ?>
 >
   <button
-    data-wp-on--click="actions.toggle"
-    data-wp-bind--aria-expanded="context.isOpen"
+    data-fp-on--click="actions.toggle"
+    data-fp-bind--aria-expanded="context.isOpen"
     aria-controls="p-1"
   >
     Toggle
   </button>
  
-  <p id="p-1" data-wp-bind--hidden="!context.isOpen">
+  <p id="p-1" data-fp-bind--hidden="!context.isOpen">
     This element is now visible!
   </p>
 </div>
@@ -161,7 +161,7 @@ Each directive controls a small part of the DOM, and you can combine multiple di
 
 ### Compatible with the existing block development tooling
 
-The API works out of the box with standard block-building tools like [`wp-scripts`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/). The only requirement for `wp-scripts` to properly build the [Script Modules](https://make.finpress.org/core/2024/03/04/script-modules-in-6-5/) using the Interactivity API is the use of the --experimental-modules flag for both [`build`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#build) and [`start`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#start) scripts.
+The API works out of the box with standard block-building tools like [`fp-scripts`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/). The only requirement for `fp-scripts` to properly build the [Script Modules](https://make.finpress.org/core/2024/03/04/script-modules-in-6-5/) using the Interactivity API is the use of the --experimental-modules flag for both [`build`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#build) and [`start`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#start) scripts.
 
 ### Client-side navigation
 

@@ -10,7 +10,7 @@ import { test, expect } from './fixtures';
 const parseContent = async ( loc: Locator ) =>
 	JSON.parse( ( await loc.textContent() ) || '' );
 
-test.describe( 'data-wp-context', () => {
+test.describe( 'data-fp-context', () => {
 	test.beforeAll( async ( { interactivityUtils: utils } ) => {
 		await utils.activatePlugins();
 		await utils.addPostWithBlock( 'test/directive-context' );

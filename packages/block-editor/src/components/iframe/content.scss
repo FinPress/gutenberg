@@ -11,9 +11,9 @@
 	}
 
 	&.zoom-out-animation {
-		$scroll-top: var(--wp-block-editor-iframe-zoom-out-scroll-top, 0);
-		$scroll-top-next: var(--wp-block-editor-iframe-zoom-out-scroll-top-next, 0);
-		$overflow-behavior: var(--wp-block-editor-iframe-zoom-out-overflow-behavior, scroll);
+		$scroll-top: var(--fp-block-editor-iframe-zoom-out-scroll-top, 0);
+		$scroll-top-next: var(--fp-block-editor-iframe-zoom-out-scroll-top-next, 0);
+		$overflow-behavior: var(--fp-block-editor-iframe-zoom-out-overflow-behavior, scroll);
 
 		position: fixed;
 		left: 0;
@@ -26,12 +26,12 @@
 	}
 
 	&.is-zoomed-out {
-		$scale: var(--wp-block-editor-iframe-zoom-out-scale, 1);
-		$frame-size: var(--wp-block-editor-iframe-zoom-out-frame-size, 0);
-		$inner-height: var(--wp-block-editor-iframe-zoom-out-inner-height);
-		$content-height: var(--wp-block-editor-iframe-zoom-out-content-height);
-		$scale-container-width: var(--wp-block-editor-iframe-zoom-out-scale-container-width);
-		$container-width: var(--wp-block-editor-iframe-zoom-out-container-width, 100vw);
+		$scale: var(--fp-block-editor-iframe-zoom-out-scale, 1);
+		$frame-size: var(--fp-block-editor-iframe-zoom-out-frame-size, 0);
+		$inner-height: var(--fp-block-editor-iframe-zoom-out-inner-height);
+		$content-height: var(--fp-block-editor-iframe-zoom-out-content-height);
+		$scale-container-width: var(--fp-block-editor-iframe-zoom-out-scale-container-width);
+		$container-width: var(--fp-block-editor-iframe-zoom-out-container-width, 100vw);
 		// Apply an X translation to center the scaled content within the available space.
 		transform: translateX(calc((#{$scale-container-width} - #{$container-width}) / 2 / #{$scale}));
 		scale: $scale;
@@ -53,7 +53,7 @@
 		body {
 			min-height: calc((#{$inner-height} - #{$total-frame-height}) / #{$scale});
 
-			> .is-root-container:not(.wp-block-post-content) {
+			> .is-root-container:not(.fp-block-post-content) {
 				flex: 1;
 				display: flex;
 				flex-direction: column;
@@ -65,7 +65,7 @@
 			}
 		}
 
-		.wp-block[draggable] {
+		.fp-block[draggable] {
 			cursor: grab;
 		}
 	}

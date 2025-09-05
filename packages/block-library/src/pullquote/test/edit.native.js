@@ -61,13 +61,13 @@ describe( 'Pullquote', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- wp:pullquote -->
-		<figure class="wp-block-pullquote"><blockquote><p>A great statement.<br>Again</p><cite>A <br>person</cite></blockquote></figure>
-		<!-- /wp:pullquote -->
+		"<!-- fp:pullquote -->
+		<figure class="fp-block-pullquote"><blockquote><p>A great statement.<br>Again</p><cite>A <br>person</cite></blockquote></figure>
+		<!-- /fp:pullquote -->
 
-		<!-- wp:paragraph -->
+		<!-- fp:paragraph -->
 		<p></p>
-		<!-- /wp:paragraph -->"
+		<!-- /fp:paragraph -->"
 	` );
 	} );
 } );

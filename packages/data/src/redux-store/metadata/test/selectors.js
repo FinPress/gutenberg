@@ -32,7 +32,7 @@ describe( 'getIsResolving', () => {
 	} );
 
 	const DEPRECATION_MESSAGE =
-		'wp.data.select( store ).getIsResolving is deprecated since version 6.6 and will be removed in version 6.8. Please use wp.data.select( store ).getResolutionState instead.';
+		'fp.data.select( store ).getIsResolving is deprecated since version 6.6 and will be removed in version 6.8. Please use fp.data.select( store ).getResolutionState instead.';
 
 	it( 'should return undefined if no state by reducerKey, selectorName', () => {
 		const result = registry

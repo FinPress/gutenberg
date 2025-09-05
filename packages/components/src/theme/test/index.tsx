@@ -18,7 +18,7 @@ const MyThemableComponent = ( props: MyThemableComponentProps ) => {
 		<div
 			{ ...props }
 			style={ {
-				color: 'var(--wp-components-color-accent)',
+				color: 'var(--fp-components-color-accent)',
 			} }
 		/>
 	);
@@ -38,10 +38,10 @@ describe( 'Theme', () => {
 			);
 
 			[
-				'--wp-components-color-accent',
-				'--wp-components-color-accent-darker-10',
-				'--wp-components-color-accent-darker-20',
-				'--wp-components-color-accent-inverted',
+				'--fp-components-color-accent',
+				'--fp-components-color-accent-darker-10',
+				'--fp-components-color-accent-darker-20',
+				'--fp-components-color-accent-inverted',
 			].forEach( ( cssVariable ) => {
 				expect(
 					innerElementStyles.getPropertyValue( cssVariable )
@@ -57,10 +57,10 @@ describe( 'Theme', () => {
 			);
 
 			expect( screen.getByTestId( 'theme' ) ).toHaveStyle( {
-				'--wp-components-color-accent': '#123abc',
-				'--wp-components-color-accent-darker-10': '#0e2c8d',
-				'--wp-components-color-accent-darker-20': '#091d5f',
-				'--wp-components-color-accent-inverted': '#fff',
+				'--fp-components-color-accent': '#123abc',
+				'--fp-components-color-accent-darker-10': '#0e2c8d',
+				'--fp-components-color-accent-darker-20': '#091d5f',
+				'--fp-components-color-accent-inverted': '#fff',
 			} );
 		} );
 	} );
@@ -78,11 +78,11 @@ describe( 'Theme', () => {
 			);
 
 			[
-				'--wp-components-color-background',
-				'--wp-components-color-foreground',
-				'--wp-components-color-foreground-inverted',
+				'--fp-components-color-background',
+				'--fp-components-color-foreground',
+				'--fp-components-color-foreground-inverted',
 				...[ '100', '200', '300', '400', '600', '700', '800' ].map(
-					( shade ) => `--wp-components-color-gray-${ shade }`
+					( shade ) => `--fp-components-color-gray-${ shade }`
 				),
 			].forEach( ( cssVariable ) => {
 				expect(
@@ -99,16 +99,16 @@ describe( 'Theme', () => {
 			);
 
 			expect( screen.getByTestId( 'theme' ) ).toHaveStyle( {
-				'--wp-components-color-background': '#ffffff',
-				'--wp-components-color-foreground': '#1e1e1e',
-				'--wp-components-color-foreground-inverted': '#fff',
-				'--wp-components-color-gray-100': '#f0f0f0',
-				'--wp-components-color-gray-200': '#e0e0e0',
-				'--wp-components-color-gray-300': '#dddddd',
-				'--wp-components-color-gray-400': '#cccccc',
-				'--wp-components-color-gray-600': '#949494',
-				'--wp-components-color-gray-700': '#757575',
-				'--wp-components-color-gray-800': '#2f2f2f',
+				'--fp-components-color-background': '#ffffff',
+				'--fp-components-color-foreground': '#1e1e1e',
+				'--fp-components-color-foreground-inverted': '#fff',
+				'--fp-components-color-gray-100': '#f0f0f0',
+				'--fp-components-color-gray-200': '#e0e0e0',
+				'--fp-components-color-gray-300': '#dddddd',
+				'--fp-components-color-gray-400': '#cccccc',
+				'--fp-components-color-gray-600': '#949494',
+				'--fp-components-color-gray-700': '#757575',
+				'--fp-components-color-gray-800': '#2f2f2f',
 			} );
 		} );
 	} );

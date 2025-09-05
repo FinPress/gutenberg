@@ -14,13 +14,13 @@ import useTemplatePartAreaLabel from '../use-template-part-area-label';
 
 const DRAFT_MENU_PARAMS = [
 	'postType',
-	'wp_navigation',
+	'fp_navigation',
 	{ status: 'draft', per_page: -1 },
 ];
 
 const PUBLISHED_MENU_PARAMS = [
 	'postType',
-	'wp_navigation',
+	'fp_navigation',
 	{ per_page: -1, status: 'publish' },
 ];
 

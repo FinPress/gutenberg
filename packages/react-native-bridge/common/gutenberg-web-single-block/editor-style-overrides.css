@@ -33,7 +33,7 @@
     display: none;
 }
 
-/* Remove default block appender at the end of the post (WP v5.0~v5.1) */
+/* Remove default block appender at the end of the post (FP v5.0~v5.1) */
 .editor-default-block-appender {
     display: none;
 }
@@ -77,7 +77,7 @@
 
 /*
  Moves the whole editor to the top.
- There was an extra top margin after removing the WP Admin bar.
+ There was an extra top margin after removing the FP Admin bar.
  */
 .block-editor-editor-skeleton {
     top: 0px;

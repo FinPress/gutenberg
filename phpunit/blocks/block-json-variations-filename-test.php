@@ -11,12 +11,12 @@
  *
  * @group blocks
  */
-class Block_Json_Variations_Filename_Test extends WP_UnitTestCase {
+class Block_Json_Variations_Filename_Test extends FP_UnitTestCase {
 	/**
 	 * Tear down each test method.
 	 */
 	public function tear_down() {
-		$registry = WP_Block_Type_Registry::get_instance();
+		$registry = FP_Block_Type_Registry::get_instance();
 
 		if ( $registry->is_registered( 'my-plugin/notice' ) ) {
 			$registry->unregister( 'my-plugin/notice' );
@@ -40,7 +40,7 @@ class Block_Json_Variations_Filename_Test extends WP_UnitTestCase {
 		$result = register_block_type_from_metadata( GUTENBERG_DIR_TESTFIXTURES );
 		remove_filter( 'block_type_metadata', $filter_metadata_registration );
 
-		$this->assertInstanceOf( 'WP_Block_Type', $result, 'The block was not registered' );
+		$this->assertInstanceOf( 'FP_Block_Type', $result, 'The block was not registered' );
 
 		$expected_variations = require GUTENBERG_DIR_TESTFIXTURES . '/variations.php';
 		$this->assertSame( $expected_variations, $result->variations, "Block variations haven't been set correctly." );

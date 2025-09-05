@@ -22,11 +22,11 @@ jest.mock( 'os', () => ( {
 
 describe( 'getCacheDirectory', () => {
 	afterEach( () => {
-		delete process.env.WP_ENV_HOME;
+		delete process.env.FP_ENV_HOME;
 	} );
 
-	it( 'uses WP_ENV_HOME for cache directory when set', async () => {
-		process.env.WP_ENV_HOME = '/test';
+	it( 'uses FP_ENV_HOME for cache directory when set', async () => {
+		process.env.FP_ENV_HOME = '/test';
 
 		const parsed = await getCacheDirectory();
 
@@ -41,7 +41,7 @@ describe( 'getCacheDirectory', () => {
 		const parsed = await getCacheDirectory();
 
 		expect( homedir ).toHaveBeenCalled();
-		expect( parsed ).toEqual( '/home/test/.wp-env' );
+		expect( parsed ).toEqual( '/home/test/.fp-env' );
 	} );
 
 	it( 'uses non-hidden cache directory when using Snap-installed Docker', async () => {
@@ -51,7 +51,7 @@ describe( 'getCacheDirectory', () => {
 		const parsed = await getCacheDirectory();
 
 		expect( homedir ).toHaveBeenCalled();
-		expect( parsed ).toEqual( '/home/test/wp-env' );
+		expect( parsed ).toEqual( '/home/test/fp-env' );
 	} );
 } );
 /* eslint-enable jest/no-conditional-expect */

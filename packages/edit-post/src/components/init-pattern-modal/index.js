@@ -28,10 +28,10 @@ export default function InitPatternModal() {
 		};
 	}, [] );
 	const [ isModalOpen, setIsModalOpen ] = useState(
-		() => isNewPost && postType === 'wp_block'
+		() => isNewPost && postType === 'fp_block'
 	);
 
-	if ( postType !== 'wp_block' || ! isNewPost ) {
+	if ( postType !== 'fp_block' || ! isNewPost ) {
 		return null;
 	}
 
@@ -52,7 +52,7 @@ export default function InitPatternModal() {
 							editPost( {
 								title,
 								meta: {
-									wp_pattern_sync_status: syncType,
+									fp_pattern_sync_status: syncType,
 								},
 							} );
 						} }

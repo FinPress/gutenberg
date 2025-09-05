@@ -13,7 +13,7 @@ import {
 	store as blocksStore,
 } from '@finpress/blocks';
 
-/** @typedef {import('@finpress/blocks').WPBlockVariation} WPBlockVariation */
+/** @typedef {import('@finpress/blocks').FPBlockVariation} FPBlockVariation */
 /** @typedef {import('@finpress/components/build-types/query-controls/types').OrderByOption} OrderByOption */
 
 /**
@@ -280,9 +280,9 @@ export function isControlAllowed( allowedControls, key ) {
  * Returns the cloned/transformed blocks and array of existing Query Loop
  * client ids for further manipulation, in order to avoid multiple recursions.
  *
- * @param {WPBlock[]}        blocks               The list of blocks to look through and transform(mutate).
+ * @param {FPBlock[]}        blocks               The list of blocks to look through and transform(mutate).
  * @param {Record<string,*>} queryBlockAttributes The existing Query Loop's attributes.
- * @return {{ newBlocks: WPBlock[], queryClientIds: string[] }} An object with the cloned/transformed blocks and all the Query Loop clients from these blocks.
+ * @return {{ newBlocks: FPBlock[], queryClientIds: string[] }} An object with the cloned/transformed blocks and all the Query Loop clients from these blocks.
  */
 export const getTransformedBlocksFromPattern = (
 	blocks,
@@ -378,7 +378,7 @@ export function useBlockNameForPatterns( clientId, attributes ) {
  * main `inserter` variation.
  *
  * @param {Object} attributes The block's attributes.
- * @return {WPBlockVariation[]} The block variations to be suggested in setup flow, when clicking to `start blank`.
+ * @return {FPBlockVariation[]} The block variations to be suggested in setup flow, when clicking to `start blank`.
  */
 export function useScopedBlockVariations( attributes ) {
 	const { activeVariationName, blockVariations } = useSelect(
@@ -506,7 +506,7 @@ export function getQueryContextFromTemplate( templateSlug ) {
 		return { isSingular: true };
 	}
 	let isSingular = false;
-	let templateType = templateSlug === 'wp' ? 'custom' : templateSlug;
+	let templateType = templateSlug === 'fp' ? 'custom' : templateSlug;
 	const singularTemplates = [ '404', 'blank', 'single', 'page', 'custom' ];
 	const templateTypeFromSlug = templateSlug.includes( '-' )
 		? templateSlug.split( '-', 1 )[ 0 ]

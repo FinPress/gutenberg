@@ -21,7 +21,7 @@ describe( 'HTTP v1 Middleware', () => {
 	it( "shouldn't touch the options for GET requests", () => {
 		expect.hasAssertions();
 
-		const requestOptions = { method: 'GET', path: '/wp/v2/posts' };
+		const requestOptions = { method: 'GET', path: '/fp/v2/posts' };
 		const callback: FetchHandler = async ( options ) => {
 			expect( options ).toBe( requestOptions );
 		};
@@ -32,7 +32,7 @@ describe( 'HTTP v1 Middleware', () => {
 	it( "shouldn't touch the options for an undefined method", () => {
 		expect.hasAssertions();
 
-		const requestOptions = { path: '/wp/v2/posts' };
+		const requestOptions = { path: '/fp/v2/posts' };
 		const callback: FetchHandler = async ( options ) => {
 			expect( options ).toBe( requestOptions );
 		};

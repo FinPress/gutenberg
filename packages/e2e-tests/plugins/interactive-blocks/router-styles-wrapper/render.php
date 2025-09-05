@@ -8,14 +8,14 @@
  */
 
 add_action(
-	'wp_enqueue_scripts',
+	'fp_enqueue_scripts',
 	function () {
-		wp_enqueue_style(
+		fp_enqueue_style(
 			'wrapper-styles-from-link',
 			plugin_dir_url( __FILE__ ) . 'style-from-link.css',
 			array()
 		);
-		wp_enqueue_style(
+		fp_enqueue_style(
 			'wrapper-styles-media-print',
 			plugin_dir_url( __FILE__ ) . 'style-media-print.css',
 			array(),
@@ -63,12 +63,12 @@ $wrapper_attributes = get_block_wrapper_attributes();
 	</fieldset>
 
 	<!-- Links to pages with different blocks combination. -->
-	<nav data-wp-interactive="test/router-styles">
+	<nav data-fp-interactive="test/router-styles">
 		<?php foreach ( $attributes['links'] as $label => $link ) : ?>
 			<a
 				data-testid="link <?php echo $label; ?>"
-				data-wp-on--click="actions.navigate"
-				data-wp-on-async--mouseenter="actions.prefetch"
+				data-fp-on--click="actions.navigate"
+				data-fp-on-async--mouseenter="actions.prefetch"
 				href="<?php echo $link; ?>"
 			>
 				<?php echo $label; ?>
@@ -78,8 +78,8 @@ $wrapper_attributes = get_block_wrapper_attributes();
 
 	<!-- HTML updated on navigation. -->
 	<div
-		data-wp-interactive="test/router-styles"
-		data-wp-router-region="router-styles"
+		data-fp-interactive="test/router-styles"
+		data-fp-router-region="router-styles"
 	>
 		<?php echo $content; ?>
 	</div>
@@ -87,16 +87,16 @@ $wrapper_attributes = get_block_wrapper_attributes();
 	<!-- Text to check whether a navigation was client-side. -->
 	<div
 		data-testid="client-side navigation"
-		data-wp-interactive="test/router-styles"
-		data-wp-bind--hidden="!state.clientSideNavigation"
+		data-fp-interactive="test/router-styles"
+		data-fp-bind--hidden="!state.clientSideNavigation"
 		hidden
 	>
 		Client-side navigation
 	</div>
 
 	<!-- Text to check whether a page is being prefetched. -->
-	<div data-wp-interactive="test/router-styles" >
-		Prefetching: <span data-testid="prefetching" data-wp-text="state.prefetching"></span>
+	<div data-fp-interactive="test/router-styles" >
+		Prefetching: <span data-testid="prefetching" data-fp-text="state.prefetching"></span>
 	</div>
 
 	<!-- Text hidden when media=print applies. -->

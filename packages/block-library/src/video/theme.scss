@@ -1,7 +1,7 @@
-.wp-block-video :where(figcaption) {
+.fp-block-video :where(figcaption) {
 	@include caption-style-theme();
 }
 
-.wp-block-video {
+.fp-block-video {
 	margin: 0 0 1em 0;
 }

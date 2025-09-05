@@ -11,14 +11,14 @@
  * Registers a custom script for the plugin.
  */
 function enqueue_inner_blocks_prioritized_inserter_blocks_script() {
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-inner-blocks-prioritized-inserter-blocks',
 		plugins_url( 'inner-blocks-prioritized-inserter-blocks/index.js', __FILE__ ),
 		array(
-			'wp-blocks',
-			'wp-block-editor',
-			'wp-element',
-			'wp-i18n',
+			'fp-blocks',
+			'fp-block-editor',
+			'fp-element',
+			'fp-i18n',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'inner-blocks-prioritized-inserter-blocks/index.js' ),
 		true

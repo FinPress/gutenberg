@@ -600,12 +600,12 @@
       "updated": 1643633370772,
       "fontSize": 20,
       "fontFamily": 1,
-      "text": "Internal Representation (WP_Theme_JSON object)",
+      "text": "Internal Representation (FP_Theme_JSON object)",
       "baseline": 18,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Internal Representation (WP_Theme_JSON object)"
+      "originalText": "Internal Representation (FP_Theme_JSON object)"
     },
     {
       "type": "arrow",

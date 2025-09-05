@@ -10,10 +10,10 @@
 add_action(
 	'init',
 	static function () {
-		wp_register_script(
+		fp_register_script(
 			'server-side-rendered-block',
 			plugins_url( 'server-side-rendered-block/editor.js', __FILE__ ),
-			array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-server-side-render' ),
+			array( 'fp-blocks', 'fp-element', 'fp-editor', 'fp-components', 'fp-server-side-render' ),
 			filemtime( plugin_dir_path( __FILE__ ) . 'server-side-rendered-block/editor.js' ),
 			true
 		);

@@ -26,9 +26,9 @@ function UnforwardedIconButton(
 		DeprecatedIconButtonProps,
 	ref: ForwardedRef< any >
 ) {
-	deprecated( 'wp.components.IconButton', {
+	deprecated( 'fp.components.IconButton', {
 		since: '5.4',
-		alternative: 'wp.components.Button',
+		alternative: 'fp.components.Button',
 		version: '6.2',
 	} );
 

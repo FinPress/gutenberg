@@ -78,7 +78,7 @@ export { publishPost } from './publish-post';
 export { publishPostWithPrePublishChecksDisabled } from './publish-post-with-pre-publish-checks-disabled';
 export { saveDraft } from './save-draft';
 export { selectBlockByClientId } from './select-block-by-client-id';
-export { setBrowserViewport } from './set-browser-viewport';
+export { setBrowserviewport } from './set-browser-viewport';
 export { setOption } from './set-option';
 export { setPostContent } from './set-post-content';
 export { switchBlockInspectorTab } from './switch-block-inspector-tab.js';
@@ -96,7 +96,7 @@ export { visitAdminPage } from './visit-admin-page';
 export { waitForWindowDimensions } from './wait-for-window-dimensions';
 export { showBlockToolbar } from './show-block-toolbar';
 export { openPreviewPage } from './preview';
-export { wpDataSelect } from './wp-data-select';
+export { fpDataSelect } from './fp-data-select';
 export { deleteAllWidgets } from './widgets';
 export { deleteAllTemplates } from './templates';
 export {

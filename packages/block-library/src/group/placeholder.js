@@ -137,7 +137,7 @@ function GroupPlaceHolder( { name, onSelect } ) {
 		[ name ]
 	);
 	const blockProps = useBlockProps( {
-		className: 'wp-block-group__placeholder',
+		className: 'fp-block-group__placeholder',
 	} );
 
 	useEffect( () => {
@@ -159,7 +159,7 @@ function GroupPlaceHolder( { name, onSelect } ) {
 				/* eslint-disable jsx-a11y/no-redundant-roles */ }
 				<ul
 					role="list"
-					className="wp-block-group-placeholder__variations"
+					className="fp-block-group-placeholder__variations"
 					aria-label={ __( 'Block variations' ) }
 				>
 					{ variations.map( ( variation ) => (
@@ -172,7 +172,7 @@ function GroupPlaceHolder( { name, onSelect } ) {
 								) }
 								iconSize={ 48 }
 								onClick={ () => onSelect( variation ) }
-								className="wp-block-group-placeholder__variation-button"
+								className="fp-block-group-placeholder__variation-button"
 								label={ `${ variation.title }: ${ variation.description }` }
 							/>
 						</li>

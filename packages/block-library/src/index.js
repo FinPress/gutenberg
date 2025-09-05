@@ -260,8 +260,8 @@ const getAllBlocks = () => {
 	//   - the experiment to disable TinyMCE isn't active.
 	//   - a query argument specifies that TinyMCE should be loaded
 	if (
-		window?.wp?.oldEditor &&
-		( window?.wp?.needsClassicBlock ||
+		window?.fp?.oldEditor &&
+		( window?.fp?.needsClassicBlock ||
 			! window?.__experimentalDisableTinymce ||
 			!! new URLSearchParams( window?.location?.search ).get(
 				'requiresTinymce'
@@ -307,8 +307,8 @@ export const registerCoreBlocks = (
 
 	setDefaultBlockName( paragraph.name );
 	if (
-		window.wp &&
-		window.wp.oldEditor &&
+		window.fp &&
+		window.fp.oldEditor &&
 		blocks.some( ( { name } ) => name === classic.name )
 	) {
 		setFreeformContentHandlerName( classic.name );

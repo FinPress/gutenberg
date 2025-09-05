@@ -153,7 +153,7 @@ export default function FontAppearanceControl( props ) {
 		( otherProps.size === undefined || otherProps.size === 'default' )
 	) {
 		deprecated(
-			`36px default size for wp.blockEditor.__experimentalFontAppearanceControl`,
+			`36px default size for fp.blockEditor.__experimentalFontAppearanceControl`,
 			{
 				since: '6.8',
 				version: '7.1',

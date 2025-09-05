@@ -1,4 +1,4 @@
-.wp-block-columns {
+.fp-block-columns {
 	display: flex;
 	box-sizing: border-box;
 
@@ -28,7 +28,7 @@
 		align-items: flex-end;
 	}
 
-	&:not(.is-not-stacked-on-mobile) > .wp-block-column {
+	&:not(.is-not-stacked-on-mobile) > .fp-block-column {
 		@media (max-width: #{ ($break-medium - 1) }) {
 			// Responsiveness: Show at most one columns on mobile. This must be
 			// important since the Column assigns its own width as an inline style.
@@ -58,7 +58,7 @@
 	&.is-not-stacked-on-mobile {
 		flex-wrap: nowrap !important;
 
-		> .wp-block-column {
+		> .fp-block-column {
 			// Available space should be divided equally amongst columns.
 			flex-basis: 0;
 
@@ -73,18 +73,18 @@
 }
 
 // Lower specificity of margin styles so they don't override the Layout block support.
-:where(.wp-block-columns) {
+:where(.fp-block-columns) {
 	margin-bottom: 1.75em;
 }
 
 // Add low specificity default padding to columns blocks with backgrounds.
-:where(.wp-block-columns.has-background) {
+:where(.fp-block-columns.has-background) {
 	// Matches paragraph block padding.
 	padding: $block-bg-padding--v $block-bg-padding--h;
 }
 
 
-.wp-block-column {
+.fp-block-column {
 	flex-grow: 1;
 
 	// Prevent the columns from growing wider than their distributed sizes.

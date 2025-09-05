@@ -47,7 +47,7 @@ test.describe( 'Post publish button', () => {
 		await page.route(
 			( url ) =>
 				url.href.includes(
-					`rest_route=${ encodeURIComponent( '/wp/v2/posts/' ) }`
+					`rest_route=${ encodeURIComponent( '/fp/v2/posts/' ) }`
 				),
 			async ( route, request ) => {
 				if ( request.method() === 'POST' ) {

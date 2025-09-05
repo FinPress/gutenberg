@@ -9,11 +9,11 @@ import { getBlockAttributesNamesByRole } from '@finpress/blocks';
  * of the matched block (it could be an InnerBlock).
  * If no match is found return nothing.
  *
- * @param {WPBlock} block             The block to try to find a match.
+ * @param {FPBlock} block             The block to try to find a match.
  * @param {string}  selectedBlockName The block's name to use for matching condition.
  * @param {Set}     consumedBlocks    A set holding the previously matched/consumed blocks.
  *
- * @return {WPBlock | undefined} The matched block if found or nothing(`undefined`).
+ * @return {FPBlock | undefined} The matched block if found or nothing(`undefined`).
  */
 export const getMatchingBlockByName = (
 	block,

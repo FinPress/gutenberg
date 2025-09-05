@@ -39,7 +39,7 @@ export async function sideloadToServer(
 
 	return transformAttachment(
 		await apiFetch< RestAttachment >( {
-			path: `/wp/v2/media/${ attachmentId }/sideload`,
+			path: `/fp/v2/media/${ attachmentId }/sideload`,
 			body: data,
 			method: 'POST',
 			signal,

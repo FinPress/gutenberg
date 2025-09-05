@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  * @return string Returns the filtered post terms for the current post wrapped inside "a" tags.
  */
 function render_block_core_post_terms( $attributes, $content, $block ) {
@@ -38,23 +38,23 @@ function render_block_core_post_terms( $attributes, $content, $block ) {
 
 	$prefix = "<div $wrapper_attributes>";
 	if ( isset( $attributes['prefix'] ) && $attributes['prefix'] ) {
-		$prefix .= '<span class="wp-block-post-terms__prefix">' . $attributes['prefix'] . '</span>';
+		$prefix .= '<span class="fp-block-post-terms__prefix">' . $attributes['prefix'] . '</span>';
 	}
 
 	$suffix = '</div>';
 	if ( isset( $attributes['suffix'] ) && $attributes['suffix'] ) {
-		$suffix = '<span class="wp-block-post-terms__suffix">' . $attributes['suffix'] . '</span>' . $suffix;
+		$suffix = '<span class="fp-block-post-terms__suffix">' . $attributes['suffix'] . '</span>' . $suffix;
 	}
 
 	$post_terms = get_the_term_list(
 		$block->context['postId'],
 		$attributes['term'],
-		wp_kses_post( $prefix ),
-		'<span class="wp-block-post-terms__separator">' . esc_html( $separator ) . '</span>',
-		wp_kses_post( $suffix )
+		fp_kses_post( $prefix ),
+		'<span class="fp-block-post-terms__separator">' . esc_html( $separator ) . '</span>',
+		fp_kses_post( $suffix )
 	);
 
-	if ( is_wp_error( $post_terms ) || empty( $post_terms ) ) {
+	if ( is_fp_error( $post_terms ) || empty( $post_terms ) ) {
 		return '';
 	}
 

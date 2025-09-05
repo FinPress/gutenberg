@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/navigation-submenu",
 	"title": "Submenu",
@@ -76,6 +76,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-navigation-submenu-editor",
-	"style": "wp-block-navigation-submenu"
+	"editorStyle": "fp-block-navigation-submenu-editor",
+	"style": "fp-block-navigation-submenu"
 }

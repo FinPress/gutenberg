@@ -23,10 +23,10 @@ import {
 import { serializeRawBlock } from './parser/serialize-raw-block';
 import { isUnmodifiedDefaultBlock, normalizeBlockType } from './utils';
 
-/** @typedef {import('./parser').WPBlock} WPBlock */
+/** @typedef {import('./parser').FPBlock} FPBlock */
 
 /**
- * @typedef {Object} WPBlockSerializationOptions Serialization Options.
+ * @typedef {Object} FPBlockSerializationOptions Serialization Options.
  *
  * @property {boolean} isInnerBlocks Whether we are serializing inner blocks.
  */
@@ -39,10 +39,10 @@ import { isUnmodifiedDefaultBlock, normalizeBlockType } from './utils';
  * @return {string} The block's default class.
  */
 export function getBlockDefaultClassName( blockName ) {
-	// Generated HTML classes for blocks follow the `wp-block-{name}` nomenclature.
+	// Generated HTML classes for blocks follow the `fp-block-{name}` nomenclature.
 	// Blocks provided by FinPress drop the prefixes 'core/' or 'core-' (historically used in 'core-embed/').
 	const className =
-		'wp-block-' + blockName.replace( /\//, '-' ).replace( /^core-/, '' );
+		'fp-block-' + blockName.replace( /\//, '-' ).replace( /^core-/, '' );
 
 	return applyFilters(
 		'blocks.getBlockDefaultClassName',
@@ -159,7 +159,7 @@ export function getSaveElement(
 		 * Filters the props applied to the block save result element.
 		 *
 		 * @param {Object}  props      Props applied to save element.
-		 * @param {WPBlock} blockType  Block type definition.
+		 * @param {FPBlock} blockType  Block type definition.
 		 * @param {Object}  attributes Block attributes.
 		 */
 		const props = applyFilters(
@@ -178,7 +178,7 @@ export function getSaveElement(
 	 * Filters the save result of a block during serialization.
 	 *
 	 * @param {Element} element    Block save result.
-	 * @param {WPBlock} blockType  Block type definition.
+	 * @param {FPBlock} blockType  Block type definition.
 	 * @param {Object}  attributes Block attributes.
 	 */
 	return applyFilters(
@@ -292,7 +292,7 @@ export function serializeAttributes( attributes ) {
 			// Bypass server stripslashes behavior which would unescape stringify's
 			// escaping of quotation mark.
 			//
-			// See: https://developer.finpress.org/reference/functions/wp_kses_stripslashes/
+			// See: https://developer.finpress.org/reference/functions/fp_kses_stripslashes/
 			.replace( /\\"/g, '\\u0022' )
 	);
 }
@@ -348,16 +348,16 @@ export function getCommentDelimitedContent(
 		? rawBlockName.slice( 5 )
 		: rawBlockName;
 
-	// @todo make the `wp:` prefix potentially configurable.
+	// @todo make the `fp:` prefix potentially configurable.
 
 	if ( ! content ) {
-		return `<!-- wp:${ blockName } ${ serializedAttributes }/-->`;
+		return `<!-- fp:${ blockName } ${ serializedAttributes }/-->`;
 	}
 
 	return (
-		`<!-- wp:${ blockName } ${ serializedAttributes }-->\n` +
+		`<!-- fp:${ blockName } ${ serializedAttributes }-->\n` +
 		content +
-		`\n<!-- /wp:${ blockName } -->`
+		`\n<!-- /fp:${ blockName } -->`
 	);
 }
 
@@ -365,8 +365,8 @@ export function getCommentDelimitedContent(
  * Returns the content of a block, including comment delimiters, determining
  * serialized attributes and content form from the current state of the block.
  *
- * @param {WPBlock}                     block   Block instance.
- * @param {WPBlockSerializationOptions} options Serialization options.
+ * @param {FPBlock}                     block   Block instance.
+ * @param {FPBlockSerializationOptions} options Serialization options.
  *
  * @return {string} Serialized block.
  */
@@ -421,7 +421,7 @@ export function __unstableSerializeAndClean( blocks ) {
  * Takes a block or set of blocks and returns the serialized post content.
  *
  * @param {Array}                       blocks  Block(s) to serialize.
- * @param {WPBlockSerializationOptions} options Serialization options.
+ * @param {FPBlockSerializationOptions} options Serialization options.
  *
  * @return {string} The post content.
  */

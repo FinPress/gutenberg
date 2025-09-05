@@ -6,16 +6,16 @@ const prettierPackage = require( require.resolve( 'prettier/package.json' ) );
 /** @typedef {import('prettier').Config} PrettierConfig */
 
 /**
- * @typedef WPPrettierOptions
+ * @typedef FPPrettierOptions
  *
  * @property {boolean} [parenSpacing=true] Insert spaces inside parentheses.
  */
 
-const isWPPrettier = prettierPackage.name === 'wp-prettier';
-const customOptions = isWPPrettier ? { parenSpacing: true } : {};
-const customStyleOptions = isWPPrettier ? { parenSpacing: false } : {};
+const isFPPrettier = prettierPackage.name === 'fp-prettier';
+const customOptions = isFPPrettier ? { parenSpacing: true } : {};
+const customStyleOptions = isFPPrettier ? { parenSpacing: false } : {};
 
-/** @type {PrettierConfig & WPPrettierOptions} */
+/** @type {PrettierConfig & FPPrettierOptions} */
 const config = {
 	useTabs: true,
 	tabWidth: 4,

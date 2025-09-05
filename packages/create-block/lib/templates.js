@@ -30,7 +30,7 @@ const predefinedPluginTemplates = {
 			supports: {
 				html: false,
 			},
-			wpScripts: false,
+			fpScripts: false,
 			editorScript: null,
 			editorStyle: null,
 			style: null,
@@ -197,7 +197,7 @@ const getProjectTemplate = async ( templateName ) => {
 		info( '' );
 		info( 'Downloading template files. It might take some time...' );
 
-		tempCwd = await mkdtemp( join( tmpdir(), 'wp-create-block-' ) );
+		tempCwd = await mkdtemp( join( tmpdir(), 'fp-create-block-' ) );
 
 		await command( `npm install ${ templateName } --no-save`, {
 			cwd: tempCwd,
@@ -228,7 +228,7 @@ const getProjectTemplate = async ( templateName ) => {
 
 const getDefaultValues = ( projectTemplate, variant ) => {
 	return {
-		$schema: 'https://schemas.wp.org/trunk/block.json',
+		$schema: 'https://schemas.fp.org/trunk/block.json',
 		apiVersion: 3,
 		namespace: 'create-block',
 		category: 'widgets',
@@ -240,9 +240,9 @@ const getDefaultValues = ( projectTemplate, variant ) => {
 		requiresAtLeast: '6.7',
 		requiresPHP: '7.4',
 		testedUpTo: '6.7',
-		wpScripts: true,
+		fpScripts: true,
 		customScripts: {},
-		wpEnv: false,
+		fpEnv: false,
 		npmDependencies: [],
 		folderName: './src',
 		editorScript: 'file:./index.js',

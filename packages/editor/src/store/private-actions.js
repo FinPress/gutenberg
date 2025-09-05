@@ -41,7 +41,7 @@ export const createTemplate =
 	async ( { select, dispatch, registry } ) => {
 		const savedTemplate = await registry
 			.dispatch( coreStore )
-			.saveEntityRecord( 'postType', 'wp_template', template );
+			.saveEntityRecord( 'postType', 'fp_template', template );
 		registry
 			.dispatch( coreStore )
 			.editEntityRecord(
@@ -134,7 +134,7 @@ export const saveDirtyEntities =
 	( { onSave, dirtyEntityRecords = [], entitiesToSkip = [], close } = {} ) =>
 	( { registry } ) => {
 		const PUBLISH_ON_SAVE_ENTITIES = [
-			{ kind: 'postType', name: 'wp_navigation' },
+			{ kind: 'postType', name: 'fp_navigation' },
 		];
 		const saveNoticeId = 'site-editor-save-success';
 		const homeUrl = registry

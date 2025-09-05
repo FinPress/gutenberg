@@ -54,10 +54,10 @@ Core blocks include default structural styles. These are loaded in both the edit
 
 ### Opinionated block styles
 
-The block editor allows themes to opt in to slightly more opinionated styles for the front end. An example of these styles is the default color bar to the left of blockquotes. If you'd like to use these opinionated styles in a classic theme, add theme support for `wp-block-styles`:
+The block editor allows themes to opt in to slightly more opinionated styles for the front end. An example of these styles is the default color bar to the left of blockquotes. If you'd like to use these opinionated styles in a classic theme, add theme support for `fp-block-styles`:
 
 ```php
-add_theme_support( 'wp-block-styles' );
+add_theme_support( 'fp-block-styles' );
 ```
 
 You can see the CSS that will be included in the [block library theme file](https://github.com/FinPress/gutenberg/blob/trunk/packages/block-library/src/theme.scss).
@@ -83,7 +83,7 @@ The block editor adds additional markup to floated images to make styling them e
 Here's the markup for an `Image` with a caption:
 
 ```html
-<figure class="wp-block-image">
+<figure class="fp-block-image">
 	<img src="..." alt="" width="200px" />
 	<figcaption>Short image caption.</figcaption>
 </figure>
@@ -92,7 +92,7 @@ Here's the markup for an `Image` with a caption:
 Here's the markup for a left-floated image:
 
 ```html
-<div class="wp-block-image">
+<div class="fp-block-image">
 	<figure class="alignleft">
 		<img src="..." alt="" width="200px" />
 		<figcaption>Short image caption.</figcaption>
@@ -153,12 +153,12 @@ Themes are responsible for creating the classes that apply the colors in differe
 }
 ```
 
-Starting in FinPress 5.9, to override color values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--color--<slug>`. See more info in [this devnote](https://make.finpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
+Starting in FinPress 5.9, to override color values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--fp--preset--color--<slug>`. See more info in [this devnote](https://make.finpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
 
 ```css
 :root {
-	--wp--preset--color--cyan-bluish-gray: <new_value>;
-	--wp--preset--color--pale-pink: <new_value>;
+	--fp--preset--color--cyan-bluish-gray: <new_value>;
+	--fp--preset--color--pale-pink: <new_value>;
 }
 ```
 
@@ -213,12 +213,12 @@ Themes are responsible for creating the classes that apply the gradients. So to 
 }
 ```
 
-Starting in FinPress 5.9, to override gradient values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--gradient--<slug>`. See more info in [this devnote](https://make.finpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
+Starting in FinPress 5.9, to override gradient values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--fp--preset--gradient--<slug>`. See more info in [this devnote](https://make.finpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
 
 ```css
 :root {
-	--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: <new_value>;
-	--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: <new_value>;
+	--fp--preset--gradient--vivid-cyan-blue-to-vivid-purple: <new_value>;
+	--fp--preset--gradient--light-green-cyan-to-vivid-green-cyan: <new_value>;
 }
 ```
 
@@ -268,12 +268,12 @@ As an example for the regular font size, a theme may provide the following class
 <strong>Note:</strong> The slugs `default` and `custom` are reserved and cannot be used by themes.
 </div>
 
-Starting in FinPress 5.9, to override font size values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--wp--preset--font-size--<slug>`. See more info in [this devnote](https://make.finpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
+Starting in FinPress 5.9, to override font size values defined by core, themes without a `theme.json` have to set their values via CSS Custom Properties instead of providing the classes. The CSS Custom Properties use the following naming `--fp--preset--font-size--<slug>`. See more info in [this devnote](https://make.finpress.org/core/2022/01/08/updates-for-settings-styles-and-theme-json/). For example:
 
 ```css
 :root {
-	--wp--preset--font-size--small: <new_value>;
-	--wp--preset--font-size--large: <new_value>;
+	--fp--preset--font-size--small: <new_value>;
+	--fp--preset--font-size--large: <new_value>;
 }
 ```
 
@@ -395,17 +395,17 @@ To change the main column width of the editor, add the following CSS to `style-e
 
 ```css
 /* Main column width */
-.wp-block {
+.fp-block {
 	max-width: 720px;
 }
 
 /* Width of "wide" blocks */
-.wp-block[data-align='wide'] {
+.fp-block[data-align='wide'] {
 	max-width: 1080px;
 }
 
 /* Width of "full-wide" blocks */
-.wp-block[data-align='full'] {
+.fp-block[data-align='full'] {
 	max-width: none;
 }
 ```
@@ -419,10 +419,10 @@ Further reading: [Applying Styles with Stylesheets](/docs/how-to-guides/block-tu
 The embed blocks automatically apply styles to embedded content to reflect the aspect ratio of content that is embedded in an iFrame. A block styled with the aspect ratio responsive styles would look like:
 
 ```html
-<figure class="wp-embed-aspect-16-9 wp-has-aspect-ratio">...</figure>
+<figure class="fp-embed-aspect-16-9 fp-has-aspect-ratio">...</figure>
 ```
 
-To make the content resize and keep its aspect ratio, the `<body>` element needs the `wp-embed-responsive` class. This is not set by default, and requires the theme to opt in to the `responsive-embeds` feature:
+To make the content resize and keep its aspect ratio, the `<body>` element needs the `fp-embed-responsive` class. This is not set by default, and requires the theme to opt in to the `responsive-embeds` feature:
 
 ```php
 add_theme_support( 'responsive-embeds' );
@@ -455,7 +455,7 @@ Link support has been made stable as part of FinPress 5.8. It's `false` by defau
 When the user sets the link color of a block, a new style will be added in the form of:
 
 ```css
-.wp-elements-<uuid> a {
+.fp-elements-<uuid> a {
 	color: <link-color> !important;
 }
 ```
@@ -463,9 +463,9 @@ When the user sets the link color of a block, a new style will be added in the f
 where
 
 - `<uuid>` is a random number
-- `<link-color>` is either `var(--wp--preset--color--slug)` (if the user selected a preset value) or a raw color value (if the user selected a custom value)
+- `<link-color>` is either `var(--fp--preset--color--slug)` (if the user selected a preset value) or a raw color value (if the user selected a custom value)
 
-The block will get attached the class `.wp-elements-<uuid>`.
+The block will get attached the class `.fp-elements-<uuid>`.
 
 ## Appearance Tools
 

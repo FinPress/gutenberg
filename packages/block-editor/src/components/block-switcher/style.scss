@@ -137,14 +137,14 @@
 
 			&:hover,
 			&:focus {
-				box-shadow: inset 0 0 0 1px $white, 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+				box-shadow: inset 0 0 0 1px $white, 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
 
 				// Windows High Contrast mode will show this outline, but not the box-shadow.
 				outline: 2px solid transparent;
 			}
 
 			&:hover {
-				box-shadow: inset 0 0 0 1px $white, 0 0 0 var(--wp-admin-border-width-focus) $gray-900;
+				box-shadow: inset 0 0 0 1px $white, 0 0 0 var(--fp-admin-border-width-focus) $gray-900;
 			}
 
 			.block-editor-block-switcher__preview-patterns-container-list__item-title {

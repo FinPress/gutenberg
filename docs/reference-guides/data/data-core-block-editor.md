@@ -403,7 +403,7 @@ _Parameters_
 
 _Returns_
 
--   `WPBlock[]`: Block objects.
+-   `FPBlock[]`: Block objects.
 
 ### getBlocksByName
 
@@ -460,11 +460,11 @@ _Parameters_
 
 _Returns_
 
--   `WPEditorTransformItem[]`: Items that appear in inserter.
+-   `FPEditorTransformItem[]`: Items that appear in inserter.
 
 _Type Definition_
 
--   _WPEditorTransformItem_ `Object`
+-   _FPEditorTransformItem_ `Object`
 
 _Properties_
 
@@ -511,11 +511,11 @@ _Parameters_
 
 _Returns_
 
--   `WPDirectInsertBlock|undefined`: The block type to be directly inserted.
+-   `FPDirectInsertBlock|undefined`: The block type to be directly inserted.
 
 _Type Definition_
 
--   _WPDirectInsertBlock_ `Object`
+-   _FPDirectInsertBlock_ `Object`
 
 _Properties_
 
@@ -585,11 +585,11 @@ _Parameters_
 
 _Returns_
 
--   `WPEditorInserterItem[]`: Items that appear in inserter.
+-   `FPEditorInserterItem[]`: Items that appear in inserter.
 
 _Type Definition_
 
--   _WPEditorInserterItem_ `Object`
+-   _FPEditorInserterItem_ `Object`
 
 _Properties_
 
@@ -757,7 +757,7 @@ const getActiveBlockData = () => {
 };
 
 // Subscribe to changes in the editor
-// wp.data.subscribe(() => {
+// fp.data.subscribe(() => {
 // getActiveBlockData()
 // })
 
@@ -831,7 +831,7 @@ _Parameters_
 
 _Returns_
 
--   `WPBlockSelection`: Selection end information.
+-   `FPBlockSelection`: Selection end information.
 
 ### getSelectionStart
 
@@ -843,7 +843,7 @@ _Parameters_
 
 _Returns_
 
--   `WPBlockSelection`: Selection start information.
+-   `FPBlockSelection`: Selection start information.
 
 ### getSettings
 
@@ -1454,7 +1454,7 @@ _Properties_
 _Usage_
 
 ```js
-wp.data.dispatch( 'core/block-editor' ).registerInserterMediaCategory( {
+fp.data.dispatch( 'core/block-editor' ).registerInserterMediaCategory( {
 	name: 'openverse',
 	labels: {
 		name: 'Openverse',
@@ -1604,8 +1604,8 @@ Returns an action object used in signalling that selection state should be reset
 
 _Parameters_
 
--   _selectionStart_ `WPBlockSelection`: The selection start.
--   _selectionEnd_ `WPBlockSelection`: The selection end.
+-   _selectionStart_ `FPBlockSelection`: The selection start.
+-   _selectionEnd_ `FPBlockSelection`: The selection end.
 -   _initialPosition_ `0|-1|null`: Initial block position.
 
 _Returns_
@@ -1631,7 +1631,7 @@ Action that changes the position of the user caret.
 
 _Parameters_
 
--   _clientId_ `string|WPSelection`: The selected block client ID.
+-   _clientId_ `string|FPSelection`: The selected block client ID.
 -   _attributeKey_ `string`: The selected block attribute key.
 -   _startOffset_ `number`: The start offset.
 -   _endOffset_ `number`: The end offset.
@@ -1738,7 +1738,7 @@ _Returns_
 _Properties_
 
 -   _\_\_unstableWithInserter_ `boolean`: Whether or not to show an inserter button.
--   _operation_ `WPDropOperation`: The operation to perform when applied, either 'insert' or 'replace' for now.
+-   _operation_ `FPDropOperation`: The operation to perform when applied, either 'insert' or 'replace' for now.
 
 ### startDraggingBlocks
 

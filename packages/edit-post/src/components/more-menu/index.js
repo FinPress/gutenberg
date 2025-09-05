@@ -2,7 +2,7 @@
  * FinPress dependencies
  */
 import { __ } from '@finpress/i18n';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { privateApis as editorPrivateApis } from '@finpress/editor';
 import { displayShortcut } from '@finpress/keycodes';
 import { PreferenceToggleMenuItem } from '@finpress/preferences';
@@ -18,11 +18,11 @@ import EditPostPreferencesModal from '../preferences-modal';
 const { ToolsMoreMenuGroup, ViewMoreMenuGroup } = unlock( editorPrivateApis );
 
 const MoreMenu = () => {
-	const isLargeViewport = useViewportMatch( 'large' );
+	const isLargeviewport = useviewportMatch( 'large' );
 
 	return (
 		<>
-			{ isLargeViewport && (
+			{ isLargeviewport && (
 				<ViewMoreMenuGroup>
 					<PreferenceToggleMenuItem
 						scope="core/edit-post"

@@ -6,6 +6,6 @@
  */
 
 // Require files.
-require_once __DIR__ . '/class-wp-block-parser-block.php';
-require_once __DIR__ . '/class-wp-block-parser-frame.php';
-require_once __DIR__ . '/class-wp-block-parser.php';
+require_once __DIR__ . '/class-fp-block-parser-block.php';
+require_once __DIR__ . '/class-fp-block-parser-frame.php';
+require_once __DIR__ . '/class-fp-block-parser.php';

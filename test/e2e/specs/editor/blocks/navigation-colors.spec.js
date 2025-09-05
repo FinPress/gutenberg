@@ -21,7 +21,7 @@ test.describe( 'Navigation colors', () => {
 
 		const { id: menuId } = await requestUtils.createNavigationMenu( {
 			title: 'Colored menu',
-			content: `<!-- wp:navigation-submenu {"label":"Custom Link","type":"custom","url":"https://finpress.org","kind":"custom"} --><!-- wp:navigation-link {"label":"Submenu Link","type":"custom","url":"https://finpress.org","kind":"custom"} /--><!-- /wp:navigation-submenu --><!-- wp:navigation-link {"label":"Page Link","type":"page","id": ${ pageId },"url":"http://localhost:8889/?page_id=${ pageId }","kind":"post-type"} /-->`,
+			content: `<!-- fp:navigation-submenu {"label":"Custom Link","type":"custom","url":"https://finpress.org","kind":"custom"} --><!-- fp:navigation-link {"label":"Submenu Link","type":"custom","url":"https://finpress.org","kind":"custom"} /--><!-- /fp:navigation-submenu --><!-- fp:navigation-link {"label":"Page Link","type":"page","id": ${ pageId },"url":"http://localhost:8889/?page_id=${ pageId }","kind":"post-type"} /-->`,
 			attributes: { openSubmenusOnClick: true },
 		} );
 
@@ -418,7 +418,7 @@ class ColorControl {
 		await this.page.mouse.move( 1000, 1000 );
 
 		const overlay = this.editor.canvas
-			.locator( '.wp-block-navigation__responsive-container' )
+			.locator( '.fp-block-navigation__responsive-container' )
 			.filter( { hasText: 'Submenu Link' } );
 
 		// All of the mobile menu navigation links should be the same color as the submenuTextColor.
@@ -470,7 +470,7 @@ class ColorControl {
 			.locator( 'a' )
 			.filter( { hasText: 'Submenu Link' } );
 		const submenuWrapper = this.page
-			.locator( '.wp-block-navigation__submenu-container' )
+			.locator( '.fp-block-navigation__submenu-container' )
 			.filter( { has: submenuLink } );
 
 		// Submenu link color.
@@ -483,7 +483,7 @@ class ColorControl {
 		);
 
 		// Open the frontend overlay so we can test the colors.
-		await this.pageUtils.setBrowserViewport( { width: 599, height: 700 } );
+		await this.pageUtils.setBrowserviewport( { width: 599, height: 700 } );
 		await this.page.getByRole( 'button', { name: 'Open menu' } ).click();
 
 		// All of the mobile menu navigation links should be the same color as the submenuTextColor.
@@ -492,7 +492,7 @@ class ColorControl {
 		await expect( pageLink ).toHaveCSS( 'color', submenuTextColor );
 
 		const overlayFront = this.page
-			.locator( '.wp-block-navigation__responsive-container' )
+			.locator( '.fp-block-navigation__responsive-container' )
 			.filter( { hasText: 'Submenu Link' } );
 
 		// The mobile menu background should be the same color as the submenu background.
@@ -502,6 +502,6 @@ class ColorControl {
 		);
 
 		// We need to reset the overlay to the default viewport if something runs after these tests.
-		await this.pageUtils.setBrowserViewport( 'large' );
+		await this.pageUtils.setBrowserviewport( 'large' );
 	}
 }

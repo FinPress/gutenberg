@@ -32,14 +32,14 @@ test.describe( 'InnerBlocks Template Sync', () => {
 
 		await page.getByRole( 'textbox', {
 			name: 'Type text or HTML',
-		} ).fill( `<!-- wp:test/test-inner-blocks-no-locking -->
-<!-- wp:paragraph {"fontSize":"large"} -->
+		} ).fill( `<!-- fp:test/test-inner-blocks-no-locking -->
+<!-- fp:paragraph {"fontSize":"large"} -->
 <p class="has-large-font-size">Content…</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph -->
+<!-- /fp:paragraph -->
+<!-- fp:paragraph -->
 <p>added paragraph</p>
-<!-- /wp:paragraph -->
-<!-- /wp:test/test-inner-blocks-no-locking -->` );
+<!-- /fp:paragraph -->
+<!-- /fp:test/test-inner-blocks-no-locking -->` );
 
 		await pageUtils.pressKeys( 'secondary+M' );
 		await expect.poll( editor.getBlocks ).toMatchObject( [
@@ -75,14 +75,14 @@ test.describe( 'InnerBlocks Template Sync', () => {
 
 		await page.getByRole( 'textbox', {
 			name: 'Type text or HTML',
-		} ).fill( `<!-- wp:test/test-inner-blocks-locking-all -->
-<!-- wp:paragraph {"fontSize":"large"} -->
+		} ).fill( `<!-- fp:test/test-inner-blocks-locking-all -->
+<!-- fp:paragraph {"fontSize":"large"} -->
 <p class="has-large-font-size">Content…</p>
-<!-- /wp:paragraph -->
-<!-- wp:paragraph -->
+<!-- /fp:paragraph -->
+<!-- fp:paragraph -->
 <p>added paragraph</p>
-<!-- /wp:paragraph -->
-<!-- /wp:test/test-inner-blocks-locking-all -->` );
+<!-- /fp:paragraph -->
+<!-- /fp:test/test-inner-blocks-locking-all -->` );
 
 		await pageUtils.pressKeys( 'secondary+M' );
 		await expect.poll( editor.getBlocks ).toMatchObject( [

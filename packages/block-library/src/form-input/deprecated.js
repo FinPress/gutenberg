@@ -39,7 +39,7 @@ const v2 = {
 		label: {
 			type: 'string',
 			default: 'Label',
-			selector: '.wp-block-form-input__label-content',
+			selector: '.fp-block-form-input__label-content',
 			source: 'html',
 			role: 'content',
 		},
@@ -50,13 +50,13 @@ const v2 = {
 		required: {
 			type: 'boolean',
 			default: false,
-			selector: '.wp-block-form-input__input',
+			selector: '.fp-block-form-input__input',
 			source: 'attribute',
 			attribute: 'required',
 		},
 		placeholder: {
 			type: 'string',
-			selector: '.wp-block-form-input__input',
+			selector: '.fp-block-form-input__input',
 			source: 'attribute',
 			attribute: 'placeholder',
 			role: 'content',
@@ -100,7 +100,7 @@ const v2 = {
 		};
 
 		const inputClasses = clsx(
-			'wp-block-form-input__input',
+			'fp-block-form-input__input',
 			colorProps.className,
 			borderProps.className
 		);
@@ -116,11 +116,11 @@ const v2 = {
 			<div { ...blockProps }>
 				{ /* eslint-disable jsx-a11y/label-has-associated-control */ }
 				<label
-					className={ clsx( 'wp-block-form-input__label', {
+					className={ clsx( 'fp-block-form-input__label', {
 						'is-label-inline': inlineLabel,
 					} ) }
 				>
-					<span className="wp-block-form-input__label-content">
+					<span className="fp-block-form-input__label-content">
 						<RichText.Content value={ label } />
 					</span>
 					<TagName
@@ -153,7 +153,7 @@ const v1 = {
 		label: {
 			type: 'string',
 			default: 'Label',
-			selector: '.wp-block-form-input__label-content',
+			selector: '.fp-block-form-input__label-content',
 			source: 'html',
 			role: 'content',
 		},
@@ -164,13 +164,13 @@ const v1 = {
 		required: {
 			type: 'boolean',
 			default: false,
-			selector: '.wp-block-form-input__input',
+			selector: '.fp-block-form-input__input',
 			source: 'attribute',
 			attribute: 'required',
 		},
 		placeholder: {
 			type: 'string',
-			selector: '.wp-block-form-input__input',
+			selector: '.fp-block-form-input__input',
 			source: 'attribute',
 			attribute: 'placeholder',
 			role: 'content',
@@ -215,7 +215,7 @@ const v1 = {
 		};
 
 		const inputClasses = clsx(
-			'wp-block-form-input__input',
+			'fp-block-form-input__input',
 			colorProps.className,
 			borderProps.className
 		);
@@ -228,11 +228,11 @@ const v1 = {
 		/* eslint-disable jsx-a11y/label-has-associated-control */
 		return (
 			<label
-				className={ clsx( 'wp-block-form-input__label', {
+				className={ clsx( 'fp-block-form-input__label', {
 					'is-label-inline': inlineLabel,
 				} ) }
 			>
-				<span className="wp-block-form-input__label-content">
+				<span className="fp-block-form-input__label-content">
 					<RichText.Content value={ label } />
 				</span>
 				<TagName

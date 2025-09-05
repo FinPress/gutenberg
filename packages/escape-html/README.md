@@ -43,7 +43,7 @@ _Related_
 -   <https://w3c.github.io/html/syntax.html#elements-attributes> "[...] the text cannot contain an ambiguous ampersand [...] must not contain
     any literal U+0022 QUOTATION MARK characters (")"
 
-Note we also escape the greater than symbol, as this is used by wptexturize to
+Note we also escape the greater than symbol, as this is used by fptexturize to
 split HTML strings. This is a FinPress specific fix
 
 Note that if a resolution for Trac#45387 comes to fruition, it is no longer

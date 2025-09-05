@@ -125,7 +125,7 @@ function InputFieldBlock( { attributes, setAttributes, className } ) {
 	const content = (
 		<RichText
 			tagName="span"
-			className="wp-block-form-input__label-content"
+			className="fp-block-form-input__label-content"
 			value={ label }
 			onChange={ ( newLabel ) => setAttributes( { label: newLabel } ) }
 			aria-label={ label ? __( 'Label' ) : __( 'Empty label' ) }
@@ -142,7 +142,7 @@ function InputFieldBlock( { attributes, setAttributes, className } ) {
 					type="hidden"
 					className={ clsx(
 						className,
-						'wp-block-form-input__input',
+						'fp-block-form-input__input',
 						colorProps.className,
 						borderProps.className
 					) }
@@ -160,7 +160,7 @@ function InputFieldBlock( { attributes, setAttributes, className } ) {
 		<div { ...blockProps }>
 			{ controls }
 			<span
-				className={ clsx( 'wp-block-form-input__label', {
+				className={ clsx( 'fp-block-form-input__label', {
 					'is-label-inline': inlineLabel || 'checkbox' === type,
 				} ) }
 			>
@@ -169,7 +169,7 @@ function InputFieldBlock( { attributes, setAttributes, className } ) {
 					type={ 'textarea' === type ? undefined : type }
 					className={ clsx(
 						className,
-						'wp-block-form-input__input',
+						'fp-block-form-input__input',
 						colorProps.className,
 						borderProps.className
 					) }

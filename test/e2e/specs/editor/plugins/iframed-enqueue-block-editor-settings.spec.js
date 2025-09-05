@@ -35,10 +35,10 @@ test.describe( 'iframed block editor settings styles', () => {
 		);
 
 		await page.evaluate( () => {
-			const settings = window.wp.data
+			const settings = window.fp.data
 				.select( 'core/editor' )
 				.getEditorSettings();
-			window.wp.data.dispatch( 'core/editor' ).updateEditorSettings( {
+			window.fp.data.dispatch( 'core/editor' ).updateEditorSettings( {
 				...settings,
 				styles: [
 					...settings.styles,
@@ -65,13 +65,13 @@ test.describe( 'iframed block editor settings styles', () => {
 		await page.evaluate( () => {
 			// Make sure that theme styles are added even if the theme styles
 			// preference is off.
-			window.wp.data
+			window.fp.data
 				.dispatch( 'core/edit-post' )
 				.toggleFeature( 'themeStyles' );
-			const settings = window.wp.data
+			const settings = window.fp.data
 				.select( 'core/editor' )
 				.getEditorSettings();
-			window.wp.data.dispatch( 'core/editor' ).updateEditorSettings( {
+			window.fp.data.dispatch( 'core/editor' ).updateEditorSettings( {
 				...settings,
 				styles: [
 					...settings.styles,
@@ -88,7 +88,7 @@ test.describe( 'iframed block editor settings styles', () => {
 
 		await page.evaluate( () => {
 			// Now enable theme styles.
-			window.wp.data
+			window.fp.data
 				.dispatch( 'core/edit-post' )
 				.toggleFeature( 'themeStyles' );
 		} );

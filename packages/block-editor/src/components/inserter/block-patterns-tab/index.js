@@ -2,7 +2,7 @@
  * FinPress dependencies
  */
 import { useState } from '@finpress/element';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { Button } from '@finpress/components';
 import { __ } from '@finpress/i18n';
 
@@ -27,7 +27,7 @@ function BlockPatternsTab( {
 
 	const categories = usePatternCategories( rootClientId );
 
-	const isMobile = useViewportMatch( 'medium', '<' );
+	const isMobile = useviewportMatch( 'medium', '<' );
 
 	if ( ! categories.length ) {
 		return <InserterNoResults />;

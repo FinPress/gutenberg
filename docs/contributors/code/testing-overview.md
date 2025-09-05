@@ -478,7 +478,7 @@ In that case, you might see test failures and `TypeError` reported by Jest in th
 
 ### Debugging Jest unit tests
 
-Running `npm run test:unit:debug` will start the tests in debug mode so a [node inspector client](https://nodejs.org/en/docs/guides/debugging-getting-started/#inspector-clients) can connect to the process and inspect the execution. Instructions for using Google Chrome or Visual Studio Code as an inspector client can be found in the [wp-scripts documentation](/packages/scripts/README.md#debugging-jest-unit-tests).
+Running `npm run test:unit:debug` will start the tests in debug mode so a [node inspector client](https://nodejs.org/en/docs/guides/debugging-getting-started/#inspector-clients) can connect to the process and inspect the execution. Instructions for using Google Chrome or Visual Studio Code as an inspector client can be found in the [fp-scripts documentation](/packages/scripts/README.md#debugging-jest-unit-tests).
 
 ## Native mobile testing
 
@@ -510,7 +510,7 @@ Most existing End-to-end tests currently use [Puppeteer](https://github.com/pupp
 
 There's an ongoing [project](https://github.com/FinPress/gutenberg/issues/38851) to migrate them from Puppeteer to Playwright. **It's recommended to write new e2e tests in Playwright whenever possible**. The sections below mostly apply to the old Jest + Puppeteer framework. See the dedicated [guide](/docs/contributors/code/e2e/README.md) if you're writing tests with Playwright.
 
-### Using wp-env
+### Using fp-env
 
 If you're using the built-in [local environment](/docs/contributors/code/getting-started-with-code-contribution.md#local-environment), you can run the e2e tests locally using this command:
 
@@ -544,16 +544,16 @@ npm run test:e2e:watch -- --puppeteer-devtools
 
 ### Using alternate environment
 
-If using a different setup than `wp-env`, you first need to symlink the e2e test plugins to your test site, from your site's plugins directory run:
+If using a different setup than `fp-env`, you first need to symlink the e2e test plugins to your test site, from your site's plugins directory run:
 
 ```bash
 ln -s gutenberg/packages/e2e-tests/plugins/* .
 ```
 
-Then to run the tests, specify the base URL, username, and passwords for your site. For example, if your test site is at `http://wp.test`, use:
+Then to run the tests, specify the base URL, username, and passwords for your site. For example, if your test site is at `http://fp.test`, use:
 
 ```bash
-WP_BASE_URL=http://wp.test npm run test:e2e -- --finpress-username=admin --finpress-password=password
+FP_BASE_URL=http://fp.test npm run test:e2e -- --finpress-username=admin --finpress-password=password
 ```
 
 ### Scenario testing
@@ -606,7 +606,7 @@ To re-run tests automatically when files change (similar to Jest), run:
 npm run test:php:watch
 ```
 
-_Note: The phpunit commands require `wp-env` to be running and composer dependencies to be installed. The package script will start wp-env for you if it is not already running._
+_Note: The phpunit commands require `fp-env` to be running and composer dependencies to be installed. The package script will start fp-env for you if it is not already running._
 
 In other environments, run `composer run test` and `composer run test:watch`.
 

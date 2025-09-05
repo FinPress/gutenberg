@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/button",
 	"title": "Button",
@@ -140,12 +140,12 @@
 		{ "name": "fill", "label": "Fill", "isDefault": true },
 		{ "name": "outline", "label": "Outline" }
 	],
-	"editorStyle": "wp-block-button-editor",
-	"style": "wp-block-button",
+	"editorStyle": "fp-block-button-editor",
+	"style": "fp-block-button",
 	"selectors": {
-		"root": ".wp-block-button .wp-block-button__link",
+		"root": ".fp-block-button .fp-block-button__link",
 		"typography": {
-			"writingMode": ".wp-block-button"
+			"writingMode": ".fp-block-button"
 		}
 	}
 }

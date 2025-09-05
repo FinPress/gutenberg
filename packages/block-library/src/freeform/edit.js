@@ -19,7 +19,7 @@ import { BACKSPACE, DELETE, F10, isKeyboardEvent } from '@finpress/keycodes';
 import ConvertToBlocksButton from './convert-to-blocks-button';
 import ModalEdit from './modal';
 
-const { wp } = window;
+const { fp } = window;
 
 function isTmceEmpty( editor ) {
 	// When tinyMce is empty the content seems to be:
@@ -94,7 +94,7 @@ function ClassicEdit( {
 	}, [ clientId, content ] );
 
 	useEffect( () => {
-		const { baseURL, suffix } = window.wpEditorL10n.tinymce;
+		const { baseURL, suffix } = window.fpEditorL10n.tinymce;
 
 		didMountRef.current = true;
 
@@ -207,8 +207,8 @@ function ClassicEdit( {
 		}
 
 		function initialize() {
-			const { settings } = window.wpEditorL10n.tinymce;
-			wp.oldEditor.initialize( `editor-${ clientId }`, {
+			const { settings } = window.fpEditorL10n.tinymce;
+			fp.oldEditor.initialize( `editor-${ clientId }`, {
 				tinymce: {
 					...settings,
 					inline: true,
@@ -236,7 +236,7 @@ function ClassicEdit( {
 				'readystatechange',
 				onReadyStateChange
 			);
-			wp.oldEditor.remove( `editor-${ clientId }` );
+			fp.oldEditor.remove( `editor-${ clientId }` );
 			didMountRef.current = false;
 		};
 	}, [] );
@@ -275,7 +275,7 @@ function ClassicEdit( {
 			<div
 				key="editor"
 				id={ `editor-${ clientId }` }
-				className="wp-block-freeform block-library-rich-text__tinymce"
+				className="fp-block-freeform block-library-rich-text__tinymce"
 			/>
 		</>
 	);

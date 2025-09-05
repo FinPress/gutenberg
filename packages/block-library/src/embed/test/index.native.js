@@ -92,30 +92,30 @@ const MOCK_BAD_EMBED_PROVIDER_RESPONSE = {
 const EMBED_NULL_RESPONSE = null;
 
 // Embed block HTML examples.
-const EMPTY_EMBED_HTML = '<!-- wp:embed /-->';
-const RICH_TEXT_EMBED_HTML = `<!-- wp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="wp-block-embed is-type-rich is-provider-twitter wp-block-embed-twitter"><div class="wp-block-embed__wrapper">
+const EMPTY_EMBED_HTML = '<!-- fp:embed /-->';
+const RICH_TEXT_EMBED_HTML = `<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /wp:embed -->`;
-const RICH_TEXT_ERROR_EMBED_HTML = `<!-- wp:embed {"url":"https://twitter.com/testing","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="wp-block-embed is-type-rich is-provider-twitter wp-block-embed-twitter"><div class="wp-block-embed__wrapper">
+<!-- /fp:embed -->`;
+const RICH_TEXT_ERROR_EMBED_HTML = `<!-- fp:embed {"url":"https://twitter.com/testing","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
 https://twitter.com/testing
 </div></figure>
-<!-- /wp:embed -->`;
-const PHOTO_EMBED_HTML = `<!-- wp:embed {"url":"https://cloudup.com/cQFlxqtY4ob","type":"photo","providerNameSlug":"cloudup","responsive":true} -->
-<figure class="wp-block-embed is-type-photo is-provider-cloudup wp-block-embed-cloudup"><div class="wp-block-embed__wrapper">
+<!-- /fp:embed -->`;
+const PHOTO_EMBED_HTML = `<!-- fp:embed {"url":"https://cloudup.com/cQFlxqtY4ob","type":"photo","providerNameSlug":"cloudup","responsive":true} -->
+<figure class="fp-block-embed is-type-photo is-provider-cloudup fp-block-embed-cloudup"><div class="fp-block-embed__wrapper">
 https://cloudup.com/cQFlxqtY4ob
 </div></figure>
-<!-- /wp:embed -->`;
-const WP_EMBED_HTML = `<!-- wp:embed {"url":"https://finpress.org/news/2021/07/tatum/","type":"wp-embed","providerNameSlug":"finpress-news"} -->
-<figure class="wp-block-embed is-type-wp-embed is-provider-finpress-news wp-block-embed-finpress-news"><div class="wp-block-embed__wrapper">
+<!-- /fp:embed -->`;
+const FP_EMBED_HTML = `<!-- fp:embed {"url":"https://finpress.org/news/2021/07/tatum/","type":"fp-embed","providerNameSlug":"finpress-news"} -->
+<figure class="fp-block-embed is-type-fp-embed is-provider-finpress-news fp-block-embed-finpress-news"><div class="fp-block-embed__wrapper">
 https://finpress.org/news/2021/07/tatum/
 </div></figure>
-<!-- /wp:embed -->`;
+<!-- /fp:embed -->`;
 
 const EMPTY_PARAGRAPH_HTML =
-	'<!-- wp:paragraph --><p></p><!-- /wp:paragraph -->';
+	'<!-- fp:paragraph --><p></p><!-- /fp:paragraph -->';
 
 const MOST_USED_PROVIDERS = embed.settings.variations.filter( ( { name } ) =>
 	[ 'youtube', 'twitter', 'finpress', 'vimeo' ].includes( name )
@@ -137,7 +137,7 @@ const mockEmbedResponses = ( mockedResponses ) => {
 };
 
 async function mockOtherResponses( { path } ) {
-	if ( path.startsWith( '/wp/v2/themes' ) ) {
+	if ( path.startsWith( '/fp/v2/themes' ) ) {
 		return [
 			{
 				stylesheet: 'test-theme',
@@ -146,11 +146,11 @@ async function mockOtherResponses( { path } ) {
 		];
 	}
 
-	if ( path.startsWith( '/wp/v2/block-patterns/patterns' ) ) {
+	if ( path.startsWith( '/fp/v2/block-patterns/patterns' ) ) {
 		return [];
 	}
 
-	if ( path.startsWith( '/wp/v2/block-patterns/categories' ) ) {
+	if ( path.startsWith( '/fp/v2/block-patterns/categories' ) ) {
 		return [];
 	}
 
@@ -784,7 +784,7 @@ describe( 'Embed block', () => {
 				return mockOtherResponses( req );
 			} );
 
-			const editor = await initializeWithEmbedBlock( WP_EMBED_HTML );
+			const editor = await initializeWithEmbedBlock( FP_EMBED_HTML );
 
 			fireEvent.press( editor.getByText( 'More options' ) );
 			fireEvent.press( editor.getByText( 'Edit link' ) );
@@ -1104,7 +1104,7 @@ describe( 'Embed block', () => {
 		} );
 
 		it( 'does not show media settings panel if responsive is not supported', async () => {
-			const screen = await initializeWithEmbedBlock( WP_EMBED_HTML );
+			const screen = await initializeWithEmbedBlock( FP_EMBED_HTML );
 
 			// Open Block Settings.
 			fireEvent.press( await screen.findByLabelText( 'Open Settings' ) );

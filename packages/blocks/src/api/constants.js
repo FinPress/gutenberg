@@ -16,7 +16,7 @@ export const DEPRECATED_ENTRY_KEYS = [
 
 export const __EXPERIMENTAL_STYLE_PROPERTY = {
 	// Kept for back-compatibility purposes.
-	'--wp--style--color--link': {
+	'--fp--style--color--link': {
 		value: [ 'color', 'link' ],
 		support: [ 'color', 'link' ],
 	},
@@ -258,21 +258,21 @@ export const __EXPERIMENTAL_STYLE_PROPERTY = {
 		support: [ 'typography', '__experimentalWritingMode' ],
 		useEngine: true,
 	},
-	'--wp--style--root--padding': {
+	'--fp--style--root--padding': {
 		value: [ 'spacing', 'padding' ],
 		support: [ 'spacing', 'padding' ],
 		properties: {
-			'--wp--style--root--padding-top': 'top',
-			'--wp--style--root--padding-right': 'right',
-			'--wp--style--root--padding-bottom': 'bottom',
-			'--wp--style--root--padding-left': 'left',
+			'--fp--style--root--padding-top': 'top',
+			'--fp--style--root--padding-right': 'right',
+			'--fp--style--root--padding-bottom': 'bottom',
+			'--fp--style--root--padding-left': 'left',
 		},
 		rootOnly: true,
 	},
 };
 
 export const __EXPERIMENTAL_ELEMENTS = {
-	link: 'a:where(:not(.wp-element-button))',
+	link: 'a:where(:not(.fp-element-button))',
 	heading: 'h1, h2, h3, h4, h5, h6',
 	h1: 'h1',
 	h2: 'h2',
@@ -280,9 +280,9 @@ export const __EXPERIMENTAL_ELEMENTS = {
 	h4: 'h4',
 	h5: 'h5',
 	h6: 'h6',
-	button: '.wp-element-button, .wp-block-button__link',
+	button: '.fp-element-button, .fp-block-button__link',
 	caption:
-		'.wp-element-caption, .wp-block-audio figcaption, .wp-block-embed figcaption, .wp-block-gallery figcaption, .wp-block-image figcaption, .wp-block-table figcaption, .wp-block-video figcaption',
+		'.fp-element-caption, .fp-block-audio figcaption, .fp-block-embed figcaption, .fp-block-gallery figcaption, .fp-block-image figcaption, .fp-block-table figcaption, .fp-block-video figcaption',
 	cite: 'cite',
 };
 

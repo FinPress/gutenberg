@@ -13,8 +13,8 @@ Snapshot Diff:
         <div
 -         class="components-item css-au4yox-PolymorphicDiv-medium-item-spacedAround e19lxcc00"
 +         class="components-item css-1ycukrf-PolymorphicDiv-large-item-spacedAround e19lxcc00"
-          data-wp-c16t="true"
-          data-wp-component="Item"
+          data-fp-c16t="true"
+          data-fp-component="Item"
         >
           Code
         </div>
@@ -26,8 +26,8 @@ Snapshot Diff:
         <div
 -         class="components-item css-au4yox-PolymorphicDiv-medium-item-spacedAround e19lxcc00"
 +         class="components-item css-1ycukrf-PolymorphicDiv-large-item-spacedAround e19lxcc00"
-          data-wp-c16t="true"
-          data-wp-component="Item"
+          data-fp-c16t="true"
+          data-fp-component="Item"
         >
           Is
         </div>
@@ -46,8 +46,8 @@ Snapshot Diff:
       <div
 -       class="components-item css-tpom78-PolymorphicDiv-medium-item e19lxcc00"
 +       class="components-item css-sbyvbg-PolymorphicDiv-large-item e19lxcc00"
-        data-wp-c16t="true"
-        data-wp-component="Item"
+        data-fp-c16t="true"
+        data-fp-component="Item"
       >
         Code is poetry
       </div>
@@ -86,8 +86,8 @@ exports[`ItemGroup ItemGroup component should render correctly 1`] = `
 <div>
   <div
     class="components-item-group emotion-0 emotion-1"
-    data-wp-c16t="true"
-    data-wp-component="ItemGroup"
+    data-fp-c16t="true"
+    data-fp-component="ItemGroup"
     role="list"
   >
     <div
@@ -96,8 +96,8 @@ exports[`ItemGroup ItemGroup component should render correctly 1`] = `
     >
       <div
         class="components-item emotion-3 emotion-1"
-        data-wp-c16t="true"
-        data-wp-component="Item"
+        data-fp-c16t="true"
+        data-fp-component="Item"
       >
         Code is poetry
       </div>
@@ -116,8 +116,8 @@ Snapshot Diff:
     <div
 -     class="components-item-group css-1iattls-PolymorphicDiv-rounded e19lxcc00"
 +     class="components-item-group css-1hvp0tq-PolymorphicDiv-separated-rounded e19lxcc00"
-      data-wp-c16t="true"
-      data-wp-component="ItemGroup"
+      data-fp-c16t="true"
+      data-fp-component="ItemGroup"
       role="list"
     >
       <div
@@ -127,8 +127,8 @@ Snapshot Diff:
         <div
 -         class="components-item css-au4yox-PolymorphicDiv-medium-item-spacedAround e19lxcc00"
 +         class="components-item css-tpom78-PolymorphicDiv-medium-item e19lxcc00"
-          data-wp-c16t="true"
-          data-wp-component="Item"
+          data-fp-c16t="true"
+          data-fp-component="Item"
         >
           Code is poetry
         </div>
@@ -144,8 +144,8 @@ Snapshot Diff:
     <div
 -     class="components-item-group css-1iattls-PolymorphicDiv-rounded e19lxcc00"
 +     class="components-item-group css-1ibn92o-PolymorphicDiv-bordered-rounded e19lxcc00"
-      data-wp-c16t="true"
-      data-wp-component="ItemGroup"
+      data-fp-c16t="true"
+      data-fp-component="ItemGroup"
       role="list"
     >
       <div
@@ -155,8 +155,8 @@ Snapshot Diff:
         <div
 -         class="components-item css-au4yox-PolymorphicDiv-medium-item-spacedAround e19lxcc00"
 +         class="components-item css-tpom78-PolymorphicDiv-medium-item e19lxcc00"
-          data-wp-c16t="true"
-          data-wp-component="Item"
+          data-fp-c16t="true"
+          data-fp-component="Item"
         >
           Code is poetry
         </div>
@@ -172,8 +172,8 @@ Snapshot Diff:
     <div
 -     class="components-item-group css-1iattls-PolymorphicDiv-rounded e19lxcc00"
 +     class="components-item-group css-161q9d5-PolymorphicDiv e19lxcc00"
-      data-wp-c16t="true"
-      data-wp-component="ItemGroup"
+      data-fp-c16t="true"
+      data-fp-component="ItemGroup"
       role="list"
     >
       <div

@@ -2,7 +2,7 @@
  * FinPress dependencies
  */
 import { __experimentalLibrary as Library } from '@finpress/block-editor';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useCallback, useRef } from '@finpress/element';
 import { useDispatch } from '@finpress/data';
 
@@ -13,7 +13,7 @@ import useWidgetLibraryInsertionPoint from '../../hooks/use-widget-library-inser
 import { store as editWidgetsStore } from '../../store';
 
 export default function InserterSidebar() {
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
 	const { rootClientId, insertionIndex } = useWidgetLibraryInsertionPoint();
 
 	const { setIsInserterOpened } = useDispatch( editWidgetsStore );
@@ -29,7 +29,7 @@ export default function InserterSidebar() {
 			<div className="edit-widgets-layout__inserter-panel-content">
 				<Library
 					showInserterHelpPanel
-					shouldFocusBlock={ isMobileViewport }
+					shouldFocusBlock={ isMobileviewport }
 					rootClientId={ rootClientId }
 					__experimentalInsertionIndex={ insertionIndex }
 					ref={ libraryRef }

@@ -34,7 +34,7 @@ const ICON_COLORS = [ '#191e23', '#f8f9f9' ];
  * Determines whether the block's attributes are equal to the default attributes
  * which means the block is unmodified.
  *
- * @param {WPBlock} block Block Object.
+ * @param {FPBlock} block Block Object.
  * @param {?string} role  Optional role to filter attributes for modification check.
  *
  * @return {boolean} Whether the block is an unmodified block.
@@ -83,7 +83,7 @@ export function isUnmodifiedBlock( block, role ) {
  * Determines whether the block is a default block and its attributes are equal
  * to the default attributes which means the block is unmodified.
  *
- * @param {WPBlock} block Block Object
+ * @param {FPBlock} block Block Object
  * @param {?string} role  Optional role to filter attributes for modification check.
  *
  * @return {boolean} Whether the block is an unmodified default block.
@@ -117,11 +117,11 @@ export function isValidIcon( icon ) {
  * and returns a new icon object that is normalized so we can rely on just on possible icon structure
  * in the codebase.
  *
- * @param {WPBlockTypeIconRender} icon Render behavior of a block type icon;
+ * @param {FPBlockTypeIconRender} icon Render behavior of a block type icon;
  *                                     one of a Dashicon slug, an element, or a
  *                                     component.
  *
- * @return {WPBlockTypeIconDescriptor} Object describing the icon.
+ * @return {FPBlockTypeIconDescriptor} Object describing the icon.
  */
 export function normalizeIconObject( icon ) {
 	icon = icon || BLOCK_ICON_DEFAULT;

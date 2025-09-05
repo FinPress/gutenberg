@@ -15,7 +15,7 @@ import { useState, useEffect } from '@finpress/element';
 import { useUnsupportedBlocks } from '../utils';
 
 const modalDescriptionId =
-	'wp-block-query-enhanced-pagination-modal__description';
+	'fp-block-query-enhanced-pagination-modal__description';
 
 export default function EnhancedPaginationModal( {
 	clientId,
@@ -60,7 +60,7 @@ export default function EnhancedPaginationModal( {
 		isOpen && (
 			<Modal
 				title={ __( 'Query block: Reload full page enabled' ) }
-				className="wp-block-query__enhanced-pagination-modal"
+				className="fp-block-query__enhanced-pagination-modal"
 				aria={ {
 					describedby: modalDescriptionId,
 				} }

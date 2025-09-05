@@ -11,17 +11,17 @@ import {
 
 const block = 'Media & Text';
 const initialHtmlWithImage = `
-<!-- wp:media-text {"mediaId":4674,"mediaType":"image","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
-<div class="wp-block-media-text alignwide is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img src="https://cldup.com/cXyG__fTLN.jpg" class="wp-image-4674 size-full"/></figure><div class="wp-block-media-text__content"><!-- wp:paragraph {"className":"has-large-font-size"} -->
+<!-- fp:media-text {"mediaId":4674,"mediaType":"image","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
+<div class="fp-block-media-text alignwide is-stacked-on-mobile"><figure class="fp-block-media-text__media"><img src="https://cldup.com/cXyG__fTLN.jpg" class="fp-image-4674 size-full"/></figure><div class="fp-block-media-text__content"><!-- fp:paragraph {"className":"has-large-font-size"} -->
 <p class="has-large-font-size">Mountain</p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:media-text -->`;
+<!-- /fp:paragraph --></div></div>
+<!-- /fp:media-text -->`;
 const initialHtmlWithVideo = `
-<!-- wp:media-text {"mediaId":4675,"mediaType":"video","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
-<div class="wp-block-media-text alignwide is-stacked-on-mobile"><figure class="wp-block-media-text__media"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure><div class="wp-block-media-text__content"><!-- wp:paragraph {"className":"has-large-font-size"} -->
+<!-- fp:media-text {"mediaId":4675,"mediaType":"video","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
+<div class="fp-block-media-text alignwide is-stacked-on-mobile"><figure class="fp-block-media-text__media"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure><div class="fp-block-media-text__content"><!-- fp:paragraph {"className":"has-large-font-size"} -->
 <p class="has-large-font-size">Cloudup</p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:media-text -->`;
+<!-- /fp:paragraph --></div></div>
+<!-- /fp:media-text -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransformsWithImage = [

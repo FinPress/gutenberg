@@ -22,7 +22,7 @@ import {
 import {
 	useMergeRefs,
 	useResizeObserver,
-	useViewportMatch,
+	useviewportMatch,
 } from '@finpress/compose';
 import { useSelect, useDispatch } from '@finpress/data';
 import {
@@ -169,9 +169,9 @@ function ContentOnlyControls( {
 					offset={ 13 }
 					variant="toolbar"
 				>
-					<div className="wp-block-image__toolbar_content_textarea__container">
+					<div className="fp-block-image__toolbar_content_textarea__container">
 						<TextareaControl
-							className="wp-block-image__toolbar_content_textarea"
+							className="fp-block-image__toolbar_content_textarea"
 							label={ __( 'Alternative text' ) }
 							value={ attributes.alt || '' }
 							onChange={ ( value ) =>
@@ -213,10 +213,10 @@ function ContentOnlyControls( {
 					offset={ 13 }
 					variant="toolbar"
 				>
-					<div className="wp-block-image__toolbar_content_textarea__container">
+					<div className="fp-block-image__toolbar_content_textarea__container">
 						<TextControl
 							__next40pxDefaultSize
-							className="wp-block-image__toolbar_content_textarea"
+							className="fp-block-image__toolbar_content_textarea"
 							__nextHasNoMarginBottom
 							label={ __( 'Title attribute' ) }
 							value={ attributes.title || '' }
@@ -343,7 +343,7 @@ export default function Image( {
 		useDispatch( noticesStore );
 	const { editEntityRecord } = useDispatch( coreStore );
 
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 	const isWideAligned = [ 'wide', 'full' ].includes( align );
 	const [
 		{ loadedNaturalWidth, loadedNaturalHeight },
@@ -358,7 +358,7 @@ export default function Image( {
 		allowResize &&
 		hasNonContentControls &&
 		! isWideAligned &&
-		isLargeViewport;
+		isLargeviewport;
 	const imageSizeOptions = imageSizes
 		.filter(
 			( { slug } ) => image?.media_details?.sizes?.[ slug ]?.source_url
@@ -907,7 +907,7 @@ export default function Image( {
 			// Show a placeholder during upload when the blob URL can't be loaded. This can
 			// happen when the user uploads a HEIC image in a browser that doesn't support them.
 			<Placeholder
-				className="wp-block-image__placeholder"
+				className="fp-block-image__placeholder"
 				withIllustration
 			>
 				<Spinner />

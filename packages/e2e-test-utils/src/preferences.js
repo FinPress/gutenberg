@@ -8,7 +8,7 @@ import { rest } from './rest-api';
  */
 export async function resetPreferences() {
 	await rest( {
-		path: '/wp/v2/users/me',
+		path: '/fp/v2/users/me',
 		method: 'PUT',
 		data: {
 			meta: {

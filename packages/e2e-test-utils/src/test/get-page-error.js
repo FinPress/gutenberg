@@ -25,11 +25,11 @@ describe( 'getPageError', () => {
 	it.each( [
 		[
 			'PHP, HTML',
-			'<b>Notice</b>:  Undefined property: WP_Block_Type_Registry::$x in <b>/var/www/html/wp-content/plugins/gutenberg/lib/blocks.php</b> on line <b>47</b>',
+			'<b>Notice</b>:  Undefined property: FP_Block_Type_Registry::$x in <b>/var/www/html/fp-content/plugins/gutenberg/lib/blocks.php</b> on line <b>47</b>',
 		],
 		[
 			'PHP, Plaintext',
-			'Notice: Undefined property: WP_Block_Type_Registry::$x in /var/www/html/wp-content/plugins/gutenberg/lib/blocks.php on line 47',
+			'Notice: Undefined property: FP_Block_Type_Registry::$x in /var/www/html/fp-content/plugins/gutenberg/lib/blocks.php on line 47',
 		],
 	] )(
 		'resolves to the error message if there is an error (%s)',

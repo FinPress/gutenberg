@@ -19,7 +19,7 @@ export default function CreateNewTemplate() {
 		return {
 			canCreateTemplates: canUser( 'create', {
 				kind: 'postType',
-				name: 'wp_template',
+				name: 'fp_template',
 			} ),
 		};
 	}, [] );

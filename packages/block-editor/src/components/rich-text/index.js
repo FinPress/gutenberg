@@ -112,7 +112,7 @@ export function RichTextWrapper(
 	props = removeNativeProps( props );
 
 	if ( onSplit ) {
-		deprecated( 'wp.blockEditor.RichText onSplit prop', {
+		deprecated( 'fp.blockEditor.RichText onSplit prop', {
 			since: '6.4',
 			alternative: 'block.json support key: "splitting"',
 		} );
@@ -501,7 +501,7 @@ export function RichTextWrapper(
 						? null
 						: props.tabIndex
 				}
-				data-wp-block-attribute-key={ identifier }
+				data-fp-block-attribute-key={ identifier }
 			/>
 		</>
 	);

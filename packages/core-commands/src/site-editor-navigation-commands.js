@@ -31,8 +31,8 @@ const { useHistory } = unlock( routerPrivateApis );
 const icons = {
 	post,
 	page,
-	wp_template: layout,
-	wp_template_part: symbolFilled,
+	fp_template: layout,
+	fp_template_part: symbolFilled,
 };
 
 function useDebouncedValue( value ) {
@@ -57,7 +57,7 @@ const getNavigationCommandLoaderPerPostType = ( postType ) =>
 						select( coreStore ).getCurrentTheme()?.is_block_theme,
 					canCreateTemplate: select( coreStore ).canUser( 'create', {
 						kind: 'postType',
-						name: 'wp_template',
+						name: 'fp_template',
 					} ),
 				};
 			},
@@ -190,7 +190,7 @@ const getNavigationCommandLoaderPerTemplate = ( templateType ) =>
 		}, [] );
 
 		/*
-		 * wp_template and wp_template_part endpoints do not support per_page or orderby parameters.
+		 * fp_template and fp_template_part endpoints do not support per_page or orderby parameters.
 		 * We need to sort the results based on the search query to avoid removing relevant
 		 * records below using .slice().
 		 */
@@ -201,7 +201,7 @@ const getNavigationCommandLoaderPerTemplate = ( templateType ) =>
 		const commands = useMemo( () => {
 			if (
 				! canCreateTemplate ||
-				( ! isBlockBasedTheme && ! templateType === 'wp_template_part' )
+				( ! isBlockBasedTheme && ! templateType === 'fp_template_part' )
 			) {
 				return [];
 			}
@@ -240,7 +240,7 @@ const getNavigationCommandLoaderPerTemplate = ( templateType ) =>
 
 			if (
 				orderedRecords?.length > 0 &&
-				templateType === 'wp_template_part'
+				templateType === 'fp_template_part'
 			) {
 				result.push( {
 					name: 'core/edit-site/open-template-parts',
@@ -249,14 +249,14 @@ const getNavigationCommandLoaderPerTemplate = ( templateType ) =>
 					callback: ( { close } ) => {
 						if ( isSiteEditor ) {
 							history.navigate(
-								'/pattern?postType=wp_template_part&categoryId=all-parts'
+								'/pattern?postType=fp_template_part&categoryId=all-parts'
 							);
 						} else {
 							document.location = addQueryArgs(
 								'site-editor.php',
 								{
 									p: '/pattern',
-									postType: 'wp_template_part',
+									postType: 'fp_template_part',
 									categoryId: 'all-parts',
 								}
 							);
@@ -287,11 +287,11 @@ const getSiteEditorBasicNavigationCommands = () =>
 						select( coreStore ).getCurrentTheme()?.is_block_theme,
 					canCreateTemplate: select( coreStore ).canUser( 'create', {
 						kind: 'postType',
-						name: 'wp_template',
+						name: 'fp_template',
 					} ),
 					canCreatePatterns: select( coreStore ).canUser( 'create', {
 						kind: 'postType',
-						name: 'wp_block',
+						name: 'fp_block',
 					} ),
 				};
 			}, [] );
@@ -396,7 +396,7 @@ const getSiteEditorBasicNavigationCommands = () =>
 						} else {
 							// If a user cannot access the site editor
 							document.location.href =
-								'edit.php?post_type=wp_block';
+								'edit.php?post_type=fp_block';
 						}
 					},
 				} );
@@ -428,11 +428,11 @@ export function useSiteEditorNavigationCommands() {
 	} );
 	useCommandLoader( {
 		name: 'core/edit-site/navigate-templates',
-		hook: getNavigationCommandLoaderPerTemplate( 'wp_template' ),
+		hook: getNavigationCommandLoaderPerTemplate( 'fp_template' ),
 	} );
 	useCommandLoader( {
 		name: 'core/edit-site/navigate-template-parts',
-		hook: getNavigationCommandLoaderPerTemplate( 'wp_template_part' ),
+		hook: getNavigationCommandLoaderPerTemplate( 'fp_template_part' ),
 	} );
 	useCommandLoader( {
 		name: 'core/edit-site/basic-navigation',

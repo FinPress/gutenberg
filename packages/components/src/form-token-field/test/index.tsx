@@ -1805,7 +1805,7 @@ describe( 'FormTokenField', () => {
 		} );
 
 		it( 'should allow to pass a function that renders tokens with special characters correctly', async () => {
-			// This test is not as realistic as the previous one: if a WP site
+			// This test is not as realistic as the previous one: if a FP site
 			// contains tag names with special characters, the API will always
 			// return the tag names already escaped.  However, this is still
 			// worth testing, so we can be sure that token values with

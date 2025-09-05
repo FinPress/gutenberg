@@ -177,7 +177,7 @@ const ResizableAvatar = ( {
 						'avatar',
 						'avatar-' + attributes.size,
 						'photo',
-						'wp-block-avatar__image',
+						'fp-block-avatar__image',
 						borderProps.className
 					) }
 					style={ borderProps.style }
@@ -201,7 +201,7 @@ const CommentEdit = ( { attributes, context, setAttributes, isSelected } ) => {
 			{ attributes.isLink ? (
 				<a
 					href="#avatar-pseudo-link"
-					className="wp-block-avatar__link"
+					className="fp-block-avatar__link"
 					onClick={ ( event ) => event.preventDefault() }
 				>
 					<ResizableAvatar
@@ -244,7 +244,7 @@ const UserEdit = ( { attributes, context, setAttributes, isSelected } ) => {
 			{ attributes.isLink ? (
 				<a
 					href="#avatar-pseudo-link"
-					className="wp-block-avatar__link"
+					className="fp-block-avatar__link"
 					onClick={ ( event ) => event.preventDefault() }
 				>
 					<ResizableAvatar

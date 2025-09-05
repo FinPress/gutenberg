@@ -22,10 +22,10 @@ const {
 
 // Colors.
 const boldWhite = chalk.bold.white;
-const wpPrimary = boldWhite.bgHex( '#00669b' );
-const wpGreen = boldWhite.bgHex( '#4ab866' );
-const wpRed = boldWhite.bgHex( '#d94f4f' );
-const wpYellow = boldWhite.bgHex( '#f0b849' );
+const fpPrimary = boldWhite.bgHex( '#00669b' );
+const fpGreen = boldWhite.bgHex( '#4ab866' );
+const fpRed = boldWhite.bgHex( '#d94f4f' );
+const fpYellow = boldWhite.bgHex( '#f0b849' );
 
 // Spinner.
 const withSpinner =
@@ -98,7 +98,7 @@ module.exports = function cli() {
 		process.exit( 1 );
 	}
 
-	yargs.usage( wpPrimary( '$0 <command>' ) );
+	yargs.usage( fpPrimary( '$0 <command>' ) );
 	yargs.option( 'debug', {
 		type: 'boolean',
 		describe: 'Enable debug output.',
@@ -118,14 +118,14 @@ module.exports = function cli() {
 
 	yargs.command(
 		'start',
-		wpGreen(
+		fpGreen(
 			chalk`Starts FinPress for development on port {bold.underline ${ terminalLink(
 				'8888',
 				'http://localhost:8888'
-			) }} (override with WP_ENV_PORT) and tests on port {bold.underline ${ terminalLink(
+			) }} (override with FP_ENV_PORT) and tests on port {bold.underline ${ terminalLink(
 				'8889',
 				'http://localhost:8889'
-			) }} (override with WP_ENV_TESTS_PORT). The current working directory must be a FinPress installation, a plugin, a theme, or contain a .wp-env.json file. After first install, use the '--update' flag to download updates to mapped sources and to re-apply FinPress configuration options.`
+			) }} (override with FP_ENV_TESTS_PORT). The current working directory must be a FinPress installation, a plugin, a theme, or contain a .fp-env.json file. After first install, use the '--update' flag to download updates to mapped sources and to re-apply FinPress configuration options.`
 		),
 		( args ) => {
 			args.option( 'update', {
@@ -156,7 +156,7 @@ module.exports = function cli() {
 	);
 	yargs.command(
 		'stop',
-		wpRed(
+		fpRed(
 			'Stops running FinPress for development and tests and frees the ports.'
 		),
 		() => {},
@@ -164,7 +164,7 @@ module.exports = function cli() {
 	);
 	yargs.command(
 		'clean [environment]',
-		wpYellow( 'Cleans the FinPress databases.' ),
+		fpYellow( 'Cleans the FinPress databases.' ),
 		( args ) => {
 			args.positional( 'environment', {
 				type: 'string',
@@ -204,7 +204,7 @@ module.exports = function cli() {
 	);
 	yargs.command(
 		'run <container> [command...]',
-		'Runs an arbitrary command in one of the underlying Docker containers. A double dash can be used to pass arguments to the container without parsing them. This is necessary if you are using an option that is defined below. You can use `bash` to open a shell session and both `composer` and `phpunit` are available in all FinPress and CLI containers. WP-CLI is also available in the CLI containers.',
+		'Runs an arbitrary command in one of the underlying Docker containers. A double dash can be used to pass arguments to the container without parsing them. This is necessary if you are using an option that is defined below. You can use `bash` to open a shell session and both `composer` and `phpunit` are available in all FinPress and CLI containers. FP-CLI is also available in the CLI containers.',
 		( args ) => {
 			args.option( 'env-cwd', {
 				type: 'string',
@@ -228,11 +228,11 @@ module.exports = function cli() {
 		withSpinner( env.run )
 	);
 	yargs.example(
-		'$0 run cli wp user list',
-		'Runs `wp user list` wp-cli command which lists FinPress users.'
+		'$0 run cli fp user list',
+		'Runs `fp user list` fp-cli command which lists FinPress users.'
 	);
 	yargs.example(
-		'$0 run cli wp shell',
+		'$0 run cli fp shell',
 		'Open the interactive FinPress shell for the development instance.'
 	);
 	yargs.example(
@@ -242,7 +242,7 @@ module.exports = function cli() {
 
 	yargs.command(
 		'destroy',
-		wpRed(
+		fpRed(
 			'Destroy the FinPress environment. Deletes docker containers, volumes, and networks associated with the FinPress environment and removes local files.'
 		),
 		( args ) => {

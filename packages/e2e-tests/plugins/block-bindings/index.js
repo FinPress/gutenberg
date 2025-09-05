@@ -1,9 +1,9 @@
-const { registerBlockBindingsSource } = wp.blocks;
-const { InspectorControls } = wp.blockEditor;
-const { PanelBody, TextControl } = wp.components;
-const { createHigherOrderComponent } = wp.compose;
-const { createElement: el, Fragment } = wp.element;
-const { addFilter } = wp.hooks;
+const { registerBlockBindingsSource } = fp.blocks;
+const { InspectorControls } = fp.blockEditor;
+const { PanelBody, TextControl } = fp.components;
+const { createHigherOrderComponent } = fp.compose;
+const { createElement: el, Fragment } = fp.element;
+const { addFilter } = fp.hooks;
 const { fieldsList } = window.testingBindings || {};
 
 const getValues = ( { bindings } ) => {

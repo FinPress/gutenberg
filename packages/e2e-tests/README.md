@@ -18,8 +18,8 @@ The following commands are available on the Gutenberg repo:
 
 ```json
 {
-	"test:e2e": "wp-scripts test-e2e --config packages/e2e-tests/jest.config.js",
-	"test:e2e:debug": "wp-scripts --inspect-brk test-e2e --config packages/e2e-tests/jest.config.js --puppeteer-devtools",
+	"test:e2e": "fp-scripts test-e2e --config packages/e2e-tests/jest.config.js",
+	"test:e2e:debug": "fp-scripts --inspect-brk test-e2e --config packages/e2e-tests/jest.config.js --puppeteer-devtools",
 	"test:e2e:watch": "npm run test:e2e -- --watch"
 }
 ```
@@ -63,7 +63,7 @@ Debugging in a Chrome browser can be replaced with `vscode`'s debugger by adding
 	"type": "node",
 	"request": "launch",
 	"name": "Debug current e2e test",
-	"program": "${workspaceFolder}/node_modules/@finpress/scripts/bin/wp-scripts.js",
+	"program": "${workspaceFolder}/node_modules/@finpress/scripts/bin/fp-scripts.js",
 	"args": [
 		"test-e2e",
 		"--config=${workspaceFolder}/packages/e2e-tests/jest.config.js",

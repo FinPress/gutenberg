@@ -4,12 +4,12 @@
 import { Path, SVG } from '@finpress/components';
 import { __ } from '@finpress/i18n';
 
-/** @typedef {import('@finpress/blocks').WPBlockVariation} WPBlockVariation */
+/** @typedef {import('@finpress/blocks').FPBlockVariation} FPBlockVariation */
 
 /**
  * Template option choices for predefined columns layouts.
  *
- * @type {WPBlockVariation[]}
+ * @type {FPBlockVariation[]}
  */
 const variations = [
 	{

@@ -47,7 +47,7 @@ export function __experimentalUpdateSettings(
 
 	if ( Object.hasOwn( incomingSettings, '__unstableIsPreviewMode' ) ) {
 		deprecated(
-			"__unstableIsPreviewMode argument in wp.data.dispatch('core/block-editor').updateSettings",
+			"__unstableIsPreviewMode argument in fp.data.dispatch('core/block-editor').updateSettings",
 			{
 				since: '6.8',
 				alternative: 'isPreviewMode',

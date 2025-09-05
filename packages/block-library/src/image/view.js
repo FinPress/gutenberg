@@ -343,14 +343,14 @@ const { state, actions, callbacks } = store(
 				// adding 1 pixel to the container width and height solves the problem,
 				// though this can be removed if the issue is fixed in the future.
 				state.overlayStyles = `
-					--wp--lightbox-initial-top-position: ${ screenPosY }px;
-					--wp--lightbox-initial-left-position: ${ screenPosX }px;
-					--wp--lightbox-container-width: ${ containerWidth + 1 }px;
-					--wp--lightbox-container-height: ${ containerHeight + 1 }px;
-					--wp--lightbox-image-width: ${ lightboxImgWidth }px;
-					--wp--lightbox-image-height: ${ lightboxImgHeight }px;
-					--wp--lightbox-scale: ${ containerScale };
-					--wp--lightbox-scrollbar-width: ${
+					--fp--lightbox-initial-top-position: ${ screenPosY }px;
+					--fp--lightbox-initial-left-position: ${ screenPosX }px;
+					--fp--lightbox-container-width: ${ containerWidth + 1 }px;
+					--fp--lightbox-container-height: ${ containerHeight + 1 }px;
+					--fp--lightbox-image-width: ${ lightboxImgWidth }px;
+					--fp--lightbox-image-height: ${ lightboxImgHeight }px;
+					--fp--lightbox-scale: ${ containerScale };
+					--fp--lightbox-scrollbar-width: ${
 						window.innerWidth - document.documentElement.clientWidth
 					}px;
 				`;

@@ -1,21 +1,21 @@
-.wp-block[data-align="center"] > .wp-block-button {
+.fp-block[data-align="center"] > .fp-block-button {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.wp-block[data-align="right"] > .wp-block-button {
+.fp-block[data-align="right"] > .fp-block-button {
 	/*!rtl:ignore*/
 	text-align: right;
 }
 
-.wp-block-button {
+.fp-block-button {
 	position: relative;
 	cursor: text;
 
 	// Add outline to button on focus to indicate focus-state
 	&:focus {
-		box-shadow: 0 0 0 1px $white, 0 0 0 3px var(--wp-admin-theme-color);
+		box-shadow: 0 0 0 1px $white, 0 0 0 3px var(--fp-admin-theme-color);
 
 		// Windows' High Contrast mode will show this outline, but not the box-shadow.
 		outline: 2px solid transparent;

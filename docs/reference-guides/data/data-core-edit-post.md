@@ -266,7 +266,7 @@ _Returns_
 
 ### isModalActive
 
-> **Deprecated** since WP 6.3 use `core/interface` store's selector with the same name instead.
+> **Deprecated** since FP 6.3 use `core/interface` store's selector with the same name instead.
 
 Returns true if a modal is active, or false otherwise.
 
@@ -342,7 +342,7 @@ Returns an action object signalling that the user closed the sidebar.
 
 ### closeModal
 
-> **Deprecated** since WP 6.3 use `core/interface` store's action with the same name instead.
+> **Deprecated** since FP 6.3 use `core/interface` store's action with the same name instead.
 
 Returns an action object signalling that the user closed a modal.
 
@@ -398,7 +398,7 @@ _Parameters_
 
 ### openModal
 
-> **Deprecated** since WP 6.3 use `core/interface` store's action with the same name instead.
+> **Deprecated** since FP 6.3 use `core/interface` store's action with the same name instead.
 
 Returns an action object used in signalling that the user opened a modal.
 

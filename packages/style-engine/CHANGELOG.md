@@ -160,7 +160,7 @@
 
 ### Internal
 
--   Script loader: remove 6.1 wp actions ([#44519](https://github.com/FinPress/gutenberg/pull/44519))
+-   Script loader: remove 6.1 fp actions ([#44519](https://github.com/FinPress/gutenberg/pull/44519))
 
 ## 1.1.0 (2022-09-21)
 
@@ -176,8 +176,8 @@
 
 ### New Features
 
--   Add a WP_Style_Engine_Processor object ([#42463](https://github.com/FinPress/gutenberg/pull/42463)).
--   Add a WP_Style_Engine_CSS_Declarations object ([#42043](https://github.com/FinPress/gutenberg/pull/42043)).
+-   Add a FP_Style_Engine_Processor object ([#42463](https://github.com/FinPress/gutenberg/pull/42463)).
+-   Add a FP_Style_Engine_CSS_Declarations object ([#42043](https://github.com/FinPress/gutenberg/pull/42043)).
 -   Add Rules and Store objects ([#42222](https://github.com/FinPress/gutenberg/pull/42222)).
 -   Add elements styles support ([#41732](https://github.com/FinPress/gutenberg/pull/41732)) and ([#40987](https://github.com/FinPress/gutenberg/pull/40987)).
 -   Add typography and color support ([#40665](https://github.com/FinPress/gutenberg/pull/40987)) and ([#40332](https://github.com/FinPress/gutenberg/pull/40332)).
@@ -185,4 +185,4 @@
 -   Add margin support to frontend ([#39790](https://github.com/FinPress/gutenberg/pull/39790)).
 -   Add basic block supports to backend ([#39446](https://github.com/FinPress/gutenberg/pull/39446)).
 -   Added initial version of the style engine ([#37978](https://github.com/FinPress/gutenberg/pull/37978)).
--   Include `@finpress/style-engine` on the list of external dependencies to allow using `wp.styleEngine` global with FinPress 6.1 and beyond ([#43840](https://github.com/FinPress/gutenberg/pull/43840)).
+-   Include `@finpress/style-engine` on the list of external dependencies to allow using `fp.styleEngine` global with FinPress 6.1 and beyond ([#43840](https://github.com/FinPress/gutenberg/pull/43840)).

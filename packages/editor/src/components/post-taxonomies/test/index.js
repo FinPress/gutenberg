@@ -60,24 +60,24 @@ describe( 'PostTaxonomies', () => {
 	beforeEach( () => {
 		jest.spyOn( select( editorStore ), 'getCurrentPost' ).mockReturnValue( {
 			_links: {
-				'wp:action-create-categories': [
+				'fp:action-create-categories': [
 					{
-						href: 'http://localhost:8889/index.php?rest_route=/wp/v2/foo/create-categories',
+						href: 'http://localhost:8889/index.php?rest_route=/fp/v2/foo/create-categories',
 					},
 				],
-				'wp:action-create-genres': [
+				'fp:action-create-genres': [
 					{
-						href: 'http://localhost:8889/index.php?rest_route=/wp/v2/create-genres',
+						href: 'http://localhost:8889/index.php?rest_route=/fp/v2/create-genres',
 					},
 				],
-				'wp:action-assign-categories': [
+				'fp:action-assign-categories': [
 					{
-						href: 'http://localhost:8889/index.php?rest_route=/wp/v2/foo/assign-categories',
+						href: 'http://localhost:8889/index.php?rest_route=/fp/v2/foo/assign-categories',
 					},
 				],
-				'wp:action-assign-genres': [
+				'fp:action-assign-genres': [
 					{
-						href: 'http://localhost:8889/index.php?rest_route=/wp/v2/assign-genres',
+						href: 'http://localhost:8889/index.php?rest_route=/fp/v2/assign-genres',
 					},
 				],
 			},

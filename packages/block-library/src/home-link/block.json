@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/home-link",
 	"category": "design",
@@ -41,6 +41,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-home-link-editor",
-	"style": "wp-block-home-link"
+	"editorStyle": "fp-block-home-link-editor",
+	"style": "fp-block-home-link"
 }

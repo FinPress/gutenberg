@@ -26,7 +26,7 @@ _Parameters_
 
 _Returns_
 
--   `WPPlugin | undefined`: Plugin setting.
+-   `FPPlugin | undefined`: Plugin setting.
 
 #### getPlugins
 
@@ -38,7 +38,7 @@ _Parameters_
 
 _Returns_
 
--   `WPPlugin[]`: The list of plugins without a scope or for a given scope.
+-   `FPPlugin[]`: The list of plugins without a scope or for a given scope.
 
 #### PluginArea
 
@@ -49,7 +49,7 @@ _Usage_
 ```js
 // Using ES5 syntax
 var el = React.createElement;
-var PluginArea = wp.plugins.PluginArea;
+var PluginArea = fp.plugins.PluginArea;
 
 function Layout() {
 	return el( 'div', { scope: 'my-page' }, 'Content of the page', PluginArea );
@@ -70,9 +70,9 @@ const Layout = () => (
 
 _Parameters_
 
--   _props_ `{ scope?: string; onError?: ( name: WPPlugin[ 'name' ], error: Error ) => void; }`:
+-   _props_ `{ scope?: string; onError?: ( name: FPPlugin[ 'name' ], error: Error ) => void; }`:
 -   _props.scope_ `string`:
--   _props.onError_ `( name: WPPlugin[ 'name' ], error: Error ) => void`:
+-   _props.onError_ `( name: FPPlugin[ 'name' ], error: Error ) => void`:
 
 _Returns_
 
@@ -87,10 +87,10 @@ _Usage_
 ```js
 // Using ES5 syntax
 var el = React.createElement;
-var Fragment = wp.element.Fragment;
-var PluginSidebar = wp.editor.PluginSidebar;
-var PluginSidebarMoreMenuItem = wp.editor.PluginSidebarMoreMenuItem;
-var registerPlugin = wp.plugins.registerPlugin;
+var Fragment = fp.element.Fragment;
+var PluginSidebar = fp.editor.PluginSidebar;
+var PluginSidebarMoreMenuItem = fp.editor.PluginSidebarMoreMenuItem;
+var registerPlugin = fp.plugins.registerPlugin;
 var moreIcon = React.createElement( 'svg' ); //... svg element.
 
 function Component() {
@@ -162,7 +162,7 @@ _Usage_
 
 ```js
 // Using ES5 syntax
-var unregisterPlugin = wp.plugins.unregisterPlugin;
+var unregisterPlugin = fp.plugins.unregisterPlugin;
 
 unregisterPlugin( 'plugin-name' );
 ```
@@ -180,7 +180,7 @@ _Parameters_
 
 _Returns_
 
--   `WPPlugin | undefined`: The previous plugin settings object, if it has been successfully unregistered; otherwise `undefined`.
+-   `FPPlugin | undefined`: The previous plugin settings object, if it has been successfully unregistered; otherwise `undefined`.
 
 #### usePluginContext
 

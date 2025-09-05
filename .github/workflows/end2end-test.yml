@@ -6,7 +6,7 @@ on:
         branches:
             - trunk
             - 'release/**'
-            - 'wp/**'
+            - 'fp/**'
 
 # Cancels all previous workflow runs for pull requests that have not completed.
 concurrency:
@@ -50,7 +50,7 @@ jobs:
 
             - name: Install FinPress and start the server
               run: |
-                  npm run wp-env start
+                  npm run fp-env start
 
             - name: Run the tests
               env:

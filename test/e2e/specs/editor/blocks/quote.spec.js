@@ -20,11 +20,11 @@ test.describe( 'Quote', () => {
 		// Type content right after.
 		await page.keyboard.type( 'Quote content' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>Quote content</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->`
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->`
 		);
 	} );
 
@@ -41,15 +41,15 @@ test.describe( 'Quote', () => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( 'Another paragraph' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>A quote</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Another paragraph</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->`
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->`
 		);
 	} );
 
@@ -65,11 +65,11 @@ test.describe( 'Quote', () => {
 		await pageUtils.pressKeys( 'ArrowLeft', { times: 'test'.length } );
 		await page.keyboard.type( '> ' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>test</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->`
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->`
 		);
 	} );
 
@@ -85,11 +85,11 @@ test.describe( 'Quote', () => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( 'I’m a quote' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>I’m a quote</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->`
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->`
 		);
 	} );
 
@@ -103,11 +103,11 @@ test.describe( 'Quote', () => {
 		await page.keyboard.type( 'test' );
 		await editor.transformBlockTo( 'core/quote' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>test</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->`
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->`
 		);
 	} );
 
@@ -128,15 +128,15 @@ test.describe( 'Quote', () => {
 		await page.keyboard.up( 'Shift' );
 		await editor.transformBlockTo( 'core/quote' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>one</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>two</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->`
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->`
 		);
 	} );
 
@@ -154,13 +154,13 @@ test.describe( 'Quote', () => {
 			);
 			await editor.clickBlockOptionsMenuItem( 'Ungroup' );
 			expect( await editor.getEditedPostContent() ).toBe(
-				`<!-- wp:paragraph -->
+				`<!-- fp:paragraph -->
 <p>one</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>two</p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 			);
 		} );
 
@@ -179,17 +179,17 @@ test.describe( 'Quote', () => {
 			await page.keyboard.type( 'cite' );
 			await editor.clickBlockOptionsMenuItem( 'Ungroup' );
 			expect( await editor.getEditedPostContent() ).toBe(
-				`<!-- wp:paragraph -->
+				`<!-- fp:paragraph -->
 <p>one</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>two</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>cite</p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 			);
 		} );
 
@@ -203,13 +203,13 @@ test.describe( 'Quote', () => {
 			await page.keyboard.type( 'cite' );
 			await editor.clickBlockOptionsMenuItem( 'Ungroup' );
 			expect( await editor.getEditedPostContent() ).toBe(
-				`<!-- wp:paragraph -->
+				`<!-- fp:paragraph -->
 <p></p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>cite</p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 			);
 		} );
 
@@ -233,11 +233,11 @@ test.describe( 'Quote', () => {
 		await page.keyboard.type( 'test' );
 		await editor.transformBlockTo( 'core/quote' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:heading -->
-<h2 class="wp-block-heading">test</h2>
-<!-- /wp:heading --></blockquote>
-<!-- /wp:quote -->`
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:heading -->
+<h2 class="fp-block-heading">test</h2>
+<!-- /fp:heading --></blockquote>
+<!-- /fp:quote -->`
 		);
 	} );
 
@@ -251,9 +251,9 @@ test.describe( 'Quote', () => {
 		await page.keyboard.type( 'cite' );
 		await editor.transformBlockTo( 'core/pullquote' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:pullquote -->
-<figure class="wp-block-pullquote"><blockquote><p>one<br>two</p><cite>cite</cite></blockquote></figure>
-<!-- /wp:pullquote -->`
+			`<!-- fp:pullquote -->
+<figure class="fp-block-pullquote"><blockquote><p>one<br>two</p><cite>cite</cite></blockquote></figure>
+<!-- /fp:pullquote -->`
 		);
 	} );
 
@@ -264,40 +264,40 @@ test.describe( 'Quote', () => {
 		await page.keyboard.press( 'Enter' );
 		// Expect empty paragraph outside quote block.
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p></p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 		await page.keyboard.press( 'Backspace' );
 		await page.keyboard.type( '2' );
 		// Expect the paragraph to be merged into the quote block.
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>2</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->`
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->`
 		);
 	} );
 
 	test( 'can be unwrapped on Backspace', async ( { editor, page } ) => {
 		await editor.insertBlock( { name: 'core/quote' } );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p></p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->`
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->`
 		);
 		await page.keyboard.press( 'Backspace' );
 		expect( await editor.getEditedPostContent() ).toBe( '' );
@@ -314,23 +314,23 @@ test.describe( 'Quote', () => {
 		await editor.clickBlockToolbarButton( 'Add citation' );
 		await page.keyboard.type( '2' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+			`<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph --><cite>2</cite></blockquote>
-<!-- /wp:quote -->`
+<!-- /fp:paragraph --><cite>2</cite></blockquote>
+<!-- /fp:quote -->`
 		);
 		// Move the cursor to the start of the first paragraph of the quoted block.
 		await pageUtils.pressKeys( 'ArrowLeft', { times: 3 } );
 		await page.keyboard.press( 'Backspace' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:quote -->
-<blockquote class="wp-block-quote"><cite>2</cite></blockquote>
-<!-- /wp:quote -->`
+<!-- fp:quote -->
+<blockquote class="fp-block-quote"><cite>2</cite></blockquote>
+<!-- /fp:quote -->`
 		);
 	} );
 

@@ -37,14 +37,14 @@ function PostCommentsLinkEdit( { context, attributes, setAttributes } ) {
 
 		const currentPostId = postId;
 		apiFetch( {
-			path: addQueryArgs( '/wp/v2/comments', {
+			path: addQueryArgs( '/fp/v2/comments', {
 				post: postId,
 			} ),
 			parse: false,
 		} ).then( ( res ) => {
 			// Stale requests will have the `currentPostId` of an older closure.
 			if ( currentPostId === postId ) {
-				setCommentsCount( res.headers.get( 'X-WP-Total' ) );
+				setCommentsCount( res.headers.get( 'X-FP-Total' ) );
 			}
 		} );
 	}, [ postId ] );

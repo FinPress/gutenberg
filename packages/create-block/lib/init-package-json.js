@@ -17,8 +17,8 @@ module.exports = async ( {
 	pluginURI,
 	slug,
 	version,
-	wpEnv,
-	wpScripts,
+	fpEnv,
+	fpScripts,
 	npmDependencies,
 	npmDevDependencies,
 	customScripts,
@@ -88,24 +88,24 @@ module.exports = async ( {
 				author,
 				license,
 				homepage: pluginURI,
-				main: wpScripts && 'build/index.js',
+				main: fpScripts && 'build/index.js',
 				scripts: {
-					...( wpScripts && {
+					...( fpScripts && {
 						build:
 							( isDynamicVariant
-								? 'wp-scripts build --webpack-copy-php'
-								: 'wp-scripts build' ) + ' --blocks-manifest',
-						format: 'wp-scripts format',
-						'lint:css': 'wp-scripts lint-style',
-						'lint:js': 'wp-scripts lint-js',
-						'packages-update': 'wp-scripts packages-update',
-						'plugin-zip': 'wp-scripts plugin-zip',
+								? 'fp-scripts build --webpack-copy-php'
+								: 'fp-scripts build' ) + ' --blocks-manifest',
+						format: 'fp-scripts format',
+						'lint:css': 'fp-scripts lint-style',
+						'lint:js': 'fp-scripts lint-js',
+						'packages-update': 'fp-scripts packages-update',
+						'plugin-zip': 'fp-scripts plugin-zip',
 						start:
 							( isDynamicVariant
-								? 'wp-scripts start --webpack-copy-php'
-								: 'wp-scripts start' ) + ' --blocks-manifest',
+								? 'fp-scripts start --webpack-copy-php'
+								: 'fp-scripts start' ) + ' --blocks-manifest',
 					} ),
-					...( wpEnv && { env: 'wp-env' } ),
+					...( fpEnv && { env: 'fp-env' } ),
 					...customScripts,
 				},
 				dependencies:
@@ -121,7 +121,7 @@ module.exports = async ( {
 		)
 	);
 
-	if ( wpScripts ) {
+	if ( fpScripts ) {
 		if (
 			Object.keys( dependencies ).length > 0 ||
 			Object.keys( devDependencies ).length > 0

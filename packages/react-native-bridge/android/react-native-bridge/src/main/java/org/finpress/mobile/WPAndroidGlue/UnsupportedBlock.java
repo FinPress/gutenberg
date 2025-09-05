@@ -1,4 +1,4 @@
-package org.finpress.mobile.WPAndroidGlue;
+package org.finpress.mobile.FPAndroidGlue;
 
 public class UnsupportedBlock {
 

@@ -6,10 +6,10 @@ import { ComplementaryArea } from '@finpress/interface';
 /**
  * Renders a sidebar when activated. The contents within the `PluginSidebar` will appear as content within the sidebar.
  * It also automatically renders a corresponding `PluginSidebarMenuItem` component when `isPinnable` flag is set to `true`.
- * If you wish to display the sidebar, you can with use the `PluginSidebarMoreMenuItem` component or the `wp.data.dispatch` API:
+ * If you wish to display the sidebar, you can with use the `PluginSidebarMoreMenuItem` component or the `fp.data.dispatch` API:
  *
  * ```js
- * wp.data.dispatch( 'core/edit-post' ).openGeneralSidebar( 'plugin-name/sidebar-name' );
+ * fp.data.dispatch( 'core/edit-post' ).openGeneralSidebar( 'plugin-name/sidebar-name' );
  * ```
  *
  * @see PluginSidebarMoreMenuItem
@@ -20,15 +20,15 @@ import { ComplementaryArea } from '@finpress/interface';
  * @param {string}                [props.className]                     An optional class name added to the sidebar body.
  * @param {string}                props.title                           Title displayed at the top of the sidebar.
  * @param {boolean}               [props.isPinnable=true]               Whether to allow to pin sidebar to the toolbar. When set to `true` it also automatically renders a corresponding menu item.
- * @param {WPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar.
+ * @param {FPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FP element, to be rendered when the sidebar is pinned to toolbar.
  *
  * @example
  * ```js
  * // Using ES5 syntax
- * var __ = wp.i18n.__;
+ * var __ = fp.i18n.__;
  * var el = React.createElement;
- * var PanelBody = wp.components.PanelBody;
- * var PluginSidebar = wp.editor.PluginSidebar;
+ * var PanelBody = fp.components.PanelBody;
+ * var PluginSidebar = fp.editor.PluginSidebar;
  * var moreIcon = React.createElement( 'svg' ); //... svg element.
  *
  * function MyPluginSidebar() {

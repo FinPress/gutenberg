@@ -83,7 +83,7 @@ function gutenberg_should_add_elements_class_name( $block, $options ) {
 		}
 
 		foreach ( $element_config['paths'] as $path ) {
-			if ( null !== _wp_array_get( $elements_style_attributes, $path, null ) ) {
+			if ( null !== _fp_array_get( $elements_style_attributes, $path, null ) ) {
 				return true;
 			}
 		}
@@ -124,16 +124,16 @@ function gutenberg_render_elements_support_styles( $parsed_block ) {
 		);
 	}
 
-	$block_type           = WP_Block_Type_Registry::get_instance()->get_registered( $parsed_block['blockName'] );
+	$block_type           = FP_Block_Type_Registry::get_instance()->get_registered( $parsed_block['blockName'] );
 	$element_block_styles = $parsed_block['attrs']['style']['elements'] ?? null;
 
 	if ( ! $element_block_styles ) {
 		return $parsed_block;
 	}
 
-	$skip_link_color_serialization         = wp_should_skip_block_supports_serialization( $block_type, 'color', 'link' );
-	$skip_heading_color_serialization      = wp_should_skip_block_supports_serialization( $block_type, 'color', 'heading' );
-	$skip_button_color_serialization       = wp_should_skip_block_supports_serialization( $block_type, 'color', 'button' );
+	$skip_link_color_serialization         = fp_should_skip_block_supports_serialization( $block_type, 'color', 'link' );
+	$skip_heading_color_serialization      = fp_should_skip_block_supports_serialization( $block_type, 'color', 'heading' );
+	$skip_button_color_serialization       = fp_should_skip_block_supports_serialization( $block_type, 'color', 'button' );
 	$skips_all_element_color_serialization = $skip_link_color_serialization &&
 		$skip_heading_color_serialization &&
 		$skip_button_color_serialization;
@@ -152,21 +152,21 @@ function gutenberg_render_elements_support_styles( $parsed_block ) {
 		return $parsed_block;
 	}
 
-	$class_name         = wp_get_elements_class_name( $parsed_block );
+	$class_name         = fp_get_elements_class_name( $parsed_block );
 	$updated_class_name = isset( $parsed_block['attrs']['className'] ) ? $parsed_block['attrs']['className'] . " $class_name" : $class_name;
 
-	_wp_array_set( $parsed_block, array( 'attrs', 'className' ), $updated_class_name );
+	_fp_array_set( $parsed_block, array( 'attrs', 'className' ), $updated_class_name );
 
 	// Generate element styles based on selector and store in style engine for enqueuing.
 	$element_types = array(
 		'button'  => array(
-			'selector' => ".$class_name .wp-element-button, .$class_name .wp-block-button__link",
+			'selector' => ".$class_name .fp-element-button, .$class_name .fp-block-button__link",
 			'skip'     => $skip_button_color_serialization,
 		),
 		'link'    => array(
 			// :where(:not) matches theme.json selector.
-			'selector'       => ".$class_name a:where(:not(.wp-element-button))",
-			'hover_selector' => ".$class_name a:where(:not(.wp-element-button)):hover",
+			'selector'       => ".$class_name a:where(:not(.fp-element-button))",
+			'hover_selector' => ".$class_name a:where(:not(.fp-element-button)):hover",
 			'skip'           => $skip_link_color_serialization,
 		),
 		'heading' => array(
@@ -181,7 +181,7 @@ function gutenberg_render_elements_support_styles( $parsed_block ) {
 			continue;
 		}
 
-		$element_style_object = _wp_array_get( $element_block_styles, array( $element_type ), null );
+		$element_style_object = _fp_array_get( $element_block_styles, array( $element_type ), null );
 
 		// Process primary element type styles.
 		if ( $element_style_object ) {
@@ -207,7 +207,7 @@ function gutenberg_render_elements_support_styles( $parsed_block ) {
 		// Process related elements e.g. h1-h6 for headings.
 		if ( isset( $element_config['elements'] ) ) {
 			foreach ( $element_config['elements'] as $element ) {
-				$element_style_object = _wp_array_get( $element_block_styles, array( $element ), null );
+				$element_style_object = _fp_array_get( $element_block_styles, array( $element ), null );
 
 				if ( $element_style_object ) {
 					gutenberg_style_engine_get_styles(
@@ -239,13 +239,13 @@ function gutenberg_render_elements_support_styles( $parsed_block ) {
  */
 function gutenberg_render_elements_class_name( $block_content, $block ) {
 	$class_string = $block['attrs']['className'] ?? '';
-	preg_match( '/\bwp-elements-\S+\b/', $class_string, $matches );
+	preg_match( '/\bfp-elements-\S+\b/', $class_string, $matches );
 
 	if ( empty( $matches ) ) {
 		return $block_content;
 	}
 
-	$tags = new WP_HTML_Tag_Processor( $block_content );
+	$tags = new FP_HTML_Tag_Processor( $block_content );
 
 	if ( $tags->next_tag() ) {
 		$tags->add_class( $matches[0] );
@@ -255,12 +255,12 @@ function gutenberg_render_elements_class_name( $block_content, $block ) {
 }
 
 // Remove deprecated FinPress core filters.
-remove_filter( 'render_block', 'wp_render_elements_support', 10 );
-remove_filter( 'pre_render_block', 'wp_render_elements_support_styles', 10 );
+remove_filter( 'render_block', 'fp_render_elements_support', 10 );
+remove_filter( 'pre_render_block', 'fp_render_elements_support_styles', 10 );
 
 // Remove FinPress core filters to avoid rendering duplicate elements stylesheet & attaching classes twice.
-remove_filter( 'render_block', 'wp_render_elements_class_name', 10 );
-remove_filter( 'render_block_data', 'wp_render_elements_support_styles', 10 );
+remove_filter( 'render_block', 'fp_render_elements_class_name', 10 );
+remove_filter( 'render_block_data', 'fp_render_elements_support_styles', 10 );
 
 add_filter( 'render_block', 'gutenberg_render_elements_class_name', 10, 2 );
 add_filter( 'render_block_data', 'gutenberg_render_elements_support_styles', 10, 1 );

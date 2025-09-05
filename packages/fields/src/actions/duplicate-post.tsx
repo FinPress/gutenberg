@@ -78,7 +78,7 @@ const duplicatePost: Action< BasePost > = {
 				menu_order: item.menu_order,
 				ping_status: item.ping_status,
 			};
-			const assignablePropertiesPrefix = 'wp:action-assign-';
+			const assignablePropertiesPrefix = 'fp:action-assign-';
 			// Get all the properties that the current user is able to assign normally author, categories, tags,
 			// and custom taxonomies.
 			const assignableProperties = Object.keys( item?._links || {} )

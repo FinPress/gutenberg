@@ -11,90 +11,90 @@
  * Registers custom scripts for the plugin.
  */
 function enqueue_plugins_api_plugin_scripts() {
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-plugins-api-post-status-info',
 		plugins_url( 'plugins-api/post-status-info.js', __FILE__ ),
 		array(
-			'wp-editor',
-			'wp-element',
-			'wp-i18n',
-			'wp-plugins',
+			'fp-editor',
+			'fp-element',
+			'fp-i18n',
+			'fp-plugins',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'plugins-api/post-status-info.js' ),
 		true
 	);
 
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-plugins-api-publish-pane;',
 		plugins_url( 'plugins-api/publish-panel.js', __FILE__ ),
 		array(
-			'wp-editor',
-			'wp-element',
-			'wp-i18n',
-			'wp-plugins',
+			'fp-editor',
+			'fp-element',
+			'fp-i18n',
+			'fp-plugins',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'plugins-api/publish-panel.js' ),
 		true
 	);
 
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-plugins-api-sidebar',
 		plugins_url( 'plugins-api/sidebar.js', __FILE__ ),
 		array(
-			'wp-components',
-			'wp-compose',
-			'wp-data',
-			'wp-editor',
-			'wp-block-editor',
-			'wp-editor',
-			'wp-element',
-			'wp-i18n',
-			'wp-plugins',
-			'wp-annotations',
+			'fp-components',
+			'fp-compose',
+			'fp-data',
+			'fp-editor',
+			'fp-block-editor',
+			'fp-editor',
+			'fp-element',
+			'fp-i18n',
+			'fp-plugins',
+			'fp-annotations',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'plugins-api/sidebar.js' ),
 		true
 	);
 
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-annotations-sidebar',
 		plugins_url( 'plugins-api/annotations-sidebar.js', __FILE__ ),
 		array(
-			'wp-components',
-			'wp-compose',
-			'wp-data',
-			'wp-editor',
-			'wp-block-editor',
-			'wp-element',
-			'wp-i18n',
-			'wp-plugins',
-			'wp-annotations',
+			'fp-components',
+			'fp-compose',
+			'fp-data',
+			'fp-editor',
+			'fp-block-editor',
+			'fp-element',
+			'fp-i18n',
+			'fp-plugins',
+			'fp-annotations',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'plugins-api/annotations-sidebar.js' ),
 		true
 	);
 
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-plugins-api-document-setting',
 		plugins_url( 'plugins-api/document-setting.js', __FILE__ ),
 		array(
-			'wp-editor',
-			'wp-element',
-			'wp-i18n',
-			'wp-plugins',
+			'fp-editor',
+			'fp-element',
+			'fp-i18n',
+			'fp-plugins',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'plugins-api/document-setting.js' ),
 		true
 	);
 
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-plugins-api-preview-menu',
 		plugins_url( 'plugins-api/preview-menu.js', __FILE__ ),
 		array(
-			'wp-editor',
-			'wp-element',
-			'wp-i18n',
-			'wp-plugins',
+			'fp-editor',
+			'fp-element',
+			'fp-i18n',
+			'fp-plugins',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'plugins-api/preview-menu.js' ),
 		true

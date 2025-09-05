@@ -10,7 +10,7 @@ import { useDispatch } from '@finpress/data';
 import { store as noticesStore } from '@finpress/notices';
 import { __, sprintf } from '@finpress/i18n';
 import { Popover } from '@finpress/components';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 /**
  * Internal dependencies
  */
@@ -28,7 +28,7 @@ export default function Form( {
 } ) {
 	const ref = useRef();
 
-	const isMediumLargeViewport = useViewportMatch( 'small' );
+	const isMediumLargeviewport = useviewportMatch( 'small' );
 
 	// We only want to remount the control when the instance changes
 	// *externally*. For example, if the user performs an undo. To do this, we
@@ -86,18 +86,18 @@ export default function Form( {
 		instance,
 		onChangeInstance,
 		onChangeHasPreview,
-		isMediumLargeViewport,
+		isMediumLargeviewport,
 	] );
 
-	if ( isWide && isMediumLargeViewport ) {
+	if ( isWide && isMediumLargeviewport ) {
 		return (
 			<div
 				className={ clsx( {
-					'wp-block-legacy-widget__container': isVisible,
+					'fp-block-legacy-widget__container': isVisible,
 				} ) }
 			>
 				{ isVisible && (
-					<h3 className="wp-block-legacy-widget__edit-form-title">
+					<h3 className="fp-block-legacy-widget__edit-form-title">
 						{ title }
 					</h3>
 				) }
@@ -111,7 +111,7 @@ export default function Form( {
 				>
 					<div
 						ref={ ref }
-						className="wp-block-legacy-widget__edit-form"
+						className="fp-block-legacy-widget__edit-form"
 						hidden={ ! isVisible }
 					></div>
 				</Popover>
@@ -122,10 +122,10 @@ export default function Form( {
 	return (
 		<div
 			ref={ ref }
-			className="wp-block-legacy-widget__edit-form"
+			className="fp-block-legacy-widget__edit-form"
 			hidden={ ! isVisible }
 		>
-			<h3 className="wp-block-legacy-widget__edit-form-title">
+			<h3 className="fp-block-legacy-widget__edit-form-title">
 				{ title }
 			</h3>
 		</div>

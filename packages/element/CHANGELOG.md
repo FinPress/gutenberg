@@ -102,7 +102,7 @@
 
 ### Breaking Changes
 
--   Remove the WPElement, WPComponent, and WPSyntheticEvent types.
+-   Remove the FPElement, FPComponent, and FPSyntheticEvent types.
 
 ## 5.19.0 (2023-09-20)
 

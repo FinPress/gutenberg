@@ -28,7 +28,7 @@ const shouldRenderItem = ( selectedBlocks, allowedBlocks ) =>
  *
  * @param {Object}                props                 Component props.
  * @param {Array}                 [props.allowedBlocks] An array containing a list of block names for which the item should be shown. If not present, it'll be rendered for any block. If multiple blocks are selected, it'll be shown if and only if all of them are in the allowed list.
- * @param {WPBlockTypeIconRender} [props.icon]          The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG WP element.
+ * @param {FPBlockTypeIconRender} [props.icon]          The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FP element.
  * @param {string}                props.label           The menu item text.
  * @param {Function}              props.onClick         Callback function to be executed when the user click the menu item.
  * @param {boolean}               [props.small]         Whether to render the label or not.
@@ -37,8 +37,8 @@ const shouldRenderItem = ( selectedBlocks, allowedBlocks ) =>
  * @example
  * ```js
  * // Using ES5 syntax
- * var __ = wp.i18n.__;
- * var PluginBlockSettingsMenuItem = wp.editor.PluginBlockSettingsMenuItem;
+ * var __ = fp.i18n.__;
+ * var PluginBlockSettingsMenuItem = fp.editor.PluginBlockSettingsMenuItem;
  *
  * function doOnClick(){
  * 	// To be called when the user clicks the menu item.

@@ -59,7 +59,7 @@ export default function PostExcerptEditor( {
 	 * Add an exception and return early for the "page" post type,
 	 * which is registered without support for the excerpt UI,
 	 * but supports saving the excerpt to the database.
-	 * See: https://core.trac.finpress.org/browser/branches/6.1/src/wp-includes/post.php#L65
+	 * See: https://core.trac.finpress.org/browser/branches/6.1/src/fp-includes/post.php#L65
 	 * Without this exception, users that have excerpts saved to the database will
 	 * not be able to edit the excerpts.
 	 */
@@ -143,7 +143,7 @@ export default function PostExcerptEditor( {
 	const readMoreLink = (
 		<RichText
 			identifier="moreText"
-			className="wp-block-post-excerpt__more-link"
+			className="fp-block-post-excerpt__more-link"
 			tagName="a"
 			aria-label={ __( '“Read more” link text' ) }
 			placeholder={ __( 'Add "read more" link text' ) }
@@ -154,7 +154,7 @@ export default function PostExcerptEditor( {
 			withoutInteractiveFormatting
 		/>
 	);
-	const excerptClassName = clsx( 'wp-block-post-excerpt__excerpt', {
+	const excerptClassName = clsx( 'fp-block-post-excerpt__excerpt', {
 		'is-inline': ! showMoreOnNewLine,
 	} );
 
@@ -289,7 +289,7 @@ export default function PostExcerptEditor( {
 				{ excerptContent }
 				{ ! showMoreOnNewLine && ' ' }
 				{ showMoreOnNewLine ? (
-					<p className="wp-block-post-excerpt__more-text">
+					<p className="fp-block-post-excerpt__more-text">
 						{ readMoreLink }
 					</p>
 				) : (

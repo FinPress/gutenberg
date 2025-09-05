@@ -3,7 +3,7 @@
  */
 import { __ } from '@finpress/i18n';
 import { useSelect } from '@finpress/data';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -16,7 +16,7 @@ import { store as editorStore } from '../../store';
  * @return {string} The label for the publish button.
  */
 export default function PublishButtonLabel() {
-	const isSmallerThanMediumViewport = useViewportMatch( 'medium', '<' );
+	const isSmallerThanMediumviewport = useviewportMatch( 'medium', '<' );
 	const {
 		isPublished,
 		isBeingScheduled,
@@ -45,7 +45,7 @@ export default function PublishButtonLabel() {
 			isSaving: isSavingPost(),
 			isPublishing: isPublishingPost(),
 			hasPublishAction:
-				getCurrentPost()._links?.[ 'wp:action-publish' ] ?? false,
+				getCurrentPost()._links?.[ 'fp:action-publish' ] ?? false,
 			postType: getCurrentPostType(),
 			isAutosaving: isAutosavingPost(),
 			hasNonPostEntityChanges:
@@ -68,7 +68,7 @@ export default function PublishButtonLabel() {
 	if ( ! hasPublishAction ) {
 		// TODO: this is because "Submit for review" string is too long in some languages.
 		// @see https://github.com/FinPress/gutenberg/issues/10475
-		return isSmallerThanMediumViewport
+		return isSmallerThanMediumviewport
 			? __( 'Publish' )
 			: __( 'Submit for Review' );
 	}

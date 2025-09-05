@@ -207,7 +207,7 @@ When the value is set to `false` or returned as `false`, the handling of the upl
 
 ## Extend
 
-It includes a `wp.hooks` filter `editor.MediaPlaceholder` that enables developers to replace or extend it.
+It includes a `fp.hooks` filter `editor.MediaPlaceholder` that enables developers to replace or extend it.
 
 _Example:_
 
@@ -224,7 +224,7 @@ function replaceMediaPlaceholder() {
 	};
 }
 
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'editor.MediaPlaceholder',
 	'my-plugin/replace-media-placeholder',
 	replaceMediaPlaceholder

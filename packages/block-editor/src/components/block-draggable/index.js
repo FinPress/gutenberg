@@ -186,7 +186,7 @@ const BlockDraggable = ( {
 		<Draggable
 			appendToOwnerDocument={ appendToOwnerDocument }
 			cloneClassname={ cloneClassname }
-			__experimentalTransferDataType="wp-blocks"
+			__experimentalTransferDataType="fp-blocks"
 			transferData={ transferData }
 			onDragStart={ ( event ) => {
 				// Defer hiding the dragged source element to the next

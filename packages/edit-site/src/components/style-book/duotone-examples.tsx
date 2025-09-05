@@ -34,7 +34,7 @@ const DuotoneExamples = ( {
 								alt={ `Duotone example: ${ duotone.slug }` }
 								src="https://s.w.org/images/core/5.3/MtBlanc1.jpg"
 								style={ {
-									filter: `url(#wp-duotone-${ duotone.slug })`,
+									filter: `url(#fp-duotone-${ duotone.slug })`,
 								} }
 							/>
 						</View>

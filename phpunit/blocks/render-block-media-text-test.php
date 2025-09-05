@@ -13,12 +13,12 @@
  *
  * @covers ::render_block_core_media_text
  */
-class Render_Block_MediaText_Test extends WP_UnitTestCase {
+class Render_Block_MediaText_Test extends FP_UnitTestCase {
 
 	/**
 	 * Post object.
 	 *
-	 * @var WP_Post
+	 * @var FP_Post
 	 */
 	protected static $post;
 
@@ -32,7 +32,7 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 	/**
 	 * Setup method.
 	 */
-	public static function wpSetUpBeforeClass() {
+	public static function fpSetUpBeforeClass() {
 		self::$post = self::factory()->post->create_and_get();
 		$file       = DIR_TESTDATA . '/images/canola.jpg';
 
@@ -50,19 +50,19 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 	/**
 	 * Tear down method.
 	 */
-	public static function wpTearDownAfterClass() {
-		wp_delete_post( self::$post->ID, true );
-		wp_delete_post( self::$attachment_id, true );
+	public static function fpTearDownAfterClass() {
+		fp_delete_post( self::$post->ID, true );
+		fp_delete_post( self::$attachment_id, true );
 	}
 
 	/**
-	 * Helper method for $wp_query.
+	 * Helper method for $fp_query.
 	 */
 	public static function setup_query() {
-		global $wp_query;
-		$wp_query->in_the_loop = true;
-		$wp_query->post        = self::$post;
-		$wp_query->posts       = array( self::$post );
+		global $fp_query;
+		$fp_query->in_the_loop = true;
+		$fp_query->post        = self::$post;
+		$fp_query->posts       = array( self::$post );
 		$GLOBALS['post']       = self::$post;
 	}
 
@@ -72,14 +72,14 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 	public function test_render_block_core_media_text_featured_image() {
 		$this->setup_query();
 
-		$content = '<div class="wp-block-media-text is-stacked-on-mobile"><figure class="wp-block-media-text__media"></figure><div class="wp-block-media-text__content"><p></p></div></div>';
+		$content = '<div class="fp-block-media-text is-stacked-on-mobile"><figure class="fp-block-media-text__media"></figure><div class="fp-block-media-text__content"><p></p></div></div>';
 
 		// Assert that the rendered block contains the featured image.
 		$attributes = array(
 			'useFeaturedImage' => true,
 		);
 		$rendered   = gutenberg_render_block_core_media_text( $attributes, $content );
-		$this->assertStringContainsString( '<img alt="" src="' . wp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
+		$this->assertStringContainsString( '<img alt="" src="' . fp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
 
 		// Assert that the rendered block contains the featured image as an image element,
 		// when image fill is true.
@@ -88,7 +88,7 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 			'imageFill'        => true,
 		);
 		$rendered   = gutenberg_render_block_core_media_text( $attributes, $content );
-		$this->assertStringContainsString( '<img alt="" src="' . wp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
+		$this->assertStringContainsString( '<img alt="" src="' . fp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
 	}
 
 	/**
@@ -97,14 +97,14 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 	 */
 	public function test_render_block_core_media_text_featured_image_nested() {
 		$this->setup_query();
-		$content = '<div class="wp-block-media-text is-stacked-on-mobile"><figure class="wp-block-media-text__media"></figure><div class="wp-block-media-text__content"><div class="wp-block-media-text is-stacked-on-mobile"><figure class="wp-block-media-text__media"></figure><div class="wp-block-media-text__content"><p></p></div></div></div></div>';
+		$content = '<div class="fp-block-media-text is-stacked-on-mobile"><figure class="fp-block-media-text__media"></figure><div class="fp-block-media-text__content"><div class="fp-block-media-text is-stacked-on-mobile"><figure class="fp-block-media-text__media"></figure><div class="fp-block-media-text__content"><p></p></div></div></div></div>';
 
 		// Assert that the rendered block contains the featured image.
 		$attributes = array(
 			'useFeaturedImage' => true,
 		);
 		$rendered   = gutenberg_render_block_core_media_text( $attributes, $content );
-		$this->assertStringContainsString( '<img alt="" src="' . wp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
+		$this->assertStringContainsString( '<img alt="" src="' . fp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
 
 		// Assert that the rendered block contains the featured image as an image element,
 		// when image fill is true.
@@ -113,7 +113,7 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 			'imageFill'        => true,
 		);
 		$rendered   = gutenberg_render_block_core_media_text( $attributes, $content );
-		$this->assertStringContainsString( '<img alt="" src="' . wp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
+		$this->assertStringContainsString( '<img alt="" src="' . fp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
 	}
 
 	/**
@@ -122,7 +122,7 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 	public function test_render_block_core_media_text_featured_image_media_on_right() {
 		$this->setup_query();
 
-		$content = '<div class="wp-block-media-text has-media-on-the-right is-stacked-on-mobile"><div class="wp-block-media-text__content"><p></p></div><figure class="wp-block-media-text__media"></figure></div>';
+		$content = '<div class="fp-block-media-text has-media-on-the-right is-stacked-on-mobile"><div class="fp-block-media-text__content"><p></p></div><figure class="fp-block-media-text__media"></figure></div>';
 
 		// Assert that the rendered block contains the featured image when media is on the right.
 		$attributes = array(
@@ -130,7 +130,7 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 			'mediaPosition'    => 'right',
 		);
 		$rendered   = gutenberg_render_block_core_media_text( $attributes, $content );
-		$this->assertStringContainsString( '<img alt="" src="' . wp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
+		$this->assertStringContainsString( '<img alt="" src="' . fp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
 
 		// Assert that the rendered block contains the featured image as an image element,
 		// when image fill is true and the media is on the right.
@@ -140,7 +140,7 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 			'imageFill'        => true,
 		);
 		$rendered   = gutenberg_render_block_core_media_text( $attributes, $content );
-		$this->assertStringContainsString( '<img alt="" src="' . wp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
+		$this->assertStringContainsString( '<img alt="" src="' . fp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
 	}
 
 	/**
@@ -150,7 +150,7 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 	public function test_render_block_core_media_text_featured_image_media_on_right_nested() {
 		$this->setup_query();
 
-		$content = '<div class="wp-block-media-text has-media-on-the-right is-stacked-on-mobile"><div class="wp-block-media-text__content"><div class="wp-block-media-text is-stacked-on-mobile"><div class="wp-block-media-text__content"><p></p></div><figure class="wp-block-media-text__media"></figure></div></div><figure class="wp-block-media-text__media"></figure></div>';
+		$content = '<div class="fp-block-media-text has-media-on-the-right is-stacked-on-mobile"><div class="fp-block-media-text__content"><div class="fp-block-media-text is-stacked-on-mobile"><div class="fp-block-media-text__content"><p></p></div><figure class="fp-block-media-text__media"></figure></div></div><figure class="fp-block-media-text__media"></figure></div>';
 
 		// Assert that the rendered block contains the featured image when media is on the right.
 		$attributes = array(
@@ -159,7 +159,7 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 		);
 
 		$rendered = gutenberg_render_block_core_media_text( $attributes, $content );
-		$this->assertStringContainsString( '<img alt="" src="' . wp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
+		$this->assertStringContainsString( '<img alt="" src="' . fp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
 
 		// Assert that the rendered block contains the featured image as an image element,
 		// when image fill is true and the media is on the right.
@@ -170,6 +170,6 @@ class Render_Block_MediaText_Test extends WP_UnitTestCase {
 		);
 
 		$rendered = gutenberg_render_block_core_media_text( $attributes, $content );
-		$this->assertStringContainsString( '<img alt="" src="' . wp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
+		$this->assertStringContainsString( '<img alt="" src="' . fp_get_attachment_image_url( self::$attachment_id, 'full' ) . '"', $rendered );
 	}
 }

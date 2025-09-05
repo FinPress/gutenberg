@@ -6,7 +6,7 @@
  * @package Gutenberg
  */
 
-class WP_Block_Supports_Position_Test extends WP_UnitTestCase {
+class FP_Block_Supports_Position_Test extends FP_UnitTestCase {
 	/**
 	 * @var string|null
 	 */
@@ -30,24 +30,24 @@ class WP_Block_Supports_Position_Test extends WP_UnitTestCase {
 		parent::set_up();
 		$this->test_block_name = null;
 		$this->theme_root      = realpath( __DIR__ . '/../data/themedir1' );
-		$this->orig_theme_dir  = $GLOBALS['wp_theme_directories'];
+		$this->orig_theme_dir  = $GLOBALS['fp_theme_directories'];
 
 		// /themes is necessary as theme.php functions assume /themes is the root if there is only one root.
-		$GLOBALS['wp_theme_directories'] = array( WP_CONTENT_DIR . '/themes', $this->theme_root );
+		$GLOBALS['fp_theme_directories'] = array( FP_CONTENT_DIR . '/themes', $this->theme_root );
 
 		add_filter( 'theme_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'stylesheet_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'template_root', array( $this, 'filter_set_theme_root' ) );
 		// Clear caches.
-		wp_clean_themes_cache();
-		unset( $GLOBALS['wp_themes'] );
+		fp_clean_themes_cache();
+		unset( $GLOBALS['fp_themes'] );
 	}
 
 	public function tear_down() {
-		$GLOBALS['wp_theme_directories'] = $this->orig_theme_dir;
-		wp_clean_themes_cache();
-		unset( $GLOBALS['wp_themes'] );
-		WP_Style_Engine_CSS_Rules_Store_Gutenberg::remove_all_stores();
+		$GLOBALS['fp_theme_directories'] = $this->orig_theme_dir;
+		fp_clean_themes_cache();
+		unset( $GLOBALS['fp_themes'] );
+		FP_Style_Engine_CSS_Rules_Store_Gutenberg::remove_all_stores();
 		unregister_block_type( $this->test_block_name );
 		$this->test_block_name = null;
 		parent::tear_down();
@@ -131,8 +131,8 @@ class WP_Block_Supports_Position_Test extends WP_UnitTestCase {
 					'type' => 'sticky',
 					'top'  => '0px',
 				),
-				'expected_wrapper'  => '/^<div class="wp-container-\d+ is-position-sticky">Content<\/div>$/',
-				'expected_styles'   => '/^.wp-container-\d+' . preg_quote( '{top:calc(0px + var(--wp-admin--admin-bar--position-offset, 0px));position:sticky;z-index:10;}' ) . '$/',
+				'expected_wrapper'  => '/^<div class="fp-container-\d+ is-position-sticky">Content<\/div>$/',
+				'expected_styles'   => '/^.fp-container-\d+' . preg_quote( '{top:calc(0px + var(--fp-admin--admin-bar--position-offset, 0px));position:sticky;z-index:10;}' ) . '$/',
 			),
 			'sticky position style is not applied if theme does not support it' => array(
 				'theme_name'        => 'default',

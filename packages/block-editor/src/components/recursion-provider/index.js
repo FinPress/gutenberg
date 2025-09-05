@@ -85,17 +85,17 @@ export function useHasRecursion( uniqueId, blockName = '' ) {
 }
 
 export const DeprecatedExperimentalRecursionProvider = ( props ) => {
-	deprecated( 'wp.blockEditor.__experimentalRecursionProvider', {
+	deprecated( 'fp.blockEditor.__experimentalRecursionProvider', {
 		since: '6.5',
-		alternative: 'wp.blockEditor.RecursionProvider',
+		alternative: 'fp.blockEditor.RecursionProvider',
 	} );
 	return <RecursionProvider { ...props } />;
 };
 
 export const DeprecatedExperimentalUseHasRecursion = ( ...args ) => {
-	deprecated( 'wp.blockEditor.__experimentalUseHasRecursion', {
+	deprecated( 'fp.blockEditor.__experimentalUseHasRecursion', {
 		since: '6.5',
-		alternative: 'wp.blockEditor.useHasRecursion',
+		alternative: 'fp.blockEditor.useHasRecursion',
 	} );
 	return useHasRecursion( ...args );
 };

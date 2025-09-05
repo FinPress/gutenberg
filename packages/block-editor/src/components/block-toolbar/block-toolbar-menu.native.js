@@ -384,7 +384,7 @@ export default compose(
 		const reusableBlock = isReusableBlockType
 			? select( coreStore ).getEntityRecord(
 					'postType',
-					'wp_block',
+					'fp_block',
 					block?.attributes.ref
 			  )
 			: undefined;

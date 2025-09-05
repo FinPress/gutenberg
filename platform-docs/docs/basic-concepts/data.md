@@ -100,20 +100,20 @@ After running this through the parser, we're left with a simple object we can ma
 
 This has dramatic implications for how simple and performant we can make our parser. These explicit boundaries also protect damage to a single block from bleeding into other blocks or tarnishing the entire document. It also allows the system to identify unrecognized blocks before rendering them.
 
-_N.B.:_ The defining aspects of blocks are their semantics and the isolation mechanism they provide: in other words, their identity. On the other hand, where their data is stored is a more liberal aspect. Blocks support more than just static local data (via JSON literals inside the HTML comment or within the block's HTML), and more mechanisms (_e.g._, global blocks or otherwise resorting to storage in complementary `WP_Post` objects) are expected.
+_N.B.:_ The defining aspects of blocks are their semantics and the isolation mechanism they provide: in other words, their identity. On the other hand, where their data is stored is a more liberal aspect. Blocks support more than just static local data (via JSON literals inside the HTML comment or within the block's HTML), and more mechanisms (_e.g._, global blocks or otherwise resorting to storage in complementary `FP_Post` objects) are expected.
 
 ### The Anatomy of a Serialized Block
 
 When blocks are serialized as HTML, their attributes—depending on the nature of the block—are serialized to these explicit comment delimiters.
 
 ```html
-<!-- wp:image -->
-<figure class="wp-block-image"><img src="source.jpg" alt="" /></figure>
-<!-- /wp:image -->
+<!-- fp:image -->
+<figure class="fp-block-image"><img src="source.jpg" alt="" /></figure>
+<!-- /fp:image -->
 ```
 
 A purely dynamic block that is to be server-rendered before display could look like this:
 
 ```html
-<!-- wp:latest-posts {"postsToShow":4,"displayPostDate":true} /-->
+<!-- fp:latest-posts {"postsToShow":4,"displayPostDate":true} /-->
 ```

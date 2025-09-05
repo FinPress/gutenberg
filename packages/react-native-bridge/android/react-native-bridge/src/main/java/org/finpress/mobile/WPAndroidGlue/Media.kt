@@ -1,4 +1,4 @@
-package org.finpress.mobile.WPAndroidGlue
+package org.finpress.mobile.FPAndroidGlue
 
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeMap

@@ -27,27 +27,27 @@ import { applyBuiltInValidationFixes } from './apply-built-in-validation-fixes';
  * the HTML content of the block as only the latter is relevant for block
  * validation and edit operations.
  *
- * @typedef WPRawBlock
+ * @typedef FPRawBlock
  *
  * @property {string=}         blockName    Block name
  * @property {Object=}         attrs        Block raw or comment attributes.
  * @property {string}          innerHTML    HTML content of the block.
  * @property {(string|null)[]} innerContent Content without inner blocks.
- * @property {WPRawBlock[]}    innerBlocks  Inner Blocks.
+ * @property {FPRawBlock[]}    innerBlocks  Inner Blocks.
  */
 
 /**
  * Fully parsed block object.
  *
- * @typedef WPBlock
+ * @typedef FPBlock
  *
  * @property {string}     name                    Block name
  * @property {Object}     attributes              Block raw or comment attributes.
- * @property {WPBlock[]}  innerBlocks             Inner Blocks.
+ * @property {FPBlock[]}  innerBlocks             Inner Blocks.
  * @property {string}     originalContent         Original content of the block before validation fixes.
  * @property {boolean}    isValid                 Whether the block is valid.
  * @property {Object[]}   validationIssues        Validation issues.
- * @property {WPRawBlock} [__unstableBlockSource] Un-processed original copy of block if created through parser.
+ * @property {FPRawBlock} [__unstableBlockSource] Un-processed original copy of block if created through parser.
  */
 
 /**
@@ -61,9 +61,9 @@ import { applyBuiltInValidationFixes } from './apply-built-in-validation-fixes';
  * both in the parser level for previous content and to convert such blocks
  * used in Custom Post Types templates.
  *
- * @param {WPRawBlock} rawBlock
+ * @param {FPRawBlock} rawBlock
  *
- * @return {WPRawBlock} The block's name and attributes, changed accordingly if a match was found
+ * @return {FPRawBlock} The block's name and attributes, changed accordingly if a match was found
  */
 function convertLegacyBlocks( rawBlock ) {
 	const [ correctName, correctedAttributes ] =
@@ -82,10 +82,10 @@ function convertLegacyBlocks( rawBlock ) {
  * Normalize the raw block by applying the fallback block name if none given,
  * sanitize the parsed HTML...
  *
- * @param {WPRawBlock}    rawBlock The raw block object.
+ * @param {FPRawBlock}    rawBlock The raw block object.
  * @param {ParseOptions?} options  Extra options for handling block parsing.
  *
- * @return {WPRawBlock} The normalized block object.
+ * @return {FPRawBlock} The normalized block object.
  */
 export function normalizeRawBlock( rawBlock, options ) {
 	const fallbackBlockName = getFreeformContentHandlerName();
@@ -97,7 +97,7 @@ export function normalizeRawBlock( rawBlock, options ) {
 	let rawInnerHTML = rawBlock.innerHTML.trim();
 
 	// Fallback content may be upgraded from classic content expecting implicit
-	// automatic paragraphs, so preserve them. Assumes wpautop is idempotent,
+	// automatic paragraphs, so preserve them. Assumes fpautop is idempotent,
 	// meaning there are no negative consequences to repeated autop calls.
 	if (
 		rawBlockName === fallbackBlockName &&
@@ -119,9 +119,9 @@ export function normalizeRawBlock( rawBlock, options ) {
 /**
  * Uses the "unregistered blockType" to create a block object.
  *
- * @param {WPRawBlock} rawBlock block.
+ * @param {FPRawBlock} rawBlock block.
  *
- * @return {WPRawBlock} The unregistered block object.
+ * @return {FPRawBlock} The unregistered block object.
  */
 function createMissingBlockType( rawBlock ) {
 	const unregisteredFallbackBlock =
@@ -158,9 +158,9 @@ function createMissingBlockType( rawBlock ) {
  *
  * The name here is regrettable but `validateBlock` is already taken.
  *
- * @param {WPBlock}                               unvalidatedBlock
- * @param {import('../registration').WPBlockType} blockType
- * @return {WPBlock}                              validated block, with auto-fixes if initially invalid
+ * @param {FPBlock}                               unvalidatedBlock
+ * @param {import('../registration').FPBlockType} blockType
+ * @return {FPBlock}                              validated block, with auto-fixes if initially invalid
  */
 function applyBlockValidation( unvalidatedBlock, blockType ) {
 	// Attempt to validate the block.
@@ -188,10 +188,10 @@ function applyBlockValidation( unvalidatedBlock, blockType ) {
 /**
  * Given a raw block returned by grammar parsing, returns a fully parsed block.
  *
- * @param {WPRawBlock}   rawBlock The raw block object.
+ * @param {FPRawBlock}   rawBlock The raw block object.
  * @param {ParseOptions} options  Extra options for handling block parsing.
  *
- * @return {WPBlock | undefined} Fully parsed block.
+ * @return {FPBlock | undefined} Fully parsed block.
  */
 export function parseRawBlock( rawBlock, options ) {
 	let normalizedBlock = normalizeRawBlock( rawBlock, options );

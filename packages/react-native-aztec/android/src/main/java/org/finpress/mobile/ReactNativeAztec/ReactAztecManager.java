@@ -55,9 +55,9 @@ import org.finpress.aztec.plugins.MarkPlugin;
 import org.finpress.aztec.plugins.shortcodes.AudioShortcodePlugin;
 import org.finpress.aztec.plugins.shortcodes.CaptionShortcodePlugin;
 import org.finpress.aztec.plugins.shortcodes.VideoShortcodePlugin;
-import org.finpress.aztec.plugins.wpcomments.HiddenGutenbergPlugin;
-import org.finpress.aztec.plugins.wpcomments.FinPressCommentsPlugin;
-import org.finpress.aztec.plugins.wpcomments.toolbar.MoreToolbarButton;
+import org.finpress.aztec.plugins.fpcomments.HiddenGutenbergPlugin;
+import org.finpress.aztec.plugins.fpcomments.FinPressCommentsPlugin;
+import org.finpress.aztec.plugins.fpcomments.toolbar.MoreToolbarButton;
 
 import java.util.Map;
 import java.util.ArrayList;
@@ -552,7 +552,7 @@ public class ReactAztecManager extends BaseViewManager<ReactAztecText, LayoutSha
      * This property/method is used to disable the Gutenberg compatibility mode on AztecRN.
      *
      * Aztec comes along with some nice plugins that are able to show preview of Pictures/Videos/shortcodes,
-     * and WP specific features, in the visual editor.
+     * and FP specific features, in the visual editor.
      *
      * We don't need those improvements in Gutenberg mobile, so this RN wrapper around Aztec
      * that's only used in GB-mobile at the moment, does have them OFF by default.

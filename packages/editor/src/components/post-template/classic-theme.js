@@ -31,7 +31,7 @@ function PostTemplateToggle( { isOpen, onClick } ) {
 		const template =
 			select( coreStore ).canUser( 'create', {
 				kind: 'postType',
-				name: 'wp_template',
+				name: 'fp_template',
 			} ) && select( editorStore ).getCurrentTemplateId();
 		return (
 			template?.title ||
@@ -78,14 +78,14 @@ function PostTemplateDropdownContent( { onClose } ) {
 			const editorSettings = select( editorStore ).getEditorSettings();
 			const canCreateTemplates = canUser( 'create', {
 				kind: 'postType',
-				name: 'wp_template',
+				name: 'fp_template',
 			} );
 			const _currentTemplateId =
 				select( editorStore ).getCurrentTemplateId();
 			return {
 				availableTemplates: editorSettings.availableTemplates,
 				fetchedTemplates: canCreateTemplates
-					? getEntityRecords( 'postType', 'wp_template', {
+					? getEntityRecords( 'postType', 'fp_template', {
 							post_type:
 								select( editorStore ).getCurrentPostType(),
 							per_page: -1,
@@ -178,7 +178,7 @@ function PostTemplateDropdownContent( { onClose } ) {
 						onClick={ () => {
 							onNavigateToEntityRecord( {
 								postId: currentTemplateId,
-								postType: 'wp_template',
+								postType: 'fp_template',
 							} );
 							onClose();
 							createSuccessNotice(

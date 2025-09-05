@@ -23,7 +23,7 @@
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
-	"wpScript": true,
+	"fpScript": true,
 	"types": "build-types",
 	"sideEffects": false,
 	"dependencies": {

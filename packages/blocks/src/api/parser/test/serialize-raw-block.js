@@ -5,31 +5,31 @@ import { serializeRawBlock } from '../serialize-raw-block';
 
 describe( 'serializeRawBlock', () => {
 	it( 'reserializes block nodes', () => {
-		const expected = `<!-- wp:columns -->
-			<div class="wp-block-columns has-2-columns">
-				<!-- wp:column -->
-				<div class="wp-block-column">
-					<!-- wp:paragraph -->
+		const expected = `<!-- fp:columns -->
+			<div class="fp-block-columns has-2-columns">
+				<!-- fp:column -->
+				<div class="fp-block-column">
+					<!-- fp:paragraph -->
 					<p>A</p>
-					<!-- /wp:paragraph -->
+					<!-- /fp:paragraph -->
 				</div>
-				<!-- /wp:column -->
-				<!-- wp:column -->
-				<div class="wp-block-column">
-					<!-- wp:group -->
-					<div class="wp-block-group">
-						<!-- wp:list -->
+				<!-- /fp:column -->
+				<!-- fp:column -->
+				<div class="fp-block-column">
+					<!-- fp:group -->
+					<div class="fp-block-group">
+						<!-- fp:list -->
 						<ul><li>B</li><li>C</li></ul>
-						<!-- /wp:list -->
-						<!-- wp:paragraph -->
+						<!-- /fp:list -->
+						<!-- fp:paragraph -->
 						<p>D</p>
-						<!-- /wp:paragraph -->
+						<!-- /fp:paragraph -->
 					</div>
-					<!-- /wp:group -->
+					<!-- /fp:group -->
 				</div>
-				<!-- /wp:column -->
+				<!-- /fp:column -->
 			</div>
-			<!-- /wp:columns -->`.replace( /\t/g, '' );
+			<!-- /fp:columns -->`.replace( /\t/g, '' );
 		const input = {
 			blockName: 'core/columns',
 			attrs: {},
@@ -46,9 +46,9 @@ describe( 'serializeRawBlock', () => {
 							innerContent: [ '<p>A</p>' ],
 						},
 					],
-					innerHTML: '<div class="wp-block-column"></div>',
+					innerHTML: '<div class="fp-block-column"></div>',
 					innerContent: [
-						'<div class="wp-block-column">',
+						'<div class="fp-block-column">',
 						null,
 						'</div>',
 					],
@@ -78,9 +78,9 @@ describe( 'serializeRawBlock', () => {
 									innerContent: [ '<p>D</p>' ],
 								},
 							],
-							innerHTML: '<div class="wp-block-group"></div>',
+							innerHTML: '<div class="fp-block-group"></div>',
 							innerContent: [
-								'<div class="wp-block-group">',
+								'<div class="fp-block-group">',
 								null,
 								'',
 								null,
@@ -88,17 +88,17 @@ describe( 'serializeRawBlock', () => {
 							],
 						},
 					],
-					innerHTML: '<div class="wp-block-column"></div>',
+					innerHTML: '<div class="fp-block-column"></div>',
 					innerContent: [
-						'<div class="wp-block-column">',
+						'<div class="fp-block-column">',
 						null,
 						'</div>',
 					],
 				},
 			],
-			innerHTML: '<div class="wp-block-columns has-2-columns"></div>',
+			innerHTML: '<div class="fp-block-columns has-2-columns"></div>',
 			innerContent: [
-				'<div class="wp-block-columns has-2-columns">',
+				'<div class="fp-block-columns has-2-columns">',
 				null,
 				'',
 				null,

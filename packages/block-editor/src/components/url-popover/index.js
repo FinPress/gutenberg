@@ -41,7 +41,7 @@ const URLPopover = forwardRef(
 		ref
 	) => {
 		if ( position !== undefined ) {
-			deprecated( '`position` prop in wp.blockEditor.URLPopover', {
+			deprecated( '`position` prop in fp.blockEditor.URLPopover', {
 				since: '6.2',
 				alternative: '`placement` prop',
 			} );

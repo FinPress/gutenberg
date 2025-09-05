@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`File block transformations to Columns block 1`] = `
-"<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column {"width":"100%"} -->
-<div class="wp-block-column" style="flex-basis:100%"><!-- wp:file {"id":3,"href":"https://finpress.org/latest.zip"} -->
-<div class="wp-block-file"><a href="https://finpress.org/latest.zip">FinPress.zip</a><a href="https://finpress.org/latest.zip" class="wp-block-file__button wp-element-button" download>Download</a></div>
-<!-- /wp:file --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->"
+"<!-- fp:columns -->
+<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
+<div class="fp-block-column" style="flex-basis:100%"><!-- fp:file {"id":3,"href":"https://finpress.org/latest.zip"} -->
+<div class="fp-block-file"><a href="https://finpress.org/latest.zip">FinPress.zip</a><a href="https://finpress.org/latest.zip" class="fp-block-file__button fp-element-button" download>Download</a></div>
+<!-- /fp:file --></div>
+<!-- /fp:column --></div>
+<!-- /fp:columns -->"
 `;
 
 exports[`File block transformations to Group block 1`] = `
-"<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:file {"id":3,"href":"https://finpress.org/latest.zip"} -->
-<div class="wp-block-file"><a href="https://finpress.org/latest.zip">FinPress.zip</a><a href="https://finpress.org/latest.zip" class="wp-block-file__button wp-element-button" download>Download</a></div>
-<!-- /wp:file --></div>
-<!-- /wp:group -->"
+"<!-- fp:group {"layout":{"type":"constrained"}} -->
+<div class="fp-block-group"><!-- fp:file {"id":3,"href":"https://finpress.org/latest.zip"} -->
+<div class="fp-block-file"><a href="https://finpress.org/latest.zip">FinPress.zip</a><a href="https://finpress.org/latest.zip" class="fp-block-file__button fp-element-button" download>Download</a></div>
+<!-- /fp:file --></div>
+<!-- /fp:group -->"
 `;

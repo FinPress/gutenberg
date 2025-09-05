@@ -5,9 +5,9 @@
 			"borderRadius": 25
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"wp-block-button\"><a class=\"wp-block-button__link\" style=\"border-radius:25px\">My button</a></div>\n",
+		"innerHTML": "\n<div class=\"fp-block-button\"><a class=\"fp-block-button__link\" style=\"border-radius:25px\">My button</a></div>\n",
 		"innerContent": [
-			"\n<div class=\"wp-block-button\"><a class=\"wp-block-button__link\" style=\"border-radius:25px\">My button</a></div>\n"
+			"\n<div class=\"fp-block-button\"><a class=\"fp-block-button__link\" style=\"border-radius:25px\">My button</a></div>\n"
 		]
 	}
 ]

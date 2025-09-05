@@ -12,7 +12,7 @@ Update your `block.json` to include:
 
 ```json
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json"
+	"$schema": "https://schemas.fp.org/trunk/block.json"
 }
 ```
 
@@ -20,7 +20,7 @@ Or in your `theme.json`:
 
 ```json
 {
-	"$schema": "https://schemas.wp.org/trunk/theme.json"
+	"$schema": "https://schemas.fp.org/trunk/theme.json"
 }
 ```
 
@@ -28,15 +28,15 @@ Or in your `font-collection.json`:
 
 ```json
 {
-	"$schema": "https://schemas.wp.org/trunk/font-collection.json"
+	"$schema": "https://schemas.fp.org/trunk/font-collection.json"
 }
 ```
 
-For a specific version of the schema, replace `trunk` with `wp/X.X`:
+For a specific version of the schema, replace `trunk` with `fp/X.X`:
 
 ```json
 {
-	"$schema": "https://schemas.wp.org/wp/5.8/block.json"
+	"$schema": "https://schemas.fp.org/fp/5.8/block.json"
 }
 ```
 

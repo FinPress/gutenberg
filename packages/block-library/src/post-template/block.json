@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-template",
 	"title": "Post Template",
@@ -64,6 +64,6 @@
 			"style": true
 		}
 	},
-	"style": "wp-block-post-template",
-	"editorStyle": "wp-block-post-template-editor"
+	"style": "fp-block-post-template",
+	"editorStyle": "fp-block-post-template-editor"
 }

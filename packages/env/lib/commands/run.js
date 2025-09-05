@@ -12,7 +12,7 @@ const initConfig = require( '../init-config' );
 const getHostUser = require( '../get-host-user' );
 
 /**
- * @typedef {import('../config').WPConfig} WPConfig
+ * @typedef {import('../config').FPConfig} FPConfig
  */
 
 /**
@@ -54,7 +54,7 @@ module.exports = async function run( {
 /**
  * Runs an arbitrary command on the given Docker container.
  *
- * @param {WPConfig} config    The wp-env configuration.
+ * @param {FPConfig} config    The fp-env configuration.
  * @param {string}   container The Docker container to run the command on.
  * @param {string[]} command   The command to run.
  * @param {string}   envCwd    The working directory for the command to be executed from.
@@ -137,7 +137,7 @@ function showCommandTips( joinedCommand, container, spinner ) {
 		switch ( joinedCommand ) {
 			case 'bash':
 				return 'Exit bash with ctrl-d.';
-			case 'wp shell':
+			case 'fp shell':
 				return 'Exit the FinPress shell with ctrl-c.';
 			default:
 				return '';

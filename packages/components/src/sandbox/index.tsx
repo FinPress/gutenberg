@@ -49,7 +49,7 @@ const observeAndResizeJS = function () {
 	// Hack: Remove viewport unit styles, as these are relative
 	// the iframe root and interfere with our mechanism for
 	// determining the unconstrained page bounds.
-	function removeViewportStyles( ruleOrNode: ElementCSSInlineStyle ) {
+	function removeviewportStyles( ruleOrNode: ElementCSSInlineStyle ) {
 		if ( ruleOrNode.style ) {
 			(
 				[ 'width', 'height', 'minHeight', 'maxHeight' ] as const
@@ -67,14 +67,14 @@ const observeAndResizeJS = function () {
 
 	Array.prototype.forEach.call(
 		document.querySelectorAll( '[style]' ),
-		removeViewportStyles
+		removeviewportStyles
 	);
 	Array.prototype.forEach.call(
 		document.styleSheets,
 		function ( stylesheet ) {
 			Array.prototype.forEach.call(
 				stylesheet.cssRules || stylesheet.rules,
-				removeViewportStyles
+				removeviewportStyles
 			);
 		}
 	);
@@ -100,10 +100,10 @@ const style = `
 	body > div {
 		width: 100%;
 	}
-	html.wp-has-aspect-ratio,
-	body.wp-has-aspect-ratio,
-	body.wp-has-aspect-ratio > div,
-	body.wp-has-aspect-ratio > div iframe {
+	html.fp-has-aspect-ratio,
+	body.fp-has-aspect-ratio,
+	body.fp-has-aspect-ratio > div,
+	body.fp-has-aspect-ratio > div iframe {
 		width: 100%;
 		height: 100%;
 		overflow: hidden; /* If it has an aspect ratio, it shouldn't scroll. */

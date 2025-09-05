@@ -10,7 +10,7 @@
  *
  * @param  array    $attributes Block attributes.
  * @param  string   $content    Block default content.
- * @param  WP_Block $block      Block instance.
+ * @param  FP_Block $block      Block instance.
  * @return string Returns the rendered post author name block.
  */
 function render_block_core_post_time_to_read( $attributes, $content, $block ) {
@@ -27,9 +27,9 @@ function render_block_core_post_time_to_read( $attributes, $content, $block ) {
 	 */
 	$average_reading_rate = 189;
 
-	$word_count_type = wp_get_word_count_type();
+	$word_count_type = fp_get_word_count_type();
 
-	$minutes_to_read = max( 1, (int) round( wp_word_count( $content, $word_count_type ) / $average_reading_rate ) );
+	$minutes_to_read = max( 1, (int) round( fp_word_count( $content, $word_count_type ) / $average_reading_rate ) );
 
 	$minutes_to_read_string = sprintf(
 		/* translators: %s: the number of minutes to read the post. */

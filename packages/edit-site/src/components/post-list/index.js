@@ -87,7 +87,7 @@ function useView( postType ) {
 			const { getEditedEntityRecord } = select( coreStore );
 			return getEditedEntityRecord(
 				'postType',
-				'wp_dataviews',
+				'fp_dataviews',
 				Number( activeView )
 			);
 		},
@@ -119,7 +119,7 @@ function useView( postType ) {
 		if ( isCustom === 'true' && editedEntityRecord?.id ) {
 			editEntityRecord(
 				'postType',
-				'wp_dataviews',
+				'fp_dataviews',
 				editedEntityRecord?.id,
 				{
 					content: JSON.stringify( newView ),

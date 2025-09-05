@@ -29,9 +29,9 @@ import { textColor } from '..';
 const COLOR_PINK = '#f78da7';
 const paragraph = coreBlocks[ 'core/paragraph' ];
 
-const TEXT_WITH_COLOR = `<!-- wp:paragraph -->
+const TEXT_WITH_COLOR = `<!-- fp:paragraph -->
 <p>Hello <mark style="background-color:rgba(0,0,0,0);color:#cf2e2e" class="has-inline-color has-vivid-red-color">this is a test</mark></p>
-<!-- /wp:paragraph -->`;
+<!-- /fp:paragraph -->`;
 
 beforeAll( () => {
 	paragraph.init();
@@ -130,13 +130,13 @@ describe( 'Text color', () => {
 
 	it( 'supports old text color format using "span" tag', async () => {
 		await initializeEditor( {
-			initialHtml: `<!-- wp:paragraph -->
+			initialHtml: `<!-- fp:paragraph -->
 			<p>this <span class="has-inline-color has-green-color">is</span> <span class="has-inline-color has-red-color">test</span></p>
-			<!-- /wp:paragraph -->
+			<!-- /fp:paragraph -->
 
-			<!-- wp:paragraph -->
+			<!-- fp:paragraph -->
 			<p><span style="color:#08a5e9" class="has-inline-color">this is a test</span></p>
-			<!-- /wp:paragraph -->`,
+			<!-- /fp:paragraph -->`,
 		} );
 
 		expect( getEditorHtml() ).toMatchSnapshot();

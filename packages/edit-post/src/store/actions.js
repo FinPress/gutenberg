@@ -45,7 +45,7 @@ export const closeGeneralSidebar =
 /**
  * Returns an action object used in signalling that the user opened a modal.
  *
- * @deprecated since WP 6.3 use `core/interface` store's action with the same name instead.
+ * @deprecated since FP 6.3 use `core/interface` store's action with the same name instead.
  *
  *
  * @param {string} name A string that uniquely identifies the modal.
@@ -65,7 +65,7 @@ export const openModal =
 /**
  * Returns an action object signalling that the user closed a modal.
  *
- * @deprecated since WP 6.3 use `core/interface` store's action with the same name instead.
+ * @deprecated since FP 6.3 use `core/interface` store's action with the same name instead.
  *
  * @return {Object} Action object.
  */
@@ -287,7 +287,7 @@ export const requestMetaBoxUpdates =
 			type: 'REQUEST_META_BOX_UPDATES',
 		} );
 
-		// Saves the wp_editor fields.
+		// Saves the fp_editor fields.
 		if ( window.tinyMCE ) {
 			window.tinyMCE.triggerSave();
 		}
@@ -340,7 +340,7 @@ export const requestMetaBoxUpdates =
 		try {
 			// Save the metaboxes.
 			await apiFetch( {
-				url: window._wpMetaBoxUrl,
+				url: window._fpMetaBoxUrl,
 				method: 'POST',
 				body: formData,
 				parse: false,

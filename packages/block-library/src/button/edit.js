@@ -338,7 +338,7 @@ function ButtonEdit( props ) {
 			<div
 				{ ...blockProps }
 				className={ clsx( blockProps.className, {
-					[ `has-custom-width wp-block-button__width-${ width }` ]:
+					[ `has-custom-width fp-block-button__width-${ width }` ]:
 						width,
 				} ) }
 			>
@@ -355,7 +355,7 @@ function ButtonEdit( props ) {
 					withoutInteractiveFormatting
 					className={ clsx(
 						className,
-						'wp-block-button__link',
+						'fp-block-button__link',
 						colorProps.className,
 						borderProps.className,
 						typographyProps.className,

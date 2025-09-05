@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  * @return string Returns the filtered post comments form for the current post.
  */
 function render_block_core_post_comments_form( $attributes, $content, $block ) {
@@ -49,7 +49,7 @@ function render_block_core_post_comments_form( $attributes, $content, $block ) {
 	$form = str_replace( 'class="comment-respond"', $wrapper_attributes, $form );
 
 	// Enqueue the comment-reply script.
-	wp_enqueue_script( 'comment-reply' );
+	fp_enqueue_script( 'comment-reply' );
 
 	return $form;
 }
@@ -79,9 +79,9 @@ add_action( 'init', 'register_block_core_post_comments_form' );
  * @return array Returns the modified fields.
  */
 function post_comments_form_block_form_defaults( $fields ) {
-	if ( wp_is_block_theme() ) {
-		$fields['submit_button'] = '<input name="%1$s" type="submit" id="%2$s" class="wp-block-button__link ' . wp_theme_get_element_class_name( 'button' ) . '" value="%4$s" />';
-		$fields['submit_field']  = '<p class="form-submit wp-block-button">%1$s %2$s</p>';
+	if ( fp_is_block_theme() ) {
+		$fields['submit_button'] = '<input name="%1$s" type="submit" id="%2$s" class="fp-block-button__link ' . fp_theme_get_element_class_name( 'button' ) . '" value="%4$s" />';
+		$fields['submit_field']  = '<p class="form-submit fp-block-button">%1$s %2$s</p>';
 	}
 
 	return $fields;

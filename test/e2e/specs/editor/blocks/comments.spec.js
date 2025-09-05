@@ -24,7 +24,7 @@ test.describe( 'Comments', () => {
 	test.beforeEach( async ( { commentsBlockUtils } ) => {
 		// Ideally, we'd set options in beforeAll or afterAll. Unfortunately, these
 		// aren't exposed via the REST API, so we have to set them through the
-		// relevant wp-admin screen, which involves page utils; but those are
+		// relevant fp-admin screen, which involves page utils; but those are
 		// prohibited from beforeAll/afterAll.
 		previousOptions = await commentsBlockUtils.setOptions( {
 			page_comments: '1',
@@ -154,7 +154,7 @@ test.describe( 'Comments', () => {
 		);
 		const warning = block.locator( '.block-editor-warning' );
 		const placeholder = block.locator(
-			'.wp-block-comments__legacy-placeholder'
+			'.fp-block-comments__legacy-placeholder'
 		);
 
 		await expect( block ).toHaveClass( /has-vivid-purple-color/ );
@@ -195,7 +195,7 @@ test.describe( 'Comments', () => {
 
 		// Check that the Comment Template block (an inner block) is rendered.
 		await expect(
-			page.locator( '.wp-block-comment-template' )
+			page.locator( '.fp-block-comment-template' )
 		).toBeVisible();
 		await expect( page.locator( '.commentlist' ) ).toBeHidden();
 	} );
@@ -224,7 +224,7 @@ test.describe( 'Comments', () => {
 
 		// Check that the Comment Template block (an inner block) is NOT rendered.
 		await expect(
-			page.locator( '.wp-block-comment-template' )
+			page.locator( '.fp-block-comment-template' )
 		).toBeHidden();
 		await expect( page.locator( '.commentlist' ) ).toBeVisible();
 	} );
@@ -250,7 +250,7 @@ test.describe( 'Post Comments', () => {
 	test( 'is still supported', async ( { page, requestUtils } ) => {
 		// Create a post with the old "Post Comments" block.
 		const { id: postId } = await requestUtils.createPost( {
-			content: '<!-- wp:post-comments /-->',
+			content: '<!-- fp:post-comments /-->',
 			status: 'publish',
 		} );
 
@@ -264,7 +264,7 @@ test.describe( 'Post Comments', () => {
 		await page.goto( `/?p=${ postId }` );
 
 		// Ensure that the rendered post is the legacy version of Post Comments.
-		await expect( page.locator( '.wp-block-post-comments' ) ).toBeVisible();
+		await expect( page.locator( '.fp-block-post-comments' ) ).toBeVisible();
 		await expect( page.locator( '.comment-content' ) ).toContainText(
 			'This is an automated comment'
 		);
@@ -279,7 +279,7 @@ test.describe( 'Post Comments', () => {
 	} ) => {
 		// Create a post with the old "Post Comments" block.
 		const { id: postId } = await requestUtils.createPost( {
-			content: '<!-- wp:post-comments /-->',
+			content: '<!-- fp:post-comments /-->',
 			status: 'publish',
 		} );
 		await requestUtils.createComment( {
@@ -298,10 +298,10 @@ test.describe( 'Post Comments', () => {
 
 		// Check that the Post Comments block has been replaced with Comments.
 		await expect(
-			editor.canvas.locator( '.wp-block-post-comments' )
+			editor.canvas.locator( '.fp-block-post-comments' )
 		).toBeHidden();
 		await expect(
-			editor.canvas.locator( '.wp-block-comments' )
+			editor.canvas.locator( '.fp-block-comments' )
 		).toBeVisible();
 
 		// Check the block definition has changed.
@@ -318,7 +318,7 @@ test.describe( 'Post Comments', () => {
 		await page.goto( `/?p=${ postId }` );
 
 		// Rendered block should be the same as Post Comments.
-		await expect( page.locator( '.wp-block-post-comments' ) ).toBeVisible();
+		await expect( page.locator( '.fp-block-post-comments' ) ).toBeVisible();
 		await expect( page.locator( '.comment-content' ) ).toContainText(
 			'This is an automated comment'
 		);
@@ -373,12 +373,12 @@ class CommentsBlockUtils {
 
 	async hideWelcomeGuide() {
 		await this.page.evaluate( async () => {
-			const isWelcomeGuideActive = window.wp.data
+			const isWelcomeGuideActive = window.fp.data
 				.select( 'core/edit-post' )
 				.isFeatureActive( 'welcomeGuide' );
 
 			if ( isWelcomeGuideActive ) {
-				window.wp.data
+				window.fp.data
 					.dispatch( 'core/edit-post' )
 					.toggleFeature( 'welcomeGuide' );
 			}

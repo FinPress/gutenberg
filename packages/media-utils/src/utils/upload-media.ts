@@ -39,7 +39,7 @@ interface UploadMediaArgs {
 	// Function called each time a file or a temporary representation of the file is available.
 	onFileChange?: OnChangeHandler;
 	// List of allowed mime types and file extensions.
-	wpAllowedMimeTypes?: Record< string, string > | null;
+	fpAllowedMimeTypes?: Record< string, string > | null;
 	// Abort signal.
 	signal?: AbortSignal;
 	// Whether to allow multiple files to be uploaded.
@@ -57,12 +57,12 @@ interface UploadMediaArgs {
  * @param $0.maxUploadFileSize  Maximum upload size in bytes allowed for the site.
  * @param $0.onError            Function called when an error happens.
  * @param $0.onFileChange       Function called each time a file or a temporary representation of the file is available.
- * @param $0.wpAllowedMimeTypes List of allowed mime types and file extensions.
+ * @param $0.fpAllowedMimeTypes List of allowed mime types and file extensions.
  * @param $0.signal             Abort signal.
  * @param $0.multiple           Whether to allow multiple files to be uploaded.
  */
 export function uploadMedia( {
-	wpAllowedMimeTypes,
+	fpAllowedMimeTypes,
 	allowedTypes,
 	additionalData = {},
 	filesList,
@@ -97,7 +97,7 @@ export function uploadMedia( {
 		// Verify if user is allowed to upload this mime type.
 		// Defer to the server when type not detected.
 		try {
-			validateMimeTypeForUser( mediaFile, wpAllowedMimeTypes );
+			validateMimeTypeForUser( mediaFile, fpAllowedMimeTypes );
 		} catch ( error: unknown ) {
 			onError?.( error as Error );
 			continue;

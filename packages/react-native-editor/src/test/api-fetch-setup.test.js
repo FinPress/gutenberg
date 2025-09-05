@@ -9,35 +9,35 @@ import { isPathSupported, shouldEnableCaching } from '../api-fetch-setup';
 
 const supportedPaths = {
 	GET: [
-		'wp/v2/media/54?context=edit&_locale=user',
-		'wp/v2/media/5?context=edit',
-		'wp/v2/media/54/',
-		'wp/v2/media/',
-		'wp/v2/media?context=edit&_locale=user',
-		'wp/v2/categories/',
-		'wp/v2/blocks/28?_locale=user',
-		'/wp/v2/blocks?per_page=100&context=edit&_locale=user',
+		'fp/v2/media/54?context=edit&_locale=user',
+		'fp/v2/media/5?context=edit',
+		'fp/v2/media/54/',
+		'fp/v2/media/',
+		'fp/v2/media?context=edit&_locale=user',
+		'fp/v2/categories/',
+		'fp/v2/blocks/28?_locale=user',
+		'/fp/v2/blocks?per_page=100&context=edit&_locale=user',
 	],
 };
 
 // Made up examples.
 const unsupportedPaths = {
-	GET: [ 'wp/v1/media/' ],
-	POST: [ 'wp/v2/categories' ],
+	GET: [ 'fp/v1/media/' ],
+	POST: [ 'fp/v2/categories' ],
 };
 
 const enabledCachingPaths = [
-	'wp/v2/media/54?context=edit&_locale=user',
-	'wp/v2/media/5?context=edit',
-	'wp/v2/media/54/',
-	'wp/v2/media/',
-	'wp/v2/media?context=edit&_locale=user',
-	'wp/v2/categories/',
+	'fp/v2/media/54?context=edit&_locale=user',
+	'fp/v2/media/5?context=edit',
+	'fp/v2/media/54/',
+	'fp/v2/media/',
+	'fp/v2/media?context=edit&_locale=user',
+	'fp/v2/categories/',
 ];
 
 const disabledCachingPaths = [
-	'wp/v2/blocks/28?_locale=user',
-	'/wp/v2/blocks?per_page=100&context=edit&_locale=user',
+	'fp/v2/blocks/28?_locale=user',
+	'/fp/v2/blocks?per_page=100&context=edit&_locale=user',
 ];
 
 describe( 'isPathSupported', () => {
@@ -63,7 +63,7 @@ describe( 'isPathSupported', () => {
 		} );
 	} );
 
-	it( 'checks supported endpoints provided by WP hook', () => {
+	it( 'checks supported endpoints provided by FP hook', () => {
 		addFilter(
 			'native.supported_endpoints',
 			'gutenberg-mobile',
@@ -99,11 +99,11 @@ describe( 'shouldEnableCaching', () => {
 			'native.disabled_caching_endpoints',
 			'gutenberg-mobile',
 			( endpoints ) => {
-				return [ ...endpoints, /wp\/v2\/categories/i ];
+				return [ ...endpoints, /fp\/v2\/categories/i ];
 			}
 		);
 
 		// Filter was used to stop caching an endpoint from `enabledCachingPaths` array.
-		expect( shouldEnableCaching( 'wp/v2/categories' ) ).toBe( false );
+		expect( shouldEnableCaching( 'fp/v2/categories' ) ).toBe( false );
 	} );
 } );

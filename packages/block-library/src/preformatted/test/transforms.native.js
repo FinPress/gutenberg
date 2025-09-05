@@ -11,9 +11,9 @@ import {
 
 const block = 'Preformatted';
 const initialHtml = `
-<!-- wp:preformatted -->
-<pre class="wp-block-preformatted">Some <em>preformatted</em> text...<br>And more!</pre>
-<!-- /wp:preformatted -->`;
+<!-- fp:preformatted -->
+<pre class="fp-block-preformatted">Some <em>preformatted</em> text...<br>And more!</pre>
+<!-- /fp:preformatted -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [

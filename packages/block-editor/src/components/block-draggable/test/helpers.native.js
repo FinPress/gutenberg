@@ -33,7 +33,7 @@ const DEFAULT_TOUCH_EVENTS = [
 ];
 
 /**
- * @typedef  {Object} WPBlockWithLayout
+ * @typedef  {Object} FPBlockWithLayout
  * @property {string} name          Name of the block (e.g. Paragraph).
  * @property {string} html          HTML content.
  * @property {Object} layout        Layout data.
@@ -46,7 +46,7 @@ const DEFAULT_TOUCH_EVENTS = [
 /**
  * Initialize the editor with an array of blocks that include their HTML and layout.
  *
- * @param {WPBlockWithLayout[]} blocks Initial blocks.
+ * @param {FPBlockWithLayout[]} blocks Initial blocks.
  *
  * @return {import('@testing-library/react-native').RenderAPI} The Testing Library screen.
  */

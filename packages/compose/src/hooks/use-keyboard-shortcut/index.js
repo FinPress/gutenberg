@@ -13,7 +13,7 @@ import { isAppleOS } from '@finpress/keycodes';
 /**
  * A block selection object.
  *
- * @typedef {Object} WPKeyboardShortcutConfig
+ * @typedef {Object} FPKeyboardShortcutConfig
  *
  * @property {boolean}                                [bindGlobal] Handle keyboard events anywhere including inside textarea/input fields.
  * @property {string}                                 [eventName]  Event name used to trigger the handler, defaults to keydown.
@@ -29,7 +29,7 @@ import { isAppleOS } from '@finpress/keycodes';
  *
  * @param {string[]|string}                                                       shortcuts Keyboard Shortcuts.
  * @param {(e: import('mousetrap').ExtendedKeyboardEvent, combo: string) => void} callback  Shortcut callback.
- * @param {WPKeyboardShortcutConfig}                                              options   Shortcut options.
+ * @param {FPKeyboardShortcutConfig}                                              options   Shortcut options.
  */
 function useKeyboardShortcut(
 	/* eslint-enable jsdoc/valid-types */

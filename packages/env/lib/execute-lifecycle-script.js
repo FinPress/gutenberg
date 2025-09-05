@@ -5,7 +5,7 @@
 const { exec } = require( 'child_process' );
 
 /**
- * @typedef {import('./config').WPConfig} WPConfig
+ * @typedef {import('./config').FPConfig} FPConfig
  */
 
 /**
@@ -23,7 +23,7 @@ class LifecycleScriptError extends Error {
  * Executes any defined life cycle script.
  *
  * @param {string}   event   The lifecycle event to run the script for.
- * @param {WPConfig} config  The config object to use.
+ * @param {FPConfig} config  The config object to use.
  * @param {Object}   spinner A CLI spinner which indciates progress.
  *
  * @return {Promise} Resolves when the script has completed and rejects when there is an error.

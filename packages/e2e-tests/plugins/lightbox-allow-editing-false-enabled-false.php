@@ -23,4 +23,4 @@ function filter_theme_json_theme( $theme_json ) {
 	);
 	return $theme_json->update_with( $new_data );
 }
-add_filter( 'wp_theme_json_data_theme', 'filter_theme_json_theme' );
+add_filter( 'fp_theme_json_data_theme', 'filter_theme_json_theme' );

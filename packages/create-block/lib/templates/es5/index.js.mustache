@@ -1,31 +1,31 @@
-( function( wp ) {
+( function( fp ) {
 	/**
 	 * Registers a new block provided a unique name and an object defining its behavior.
 	 *
 	 * @see https://developer.finpress.org/block-editor/reference-guides/block-api/block-registration/
 	 */
-	var registerBlockType = wp.blocks.registerBlockType;
+	var registerBlockType = fp.blocks.registerBlockType;
 
 	/**
 	 * Returns a new element of given type. Element is an abstraction layer atop React.
 	 *
 	 * @see https://developer.finpress.org/block-editor/packages/packages-element/
 	 */
-	var el = wp.element.createElement;
+	var el = fp.element.createElement;
 
 	/**
 	 * Retrieves the translation of text.
 	 *
 	 * @see https://developer.finpress.org/block-editor/reference-guides/packages/packages-i18n/
 	 */
-	var __ = wp.i18n.__;
+	var __ = fp.i18n.__;
 
 	/**
 	 * This hook is used to mark the block wrapper element.
 	 *
 	 * @see https://developer.finpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
 	 */
-	var useBlockProps = wp.blockEditor.useBlockProps;
+	var useBlockProps = fp.blockEditor.useBlockProps;
 
 	/**
 	 * Every block starts by registering a new block type definition.
@@ -68,5 +68,5 @@
 		{{/isStaticVariant}}
 	} );
 }(
-	window.wp
+	window.fp
 ) );

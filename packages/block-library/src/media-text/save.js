@@ -38,7 +38,7 @@ export default function save( { attributes } ) {
 	const newRel = ! rel ? undefined : rel;
 
 	const imageClasses = clsx( {
-		[ `wp-image-${ mediaId }` ]: mediaId && mediaType === 'image',
+		[ `fp-image-${ mediaId }` ]: mediaId && mediaType === 'image',
 		[ `size-${ mediaSizeSlug }` ]: mediaId && mediaType === 'image',
 	} );
 
@@ -95,10 +95,10 @@ export default function save( { attributes } ) {
 			<div { ...useBlockProps.save( { className, style } ) }>
 				<div
 					{ ...useInnerBlocksProps.save( {
-						className: 'wp-block-media-text__content',
+						className: 'fp-block-media-text__content',
 					} ) }
 				/>
-				<figure className="wp-block-media-text__media">
+				<figure className="fp-block-media-text__media">
 					{ ( mediaTypeRenders[ mediaType ] || noop )() }
 				</figure>
 			</div>
@@ -106,12 +106,12 @@ export default function save( { attributes } ) {
 	}
 	return (
 		<div { ...useBlockProps.save( { className, style } ) }>
-			<figure className="wp-block-media-text__media">
+			<figure className="fp-block-media-text__media">
 				{ ( mediaTypeRenders[ mediaType ] || noop )() }
 			</figure>
 			<div
 				{ ...useInnerBlocksProps.save( {
-					className: 'wp-block-media-text__content',
+					className: 'fp-block-media-text__content',
 				} ) }
 			/>
 		</div>

@@ -28,10 +28,10 @@ const withDeprecatedKeys = ( originalGet ) => ( state, scope, name ) => {
 		[ 'core/edit-post', 'core/edit-site' ].includes( scope )
 	) {
 		deprecated(
-			`wp.data.select( 'core/preferences' ).get( '${ scope }', '${ name }' )`,
+			`fp.data.select( 'core/preferences' ).get( '${ scope }', '${ name }' )`,
 			{
 				since: '6.5',
-				alternative: `wp.data.select( 'core/preferences' ).get( 'core', '${ name }' )`,
+				alternative: `fp.data.select( 'core/preferences' ).get( 'core', '${ name }' )`,
 			}
 		);
 

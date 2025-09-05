@@ -12,13 +12,13 @@ import * as node from './node';
 /**
  * A representation of a block's rich text value.
  *
- * @typedef {WPBlockNode[]} WPBlockChildren
+ * @typedef {FPBlockNode[]} FPBlockChildren
  */
 
 /**
  * Given block children, returns a serialize-capable FinPress element.
  *
- * @param {WPBlockChildren} children Block children object to convert.
+ * @param {FPBlockChildren} children Block children object to convert.
  *
  * @return {Element} A serialize-capable element.
  */
@@ -35,12 +35,12 @@ export function getSerializeCapableElement( children ) {
 /**
  * Given block children, returns an array of block nodes.
  *
- * @param {WPBlockChildren} children Block children object to convert.
+ * @param {FPBlockChildren} children Block children object to convert.
  *
- * @return {Array<WPBlockNode>} An array of individual block nodes.
+ * @return {Array<FPBlockNode>} An array of individual block nodes.
  */
 function getChildrenArray( children ) {
-	deprecated( 'wp.blocks.children.getChildrenArray', {
+	deprecated( 'fp.blocks.children.getChildrenArray', {
 		since: '6.1',
 		version: '6.3',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
@@ -56,15 +56,15 @@ function getChildrenArray( children ) {
  * Given two or more block nodes, returns a new block node representing a
  * concatenation of its values.
  *
- * @param {...WPBlockChildren} blockNodes Block nodes to concatenate.
+ * @param {...FPBlockChildren} blockNodes Block nodes to concatenate.
  *
- * @return {WPBlockChildren} Concatenated block node.
+ * @return {FPBlockChildren} Concatenated block node.
  */
 export function concat( ...blockNodes ) {
-	deprecated( 'wp.blocks.children.concat', {
+	deprecated( 'fp.blocks.children.concat', {
 		since: '6.1',
 		version: '6.3',
-		alternative: 'wp.richText.concat',
+		alternative: 'fp.richText.concat',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
@@ -96,13 +96,13 @@ export function concat( ...blockNodes ) {
  *
  * @param {Iterable.<Node>} domNodes Iterable set of DOM nodes to convert.
  *
- * @return {WPBlockChildren} Block children equivalent to DOM nodes.
+ * @return {FPBlockChildren} Block children equivalent to DOM nodes.
  */
 export function fromDOM( domNodes ) {
-	deprecated( 'wp.blocks.children.fromDOM', {
+	deprecated( 'fp.blocks.children.fromDOM', {
 		since: '6.1',
 		version: '6.3',
-		alternative: 'wp.richText.create',
+		alternative: 'fp.richText.create',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
@@ -121,15 +121,15 @@ export function fromDOM( domNodes ) {
 /**
  * Given a block node, returns its HTML string representation.
  *
- * @param {WPBlockChildren} children Block node(s) to convert to string.
+ * @param {FPBlockChildren} children Block node(s) to convert to string.
  *
  * @return {string} String HTML representation of block node.
  */
 export function toHTML( children ) {
-	deprecated( 'wp.blocks.children.toHTML', {
+	deprecated( 'fp.blocks.children.toHTML', {
 		since: '6.1',
 		version: '6.3',
-		alternative: 'wp.richText.toHTMLString',
+		alternative: 'fp.richText.toHTMLString',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
@@ -139,7 +139,7 @@ export function toHTML( children ) {
 }
 
 /**
- * Given a selector, returns an hpq matcher generating a WPBlockChildren value
+ * Given a selector, returns an hpq matcher generating a FPBlockChildren value
  * matching the selector result.
  *
  * @param {string} selector DOM selector.
@@ -147,7 +147,7 @@ export function toHTML( children ) {
  * @return {Function} hpq matcher.
  */
 export function matcher( selector ) {
-	deprecated( 'wp.blocks.children.matcher', {
+	deprecated( 'fp.blocks.children.matcher', {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'html source',

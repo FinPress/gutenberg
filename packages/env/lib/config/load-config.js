@@ -14,21 +14,21 @@ const { parseConfig, getConfigFilePath } = require( './parse-config' );
 const postProcessConfig = require( './post-process-config' );
 
 /**
- * @typedef {import('./parse-config').WPRootConfig} WPRootConfig
- * @typedef {import('./parse-config').WPEnvironmentConfig} WPEnvironmentConfig
+ * @typedef {import('./parse-config').FPRootConfig} FPRootConfig
+ * @typedef {import('./parse-config').FPEnvironmentConfig} FPEnvironmentConfig
  */
 
 /**
- * wp-env configuration.
+ * fp-env configuration.
  *
- * @typedef WPConfig
+ * @typedef FPConfig
  * @property {string}                               name                    Name of the environment.
- * @property {string}                               configDirectoryPath     Path to the .wp-env.json file.
- * @property {string}                               workDirectoryPath       Path to the work directory located in ~/.wp-env.
+ * @property {string}                               configDirectoryPath     Path to the .fp-env.json file.
+ * @property {string}                               workDirectoryPath       Path to the work directory located in ~/.fp-env.
  * @property {string}                               dockerComposeConfigPath Path to the docker-compose.yml file.
- * @property {boolean}                              detectedLocalConfig     If true, wp-env detected local config and used it.
+ * @property {boolean}                              detectedLocalConfig     If true, fp-env detected local config and used it.
  * @property {Object.<string, string>}              lifecycleScripts        Any lifecycle scripts that we might need to execute.
- * @property {Object.<string, WPEnvironmentConfig>} env                     Specific config for different environments.
+ * @property {Object.<string, FPEnvironmentConfig>} env                     Specific config for different environments.
  * @property {boolean}                              debug                   True if debug mode is enabled.
  */
 
@@ -37,7 +37,7 @@ const postProcessConfig = require( './post-process-config' );
  *
  * @param {string} configDirectoryPath The directory we want to load the config from.
  *
- * @return {Promise<WPConfig>} The config object we've loaded.
+ * @return {Promise<FPConfig>} The config object we've loaded.
  */
 module.exports = async function loadConfig( configDirectoryPath ) {
 	const configFilePath = getConfigFilePath( configDirectoryPath );

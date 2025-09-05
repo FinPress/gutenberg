@@ -135,7 +135,7 @@ export default function CategoriesEdit( {
 			<>
 				{ showLabel ? (
 					<RichText
-						className="wp-block-categories__label"
+						className="fp-block-categories__label"
 						aria-label={ __( 'Label text' ) }
 						placeholder={ taxonomy?.name }
 						withoutInteractiveFormatting
@@ -189,9 +189,9 @@ export default function CategoriesEdit( {
 			: 'div';
 
 	const classes = clsx( className, {
-		'wp-block-categories-list':
+		'fp-block-categories-list':
 			!! categories?.length && ! displayAsDropdown && ! isResolving,
-		'wp-block-categories-dropdown':
+		'fp-block-categories-dropdown':
 			!! categories?.length && displayAsDropdown && ! isResolving,
 	} );
 
@@ -272,7 +272,7 @@ export default function CategoriesEdit( {
 						>
 							<ToggleControl
 								__nextHasNoMarginBottom
-								className="wp-block-categories__indentation"
+								className="fp-block-categories__indentation"
 								label={ __( 'Show label' ) }
 								checked={ showLabel }
 								onChange={ toggleAttribute( 'showLabel' ) }

@@ -11,22 +11,22 @@ import type { Editor } from './index';
  */
 export async function transformBlockTo( this: Editor, name: string ) {
 	await this.page.waitForFunction(
-		() => window?.wp?.blocks && window?.wp?.data
+		() => window?.fp?.blocks && window?.fp?.data
 	);
 
 	await this.page.evaluate(
 		( [ blockName ] ) => {
-			const clientIds = window.wp.data
+			const clientIds = window.fp.data
 				.select( 'core/block-editor' )
 				.getSelectedBlockClientIds();
-			const blocks = window.wp.data
+			const blocks = window.fp.data
 				.select( 'core/block-editor' )
 				.getBlocksByClientId( clientIds );
-			window.wp.data
+			window.fp.data
 				.dispatch( 'core/block-editor' )
 				.replaceBlocks(
 					clientIds,
-					window.wp.blocks.switchToBlockType( blocks, blockName )
+					window.fp.blocks.switchToBlockType( blocks, blockName )
 				);
 		},
 		[ name ]

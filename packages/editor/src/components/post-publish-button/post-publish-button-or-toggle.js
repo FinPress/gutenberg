@@ -1,7 +1,7 @@
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useDispatch, useSelect } from '@finpress/data';
 
 /**
@@ -18,7 +18,7 @@ export default function PostPublishButtonOrToggle( {
 	setEntitiesSavedStatesCallback,
 } ) {
 	let component;
-	const isSmallerThanMediumViewport = useViewportMatch( 'medium', '<' );
+	const isSmallerThanMediumviewport = useviewportMatch( 'medium', '<' );
 	const { togglePublishSidebar } = useDispatch( editorStore );
 	const {
 		hasPublishAction,
@@ -34,7 +34,7 @@ export default function PostPublishButtonOrToggle( {
 		return {
 			hasPublishAction:
 				!! select( editorStore ).getCurrentPost()?._links?.[
-					'wp:action-publish'
+					'fp:action-publish'
 				] ?? false,
 			isBeingScheduled:
 				select( editorStore ).isEditedPostBeingScheduled(),
@@ -79,10 +79,10 @@ export default function PostPublishButtonOrToggle( {
 		( postStatusHasChanged &&
 			! [ 'future', 'publish' ].includes( postStatus ) ) ||
 		( isScheduled && isBeingScheduled ) ||
-		( isPending && ! hasPublishAction && ! isSmallerThanMediumViewport )
+		( isPending && ! hasPublishAction && ! isSmallerThanMediumviewport )
 	) {
 		component = IS_BUTTON;
-	} else if ( isSmallerThanMediumViewport || isPublishSidebarEnabled ) {
+	} else if ( isSmallerThanMediumviewport || isPublishSidebarEnabled ) {
 		component = IS_TOGGLE;
 	} else {
 		component = IS_BUTTON;

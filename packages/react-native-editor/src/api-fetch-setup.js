@@ -6,7 +6,7 @@ import apiFetch from '@finpress/api-fetch';
 import { applyFilters } from '@finpress/hooks';
 
 const SUPPORTED_METHODS = [ 'GET', 'POST' ];
-// Please add only wp.org API paths here!
+// Please add only fp.org API paths here!
 const SUPPORTED_ENDPOINTS = {
 	// Temporarily disabling themes endpoint calls within the editor.
 	// Issue: https://github.com/finpress-mobile/FinPress-Android/issues/21034
@@ -15,8 +15,8 @@ const SUPPORTED_ENDPOINTS = {
 	// TODO: Investigate and resolve the issue with GET requests from the editor.
 	// Until then, themes endpoint calls are disabled to prevent unexpected behavior.
 	GET: [
-		/wp\/v2\/(media|categories|blocks)\/?\d*?.*/i,
-		/wp\/v2\/search\?.*/i,
+		/fp\/v2\/(media|categories|blocks)\/?\d*?.*/i,
+		/fp\/v2\/search\?.*/i,
 		/oembed\/1\.0\/proxy\?.*/i,
 	],
 	POST: [],
@@ -24,7 +24,7 @@ const SUPPORTED_ENDPOINTS = {
 
 // [ONLY ON ANDROID] The requests made to these endpoints won't be cached.
 const DISABLED_CACHING_ENDPOINTS = [
-	/wp\/v2\/(blocks)\/?\d*?.*/i,
+	/fp\/v2\/(blocks)\/?\d*?.*/i,
 	/oembed\/1\.0\/proxy\?.*/i,
 ];
 

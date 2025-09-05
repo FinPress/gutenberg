@@ -22,7 +22,7 @@ test.describe( 'Block template registration', () => {
 		);
 	} );
 	test.afterEach( async ( { requestUtils } ) => {
-		await requestUtils.deleteAllTemplates( 'wp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
 		await requestUtils.deleteAllPosts();
 	} );
 
@@ -40,7 +40,7 @@ test.describe( 'Block template registration', () => {
 
 		// Verify template is listed in the Site Editor.
 		await admin.visitSiteEditor( {
-			postType: 'wp_template',
+			postType: 'fp_template',
 		} );
 		await blockTemplateRegistrationUtils.searchForTemplate(
 			'Plugin Template'
@@ -70,7 +70,7 @@ test.describe( 'Block template registration', () => {
 
 		// Verify template can be reset.
 		await admin.visitSiteEditor( {
-			postType: 'wp_template',
+			postType: 'fp_template',
 		} );
 		const resetNotice = page
 			.getByLabel( 'Dismiss this notice' )
@@ -153,7 +153,7 @@ test.describe( 'Block template registration', () => {
 
 		// Verify the plugin-registered template doesn't appear in the Site Editor.
 		await admin.visitSiteEditor( {
-			postType: 'wp_template',
+			postType: 'fp_template',
 		} );
 		await blockTemplateRegistrationUtils.searchForTemplate( 'Custom' );
 		await expect(
@@ -178,7 +178,7 @@ test.describe( 'Block template registration', () => {
 	} ) => {
 		// Make an edit to the template.
 		await admin.visitSiteEditor( {
-			postType: 'wp_template',
+			postType: 'fp_template',
 		} );
 		await blockTemplateRegistrationUtils.searchForTemplate(
 			'Plugin Template'
@@ -202,7 +202,7 @@ test.describe( 'Block template registration', () => {
 
 		// Verify template can be deleted.
 		await admin.visitSiteEditor( {
-			postType: 'wp_template',
+			postType: 'fp_template',
 		} );
 		const deletedNotice = page
 			.getByLabel( 'Dismiss this notice' )
@@ -236,7 +236,7 @@ test.describe( 'Block template registration', () => {
 		blockTemplateRegistrationUtils,
 	} ) => {
 		await admin.visitSiteEditor( {
-			postType: 'wp_template',
+			postType: 'fp_template',
 		} );
 		await blockTemplateRegistrationUtils.searchForTemplate(
 			'Plugin Unregistered Template'
@@ -246,7 +246,7 @@ test.describe( 'Block template registration', () => {
 		).toBeHidden();
 	} );
 
-	test( 'WP default templates can be overridden by plugins', async ( {
+	test( 'FP default templates can be overridden by plugins', async ( {
 		page,
 		requestUtils,
 	} ) => {
@@ -273,7 +273,7 @@ test.describe( 'Block template registration', () => {
 
 		// Create an author template.
 		await admin.visitSiteEditor( {
-			postType: 'wp_template',
+			postType: 'fp_template',
 		} );
 		await page.getByLabel( 'Add template' ).click();
 		await page.getByRole( 'button', { name: 'Author Archives' } ).click();
@@ -306,7 +306,7 @@ test.describe( 'Block template registration', () => {
 
 		// Verify the template registered by the plugin is not visible in the Site Editor.
 		await admin.visitSiteEditor( {
-			postType: 'wp_template',
+			postType: 'fp_template',
 		} );
 		await blockTemplateRegistrationUtils.searchForTemplate(
 			'Plugin Author Template'

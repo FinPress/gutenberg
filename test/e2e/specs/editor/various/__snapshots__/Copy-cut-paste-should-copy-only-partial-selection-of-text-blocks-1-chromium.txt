@@ -1,7 +1,7 @@
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>A block</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>B block</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->

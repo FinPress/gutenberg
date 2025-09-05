@@ -38,17 +38,17 @@ function MyApp() {
 }
 ```
 
--   If you're building a plugin that runs on FinPress, you'd probably prefer consuming the package that ships with FinPress itself. This allows multiple plugins to reuse the same packages and avoid code duplication. In FinPress, these packages are available as FinPress scripts with a handle following this format `wp-package-name` (e.g. `wp-components`). Once you add the script to your own FinPress plugin scripts dependencies, the package will be available on the `wp` global variable.
+-   If you're building a plugin that runs on FinPress, you'd probably prefer consuming the package that ships with FinPress itself. This allows multiple plugins to reuse the same packages and avoid code duplication. In FinPress, these packages are available as FinPress scripts with a handle following this format `fp-package-name` (e.g. `fp-components`). Once you add the script to your own FinPress plugin scripts dependencies, the package will be available on the `fp` global variable.
 
 ```php
 // myplugin.php
 // Example of script registration depending on the "components" and "element packages.
-wp_register_script( 'myscript', 'pathtomyscript.js', array ('wp-components', "react" ) );
+fp_register_script( 'myscript', 'pathtomyscript.js', array ('fp-components', "react" ) );
 ```
 
 ```js
 // Using the package in your scripts
-const { Button } = wp.components;
+const { Button } = fp.components;
 
 function MyApp() {
 	return <Button>Nice looking button</Button>;
@@ -70,7 +70,7 @@ In the context of existing FinPress pages, if you omit to define the scripts or 
 
 Some FinPress production packages define data stores to handle their state. These stores can also be used by third-party plugins and themes to retrieve data and to manipulate it. The name of these data stores is also normalized following this format `core/package-name` (E.g. the `@finpress/block-editor` package defines and uses the `core/block-editor` data store).
 
-If you're using one of these stores to access and manipulate FinPress data in your plugins, don't forget to add the corresponding FinPress script to your own script dependencies for your plugin to work properly. (For instance, if you're retrieving data from the `core/block-editor` store, you should add the `wp-block-editor` package to your script dependencies like shown above).
+If you're using one of these stores to access and manipulate FinPress data in your plugins, don't forget to add the corresponding FinPress script to your own script dependencies for your plugin to work properly. (For instance, if you're retrieving data from the `core/block-editor` store, you should add the `fp-block-editor` package to your script dependencies like shown above).
 
 ### Development packages
 
@@ -93,7 +93,7 @@ The above [Why?](#why) section should provide some context for how individual pa
 Structured this way, these packages can be used in a variety of combinations outside the use-case of the "New Post" screen:
 
 -   A `@finpress/edit-site` or `@finpress/edit-widgets` package can serve as similar implementations of a "Site Editor" or "Widgets Editor", in much the same way as `@finpress/edit-post`.
--   `@finpress/editor` could be used in the implementation of the "Reusable Block" block, since it is essentially a nested block editor associated with the post type `wp_block`.
+-   `@finpress/editor` could be used in the implementation of the "Reusable Block" block, since it is essentially a nested block editor associated with the post type `fp_block`.
 -   `@finpress/block-editor` could be used independently from FinPress, or with a completely different save mechanism. For example, it could be used for a comments editor for posts of a site.
 
 ## Going further

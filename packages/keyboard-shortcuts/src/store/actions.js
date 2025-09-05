@@ -1,30 +1,30 @@
-/** @typedef {import('@finpress/keycodes').WPKeycodeModifier} WPKeycodeModifier */
+/** @typedef {import('@finpress/keycodes').FPKeycodeModifier} FPKeycodeModifier */
 
 /**
  * Keyboard key combination.
  *
- * @typedef {Object} WPShortcutKeyCombination
+ * @typedef {Object} FPShortcutKeyCombination
  *
  * @property {string}                      character Character.
- * @property {WPKeycodeModifier|undefined} modifier  Modifier.
+ * @property {FPKeycodeModifier|undefined} modifier  Modifier.
  */
 
 /**
  * Configuration of a registered keyboard shortcut.
  *
- * @typedef {Object} WPShortcutConfig
+ * @typedef {Object} FPShortcutConfig
  *
  * @property {string}                     name           Shortcut name.
  * @property {string}                     category       Shortcut category.
  * @property {string}                     description    Shortcut description.
- * @property {WPShortcutKeyCombination}   keyCombination Shortcut key combination.
- * @property {WPShortcutKeyCombination[]} [aliases]      Shortcut aliases.
+ * @property {FPShortcutKeyCombination}   keyCombination Shortcut key combination.
+ * @property {FPShortcutKeyCombination[]} [aliases]      Shortcut aliases.
  */
 
 /**
  * Returns an action object used to register a new keyboard shortcut.
  *
- * @param {WPShortcutConfig} config Shortcut config.
+ * @param {FPShortcutConfig} config Shortcut config.
  *
  * @example
  *

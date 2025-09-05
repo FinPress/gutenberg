@@ -24,7 +24,7 @@ function register_block_core_pattern() {
  *
  * @since 6.3.0 Backwards compatibility: blocks with no `syncStatus` attribute do not receive block wrapper.
  *
- * @global WP_Embed $wp_embed Used to process embedded content within patterns
+ * @global FP_Embed $fp_embed Used to process embedded content within patterns
  *
  * @param array $attributes Block attributes.
  *
@@ -38,16 +38,16 @@ function render_block_core_pattern( $attributes ) {
 	}
 
 	$slug     = $attributes['slug'];
-	$registry = WP_Block_Patterns_Registry::get_instance();
+	$registry = FP_Block_Patterns_Registry::get_instance();
 
 	if ( ! $registry->is_registered( $slug ) ) {
 		return '';
 	}
 
 	if ( isset( $seen_refs[ $attributes['slug'] ] ) ) {
-		// WP_DEBUG_DISPLAY must only be honored when WP_DEBUG. This precedent
-		// is set in `wp_debug_mode()`.
-		$is_debug = WP_DEBUG && WP_DEBUG_DISPLAY;
+		// FP_DEBUG_DISPLAY must only be honored when FP_DEBUG. This precedent
+		// is set in `fp_debug_mode()`.
+		$is_debug = FP_DEBUG && FP_DEBUG_DISPLAY;
 
 		return $is_debug ?
 			// translators: Visible only in the front end, this warning takes the place of a faulty block. %s represents a pattern's slug.
@@ -62,8 +62,8 @@ function render_block_core_pattern( $attributes ) {
 
 	$content = do_blocks( $content );
 
-	global $wp_embed;
-	$content = $wp_embed->autoembed( $content );
+	global $fp_embed;
+	$content = $fp_embed->autoembed( $content );
 
 	unset( $seen_refs[ $attributes['slug'] ] );
 	return $content;

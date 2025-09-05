@@ -3,7 +3,7 @@
  */
 import { __ } from '@finpress/i18n';
 import { useState } from '@finpress/element';
-import { useInstanceId, useViewportMatch } from '@finpress/compose';
+import { useInstanceId, useviewportMatch } from '@finpress/compose';
 import { chevronRight } from '@finpress/icons';
 
 import {
@@ -54,7 +54,7 @@ function PatternTransformationsMenu( {
 }
 
 function PreviewPatternsPopover( { patterns, onSelect } ) {
-	const isMobile = useViewportMatch( 'medium', '<' );
+	const isMobile = useviewportMatch( 'medium', '<' );
 
 	return (
 		<div className="block-editor-block-switcher__popover-preview-container">

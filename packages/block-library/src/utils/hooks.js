@@ -6,7 +6,7 @@ import { useLayoutEffect, useEffect, useRef } from '@finpress/element';
 import { getBlobByURL, isBlobURL, revokeBlobURL } from '@finpress/blob';
 import { store as blockEditorStore } from '@finpress/block-editor';
 import { store as coreStore } from '@finpress/core-data';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 
 /**
  * Returns whether the current user can edit the given entity.
@@ -90,7 +90,7 @@ export function useUploadMediaFromBlobURL( args = {} ) {
 }
 
 export function useToolsPanelDropdownMenuProps() {
-	const isMobile = useViewportMatch( 'medium', '<' );
+	const isMobile = useviewportMatch( 'medium', '<' );
 	return ! isMobile
 		? {
 				popoverProps: {

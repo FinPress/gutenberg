@@ -11,19 +11,19 @@ import {
 
 const block = 'List';
 const initialHtml = `
-<!-- wp:list -->
-<ul class="wp-block-list"><!-- wp:list-item -->
+<!-- fp:list -->
+<ul class="fp-block-list"><!-- fp:list-item -->
 <li>First Item</li>
-<!-- /wp:list-item -->
+<!-- /fp:list-item -->
 
-<!-- wp:list-item -->
+<!-- fp:list-item -->
 <li>Second Item</li>
-<!-- /wp:list-item -->
+<!-- /fp:list-item -->
 
-<!-- wp:list-item -->
+<!-- fp:list-item -->
 <li>Third Item</li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list -->`;
+<!-- /fp:list-item --></ul>
+<!-- /fp:list -->`;
 
 const transformsWithInnerBlocks = [ 'Quote', 'Columns', 'Group' ];
 const blockTransforms = [

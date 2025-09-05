@@ -3,9 +3,9 @@
 		"blockName": "core/query-pagination",
 		"attrs": {},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"wp-block-query-pagination\"></div>\n",
+		"innerHTML": "\n<div class=\"fp-block-query-pagination\"></div>\n",
 		"innerContent": [
-			"\n<div class=\"wp-block-query-pagination\"></div>\n"
+			"\n<div class=\"fp-block-query-pagination\"></div>\n"
 		]
 	}
 ]

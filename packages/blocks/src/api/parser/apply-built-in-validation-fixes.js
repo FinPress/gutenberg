@@ -8,12 +8,12 @@ import { fixAriaLabel } from './fix-aria-label';
  * Attempts to fix block invalidation by applying build-in validation fixes
  * like moving all extra classNames to the className attribute.
  *
- * @param {WPBlock}                               block     block object.
- * @param {import('../registration').WPBlockType} blockType Block type. This is normalize not necessary and
+ * @param {FPBlock}                               block     block object.
+ * @param {import('../registration').FPBlockType} blockType Block type. This is normalize not necessary and
  *                                                          can be inferred from the block name,
  *                                                          but it's here for performance reasons.
  *
- * @return {WPBlock} Fixed block object
+ * @return {FPBlock} Fixed block object
  */
 export function applyBuiltInValidationFixes( block, blockType ) {
 	const { attributes, originalContent } = block;

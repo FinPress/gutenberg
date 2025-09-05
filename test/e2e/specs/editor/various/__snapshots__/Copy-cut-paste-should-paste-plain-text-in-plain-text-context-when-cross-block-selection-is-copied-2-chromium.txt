@@ -1,13 +1,13 @@
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Heading</h2>
-<!-- /wp:heading -->
+<!-- fp:heading -->
+<h2 class="fp-block-heading">Heading</h2>
+<!-- /fp:heading -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Paragraph</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:code -->
-<pre class="wp-block-code"><code>ading
+<!-- fp:code -->
+<pre class="fp-block-code"><code>ading
 
 Paragra</code></pre>
-<!-- /wp:code -->
+<!-- /fp:code -->

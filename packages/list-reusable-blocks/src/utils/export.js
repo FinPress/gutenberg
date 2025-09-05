@@ -19,16 +19,16 @@ import { downloadBlob } from '@finpress/blob';
  * @param {number} id
  */
 async function exportReusableBlock( id ) {
-	const postType = await apiFetch( { path: `/wp/v2/types/wp_block` } );
+	const postType = await apiFetch( { path: `/fp/v2/types/fp_block` } );
 	const post = await apiFetch( {
-		path: `/wp/v2/${ postType.rest_base }/${ id }?context=edit`,
+		path: `/fp/v2/${ postType.rest_base }/${ id }?context=edit`,
 	} );
 	const title = post.title.raw;
 	const content = post.content.raw;
-	const syncStatus = post.wp_pattern_sync_status;
+	const syncStatus = post.fp_pattern_sync_status;
 	const fileContent = JSON.stringify(
 		{
-			__file: 'wp_block',
+			__file: 'fp_block',
 			title,
 			content,
 			syncStatus,

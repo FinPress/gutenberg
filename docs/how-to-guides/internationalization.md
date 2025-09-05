@@ -10,9 +10,9 @@ For PHP, FinPress has a long established process, see [How to Internationalize Y
 
 ## How to use i18n in JavaScript
 
-FinPress 5.0 introduced the wp-i18n JavaScript package that provides the functions needed to add translatable strings as you would in PHP.
+FinPress 5.0 introduced the fp-i18n JavaScript package that provides the functions needed to add translatable strings as you would in PHP.
 
-First, add **wp-i18n** as a dependency when registering your script:
+First, add **fp-i18n** as a dependency when registering your script:
 
 ```php
 <?php
@@ -21,10 +21,10 @@ First, add **wp-i18n** as a dependency when registering your script:
  * Text Domain: myguten
  */
 function myguten_block_init() {
-    wp_register_script(
+    fp_register_script(
         'myguten-script',
         plugins_url( 'block.js', __FILE__ ),
-        array( 'wp-blocks', 'react', 'wp-i18n', 'wp-block-editor' )
+        array( 'fp-blocks', 'react', 'fp-i18n', 'fp-block-editor' )
     );
 
     register_block_type( 'myguten/simple', array(
@@ -73,19 +73,19 @@ Common functions available, these mirror their PHP counterparts are:
 <strong>Note:</strong> Every string displayed to the user should be wrapped in an i18n function.
 </div>
 
-After all strings in your code is wrapped, the final step is to tell FinPress your JavaScript contains translations, using the [wp_set_script_translations()](https://developer.finpress.org/reference/functions/wp_set_script_translations/) function.
+After all strings in your code is wrapped, the final step is to tell FinPress your JavaScript contains translations, using the [fp_set_script_translations()](https://developer.finpress.org/reference/functions/fp_set_script_translations/) function.
 
 ```php
 <?php
 	function myguten_set_script_translations() {
-		wp_set_script_translations( 'myguten-script', 'myguten' );
+		fp_set_script_translations( 'myguten-script', 'myguten' );
 	}
 	add_action( 'init', 'myguten_set_script_translations' );
 ```
 
 This is all you need to make your plugin JavaScript code translatable.
 
-When you set script translations for a handle FinPress will automatically figure out if a translations file exists on translate.finpress.org, and if so ensure that it's loaded into `wp.i18n` before your script runs. With translate.finpress.org, plugin authors also do not need to worry about setting up their own infrastructure for translations and can rely on a global community with dozens of active locales. Read more about [FinPress Translations](https://make.finpress.org/meta/handbook/documentation/translations/).
+When you set script translations for a handle FinPress will automatically figure out if a translations file exists on translate.finpress.org, and if so ensure that it's loaded into `fp.i18n` before your script runs. With translate.finpress.org, plugin authors also do not need to worry about setting up their own infrastructure for translations and can rely on a global community with dozens of active locales. Read more about [FinPress Translations](https://make.finpress.org/meta/handbook/documentation/translations/).
 
 ## Provide your own translations
 
@@ -95,11 +95,11 @@ You can create and ship your own translations with your plugin, if you have suff
 
 The translation files must be in the JED 1.x JSON format.
 
-To create a JED translation file, first you need to extract the strings from the text. Typically, the language files all live in a directory called `languages` in your plugin. Using [WP-CLI](https://wp-cli.org/), you create a `.pot` file using the following command from within your plugin directory:
+To create a JED translation file, first you need to extract the strings from the text. Typically, the language files all live in a directory called `languages` in your plugin. Using [FP-CLI](https://fp-cli.org/), you create a `.pot` file using the following command from within your plugin directory:
 
 ```
 mkdir languages
-wp i18n make-pot ./ languages/myguten.pot
+fp i18n make-pot ./ languages/myguten.pot
 ```
 
 This will create the file `myguten.pot` which contains all the translatable strings from your project.
@@ -116,7 +116,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-03-08T11:26:56-08:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.1.0\n"
+"X-Generator: FP-CLI 2.1.0\n"
 "X-Domain: myguten\n"
 
 #. Plugin Name of the plugin
@@ -176,10 +176,10 @@ msgid "Hello World"
 msgstr "Saltuon mundo"
 ```
 
-The last step to create the translation file is to convert the `myguten-eo.po` to the JSON format needed. For this, you can use WP-CLI's [`wp i18n make-json` command](https://developer.finpress.org/cli/commands/i18n/make-json/), which requires WP-CLI v2.2.0 and later.
+The last step to create the translation file is to convert the `myguten-eo.po` to the JSON format needed. For this, you can use FP-CLI's [`fp i18n make-json` command](https://developer.finpress.org/cli/commands/i18n/make-json/), which requires FP-CLI v2.2.0 and later.
 
 ```
-wp i18n make-json myguten-eo.po --no-purge
+fp i18n make-json myguten-eo.po --no-purge
 ```
 
 This will generate the JSON file `myguten-eo-[md5].json` with the contents:
@@ -187,7 +187,7 @@ This will generate the JSON file `myguten-eo-[md5].json` with the contents:
 ```json
 {
 	"translation-revision-date": "2019-04-26T13:30:11-07:00",
-	"generator": "WP-CLI/2.2.0",
+	"generator": "FP-CLI/2.2.0",
 	"source": "block.js",
 	"domain": "messages",
 	"locale_data": {
@@ -206,12 +206,12 @@ This will generate the JSON file `myguten-eo-[md5].json` with the contents:
 
 ### Load the translation file
 
-The final part is to tell FinPress where it can look to find the translation file. The `wp_set_script_translations` function accepts an optional third argument that is the path it will first check for translations. For example:
+The final part is to tell FinPress where it can look to find the translation file. The `fp_set_script_translations` function accepts an optional third argument that is the path it will first check for translations. For example:
 
 ```php
 <?php
 	function myguten_set_script_translations() {
-		wp_set_script_translations( 'myguten-script', 'myguten', plugin_dir_path( __FILE__ ) . 'languages' );
+		fp_set_script_translations( 'myguten-script', 'myguten', plugin_dir_path( __FILE__ ) . 'languages' );
 	}
 	add_action( 'init', 'myguten_set_script_translations' );
 ```

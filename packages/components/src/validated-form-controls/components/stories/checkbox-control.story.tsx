@@ -23,7 +23,7 @@ const meta: Meta< typeof ValidatedCheckboxControl > = {
 	args: { onChange: () => {} },
 	argTypes: {
 		checked: { control: false },
-		// TODO: Figure out why this deprecated prop is still showing up here and not in the WP Storybook.
+		// TODO: Figure out why this deprecated prop is still showing up here and not in the FP Storybook.
 		heading: { table: { disable: true } },
 	},
 };

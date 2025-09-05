@@ -8,14 +8,14 @@ describe( 'specialCommentConverter', () => {
 	it( 'should convert a single "more" comment into a basic block', () => {
 		expect(
 			deepFilterHTML( '<p><!--more--></p>', [ specialCommentConverter ] )
-		).toEqual( '<wp-block data-block="core/more"></wp-block>' );
+		).toEqual( '<fp-block data-block="core/more"></fp-block>' );
 	} );
 	it( 'should convert a single "nextpage" comment into a basic block', () => {
 		expect(
 			deepFilterHTML( '<p><!--nextpage--></p>', [
 				specialCommentConverter,
 			] )
-		).toEqual( '<wp-block data-block="core/nextpage"></wp-block>' );
+		).toEqual( '<fp-block data-block="core/nextpage"></fp-block>' );
 	} );
 	it( 'should convert two comments into a block', () => {
 		expect(
@@ -23,7 +23,7 @@ describe( 'specialCommentConverter', () => {
 				specialCommentConverter,
 			] )
 		).toEqual(
-			'<wp-block data-block="core/more" data-no-teaser=""></wp-block>'
+			'<fp-block data-block="core/more" data-no-teaser=""></fp-block>'
 		);
 	} );
 	it( 'should pass custom text to the block', () => {
@@ -33,7 +33,7 @@ describe( 'specialCommentConverter', () => {
 				[ specialCommentConverter ]
 			)
 		).toEqual(
-			'<wp-block data-block="core/more" data-custom-text="Read all about it!" data-no-teaser=""></wp-block>'
+			'<fp-block data-block="core/more" data-custom-text="Read all about it!" data-no-teaser=""></fp-block>'
 		);
 	} );
 	it( 'should not break content order', () => {
@@ -44,7 +44,7 @@ describe( 'specialCommentConverter', () => {
 			[ specialCommentConverter ]
 		);
 		expect( output ).toEqual(
-			`<p>First paragraph.</p><wp-block data-block=\"core/more\"></wp-block>
+			`<p>First paragraph.</p><fp-block data-block=\"core/more\"></fp-block>
 			<p>Second paragraph</p>
 			<p>Third paragraph</p>`
 		);
@@ -56,7 +56,7 @@ describe( 'specialCommentConverter', () => {
 				[ specialCommentConverter ]
 			);
 			expect( output ).toEqual(
-				`<p>First part</p><wp-block data-block=\"core/more\"></wp-block><p>second part</p>`
+				`<p>First part</p><fp-block data-block=\"core/more\"></fp-block><p>second part</p>`
 			);
 		} );
 		it( 'should preserve inline formatting', () => {
@@ -65,7 +65,7 @@ describe( 'specialCommentConverter', () => {
 				[ specialCommentConverter ]
 			);
 			expect( output ).toEqual(
-				`<p><em>First <span>part</span></em></p><wp-block data-block=\"core/more\"></wp-block><p>second part, some more <u>text</u>.</p>`
+				`<p><em>First <span>part</span></em></p><fp-block data-block=\"core/more\"></fp-block><p>second part, some more <u>text</u>.</p>`
 			);
 		} );
 		it( 'should position the more block first', () => {
@@ -74,7 +74,7 @@ describe( 'specialCommentConverter', () => {
 				[ specialCommentConverter ]
 			);
 			expect( output ).toEqual(
-				`<wp-block data-block=\"core/more\"></wp-block><p>First paragraph.</p>`
+				`<fp-block data-block=\"core/more\"></fp-block><p>First paragraph.</p>`
 			);
 		} );
 		it( 'should position the more block last', () => {
@@ -83,7 +83,7 @@ describe( 'specialCommentConverter', () => {
 				[ specialCommentConverter ]
 			);
 			expect( output ).toEqual(
-				`<p>First paragraph.</p><wp-block data-block=\"core/more\"></wp-block>`
+				`<p>First paragraph.</p><fp-block data-block=\"core/more\"></fp-block>`
 			);
 		} );
 	} );
@@ -95,7 +95,7 @@ describe( 'specialCommentConverter', () => {
 				[ specialCommentConverter ]
 			);
 			expect( output ).toEqual(
-				'<wp-block data-block="core/more" data-no-teaser=""></wp-block>'
+				'<fp-block data-block="core/more" data-no-teaser=""></fp-block>'
 			);
 		} );
 		it( 'should not break content order', () => {
@@ -108,7 +108,7 @@ describe( 'specialCommentConverter', () => {
 			);
 			expect( output ).toEqual(
 				`<p>First paragraph.</p>
-				<wp-block data-block=\"core/more\"></wp-block>
+				<fp-block data-block=\"core/more\"></fp-block>
 				<p>Second paragraph</p>
 				<p>Third paragraph</p>`
 			);
@@ -124,9 +124,9 @@ describe( 'specialCommentConverter', () => {
 			);
 			expect( output ).toEqual(
 				`<p>First page.</p>
-				<wp-block data-block=\"core/nextpage\"></wp-block>
+				<fp-block data-block=\"core/nextpage\"></fp-block>
 				<p>Second page</p>
-				<wp-block data-block=\"core/nextpage\"></wp-block>
+				<fp-block data-block=\"core/nextpage\"></fp-block>
 				<p>Third page</p>`
 			);
 		} );

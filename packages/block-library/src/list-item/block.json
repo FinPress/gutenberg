@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/list-item",
 	"title": "List Item",
@@ -63,7 +63,7 @@
 		}
 	},
 	"selectors": {
-		"root": ".wp-block-list > li",
-		"border": ".wp-block-list:not(.wp-block-list .wp-block-list) > li"
+		"root": ".fp-block-list > li",
+		"border": ".fp-block-list:not(.fp-block-list .fp-block-list) > li"
 	}
 }

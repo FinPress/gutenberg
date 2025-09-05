@@ -8,9 +8,9 @@ const PlaceholderPreview = ( { isVisible = true } ) => {
 	return (
 		<div
 			aria-hidden={ ! isVisible ? true : undefined }
-			className="wp-block-navigation-placeholder__preview"
+			className="fp-block-navigation-placeholder__preview"
 		>
-			<div className="wp-block-navigation-placeholder__actions__indicator">
+			<div className="fp-block-navigation-placeholder__actions__indicator">
 				<Icon icon={ navigation } />
 				{ __( 'Navigation' ) }
 			</div>

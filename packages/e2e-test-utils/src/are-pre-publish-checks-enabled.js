@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { wpDataSelect } from './wp-data-select';
+import { fpDataSelect } from './fp-data-select';
 
 /**
  * Verifies if publish checks are enabled.
@@ -9,5 +9,5 @@ import { wpDataSelect } from './wp-data-select';
  * @return {Promise<boolean>} Boolean which represents the state of prepublish checks.
  */
 export async function arePrePublishChecksEnabled() {
-	return wpDataSelect( 'core', 'isPublishSidebarEnabled' );
+	return fpDataSelect( 'core', 'isPublishSidebarEnabled' );
 }

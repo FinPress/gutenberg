@@ -115,7 +115,7 @@ interface UploadMediaArgs {
 	// Function called once a file has completely finished uploading, including thumbnails.
 	onSuccess?: OnSuccessHandler;
 	// List of allowed mime types and file extensions.
-	wpAllowedMimeTypes?: Record< string, string > | null;
+	fpAllowedMimeTypes?: Record< string, string > | null;
 	// Abort signal.
 	signal?: AbortSignal;
 }

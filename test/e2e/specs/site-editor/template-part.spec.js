@@ -6,13 +6,13 @@ const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 test.describe( 'Template Part', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'emptytheme' );
-		await requestUtils.deleteAllTemplates( 'wp_template' );
-		await requestUtils.deleteAllTemplates( 'wp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template_part' );
 	} );
 
 	test.afterEach( async ( { requestUtils } ) => {
-		await requestUtils.deleteAllTemplates( 'wp_template' );
-		await requestUtils.deleteAllTemplates( 'wp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template_part' );
 	} );
 
 	test.afterAll( async ( { requestUtils } ) => {
@@ -26,7 +26,7 @@ test.describe( 'Template Part', () => {
 	} ) => {
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//header',
-			postType: 'wp_template_part',
+			postType: 'fp_template_part',
 			canvas: 'edit',
 		} );
 
@@ -182,7 +182,7 @@ test.describe( 'Template Part', () => {
 		// Edit the header and save the changes.
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//header',
-			postType: 'wp_template_part',
+			postType: 'fp_template_part',
 			canvas: 'edit',
 		} );
 		await editor.insertBlock( {
@@ -224,7 +224,7 @@ test.describe( 'Template Part', () => {
 
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//header',
-			postType: 'wp_template_part',
+			postType: 'fp_template_part',
 			canvas: 'edit',
 		} );
 		// Edit the header.
@@ -259,7 +259,7 @@ test.describe( 'Template Part', () => {
 
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//header',
-			postType: 'wp_template_part',
+			postType: 'fp_template_part',
 			canvas: 'edit',
 		} );
 		await editor.insertBlock( {
@@ -364,7 +364,7 @@ test.describe( 'Template Part', () => {
 	} ) => {
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//header',
-			postType: 'wp_template_part',
+			postType: 'fp_template_part',
 			canvas: 'edit',
 		} );
 

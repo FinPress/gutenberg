@@ -44,7 +44,7 @@ export default function PageListItemEdit( { context, attributes } ) {
 	const navigationChildBlockProps =
 		getNavigationChildBlockProps( innerBlocksColors );
 	const blockProps = useBlockProps( navigationChildBlockProps, {
-		className: 'wp-block-pages-list__item',
+		className: 'fp-block-pages-list__item',
 	} );
 
 	const innerBlocksProps = useInnerBlocksProps( blockProps );
@@ -52,9 +52,9 @@ export default function PageListItemEdit( { context, attributes } ) {
 	return (
 		<li
 			key={ id }
-			className={ clsx( 'wp-block-pages-list__item', {
+			className={ clsx( 'fp-block-pages-list__item', {
 				'has-child': hasChildren,
-				'wp-block-navigation-item': isNavigationChild,
+				'fp-block-navigation-item': isNavigationChild,
 				'open-on-click': context.openSubmenusOnClick,
 				'open-on-hover-click':
 					! context.openSubmenusOnClick && context.showSubmenuIcon,
@@ -65,19 +65,19 @@ export default function PageListItemEdit( { context, attributes } ) {
 				<>
 					<button
 						type="button"
-						className="wp-block-navigation-item__content wp-block-navigation-submenu__toggle"
+						className="fp-block-navigation-item__content fp-block-navigation-submenu__toggle"
 						aria-expanded="false"
 					>
 						{ decodeEntities( label ) }
 					</button>
-					<span className="wp-block-page-list__submenu-icon wp-block-navigation__submenu-icon">
+					<span className="fp-block-page-list__submenu-icon fp-block-navigation__submenu-icon">
 						<ItemSubmenuIcon />
 					</span>
 				</>
 			) : (
 				<a
-					className={ clsx( 'wp-block-pages-list__item__link', {
-						'wp-block-navigation-item__content': isNavigationChild,
+					className={ clsx( 'fp-block-pages-list__item__link', {
+						'fp-block-navigation-item__content': isNavigationChild,
 					} ) }
 					href={ link }
 				>
@@ -89,7 +89,7 @@ export default function PageListItemEdit( { context, attributes } ) {
 					{ ! context.openSubmenusOnClick &&
 						context.showSubmenuIcon && (
 							<button
-								className="wp-block-navigation-item__content wp-block-navigation-submenu__toggle wp-block-page-list__submenu-icon wp-block-navigation__submenu-icon"
+								className="fp-block-navigation-item__content fp-block-navigation-submenu__toggle fp-block-page-list__submenu-icon fp-block-navigation__submenu-icon"
 								aria-expanded="false"
 								type="button"
 							>

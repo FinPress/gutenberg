@@ -5,10 +5,10 @@ const isValidLink = ( ref: HTMLAnchorElement ) =>
 	ref.href &&
 	( ! ref.target || ref.target === '_self' ) &&
 	ref.origin === window.location.origin &&
-	! ref.pathname.startsWith( '/wp-admin' ) &&
-	! ref.pathname.startsWith( '/wp-login.php' ) &&
+	! ref.pathname.startsWith( '/fp-admin' ) &&
+	! ref.pathname.startsWith( '/fp-login.php' ) &&
 	! ref.getAttribute( 'href' ).startsWith( '#' ) &&
-	! new URL( ref.href ).searchParams.has( '_wpnonce' );
+	! new URL( ref.href ).searchParams.has( '_fpnonce' );
 
 // Check if the event is valid for client-side navigation.
 const isValidEvent = ( event: MouseEvent ) =>

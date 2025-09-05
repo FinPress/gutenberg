@@ -422,7 +422,7 @@ _Parameters_
 
 -   _shortcuts_ `string[]|string`: Keyboard Shortcuts.
 -   _callback_ `(e: import('mousetrap').ExtendedKeyboardEvent, combo: string) => void`: Shortcut callback.
--   _options_ `WPKeyboardShortcutConfig`: Shortcut options.
+-   _options_ `FPKeyboardShortcutConfig`: Shortcut options.
 
 ### useMediaQuery
 
@@ -577,21 +577,21 @@ _Returns_
 
 -   `import('../../utils/debounce').DebouncedFunc<TFunc>`: Throttled function.
 
-### useViewportMatch
+### useviewportMatch
 
 Returns true if the viewport matches the given query, or false otherwise.
 
 _Usage_
 
 ```js
-useViewportMatch( 'huge', '<' );
-useViewportMatch( 'medium' );
+useviewportMatch( 'huge', '<' );
+useviewportMatch( 'medium' );
 ```
 
 _Parameters_
 
--   _breakpoint_ `WPBreakpoint`: Breakpoint size name.
--   _operator_ `[WPViewportOperator]`: Viewport operator.
+-   _breakpoint_ `FPBreakpoint`: Breakpoint size name.
+-   _operator_ `[FPviewportOperator]`: viewport operator.
 
 _Returns_
 

@@ -42,7 +42,7 @@ const { PrivateQuickInserter: QuickInserter } = unlock(
 
 /**
  * Given the Link block's type attribute, return the query params to give to
- * /wp/v2/search.
+ * /fp/v2/search.
  *
  * @param {string} type Link block's type attribute.
  * @param {string} kind Link block's entity of kind (post-type|taxonomy)

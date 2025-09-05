@@ -32,7 +32,7 @@ export const markScriptModuleAsResolved = ( url: string ) => {
 export const preloadScriptModules = ( doc: Document ) => {
 	// Extract the import map from the document.
 	const importMapElement = doc.querySelector< HTMLScriptElement >(
-		'script#wp-importmap[type=importmap]'
+		'script#fp-importmap[type=importmap]'
 	);
 	const importMap = importMapElement
 		? JSON.parse( importMapElement.text )

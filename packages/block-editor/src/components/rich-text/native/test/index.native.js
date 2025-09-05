@@ -38,7 +38,7 @@ import RichText from '../index.native';
  * @param {Object} settings the global application settings you would like to mock.
  */
 const mockGlobalSettings = (
-	settings = { fontSize: 'var(--wp--preset--font-size--normal)' }
+	settings = { fontSize: 'var(--fp--preset--font-size--normal)' }
 ) => {
 	const { fontSize } = settings;
 	const DEFAULT_GLOBAL_STYLES = {
@@ -270,7 +270,7 @@ describe( '<RichText/>', () => {
 			expect( actualFontSize ).toBe( expectedFontSize );
 		} );
 
-		it( 'should display rich text at the font size computed from CSS relative to the VIEWPORT WIDTH.', () => {
+		it( 'should display rich text at the font size computed from CSS relative to the viewport WIDTH.', () => {
 			// Arrange.
 			const expectedFontSize = 3;
 			Dimensions.set( { window: { ...window, width: 300 } } );
@@ -283,7 +283,7 @@ describe( '<RichText/>', () => {
 			expect( actualFontSize ).toBe( expectedFontSize );
 		} );
 
-		it( 'should display rich text at the font size computed from CSS relative to the VIEWPORT HEIGHT.', () => {
+		it( 'should display rich text at the font size computed from CSS relative to the viewport HEIGHT.', () => {
 			// Arrange.
 			const expectedFontSize = 3;
 			Dimensions.set( { window: { ...window, height: 300 } } );
@@ -309,9 +309,9 @@ describe( '<RichText/>', () => {
 
 		it( 'renders component with style and font size', async () => {
 			// Arrange.
-			const initialHtml = `<!-- wp:paragraph {"style":{"color":{"text":"#fcb900"},"typography":{"fontSize":35.56}}} -->
+			const initialHtml = `<!-- fp:paragraph {"style":{"color":{"text":"#fcb900"},"typography":{"fontSize":35.56}}} -->
 					<p class="has-text-color" style="color:#fcb900;font-size:35.56px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed imperdiet ut nibh vitae ornare. Sed auctor nec augue at blandit.</p>
-					<!-- /wp:paragraph -->`;
+					<!-- /fp:paragraph -->`;
 			// Act.
 			await initializeEditor( { initialHtml } );
 			// Assert.

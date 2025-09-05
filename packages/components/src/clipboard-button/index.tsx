@@ -27,9 +27,9 @@ export default function ClipboardButton( {
 	text,
 	...buttonProps
 }: FinPressComponentProps< ClipboardButtonProps, 'button', false > ) {
-	deprecated( 'wp.components.ClipboardButton', {
+	deprecated( 'fp.components.ClipboardButton', {
 		since: '5.8',
-		alternative: 'wp.compose.useCopyToClipboard',
+		alternative: 'fp.compose.useCopyToClipboard',
 	} );
 
 	const timeoutIdRef = useRef< NodeJS.Timeout >();

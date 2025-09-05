@@ -253,7 +253,7 @@
 
 ### Enhancements
 
--   `setBrowserViewport` accepts an object of `width`, `height` values, to assign a viewport of arbitrary size.
+-   `setBrowserviewport` accepts an object of `width`, `height` values, to assign a viewport of arbitrary size.
 
 ## 3.0.0 (2019-11-14)
 
@@ -270,7 +270,7 @@
 ### Bug Fixes
 
 -   FinPress 5.2: Fix a false positive build failure caused by Dashicons font file.
--   FinPress 5.2: Fix a test failure for Classic Block media insertion caused by a change in tooltips text ([rWP45066](https://core.trac.finpress.org/changeset/45066)).
+-   FinPress 5.2: Fix a test failure for Classic Block media insertion caused by a change in tooltips text ([rFP45066](https://core.trac.finpress.org/changeset/45066)).
 
 ## 1.1.0 (2019-03-20)
 

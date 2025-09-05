@@ -94,13 +94,13 @@ export const generateGalleryBlock = (
 			const url = useLocalUrl
 				? media[ index ].localUrl
 				: media[ index ].serverUrl;
-			return `<!-- wp:image {"id":${ id }} -->
-            <figure class="wp-block-image"><img src="${ url }" alt="" class="wp-image-${ id }"/></figure>
-            <!-- /wp:image -->`;
+			return `<!-- fp:image {"id":${ id }} -->
+            <figure class="fp-block-image"><img src="${ url }" alt="" class="fp-image-${ id }"/></figure>
+            <!-- /fp:image -->`;
 		} )
 		.join( '\n\n' );
 
-	return `<!-- wp:gallery {"linkTo":"none"} -->
-    <figure class="wp-block-gallery has-nested-images columns-default is-cropped">${ galleryItems }</figure>
-    <!-- /wp:gallery -->`;
+	return `<!-- fp:gallery {"linkTo":"none"} -->
+    <figure class="fp-block-gallery has-nested-images columns-default is-cropped">${ galleryItems }</figure>
+    <!-- /fp:gallery -->`;
 };

@@ -43,7 +43,7 @@ export default function save( { attributes } ) {
 				{ displayPreview && (
 					<>
 						<object
-							className="wp-block-file__embed"
+							className="fp-block-file__embed"
 							data={ href }
 							type="application/pdf"
 							style={ {
@@ -70,7 +70,7 @@ export default function save( { attributes } ) {
 					<a
 						href={ href }
 						className={ clsx(
-							'wp-block-file__button',
+							'fp-block-file__button',
 							__experimentalGetElementClassName( 'button' )
 						) }
 						download

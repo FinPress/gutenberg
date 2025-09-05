@@ -42,7 +42,7 @@ const KEYS = {
 	ENTER: '\r',
 };
 
-const { WP_ARTIFACTS_PATH } = process.env;
+const { FP_ARTIFACTS_PATH } = process.env;
 
 class PuppeteerEnvironment extends NodeEnvironment {
 	// Jest is not available here, so we have to reverse engineer
@@ -168,7 +168,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
 		await this.global.jestPuppeteer.resetBrowser();
 
 		try {
-			await mkdir( WP_ARTIFACTS_PATH, { recursive: true } );
+			await mkdir( FP_ARTIFACTS_PATH, { recursive: true } );
 		} catch ( err ) {
 			if ( err.code !== 'EEXIST' ) {
 				throw err;
@@ -202,11 +202,11 @@ class PuppeteerEnvironment extends NodeEnvironment {
 			replacement: '-',
 		} );
 		await writeFile(
-			path.join( WP_ARTIFACTS_PATH, `${ fileName }-snapshot.html` ),
+			path.join( FP_ARTIFACTS_PATH, `${ fileName }-snapshot.html` ),
 			await this.global.page.content()
 		);
 		await this.global.page.screenshot( {
-			path: path.join( WP_ARTIFACTS_PATH, `${ fileName }.jpg` ),
+			path: path.join( FP_ARTIFACTS_PATH, `${ fileName }.jpg` ),
 		} );
 	}
 

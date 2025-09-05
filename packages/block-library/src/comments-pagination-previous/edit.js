@@ -24,7 +24,7 @@ export default function CommentsPaginationPreviousEdit( {
 		>
 			{ displayArrow && (
 				<span
-					className={ `wp-block-comments-pagination-previous-arrow is-arrow-${ paginationArrow }` }
+					className={ `fp-block-comments-pagination-previous-arrow is-arrow-${ paginationArrow }` }
 				>
 					{ displayArrow }
 				</span>

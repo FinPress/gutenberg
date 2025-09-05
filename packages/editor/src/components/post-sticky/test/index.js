@@ -25,7 +25,7 @@ function setupUseSelectMock( { hasStickyAction, postType } ) {
 			getCurrentPostType: () => postType,
 			getCurrentPost: () => ( {
 				_links: {
-					'wp:action-sticky': hasStickyAction,
+					'fp:action-sticky': hasStickyAction,
 				},
 			} ),
 		} ) );

@@ -8,7 +8,7 @@
 /**
  * Registers the style block attribute for block types that support it.
  *
- * @param WP_Block_Type $block_type Block Type.
+ * @param FP_Block_Type $block_type Block Type.
  */
 function gutenberg_register_position_support( $block_type ) {
 	$has_position_support = block_has_support( $block_type, array( 'position' ), false );
@@ -33,7 +33,7 @@ function gutenberg_register_position_support( $block_type ) {
  * @return string                Filtered block content.
  */
 function gutenberg_render_position_support( $block_content, $block ) {
-	$block_type           = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+	$block_type           = FP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
 	$has_position_support = block_has_support( $block_type, array( 'position' ), false );
 
 	if (
@@ -57,7 +57,7 @@ function gutenberg_render_position_support( $block_content, $block ) {
 	}
 
 	$style_attribute = $block['attrs']['style'] ?? null;
-	$class_name      = wp_unique_id( 'wp-container-' );
+	$class_name      = fp_unique_id( 'fp-container-' );
 	$selector        = ".$class_name";
 	$position_styles = array();
 	$position_type   = $style_attribute['position']['type'] ?? '';
@@ -87,7 +87,7 @@ function gutenberg_render_position_support( $block_content, $block ) {
 					}
 
 					// Ensure current side value also factors in the height of the logged in admin bar.
-					$side_value = "calc($side_value + var(--wp-admin--admin-bar--position-offset, 0px))";
+					$side_value = "calc($side_value + var(--fp-admin--admin-bar--position-offset, 0px))";
 				}
 
 				$position_styles[] =
@@ -123,7 +123,7 @@ function gutenberg_render_position_support( $block_content, $block ) {
 		);
 
 		// Inject class name to block container markup.
-		$content = new WP_HTML_Tag_Processor( $block_content );
+		$content = new FP_HTML_Tag_Processor( $block_content );
 		$content->next_tag();
 		foreach ( $wrapper_classes as $class ) {
 			$content->add_class( $class );
@@ -135,14 +135,14 @@ function gutenberg_render_position_support( $block_content, $block ) {
 }
 
 // Register the block support. (overrides core one).
-WP_Block_Supports::get_instance()->register(
+FP_Block_Supports::get_instance()->register(
 	'position',
 	array(
 		'register_attribute' => 'gutenberg_register_position_support',
 	)
 );
 
-if ( function_exists( 'wp_render_position_support' ) ) {
-	remove_filter( 'render_block', 'wp_render_position_support' );
+if ( function_exists( 'fp_render_position_support' ) ) {
+	remove_filter( 'render_block', 'fp_render_position_support' );
 }
 add_filter( 'render_block', 'gutenberg_render_position_support', 10, 2 );

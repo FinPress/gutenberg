@@ -50,7 +50,7 @@ const UnconnectedDropdown = (
 	);
 
 	if ( position !== undefined ) {
-		deprecated( '`position` prop in wp.components.Dropdown', {
+		deprecated( '`position` prop in fp.components.Dropdown', {
 			since: '6.2',
 			alternative: '`popoverProps.placement` prop',
 			hint: 'Note that the `position` prop will override any values passed through the `popoverProps.placement` prop.',

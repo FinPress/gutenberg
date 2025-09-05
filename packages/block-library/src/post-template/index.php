@@ -10,7 +10,7 @@
  *
  * @since 6.0.0
  *
- * @param WP_Block_List $inner_blocks Inner block instance.
+ * @param FP_Block_List $inner_blocks Inner block instance.
  *
  * @return bool Whether the block list contains a block that uses the featured image.
  */
@@ -38,11 +38,11 @@ function block_core_post_template_uses_featured_image( $inner_blocks ) {
  *
  * @since 6.3.0 Changed render_block_context priority to `1`.
  *
- * @global WP_Query $wp_query FinPress Query object.
+ * @global FP_Query $fp_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  *
  * @return string Returns the output of the query, structured using the layout defined by the block's inner blocks.
  */
@@ -54,7 +54,7 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 	// Use global query if needed.
 	$use_global_query = ( isset( $block->context['query']['inherit'] ) && $block->context['query']['inherit'] );
 	if ( $use_global_query ) {
-		global $wp_query;
+		global $fp_query;
 
 		/*
 		 * If already in the main query loop, duplicate the query instance to not tamper with the main instance.
@@ -62,14 +62,14 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 		 * Otherwise, the main query loop has not started yet and this block is responsible for doing so.
 		 */
 		if ( in_the_loop() ) {
-			$query = clone $wp_query;
+			$query = clone $fp_query;
 			$query->rewind_posts();
 		} else {
-			$query = $wp_query;
+			$query = $fp_query;
 		}
 	} else {
 		$query_args = build_query_vars_from_query_block( $block, $page );
-		$query      = new WP_Query( $query_args );
+		$query      = new FP_Query( $query_args );
 	}
 
 	if ( ! $query->have_posts() ) {
@@ -120,13 +120,13 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 		add_filter( 'render_block_context', $filter_block_context, 1 );
 		// Render the inner blocks of the Post Template block with `dynamic` set to `false` to prevent calling
 		// `render_callback` and ensure that no wrapper markup is included.
-		$block_content = ( new WP_Block( $block_instance ) )->render( array( 'dynamic' => false ) );
+		$block_content = ( new FP_Block( $block_instance ) )->render( array( 'dynamic' => false ) );
 		remove_filter( 'render_block_context', $filter_block_context, 1 );
 
 		// Wrap the render inner blocks in a `li` element with the appropriate post classes.
-		$post_classes = implode( ' ', get_post_class( 'wp-block-post' ) );
+		$post_classes = implode( ' ', get_post_class( 'fp-block-post' ) );
 
-		$inner_block_directives = $enhanced_pagination ? ' data-wp-key="post-template-item-' . $post_id . '"' : '';
+		$inner_block_directives = $enhanced_pagination ? ' data-fp-key="post-template-item-' . $post_id . '"' : '';
 
 		$content .= '<li' . $inner_block_directives . ' class="' . esc_attr( $post_classes ) . '">' . $block_content . '</li>';
 	}
@@ -136,7 +136,7 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 	 * from a secondary query loop back to the main query loop.
 	 * Since we use two custom loops, it's safest to always restore.
 	*/
-	wp_reset_postdata();
+	fp_reset_postdata();
 
 	return sprintf(
 		'<ul %1$s>%2$s</ul>',

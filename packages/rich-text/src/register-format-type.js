@@ -7,7 +7,7 @@ import { select, dispatch } from '@finpress/data';
  */
 import { store as richTextStore } from './store';
 /**
- * @typedef {Object} WPFormat
+ * @typedef {Object} FPFormat
  *
  * @property {string}        name        A string identifying the format. Must be
  *                                       unique across all registered formats.
@@ -27,9 +27,9 @@ import { store as richTextStore } from './store';
  * behavior.
  *
  * @param {string}   name     Format name.
- * @param {WPFormat} settings Format settings.
+ * @param {FPFormat} settings Format settings.
  *
- * @return {WPFormat|undefined} The format, if it has been successfully
+ * @return {FPFormat|undefined} The format, if it has been successfully
  *                              registered; otherwise `undefined`.
  */
 export function registerFormatType( name, settings ) {

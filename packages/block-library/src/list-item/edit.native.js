@@ -84,7 +84,7 @@ export default function ListItemEdit( {
 	);
 
 	const blockProps = useBlockProps( {
-		...( hasInnerBlocks && styles[ 'wp-block-list-item__nested-blocks' ] ),
+		...( hasInnerBlocks && styles[ 'fp-block-list-item__nested-blocks' ] ),
 	} );
 
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
@@ -93,8 +93,8 @@ export default function ListItemEdit( {
 
 	// Set default placeholder text color from light/dark scheme or base colors
 	const defaultPlaceholderFromScheme = usePreferredColorSchemeStyle(
-		styles[ 'wp-block-list-item__list-item-placeholder' ],
-		styles[ 'wp-block-list-item__list-item-placeholder--dark' ]
+		styles[ 'fp-block-list-item__list-item-placeholder' ],
+		styles[ 'fp-block-list-item__list-item-placeholder--dark' ]
 	);
 
 	const currentTextColor = style?.color || style?.baseColors?.color?.text;
@@ -129,9 +129,9 @@ export default function ListItemEdit( {
 	}, [] );
 
 	return (
-		<View style={ styles[ 'wp-block-list-item__list-item-parent' ] }>
-			<View style={ styles[ 'wp-block-list-item__list-item' ] }>
-				<View style={ styles[ 'wp-block-list-item__list-item-icon' ] }>
+		<View style={ styles[ 'fp-block-list-item__list-item-parent' ] }>
+			<View style={ styles[ 'fp-block-list-item__list-item' ] }>
+				<View style={ styles[ 'fp-block-list-item__list-item-icon' ] }>
 					<ListStyleType
 						blockIndex={ blockIndex }
 						indentationLevel={ indentationLevel }
@@ -143,7 +143,7 @@ export default function ListItemEdit( {
 					/>
 				</View>
 				<View
-					style={ styles[ 'wp-block-list-item__list-item-content' ] }
+					style={ styles[ 'fp-block-list-item__list-item-content' ] }
 					onLayout={ onLayout }
 				>
 					<RichText

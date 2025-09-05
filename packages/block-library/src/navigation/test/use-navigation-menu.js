@@ -11,7 +11,7 @@ import useNavigationMenu from '../use-navigation-menu';
 
 const BASE_ENTITY = {
 	kind: 'postType',
-	name: 'wp_navigation',
+	name: 'fp_navigation',
 	id: undefined,
 };
 
@@ -22,8 +22,8 @@ function createRegistryWithStores() {
 
 	const navigationConfig = {
 		kind: 'postType',
-		name: 'wp_navigation',
-		baseURL: '/wp/v2/navigation',
+		name: 'fp_navigation',
+		baseURL: '/fp/v2/navigation',
 		rawAttributes: [ 'title', 'excerpt', 'content' ],
 	};
 	// Register post type entity.
@@ -41,7 +41,7 @@ function resolveRecords( registry, menus ) {
 	const dispatch = registry.dispatch( coreStore );
 	dispatch.startResolution( 'getEntityRecords', [
 		'postType',
-		'wp_navigation',
+		'fp_navigation',
 		{
 			per_page: 100,
 			status: [ 'publish', 'draft' ],
@@ -51,7 +51,7 @@ function resolveRecords( registry, menus ) {
 	] );
 	dispatch.finishResolution( 'getEntityRecords', [
 		'postType',
-		'wp_navigation',
+		'fp_navigation',
 		{
 			per_page: 100,
 			status: [ 'publish', 'draft' ],
@@ -59,7 +59,7 @@ function resolveRecords( registry, menus ) {
 			orderby: 'date',
 		},
 	] );
-	dispatch.receiveEntityRecords( 'postType', 'wp_navigation', menus, {
+	dispatch.receiveEntityRecords( 'postType', 'fp_navigation', menus, {
 		per_page: 100,
 		status: [ 'publish', 'draft' ],
 		order: 'desc',
@@ -69,7 +69,7 @@ function resolveRecords( registry, menus ) {
 
 function resolveReadPermission( registry, allowed ) {
 	const dispatch = registry.dispatch( coreStore );
-	dispatch.receiveUserPermission( 'read/postType/wp_navigation', allowed );
+	dispatch.receiveUserPermission( 'read/postType/fp_navigation', allowed );
 	dispatch.startResolution( 'canUser', [ 'read', BASE_ENTITY ] );
 	dispatch.finishResolution( 'canUser', [ 'read', BASE_ENTITY ] );
 }
@@ -77,7 +77,7 @@ function resolveReadPermission( registry, allowed ) {
 function resolveReadRecordPermission( registry, ref, allowed ) {
 	const dispatch = registry.dispatch( coreStore );
 	dispatch.receiveUserPermission(
-		`read/postType/wp_navigation/${ ref }`,
+		`read/postType/fp_navigation/${ ref }`,
 		allowed
 	);
 	dispatch.startResolution( 'canUser', [
@@ -92,21 +92,21 @@ function resolveReadRecordPermission( registry, ref, allowed ) {
 
 function resolveCreatePermission( registry, allowed ) {
 	const dispatch = registry.dispatch( coreStore );
-	dispatch.receiveUserPermission( 'create/postType/wp_navigation', allowed );
+	dispatch.receiveUserPermission( 'create/postType/fp_navigation', allowed );
 	dispatch.startResolution( 'canUser', [
 		'create',
-		{ kind: 'postType', name: 'wp_navigation' },
+		{ kind: 'postType', name: 'fp_navigation' },
 	] );
 	dispatch.finishResolution( 'canUser', [
 		'create',
-		{ kind: 'postType', name: 'wp_navigation' },
+		{ kind: 'postType', name: 'fp_navigation' },
 	] );
 }
 
 function resolveUpdatePermission( registry, ref, allowed ) {
 	const dispatch = registry.dispatch( coreStore );
 	dispatch.receiveUserPermission(
-		`update/postType/wp_navigation/${ ref }`,
+		`update/postType/fp_navigation/${ ref }`,
 		allowed
 	);
 	dispatch.startResolution( 'canUser', [
@@ -122,7 +122,7 @@ function resolveUpdatePermission( registry, ref, allowed ) {
 function resolveDeletePermission( registry, ref, allowed ) {
 	const dispatch = registry.dispatch( coreStore );
 	dispatch.receiveUserPermission(
-		`delete/postType/wp_navigation/${ ref }`,
+		`delete/postType/fp_navigation/${ ref }`,
 		allowed
 	);
 	dispatch.startResolution( 'canUser', [

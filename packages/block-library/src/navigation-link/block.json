@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/navigation-link",
 	"title": "Custom Link",
@@ -82,6 +82,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-navigation-link-editor",
-	"style": "wp-block-navigation-link"
+	"editorStyle": "fp-block-navigation-link-editor",
+	"style": "fp-block-navigation-link"
 }

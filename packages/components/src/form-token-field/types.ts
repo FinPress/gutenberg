@@ -86,7 +86,7 @@ export interface FormTokenFieldProps
 	 * Function to call to transform tokens for saving. The default is to trim the token value.
 	 * This function is also applied when matching suggestions against the current value
 	 * so that matching works correctly with leading or trailing spaces. (In the editor,
-	 * this is needed to remove leading and trailing spaces from tag names, like wp-admin does.
+	 * this is needed to remove leading and trailing spaces from tag names, like fp-admin does.
 	 * Otherwise the REST API won't save them.)
 	 *
 	 * @default ( token: string ) => token.trim()

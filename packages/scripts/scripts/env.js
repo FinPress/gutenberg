@@ -5,7 +5,7 @@ const chalk = require( 'chalk' );
 
 process.stdout.write(
 	chalk.yellow(
-		'The `env` family of scripts has been deprecated. Please use `wp-env` instead.'
+		'The `env` family of scripts has been deprecated. Please use `fp-env` instead.'
 	)
 );
 process.stdout.write(

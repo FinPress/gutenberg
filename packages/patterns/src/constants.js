@@ -1,6 +1,6 @@
 export const PATTERN_TYPES = {
 	theme: 'pattern',
-	user: 'wp_block',
+	user: 'fp_block',
 };
 
 export const PATTERN_DEFAULT_CATEGORY = 'all-patterns';

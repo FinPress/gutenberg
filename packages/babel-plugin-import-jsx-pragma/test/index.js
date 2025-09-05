@@ -59,7 +59,7 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 
 	it( 'adds import for scope variable even when defined inside the local scope', () => {
 		const original =
-			'let foo = <bar />;\nfunction local() {\n  const createElement = wp.element.createElement;\n}';
+			'let foo = <bar />;\nfunction local() {\n  const createElement = fp.element.createElement;\n}';
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			source: '@finpress/element',
@@ -73,7 +73,7 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 
 	it( 'does nothing if the outer scope variable is already defined when using custom options', () => {
 		const original =
-			'const {\n  createElement,\n  Fragment\n} = wp.element;\nlet foo = <><bar /></>;';
+			'const {\n  createElement,\n  Fragment\n} = fp.element;\nlet foo = <><bar /></>;';
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			scopeVariableFrag: 'Fragment',
@@ -86,7 +86,7 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 
 	it( 'adds only Fragment when required', () => {
 		const original =
-			'const {\n  createElement\n} = wp.element;\nlet foo = <><bar /></>;';
+			'const {\n  createElement\n} = fp.element;\nlet foo = <><bar /></>;';
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			scopeVariableFrag: 'Fragment',
@@ -95,13 +95,13 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 		} );
 
 		expect( string ).toBe(
-			'import { Fragment } from "@finpress/element";\nconst {\n  createElement\n} = wp.element;\nlet foo = <><bar /></>;'
+			'import { Fragment } from "@finpress/element";\nconst {\n  createElement\n} = fp.element;\nlet foo = <><bar /></>;'
 		);
 	} );
 
 	it( 'adds only createElement when required', () => {
 		const original =
-			'const {\n  Fragment\n} = wp.element;\nlet foo = <><bar /></>;';
+			'const {\n  Fragment\n} = fp.element;\nlet foo = <><bar /></>;';
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			scopeVariableFrag: 'Fragment',
@@ -110,13 +110,13 @@ describe( 'babel-plugin-import-jsx-pragma', () => {
 		} );
 
 		expect( string ).toBe(
-			'import { createElement } from "@finpress/element";\nconst {\n  Fragment\n} = wp.element;\nlet foo = <><bar /></>;'
+			'import { createElement } from "@finpress/element";\nconst {\n  Fragment\n} = fp.element;\nlet foo = <><bar /></>;'
 		);
 	} );
 
 	it( 'does nothing if the inner scope variable is already defined when using custom options', () => {
 		const original =
-			'(function () {\n  const {\n    createElement\n  } = wp.element;\n  let foo = <bar />;\n})();';
+			'(function () {\n  const {\n    createElement\n  } = fp.element;\n  let foo = <bar />;\n})();';
 		const string = getTransformedCode( original, {
 			scopeVariable: 'createElement',
 			scopeVariableFrag: 'Fragment',

@@ -9,7 +9,7 @@ import { applyFilters } from '@finpress/hooks';
  *
  * @param {Object[]} menuItems An array of menu items.
  *
- * @return {WPBlock[]} An array of blocks.
+ * @return {FPBlock[]} An array of blocks.
  */
 export default function menuItemsToBlocks( menuItems ) {
 	if ( ! menuItems ) {
@@ -28,7 +28,7 @@ export default function menuItemsToBlocks( menuItems ) {
 /**
  * A recursive function that maps menu item nodes to blocks.
  *
- * @param {WPNavMenuItem[]} menuItems An array of WPNavMenuItem items.
+ * @param {FPNavMenuItem[]} menuItems An array of FPNavMenuItem items.
  * @param {number}          level     An integer representing the nesting level.
  * @return {Object} Object containing innerBlocks and mapping.
  */
@@ -93,11 +93,11 @@ function mapMenuItemsToBlocks( menuItems, level = 0 ) {
 }
 
 /**
- * A WP nav_menu_item object.
+ * A FP nav_menu_item object.
  * For more documentation on the individual fields present on a menu item please see:
- * https://core.trac.finpress.org/browser/tags/5.7.1/src/wp-includes/nav-menu.php#L789
+ * https://core.trac.finpress.org/browser/tags/5.7.1/src/fp-includes/nav-menu.php#L789
  *
- * @typedef WPNavMenuItem
+ * @typedef FPNavMenuItem
  *
  * @property {Object} title       stores the raw and rendered versions of the title/label for this menu item.
  * @property {Array}  xfn         the XFN relationships expressed in the link of this menu item.
@@ -114,10 +114,10 @@ function mapMenuItemsToBlocks( menuItems, level = 0 ) {
 /**
  * Convert block attributes to menu item.
  *
- * @param {WPNavMenuItem} menuItem  the menu item to be converted to block attributes.
+ * @param {FPNavMenuItem} menuItem  the menu item to be converted to block attributes.
  * @param {string}        blockType The block type.
  * @param {number}        level     An integer representing the nesting level.
- * @return {Object} the block attributes converted from the WPNavMenuItem item.
+ * @return {Object} the block attributes converted from the FPNavMenuItem item.
  */
 function menuItemToBlockAttributes(
 	{
@@ -138,7 +138,7 @@ function menuItemToBlockAttributes(
 	level
 ) {
 	// For historical reasons, the `core/navigation-link` variation type is `tag`
-	// whereas WP Core expects `post_tag` as the `object` type.
+	// whereas FP Core expects `post_tag` as the `object` type.
 	// To avoid writing a block migration we perform a conversion here.
 	// See also inverse equivalent in `blockAttributesToMenuItem`.
 	if ( object && object === 'post_tag' ) {

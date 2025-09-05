@@ -214,7 +214,7 @@ describe( 'block serializer', () => {
 				''
 			);
 
-			expect( content ).toBe( '<!-- wp:test-block /-->' );
+			expect( content ).toBe( '<!-- fp:test-block /-->' );
 		} );
 
 		it( 'should include the namespace for non-core blocks', () => {
@@ -225,7 +225,7 @@ describe( 'block serializer', () => {
 			);
 
 			expect( content ).toBe(
-				'<!-- wp:my-wonderful-namespace/test-block /-->'
+				'<!-- fp:my-wonderful-namespace/test-block /-->'
 			);
 		} );
 
@@ -237,7 +237,7 @@ describe( 'block serializer', () => {
 			);
 
 			expect( content ).toBe(
-				'<!-- wp:test-block -->\nDelicious\n<!-- /wp:test-block -->'
+				'<!-- fp:test-block -->\nDelicious\n<!-- /fp:test-block -->'
 			);
 		} );
 
@@ -249,7 +249,7 @@ describe( 'block serializer', () => {
 			);
 
 			expect( content ).toBe(
-				'<!-- wp:test-block {"fruit":"Banana"} /-->'
+				'<!-- fp:test-block {"fruit":"Banana"} /-->'
 			);
 		} );
 
@@ -261,7 +261,7 @@ describe( 'block serializer', () => {
 			);
 
 			expect( content ).toBe(
-				'<!-- wp:test-block {"fruit":"Banana"} -->\nDelicious\n<!-- /wp:test-block -->'
+				'<!-- fp:test-block {"fruit":"Banana"} -->\nDelicious\n<!-- /fp:test-block -->'
 			);
 		} );
 	} );
@@ -306,9 +306,9 @@ describe( 'block serializer', () => {
 			const content = serializeBlock( block, { isInnerBlocks: true } );
 
 			expect( content ).toBe(
-				'<!-- wp:freeform {"fruit":"Bananas"} -->\n' +
+				'<!-- fp:freeform {"fruit":"Bananas"} -->\n' +
 					'Bananas\n' +
-					'<!-- /wp:freeform -->'
+					'<!-- /fp:freeform -->'
 			);
 		} );
 		it( 'serializes the unregistered fallback block without comment delimiters', () => {
@@ -353,7 +353,7 @@ describe( 'block serializer', () => {
 			};
 
 			expect( serializeBlock( block ) ).toBe(
-				'<!-- wp:quote -->\n<p>Not a quote</p>\n<!-- /wp:quote -->'
+				'<!-- fp:quote -->\n<p>Not a quote</p>\n<!-- /fp:quote -->'
 			);
 		} );
 		it( 're-generates content from invalid blocks when source information is missing (losing content)', () => {
@@ -371,7 +371,7 @@ describe( 'block serializer', () => {
 				isValid: false,
 			};
 
-			expect( serializeBlock( block ) ).toBe( '<!-- wp:quote /-->' );
+			expect( serializeBlock( block ) ).toBe( '<!-- fp:quote /-->' );
 		} );
 	} );
 
@@ -413,7 +413,7 @@ describe( 'block serializer', () => {
 				stuff: 'left & right -- but <not>',
 			} );
 			const expectedPostContent =
-				'<!-- wp:test-block {"stuff":"left \\u0026 right \\u002d\\u002d but \\u003cnot\\u003e"} -->\n<p>Ribs &amp; Chicken</p>\n<!-- /wp:test-block -->';
+				'<!-- fp:test-block {"stuff":"left \\u0026 right \\u002d\\u002d but \\u003cnot\\u003e"} -->\n<p>Ribs &amp; Chicken</p>\n<!-- /fp:test-block -->';
 
 			expect( serialize( [ block ] ) ).toEqual( expectedPostContent );
 			expect( serialize( block ) ).toEqual( expectedPostContent );
@@ -428,7 +428,7 @@ describe( 'block serializer', () => {
 			block.originalContent = 'Correct';
 
 			expect( serialize( block ) ).toEqual(
-				'<!-- wp:test-block -->\nCorrect\n<!-- /wp:test-block -->'
+				'<!-- fp:test-block -->\nCorrect\n<!-- /fp:test-block -->'
 			);
 		} );
 
@@ -441,7 +441,7 @@ describe( 'block serializer', () => {
 			block.originalContent = 'Correct';
 
 			expect( serialize( block ) ).toEqual(
-				'<!-- wp:test-block {"throw":true} -->\nCorrect\n<!-- /wp:test-block -->'
+				'<!-- fp:test-block {"throw":true} -->\nCorrect\n<!-- /fp:test-block -->'
 			);
 		} );
 	} );

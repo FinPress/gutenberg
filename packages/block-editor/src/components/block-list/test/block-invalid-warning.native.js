@@ -22,9 +22,9 @@ describe( 'Block invalid warning', () => {
 	it( 'shows invalid placeholder', async () => {
 		// Arrange
 		const screen = await initializeEditor( {
-			initialHtml: `<!-- wp:spacer -->
-            <div styless="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
-            <!-- /wp:spacer -->`,
+			initialHtml: `<!-- fp:spacer -->
+            <div styless="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
+            <!-- /fp:spacer -->`,
 		} );
 		expect( console ).toHaveErrored();
 		expect( console ).toHaveWarnedWith(
@@ -39,9 +39,9 @@ describe( 'Block invalid warning', () => {
 	it( 'recovers a block successfully', async () => {
 		// Arrange
 		const screen = await initializeEditor( {
-			initialHtml: `<!-- wp:spacer -->
-            <div styless="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
-            <!-- /wp:spacer -->`,
+			initialHtml: `<!-- fp:spacer -->
+            <div styless="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
+            <!-- /fp:spacer -->`,
 		} );
 		expect( console ).toHaveErrored();
 		expect( console ).toHaveWarnedWith(
@@ -54,9 +54,9 @@ describe( 'Block invalid warning', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-        "<!-- wp:spacer -->
-        <div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
-        <!-- /wp:spacer -->"
+        "<!-- fp:spacer -->
+        <div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
+        <!-- /fp:spacer -->"
         ` );
 	} );
 } );

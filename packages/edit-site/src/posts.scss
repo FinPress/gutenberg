@@ -12,18 +12,18 @@
 
 @include finpress-admin-schemes();
 
-#wpadminbar,
+#fpadminbar,
 #adminmenumain {
 	display: none;
 }
-#wpcontent {
+#fpcontent {
 	margin-left: 0;
 }
-body.js #wpbody {
+body.js #fpbody {
 	padding-top: 0;
 }
 body {
-	@include wp-admin-reset("#gutenberg-posts-dashboard");
+	@include fp-admin-reset("#gutenberg-posts-dashboard");
 }
 #gutenberg-posts-dashboard {
 	@include reset;

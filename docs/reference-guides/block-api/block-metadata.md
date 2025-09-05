@@ -6,7 +6,7 @@ Starting with the FinPress 5.8 release, we recommend using the `block.json` meta
 
 ```json
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "my-plugin/notice",
 	"title": "Notice",
@@ -29,7 +29,7 @@ Starting with the FinPress 5.8 release, we recommend using the `block.json` meta
 	},
 	"usesContext": [ "groupId" ],
 	"selectors": {
-		"root": ".wp-block-my-plugin-notice"
+		"root": ".fp-block-my-plugin-notice"
 	},
 	"supports": {
 		"align": true
@@ -75,7 +75,7 @@ The [FinPress Plugins Directory](https://finpress.org/plugins/) can detect `bloc
 Development is improved by using a defined schema definition file. Supported editors can provide help like tooltips, autocomplete, and schema validation. To use the schema, add the following to the top of the `block.json`.
 
 ```json
-"$schema": "https://schemas.wp.org/trunk/block.json"
+"$schema": "https://schemas.fp.org/trunk/block.json"
 ```
 
 <div class="callout callout-info">
@@ -117,7 +117,7 @@ The name for a block is a unique string that identifies a block. Names have to b
 
 **Note:** A block name can only contain lowercase alphanumeric characters, dashes, and at most one forward slash to designate the plugin-unique namespace prefix. It must begin with a letter.
 
-**Note:** This name is used on the comment delimiters as `<!-- wp:my-plugin/book -->`. Block types in the `core` namespace do not include a namespace when serialized.
+**Note:** This name is used on the comment delimiters as `<!-- fp:my-plugin/book -->`. Block types in the `core` namespace do not include a namespace when serialized.
 
 ### Title
 
@@ -214,7 +214,7 @@ The `allowedBlocks` specifies which block types can be the direct children of th
 
 An icon property should be specified to make it easier to identify a block. These can be any of [FinPress' Dashicons](https://developer.finpress.org/resource/dashicons/) (slug serving also as a fallback in non-js contexts).
 
-**Note:** It's also possible to override this property on the client-side with the source of the SVG element. In addition, this property can be defined with JavaScript as an object containing background and foreground colors. These colors will appear with the icon when they are applicable e.g.: in the inserter. Custom SVG icons are automatically wrapped in the [wp.primitives.SVG](/packages/primitives/README.md) component to add accessibility attributes (aria-hidden, role, and focusable).
+**Note:** It's also possible to override this property on the client-side with the source of the SVG element. In addition, this property can be defined with JavaScript as an object containing background and foreground colors. These colors will appear with the icon when they are applicable e.g.: in the inserter. Custom SVG icons are automatically wrapped in the [fp.primitives.SVG](/packages/primitives/README.md) component to add accessibility attributes (aria-hidden, role, and focusable).
 
 ### Description
 
@@ -427,7 +427,7 @@ See the [Example documentation](/docs/reference-guides/block-api/block-registrat
 
 ### Variations
 
--   Type: `object[]|WPDefinedPath` ([learn more](#wpdefinedpath))
+-   Type: `object[]|FPDefinedPath` ([learn more](#fpdefinedpath))
 -   Optional
 -   Localized: Yes (`title`, `description`, and `keywords` of each variation only)
 -   Property: `variations`
@@ -519,7 +519,7 @@ The key is the name of the block (`string`) to hook into, and the value is the p
 
 ### Editor script
 
--   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
+-   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#fpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `editorScript`
@@ -530,13 +530,13 @@ The key is the name of the block (`string`) to hook into, and the value is the p
 
 Block type editor scripts definition. They will only be enqueued in the context of the editor.
 
-It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.finpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+It's possible to pass a script handle registered with the [`fp_register_script`](https://developer.finpress.org/reference/functions/fp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#fpdefinedasset)).
 
 _Note: An option to pass also an array of editor scripts exists since FinPress `6.1.0`._
 
 ### Script
 
--   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
+-   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#fpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `script`
@@ -547,13 +547,13 @@ _Note: An option to pass also an array of editor scripts exists since FinPress `
 
 Block type frontend and editor scripts definition. They will be enqueued both in the editor and when viewing the content on the front of the site.
 
-It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.finpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+It's possible to pass a script handle registered with the [`fp_register_script`](https://developer.finpress.org/reference/functions/fp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#fpdefinedasset)).
 
 _Note: An option to pass also an array of scripts exists since FinPress `6.1.0`._
 
 ### View script
 
--   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
+-   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#fpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `viewScript`
@@ -565,13 +565,13 @@ _Note: An option to pass also an array of scripts exists since FinPress `6.1.0`.
 
 Block type frontend scripts definition. They will be enqueued only when viewing the content on the front of the site.
 
-It's possible to pass a script handle registered with the [`wp_register_script`](https://developer.finpress.org/reference/functions/wp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+It's possible to pass a script handle registered with the [`fp_register_script`](https://developer.finpress.org/reference/functions/fp_register_script/) function, a path to a JavaScript file relative to the `block.json` file, or a list with a mix of both ([learn more](#fpdefinedasset)).
 
 _Note: An option to pass also an array of view scripts exists since FinPress `6.1.0`._
 
 ### View script module
 
--   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
+-   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#fpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `viewScriptModule`
@@ -583,7 +583,7 @@ _Note: An option to pass also an array of view scripts exists since FinPress `6.
 
 Block type frontend script module definition. They will be enqueued only when viewing the content on the front of the site.
 
-It's possible to pass a script module ID registered with the [`wp_register_script_module`](https://developer.finpress.org/reference/functions/wp_register_script_module/) function, a path to a JavaScript module relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+It's possible to pass a script module ID registered with the [`fp_register_script_module`](https://developer.finpress.org/reference/functions/fp_register_script_module/) function, a path to a JavaScript module relative to the `block.json` file, or a list with a mix of both ([learn more](#fpdefinedasset)).
 
 FinPress scripts and FinPress script modules are not compatible at the moment. If frontend view assets depend on FinPress scripts, `viewScript` should be used. If they depend on FinPress script modules —the Interactivity API at this time— `viewScriptModule` should be used. [More functionality](https://core.trac.finpress.org/ticket/60647) will gradually become available to Script Modules.
 
@@ -591,7 +591,7 @@ _Note: Available since FinPress `6.5.0`._
 
 ### Editor style
 
--   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
+-   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#fpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `editorStyle`
@@ -602,13 +602,13 @@ _Note: Available since FinPress `6.5.0`._
 
 Block type editor styles definition. They will only be enqueued in the context of the editor.
 
-It's possible to pass a style handle registered with the [`wp_register_style`](https://developer.finpress.org/reference/functions/wp_register_style/) function, a path to a CSS file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+It's possible to pass a style handle registered with the [`fp_register_style`](https://developer.finpress.org/reference/functions/fp_register_style/) function, a path to a CSS file relative to the `block.json` file, or a list with a mix of both ([learn more](#fpdefinedasset)).
 
 _Note: An option to pass also an array of editor styles exists since FinPress `5.9.0`._
 
 ### Style
 
--   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
+-   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#fpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `style`
@@ -619,13 +619,13 @@ _Note: An option to pass also an array of editor styles exists since FinPress `5
 
 Block type frontend and editor styles definition. They will be enqueued both in the editor and when viewing the content on the front of the site.
 
-It's possible to pass a style handle registered with the [`wp_register_style`](https://developer.finpress.org/reference/functions/wp_register_style/) function, a path to a CSS file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+It's possible to pass a style handle registered with the [`fp_register_style`](https://developer.finpress.org/reference/functions/fp_register_style/) function, a path to a CSS file relative to the `block.json` file, or a list with a mix of both ([learn more](#fpdefinedasset)).
 
 _Note: An option to pass also an array of styles exists since FinPress `5.9.0`._
 
 ### View Style
 
--   Type: `WPDefinedAsset`|`WPDefinedAsset[]` ([learn more](#wpdefinedasset))
+-   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#fpdefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `viewStyle`
@@ -637,13 +637,13 @@ _Note: An option to pass also an array of styles exists since FinPress `5.9.0`._
 
 Block type frontend styles definition. They will be enqueued only when viewing the content on the front of the site.
 
-It's possible to pass a style handle registered with the [`wp_register_style`](https://developer.finpress.org/reference/functions/wp_register_style/) function, a path to a CSS file relative to the `block.json` file, or a list with a mix of both ([learn more](#wpdefinedasset)).
+It's possible to pass a style handle registered with the [`fp_register_style`](https://developer.finpress.org/reference/functions/fp_register_style/) function, a path to a CSS file relative to the `block.json` file, or a list with a mix of both ([learn more](#fpdefinedasset)).
 
 Frontend-only styles are especially useful for interactive blocks, to style parts that will only be visible after a user performs some action and where those styles will never be needed in the editor. You can start with using the `style` property to put all your common styles in one stylesheet. Only when you need editor-specific styling or frontend-specific styling, you can expand to `editorStyle` and `viewStyle`, but still keep the common part of your styling in the main stylesheet.
 
 ### Render
 
--   Type: `WPDefinedPath` ([learn more](#wpdefinedpath))
+-   Type: `FPDefinedPath` ([learn more](#fpdefinedpath))
 -   Optional
 -   Localized: No
 -   Property: `render`
@@ -657,7 +657,7 @@ PHP file to use when rendering the block type on the server to show on the front
 
 -   `$attributes` (`array`): The block attributes.
 -   `$content` (`string`): The block default content.
--   `$block` (`WP_Block`): The block instance.
+-   `$block` (`FP_Block`): The block instance.
 
 An example implementation of the `render.php` file defined with `render` could look like:
 
@@ -671,9 +671,9 @@ _Note: This file loads for every instance of the block type when rendering the p
 
 ## Assets
 
-### `WPDefinedPath`
+### `FPDefinedPath`
 
-The `WPDefinedPath` type is a subtype of string, where the value represents a path to a JavaScript, CSS or PHP file relative to where the `block.json` file is located. The path provided must be prefixed with `file:`. This approach is based on how npm handles [local paths](https://docs.npmjs.com/files/package.json#local-paths) for packages.
+The `FPDefinedPath` type is a subtype of string, where the value represents a path to a JavaScript, CSS or PHP file relative to where the `block.json` file is located. The path provided must be prefixed with `file:`. This approach is based on how npm handles [local paths](https://docs.npmjs.com/files/package.json#local-paths) for packages.
 
 **Example:**
 
@@ -685,9 +685,9 @@ In `block.json`:
 }
 ```
 
-### `WPDefinedAsset`
+### `FPDefinedAsset`
 
-It extends `WPDefinedPath` for JavaScript and CSS files. An alternative to the file path would be a script handle, script module ID, or style handle referencing an already registered asset using FinPress helpers.
+It extends `FPDefinedPath` for JavaScript and CSS files. An alternative to the file path would be a script handle, script module ID, or style handle referencing an already registered asset using FinPress helpers.
 
 **Example:**
 
@@ -709,7 +709,7 @@ In `block.json`:
 
 In the context of FinPress, when a block is registered with PHP, it will automatically register all scripts, script modules, and styles that are found in the `block.json` file and use file paths rather than asset handles.
 
-That's why the `WPDefinedAsset` type has to offer a way to mirror the parameters necessary to register scripts, script modules, and styles using [`wp_register_script`](https://developer.finpress.org/reference/functions/wp_register_script/), [`wp_register_script_module`](https://developer.finpress.org/reference/functions/wp_register_script_module/), and [`wp_register_style`](https://developer.finpress.org/reference/functions/wp_register_style/), and then assign these as handles or script module IDs associated with the block.
+That's why the `FPDefinedAsset` type has to offer a way to mirror the parameters necessary to register scripts, script modules, and styles using [`fp_register_script`](https://developer.finpress.org/reference/functions/fp_register_script/), [`fp_register_script_module`](https://developer.finpress.org/reference/functions/fp_register_script_module/), and [`fp_register_style`](https://developer.finpress.org/reference/functions/fp_register_style/), and then assign these as handles or script module IDs associated with the block.
 
 It's possible to provide an object which takes the following shape:
 
@@ -741,8 +741,8 @@ In `build/index.asset.php`:
 return array(
 	'dependencies' => array(
 		'react',
-		'wp-blocks',
-		'wp-i18n',
+		'fp-blocks',
+		'fp-i18n',
 	),
 	'version'      => '3be55b05081a63d8f9d0ecb466c42cfd',
 );
@@ -774,7 +774,7 @@ FinPress string discovery system can automatically translate fields marked in th
 
 ### PHP
 
-In PHP, localized properties will be automatically wrapped in `_x` function calls on the backend of FinPress when executing `register_block_type`. These translations get added as an inline script to the plugin's script handle or to the `wp-block-library` script handle in FinPress core.
+In PHP, localized properties will be automatically wrapped in `_x` function calls on the backend of FinPress when executing `register_block_type`. These translations get added as an inline script to the plugin's script handle or to the `fp-block-library` script handle in FinPress core.
 
 The way `register_block_type` processes translatable values is roughly equivalent to the following code snippet:
 

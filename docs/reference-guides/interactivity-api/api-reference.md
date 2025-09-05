@@ -21,19 +21,19 @@ Interactivity API directives use the `data-` prefix. Here's an example of direct
 
 ```html
 <div
-	data-wp-interactive="myPlugin"
-	data-wp-context='{ "isOpen": false }'
-	data-wp-watch="callbacks.logIsOpen"
+	data-fp-interactive="myPlugin"
+	data-fp-context='{ "isOpen": false }'
+	data-fp-watch="callbacks.logIsOpen"
 >
 	<button
-		data-wp-on--click="actions.toggle"
-		data-wp-bind--aria-expanded="context.isOpen"
+		data-fp-on--click="actions.toggle"
+		data-fp-bind--aria-expanded="context.isOpen"
 		aria-controls="p-1"
 	>
 		Toggle
 	</button>
 
-	<p id="p-1" data-wp-bind--hidden="!context.isOpen">
+	<p id="p-1" data-fp-bind--hidden="!context.isOpen">
 		This element is now visible!
 	</p>
 </div>
@@ -45,26 +45,26 @@ With directives, you can directly manage interactions such as side effects, stat
 
 ## List of Directives
 
-### `wp-interactive`
+### `fp-interactive`
 
-The `wp-interactive` directive "activates" the interactivity for the DOM element and its children through the Interactivity API (directives and store). The directive includes a namespace to reference a specific store, that can be set as a `string` or an `object`.
+The `fp-interactive` directive "activates" the interactivity for the DOM element and its children through the Interactivity API (directives and store). The directive includes a namespace to reference a specific store, that can be set as a `string` or an `object`.
 
 ```html
 <!-- Let's make this element and its children interactive and set the namespace -->
 <div
-	data-wp-interactive="myPlugin"
-	data-wp-context='{ "myColor" : "red", "myBgColor": "yellow" }'
+	data-fp-interactive="myPlugin"
+	data-fp-context='{ "myColor" : "red", "myBgColor": "yellow" }'
 >
 	<p>
 		I'm interactive now,
-		<span data-wp-style--background-color="context.myBgColor"
+		<span data-fp-style--background-color="context.myBgColor"
 			>and I can use directives!</span
 		>
 	</p>
 	<div>
 		<p>
 			I'm also interactive,
-			<span data-wp-style--color="context.myColor"
+			<span data-fp-style--color="context.myColor"
 				>and I can also use directives!</span
 			>
 		</p>
@@ -73,19 +73,19 @@ The `wp-interactive` directive "activates" the interactivity for the DOM element
 
 <!-- This is also valid -->
 <div
-	data-wp-interactive='{ "namespace": "myPlugin" }'
-	data-wp-context='{ "myColor" : "red", "myBgColor": "yellow" }'
+	data-fp-interactive='{ "namespace": "myPlugin" }'
+	data-fp-context='{ "myColor" : "red", "myBgColor": "yellow" }'
 >
 	<p>
 		I'm interactive now,
-		<span data-wp-style--background-color="context.myBgColor"
+		<span data-fp-style--background-color="context.myBgColor"
 			>and I can use directives!</span
 		>
 	</p>
 	<div>
 		<p>
 			I'm also interactive,
-			<span data-wp-style--color="context.myColor"
+			<span data-fp-style--color="context.myColor"
 				>and I can also use directives!</span
 			>
 		</p>
@@ -94,19 +94,19 @@ The `wp-interactive` directive "activates" the interactivity for the DOM element
 ```
 
 <div class="callout callout-info">
-  The use of <code>data-wp-interactive</code> is a requirement for the Interactivity API "engine" to work. In the following examples the <code>data-wp-interactive</code> has not been added for the sake of simplicity. Also, the <code>data-wp-interactive</code> directive will be injected automatically in the future.
+  The use of <code>data-fp-interactive</code> is a requirement for the Interactivity API "engine" to work. In the following examples the <code>data-fp-interactive</code> has not been added for the sake of simplicity. Also, the <code>data-fp-interactive</code> directive will be injected automatically in the future.
 </div>
 
-### `wp-context`
+### `fp-context`
 
 It provides a **local** state available to a specific HTML node and its children.
 
-The `wp-context` directive accepts a stringified JSON as a value.
+The `fp-context` directive accepts a stringified JSON as a value.
 
 ```php
 // render.php
-<div data-wp-context='{ "post": { "id": <?php echo $post->ID; ?> } }' >
-  <button data-wp-on--click="actions.logId" >
+<div data-fp-context='{ "post": { "id": <?php echo $post->ID; ?> } }' >
+  <button data-fp-on--click="actions.logId" >
     Click Me!
   </button>
 </div>
@@ -131,32 +131,32 @@ store( 'myPlugin', {
 Different contexts can be defined at different levels, and deeper levels will merge their own context with any parent one:
 
 ```html
-<div data-wp-context='{ "foo": "bar" }'>
-	<span data-wp-text="context.foo"><!-- Will output: "bar" --></span>
+<div data-fp-context='{ "foo": "bar" }'>
+	<span data-fp-text="context.foo"><!-- Will output: "bar" --></span>
 
-	<div data-wp-context='{ "bar": "baz" }'>
-		<span data-wp-text="context.foo"><!-- Will output: "bar" --></span>
+	<div data-fp-context='{ "bar": "baz" }'>
+		<span data-fp-text="context.foo"><!-- Will output: "bar" --></span>
 
-		<div data-wp-context='{ "foo": "bob" }'>
-			<span data-wp-text="context.foo"><!-- Will output: "bob" --></span>
+		<div data-fp-context='{ "foo": "bob" }'>
+			<span data-fp-text="context.foo"><!-- Will output: "bob" --></span>
 		</div>
 	</div>
 </div>
 ```
 
-### `wp-bind`
+### `fp-bind`
 
-This directive allows setting HTML attributes on elements based on a boolean or string value. It follows the syntax `data-wp-bind--attribute`.
+This directive allows setting HTML attributes on elements based on a boolean or string value. It follows the syntax `data-fp-bind--attribute`.
 
 ```html
-<li data-wp-context='{ "isMenuOpen": false }'>
+<li data-fp-context='{ "isMenuOpen": false }'>
 	<button
-		data-wp-on--click="actions.toggleMenu"
-		data-wp-bind--aria-expanded="context.isMenuOpen"
+		data-fp-on--click="actions.toggleMenu"
+		data-fp-bind--aria-expanded="context.isMenuOpen"
 	>
 		Toggle
 	</button>
-	<div data-wp-bind--hidden="!context.isMenuOpen">
+	<div data-fp-bind--hidden="!context.isMenuOpen">
 		<span>Title</span>
 		<ul>
 			SUBMENU ITEMS
@@ -181,40 +181,40 @@ store( 'myPlugin', {
 
 </details>
 
-The `wp-bind` directive is executed:
+The `fp-bind` directive is executed:
 
 -   When the element is created
 -   Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
 
-When `wp-bind` directive references a callback to get its final value:
+When `fp-bind` directive references a callback to get its final value:
 
--   The `wp-bind` directive will be executed each time there's a change on any of the properties of the `state` or `context` used inside this callback.
+-   The `fp-bind` directive will be executed each time there's a change on any of the properties of the `state` or `context` used inside this callback.
 -   The returned value in the callback function is used to change the value of the associated attribute.
 
-The `wp-bind` will do different things when the DOM element is applied, depending on its value:
+The `fp-bind` will do different things when the DOM element is applied, depending on its value:
 
 -   If the value is `true`, the attribute is added: `<div attribute>`
 -   If the value is `false`, the attribute is removed: `<div>`
 -   If the value is a string, the attribute is added with its value assigned: `<div attribute="value"`
 -   If the attribute name starts with `aria-` or `data-` and the value is boolean (either `true` or `false`), the attribute is added to the DOM with the boolean value assigned as a string: `<div aria-attribute="true">`
 
-### `wp-class`
+### `fp-class`
 
-This directive adds or removes a class to an HTML element, depending on a boolean value. It follows the syntax `data-wp-class--classname`.
+This directive adds or removes a class to an HTML element, depending on a boolean value. It follows the syntax `data-fp-class--classname`.
 
 ```html
 <div>
 	<li
-		data-wp-context='{ "isSelected": false }'
-		data-wp-on--click="actions.toggleSelection"
-		data-wp-class--selected="context.isSelected"
+		data-fp-context='{ "isSelected": false }'
+		data-fp-on--click="actions.toggleSelection"
+		data-fp-class--selected="context.isSelected"
 	>
 		Option 1
 	</li>
 	<li
-		data-wp-context='{ "isSelected": false }'
-		data-wp-on--click="actions.toggleSelection"
-		data-wp-class--selected="context.isSelected"
+		data-fp-context='{ "isSelected": false }'
+		data-fp-on--click="actions.toggleSelection"
+		data-fp-class--selected="context.isSelected"
 	>
 		Option 2
 	</li>
@@ -237,25 +237,25 @@ store( 'myPlugin', {
 
 </details>
 
-The `wp-class` directive is executed:
+The `fp-class` directive is executed:
 
 -   When the element is created
 -   Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
 
 The boolean value received by the directive is used to toggle (add when `true` or remove when `false`) the associated class name from the `class` attribute.
 
-It's important to note that when using the `wp-class` directive, it's recommended to use kebab-case for class names instead of camelCase. This is because HTML attributes are not case-sensitive, and HTML will treat `data-wp-class--isDark` the same as `data-wp-class--isdark` or `DATA-WP-CLASS--ISDARK`.
+It's important to note that when using the `fp-class` directive, it's recommended to use kebab-case for class names instead of camelCase. This is because HTML attributes are not case-sensitive, and HTML will treat `data-fp-class--isDark` the same as `data-fp-class--isdark` or `DATA-FP-CLASS--ISDARK`.
 
-So, for example, use the class name `is-dark` instead of `isDark` and `data-wp-class--is-dark` instead of `data-wp-class--isDark`:
+So, for example, use the class name `is-dark` instead of `isDark` and `data-fp-class--is-dark` instead of `data-fp-class--isDark`:
 
 ```html
 <!-- Recommended -->
-<div data-wp-class--is-dark="context.isDarkMode">
+<div data-fp-class--is-dark="context.isDarkMode">
 	<!-- ... -->
 </div>
 
 <!-- Not recommended -->
-<div data-wp-class--isDark="context.isDarkMode">
+<div data-fp-class--isDark="context.isDarkMode">
 	<!-- ... -->
 </div>
 ```
@@ -272,16 +272,16 @@ So, for example, use the class name `is-dark` instead of `isDark` and `data-wp-c
 }
 ```
 
-### `wp-style`
+### `fp-style`
 
-This directive adds or removes inline style to an HTML element, depending on its value. It follows the syntax `data-wp-style--css-property`.
+This directive adds or removes inline style to an HTML element, depending on its value. It follows the syntax `data-fp-style--css-property`.
 
 ```html
-<div data-wp-context='{ "color": "red" }'>
-	<button data-wp-on--click="actions.toggleContextColor">
+<div data-fp-context='{ "color": "red" }'>
+	<button data-fp-on--click="actions.toggleContextColor">
 		Toggle Color Text
 	</button>
-	<p data-wp-style--color="context.color">Hello World!</p>
+	<p data-fp-style--color="context.color">Hello World!</p>
 </div>
 >
 ```
@@ -302,7 +302,7 @@ store( 'myPlugin', {
 
 </details>
 
-The `wp-style` directive is executed:
+The `fp-style` directive is executed:
 
 -   When the element is created
 -   Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
@@ -312,14 +312,14 @@ The value received by the directive is used to add or remove the style attribute
 -   If the value is `false`, the style attribute is removed: `<div>`
 -   If the value is a string, the attribute is added with its value assigned: `<div style="css-property: value;">`
 
-### `wp-text`
+### `fp-text`
 
 It sets the inner text of an HTML element.
 
 ```html
-<div data-wp-context='{ "text": "Text 1" }'>
-	<span data-wp-text="context.text"></span>
-	<button data-wp-on--click="actions.toggleContextText">
+<div data-fp-context='{ "text": "Text 1" }'>
+	<span data-fp-text="context.text"></span>
+	<button data-fp-on--click="actions.toggleContextText">
 		Toggle Context Text
 	</button>
 </div>
@@ -341,23 +341,23 @@ store( 'myPlugin', {
 
 </details>
 
-The `wp-text` directive is executed:
+The `fp-text` directive is executed:
 
 -   When the element is created
 -   Each time there's a change on any of the properties of the `state` or `context` involved in getting the final value of the directive (inside the callback or the expression passed as reference)
 
 The returned value is used to change the inner content of the element: `<div>value</div>`.
 
-### `wp-on`
+### `fp-on`
 
 <div class="callout callout-info">
-  Consider using the more performant <a href="#wp-on-async"><code>wp-on-async</code></a> instead if your directive code does not need synchronous access to the event object. If synchronous access is required, consider implementing an <a href="#async-actions"><code>async action</code></a> which yields to the main thread after calling the synchronous API.
+  Consider using the more performant <a href="#fp-on-async"><code>fp-on-async</code></a> instead if your directive code does not need synchronous access to the event object. If synchronous access is required, consider implementing an <a href="#async-actions"><code>async action</code></a> which yields to the main thread after calling the synchronous API.
 </div>
 
-This directive runs code on dispatched DOM events like `click` or `keyup`. The syntax is `data-wp-on--[event]` (like `data-wp-on--click` or `data-wp-on--keyup`).
+This directive runs code on dispatched DOM events like `click` or `keyup`. The syntax is `data-fp-on--[event]` (like `data-fp-on--click` or `data-fp-on--keyup`).
 
 ```php
-<button data-wp-on--click="actions.logTime" >
+<button data-fp-on--click="actions.logTime" >
   Click Me!
 </button>
 ```
@@ -377,28 +377,28 @@ store( 'myPlugin', {
 
 </details>
 
-The `wp-on` directive is executed each time the associated event is triggered.
+The `fp-on` directive is executed each time the associated event is triggered.
 
 The callback passed as the reference receives [the event](https://developer.mozilla.org/en-US/docs/Web/API/Event) (`event`), and the returned value by this callback is ignored.
 
-### `wp-on-async`
+### `fp-on-async`
 
-This directive is a more performant approach for `wp-on`. It immediately yields to main to avoid contributing to a long task, allowing other interactions that otherwise would be waiting on the main thread to run sooner. Use this async version whenever there is no need for synchronous access to the `event` object, in particular the methods `event.preventDefault()`, `event.stopPropagation()`, and `event.stopImmediatePropagation()`.
+This directive is a more performant approach for `fp-on`. It immediately yields to main to avoid contributing to a long task, allowing other interactions that otherwise would be waiting on the main thread to run sooner. Use this async version whenever there is no need for synchronous access to the `event` object, in particular the methods `event.preventDefault()`, `event.stopPropagation()`, and `event.stopImmediatePropagation()`.
 
-### `wp-on-window`
+### `fp-on-window`
 
 <div class="callout callout-info">
-  Consider using the more performant <a href="#wp-on-async-window"><code>wp-on-async-window</code></a> instead if your directive code does not need synchronous access to the event object. If synchronous access is required, consider implementing an <a href="#async-actions"><code>async action</code></a> which yields to the main thread after calling the synchronous API.
+  Consider using the more performant <a href="#fp-on-async-window"><code>fp-on-async-window</code></a> instead if your directive code does not need synchronous access to the event object. If synchronous access is required, consider implementing an <a href="#async-actions"><code>async action</code></a> which yields to the main thread after calling the synchronous API.
 </div>
 
 This directive allows you to attach global window events like `resize`, `copy`, and `focus` and then execute a defined callback when those happen.
 
 [List of supported window events.](https://developer.mozilla.org/en-US/docs/Web/API/Window#events)
 
-The syntax of this directive is `data-wp-on-window--[window-event]` (like `data-wp-on-window--resize` or `data-wp-on-window--languagechange`).
+The syntax of this directive is `data-fp-on-window--[window-event]` (like `data-fp-on-window--resize` or `data-fp-on-window--languagechange`).
 
 ```php
-<div data-wp-on-window--resize="callbacks.logWidth"></div>
+<div data-fp-on-window--resize="callbacks.logWidth"></div>
 ```
 
 <details>
@@ -418,24 +418,24 @@ store( 'myPlugin', {
 
 The callback passed as the reference receives [the event](https://developer.mozilla.org/en-US/docs/Web/API/Event) (`event`), and the returned value by this callback is ignored. When the element is removed from the DOM, the event listener is also removed.
 
-### `wp-on-async-window`
+### `fp-on-async-window`
 
-Similar to `wp-on-async`, this is an optimized version of `wp-on-window` that immediately yields to main to avoid contributing to a long task. Use this async version whenever there is no need for synchronous access to the `event` object, in particular the methods `event.preventDefault()`, `event.stopPropagation()`, and `event.stopImmediatePropagation()`. This event listener is also added as [`passive`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#passive).
+Similar to `fp-on-async`, this is an optimized version of `fp-on-window` that immediately yields to main to avoid contributing to a long task. Use this async version whenever there is no need for synchronous access to the `event` object, in particular the methods `event.preventDefault()`, `event.stopPropagation()`, and `event.stopImmediatePropagation()`. This event listener is also added as [`passive`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#passive).
 
-### `wp-on-document`
+### `fp-on-document`
 
 <div class="callout callout-info">
-  Consider using the more performant <a href="#wp-on-async-document"><code>wp-on-async-document</code></a> instead if your directive code does not need synchronous access to the event object. If synchronous access is required, consider implementing an <a href="#async-actions"><code>async action</code></a> which yields to the main thread after calling the synchronous API.
+  Consider using the more performant <a href="#fp-on-async-document"><code>fp-on-async-document</code></a> instead if your directive code does not need synchronous access to the event object. If synchronous access is required, consider implementing an <a href="#async-actions"><code>async action</code></a> which yields to the main thread after calling the synchronous API.
 </div>
 
 This directive allows you to attach global document events like `scroll`, `mousemove`, and `keydown` and then execute a defined callback when those happen.
 
 [List of supported document events.](https://developer.mozilla.org/en-US/docs/Web/API/Document#events)
 
-The syntax of this directive is `data-wp-on-document--[document-event]` (like `data-wp-on-document--keydown` or `data-wp-on-document--selectionchange`).
+The syntax of this directive is `data-fp-on-document--[document-event]` (like `data-fp-on-document--keydown` or `data-fp-on-document--selectionchange`).
 
 ```php
-<div data-wp-on-document--keydown="callbacks.logKeydown"></div>
+<div data-fp-on-document--keydown="callbacks.logKeydown"></div>
 ```
 
 <details>
@@ -455,23 +455,23 @@ store( 'myPlugin', {
 
 The callback passed as the reference receives [the event](https://developer.mozilla.org/en-US/docs/Web/API/Event) (`event`), and the returned value by this callback is ignored. When the element is removed from the DOM, the event listener is also removed.
 
-### `wp-on-async-document`
+### `fp-on-async-document`
 
-Similar to `wp-on-async`, this is an optimized version of `wp-on-document` that immediately yields to main to avoid contributing to a long task. Use this async version whenever there is no need for synchronous access to the `event` object, in particular the methods `event.preventDefault()`, `event.stopPropagation()`, and `event.stopImmediatePropagation()`. This event listener is also added as [`passive`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#passive).
+Similar to `fp-on-async`, this is an optimized version of `fp-on-document` that immediately yields to main to avoid contributing to a long task. Use this async version whenever there is no need for synchronous access to the `event` object, in particular the methods `event.preventDefault()`, `event.stopPropagation()`, and `event.stopImmediatePropagation()`. This event listener is also added as [`passive`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#passive).
 
-### `wp-watch`
+### `fp-watch`
 
 It runs a callback **when the node is created and runs it again when the state or context changes**.
 
-You can attach several side effects to the same DOM element by using the syntax `data-wp-watch--[unique-id]`.
+You can attach several side effects to the same DOM element by using the syntax `data-fp-watch--[unique-id]`.
 
-The `unique-id` doesn't need to be unique globally. It just needs to be different from the other unique IDs of the `wp-watch` directives of that DOM element.
+The `unique-id` doesn't need to be unique globally. It just needs to be different from the other unique IDs of the `fp-watch` directives of that DOM element.
 
 ```html
-<div data-wp-context='{ "counter": 0 }' data-wp-watch="callbacks.logCounter">
-	<p>Counter: <span data-wp-text="context.counter"></span></p>
-	<button data-wp-on--click="actions.increaseCounter">+</button>
-	<button data-wp-on--click="actions.decreaseCounter">-</button>
+<div data-fp-context='{ "counter": 0 }' data-fp-watch="callbacks.logCounter">
+	<p>Counter: <span data-fp-text="context.counter"></span></p>
+	<button data-fp-on--click="actions.increaseCounter">+</button>
+	<button data-fp-on--click="actions.decreaseCounter">-</button>
 </div>
 ```
 
@@ -501,12 +501,12 @@ store( 'myPlugin', {
 
 </details>
 
-The `wp-watch` directive is executed:
+The `fp-watch` directive is executed:
 
 -   When the element is created
 -   Each time that any of the properties of the `state` or `context` used inside the callback changes
 
-The `wp-watch` directive can return a function. If it does, the returned function is used as cleanup logic, i.e., it will run just before the callback runs again, and it will run again when the element is removed from the DOM.
+The `fp-watch` directive can return a function. If it does, the returned function is used as cleanup logic, i.e., it will run just before the callback runs again, and it will run again when the element is removed from the DOM.
 
 As a reference, some use cases for this directive may be:
 
@@ -515,26 +515,26 @@ As a reference, some use cases for this directive may be:
 -   Setting the focus on an element with `.focus()`.
 -   Changing the state or context when certain conditions are met
 
-### `wp-init`
+### `fp-init`
 
 This directive runs a callback **only when the node is created**.
 
-You can attach several `wp-init` to the same DOM element by using the syntax `data-wp-init--[unique-id]`.
+You can attach several `fp-init` to the same DOM element by using the syntax `data-fp-init--[unique-id]`.
 
-The `unique-id` doesn't need to be unique globally. It just needs to be different from the other unique IDs of the `wp-init` directives of that DOM element.
+The `unique-id` doesn't need to be unique globally. It just needs to be different from the other unique IDs of the `fp-init` directives of that DOM element.
 
 ```html
-<div data-wp-init="callbacks.logTimeInit">
+<div data-fp-init="callbacks.logTimeInit">
 	<p>Hi!</p>
 </div>
 ```
 
-Here's another example with several `wp-init` directives on the same DOM element.
+Here's another example with several `fp-init` directives on the same DOM element.
 
 ```html
 <form
-	data-wp-init--log="callbacks.logTimeInit"
-	data-wp-init--focus="callbacks.focusFirstElement"
+	data-fp-init--log="callbacks.logTimeInit"
+	data-fp-init--focus="callbacks.focusFirstElement"
 >
 	<input type="text" />
 </form>
@@ -559,20 +559,20 @@ store( "myPlugin", {
 
 </details>
 
-The `wp-init` can return a function. If it does, the returned function will run when the element is removed from the DOM.
+The `fp-init` can return a function. If it does, the returned function will run when the element is removed from the DOM.
 
-### `wp-run`
+### `fp-run`
 
 This directive runs the passed callback **during the node's render execution**.
 
 You can use and compose hooks like `useState`, `useWatch`, or `useEffect` inside the passed callback and create your own logic, providing more flexibility than previous directives.
 
-You can attach several `wp-run` to the same DOM element by using the syntax `data-wp-run--[unique-id]`.
+You can attach several `fp-run` to the same DOM element by using the syntax `data-fp-run--[unique-id]`.
 
-The `unique-id` doesn't need to be unique globally. It just needs to be different from the other unique IDs of the `wp-run` directives of that DOM element.
+The `unique-id` doesn't need to be unique globally. It just needs to be different from the other unique IDs of the `fp-run` directives of that DOM element.
 
 ```html
-<div data-wp-run="callbacks.logInView">
+<div data-fp-run="callbacks.logInView">
 	<p>Hi!</p>
 </div>
 ```
@@ -588,8 +588,8 @@ import {
 	useEffect,
 } from '@finpress/interactivity';
 
-// Unlike `data-wp-init` and `data-wp-watch`, you can use any hooks inside
-// `data-wp-run` callbacks.
+// Unlike `data-fp-init` and `data-fp-watch`, you can use any hooks inside
+// `data-fp-run` callbacks.
 const useInView = () => {
 	const [ inView, setInView ] = useState( false );
 	useEffect( () => {
@@ -623,16 +623,16 @@ store( 'myPlugin', {
 
 It's important to note that, similar to (P)React components, the `ref` from `getElement()` is `null` during the first render. To properly access the DOM element reference, you typically need to use an effect-like hook such as `useEffect`, `useInit`, or `useWatch`. This ensures that the `getElement()` runs after the component has been mounted and the `ref` is available.
 
-### `wp-key`
+### `fp-key`
 
-The `wp-key` directive assigns a unique key to an element to help the Interactivity API identify it when iterating through arrays of elements. This becomes important if your array elements can move (e.g., due to sorting), get inserted, or get deleted. A well-chosen key value helps the Interactivity API infer what exactly has changed in the array, allowing it to make the correct updates to the DOM.
+The `fp-key` directive assigns a unique key to an element to help the Interactivity API identify it when iterating through arrays of elements. This becomes important if your array elements can move (e.g., due to sorting), get inserted, or get deleted. A well-chosen key value helps the Interactivity API infer what exactly has changed in the array, allowing it to make the correct updates to the DOM.
 
 The key should be a string that uniquely identifies the element among its siblings. Typically, it is used on repeated elements like list items. For example:
 
 ```html
 <ul>
-	<li data-wp-key="unique-id-1">Item 1</li>
-	<li data-wp-key="unique-id-2">Item 2</li>
+	<li data-fp-key="unique-id-1">Item 1</li>
+	<li data-fp-key="unique-id-2">Item 2</li>
 </ul>
 ```
 
@@ -640,25 +640,25 @@ But it can also be used on other elements:
 
 ```html
 <div>
-	<a data-wp-key="previous-page" ...>Previous page</a>
-	<a data-wp-key="next-page" ...>Next page</a>
+	<a data-fp-key="previous-page" ...>Previous page</a>
+	<a data-fp-key="next-page" ...>Next page</a>
 </div>
 ```
 
 When the list is re-rendered, the Interactivity API will match elements by their keys to determine if an item was added/removed/reordered. Elements without keys might be recreated unnecessarily.
 
-### `wp-each`
+### `fp-each`
 
-The `wp-each` directive is intended to render a list of elements. The directive can be used in `<template>` tags, being the value a path to an array stored in the global state or the context. The content inside the `<template>` tag is the template used to render each of the items.
+The `fp-each` directive is intended to render a list of elements. The directive can be used in `<template>` tags, being the value a path to an array stored in the global state or the context. The content inside the `<template>` tag is the template used to render each of the items.
 
 Each item is included in the context under the `item` name by default, so directives inside the template can access the current item.
 
 For example, let's consider the following HTML.
 
 ```html
-<ul data-wp-context='{ "list": [ "hello", "hola", "olá" ] }'>
-	<template data-wp-each="context.list">
-		<li data-wp-text="context.item"></li>
+<ul data-fp-context='{ "list": [ "hello", "hola", "olá" ] }'>
+	<template data-fp-each="context.list">
+		<li data-fp-text="context.item"></li>
 	</template>
 </ul>
 ```
@@ -666,30 +666,30 @@ For example, let's consider the following HTML.
 It would generate the following output:
 
 ```html
-<ul data-wp-context='{ "list": [ "hello", "hola", "olá" ] }'>
-	<li data-wp-text="context.item">hello</li>
-	<li data-wp-text="context.item">hola</li>
-	<li data-wp-text="context.item">olá</li>
+<ul data-fp-context='{ "list": [ "hello", "hola", "olá" ] }'>
+	<li data-fp-text="context.item">hello</li>
+	<li data-fp-text="context.item">hola</li>
+	<li data-fp-text="context.item">olá</li>
 </ul>
 ```
 
 The prop that holds the item in the context can be changed by passing a suffix to the directive name. In the following example, the default prop changes from `item` to `greeting`.
 
 ```html
-<ul data-wp-context='{ "list": [ "hello", "hola", "olá" ] }'>
-	<template data-wp-each--greeting="context.list">
-		<li data-wp-text="context.greeting"></li>
+<ul data-fp-context='{ "list": [ "hello", "hola", "olá" ] }'>
+	<template data-fp-each--greeting="context.list">
+		<li data-fp-text="context.greeting"></li>
 	</template>
 </ul>
 ```
 
 By default, it uses each element as the key for the rendered nodes, but you can also specify a path to retrieve the key if necessary, e.g., when the list contains objects.
 
-For that, you must use `data-wp-each-key` in the `<template>` tag and not `data-wp-key` inside the template content. This is because `data-wp-each` creates a context provider wrapper around each rendered item, and those wrappers are the ones that need the `key` property.
+For that, you must use `data-fp-each-key` in the `<template>` tag and not `data-fp-key` inside the template content. This is because `data-fp-each` creates a context provider wrapper around each rendered item, and those wrappers are the ones that need the `key` property.
 
 ```html
 <ul
-	data-wp-context='{
+	data-fp-context='{
   "list": [
     { "id": "en", "value": "hello" },
     { "id": "es", "value": "hola" },
@@ -698,26 +698,26 @@ For that, you must use `data-wp-each-key` in the `<template>` tag and not `data-
 }'
 >
 	<template
-		data-wp-each--greeting="context.list"
-		data-wp-each-key="context.greeting.id"
+		data-fp-each--greeting="context.list"
+		data-fp-each-key="context.greeting.id"
 	>
-		<li data-wp-text="context.greeting.value"></li>
+		<li data-fp-text="context.greeting.value"></li>
 	</template>
 </ul>
 ```
 
-### `wp-each-child`
+### `fp-each-child`
 
-For server-side rendered lists, another directive called `data-wp-each-child` ensures hydration works as expected. This directive is added automatically when the directive is processed on the server.
+For server-side rendered lists, another directive called `data-fp-each-child` ensures hydration works as expected. This directive is added automatically when the directive is processed on the server.
 
 ```html
-<ul data-wp-context='{ "list": [ "hello", "hola", "olá" ] }'>
-	<template data-wp-each--greeting="context.list">
-		<li data-wp-text="context.greeting"></li>
+<ul data-fp-context='{ "list": [ "hello", "hola", "olá" ] }'>
+	<template data-fp-each--greeting="context.list">
+		<li data-fp-text="context.greeting"></li>
 	</template>
-	<li data-wp-each-child>hello</li>
-	<li data-wp-each-child>hola</li>
-	<li data-wp-each-child>olá</li>
+	<li data-fp-each-child>hello</li>
+	<li data-fp-each-child>hola</li>
+	<li data-fp-each-child>olá</li>
 </ul>
 ```
 
@@ -738,23 +738,23 @@ const { state } = store( 'myPlugin', {
 } );
 ```
 
-And then, the string value `"state.isPlaying"` is used to assign the result of this selector to `data-wp-bind--hidden`.
+And then, the string value `"state.isPlaying"` is used to assign the result of this selector to `data-fp-bind--hidden`.
 
 ```html
-<div data-wp-bind--hidden="!state.isPlaying" ...>
+<div data-fp-bind--hidden="!state.isPlaying" ...>
 	<iframe ...></iframe>
 </div>
 ```
 
 These values assigned to directives are **references** to a particular property in the store. They are wired to the directives automatically so that each directive “knows” what store element refers to, without any additional configuration.
 
-Note that, by default, references point to properties in the current namespace, which is the one specified by the closest ancestor with a `data-wp-interactive` attribute. If you need to access a property from a different namespace, you can explicitly set the namespace where the property accessed is defined. The syntax is `namespace::reference`, replacing `namespace` with the appropriate value.
+Note that, by default, references point to properties in the current namespace, which is the one specified by the closest ancestor with a `data-fp-interactive` attribute. If you need to access a property from a different namespace, you can explicitly set the namespace where the property accessed is defined. The syntax is `namespace::reference`, replacing `namespace` with the appropriate value.
 
 The example below is getting `state.isPlaying` from `otherPlugin` instead of `myPlugin`:
 
 ```html
-<div data-wp-interactive="myPlugin">
-	<div data-wp-bind--hidden="otherPlugin::!state.isPlaying" ...>
+<div data-fp-interactive="myPlugin">
+	<div data-fp-bind--hidden="otherPlugin::!state.isPlaying" ...>
 		<iframe ...></iframe>
 	</div>
 </div>
@@ -773,15 +773,15 @@ The store is used to create the logic (actions, side effects, etc.) linked to th
 It defines data available to the HTML nodes of the page. It is important to differentiate between two ways to define the data:
 
 -   **Global state**: It is defined using the `store()` function with the `state` property, and the data is available to all the HTML nodes of the page.
--   **Context/Local State**: It is defined using the `data-wp-context` directive in an HTML node, and the data is available to that HTML node and its children. It can be accessed using the `getContext` function inside of an action, derived state or side effect.
+-   **Context/Local State**: It is defined using the `data-fp-context` directive in an HTML node, and the data is available to that HTML node and its children. It can be accessed using the `getContext` function inside of an action, derived state or side effect.
 
 ```html
-<div data-wp-context='{ "someText": "Hello World!" }'>
+<div data-fp-context='{ "someText": "Hello World!" }'>
 	<!-- Access global state -->
-	<span data-wp-text="state.someText"></span>
+	<span data-fp-text="state.someText"></span>
 
 	<!-- Access local state (context) -->
-	<span data-wp-text="context.someText"></span>
+	<span data-fp-text="context.someText"></span>
 </div>
 ```
 
@@ -803,7 +803,7 @@ const { state } = store( 'myPlugin', {
 
 #### Actions
 
-Actions are just regular JavaScript functions. Usually triggered by the `data-wp-on` directive (using event listeners) or other actions.
+Actions are just regular JavaScript functions. Usually triggered by the `data-fp-on` directive (using event listeners) or other actions.
 
 ```ts
 const { state, actions } = store( 'myPlugin', {
@@ -830,12 +830,12 @@ In async functions, the control is passed to the function itself. The caller of 
 Imagine a block that has two buttons. One lives inside a context that has `isOpen: true` and the other `isOpen: false`:
 
 ```html
-<div data-wp-context='{ "isOpen": true }'>
-	<button data-wp-on--click="actions.someAction">Click</button>
+<div data-fp-context='{ "isOpen": true }'>
+	<button data-fp-on--click="actions.someAction">Click</button>
 </div>
 
-<div data-wp-context='{ "isOpen": false }'>
-	<button data-wp-on--click="actions.someAction">Click</button>
+<div data-fp-context='{ "isOpen": false }'>
+	<button data-fp-on--click="actions.someAction">Click</button>
 </div>
 ```
 
@@ -875,7 +875,7 @@ const { state } = store( 'myPlugin', {
 
 You may want to add multiple such `yield` points in your action if it is doing a lot of work.
 
-As mentioned above with [`wp-on`](#wp-on), [`wp-on-window`](#wp-on-window), and [`wp-on-document`](#wp-on-document), an async action should be used whenever the `async` versions of the aforementioned directives cannot be used due to the action requiring synchronous access to the `event` object. Synchronous access is required whenever the action needs to call `event.preventDefault()`, `event.stopPropagation()`, or `event.stopImmediatePropagation()`.
+As mentioned above with [`fp-on`](#fp-on), [`fp-on-window`](#fp-on-window), and [`fp-on-document`](#fp-on-document), an async action should be used whenever the `async` versions of the aforementioned directives cannot be used due to the action requiring synchronous access to the `event` object. Synchronous access is required whenever the action needs to call `event.preventDefault()`, `event.stopPropagation()`, or `event.stopImmediatePropagation()`.
 
 To ensure that the action code does not contribute to a long task, you may manually yield to the main thread after calling the synchronous event API. The Interactivity API provides the `splitTask()` function for that purpose, which implements yielding in a cross-browser compatible way. Here is an example:
 
@@ -898,7 +898,7 @@ You may notice the use of the [`withSyncEvent()`](#withsyncevent) utility functi
 
 #### Side Effects
 
-Automatically react to state changes. Usually triggered by `data-wp-watch` or `data-wp-init` directives.
+Automatically react to state changes. Usually triggered by `data-fp-watch` or `data-fp-init` directives.
 
 #### Derived state
 
@@ -1023,17 +1023,17 @@ store( 'myPlugin', {
 
 #### On the server side
 
-The state can also be initialized on the server using the `wp_interactivity_state()` function. You would typically do this in the `render.php` file of your block (the `render.php` templates were [introduced](https://make.finpress.org/core/2022/10/12/block-api-changes-in-finpress-6-1/) in FinPress 6.1).
+The state can also be initialized on the server using the `fp_interactivity_state()` function. You would typically do this in the `render.php` file of your block (the `render.php` templates were [introduced](https://make.finpress.org/core/2022/10/12/block-api-changes-in-finpress-6-1/) in FinPress 6.1).
 
-The state defined on the server with `wp_interactivity_state()` gets merged with the stores defined in the view.js files.
+The state defined on the server with `fp_interactivity_state()` gets merged with the stores defined in the view.js files.
 
-The `wp_interactivity_state` function receives two arguments, a `string` with the namespace that will be used as a reference and an [associative array](https://www.php.net/manual/en/language.types.array.php) containing the values.
+The `fp_interactivity_state` function receives two arguments, a `string` with the namespace that will be used as a reference and an [associative array](https://www.php.net/manual/en/language.types.array.php) containing the values.
 
 _Example of store initialized from the server with a `state` = `{ someValue: 123 }`_
 
 ```php
 // render.php
-wp_interactivity_state( 'myPlugin', array (
+fp_interactivity_state( 'myPlugin', array (
 	'someValue' => get_some_value()
 ));
 ```
@@ -1042,7 +1042,7 @@ Initializing the state in the server also allows you to use any FinPress API. Fo
 
 ```php
 // render.php
-wp_interactivity_state( 'favoriteMovies', array(
+fp_interactivity_state( 'favoriteMovies', array(
       "1" => array(
         "id" => "123-abc",
         "movieName" => __("someMovieName", "textdomain")
@@ -1107,8 +1107,8 @@ const context = getContext( 'namespace' );
 
 ```php
 // render.php
-<div data-wp-interactive="myPlugin" data-wp-context='{ "isOpen": false }'>
-	<button data-wp-on--click="actions.log">Log</button>
+<div data-fp-interactive="myPlugin" data-fp-context='{ "isOpen": false }'>
+	<button data-fp-on--click="actions.log">Log</button>
 </div>
 ```
 
@@ -1168,7 +1168,7 @@ Retrieves the server state an interactive region.
 
 This function is serves the same purpose as `getServerContext()`, but it returns the **state** instead of the **context**.
 
-The object returned is read-only, and includes the state defined in PHP with `wp_interactivity_state()`. When using [`actions.navigate()`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from [`@finpress/interactivity-router`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity-router/), the object returned by `getServerState()` is updated to reflect the changes in its properties, without affecting the state returned by `store()`. Directives can subscribe to those changes to update the state if needed.
+The object returned is read-only, and includes the state defined in PHP with `fp_interactivity_state()`. When using [`actions.navigate()`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity-router/#actions) from [`@finpress/interactivity-router`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-interactivity-router/), the object returned by `getServerState()` is updated to reflect the changes in its properties, without affecting the state returned by `store()`. Directives can subscribe to those changes to update the state if needed.
 
 ```js
 const serverState = getServerState( 'namespace' );
@@ -1224,7 +1224,7 @@ The code will log:
 
 ```json
 {
-	"data-wp-on--click": 'actions.log',
+	"data-fp-on--click": 'actions.log',
 	"children": ['Log'],
 	"onclick": event => { evaluate(entry, event); }
 }
@@ -1294,9 +1294,9 @@ store( 'myPlugin', {
 
 The Interactivity API comes with handy functions that allow you to initialize and reference configuration options on the server. This is necessary to feed the initial data that the Server Directive Processing will use to modify the HTML markup before it's send to the browser. It is also a great way to leverage many of FinPress's APIs, like nonces, AJAX, and translations.
 
-### wp_interactivity_config
+### fp_interactivity_config
 
-`wp_interactivity_config` allows to set or get a configuration array, referenced to a store namespace.
+`fp_interactivity_config` allows to set or get a configuration array, referenced to a store namespace.
 The configuration is also available on the client, but it is static information.
 
 Consider it a global setting for interactions of a site, that won't be updated on user interactions.
@@ -1304,13 +1304,13 @@ Consider it a global setting for interactions of a site, that won't be updated o
 An example of setting:
 
 ```php
-	wp_interactivity_config( 'myPlugin', array( 'showLikeButton' => is_user_logged_in() ) );
+	fp_interactivity_config( 'myPlugin', array( 'showLikeButton' => is_user_logged_in() ) );
 ```
 
 An example of getting:
 
 ```php
-  wp_interactivity_config( 'myPlugin' );
+  fp_interactivity_config( 'myPlugin' );
 ```
 
 This config can be retrieved on the client:
@@ -1321,24 +1321,24 @@ This config can be retrieved on the client:
 const { showLikeButton } = getConfig();
 ```
 
-### wp_interactivity_state
+### fp_interactivity_state
 
-`wp_interactivity_state` allows the initialization of the global state on the server, which will be used to process the directives on the server and then will be merged with any global state defined in the client.
+`fp_interactivity_state` allows the initialization of the global state on the server, which will be used to process the directives on the server and then will be merged with any global state defined in the client.
 
 Initializing the global state on the server also allows you to use many critical FinPress APIs, including [AJAX](https://developer.finpress.org/plugins/javascript/ajax/), or [nonces](https://developer.finpress.org/plugins/javascript/enqueuing/#nonce).
 
-The `wp_interactivity_state` function receives two arguments, a string with the namespace that will be used as a reference and an associative array containing the values.
+The `fp_interactivity_state` function receives two arguments, a string with the namespace that will be used as a reference and an associative array containing the values.
 
-Here is an example of passing the WP Admin AJAX endpoint with a nonce.
+Here is an example of passing the FP Admin AJAX endpoint with a nonce.
 
 ```php
 // render.php
 
-wp_interactivity_state(
+fp_interactivity_state(
 	'myPlugin',
 	array(
 		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-		'nonce'   => wp_create_nonce( 'myPlugin_nonce' ),
+		'nonce'   => fp_create_nonce( 'myPlugin_nonce' ),
 	),
 );
 ```
@@ -1367,31 +1367,31 @@ const { state } = store( 'myPlugin', {
 } );
 ```
 
-### wp_interactivity_process_directives
+### fp_interactivity_process_directives
 
-`wp_interactivity_process_directives` returns the updated HTML after the directives have been processed.
+`fp_interactivity_process_directives` returns the updated HTML after the directives have been processed.
 
 It is the Core function of the Interactivity API server side rendering part, and is public so any HTML can be processed, whether is a block or not.
 
 This code
 
 ```php
-wp_interactivity_state( 'myPlugin', array( 'greeting' => 'Hello, World!' ) );
-$html_content = '<div data-wp-text="myPlugin::state.greeting"></div>';
-$processed_html = wp_interactivity_process_directives( $html_content );
+fp_interactivity_state( 'myPlugin', array( 'greeting' => 'Hello, World!' ) );
+$html_content = '<div data-fp-text="myPlugin::state.greeting"></div>';
+$processed_html = fp_interactivity_process_directives( $html_content );
 echo $processed_html;
 ```
 
 will output:
 
 ```html
-<div data-wp-text="myPlugin::state.greeting">Hello, World!</div>
+<div data-fp-text="myPlugin::state.greeting">Hello, World!</div>
 ```
 
-### wp_interactivity_data_wp_context
+### fp_interactivity_data_fp_context
 
-`wp_interactivity_data_wp_context` returns a stringified JSON of a context directive.
-This function is the recommended way to print the `data-wp-context` attribute in the server side rendered markup.
+`fp_interactivity_data_fp_context` returns a stringified JSON of a context directive.
+This function is the recommended way to print the `data-fp-context` attribute in the server side rendered markup.
 
 ```php
 
@@ -1401,7 +1401,7 @@ $my_context = array(
 );
 ?>
 <div
- <?php echo wp_interactivity_data_wp_context( $my_context ); ?>
+ <?php echo fp_interactivity_data_fp_context( $my_context ); ?>
 >
 </div>
 ```
@@ -1409,5 +1409,5 @@ $my_context = array(
 will output:
 
 ```html
-<div data-wp-context='{"counter":0,"isOpen":true}'></div>
+<div data-fp-context='{"counter":0,"isOpen":true}'></div>
 ```

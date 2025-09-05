@@ -56,7 +56,7 @@ function render_block_core_calendar( $attributes ) {
 	$color_block_styles['background'] = $preset_background_color ? $preset_background_color : $custom_background_color;
 
 	// Generate color styles and classes.
-	$styles        = wp_style_engine_get_styles( array( 'color' => $color_block_styles ), array( 'convert_vars_to_classnames' => true ) );
+	$styles        = fp_style_engine_get_styles( array( 'color' => $color_block_styles ), array( 'convert_vars_to_classnames' => true ) );
 	$inline_styles = empty( $styles['css'] ) ? '' : sprintf( ' style="%s"', esc_attr( $styles['css'] ) );
 	$classnames    = empty( $styles['classnames'] ) ? '' : ' ' . esc_attr( $styles['classnames'] );
 	if ( isset( $attributes['style']['elements']['link']['color']['text'] ) ) {
@@ -64,7 +64,7 @@ function render_block_core_calendar( $attributes ) {
 	}
 	// Apply color classes and styles to the calendar.
 	$calendar = str_replace( '<table', '<table' . $inline_styles, get_calendar( true, false ) );
-	$calendar = str_replace( 'class="wp-calendar-table', 'class="wp-calendar-table' . $classnames, $calendar );
+	$calendar = str_replace( 'class="fp-calendar-table', 'class="fp-calendar-table' . $classnames, $calendar );
 
 	$wrapper_attributes = get_block_wrapper_attributes();
 	$output             = sprintf(
@@ -113,7 +113,7 @@ function block_core_calendar_has_published_posts() {
 	}
 
 	// On single sites we try our own cached option first.
-	$has_published_posts = get_option( 'wp_calendar_block_has_published_posts', null );
+	$has_published_posts = get_option( 'fp_calendar_block_has_published_posts', null );
 	if ( null !== $has_published_posts ) {
 		return (bool) $has_published_posts;
 	}
@@ -128,14 +128,14 @@ function block_core_calendar_has_published_posts() {
  *
  * @since 5.9.0
  *
- * @global wpdb $wpdb FinPress database abstraction object.
+ * @global fpdb $fpdb FinPress database abstraction object.
  *
  * @return bool Has any published posts or not.
  */
 function block_core_calendar_update_has_published_posts() {
-	global $wpdb;
-	$has_published_posts = (bool) $wpdb->get_var( "SELECT 1 as test FROM {$wpdb->posts} WHERE post_type = 'post' AND post_status = 'publish' LIMIT 1" );
-	update_option( 'wp_calendar_block_has_published_posts', $has_published_posts );
+	global $fpdb;
+	$has_published_posts = (bool) $fpdb->get_var( "SELECT 1 as test FROM {$fpdb->posts} WHERE post_type = 'post' AND post_status = 'publish' LIMIT 1" );
+	update_option( 'fp_calendar_block_has_published_posts', $has_published_posts );
 	return $has_published_posts;
 }
 
@@ -166,7 +166,7 @@ if ( ! is_multisite() ) {
 	 *
 	 * @param string  $new_status The status the post is changing to.
 	 * @param string  $old_status The status the post is changing from.
-	 * @param WP_Post $post       Post object.
+	 * @param FP_Post $post       Post object.
 	 */
 	function block_core_calendar_update_has_published_post_on_transition_post_status( $new_status, $old_status, $post ) {
 		if ( $new_status === $old_status ) {

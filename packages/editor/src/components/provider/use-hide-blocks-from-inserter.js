@@ -8,9 +8,9 @@ import { addFilter, removeFilter } from '@finpress/hooks';
 // We should be allowed to use
 // the post content and template parts blocks within them.
 const POST_TYPES_ALLOWING_POST_CONTENT_TEMPLATE_PART = [
-	'wp_block',
-	'wp_template',
-	'wp_template_part',
+	'fp_block',
+	'fp_template',
+	'fp_template_part',
 ];
 
 /**

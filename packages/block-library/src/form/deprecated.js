@@ -84,7 +84,7 @@ const v1 = {
 		return (
 			<form
 				{ ...blockProps }
-				className="wp-block-form"
+				className="fp-block-form"
 				encType={ submissionMethod === 'email' ? 'text/plain' : null }
 			>
 				<InnerBlocks.Content />

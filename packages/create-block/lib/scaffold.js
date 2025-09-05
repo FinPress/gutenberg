@@ -9,8 +9,8 @@ const { join } = require( 'path' );
  */
 const initBlock = require( './init-block' );
 const initPackageJSON = require( './init-package-json' );
-const initWPScripts = require( './init-wp-scripts' );
-const initWPEnv = require( './init-wp-env' );
+const initFPScripts = require( './init-fp-scripts' );
+const initFPEnv = require( './init-fp-env' );
 const { code, info, success, error } = require( './log' );
 const { writeOutputAsset, writeOutputTemplate } = require( './output' );
 const { getOutputTemplates, getOutputAssets } = require( './templates' );
@@ -40,8 +40,8 @@ module.exports = async (
 		requiresAtLeast,
 		requiresPHP,
 		testedUpTo,
-		wpScripts,
-		wpEnv,
+		fpScripts,
+		fpEnv,
 		npmDependencies,
 		npmDevDependencies,
 		customScripts,
@@ -88,8 +88,8 @@ module.exports = async (
 		requiresAtLeast,
 		requiresPHP,
 		testedUpTo,
-		wpScripts,
-		wpEnv,
+		fpScripts,
+		fpEnv,
 		npmDependencies,
 		npmDevDependencies,
 		customScripts,
@@ -189,12 +189,12 @@ module.exports = async (
 
 	if ( plugin ) {
 		await initPackageJSON( view );
-		if ( wpScripts ) {
-			await initWPScripts( view );
+		if ( fpScripts ) {
+			await initFPScripts( view );
 		}
 
-		if ( wpEnv ) {
-			await initWPEnv( view );
+		if ( fpEnv ) {
+			await initFPEnv( view );
 		}
 	}
 
@@ -204,7 +204,7 @@ module.exports = async (
 		`Done: FinPress ${ projectType } ${ title } bootstrapped in the ${ rootDirectory } directory.`
 	);
 
-	if ( plugin && wpScripts ) {
+	if ( plugin && fpScripts ) {
 		info( '' );
 		info( 'You can run several commands inside:' );
 		info( '' );
@@ -233,17 +233,17 @@ module.exports = async (
 		info( '' );
 		code( `  $ cd ${ slug }` );
 	}
-	if ( plugin && wpScripts ) {
+	if ( plugin && fpScripts ) {
 		info( '' );
 		info( 'You can start development with:' );
 		info( '' );
 		code( '  $ npm start' );
 	}
-	if ( plugin && wpEnv ) {
+	if ( plugin && fpEnv ) {
 		info( '' );
 		info( 'You can start FinPress with:' );
 		info( '' );
-		code( '  $ npx wp-env start' );
+		code( '  $ npx fp-env start' );
 	}
 	info( '' );
 	info( 'Code is Poetry' );

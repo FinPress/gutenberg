@@ -18,7 +18,7 @@ function gutenberg_redirect_demo() {
 	global $pagenow;
 
 	if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && 'gutenberg' === $_GET['page'] ) {
-		wp_safe_redirect( admin_url( 'post-new.php?gutenberg-demo' ) );
+		fp_safe_redirect( admin_url( 'post-new.php?gutenberg-demo' ) );
 		exit;
 	}
 }

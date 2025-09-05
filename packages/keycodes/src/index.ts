@@ -24,13 +24,13 @@ import { isAppleOS } from './platform';
  */
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 
-export type WPModifierPart =
+export type FPModifierPart =
 	| typeof ALT
 	| typeof CTRL
 	| typeof COMMAND
 	| typeof SHIFT;
 
-export type WPKeycodeModifier =
+export type FPKeycodeModifier =
 	| 'primary'
 	| 'primaryShift'
 	| 'primaryAlt'
@@ -47,20 +47,20 @@ export type WPKeycodeModifier =
  * An object of handler functions for each of the possible modifier
  * combinations. A handler will return a value for a given key.
  */
-export type WPModifierHandler< T > = Record< WPKeycodeModifier, T >;
+export type FPModifierHandler< T > = Record< FPKeycodeModifier, T >;
 
-export type WPKeyHandler< T > = (
+export type FPKeyHandler< T > = (
 	character: string,
 	isApple?: () => boolean
 ) => T;
 
-export type WPEventKeyHandler = (
+export type FPEventKeyHandler = (
 	event: ReactKeyboardEvent< HTMLElement > | KeyboardEvent,
 	character: string,
 	isApple?: () => boolean
 ) => boolean;
 
-export type WPModifier = ( isApple: () => boolean ) => WPModifierPart[];
+export type FPModifier = ( isApple: () => boolean ) => FPModifierPart[];
 
 /**
  * Keycode for BACKSPACE key.
@@ -201,7 +201,7 @@ function mapValues< T extends Record< string, any >, R >(
  * Object that contains functions that return the available modifier
  * depending on platform.
  */
-export const modifiers: WPModifierHandler< WPModifier > = {
+export const modifiers: FPModifierHandler< FPModifier > = {
 	primary: ( _isApple ) => ( _isApple() ? [ COMMAND ] : [ CTRL ] ),
 	primaryShift: ( _isApple ) =>
 		_isApple() ? [ SHIFT, COMMAND ] : [ CTRL, SHIFT ],
@@ -230,9 +230,9 @@ export const modifiers: WPModifierHandler< WPModifier > = {
  * // "meta+m""
  * ```
  */
-export const rawShortcut: WPModifierHandler< WPKeyHandler< string > > =
+export const rawShortcut: FPModifierHandler< FPKeyHandler< string > > =
 	/* @__PURE__ */
-	mapValues( modifiers, ( modifier: WPModifier ) => {
+	mapValues( modifiers, ( modifier: FPModifier ) => {
 		return ( character: string, _isApple = isAppleOS ) => {
 			return [ ...modifier( _isApple ), character.toLowerCase() ].join(
 				'+'
@@ -252,13 +252,13 @@ export const rawShortcut: WPModifierHandler< WPKeyHandler< string > > =
  *
  * Keyed map of functions to shortcut sequences.
  */
-export const displayShortcutList: WPModifierHandler<
-	WPKeyHandler< string[] >
+export const displayShortcutList: FPModifierHandler<
+	FPKeyHandler< string[] >
 > =
 	/* @__PURE__ */
 	mapValues(
 		modifiers,
-		( modifier: WPModifier ): WPKeyHandler< string[] > => {
+		( modifier: FPModifier ): FPKeyHandler< string[] > => {
 			return ( character: string, _isApple = isAppleOS ) => {
 				const isApple = _isApple();
 				const replacementKeyMap = {
@@ -301,11 +301,11 @@ export const displayShortcutList: WPModifierHandler<
  *
  * Keyed map of functions to display shortcuts.
  */
-export const displayShortcut: WPModifierHandler< WPKeyHandler< string > > =
+export const displayShortcut: FPModifierHandler< FPKeyHandler< string > > =
 	/* @__PURE__ */
 	mapValues(
 		displayShortcutList,
-		( shortcutList: WPKeyHandler< string[] > ): WPKeyHandler< string > => {
+		( shortcutList: FPKeyHandler< string[] > ): FPKeyHandler< string > => {
 			return ( character: string, _isApple = isAppleOS ) =>
 				shortcutList( character, _isApple ).join( '' );
 		}
@@ -324,9 +324,9 @@ export const displayShortcut: WPModifierHandler< WPKeyHandler< string > > =
  *
  * Keyed map of functions to shortcut ARIA labels.
  */
-export const shortcutAriaLabel: WPModifierHandler< WPKeyHandler< string > > =
+export const shortcutAriaLabel: FPModifierHandler< FPKeyHandler< string > > =
 	/* @__PURE__ */
-	mapValues( modifiers, ( modifier: WPModifier ): WPKeyHandler< string > => {
+	mapValues( modifiers, ( modifier: FPModifier ): FPKeyHandler< string > => {
 		return ( character: string, _isApple = isAppleOS ) => {
 			const isApple = _isApple();
 			const replacementKeyMap: Record< string, string > = {
@@ -362,7 +362,7 @@ export const shortcutAriaLabel: WPModifierHandler< WPKeyHandler< string > > =
  */
 function getEventModifiers(
 	event: ReactKeyboardEvent< HTMLElement > | KeyboardEvent
-): WPModifierPart[] {
+): FPModifierPart[] {
 	return ( [ ALT, CTRL, COMMAND, SHIFT ] as const ).filter(
 		( key ) =>
 			( event as KeyboardEvent )[
@@ -384,9 +384,9 @@ function getEventModifiers(
  *
  * Keyed map of functions to match events.
  */
-export const isKeyboardEvent: WPModifierHandler< WPEventKeyHandler > =
+export const isKeyboardEvent: FPModifierHandler< FPEventKeyHandler > =
 	/* @__PURE__ */
-	mapValues( modifiers, ( getModifiers: WPModifier ): WPEventKeyHandler => {
+	mapValues( modifiers, ( getModifiers: FPModifier ): FPEventKeyHandler => {
 		return ( event, character, _isApple = isAppleOS ) => {
 			const mods = getModifiers( _isApple );
 			const eventMods = getEventModifiers( event );
@@ -413,7 +413,7 @@ export const isKeyboardEvent: WPModifierHandler< WPEventKeyHandler > =
 			let key = event.key.toLowerCase();
 
 			if ( ! character ) {
-				return mods.includes( key as WPModifierPart );
+				return mods.includes( key as FPModifierPart );
 			}
 
 			if ( event.altKey && character.length === 1 ) {

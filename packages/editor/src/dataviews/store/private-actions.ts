@@ -138,25 +138,25 @@ export const registerPostTypeSchema =
 				: undefined,
 			// @ts-ignore
 			globalThis.IS_GUTENBERG_PLUGIN
-				? ! [ 'wp_template', 'wp_block', 'wp_template_part' ].includes(
+				? ! [ 'fp_template', 'fp_block', 'fp_template_part' ].includes(
 						postTypeConfig.slug
 				  ) &&
 				  canCreate &&
 				  duplicatePost
 				: undefined,
-			postTypeConfig.slug === 'wp_template_part' &&
+			postTypeConfig.slug === 'fp_template_part' &&
 			canCreate &&
 			currentTheme?.is_block_theme
 				? duplicateTemplatePart
 				: undefined,
-			canCreate && postTypeConfig.slug === 'wp_block'
+			canCreate && postTypeConfig.slug === 'fp_block'
 				? duplicatePattern
 				: undefined,
 			postTypeConfig.supports?.title ? renamePost : undefined,
 			postTypeConfig.supports?.[ 'page-attributes' ]
 				? reorderPage
 				: undefined,
-			postTypeConfig.slug === 'wp_block' ? exportPattern : undefined,
+			postTypeConfig.slug === 'fp_block' ? exportPattern : undefined,
 			restorePost,
 			resetPost,
 			deletePost,
@@ -184,9 +184,9 @@ export const registerPostTypeSchema =
 			let _titleField;
 			if ( postType === 'page' ) {
 				_titleField = pageTitleField;
-			} else if ( postType === 'wp_template' ) {
+			} else if ( postType === 'fp_template' ) {
 				_titleField = templateTitleField;
-			} else if ( postType === 'wp_block' ) {
+			} else if ( postType === 'fp_block' ) {
 				_titleField = patternTitleField;
 			} else {
 				_titleField = titleField;

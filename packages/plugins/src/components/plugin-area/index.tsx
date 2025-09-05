@@ -17,7 +17,7 @@ import { PluginContextProvider } from '../plugin-context';
 import { PluginErrorBoundary } from '../plugin-error-boundary';
 import { getPlugins } from '../../api';
 import type { PluginContext } from '../plugin-context';
-import type { WPPlugin } from '../../api';
+import type { FPPlugin } from '../../api';
 
 const getPluginContext = memoize(
 	( icon: PluginContext[ 'icon' ], name: PluginContext[ 'name' ] ) => ( {
@@ -36,7 +36,7 @@ const getPluginContext = memoize(
  * ```js
  * // Using ES5 syntax
  * var el = React.createElement;
- * var PluginArea = wp.plugins.PluginArea;
+ * var PluginArea = fp.plugins.PluginArea;
  *
  * function Layout() {
  * 	return el(
@@ -68,16 +68,16 @@ function PluginArea( {
 	onError,
 }: {
 	scope?: string;
-	onError?: ( name: WPPlugin[ 'name' ], error: Error ) => void;
+	onError?: ( name: FPPlugin[ 'name' ], error: Error ) => void;
 } ) {
 	const store = useMemo( () => {
-		let lastValue: WPPlugin[] = [];
+		let lastValue: FPPlugin[] = [];
 
 		return {
 			subscribe(
 				listener: (
-					plugin: Omit< WPPlugin, 'name' >,
-					name: WPPlugin[ 'name' ]
+					plugin: Omit< FPPlugin, 'name' >,
+					name: FPPlugin[ 'name' ]
 				) => void
 			) {
 				addAction(

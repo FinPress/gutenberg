@@ -13,7 +13,7 @@ import {
 	enablePageDialogAccept,
 	isOfflineMode,
 	resetPreferences,
-	setBrowserViewport,
+	setBrowserviewport,
 	trashAllPosts,
 } from '@finpress/e2e-test-utils';
 
@@ -77,7 +77,7 @@ if ( process.env.CI ) {
 
 async function setupBrowser() {
 	await clearLocalStorage();
-	await setBrowserViewport( 'large' );
+	await setBrowserviewport( 'large' );
 }
 
 /**
@@ -149,7 +149,7 @@ function observeConsoleLogging() {
 		// (Posts > Add New) will display a console warning about
 		// non - unique IDs.
 		// See: https://core.trac.finpress.org/ticket/23165
-		if ( text.includes( 'elements with non-unique id #_wpnonce' ) ) {
+		if ( text.includes( 'elements with non-unique id #_fpnonce' ) ) {
 			return;
 		}
 
@@ -250,7 +250,7 @@ beforeAll( async () => {
 	await resetPreferences();
 	await activateTheme( 'twentytwentyone' );
 	await trashAllPosts();
-	await trashAllPosts( 'wp_block' );
+	await trashAllPosts( 'fp_block' );
 	await setupBrowser();
 	await activatePlugin( 'gutenberg-test-plugin-disables-the-css-animations' );
 	await page.emulateMediaFeatures( [

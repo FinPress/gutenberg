@@ -27,8 +27,8 @@ test.describe( 'Post Editor Template mode', () => {
 
 	test.afterEach( async ( { requestUtils } ) => {
 		await Promise.all( [
-			requestUtils.deleteAllTemplates( 'wp_template' ),
-			requestUtils.deleteAllTemplates( 'wp_template_part' ),
+			requestUtils.deleteAllTemplates( 'fp_template' ),
+			requestUtils.deleteAllTemplates( 'fp_template_part' ),
 		] );
 	} );
 
@@ -211,7 +211,7 @@ class PostEditorTemplateMode {
 
 		// Unselect the blocks.
 		await this.page.evaluate( () => {
-			window.wp.data.dispatch( 'core/block-editor' ).clearSelectedBlock();
+			window.fp.data.dispatch( 'core/block-editor' ).clearSelectedBlock();
 		} );
 
 		// Save the post

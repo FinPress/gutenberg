@@ -121,34 +121,34 @@ const getWebpackArgs = () => {
 	] );
 
 	if ( hasArgInCLI( '--experimental-modules' ) ) {
-		process.env.WP_EXPERIMENTAL_MODULES = true;
+		process.env.FP_EXPERIMENTAL_MODULES = true;
 	}
 
 	if ( hasArgInCLI( '--source-path' ) ) {
-		process.env.WP_SOURCE_PATH = getArgFromCLI( '--source-path' );
+		process.env.FP_SOURCE_PATH = getArgFromCLI( '--source-path' );
 	} else if ( hasArgInCLI( '--webpack-src-dir' ) ) {
 		// Backwards compatibility.
-		process.env.WP_SOURCE_PATH = getArgFromCLI( '--webpack-src-dir' );
+		process.env.FP_SOURCE_PATH = getArgFromCLI( '--webpack-src-dir' );
 	}
 
 	if ( hasArgInCLI( '--webpack-bundle-analyzer' ) ) {
-		process.env.WP_BUNDLE_ANALYZER = true;
+		process.env.FP_BUNDLE_ANALYZER = true;
 	}
 
 	if ( hasArgInCLI( '--webpack-copy-php' ) ) {
-		process.env.WP_COPY_PHP_FILES_TO_DIST = true;
+		process.env.FP_COPY_PHP_FILES_TO_DIST = true;
 	}
 
 	if ( hasArgInCLI( '--webpack--devtool' ) ) {
-		process.env.WP_DEVTOOL = getArgFromCLI( '--webpack--devtool' );
+		process.env.FP_DEVTOOL = getArgFromCLI( '--webpack--devtool' );
 	}
 
 	if ( hasArgInCLI( '--webpack-no-externals' ) ) {
-		process.env.WP_NO_EXTERNALS = true;
+		process.env.FP_NO_EXTERNALS = true;
 	}
 
 	if ( hasArgInCLI( '--blocks-manifest' ) ) {
-		process.env.WP_BLOCKS_MANIFEST = true;
+		process.env.FP_BLOCKS_MANIFEST = true;
 	}
 
 	const hasWebpackOutputOption =
@@ -186,19 +186,19 @@ const getWebpackArgs = () => {
 			} );
 
 			// Converts all CLI arguments that are file paths to the `entry` format supported by webpack.
-			// It is going to be consumed in the config through the WP_ENTRY global variable.
+			// It is going to be consumed in the config through the FP_ENTRY global variable.
 			const entry = {};
 			fileArgs.forEach( ( fileArg ) => {
 				const [ entryName, path ] = fileArg.includes( '=' )
 					? fileArg.split( '=' )
 					: pathToEntry( fileArg );
 				entry[ entryName ] = fromProjectRoot(
-					process.env.WP_SOURCE_PATH
-						? join( process.env.WP_SOURCE_PATH, path )
+					process.env.FP_SOURCE_PATH
+						? join( process.env.FP_SOURCE_PATH, path )
 						: path
 				);
 			} );
-			process.env.WP_ENTRY = JSON.stringify( entry );
+			process.env.FP_ENTRY = JSON.stringify( entry );
 		}
 	}
 
@@ -211,12 +211,12 @@ const getWebpackArgs = () => {
 
 /**
  * Returns the project source path. It defaults to 'src' if the
- * `process.env.WP_SOURCE_PATH` variable is not set.
+ * `process.env.FP_SOURCE_PATH` variable is not set.
  *
  * @return {string} The FinPress source directory.
  */
 function getProjectSourcePath() {
-	return process.env.WP_SOURCE_PATH || 'src';
+	return process.env.FP_SOURCE_PATH || 'src';
 }
 
 /**
@@ -235,10 +235,10 @@ function getWebpackEntryPoints( buildType ) {
 	 */
 	return () => {
 		// 1. Uses the recommended command format that lists entry points as paths to JavaScript files.
-		//    Example: `wp-scripts build one.js two.js`.
-		if ( process.env.WP_ENTRY ) {
+		//    Example: `fp-scripts build one.js two.js`.
+		if ( process.env.FP_ENTRY ) {
 			return buildType === 'script'
-				? JSON.parse( process.env.WP_ENTRY )
+				? JSON.parse( process.env.FP_ENTRY )
 				: {};
 		}
 

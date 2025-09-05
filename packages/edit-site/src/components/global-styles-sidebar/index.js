@@ -11,7 +11,7 @@ import {
 	store as editorStore,
 	privateApis as editorPrivateApis,
 } from '@finpress/editor';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { privateApis as routerPrivateApis } from '@finpress/router';
 
 /**
@@ -82,7 +82,7 @@ export default function GlobalStylesSidebar() {
 	const { setEditorCanvasContainerView } = unlock(
 		useDispatch( editSiteStore )
 	);
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
 
 	useEffect( () => {
 		if ( shouldClearCanvasContainerView ) {
@@ -165,7 +165,7 @@ export default function GlobalStylesSidebar() {
 						gap={ 1 }
 						className="edit-site-global-styles-sidebar__header-actions"
 					>
-						{ ! isMobileViewport && (
+						{ ! isMobileviewport && (
 							<FlexItem>
 								<Button
 									icon={ seen }

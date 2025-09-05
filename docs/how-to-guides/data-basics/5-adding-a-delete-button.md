@@ -30,7 +30,7 @@ function PagesList( { hasResolved, pages } ) {
 	}
 
 	return (
-		<table className="wp-list-table widefat fixed striped table-view-list">
+		<table className="fp-list-table widefat fixed striped table-view-list">
 			<thead>
 				<tr>
 					<td>Title</td>
@@ -68,10 +68,10 @@ Here's how you can try deleting entity records in your browser's dev tools:
 
 ```js
 // We need a valid page ID to call deleteEntityRecord, so let's get the first available one using getEntityRecords.
-const pageId = wp.data.select( 'core' ).getEntityRecords( 'postType', 'page' )[0].id;
+const pageId = fp.data.select( 'core' ).getEntityRecords( 'postType', 'page' )[0].id;
 
 // Now let's delete that page:
-const promise = wp.data.dispatch( 'core' ).deleteEntityRecord( 'postType', 'page', pageId );
+const promise = fp.data.dispatch( 'core' ).deleteEntityRecord( 'postType', 'page', pageId );
 
 // promise gets resolved or rejected when the API request succeeds or fails.
 ```
@@ -136,7 +136,7 @@ To tell the user when any of these errors happen, we need to extract the error i
 
 ```js
 // Replace 9 with an actual page ID
-wp.data.select( 'core' ).getLastEntityDeleteError( 'postType', 'page', 9 )
+fp.data.select( 'core' ).getLastEntityDeleteError( 'postType', 'page', 9 )
 ```
 
 Here's how we can apply it in `DeletePageButton`:
@@ -165,7 +165,7 @@ const DeletePageButton = ({ pageId }) => {
 The `error` object comes from the `@finpress/api-fetch` and contains information about the error. It has the following properties:
 
 * `message` – a human-readable error message such as `Invalid post ID`.
-* `code` – a string-based error code such as `rest_post_invalid_id`. To learn about all possible error codes you'd need to refer to the [`/v2/pages` endpoint's source code](https://github.com/FinPress/finpress-develop/blob/2648a5f984b8abf06872151898e3a61d3458a628/src/wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php#L226-L230).
+* `code` – a string-based error code such as `rest_post_invalid_id`. To learn about all possible error codes you'd need to refer to the [`/v2/pages` endpoint's source code](https://github.com/FinPress/finpress-develop/blob/2648a5f984b8abf06872151898e3a61d3458a628/src/fp-includes/rest-api/endpoints/class-fp-rest-revisions-controller.php#L226-L230).
 * `data` (optional) – error details, contains the `code` property containing the HTTP response code for the failed request.
 
 There are many ways to turn that object into an error message, but in this tutorial, we will display the `error.message`.
@@ -187,7 +187,7 @@ FinPress conveniently provides us with all the React components we need to rende
 
 ![](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/delete-button/snackbar.png)
 
-We won't use `Snackbar` directly, though. We'll use the `SnackbarList` component, which can display multiple notices using smooth animations and automatically hide them after a few seconds. In fact, FinPress uses the same component used in the Widgets editor and other wp-admin pages!
+We won't use `Snackbar` directly, though. We'll use the `SnackbarList` component, which can display multiple notices using smooth animations and automatically hide them after a few seconds. In fact, FinPress uses the same component used in the Widgets editor and other fp-admin pages!
 
 Let's create our own `Notifications` components:
 
@@ -370,7 +370,7 @@ function PagesList( { hasResolved, pages } ) {
 	}
 
 	return (
-		<table className="wp-list-table widefat fixed striped table-view-list">
+		<table className="fp-list-table widefat fixed striped table-view-list">
 			<thead>
 				<tr>
 					<td>Title</td>

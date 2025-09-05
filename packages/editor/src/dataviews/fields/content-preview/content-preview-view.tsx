@@ -69,7 +69,7 @@ export default function PostPreviewView( { item }: { item: BasePost } ) {
 				unlock( select( coreStore ) );
 			const canViewTemplate = canUser( 'read', {
 				kind: 'postType',
-				name: 'wp_template',
+				name: 'fp_template',
 			} );
 			const _settings = select( editorStore ).getEditorSettings();
 			// @ts-ignore
@@ -83,7 +83,7 @@ export default function PostPreviewView( { item }: { item: BasePost } ) {
 			return {
 				settings: _settings,
 				template: templateId
-					? getEntityRecord( 'postType', 'wp_template', templateId )
+					? getEntityRecord( 'postType', 'fp_template', templateId )
 					: undefined,
 			};
 		},

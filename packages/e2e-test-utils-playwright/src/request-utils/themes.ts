@@ -2,9 +2,9 @@
  * Internal dependencies
  */
 import type { RequestUtils } from './index';
-import { WP_BASE_URL } from '../config';
+import { FP_BASE_URL } from '../config';
 
-const THEMES_URL = new URL( 'wp-admin/themes.php', WP_BASE_URL ).href;
+const THEMES_URL = new URL( 'fp-admin/themes.php', FP_BASE_URL ).href;
 
 async function activateTheme(
 	this: RequestUtils,
@@ -20,7 +20,7 @@ async function activateTheme(
 	let matchGroup = html.match(
 		`action=activate&amp;stylesheet=${ encodeURIComponent(
 			themeSlug
-		) }&amp;_wpnonce=[a-z0-9]+`
+		) }&amp;_fpnonce=[a-z0-9]+`
 	);
 
 	// If the theme is not found, try to match the theme slug with a folder.
@@ -28,7 +28,7 @@ async function activateTheme(
 		matchGroup = html.match(
 			`action=activate&amp;stylesheet=${ optionalFolder }${ encodeURIComponent(
 				themeSlug
-			) }&amp;_wpnonce=[a-z0-9]+`
+			) }&amp;_fpnonce=[a-z0-9]+`
 		);
 	}
 
@@ -55,10 +55,10 @@ async function getCurrentThemeGlobalStylesPostId( this: RequestUtils ) {
 	type ThemeItem = {
 		stylesheet: string;
 		status: string;
-		_links: { 'wp:user-global-styles': { href: string }[] };
+		_links: { 'fp:user-global-styles': { href: string }[] };
 	};
 	const themes = await this.rest< ThemeItem[] >( {
-		path: '/wp/v2/themes',
+		path: '/fp/v2/themes',
 	} );
 	let themeGlobalStylesId: string = '';
 	if ( themes && themes.length ) {
@@ -67,10 +67,10 @@ async function getCurrentThemeGlobalStylesPostId( this: RequestUtils ) {
 		);
 
 		const globalStylesURL =
-			currentTheme?._links?.[ 'wp:user-global-styles' ]?.[ 0 ]?.href;
+			currentTheme?._links?.[ 'fp:user-global-styles' ]?.[ 0 ]?.href;
 		if ( globalStylesURL ) {
 			themeGlobalStylesId = globalStylesURL?.split(
-				'rest_route=/wp/v2/global-styles/'
+				'rest_route=/fp/v2/global-styles/'
 			)[ 1 ];
 		}
 	}
@@ -89,7 +89,7 @@ async function getThemeGlobalStylesRevisions(
 ) {
 	// Lists all global styles revisions.
 	return await this.rest< Record< string, Object >[] >( {
-		path: `/wp/v2/global-styles/${ parentId }/revisions`,
+		path: `/fp/v2/global-styles/${ parentId }/revisions`,
 		params: {
 			per_page: 100,
 		},

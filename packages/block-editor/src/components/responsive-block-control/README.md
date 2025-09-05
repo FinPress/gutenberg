@@ -155,7 +155,7 @@ const renderResponsiveControls = ( viewports ) => {
 		return (
 			<Fragment key={ `${ inputId }-${ id }` }>
 				<label htmlFor={ `${ inputId }-${ id }` }>
-					Custom Viewport { label }
+					Custom viewport { label }
 				</label>
 				<input
 					id={ `${ inputId }-${ id }` }

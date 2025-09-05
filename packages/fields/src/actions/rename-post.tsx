@@ -43,8 +43,8 @@ const renamePost: Action< PostWithPermissions > = {
 		// Templates, template parts and patterns have special checks for renaming.
 		if (
 			! [
-				'wp_template',
-				'wp_template_part',
+				'fp_template',
+				'fp_template_part',
 				...Object.values( PATTERN_TYPES ),
 			].includes( post.type )
 		) {

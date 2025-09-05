@@ -19,7 +19,7 @@ addFilter(
 );
 ```
 
-You can check how this component is implemented for the edit post page using `wp.media` module in [edit-post](https://github.com/FinPress/gutenberg/blob/HEAD/packages/media-utils/src/components/media-upload/index.js).
+You can check how this component is implemented for the edit post page using `fp.media` module in [edit-post](https://github.com/FinPress/gutenberg/blob/HEAD/packages/media-utils/src/components/media-upload/index.js).
 
 ## Usage
 

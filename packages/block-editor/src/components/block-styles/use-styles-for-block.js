@@ -18,9 +18,9 @@ import { store as blockEditorStore } from '../../store';
 
 /**
  *
- * @param {WPBlock}     block Block object.
- * @param {WPBlockType} type  Block type settings.
- * @return {WPBlock}          A generic block ready for styles preview.
+ * @param {FPBlock}     block Block object.
+ * @param {FPBlockType} type  Block type settings.
+ * @return {FPBlock}          A generic block ready for styles preview.
  */
 function useGenericPreviewBlock( block, type ) {
 	return useMemo( () => {

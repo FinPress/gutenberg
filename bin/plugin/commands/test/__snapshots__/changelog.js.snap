@@ -29,7 +29,7 @@ exports[`getChangelog verify that the changelog is properly formatted 1`] = `
 - Login/out: Add spacing support. ([45147](https://github.com/FinPress/gutenberg/pull/45147))
 - Query view.js: Code quality. ([54982](https://github.com/FinPress/gutenberg/pull/54982))
 - Set custom color when applying initial background image. ([54054](https://github.com/FinPress/gutenberg/pull/54054))
-- Use \`wp_get_inline_script_tag()\` in \`build_dropdown_script_block_core_categories()\`. ([54637](https://github.com/FinPress/gutenberg/pull/54637))
+- Use \`fp_get_inline_script_tag()\` in \`build_dropdown_script_block_core_categories()\`. ([54637](https://github.com/FinPress/gutenberg/pull/54637))
 
 #### Block Editor
 - Default suggested links to pages. ([54622](https://github.com/FinPress/gutenberg/pull/54622))
@@ -156,7 +156,7 @@ exports[`getChangelog verify that the changelog is properly formatted 1`] = `
 
 - Add a documentation page about the block editor settings. ([54870](https://github.com/FinPress/gutenberg/pull/54870))
 - Add a page about the format library to the platform documentation site. ([55037](https://github.com/FinPress/gutenberg/pull/55037))
-- Docs: Add a callout to the \`wp-now\` documentation to mention it's still experimental. ([55044](https://github.com/FinPress/gutenberg/pull/55044))
+- Docs: Add a callout to the \`fp-now\` documentation to mention it's still experimental. ([55044](https://github.com/FinPress/gutenberg/pull/55044))
 - Docs: Remove outdated info. ([54707](https://github.com/FinPress/gutenberg/pull/54707))
 - Docs: Remove the Full Site Editing doc. ([54516](https://github.com/FinPress/gutenberg/pull/54516))
 - Docs: Rename Block Hooks handbook page to Block Filters. ([54862](https://github.com/FinPress/gutenberg/pull/54862))
@@ -164,7 +164,7 @@ exports[`getChangelog verify that the changelog is properly formatted 1`] = `
 - Fix a broken MD link in callout. ([54772](https://github.com/FinPress/gutenberg/pull/54772))
 - Platform Docs: Add a documentation page explaining how to use the block library. ([54967](https://github.com/FinPress/gutenberg/pull/54967))
 - Update the documentation of the block editor and replace @finpress/element with react. ([54908](https://github.com/FinPress/gutenberg/pull/54908))
-- Update versions in WP for 6.4. ([54890](https://github.com/FinPress/gutenberg/pull/54890))
+- Update versions in FP for 6.4. ([54890](https://github.com/FinPress/gutenberg/pull/54890))
 
 
 ### Code Quality
@@ -220,7 +220,7 @@ exports[`getChangelog verify that the changelog is properly formatted 1`] = `
 #### Testing
 - Don’t use TypeScript files in scripts package. ([54856](https://github.com/FinPress/gutenberg/pull/54856))
 - ESLint: Update eslint-plugin-testing-library to v6. ([54910](https://github.com/FinPress/gutenberg/pull/54910))
-- Fix end-to-end test: ”WP Editor Meta Boxes > Should save the changes”. ([51884](https://github.com/FinPress/gutenberg/pull/51884))
+- Fix end-to-end test: ”FP Editor Meta Boxes > Should save the changes”. ([51884](https://github.com/FinPress/gutenberg/pull/51884))
 - Font Library: Avoid deprected error in test. ([54802](https://github.com/FinPress/gutenberg/pull/54802))
 - Make \`editor.getBlocks\` to return only testing-related properties. ([54901](https://github.com/FinPress/gutenberg/pull/54901))
 - Migrate 'Global styles sidebar' test to Playwright. ([55045](https://github.com/FinPress/gutenberg/pull/55045))
@@ -237,7 +237,7 @@ exports[`getChangelog verify that the changelog is properly formatted 1`] = `
 #### Build Tooling
 - Add some @types packages as proper dependencies. ([50231](https://github.com/FinPress/gutenberg/pull/50231))
 - Update the default JSX pragma to React instead of @finpress/element. ([54494](https://github.com/FinPress/gutenberg/pull/54494))
-- Upgrade wp-prettier to v3.0.3 (final). ([54775](https://github.com/FinPress/gutenberg/pull/54775))
+- Upgrade fp-prettier to v3.0.3 (final). ([54775](https://github.com/FinPress/gutenberg/pull/54775))
 
 
 ### Security
@@ -280,7 +280,7 @@ exports[`getContributorList verify that the contributors list is properly format
 
 The following contributors merged PRs in this release:
 
-@aaronrobertshaw @adamsilverstein @alexstine @andrewhayward @andrewserong @annezazu @anton-vlasenko @artemiomorales @aurooba @bangank36 @brookewp @c4rl0sbr4v0 @carolinan @chad1008 @ciampo @dcalhoun @derekblank @draganescu @ellatrix @fluiddot @fullofcaffeine @geriux @getdave @glendaviesnz @gziolo @jameskoster @jeryj @jsnajdr @juhi123 @kevin940726 @leemyongpakvn @madhusudhand @MaggieCabrera @Mamaduka @matiasbenedetto @michalczaplinski @mirka @mtias @mujuonly @ndiego @noahtallen @noisysocks @ntsekouras @oandregal @ockham @pbking @priethor @ramonjd @richtabor @scruffian @SiobhyB @spacedmonkey @stokesman @swissspidy @t-hamano @tellthemachines @tellyworth @them-es @torounit @tyxla @westonruter @WunderBart @youknowriad"
+@aaronrobertshaw @adamsilverstein @alexstine @andrewhayward @andrewserong @annezazu @anton-vlasenko @artemiomorales @aurooba @bangank36 @brookefp @c4rl0sbr4v0 @carolinan @chad1008 @ciampo @dcalhoun @derekblank @draganescu @ellatrix @fluiddot @fullofcaffeine @geriux @getdave @glendaviesnz @gziolo @jameskoster @jeryj @jsnajdr @juhi123 @kevin940726 @leemyongpakvn @madhusudhand @MaggieCabrera @Mamaduka @matiasbenedetto @michalczaplinski @mirka @mtias @mujuonly @ndiego @noahtallen @noisysocks @ntsekouras @oandregal @ockham @pbking @priethor @ramonjd @richtabor @scruffian @SiobhyB @spacedmonkey @stokesman @swissspidy @t-hamano @tellthemachines @tellyworth @them-es @torounit @tyxla @westonruter @WunderBart @youknowriad"
 `;
 
 exports[`getContributorProps verify that the contributors props are properly formatted 1`] = `

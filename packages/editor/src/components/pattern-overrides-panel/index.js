@@ -14,7 +14,7 @@ const { OverridesPanel } = unlock( patternsPrivateApis );
 
 export default function PatternOverridesPanel() {
 	const supportsPatternOverridesPanel = useSelect(
-		( select ) => select( editorStore ).getCurrentPostType() === 'wp_block',
+		( select ) => select( editorStore ).getCurrentPostType() === 'fp_block',
 		[]
 	);
 

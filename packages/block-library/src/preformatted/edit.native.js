@@ -16,12 +16,12 @@ export default function PreformattedEdit( props ) {
 	const { style } = props;
 
 	const textBaseStyle = usePreferredColorSchemeStyle(
-		styles.wpRichTextLight,
-		styles.wpRichTextDark
+		styles.fpRichTextLight,
+		styles.fpRichTextDark
 	);
-	const wpBlockPreformatted = usePreferredColorSchemeStyle(
-		styles.wpBlockPreformattedLight,
-		styles.wpBlockPreformattedDark
+	const fpBlockPreformatted = usePreferredColorSchemeStyle(
+		styles.fpBlockPreformattedLight,
+		styles.fpBlockPreformattedDark
 	);
 	const richTextStyle = {
 		...( ! style?.baseColors && textBaseStyle ),
@@ -29,11 +29,11 @@ export default function PreformattedEdit( props ) {
 		...( style?.color && { color: style.color } ),
 	};
 	const containerStyles = [
-		wpBlockPreformatted,
+		fpBlockPreformatted,
 		style?.backgroundColor && { backgroundColor: style.backgroundColor },
 		style?.baseColors?.color &&
 			! style?.backgroundColor &&
-			styles[ 'wp-block-preformatted__no-background' ],
+			styles[ 'fp-block-preformatted__no-background' ],
 	];
 
 	const propsWithStyle = {

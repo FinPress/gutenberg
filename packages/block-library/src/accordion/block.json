@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/accordion",
 	"title": "Accordion",
@@ -62,5 +62,5 @@
 	},
 	"allowedBlocks": [ "core/accordion-content" ],
 	"textdomain": "default",
-	"style": "wp-block-accordion"
+	"style": "fp-block-accordion"
 }

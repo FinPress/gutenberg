@@ -39,7 +39,7 @@ import deprecated from '@finpress/deprecated';
 /**
  * Default properties associated with a link control value.
  *
- * @typedef WPLinkControlDefaultValue
+ * @typedef FPLinkControlDefaultValue
  *
  * @property {string}   url           Link URL.
  * @property {string=}  title         Link title.
@@ -52,14 +52,14 @@ import deprecated from '@finpress/deprecated';
 /**
  * Custom settings values associated with a link.
  *
- * @typedef {{[setting:string]:any}} WPLinkControlSettingsValue
+ * @typedef {{[setting:string]:any}} FPLinkControlSettingsValue
  */
 /* eslint-enable */
 
 /**
  * Custom settings values associated with a link.
  *
- * @typedef WPLinkControlSetting
+ * @typedef FPLinkControlSetting
  *
  * @property {string} id    Identifier to use as property for setting value.
  * @property {string} title Human-readable label to show in user interface.
@@ -69,15 +69,15 @@ import deprecated from '@finpress/deprecated';
  * Properties associated with a link control value, composed as a union of the
  * default properties and any custom settings values.
  *
- * @typedef {WPLinkControlDefaultValue&WPLinkControlSettingsValue} WPLinkControlValue
+ * @typedef {FPLinkControlDefaultValue&FPLinkControlSettingsValue} FPLinkControlValue
  */
 
-/** @typedef {(nextValue:WPLinkControlValue)=>void} WPLinkControlOnChangeProp */
+/** @typedef {(nextValue:FPLinkControlValue)=>void} FPLinkControlOnChangeProp */
 
 /**
  * Properties associated with a search suggestion used within the LinkControl.
  *
- * @typedef WPLinkControlSuggestion
+ * @typedef FPLinkControlSuggestion
  *
  * @property {string} id    Identifier to use to uniquely identify the suggestion.
  * @property {string} type  Identifies the type of the suggestion (eg: `post`,
@@ -86,24 +86,24 @@ import deprecated from '@finpress/deprecated';
  * @property {string} url   A URL for the suggestion.
  */
 
-/** @typedef {(title:string)=>WPLinkControlSuggestion} WPLinkControlCreateSuggestionProp */
+/** @typedef {(title:string)=>FPLinkControlSuggestion} FPLinkControlCreateSuggestionProp */
 
 /**
- * @typedef WPLinkControlProps
+ * @typedef FPLinkControlProps
  *
- * @property {(WPLinkControlSetting[])=}  settings                   An array of settings objects. Each object will used to
+ * @property {(FPLinkControlSetting[])=}  settings                   An array of settings objects. Each object will used to
  *                                                                   render a `ToggleControl` for that setting.
  * @property {boolean=}                   forceIsEditingLink         If passed as either `true` or `false`, controls the
  *                                                                   internal editing state of the component to respective
  *                                                                   show or not show the URL input field.
- * @property {WPLinkControlValue=}        value                      Current link value.
- * @property {WPLinkControlOnChangeProp=} onChange                   Value change handler, called with the updated value if
+ * @property {FPLinkControlValue=}        value                      Current link value.
+ * @property {FPLinkControlOnChangeProp=} onChange                   Value change handler, called with the updated value if
  *                                                                   the user selects a new link or updates settings.
  * @property {boolean=}                   noDirectEntry              Whether to allow turning a URL-like search query directly into a link.
  * @property {boolean=}                   showSuggestions            Whether to present suggestions when typing the URL.
  * @property {boolean=}                   showInitialSuggestions     Whether to present initial suggestions immediately.
  * @property {boolean=}                   withCreateSuggestion       Whether to allow creation of link value from suggestion.
- * @property {Object=}                    suggestionsQuery           Query parameters to pass along to wp.blockEditor.__experimentalFetchLinkSuggestions.
+ * @property {Object=}                    suggestionsQuery           Query parameters to pass along to fp.blockEditor.__experimentalFetchLinkSuggestions.
  * @property {boolean=}                   noURLSuggestion            Whether to add a fallback suggestion which treats the search query as a URL.
  * @property {boolean=}                   hasTextControl             Whether to add a text field to the UI to update the value.title.
  * @property {string|Function|undefined}  createSuggestionButtonText The text to use in the button that calls createSuggestion.
@@ -120,7 +120,7 @@ const PREFERENCE_KEY = 'linkControlSettingsDrawer';
  * a value associated with a link (HTML anchor element) and relevant settings
  * for how that link is expected to behave.
  *
- * @param {WPLinkControlProps} props Component props.
+ * @param {FPLinkControlProps} props Component props.
  */
 function LinkControl( {
 	searchInputPlaceholder,
@@ -502,9 +502,9 @@ LinkControl.ViewerFill = ViewerFill;
 LinkControl.DEFAULT_LINK_SETTINGS = DEFAULT_LINK_SETTINGS;
 
 const DeprecatedExperimentalLinkControl = ( props ) => {
-	deprecated( 'wp.blockEditor.__experimentalLinkControl', {
+	deprecated( 'fp.blockEditor.__experimentalLinkControl', {
 		since: '6.8',
-		alternative: 'wp.blockEditor.LinkControl',
+		alternative: 'fp.blockEditor.LinkControl',
 	} );
 
 	return <LinkControl { ...props } />;

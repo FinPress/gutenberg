@@ -6,7 +6,7 @@
  * @package Gutenberg
  */
 
-class WP_Block_Supports_Dimensions_Test extends WP_UnitTestCase {
+class FP_Block_Supports_Dimensions_Test extends FP_UnitTestCase {
 	/**
 	 * @var string|null
 	 */
@@ -41,7 +41,7 @@ class WP_Block_Supports_Dimensions_Test extends WP_UnitTestCase {
 				),
 			)
 		);
-		$registry    = WP_Block_Type_Registry::get_instance();
+		$registry    = FP_Block_Type_Registry::get_instance();
 		$block_type  = $registry->get_registered( $this->test_block_name );
 		$block_attrs = array(
 			'style' => array(
@@ -78,7 +78,7 @@ class WP_Block_Supports_Dimensions_Test extends WP_UnitTestCase {
 				),
 			)
 		);
-		$registry    = WP_Block_Type_Registry::get_instance();
+		$registry    = FP_Block_Type_Registry::get_instance();
 		$block_type  = $registry->get_registered( $this->test_block_name );
 		$block_attrs = array(
 			'style' => array(
@@ -113,7 +113,7 @@ class WP_Block_Supports_Dimensions_Test extends WP_UnitTestCase {
 				),
 			)
 		);
-		$registry    = WP_Block_Type_Registry::get_instance();
+		$registry    = FP_Block_Type_Registry::get_instance();
 		$block_type  = $registry->get_registered( $this->test_block_name );
 		$block_attrs = array(
 			'style' => array(

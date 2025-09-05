@@ -85,7 +85,7 @@ test.describe( 'Cover', () => {
 		);
 
 		// The overlay is a separate aria-hidden span before the image.
-		const overlay = coverBlock.locator( '.wp-block-cover__background' );
+		const overlay = coverBlock.locator( '.fp-block-cover__background' );
 
 		await expect( overlay ).toHaveCSS(
 			'background-color',
@@ -221,7 +221,7 @@ test.describe( 'Cover', () => {
 		} );
 
 		// The overlay is a separate aria-hidden span before the image.
-		const overlay = coverBlock.locator( '.wp-block-cover__background' );
+		const overlay = coverBlock.locator( '.fp-block-cover__background' );
 
 		await expect( overlay ).toHaveCSS( 'background-color', 'rgb(0, 0, 0)' );
 		await expect( overlay ).toHaveCSS( 'opacity', '0.5' );
@@ -272,7 +272,7 @@ test.describe( 'Cover', () => {
 			.click();
 
 		// Set the viewport to a small screen and open menu.
-		await page.setViewportSize( { width: 375, height: 1000 } );
+		await page.setviewportSize( { width: 375, height: 1000 } );
 		const navigationBlock = editor.canvas.getByRole( 'document', {
 			name: 'Block: Navigation',
 		} );
@@ -283,7 +283,7 @@ test.describe( 'Cover', () => {
 
 		// Check if inner container of the second cover is clickable.
 		const secondInnerContainer = secondCoverBlock.locator(
-			'.wp-block-cover__inner-container'
+			'.fp-block-cover__inner-container'
 		);
 		let isClickable;
 		try {
@@ -338,7 +338,7 @@ test.describe( 'Cover', () => {
 		] );
 
 		const coverImage = coverBlock.locator(
-			'img.wp-block-cover__image-background'
+			'img.fp-block-cover__image-background'
 		);
 
 		await expect( coverImage ).toHaveCSS( 'object-position', '20% 30%' );

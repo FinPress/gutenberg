@@ -44,7 +44,7 @@ add_filter( 'render_block_data', 'block_core_gallery_data_id_backcompatibility' 
  * @return string The content of the block being rendered.
  */
 function block_core_gallery_render( $attributes, $content ) {
-	// Adds a style tag for the --wp--style--unstable-gallery-gap var.
+	// Adds a style tag for the --fp--style--unstable-gallery-gap var.
 	// The Gallery block needs to recalculate Image block width based on
 	// the current gap setting in order to maintain the number of flex columns
 	// so a css var is added to allow this.
@@ -62,8 +62,8 @@ function block_core_gallery_render( $attributes, $content ) {
 			// Get spacing CSS variable from preset value if provided.
 			if ( is_string( $value ) && str_contains( $value, 'var:preset|spacing|' ) ) {
 				$index_to_splice = strrpos( $value, '|' ) + 1;
-				$slug            = _wp_to_kebab_case( substr( $value, $index_to_splice ) );
-				$value           = "var(--wp--preset--spacing--$slug)";
+				$slug            = _fp_to_kebab_case( substr( $value, $index_to_splice ) );
+				$value           = "var(--fp--preset--spacing--$slug)";
 			}
 
 			$gap[ $key ] = $value;
@@ -76,19 +76,19 @@ function block_core_gallery_render( $attributes, $content ) {
 		// Get spacing CSS variable from preset value if provided.
 		if ( is_string( $gap ) && str_contains( $gap, 'var:preset|spacing|' ) ) {
 			$index_to_splice = strrpos( $gap, '|' ) + 1;
-			$slug            = _wp_to_kebab_case( substr( $gap, $index_to_splice ) );
-			$gap             = "var(--wp--preset--spacing--$slug)";
+			$slug            = _fp_to_kebab_case( substr( $gap, $index_to_splice ) );
+			$gap             = "var(--fp--preset--spacing--$slug)";
 		}
 	}
 
-	$unique_gallery_classname = wp_unique_id( 'wp-block-gallery-' );
-	$processed_content        = new WP_HTML_Tag_Processor( $content );
+	$unique_gallery_classname = fp_unique_id( 'fp-block-gallery-' );
+	$processed_content        = new FP_HTML_Tag_Processor( $content );
 	$processed_content->next_tag();
 	$processed_content->add_class( $unique_gallery_classname );
 
-	// --gallery-block--gutter-size is deprecated. --wp--style--gallery-gap-default should be used by themes that want to set a default
+	// --gallery-block--gutter-size is deprecated. --fp--style--gallery-gap-default should be used by themes that want to set a default
 	// gap on the gallery.
-	$fallback_gap = 'var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) )';
+	$fallback_gap = 'var( --fp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --fp--style--block-gap, 0.5em ) ) )';
 	$gap_value    = $gap ? $gap : $fallback_gap;
 	$gap_column   = $gap_value;
 
@@ -106,22 +106,22 @@ function block_core_gallery_render( $attributes, $content ) {
 	// Set the CSS variable to the column value, and the `gap` property to the combined gap value.
 	$gallery_styles = array(
 		array(
-			'selector'     => ".wp-block-gallery.{$unique_gallery_classname}",
+			'selector'     => ".fp-block-gallery.{$unique_gallery_classname}",
 			'declarations' => array(
-				'--wp--style--unstable-gallery-gap' => $gap_column,
+				'--fp--style--unstable-gallery-gap' => $gap_column,
 				'gap'                               => $gap_value,
 			),
 		),
 	);
 
-	wp_style_engine_get_stylesheet_from_css_rules(
+	fp_style_engine_get_stylesheet_from_css_rules(
 		$gallery_styles,
 		array(
 			'context' => 'block-supports',
 		)
 	);
 
-	// The WP_HTML_Tag_Processor class calls get_updated_html() internally
+	// The FP_HTML_Tag_Processor class calls get_updated_html() internally
 	// when the instance is treated as a string, but here we explicitly
 	// convert it to a string.
 	$updated_content = $processed_content->get_updated_html();
@@ -140,9 +140,9 @@ function block_core_gallery_render( $attributes, $content ) {
 		return $updated_content;
 	}
 
-	// This pattern matches figure elements with the `wp-block-image` class to
+	// This pattern matches figure elements with the `fp-block-image` class to
 	// avoid the gallery's wrapping `figure` element and extract images only.
-	$pattern = '/<figure[^>]*\bwp-block-image\b[^>]*>.*?<\/figure>/s';
+	$pattern = '/<figure[^>]*\bfp-block-image\b[^>]*>.*?<\/figure>/s';
 
 	// Find all Image blocks.
 	preg_match_all( $pattern, $updated_content, $matches );

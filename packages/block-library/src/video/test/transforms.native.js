@@ -11,9 +11,9 @@ import {
 
 const block = 'Video';
 const initialHtml = `
-<!-- wp:video -->
-<figure class="wp-block-video"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video><figcaption class="wp-element-caption">Cloudup video</figcaption></figure>
-<!-- /wp:video -->`;
+<!-- fp:video -->
+<figure class="fp-block-video"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video><figcaption class="fp-element-caption">Cloudup video</figcaption></figure>
+<!-- /fp:video -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const nonMediaTransforms = [ 'File' ];

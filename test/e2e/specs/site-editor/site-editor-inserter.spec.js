@@ -8,8 +8,8 @@ test.describe( 'Site Editor Inserter', () => {
 		// We need the theme to have a section root so zoom out is enabled
 		await Promise.all( [
 			requestUtils.activateTheme( 'twentytwentyfour' ),
-			requestUtils.deleteAllTemplates( 'wp_template' ),
-			requestUtils.deleteAllTemplates( 'wp_template_part' ),
+			requestUtils.deleteAllTemplates( 'fp_template' ),
+			requestUtils.deleteAllTemplates( 'fp_template_part' ),
 		] );
 	} );
 

@@ -51,7 +51,7 @@ npm run native i18n:extract-used-strings -- "$PWD/used-strings.json" "domain-plu
 Once you have the list of used strings in the native platform, the strings have to be translated, however, this process is out of the scope of the native version so you have to provide your own translations.
 
 The process for injecting the translations data into the editor is via the `translations` initial prop which is passed to the editor during its initialization:
-- [Android reference](https://github.com/FinPress/gutenberg/blob/72854b4d6b09bd7fb7f996a5c55dd3cc0613ddf8/packages/react-native-bridge/android/react-native-bridge/src/main/java/org/finpress/mobile/WPAndroidGlue/GutenbergProps.kt#L34)
+- [Android reference](https://github.com/FinPress/gutenberg/blob/72854b4d6b09bd7fb7f996a5c55dd3cc0613ddf8/packages/react-native-bridge/android/react-native-bridge/src/main/java/org/finpress/mobile/FPAndroidGlue/GutenbergProps.kt#L34)
 - [iOS reference](https://github.com/FinPress/gutenberg/blob/72854b4d6b09bd7fb7f996a5c55dd3cc0613ddf8/packages/react-native-bridge/ios/GutenbergBridgeDataSource.swift#L39-L43)
 
 The mechanism for integrating the provided translations to the mobile client, via the mentioned `translations` initial prop, is not described here, as it's specific to the mobile client and could be achieved in different ways. Nevertheless, it's important that they're provided by the mentioned initial prop, as the editor is in charge of merging them with the translations already included in the editor.

@@ -7,7 +7,7 @@ import { visitAdminPage } from './visit-admin-page';
 import { isThemeInstalled } from './theme-installed';
 
 /**
- * Installs a theme from the WP.org repository.
+ * Installs a theme from the FP.org repository.
  *
  * @param {string}  slug                Theme slug.
  * @param {?Object} settings            Optional settings object.

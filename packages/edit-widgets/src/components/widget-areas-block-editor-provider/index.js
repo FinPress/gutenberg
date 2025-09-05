@@ -2,7 +2,7 @@
  * FinPress dependencies
  */
 import { SlotFillProvider } from '@finpress/components';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { uploadMedia } from '@finpress/media-utils';
 import { useDispatch, useSelect } from '@finpress/data';
 import { useEntityBlockEditor, store as coreStore } from '@finpress/core-data';
@@ -33,7 +33,7 @@ export default function WidgetAreasBlockEditorProvider( {
 	children,
 	...props
 } ) {
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 	const {
 		hasUploadPermissions,
 		reusableBlocks,
@@ -57,7 +57,7 @@ export default function WidgetAreasBlockEditorProvider( {
 					name: 'attachment',
 				} ) ?? true,
 			reusableBlocks: ALLOW_REUSABLE_BLOCKS
-				? getEntityRecords( 'postType', 'wp_block' )
+				? getEntityRecords( 'postType', 'fp_block' )
 				: EMPTY_ARRAY,
 			isFixedToolbarActive: !! select( preferencesStore ).get(
 				'core/edit-widgets',
@@ -78,7 +78,7 @@ export default function WidgetAreasBlockEditorProvider( {
 		if ( hasUploadPermissions ) {
 			mediaUploadBlockEditor = ( { onError, ...argumentsObject } ) => {
 				uploadMedia( {
-					wpAllowedMimeTypes: blockEditorSettings.allowedMimeTypes,
+					fpAllowedMimeTypes: blockEditorSettings.allowedMimeTypes,
 					onError: ( { message } ) => onError( message ),
 					...argumentsObject,
 				} );
@@ -87,7 +87,7 @@ export default function WidgetAreasBlockEditorProvider( {
 		return {
 			...blockEditorSettings,
 			__experimentalReusableBlocks: reusableBlocks,
-			hasFixedToolbar: isFixedToolbarActive || ! isLargeViewport,
+			hasFixedToolbar: isFixedToolbarActive || ! isLargeviewport,
 			keepCaretInsideBlock,
 			mediaUpload: mediaUploadBlockEditor,
 			templateLock: 'all',
@@ -100,7 +100,7 @@ export default function WidgetAreasBlockEditorProvider( {
 		hasUploadPermissions,
 		blockEditorSettings,
 		isFixedToolbarActive,
-		isLargeViewport,
+		isLargeviewport,
 		keepCaretInsideBlock,
 		reusableBlocks,
 		setIsInserterOpened,

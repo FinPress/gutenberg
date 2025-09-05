@@ -11,7 +11,7 @@ function ManagePatternsMenuItem() {
 	const url = useSelect( ( select ) => {
 		const { canUser } = select( coreStore );
 		const defaultUrl = addQueryArgs( 'edit.php', {
-			post_type: 'wp_block',
+			post_type: 'fp_block',
 		} );
 		const patternsUrl = addQueryArgs( 'site-editor.php', {
 			p: '/pattern',
@@ -22,7 +22,7 @@ function ManagePatternsMenuItem() {
 		// display the manage patterns link if the user can't access it.
 		return canUser( 'create', {
 			kind: 'postType',
-			name: 'wp_template',
+			name: 'fp_template',
 		} )
 			? patternsUrl
 			: defaultUrl;

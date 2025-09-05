@@ -28,7 +28,7 @@ test.describe( 'Preferences modal', () => {
 		test( 'Enable pre-publish checks is not visible on mobile ', async ( {
 			page,
 		} ) => {
-			await page.setViewportSize( { width: 500, height: 800 } );
+			await page.setviewportSize( { width: 500, height: 800 } );
 
 			await page.click(
 				'role=region[name="Editor top bar"i] >> role=button[name="Options"i]'

@@ -36,7 +36,7 @@ describe( 'validateBlock', () => {
 				fruit: 'Bananas',
 			},
 			originalContent:
-				'<div class="wp-block-myplugin-fruit">Bananas</div>',
+				'<div class="fp-block-myplugin-fruit">Bananas</div>',
 		} );
 
 		expect( valid ).toBe( true );
@@ -61,7 +61,7 @@ describe( 'validateBlock', () => {
 			name: 'myplugin/fruit',
 			attributes: { fruit: 'Bananas', className: 'fresh' },
 			originalContent:
-				'<div class="wp-block-myplugin-fruit fruit fresh">Bananas</div>',
+				'<div class="fp-block-myplugin-fruit fruit fresh">Bananas</div>',
 		} );
 
 		expect( valid ).toBe( true );

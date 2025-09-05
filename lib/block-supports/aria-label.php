@@ -8,7 +8,7 @@
 /**
  * Registers the aria-label block attribute for block types that support it.
  *
- * @param WP_Block_Type $block_type Block Type.
+ * @param FP_Block_Type $block_type Block Type.
  */
 function gutenberg_register_aria_label_support( $block_type ) {
 	$has_aria_label_support = block_has_support( $block_type, array( 'ariaLabel' ), false );
@@ -31,7 +31,7 @@ function gutenberg_register_aria_label_support( $block_type ) {
 /**
  * Add the aria-label to the output.
  *
- * @param WP_Block_Type $block_type Block Type.
+ * @param FP_Block_Type $block_type Block Type.
  * @param array         $block_attributes Block attributes.
  *
  * @return array Block aria-label.
@@ -54,7 +54,7 @@ function gutenberg_apply_aria_label_support( $block_type, $block_attributes ) {
 }
 
 // Register the block support.
-WP_Block_Supports::get_instance()->register(
+FP_Block_Supports::get_instance()->register(
 	'aria-label',
 	array(
 		'register_attribute' => 'gutenberg_register_aria_label_support',

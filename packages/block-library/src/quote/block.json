@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/quote",
 	"title": "Quote",
@@ -99,6 +99,6 @@
 		},
 		{ "name": "plain", "label": "Plain" }
 	],
-	"editorStyle": "wp-block-quote-editor",
-	"style": "wp-block-quote"
+	"editorStyle": "fp-block-quote-editor",
+	"style": "fp-block-quote"
 }

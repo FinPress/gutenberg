@@ -1,3 +1,3 @@
-<!-- wp:test/iframed-block -->
-<p class="wp-block-test-iframed-block">Iframed Block (saved)</p>
-<!-- /wp:test/iframed-block -->
+<!-- fp:test/iframed-block -->
+<p class="fp-block-test-iframed-block">Iframed Block (saved)</p>
+<!-- /fp:test/iframed-block -->

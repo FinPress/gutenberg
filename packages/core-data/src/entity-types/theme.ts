@@ -40,7 +40,7 @@ declare module './base-entity-records' {
 			/**
 			 * The minimum FinPress version required for the theme to work.
 			 */
-			requires_wp: string;
+			requires_fp: string;
 			/**
 			 * The theme's screenshot URL.
 			 */
@@ -169,7 +169,7 @@ declare module './base-entity-records' {
 			/**
 			 * Whether theme opts in to default FinPress block styles for viewing.
 			 */
-			'wp-block-styles': boolean;
+			'fp-block-styles': boolean;
 		}
 
 		export interface CustomBackground {

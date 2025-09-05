@@ -1,4 +1,4 @@
-.wp-block-legacy-widget__edit-form {
+.fp-block-legacy-widget__edit-form {
 	&:not([hidden]) {
 		display: flow-root;
 	}
@@ -9,7 +9,7 @@
 	max-height: calc(100vh - #{ $border-width } - #{ $border-width });
 	overflow-y: scroll;
 
-	.wp-block-legacy-widget__edit-form-title {
+	.fp-block-legacy-widget__edit-form-title {
 		color: $black;
 		font-family: $default-font;
 		font-size: 14px;
@@ -85,13 +85,13 @@
 }
 
 // Make sure edit form text and no preview warning are always visible.
-.wp-block-legacy-widget__edit-form.wp-block-legacy-widget__edit-form,
-.wp-block-legacy-widget__edit-no-preview.wp-block-legacy-widget__edit-no-preview {
+.fp-block-legacy-widget__edit-form.fp-block-legacy-widget__edit-form,
+.fp-block-legacy-widget__edit-no-preview.fp-block-legacy-widget__edit-no-preview {
 	color: $black;
 }
 
-.wp-block-legacy-widget__edit-preview,
-.wp-block-legacy-widget__edit-no-preview {
+.fp-block-legacy-widget__edit-preview,
+.fp-block-legacy-widget__edit-no-preview {
 	cursor: pointer;
 
 	&:hover::after {
@@ -106,19 +106,19 @@
 	}
 }
 
-.wp-block-legacy-widget__edit-preview.is-offscreen {
+.fp-block-legacy-widget__edit-preview.is-offscreen {
 	left: -9999px;
 	position: absolute;
 	top: 0;
 	width: 100%;
 }
 
-.wp-block-legacy-widget__edit-preview-iframe {
+.fp-block-legacy-widget__edit-preview-iframe {
 	overflow: hidden;
 	width: 100%;
 }
 
-.wp-block-legacy-widget__edit-no-preview.wp-block-legacy-widget__edit-no-preview.wp-block-legacy-widget__edit-no-preview {
+.fp-block-legacy-widget__edit-no-preview.fp-block-legacy-widget__edit-no-preview.fp-block-legacy-widget__edit-no-preview {
 	&,
 	& h3,
 	& p {
@@ -140,26 +140,26 @@
 	}
 }
 
-.wp-block-legacy-widget-inspector-card {
+.fp-block-legacy-widget-inspector-card {
 	// Padding left = an icon, some margin and some padding
 	padding: 0 $grid-unit-20 $grid-unit-20 ( $grid-unit-20 + $icon-size + $grid-unit-15 );
 }
 
-.interface-complementary-area .wp-block-legacy-widget-inspector-card__name {
+.interface-complementary-area .fp-block-legacy-widget-inspector-card__name {
 	margin: 0 0 5px;
 	font-weight: 500;
 }
 
 // When wide widget is selected it opens in a popover but its container should still have a bit of height.
 .is-selected {
-	.wp-block-legacy-widget__container {
+	.fp-block-legacy-widget__container {
 		padding: $grid-unit-10 $grid-unit-15;
 		min-height: 50px;
 	}
 }
 
 // Wide widgets opening in popovers in the Customizer should have a min-width
-.components-popover__content .wp-block-legacy-widget__edit-form {
+.components-popover__content .fp-block-legacy-widget__edit-form {
 	min-width: 400px;
 }
 

@@ -81,8 +81,8 @@ By default, the following module requests are handled:
 
 | Request                      | Global               | Script handle |
 | ---------------------------- | -------------------- | ------------- |
-| `@babel/runtime/regenerator` | `regeneratorRuntime` | `wp-polyfill` |
-| `@finpress/*`               | `wp['*']`            | `wp-*`        |
+| `@babel/runtime/regenerator` | `regeneratorRuntime` | `fp-polyfill` |
+| `@finpress/*`               | `fp['*']`            | `fp-*`        |
 | `jquery`                     | `jQuery`             | `jquery`      |
 | `lodash-es`                  | `lodash`             | `lodash`      |
 | `lodash`                     | `lodash`             | `lodash`      |
@@ -92,7 +92,7 @@ By default, the following module requests are handled:
 
 **Note:** This plugin overlaps with the functionality provided by [webpack `externals`](https://webpack.js.org/configuration/externals). This plugin is intended to extract script handles from bundle compilation so that a list of script dependencies does not need to be manually maintained. If you don't need to extract a list of script dependencies, use the `externals` option directly.
 
-This plugin is compatible with `externals`, but they may conflict. For example, adding `{ externals: { '@finpress/blob': 'wp.blob' } }` to webpack configuration will effectively hide the `@finpress/blob` module from the plugin and it will not be included in dependency lists.
+This plugin is compatible with `externals`, but they may conflict. For example, adding `{ externals: { '@finpress/blob': 'fp.blob' } }` to webpack configuration will effectively hide the `@finpress/blob` module from the plugin and it will not be included in dependency lists.
 
 ### Behavior with script modules
 
@@ -154,7 +154,7 @@ By default, the following script module requests are handled:
 
 **Note:** This plugin overlaps with the functionality provided by [webpack `externals`](https://webpack.js.org/configuration/externals). This plugin is intended to extract script module identifiers from bundle compilation so that a list of script module dependencies does not need to be manually maintained. If you don't need to extract a list of script module dependencies, use the `externals` option directly.
 
-This plugin is compatible with `externals`, but they may conflict. For example, adding `{ externals: { '@finpress/blob': 'wp.blob' } }` to webpack configuration will effectively hide the `@finpress/blob` module from the plugin and it will not be included in dependency lists.
+This plugin is compatible with `externals`, but they may conflict. For example, adding `{ externals: { '@finpress/blob': 'fp.blob' } }` to webpack configuration will effectively hide the `@finpress/blob` module from the plugin and it will not be included in dependency lists.
 
 #### Options
 
@@ -208,7 +208,7 @@ Pass `useDefaults: false` to disable the default request handling.
 -   Type: boolean
 -   Default: `false`
 
-Force `wp-polyfill` to be included in each entry point's dependency list. This would be the same as adding `import '@finpress/polyfill';` to each entry point.
+Force `fp-polyfill` to be included in each entry point's dependency list. This would be the same as adding `import '@finpress/polyfill';` to each entry point.
 
 **Note**: This option is not available with script modules.
 
@@ -226,7 +226,7 @@ You can provide a filename, or set it to `true` to report to a default `external
 
 -   Type: function
 
-`requestToExternal` allows the module handling to be customized. The function should accept a module request string and may return a string representing the global variable to use. An array of strings may be used to access globals via an object path, e.g. `wp.i18n` may be represented as `[ 'wp', 'i18n' ]`.
+`requestToExternal` allows the module handling to be customized. The function should accept a module request string and may return a string representing the global variable to use. An array of strings may be used to access globals via an object path, e.g. `fp.i18n` may be represented as `[ 'fp', 'i18n' ]`.
 
 `requestToExternal` provided via configuration has precedence over default external handling. Unhandled requests will be handled by the default unless `useDefaults` is set to `false`.
 
@@ -340,7 +340,7 @@ $script_asset      = file_exists( $script_asset_path )
 	? require( $script_asset_path )
 	: array( 'dependencies' => array(), 'version' => filemtime( $script_path ) );
 $script_url = plugins_url( $script_path, __FILE__ );
-wp_enqueue_script( 'script', $script_url, $script_asset['dependencies'], $script_asset['version'] );
+fp_enqueue_script( 'script', $script_url, $script_asset['dependencies'], $script_asset['version'] );
 ```
 
 Or with modules (the Script Module API is only available in FinPress > 6.5):
@@ -352,8 +352,8 @@ $module_asset      = file_exists( $module_asset_path )
 	? require( $module_asset_path )
 	: array( 'dependencies' => array(), 'version' => filemtime( $module_path ) );
 $module_url = plugins_url( $module_path, __FILE__ );
-wp_register_script_module( 'my-module', $module_url, $module_asset['dependencies'], $module_asset['version'] );
-wp_enqueue_script_module( 'my-module' );
+fp_register_script_module( 'my-module', $module_url, $module_asset['dependencies'], $module_asset['version'] );
+fp_enqueue_script_module( 'my-module' );
 ```
 
 ## Contributing to this package

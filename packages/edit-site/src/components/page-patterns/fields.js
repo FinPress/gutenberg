@@ -96,8 +96,8 @@ export const patternStatusField = {
 	id: 'sync-status',
 	render: ( { item } ) => {
 		const syncStatus =
-			'wp_pattern_sync_status' in item
-				? item.wp_pattern_sync_status || PATTERN_SYNC_TYPES.full
+			'fp_pattern_sync_status' in item
+				? item.fp_pattern_sync_status || PATTERN_SYNC_TYPES.full
 				: PATTERN_SYNC_TYPES.unsynced;
 		// User patterns can have their sync statuses checked directly.
 		// Non-user patterns are all unsynced for the time being.

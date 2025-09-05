@@ -8,21 +8,21 @@ import { rest, batch } from './rest-api';
  */
 export async function deleteAllWidgets() {
 	const [ widgets, sidebars ] = await Promise.all( [
-		rest( { path: '/wp/v2/widgets' } ),
-		rest( { path: '/wp/v2/sidebars' } ),
+		rest( { path: '/fp/v2/widgets' } ),
+		rest( { path: '/fp/v2/sidebars' } ),
 	] );
 
 	await batch(
 		widgets.map( ( widget ) => ( {
 			method: 'DELETE',
-			path: `/wp/v2/widgets/${ widget.id }?force=true`,
+			path: `/fp/v2/widgets/${ widget.id }?force=true`,
 		} ) )
 	);
 
 	await batch(
 		sidebars.map( ( sidebar ) => ( {
 			method: 'POST',
-			path: `/wp/v2/sidebars/${ sidebar.id }`,
+			path: `/fp/v2/sidebars/${ sidebar.id }`,
 			body: { id: sidebar.id, widgets: [] },
 		} ) )
 	);

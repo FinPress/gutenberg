@@ -19,13 +19,13 @@ module.exports = {
 		 * Locality classification of an import, one of "External",
 		 * "FinPress", "Internal".
 		 *
-		 * @typedef {string} WPPackageLocality
+		 * @typedef {string} FPPackageLocality
 		 */
 
 		/**
 		 * Object describing a dependency block correction to be made.
 		 *
-		 * @typedef WPDependencyBlockCorrection
+		 * @typedef FPDependencyBlockCorrection
 		 *
 		 * @property {Comment} [comment] Comment node on which to replace value,
 		 *                               if one can be salvaged.
@@ -36,7 +36,7 @@ module.exports = {
 		 * Given a desired locality, generates the expected comment node value
 		 * property.
 		 *
-		 * @param {WPPackageLocality} locality Desired package locality.
+		 * @param {FPPackageLocality} locality Desired package locality.
 		 *
 		 * @return {string} Expected comment node value.
 		 */
@@ -50,7 +50,7 @@ module.exports = {
 		 *
 		 * @param {string} source Import source string.
 		 *
-		 * @return {WPPackageLocality} Package locality.
+		 * @return {FPPackageLocality} Package locality.
 		 */
 		function getPackageLocality( source ) {
 			if ( source.startsWith( '.' ) ) {
@@ -67,7 +67,7 @@ module.exports = {
 		 * or false otherwise.
 		 *
 		 * @param {Comment}           node     Comment node to check.
-		 * @param {WPPackageLocality} locality Desired package locality.
+		 * @param {FPPackageLocality} locality Desired package locality.
 		 *
 		 * @return {boolean} Whether comment node satisfies locality.
 		 */
@@ -115,12 +115,12 @@ module.exports = {
 		 * Tests source comments to determine whether a comment exists which
 		 * satisfies the desired locality. If a match is found and requires no
 		 * updates, the function returns undefined. Otherwise, it will return
-		 * a WPDependencyBlockCorrection object describing a correction.
+		 * a FPDependencyBlockCorrection object describing a correction.
 		 *
 		 * @param {Node}              node     Node to test.
-		 * @param {WPPackageLocality} locality Desired package locality.
+		 * @param {FPPackageLocality} locality Desired package locality.
 		 *
-		 * @return {WPDependencyBlockCorrection | undefined} Correction, if applicable.
+		 * @return {FPDependencyBlockCorrection | undefined} Correction, if applicable.
 		 */
 		function getDependencyBlockCorrection( node, locality ) {
 			const value = getCommentValue( locality );
@@ -163,7 +163,7 @@ module.exports = {
 				 * time, since otherwise the fixer would insert a comment
 				 * block for each individual import statement.
 				 *
-				 * @type {Set<WPPackageLocality>}
+				 * @type {Set<FPPackageLocality>}
 				 */
 				const verified = new Set();
 

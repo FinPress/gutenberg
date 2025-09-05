@@ -179,7 +179,7 @@ attributes: {
 -   Type: `boolean`
 -   Default value: `true`
 
-By default, the class `.wp-block-your-block-name` is added to the root element of your saved markup. This helps by providing a consistent mechanism for styling blocks that themes and plugins can rely on. If, for whatever reason, a class is not desired on the markup, this functionality can be disabled.
+By default, the class `.fp-block-your-block-name` is added to the root element of your saved markup. This helps by providing a consistent mechanism for styling blocks that themes and plugins can rely on. If, for whatever reason, a class is not desired on the markup, this functionality can be disabled.
 
 ```js
 supports: {
@@ -630,7 +630,7 @@ supports: {
 selectors: {
     filter: {
         // Apply the filter to img elements inside the image block
-        duotone: '.wp-block-image img'
+        duotone: '.fp-block-image img'
     }
 }
 ```

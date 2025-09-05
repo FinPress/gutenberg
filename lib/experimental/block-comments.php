@@ -7,7 +7,7 @@
  * and if so, updates the 'comment_type' and 'comment_approved' properties of the prepared comment.
  *
  * @param array $prepared_comment The prepared comment data.
- * @param WP_REST_Request $request The REST API request object.
+ * @param FP_REST_Request $request The REST API request object.
  * @return array The updated prepared comment data.
  */
 if ( ! function_exists( 'update_comment_type_in_rest_api_6_8' ) ) {
@@ -45,9 +45,9 @@ if ( ! function_exists( 'update_get_avatar_comment_type' ) ) {
  * This function modifies the comments query to exclude comments of type 'block_comment'
  * when the query is for comments in the FinPress admin.
  *
- * @global wpdb $wpdb FinPress database abstraction object.
+ * @global fpdb $fpdb FinPress database abstraction object.
  *
- * @param WP_Comment_Query $query The current comments query.
+ * @param FP_Comment_Query $query The current comments query.
  *
  * @return void
  */
@@ -60,9 +60,9 @@ if ( ! function_exists( 'exclude_block_comments_from_admin' ) ) {
 			add_filter(
 				'comments_clauses',
 				function ( $clauses ) {
-					global $wpdb;
+					global $fpdb;
 					// Exclude comments of type 'block_comment'
-					$clauses['where'] .= " AND {$wpdb->comments}.comment_type != 'block_comment'";
+					$clauses['where'] .= " AND {$fpdb->comments}.comment_type != 'block_comment'";
 					return $clauses;
 				}
 			);

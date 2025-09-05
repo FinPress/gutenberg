@@ -14,22 +14,22 @@ import * as children from './children';
  * As representing an element node, it is an object of:
  *
  * 1. `type` (string): Tag name.
- * 2. `props` (object): Attributes and children array of WPBlockNode.
+ * 2. `props` (object): Attributes and children array of FPBlockNode.
  *
- * @typedef {string|Object} WPBlockNode
+ * @typedef {string|Object} FPBlockNode
  */
 
 /**
  * Given a single node and a node type (e.g. `'br'`), returns true if the node
  * corresponds to that type, false otherwise.
  *
- * @param {WPBlockNode} node Block node to test
+ * @param {FPBlockNode} node Block node to test
  * @param {string}      type Node to type to test against.
  *
  * @return {boolean} Whether node is of intended type.
  */
 function isNodeOfType( node, type ) {
-	deprecated( 'wp.blocks.node.isNodeOfType', {
+	deprecated( 'fp.blocks.node.isNodeOfType', {
 		since: '6.1',
 		version: '6.3',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
@@ -66,13 +66,13 @@ export function getNamedNodeMapAsObject( nodeMap ) {
  *
  * @param {Node} domNode DOM node to convert.
  *
- * @return {WPBlockNode} Block node equivalent to DOM node.
+ * @return {FPBlockNode} Block node equivalent to DOM node.
  */
 export function fromDOM( domNode ) {
-	deprecated( 'wp.blocks.node.fromDOM', {
+	deprecated( 'fp.blocks.node.fromDOM', {
 		since: '6.1',
 		version: '6.3',
-		alternative: 'wp.richText.create',
+		alternative: 'fp.richText.create',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
@@ -99,15 +99,15 @@ export function fromDOM( domNode ) {
 /**
  * Given a block node, returns its HTML string representation.
  *
- * @param {WPBlockNode} node Block node to convert to string.
+ * @param {FPBlockNode} node Block node to convert to string.
  *
  * @return {string} String HTML representation of block node.
  */
 export function toHTML( node ) {
-	deprecated( 'wp.blocks.node.toHTML', {
+	deprecated( 'fp.blocks.node.toHTML', {
 		since: '6.1',
 		version: '6.3',
-		alternative: 'wp.richText.toHTMLString',
+		alternative: 'fp.richText.toHTMLString',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
@@ -115,7 +115,7 @@ export function toHTML( node ) {
 }
 
 /**
- * Given a selector, returns an hpq matcher generating a WPBlockNode value
+ * Given a selector, returns an hpq matcher generating a FPBlockNode value
  * matching the selector result.
  *
  * @param {string} selector DOM selector.
@@ -123,7 +123,7 @@ export function toHTML( node ) {
  * @return {Function} hpq matcher.
  */
 export function matcher( selector ) {
-	deprecated( 'wp.blocks.node.matcher', {
+	deprecated( 'fp.blocks.node.matcher', {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'html source',

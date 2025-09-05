@@ -15,7 +15,7 @@ add_filter(
 			array(
 				'title'       => 'Evil recursive',
 				'description' => 'Evil recursive',
-				'content'     => '<!-- wp:paragraph --><p>Hello</p><!-- /wp:paragraph --><!-- wp:pattern {"slug":"evil/recursive"} /-->',
+				'content'     => '<!-- fp:paragraph --><p>Hello</p><!-- /fp:paragraph --><!-- fp:pattern {"slug":"evil/recursive"} /-->',
 			)
 		);
 	}

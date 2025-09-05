@@ -30,7 +30,7 @@ Many components include CSS to add style, you will need to include for the compo
 
 The [`@finpress/scripts` package](/packages/scripts/README.md) is a collection of reusable scripts for JavaScript development — includes scripts for building, linting, and testing — all with no additional configuration files.
 
-Here is a quick example, on how to use `wp-scripts` tool in your project.
+Here is a quick example, on how to use `fp-scripts` tool in your project.
 
 Install the dependency:
 
@@ -42,10 +42,10 @@ You can then add a scripts section to your package.json file, for example:
 
 ```json
 	"scripts": {
-		"build": "wp-scripts build",
-		"format": "wp-scripts format",
-		"lint:js": "wp-scripts lint-js",
-		"start": "wp-scripts start"
+		"build": "fp-scripts build",
+		"format": "fp-scripts format",
+		"lint:js": "fp-scripts lint-js",
+		"start": "fp-scripts start"
 	}
 ```
 

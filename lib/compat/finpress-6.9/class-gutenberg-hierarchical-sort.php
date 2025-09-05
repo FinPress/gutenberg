@@ -28,7 +28,7 @@ class Gutenberg_Hierarchical_Sort {
 				'posts_per_page' => -1,
 			)
 		);
-		$query    = new WP_Query( $new_args );
+		$query    = new FP_Query( $new_args );
 		$posts    = $query->posts;
 		$result   = self::sort( $posts );
 

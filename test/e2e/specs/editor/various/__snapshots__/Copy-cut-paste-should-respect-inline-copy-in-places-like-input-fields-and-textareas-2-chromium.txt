@@ -1,7 +1,7 @@
-<!-- wp:shortcode -->
+<!-- fp:shortcode -->
 [my-shortcode]
-<!-- /wp:shortcode -->
+<!-- /fp:shortcode -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Pasted: e]</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->

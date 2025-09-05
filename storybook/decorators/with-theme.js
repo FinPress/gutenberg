@@ -44,7 +44,7 @@ const BackgroundIndicator = styled.small`
 	opacity: 0.3;
 	margin-top: 20px;
 	font-size: 10px;
-	color: var( --wp-components-color-foreground );
+	color: var( --fp-components-color-foreground );
 	text-transform: uppercase;
 	text-align: end;
 `;
@@ -53,7 +53,7 @@ const Notice = styled.small`
 	display: block;
 	margin-top: 20px;
 	font-size: 12px;
-	color: var( --wp-components-color-foreground );
+	color: var( --fp-components-color-foreground );
 `;
 
 /**

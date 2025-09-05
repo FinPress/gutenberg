@@ -27,8 +27,8 @@ exports[`props should render alignment 1`] = `
 <div>
   <div
     class="components-flex components-h-stack components-v-stack emotion-0 emotion-1"
-    data-wp-c16t="true"
-    data-wp-component="VStack"
+    data-fp-c16t="true"
+    data-fp-component="VStack"
   >
     <div
       class="emotion-2 emotion-1"
@@ -67,8 +67,8 @@ exports[`props should render correctly 1`] = `
 <div>
   <div
     class="components-flex components-h-stack components-v-stack emotion-0 emotion-1"
-    data-wp-c16t="true"
-    data-wp-component="VStack"
+    data-fp-c16t="true"
+    data-fp-component="VStack"
   >
     <div
       class="emotion-2 emotion-1"
@@ -107,8 +107,8 @@ exports[`props should render spacing 1`] = `
 <div>
   <div
     class="components-flex components-h-stack components-v-stack emotion-0 emotion-1"
-    data-wp-c16t="true"
-    data-wp-component="VStack"
+    data-fp-c16t="true"
+    data-fp-component="VStack"
   >
     <div
       class="emotion-2 emotion-1"

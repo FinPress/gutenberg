@@ -72,7 +72,7 @@ function PostLockedModal() {
 				return;
 			}
 
-			data[ 'wp-refresh-post-lock' ] = {
+			data[ 'fp-refresh-post-lock' ] = {
 				lock: activePostLock,
 				post_id: postId,
 			};
@@ -84,11 +84,11 @@ function PostLockedModal() {
 		 * @param {Object} data Data received in the heartbeat request
 		 */
 		function receivePostLock( data ) {
-			if ( ! data[ 'wp-refresh-post-lock' ] ) {
+			if ( ! data[ 'fp-refresh-post-lock' ] ) {
 				return;
 			}
 
-			const received = data[ 'wp-refresh-post-lock' ];
+			const received = data[ 'fp-refresh-post-lock' ];
 			if ( received.lock_error ) {
 				// Auto save and display the takeover modal.
 				autosave();
@@ -117,8 +117,8 @@ function PostLockedModal() {
 			}
 
 			const data = new window.FormData();
-			data.append( 'action', 'wp-remove-post-lock' );
-			data.append( '_wpnonce', postLockUtils.unlockNonce );
+			data.append( 'action', 'fp-remove-post-lock' );
+			data.append( '_fpnonce', postLockUtils.unlockNonce );
 			data.append( 'post_ID', postId );
 			data.append( 'active_post_lock', activePostLock );
 
@@ -156,7 +156,7 @@ function PostLockedModal() {
 		lockKey: true,
 		post: postId,
 		action: 'edit',
-		_wpnonce: postLockUtils.nonce,
+		_fpnonce: postLockUtils.nonce,
 	} );
 	const allPostsUrl = addQueryArgs( 'edit.php', {
 		post_type: postType?.slug,

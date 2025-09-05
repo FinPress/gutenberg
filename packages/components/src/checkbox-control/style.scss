@@ -38,7 +38,7 @@
 	}
 
 	&:focus {
-		@include button-style-outset__focus(var(--wp-admin-theme-color));
+		@include button-style-outset__focus(var(--fp-admin-theme-color));
 	}
 
 	&:checked,
@@ -64,7 +64,7 @@
 	vertical-align: middle;
 	width: var(--checkbox-input-size);
 	aspect-ratio: 1;
-	line-height: 1; // maintains proper height even with WP common.css
+	line-height: 1; // maintains proper height even with FP common.css
 	flex-shrink: 0;
 }
 

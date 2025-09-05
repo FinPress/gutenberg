@@ -46,13 +46,13 @@ describe( 'apiFetch', () => {
 		const body = 'FormData';
 
 		await apiFetch( {
-			path: '/wp/v2/media',
+			path: '/fp/v2/media',
 			method: 'POST',
 			body,
 		} );
 
 		expect( globalThis.fetch ).toHaveBeenCalledWith(
-			'/wp/v2/media?_locale=user',
+			'/fp/v2/media?_locale=user',
 			{
 				credentials: 'include',
 				headers: {
@@ -68,7 +68,7 @@ describe( 'apiFetch', () => {
 		globalThis.fetch.mockResolvedValue( DEFAULT_FETCH_MOCK_RETURN );
 
 		await apiFetch( {
-			path: '/wp/v2/posts',
+			path: '/fp/v2/posts',
 			method: 'POST',
 			headers: {
 				'Content-Type': 'text/plain',
@@ -77,7 +77,7 @@ describe( 'apiFetch', () => {
 		} );
 
 		expect( globalThis.fetch ).toHaveBeenCalledWith(
-			'/wp/v2/posts?_locale=user',
+			'/fp/v2/posts?_locale=user',
 			{
 				body: '{}',
 				credentials: 'include',
@@ -94,14 +94,14 @@ describe( 'apiFetch', () => {
 		globalThis.fetch.mockResolvedValue( DEFAULT_FETCH_MOCK_RETURN );
 
 		await apiFetch( {
-			path: '/wp/v2/posts',
+			path: '/fp/v2/posts',
 			method: 'POST',
 			data: {},
 			credentials: 'omit',
 		} );
 
 		expect( globalThis.fetch ).toHaveBeenCalledWith(
-			'/wp/v2/posts?_locale=user',
+			'/fp/v2/posts?_locale=user',
 			{
 				body: '{}',
 				credentials: 'omit',
@@ -250,7 +250,7 @@ describe( 'apiFetch', () => {
 
 		globalThis.fetch.mockImplementation( async ( path, options ) => {
 			if ( path.startsWith( '/random' ) ) {
-				if ( options?.headers[ 'X-WP-Nonce' ] === 'new-nonce' ) {
+				if ( options?.headers[ 'X-FP-Nonce' ] === 'new-nonce' ) {
 					return {
 						ok: true,
 						status: 200,
@@ -293,7 +293,7 @@ describe( 'apiFetch', () => {
 
 		globalThis.fetch.mockImplementation( async ( path, options ) => {
 			if ( path.startsWith( '/random' ) ) {
-				if ( options?.headers[ 'X-WP-Nonce' ] === 'new-nonce' ) {
+				if ( options?.headers[ 'X-FP-Nonce' ] === 'new-nonce' ) {
 					return {
 						ok: true,
 						status: 200,

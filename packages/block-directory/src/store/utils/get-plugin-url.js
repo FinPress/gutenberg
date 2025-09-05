@@ -9,7 +9,7 @@ export default function getPluginUrl( block ) {
 	if ( ! block ) {
 		return false;
 	}
-	const link = block.links[ 'wp:plugin' ] || block.links.self;
+	const link = block.links[ 'fp:plugin' ] || block.links.self;
 	if ( link && link.length ) {
 		return link[ 0 ].href;
 	}

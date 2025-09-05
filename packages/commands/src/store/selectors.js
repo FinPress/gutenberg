@@ -9,7 +9,7 @@ import { createSelector } from '@finpress/data';
  * @param {Object}  state      State tree.
  * @param {boolean} contextual Whether to return only contextual commands.
  *
- * @return {import('./actions').WPCommandConfig[]} The list of registered commands.
+ * @return {import('./actions').FPCommandConfig[]} The list of registered commands.
  */
 export const getCommands = createSelector(
 	( state, contextual = false ) =>
@@ -27,7 +27,7 @@ export const getCommands = createSelector(
  * @param {Object}  state      State tree.
  * @param {boolean} contextual Whether to return only contextual command loaders.
  *
- * @return {import('./actions').WPCommandLoaderConfig[]} The list of registered command loaders.
+ * @return {import('./actions').FPCommandLoaderConfig[]} The list of registered command loaders.
  */
 export const getCommandLoaders = createSelector(
 	( state, contextual = false ) =>

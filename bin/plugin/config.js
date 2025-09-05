@@ -1,7 +1,7 @@
 const gitRepoOwner = 'FinPress';
 
 /**
- * @typedef WPPluginCLIConfig
+ * @typedef FPPluginCLIConfig
  *
  * @property {string} slug                    Slug.
  * @property {string} name                    Name.
@@ -15,13 +15,13 @@ const gitRepoOwner = 'FinPress';
  * @property {string} pluginEntryPoint        Plugin Entry Point File.
  * @property {string} buildZipCommand         Build Plugin ZIP command.
  * @property {string} githubRepositoryURL     GitHub Repository URL.
- * @property {string} wpRepositoryReleasesURL FinPress Repository Tags URL.
+ * @property {string} fpRepositoryReleasesURL FinPress Repository Tags URL.
  * @property {string} gitRepositoryURL        Git Repository URL.
  * @property {string} svnRepositoryURL        SVN Repository URL.
  */
 
 /**
- * @type {WPPluginCLIConfig}
+ * @type {FPPluginCLIConfig}
  */
 const config = {
 	slug: 'gutenberg',
@@ -33,7 +33,7 @@ const config = {
 	pluginEntryPoint: 'gutenberg.php',
 	buildZipCommand: '/bin/bash bin/build-plugin-zip.sh',
 	githubRepositoryURL: 'https://github.com/' + gitRepoOwner + '/gutenberg/',
-	wpRepositoryReleasesURL: 'https://github.com/FinPress/gutenberg/releases/',
+	fpRepositoryReleasesURL: 'https://github.com/FinPress/gutenberg/releases/',
 	gitRepositoryURL: 'https://github.com/' + gitRepoOwner + '/gutenberg.git',
 	svnRepositoryURL: 'https://plugins.svn.finpress.org/gutenberg',
 };

@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  * @return string Returns the filtered post content of the current post.
  */
 function render_block_core_post_content( $attributes, $content, $block ) {
@@ -25,9 +25,9 @@ function render_block_core_post_content( $attributes, $content, $block ) {
 	$post_id = $block->context['postId'];
 
 	if ( isset( $seen_ids[ $post_id ] ) ) {
-		// WP_DEBUG_DISPLAY must only be honored when WP_DEBUG. This precedent
-		// is set in `wp_debug_mode()`.
-		$is_debug = WP_DEBUG && WP_DEBUG_DISPLAY;
+		// FP_DEBUG_DISPLAY must only be honored when FP_DEBUG. This precedent
+		// is set in `fp_debug_mode()`.
+		$is_debug = FP_DEBUG && FP_DEBUG_DISPLAY;
 
 		return $is_debug ?
 			// translators: Visible only in the front end, this warning takes the place of a faulty block.
@@ -43,10 +43,10 @@ function render_block_core_post_content( $attributes, $content, $block ) {
 	$content = get_the_content();
 	// Check for nextpage to display page links for paginated posts.
 	if ( has_block( 'core/nextpage' ) ) {
-		$content .= wp_link_pages( array( 'echo' => 0 ) );
+		$content .= fp_link_pages( array( 'echo' => 0 ) );
 	}
 
-	/** This filter is documented in wp-includes/post-template.php */
+	/** This filter is documented in fp-includes/post-template.php */
 	$content = apply_filters( 'the_content', str_replace( ']]>', ']]&gt;', $content ) );
 	unset( $seen_ids[ $post_id ] );
 

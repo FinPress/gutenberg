@@ -25,7 +25,7 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"react-native": "src/index",
-	"wpScript": true,
+	"fpScript": true,
 	"types": "build-types",
 	"sideEffects": false,
 	"dependencies": {

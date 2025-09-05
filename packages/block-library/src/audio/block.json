@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/audio",
 	"title": "Audio",
@@ -63,6 +63,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-audio-editor",
-	"style": "wp-block-audio"
+	"editorStyle": "fp-block-audio-editor",
+	"style": "fp-block-audio"
 }

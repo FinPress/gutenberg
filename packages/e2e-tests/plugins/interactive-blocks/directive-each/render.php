@@ -1,105 +1,105 @@
 <?php
 /**
- * HTML for testing the directive `data-wp-each`.
+ * HTML for testing the directive `data-fp-each`.
  *
  * @package gutenberg-test-interactive-blocks
  */
 ?>
 
-<div data-wp-interactive="directive-each">
+<div data-fp-interactive="directive-each">
 	<div data-testid="letters">
-		<template data-wp-each="state.letters">
-			<p data-wp-text="context.item" data-testid="item"></p>
+		<template data-fp-each="state.letters">
+			<p data-fp-text="context.item" data-testid="item"></p>
 		</template>
 		<!-- SSRed elements; they should be removed on hydration -->
-		<p data-testid="item" data-wp-each-child>A</p>
-		<p data-testid="item" data-wp-each-child>B</p>
-		<p data-testid="item" data-wp-each-child>C</p>
+		<p data-testid="item" data-fp-each-child>A</p>
+		<p data-testid="item" data-fp-each-child>B</p>
+		<p data-testid="item" data-fp-each-child>C</p>
 	</div>
 
 	<hr>
 
 	<div data-testid="letters-kebab-case">
-		<template data-wp-each--my-item="state.letters">
-			<p data-wp-text="context.myItem" data-testid="item"></p>
+		<template data-fp-each--my-item="state.letters">
+			<p data-fp-text="context.myItem" data-testid="item"></p>
 		</template>
 		<!-- SSRed elements; they should be removed on hydration -->
-		<p data-testid="item" data-wp-each-child>A</p>
-		<p data-testid="item" data-wp-each-child>B</p>
-		<p data-testid="item" data-wp-each-child>C</p>
+		<p data-testid="item" data-fp-each-child>A</p>
+		<p data-testid="item" data-fp-each-child>B</p>
+		<p data-testid="item" data-fp-each-child>C</p>
 	</div>
 
 	<hr>
 
 	<div data-testid="fruits">
 		<button
-			data-testid="rotate" data-wp-on--click="actions.rotateFruits"
+			data-testid="rotate" data-fp-on--click="actions.rotateFruits"
 		>Rotate</button>
 		<button
-			data-testid="add" data-wp-on--click="actions.addFruit"
+			data-testid="add" data-fp-on--click="actions.addFruit"
 		>Add</button>
 		<button
-			data-testid="replace" data-wp-on--click="actions.replaceFruit"
+			data-testid="replace" data-fp-on--click="actions.replaceFruit"
 		>Replace</button>
-		<template data-wp-each--fruit="state.fruits">
+		<template data-fp-each--fruit="state.fruits">
 			<p
 				data-testid="item"
-				data-wp-text="context.fruit"
-				data-wp-on--click="actions.removeFruit"
+				data-fp-text="context.fruit"
+				data-fp-on--click="actions.removeFruit"
 			></p>
 		</template>
 		<!-- SSRed elements; they should be removed on hydration -->
-		<p data-testid="item" data-wp-each-child>avocado</p>
-		<p data-testid="item" data-wp-each-child>banana</p>
-		<p data-testid="item" data-wp-each-child>cherimoya</p>
+		<p data-testid="item" data-fp-each-child>avocado</p>
+		<p data-testid="item" data-fp-each-child>banana</p>
+		<p data-testid="item" data-fp-each-child>cherimoya</p>
 	</div>
 
 	<hr>
 
 	<div data-testid="books">
 		<button
-			data-testid="rotate" data-wp-on--click="actions.rotateBooks"
+			data-testid="rotate" data-fp-on--click="actions.rotateBooks"
 		>Rotate</button>
 		<button
-			data-testid="add" data-wp-on--click="actions.addBook"
+			data-testid="add" data-fp-on--click="actions.addBook"
 		>Add</button>
 		<button
-			data-testid="replace" data-wp-on--click="actions.replaceBook"
+			data-testid="replace" data-fp-on--click="actions.replaceBook"
 		>Replace</button>
 		<button
-			data-testid="modify" data-wp-on--click="actions.modifyBook"
+			data-testid="modify" data-fp-on--click="actions.modifyBook"
 		>Modify</button>
 		<template
-			data-wp-each--book="state.books"
-			data-wp-each-key="context.book.isbn"
+			data-fp-each--book="state.books"
+			data-fp-each-key="context.book.isbn"
 		>
 			<p
 				data-testid="item"
-				data-wp-text="context.book.title"
-				data-wp-on--click="actions.removeBook"
+				data-fp-text="context.book.title"
+				data-fp-on--click="actions.removeBook"
 			></p>
 		</template>
 		<!-- SSRed elements; they should be removed on hydration -->
-		<p data-testid="item" data-wp-each-child>A Game of Thrones</p>
-		<p data-testid="item" data-wp-each-child>A Clash of Kings</p>
-		<p data-testid="item" data-wp-each-child>A Storm of Swords</p>
+		<p data-testid="item" data-fp-each-child>A Game of Thrones</p>
+		<p data-testid="item" data-fp-each-child>A Clash of Kings</p>
+		<p data-testid="item" data-fp-each-child>A Storm of Swords</p>
 	</div>
 
 	<hr>
 
 	<div data-testid="numbers">
 		<button
-			data-testid="shift" data-wp-on--click="actions.shiftNumber"
+			data-testid="shift" data-fp-on--click="actions.shiftNumber"
 		>Shift</button>
 		<button
-			data-testid="unshift" data-wp-on--click="actions.unshiftNumber"
+			data-testid="unshift" data-fp-on--click="actions.unshiftNumber"
 		>Unshift</button>
-		<template data-wp-each="state.numbers">
-			<p data-wp-text="context.item" data-testid="item"></p>
+		<template data-fp-each="state.numbers">
+			<p data-fp-text="context.item" data-testid="item"></p>
 		</template>
-		<p data-testid="item" data-wp-each-child>1</p>
-		<p data-testid="item" data-wp-each-child>2</p>
-		<p data-testid="item" data-wp-each-child>3</p>
+		<p data-testid="item" data-fp-each-child>1</p>
+		<p data-testid="item" data-fp-each-child>2</p>
+		<p data-testid="item" data-fp-each-child>3</p>
 		<p data-testid="item">4</p>
 	</div>
 
@@ -107,10 +107,10 @@
 
 	<div data-testid="empty">
 		<button
-			data-testid="add" data-wp-on--click="actions.addItem"
+			data-testid="add" data-fp-on--click="actions.addItem"
 		>Add</button>
-		<template data-wp-each="state.emptyList">
-			<p data-wp-text="context.item" data-testid="item"></p>
+		<template data-fp-each="state.emptyList">
+			<p data-fp-text="context.item" data-testid="item"></p>
 		</template>
 		<p data-testid="item">item X</p>
 	</div>
@@ -118,19 +118,19 @@
 	<div data-testid="siblings">
 		<button
 			data-testid="unshift"
-			data-wp-on--click="actions.unshiftNumberAndName"
+			data-fp-on--click="actions.unshiftNumberAndName"
 		>Unshift</button>
 		<template
-			data-wp-each="state.numbersAndNames"
-			data-wp-each-key="context.item.value"
+			data-fp-each="state.numbersAndNames"
+			data-fp-each-key="context.item.value"
 		>
-			<p data-wp-text="context.item.name" data-testid="item"></p>
-			<p data-wp-text="context.item.value" data-testid="item"></p>
+			<p data-fp-text="context.item.name" data-testid="item"></p>
+			<p data-fp-text="context.item.value" data-testid="item"></p>
 		</template>
-		<p data-testid="item" data-wp-each-child>two</p>
-		<p data-testid="item" data-wp-each-child>2</p>
-		<p data-testid="item" data-wp-each-child>three</p>
-		<p data-testid="item" data-wp-each-child>3</p>
+		<p data-testid="item" data-fp-each-child>two</p>
+		<p data-testid="item" data-fp-each-child>2</p>
+		<p data-testid="item" data-fp-each-child>three</p>
+		<p data-testid="item" data-fp-each-child>3</p>
 		<p data-testid="item">four</p>
 		<p data-testid="item">4</p>
 	</div>
@@ -138,176 +138,176 @@
 	<div data-testid="nested">
 		<button
 			data-testid="add animal"
-			data-wp-on--click="actions.addAnimal"
+			data-fp-on--click="actions.addAnimal"
 		>Add animal</button>
 		<button
 			data-testid="add breeds"
-			data-wp-on--click="actions.addBreeds"
+			data-fp-on--click="actions.addBreeds"
 		>Add breeds</button>
 
 		<ul>
 			<template
-				data-wp-each--animal="state.animalBreeds"
-				data-wp-each-key="context.animal.name"
+				data-fp-each--animal="state.animalBreeds"
+				data-fp-each-key="context.animal.name"
 			>
 				<li data-testid="animal">
 					<span
 						data-testid="name"
-						data-wp-text="context.animal.name"
+						data-fp-text="context.animal.name"
 					></span>
 					<ul>
-						<template data-wp-each--breed="context.animal.breeds">
-							<li data-wp-text="context.breed"></li>
+						<template data-fp-each--breed="context.animal.breeds">
+							<li data-fp-text="context.breed"></li>
 						</template>
 					</ul>
 				</li>
 			</template>
 			<!-- SSRed elements; they should be removed on hydration -->
-			<li data-testid="animal" data-wp-each-child>
+			<li data-testid="animal" data-fp-each-child>
 				<span data-testid="name">Dog</span>
 				<ul>
-					<template data-wp-each--breed="context.animal.breeds">
-						<li data-wp-text="context.breed"></li>
+					<template data-fp-each--breed="context.animal.breeds">
+						<li data-fp-text="context.breed"></li>
 					</template>
-					<li data-wp-each-child>Chihuahua</li>
-					<li data-wp-each-child>Rottweiler</li>
+					<li data-fp-each-child>Chihuahua</li>
+					<li data-fp-each-child>Rottweiler</li>
 				</ul>
 			</li>
-			<li data-testid="animal" data-wp-each-child>
+			<li data-testid="animal" data-fp-each-child>
 				<span data-testid="name">Cat</span>
 				<ul>
-					<template data-wp-each--breed="context.animal.breeds">
-						<li data-wp-text="context.breed"></li>
+					<template data-fp-each--breed="context.animal.breeds">
+						<li data-fp-text="context.breed"></li>
 					</template>
-					<li data-wp-each-child>Sphynx</li>
-					<li data-wp-each-child>Siamese</li>
+					<li data-fp-each-child>Sphynx</li>
+					<li data-fp-each-child>Siamese</li>
 				</ul>
 			</li>
 		</ul>
 	</div>
 
 	<div data-testid="invalid tag">
-		<div data-wp-each="state.letters">
-			<p data-wp-text="context.item" data-testid="item"></p>
+		<div data-fp-each="state.letters">
+			<p data-fp-text="context.item" data-testid="item"></p>
 		</div>
 	</div>
 
 
 	<div data-testid="derived state">
 		<button
-			data-testid="rotate" data-wp-on--click="actions.rotateFruits"
+			data-testid="rotate" data-fp-on--click="actions.rotateFruits"
 		>Rotate</button>
 		<template
-			data-wp-context='{ "idPrefix": "fruit-" }'
-			data-wp-each--fruit="state.fruits"
-			data-wp-each-key="state.fruitId"
+			data-fp-context='{ "idPrefix": "fruit-" }'
+			data-fp-each--fruit="state.fruits"
+			data-fp-each-key="state.fruitId"
 		>
 			<p
 				data-testid="item"
-				data-wp-text="context.fruit"
-				data-wp-bind--data-fruit-id="state.fruitId"
+				data-fp-text="context.fruit"
+				data-fp-bind--data-fruit-id="state.fruitId"
 			></p>
 		</template>
 		<!-- SSRed elements; they should be removed on hydration -->
-		<p data-testid="item" data-wp-each-child>avocado</p>
-		<p data-testid="item" data-wp-each-child>banana</p>
-		<p data-testid="item" data-wp-each-child>cherimoya</p>
+		<p data-testid="item" data-fp-each-child>avocado</p>
+		<p data-testid="item" data-fp-each-child>banana</p>
+		<p data-testid="item" data-fp-each-child>cherimoya</p>
 	</div>
 </div>
 
 <hr>
 
 <div
-	data-wp-interactive="directive-each"
-	data-wp-router-region="navigation-updated list"
-	data-wp-context='{ "b": 2, "c": 3, "d": 4 }'
+	data-fp-interactive="directive-each"
+	data-fp-router-region="navigation-updated list"
+	data-fp-context='{ "b": 2, "c": 3, "d": 4 }'
 	data-testid="navigation-updated list"
 >
 	<button
 		data-testid="navigate"
-		data-wp-on--click="actions.navigate"
+		data-fp-on--click="actions.navigate"
 	>Navigate</button>
-	<template data-wp-each="state.list">
-		<p data-wp-text="context.item" data-testid="item"></p>
+	<template data-fp-each="state.list">
+		<p data-fp-text="context.item" data-testid="item"></p>
 	</template>
-	<p data-testid="item" data-wp-each-child>beta</p>
-	<p data-testid="item" data-wp-each-child>gamma</p>
-	<p data-testid="item" data-wp-each-child>delta</p>
+	<p data-testid="item" data-fp-each-child>beta</p>
+	<p data-testid="item" data-fp-each-child>gamma</p>
+	<p data-testid="item" data-fp-each-child>delta</p>
 </div>
 
 <hr>
 
 <div
-	data-wp-interactive="directive-each"
-	data-wp-context='{ "list": [ "beta" ], "callbackRunCount": 0 }'
+	data-fp-interactive="directive-each"
+	data-fp-context='{ "list": [ "beta" ], "callbackRunCount": 0 }'
 	data-testid="elements with directives"
 >
-	<template data-wp-each="context.list">
+	<template data-fp-each="context.list">
 		<div
 			data-testid="item"
-			data-wp-text="context.item"
-			data-wp-priority-2-init="callbacks.updateCallbackRunCount"
+			data-fp-text="context.item"
+			data-fp-priority-2-init="callbacks.updateCallbackRunCount"
 		></div>
 	</template>
 	<div
-		data-wp-each-child
+		data-fp-each-child
 		data-testid="item"
-		data-wp-text="context.item"
-		data-wp-priority-2-init="callbacks.updateCallbackRunCount"
+		data-fp-text="context.item"
+		data-fp-priority-2-init="callbacks.updateCallbackRunCount"
 	></div>
 	<data
 		data-testid="callbackRunCount"
-		data-wp-text="context.callbackRunCount"
+		data-fp-text="context.callbackRunCount"
 	></data>
 </div>
 
 <hr>
 
 <div
-	data-wp-interactive="directive-each"
+	data-fp-interactive="directive-each"
 	data-testid="each-with-unset"
 >
-	<template data-wp-each="state.eachUnset"><p data-wp-text="context.item"></p></template>
+	<template data-fp-each="state.eachUnset"><p data-fp-text="context.item"></p></template>
 </div>
 <div
-	data-wp-interactive="directive-each"
+	data-fp-interactive="directive-each"
 	data-testid="each-with-null"
 >
-	<template data-wp-each="state.eachNull"><p data-wp-text="context.item"></p></template>
+	<template data-fp-each="state.eachNull"><p data-fp-text="context.item"></p></template>
 </div>
 <div
-	data-wp-interactive="directive-each"
+	data-fp-interactive="directive-each"
 	data-testid="each-with-undefined"
 >
-	<template data-wp-each="state.eachUndefined"><p data-wp-text="context.item"></p></template>
+	<template data-fp-each="state.eachUndefined"><p data-fp-text="context.item"></p></template>
 </div>
 <div
-	data-wp-interactive="directive-each"
+	data-fp-interactive="directive-each"
 	data-testid="each-with-array"
 >
-	<template data-wp-each="state.eachArray"><p data-wp-text="context.item"></p></template>
+	<template data-fp-each="state.eachArray"><p data-fp-text="context.item"></p></template>
 </div>
 <div
-	data-wp-interactive="directive-each"
+	data-fp-interactive="directive-each"
 	data-testid="each-with-set"
 >
-	<template data-wp-each="state.eachSet"><p data-wp-text="context.item"></p></template>
+	<template data-fp-each="state.eachSet"><p data-fp-text="context.item"></p></template>
 </div>
 <div
-	data-wp-interactive="directive-each"
+	data-fp-interactive="directive-each"
 	data-testid="each-with-string"
 >
-	<template data-wp-each="state.eachString"><p data-wp-text="context.item"></p></template>
+	<template data-fp-each="state.eachString"><p data-fp-text="context.item"></p></template>
 </div>
 <div
-	data-wp-interactive="directive-each"
+	data-fp-interactive="directive-each"
 	data-testid="each-with-generator"
 >
-	<template data-wp-each="state.eachGenerator"><p data-wp-text="context.item"></p></template>
+	<template data-fp-each="state.eachGenerator"><p data-fp-text="context.item"></p></template>
 </div>
 <div
-	data-wp-interactive="directive-each"
+	data-fp-interactive="directive-each"
 	data-testid="each-with-iterator"
 >
-	<template data-wp-each="state.eachIterator"><p data-wp-text="context.item"></p></template>
+	<template data-fp-each="state.eachIterator"><p data-fp-text="context.item"></p></template>
 </div>

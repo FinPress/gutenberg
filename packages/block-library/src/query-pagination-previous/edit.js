@@ -24,7 +24,7 @@ export default function QueryPaginationPreviousEdit( {
 		>
 			{ displayArrow && (
 				<span
-					className={ `wp-block-query-pagination-previous-arrow is-arrow-${ paginationArrow }` }
+					className={ `fp-block-query-pagination-previous-arrow is-arrow-${ paginationArrow }` }
 					aria-hidden
 				>
 					{ displayArrow }

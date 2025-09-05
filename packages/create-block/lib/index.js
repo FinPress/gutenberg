@@ -19,7 +19,7 @@ const {
 	runPrompts,
 } = require( './templates' );
 
-const commandName = `wp-create-block`;
+const commandName = `fp-create-block`;
 program
 	.name( commandName )
 	.description(
@@ -55,14 +55,14 @@ program
 	)
 	.option( '--category <name>', 'category name for the block' )
 	.option(
-		'--wp-scripts',
+		'--fp-scripts',
 		'enable integration with `@finpress/scripts` package'
 	)
 	.option(
-		'--no-wp-scripts',
+		'--no-fp-scripts',
 		'disable integration with `@finpress/scripts` package'
 	)
-	.option( '--wp-env', 'enable integration with `@finpress/env` package' )
+	.option( '--fp-env', 'enable integration with `@finpress/env` package' )
 	.option( '--textdomain <value>', 'text domain for internationalization' )
 	.action(
 		async (
@@ -74,8 +74,8 @@ program
 				shortDescription: description,
 				template: templateName,
 				title,
-				wpScripts,
-				wpEnv,
+				fpScripts,
+				fpEnv,
 				variant,
 				targetDir,
 				textdomain,
@@ -109,8 +109,8 @@ program
 						description,
 						namespace,
 						title,
-						wpScripts,
-						wpEnv,
+						fpScripts,
+						fpEnv,
 						targetDir,
 						textdomain,
 					} ).filter( ( [ , value ] ) => value !== undefined )

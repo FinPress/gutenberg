@@ -1,6 +1,6 @@
-package org.finpress.mobile.WPAndroidGlue;
+package org.finpress.mobile.FPAndroidGlue;
 
-import org.finpress.mobile.WPAndroidGlue.WPAndroidGlueCode.OnAuthHeaderRequestedListener;
+import org.finpress.mobile.FPAndroidGlue.FPAndroidGlueCode.OnAuthHeaderRequestedListener;
 
 import java.io.IOException;
 import java.util.Map;

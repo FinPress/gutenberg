@@ -5,7 +5,7 @@
  * @package Gutenberg
  */
 
-class Block_Fixture_Test extends WP_UnitTestCase {
+class Block_Fixture_Test extends FP_UnitTestCase {
 
 	public function filter_allowed_html( $tags ) {
 		$tags['form']['class']   = true;
@@ -28,12 +28,12 @@ class Block_Fixture_Test extends WP_UnitTestCase {
 		$block = preg_replace( "/href=['\"]data:[^'\"]+['\"]/", 'href="https://finpress.org/foo.jpg"', $block );
 		$block = preg_replace( '/url\(data:[^)]+\)/', 'url(https://finpress.org/foo.jpg)', $block );
 
-		// Account for a wp-env override using a port other than 8889 for the tests environment.
+		// Account for a fp-env override using a port other than 8889 for the tests environment.
 		$block = preg_replace( '#http://localhost:\d+/#', home_url( '/' ), $block );
 
-		add_filter( 'wp_kses_allowed_html', array( $this, 'filter_allowed_html' ) );
-		$kses_block = wp_kses_post( $block );
-		remove_filter( 'wp_kses_allowed_html', array( $this, 'filter_allowed_html' ) );
+		add_filter( 'fp_kses_allowed_html', array( $this, 'filter_allowed_html' ) );
+		$kses_block = fp_kses_post( $block );
+		remove_filter( 'fp_kses_allowed_html', array( $this, 'filter_allowed_html' ) );
 
 		// KSES adds a space at the end of self-closing tags, add it to the original to match.
 		$block = preg_replace( '|([^ ])/>|', '$1 />', $block );

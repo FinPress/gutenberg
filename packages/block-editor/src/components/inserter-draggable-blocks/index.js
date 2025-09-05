@@ -53,12 +53,12 @@ const InserterDraggableBlocks = ( {
 	const draggableBlocks = patternBlock ?? blocks;
 	return (
 		<Draggable
-			__experimentalTransferDataType="wp-blocks"
+			__experimentalTransferDataType="fp-blocks"
 			transferData={ { type: 'inserter', blocks: draggableBlocks } }
 			onDragStart={ ( event ) => {
 				startDragging();
 				for ( const block of draggableBlocks ) {
-					const type = `wp-block:${ block.name }`;
+					const type = `fp-block:${ block.name }`;
 					// This will fill in the dataTransfer.types array so that
 					// the drop zone can check if the draggable is eligible.
 					// Unfortuantely, on drag start, we don't have access to the

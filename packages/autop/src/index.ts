@@ -167,7 +167,7 @@ export function autop( text: string, br: boolean = true ): string {
 				continue;
 			}
 
-			const name = '<pre wp-pre-tag-' + i + '></pre>';
+			const name = '<pre fp-pre-tag-' + i + '></pre>';
 			preTags.push( [ name, textPart.substr( start ) + '</pre>' ] );
 
 			text += textPart.substr( 0, start ) + name;
@@ -197,7 +197,7 @@ export function autop( text: string, br: boolean = true ): string {
 	text = text.replace( /\r\n|\r/g, '\n' );
 
 	// Find newlines in all elements and add placeholders.
-	text = replaceInHtmlTags( text, { '\n': ' <!-- wpnl --> ' } );
+	text = replaceInHtmlTags( text, { '\n': ' <!-- fpnl --> ' } );
 
 	// Collapse line breaks before and after <option> elements so they don't get autop'd.
 	if ( text.indexOf( '<option' ) !== -1 ) {
@@ -283,7 +283,7 @@ export function autop( text: string, br: boolean = true ): string {
 	if ( br ) {
 		// Replace newlines that shouldn't be touched with a placeholder.
 		text = text.replace( /<(script|style).*?<\/\\1>/g, ( match ) =>
-			match[ 0 ].replace( /\n/g, '<WPPreserveNewline />' )
+			match[ 0 ].replace( /\n/g, '<FPPreserveNewline />' )
 		);
 
 		// Normalize <br>
@@ -295,7 +295,7 @@ export function autop( text: string, br: boolean = true ): string {
 		);
 
 		// Replace newline placeholders with newlines.
-		text = text.replace( /<WPPreserveNewline \/>/g, '\n' );
+		text = text.replace( /<FPPreserveNewline \/>/g, '\n' );
 	}
 
 	// If a <br /> tag is after an opening or closing block tag, remove it.
@@ -318,8 +318,8 @@ export function autop( text: string, br: boolean = true ): string {
 	} );
 
 	// Restore newlines in all elements.
-	if ( -1 !== text.indexOf( '<!-- wpnl -->' ) ) {
-		text = text.replace( /\s?<!-- wpnl -->\s?/g, '\n' );
+	if ( -1 !== text.indexOf( '<!-- fpnl -->' ) ) {
+		text = text.replace( /\s?<!-- fpnl -->\s?/g, '\n' );
 	}
 
 	return text;
@@ -360,7 +360,7 @@ export function removep( html: string ): string {
 			/<(script|style)[^>]*>[\s\S]*?<\/\1>/g,
 			( match ) => {
 				preserve.push( match );
-				return '<wp-preserve>';
+				return '<fp-preserve>';
 			}
 		);
 	}
@@ -369,9 +369,9 @@ export function removep( html: string ): string {
 	if ( html.indexOf( '<pre' ) !== -1 ) {
 		preserveLinebreaks = true;
 		html = html.replace( /<pre[^>]*>[\s\S]+?<\/pre>/g, ( a ) => {
-			a = a.replace( /<br ?\/?>(\r\n|\n)?/g, '<wp-line-break>' );
-			a = a.replace( /<\/?p( [^>]*)?>(\r\n|\n)?/g, '<wp-line-break>' );
-			return a.replace( /\r?\n/g, '<wp-line-break>' );
+			a = a.replace( /<br ?\/?>(\r\n|\n)?/g, '<fp-line-break>' );
+			a = a.replace( /<\/?p( [^>]*)?>(\r\n|\n)?/g, '<fp-line-break>' );
+			return a.replace( /\r?\n/g, '<fp-line-break>' );
 		} );
 	}
 
@@ -380,7 +380,7 @@ export function removep( html: string ): string {
 		preserveBr = true;
 		html = html.replace( /\[caption[\s\S]+?\[\/caption\]/g, ( a ) => {
 			return a
-				.replace( /<br([^>]*)>/g, '<wp-temp-br$1>' )
+				.replace( /<br([^>]*)>/g, '<fp-temp-br$1>' )
 				.replace( /[\r\n\t]+/, '' );
 		} );
 	}
@@ -470,16 +470,16 @@ export function removep( html: string ): string {
 	html = html.replace( /[\s\u00a0]+$/, '' );
 
 	if ( preserveLinebreaks ) {
-		html = html.replace( /<wp-line-break>/g, '\n' );
+		html = html.replace( /<fp-line-break>/g, '\n' );
 	}
 
 	if ( preserveBr ) {
-		html = html.replace( /<wp-temp-br([^>]*)>/g, '<br$1>' );
+		html = html.replace( /<fp-temp-br([^>]*)>/g, '<br$1>' );
 	}
 
 	// Restore preserved tags.
 	if ( preserve.length ) {
-		html = html.replace( /<wp-preserve>/g, () => {
+		html = html.replace( /<fp-preserve>/g, () => {
 			return preserve.shift() as string;
 		} );
 	}

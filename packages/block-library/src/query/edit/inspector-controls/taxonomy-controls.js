@@ -37,7 +37,7 @@ const getTermIdByTermValue = ( terms, termValue ) => {
 	 * to match user expectations, due to `FormTokenField` behaviour that shows
 	 * suggestions which are case insensitive.
 	 *
-	 * Although WP tries to discourage users to add terms with the same name (case insensitive),
+	 * Although FP tries to discourage users to add terms with the same name (case insensitive),
 	 * it's still possible if you manually change the name, as long as the terms have different slugs.
 	 * In this edge case we always apply the first match from the terms list.
 	 */

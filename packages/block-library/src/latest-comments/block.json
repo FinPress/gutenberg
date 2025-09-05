@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/latest-comments",
 	"title": "Latest Comments",
@@ -60,6 +60,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-latest-comments-editor",
-	"style": "wp-block-latest-comments"
+	"editorStyle": "fp-block-latest-comments-editor",
+	"style": "fp-block-latest-comments"
 }

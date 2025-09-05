@@ -56,13 +56,13 @@ const GLOBAL_STYLES_GRADIENTS = {
 		{
 			slug: 'purple-to-blue',
 			gradient:
-				'linear-gradient(160deg, var(--wp--preset--color--purple), var(--wp--preset--color--blue))',
+				'linear-gradient(160deg, var(--fp--preset--color--purple), var(--fp--preset--color--blue))',
 			name: 'Purple to Blue',
 		},
 		{
 			slug: 'green-to-purple',
 			gradient:
-				'linear-gradient(160deg, var(--wp--preset--color--green), var(--wp--preset--color--purple))',
+				'linear-gradient(160deg, var(--fp--preset--color--green), var(--fp--preset--color--purple))',
 			name: 'Green to Purple',
 		},
 	],
@@ -70,40 +70,40 @@ const GLOBAL_STYLES_GRADIENTS = {
 
 const DEFAULT_GLOBAL_STYLES = {
 	color: {
-		background: 'var(--wp--preset--color--green)',
-		text: 'var(--wp--preset--color--blue)',
+		background: 'var(--fp--preset--color--green)',
+		text: 'var(--fp--preset--color--blue)',
 	},
 	typography: {
-		fontSize: 'var(--wp--preset--font-size--normal)',
-		lineHeight: 'var(--wp--custom--line-height--body)',
+		fontSize: 'var(--fp--preset--font-size--normal)',
+		lineHeight: 'var(--fp--custom--line-height--body)',
 	},
 	elements: {
 		link: {
 			color: {
-				text: 'var(--wp--preset--color--purple)',
+				text: 'var(--fp--preset--color--purple)',
 			},
 		},
 		h1: {
 			typography: {
-				fontSize: 'var(--wp--preset--font-size--gigantic)',
-				lineHeight: 'var(--wp--custom--line-height--page-title)',
+				fontSize: 'var(--fp--preset--font-size--gigantic)',
+				lineHeight: 'var(--fp--custom--line-height--page-title)',
 			},
 		},
 		h2: {
 			typography: {
-				fontSize: 'var(--wp--preset--font-size--extra-large)',
-				lineHeight: 'var(--wp--custom--line-height--heading)',
+				fontSize: 'var(--fp--preset--font-size--extra-large)',
+				lineHeight: 'var(--fp--custom--line-height--heading)',
 			},
 		},
 	},
 	blocks: {
 		'core/button': {
 			color: {
-				background: 'var(--wp--preset--color--purple)',
-				text: 'var(--wp--preset--color--green)',
+				background: 'var(--fp--preset--color--purple)',
+				text: 'var(--fp--preset--color--green)',
 			},
 			typography: {
-				fontSize: 'var(--wp--preset--font-size--normal)',
+				fontSize: 'var(--fp--preset--font-size--normal)',
 			},
 		},
 		'core/separator': {
@@ -379,8 +379,8 @@ describe( 'parseStylesVariables', () => {
 		const defaultStyles = {
 			...DEFAULT_GLOBAL_STYLES,
 			color: {
-				text: 'var(--wp--custom--color--blue)',
-				background: 'var(--wp--custom--color--green)',
+				text: 'var(--fp--custom--color--blue)',
+				background: 'var(--fp--custom--color--green)',
 			},
 		};
 		const customValues = parseStylesVariables(

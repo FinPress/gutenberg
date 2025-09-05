@@ -11,9 +11,9 @@ import type { Editor } from './index';
  * @return Promise resolving with post content markup.
  */
 export async function getEditedPostContent( this: Editor ) {
-	await this.page.waitForFunction( () => window?.wp?.data );
+	await this.page.waitForFunction( () => window?.fp?.data );
 
 	return await this.page.evaluate( () =>
-		window.wp.data.select( 'core/editor' ).getEditedPostContent()
+		window.fp.data.select( 'core/editor' ).getEditedPostContent()
 	);
 }

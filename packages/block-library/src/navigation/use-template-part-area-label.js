@@ -61,7 +61,7 @@ export default function useTemplatePartAreaLabel( clientId ) {
 				);
 				const templatePartEntity = getEditedEntityRecord(
 					'postType',
-					'wp_template_part',
+					'fp_template_part',
 					templatePartEntityId
 				);
 

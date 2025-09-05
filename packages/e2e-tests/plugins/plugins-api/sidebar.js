@@ -1,17 +1,17 @@
 ( function () {
-	const Button = wp.components.Button;
-	const PanelBody = wp.components.PanelBody;
-	const PanelRow = wp.components.PanelRow;
-	const editorStore = wp.editor.store;
-	const useDispatch = wp.data.useDispatch;
-	const useSelect = wp.data.useSelect;
-	const PlainText = wp.blockEditor.PlainText;
-	const Fragment = wp.element.Fragment;
-	const el = wp.element.createElement;
-	const __ = wp.i18n.__;
-	const registerPlugin = wp.plugins.registerPlugin;
-	const PluginSidebar = wp.editor.PluginSidebar;
-	const PluginSidebarMoreMenuItem = wp.editor.PluginSidebarMoreMenuItem;
+	const Button = fp.components.Button;
+	const PanelBody = fp.components.PanelBody;
+	const PanelRow = fp.components.PanelRow;
+	const editorStore = fp.editor.store;
+	const useDispatch = fp.data.useDispatch;
+	const useSelect = fp.data.useSelect;
+	const PlainText = fp.blockEditor.PlainText;
+	const Fragment = fp.element.Fragment;
+	const el = fp.element.createElement;
+	const __ = fp.i18n.__;
+	const registerPlugin = fp.plugins.registerPlugin;
+	const PluginSidebar = fp.editor.PluginSidebar;
+	const PluginSidebarMoreMenuItem = fp.editor.PluginSidebarMoreMenuItem;
 
 	function SidebarContents() {
 		const postTitle = useSelect( ( select ) =>

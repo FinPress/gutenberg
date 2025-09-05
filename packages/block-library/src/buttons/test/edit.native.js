@@ -21,11 +21,11 @@ import {
 import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
 import { registerCoreBlocks } from '@finpress/block-library';
 
-const BUTTONS_HTML = `<!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button"></a></div>
-<!-- /wp:button --></div>
-<!-- /wp:buttons -->`;
+const BUTTONS_HTML = `<!-- fp:buttons -->
+<div class="fp-block-buttons"><!-- fp:button -->
+<div class="fp-block-button"><a class="fp-block-button__link fp-element-button"></a></div>
+<!-- /fp:button --></div>
+<!-- /fp:buttons -->`;
 
 beforeAll( () => {
 	// Register all core blocks.
@@ -42,11 +42,11 @@ afterAll( () => {
 describe( 'Buttons block', () => {
 	describe( 'when a button is shown', () => {
 		it( 'adjusts the border radius', async () => {
-			const initialHtml = `<!-- wp:buttons -->
-			<div class="wp-block-buttons"><!-- wp:button {"style":{"border":{"radius":"5px"}}} -->
-			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" style="border-radius:5px" >Hello</a></div>
-			<!-- /wp:button --></div>
-			<!-- /wp:buttons -->`;
+			const initialHtml = `<!-- fp:buttons -->
+			<div class="fp-block-buttons"><!-- fp:button {"style":{"border":{"radius":"5px"}}} -->
+			<div class="fp-block-button"><a class="fp-block-button__link fp-element-button" style="border-radius:5px" >Hello</a></div>
+			<!-- /fp:button --></div>
+			<!-- /fp:buttons -->`;
 			const editor = await initializeEditor( {
 				initialHtml,
 			} );

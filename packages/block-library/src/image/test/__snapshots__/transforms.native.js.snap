@@ -1,49 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Image block transformations to Columns block 1`] = `
-"<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column {"width":"100%"} -->
-<div class="wp-block-column" style="flex-basis:100%"><!-- wp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
-<figure class="wp-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/></a><figcaption class="wp-element-caption">Mountain</figcaption></figure>
-<!-- /wp:image --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->"
+"<!-- fp:columns -->
+<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
+<div class="fp-block-column" style="flex-basis:100%"><!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
+<figure class="fp-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/></a><figcaption class="fp-element-caption">Mountain</figcaption></figure>
+<!-- /fp:image --></div>
+<!-- /fp:column --></div>
+<!-- /fp:columns -->"
 `;
 
 exports[`Image block transformations to Cover block 1`] = `
-"<!-- wp:cover {"url":"https://cldup.com/cXyG__fTLN.jpg","id":1,"dimRatio":50,"style":{"color":{}}} -->
-<div class="wp-block-cover"><img class="wp-block-cover__image-background wp-image-1" alt="" src="https://cldup.com/cXyG__fTLN.jpg" data-object-fit="cover"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:paragraph {"align":"center","fontSize":"large"} -->
+"<!-- fp:cover {"url":"https://cldup.com/cXyG__fTLN.jpg","id":1,"dimRatio":50,"style":{"color":{}}} -->
+<div class="fp-block-cover"><img class="fp-block-cover__image-background fp-image-1" alt="" src="https://cldup.com/cXyG__fTLN.jpg" data-object-fit="cover"/><span aria-hidden="true" class="fp-block-cover__background has-background-dim"></span><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"align":"center","fontSize":"large"} -->
 <p class="has-text-align-center has-large-font-size">Mountain</p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:cover -->"
+<!-- /fp:paragraph --></div></div>
+<!-- /fp:cover -->"
 `;
 
 exports[`Image block transformations to File block 1`] = `
-"<!-- wp:file {"id":1,"href":"https://cldup.com/cXyG__fTLN.jpg"} -->
-<div class="wp-block-file"><a href="https://cldup.com/cXyG__fTLN.jpg">Mountain</a><a href="https://cldup.com/cXyG__fTLN.jpg" class="wp-block-file__button wp-element-button" download>Download</a></div>
-<!-- /wp:file -->"
+"<!-- fp:file {"id":1,"href":"https://cldup.com/cXyG__fTLN.jpg"} -->
+<div class="fp-block-file"><a href="https://cldup.com/cXyG__fTLN.jpg">Mountain</a><a href="https://cldup.com/cXyG__fTLN.jpg" class="fp-block-file__button fp-element-button" download>Download</a></div>
+<!-- /fp:file -->"
 `;
 
 exports[`Image block transformations to Gallery block 1`] = `
-"<!-- wp:gallery {"linkTo":"none"} -->
-<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
-<figure class="wp-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/></a><figcaption class="wp-element-caption">Mountain</figcaption></figure>
-<!-- /wp:image --></figure>
-<!-- /wp:gallery -->"
+"<!-- fp:gallery {"linkTo":"none"} -->
+<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
+<figure class="fp-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/></a><figcaption class="fp-element-caption">Mountain</figcaption></figure>
+<!-- /fp:image --></figure>
+<!-- /fp:gallery -->"
 `;
 
 exports[`Image block transformations to Group block 1`] = `
-"<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
-<figure class="wp-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1"/></a><figcaption class="wp-element-caption">Mountain</figcaption></figure>
-<!-- /wp:image --></div>
-<!-- /wp:group -->"
+"<!-- fp:group {"layout":{"type":"constrained"}} -->
+<div class="fp-block-group"><!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
+<figure class="fp-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/></a><figcaption class="fp-element-caption">Mountain</figcaption></figure>
+<!-- /fp:image --></div>
+<!-- /fp:group -->"
 `;
 
 exports[`Image block transformations to Media & Text block 1`] = `
-"<!-- wp:media-text {"mediaId":1,"mediaType":"image"} -->
-<div class="wp-block-media-text is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="wp-image-1 size-full"/></figure><div class="wp-block-media-text__content"><!-- wp:paragraph -->
+"<!-- fp:media-text {"mediaId":1,"mediaType":"image"} -->
+<div class="fp-block-media-text is-stacked-on-mobile"><figure class="fp-block-media-text__media"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1 size-full"/></figure><div class="fp-block-media-text__content"><!-- fp:paragraph -->
 <p></p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:media-text -->"
+<!-- /fp:paragraph --></div></div>
+<!-- /fp:media-text -->"
 `;

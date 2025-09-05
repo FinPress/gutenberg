@@ -19,17 +19,17 @@ const {
 const config = require( '../config' );
 
 const ARTIFACTS_PATH =
-	process.env.WP_ARTIFACTS_PATH || path.join( process.cwd(), 'artifacts' );
+	process.env.FP_ARTIFACTS_PATH || path.join( process.cwd(), 'artifacts' );
 const RAW_RESULTS_FILE_SUFFIX = '.performance-results.raw.json';
 const RESULTS_FILE_SUFFIX = '.performance-results.json';
 
 /**
- * @typedef WPPerformanceCommandOptions
+ * @typedef FPPerformanceCommandOptions
  *
  * @property {boolean=} ci          Run on CI.
  * @property {number=}  rounds      Run each test suite this many times for each branch.
  * @property {string=}  testsBranch The branch whose performance test files will be used for testing.
- * @property {string=}  wpVersion   The FinPress version to be used as the base install for testing.
+ * @property {string=}  fpVersion   The FinPress version to be used as the base install for testing.
  */
 
 /**
@@ -129,11 +129,11 @@ function stats( values ) {
  * @param {number} value
  */
 function formatValue( metric, value ) {
-	if ( 'wpMemoryUsage' === metric ) {
+	if ( 'fpMemoryUsage' === metric ) {
 		return `${ ( value / Math.pow( 10, 6 ) ).toFixed( 2 ) } MB`;
 	}
 
-	if ( 'wpDbQueries' === metric ) {
+	if ( 'fpDbQueries' === metric ) {
 		return value.toString();
 	}
 
@@ -164,7 +164,7 @@ async function runTestSuite( testSuite, testRunnerDir, runKey ) {
 		{
 			...process.env,
 			PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1',
-			WP_ARTIFACTS_PATH: ARTIFACTS_PATH,
+			FP_ARTIFACTS_PATH: ARTIFACTS_PATH,
 			RESULTS_ID: runKey,
 		}
 	);
@@ -229,7 +229,7 @@ function formatAsMarkdownTable( rows ) {
  * Runs the performances tests on an array of branches and output the result.
  *
  * @param {string[]}                    branches Branches to compare
- * @param {WPPerformanceCommandOptions} options  Command options.
+ * @param {FPPerformanceCommandOptions} options  Command options.
  */
 async function runPerformanceTests( branches, options ) {
 	const runningInCI = !! process.env.CI || !! options.ci;
@@ -266,7 +266,7 @@ async function runPerformanceTests( branches, options ) {
 		throw new Error( `Need at least two git refs to run` );
 	}
 
-	const baseDir = path.join( os.tmpdir(), 'wp-performance-tests' );
+	const baseDir = path.join( os.tmpdir(), 'fp-performance-tests' );
 
 	if ( fs.existsSync( baseDir ) ) {
 		logAtIndent( 1, 'Removing existing files' );
@@ -351,16 +351,16 @@ async function runPerformanceTests( branches, options ) {
 	logAtIndent( 2, 'Creating parent directory:', formats.success( envsDir ) );
 	fs.mkdirSync( envsDir );
 
-	let wpZipUrl = null;
-	if ( options.wpVersion ) {
-		// In order to match the topology of ZIP files at wp.org, remap .0
+	let fpZipUrl = null;
+	if ( options.fpVersion ) {
+		// In order to match the topology of ZIP files at fp.org, remap .0
 		// patch versions to major versions:
 		//
 		//     5.7   -> 5.7   (unchanged)
 		//     5.7.0 -> 5.7   (changed)
 		//     5.7.2 -> 5.7.2 (unchanged)
-		const zipVersion = options.wpVersion.replace( /^(\d+\.\d+).0/, '$1' );
-		wpZipUrl = `https://finpress.org/finpress-${ zipVersion }.zip`;
+		const zipVersion = options.fpVersion.replace( /^(\d+\.\d+).0/, '$1' );
+		fpZipUrl = `https://finpress.org/finpress-${ zipVersion }.zip`;
 	}
 
 	const branchDirs = {};
@@ -388,45 +388,45 @@ async function runPerformanceTests( branches, options ) {
 			buildDir
 		);
 
-		const wpEnvConfigPath = path.join( envDir, '.wp-env.json' );
+		const fpEnvConfigPath = path.join( envDir, '.fp-env.json' );
 
 		logAtIndent(
 			3,
-			'Saving wp-env config to:',
-			formats.success( wpEnvConfigPath )
+			'Saving fp-env config to:',
+			formats.success( fpEnvConfigPath )
 		);
 
 		fs.writeFileSync(
-			wpEnvConfigPath,
+			fpEnvConfigPath,
 			JSON.stringify(
 				{
 					config: {
-						WP_DEBUG: false,
+						FP_DEBUG: false,
 						SCRIPT_DEBUG: false,
 					},
-					core: wpZipUrl || 'FinPress/FinPress',
+					core: fpZipUrl || 'FinPress/FinPress',
 					plugins: [ buildDir ],
 					themes: [ path.join( testRunnerDir, 'test/emptytheme' ) ],
 					env: {
 						tests: {
 							mappings: {
-								'wp-content/mu-plugins': path.join(
+								'fp-content/mu-plugins': path.join(
 									testRunnerDir,
 									'packages/e2e-tests/mu-plugins'
 								),
-								'wp-content/plugins/gutenberg-test-plugins':
+								'fp-content/plugins/gutenberg-test-plugins':
 									path.join(
 										testRunnerDir,
 										'packages/e2e-tests/plugins'
 									),
-								'wp-content/themes/gutenberg-test-themes':
+								'fp-content/themes/gutenberg-test-themes':
 									path.join(
 										testRunnerDir,
 										'test/gutenberg-test-themes'
 									),
-								'wp-content/themes/gutenberg-test-themes/twentytwentyone':
+								'fp-content/themes/gutenberg-test-themes/twentytwentyone':
 									'https://downloads.finpress.org/theme/twentytwentyone.1.7.zip',
-								'wp-content/themes/gutenberg-test-themes/twentytwentythree':
+								'fp-content/themes/gutenberg-test-themes/twentytwentythree':
 									'https://downloads.finpress.org/theme/twentytwentythree.1.0.zip',
 							},
 						},
@@ -450,17 +450,17 @@ async function runPerformanceTests( branches, options ) {
 
 	logAtIndent( 0, 'Running tests' );
 
-	if ( wpZipUrl ) {
+	if ( fpZipUrl ) {
 		logAtIndent(
 			1,
 			'Using:',
-			formats.success( `FinPress v${ options.wpVersion }` )
+			formats.success( `FinPress v${ options.fpVersion }` )
 		);
 	} else {
 		logAtIndent( 1, 'Using:', formats.success( 'FinPress trunk' ) );
 	}
 
-	const wpEnvPath = path.join( testRunnerDir, 'node_modules/.bin/wp-env' );
+	const fpEnvPath = path.join( testRunnerDir, 'node_modules/.bin/fp-env' );
 
 	for ( const testSuite of testSuites ) {
 		for ( let i = 1; i <= TEST_ROUNDS; i++ ) {
@@ -479,13 +479,13 @@ async function runPerformanceTests( branches, options ) {
 				const envDir = branchDirs[ branch ];
 
 				logAtIndent( 3, 'Starting environment' );
-				await runShellScript( `${ wpEnvPath } start`, envDir );
+				await runShellScript( `${ fpEnvPath } start`, envDir );
 
 				logAtIndent( 3, 'Running tests' );
 				await runTestSuite( testSuite, testRunnerDir, runKey );
 
 				logAtIndent( 3, 'Stopping environment' );
-				await runShellScript( `${ wpEnvPath } stop`, envDir );
+				await runShellScript( `${ fpEnvPath } stop`, envDir );
 			}
 		}
 	}

@@ -103,7 +103,7 @@ function block_core_navigation_link_build_css_font_sizes( $context ) {
 		// Add the custom font size inline style.
 		$font_sizes['inline_styles'] = sprintf(
 			'font-size: %s;',
-			wp_get_typography_font_size_value(
+			fp_get_typography_font_size_value(
 				array(
 					'size' => $context['style']['typography']['fontSize'],
 				)
@@ -137,7 +137,7 @@ function block_core_navigation_link_render_submenu_icon() {
 function block_core_navigation_link_maybe_urldecode( $url ) {
 	$is_url_encoded = false;
 	$query          = parse_url( $url, PHP_URL_QUERY );
-	$query_params   = wp_parse_args( $query );
+	$query_params   = fp_parse_args( $query );
 
 	foreach ( $query_params as $query_param ) {
 		$can_query_param_be_encoded = is_string( $query_param ) && ! empty( $query_param );
@@ -165,7 +165,7 @@ function block_core_navigation_link_maybe_urldecode( $url ) {
  *
  * @param array    $attributes The block attributes.
  * @param string   $content    The saved content.
- * @param WP_Block $block      The parsed block.
+ * @param FP_Block $block      The parsed block.
  *
  * @return string Returns the post content with the legacy widget added.
  */
@@ -184,7 +184,7 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 		 *
 		 * @param array $post_status
 		 * @param array $attributes
-		 * @param WP_Block $block
+		 * @param FP_Block $block
 		 */
 		$allowed_post_status = (array) apply_filters(
 			'render_block_core_navigation_link_allowed_post_status',
@@ -222,13 +222,13 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 
 	$wrapper_attributes = get_block_wrapper_attributes(
 		array(
-			'class' => $css_classes . ' wp-block-navigation-item' . ( $has_submenu ? ' has-child' : '' ) .
+			'class' => $css_classes . ' fp-block-navigation-item' . ( $has_submenu ? ' has-child' : '' ) .
 				( $is_active ? ' current-menu-item' : '' ),
 			'style' => $style_attribute,
 		)
 	);
 	$html               = '<li ' . $wrapper_attributes . '>' .
-		'<a class="wp-block-navigation-item__content" ';
+		'<a class="fp-block-navigation-item__content" ';
 
 	// Start appending HTML attributes to anchor tag.
 	if ( isset( $attributes['url'] ) ) {
@@ -258,18 +258,18 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 	// Start anchor tag content.
 	$html .= '>' .
 		// Wrap title with span to isolate it from submenu icon.
-		'<span class="wp-block-navigation-item__label">';
+		'<span class="fp-block-navigation-item__label">';
 
 	if ( isset( $attributes['label'] ) ) {
-		$html .= wp_kses_post( $attributes['label'] );
+		$html .= fp_kses_post( $attributes['label'] );
 	}
 
 	$html .= '</span>';
 
 	// Add description if available.
 	if ( ! empty( $attributes['description'] ) ) {
-		$html .= '<span class="wp-block-navigation-item__description">';
-		$html .= wp_kses_post( $attributes['description'] );
+		$html .= '<span class="fp-block-navigation-item__description">';
+		$html .= fp_kses_post( $attributes['description'] );
 		$html .= '</span>';
 	}
 
@@ -278,7 +278,7 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 
 	if ( isset( $block->context['showSubmenuIcon'] ) && $block->context['showSubmenuIcon'] && $has_submenu ) {
 		// The submenu icon can be hidden by a CSS rule on the Navigation Block.
-		$html .= '<span class="wp-block-navigation__submenu-icon">' . block_core_navigation_link_render_submenu_icon() . '</span>';
+		$html .= '<span class="fp-block-navigation__submenu-icon">' . block_core_navigation_link_render_submenu_icon() . '</span>';
 	}
 
 	if ( $has_submenu ) {
@@ -288,7 +288,7 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 		}
 
 		$html .= sprintf(
-			'<ul class="wp-block-navigation__submenu-container">%s</ul>',
+			'<ul class="fp-block-navigation__submenu-container">%s</ul>',
 			$inner_blocks_html
 		);
 	}
@@ -303,7 +303,7 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
  *
  * @since 5.9.0
  *
- * @param WP_Taxonomy|WP_Post_Type $entity post type or taxonomy entity.
+ * @param FP_Taxonomy|FP_Post_Type $entity post type or taxonomy entity.
  * @param string                   $kind string of value 'taxonomy' or 'post-type'.
  *
  * @return array
@@ -367,7 +367,7 @@ function build_variation_for_navigation_link( $entity, $kind ) {
  * @since 6.5.0
  *
  * @param array         $variations Array of registered variations for a block type.
- * @param WP_Block_Type $block_type The full block type object.
+ * @param FP_Block_Type $block_type The full block type object.
  */
 function block_core_navigation_link_filter_variations( $variations, $block_type ) {
 	if ( 'core/navigation-link' !== $block_type->name ) {
@@ -428,7 +428,7 @@ function block_core_navigation_link_build_variations() {
  * @since 5.9.0
  *
  * @uses render_block_core_navigation_link()
- * @throws WP_Error An WP_Error exception parsing the block definition.
+ * @throws FP_Error An FP_Error exception parsing the block definition.
  */
 function register_block_core_navigation_link() {
 	register_block_type_from_metadata(

@@ -25,29 +25,29 @@ _Usage_
 Input post:
 
 ```html
-<!-- wp:columns {"columns":3} -->
-<div class="wp-block-columns has-3-columns">
-	<!-- wp:column -->
-	<div class="wp-block-column">
-		<!-- wp:paragraph -->
+<!-- fp:columns {"columns":3} -->
+<div class="fp-block-columns has-3-columns">
+	<!-- fp:column -->
+	<div class="fp-block-column">
+		<!-- fp:paragraph -->
 		<p>Left</p>
-		<!-- /wp:paragraph -->
+		<!-- /fp:paragraph -->
 	</div>
-	<!-- /wp:column -->
+	<!-- /fp:column -->
 
-	<!-- wp:column -->
-	<div class="wp-block-column">
-		<!-- wp:paragraph -->
+	<!-- fp:column -->
+	<div class="fp-block-column">
+		<!-- fp:paragraph -->
 		<p><strong>Middle</strong></p>
-		<!-- /wp:paragraph -->
+		<!-- /fp:paragraph -->
 	</div>
-	<!-- /wp:column -->
+	<!-- /fp:column -->
 
-	<!-- wp:column -->
-	<div class="wp-block-column"></div>
-	<!-- /wp:column -->
+	<!-- fp:column -->
+	<div class="fp-block-column"></div>
+	<!-- /fp:column -->
 </div>
-<!-- /wp:columns -->
+<!-- /fp:columns -->
 ```
 
 Parsing code:
@@ -74,7 +74,7 @@ parse( post ) ===
 							innerHTML: '\n<p>Left</p>\n',
 						},
 					],
-					innerHTML: '\n<div class="wp-block-column"></div>\n',
+					innerHTML: '\n<div class="fp-block-column"></div>\n',
 				},
 				{
 					blockName: 'core/column',
@@ -87,17 +87,17 @@ parse( post ) ===
 							innerHTML: '\n<p><strong>Middle</strong></p>\n',
 						},
 					],
-					innerHTML: '\n<div class="wp-block-column"></div>\n',
+					innerHTML: '\n<div class="fp-block-column"></div>\n',
 				},
 				{
 					blockName: 'core/column',
 					attrs: null,
 					innerBlocks: [],
-					innerHTML: '\n<div class="wp-block-column"></div>\n',
+					innerHTML: '\n<div class="fp-block-column"></div>\n',
 				},
 			],
 			innerHTML:
-				'\n<div class="wp-block-columns has-3-columns">\n\n\n\n</div>\n',
+				'\n<div class="fp-block-columns has-3-columns">\n\n\n\n</div>\n',
 		},
 	];
 ```

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"__experimental": true,
 	"name": "core/table-of-contents",
@@ -65,5 +65,5 @@
 			}
 		}
 	},
-	"style": "wp-block-table-of-contents"
+	"style": "fp-block-table-of-contents"
 }

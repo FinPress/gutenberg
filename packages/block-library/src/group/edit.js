@@ -105,7 +105,7 @@ function GroupEdit( { attributes, name, setAttributes, clientId } ) {
 	const innerBlocksProps = useInnerBlocksProps(
 		layoutSupportEnabled
 			? blockProps
-			: { className: 'wp-block-group__inner-container' },
+			: { className: 'fp-block-group__inner-container' },
 		{
 			dropZoneElement: ref.current,
 			templateLock,

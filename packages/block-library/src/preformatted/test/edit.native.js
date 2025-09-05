@@ -65,9 +65,9 @@ describe( 'Preformatted', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- wp:preformatted -->
-		<pre class="wp-block-preformatted">A great statement.<br>Again</pre>
-		<!-- /wp:preformatted -->"
+		"<!-- fp:preformatted -->
+		<pre class="fp-block-preformatted">A great statement.<br>Again</pre>
+		<!-- /fp:preformatted -->"
 	` );
 	} );
 
@@ -99,13 +99,13 @@ describe( 'Preformatted', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- wp:preformatted -->
-		<pre class="wp-block-preformatted">Hello</pre>
-		<!-- /wp:preformatted -->
+		"<!-- fp:preformatted -->
+		<pre class="fp-block-preformatted">Hello</pre>
+		<!-- /fp:preformatted -->
 
-		<!-- wp:paragraph -->
+		<!-- fp:paragraph -->
 		<p></p>
-		<!-- /wp:paragraph -->"
+		<!-- /fp:paragraph -->"
 	` );
 	} );
 } );

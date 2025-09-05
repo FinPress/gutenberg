@@ -88,11 +88,11 @@ function getListPathForPostType( postType ) {
 	switch ( postType ) {
 		case 'navigation':
 			return '/navigation';
-		case 'wp_block':
-			return '/pattern?postType=wp_block';
-		case 'wp_template_part':
-			return '/pattern?postType=wp_template_part';
-		case 'wp_template':
+		case 'fp_block':
+			return '/pattern?postType=fp_block';
+		case 'fp_template_part':
+			return '/pattern?postType=fp_template_part';
+		case 'fp_template':
 			return '/template';
 		case 'page':
 			return '/page';

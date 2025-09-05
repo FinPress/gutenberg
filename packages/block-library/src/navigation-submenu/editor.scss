@@ -1,14 +1,14 @@
-.wp-block-navigation-submenu {
+.fp-block-navigation-submenu {
 	display: block;
 
-	.wp-block-navigation__submenu-container {
+	.fp-block-navigation__submenu-container {
 		z-index: 28;
 	}
 
 	// Show on editor selected, even if on frontend it only stays open on focus-within.
 	&.is-selected,
 	&.has-child-selected {
-		> .wp-block-navigation__submenu-container {
+		> .fp-block-navigation__submenu-container {
 			// We use important here because if the parent block is selected and submenus are present, they should always be visible.
 			visibility: visible !important;
 			opacity: 1 !important;
@@ -21,7 +21,7 @@
 			top: 100%;
 
 			@include break-medium {
-				.wp-block-navigation__submenu-container {
+				.fp-block-navigation__submenu-container {
 					left: 100%;
 					top: -1px; // Border width.
 

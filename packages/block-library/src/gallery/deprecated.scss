@@ -1,6 +1,6 @@
 // Deprecated gallery styles pre refactoring to use nested image blocks.
 // https://github.com/FinPress/gutenberg/pull/25940.
-.wp-block-gallery:not(.has-nested-images),
+.fp-block-gallery:not(.has-nested-images),
 .blocks-gallery-grid:not(.has-nested-images) {
 	display: flex;
 	flex-wrap: wrap;
@@ -122,7 +122,7 @@
 		}
 	}
 }
-.wp-block-gallery {
+.fp-block-gallery {
 	// Non cropped images.
 	&:not(.is-cropped) {
 		.blocks-gallery-item {

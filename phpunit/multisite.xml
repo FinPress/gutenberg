@@ -8,8 +8,8 @@
 		convertDeprecationsToExceptions="true"
 >
 	<php>
-		<env name="WP_MULTISITE" value="1" />
-		<env name="FINPRESS_TABLE_PREFIX" value="wptests_" />
+		<env name="FP_MULTISITE" value="1" />
+		<env name="FINPRESS_TABLE_PREFIX" value="fptests_" />
 	</php>
 	<testsuites>
 		<testsuite name="default">

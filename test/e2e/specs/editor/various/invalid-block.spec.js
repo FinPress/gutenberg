@@ -72,9 +72,9 @@ test.describe( 'Invalid blocks', () => {
 		} );
 
 		await editor.setContent( `
-			<!-- wp:paragraph -->
+			<!-- fp:paragraph -->
 			<p>aaaa <img src onerror=alert(1)></x dde></x>1
-			<!-- /wp:paragraph -->
+			<!-- /fp:paragraph -->
 		` );
 
 		// Give the browser time to show the alert.
@@ -104,9 +104,9 @@ test.describe( 'Invalid blocks', () => {
 		} );
 
 		await editor.setContent( `
-			<!-- wp:shortcode -->
+			<!-- fp:shortcode -->
 			<animate onbegin=alert(1) attributeName=x dur=1s><script>alert("EVIL");</script><style>@keyframes x{}</style><a style="animation-name:x" onanimationstart="alert(2)"></a>
-			<!-- /wp:shortcode -->
+			<!-- /fp:shortcode -->
 		` );
 
 		// Give the browser time to show the alert.

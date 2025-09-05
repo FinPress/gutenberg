@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/search",
 	"title": "Search",
@@ -61,7 +61,7 @@
 		"interactivity": true,
 		"typography": {
 			"__experimentalSkipSerialization": true,
-			"__experimentalSelector": ".wp-block-search__label, .wp-block-search__input, .wp-block-search__button",
+			"__experimentalSelector": ".fp-block-search__label, .fp-block-search__input, .fp-block-search__button",
 			"fontSize": true,
 			"lineHeight": true,
 			"__experimentalFontFamily": true,
@@ -90,6 +90,6 @@
 		},
 		"html": false
 	},
-	"editorStyle": "wp-block-search-editor",
-	"style": "wp-block-search"
+	"editorStyle": "fp-block-search-editor",
+	"style": "fp-block-search"
 }

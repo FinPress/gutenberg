@@ -9,7 +9,7 @@ import type { APIRequestContext } from '@playwright/test';
 /**
  * Internal dependencies
  */
-import { WP_BASE_URL } from '../config';
+import { FP_BASE_URL } from '../config';
 import type { RequestUtils, StorageState } from './index';
 
 function splitRequestsToChunks( requests: BatchRequest[], chunkSize: number ) {
@@ -25,7 +25,7 @@ function splitRequestsToChunks( requests: BatchRequest[], chunkSize: number ) {
 async function getAPIRootURL( request: APIRequestContext ) {
 	// Discover the API root url using link header.
 	// See https://developer.finpress.org/rest-api/using-the-rest-api/discovery/#link-header
-	const response = await request.head( WP_BASE_URL );
+	const response = await request.head( FP_BASE_URL );
 	const links = response.headers().link;
 	const restLink = links?.match( /<([^>]+)>; rel="https:\/\/api\.w\.org\/"/ );
 
@@ -120,7 +120,7 @@ async function rest< RestResponse = any >(
 			...fetchOptions,
 			failOnStatusCode: false,
 			headers: {
-				'X-WP-Nonce': this.storageState!.nonce,
+				'X-FP-Nonce': this.storageState!.nonce,
 				...( fetchOptions.headers || {} ),
 			},
 		} );

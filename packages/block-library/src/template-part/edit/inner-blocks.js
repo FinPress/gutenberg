@@ -54,7 +54,7 @@ function NonEditableTemplatePartPreview( {
 			const { getEditedEntityRecord } = select( coreStore );
 			const editedRecord = getEditedEntityRecord(
 				'postType',
-				'wp_template_part',
+				'fp_template_part',
 				id,
 				{ context: 'view' }
 			);
@@ -108,7 +108,7 @@ function EditableTemplatePartInnerBlocks( {
 
 	const [ blocks, onInput, onChange ] = useEntityBlockEditor(
 		'postType',
-		'wp_template_part',
+		'fp_template_part',
 		{ id }
 	);
 
@@ -128,7 +128,7 @@ function EditableTemplatePartInnerBlocks( {
 					onDoubleClick: () =>
 						onNavigateToEntityRecord( {
 							postId: id,
-							postType: 'wp_template_part',
+							postType: 'fp_template_part',
 						} ),
 			  }
 			: {};
@@ -148,12 +148,12 @@ export default function TemplatePartInnerBlocks( {
 			return {
 				canViewTemplatePart: !! select( coreStore ).canUser( 'read', {
 					kind: 'postType',
-					name: 'wp_template_part',
+					name: 'fp_template_part',
 					id,
 				} ),
 				canEditTemplatePart: !! select( coreStore ).canUser( 'update', {
 					kind: 'postType',
-					name: 'wp_template_part',
+					name: 'fp_template_part',
 					id,
 				} ),
 			};

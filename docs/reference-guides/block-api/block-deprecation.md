@@ -62,7 +62,7 @@ It's important to note that <code>attributes</code>, <code>supports</code>, and 
 **Example**
 
 ```js
-const { registerBlockType } = wp.blocks;
+const { registerBlockType } = fp.blocks;
 const attributes = {
 	text: {
 		type: 'string',
@@ -108,7 +108,7 @@ Sometimes, you need to update the attributes set to rename or modify old attribu
 
 
 ```js
-const { registerBlockType } = wp.blocks;
+const { registerBlockType } = fp.blocks;
 
 registerBlockType( 'gutenberg/block-with-deprecated-version', {
 	// ... other block properties go here
@@ -158,7 +158,7 @@ E.g: a block wants to migrate a title attribute to a paragraph innerBlock.
 **Example**
 
 ```js
-const { registerBlockType } = wp.blocks;
+const { registerBlockType } = fp.blocks;
 
 registerBlockType( 'gutenberg/block-with-deprecated-version', {
 	// ... block properties go here

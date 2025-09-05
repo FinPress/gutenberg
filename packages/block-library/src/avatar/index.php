@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  * @return string Return the avatar.
  */
 function render_block_core_avatar( $attributes, $content, $block ) {
@@ -22,8 +22,8 @@ function render_block_core_avatar( $attributes, $content, $block ) {
 
 	// Class gets passed through `esc_attr` via `get_avatar`.
 	$image_classes = ! empty( $border_attributes['class'] )
-		? "wp-block-avatar__image {$border_attributes['class']}"
-		: 'wp-block-avatar__image';
+		? "fp-block-avatar__image {$border_attributes['class']}"
+		: 'fp-block-avatar__image';
 
 	// Unlike class, `get_avatar` doesn't filter the styles via `esc_attr`.
 	// The style engine does pass the border styles through
@@ -65,7 +65,7 @@ function render_block_core_avatar( $attributes, $content, $block ) {
 				$label = 'aria-label="' . esc_attr( sprintf( __( '(%s author archive, opens in a new tab)' ), $author_name ) ) . '"';
 			}
 			// translators: 1: Author archive link. 2: Link target. %3$s Aria label. %4$s Avatar image.
-			$avatar_block = sprintf( '<a href="%1$s" target="%2$s" %3$s class="wp-block-avatar__link">%4$s</a>', esc_url( get_author_posts_url( $author_id ) ), esc_attr( $attributes['linkTarget'] ), $label, $avatar_block );
+			$avatar_block = sprintf( '<a href="%1$s" target="%2$s" %3$s class="fp-block-avatar__link">%4$s</a>', esc_url( get_author_posts_url( $author_id ) ), esc_attr( $attributes['linkTarget'] ), $label, $avatar_block );
 		}
 		return sprintf( '<div %1s>%2s</div>', $wrapper_attributes, $avatar_block );
 	}
@@ -91,7 +91,7 @@ function render_block_core_avatar( $attributes, $content, $block ) {
 			// translators: %s: Comment author name.
 			$label = 'aria-label="' . esc_attr( sprintf( __( '(%s website link, opens in a new tab)' ), $comment->comment_author ) ) . '"';
 		}
-		$avatar_block = sprintf( '<a href="%1$s" target="%2$s" %3$s class="wp-block-avatar__link">%4$s</a>', esc_url( $comment->comment_author_url ), esc_attr( $attributes['linkTarget'] ), $label, $avatar_block );
+		$avatar_block = sprintf( '<a href="%1$s" target="%2$s" %3$s class="fp-block-avatar__link">%4$s</a>', esc_url( $comment->comment_author_url ), esc_attr( $attributes['linkTarget'] ), $label, $avatar_block );
 	}
 	return sprintf( '<div %1s>%2s</div>', $wrapper_attributes, $avatar_block );
 }
@@ -139,7 +139,7 @@ function get_block_core_avatar_border_attributes( $attributes ) {
 		);
 	}
 
-	$styles     = wp_style_engine_get_styles( array( 'border' => $border_styles ) );
+	$styles     = fp_style_engine_get_styles( array( 'border' => $border_styles ) );
 	$attributes = array();
 	if ( ! empty( $styles['classnames'] ) ) {
 		$attributes['class'] = $styles['classnames'];

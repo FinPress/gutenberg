@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      The block instance.
+ * @param FP_Block $block      The block instance.
  *
  * @return string Returns the modified output of the query block.
  */
@@ -24,23 +24,23 @@ function render_block_core_query( $attributes, $content, $block ) {
 	// Enqueue the script module and add the necessary directives if the block is
 	// interactive.
 	if ( $is_interactive ) {
-		wp_enqueue_script_module( '@finpress/block-library/query/view' );
+		fp_enqueue_script_module( '@finpress/block-library/query/view' );
 
-		$p = new WP_HTML_Tag_Processor( $content );
+		$p = new FP_HTML_Tag_Processor( $content );
 		if ( $p->next_tag() ) {
 			// Add the necessary directives.
-			$p->set_attribute( 'data-wp-interactive', 'core/query' );
-			$p->set_attribute( 'data-wp-router-region', 'query-' . $attributes['queryId'] );
-			$p->set_attribute( 'data-wp-context', '{}' );
-			$p->set_attribute( 'data-wp-key', $attributes['queryId'] );
+			$p->set_attribute( 'data-fp-interactive', 'core/query' );
+			$p->set_attribute( 'data-fp-router-region', 'query-' . $attributes['queryId'] );
+			$p->set_attribute( 'data-fp-context', '{}' );
+			$p->set_attribute( 'data-fp-key', $attributes['queryId'] );
 			$content = $p->get_updated_html();
 		}
 	}
 
 	// Add the styles to the block type if the block is interactive and remove
 	// them if it's not.
-	$style_asset = 'wp-block-query';
-	if ( ! wp_style_is( $style_asset ) ) {
+	$style_asset = 'fp-block-query';
+	if ( ! fp_style_is( $style_asset ) ) {
 		$style_handles = $block->block_type->style_handles;
 		// If the styles are not needed, and they are still in the `style_handles`, remove them.
 		if ( ! $is_interactive && in_array( $style_asset, $style_handles, true ) ) {
@@ -87,7 +87,7 @@ function block_core_query_disable_enhanced_pagination( $parsed_block ) {
 	static $render_query_callback  = null;
 
 	$block_name              = $parsed_block['blockName'];
-	$block_type              = WP_Block_Type_Registry::get_instance()->get_registered( $block_name );
+	$block_type              = FP_Block_Type_Registry::get_instance()->get_registered( $block_name );
 	$has_enhanced_pagination = isset( $parsed_block['attrs']['enhancedPagination'] ) && true === $parsed_block['attrs']['enhancedPagination'] && isset( $parsed_block['attrs']['queryId'] );
 	/*
 	 * Client side navigation can be true in two states:
@@ -104,7 +104,7 @@ function block_core_query_disable_enhanced_pagination( $parsed_block ) {
 			/**
 			 * Filter that disables the enhanced pagination feature during block
 			 * rendering when a plugin block has been found inside. It does so
-			 * by adding an attribute called `data-wp-navigation-disabled` which
+			 * by adding an attribute called `data-fp-navigation-disabled` which
 			 * is later handled by the front-end logic.
 			 *
 			 * @param string   $content  The block content.
@@ -120,7 +120,7 @@ function block_core_query_disable_enhanced_pagination( $parsed_block ) {
 
 				if ( isset( $dirty_enhanced_queries[ $block['attrs']['queryId'] ] ) ) {
 					// Disable navigation in the router store config.
-					wp_interactivity_config( 'core/router', array( 'clientNavigationDisabled' => true ) );
+					fp_interactivity_config( 'core/router', array( 'clientNavigationDisabled' => true ) );
 					$dirty_enhanced_queries[ $block['attrs']['queryId'] ] = null;
 				}
 

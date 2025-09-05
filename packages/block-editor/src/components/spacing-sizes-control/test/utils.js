@@ -79,7 +79,7 @@ describe( 'getSpacingPresetCssVar', () => {
 	} );
 	it( 'should return a string in spacing presets css var format with slug from provided value', () => {
 		expect( getSpacingPresetCssVar( 'var:preset|spacing|20' ) ).toBe(
-			'var(--wp--preset--spacing--20)'
+			'var(--fp--preset--spacing--20)'
 		);
 	} );
 } );

@@ -13,7 +13,7 @@ describe( 'Preloading Middleware', () => {
 						status: 'this is the preloaded response',
 					};
 					const preloadedData = {
-						'wp/v2/posts': {
+						'fp/v2/posts': {
 							body,
 						},
 					};
@@ -21,7 +21,7 @@ describe( 'Preloading Middleware', () => {
 						createPreloadingMiddleware( preloadedData );
 					const requestOptions = {
 						method: 'GET',
-						path: 'wp/v2/posts',
+						path: 'fp/v2/posts',
 					};
 
 					const response = preloadingMiddleware(
@@ -40,7 +40,7 @@ describe( 'Preloading Middleware', () => {
 						status: 'this is the preloaded response',
 					};
 					const preloadedData = {
-						'wp/v2/posts': {
+						'fp/v2/posts': {
 							body,
 						},
 					};
@@ -48,7 +48,7 @@ describe( 'Preloading Middleware', () => {
 						createPreloadingMiddleware( preloadedData );
 					const requestOptions = {
 						method: 'GET',
-						path: 'wp/v2/posts',
+						path: 'fp/v2/posts',
 					};
 					const nextSpy = jest.fn();
 
@@ -86,7 +86,7 @@ describe( 'Preloading Middleware', () => {
 
 					const preloadedData = {
 						OPTIONS: {
-							'wp/v2/posts': data,
+							'fp/v2/posts': data,
 						},
 					};
 
@@ -95,7 +95,7 @@ describe( 'Preloading Middleware', () => {
 
 					const requestOptions = {
 						method: 'OPTIONS',
-						path: 'wp/v2/posts',
+						path: 'fp/v2/posts',
 						parse: false,
 					};
 
@@ -119,7 +119,7 @@ describe( 'Preloading Middleware', () => {
 
 					const preloadedData = {
 						OPTIONS: {
-							'wp/v2/posts': {
+							'fp/v2/posts': {
 								body,
 								headers: {
 									Allow: 'GET, POST',
@@ -133,7 +133,7 @@ describe( 'Preloading Middleware', () => {
 
 					const requestOptions = {
 						method: 'OPTIONS',
-						path: 'wp/v2/posts',
+						path: 'fp/v2/posts',
 						parse: true,
 					};
 
@@ -154,7 +154,7 @@ describe( 'Preloading Middleware', () => {
 					status: 'this is the preloaded response',
 				};
 				const preloadedData = {
-					'wp/v2/posts': {
+					'fp/v2/posts': {
 						body,
 					},
 				};
@@ -162,7 +162,7 @@ describe( 'Preloading Middleware', () => {
 					createPreloadingMiddleware( preloadedData );
 				const requestOptions = {
 					method: 'GET',
-					path: 'wp/v2/fake_resource',
+					path: 'fp/v2/fake_resource',
 				};
 				const nextSpy = jest.fn();
 
@@ -175,15 +175,15 @@ describe( 'Preloading Middleware', () => {
 	it( 'should normalize on stable path', async () => {
 		const body = { content: 'example' };
 		const preloadedData = {
-			'wp/v2/demo-reverse-alphabetical?foo=bar&baz=quux': { body },
-			'wp/v2/demo-alphabetical?baz=quux&foo=bar': { body },
+			'fp/v2/demo-reverse-alphabetical?foo=bar&baz=quux': { body },
+			'fp/v2/demo-alphabetical?baz=quux&foo=bar': { body },
 		};
 		const preloadingMiddleware =
 			createPreloadingMiddleware( preloadedData );
 
 		let requestOptions = {
 			method: 'GET',
-			path: 'wp/v2/demo-reverse-alphabetical?baz=quux&foo=bar',
+			path: 'fp/v2/demo-reverse-alphabetical?baz=quux&foo=bar',
 		};
 
 		let value = await preloadingMiddleware(
@@ -194,7 +194,7 @@ describe( 'Preloading Middleware', () => {
 
 		requestOptions = {
 			method: 'GET',
-			path: 'wp/v2/demo-alphabetical?foo=bar&baz=quux',
+			path: 'fp/v2/demo-alphabetical?foo=bar&baz=quux',
 		};
 
 		value = await preloadingMiddleware( requestOptions, async () => {} );
@@ -259,7 +259,7 @@ describe( 'Preloading Middleware', () => {
 		const body = { content: 'example' };
 		const preloadedData = {
 			OPTIONS: {
-				'wp/v2/demo': { body },
+				'fp/v2/demo': { body },
 			},
 		};
 
@@ -268,7 +268,7 @@ describe( 'Preloading Middleware', () => {
 
 		const requestOptions = {
 			method: 'OPTIONS',
-			path: 'wp/v2/demo',
+			path: 'fp/v2/demo',
 		};
 
 		const firstMiddleware = jest.fn();
@@ -312,7 +312,7 @@ describe( 'Preloading Middleware', () => {
 		};
 
 		const preloadedData = {
-			'wp/v2/example': data,
+			'fp/v2/example': data,
 		};
 
 		const preloadingMiddleware =
@@ -320,7 +320,7 @@ describe( 'Preloading Middleware', () => {
 
 		const requestOptions = {
 			method: 'GET',
-			path: 'wp/v2/example',
+			path: 'fp/v2/example',
 			parse: false,
 		};
 
@@ -343,7 +343,7 @@ describe( 'Preloading Middleware', () => {
 					createPreloadingMiddleware( preloadedData );
 				const requestOptions = {
 					method,
-					path: 'wp/v2/posts',
+					path: 'fp/v2/posts',
 				};
 
 				const callback: FetchHandler = async ( options ) => {

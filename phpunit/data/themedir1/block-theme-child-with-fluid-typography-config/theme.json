@@ -9,8 +9,8 @@
 		"typography": {
 			"fluid": {
 				"minFontSize": "16px",
-				"maxViewportWidth": "1200px",
-				"minViewportWidth": "640px"
+				"maxviewportWidth": "1200px",
+				"minviewportWidth": "640px"
 			}
 		}
 	}

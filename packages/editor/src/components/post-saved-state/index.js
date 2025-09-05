@@ -10,7 +10,7 @@ import {
 	__unstableGetAnimateClassName as getAnimateClassName,
 	Button,
 } from '@finpress/components';
-import { usePrevious, useViewportMatch } from '@finpress/compose';
+import { usePrevious, useviewportMatch } from '@finpress/compose';
 import { useDispatch, useSelect } from '@finpress/data';
 import { useEffect, useState } from '@finpress/element';
 import { __ } from '@finpress/i18n';
@@ -35,7 +35,7 @@ import { store as editorStore } from '../../store';
  */
 export default function PostSavedState( { forceIsDirty } ) {
 	const [ forceSavedMessage, setForceSavedMessage ] = useState( false );
-	const isLargeViewport = useViewportMatch( 'small' );
+	const isLargeviewport = useviewportMatch( 'small' );
 
 	const {
 		isAutosaving,
@@ -73,7 +73,7 @@ export default function PostSavedState( { forceIsDirty } ) {
 				isSaveable: isEditedPostSaveable(),
 				isScheduled: isCurrentPostScheduled(),
 				hasPublishAction:
-					getCurrentPost()?._links?.[ 'wp:action-publish' ] ?? false,
+					getCurrentPost()?._links?.[ 'fp:action-publish' ] ?? false,
 				showIconLabels: get( 'core', 'showIconLabels' ),
 				postStatus: getEditedPostAttribute( 'status' ),
 				postStatusHasChanged: !! getPostEdits()?.status,
@@ -139,7 +139,7 @@ export default function PostSavedState( { forceIsDirty } ) {
 		text = isAutosaving ? __( 'Autosaving' ) : __( 'Saving' );
 	} else if ( isSaved ) {
 		text = __( 'Saved' );
-	} else if ( isLargeViewport ) {
+	} else if ( isLargeviewport ) {
 		text = label;
 	} else if ( showIconLabels ) {
 		text = shortLabel;
@@ -171,7 +171,7 @@ export default function PostSavedState( { forceIsDirty } ) {
 			shortcut={ isDisabled ? undefined : displayShortcut.primary( 's' ) }
 			variant="tertiary"
 			size="compact"
-			icon={ isLargeViewport ? undefined : cloudUpload }
+			icon={ isLargeviewport ? undefined : cloudUpload }
 			label={ text || label }
 			aria-disabled={ isDisabled }
 		>

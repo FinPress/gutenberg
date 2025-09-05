@@ -13,7 +13,7 @@ const getInspectorSectionId = ( sidebarId ) =>
 
 export default function getSidebarSection() {
 	const {
-		wp: { customize },
+		fp: { customize },
 	} = window;
 
 	const reduceMotionMediaQuery = window.matchMedia(
@@ -64,7 +64,7 @@ export default function getSidebarSection() {
 					this.contentContainer.addClass( [ 'busy', 'open' ] );
 					this.contentContainer.removeClass( 'is-sub-section-open' );
 					this.contentContainer
-						.closest( '.wp-full-overlay' )
+						.closest( '.fp-full-overlay' )
 						.addClass( 'section-open' );
 				} else {
 					this.contentContainer.addClass( [
@@ -72,7 +72,7 @@ export default function getSidebarSection() {
 						'is-sub-section-open',
 					] );
 					this.contentContainer
-						.closest( '.wp-full-overlay' )
+						.closest( '.fp-full-overlay' )
 						.addClass( 'section-open' );
 					this.contentContainer.removeClass( 'open' );
 				}

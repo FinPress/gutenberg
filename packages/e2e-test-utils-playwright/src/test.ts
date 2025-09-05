@@ -89,7 +89,7 @@ function observeConsoleLogging( message: ConsoleMessage ) {
 	// (Posts > Add New) will display a console warning about
 	// non - unique IDs.
 	// See: https://core.trac.finpress.org/ticket/23165
-	if ( text.includes( 'elements with non-unique id #_wpnonce' ) ) {
+	if ( text.includes( 'elements with non-unique id #_fpnonce' ) ) {
 		return;
 	}
 

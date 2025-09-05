@@ -12,7 +12,7 @@
  *
  * @param Array    $attributes The block attributes.
  * @param String   $content    InnerBlocks content of the Block.
- * @param WP_Block $block      Block object.
+ * @param FP_Block $block      Block object.
  *
  * @return string Rendered HTML of the referenced block.
  */
@@ -51,18 +51,18 @@ function render_block_core_social_link( $attributes, $content, $block ) {
 	$icon               = block_core_social_link_get_icon( $service );
 	$wrapper_attributes = get_block_wrapper_attributes(
 		array(
-			'class' => 'wp-social-link wp-social-link-' . $service . block_core_social_link_get_color_classes( $block->context ),
+			'class' => 'fp-social-link fp-social-link-' . $service . block_core_social_link_get_color_classes( $block->context ),
 			'style' => block_core_social_link_get_color_styles( $block->context ),
 		)
 	);
 
 	$link  = '<li ' . $wrapper_attributes . '>';
-	$link .= '<a href="' . esc_url( $url ) . '" class="wp-block-social-link-anchor">';
+	$link .= '<a href="' . esc_url( $url ) . '" class="fp-block-social-link-anchor">';
 	$link .= $icon;
-	$link .= '<span class="wp-block-social-link-label' . ( $show_labels ? '' : ' screen-reader-text' ) . '">' . esc_html( $text ) . '</span>';
+	$link .= '<span class="fp-block-social-link-label' . ( $show_labels ? '' : ' screen-reader-text' ) . '">' . esc_html( $text ) . '</span>';
 	$link .= '</a></li>';
 
-	$processor = new WP_HTML_Tag_Processor( $link );
+	$processor = new FP_HTML_Tag_Processor( $link );
 	$processor->next_tag( 'a' );
 	if ( $open_in_new_tab ) {
 		$processor->set_attribute( 'rel', trim( $rel . ' noopener nofollow' ) );

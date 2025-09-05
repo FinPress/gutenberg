@@ -1,13 +1,13 @@
 // Provide special styling for the placeholder.
 // @todo this particular minimal style of placeholder could be componentized further.
-.wp-block-post-featured-image {
+.fp-block-post-featured-image {
 	.block-editor-media-placeholder {
 		z-index: 1; // Need to put it above the overlay so the upload button works.
 		backdrop-filter: none; // Removes background blur so the overlay's actual color is visible.
 	}
 
 	// Style the placeholder.
-	.wp-block-post-featured-image__placeholder,
+	.fp-block-post-featured-image__placeholder,
 	.components-placeholder {
 		justify-content: center;
 		align-items: center;
@@ -30,8 +30,8 @@
 			height: $grid-unit-60;
 			border-radius: 50%;
 			position: relative;
-			background: var(--wp-admin-theme-color);
-			border-color: var(--wp-admin-theme-color);
+			background: var(--fp-admin-theme-color);
+			border-color: var(--fp-admin-theme-color);
 			border-style: solid;
 			color: $white;
 
@@ -48,10 +48,10 @@
 	// its border so that a user selection for border color or width displays
 	// a visual border. They also override the `img { border: none; }` applied
 	// by core.
-	.wp-block-post-featured-image__placeholder,
+	.fp-block-post-featured-image__placeholder,
 	.components-placeholder,
 	img {
-		// The following is required to overcome WP Core applying styles that clear
+		// The following is required to overcome FP Core applying styles that clear
 		// img borders with a higher specificity than those added by the border
 		// block support to provide a default border-style of solid when a border
 		// color or width has been set.

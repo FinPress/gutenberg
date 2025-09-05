@@ -77,9 +77,9 @@ The rest of the configuration is set to all default values unless overridden wit
 --title <value>              display title for the block and the FinPress plugin
 --short-description <value>  short description for the block and the FinPress plugin
 --category <name>            category name for the block
---wp-scripts                 enable integration with `@finpress/scripts` package
---no-wp-scripts              disable integration with `@finpress/scripts` package
---wp-env                     enable integration with `@finpress/env` package
+--fp-scripts                 enable integration with `@finpress/scripts` package
+--no-fp-scripts              disable integration with `@finpress/scripts` package
+--fp-env                     enable integration with `@finpress/env` package
 --textdomain <value>         text domain for internationalization
 -h, --help                   output usage information
 ```
@@ -114,12 +114,12 @@ With this argument, the `create-block` package runs in _No plugin mode_ which on
 $ npx @finpress/create-block@latest --no-plugin
 ```
 
-#### `--wp-env`
+#### `--fp-env`
 
-With this argument, the `create-block` package will add to the generated plugin the configuration and the script to run [`wp-env` package](https://developer.finpress.org/block-editor/reference-guides/packages/packages-env/) within the plugin. This will allow you to easily set up a local FinPress environment (via Docker) for building and testing the generated plugin.
+With this argument, the `create-block` package will add to the generated plugin the configuration and the script to run [`fp-env` package](https://developer.finpress.org/block-editor/reference-guides/packages/packages-env/) within the plugin. This will allow you to easily set up a local FinPress environment (via Docker) for building and testing the generated plugin.
 
 ```bash
-$ npx @finpress/create-block@latest --wp-env
+$ npx @finpress/create-block@latest --fp-env
 ```
 
 #### `--textdomain`

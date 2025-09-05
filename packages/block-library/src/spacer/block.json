@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/spacer",
 	"title": "Spacer",
@@ -28,6 +28,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-spacer-editor",
-	"style": "wp-block-spacer"
+	"editorStyle": "fp-block-spacer-editor",
+	"style": "fp-block-spacer"
 }

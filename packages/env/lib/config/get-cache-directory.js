@@ -9,15 +9,15 @@ const os = require( 'os' );
 /**
  * Gets the directory in which generated files are created.
  *
- * By default: '~/.wp-env/'. On Linux with snap packages: '~/wp-env/'. Can be
- * overridden with the WP_ENV_HOME environment variable.
+ * By default: '~/.fp-env/'. On Linux with snap packages: '~/fp-env/'. Can be
+ * overridden with the FP_ENV_HOME environment variable.
  *
- * @return {Promise<string>} The absolute path to the `wp-env` home directory.
+ * @return {Promise<string>} The absolute path to the `fp-env` home directory.
  */
 module.exports = async function getCacheDirectory() {
 	// Allow user to override download location.
-	if ( process.env.WP_ENV_HOME ) {
-		return path.resolve( process.env.WP_ENV_HOME );
+	if ( process.env.FP_ENV_HOME ) {
+		return path.resolve( process.env.FP_ENV_HOME );
 	}
 
 	/**
@@ -35,5 +35,5 @@ module.exports = async function getCacheDirectory() {
 		usesSnap = false;
 	}
 
-	return path.resolve( os.homedir(), usesSnap ? 'wp-env' : '.wp-env' );
+	return path.resolve( os.homedir(), usesSnap ? 'fp-env' : '.fp-env' );
 };

@@ -251,7 +251,7 @@ Returns the post type of the post currently being edited.
 _Usage_
 
 ```js
-const currentPostType = wp.data.select( 'core/editor' ).getCurrentPostType();
+const currentPostType = fp.data.select( 'core/editor' ).getCurrentPostType();
 ```
 
 _Parameters_
@@ -403,7 +403,7 @@ _Parameters_
 
 _Returns_
 
--   `WPBlockSelection`: The selection end.
+-   `FPBlockSelection`: The selection end.
 
 ### getEditorSelectionEnd
 
@@ -417,7 +417,7 @@ _Parameters_
 
 _Returns_
 
--   `WPBlockSelection`: The selection end.
+-   `FPBlockSelection`: The selection end.
 
 ### getEditorSelectionStart
 
@@ -431,7 +431,7 @@ _Parameters_
 
 _Returns_
 
--   `WPBlockSelection`: The selection start.
+-   `FPBlockSelection`: The selection start.
 
 ### getEditorSettings
 
@@ -1229,7 +1229,7 @@ _Usage_
 
 ```js
 // Update the post title
-wp.data.dispatch( 'core/editor' ).editPost( { title: `${ newTitle }` } );
+fp.data.dispatch( 'core/editor' ).editPost( { title: `${ newTitle }` } );
 ```
 
 _Parameters_
@@ -1288,7 +1288,7 @@ Action that locks post autosaving.
 _Usage_
 
     // Lock post autosaving with the lock key `mylock`:
-    wp.data.dispatch( 'core/editor' ).lockPostAutosaving( 'mylock' );
+    fp.data.dispatch( 'core/editor' ).lockPostAutosaving( 'mylock' );
 
 _Parameters_
 
@@ -1304,9 +1304,9 @@ Action that locks post saving.
 
 _Usage_
 
-    const { subscribe } = wp.data;
+    const { subscribe } = fp.data;
 
-    const initialPostStatus = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
+    const initialPostStatus = fp.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
 
     // Only allow publishing posts that are set to a future date.
     if ( 'publish' !== initialPostStatus ) {
@@ -1316,21 +1316,21 @@ _Usage_
 
     	// Watch for the publish event.
     	let unssubscribe = subscribe( () => {
-    		const currentPostStatus = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
+    		const currentPostStatus = fp.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
     		if ( 'publish' !== currentPostStatus ) {
 
     			// Compare the post date to the current date, lock the post if the date isn't in the future.
-    			const postDate = new Date( wp.data.select( 'core/editor' ).getEditedPostAttribute( 'date' ) );
+    			const postDate = new Date( fp.data.select( 'core/editor' ).getEditedPostAttribute( 'date' ) );
     			const currentDate = new Date();
     			if ( postDate.getTime() <= currentDate.getTime() ) {
     				if ( ! locked ) {
     					locked = true;
-    					wp.data.dispatch( 'core/editor' ).lockPostSaving( 'futurelock' );
+    					fp.data.dispatch( 'core/editor' ).lockPostSaving( 'futurelock' );
     				}
     			} else {
     				if ( locked ) {
     					locked = false;
-    					wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'futurelock' );
+    					fp.data.dispatch( 'core/editor' ).unlockPostSaving( 'futurelock' );
     				}
     			}
     		}
@@ -1678,7 +1678,7 @@ Action that unlocks post autosaving.
 _Usage_
 
     // Unlock post saving with the lock key `mylock`:
-    wp.data.dispatch( 'core/editor' ).unlockPostAutosaving( 'mylock' );
+    fp.data.dispatch( 'core/editor' ).unlockPostAutosaving( 'mylock' );
 
 _Parameters_
 
@@ -1695,7 +1695,7 @@ Action that unlocks post saving.
 _Usage_
 
     // Unlock post saving with the lock key `mylock`:
-    wp.data.dispatch( 'core/editor' ).unlockPostSaving( 'mylock' );
+    fp.data.dispatch( 'core/editor' ).unlockPostSaving( 'mylock' );
 
 _Parameters_
 

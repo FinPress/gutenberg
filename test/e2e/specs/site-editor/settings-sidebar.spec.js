@@ -7,15 +7,15 @@ test.describe( 'Settings sidebar', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await Promise.all( [
 			requestUtils.activateTheme( 'emptytheme' ),
-			requestUtils.deleteAllTemplates( 'wp_template' ),
-			requestUtils.deleteAllTemplates( 'wp_template_part' ),
+			requestUtils.deleteAllTemplates( 'fp_template' ),
+			requestUtils.deleteAllTemplates( 'fp_template_part' ),
 		] );
 	} );
 
 	test.beforeEach( async ( { admin } ) => {
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//index',
-			postType: 'wp_template',
+			postType: 'fp_template',
 			canvas: 'edit',
 		} );
 	} );
@@ -23,8 +23,8 @@ test.describe( 'Settings sidebar', () => {
 	test.afterAll( async ( { requestUtils } ) => {
 		await Promise.all( [
 			requestUtils.activateTheme( 'twentytwentyone' ),
-			requestUtils.deleteAllTemplates( 'wp_template' ),
-			requestUtils.deleteAllTemplates( 'wp_template_part' ),
+			requestUtils.deleteAllTemplates( 'fp_template' ),
+			requestUtils.deleteAllTemplates( 'fp_template_part' ),
 		] );
 	} );
 
@@ -63,7 +63,7 @@ test.describe( 'Settings sidebar', () => {
 
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//singular',
-				postType: 'wp_template',
+				postType: 'fp_template',
 				canvas: 'edit',
 			} );
 
@@ -131,7 +131,7 @@ test.describe( 'Settings sidebar', () => {
 			).toHaveText( 'Block' );
 
 			await page.evaluate( () => {
-				window.wp.data
+				window.fp.data
 					.dispatch( 'core/block-editor' )
 					.clearSelectedBlock();
 			} );

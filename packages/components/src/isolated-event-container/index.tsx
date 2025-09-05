@@ -17,7 +17,7 @@ type DivProps = ComponentPropsWithoutRef< 'div' >;
 
 const IsolatedEventContainer = forwardRef< HTMLDivElement, DivProps >(
 	( props, ref ) => {
-		deprecated( 'wp.components.IsolatedEventContainer', {
+		deprecated( 'fp.components.IsolatedEventContainer', {
 			since: '5.7',
 		} );
 

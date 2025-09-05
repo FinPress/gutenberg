@@ -4,31 +4,31 @@ add_filter(
 	'template_include',
 	static function ( $template ) {
 
-		global $timestart, $wpdb;
+		global $timestart, $fpdb;
 
 		$server_timing_values = array();
 		$template_start       = microtime( true );
 
-		$server_timing_values['wpBeforeTemplate'] = $template_start - $timestart;
+		$server_timing_values['fpBeforeTemplate'] = $template_start - $timestart;
 
 		ob_start();
 
 		add_action(
 			'shutdown',
-			static function () use ( $server_timing_values, $template_start, $wpdb ) {
+			static function () use ( $server_timing_values, $template_start, $fpdb ) {
 				$output = ob_get_clean();
 
-				$server_timing_values['wpTemplate'] = microtime( true ) - $template_start;
+				$server_timing_values['fpTemplate'] = microtime( true ) - $template_start;
 
-				$server_timing_values['wpTotal'] = $server_timing_values['wpBeforeTemplate'] + $server_timing_values['wpTemplate'];
+				$server_timing_values['fpTotal'] = $server_timing_values['fpBeforeTemplate'] + $server_timing_values['fpTemplate'];
 
 				/*
 				 * While values passed via Server-Timing are intended to be durations,
 				 * any numeric value can actually be passed.
 				 * This is a nice little trick as it allows to easily get this information in JS.
 				 */
-				$server_timing_values['wpMemoryUsage'] = memory_get_usage();
-				$server_timing_values['wpDbQueries']   = $wpdb->num_queries;
+				$server_timing_values['fpMemoryUsage'] = memory_get_usage();
+				$server_timing_values['fpDbQueries']   = $fpdb->num_queries;
 
 				$header_values = array();
 				foreach ( $server_timing_values as $slug => $value ) {
@@ -52,26 +52,26 @@ add_filter(
 add_action(
 	'admin_init',
 	static function () {
-		global $timestart, $wpdb;
+		global $timestart, $fpdb;
 
 		ob_start();
 
 		add_action(
 			'shutdown',
-			static function () use ( $wpdb, $timestart ) {
+			static function () use ( $fpdb, $timestart ) {
 				$output = ob_get_clean();
 
 				$server_timing_values = array();
 
-				$server_timing_values['wpTotal'] = microtime( true ) - $timestart;
+				$server_timing_values['fpTotal'] = microtime( true ) - $timestart;
 
 				/*
 				 * While values passed via Server-Timing are intended to be durations,
 				 * any numeric value can actually be passed.
 				 * This is a nice little trick as it allows to easily get this information in JS.
 				 */
-				$server_timing_values['wpMemoryUsage'] = memory_get_usage();
-				$server_timing_values['wpDbQueries']   = $wpdb->num_queries;
+				$server_timing_values['fpMemoryUsage'] = memory_get_usage();
+				$server_timing_values['fpDbQueries']   = $fpdb->num_queries;
 
 				$header_values = array();
 				foreach ( $server_timing_values as $slug => $value ) {

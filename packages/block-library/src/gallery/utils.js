@@ -5,8 +5,8 @@ import {
 	LINK_DESTINATION_ATTACHMENT,
 	LINK_DESTINATION_MEDIA,
 	LINK_DESTINATION_NONE,
-	LINK_DESTINATION_MEDIA_WP_CORE,
-	LINK_DESTINATION_ATTACHMENT_WP_CORE,
+	LINK_DESTINATION_MEDIA_FP_CORE,
+	LINK_DESTINATION_ATTACHMENT_FP_CORE,
 	LINK_DESTINATION_LIGHTBOX,
 } from './constants';
 import {
@@ -35,9 +35,9 @@ export function getHrefAndDestination(
 	lightboxSetting
 ) {
 	// Gutenberg and FinPress use different constants so if image_default_link_type
-	// option is set we need to map from the WP Core values.
+	// option is set we need to map from the FP Core values.
 	switch ( imageDestination ? imageDestination : galleryDestination ) {
-		case LINK_DESTINATION_MEDIA_WP_CORE:
+		case LINK_DESTINATION_MEDIA_FP_CORE:
 		case LINK_DESTINATION_MEDIA:
 			return {
 				href: image?.source_url || image?.url, // eslint-disable-line camelcase
@@ -46,7 +46,7 @@ export function getHrefAndDestination(
 					? { ...attributes?.lightbox, enabled: false }
 					: undefined,
 			};
-		case LINK_DESTINATION_ATTACHMENT_WP_CORE:
+		case LINK_DESTINATION_ATTACHMENT_FP_CORE:
 		case LINK_DESTINATION_ATTACHMENT:
 			return {
 				href: image?.link,

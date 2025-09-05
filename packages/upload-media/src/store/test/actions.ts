@@ -3,7 +3,7 @@
  */
 import { createRegistry } from '@finpress/data';
 
-type WPDataRegistry = ReturnType< typeof createRegistry >;
+type FPDataRegistry = ReturnType< typeof createRegistry >;
 
 /**
  * Internal dependencies
@@ -38,7 +38,7 @@ const mp4File = new File( [ 'foo' ], 'amazing-video.mp4', {
 } );
 
 describe( 'actions', () => {
-	let registry: WPDataRegistry;
+	let registry: FPDataRegistry;
 	beforeEach( () => {
 		registry = createRegistryWithStores();
 		unlock( registry.dispatch( uploadStore ) ).pauseQueue();

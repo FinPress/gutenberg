@@ -8,7 +8,7 @@ test.describe( 'Comments Form', () => {
 
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'emptytheme' );
-		await requestUtils.deleteAllTemplates( 'wp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
 	} );
 
 	test.beforeEach( async ( { requestUtils } ) => {
@@ -33,7 +33,7 @@ test.describe( 'Comments Form', () => {
 		// Navigate to "Singular" post template
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//singular',
-			postType: 'wp_template',
+			postType: 'fp_template',
 			canvas: 'edit',
 		} );
 

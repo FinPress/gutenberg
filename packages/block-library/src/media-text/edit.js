@@ -463,7 +463,7 @@ function MediaTextEdit( {
 	} );
 
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: 'wp-block-media-text__content' },
+		{ className: 'fp-block-media-text__content' },
 		{ template: TEMPLATE, allowedBlocks }
 	);
 
@@ -515,7 +515,7 @@ function MediaTextEdit( {
 			<div { ...blockProps }>
 				{ mediaPosition === 'right' && <div { ...innerBlocksProps } /> }
 				<MediaContainer
-					className="wp-block-media-text__media"
+					className="fp-block-media-text__media"
 					onSelectMedia={ onSelectMedia }
 					onWidthChange={ onWidthChange }
 					commitWidthChange={ commitWidthChange }

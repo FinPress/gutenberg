@@ -11,18 +11,18 @@ const globals = require( 'globals' );
  * https://github.com/FinPress/gutenberg/issues/18045.
  */
 const temporaryFinPressInternalTypes = [
-	'WPBlockChildren',
-	'WPBlockNode',
-	'WPBlockSelection',
-	'WPBlockSerializationOptions',
-	'WPBlock',
-	'WPBlockBindingsSource',
-	'WPBlockPattern',
-	'WPBlockType',
-	'WPBlockTypeIcon',
-	'WPBlockTypeIconRender',
-	'WPBlockTypeIconDescriptor',
-	'WPIcon',
+	'FPBlockChildren',
+	'FPBlockNode',
+	'FPBlockSelection',
+	'FPBlockSerializationOptions',
+	'FPBlock',
+	'FPBlockBindingsSource',
+	'FPBlockPattern',
+	'FPBlockType',
+	'FPBlockTypeIcon',
+	'FPBlockTypeIconRender',
+	'FPBlockTypeIconDescriptor',
+	'FPIcon',
 
 	// These two should be removed once we use the TS types from "react".
 	'Component',

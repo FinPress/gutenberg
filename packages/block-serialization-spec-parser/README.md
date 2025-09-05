@@ -20,7 +20,7 @@ npm install @finpress/block-serialization-spec-parser --save
 ```js
 import { parse } from '@finpress/block-serialization-spec-parser';
 
-parse( '<!-- wp:core/more --><!--more--><!-- /wp:core/more -->' );
+parse( '<!-- fp:core/more --><!--more--><!-- /fp:core/more -->' );
 // [{"attrs": null, "blockName": "core/more", "innerBlocks": [], "innerHTML": "<!--more-->"}]
 ```
 

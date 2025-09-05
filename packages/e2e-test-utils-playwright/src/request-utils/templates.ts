@@ -3,10 +3,10 @@
  */
 import type { RequestUtils } from './index';
 
-type TemplateType = 'wp_template' | 'wp_template_part';
+type TemplateType = 'fp_template' | 'fp_template_part';
 
 interface Template {
-	wp_id: number;
+	fp_id: number;
 	id: string;
 }
 
@@ -18,8 +18,8 @@ interface CreateTemplatePayload {
 }
 
 const PATH_MAPPING = {
-	wp_template: '/wp/v2/templates',
-	wp_template_part: '/wp/v2/template-parts',
+	fp_template: '/fp/v2/templates',
+	fp_template_part: '/fp/v2/template-parts',
 };
 
 /**
@@ -38,7 +38,7 @@ async function deleteAllTemplates( this: RequestUtils, type: TemplateType ) {
 	const templates = await this.rest< Template[] >( { path } );
 
 	for ( const template of templates ) {
-		if ( ! template?.id || ! template?.wp_id ) {
+		if ( ! template?.id || ! template?.fp_id ) {
 			continue;
 		}
 
@@ -52,7 +52,7 @@ async function deleteAllTemplates( this: RequestUtils, type: TemplateType ) {
 			// Disable reason - the error provides valuable feedback about issues with tests.
 			// eslint-disable-next-line no-console
 			console.warn(
-				`deleteAllTemplates failed to delete template (id: ${ template.wp_id }) with the following error`,
+				`deleteAllTemplates failed to delete template (id: ${ template.fp_id }) with the following error`,
 				responseError
 			);
 		}
@@ -74,7 +74,7 @@ async function createTemplate(
 	const template = await this.rest< Template >( {
 		method: 'POST',
 		path: PATH_MAPPING[ type ],
-		params: { ...payload, type, status: 'publish', is_wp_suggestion: true },
+		params: { ...payload, type, status: 'publish', is_fp_suggestion: true },
 	} );
 
 	return template;

@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useSelect } from '@finpress/data';
 
 /**
@@ -100,7 +100,7 @@ describe( 'PostSavedState', () => {
 		} ) );
 
 		// Simulate the viewport being considered large.
-		useViewportMatch.mockImplementation( () => true );
+		useviewportMatch.mockImplementation( () => true );
 
 		render( <PostSavedState /> );
 

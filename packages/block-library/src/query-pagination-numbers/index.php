@@ -10,11 +10,11 @@
  *
  * @since 5.8.0
  *
- * @global WP_Query $wp_query FinPress Query object.
+ * @global FP_Query $fp_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  *
  * @return string Returns the pagination numbers for the Query.
  */
@@ -26,12 +26,12 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 
 	$wrapper_attributes = get_block_wrapper_attributes();
 	$content            = '';
-	global $wp_query;
+	global $fp_query;
 	$mid_size = isset( $block->attributes['midSize'] ) ? (int) $block->attributes['midSize'] : null;
 	if ( isset( $block->context['query']['inherit'] ) && $block->context['query']['inherit'] ) {
 		// Take into account if we have set a bigger `max page`
 		// than what the query has.
-		$total         = ! $max_page || $max_page > $wp_query->max_num_pages ? $wp_query->max_num_pages : $max_page;
+		$total         = ! $max_page || $max_page > $fp_query->max_num_pages ? $fp_query->max_num_pages : $max_page;
 		$paginate_args = array(
 			'prev_next' => false,
 			'total'     => $total,
@@ -41,12 +41,12 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 		}
 		$content = paginate_links( $paginate_args );
 	} else {
-		$block_query = new WP_Query( build_query_vars_from_query_block( $block, $page ) );
-		// `paginate_links` works with the global $wp_query, so we have to
+		$block_query = new FP_Query( build_query_vars_from_query_block( $block, $page ) );
+		// `paginate_links` works with the global $fp_query, so we have to
 		// temporarily switch it with our custom query.
-		$prev_wp_query = $wp_query;
-		$wp_query      = $block_query;
-		$total         = ! $max_page || $max_page > $wp_query->max_num_pages ? $wp_query->max_num_pages : $max_page;
+		$prev_fp_query = $fp_query;
+		$fp_query      = $block_query;
+		$total         = ! $max_page || $max_page > $fp_query->max_num_pages ? $fp_query->max_num_pages : $max_page;
 		$paginate_args = array(
 			'base'      => '%_%',
 			'format'    => "?$page_key=%#%",
@@ -74,7 +74,7 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 			 * The proper fix of this should be in core. Track Ticket:
 			 * @see https://core.trac.finpress.org/ticket/53868
 			 *
-			 * TODO: After two WP versions (starting from the WP version the core patch landed),
+			 * TODO: After two FP versions (starting from the FP version the core patch landed),
 			 * we should remove this and call `paginate_links` with the proper new arg.
 			 */
 			$paginate_args['add_args'] = array( 'cst' => '' );
@@ -86,8 +86,8 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 			$paginate_args['add_args'] = array( 'paged' => $paged );
 		}
 		$content = paginate_links( $paginate_args );
-		wp_reset_postdata(); // Restore original Post Data.
-		$wp_query = $prev_wp_query;
+		fp_reset_postdata(); // Restore original Post Data.
+		$fp_query = $prev_fp_query;
 	}
 
 	if ( empty( $content ) ) {
@@ -95,16 +95,16 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 	}
 
 	if ( $enhanced_pagination ) {
-		$p         = new WP_HTML_Tag_Processor( $content );
+		$p         = new FP_HTML_Tag_Processor( $content );
 		$tag_index = 0;
 		while ( $p->next_tag(
 			array( 'class_name' => 'page-numbers' )
 		) ) {
-			if ( null === $p->get_attribute( 'data-wp-key' ) ) {
-				$p->set_attribute( 'data-wp-key', 'index-' . $tag_index++ );
+			if ( null === $p->get_attribute( 'data-fp-key' ) ) {
+				$p->set_attribute( 'data-fp-key', 'index-' . $tag_index++ );
 			}
 			if ( 'A' === $p->get_tag() ) {
-				$p->set_attribute( 'data-wp-on--click', 'core/query::actions.navigate' );
+				$p->set_attribute( 'data-fp-on--click', 'core/query::actions.navigate' );
 			}
 		}
 		$content = $p->get_updated_html();

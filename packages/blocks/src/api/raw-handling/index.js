@@ -20,9 +20,9 @@ import { deepFilterHTML, getBlockContentSchema } from './utils';
 export { pasteHandler } from './paste-handler';
 
 export function deprecatedGetPhrasingContentSchema( context ) {
-	deprecated( 'wp.blocks.getPhrasingContentSchema', {
+	deprecated( 'fp.blocks.getPhrasingContentSchema', {
 		since: '5.6',
-		alternative: 'wp.dom.getPhrasingContentSchema',
+		alternative: 'fp.dom.getPhrasingContentSchema',
 	} );
 	return getPhrasingContentSchema( context );
 }
@@ -37,7 +37,7 @@ export function deprecatedGetPhrasingContentSchema( context ) {
  */
 export function rawHandler( { HTML = '' } ) {
 	// If we detect block delimiters, parse entirely as blocks.
-	if ( HTML.indexOf( '<!-- wp:' ) !== -1 ) {
+	if ( HTML.indexOf( '<!-- fp:' ) !== -1 ) {
 		const parseResult = parse( HTML );
 		const isSingleFreeFormBlock =
 			parseResult.length === 1 &&

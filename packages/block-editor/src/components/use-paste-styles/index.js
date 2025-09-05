@@ -73,8 +73,8 @@ const STYLE_ATTRIBUTES = {
 /**
  * Get the "style attributes" from a given block to a target block.
  *
- * @param {WPBlock} sourceBlock The source block.
- * @param {WPBlock} targetBlock The target block.
+ * @param {FPBlock} sourceBlock The source block.
+ * @param {FPBlock} targetBlock The target block.
  * @return {Object} the filtered attributes object.
  */
 function getStyleAttributes( sourceBlock, targetBlock ) {
@@ -98,8 +98,8 @@ function getStyleAttributes( sourceBlock, targetBlock ) {
 /**
  * Update the target blocks with style attributes recursively.
  *
- * @param {WPBlock[]} targetBlocks          The target blocks to be updated.
- * @param {WPBlock[]} sourceBlocks          The source blocks to get th style attributes from.
+ * @param {FPBlock[]} targetBlocks          The target blocks to be updated.
+ * @param {FPBlock[]} sourceBlocks          The source blocks to get th style attributes from.
  * @param {Function}  updateBlockAttributes The function to update the attributes.
  */
 function recursivelyUpdateBlockAttributes(

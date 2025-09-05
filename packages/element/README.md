@@ -114,7 +114,7 @@ _Parameters_
 
 _Returns_
 
--   `Element`: A wp element.
+-   `Element`: A fp element.
 
 ### createPortal
 
@@ -205,11 +205,11 @@ _Changelog_
 
 ### isEmptyElement
 
-Checks if the provided WP element is empty.
+Checks if the provided FP element is empty.
 
 _Parameters_
 
--   _element_ `*`: WP element to check.
+-   _element_ `*`: FP element to check.
 
 _Returns_
 

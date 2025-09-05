@@ -12,7 +12,7 @@ import apiFetch from '@finpress/api-fetch';
 /**
  * Internal dependencies
  */
-import { WP_BASE_URL, WP_USERNAME, WP_PASSWORD } from './shared/config';
+import { FP_BASE_URL, FP_USERNAME, FP_PASSWORD } from './shared/config';
 import { createURL } from './create-url';
 
 // `apiFetch` expects `window.fetch` to be available in its default handler.
@@ -22,7 +22,7 @@ global.window.fetch = fetch;
 const setAPIRootURL = ( async () => {
 	// Discover the API root url using link header.
 	// See https://developer.finpress.org/rest-api/using-the-rest-api/discovery/#link-header
-	const res = await fetch( WP_BASE_URL, { method: 'HEAD' } );
+	const res = await fetch( FP_BASE_URL, { method: 'HEAD' } );
 	const links = res.headers.get( 'link' );
 	const restLink = links.match( /<([^>]+)>; rel="https:\/\/api\.w\.org\/"/ );
 
@@ -37,11 +37,11 @@ Link header: ${ links }` );
 
 async function login( retries = 3 ) {
 	const formData = new FormData();
-	formData.append( 'log', WP_USERNAME );
-	formData.append( 'pwd', WP_PASSWORD );
+	formData.append( 'log', FP_USERNAME );
+	formData.append( 'pwd', FP_PASSWORD );
 
 	// Login to admin using fetch.
-	const loginResponse = await fetch( createURL( 'wp-login.php' ), {
+	const loginResponse = await fetch( createURL( 'fp-login.php' ), {
 		method: 'POST',
 		headers: formData.getHeaders(),
 		body: formData,
@@ -56,7 +56,7 @@ async function login( retries = 3 ) {
 		.join( ';' );
 
 	apiFetch.nonceEndpoint = createURL(
-		'wp-admin/admin-ajax.php',
+		'fp-admin/admin-ajax.php',
 		'action=rest-nonce'
 	);
 

@@ -14,7 +14,7 @@ describe( 'mergeConfigs', () => {
 					path: '/home/test',
 				},
 				config: {
-					WP_TEST: 'test',
+					FP_TEST: 'test',
 				},
 				lifecycleScripts: {
 					afterStart: 'test',
@@ -23,7 +23,7 @@ describe( 'mergeConfigs', () => {
 			{
 				port: 8889,
 				config: {
-					WP_TEST_2: 'test-2',
+					FP_TEST_2: 'test-2',
 				},
 				lifecycleScripts: {
 					afterDestroy: 'test-2',
@@ -38,8 +38,8 @@ describe( 'mergeConfigs', () => {
 				path: '/home/test',
 			},
 			config: {
-				WP_TEST: 'test',
-				WP_TEST_2: 'test-2',
+				FP_TEST: 'test',
+				FP_TEST_2: 'test-2',
 			},
 			lifecycleScripts: {
 				afterStart: 'test',
@@ -57,17 +57,17 @@ describe( 'mergeConfigs', () => {
 					path: '/home/test',
 				},
 				config: {
-					WP_TEST: 'test',
+					FP_TEST: 'test',
 				},
 				env: {
 					development: {
 						config: {
-							WP_TEST_3: 'test-3',
+							FP_TEST_3: 'test-3',
 						},
 					},
 					tests: {
 						config: {
-							WP_TEST_4: 'test-4',
+							FP_TEST_4: 'test-4',
 						},
 					},
 				},
@@ -75,17 +75,17 @@ describe( 'mergeConfigs', () => {
 			{
 				port: 8889,
 				config: {
-					WP_TEST_2: 'test-2',
+					FP_TEST_2: 'test-2',
 				},
 				env: {
 					development: {
 						config: {
-							WP_TEST_5: 'test-5',
+							FP_TEST_5: 'test-5',
 						},
 					},
 					tests: {
 						config: {
-							WP_TEST_6: 'test-6',
+							FP_TEST_6: 'test-6',
 						},
 					},
 				},
@@ -99,20 +99,20 @@ describe( 'mergeConfigs', () => {
 				path: '/home/test',
 			},
 			config: {
-				WP_TEST: 'test',
-				WP_TEST_2: 'test-2',
+				FP_TEST: 'test',
+				FP_TEST_2: 'test-2',
 			},
 			env: {
 				development: {
 					config: {
-						WP_TEST_3: 'test-3',
-						WP_TEST_5: 'test-5',
+						FP_TEST_3: 'test-3',
+						FP_TEST_5: 'test-5',
 					},
 				},
 				tests: {
 					config: {
-						WP_TEST_4: 'test-4',
-						WP_TEST_6: 'test-6',
+						FP_TEST_4: 'test-4',
+						FP_TEST_6: 'test-6',
 					},
 				},
 			},

@@ -84,8 +84,8 @@
 
 ### Breaking Changes
 
--   `@finpress/is-gutenberg-plugin` rule has been replaced by `@finpress/wp-global-usage` ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
--   `@finpress/wp-process-env` rule has been added and included in the recommended configurations ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
+-   `@finpress/is-gutenberg-plugin` rule has been replaced by `@finpress/fp-global-usage` ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
+-   `@finpress/fp-process-env` rule has been added and included in the recommended configurations ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
 -   `@finpress/gutenberg-phase` rule has been removed (deprecated in v10.0.0) ([#61486](https://github.com/FinPress/gutenberg/pull/61486)).
 -   Increase the minimum required Node.js version to v18.12.0 matching long-term support releases ([#31270](https://github.com/FinPress/gutenberg/pull/61930)). Learn more about [Node.js releases](https://nodejs.org/en/about/previous-releases).
 
@@ -348,7 +348,7 @@
 -   Increase the minimum Node.js version to 12 ([#27934](https://github.com/FinPress/gutenberg/pull/27934)).
 -   Enabled `import/no-extraneous-dependencies` rule in the `recommended` ruleset.
 -   Enabled `import/no-unresolved` rule in the `recommended` ruleset.
--   Enabled `no-unsafe-wp-apis` rule in the `recommended` ruleset ([#27327](https://github.com/FinPress/gutenberg/pull/27327)).
+-   Enabled `no-unsafe-fp-apis` rule in the `recommended` ruleset ([#27327](https://github.com/FinPress/gutenberg/pull/27327)).
 -   The bundled `eslint-config-prettier` dependency has been updated from requiring `^6.10.1` to requiring `^7.1.0` ([#27965](https://github.com/FinPress/gutenberg/pull/27965)).
 -   The bundled `eslint-plugin-jest` dependency has been updated from requiring `^23.8.2` to requiring `^24.1.3` ([#27965](https://github.com/FinPress/gutenberg/pull/27965)).
 
@@ -368,11 +368,11 @@
 
 ### New Features
 
--   Add `no-unsafe-wp-apis` rule to discourage usage of unsafe APIs ([#27301](https://github.com/FinPress/gutenberg/pull/27301)).
+-   Add `no-unsafe-fp-apis` rule to discourage usage of unsafe APIs ([#27301](https://github.com/FinPress/gutenberg/pull/27301)).
 
 ### Enhancements
 
--   The bundled `wp-prettier` dependency has been upgraded from `2.0.5` to `2.2.1`.
+-   The bundled `fp-prettier` dependency has been upgraded from `2.0.5` to `2.2.1`.
 
 ### Documentation
 
@@ -404,7 +404,7 @@
 
 ### Breaking Changes
 
--   The bundled `wp-prettier` dependency has been upgraded from `1.19.1` to `2.0.5`. Refer to the [Prettier 2.0 "2020" blog post](https://prettier.io/blog/2020/03/21/2.0.0.html) for full details about the major changes included in Prettier 2.0.
+-   The bundled `fp-prettier` dependency has been upgraded from `1.19.1` to `2.0.5`. Refer to the [Prettier 2.0 "2020" blog post](https://prettier.io/blog/2020/03/21/2.0.0.html) for full details about the major changes included in Prettier 2.0.
 -   The bundled `eslint-plugin-react-hooks` dependency has been updated from requiring `^3.0.0` to requiring `^4.0.4`.
 -   The bundled `eslint-plugin-jsdoc` dependency has been updated from requiring `^22.1.0` to requiring `^26.0.0`.
 
@@ -510,7 +510,7 @@
 ### New Features
 
 -   New Rule: [`@finpress/no-unguarded-get-range-at`](https://github.com/FinPress/gutenberg/blob/HEAD/packages/eslint-plugin/docs/rules/no-unguarded-get-range-at.md)
--   Enable `wp` global by default in the `recommended` config.
+-   Enable `fp` global by default in the `recommended` config.
 -   New ruleset `test-e2e` added for end-to-end tests validation.
 -   New ruleset `test-unit` added for unit tests validation.
 

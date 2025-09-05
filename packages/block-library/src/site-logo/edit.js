@@ -29,7 +29,7 @@ import {
 	__experimentalHStack as HStack,
 	__experimentalTruncate as Truncate,
 } from '@finpress/components';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import {
 	BlockControls,
 	InspectorControls,
@@ -67,9 +67,9 @@ const SiteLogo = ( {
 	setIcon,
 	canUserEdit,
 } ) => {
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 	const isWideAligned = [ 'wide', 'full' ].includes( align );
-	const isResizable = ! isWideAligned && isLargeViewport;
+	const isResizable = ! isWideAligned && isLargeviewport;
 	const [ { naturalWidth, naturalHeight }, setNaturalSize ] = useState( {} );
 	const [ isEditingImage, setIsEditingImage ] = useState( false );
 	const { toggleSelection } = useDispatch( blockEditorStore );
@@ -272,12 +272,12 @@ const SiteLogo = ( {
 	}
 
 	// Support the previous location for the Site Icon settings. To be removed
-	// when the required WP core version for Gutenberg is >= 6.5.0.
+	// when the required FP core version for Gutenberg is >= 6.5.0.
 	const shouldUseNewUrl = ! window?.__experimentalUseCustomizerSiteLogoUrl;
 
 	const siteIconSettingsUrl = shouldUseNewUrl
-		? siteUrl + '/wp-admin/options-general.php'
-		: siteUrl + '/wp-admin/customize.php?autofocus[section]=title_tagline';
+		? siteUrl + '/fp-admin/options-general.php'
+		: siteUrl + '/fp-admin/customize.php?autofocus[section]=title_tagline';
 
 	const syncSiteIconHelpText = createInterpolateElement(
 		__(

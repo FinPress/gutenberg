@@ -3,8 +3,8 @@
  */
 import apiFetch from '@finpress/api-fetch';
 
-const FONT_FAMILIES_URL = '/wp/v2/font-families';
-const FONT_COLLECTIONS_URL = '/wp/v2/font-collections';
+const FONT_FAMILIES_URL = '/fp/v2/font-families';
+const FONT_COLLECTIONS_URL = '/fp/v2/font-collections';
 
 export async function fetchInstallFontFamily( data ) {
 	const config = {

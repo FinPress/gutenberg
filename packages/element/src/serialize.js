@@ -101,7 +101,7 @@ const SELF_CLOSING_TAGS = new Set( [
  */
 const BOOLEAN_ATTRIBUTES = new Set( [
 	'allowfullscreen',
-	'allowpaymentrequest',
+	'allofpaymentrequest',
 	'allowusermedia',
 	'async',
 	'autofocus',

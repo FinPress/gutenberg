@@ -4,11 +4,11 @@
 @import "./components/welcome-guide/style.scss";
 
 body.js.block-editor-page {
-	@include wp-admin-reset( ".block-editor" );
+	@include fp-admin-reset( ".block-editor" );
 }
 
-// Fix issue with wp-admin menu not scrolling between 170% and 200% zoom.
-.block-editor-page #wpwrap {
+// Fix issue with fp-admin menu not scrolling between 170% and 200% zoom.
+.block-editor-page #fpwrap {
 	overflow-y: auto;
 	@include break-medium() {
 		overflow-y: initial;
@@ -31,7 +31,7 @@ body.js.block-editor-page {
 		min-height: calc(100vh - #{$admin-bar-height-big});
 	}
 
-	// The WP header height changes at this breakpoint.
+	// The FP header height changes at this breakpoint.
 	@include break-medium {
 		min-height: calc(100vh - #{$admin-bar-height});
 

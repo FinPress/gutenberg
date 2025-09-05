@@ -25,25 +25,25 @@ It is possible to control which complementary is enabled by using the store:
 Below are some examples of how to control the active complementary area using the store:
 
 ```js
-wp.data
+fp.data
 	.select( 'core/interface' )
 	.getActiveComplementaryArea( 'core' );
 // -> "edit-post/document"
 
-wp.data
+fp.data
 	.dispatch( 'core/interface' )
 	.enableComplementaryArea( 'core', 'edit-post/block' );
 
-wp.data
+fp.data
 	.select( 'core/interface' )
 	.getActiveComplementaryArea( 'core' );
 // -> "edit-post/block"
 
-wp.data
+fp.data
 	.dispatch( 'core/interface' )
 	.disableComplementaryArea( 'core' );
 
-wp.data
+fp.data
 	.select( 'core/interface' )
 	.getActiveComplementaryArea( 'core' );
 // -> null
@@ -56,17 +56,17 @@ wp.data
 Example usage: `ComplementaryArea` component makes use of `PinnedItems` and automatically adds a pinned item for the complementary areas marked as a favorite.
 
 ```js
-wp.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
+fp.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
 // -> false
 
-wp.data.dispatch( 'core/interface' ).pinItem( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
+fp.data.dispatch( 'core/interface' ).pinItem( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
 
-wp.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
+fp.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
 // -> true
 
-wp.data.dispatch( 'core/interface' ).unpinItem( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
+fp.data.dispatch( 'core/interface' ).unpinItem( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
 
-wp.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' ); -> false
+fp.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' ); -> false
 ```
 
 ### Preferences
@@ -100,13 +100,13 @@ function initialize() {
 Use the `toggleFeature` action and the `isFeatureActive` selector to toggle features within your app:
 
 ```js
-wp.data
+fp.data
 	.select( 'core/interface' )
 	.isFeatureActive( 'namespace/editor-or-plugin-name', 'myFeatureName' ); // true
-wp.data
+fp.data
 	.dispatch( 'core/interface' )
 	.toggleFeature( 'namespace/editor-or-plugin-name', 'myFeatureName' );
-wp.data
+fp.data
 	.select( 'core/interface' )
 	.isFeatureActive( 'namespace/editor-or-plugin-name', 'myFeatureName' ); // false
 ```

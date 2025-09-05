@@ -11,9 +11,9 @@ import {
 
 const block = 'Spacer';
 const initialHtml = `
-<!-- wp:spacer -->
-<div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->`;
+<!-- fp:spacer -->
+<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
+<!-- /fp:spacer -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ 'Separator', ...transformsWithInnerBlocks ];

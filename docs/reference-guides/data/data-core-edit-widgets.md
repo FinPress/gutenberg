@@ -50,7 +50,7 @@ _Parameters_
 
 _Returns_
 
--   `WPBlock`: The widget area block.
+-   `FPBlock`: The widget area block.
 
 ### getReferenceWidgetBlocks
 

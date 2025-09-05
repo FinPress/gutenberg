@@ -6,7 +6,7 @@
  * @package Gutenberg
  */
 
-class WP_Block_Supports_Shadow_Test extends WP_UnitTestCase {
+class FP_Block_Supports_Shadow_Test extends FP_UnitTestCase {
 	/**
 	 * @var string|null
 	 */
@@ -29,7 +29,7 @@ class WP_Block_Supports_Shadow_Test extends WP_UnitTestCase {
 	 * @param string $block_name Name for the test block.
 	 * @param array  $supports   Array defining block support configuration.
 	 *
-	 * @return WP_Block_Type The block type for the newly registered test block.
+	 * @return FP_Block_Type The block type for the newly registered test block.
 	 */
 	private function register_shadow_block_with_support( $block_name, $supports = array() ) {
 		$this->test_block_name = $block_name;
@@ -45,7 +45,7 @@ class WP_Block_Supports_Shadow_Test extends WP_UnitTestCase {
 				'supports'    => $supports,
 			)
 		);
-		$registry = WP_Block_Type_Registry::get_instance();
+		$registry = FP_Block_Type_Registry::get_instance();
 
 		return $registry->get_registered( $this->test_block_name );
 	}
@@ -100,7 +100,7 @@ class WP_Block_Supports_Shadow_Test extends WP_UnitTestCase {
 			'with preset shadow'           => array(
 				'support'  => true,
 				'value'    => 'var:preset|shadow|natural',
-				'expected' => array( 'style' => 'box-shadow:var(--wp--preset--shadow--natural);' ),
+				'expected' => array( 'style' => 'box-shadow:var(--fp--preset--shadow--natural);' ),
 			),
 			'with serialization skipped'   => array(
 				'support'  => array( '__experimentalSkipSerialization' => true ),

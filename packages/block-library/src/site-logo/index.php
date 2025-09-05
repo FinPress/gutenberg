@@ -23,11 +23,11 @@ function render_block_core_site_logo( $attributes ) {
 		return array( $image[0], (int) $attributes['width'], (int) $height );
 	};
 
-	add_filter( 'wp_get_attachment_image_src', $adjust_width_height_filter );
+	add_filter( 'fp_get_attachment_image_src', $adjust_width_height_filter );
 
 	$custom_logo = get_custom_logo();
 
-	remove_filter( 'wp_get_attachment_image_src', $adjust_width_height_filter );
+	remove_filter( 'fp_get_attachment_image_src', $adjust_width_height_filter );
 
 	if ( empty( $custom_logo ) ) {
 		return ''; // Return early if no custom logo is set, avoiding extraneous wrapper div.
@@ -41,7 +41,7 @@ function render_block_core_site_logo( $attributes ) {
 	if ( $attributes['isLink'] && '_blank' === $attributes['linkTarget'] ) {
 		// Add the link target after the rel="home".
 		// Add an aria-label for informing that the page opens in a new tab.
-		$processor = new WP_HTML_Tag_Processor( $custom_logo );
+		$processor = new FP_HTML_Tag_Processor( $custom_logo );
 		$processor->next_tag( 'a' );
 		if ( 'home' === $processor->get_attribute( 'rel' ) ) {
 			$processor->set_attribute( 'aria-label', __( '(Home link, opens in a new tab)' ) );

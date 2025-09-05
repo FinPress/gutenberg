@@ -2,7 +2,7 @@
 /**
  * Tests block template registry via block-related functions.
  */
-class Tests_Block_Template extends WP_UnitTestCase {
+class Tests_Block_Template extends FP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 		switch_theme( 'block-theme' );

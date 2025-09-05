@@ -50,7 +50,7 @@ export default function PostURL( { onClose } ) {
 		const postTypeSlug = select( editorStore ).getCurrentPostType();
 		const postType = select( coreStore ).getPostType( postTypeSlug );
 		const permalinkParts = select( editorStore ).getPermalinkParts();
-		const hasPublishAction = post?._links?.[ 'wp:action-publish' ] ?? false;
+		const hasPublishAction = post?._links?.[ 'fp:action-publish' ] ?? false;
 
 		return {
 			isEditable:

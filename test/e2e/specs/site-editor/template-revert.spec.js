@@ -12,16 +12,16 @@ test.use( {
 test.describe( 'Template Revert', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'emptytheme' );
-		await requestUtils.deleteAllTemplates( 'wp_template' );
-		await requestUtils.deleteAllTemplates( 'wp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template_part' );
 	} );
 	test.afterAll( async ( { requestUtils } ) => {
-		await requestUtils.deleteAllTemplates( 'wp_template' );
-		await requestUtils.deleteAllTemplates( 'wp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template_part' );
 		await requestUtils.activateTheme( 'twentytwentyone' );
 	} );
 	test.beforeEach( async ( { admin, requestUtils } ) => {
-		await requestUtils.deleteAllTemplates( 'wp_template' );
+		await requestUtils.deleteAllTemplates( 'fp_template' );
 		await admin.visitSiteEditor( { canvas: 'edit' } );
 	} );
 
@@ -231,20 +231,20 @@ class TemplateRevertUtils {
 
 	async getCurrentSiteEditorContent() {
 		return this.page.evaluate( () => {
-			const postId = window.wp.data
+			const postId = window.fp.data
 				.select( 'core/editor' )
 				.getCurrentPostId();
-			const postType = window.wp.data
+			const postType = window.fp.data
 				.select( 'core/editor' )
 				.getCurrentPostType();
-			const record = window.wp.data
+			const record = window.fp.data
 				.select( 'core' )
 				.getEditedEntityRecord( 'postType', postType, postId );
 			if ( record ) {
 				if ( typeof record.content === 'function' ) {
 					return record.content( record );
 				} else if ( record.blocks ) {
-					return window.wp.blocks.__unstableSerializeAndClean(
+					return window.fp.blocks.__unstableSerializeAndClean(
 						record.blocks
 					);
 				} else if ( record.content ) {

@@ -21,7 +21,7 @@ test.describe( 'Block Toolbar', () => {
 					const { activeElement } =
 						document.activeElement?.contentDocument ?? document;
 					const scrollable =
-						window.wp.dom.getScrollContainer( activeElement );
+						window.fp.dom.getScrollContainer( activeElement );
 					return ! scrollable || scrollable.scrollTop === 0;
 				} )
 			) {
@@ -34,7 +34,7 @@ test.describe( 'Block Toolbar', () => {
 				const { activeElement } =
 					document.activeElement?.contentDocument ?? document;
 				window.scrollContainer =
-					window.wp.dom.getScrollContainer( activeElement );
+					window.fp.dom.getScrollContainer( activeElement );
 				return window.scrollContainer.scrollTop;
 			} );
 
@@ -169,7 +169,7 @@ test.describe( 'Block Toolbar', () => {
 		} );
 
 		// Test: Top Toolbar can scroll to reveal hidden block tools.
-		await pageUtils.setBrowserViewport( { width: 960, height: 700 } );
+		await pageUtils.setBrowserviewport( { width: 960, height: 700 } );
 
 		// Test: Block toolbar can scroll on top toolbar mode
 		await BlockToolbarUtils.testScrollable( blockToolbar, blockButton );
@@ -177,13 +177,13 @@ test.describe( 'Block Toolbar', () => {
 		// Test: Fixed toolbar can scroll.
 
 		// Make the viewport very small to force the fixed to bottom toolbar overflow
-		await pageUtils.setBrowserViewport( { width: 400, height: 700 } );
+		await pageUtils.setBrowserviewport( { width: 400, height: 700 } );
 
 		await BlockToolbarUtils.testScrollable( blockToolbar, blockButton );
 
 		// Test cleanup
 		await editor.setIsFixedToolbar( false );
-		await pageUtils.setBrowserViewport( 'large' );
+		await pageUtils.setBrowserviewport( 'large' );
 		/* eslint-enable playwright/expect-expect */
 		/* eslint-enable playwright/no-wait-for-timeout */
 	} );
@@ -211,7 +211,7 @@ test.describe( 'Block Toolbar', () => {
 		await BlockToolbarUtils.expectLabelToHaveFocus( 'Block: Paragraph' );
 
 		// set the screen size to mobile
-		await pageUtils.setBrowserViewport( 'small' );
+		await pageUtils.setBrowserviewport( 'small' );
 
 		// TEST: Small screen toolbar without fixed toolbar setting should be the first tabstop before the editor
 		await pageUtils.pressKeys( 'shift+Tab' );
@@ -222,7 +222,7 @@ test.describe( 'Block Toolbar', () => {
 		await BlockToolbarUtils.expectLabelToHaveFocus( 'Block: Paragraph' );
 		// TEST: Fixed toolbar should be within the header dom
 		// Changed to Fixed top toolbar setting and large viewport to test fixed toolbar
-		await pageUtils.setBrowserViewport( 'large' );
+		await pageUtils.setBrowserviewport( 'large' );
 		await editor.setIsFixedToolbar( true );
 		// shift + tab
 		await pageUtils.pressKeys( 'shift+Tab' );
@@ -243,7 +243,7 @@ test.describe( 'Block Toolbar', () => {
 		await BlockToolbarUtils.expectLabelToHaveFocus( 'Block: Paragraph' );
 
 		// TEST: Small screen toolbar with fixed toolbar setting should be the first tabstop before the editor. Even though the fixed toolbar setting is on, it should not render within the header since it's visually after it.
-		await pageUtils.setBrowserViewport( 'small' );
+		await pageUtils.setBrowserviewport( 'small' );
 		await pageUtils.pressKeys( 'shift+Tab' );
 		// check focus is within the block toolbar
 		await expect( blockToolbarParagraphButton ).toBeFocused();
@@ -253,7 +253,7 @@ test.describe( 'Block Toolbar', () => {
 
 		// Test cleanup
 		await editor.setIsFixedToolbar( false );
-		await pageUtils.setBrowserViewport( 'large' );
+		await pageUtils.setBrowserviewport( 'large' );
 	} );
 
 	test( 'Focus should remain on mover when moving blocks', async ( {

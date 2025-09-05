@@ -97,9 +97,9 @@ export default () => {
 };
 
 const initialHtml = `
-<!-- wp:heading -->
-<h2 class="wp-block-heading">Just a Heading</h2>
-<!-- /wp:heading -->
+<!-- fp:heading -->
+<h2 class="fp-block-heading">Just a Heading</h2>
+<!-- /fp:heading -->
 `;
 ```
 

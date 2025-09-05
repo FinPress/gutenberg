@@ -12,7 +12,7 @@
 /**
  * Registers the style block attribute for block types that support it.
  *
- * @param WP_Block_Type $block_type Block Type.
+ * @param FP_Block_Type $block_type Block Type.
  */
 function gutenberg_register_dimensions_support( $block_type ) {
 	// Setup attributes and styles within that if needed.
@@ -38,13 +38,13 @@ function gutenberg_register_dimensions_support( $block_type ) {
  * Add CSS classes for block dimensions to the incoming attributes array.
  * This will be applied to the block markup in the front-end.
  *
- * @param WP_Block_Type $block_type       Block Type.
+ * @param FP_Block_Type $block_type       Block Type.
  * @param array         $block_attributes Block attributes.
  *
  * @return array Block dimensions CSS classes and inline styles.
  */
 function gutenberg_apply_dimensions_support( $block_type, $block_attributes ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
-	if ( wp_should_skip_block_supports_serialization( $block_type, 'dimensions' ) ) {
+	if ( fp_should_skip_block_supports_serialization( $block_type, 'dimensions' ) ) {
 		return array();
 	}
 
@@ -59,7 +59,7 @@ function gutenberg_apply_dimensions_support( $block_type, $block_attributes ) { 
 		return $attributes;
 	}
 
-	$skip_min_height                      = wp_should_skip_block_supports_serialization( $block_type, 'dimensions', 'minHeight' );
+	$skip_min_height                      = fp_should_skip_block_supports_serialization( $block_type, 'dimensions', 'minHeight' );
 	$dimensions_block_styles              = array();
 	$dimensions_block_styles['minHeight'] = null;
 	if ( $has_min_height_support && ! $skip_min_height ) {
@@ -84,13 +84,13 @@ function gutenberg_apply_dimensions_support( $block_type, $block_attributes ) { 
  * @return string                Filtered block content.
  */
 function gutenberg_render_dimensions_support( $block_content, $block ) {
-	$block_type               = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+	$block_type               = FP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
 	$block_attributes         = ( isset( $block['attrs'] ) && is_array( $block['attrs'] ) ) ? $block['attrs'] : array();
 	$has_aspect_ratio_support = block_has_support( $block_type, array( 'dimensions', 'aspectRatio' ), false );
 
 	if (
 		! $has_aspect_ratio_support ||
-		wp_should_skip_block_supports_serialization( $block_type, 'dimensions', 'aspectRatio' )
+		fp_should_skip_block_supports_serialization( $block_type, 'dimensions', 'aspectRatio' )
 	) {
 		return $block_content;
 	}
@@ -114,7 +114,7 @@ function gutenberg_render_dimensions_support( $block_content, $block ) {
 
 	if ( ! empty( $styles['css'] ) ) {
 		// Inject dimensions styles to the first element, presuming it's the wrapper, if it exists.
-		$tags = new WP_HTML_Tag_Processor( $block_content );
+		$tags = new FP_HTML_Tag_Processor( $block_content );
 
 		if ( $tags->next_tag() ) {
 			$existing_style = $tags->get_attribute( 'style' );
@@ -149,11 +149,11 @@ function gutenberg_render_dimensions_support( $block_content, $block ) {
 	return $block_content;
 }
 
-remove_filter( 'render_block', 'wp_render_dimensions_support', 10 );
+remove_filter( 'render_block', 'fp_render_dimensions_support', 10 );
 add_filter( 'render_block', 'gutenberg_render_dimensions_support', 10, 2 );
 
 // Register the block support.
-WP_Block_Supports::get_instance()->register(
+FP_Block_Supports::get_instance()->register(
 	'dimensions',
 	array(
 		'register_attribute' => 'gutenberg_register_dimensions_support',

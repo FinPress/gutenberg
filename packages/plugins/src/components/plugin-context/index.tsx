@@ -8,11 +8,11 @@ import deprecated from '@finpress/deprecated';
 /**
  * Internal dependencies
  */
-import type { WPPlugin } from '../../api';
+import type { FPPlugin } from '../../api';
 
 export interface PluginContext {
-	name: null | WPPlugin[ 'name' ];
-	icon: null | WPPlugin[ 'icon' ];
+	name: null | FPPlugin[ 'name' ];
+	icon: null | FPPlugin[ 'icon' ];
 }
 
 const Context = createContext< PluginContext >( {
@@ -50,9 +50,9 @@ export const withPluginContext = (
 	) => T & PluginContext
 ) =>
 	createHigherOrderComponent( ( OriginalComponent ) => {
-		deprecated( 'wp.plugins.withPluginContext', {
+		deprecated( 'fp.plugins.withPluginContext', {
 			since: '6.8.0',
-			alternative: 'wp.plugins.usePluginContext',
+			alternative: 'fp.plugins.usePluginContext',
 		} );
 		return ( props ) => (
 			<Context.Consumer>

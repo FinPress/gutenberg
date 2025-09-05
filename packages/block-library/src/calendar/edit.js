@@ -17,7 +17,7 @@ import { __ } from '@finpress/i18n';
 /**
  * Returns the year and month of a specified date.
  *
- * @see `WP_REST_Posts_Controller::prepare_date_response()`.
+ * @see `FP_REST_Posts_Controller::prepare_date_response()`.
  *
  * @param {string} date Date in `ISO8601/RFC3339` format.
  * @return {Object} Year and date of the specified date.

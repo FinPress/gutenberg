@@ -36,7 +36,7 @@ const listener = new Listener();
  * @return {any} Higher-order component.
  */
 export default function withGlobalEvents( eventTypesToHandlers ) {
-	deprecated( 'wp.compose.withGlobalEvents', {
+	deprecated( 'fp.compose.withGlobalEvents', {
 		since: '5.7',
 		alternative: 'useEffect',
 	} );

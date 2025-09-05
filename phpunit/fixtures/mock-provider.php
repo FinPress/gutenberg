@@ -1,6 +1,6 @@
 <?php
 
-class Mock_Provider extends WP_Fonts_Provider {
+class Mock_Provider extends FP_Fonts_Provider {
 	/**
 	 * The provider's unique ID.
 	 *
@@ -21,6 +21,6 @@ class Mock_Provider extends WP_Fonts_Provider {
 	 * @return string The style element.
 	 */
 	protected function get_style_element() {
-		return '<mock id="wp-fonts-mock" attr="some-attr">%s</mock>\n';
+		return '<mock id="fp-fonts-mock" attr="some-attr">%s</mock>\n';
 	}
 }

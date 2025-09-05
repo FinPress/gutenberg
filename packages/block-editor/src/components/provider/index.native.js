@@ -12,7 +12,7 @@ import useBlockSync from './use-block-sync';
 import { store as blockEditorStore } from '../../store';
 import { BlockRefsProvider } from './block-refs-provider';
 
-/** @typedef {import('@finpress/data').WPDataRegistry} WPDataRegistry */
+/** @typedef {import('@finpress/data').FPDataRegistry} FPDataRegistry */
 
 const BlockEditorProvider = withRegistryProvider( function ( props ) {
 	const { children, settings } = props;

@@ -4,7 +4,7 @@
  *
  * @package Gutenberg
  */
-class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
+class FP_Block_Supports_Typography_Test extends FP_UnitTestCase {
 	/**
 	 * Stores the current test block name.
 	 *
@@ -35,10 +35,10 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 
 		$this->test_block_name = null;
 
-		// Sets up the `wp-content/themes/` directory to ensure consistency when running tests.
+		// Sets up the `fp-content/themes/` directory to ensure consistency when running tests.
 		$this->theme_root                = realpath( __DIR__ . '/../data/themedir1' );
-		$this->orig_theme_dir            = $GLOBALS['wp_theme_directories'];
-		$GLOBALS['wp_theme_directories'] = array( WP_CONTENT_DIR . '/themes', $this->theme_root );
+		$this->orig_theme_dir            = $GLOBALS['fp_theme_directories'];
+		$GLOBALS['fp_theme_directories'] = array( FP_CONTENT_DIR . '/themes', $this->theme_root );
 
 		$theme_root_callback = function () {
 			return $this->theme_root;
@@ -48,8 +48,8 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 		add_filter( 'template_root', $theme_root_callback );
 
 		// Clear caches.
-		wp_clean_themes_cache();
-		unset( $GLOBALS['wp_themes'] );
+		fp_clean_themes_cache();
+		unset( $GLOBALS['fp_themes'] );
 	}
 
 	/**
@@ -57,9 +57,9 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	 */
 	public function tear_down() {
 		// Restores the original theme directory setup.
-		$GLOBALS['wp_theme_directories'] = $this->orig_theme_dir;
-		wp_clean_themes_cache();
-		unset( $GLOBALS['wp_themes'] );
+		$GLOBALS['fp_theme_directories'] = $this->orig_theme_dir;
+		fp_clean_themes_cache();
+		unset( $GLOBALS['fp_themes'] );
 
 		// Resets test block name.
 		unregister_block_type( $this->test_block_name );
@@ -71,7 +71,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	/**
 	 * Tests whether slugs with numbers are kebab cased.
 	 *
-	 * @covers ::wp_apply_typography_support
+	 * @covers ::fp_apply_typography_support
 	 */
 	public function test_should_kebab_case_font_size_slug_with_numbers() {
 		$this->test_block_name = 'test/font-size-slug-with-numbers';
@@ -91,7 +91,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				),
 			)
 		);
-		$registry   = WP_Block_Type_Registry::get_instance();
+		$registry   = FP_Block_Type_Registry::get_instance();
 		$block_type = $registry->get_registered( $this->test_block_name );
 
 		$block_atts = array( 'fontSize' => 'h1' );
@@ -105,7 +105,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	/**
 	 * Tests legacy inline styles for font family.
 	 *
-	 * @covers ::wp_apply_typography_support
+	 * @covers ::fp_apply_typography_support
 	 */
 	public function test_should_generate_font_family_with_legacy_inline_styles_using_a_value() {
 		$this->test_block_name = 'test/font-family-with-inline-styles-using-value';
@@ -125,7 +125,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				),
 			)
 		);
-		$registry   = WP_Block_Type_Registry::get_instance();
+		$registry   = FP_Block_Type_Registry::get_instance();
 		$block_type = $registry->get_registered( $this->test_block_name );
 		$block_atts = array( 'style' => array( 'typography' => array( 'fontFamily' => 'serif' ) ) );
 
@@ -138,7 +138,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	/**
 	 * Tests skipping serialization.
 	 *
-	 * @covers ::wp_apply_typography_support
+	 * @covers ::fp_apply_typography_support
 	 */
 	public function test_should_skip_serialization_for_typography_block_supports() {
 		$this->test_block_name = 'test/typography-with-skipped-serialization-block-supports';
@@ -162,7 +162,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				),
 			)
 		);
-		$registry   = WP_Block_Type_Registry::get_instance();
+		$registry   = FP_Block_Type_Registry::get_instance();
 		$block_type = $registry->get_registered( $this->test_block_name );
 		$block_atts = array(
 			'style' => array(
@@ -184,7 +184,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	/**
 	 * Tests skipping serialization of individual block supports properties.
 	 *
-	 * @covers ::wp_apply_typography_support
+	 * @covers ::fp_apply_typography_support
 	 */
 	public function test_should_skip_serialization_for_letter_spacing_block_supports() {
 		$this->test_block_name = 'test/letter-spacing-with-individual-skipped-serialization-block-supports';
@@ -207,7 +207,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				),
 			)
 		);
-		$registry   = WP_Block_Type_Registry::get_instance();
+		$registry   = FP_Block_Type_Registry::get_instance();
 		$block_type = $registry->get_registered( $this->test_block_name );
 		$block_atts = array( 'style' => array( 'typography' => array( 'letterSpacing' => '22px' ) ) );
 
@@ -220,7 +220,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	/**
 	 * Tests legacy css var inline styles for font family.
 	 *
-	 * @covers ::wp_apply_typography_support
+	 * @covers ::fp_apply_typography_support
 	 */
 	public function test_should_generate_css_var_for_font_family_with_legacy_inline_styles() {
 		$this->test_block_name = 'test/font-family-with-inline-styles-using-css-var';
@@ -240,12 +240,12 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				),
 			)
 		);
-		$registry   = WP_Block_Type_Registry::get_instance();
+		$registry   = FP_Block_Type_Registry::get_instance();
 		$block_type = $registry->get_registered( $this->test_block_name );
 		$block_atts = array( 'style' => array( 'typography' => array( 'fontFamily' => 'var:preset|font-family|h1' ) ) );
 
 		$actual   = gutenberg_apply_typography_support( $block_type, $block_atts );
-		$expected = array( 'style' => 'font-family:var(--wp--preset--font-family--h-1);' );
+		$expected = array( 'style' => 'font-family:var(--fp--preset--font-family--h-1);' );
 
 		$this->assertSame( $expected, $actual );
 	}
@@ -253,7 +253,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	/**
 	 * Tests that a classname is generated for font family.
 	 *
-	 * @covers ::wp_apply_typography_support
+	 * @covers ::fp_apply_typography_support
 	 */
 	public function test_should_generate_classname_for_font_family() {
 		$this->test_block_name = 'test/font-family-with-class';
@@ -273,7 +273,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				),
 			)
 		);
-		$registry   = WP_Block_Type_Registry::get_instance();
+		$registry   = FP_Block_Type_Registry::get_instance();
 		$block_type = $registry->get_registered( $this->test_block_name );
 		$block_atts = array( 'fontFamily' => 'h1' );
 
@@ -286,9 +286,9 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	/**
 	 * Tests generating font size values, including fluid formulae, from fontSizes preset.
 	 *
-	 * @covers ::wp_get_typography_font_size_value
-	 * @covers ::wp_get_typography_value_and_unit
-	 * @covers ::wp_get_computed_fluid_typography_value
+	 * @covers ::fp_get_typography_font_size_value
+	 * @covers ::fp_get_typography_value_and_unit
+	 * @covers ::fp_get_computed_fluid_typography_value
 	 *
 	 * @dataProvider data_generate_font_size_preset_fixtures
 	 *
@@ -309,7 +309,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Data provider for test_wp_get_typography_font_size_value.
+	 * Data provider for test_fp_get_typography_font_size_value.
 	 *
 	 * @return array
 	 */
@@ -384,28 +384,28 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				'expected_output' => '28px',
 			),
 
-			'returns clamp value with minViewportWidth override' => array(
+			'returns clamp value with minviewportWidth override' => array(
 				'font_size'       => array(
 					'size' => '28px',
 				),
 				'settings'        => array(
 					'typography' => array(
 						'fluid' => array(
-							'minViewportWidth' => '500px',
+							'minviewportWidth' => '500px',
 						),
 					),
 				),
 				'expected_output' => 'clamp(17.905px, 1.119rem + ((1vw - 5px) * 0.918), 28px)',
 			),
 
-			'returns clamp value with maxViewportWidth override' => array(
+			'returns clamp value with maxviewportWidth override' => array(
 				'font_size'       => array(
 					'size' => '28px',
 				),
 				'settings'        => array(
 					'typography' => array(
 						'fluid' => array(
-							'maxViewportWidth' => '500px',
+							'maxviewportWidth' => '500px',
 						),
 					),
 				),
@@ -804,7 +804,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	/**
 	 * Tests backwards compatibility for deprecated second argument $should_use_fluid_typography.
 	 *
-	 * @covers ::wp_get_typography_font_size_value
+	 * @covers ::fp_get_typography_font_size_value
 	 *
 	 * @expectedDeprecated gutenberg_get_typography_font_size_value
 	 *
@@ -827,7 +827,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Data provider for test_wp_get_typography_font_size_value_should_use_fluid_typography_deprecated.
+	 * Data provider for test_fp_get_typography_font_size_value_should_use_fluid_typography_deprecated.
 	 *
 	 * @return array
 	 */
@@ -876,7 +876,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Data provider for test_wp_get_typography_font_size_value_should_use_fluid_typography_deprecated.
+	 * Data provider for test_fp_get_typography_font_size_value_should_use_fluid_typography_deprecated.
 	 *
 	 * @return array
 	 */
@@ -901,14 +901,14 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				'expected_output' => '28px',
 			),
 
-			'returns clamp value when settings argument sets a fluid.minViewportWidth value' => array(
+			'returns clamp value when settings argument sets a fluid.minviewportWidth value' => array(
 				'font_size'       => array(
 					'size' => '28px',
 				),
 				'settings'        => array(
 					'typography' => array(
 						'fluid' => array(
-							'minViewportWidth' => '500px',
+							'minviewportWidth' => '500px',
 						),
 					),
 				),
@@ -927,14 +927,14 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				'expected_output' => 'clamp(17.905px, 1.119rem + ((1vw - 3.2px) * 5.608), 28px)',
 			),
 
-			'returns clamp value with maxViewportWidth preferred over fallback layout.wideSize value' => array(
+			'returns clamp value with maxviewportWidth preferred over fallback layout.wideSize value' => array(
 				'font_size'       => array(
 					'size' => '28px',
 				),
 				'settings'        => array(
 					'typography' => array(
 						'fluid' => array(
-							'maxViewportWidth' => '1000px',
+							'maxviewportWidth' => '1000px',
 						),
 					),
 					'layout'     => array(
@@ -979,7 +979,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				),
 			)
 		);
-		$registry         = WP_Block_Type_Registry::get_instance();
+		$registry         = FP_Block_Type_Registry::get_instance();
 		$block_type       = $registry->get_registered( $this->test_block_name );
 		$block_attributes = array(
 			'style' => array(
@@ -1079,16 +1079,16 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	public function data_generate_replace_inline_font_styles_with_fluid_values_fixtures() {
 		return array(
 			'default_return_content'                       => array(
-				'block_content'               => '<h2 class="has-vivid-red-background-color has-background has-link-color" style="margin-top:var(--wp--preset--spacing--60);font-size:4rem;font-style:normal;font-weight:600;letter-spacing:29px;text-decoration:underline;text-transform:capitalize">This is a heading</h2>',
+				'block_content'               => '<h2 class="has-vivid-red-background-color has-background has-link-color" style="margin-top:var(--fp--preset--spacing--60);font-size:4rem;font-style:normal;font-weight:600;letter-spacing:29px;text-decoration:underline;text-transform:capitalize">This is a heading</h2>',
 				'font_size_value'             => '4rem',
 				'should_use_fluid_typography' => false,
-				'expected_output'             => '<h2 class="has-vivid-red-background-color has-background has-link-color" style="margin-top:var(--wp--preset--spacing--60);font-size:4rem;font-style:normal;font-weight:600;letter-spacing:29px;text-decoration:underline;text-transform:capitalize">This is a heading</h2>',
+				'expected_output'             => '<h2 class="has-vivid-red-background-color has-background has-link-color" style="margin-top:var(--fp--preset--spacing--60);font-size:4rem;font-style:normal;font-weight:600;letter-spacing:29px;text-decoration:underline;text-transform:capitalize">This is a heading</h2>',
 			),
 			'return_content_with_replaced_fluid_font_size_inline_style' => array(
-				'block_content'               => '<h2 class="has-vivid-red-background-color has-background has-link-color" style="margin-top:var(--wp--preset--spacing--60);font-size:4rem;font-style:normal;font-weight:600;letter-spacing:29px;text-decoration:underline;text-transform:capitalize">This is a heading</h2>',
+				'block_content'               => '<h2 class="has-vivid-red-background-color has-background has-link-color" style="margin-top:var(--fp--preset--spacing--60);font-size:4rem;font-style:normal;font-weight:600;letter-spacing:29px;text-decoration:underline;text-transform:capitalize">This is a heading</h2>',
 				'font_size_value'             => '4rem',
 				'should_use_fluid_typography' => true,
-				'expected_output'             => '<h2 class="has-vivid-red-background-color has-background has-link-color" style="margin-top:var(--wp--preset--spacing--60);font-size:clamp(2.2rem, 2.2rem + ((1vw - 0.2rem) * 2.25), 4rem);font-style:normal;font-weight:600;letter-spacing:29px;text-decoration:underline;text-transform:capitalize">This is a heading</h2>',
+				'expected_output'             => '<h2 class="has-vivid-red-background-color has-background has-link-color" style="margin-top:var(--fp--preset--spacing--60);font-size:clamp(2.2rem, 2.2rem + ((1vw - 0.2rem) * 2.25), 4rem);font-style:normal;font-weight:600;letter-spacing:29px;text-decoration:underline;text-transform:capitalize">This is a heading</h2>',
 			),
 			'return_content_if_no_inline_font_size_found'  => array(
 				'block_content'               => '<p class="has-medium-font-size" style="font-style:normal;font-weight:600;letter-spacing:29px;">A paragraph inside a group</p>',
@@ -1097,10 +1097,10 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				'expected_output'             => '<p class="has-medium-font-size" style="font-style:normal;font-weight:600;letter-spacing:29px;">A paragraph inside a group</p>',
 			),
 			'return_content_css_var'                       => array(
-				'block_content'               => '<p class="has-medium-font-size" style="font-size:var(--wp--preset--font-size--x-large);">A paragraph inside a group</p>',
+				'block_content'               => '<p class="has-medium-font-size" style="font-size:var(--fp--preset--font-size--x-large);">A paragraph inside a group</p>',
 				'font_size_value'             => 'var:preset|font-size|x-large',
 				'should_use_fluid_typography' => true,
-				'expected_output'             => '<p class="has-medium-font-size" style="font-size:var(--wp--preset--font-size--x-large);">A paragraph inside a group</p>',
+				'expected_output'             => '<p class="has-medium-font-size" style="font-size:var(--fp--preset--font-size--x-large);">A paragraph inside a group</p>',
 			),
 			'return_content_with_spaces'                   => array(
 				'block_content'               => '<p class="has-medium-font-size" style="    font-size:   20px   ;    ">A paragraph inside a group</p>',
@@ -1109,10 +1109,10 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 				'expected_output'             => '<p class="has-medium-font-size" style="    font-size:clamp(14px, 0.875rem + ((1vw - 3.2px) * 0.469), 20px);    ">A paragraph inside a group</p>',
 			),
 			'return_content_with_first_match_replace_only' => array(
-				'block_content'               => "<div class=\"wp-block-group\" style=\"font-size:1.5em\"> \n \n<p style=\"font-size:1.5em\">A paragraph inside a group</p></div>",
+				'block_content'               => "<div class=\"fp-block-group\" style=\"font-size:1.5em\"> \n \n<p style=\"font-size:1.5em\">A paragraph inside a group</p></div>",
 				'font_size_value'             => '1.5em',
 				'should_use_fluid_typography' => true,
-				'expected_output'             => "<div class=\"wp-block-group\" style=\"font-size:clamp(0.984em, 0.984rem + ((1vw - 0.2em) * 0.645), 1.5em);\"> \n \n<p style=\"font-size:1.5em\">A paragraph inside a group</p></div>",
+				'expected_output'             => "<div class=\"fp-block-group\" style=\"font-size:clamp(0.984em, 0.984rem + ((1vw - 0.2em) * 0.645), 1.5em);\"> \n \n<p style=\"font-size:1.5em\">A paragraph inside a group</p></div>",
 			),
 		);
 	}
@@ -1124,12 +1124,12 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	 *
 	 * @covers ::gutenberg_get_typography_value_and_unit
 	 *
-	 * @dataProvider data_valid_size_wp_get_typography_value_and_unit
+	 * @dataProvider data_valid_size_fp_get_typography_value_and_unit
 	 *
 	 * @param mixed $raw_value Raw size value to test.
 	 * @param mixed $expected  An expected return value.
 	 */
-	public function test_valid_size_wp_get_typography_value_and_unit( $raw_value, $expected ) {
+	public function test_valid_size_fp_get_typography_value_and_unit( $raw_value, $expected ) {
 		$this->assertEquals( $expected, gutenberg_get_typography_value_and_unit( $raw_value ) );
 	}
 
@@ -1138,7 +1138,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	 *
 	 * @return array
 	 */
-	public function data_valid_size_wp_get_typography_value_and_unit() {
+	public function data_valid_size_fp_get_typography_value_and_unit() {
 		return array(
 			'size: 10vh with default units do not match' => array(
 				'raw_value' => '10vh',
@@ -1211,12 +1211,12 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	 *
 	 * @covers ::gutenberg_get_typography_value_and_unit
 	 *
-	 * @dataProvider data_invalid_size_wp_get_typography_value_and_unit
+	 * @dataProvider data_invalid_size_fp_get_typography_value_and_unit
 	 * @expectedIncorrectUsage gutenberg_get_typography_value_and_unit
 	 *
 	 * @param mixed $raw_value Raw size value to test.
 	 */
-	public function test_invalid_size_wp_get_typography_value_and_unit( $raw_value ) {
+	public function test_invalid_size_fp_get_typography_value_and_unit( $raw_value ) {
 		$this->assertNull( gutenberg_get_typography_value_and_unit( $raw_value ) );
 	}
 
@@ -1225,7 +1225,7 @@ class WP_Block_Supports_Typography_Test extends WP_UnitTestCase {
 	 *
 	 * @return array
 	 */
-	public function data_invalid_size_wp_get_typography_value_and_unit() {
+	public function data_invalid_size_fp_get_typography_value_and_unit() {
 		return array(
 			'size: null'  => array( null ),
 			'size: false' => array( false ),

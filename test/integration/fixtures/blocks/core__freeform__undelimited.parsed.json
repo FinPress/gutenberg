@@ -3,9 +3,9 @@
 		"blockName": null,
 		"attrs": {},
 		"innerBlocks": [],
-		"innerHTML": "Testing freeform block with some\n<div class=\"wp-some-class\">\n\tHTML <span style=\"color: red;\">content</span>\n</div>",
+		"innerHTML": "Testing freeform block with some\n<div class=\"fp-some-class\">\n\tHTML <span style=\"color: red;\">content</span>\n</div>",
 		"innerContent": [
-			"Testing freeform block with some\n<div class=\"wp-some-class\">\n\tHTML <span style=\"color: red;\">content</span>\n</div>"
+			"Testing freeform block with some\n<div class=\"fp-some-class\">\n\tHTML <span style=\"color: red;\">content</span>\n</div>"
 		]
 	}
 ]

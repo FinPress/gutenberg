@@ -40,12 +40,12 @@ const CommentsFormPlaceholder = () => {
 						readOnly
 					/>
 				</p>
-				<p className="form-submit wp-block-button">
+				<p className="form-submit fp-block-button">
 					<input
 						name="submit"
 						type="submit"
 						className={ clsx(
-							'wp-block-button__link',
+							'fp-block-button__link',
 							__experimentalGetElementClassName( 'button' )
 						) }
 						label={ __( 'Post Comment' ) }

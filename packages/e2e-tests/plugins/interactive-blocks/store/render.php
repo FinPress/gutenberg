@@ -6,11 +6,11 @@
  */
 ?>
 
-<div data-wp-interactive="test/store">
-	<div data-wp-text="state.0" data-testid="state-0"></div>
+<div data-fp-interactive="test/store">
+	<div data-fp-text="state.0" data-testid="state-0"></div>
 	<div
 		data-testid="non-plain object"
-		data-wp-text="state.isNotProxified"
-		data-wp-init="callbacks.init"
+		data-fp-text="state.isNotProxified"
+		data-fp-init="callbacks.init"
 	></div>
 </div>

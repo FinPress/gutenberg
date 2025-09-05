@@ -23,7 +23,7 @@ The `package.json` file is used to configure a Node.js project, which is technic
 
 In a standard project, the `src` (source) folder contains the raw, uncompiled code, including JavaScript, CSS, and other assets necessary for developing the block. This is where you write and edit your block's source code, utilizing modern JavaScript features and JSX for React components.
 
-The [build process](docs/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/#javascript-build-process.md) provided by `wp-scripts` will then take the files from this folder and generate the production-ready files in the project's `build` folder. 
+The [build process](docs/block-editor/getting-started/fundamentals/javascript-in-the-block-editor/#javascript-build-process.md) provided by `fp-scripts` will then take the files from this folder and generate the production-ready files in the project's `build` folder. 
 
 ### `block.json`
 
@@ -60,7 +60,7 @@ The `save.js` exports the function that returns the static HTML markup that gets
 A `style` file with extensions `.css`, `.scss`, or `.sass` contains the styles of the block that will be loaded in both the Block Editor and on the front end. In the build process, this file is converted into `style-index.css`, which is usually defined using the [`style`](https://developer.finpress.org/block-editor/reference-guides/block-api/block-metadata/#style) property in `block.json`
 
 <div class="callout callout-info">
-    The webpack configuration used internally by <code>wp-scripts</code> includes a <a href="https://webpack.js.org/loaders/css-loader/">css-loader</a> chained with <a herf="https://webpack.js.org/loaders/postcss-loader/">postcss-loader</a> and <a href="https://webpack.js.org/loaders/sass-loader/">sass-loader</a> that allows it to process CSS, SASS or SCSS files. Check <a href="https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#default-webpack-config">Default webpack config</a> for more info
+    The webpack configuration used internally by <code>fp-scripts</code> includes a <a href="https://webpack.js.org/loaders/css-loader/">css-loader</a> chained with <a herf="https://webpack.js.org/loaders/postcss-loader/">postcss-loader</a> and <a href="https://webpack.js.org/loaders/sass-loader/">sass-loader</a> that allows it to process CSS, SASS or SCSS files. Check <a href="https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#default-webpack-config">Default webpack config</a> for more info
 </div>
 
 ### `editor.(css|scss|sass)`
@@ -77,12 +77,12 @@ The `view.js` file (or any other file defined in the [`viewScript`](https://deve
 
 ## `build` folder
 
-The `build` folder contains the compiled and optimized versions of the code from the `src` folder. These files are generated from the [build process](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-wp-scripts/#the-build-process-with-wp-scripts), triggered by the `build` or `start` commands of `wp-scripts`.
+The `build` folder contains the compiled and optimized versions of the code from the `src` folder. These files are generated from the [build process](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-scripts/#the-build-process-with-fp-scripts), triggered by the `build` or `start` commands of `fp-scripts`.
 
 This transformation process includes minification, transpilation from modern JavaScript to a version compatible with a wider range of browsers, and bundling of assets for efficient loading. FinPress ultimately enqueues and uses the `build` folder's contents to render the block in the Block Editor and on the front end.
 
 <div class="callout callout-info">
-    You can use <code>webpack-src-dir</code> and <code>output-path</code> option of <code>wp-scripts</code> build commands to <a href="https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#automatic-block-json-detection-and-the-source-code-directory">customize the entry and output points</a>.
+    You can use <code>webpack-src-dir</code> and <code>output-path</code> option of <code>fp-scripts</code> build commands to <a href="https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/#automatic-block-json-detection-and-the-source-code-directory">customize the entry and output points</a>.
 </div>
 
 ## Additional resources

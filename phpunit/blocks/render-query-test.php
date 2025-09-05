@@ -8,39 +8,39 @@
  *
  * @group blocks
  */
-class Tests_Blocks_RenderQueryBlock extends WP_UnitTestCase {
+class Tests_Blocks_RenderQueryBlock extends FP_UnitTestCase {
 
 	private static $posts;
 
-	private $original_wp_interactivity;
+	private $original_fp_interactivity;
 
-	public static function wpSetUpBeforeClass( WP_UnitTest_Factory $factory ) {
+	public static function fpSetUpBeforeClass( FP_UnitTest_Factory $factory ) {
 		self::$posts = $factory->post->create_many( 3 );
 
 		register_block_type(
 			'test/plugin-block',
 			array(
 				'render_callback' => static function () {
-					return '<div class="wp-block-test/plugin-block">Test</div>';
+					return '<div class="fp-block-test/plugin-block">Test</div>';
 				},
 			)
 		);
 	}
 
-	public static function wpTearDownAfterClass() {
+	public static function fpTearDownAfterClass() {
 		unregister_block_type( 'test/plugin-block' );
 	}
 
 	public function set_up() {
 		parent::set_up();
-		global $wp_interactivity;
-		$this->original_wp_interactivity = $wp_interactivity;
-		$wp_interactivity                = new WP_Interactivity_API();
+		global $fp_interactivity;
+		$this->original_fp_interactivity = $fp_interactivity;
+		$fp_interactivity                = new FP_Interactivity_API();
 	}
 
 	public function tear_down() {
-		global $wp_interactivity;
-		$wp_interactivity = $this->original_wp_interactivity;
+		global $fp_interactivity;
+		$fp_interactivity = $this->original_fp_interactivity;
 		parent::tear_down();
 	}
 
@@ -50,30 +50,30 @@ class Tests_Blocks_RenderQueryBlock extends WP_UnitTestCase {
 	 * the `enhancedPagination` attribute is set.
 	 */
 	public function test_rendering_query_with_enhanced_pagination() {
-		global $wp_query, $wp_the_query, $paged;
+		global $fp_query, $fp_the_query, $paged;
 
 		$content = <<<HTML
-		<!-- wp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
-		<div class="wp-block-query">
-			<!-- wp:post-template {"align":"wide"} -->
-			<!-- /wp:post-template -->
-			<!-- wp:query-pagination -->
-				<!-- wp:query-pagination-previous /-->
-				<!-- wp:query-pagination-next /-->
-			<!-- /wp:query-pagination -->
+		<!-- fp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
+		<div class="fp-block-query">
+			<!-- fp:post-template {"align":"wide"} -->
+			<!-- /fp:post-template -->
+			<!-- fp:query-pagination -->
+				<!-- fp:query-pagination-previous /-->
+				<!-- fp:query-pagination-next /-->
+			<!-- /fp:query-pagination -->
 		</div>
-		<!-- /wp:query -->
+		<!-- /fp:query -->
 HTML;
 
 		// Set main query to single post.
-		$wp_query = new WP_Query(
+		$fp_query = new FP_Query(
 			array(
 				'posts_per_page' => 1,
 				'paged'          => 2,
 			)
 		);
 
-		$wp_the_query = $wp_query;
+		$fp_the_query = $fp_query;
 		$prev_paged   = $paged;
 		$paged        = 2;
 
@@ -81,29 +81,29 @@ HTML;
 
 		$paged = $prev_paged;
 
-		$p = new WP_HTML_Tag_Processor( $output );
+		$p = new FP_HTML_Tag_Processor( $output );
 
-		$p->next_tag( array( 'class_name' => 'wp-block-query' ) );
-		$this->assertSame( '{}', $p->get_attribute( 'data-wp-context' ) );
-		$this->assertSame( 'query-0', $p->get_attribute( 'data-wp-router-region' ) );
-		$this->assertSame( 'core/query', $p->get_attribute( 'data-wp-interactive' ) );
+		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
+		$this->assertSame( '{}', $p->get_attribute( 'data-fp-context' ) );
+		$this->assertSame( 'query-0', $p->get_attribute( 'data-fp-router-region' ) );
+		$this->assertSame( 'core/query', $p->get_attribute( 'data-fp-interactive' ) );
 
-		$p->next_tag( array( 'class_name' => 'wp-block-post' ) );
-		$this->assertSame( 'post-template-item-' . self::$posts[1], $p->get_attribute( 'data-wp-key' ) );
+		$p->next_tag( array( 'class_name' => 'fp-block-post' ) );
+		$this->assertSame( 'post-template-item-' . self::$posts[1], $p->get_attribute( 'data-fp-key' ) );
 
-		$p->next_tag( array( 'class_name' => 'wp-block-query-pagination-previous' ) );
-		$this->assertSame( 'query-pagination-previous', $p->get_attribute( 'data-wp-key' ) );
-		$this->assertSame( 'core/query::actions.navigate', $p->get_attribute( 'data-wp-on--click' ) );
-		$this->assertSame( 'core/query::actions.prefetch', $p->get_attribute( 'data-wp-on-async--mouseenter' ) );
-		$this->assertSame( 'core/query::callbacks.prefetch', $p->get_attribute( 'data-wp-watch' ) );
+		$p->next_tag( array( 'class_name' => 'fp-block-query-pagination-previous' ) );
+		$this->assertSame( 'query-pagination-previous', $p->get_attribute( 'data-fp-key' ) );
+		$this->assertSame( 'core/query::actions.navigate', $p->get_attribute( 'data-fp-on--click' ) );
+		$this->assertSame( 'core/query::actions.prefetch', $p->get_attribute( 'data-fp-on-async--mouseenter' ) );
+		$this->assertSame( 'core/query::callbacks.prefetch', $p->get_attribute( 'data-fp-watch' ) );
 
-		$p->next_tag( array( 'class_name' => 'wp-block-query-pagination-next' ) );
-		$this->assertSame( 'query-pagination-next', $p->get_attribute( 'data-wp-key' ) );
-		$this->assertSame( 'core/query::actions.navigate', $p->get_attribute( 'data-wp-on--click' ) );
-		$this->assertSame( 'core/query::actions.prefetch', $p->get_attribute( 'data-wp-on-async--mouseenter' ) );
-		$this->assertSame( 'core/query::callbacks.prefetch', $p->get_attribute( 'data-wp-watch' ) );
+		$p->next_tag( array( 'class_name' => 'fp-block-query-pagination-next' ) );
+		$this->assertSame( 'query-pagination-next', $p->get_attribute( 'data-fp-key' ) );
+		$this->assertSame( 'core/query::actions.navigate', $p->get_attribute( 'data-fp-on--click' ) );
+		$this->assertSame( 'core/query::actions.prefetch', $p->get_attribute( 'data-fp-on-async--mouseenter' ) );
+		$this->assertSame( 'core/query::callbacks.prefetch', $p->get_attribute( 'data-fp-watch' ) );
 
-		$router_config = wp_interactivity_config( 'core/router' );
+		$router_config = fp_interactivity_config( 'core/router' );
 		$this->assertEmpty( $router_config );
 	}
 
@@ -113,35 +113,35 @@ HTML;
 	 * when a plugin block is found inside.
 	 */
 	public function test_rendering_query_with_enhanced_pagination_auto_disabled_when_plugins_blocks_are_found() {
-		global $wp_query, $wp_the_query;
+		global $fp_query, $fp_the_query;
 
 		$content = <<<HTML
-		<!-- wp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
-		<div class="wp-block-query">
-			<!-- wp:post-template {"align":"wide"} -->
-				<!-- wp:test/plugin-block /-->
-			<!-- /wp:post-template -->
+		<!-- fp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
+		<div class="fp-block-query">
+			<!-- fp:post-template {"align":"wide"} -->
+				<!-- fp:test/plugin-block /-->
+			<!-- /fp:post-template -->
 		</div>
-		<!-- /wp:query -->
+		<!-- /fp:query -->
 HTML;
 
 		// Set main query to single post.
-		$wp_query = new WP_Query(
+		$fp_query = new FP_Query(
 			array(
 				'posts_per_page' => 1,
 			)
 		);
 
-		$wp_the_query = $wp_query;
+		$fp_the_query = $fp_query;
 
 		$output = do_blocks( $content );
 
-		$p = new WP_HTML_Tag_Processor( $output );
+		$p = new FP_HTML_Tag_Processor( $output );
 
-		$p->next_tag( array( 'class_name' => 'wp-block-query' ) );
-		$this->assertSame( 'query-0', $p->get_attribute( 'data-wp-router-region' ) );
+		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
+		$this->assertSame( 'query-0', $p->get_attribute( 'data-fp-router-region' ) );
 
-		$router_config = wp_interactivity_config( 'core/router' );
+		$router_config = fp_interactivity_config( 'core/router' );
 		$this->assertTrue( $router_config['clientNavigationDisabled'] );
 	}
 
@@ -151,34 +151,34 @@ HTML;
 	 * when a post content block is found inside.
 	 */
 	public function test_rendering_query_with_enhanced_pagination_auto_disabled_when_post_content_block_is_found() {
-		global $wp_query, $wp_the_query;
+		global $fp_query, $fp_the_query;
 
 		$content = <<<HTML
-		<!-- wp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
-		<div class="wp-block-query">
-			<!-- wp:post-template {"align":"wide"} -->
-				<!-- wp:post-content /-->
-			<!-- /wp:post-template -->
+		<!-- fp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
+		<div class="fp-block-query">
+			<!-- fp:post-template {"align":"wide"} -->
+				<!-- fp:post-content /-->
+			<!-- /fp:post-template -->
 		</div>
-		<!-- /wp:query -->
+		<!-- /fp:query -->
 HTML;
 
 		// Set main query to single post.
-		$wp_query = new WP_Query(
+		$fp_query = new FP_Query(
 			array(
 				'posts_per_page' => 1,
 			)
 		);
 
-		$wp_the_query = $wp_query;
+		$fp_the_query = $fp_query;
 
 		$output = do_blocks( $content );
 
-		$p = new WP_HTML_Tag_Processor( $output );
+		$p = new FP_HTML_Tag_Processor( $output );
 
-		$p->next_tag( array( 'class_name' => 'wp-block-query' ) );
-		$this->assertSame( 'query-0', $p->get_attribute( 'data-wp-router-region' ) );
-		$router_config = wp_interactivity_config( 'core/router' );
+		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
+		$this->assertSame( 'query-0', $p->get_attribute( 'data-fp-router-region' ) );
+		$router_config = fp_interactivity_config( 'core/router' );
 		$this->assertTrue( $router_config['clientNavigationDisabled'] );
 	}
 
@@ -188,56 +188,56 @@ HTML;
 	 * is set to `true` in the `core/router` store config.
 	 */
 	public function test_rendering_nested_queries_with_enhanced_pagination_auto_disabled() {
-		global $wp_query, $wp_the_query;
+		global $fp_query, $fp_the_query;
 
 		$content = <<<HTML
-			<!-- wp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
-			<div class="wp-block-query">
-				<!-- wp:post-template {"align":"wide"} -->
-					<!-- wp:query {"queryId":1,"query":{"inherit":true},"enhancedPagination":true} -->
-					<div class="wp-block-query">
-						<!-- wp:post-template {"align":"wide"} -->
-						<!-- /wp:post-template -->
+			<!-- fp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
+			<div class="fp-block-query">
+				<!-- fp:post-template {"align":"wide"} -->
+					<!-- fp:query {"queryId":1,"query":{"inherit":true},"enhancedPagination":true} -->
+					<div class="fp-block-query">
+						<!-- fp:post-template {"align":"wide"} -->
+						<!-- /fp:post-template -->
 					</div>
-					<!-- /wp:query-pagination -->
-					<!-- wp:query {"queryId":2,"query":{"inherit":true},"enhancedPagination":true} -->
-					<div class="wp-block-query">
-						<!-- wp:post-template {"align":"wide"} -->
-							<!-- wp:test/plugin-block /-->
-						<!-- /wp:post-template -->
+					<!-- /fp:query-pagination -->
+					<!-- fp:query {"queryId":2,"query":{"inherit":true},"enhancedPagination":true} -->
+					<div class="fp-block-query">
+						<!-- fp:post-template {"align":"wide"} -->
+							<!-- fp:test/plugin-block /-->
+						<!-- /fp:post-template -->
 					</div>
-					<!-- /wp:query-pagination -->
-				<!-- /wp:post-template -->
+					<!-- /fp:query-pagination -->
+				<!-- /fp:post-template -->
 			</div>
-			<!-- /wp:query -->
+			<!-- /fp:query -->
 HTML;
 
 		// Set main query to single post.
-		$wp_query = new WP_Query(
+		$fp_query = new FP_Query(
 			array(
 				'posts_per_page' => 1,
 			)
 		);
 
-		$wp_the_query = $wp_query;
+		$fp_the_query = $fp_query;
 
 		$output = do_blocks( $content );
 
-		$p = new WP_HTML_Tag_Processor( $output );
+		$p = new FP_HTML_Tag_Processor( $output );
 
 		// Query 0 contains a plugin block inside query-2 -> disabled.
-		$p->next_tag( array( 'class_name' => 'wp-block-query' ) );
-		$this->assertSame( 'query-0', $p->get_attribute( 'data-wp-router-region' ) );
+		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
+		$this->assertSame( 'query-0', $p->get_attribute( 'data-fp-router-region' ) );
 
 		// Query 1 does not contain a plugin block -> enabled.
-		$p->next_tag( array( 'class_name' => 'wp-block-query' ) );
-		$this->assertSame( 'query-1', $p->get_attribute( 'data-wp-router-region' ) );
+		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
+		$this->assertSame( 'query-1', $p->get_attribute( 'data-fp-router-region' ) );
 
 		// Query 2 contains a plugin block -> disabled.
-		$p->next_tag( array( 'class_name' => 'wp-block-query' ) );
-		$this->assertSame( 'query-2', $p->get_attribute( 'data-wp-router-region' ) );
+		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
+		$this->assertSame( 'query-2', $p->get_attribute( 'data-fp-router-region' ) );
 
-		$router_config = wp_interactivity_config( 'core/router' );
+		$router_config = fp_interactivity_config( 'core/router' );
 		$this->assertTrue( $router_config['clientNavigationDisabled'] );
 	}
 
@@ -247,33 +247,33 @@ HTML;
 	 * when a plugin that does not define clientNavigation is found inside.
 	 */
 	public function test_rendering_query_with_enhanced_pagination_auto_disabled_when_there_is_a_non_compatible_block() {
-		global $wp_query, $wp_the_query;
+		global $fp_query, $fp_the_query;
 
 		$content = <<<HTML
-		<!-- wp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
-		<div class="wp-block-query">
-			<!-- wp:post-content {"align":"wide"} --><!-- /wp:post-content -->
+		<!-- fp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
+		<div class="fp-block-query">
+			<!-- fp:post-content {"align":"wide"} --><!-- /fp:post-content -->
 		</div>
-		<!-- /wp:query -->
+		<!-- /fp:query -->
 HTML;
 
 		// Set main query to single post.
-		$wp_query = new WP_Query(
+		$fp_query = new FP_Query(
 			array(
 				'posts_per_page' => 1,
 			)
 		);
 
-		$wp_the_query = $wp_query;
+		$fp_the_query = $fp_query;
 
 		$output = do_blocks( $content );
 
-		$p = new WP_HTML_Tag_Processor( $output );
+		$p = new FP_HTML_Tag_Processor( $output );
 
-		$p->next_tag( array( 'class_name' => 'wp-block-query' ) );
-		$this->assertSame( 'query-0', $p->get_attribute( 'data-wp-router-region' ) );
+		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
+		$this->assertSame( 'query-0', $p->get_attribute( 'data-fp-router-region' ) );
 
-		$router_config = wp_interactivity_config( 'core/router' );
+		$router_config = fp_interactivity_config( 'core/router' );
 		$this->assertTrue( $router_config['clientNavigationDisabled'] );
 	}
 }

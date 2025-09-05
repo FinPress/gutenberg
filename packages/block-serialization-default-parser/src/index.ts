@@ -69,7 +69,7 @@ type Token = [ TokenType, string, Attributes, number, number ];
  * @since 4.6.1 added optimization to prevent backtracking on attribute parsing
  */
 const tokenizer =
-	/<!--\s+(\/)?wp:([a-z][a-z0-9_-]*\/)?([a-z][a-z0-9_-]*)\s+({(?:(?=([^}]+|}+(?=})|(?!}\s+\/?-->)[^])*)\5|[^]*?)}\s+)?(\/)?-->/g;
+	/<!--\s+(\/)?fp:([a-z][a-z0-9_-]*\/)?([a-z][a-z0-9_-]*)\s+({(?:(?=([^}]+|}+(?=})|(?!}\s+\/?-->)[^])*)\5|[^]*?)}\s+)?(\/)?-->/g;
 
 /**
  * Constructs a block object.
@@ -142,23 +142,23 @@ function Frame(
  * @example
  * Input post:
  * ```html
- * <!-- wp:columns {"columns":3} -->
- * <div class="wp-block-columns has-3-columns"><!-- wp:column -->
- * <div class="wp-block-column"><!-- wp:paragraph -->
+ * <!-- fp:columns {"columns":3} -->
+ * <div class="fp-block-columns has-3-columns"><!-- fp:column -->
+ * <div class="fp-block-column"><!-- fp:paragraph -->
  * <p>Left</p>
- * <!-- /wp:paragraph --></div>
- * <!-- /wp:column -->
+ * <!-- /fp:paragraph --></div>
+ * <!-- /fp:column -->
  *
- * <!-- wp:column -->
- * <div class="wp-block-column"><!-- wp:paragraph -->
+ * <!-- fp:column -->
+ * <div class="fp-block-column"><!-- fp:paragraph -->
  * <p><strong>Middle</strong></p>
- * <!-- /wp:paragraph --></div>
- * <!-- /wp:column -->
+ * <!-- /fp:paragraph --></div>
+ * <!-- /fp:column -->
  *
- * <!-- wp:column -->
- * <div class="wp-block-column"></div>
- * <!-- /wp:column --></div>
- * <!-- /wp:columns -->
+ * <!-- fp:column -->
+ * <div class="fp-block-column"></div>
+ * <!-- /fp:column --></div>
+ * <!-- /fp:columns -->
  * ```
  *
  * Parsing code:
@@ -183,7 +183,7 @@ function Frame(
  *                         innerHTML: "\n<p>Left</p>\n"
  *                     }
  *                 ],
- *                 innerHTML: '\n<div class="wp-block-column"></div>\n'
+ *                 innerHTML: '\n<div class="fp-block-column"></div>\n'
  *             },
  *             {
  *                 blockName: "core/column",
@@ -196,16 +196,16 @@ function Frame(
  *                         innerHTML: "\n<p><strong>Middle</strong></p>\n"
  *                     }
  *                 ],
- *                 innerHTML: '\n<div class="wp-block-column"></div>\n'
+ *                 innerHTML: '\n<div class="fp-block-column"></div>\n'
  *             },
  *             {
  *                 blockName: "core/column",
  *                 attrs: null,
  *                 innerBlocks: [],
- *                 innerHTML: '\n<div class="wp-block-column"></div>\n'
+ *                 innerHTML: '\n<div class="fp-block-column"></div>\n'
  *             }
  *         ],
- *         innerHTML: '\n<div class="wp-block-columns has-3-columns">\n\n\n\n</div>\n'
+ *         innerHTML: '\n<div class="fp-block-columns has-3-columns">\n\n\n\n</div>\n'
  *     }
  * ];
  * ```
@@ -380,7 +380,7 @@ function nextToken(): Token {
 	// Aye the magic
 	// we're using a single RegExp to tokenize the block comment delimiters
 	// we're also using a trick here because the only difference between a
-	// block opener and a block closer is the leading `/` before `wp:` (and
+	// block opener and a block closer is the leading `/` before `fp:` (and
 	// a closer has no attributes). we can trap them both and process the
 	// match back in JavaScript to see which one it was.
 	const matches = tokenizer.exec( document );

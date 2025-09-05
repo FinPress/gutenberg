@@ -163,7 +163,7 @@ export interface shortcode {
 	 * Generate a RegExp to identify a shortcode.
 	 *
 	 * The base regex is functionally equivalent to the one found in
-	 * `get_shortcode_regex()` in `wp-includes/shortcodes.php`.
+	 * `get_shortcode_regex()` in `fp-includes/shortcodes.php`.
 	 *
 	 * Capture groups:
 	 *

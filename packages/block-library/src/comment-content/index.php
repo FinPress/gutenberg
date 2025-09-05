@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  * @return string Return the post comment's content.
  */
 function render_block_core_comment_content( $attributes, $content, $block ) {
@@ -21,7 +21,7 @@ function render_block_core_comment_content( $attributes, $content, $block ) {
 	}
 
 	$comment            = get_comment( $block->context['commentId'] );
-	$commenter          = wp_get_current_commenter();
+	$commenter          = fp_get_current_commenter();
 	$show_pending_links = isset( $commenter['comment_author'] ) && $commenter['comment_author'];
 	if ( empty( $comment ) ) {
 		return '';
@@ -33,12 +33,12 @@ function render_block_core_comment_content( $attributes, $content, $block ) {
 		return '';
 	}
 
-	/** This filter is documented in wp-includes/comment-template.php */
+	/** This filter is documented in fp-includes/comment-template.php */
 	$comment_text = apply_filters( 'comment_text', $comment_text, $comment, $args );
 
 	$moderation_note = '';
 	if ( '0' === $comment->comment_approved ) {
-		$commenter = wp_get_current_commenter();
+		$commenter = fp_get_current_commenter();
 
 		if ( $commenter['comment_author_email'] ) {
 			$moderation_note = __( 'Your comment is awaiting moderation.' );
@@ -47,7 +47,7 @@ function render_block_core_comment_content( $attributes, $content, $block ) {
 		}
 		$moderation_note = '<p><em class="comment-awaiting-moderation">' . $moderation_note . '</em></p>';
 		if ( ! $show_pending_links ) {
-			$comment_text = wp_kses( $comment_text, array() );
+			$comment_text = fp_kses( $comment_text, array() );
 		}
 	}
 

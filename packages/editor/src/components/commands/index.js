@@ -267,7 +267,7 @@ const getEditorCommandLoader = () =>
 					close();
 					const postId = getCurrentPostId();
 					const link = await __unstableSaveForPreview();
-					window.open( link, `wp-preview-${ postId }` );
+					window.open( link, `fp-preview-${ postId }` );
 				},
 			} );
 		}
@@ -335,7 +335,7 @@ const getPageContentFocusCommands = () =>
 			}, [] );
 		const { editedRecord: template, hasResolved } = useEntityRecord(
 			'postType',
-			'wp_template',
+			'fp_template',
 			templateId
 		);
 
@@ -357,7 +357,7 @@ const getPageContentFocusCommands = () =>
 				callback: ( { close } ) => {
 					onNavigateToEntityRecord( {
 						postId: templateId,
-						postType: 'wp_template',
+						postType: 'fp_template',
 					} );
 					close();
 				},

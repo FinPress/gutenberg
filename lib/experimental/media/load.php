@@ -11,7 +11,7 @@
  * @return array Existing image sizes.
  */
 function gutenberg_get_all_image_sizes(): array {
-	$sizes = wp_get_registered_image_subsizes();
+	$sizes = fp_get_registered_image_subsizes();
 
 	foreach ( $sizes as $name => &$size ) {
 		$size['height'] = (int) $size['height'];
@@ -41,7 +41,7 @@ function gutenberg_get_default_image_output_formats() {
 	$output_formats = array();
 
 	foreach ( $input_formats as $mime_type ) {
-		/** This filter is documented in wp-includes/media.php */
+		/** This filter is documented in fp-includes/media.php */
 		$output_formats = apply_filters(
 			'image_editor_output_format', // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			$output_formats,
@@ -56,19 +56,19 @@ function gutenberg_get_default_image_output_formats() {
 /**
  * Filters the REST API root index data to add custom settings.
  *
- * @param WP_REST_Response $response Response data.
+ * @param FP_REST_Response $response Response data.
  */
-function gutenberg_media_processing_filter_rest_index( WP_REST_Response $response ) {
-	/** This filter is documented in wp-admin/includes/images.php */
+function gutenberg_media_processing_filter_rest_index( FP_REST_Response $response ) {
+	/** This filter is documented in fp-admin/includes/images.php */
 	$image_size_threshold = (int) apply_filters( 'big_image_size_threshold', 2560, array( 0, 0 ), '', 0 ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 	$default_image_output_formats = gutenberg_get_default_image_output_formats();
 
-	/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
+	/** This filter is documented in fp-includes/class-fp-image-editor-imagick.php */
 	$jpeg_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/jpeg' ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-	/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
+	/** This filter is documented in fp-includes/class-fp-image-editor-imagick.php */
 	$png_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/png' ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-	/** This filter is documented in wp-includes/class-wp-image-editor-imagick.php */
+	/** This filter is documented in fp-includes/class-fp-image-editor-imagick.php */
 	$gif_interlaced = (bool) apply_filters( 'image_save_progressive', false, 'image/gif' ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 	if ( current_user_can( 'upload_files' ) ) {
@@ -146,7 +146,7 @@ add_action( 'rest_api_init', 'gutenberg_media_processing_register_rest_fields' )
  * @return string|null Attachment file name.
  */
 function gutenberg_rest_get_attachment_filename( array $post ): ?string {
-	$path = wp_get_original_image_path( $post['id'] );
+	$path = fp_get_original_image_path( $post['id'] );
 
 	if ( $path ) {
 		return basename( $path );
@@ -170,17 +170,17 @@ function gutenberg_rest_get_attachment_filename( array $post ): ?string {
 function gutenberg_rest_get_attachment_filesize( array $post ): ?int {
 	$attachment_id = $post['id'];
 
-	$meta = wp_get_attachment_metadata( $attachment_id );
+	$meta = fp_get_attachment_metadata( $attachment_id );
 
 	if ( isset( $meta['filesize'] ) ) {
 		return $meta['filesize'];
 	}
 
-	$original_path = wp_get_original_image_path( $attachment_id );
+	$original_path = fp_get_original_image_path( $attachment_id );
 	$attached_file = $original_path ? $original_path : get_attached_file( $attachment_id );
 
 	if ( is_string( $attached_file ) && file_exists( $attached_file ) ) {
-		return wp_filesize( $attached_file );
+		return fp_filesize( $attached_file );
 	}
 
 	return null;
@@ -219,7 +219,7 @@ function gutenberg_set_up_cross_origin_isolation() {
 		return;
 	}
 
-	if ( ! $screen->is_block_editor() && 'site-editor' !== $screen->id && ! ( 'widgets' === $screen->id && wp_use_widgets_block_editor() ) ) {
+	if ( ! $screen->is_block_editor() && 'site-editor' !== $screen->id && ! ( 'widgets' === $screen->id && fp_use_widgets_block_editor() ) ) {
 		return;
 	}
 
@@ -275,7 +275,7 @@ function gutenberg_start_cross_origin_isolation_output_buffer(): void {
 function gutenberg_add_crossorigin_attributes( string $html ): string {
 	$site_url = site_url();
 
-	$processor = new WP_HTML_Tag_Processor( $html );
+	$processor = new FP_HTML_Tag_Processor( $html );
 
 	// See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin.
 	$tags = array(
@@ -330,18 +330,18 @@ function gutenberg_add_crossorigin_attributes( string $html ): string {
 }
 
 /**
- * Overrides templates from wp_print_media_templates with custom ones.
+ * Overrides templates from fp_print_media_templates with custom ones.
  *
  * Adds `crossorigin` attribute to all tags that
  * could have assets loaded from a different domain.
  */
 function gutenberg_override_media_templates(): void {
-	remove_action( 'admin_footer', 'wp_print_media_templates' );
+	remove_action( 'admin_footer', 'fp_print_media_templates' );
 	add_action(
 		'admin_footer',
 		static function (): void {
 			ob_start();
-			wp_print_media_templates();
+			fp_print_media_templates();
 			$html = (string) ob_get_clean();
 
 			$tags = array(
@@ -359,4 +359,4 @@ function gutenberg_override_media_templates(): void {
 	);
 }
 
-add_action( 'wp_enqueue_media', 'gutenberg_override_media_templates' );
+add_action( 'fp_enqueue_media', 'gutenberg_override_media_templates' );

@@ -11,9 +11,9 @@ import {
 
 const block = 'Paragraph';
 const initialHtml = `
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Example text</p>
-<!-- /wp:paragraph -->`;
+<!-- /fp:paragraph -->`;
 
 // NOTE: Paragraph block can be transformed to Buttons block in web,
 // however this transform is not supported in the native version.

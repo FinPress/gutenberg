@@ -24,7 +24,7 @@ export const requiresWrapperOnCopy = Symbol( 'requiresWrapperOnCopy' );
  * text representations.
  *
  * @param {ClipboardEvent} event    Clipboard event.
- * @param {WPBlock[]}      blocks   Blocks to set as clipboard data.
+ * @param {FPBlock[]}      blocks   Blocks to set as clipboard data.
  * @param {Object}         registry The registry to select from.
  */
 export function setClipboardBlocks( event, blocks, registry ) {

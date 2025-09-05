@@ -9,10 +9,10 @@ import type { Editor } from './index';
  * @param this
  */
 export async function switchToLegacyCanvas( this: Editor ) {
-	await this.page.waitForFunction( () => window?.wp?.blocks );
+	await this.page.waitForFunction( () => window?.fp?.blocks );
 
 	await this.page.evaluate( () => {
-		window.wp.blocks.registerBlockType( 'test/v2', {
+		window.fp.blocks.registerBlockType( 'test/v2', {
 			apiVersion: '2',
 			title: 'test',
 		} );

@@ -10,7 +10,7 @@
  * @covers ::gutenberg_render_block_core_block
  * @group blocks
  */
-class Test_Blocks_RenderReusable extends WP_UnitTestCase {
+class Test_Blocks_RenderReusable extends FP_UnitTestCase {
 
 	/**
 	 * Test block ID.
@@ -19,7 +19,7 @@ class Test_Blocks_RenderReusable extends WP_UnitTestCase {
 	 */
 	protected static $block_id;
 
-	public static function wpSetUpBeforeClass( $factory ) {
+	public static function fpSetUpBeforeClass( $factory ) {
 		register_block_bindings_source(
 			'test/block-binding',
 			array(
@@ -33,16 +33,16 @@ class Test_Blocks_RenderReusable extends WP_UnitTestCase {
 
 		self::$block_id = $factory->post->create(
 			array(
-				'post_type'    => 'wp_block',
+				'post_type'    => 'fp_block',
 				'post_status'  => 'publish',
 				'post_title'   => 'Test Block',
-				'post_content' => '<!-- wp:core/paragraph {"metadata":{"bindings":{"content":{"source":"test/block-binding","args":{"key":"ignored"}}}}} --><p>Hello world!</p><!-- /wp:core/paragraph -->',
+				'post_content' => '<!-- fp:core/paragraph {"metadata":{"bindings":{"content":{"source":"test/block-binding","args":{"key":"ignored"}}}}} --><p>Hello world!</p><!-- /fp:core/paragraph -->',
 			)
 		);
 	}
 
-	public static function wpTearDownAfterClass() {
-		wp_delete_post( self::$block_id, true );
+	public static function fpTearDownAfterClass() {
+		fp_delete_post( self::$block_id, true );
 		unregister_block_bindings_source( 'test/block-binding' );
 	}
 
@@ -50,7 +50,7 @@ class Test_Blocks_RenderReusable extends WP_UnitTestCase {
 	 * @see https://github.com/FinPress/gutenberg/issues/70391
 	 */
 	public function test_render_respects_custom_context() {
-		$synced_pattern_block_instance = new WP_Block(
+		$synced_pattern_block_instance = new FP_Block(
 			array(
 				'blockName' => 'core/block',
 				'attrs'     => array(

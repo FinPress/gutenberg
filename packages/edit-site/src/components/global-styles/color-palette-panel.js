@@ -1,7 +1,7 @@
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import {
 	__experimentalPaletteEdit as PaletteEdit,
 	__experimentalVStack as VStack,
@@ -49,8 +49,8 @@ export default function ColorPalettePanel( { name } ) {
 		'color.defaultPalette',
 		name
 	);
-	const isMobileViewport = useViewportMatch( 'small', '<' );
-	const popoverProps = isMobileViewport ? mobilePopoverProps : undefined;
+	const isMobileviewport = useviewportMatch( 'small', '<' );
+	const popoverProps = isMobileviewport ? mobilePopoverProps : undefined;
 
 	const [ randomizeThemeColors ] = useColorRandomizer();
 

@@ -7,10 +7,10 @@ const { ValidationError } = require( './validate-config' );
 const dbEnv = require( './db-env' );
 
 /**
- * @typedef {import('./load-config').WPConfig} WPConfig
- * @typedef {import('./parse-config').WPRootConfig} WPRootConfig
- * @typedef {import('./parse-config').WPEnvironmentConfig} WPEnvironmentConfig
- * @typedef {import('./parse-source-string').WPSource} WPSource
+ * @typedef {import('./load-config').FPConfig} FPConfig
+ * @typedef {import('./parse-config').FPRootConfig} FPRootConfig
+ * @typedef {import('./parse-config').FPEnvironmentConfig} FPEnvironmentConfig
+ * @typedef {import('./parse-source-string').FPSource} FPSource
  */
 
 module.exports = {

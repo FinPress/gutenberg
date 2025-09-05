@@ -72,7 +72,7 @@ function getProps(
 	const contentRect = contentElement.getBoundingClientRect();
 
 	// Get the vertical position of top of the visible content area.
-	const topOfContentElementInViewport = scrollTop + contentRect.top;
+	const topOfContentElementInviewport = scrollTop + contentRect.top;
 
 	// The document element's clientHeight represents the viewport height.
 	const viewportHeight =
@@ -81,16 +81,16 @@ function getProps(
 	// The restricted height area is calculated as the sum of the
 	// vertical position of the visible content area, plus the height
 	// of the block toolbar.
-	const restrictedTopArea = topOfContentElementInViewport + toolbarHeight;
+	const restrictedTopArea = topOfContentElementInviewport + toolbarHeight;
 	const hasSpaceForToolbarAbove = blockRect.top > restrictedTopArea;
 
-	const isBlockTallerThanViewport =
+	const isBlockTallerThanviewport =
 		blockRect.height > viewportHeight - toolbarHeight;
 
 	// Sticky blocks are treated as if they will never have enough space for the toolbar above.
 	if (
 		! isSticky &&
-		( hasSpaceForToolbarAbove || isBlockTallerThanViewport )
+		( hasSpaceForToolbarAbove || isBlockTallerThanviewport )
 	) {
 		return DEFAULT_PROPS;
 	}

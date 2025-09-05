@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 function gutenberg_test_insert_hooked_blocks( $hooked_blocks, $position, $anchor_block, $context ) {
-	if ( ! $context instanceof WP_Post ) {
+	if ( ! $context instanceof FP_Post ) {
 		return $hooked_blocks;
 	}
 
@@ -57,10 +57,10 @@ function gutenberg_test_set_hooked_block_inner_html( $hooked_block, $hooked_bloc
 }
 add_filter( 'hooked_block_core/paragraph', 'gutenberg_test_set_hooked_block_inner_html', 10, 4 );
 
-function gutenberg_register_wp_ignored_hooked_blocks_meta() {
+function gutenberg_register_fp_ignored_hooked_blocks_meta() {
 	register_post_meta(
 		'post',
-		'_wp_ignored_hooked_blocks',
+		'_fp_ignored_hooked_blocks',
 		array(
 			'show_in_rest'  => true,
 			'single'        => true,
@@ -71,4 +71,4 @@ function gutenberg_register_wp_ignored_hooked_blocks_meta() {
 		)
 	);
 }
-add_action( 'rest_api_init', 'gutenberg_register_wp_ignored_hooked_blocks_meta' );
+add_action( 'rest_api_init', 'gutenberg_register_fp_ignored_hooked_blocks_meta' );

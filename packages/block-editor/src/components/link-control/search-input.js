@@ -164,7 +164,7 @@ const LinkControlSearchInput = forwardRef(
 export default LinkControlSearchInput;
 
 export const __experimentalLinkControlSearchInput = ( props ) => {
-	deprecated( 'wp.blockEditor.__experimentalLinkControlSearchInput', {
+	deprecated( 'fp.blockEditor.__experimentalLinkControlSearchInput', {
 		since: '6.8',
 	} );
 

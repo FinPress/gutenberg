@@ -1,7 +1,7 @@
 ( function () {
-	const { InnerBlocks } = wp.blockEditor;
-	const { createElement: el } = wp.element;
-	const { registerBlockType } = wp.blocks;
+	const { InnerBlocks } = fp.blockEditor;
+	const { createElement: el } = fp.element;
+	const { registerBlockType } = fp.blocks;
 
 	registerBlockType( 'test/child-blocks-unrestricted-parent', {
 		title: 'Child Blocks Unrestricted Parent',

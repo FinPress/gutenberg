@@ -17,25 +17,25 @@ add_action(
 add_action(
 	'init',
 	static function () {
-		wp_register_script(
+		fp_register_script(
 			'iframed-block-jquery-test',
 			plugin_dir_url( __FILE__ ) . 'iframed-block/jquery.test.js',
 			array( 'jquery' ),
 			filemtime( plugin_dir_path( __FILE__ ) . 'iframed-block/jquery.test.js' )
 		);
-		wp_register_script(
+		fp_register_script(
 			'iframed-block-editor',
 			plugin_dir_url( __FILE__ ) . 'iframed-block/editor.js',
 			array(
-				'wp-blocks',
-				'wp-block-editor',
-				'wp-element',
-				'wp-compose',
+				'fp-blocks',
+				'fp-block-editor',
+				'fp-element',
+				'fp-compose',
 				'iframed-block-jquery-test',
 			),
 			filemtime( plugin_dir_path( __FILE__ ) . 'iframed-block/editor.js' )
 		);
-		wp_register_script(
+		fp_register_script(
 			'iframed-block-script',
 			plugin_dir_url( __FILE__ ) . 'iframed-block/script.js',
 			array( 'iframed-block-jquery-test' ),

@@ -91,7 +91,7 @@ const imageAlignmentOptions = [
 ];
 
 function getFeaturedImageDetails( post, size ) {
-	const image = post._embedded?.[ 'wp:featuredmedia' ]?.[ '0' ];
+	const image = post._embedded?.[ 'fp:featuredmedia' ]?.[ '0' ];
 
 	return {
 		url:
@@ -602,7 +602,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					order,
 					orderby: orderBy,
 					per_page: postsToShow,
-					_embed: 'author,wp:featuredmedia',
+					_embed: 'author,fp:featuredmedia',
 					ignore_sticky: true,
 				} ).filter( ( [ , value ] ) => typeof value !== 'undefined' )
 			);
@@ -641,7 +641,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 
 	const blockProps = useBlockProps( {
 		className: clsx( {
-			'wp-block-latest-posts__list': true,
+			'fp-block-latest-posts__list': true,
 			'is-grid': postLayout === 'grid',
 			'has-dates': displayPostDate,
 			'has-author': displayAuthor,
@@ -710,7 +710,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 					const { url: imageSourceUrl, alt: featuredImageAlt } =
 						getFeaturedImageDetails( post, featuredImageSizeSlug );
 					const imageClasses = clsx( {
-						'wp-block-latest-posts__featured-image': true,
+						'fp-block-latest-posts__featured-image': true,
 						[ `align${ featuredImageAlign }` ]:
 							!! featuredImageAlign,
 					} );
@@ -749,7 +749,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 									a: (
 										// eslint-disable-next-line jsx-a11y/anchor-has-content
 										<a
-											className="wp-block-latest-posts__read-more"
+											className="fp-block-latest-posts__read-more"
 											href={ post.link }
 											rel="noopener noreferrer"
 											onClick={
@@ -786,7 +786,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 								</div>
 							) }
 							<a
-								className="wp-block-latest-posts__post-title"
+								className="fp-block-latest-posts__post-title"
 								href={ post.link }
 								dangerouslySetInnerHTML={
 									!! titleTrimmed
@@ -800,7 +800,7 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 								{ ! titleTrimmed ? __( '(no title)' ) : null }
 							</a>
 							{ displayAuthor && currentAuthor && (
-								<div className="wp-block-latest-posts__post-author">
+								<div className="fp-block-latest-posts__post-author">
 									{ sprintf(
 										/* translators: byline. %s: author. */
 										__( 'by %s' ),
@@ -811,21 +811,21 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 							{ displayPostDate && post.date_gmt && (
 								<time
 									dateTime={ format( 'c', post.date_gmt ) }
-									className="wp-block-latest-posts__post-date"
+									className="fp-block-latest-posts__post-date"
 								>
 									{ dateI18n( dateFormat, post.date_gmt ) }
 								</time>
 							) }
 							{ displayPostContent &&
 								displayPostContentRadio === 'excerpt' && (
-									<div className="wp-block-latest-posts__post-excerpt">
+									<div className="fp-block-latest-posts__post-excerpt">
 										{ postExcerpt }
 									</div>
 								) }
 							{ displayPostContent &&
 								displayPostContentRadio === 'full_post' && (
 									<div
-										className="wp-block-latest-posts__post-full-content"
+										className="fp-block-latest-posts__post-full-content"
 										dangerouslySetInnerHTML={ {
 											__html: post.content.raw.trim(),
 										} }

@@ -60,7 +60,7 @@ export const WithActions: StoryFn< typeof Snackbar > = DefaultTemplate.bind(
 WithActions.args = {
 	actions: [
 		{
-			label: 'Open WP.org',
+			label: 'Open FP.org',
 			url: 'https://finpress.org',
 		},
 	],
@@ -86,7 +86,7 @@ export const WithActionAndExplicitDismiss: StoryFn< typeof Snackbar > =
 WithActionAndExplicitDismiss.args = {
 	actions: [
 		{
-			label: 'Open WP.org',
+			label: 'Open FP.org',
 			url: 'https://finpress.org',
 		},
 	],

@@ -142,13 +142,13 @@ function transformStyle(
 		if ( error instanceof CssSyntaxError ) {
 			// eslint-disable-next-line no-console
 			console.warn(
-				'wp.blockEditor.transformStyles Failed to transform CSS.',
+				'fp.blockEditor.transformStyles Failed to transform CSS.',
 				error.message + '\n' + error.showSourceCode( false )
 			);
 		} else {
 			// eslint-disable-next-line no-console
 			console.warn(
-				'wp.blockEditor.transformStyles Failed to transform CSS.',
+				'fp.blockEditor.transformStyles Failed to transform CSS.',
 				error
 			);
 		}

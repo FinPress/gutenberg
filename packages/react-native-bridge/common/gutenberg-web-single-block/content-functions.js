@@ -1,12 +1,12 @@
 window.getBlockEditorStore = () => {
 	return {
 		blockEditorSelect:
-			window.wp.data.select( 'core/block-editor' ) ||
-			window.wp.data.select( 'core/editor' ), // For WP v5.0 and v5.1.
+			window.fp.data.select( 'core/block-editor' ) ||
+			window.fp.data.select( 'core/editor' ), // For FP v5.0 and v5.1.
 
 		blockEditorDispatch:
-			window.wp.data.dispatch( 'core/block-editor' ) ||
-			window.wp.data.dispatch( 'core/editor' ), // For WP v5.0 and v5.1.
+			window.fp.data.dispatch( 'core/block-editor' ) ||
+			window.fp.data.dispatch( 'core/editor' ), // For FP v5.0 and v5.1.
 	};
 };
 
@@ -14,20 +14,20 @@ window.getHTMLPostContent = () => {
 	const { blockEditorSelect } = window.getBlockEditorStore();
 
 	const blocks = blockEditorSelect.getBlocks();
-	const HTML = window.wp.blocks.serialize( blocks );
+	const HTML = window.fp.blocks.serialize( blocks );
 	// Check if platform is iOS
 	if ( window.webkit ) {
 		window.webkit.messageHandlers.htmlPostContent.postMessage( HTML );
 		// Otherwise it\'s Android
 	} else {
-		window.wpwebkit.postMessage( HTML );
+		window.fpwebkit.postMessage( HTML );
 	}
 };
 
 window.insertBlock = ( blockHTML ) => {
 	// Setup the editor with the inserted block.
-	const post = window.wp.data.select( 'core/editor' ).getCurrentPost();
-	window.wp.data
+	const post = window.fp.data.select( 'core/editor' ).getCurrentPost();
+	window.fp.data
 		.dispatch( 'core/editor' )
 		.setupEditor( post, { content: blockHTML } );
 
@@ -40,24 +40,24 @@ window.sendGutenbergReadyMessage = () => {
 		window.webkit.messageHandlers.gutenbergReady.postMessage( '' );
 	} else {
 		// Android
-		window.wpwebkit.gutenbergReady();
+		window.fpwebkit.gutenbergReady();
 	}
 	window.readyMessageSent = true;
 };
 
 window.isGutenbergReady = () => {
-	const currentPost = window.wp.data.select( 'core/editor' ).getCurrentPost();
+	const currentPost = window.fp.data.select( 'core/editor' ).getCurrentPost();
 	return currentPost.id !== undefined;
 };
 
 window.startObservingGutenberg = () => {
-	if ( window.wp.data && window.subscribed !== true ) {
+	if ( window.fp.data && window.subscribed !== true ) {
 		if ( window.isGutenbergReady() ) {
 			window.sendGutenbergReadyMessage();
 			return;
 		}
 
-		const unsubscribe = window.wp.data.subscribe( () => {
+		const unsubscribe = window.fp.data.subscribe( () => {
 			if (
 				window.isGutenbergReady() &&
 				window.readyMessageSent !== true

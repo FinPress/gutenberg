@@ -30,7 +30,7 @@ type ImportMap = {
 const baseUrl = document.baseURI;
 const pageBaseUrl = baseUrl;
 
-Object.defineProperty( self, 'wpInteractivityRouterImport', {
+Object.defineProperty( self, 'fpInteractivityRouterImport', {
 	value: importShim,
 	writable: false,
 	enumerable: false,

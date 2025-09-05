@@ -26,14 +26,14 @@ export function TemplatePartAdvancedControls( {
 } ) {
 	const [ area, setArea ] = useEntityProp(
 		'postType',
-		'wp_template_part',
+		'fp_template_part',
 		'area',
 		templatePartId
 	);
 
 	const [ title, setTitle ] = useEntityProp(
 		'postType',
-		'wp_template_part',
+		'fp_template_part',
 		'title',
 		templatePartId
 	);

@@ -149,8 +149,8 @@ export function __experimentalUseEntityRecords(
 	queryArgs: any,
 	options: any
 ) {
-	deprecated( `wp.data.__experimentalUseEntityRecords`, {
-		alternative: 'wp.data.useEntityRecords',
+	deprecated( `fp.data.__experimentalUseEntityRecords`, {
+		alternative: 'fp.data.useEntityRecords',
 		since: '6.1',
 	} );
 	return useEntityRecords( kind, name, queryArgs, options );

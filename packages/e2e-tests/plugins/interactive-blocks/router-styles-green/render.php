@@ -8,9 +8,9 @@
  */
 
 add_action(
-	'wp_enqueue_scripts',
+	'fp_enqueue_scripts',
 	function () {
-		wp_enqueue_style(
+		fp_enqueue_style(
 			'green-from-link',
 			plugin_dir_url( __FILE__ ) . 'style-from-link.css',
 			array()
@@ -22,9 +22,9 @@ add_action(
 			}
 		';
 
-		wp_register_style( 'test-router-styles', false );
-		wp_enqueue_style( 'test-router-styles' );
-		wp_add_inline_style( 'test-router-styles', $custom_css );
+		fp_register_style( 'test-router-styles', false );
+		fp_enqueue_style( 'test-router-styles' );
+		fp_add_inline_style( 'test-router-styles', $custom_css );
 	}
 );
 

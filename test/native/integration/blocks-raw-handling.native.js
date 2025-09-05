@@ -187,17 +187,17 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toMatchInlineSnapshot( `
-		"<ul class="wp-block-list"><!-- wp:list-item -->
+		"<ul class="fp-block-list"><!-- fp:list-item -->
 		<li>one</li>
-		<!-- /wp:list-item -->
+		<!-- /fp:list-item -->
 
-		<!-- wp:list-item -->
+		<!-- fp:list-item -->
 		<li>two</li>
-		<!-- /wp:list-item -->
+		<!-- /fp:list-item -->
 
-		<!-- wp:list-item -->
+		<!-- fp:list-item -->
 		<li>three</li>
-		<!-- /wp:list-item --></ul>"
+		<!-- /fp:list-item --></ul>"
 	` );
 		expect( console ).toHaveLogged();
 	} );
@@ -212,17 +212,17 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toMatchInlineSnapshot( `
-		"<ul class="wp-block-list"><!-- wp:list-item -->
+		"<ul class="fp-block-list"><!-- fp:list-item -->
 		<li>one</li>
-		<!-- /wp:list-item -->
+		<!-- /fp:list-item -->
 
-		<!-- wp:list-item -->
+		<!-- fp:list-item -->
 		<li>two</li>
-		<!-- /wp:list-item -->
+		<!-- /fp:list-item -->
 
-		<!-- wp:list-item -->
+		<!-- fp:list-item -->
 		<li>three</li>
-		<!-- /wp:list-item --></ul>"
+		<!-- /fp:list-item --></ul>"
 	` );
 		expect( console ).toHaveLogged();
 	} );
@@ -259,7 +259,7 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toBe(
-			'<h1 class="wp-block-heading">Some <em>heading</em></h1><p>A paragraph.</p>'
+			'<h1 class="fp-block-heading">Some <em>heading</em></h1><p>A paragraph.</p>'
 		);
 		expect( console ).toHaveLogged();
 	} );
@@ -309,7 +309,7 @@ describe( 'Blocks raw handling', () => {
 
 	it( 'should treat single list item as inline text', () => {
 		const filtered = pasteHandler( {
-			HTML: '<ul class="wp-block-list"><li>Some <strong>bold</strong> text.</li></ul>',
+			HTML: '<ul class="fp-block-list"><li>Some <strong>bold</strong> text.</li></ul>',
 			plainText: 'Some <strong>bold</strong> text.\n',
 			mode: 'AUTO',
 		} );
@@ -320,7 +320,7 @@ describe( 'Blocks raw handling', () => {
 
 	it( 'should treat multiple list items as a block', () => {
 		const filtered = pasteHandler( {
-			HTML: '<ul class="wp-block-list"><li>One</li><li>Two</li><li>Three</li></ul>',
+			HTML: '<ul class="fp-block-list"><li>One</li><li>Two</li><li>Three</li></ul>',
 			plainText: 'One\nTwo\nThree\n',
 			mode: 'AUTO',
 		} )
@@ -328,17 +328,17 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toMatchInlineSnapshot( `
-		"<ul class="wp-block-list"><!-- wp:list-item -->
+		"<ul class="fp-block-list"><!-- fp:list-item -->
 		<li>One</li>
-		<!-- /wp:list-item -->
+		<!-- /fp:list-item -->
 
-		<!-- wp:list-item -->
+		<!-- fp:list-item -->
 		<li>Two</li>
-		<!-- /wp:list-item -->
+		<!-- /fp:list-item -->
 
-		<!-- wp:list-item -->
+		<!-- fp:list-item -->
 		<li>Three</li>
-		<!-- /wp:list-item --></ul>"
+		<!-- /fp:list-item --></ul>"
 	` );
 		expect( console ).toHaveLogged();
 	} );
@@ -346,7 +346,7 @@ describe( 'Blocks raw handling', () => {
 	it( 'should correctly handle quotes with mixed content', () => {
 		const filtered = serialize(
 			pasteHandler( {
-				HTML: '<blockquote><h1 class="wp-block-heading">chicken</h1><p>ribs</p></blockquote>',
+				HTML: '<blockquote><h1 class="fp-block-heading">chicken</h1><p>ribs</p></blockquote>',
 				mode: 'AUTO',
 			} )
 		);
@@ -356,7 +356,7 @@ describe( 'Blocks raw handling', () => {
 	} );
 
 	it( 'should paste gutenberg content from plain text', () => {
-		const block = '<!-- wp:latest-posts /-->';
+		const block = '<!-- fp:latest-posts /-->';
 		expect(
 			serialize(
 				pasteHandler( {
@@ -388,7 +388,7 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( transformed ).toBe(
-			'<pre class="wp-block-preformatted">1\n2</pre>'
+			'<pre class="fp-block-preformatted">1\n2</pre>'
 		);
 		expect( console ).toHaveLogged();
 	} );
@@ -402,7 +402,7 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( transformed ).toBe(
-			'<pre class="wp-block-code"><code>1\n2</code></pre>'
+			'<pre class="fp-block-code"><code>1\n2</code></pre>'
 		);
 		expect( console ).toHaveLogged();
 	} );

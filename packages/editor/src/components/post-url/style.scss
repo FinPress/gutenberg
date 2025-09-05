@@ -20,16 +20,16 @@
 	// Match padding on tertiary buttons for alignment.
 	padding: $grid-unit-15 * 0.5 $grid-unit-15;
 	border-radius: $radius-small;
-	color: var(--wp-admin-theme-color);
+	color: var(--fp-admin-theme-color);
 
 	&:hover {
-		background: color-mix(in srgb, var(--wp-admin-theme-color) 4%, transparent);
-		color: var(--wp-admin-theme-color-darker-20, #183ad6);
+		background: color-mix(in srgb, var(--fp-admin-theme-color) 4%, transparent);
+		color: var(--fp-admin-theme-color-darker-20, #183ad6);
 	}
 
 	&:focus {
-		box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
-		color: var(--wp-admin-theme-color);
+		box-shadow: 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
+		color: var(--fp-admin-theme-color);
 		outline: 3px solid #0000;
 	}
 }

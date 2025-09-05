@@ -82,7 +82,7 @@
 			"core/post-featured-image": {
 				"shadow": "10px 10px 5px 0px rgba(0,0,0,0.66)",
 				"filter": {
-					"duotone": "var(--wp--preset--duotone--custom-duotone)"
+					"duotone": "var(--fp--preset--duotone--custom-duotone)"
 				}
 			},
 			"my/third-party-block": {

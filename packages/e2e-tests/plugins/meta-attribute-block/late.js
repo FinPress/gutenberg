@@ -1,6 +1,6 @@
 ( function () {
-	const registerBlockType = wp.blocks.registerBlockType;
-	const el = wp.element.createElement;
+	const registerBlockType = fp.blocks.registerBlockType;
+	const el = fp.element.createElement;
 
 	registerBlockType( 'test/test-meta-attribute-block-late', {
 		title: 'Test Meta Attribute Block (Late Registration)',

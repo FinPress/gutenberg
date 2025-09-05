@@ -48,7 +48,7 @@ describe( 'create', () => {
 			set( data );
 
 			expect( apiFetch ).toHaveBeenCalledWith( {
-				path: '/wp/v2/users/me',
+				path: '/fp/v2/users/me',
 				method: 'PUT',
 				keepalive: true,
 				data: {

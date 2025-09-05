@@ -20,7 +20,7 @@ import { getAuthority } from '@finpress/url';
 /**
  * Internal dependencies
  */
-import WpEmbedPreview from './wp-embed-preview';
+import WpEmbedPreview from './fp-embed-preview';
 
 export default function EmbedPreview( {
 	preview,
@@ -62,7 +62,7 @@ export default function EmbedPreview( {
 	const sandboxClassnames = clsx(
 		type,
 		className,
-		'wp-block-embed__wrapper'
+		'fp-block-embed__wrapper'
 	);
 
 	// Disabled because the overlay div doesn't actually have a role or functionality
@@ -70,10 +70,10 @@ export default function EmbedPreview( {
 	// the block can be selected without interacting with the embed preview that the overlay covers.
 	/* eslint-disable jsx-a11y/no-static-element-interactions */
 	const embedWrapper =
-		'wp-embed' === type ? (
+		'fp-embed' === type ? (
 			<WpEmbedPreview html={ html } />
 		) : (
-			<div className="wp-block-embed__wrapper">
+			<div className="fp-block-embed__wrapper">
 				<SandBox
 					html={ html }
 					scripts={ scripts }

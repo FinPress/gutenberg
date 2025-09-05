@@ -23,11 +23,11 @@ export default function BrowserURL() {
 		const { getCurrentPost } = select( editorStore );
 		const post = getCurrentPost();
 		let { id, status, type } = post;
-		const isTemplate = [ 'wp_template', 'wp_template_part' ].includes(
+		const isTemplate = [ 'fp_template', 'fp_template_part' ].includes(
 			type
 		);
 		if ( isTemplate ) {
-			id = post.wp_id;
+			id = post.fp_id;
 		}
 
 		return {

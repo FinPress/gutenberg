@@ -199,7 +199,7 @@ function useBlockProps( { name, minHeight, style } ) {
  * @deprecated
  */
 export function useCustomSides() {
-	deprecated( 'wp.blockEditor.__experimentalUseCustomSides', {
+	deprecated( 'fp.blockEditor.__experimentalUseCustomSides', {
 		since: '6.3',
 		version: '6.4',
 	} );

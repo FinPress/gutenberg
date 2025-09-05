@@ -33,7 +33,7 @@ test.describe( 'Patterns', () => {
 		admin,
 		patterns,
 	} ) => {
-		await admin.visitSiteEditor( { postType: 'wp_block' } );
+		await admin.visitSiteEditor( { postType: 'fp_block' } );
 		await expect(
 			patterns.navigation.getByRole( 'heading', {
 				name: 'Patterns',
@@ -125,27 +125,27 @@ test.describe( 'Patterns', () => {
 		await Promise.all( [
 			requestUtils.createBlock( {
 				title: 'Unsynced header',
-				meta: { wp_pattern_sync_status: 'unsynced' },
+				meta: { fp_pattern_sync_status: 'unsynced' },
 				status: 'publish',
-				content: `<!-- wp:heading -->\n<h2>Unsynced header</h2>\n<!-- /wp:heading -->`,
-				wp_pattern_category: [],
+				content: `<!-- fp:heading -->\n<h2>Unsynced header</h2>\n<!-- /fp:heading -->`,
+				fp_pattern_category: [],
 			} ),
 			requestUtils.createBlock( {
 				title: 'Unsynced footer',
-				meta: { wp_pattern_sync_status: 'unsynced' },
+				meta: { fp_pattern_sync_status: 'unsynced' },
 				status: 'publish',
-				content: `<!-- wp:paragraph -->\n<p>Unsynced footer</p>\n<!-- /wp:paragraph -->`,
-				wp_pattern_category: [],
+				content: `<!-- fp:paragraph -->\n<p>Unsynced footer</p>\n<!-- /fp:paragraph -->`,
+				fp_pattern_category: [],
 			} ),
 			requestUtils.createBlock( {
 				title: 'Synced footer',
 				status: 'publish',
-				content: `<!-- wp:paragraph -->\n<p>Synced footer</p>\n<!-- /wp:paragraph -->`,
-				wp_pattern_category: [],
+				content: `<!-- fp:paragraph -->\n<p>Synced footer</p>\n<!-- /fp:paragraph -->`,
+				fp_pattern_category: [],
 			} ),
 		] );
 
-		await admin.visitSiteEditor( { postType: 'wp_block' } );
+		await admin.visitSiteEditor( { postType: 'fp_block' } );
 
 		await expect( patterns.item ).toHaveCount( 3 );
 

@@ -31,7 +31,7 @@ export async function createClassicMenu( this: RequestUtils, name: string ) {
 
 	const menu = await this.rest< NavigationMenu >( {
 		method: 'POST',
-		path: `/wp/v2/menus/`,
+		path: `/fp/v2/menus/`,
 		data: {
 			name,
 		},
@@ -40,7 +40,7 @@ export async function createClassicMenu( this: RequestUtils, name: string ) {
 	await this.batchRest(
 		menuItems.map( ( menuItem ) => ( {
 			method: 'POST',
-			path: `/wp/v2/menu-items`,
+			path: `/fp/v2/menu-items`,
 			body: {
 				menus: menu.id,
 				object_id: undefined,
@@ -65,7 +65,7 @@ export async function createNavigationMenu(
 ) {
 	return this.rest( {
 		method: 'POST',
-		path: `/wp/v2/navigation/`,
+		path: `/fp/v2/navigation/`,
 		data: {
 			status: 'publish',
 			...menuData,
@@ -79,7 +79,7 @@ export async function createNavigationMenu(
  */
 export async function deleteAllMenus( this: RequestUtils ) {
 	const navMenus = await this.rest< NavigationMenu[] >( {
-		path: `/wp/v2/navigation/`,
+		path: `/fp/v2/navigation/`,
 		data: {
 			status: [
 				'publish',
@@ -98,13 +98,13 @@ export async function deleteAllMenus( this: RequestUtils ) {
 		await this.batchRest(
 			navMenus.map( ( menu ) => ( {
 				method: 'DELETE',
-				path: `/wp/v2/navigation/${ menu.id }?force=true`,
+				path: `/fp/v2/navigation/${ menu.id }?force=true`,
 			} ) )
 		);
 	}
 
 	const classicMenus = await this.rest< NavigationMenu[] >( {
-		path: `/wp/v2/menus/`,
+		path: `/fp/v2/menus/`,
 		data: {
 			status: [
 				'publish',
@@ -123,7 +123,7 @@ export async function deleteAllMenus( this: RequestUtils ) {
 		await this.batchRest(
 			classicMenus.map( ( menu ) => ( {
 				method: 'DELETE',
-				path: `/wp/v2/menus/${ menu.id }?force=true`,
+				path: `/fp/v2/menus/${ menu.id }?force=true`,
 			} ) )
 		);
 	}
@@ -142,7 +142,7 @@ export async function getNavigationMenus(
 ) {
 	const navigationMenus = await this.rest< NavigationMenu[] >( {
 		method: 'GET',
-		path: `/wp/v2/navigation/`,
+		path: `/fp/v2/navigation/`,
 		data: args,
 	} );
 	return navigationMenus;

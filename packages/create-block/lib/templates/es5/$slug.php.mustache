@@ -48,21 +48,21 @@ function {{namespaceSnakeCase}}_{{slugSnakeCase}}_block_init() {
 	$dir = __DIR__;
 
 	$index_js = 'index.js';
-	wp_register_script(
+	fp_register_script(
 		'{{namespace}}-{{slug}}-block-editor',
 		plugins_url( $index_js, __FILE__ ),
 		array(
-			'wp-block-editor',
-			'wp-blocks',
-			'wp-i18n',
-			'wp-element',
+			'fp-block-editor',
+			'fp-blocks',
+			'fp-i18n',
+			'fp-element',
 		),
 		filemtime( "$dir/$index_js" )
 	);
-	wp_set_script_translations( '{{namespace}}-{{slug}}-block-editor', '{{textdomain}}' );
+	fp_set_script_translations( '{{namespace}}-{{slug}}-block-editor', '{{textdomain}}' );
 
 	$editor_css = 'editor.css';
-	wp_register_style(
+	fp_register_style(
 		'{{namespace}}-{{slug}}-block-editor',
 		plugins_url( $editor_css, __FILE__ ),
 		array(),
@@ -70,7 +70,7 @@ function {{namespaceSnakeCase}}_{{slugSnakeCase}}_block_init() {
 	);
 
 	$style_css = 'style.css';
-	wp_register_style(
+	fp_register_style(
 		'{{namespace}}-{{slug}}-block',
 		plugins_url( $style_css, __FILE__ ),
 		array(),

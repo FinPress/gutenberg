@@ -18,7 +18,7 @@ export function transformAttachment( attachment: RestAttachment ): Attachment {
 		title: attachment.title.raw,
 		url: attachment.source_url,
 		poster:
-			attachment._embedded?.[ 'wp:featuredmedia' ]?.[ 0 ]?.source_url ||
+			attachment._embedded?.[ 'fp:featuredmedia' ]?.[ 0 ]?.source_url ||
 			undefined,
 	};
 }

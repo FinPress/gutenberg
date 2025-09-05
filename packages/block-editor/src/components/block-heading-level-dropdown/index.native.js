@@ -16,7 +16,7 @@ const HEADING_LEVELS = [ 1, 2, 3, 4, 5, 6 ];
 /**
  * HeadingLevelDropdown props.
  *
- * @typedef WPHeadingLevelDropdownProps
+ * @typedef FPHeadingLevelDropdownProps
  *
  * @property {number}     value    The chosen heading level.
  * @property {number[]}   options  An array of supported heading levels.
@@ -27,7 +27,7 @@ const HEADING_LEVELS = [ 1, 2, 3, 4, 5, 6 ];
 /**
  * Dropdown for selecting a heading level (1 through 6).
  *
- * @param {WPHeadingLevelDropdownProps} props Component props.
+ * @param {FPHeadingLevelDropdownProps} props Component props.
  *
  * @return {ComponentType} The toolbar.
  */

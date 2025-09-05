@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-author",
 	"title": "Author",
@@ -84,9 +84,9 @@
 	},
 	"selectors": {
 		"filter": {
-			"duotone": ".wp-block-post-author .wp-block-post-author__avatar img"
+			"duotone": ".fp-block-post-author .fp-block-post-author__avatar img"
 		}
 	},
-	"editorStyle": "wp-block-post-author-editor",
-	"style": "wp-block-post-author"
+	"editorStyle": "fp-block-post-author-editor",
+	"style": "fp-block-post-author"
 }

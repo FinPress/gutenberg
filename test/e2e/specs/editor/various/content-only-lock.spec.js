@@ -17,11 +17,11 @@ test.describe( 'Content-only lock', () => {
 		await pageUtils.pressKeys( 'secondary+M' ); // Emulates CTRL+Shift+Alt + M => toggle code editor
 
 		await page.getByPlaceholder( 'Start writing with text or HTML' )
-			.fill( `<!-- wp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph -->
+			.fill( `<!-- fp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
+<div class="fp-block-group"><!-- fp:paragraph -->
 <p>Hello</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->` );
+<!-- /fp:paragraph --></div>
+<!-- /fp:group -->` );
 
 		await pageUtils.pressKeys( 'secondary+M' );
 		await editor.canvas
@@ -41,19 +41,19 @@ test.describe( 'Content-only lock', () => {
 		await pageUtils.pressKeys( 'secondary+M' ); // Emulates CTRL+Shift+Alt + M => toggle code editor
 
 		await page.getByPlaceholder( 'Start writing with text or HTML' )
-			.fill( `<!-- wp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph -->
+			.fill( `<!-- fp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
+<div class="fp-block-group"><!-- fp:group {"layout":{"type":"constrained"}} -->
+<div class="fp-block-group"><!-- fp:paragraph -->
 <p>Hello</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
-<!-- /wp:group -->` );
+<!-- /fp:paragraph --></div>
+<!-- /fp:group --></div>
+<!-- /fp:group -->` );
 
 		await pageUtils.pressKeys( 'secondary+M' );
 		await editor.canvas
 			.locator( 'role=document[name="Block: Paragraph"i]' )
 			.click();
-		await page.keyboard.type( ' WP' );
+		await page.keyboard.type( ' FP' );
 		await expect.poll( editor.getBlocks ).toMatchObject( [
 			{
 				name: 'core/group',
@@ -68,7 +68,7 @@ test.describe( 'Content-only lock', () => {
 						innerBlocks: [
 							{
 								name: 'core/paragraph',
-								attributes: { content: 'Hello WP' },
+								attributes: { content: 'Hello FP' },
 							},
 						],
 					},
@@ -86,19 +86,19 @@ test.describe( 'Content-only lock', () => {
 		await pageUtils.pressKeys( 'secondary+M' ); // Emulates CTRL+Shift+Alt + M => toggle code editor
 
 		await page.getByPlaceholder( 'Start writing with text or HTML' )
-			.fill( `<!-- wp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
-			<div class="wp-block-group"><!-- wp:paragraph -->
+			.fill( `<!-- fp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
+			<div class="fp-block-group"><!-- fp:paragraph -->
 			<p>Locked block a</p>
-			<!-- /wp:paragraph -->
+			<!-- /fp:paragraph -->
 			
-			<!-- wp:paragraph -->
+			<!-- fp:paragraph -->
 			<p>Locked block b</p>
-			<!-- /wp:paragraph --></div>
-			<!-- /wp:group -->
+			<!-- /fp:paragraph --></div>
+			<!-- /fp:group -->
 			
-			<!-- wp:heading -->
-			<h2 class="wp-block-heading"><strong>outside block</strong></h2>
-			<!-- /wp:heading -->` );
+			<!-- fp:heading -->
+			<h2 class="fp-block-heading"><strong>outside block</strong></h2>
+			<!-- /fp:heading -->` );
 
 		await pageUtils.pressKeys( 'secondary+M' );
 		// Select the content locked block.

@@ -8,7 +8,7 @@
  *
  * @group blocks
  */
-class Tests_Blocks_RenderCommentTemplateBlock extends WP_UnitTestCase {
+class Tests_Blocks_RenderCommentTemplateBlock extends FP_UnitTestCase {
 
 	private static $custom_post;
 	private static $comment_ids;
@@ -78,8 +78,8 @@ class Tests_Blocks_RenderCommentTemplateBlock extends WP_UnitTestCase {
 	}
 
 	public function test_rendering_comment_template_sets_comment_id_context() {
-		$parsed_comment_author_name_block = parse_blocks( '<!-- wp:comment-author-name /-->' )[0];
-		$comment_author_name_block        = new WP_Block(
+		$parsed_comment_author_name_block = parse_blocks( '<!-- fp:comment-author-name /-->' )[0];
+		$comment_author_name_block        = new FP_Block(
 			$parsed_comment_author_name_block,
 			array(
 				'commentId' => self::$comment_ids[0],
@@ -104,9 +104,9 @@ class Tests_Blocks_RenderCommentTemplateBlock extends WP_UnitTestCase {
 
 		add_filter( 'render_block', $render_block_callback, 10, 3 );
 		$parsed_blocks = parse_blocks(
-			'<!-- wp:comment-template --><!-- wp:comment-content /--><!-- /wp:comment-template -->'
+			'<!-- fp:comment-template --><!-- fp:comment-content /--><!-- /fp:comment-template -->'
 		);
-		$block         = new WP_Block(
+		$block         = new FP_Block(
 			$parsed_blocks[0],
 			array(
 				'postId' => self::$custom_post->ID,
@@ -130,9 +130,9 @@ class Tests_Blocks_RenderCommentTemplateBlock extends WP_UnitTestCase {
 			// Add a Social Links block to a Comment Template block's inner blocks.
 			if ( 'core/comment-template' === $parsed_block['blockName'] ) {
 				$inserted_block_markup = <<<END
-<!-- wp:social-links -->
-<ul class="wp-block-social-links"><!-- wp:social-link {"url":"https://finpress.org","service":"finpress"} /--></ul>
-<!-- /wp:social-links -->'
+<!-- fp:social-links -->
+<ul class="fp-block-social-links"><!-- fp:social-link {"url":"https://finpress.org","service":"finpress"} /--></ul>
+<!-- /fp:social-links -->'
 END;
 
 				$inserted_blocks = parse_blocks( $inserted_block_markup );
@@ -144,9 +144,9 @@ END;
 
 		add_filter( 'render_block_data', $render_block_data_callback, 10, 1 );
 		$parsed_blocks = parse_blocks(
-			'<!-- wp:comments --><!-- wp:comment-template --><!-- wp:comment-content /--><!-- /wp:comment-template --><!-- /wp:comments -->'
+			'<!-- fp:comments --><!-- fp:comment-template --><!-- fp:comment-content /--><!-- /fp:comment-template --><!-- /fp:comments -->'
 		);
-		$block         = new WP_Block(
+		$block         = new FP_Block(
 			$parsed_blocks[0],
 			array(
 				'postId' => self::$custom_post->ID,
@@ -162,9 +162,9 @@ END;
 		$this->assertSame( 'core/comment-template', $args[1][2]->name );
 		$this->assertCount( 2, $args[1][2]->inner_blocks, "Inner block inserted by render_block_data filter wasn't retained." );
 		$this->assertInstanceOf(
-			'WP_Block',
+			'FP_Block',
 			$args[1][2]->inner_blocks[1],
-			"Inner block inserted by render_block_data isn't a WP_Block class instance."
+			"Inner block inserted by render_block_data isn't a FP_Block class instance."
 		);
 		$this->assertSame(
 			'core/social-links',

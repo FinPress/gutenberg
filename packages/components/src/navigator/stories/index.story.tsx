@@ -37,14 +37,14 @@ const meta: Meta< typeof Navigator > = {
 			return (
 				<>
 					<style>{ `
-					  /* The data-wp-component attribute is a private implementation
+					  /* The data-fp-component attribute is a private implementation
 						 * detail of the Navigator component. Do not use outside of
 						 * its source code.
 						 */
-						[data-wp-component="Navigator"] {
+						[data-fp-component="Navigator"] {
 							height: 250px;
 						}
-						[data-wp-component="Navigator.Screen"] {
+						[data-fp-component="Navigator.Screen"] {
 							padding: 8px;
 						}
 					` }</style>

@@ -29,7 +29,7 @@ ruleTester.run( 'react-no-unsafe-timeout', rule, {
 			code: `class MyNotComponent { doAction() { setTimeout(); } }`,
 		},
 		{
-			code: `class MyComponent extends wp.element.Component { componentDidMount() { const { setTimeout } = this.props; setTimeout(); } }`,
+			code: `class MyComponent extends fp.element.Component { componentDidMount() { const { setTimeout } = this.props; setTimeout(); } }`,
 		},
 		{
 			code: `class MyComponent extends Component { componentDidMount() { const { setTimeout } = this.props; setTimeout(); } }`,
@@ -73,7 +73,7 @@ function MyComponent() {
 			],
 		},
 		{
-			code: `class MyComponent extends wp.element.Component { componentDidMount() { setTimeout(); } }`,
+			code: `class MyComponent extends fp.element.Component { componentDidMount() { setTimeout(); } }`,
 			errors: [
 				{
 					message:

@@ -1,6 +1,6 @@
 export default function getInspectorSection() {
 	const {
-		wp: { customize },
+		fp: { customize },
 	} = window;
 
 	return class InspectorSection extends customize.Section {
@@ -85,11 +85,11 @@ export default function getInspectorSection() {
 			// and "isContextuallyActive" reflects if the block settings
 			// sidebar is currently visible, that is, it has replaced the main
 			// Gutenberg view.
-			// The WP customizer only checks ".isContextuallyActive()" when
+			// The FP customizer only checks ".isContextuallyActive()" when
 			// ".active" changes values. But our ".active" never changes value.
-			// The WP customizer never foresaw a section being used a way we
+			// The FP customizer never foresaw a section being used a way we
 			// fit the block settings sidebar into a section. By manually
-			// triggering the "this.active" callbacks, we force the WP
+			// triggering the "this.active" callbacks, we force the FP
 			// customizer to query our .isContextuallyActive() function and
 			// update its view of our status.
 			this.active.callbacks.fireWith( this.active, [ false, true ] );

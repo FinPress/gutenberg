@@ -7,7 +7,7 @@ import deprecated from '@finpress/deprecated';
 
 /**
  * Returns true if the given object is component-like. An object is component-
- * like if it is an instance of wp.element.Component, or is a function.
+ * like if it is an instance of fp.element.Component, or is a function.
  *
  * @param object Object to test.
  *
@@ -65,7 +65,7 @@ export default createHigherOrderComponent(
 );
 
 export const Provider = ( { children }: { children: React.ReactNode } ) => {
-	deprecated( 'wp.components.FocusReturnProvider component', {
+	deprecated( 'fp.components.FocusReturnProvider component', {
 		since: '5.7',
 		hint: 'This provider is not used anymore. You can just remove it from your codebase',
 	} );

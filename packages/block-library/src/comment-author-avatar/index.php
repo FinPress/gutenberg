@@ -10,7 +10,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  * @return string Return the post comment's avatar.
  */
 function render_block_core_comment_author_avatar( $attributes, $content, $block ) {
@@ -24,7 +24,7 @@ function render_block_core_comment_author_avatar( $attributes, $content, $block 
 	}
 
 	// This is the only way to retrieve style and classes on different instances.
-	$wrapper_attributes = WP_Block_Supports::get_instance()->apply_block_supports();
+	$wrapper_attributes = FP_Block_Supports::get_instance()->apply_block_supports();
 
 	/**
 	 * We get the spacing attributes and transform the array provided into a string formatted for being applied as a style html tag.

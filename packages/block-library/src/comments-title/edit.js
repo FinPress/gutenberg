@@ -82,7 +82,7 @@ export default function Edit( {
 		}
 		const currentPostId = postId;
 		apiFetch( {
-			path: addQueryArgs( '/wp/v2/comments', {
+			path: addQueryArgs( '/fp/v2/comments', {
 				post: postId,
 				_fields: 'id',
 			} ),
@@ -93,7 +93,7 @@ export default function Edit( {
 				// Stale requests will have the `currentPostId` of an older closure.
 				if ( currentPostId === postId ) {
 					setCommentsCount(
-						parseInt( res.headers.get( 'X-WP-Total' ) )
+						parseInt( res.headers.get( 'X-FP-Total' ) )
 					);
 				}
 			} )

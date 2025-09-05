@@ -8,7 +8,7 @@ import { I18nManager, LogBox } from 'react-native';
  */
 import { unregisterBlockType, getBlockType } from '@finpress/blocks';
 import { addAction, addFilter, doAction } from '@finpress/hooks';
-import * as wpData from '@finpress/data';
+import * as fpData from '@finpress/data';
 import { registerCoreBlocks } from '@finpress/block-library';
 // eslint-disable-next-line no-restricted-imports
 import { initializeEditor } from '@finpress/edit-post';
@@ -28,10 +28,10 @@ const reactNativeSetup = () => {
 };
 
 const gutenbergSetup = () => {
-	// wp-data
+	// fp-data
 	const userId = 1;
-	const storageKey = 'WP_DATA_USER_' + userId;
-	wpData.use( wpData.plugins.persistence, { storageKey } );
+	const storageKey = 'FP_DATA_USER_' + userId;
+	fpData.use( fpData.plugins.persistence, { storageKey } );
 
 	setupApiFetch();
 

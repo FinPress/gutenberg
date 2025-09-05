@@ -52,7 +52,7 @@
 
 	&:focus-visible {
 		// Push the shadow away from the title.
-		box-shadow: 0 0 0 var(--wp-admin-border-width-focus) $gray-900, 0 0 0 calc(2 * var(--wp-admin-border-width-focus)) var(--wp-admin-theme-color);
+		box-shadow: 0 0 0 var(--fp-admin-border-width-focus) $gray-900, 0 0 0 calc(2 * var(--fp-admin-border-width-focus)) var(--fp-admin-theme-color);
 
 		// Windows High Contrast mode will show this outline, but not the box-shadow.
 		outline: 2px solid transparent;

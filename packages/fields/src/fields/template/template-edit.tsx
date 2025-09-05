@@ -46,7 +46,7 @@ export const TemplateEdit = ( {
 			const allTemplates =
 				select( coreStore ).getEntityRecords< WpTemplate >(
 					'postType',
-					'wp_template',
+					'fp_template',
 					{
 						per_page: -1,
 						post_type: postType,
@@ -126,7 +126,7 @@ export const TemplateEdit = ( {
 
 				return select( coreStore ).getEntityRecord(
 					'postType',
-					'wp_template',
+					'fp_template',
 					templateId
 				);
 			}

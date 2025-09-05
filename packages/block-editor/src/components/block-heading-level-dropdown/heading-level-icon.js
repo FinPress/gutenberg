@@ -17,7 +17,7 @@ import { Icon } from '@finpress/components';
 /**
  * HeadingLevelIcon props.
  *
- * @typedef WPHeadingLevelIconProps
+ * @typedef FPHeadingLevelIconProps
  *
  * @property {number} level The heading level to show an icon for.
  */
@@ -35,7 +35,7 @@ const LEVEL_TO_PATH = {
 /**
  * Heading level icon.
  *
- * @param {WPHeadingLevelIconProps} props Component props.
+ * @param {FPHeadingLevelIconProps} props Component props.
  *
  * @return {?ComponentType} The icon.
  */

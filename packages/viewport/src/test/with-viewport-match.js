@@ -6,13 +6,13 @@ import { render, screen } from '@testing-library/react';
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies
  */
 import '../store';
-import withViewportMatch from '../with-viewport-match';
+import withviewportMatch from '../with-viewport-match';
 
 jest.mock( '@finpress/compose/src/hooks/use-viewport-match' );
 
@@ -27,27 +27,27 @@ const Component = ( { isWide, isSmall, isLarge, isLessThanSmall } ) => {
 	);
 };
 
-describe( 'withViewportMatch()', () => {
+describe( 'withviewportMatch()', () => {
 	afterEach( () => {
-		useViewportMatch.mockClear();
+		useviewportMatch.mockClear();
 	} );
 
 	it( 'should render with result of query as custom prop name', () => {
-		const EnhancedComponent = withViewportMatch( {
+		const EnhancedComponent = withviewportMatch( {
 			isWide: '>= wide',
 			isSmall: '>= small',
 			isLarge: 'large',
 			isLessThanSmall: '< small',
 		} )( Component );
 
-		useViewportMatch.mockReturnValueOnce( false );
-		useViewportMatch.mockReturnValueOnce( true );
-		useViewportMatch.mockReturnValueOnce( true );
-		useViewportMatch.mockReturnValueOnce( false );
+		useviewportMatch.mockReturnValueOnce( false );
+		useviewportMatch.mockReturnValueOnce( true );
+		useviewportMatch.mockReturnValueOnce( true );
+		useviewportMatch.mockReturnValueOnce( false );
 
 		render( <EnhancedComponent /> );
 
-		expect( useViewportMatch.mock.calls ).toEqual( [
+		expect( useviewportMatch.mock.calls ).toEqual( [
 			[ 'wide', '>=' ],
 			[ 'small', '>=' ],
 			[ 'large', '>=' ],

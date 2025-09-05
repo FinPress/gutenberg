@@ -11,7 +11,7 @@ test.describe( 'Post visibility', () => {
 			pageUtils,
 			editor,
 		} ) => {
-			await pageUtils.setBrowserViewport( viewport );
+			await pageUtils.setBrowserviewport( viewport );
 
 			await admin.createNewPost();
 
@@ -23,7 +23,7 @@ test.describe( 'Post visibility', () => {
 			await page.getByRole( 'radio', { name: 'Private' } ).click();
 
 			const currentStatus = await page.evaluate( () => {
-				return window.wp.data
+				return window.fp.data
 					.select( 'core/editor' )
 					.getEditedPostAttribute( 'status' );
 			} );
@@ -68,7 +68,7 @@ test.describe( 'Post visibility', () => {
 			.click();
 
 		const currentStatus = await page.evaluate( () => {
-			return window.wp.data
+			return window.fp.data
 				.select( 'core/editor' )
 				.getEditedPostAttribute( 'status' );
 		} );

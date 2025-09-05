@@ -10,7 +10,7 @@
  *
  * @group blocks
  */
-class Tests_Blocks_Register_Block_Style extends WP_UnitTestCase {
+class Tests_Blocks_Register_Block_Style extends FP_UnitTestCase {
 	/**
 	 * Tests `gutenberg_register_block_style` registers block style
 	 * across multiple block types.
@@ -23,7 +23,7 @@ class Tests_Blocks_Register_Block_Style extends WP_UnitTestCase {
 		);
 
 		gutenberg_register_block_style( $block_types, $style_properties );
-		$registry = WP_Block_Styles_Registry::get_instance();
+		$registry = FP_Block_Styles_Registry::get_instance();
 
 		$this->assertTrue( $registry->is_registered( 'core/group', 'fancy' ) );
 		$this->assertTrue( $registry->is_registered( 'core/columns', 'fancy' ) );

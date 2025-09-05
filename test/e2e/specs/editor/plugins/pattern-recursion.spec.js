@@ -10,14 +10,14 @@ test.describe( 'Preventing Pattern Recursion (client)', () => {
 			.locator( 'role=button[name="Add default block"i]' )
 			.click();
 		await page.evaluate( () => {
-			window.wp.data.dispatch( 'core/block-editor' ).updateSettings( {
+			window.fp.data.dispatch( 'core/block-editor' ).updateSettings( {
 				__experimentalBlockPatterns: [
 					{
 						name: 'evil/recursive',
 						title: 'Evil recursive',
 						description: 'Evil recursive',
 						content:
-							'<!-- wp:paragraph --><p>Hello</p><!-- /wp:paragraph --><!-- wp:pattern {"slug":"evil/recursive"} /-->',
+							'<!-- fp:paragraph --><p>Hello</p><!-- /fp:paragraph --><!-- fp:pattern {"slug":"evil/recursive"} /-->',
 					},
 				],
 			} );

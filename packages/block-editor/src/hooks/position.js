@@ -324,7 +324,7 @@ function useBlockProps( { name, style } ) {
 	const id = useInstanceId( POSITION_BLOCK_PROPS_REFERENCE );
 
 	// Higher specificity to override defaults in editor UI.
-	const positionSelector = `.wp-container-${ id }.wp-container-${ id }`;
+	const positionSelector = `.fp-container-${ id }.fp-container-${ id }`;
 
 	// Get CSS string for the current position values.
 	let css;
@@ -336,9 +336,9 @@ function useBlockProps( { name, style } ) {
 			} ) || '';
 	}
 
-	// Attach a `wp-container-` id-based class name.
+	// Attach a `fp-container-` id-based class name.
 	const className = clsx( {
-		[ `wp-container-${ id }` ]: allowPositionStyles && !! css, // Only attach a container class if there is generated CSS to be attached.
+		[ `fp-container-${ id }` ]: allowPositionStyles && !! css, // Only attach a container class if there is generated CSS to be attached.
 		[ `is-position-${ style?.position?.type }` ]:
 			allowPositionStyles && !! css && !! style?.position?.type,
 	} );

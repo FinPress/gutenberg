@@ -27,11 +27,11 @@ function render_block_core_tag_cloud( $attributes ) {
 		'smallest'   => floatVal( $attributes['smallestFontSize'] ),
 		'largest'    => floatVal( $attributes['largestFontSize'] ),
 	);
-	$tag_cloud = wp_tag_cloud( $args );
+	$tag_cloud = fp_tag_cloud( $args );
 
 	if ( empty( $tag_cloud ) ) {
 		// Display placeholder content when there are no tags only in editor.
-		if ( wp_is_serving_rest_request() ) {
+		if ( fp_is_serving_rest_request() ) {
 			$tag_cloud = __( 'There&#8217;s no content to show here yet.' );
 		} else {
 			return '';

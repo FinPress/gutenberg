@@ -14,7 +14,7 @@ export default function WelcomeGuide( { postType } ) {
 	const { isActive, isEditingTemplate } = useSelect(
 		( select ) => {
 			const { isFeatureActive } = select( editPostStore );
-			const _isEditingTemplate = postType === 'wp_template';
+			const _isEditingTemplate = postType === 'fp_template';
 			const feature = _isEditingTemplate
 				? 'welcomeGuideTemplate'
 				: 'welcomeGuide';

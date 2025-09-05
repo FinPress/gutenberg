@@ -1,9 +1,9 @@
-/** @typedef {import('@finpress/keycodes').WPKeycodeModifier} WPKeycodeModifier */
+/** @typedef {import('@finpress/keycodes').FPKeycodeModifier} FPKeycodeModifier */
 
 /**
  * Configuration of a registered keyboard shortcut.
  *
- * @typedef {Object} WPCommandConfig
+ * @typedef {Object} FPCommandConfig
  *
  * @property {string}      name        Command name.
  * @property {string}      label       Command label.
@@ -16,24 +16,24 @@
  */
 
 /**
- * @typedef {(search: string) => WPCommandConfig[]} WPCommandLoaderHook hoo
+ * @typedef {(search: string) => FPCommandConfig[]} FPCommandLoaderHook hoo
  */
 
 /**
  * Command loader config.
  *
- * @typedef {Object} WPCommandLoaderConfig
+ * @typedef {Object} FPCommandLoaderConfig
  *
  * @property {string}              name     Command loader name.
  * @property {string=}             context  Command loader context.
- * @property {WPCommandLoaderHook} hook     Command loader hook.
+ * @property {FPCommandLoaderHook} hook     Command loader hook.
  * @property {boolean}             disabled Whether to disable the command loader.
  */
 
 /**
  * Returns an action object used to register a new command.
  *
- * @param {WPCommandConfig} config Command config.
+ * @param {FPCommandConfig} config Command config.
  *
  * @return {Object} action.
  */
@@ -61,7 +61,7 @@ export function unregisterCommand( name ) {
 /**
  * Register command loader.
  *
- * @param {WPCommandLoaderConfig} config Command loader config.
+ * @param {FPCommandLoaderConfig} config Command loader config.
  *
  * @return {Object} action.
  */

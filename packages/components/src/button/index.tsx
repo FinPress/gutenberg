@@ -69,7 +69,7 @@ function useDeprecatedProps( {
 	}
 
 	if ( isDefault ) {
-		deprecated( 'wp.components.Button `isDefault` prop', {
+		deprecated( 'fp.components.Button `isDefault` prop', {
 			since: '5.4',
 			alternative: 'variant="secondary"',
 		} );

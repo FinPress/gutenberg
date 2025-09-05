@@ -55,7 +55,7 @@ The instructions to choose a block variation.
 
 #### `variations`
 
--   Type: `Array<WPBlockVariation>`
+-   Type: `Array<FPBlockVariation>`
 
 The different variations of the block.
 

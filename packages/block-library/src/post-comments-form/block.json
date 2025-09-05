@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-comments-form",
 	"title": "Comments Form",
@@ -51,11 +51,11 @@
 			}
 		}
 	},
-	"editorStyle": "wp-block-post-comments-form-editor",
+	"editorStyle": "fp-block-post-comments-form-editor",
 	"style": [
-		"wp-block-post-comments-form",
-		"wp-block-buttons",
-		"wp-block-button"
+		"fp-block-post-comments-form",
+		"fp-block-buttons",
+		"fp-block-button"
 	],
 	"example": {
 		"attributes": {

@@ -60,7 +60,7 @@ const supportedLocales = [
 ];
 
 const getLanguageUrl = ( locale ) =>
-	`https://translate.finpress.org/projects/wp-plugins/gutenberg/dev/${ locale }/default/export-translations\?format\=json`;
+	`https://translate.finpress.org/projects/fp-plugins/gutenberg/dev/${ locale }/default/export-translations\?format\=json`;
 const getTranslationFilePath = ( locale ) => `./data/${ locale }.json`;
 
 const getTranslation = ( locale ) =>

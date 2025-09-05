@@ -3,7 +3,7 @@ let compatibilityStyles = null;
 /**
  * Returns a list of stylesheets that target the editor canvas. A stylesheet is
  * considered targeting the editor a canvas if it contains the
- * `editor-styles-wrapper`, `wp-block`, or `wp-block-*` class selectors.
+ * `editor-styles-wrapper`, `fp-block`, or `fp-block-*` class selectors.
  *
  * Ideally, this hook should be removed in the future and styles should be added
  * explicitly as editor styles.
@@ -37,14 +37,14 @@ export function getCompatibilityStyles() {
 				return accumulator;
 			}
 
-			// Don't try to add core WP styles. We are responsible for adding
+			// Don't try to add core FP styles. We are responsible for adding
 			// them. This compatibility layer is only meant to add styles added
 			// by plugins or themes.
-			if ( ownerNode.id.startsWith( 'wp-' ) ) {
+			if ( ownerNode.id.startsWith( 'fp-' ) ) {
 				return accumulator;
 			}
 
-			// Don't try to add styles without ID. Styles enqueued via the WP dependency system will always have IDs.
+			// Don't try to add styles without ID. Styles enqueued via the FP dependency system will always have IDs.
 			if ( ! ownerNode.id ) {
 				return accumulator;
 			}
@@ -67,7 +67,7 @@ export function getCompatibilityStyles() {
 							( selectorText.includes(
 								'.editor-styles-wrapper'
 							) ||
-								selectorText.includes( '.wp-block' ) )
+								selectorText.includes( '.fp-block' ) )
 						);
 					}
 				);

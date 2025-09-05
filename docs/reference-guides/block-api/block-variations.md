@@ -36,7 +36,7 @@ A block variation is defined by an object that can contain the following fields:
 -   `attributes` (optional, type `Object`) – Values that override block attributes.
 -   `innerBlocks` (optional, type `Array[]`) – Initial configuration of nested blocks.
 -   `example` (optional, type `Object`) – Provides structured data for the block preview. Set to `undefined` to disable the preview. See the [Block Registration API](/docs/reference-guides/block-api/block-registration.md#example-optional) for more details.
--   `scope` (optional, type `WPBlockVariationScope[]`) - Defaults to `block` and `inserter`. The list of scopes where the variation is applicable. Available options include:
+-   `scope` (optional, type `FPBlockVariationScope[]`) - Defaults to `block` and `inserter`. The list of scopes where the variation is applicable. Available options include:
     -   `block` - Used by blocks to filter specific block variations. `Columns` and `Query` blocks have such variations, which are passed to the [experimental BlockVariationPicker](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-variation-picker/README.md) component. This component handles displaying the variations and allows users to choose one of them.
     -   `inserter` - Block variation is shown on the inserter.
     -   `transform` - Block variation is shown in the component for variation transformations.
@@ -51,10 +51,10 @@ A block variation is defined by an object that can contain the following fields:
 
 Block variations can be declared during a block's registration by providing the `variations` key with a proper array of variation objects, as shown in the example above. See the [Block Registration API](/docs/reference-guides/block-api/block-registration.md) for more details.
 
-To create a variation for an existing block, such as a Core block, use `wp.blocks.registerBlockVariation()`. This function accepts the name of the block and the object defining the variation.
+To create a variation for an existing block, such as a Core block, use `fp.blocks.registerBlockVariation()`. This function accepts the name of the block and the object defining the variation.
 
 ```js
-wp.blocks.registerBlockVariation( 'core/embed', {
+fp.blocks.registerBlockVariation( 'core/embed', {
 	name: 'custom-embed',
 	attributes: { providerNameSlug: 'custom' },
 } );
@@ -100,10 +100,10 @@ Note that variations registered through PHP will be merged with any variations r
 
 ## Removing a block variation
 
-Block variations can also be easily removed. To do so, use `wp.blocks.unregisterBlockVariation()`. This function accepts the name of the block and the `name` of the variation that should be unregistered.
+Block variations can also be easily removed. To do so, use `fp.blocks.unregisterBlockVariation()`. This function accepts the name of the block and the `name` of the variation that should be unregistered.
 
 ```js
-wp.blocks.unregisterBlockVariation( 'core/embed', 'youtube' );
+fp.blocks.unregisterBlockVariation( 'core/embed', 'youtube' );
 ```
 
 ## Block variations versus block styles
@@ -136,7 +136,7 @@ By default, all variations will show up in the Inserter in addition to the origi
 For example, if you want Media & Text block to display the image on the right by default, you could create a variation like this:
 
 ```js
-wp.blocks.registerBlockVariation( 'core/media-text', {
+fp.blocks.registerBlockVariation( 'core/media-text', {
 	name: 'media-text-media-right',
 	title: __( 'Media & Text' ),
 	isDefault: true,
@@ -223,7 +223,7 @@ _Note: Improved handling since FinPress `6.6.0`._
 If there are multiple variations whose `isActive` check matches a given block instance, and all of them are string arrays, then the variation with the highest _specificity_ will be chosen. Consider the following example:
 
 ```js
-wp.blocks.registerBlockVariation( 'core/paragraph', {
+fp.blocks.registerBlockVariation( 'core/paragraph', {
 	name: 'paragraph-red',
 	title: 'Red Paragraph',
 	attributes: {
@@ -232,7 +232,7 @@ wp.blocks.registerBlockVariation( 'core/paragraph', {
 	isActive: [ 'textColor' ],
 } );
 
-wp.blocks.registerBlockVariation( 'core/paragraph', {
+fp.blocks.registerBlockVariation( 'core/paragraph', {
 	name: 'paragraph-red-grey',
 	title: 'Red/Grey Paragraph',
 	attributes: {

@@ -36,13 +36,13 @@ describe( 'Migrate quote block', () => {
 			citation: 'Author',
 		} );
 		expect( serialize( innerBlocks ) ).toEqual(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p>First paragraph</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Second paragraph</p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 	} );
 
@@ -55,9 +55,9 @@ describe( 'Migrate quote block', () => {
 			citation: 'Author',
 		} );
 		expect( serialize( innerBlocks ) ).toEqual(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p></p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 	} );
 
@@ -70,17 +70,17 @@ describe( 'Migrate quote block', () => {
 			citation: 'Author',
 		} );
 		expect( serialize( innerBlocks ) ).toEqual(
-			`<!-- wp:paragraph -->
+			`<!-- fp:paragraph -->
 <p><strong>Bold</strong></p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p> and </p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p><em>italic</em></p>
-<!-- /wp:paragraph -->`
+<!-- /fp:paragraph -->`
 		);
 	} );
 } );

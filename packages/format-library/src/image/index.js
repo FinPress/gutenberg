@@ -38,7 +38,7 @@ function getCurrentImageId( activeObjectAttributes ) {
 	}
 
 	const [ , id ] =
-		activeObjectAttributes.className.match( /wp-image-(\d+)/ ) ?? [];
+		activeObjectAttributes.className.match( /fp-image-(\d+)/ ) ?? [];
 
 	return id ? parseInt( id, 10 ) : undefined;
 }
@@ -172,7 +172,7 @@ function Edit( {
 						insertObject( value, {
 							type: name,
 							attributes: {
-								className: `wp-image-${ id }`,
+								className: `fp-image-${ id }`,
 								style: `width: ${ Math.min(
 									imgWidth,
 									150

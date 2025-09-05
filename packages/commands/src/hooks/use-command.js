@@ -12,7 +12,7 @@ import { store as commandsStore } from '../store';
 /**
  * Attach a command to the command palette. Used for static commands.
  *
- * @param {import('../store/actions').WPCommandConfig} command command config.
+ * @param {import('../store/actions').FPCommandConfig} command command config.
  *
  * @example
  * ```js

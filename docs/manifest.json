@@ -24,9 +24,9 @@
 		"parent": "devenv"
 	},
 	{
-		"title": "Get started with wp-env",
-		"slug": "get-started-with-wp-env",
-		"markdown_source": "../docs/getting-started/devenv/get-started-with-wp-env.md",
+		"title": "Get started with fp-env",
+		"slug": "get-started-with-fp-env",
+		"markdown_source": "../docs/getting-started/devenv/get-started-with-fp-env.md",
 		"parent": "devenv"
 	},
 	{
@@ -36,9 +36,9 @@
 		"parent": "devenv"
 	},
 	{
-		"title": "Get started with wp-scripts",
-		"slug": "get-started-with-wp-scripts",
-		"markdown_source": "../docs/getting-started/devenv/get-started-with-wp-scripts.md",
+		"title": "Get started with fp-scripts",
+		"slug": "get-started-with-fp-scripts",
+		"markdown_source": "../docs/getting-started/devenv/get-started-with-fp-scripts.md",
 		"parent": "devenv"
 	},
 	{
@@ -2124,7 +2124,7 @@
 		"parent": "data"
 	},
 	{
-		"title": "The Viewport Data",
+		"title": "The viewport Data",
 		"slug": "data-core-viewport",
 		"markdown_source": "../docs/reference-guides/data/data-core-viewport.md",
 		"parent": "data"

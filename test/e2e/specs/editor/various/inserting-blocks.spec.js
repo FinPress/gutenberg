@@ -107,13 +107,13 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		await page.mouse.up();
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- wp:paragraph -->
+			.toBe( `<!-- fp:paragraph -->
 <p>Dummy text</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading"></h2>
-<!-- /wp:heading -->` );
+<!-- fp:heading -->
+<h2 class="fp-block-heading"></h2>
+<!-- /fp:heading -->` );
 	} );
 
 	test( 'cancels dragging blocks from the global inserter by pressing Escape', async ( {
@@ -660,7 +660,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 
 		await expect(
 			page.locator( '.block-editor-inserter__preview' )
-		).toBeInViewport();
+		).toBeInviewport();
 	} );
 
 	[ 'large', 'small' ].forEach( ( viewport ) => {
@@ -670,7 +670,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 			page,
 			pageUtils,
 		} ) => {
-			await pageUtils.setBrowserViewport( viewport );
+			await pageUtils.setBrowserviewport( viewport );
 			await admin.createNewPost();
 			await editor.insertBlock( {
 				name: 'core/paragraph',
@@ -693,7 +693,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 				.poll( () =>
 					page.evaluate(
 						() =>
-							window.wp.data
+							window.fp.data
 								.select( 'core/block-editor' )
 								.getSelectedBlock()?.name
 					)
@@ -701,7 +701,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 				.toBe( 'core/image' );
 
 			// Restore the viewport.
-			await pageUtils.setBrowserViewport( 'large' );
+			await pageUtils.setBrowserviewport( 'large' );
 		} );
 	} );
 } );
@@ -736,9 +736,9 @@ test.describe( 'insert media from inserter', () => {
 		await page.getByRole( 'tab', { name: 'Images' } ).click();
 		await page.getByLabel( uploadedMedia.title.raw ).click();
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- wp:image {"id":${ uploadedMedia.id }} -->
-<figure class="wp-block-image"><img src="${ uploadedMedia.source_url }" alt="${ uploadedMedia.alt_text }" class="wp-image-${ uploadedMedia.id }"/></figure>
-<!-- /wp:image -->`
+			`<!-- fp:image {"id":${ uploadedMedia.id }} -->
+<figure class="fp-block-image"><img src="${ uploadedMedia.source_url }" alt="${ uploadedMedia.alt_text }" class="fp-image-${ uploadedMedia.id }"/></figure>
+<!-- /fp:image -->`
 		);
 	} );
 } );

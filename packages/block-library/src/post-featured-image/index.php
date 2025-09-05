@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param WP_Block $block      Block instance.
+ * @param FP_Block $block      Block instance.
  * @return string Returns the featured image for the current post.
  */
 function render_block_core_post_featured_image( $attributes, $content, $block ) {
@@ -52,7 +52,7 @@ function render_block_core_post_featured_image( $attributes, $content, $block ) 
 		$extra_styles .= "object-fit:{$attributes['scale']};";
 	}
 	if ( ! empty( $attributes['style']['shadow'] ) ) {
-		$shadow_styles = wp_style_engine_get_styles( array( 'shadow' => $attributes['style']['shadow'] ) );
+		$shadow_styles = fp_style_engine_get_styles( array( 'shadow' => $attributes['style']['shadow'] ) );
 
 		if ( ! empty( $shadow_styles['css'] ) ) {
 			$extra_styles .= $shadow_styles['css'];
@@ -69,7 +69,7 @@ function render_block_core_post_featured_image( $attributes, $content, $block ) 
 	if ( $attributes['useFirstImageFromPost'] && ! $featured_image ) {
 		$content_post = get_post( $post_ID );
 		$content      = $content_post->post_content;
-		$processor    = new WP_HTML_Tag_Processor( $content );
+		$processor    = new FP_HTML_Tag_Processor( $content );
 
 		/*
 		 * Transfer the image tag from the post into a new text snippet.
@@ -85,7 +85,7 @@ function render_block_core_post_featured_image( $attributes, $content, $block ) 
 		 * code with that canonical code.
 		 */
 		if ( $processor->next_tag( 'img' ) ) {
-			$tag_html = new WP_HTML_Tag_Processor( '<img>' );
+			$tag_html = new FP_HTML_Tag_Processor( '<img>' );
 			$tag_html->next_tag();
 			foreach ( $processor->get_attribute_names_with_prefix( '' ) as $name ) {
 				$tag_html->set_attribute( $name, $processor->get_attribute( $name ) );
@@ -147,7 +147,7 @@ function get_block_core_post_featured_image_overlay_element_markup( $attributes 
 	$has_custom_gradient = isset( $attributes['customGradient'] ) && $attributes['customGradient'];
 	$has_solid_overlay   = isset( $attributes['overlayColor'] ) && $attributes['overlayColor'];
 	$has_custom_overlay  = isset( $attributes['customOverlayColor'] ) && $attributes['customOverlayColor'];
-	$class_names         = array( 'wp-block-post-featured-image__overlay' );
+	$class_names         = array( 'fp-block-post-featured-image__overlay' );
 	$styles              = array();
 
 	if ( ! $has_dim_background ) {
@@ -242,7 +242,7 @@ function get_block_core_post_featured_image_border_attributes( $attributes ) {
 		);
 	}
 
-	$styles     = wp_style_engine_get_styles( array( 'border' => $border_styles ) );
+	$styles     = fp_style_engine_get_styles( array( 'border' => $border_styles ) );
 	$attributes = array();
 	if ( ! empty( $styles['classnames'] ) ) {
 		$attributes['class'] = $styles['classnames'];

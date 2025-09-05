@@ -17,7 +17,7 @@ export function isInDefaultBlock() {
 		}
 		const activeBlockName =
 			closestElementWithDataTpe.getAttribute( 'data-type' );
-		const defaultBlockName = window.wp.blocks.getDefaultBlockName();
+		const defaultBlockName = window.fp.blocks.getDefaultBlockName();
 
 		return activeBlockName === defaultBlockName;
 	} );

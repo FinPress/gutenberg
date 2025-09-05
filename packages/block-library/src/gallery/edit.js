@@ -488,7 +488,7 @@ export default function GalleryEdit( props ) {
 			__unstableMarkNextChangeAsNotPersistent();
 			setAttributes( {
 				linkTo:
-					window?.wp?.media?.view?.settings?.defaultProps?.link ||
+					window?.fp?.media?.view?.settings?.defaultProps?.link ||
 					LINK_DESTINATION_NONE,
 			} );
 		}

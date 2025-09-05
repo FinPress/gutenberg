@@ -22,9 +22,9 @@ import { maybeWarnDeprecated36pxSize } from '../utils/deprecated-36px-size';
 
 const CONTEXT_VALUE = {
 	BaseControl: {
-		// Temporary during deprecation grace period: Overrides the underlying `__associatedWPComponentName`
+		// Temporary during deprecation grace period: Overrides the underlying `__associatedFPComponentName`
 		// via the context system to override the value set by SelectControl.
-		_overrides: { __associatedWPComponentName: 'DimensionControl' },
+		_overrides: { __associatedFPComponentName: 'DimensionControl' },
 	},
 };
 
@@ -65,7 +65,7 @@ export function DimensionControl( props: DimensionControlProps ) {
 		className = '',
 	} = props;
 
-	deprecated( 'wp.components.DimensionControl', {
+	deprecated( 'fp.components.DimensionControl', {
 		since: '6.7',
 		version: '7.0',
 	} );

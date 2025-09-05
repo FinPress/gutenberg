@@ -67,7 +67,7 @@ export default function CreateTemplatePartModal( {
 } & CreateTemplatePartModalContentsProps ) {
 	const defaultModalTitle = useSelect(
 		( select ) =>
-			select( coreStore ).getPostType( 'wp_template_part' )?.labels
+			select( coreStore ).getPostType( 'fp_template_part' )?.labels
 				?.add_new_item,
 		[]
 	);
@@ -147,7 +147,7 @@ export function CreateTemplatePartModalContents( {
 
 			const templatePart = await saveEntityRecord(
 				'postType',
-				'wp_template_part',
+				'fp_template_part',
 				{
 					slug: cleanSlug,
 					title: uniqueTitle,

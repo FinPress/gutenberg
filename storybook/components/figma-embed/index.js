@@ -38,7 +38,7 @@ function FigmaEmbed( { url, title, ...props } ) {
 		<iframe
 			title={ title }
 			src={ normalizedUrl }
-			className="wp-storybook-figma-embed"
+			className="fp-storybook-figma-embed"
 			{ ...props }
 		/>
 	);

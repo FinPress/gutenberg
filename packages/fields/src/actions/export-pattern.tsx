@@ -27,7 +27,7 @@ function getJsonFromItem( item: Pattern ) {
 				typeof item.content === 'string'
 					? item.content
 					: item.content?.raw,
-			syncStatus: item.wp_pattern_sync_status,
+			syncStatus: item.fp_pattern_sync_status,
 		},
 		null,
 		2
@@ -39,7 +39,7 @@ const exportPattern: Action< Pattern > = {
 	label: __( 'Export as JSON' ),
 	icon: download,
 	supportsBulk: true,
-	isEligible: ( item ) => item.type === 'wp_block',
+	isEligible: ( item ) => item.type === 'fp_block',
 	callback: async ( items ) => {
 		if ( items.length === 1 ) {
 			return downloadBlob(

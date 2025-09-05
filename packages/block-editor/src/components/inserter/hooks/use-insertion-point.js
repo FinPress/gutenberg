@@ -42,7 +42,7 @@ function getIndex( {
 }
 
 /**
- * @typedef WPInserterConfig
+ * @typedef FPInserterConfig
  *
  * @property {string=}   rootClientId   If set, insertion will be into the
  *                                      block with this ID.
@@ -58,7 +58,7 @@ function getIndex( {
 /**
  * Returns the insertion point state given the inserter config.
  *
- * @param {WPInserterConfig} config Inserter Config.
+ * @param {FPInserterConfig} config Inserter Config.
  * @return {Array} Insertion Point State (rootClientID, onInsertBlocks and onToggle).
  */
 function useInsertionPoint( {

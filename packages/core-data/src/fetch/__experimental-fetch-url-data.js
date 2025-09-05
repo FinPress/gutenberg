@@ -18,7 +18,7 @@ import {
 const CACHE = new Map();
 
 /**
- * @typedef WPRemoteUrlData
+ * @typedef FPRemoteUrlData
  *
  * @property {string} title contents of the remote URL's `<title>` tag.
  */
@@ -42,10 +42,10 @@ const CACHE = new Map();
  * url
  * ) => fetchUrlData( url );
  * ```
- * @return {Promise< WPRemoteUrlData[] >} Remote URL data.
+ * @return {Promise< FPRemoteUrlData[] >} Remote URL data.
  */
 const fetchUrlData = async ( url, options = {} ) => {
-	const endpoint = '/wp-block-editor/v1/url-details';
+	const endpoint = '/fp-block-editor/v1/url-details';
 
 	const args = {
 		url: prependHTTP( url ),

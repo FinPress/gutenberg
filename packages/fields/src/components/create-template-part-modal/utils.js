@@ -19,7 +19,7 @@ export const useExistingTemplateParts = () => {
 			( select ) =>
 				select( coreStore ).getEntityRecords(
 					'postType',
-					'wp_template_part',
+					'fp_template_part',
 					{
 						per_page: -1,
 					}
@@ -64,5 +64,5 @@ export const getUniqueTemplatePartTitle = ( title, templateParts ) => {
  * @return {string} A valid template part slug.
  */
 export const getCleanTemplatePartSlug = ( title ) => {
-	return kebabCase( title ).replace( /[^\w-]+/g, '' ) || 'wp-custom-part';
+	return kebabCase( title ).replace( /[^\w-]+/g, '' ) || 'fp-custom-part';
 };

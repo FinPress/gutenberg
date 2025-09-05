@@ -109,7 +109,7 @@ add_filter( 'register_block_type_args', 'example_disable_color_for_specific_bloc
 
 Used to filter the block settings when registering the block on the client with JavaScript. It receives the block settings, the name of the registered block, and either null or the deprecated block settings (when applied to a registered deprecation) as arguments. This filter is also applied to each of a block's deprecated settings.
 
-The following example ensures that List blocks are saved with the canonical generated class name (`wp-block-list`):
+The following example ensures that List blocks are saved with the canonical generated class name (`fp-block-list`):
 
 ```js
 function addListBlockClassName( settings, name ) {
@@ -126,7 +126,7 @@ function addListBlockClassName( settings, name ) {
 	};
 }
 
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'blocks.registerBlockType',
 	'my-plugin/class-names/list-block',
 	addListBlockClassName
@@ -145,7 +145,7 @@ The callback function for this filter receives three parameters:
 
 - `$block_content` (`string`): The block content.
 - `$block` (`array`): The full block, including name and attributes.
-- `$instance` (`WP_Block`): The block instance.
+- `$instance` (`FP_Block`): The block instance.
 
 In the following example, the class `example-class` is added to all Paragraph blocks on the front end. Here the [HTML API](https://make.finpress.org/core/2023/03/07/introducing-the-html-api-in-finpress-6-2/) is used to easily add the class instead of relying on regex.
 
@@ -156,7 +156,7 @@ function example_add_custom_class_to_paragraph_block( $block_content, $block ) {
 	if ( 'core/paragraph' === $block['blockName'] ) {
 	   
 		// Add the custom class to the block content using the HTML API.
-		$processor = new WP_HTML_Tag_Processor( $block_content );
+		$processor = new FP_HTML_Tag_Processor( $block_content );
 		
 		if ( $processor->next_tag( 'p' ) ) {
 			$processor->add_class( 'example-class' );
@@ -178,7 +178,7 @@ The callback function for this filter receives three parameters:
 
 - `$block_content` (`string`): The block content.
 - `$block` (`array`): The full block, including name and attributes.
-- `$instance` (`WP_Block`): The block instance.
+- `$instance` (`FP_Block`): The block instance.
 
 In the following example, the class `example-class` is added to all Paragraph blocks on the front end. Notice that compared to the `render_block` example above, you no longer need to check the block type before modifying the content. Again, the [HTML API](https://make.finpress.org/core/2023/03/07/introducing-the-html-api-in-finpress-6-2/) is used instead of regex.
 
@@ -186,7 +186,7 @@ In the following example, the class `example-class` is added to all Paragraph bl
 function example_add_custom_class_to_paragraph_block( $block_content, $block ) {
 	   
 	// Add the custom class to the block content using the HTML API.
-	$processor = new WP_HTML_Tag_Processor( $block_content );
+	$processor = new FP_HTML_Tag_Processor( $block_content );
 	
 	if ( $processor->next_tag( 'p' ) ) {
 		$processor->add_class( 'example-class' );
@@ -230,7 +230,7 @@ function wrapCoverBlockInContainer( element, blockType, attributes ) {
 	return <div className="cover-block-wrapper">{ element }</div>;
 }
 
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'blocks.getSaveElement',
 	'my-plugin/wrap-cover-block-in-container',
 	wrapCoverBlockInContainer
@@ -239,7 +239,7 @@ wp.hooks.addFilter(
 
 ### `blocks.getSaveContent.extraProps`
 
-A filter that applies to all blocks returning a WP Element in the `save` function. This filter is used to add extra props to the root element of the `save` function. For example, you could add a className, an id, or any valid prop for this element.
+A filter that applies to all blocks returning a FP Element in the `save` function. This filter is used to add extra props to the root element of the `save` function. For example, you could add a className, an id, or any valid prop for this element.
 
 The callback function for this filter receives three parameters:
 
@@ -257,7 +257,7 @@ function addBackgroundColorStyle( props ) {
 	};
 }
 
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'blocks.getSaveContent.extraProps',
 	'my-plugin/add-background-color-style',
 	addBackgroundColorStyle
@@ -270,7 +270,7 @@ To avoid this validation error, use `render_block` server-side to modify existin
 
 ### `blocks.getBlockDefaultClassName`
 
-Generated HTML classes for blocks follow the `wp-block-{name}` nomenclature. This filter allows to provide an alternative class name.
+Generated HTML classes for blocks follow the `fp-block-{name}` nomenclature. This filter allows to provide an alternative class name.
 
 ```js
 // Our filter function.
@@ -279,7 +279,7 @@ function setBlockCustomClassName( className, blockName ) {
 }
 
 // Adding the filter.
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'blocks.getBlockDefaultClassName',
 	'my-plugin/set-block-custom-class-name',
 	setBlockCustomClassName
@@ -312,7 +312,7 @@ function lockParagraphs( blockAttributes, blockType, innerHTML, attributes  ) {
 }
 
 // Add the filter
-wp.hooks.addFilter(
+fp.hooks.addFilter(
     'blocks.getBlockAttributes',
     'my-plugin/lock-paragraphs',
     lockParagraphs
@@ -326,9 +326,9 @@ Used to modify the block's `edit` component. It receives the original block `Blo
 The following example adds a new Inspector panel for all blocks.
 
 ```js
-const { createHigherOrderComponent } = wp.compose;
-const { InspectorControls } = wp.blockEditor;
-const { PanelBody } = wp.components;
+const { createHigherOrderComponent } = fp.compose;
+const { InspectorControls } = fp.blockEditor;
+const { PanelBody } = fp.components;
 
 const withMyPluginControls = createHigherOrderComponent( ( BlockEdit ) => {
 	return ( props ) => {
@@ -343,7 +343,7 @@ const withMyPluginControls = createHigherOrderComponent( ( BlockEdit ) => {
 	};
 }, 'withMyPluginControls' );
 
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'editor.BlockEdit',
 	'my-plugin/with-inspector-controls',
 	withMyPluginControls
@@ -382,7 +382,7 @@ Used to modify the block's wrapper component containing the block's `edit` compo
 The following example adds a unique class name to all blocks.
 
 ```js
-const { createHigherOrderComponent } = wp.compose;
+const { createHigherOrderComponent } = fp.compose;
 
 const withClientIdClassName = createHigherOrderComponent(
 	( BlockListBlock ) => {
@@ -398,7 +398,7 @@ const withClientIdClassName = createHigherOrderComponent(
 	'withClientIdClassName'
 );
 
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'editor.BlockListBlock',
 	'my-plugin/with-client-id-class-name',
 	withClientIdClassName
@@ -408,7 +408,7 @@ wp.hooks.addFilter(
 You can add new properties to the block's wrapper component using the `wrapperProps` property of the returned component as shown in the following example.
 
 ```js
-const { createHigherOrderComponent } = wp.compose;
+const { createHigherOrderComponent } = fp.compose;
 const withMyWrapperProp = createHigherOrderComponent( ( BlockListBlock ) => {
 	return ( props ) => {
 		const wrapperProps = {
@@ -419,7 +419,7 @@ const withMyWrapperProp = createHigherOrderComponent( ( BlockListBlock ) => {
 	};
 }, 'withMyWrapperProp' );
 
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'editor.BlockListBlock',
 	'my-plugin/with-my-wrapper-prop',
 	withMyWrapperProp
@@ -437,7 +437,7 @@ const addExampleBlockToPostContentBlockTypes = ( blockTypes ) => {
 	return [ ...blockTypes, 'namespace/example' ];
 };
 
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'editor.postContentBlockTypes',
 	'my-plugin/post-content-block-types',
 	addExampleBlockToPostContentBlockTypes
@@ -469,17 +469,17 @@ Then, load this script in the Editor using the following function.
 // my-plugin.php
 
 function my_plugin_deny_list_blocks() {
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'my-plugin-deny-list-blocks',
 		plugins_url( 'my-plugin.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post' )
+		array( 'fp-blocks', 'fp-dom-ready', 'fp-edit-post' )
 	);
 }
 add_action( 'enqueue_block_editor_assets', 'my_plugin_deny_list_blocks' );
 ```
 
 <div class="callout callout-warning">
-	When unregistering a block, there can be a <a href="https://en.wikipedia.org/wiki/Race_condition">race condition</a> on which code runs first: registering the block or unregistering the block. You want your unregister code to run last. To do this, you must specify the component that is registering the block as a dependency, in this case, <code>wp-edit-post</code>. Additionally, using <code>wp.domReady()</code> ensures the unregister code runs once the dom is loaded.
+	When unregistering a block, there can be a <a href="https://en.wikipedia.org/wiki/Race_condition">race condition</a> on which code runs first: registering the block or unregistering the block. You want your unregister code to run last. To do this, you must specify the component that is registering the block as a dependency, in this case, <code>fp-edit-post</code>. Additionally, using <code>fp.domReady()</code> ensures the unregister code runs once the dom is loaded.
 </div>
 
 ### Using an allow list
@@ -496,9 +496,9 @@ var allowedBlocks = [
 	'core/freeform',
 ];
 
-wp.blocks.getBlockTypes().forEach( function ( blockType ) {
+fp.blocks.getBlockTypes().forEach( function ( blockType ) {
 	if ( allowedBlocks.indexOf( blockType.name ) === -1 ) {
-		wp.blocks.unregisterBlockType( blockType.name );
+		fp.blocks.unregisterBlockType( blockType.name );
 	}
 } );
 ```
@@ -508,7 +508,7 @@ wp.blocks.getBlockTypes().forEach( function ( blockType ) {
 ### `allowed_block_types_all`
 
 <div class="callout callout-warning">
-	Before FinPress 5.8, this hook was known as <code>allowed_block_types</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>allowed_block_types</code> is safe to use by seeing if the <code>WP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
+	Before FinPress 5.8, this hook was known as <code>allowed_block_types</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>allowed_block_types</code> is safe to use by seeing if the <code>FP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
 </div>
 
 On the server, you can filter the list of blocks shown in the inserter using the `allowed_block_types_all` filter. You can return either true (all block types supported), false (no block types supported), or an array of block type names to allow. You can also use the second provided parameter `$editor_context` to filter block types based on their content.
@@ -530,7 +530,7 @@ add_filter( 'allowed_block_types_all', 'example_filter_allowed_block_types_when_
 ### `block_categories_all`
 
 <div class="callout callout-warning">
-	Before FinPress 5.8, this hook was known as <code>block_categories</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>block_categories</code> is safe to use by seeing if the <code>WP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
+	Before FinPress 5.8, this hook was known as <code>block_categories</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>block_categories</code> is safe to use by seeing if the <code>FP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
 </div>
 
 It is possible to filter the list of default block categories using the `block_categories_all` filter. You can do it on the server by implementing a function which returns a list of categories. It is going to be used during block registration and to group blocks in the inserter. You can also use the second provided parameter `$editor_context` to filter the based on its content.
@@ -553,18 +553,18 @@ function example_filter_block_categories_when_post_provided( $block_categories, 
 add_filter( 'block_categories_all', 'example_filter_block_categories_when_post_provided', 10, 2 );
 ```
 
-### `wp.blocks.updateCategory`
+### `fp.blocks.updateCategory`
 
 You can also display an icon with your block category by setting an `icon` attribute. The value can be the slug of a [FinPress Dashicon](https://developer.finpress.org/resource/dashicons/).
 
 You can also set a custom icon in SVG format. To do so, the icon should be rendered and set on the frontend, so it can make use of FinPress SVG, allowing mobile compatibility and making the icon more accessible.
 
-To set an SVG icon for the category shown in the previous example, add the following example JavaScript code to the Editor calling `wp.blocks.updateCategory` e.g:
+To set an SVG icon for the category shown in the previous example, add the following example JavaScript code to the Editor calling `fp.blocks.updateCategory` e.g:
 
 ```js
 ( function () {
 	var el = React.createElement;
-	var SVG = wp.primitives.SVG;
+	var SVG = fp.primitives.SVG;
 	var circle = el( 'circle', {
 		cx: 10,
 		cy: 10,
@@ -578,6 +578,6 @@ To set an SVG icon for the category shown in the previous example, add the follo
 		{ width: 20, height: 20, viewBox: '0 0 20 20' },
 		circle
 	);
-	wp.blocks.updateCategory( 'my-category', { icon: svgIcon } );
+	fp.blocks.updateCategory( 'my-category', { icon: svgIcon } );
 } )();
 ```

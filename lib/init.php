@@ -8,7 +8,7 @@
 /**
  * Gutenberg's Menu.
  *
- * Adds a new wp-admin menu page for the Gutenberg editor.
+ * Adds a new fp-admin menu page for the Gutenberg editor.
  *
  * @since 0.1.0
  */

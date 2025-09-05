@@ -1,27 +1,27 @@
-<!-- wp:image -->
-<figure class="wp-block-image"><img alt=""/></figure>
-<!-- /wp:image -->
+<!-- fp:image -->
+<figure class="fp-block-image"><img alt=""/></figure>
+<!-- /fp:image -->
 
-<!-- wp:paragraph {"placeholder":"Add a book description"} -->
+<!-- fp:paragraph {"placeholder":"Add a book description"} -->
 <p></p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p></p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->
 
-<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:image -->
-<figure class="wp-block-image"><img alt=""/></figure>
-<!-- /wp:image --></div>
-<!-- /wp:column -->
+<!-- fp:columns -->
+<div class="fp-block-columns"><!-- fp:column -->
+<div class="fp-block-column"><!-- fp:image -->
+<figure class="fp-block-image"><img alt=""/></figure>
+<!-- /fp:image --></div>
+<!-- /fp:column -->
 
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:paragraph {"placeholder":"Add a inner paragraph"} -->
+<!-- fp:column -->
+<div class="fp-block-column"><!-- fp:paragraph {"placeholder":"Add a inner paragraph"} -->
 <p></p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->
+<!-- /fp:paragraph --></div>
+<!-- /fp:column --></div>
+<!-- /fp:columns -->

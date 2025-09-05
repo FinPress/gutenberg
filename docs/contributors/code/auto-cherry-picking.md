@@ -2,16 +2,16 @@
 
 `npm run other:cherry-pick` automates cherry-picking Pull Requests with a specific label into the **current branch**.
 
-It's especially useful for major FinPress releases as by default the script looks for merged Pull Requests with the `Backport to WP Beta/RC` label.
+It's especially useful for major FinPress releases as by default the script looks for merged Pull Requests with the `Backport to FP Beta/RC` label.
 
 You can also use it in different scenarios by passing a custom label as the first argument. See the Gutenberg plugin release example at the end of this document.
 
 Running `npm run other:cherry-pick` yields the following prompt:
 
 ```
-You are on branch "wp/6.2".
+You are on branch "fp/6.2".
 This script will:
-• Cherry-pick the merged PRs labeled as "Backport to WP Beta/RC" to this branch
+• Cherry-pick the merged PRs labeled as "Backport to FP Beta/RC" to this branch
 • Ask whether you want to push this branch
 • Comment on each PR
 • Remove the label from each PR
@@ -27,7 +27,7 @@ Here's what happens once you agree:
 ```
 Trying to cherry-pick one by one..
 
-$ git pull origin wp/6.2 --rebase...
+$ git pull origin fp/6.2 --rebase...
 $ git fetch origin trunk...
 
 Found the following PRs to cherry-pick:
@@ -46,7 +46,7 @@ Summary:
     1 PRs got cherry-picked cleanly
     0 PRs failed
 
-About to push to origin/wp/6.2
+About to push to origin/fp/6.2
 Do you want to proceed? (Y/n)
 ```
 
@@ -58,15 +58,15 @@ If some cherry-picks still failed, the script would skip them and let you know w
 Either way, here's what happens once you proceed past the cherry-picking stage:
 
 ```
-Pushing to origin/wp/6.2
+Pushing to origin/fp/6.2
 Commenting and removing labels...
-  41198: I just cherry-picked this PR to the wp/6.2 branch to get it included in the next release: afe9b757b4
+  41198: I just cherry-picked this PR to the fp/6.2 branch to get it included in the next release: afe9b757b4
 Done!
 ```
 
 The commenting part is optional and only possible if you have the [`gh` console utility](https://cli.github.com/) installed.
 
-### Can I use a different label than `Backport to WP Beta/RC`?
+### Can I use a different label than `Backport to FP Beta/RC`?
 
 Yes! Pass it as the first argument:
 
@@ -90,4 +90,4 @@ In the future, it would be great if the script automatically selected the
 relevant label based on the currently selected branch:
 
 * release/X.Y - plugin release – "Backport to Gutenberg RC"
-* wp/X.Y - WP release – "Backport to WP Beta/RC"
+* fp/X.Y - FP release – "Backport to FP Beta/RC"

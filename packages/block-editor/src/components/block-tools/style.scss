@@ -12,7 +12,7 @@
 
 .block-editor-block-list__insertion-point-indicator {
 	position: absolute;
-	background: var(--wp-admin-theme-color);
+	background: var(--fp-admin-theme-color);
 	border-radius: $radius-small;
 	transform-origin: center;
 	opacity: 0;
@@ -85,13 +85,13 @@
 
 		&:hover {
 			color: $white;
-			background: var(--wp-admin-theme-color);
+			background: var(--fp-admin-theme-color);
 		}
 	}
 }
 
 .block-editor-block-list__insertion-point-inserter .block-editor-inserter__toggle.components-button.has-icon {
-	background: var(--wp-admin-theme-color);
+	background: var(--fp-admin-theme-color);
 	&:hover {
 		background: $gray-900;
 	}
@@ -156,7 +156,7 @@
 			}
 
 			&:focus::before {
-				box-shadow: inset 0 0 0 1px $gray-900, 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+				box-shadow: inset 0 0 0 1px $gray-900, 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
 			}
 
 			&:disabled,
@@ -180,7 +180,7 @@
 		}
 
 		.is-pressed {
-			color: var(--wp-admin-theme-color);
+			color: var(--fp-admin-theme-color);
 		}
 	}
 

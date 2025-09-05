@@ -99,7 +99,7 @@ export function initializeEditor( id, settings ) {
 }
 
 export function reinitializeEditor() {
-	deprecated( 'wp.editSite.reinitializeEditor', {
+	deprecated( 'fp.editSite.reinitializeEditor', {
 		since: '6.2',
 		version: '6.3',
 	} );

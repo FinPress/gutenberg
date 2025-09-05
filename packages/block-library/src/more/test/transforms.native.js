@@ -11,9 +11,9 @@ import {
 
 const block = 'More';
 const initialHtml = `
-<!-- wp:more -->
+<!-- fp:more -->
 <!--more-->
-<!-- /wp:more -->`;
+<!-- /fp:more -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

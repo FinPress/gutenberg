@@ -98,7 +98,7 @@ function setContentEditableWrapper( node, value ) {
 function getRichTextElement( node ) {
 	const element =
 		node.nodeType === node.ELEMENT_NODE ? node : node.parentElement;
-	return element?.closest( '[data-wp-block-attribute-key]' );
+	return element?.closest( '[data-fp-block-attribute-key]' );
 }
 
 /**
@@ -243,14 +243,14 @@ export default function useSelectionObserver() {
 								clientId: startClientId,
 								attributeKey:
 									richTextElementStart.dataset
-										.wpBlockAttributeKey,
+										.fpBlockAttributeKey,
 								offset: startOffset,
 							},
 							end: {
 								clientId: endClientId,
 								attributeKey:
 									richTextElementEnd.dataset
-										.wpBlockAttributeKey,
+										.fpBlockAttributeKey,
 								offset: endOffset,
 							},
 						} );

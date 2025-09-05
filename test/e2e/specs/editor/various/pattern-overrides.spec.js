@@ -36,7 +36,7 @@ test.describe( 'Pattern Overrides', () => {
 		const editableParagraphName = 'Editable Paragraph';
 
 		await test.step( 'Create a synced pattern and assign blocks to allow overrides', async () => {
-			await admin.visitSiteEditor( { postType: 'wp_block' } );
+			await admin.visitSiteEditor( { postType: 'fp_block' } );
 
 			await page
 				.getByRole( 'region', { name: 'Patterns content' } )
@@ -129,7 +129,7 @@ test.describe( 'Pattern Overrides', () => {
 			).toBeVisible();
 
 			patternId = await page.evaluate( () => {
-				return window.wp.data
+				return window.fp.data
 					.select( 'core/editor' )
 					.getCurrentPostId();
 			} );
@@ -234,15 +234,15 @@ test.describe( 'Pattern Overrides', () => {
 			requestUtils,
 		} ) => {
 			const content = `
-			<!-- wp:paragraph {"metadata":{"name":"Pattern Overrides","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+			<!-- fp:paragraph {"metadata":{"name":"Pattern Overrides","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
 			<p>Pattern Overrides</p>
-			<!-- /wp:paragraph -->
-			<!-- wp:paragraph {"metadata":{"name":"Post Meta Binding","bindings":{"content":{"source":"core/post-meta","args":{"key":"Post Meta Binding"}}}}} -->
+			<!-- /fp:paragraph -->
+			<!-- fp:paragraph {"metadata":{"name":"Post Meta Binding","bindings":{"content":{"source":"core/post-meta","args":{"key":"Post Meta Binding"}}}}} -->
 			<p>Post Meta Binding</p>
-			<!-- /wp:paragraph -->
-			<!-- wp:paragraph {"metadata":{"name":"No Overrides or Binding"}} -->
+			<!-- /fp:paragraph -->
+			<!-- fp:paragraph {"metadata":{"name":"No Overrides or Binding"}} -->
 			<p>No Overrides or Binding</p>
-			<!-- /wp:paragraph -->
+			<!-- /fp:paragraph -->
 			`;
 
 			const { id } = await requestUtils.createBlock( {
@@ -253,7 +253,7 @@ test.describe( 'Pattern Overrides', () => {
 
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//index',
-				postType: 'wp_template',
+				postType: 'fp_template',
 				canvas: 'edit',
 			} );
 
@@ -495,17 +495,17 @@ test.describe( 'Pattern Overrides', () => {
 			const headingName = 'Editable heading';
 			const innerPattern = await requestUtils.createBlock( {
 				title: 'Inner Pattern',
-				content: `<!-- wp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+				content: `<!-- fp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
 	<p>Inner paragraph</p>
-	<!-- /wp:paragraph -->`,
+	<!-- /fp:paragraph -->`,
 				status: 'publish',
 			} );
 			const outerPattern = await requestUtils.createBlock( {
 				title: 'Outer Pattern',
-				content: `<!-- wp:heading {"metadata":{"name":"${ headingName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-	<h2 class="wp-block-heading">Outer heading</h2>
-	<!-- /wp:heading -->
-	<!-- wp:block {"ref":${ innerPattern.id },"content":{"${ paragraphName }":{"content":"Inner paragraph (edited)"}}} /-->`,
+				content: `<!-- fp:heading {"metadata":{"name":"${ headingName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+	<h2 class="fp-block-heading">Outer heading</h2>
+	<!-- /fp:heading -->
+	<!-- fp:block {"ref":${ innerPattern.id },"content":{"${ paragraphName }":{"content":"Inner paragraph (edited)"}}} /-->`,
 				status: 'publish',
 			} );
 
@@ -599,9 +599,9 @@ test.describe( 'Pattern Overrides', () => {
 		const paragraphName = 'paragraph-name';
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- wp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+			content: `<!-- fp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
 <p>Editable</p>
-<!-- /wp:paragraph -->`,
+<!-- /fp:paragraph -->`,
 			status: 'publish',
 		} );
 
@@ -646,9 +646,9 @@ test.describe( 'Pattern Overrides', () => {
 		const paragraphName = 'paragraph-name';
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- wp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
+			content: `<!-- fp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
 <p>Editable</p>
-<!-- /wp:paragraph -->`,
+<!-- /fp:paragraph -->`,
 			status: 'publish',
 		} );
 
@@ -688,11 +688,11 @@ test.describe( 'Pattern Overrides', () => {
 		const buttonName = 'Editable button';
 		const { id } = await requestUtils.createBlock( {
 			title: 'Button with target',
-			content: `<!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"metadata":{"name":"${ buttonName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="http://wp.org" target="_blank" rel="noreferrer noopener nofollow">Button</a></div>
-<!-- /wp:button --></div>
-<!-- /wp:buttons -->`,
+			content: `<!-- fp:buttons -->
+<div class="fp-block-buttons"><!-- fp:button {"metadata":{"name":"${ buttonName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+<div class="fp-block-button"><a class="fp-block-button__link fp-element-button" href="http://fp.org" target="_blank" rel="noreferrer noopener nofollow">Button</a></div>
+<!-- /fp:button --></div>
+<!-- /fp:buttons -->`,
 			status: 'publish',
 		} );
 
@@ -709,7 +709,7 @@ test.describe( 'Pattern Overrides', () => {
 			.getByRole( 'textbox', { name: 'Button text' } )
 			.focus();
 		await expect(
-			page.getByRole( 'link', { name: 'wp.org' } ).getByText( '↗' )
+			page.getByRole( 'link', { name: 'fp.org' } ).getByText( '↗' )
 		).toHaveAttribute( 'aria-label', '(opens in a new tab)' );
 
 		// The link popup doesn't have a role which is a bit unfortunate.
@@ -799,12 +799,12 @@ test.describe( 'Pattern Overrides', () => {
 		const paragraphName = 'Editable paragraph';
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- wp:heading {"metadata":{"name":"${ headingName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-<h2 class="wp-block-heading">Heading</h2>
-<!-- /wp:heading -->
-<!-- wp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+			content: `<!-- fp:heading {"metadata":{"name":"${ headingName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+<h2 class="fp-block-heading">Heading</h2>
+<!-- /fp:heading -->
+<!-- fp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
 <p>Paragraph</p>
-<!-- /wp:paragraph -->`,
+<!-- /fp:paragraph -->`,
 			status: 'publish',
 		} );
 
@@ -892,9 +892,9 @@ test.describe( 'Pattern Overrides', () => {
 		const paragraphName = 'Editable paragraph';
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- wp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
+			content: `<!-- fp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
 <p>Paragraph</p>
-<!-- /wp:paragraph -->`,
+<!-- /fp:paragraph -->`,
 			status: 'publish',
 		} );
 
@@ -960,9 +960,9 @@ test.describe( 'Pattern Overrides', () => {
 		);
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- wp:image {"metadata":{"name":"${ imageName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-<figure class="wp-block-image"><img alt=""/></figure>
-<!-- /wp:image -->`,
+			content: `<!-- fp:image {"metadata":{"name":"${ imageName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+<figure class="fp-block-image"><img alt=""/></figure>
+<!-- /fp:image -->`,
 			status: 'publish',
 		} );
 
@@ -984,7 +984,7 @@ test.describe( 'Pattern Overrides', () => {
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveCount( 1 );
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveAttribute(
 			'src',
-			/\/wp-content\/uploads\//
+			/\/fp-content\/uploads\//
 		);
 
 		await editor.publishPost();
@@ -997,7 +997,7 @@ test.describe( 'Pattern Overrides', () => {
 		} );
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveAttribute(
 			'src',
-			/\/wp-content\/uploads\//
+			/\/fp-content\/uploads\//
 		);
 		await expect(
 			blockToolbar.getByRole( 'button', { name: 'Replace' } )
@@ -1021,9 +1021,9 @@ test.describe( 'Pattern Overrides', () => {
 		);
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- wp:image {"metadata":{"name":"${ imageName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-<figure class="wp-block-image"><img alt=""/></figure>
-<!-- /wp:image -->`,
+			content: `<!-- fp:image {"metadata":{"name":"${ imageName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+<figure class="fp-block-image"><img alt=""/></figure>
+<!-- /fp:image -->`,
 			status: 'publish',
 		} );
 
@@ -1044,7 +1044,7 @@ test.describe( 'Pattern Overrides', () => {
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveCount( 1 );
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveAttribute(
 			'src',
-			/\/wp-content\/uploads\//
+			/\/fp-content\/uploads\//
 		);
 
 		// Because the image is an inner block of a controlled pattern block,
@@ -1092,11 +1092,11 @@ test.describe( 'Pattern Overrides', () => {
 		// It has media that is not yet uploaded.
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- wp:gallery {"linkTo":"none"} -->
-<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":${ originalImageId },"sizeSlug":"large","linkDestination":"none","metadata":{"bindings":{"__default":{"source":"core/pattern-overrides"}},"name":"${ overrideName }"}} -->
-<figure class="wp-block-image size-large"><img src="${ originalImageSrc }" alt="" class="wp-image-${ originalImageId }"/></figure>
-<!-- /wp:image --></figure>
-<!-- /wp:gallery -->`,
+			content: `<!-- fp:gallery {"linkTo":"none"} -->
+<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":${ originalImageId },"sizeSlug":"large","linkDestination":"none","metadata":{"bindings":{"__default":{"source":"core/pattern-overrides"}},"name":"${ overrideName }"}} -->
+<figure class="fp-block-image size-large"><img src="${ originalImageSrc }" alt="" class="fp-image-${ originalImageId }"/></figure>
+<!-- /fp:image --></figure>
+<!-- /fp:gallery -->`,
 			status: 'publish',
 		} );
 
@@ -1127,7 +1127,7 @@ test.describe( 'Pattern Overrides', () => {
 		);
 		await expect( imageBlock ).toHaveAttribute(
 			'class',
-			`wp-image-${ overrideImageId }`
+			`fp-image-${ overrideImageId }`
 		);
 	} );
 
@@ -1161,9 +1161,9 @@ test.describe( 'Pattern Overrides', () => {
 		// It has media that is not yet uploaded.
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- wp:image {"id":${ originalImageId },"sizeSlug":"large","linkDestination":"none","metadata":{"bindings":{"__default":{"source":"core/pattern-overrides"}},"name":"${ overrideName }"}} -->
-<figure class="wp-block-image size-large"><img src="${ originalImageSrc }" alt="" class="wp-image-${ originalImageId }"/></figure>
-<!-- /wp:image -->`,
+			content: `<!-- fp:image {"id":${ originalImageId },"sizeSlug":"large","linkDestination":"none","metadata":{"bindings":{"__default":{"source":"core/pattern-overrides"}},"name":"${ overrideName }"}} -->
+<figure class="fp-block-image size-large"><img src="${ originalImageSrc }" alt="" class="fp-image-${ originalImageId }"/></figure>
+<!-- /fp:image -->`,
 			status: 'publish',
 		} );
 
@@ -1191,7 +1191,7 @@ test.describe( 'Pattern Overrides', () => {
 		await expect( imageBlock ).not.toHaveAttribute( 'data-id' );
 		await expect( imageBlock ).toHaveAttribute(
 			'class',
-			`wp-image-${ overrideImageId }`
+			`fp-image-${ overrideImageId }`
 		);
 	} );
 
@@ -1207,20 +1207,20 @@ test.describe( 'Pattern Overrides', () => {
 		await test.step( 'create a pattern with synced blocks with the same name', async () => {
 			const { id } = await requestUtils.createBlock( {
 				title: 'Blocks with the same name',
-				content: `<!-- wp:heading {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
+				content: `<!-- fp:heading {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
 			<h2>default name</h2>
-			<!-- /wp:heading -->
-			<!-- wp:paragraph {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
+			<!-- /fp:heading -->
+			<!-- fp:paragraph {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
 			<p>default content</p>
-			<!-- /wp:paragraph -->
-			<!-- wp:paragraph {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
+			<!-- /fp:paragraph -->
+			<!-- fp:paragraph {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
 			<p>default content</p>
-			<!-- /wp:paragraph -->`,
+			<!-- /fp:paragraph -->`,
 				status: 'publish',
 			} );
 			await admin.visitSiteEditor( {
 				postId: id,
-				postType: 'wp_block',
+				postType: 'fp_block',
 				canvas: 'edit',
 			} );
 
@@ -1260,7 +1260,7 @@ test.describe( 'Pattern Overrides', () => {
 			).toBeVisible();
 
 			patternId = await page.evaluate( () => {
-				return window.wp.data
+				return window.fp.data
 					.select( 'core/editor' )
 					.getCurrentPostId();
 			} );
@@ -1304,18 +1304,18 @@ test.describe( 'Pattern Overrides', () => {
 	} ) => {
 		const pattern = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- wp:paragraph -->
+			content: `<!-- fp:paragraph -->
 <p>paragraph</p>
-<!-- /wp:paragraph -->`,
+<!-- /fp:paragraph -->`,
 			status: 'publish',
 			meta: {
-				wp_pattern_sync_status: 'unsynced',
+				fp_pattern_sync_status: 'unsynced',
 			},
 		} );
 
 		await admin.visitSiteEditor( {
 			postId: pattern.id,
-			postType: 'wp_block',
+			postType: 'fp_block',
 			canvas: 'edit',
 		} );
 
@@ -1350,9 +1350,9 @@ test.describe( 'Pattern Overrides', () => {
 		);
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- wp:image {"metadata":{"name":"${ imageName }","bindings":{"id":{"source":"core/pattern-overrides"},"url":{"source":"core/pattern-overrides"},"title":{"source":"core/pattern-overrides"},"alt":{"source":"core/pattern-overrides"}}}} -->
-<figure class="wp-block-image"><img alt=""/></figure>
-<!-- /wp:image -->`,
+			content: `<!-- fp:image {"metadata":{"name":"${ imageName }","bindings":{"id":{"source":"core/pattern-overrides"},"url":{"source":"core/pattern-overrides"},"title":{"source":"core/pattern-overrides"},"alt":{"source":"core/pattern-overrides"}}}} -->
+<figure class="fp-block-image"><img alt=""/></figure>
+<!-- /fp:image -->`,
 			status: 'publish',
 		} );
 
@@ -1398,7 +1398,7 @@ test.describe( 'Pattern Overrides', () => {
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveCount( 1 );
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveAttribute(
 			'src',
-			/\/wp-content\/uploads\//
+			/\/fp-content\/uploads\//
 		);
 		await editor.showBlockToolbar();
 		await editor.clickBlockToolbarButton( 'More' );
@@ -1414,6 +1414,6 @@ test.describe( 'Pattern Overrides', () => {
 		await page.goto( `/?p=${ postId }` );
 		await expect(
 			page.getByRole( 'img', { name: 'Test Image' } )
-		).toHaveAttribute( 'src', /\/wp-content\/uploads\// );
+		).toHaveAttribute( 'src', /\/fp-content\/uploads\// );
 	} );
 } );

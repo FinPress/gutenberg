@@ -1,16 +1,16 @@
 // Provide special styling for the placeholder.
 // @todo this particular minimal style of placeholder could be componentized further.
-.wp-block-image.wp-block-image {
+.fp-block-image.fp-block-image {
 	.block-editor-media-placeholder.is-small {
 		min-height: 60px;
 	}
 }
 
-figure.wp-block-image:not(.wp-block) {
+figure.fp-block-image:not(.fp-block) {
 	margin: 0;
 }
 
-.wp-block-image {
+.fp-block-image {
 	position: relative;
 
 	.is-applying img,
@@ -33,7 +33,7 @@ figure.wp-block-image:not(.wp-block) {
 }
 
 // Shown while image is being uploaded but cannot be previewed.
-.wp-block-image__placeholder {
+.fp-block-image__placeholder {
 	aspect-ratio: 4 / 3;
 
 	// Make placeholder background white so that you can see the spinner on top of it.
@@ -59,18 +59,18 @@ figure.wp-block-image:not(.wp-block) {
 	}
 }
 
-[data-align="wide"] > .wp-block-image,
-[data-align="full"] > .wp-block-image {
+[data-align="wide"] > .fp-block-image,
+[data-align="full"] > .fp-block-image {
 	img {
 		height: auto;
 		width: 100%;
 	}
 }
 
-.wp-block[data-align="left"],
-.wp-block[data-align="center"],
-.wp-block[data-align="right"] {
-	> .wp-block-image {
+.fp-block[data-align="left"],
+.fp-block[data-align="center"],
+.fp-block[data-align="right"] {
+	> .fp-block-image {
 		display: table;
 
 		> figcaption {
@@ -80,32 +80,32 @@ figure.wp-block-image:not(.wp-block) {
 	}
 }
 
-.wp-block[data-align="left"] > .wp-block-image {
+.fp-block[data-align="left"] > .fp-block-image {
 	margin-right: 1em;
 	margin-left: 0;
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 }
 
-.wp-block[data-align="right"] > .wp-block-image {
+.fp-block[data-align="right"] > .fp-block-image {
 	margin-left: 1em;
 	margin-right: 0;
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 }
 
-.wp-block[data-align="center"] > .wp-block-image {
+.fp-block[data-align="center"] > .fp-block-image {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 }
 
 // Relatively position the alignment container to support the content resizer.
-.wp-block[data-align]:has(> .wp-block-image) {
+.fp-block[data-align]:has(> .fp-block-image) {
 	position: relative;
 }
 
-.wp-block-image__crop-area {
+.fp-block-image__crop-area {
 	position: relative;
 	max-width: 100%;
 	width: 100%;
@@ -127,7 +127,7 @@ figure.wp-block-image:not(.wp-block) {
 	}
 }
 
-.wp-block-image__crop-icon {
+.fp-block-image__crop-icon {
 	padding: 0 8px;
 	min-width: 48px;
 	display: flex;
@@ -139,18 +139,18 @@ figure.wp-block-image:not(.wp-block) {
 	}
 }
 
-.wp-block-image__zoom {
+.fp-block-image__zoom {
 	.components-popover__content {
 		min-width: 260px;
 		overflow: visible !important;
 	}
 }
 
-.wp-block-image__toolbar_content_textarea__container {
+.fp-block-image__toolbar_content_textarea__container {
 	padding: $grid-unit;
 }
 
-.wp-block-image__toolbar_content_textarea {
+.fp-block-image__toolbar_content_textarea {
 	// Corresponds to the size of the textarea in the block inspector.
 	width: 250px;
 }

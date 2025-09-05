@@ -25,7 +25,7 @@ describe( 'readRawConfigFile', () => {
 	it( 'returns null if it cannot find a file', async () => {
 		readFile.mockRejectedValue( { code: 'ENOENT' } );
 
-		const result = await readRawConfigFile( '/.wp-env.json' );
+		const result = await readRawConfigFile( '/.fp-env.json' );
 		expect( result ).toBe( null );
 	} );
 
@@ -35,10 +35,10 @@ describe( 'readRawConfigFile', () => {
 		expect.assertions( 1 );
 
 		try {
-			await readRawConfigFile( '/.wp-env.json' );
+			await readRawConfigFile( '/.fp-env.json' );
 		} catch ( error ) {
 			expect( error ).toEqual(
-				new ValidationError( 'Could not read .wp-env.json: Test' )
+				new ValidationError( 'Could not read .fp-env.json: Test' )
 			);
 		}
 	} );

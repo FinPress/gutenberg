@@ -25,7 +25,7 @@ export const __experimentalConvertBlockToStatic =
 			.select( 'core' )
 			.getEditedEntityRecord(
 				'postType',
-				'wp_block',
+				'fp_block',
 				oldBlock.attributes.ref
 			);
 
@@ -52,7 +52,7 @@ export const __experimentalConvertBlocksToReusable =
 		const meta =
 			syncType === 'unsynced'
 				? {
-						wp_pattern_sync_status: syncType,
+						fp_pattern_sync_status: syncType,
 				  }
 				: undefined;
 
@@ -69,7 +69,7 @@ export const __experimentalConvertBlocksToReusable =
 
 		const updatedRecord = await registry
 			.dispatch( 'core' )
-			.saveEntityRecord( 'postType', 'wp_block', reusableBlock );
+			.saveEntityRecord( 'postType', 'fp_block', reusableBlock );
 
 		if ( syncType === 'unsynced' ) {
 			return;
@@ -97,7 +97,7 @@ export const __experimentalDeleteReusableBlock =
 	async ( { registry } ) => {
 		const reusableBlock = registry
 			.select( 'core' )
-			.getEditedEntityRecord( 'postType', 'wp_block', id );
+			.getEditedEntityRecord( 'postType', 'fp_block', id );
 
 		// Don't allow a reusable block with a temporary ID to be deleted.
 		if ( ! reusableBlock ) {
@@ -122,7 +122,7 @@ export const __experimentalDeleteReusableBlock =
 
 		await registry
 			.dispatch( 'core' )
-			.deleteEntityRecord( 'postType', 'wp_block', id );
+			.deleteEntityRecord( 'postType', 'fp_block', id );
 	};
 
 /**

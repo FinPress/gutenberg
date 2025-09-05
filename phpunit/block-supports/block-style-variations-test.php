@@ -8,7 +8,7 @@
  * @package Gutenberg
  */
 
-class WP_Block_Supports_Block_Style_Variations_Test extends WP_UnitTestCase {
+class FP_Block_Supports_Block_Style_Variations_Test extends FP_UnitTestCase {
 	/**
 	 * Administrator ID.
 	 *
@@ -17,30 +17,30 @@ class WP_Block_Supports_Block_Style_Variations_Test extends WP_UnitTestCase {
 	protected static $administrator_id;
 
 	/**
-	 * WP_Theme_JSON_Resolver_Gutenberg::$blocks_cache property.
+	 * FP_Theme_JSON_Resolver_Gutenberg::$blocks_cache property.
 	 *
 	 * @var ReflectionProperty
 	 */
 	private static $property_blocks_cache;
 
 	/**
-	 * Original value of the WP_Theme_JSON_Resolver_Gutenberg::$blocks_cache property.
+	 * Original value of the FP_Theme_JSON_Resolver_Gutenberg::$blocks_cache property.
 	 *
 	 * @var array
 	 */
 	private static $property_blocks_cache_orig_value;
 
 	/**
-	 * WP_Theme_JSON_Resolver_Gutenberg::$core property.
+	 * FP_Theme_JSON_Resolver_Gutenberg::$core property.
 	 *
 	 * @var ReflectionProperty
 	 */
 	private static $property_core;
 
 	/**
-	 * Original value of the WP_Theme_JSON_Resolver_Gutenberg::$core property.
+	 * Original value of the FP_Theme_JSON_Resolver_Gutenberg::$core property.
 	 *
-	 * @var WP_Theme_JSON_Gutenberg
+	 * @var FP_Theme_JSON_Gutenberg
 	 */
 	private static $property_core_orig_value;
 
@@ -62,24 +62,24 @@ class WP_Block_Supports_Block_Style_Variations_Test extends WP_UnitTestCase {
 		parent::set_up();
 		$this->theme_root = realpath( dirname( __DIR__ ) . '/data/themedir1' );
 
-		$this->orig_theme_dir = $GLOBALS['wp_theme_directories'];
+		$this->orig_theme_dir = $GLOBALS['fp_theme_directories'];
 
 		// /themes is necessary as theme.php functions assume /themes is the root if there is only one root.
-		$GLOBALS['wp_theme_directories'] = array( WP_CONTENT_DIR . '/themes', $this->theme_root );
+		$GLOBALS['fp_theme_directories'] = array( FP_CONTENT_DIR . '/themes', $this->theme_root );
 
 		add_filter( 'theme_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'stylesheet_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'template_root', array( $this, 'filter_set_theme_root' ) );
 
 		// Clear caches.
-		wp_clean_themes_cache();
-		unset( $GLOBALS['wp_themes'] );
+		fp_clean_themes_cache();
+		unset( $GLOBALS['fp_themes'] );
 	}
 
 	public function tear_down() {
-		$GLOBALS['wp_theme_directories'] = $this->orig_theme_dir;
-		wp_clean_themes_cache();
-		unset( $GLOBALS['wp_themes'] );
+		$GLOBALS['fp_theme_directories'] = $this->orig_theme_dir;
+		fp_clean_themes_cache();
+		unset( $GLOBALS['fp_themes'] );
 
 		// Reset data between tests.
 		_gutenberg_clean_theme_json_caches();
@@ -148,7 +148,7 @@ class WP_Block_Supports_Block_Style_Variations_Test extends WP_UnitTestCase {
 			)
 		);
 
-		$theme_json   = WP_Theme_JSON_Resolver_Gutenberg::get_theme_data()->get_raw_data();
+		$theme_json   = FP_Theme_JSON_Resolver_Gutenberg::get_theme_data()->get_raw_data();
 		$group_styles = $theme_json['styles']['blocks']['core/group'] ?? array();
 		$expected     = array(
 			'variations' => array(
@@ -238,7 +238,7 @@ class WP_Block_Supports_Block_Style_Variations_Test extends WP_UnitTestCase {
 			),
 		);
 
-		$theme_json = WP_Theme_JSON_Resolver_Gutenberg::get_theme_data()->get_raw_data();
+		$theme_json = FP_Theme_JSON_Resolver_Gutenberg::get_theme_data()->get_raw_data();
 
 		gutenberg_resolve_block_style_variation_ref_values( $variation_data, $theme_json );
 

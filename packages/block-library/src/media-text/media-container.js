@@ -15,7 +15,7 @@ import {
 	store as blockEditorStore,
 } from '@finpress/block-editor';
 import { __ } from '@finpress/i18n';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { useDispatch } from '@finpress/data';
 import { forwardRef } from '@finpress/element';
 import { isBlobURL } from '@finpress/blob';
@@ -35,7 +35,7 @@ const noop = () => {};
 
 const ResizableBoxContainer = forwardRef(
 	( { isSelected, isStackedOnMobile, ...props }, ref ) => {
-		const isMobile = useViewportMatch( 'small', '<' );
+		const isMobile = useviewportMatch( 'small', '<' );
 		return (
 			<ResizableBox
 				ref={ ref }
@@ -207,7 +207,7 @@ function MediaContainer( props, ref ) {
 				{ ! useFeaturedImage && <PlaceholderContainer { ...props } /> }
 				{ ! featuredImageURL && useFeaturedImage && (
 					<Placeholder
-						className="wp-block-media-text--placeholder-image"
+						className="fp-block-media-text--placeholder-image"
 						style={ positionStyles }
 						withIllustration
 					/>

@@ -259,7 +259,7 @@ extension Gutenberg: RCTBridgeDelegate {
     public func sourceURL(for bridge: RCTBridge!) -> URL! {
         #if DEBUG
         var isOnCellularNetwork = false
-        let monitor = NWPathMonitor()
+        let monitor = NFPathMonitor()
         let semaphore = DispatchSemaphore(value: 0)
         monitor.pathUpdateHandler = { path in
             isOnCellularNetwork = path.isExpensive

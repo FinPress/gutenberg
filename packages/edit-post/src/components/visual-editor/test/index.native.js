@@ -29,13 +29,13 @@ const MEDIA_OPTIONS = [
 ];
 
 const initialHtml = `
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>First example paragraph.</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Second example paragraph.</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 `;
 
 describe( 'when title is focused', () => {

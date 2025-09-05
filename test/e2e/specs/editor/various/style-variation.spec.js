@@ -24,11 +24,11 @@ test.describe( 'adding blocks', () => {
 		// Check the content
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- wp:quote {"className":"is-style-plain"} -->
-<blockquote class="wp-block-quote is-style-plain"><!-- wp:paragraph -->
+			`<!-- fp:quote {"className":"is-style-plain"} -->
+<blockquote class="fp-block-quote is-style-plain"><!-- fp:paragraph -->
 <p>Quote content</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->`
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->`
 		);
 	} );
 } );

@@ -229,8 +229,8 @@ export function __experimentalUseEntityRecord(
 	recordId: any,
 	options: any
 ) {
-	deprecated( `wp.data.__experimentalUseEntityRecord`, {
-		alternative: 'wp.data.useEntityRecord',
+	deprecated( `fp.data.__experimentalUseEntityRecord`, {
+		alternative: 'fp.data.useEntityRecord',
 		since: '6.1',
 	} );
 	return useEntityRecord( kind, name, recordId, options );

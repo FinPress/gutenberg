@@ -23,7 +23,7 @@ export const getDownloadableBlocks =
 		try {
 			dispatch( fetchDownloadableBlocks( filterValue ) );
 			const results = await apiFetch( {
-				path: `wp/v2/block-directory/search?term=${ filterValue }`,
+				path: `fp/v2/block-directory/search?term=${ filterValue }`,
 			} );
 			const blocks = results.map( ( result ) =>
 				Object.fromEntries(

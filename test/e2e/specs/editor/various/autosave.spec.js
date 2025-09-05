@@ -30,25 +30,25 @@ test.describe( 'Autosave', () => {
 		await page.keyboard.type( ' after save' );
 
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave( { local: true } )
+			window.fp.data.dispatch( 'core/editor' ).autosave( { local: true } )
 		);
 
 		const autosave = await page.evaluate( () => {
-			const postId = window.wp.data
+			const postId = window.fp.data
 				.select( 'core/editor' )
 				.getCurrentPostId();
 
 			return window.sessionStorage.getItem(
-				`wp-autosave-block-editor-post-${
+				`fp-autosave-block-editor-post-${
 					postId ? postId : 'auto-draft'
 				}`
 			);
 		} );
 
 		const { content } = JSON.parse( autosave );
-		expect( content ).toBe( `<!-- wp:paragraph -->
+		expect( content ).toBe( `<!-- fp:paragraph -->
 <p>before save after save</p>
-<!-- /wp:paragraph -->` );
+<!-- /fp:paragraph -->` );
 	} );
 
 	test( 'should recover from sessionStorage', async ( {
@@ -69,7 +69,7 @@ test.describe( 'Autosave', () => {
 
 		// Trigger local autosave.
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave( { local: true } )
+			window.fp.data.dispatch( 'core/editor' ).autosave( { local: true } )
 		);
 		// Reload without saving on the server.
 		await page.reload();
@@ -115,7 +115,7 @@ test.describe( 'Autosave', () => {
 		await page.keyboard.type( ' after save' );
 
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave( { local: true } )
+			window.fp.data.dispatch( 'core/editor' ).autosave( { local: true } )
 		);
 		expect(
 			await page.evaluate( () => window.sessionStorage.length )
@@ -152,7 +152,7 @@ test.describe( 'Autosave', () => {
 
 		// Trigger local autosave.
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave( { local: true } )
+			window.fp.data.dispatch( 'core/editor' ).autosave( { local: true } )
 		);
 
 		expect(
@@ -161,7 +161,7 @@ test.describe( 'Autosave', () => {
 
 		// Trigger remote autosave.
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave()
+			window.fp.data.dispatch( 'core/editor' ).autosave()
 		);
 		expect(
 			await page.evaluate( () => window.sessionStorage.length )
@@ -187,7 +187,7 @@ test.describe( 'Autosave', () => {
 
 		// Trigger local autosave.
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave( { local: true } )
+			window.fp.data.dispatch( 'core/editor' ).autosave( { local: true } )
 		);
 
 		expect(
@@ -197,7 +197,7 @@ test.describe( 'Autosave', () => {
 		// Intercept autosave request and abort it.
 		await context.setOffline( true );
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave()
+			window.fp.data.dispatch( 'core/editor' ).autosave()
 		);
 
 		expect(
@@ -222,7 +222,7 @@ test.describe( 'Autosave', () => {
 
 		// Trigger local autosave.
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave( { local: true } )
+			window.fp.data.dispatch( 'core/editor' ).autosave( { local: true } )
 		);
 
 		expect(
@@ -258,7 +258,7 @@ test.describe( 'Autosave', () => {
 
 		// Trigger local autosave.
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave( { local: true } )
+			window.fp.data.dispatch( 'core/editor' ).autosave( { local: true } )
 		);
 
 		expect(
@@ -295,16 +295,16 @@ test.describe( 'Autosave', () => {
 
 		// Trigger remote autosave.
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave()
+			window.fp.data.dispatch( 'core/editor' ).autosave()
 		);
 
 		await expect
 			.poll( async () => {
 				return await page.evaluate( () => {
-					const postId = window.wp.data
+					const postId = window.fp.data
 						.select( 'core/editor' )
 						.getCurrentPostId();
-					const autosaves = window.wp.data
+					const autosaves = window.fp.data
 						.select( 'core' )
 						.getAutosaves( 'post', postId );
 
@@ -315,7 +315,7 @@ test.describe( 'Autosave', () => {
 
 		// Force conflicting local autosave.
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave( { local: true } )
+			window.fp.data.dispatch( 'core/editor' ).autosave( { local: true } )
 		);
 
 		expect(
@@ -323,7 +323,7 @@ test.describe( 'Autosave', () => {
 		).toBeGreaterThanOrEqual( 1 );
 
 		await page.reload();
-		await page.waitForFunction( () => window?.wp?.data );
+		await page.waitForFunction( () => window?.fp?.data );
 
 		// FIXME: Occasionally, upon reload, there is no server-provided
 		// autosave value available, despite our having previously explicitly
@@ -333,7 +333,7 @@ test.describe( 'Autosave', () => {
 		// available.
 		const stillHasRemoteAutosave = await page.evaluate(
 			() =>
-				window.wp.data.select( 'core/editor' ).getEditorSettings()
+				window.fp.data.select( 'core/editor' ).getEditorSettings()
 					.autosave
 		);
 		if ( ! stillHasRemoteAutosave ) {
@@ -362,14 +362,14 @@ test.describe( 'Autosave', () => {
 		await page.keyboard.type( ' after save' );
 
 		await page.evaluate( () =>
-			window.wp.data.dispatch( 'core/editor' ).autosave( { local: true } )
+			window.fp.data.dispatch( 'core/editor' ).autosave( { local: true } )
 		);
 		expect(
 			await page.evaluate( () => window.sessionStorage.length )
 		).toBe( 1 );
 
-		await page.locator( '#wp-admin-bar-my-account' ).hover();
-		await page.locator( '#wp-admin-bar-logout' ).click();
+		await page.locator( '#fp-admin-bar-my-account' ).hover();
+		await page.locator( '#fp-admin-bar-logout' ).click();
 
 		expect(
 			await page.evaluate( () => window.sessionStorage.length )

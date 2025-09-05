@@ -99,7 +99,7 @@ const v3 = {
 					{ displayPreview && (
 						<>
 							<object
-								className="wp-block-file__embed"
+								className="fp-block-file__embed"
 								data={ href }
 								type="application/pdf"
 								style={ {
@@ -128,7 +128,7 @@ const v3 = {
 						<a
 							href={ href }
 							className={ clsx(
-								'wp-block-file__button',
+								'fp-block-file__button',
 								__experimentalGetElementClassName( 'button' )
 							) }
 							download
@@ -143,7 +143,7 @@ const v3 = {
 	},
 };
 
-// In #41239 the button was made an element button which added a `wp-element-button` classname
+// In #41239 the button was made an element button which added a `fp-element-button` classname
 // to the download link element.
 const v2 = {
 	attributes: {
@@ -230,7 +230,7 @@ const v2 = {
 					{ displayPreview && (
 						<>
 							<object
-								className="wp-block-file__embed"
+								className="fp-block-file__embed"
 								data={ href }
 								type="application/pdf"
 								style={ {
@@ -258,7 +258,7 @@ const v2 = {
 					{ showDownloadButton && (
 						<a
 							href={ href }
-							className="wp-block-file__button"
+							className="fp-block-file__button"
 							download
 							aria-describedby={ describedById }
 						>
@@ -344,7 +344,7 @@ const v1 = {
 					{ displayPreview && (
 						<>
 							<object
-								className="wp-block-file__embed"
+								className="fp-block-file__embed"
 								data={ href }
 								type="application/pdf"
 								style={ {
@@ -371,7 +371,7 @@ const v1 = {
 					{ showDownloadButton && (
 						<a
 							href={ href }
-							className="wp-block-file__button"
+							className="fp-block-file__button"
 							download
 						>
 							<RichText.Content value={ downloadButtonText } />

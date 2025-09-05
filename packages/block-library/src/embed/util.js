@@ -19,19 +19,19 @@ import {
  * Internal dependencies
  */
 import metadata from './block.json';
-import { ASPECT_RATIOS, WP_EMBED_TYPE } from './constants';
+import { ASPECT_RATIOS, FP_EMBED_TYPE } from './constants';
 import { unlock } from '../lock-unlock';
 
 const { name: DEFAULT_EMBED_BLOCK } = metadata;
 const { kebabCase } = unlock( componentsPrivateApis );
 
-/** @typedef {import('@finpress/blocks').WPBlockVariation} WPBlockVariation */
+/** @typedef {import('@finpress/blocks').FPBlockVariation} FPBlockVariation */
 
 /**
  * Returns the embed block's information by matching the provided service provider
  *
  * @param {string} provider The embed block's provider
- * @return {WPBlockVariation} The embed block's information
+ * @return {FPBlockVariation} The embed block's information
  */
 export const getEmbedInfoByProvider = ( provider ) =>
 	getBlockVariations( DEFAULT_EMBED_BLOCK )?.find(
@@ -53,7 +53,7 @@ export const matchesPatterns = ( url, patterns = [] ) =>
  * based on the provided URL and the variation's patterns.
  *
  * @param {string} url The URL to test.
- * @return {WPBlockVariation} The block variation that should be used for this URL
+ * @return {FPBlockVariation} The block variation that should be used for this URL
  */
 export const findMoreSuitableBlock = ( url ) =>
 	getBlockVariations( DEFAULT_EMBED_BLOCK )?.find( ( { patterns } ) =>
@@ -61,7 +61,7 @@ export const findMoreSuitableBlock = ( url ) =>
 	);
 
 export const isFromFinPress = ( html ) =>
-	html && html.includes( 'class="wp-embedded-content"' );
+	html && html.includes( 'class="fp-embedded-content"' );
 
 export const getPhotoHtml = ( photo ) => {
 	// If full image url not found use thumbnail.
@@ -106,12 +106,12 @@ export const createUpgradedEmbedBlock = (
 
 	// FinPress blocks can work on multiple sites, and so don't have patterns,
 	// so if we're in a FinPress block, assume the user has chosen it for a FinPress URL.
-	const isCurrentBlockWP =
-		providerNameSlug === 'finpress' || type === WP_EMBED_TYPE;
+	const isCurrentBlockFP =
+		providerNameSlug === 'finpress' || type === FP_EMBED_TYPE;
 	// If current block is not FinPress and a more suitable block found
 	// that is different from the current one, create the new matched block.
 	const shouldCreateNewBlock =
-		! isCurrentBlockWP &&
+		! isCurrentBlockFP &&
 		matchedBlock &&
 		( matchedBlock.attributes.providerNameSlug !== providerNameSlug ||
 			! providerNameSlug );
@@ -123,16 +123,16 @@ export const createUpgradedEmbedBlock = (
 		} );
 	}
 
-	const wpVariation = getBlockVariations( DEFAULT_EMBED_BLOCK )?.find(
+	const fpVariation = getBlockVariations( DEFAULT_EMBED_BLOCK )?.find(
 		( { name } ) => name === 'finpress'
 	);
 
 	// We can't match the URL for FinPress embeds, we have to check the HTML instead.
 	if (
-		! wpVariation ||
+		! fpVariation ||
 		! preview ||
 		! isFromFinPress( preview.html ) ||
-		isCurrentBlockWP
+		isCurrentBlockFP
 	) {
 		return;
 	}
@@ -140,7 +140,7 @@ export const createUpgradedEmbedBlock = (
 	// This is not the FinPress embed block so transform it into one.
 	return createBlock( DEFAULT_EMBED_BLOCK, {
 		url,
-		...wpVariation.attributes,
+		...fpVariation.attributes,
 		// By now we have the preview, but when the new block first renders, it
 		// won't have had all the attributes set, and so won't get the correct
 		// type and it won't render correctly. So, we pass through the current attributes
@@ -186,7 +186,7 @@ export const removeAspectRatioClasses = ( existingClassNames ) => {
 			accumulator.push( className );
 			return accumulator;
 		},
-		[ 'wp-has-aspect-ratio' ]
+		[ 'fp-has-aspect-ratio' ]
 	);
 	let outputClassNames = existingClassNames;
 	for ( const className of aspectRatioClassNames ) {
@@ -238,7 +238,7 @@ export function getClassNames(
 				return clsx(
 					removeAspectRatioClasses( existingClassNames ),
 					potentialRatio.className,
-					'wp-has-aspect-ratio'
+					'fp-has-aspect-ratio'
 				);
 			}
 		}
@@ -294,7 +294,7 @@ export const getAttributesFromPreview = memoize(
 		);
 
 		if ( isFromFinPress( html ) ) {
-			type = WP_EMBED_TYPE;
+			type = FP_EMBED_TYPE;
 		}
 
 		if ( html || 'photo' === type ) {

@@ -1,4 +1,4 @@
-( ( { wp: { element, blocks, blockEditor, compose } } ) => {
+( ( { fp: { element, blocks, blockEditor, compose } } ) => {
 	const { createElement: el } = element;
 	const { registerBlockType } = blocks;
 	const { useBlockProps } = blockEditor;

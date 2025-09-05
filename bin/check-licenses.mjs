@@ -13,7 +13,7 @@ import { checkDepsInTree } from '../packages/scripts/utils/license.js';
 const ignored = [ '@ampproject/remapping', 'webpack' ];
 
 /*
- * `wp-scripts check-licenses` uses prod and dev dependencies of the package to scan for dependencies. With npm workspaces, workspace packages (the @finpress/* packages) are not listed in the main package json and this approach does not work.
+ * `fp-scripts check-licenses` uses prod and dev dependencies of the package to scan for dependencies. With npm workspaces, workspace packages (the @finpress/* packages) are not listed in the main package json and this approach does not work.
  *
  * Instead, work from an npm query that uses some custom information in package.json files to declare packages that are shipped with FinPress (and must be GPLv2 compatible) or other files that may use more permissive licenses.
  */
@@ -29,7 +29,7 @@ const workspacePackages = JSON.parse(
 		'npm',
 		[
 			'query',
-			'.workspace:attr([wpScript]), .workspace:attr([wpScriptModuleExports])',
+			'.workspace:attr([fpScript]), .workspace:attr([fpScriptModuleExports])',
 		],
 		/*
 		 * Set the max buffer to ~157MB, since the output size for

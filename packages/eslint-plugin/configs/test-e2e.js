@@ -6,6 +6,6 @@ module.exports = {
 	globals: {
 		browser: 'readonly',
 		page: 'readonly',
-		wp: 'readonly',
+		fp: 'readonly',
 	},
 };

@@ -26,7 +26,7 @@ import useEntityBlockEditor from '../hooks/use-entity-block-editor';
 const postTypeConfig = {
 	kind: 'postType',
 	name: 'post',
-	baseURL: '/wp/v2/posts',
+	baseURL: '/fp/v2/posts',
 	transientEdits: { blocks: true, selection: true },
 	mergedEdits: { meta: true },
 	rawAttributes: [ 'title', 'excerpt', 'content' ],
@@ -46,7 +46,7 @@ const aSinglePost = {
 	id: 1,
 	type: 'post',
 	content: {
-		raw: '<!-- wp:test-block-with-array-of-strings --><div><p>apples</p><p></p><p>oranges</p></div><!-- /wp:test-block-with-array-of-strings --><!-- wp:test-block --><p>A paragraph</p><!-- /wp:test-block -->',
+		raw: '<!-- fp:test-block-with-array-of-strings --><div><p>apples</p><p></p><p>oranges</p></div><!-- /fp:test-block-with-array-of-strings --><!-- fp:test-block --><p>A paragraph</p><!-- /fp:test-block -->',
 		rendered: '<p>A paragraph</p>',
 	},
 	meta: {
@@ -215,7 +215,7 @@ describe( 'useEntityBlockEditor', () => {
 					id: 1,
 					type: 'post',
 					content: {
-						raw: '<!-- wp:test-block --><p>A paragraph<sup data-fn="abcd" class="fn"><a href="#abcd" id="abcd-link">1</a></sup></p><!-- /wp:test-block -->',
+						raw: '<!-- fp:test-block --><p>A paragraph<sup data-fn="abcd" class="fn"><a href="#abcd" id="abcd-link">1</a></sup></p><!-- /fp:test-block -->',
 						rendered: '<p>A paragraph</p>',
 					},
 					meta: {

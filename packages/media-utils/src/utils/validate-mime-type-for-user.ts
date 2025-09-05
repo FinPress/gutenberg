@@ -13,14 +13,14 @@ import { getMimeTypesArray } from './get-mime-types-array';
  * Verifies if the user is allowed to upload this mime type.
  *
  * @param file               File object.
- * @param wpAllowedMimeTypes List of allowed mime types and file extensions.
+ * @param fpAllowedMimeTypes List of allowed mime types and file extensions.
  */
 export function validateMimeTypeForUser(
 	file: File,
-	wpAllowedMimeTypes?: Record< string, string > | null
+	fpAllowedMimeTypes?: Record< string, string > | null
 ) {
-	// Allowed types for the current WP_User.
-	const allowedMimeTypesForUser = getMimeTypesArray( wpAllowedMimeTypes );
+	// Allowed types for the current FP_User.
+	const allowedMimeTypesForUser = getMimeTypesArray( fpAllowedMimeTypes );
 
 	if ( ! allowedMimeTypesForUser ) {
 		return;

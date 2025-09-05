@@ -11,7 +11,7 @@ import {
 } from '@finpress/core-data';
 import { __ } from '@finpress/i18n';
 import { store as preferencesStore } from '@finpress/preferences';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { store as blocksStore } from '@finpress/blocks';
 import {
 	privateApis,
@@ -33,7 +33,7 @@ const EMPTY_OBJECT = {};
 function __experimentalReusableBlocksSelect( select ) {
 	const { RECEIVE_INTERMEDIATE_RESULTS } = unlock( coreDataPrivateApis );
 	const { getEntityRecords } = select( coreStore );
-	return getEntityRecords( 'postType', 'wp_block', {
+	return getEntityRecords( 'postType', 'fp_block', {
 		per_page: -1,
 		[ RECEIVE_INTERMEDIATE_RESULTS ]: true,
 	} );
@@ -108,7 +108,7 @@ const {
  * @return {Object} Block Editor Settings.
  */
 function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 	const {
 		allowRightClickOverrides,
 		blockTypes,
@@ -168,10 +168,10 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 					'postType',
 					postType,
 					postId
-				)?._links?.hasOwnProperty( 'wp:action-unfiltered-html' ),
+				)?._links?.hasOwnProperty( 'fp:action-unfiltered-html' ),
 				focusMode: get( 'core', 'focusMode' ),
 				hasFixedToolbar:
-					get( 'core', 'fixedToolbar' ) || ! isLargeViewport,
+					get( 'core', 'fixedToolbar' ) || ! isLargeviewport,
 				hiddenBlockTypes: get( 'core', 'hiddenBlockTypes' ),
 				isDistractionFree: get( 'core', 'distractionFree' ),
 				keepCaretInsideBlock: get( 'core', 'keepCaretInsideBlock' ),
@@ -191,7 +191,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 				sectionRootClientId: getSectionRootBlock(),
 			};
 		},
-		[ postType, postId, isLargeViewport, renderingMode ]
+		[ postType, postId, isLargeviewport, renderingMode ]
 	);
 
 	const { merged: mergedGlobalStyles } = useGlobalStylesContext();
@@ -199,11 +199,11 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 	const globalStylesLinksData = mergedGlobalStyles._links ?? EMPTY_OBJECT;
 
 	const settingsBlockPatterns =
-		settings.__experimentalAdditionalBlockPatterns ?? // WP 6.0
-		settings.__experimentalBlockPatterns; // WP 5.9
+		settings.__experimentalAdditionalBlockPatterns ?? // FP 6.0
+		settings.__experimentalBlockPatterns; // FP 5.9
 	const settingsBlockPatternCategories =
-		settings.__experimentalAdditionalBlockPatternCategories ?? // WP 6.0
-		settings.__experimentalBlockPatternCategories; // WP 5.9
+		settings.__experimentalAdditionalBlockPatternCategories ?? // FP 6.0
+		settings.__experimentalBlockPatternCategories; // FP 5.9
 
 	const blockPatterns = useMemo(
 		() =>
@@ -320,23 +320,23 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			__experimentalUndo: undo,
 			// Check whether we want all site editor frames to have outlines
 			// including the navigation / pattern / parts editors.
-			outlineMode: ! isDistractionFree && postType === 'wp_template',
+			outlineMode: ! isDistractionFree && postType === 'fp_template',
 			// Check these two properties: they were not present in the site editor.
 			__experimentalCreatePageEntity: createPageEntity,
 			__experimentalUserCanCreatePages: userCanCreatePages,
 			pageOnFront,
 			pageForPosts,
-			__experimentalPreferPatternsOnRoot: postType === 'wp_template',
+			__experimentalPreferPatternsOnRoot: postType === 'fp_template',
 			templateLock:
-				postType === 'wp_navigation' ? 'insert' : settings.templateLock,
+				postType === 'fp_navigation' ? 'insert' : settings.templateLock,
 			template:
-				postType === 'wp_navigation'
+				postType === 'fp_navigation'
 					? [ [ 'core/navigation', {}, [] ] ]
 					: settings.template,
 			__experimentalSetIsInserterOpened: setIsInserterOpened,
 			[ sectionRootClientIdKey ]: sectionRootClientId,
 			editorTool:
-				renderingMode === 'post-only' && postType !== 'wp_template'
+				renderingMode === 'post-only' && postType !== 'fp_template'
 					? 'edit'
 					: undefined,
 		};

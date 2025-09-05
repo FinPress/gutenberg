@@ -27,7 +27,7 @@ export function useShouldIframe() {
 			// editor features and modes such as device previews, zoom out, and
 			// template/pattern editing.
 			getDeviceType() !== 'Desktop' ||
-			[ 'wp_template', 'wp_block' ].includes( getCurrentPostType() ) ||
+			[ 'fp_template', 'fp_block' ].includes( getCurrentPostType() ) ||
 			unlock( select( blockEditorStore ) ).isZoomOut() ||
 			// Finally, still iframe the editor if all blocks are v3 (which means
 			// they are marked as iframe-compatible).

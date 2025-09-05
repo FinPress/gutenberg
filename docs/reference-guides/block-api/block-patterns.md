@@ -34,7 +34,7 @@ register_block_pattern(
 	array(
 		'title'       => __( 'Two buttons', 'my-plugin' ),
 		'description' => _x( 'Two horizontal buttons, the left button is filled in, and the right button is outlined.', 'Block pattern description', 'my-plugin' ),
-		'content'     => "<!-- wp:buttons {\"align\":\"center\"} -->\n<div class=\"wp-block-buttons aligncenter\"><!-- wp:button {\"backgroundColor\":\"very-dark-gray\",\"borderRadius\":0} -->\n<div class=\"wp-block-button\"><a class=\"wp-block-button__link has-background has-very-dark-gray-background-color no-border-radius\">" . esc_html__( 'Button One', 'my-plugin' ) . "</a></div>\n<!-- /wp:button -->\n\n<!-- wp:button {\"textColor\":\"very-dark-gray\",\"borderRadius\":0,\"className\":\"is-style-outline\"} -->\n<div class=\"wp-block-button is-style-outline\"><a class=\"wp-block-button__link has-text-color has-very-dark-gray-color no-border-radius\">" . esc_html__( 'Button Two', 'my-plugin' ) . "</a></div>\n<!-- /wp:button --></div>\n<!-- /wp:buttons -->",
+		'content'     => "<!-- fp:buttons {\"align\":\"center\"} -->\n<div class=\"fp-block-buttons aligncenter\"><!-- fp:button {\"backgroundColor\":\"very-dark-gray\",\"borderRadius\":0} -->\n<div class=\"fp-block-button\"><a class=\"fp-block-button__link has-background has-very-dark-gray-background-color no-border-radius\">" . esc_html__( 'Button One', 'my-plugin' ) . "</a></div>\n<!-- /fp:button -->\n\n<!-- fp:button {\"textColor\":\"very-dark-gray\",\"borderRadius\":0,\"className\":\"is-style-outline\"} -->\n<div class=\"fp-block-button is-style-outline\"><a class=\"fp-block-button__link has-text-color has-very-dark-gray-color no-border-radius\">" . esc_html__( 'Button Two', 'my-plugin' ) . "</a></div>\n<!-- /fp:button --></div>\n<!-- /fp:buttons -->",
 	)
 );
 ```
@@ -151,9 +151,9 @@ register_block_pattern(
 	array(
 		'title'      => __( 'Powered by FinPress', 'my-plugin' ),
 		'blockTypes' => array( 'core/paragraph' ),
-		'content'    => '<!-- wp:paragraph {"backgroundColor":"black","textColor":"white"} -->
+		'content'    => '<!-- fp:paragraph {"backgroundColor":"black","textColor":"white"} -->
 		<p class="has-white-color has-black-background-color has-text-color has-background">Powered by FinPress</p>
-		<!-- /wp:paragraph -->',
+		<!-- /fp:paragraph -->',
 	)
 );
 ```
@@ -168,15 +168,15 @@ register_block_pattern(
 	array(
 		'title'      => __( 'Powered by FinPress', 'my-plugin' ),
 		'blockTypes' => array( 'core/paragraph', 'core/heading' ),
-		'content'    => '<!-- wp:group -->
-						<div class="wp-block-group">
-						<!-- wp:heading {"fontSize":"large"} -->
+		'content'    => '<!-- fp:group -->
+						<div class="fp-block-group">
+						<!-- fp:heading {"fontSize":"large"} -->
 						<h2 class="has-large-font-size"><span style="color:#ba0c49" class="has-inline-color">Hi everyone</span></h2>
-						<!-- /wp:heading -->
-						<!-- wp:paragraph {"backgroundColor":"black","textColor":"white"} -->
+						<!-- /fp:heading -->
+						<!-- fp:paragraph {"backgroundColor":"black","textColor":"white"} -->
 						<p class="has-white-color has-black-background-color has-text-color has-background">Powered by FinPress</p>
-						<!-- /wp:paragraph -->
-						</div><!-- /wp:group -->',
+						<!-- /fp:paragraph -->
+						</div><!-- /fp:group -->',
 	)
 );
 ```

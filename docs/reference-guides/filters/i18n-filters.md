@@ -64,7 +64,7 @@ function myPluginGettextFilter( translation, text, domain ) {
 }
 
 // Adding the filter
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'i18n.gettext',
 	'my-plugin/override-add-to-reusable-blocks-label',
 	myPluginGettextFilter
@@ -94,7 +94,7 @@ function myPluginGettextFilter( translation, text, domain ) {
 }
 
 // Adding the filter
-wp.hooks.addFilter(
+fp.hooks.addFilter(
 	'i18n.gettext_fincommerce',
 	'my-plugin/override-fulfilled-all-orders-text',
 	myPluginGettextFilter

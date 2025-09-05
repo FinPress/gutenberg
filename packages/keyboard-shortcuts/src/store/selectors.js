@@ -8,9 +8,9 @@ import {
 	rawShortcut,
 } from '@finpress/keycodes';
 
-/** @typedef {import('./actions').WPShortcutKeyCombination} WPShortcutKeyCombination */
+/** @typedef {import('./actions').FPShortcutKeyCombination} FPShortcutKeyCombination */
 
-/** @typedef {import('@finpress/keycodes').WPKeycodeHandlerByModifier} WPKeycodeHandlerByModifier */
+/** @typedef {import('@finpress/keycodes').FPKeycodeHandlerByModifier} FPKeycodeHandlerByModifier */
 
 /**
  * Shared reference to an empty array for cases where it is important to avoid
@@ -23,9 +23,9 @@ const EMPTY_ARRAY = [];
 /**
  * Shortcut formatting methods.
  *
- * @property {WPKeycodeHandlerByModifier} display     Display formatting.
- * @property {WPKeycodeHandlerByModifier} rawShortcut Raw shortcut formatting.
- * @property {WPKeycodeHandlerByModifier} ariaLabel   ARIA label formatting.
+ * @property {FPKeycodeHandlerByModifier} display     Display formatting.
+ * @property {FPKeycodeHandlerByModifier} rawShortcut Raw shortcut formatting.
+ * @property {FPKeycodeHandlerByModifier} ariaLabel   ARIA label formatting.
  */
 const FORMATTING_METHODS = {
 	display: displayShortcut,
@@ -36,7 +36,7 @@ const FORMATTING_METHODS = {
 /**
  * Returns a string representing the key combination.
  *
- * @param {?WPShortcutKeyCombination} shortcut       Key combination.
+ * @param {?FPShortcutKeyCombination} shortcut       Key combination.
  * @param {keyof FORMATTING_METHODS}  representation Type of representation
  *                                                   (display, raw, ariaLabel).
  *
@@ -93,7 +93,7 @@ function getKeyCombinationRepresentation( shortcut, representation ) {
  * };
  *```
  *
- * @return {WPShortcutKeyCombination?} Key combination.
+ * @return {FPShortcutKeyCombination?} Key combination.
  */
 export function getShortcutKeyCombination( state, name ) {
 	return state[ name ] ? state[ name ].keyCombination : null;
@@ -222,7 +222,7 @@ export function getShortcutDescription( state, name ) {
  * };
  *```
  *
- * @return {WPShortcutKeyCombination[]} Key combinations.
+ * @return {FPShortcutKeyCombination[]} Key combinations.
  */
 export function getShortcutAliases( state, name ) {
 	return state[ name ] && state[ name ].aliases
@@ -277,7 +277,7 @@ export function getShortcutAliases( state, name ) {
  * };
  *```
  *
- * @return {WPShortcutKeyCombination[]} Key combinations.
+ * @return {FPShortcutKeyCombination[]} Key combinations.
  */
 export const getAllShortcutKeyCombinations = createSelector(
 	( state, name ) => {

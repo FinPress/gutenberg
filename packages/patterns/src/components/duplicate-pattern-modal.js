@@ -24,7 +24,7 @@ function getTermLabels( pattern, categories ) {
 
 	return categories.user
 		?.filter( ( category ) =>
-			pattern.wp_pattern_category?.includes( category.id )
+			pattern.fp_pattern_category?.includes( category.id )
 		)
 		.map( ( category ) => category.label );
 }
@@ -49,7 +49,7 @@ export function useDuplicatePatternProps( { pattern, onSuccess } ) {
 		defaultSyncType:
 			pattern.type !== PATTERN_TYPES.user // Theme patterns are unsynced by default.
 				? PATTERN_SYNC_TYPES.unsynced
-				: pattern.wp_pattern_sync_status || PATTERN_SYNC_TYPES.full,
+				: pattern.fp_pattern_sync_status || PATTERN_SYNC_TYPES.full,
 		defaultTitle: sprintf(
 			/* translators: %s: Existing pattern title */
 			_x( '%s (Copy)', 'pattern' ),

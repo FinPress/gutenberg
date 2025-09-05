@@ -38,7 +38,7 @@ describe( 'listener hook tests', () => {
 		'core/viewport': {
 			...storeConfig,
 			selectors: {
-				isViewportMatch: jest.fn(),
+				isviewportMatch: jest.fn(),
 			},
 		},
 		'core/preferences': {

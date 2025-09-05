@@ -29,7 +29,7 @@ function PatternsManageButton( { clientId } ) {
 					isReusableBlock( reusableBlock ) &&
 					!! canUser( 'update', {
 						kind: 'postType',
-						name: 'wp_block',
+						name: 'fp_block',
 						id: reusableBlock.attributes.ref,
 					} ),
 				// The site editor and templates both check whether the user
@@ -37,13 +37,13 @@ function PatternsManageButton( { clientId } ) {
 				// and omit the manage patterns link if the user can't access it.
 				managePatternsUrl: canUser( 'create', {
 					kind: 'postType',
-					name: 'wp_template',
+					name: 'fp_template',
 				} )
 					? addQueryArgs( 'site-editor.php', {
 							p: '/pattern',
 					  } )
 					: addQueryArgs( 'edit.php', {
-							post_type: 'wp_block',
+							post_type: 'fp_block',
 					  } ),
 			};
 		},

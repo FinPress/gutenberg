@@ -11,14 +11,14 @@
  * Registers custom scripts for the plugin error boundary.
  */
 function enqueue_plugins_error_boundary_plugin_scripts() {
-	wp_enqueue_script(
+	fp_enqueue_script(
 		'gutenberg-test-plugin-plugins-error-boundary',
 		plugins_url( 'plugins-api/error-boundary.js', __FILE__ ),
 		array(
-			'wp-edit-post',
-			'wp-element',
-			'wp-i18n',
-			'wp-plugins',
+			'fp-edit-post',
+			'fp-element',
+			'fp-i18n',
+			'fp-plugins',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'plugins-api/error-boundary.js' ),
 		true

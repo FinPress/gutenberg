@@ -25,7 +25,7 @@
 	"main": "build/index.js",
 	"module": "build-module/index.js",
 	"react-native": "src/index",
-	"wpScriptModuleExports": {
+	"fpScriptModuleExports": {
 		".": "./build-module/index.js",
 		"./debug": "./build-module/debug.js"
 	},

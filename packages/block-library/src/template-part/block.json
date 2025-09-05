@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/template-part",
 	"title": "Template Part",
@@ -29,5 +29,5 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-template-part-editor"
+	"editorStyle": "fp-block-template-part-editor"
 }

@@ -14,7 +14,7 @@ import { lock, unlock } from './lock-unlock';
 /** @typedef {import('./types').StoreDescriptor} StoreDescriptor */
 
 /**
- * @typedef {Object} WPDataRegistry An isolated orchestrator of store registrations.
+ * @typedef {Object} FPDataRegistry An isolated orchestrator of store registrations.
  *
  * @property {Function} registerGenericStore Given a namespace key and settings
  *                                           object, registers a new generic
@@ -34,7 +34,7 @@ import { lock, unlock } from './lock-unlock';
  */
 
 /**
- * @typedef {Object} WPDataPlugin An object of registry function overrides.
+ * @typedef {Object} FPDataPlugin An object of registry function overrides.
  *
  * @property {Function} registerStore registers store.
  */
@@ -51,7 +51,7 @@ function getStoreName( storeNameOrDescriptor ) {
  * @param {Object}  storeConfigs Initial store configurations.
  * @param {?Object} parent       Parent registry.
  *
- * @return {WPDataRegistry} Data registry.
+ * @return {FPDataRegistry} Data registry.
  */
 export function createRegistry( storeConfigs = {}, parent = null ) {
 	const stores = {};
@@ -286,9 +286,9 @@ export function createRegistry( storeConfigs = {}, parent = null ) {
 	}
 
 	function registerGenericStore( name, store ) {
-		deprecated( 'wp.data.registerGenericStore', {
+		deprecated( 'fp.data.registerGenericStore', {
 			since: '5.9',
-			alternative: 'wp.data.register( storeDescriptor )',
+			alternative: 'fp.data.register( storeDescriptor )',
 		} );
 		registerStoreInstance( name, () => store );
 	}

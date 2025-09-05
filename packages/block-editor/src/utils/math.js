@@ -1,11 +1,11 @@
 /**
  * A string representing the name of an edge.
  *
- * @typedef {'top'|'right'|'bottom'|'left'} WPEdgeName
+ * @typedef {'top'|'right'|'bottom'|'left'} FPEdgeName
  */
 
 /**
- * @typedef  {Object} WPPoint
+ * @typedef  {Object} FPPoint
  * @property {number} x The horizontal position.
  * @property {number} y The vertical position.
  */
@@ -23,9 +23,9 @@
  * - Lateral, meaning the axis running vertically when an edge is vertical
  *   and horizontally when an edge is horizontal.
  *
- * @param {WPPoint}    point The point to measure distance from.
+ * @param {FPPoint}    point The point to measure distance from.
  * @param {DOMRect}    rect  A DOM Rect containing edge positions.
- * @param {WPEdgeName} edge  The edge to measure to.
+ * @param {FPEdgeName} edge  The edge to measure to.
  */
 export function getDistanceFromPointToEdge( point, rect, edge ) {
 	const isHorizontal = edge === 'top' || edge === 'bottom';
@@ -62,9 +62,9 @@ export function getDistanceFromPointToEdge( point, rect, edge ) {
  * Given a point, a DOMRect and a list of allowed edges returns the name of and
  * distance to the nearest edge.
  *
- * @param {WPPoint}      point        The point to measure distance from.
+ * @param {FPPoint}      point        The point to measure distance from.
  * @param {DOMRect}      rect         A DOM Rect containing edge positions.
- * @param {WPEdgeName[]} allowedEdges A list of the edges included in the
+ * @param {FPEdgeName[]} allowedEdges A list of the edges included in the
  *                                    calculation. Defaults to all edges.
  *
  * @return {[number, string]} An array where the first value is the distance
@@ -93,7 +93,7 @@ export function getDistanceToNearestEdge(
 /**
  * Is the point contained by the rectangle.
  *
- * @param {WPPoint} point The point.
+ * @param {FPPoint} point The point.
  * @param {DOMRect} rect  The rectangle.
  *
  * @return {boolean} True if the point is contained by the rectangle, false otherwise.
@@ -110,7 +110,7 @@ export function isPointContainedByRect( point, rect ) {
 /**
  * Is the point within the top and bottom boundaries of the rectangle.
  *
- * @param {WPPoint} point The point.
+ * @param {FPPoint} point The point.
  * @param {DOMRect} rect  The rectangle.
  *
  * @return {boolean} True if the point is within top and bottom of rectangle, false otherwise.

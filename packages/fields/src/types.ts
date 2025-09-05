@@ -59,7 +59,7 @@ export interface BasePostWithEmbeddedAuthor extends BasePost {
 }
 
 export interface Template extends CommonPost {
-	type: 'wp_template';
+	type: 'fp_template';
 	is_custom: boolean;
 	source: string;
 	origin: string;
@@ -69,7 +69,7 @@ export interface Template extends CommonPost {
 }
 
 export interface TemplatePart extends CommonPost {
-	type: 'wp_template_part';
+	type: 'fp_template_part';
 	source: string;
 	origin: string;
 	has_theme_file: boolean;
@@ -81,7 +81,7 @@ export interface TemplatePart extends CommonPost {
 export interface Pattern extends CommonPost {
 	slug: string;
 	title: { raw: string };
-	wp_pattern_sync_status: string;
+	fp_pattern_sync_status: string;
 }
 
 export type Post = Template | TemplatePart | Pattern | BasePost;

@@ -20,7 +20,7 @@ Reusable blocks are FinPress entities and the following is enough to ensure they
 
 ```js
 const { __experimentalReusableBlocks } = useSelect( ( select ) =>
-	select( 'core' ).getEntityRecords( 'postType', 'wp_block' )
+	select( 'core' ).getEntityRecords( 'postType', 'fp_block' )
 );
 
 return (
@@ -43,7 +43,7 @@ With the above configuration management features (such as creating new reusable 
 import { ReusableBlocksMenuItems } from '@finpress/reusable-blocks';
 
 const { __experimentalReusableBlocks } = useSelect( ( select ) =>
-	select( 'core' ).getEntityRecords( 'postType', 'wp_block' )
+	select( 'core' ).getEntityRecords( 'postType', 'fp_block' )
 );
 
 return (

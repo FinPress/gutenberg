@@ -38,7 +38,7 @@ export function htmlToBlocks( html, handler ) {
 			// instead of creating the block to generate it as an unsupported block.
 			if ( Platform.isNative ) {
 				return parse(
-					`<!-- wp:html -->${ node.outerHTML }<!-- /wp:html -->`
+					`<!-- fp:html -->${ node.outerHTML }<!-- /fp:html -->`
 				);
 			}
 			return createBlock(

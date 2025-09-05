@@ -201,7 +201,7 @@ describe( 'persistence', () => {
 		const state = 1;
 		const reducer = () => state;
 
-		objectStorage.setItem( 'WP_DATA', JSON.stringify( { test: state } ) );
+		objectStorage.setItem( 'FP_DATA', JSON.stringify( { test: state } ) );
 		objectStorage.setItem.mockClear();
 
 		registry.registerStore( 'test', {
@@ -238,7 +238,7 @@ describe( 'persistence', () => {
 		registry.dispatch( 'test' ).setState( { ok: true } );
 
 		expect( objectStorage.setItem ).toHaveBeenCalledWith(
-			'WP_DATA',
+			'FP_DATA',
 			'{"test":{"ok":true}}'
 		);
 	} );
@@ -262,7 +262,7 @@ describe( 'persistence', () => {
 		registry.dispatch( 'test' ).setState( { foo: 1, baz: 2 } );
 
 		expect( objectStorage.setItem ).toHaveBeenCalledWith(
-			'WP_DATA',
+			'FP_DATA',
 			'{"test":{"foo":1}}'
 		);
 	} );

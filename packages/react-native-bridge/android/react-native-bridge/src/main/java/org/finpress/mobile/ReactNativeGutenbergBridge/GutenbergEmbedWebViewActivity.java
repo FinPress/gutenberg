@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class GutenbergEmbedWebViewActivity extends AppCompatActivity {
     public static final String ARG_CONTENT = "content";
     public static final String ARG_TITLE = "title";
-    private static final String JAVA_SCRIPT_INTERFACE_NAME = "wpwebkit";
+    private static final String JAVA_SCRIPT_INTERFACE_NAME = "fpwebkit";
 
     protected WebView mWebView;
 

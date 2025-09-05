@@ -13,7 +13,7 @@
  *
  * @param array    $attributes The block attributes.
  * @param string   $content    The block content.
- * @param WP_Block $block      The block object.
+ * @param FP_Block $block      The block object.
  *
  * @return string The block content with the data-id attribute added.
  */
@@ -22,7 +22,7 @@ function render_block_core_image( $attributes, $content, $block ) {
 		return '';
 	}
 
-	$p = new WP_HTML_Tag_Processor( $content );
+	$p = new FP_HTML_Tag_Processor( $content );
 
 	if ( ! $p->next_tag( 'img' ) || ! $p->get_attribute( 'src' ) ) {
 		return '';
@@ -30,16 +30,16 @@ function render_block_core_image( $attributes, $content, $block ) {
 
 	$has_id_binding = isset( $attributes['metadata']['bindings']['id'] ) && isset( $attributes['id'] );
 
-	// Ensure the `wp-image-id` classname on the image block supports block bindings.
+	// Ensure the `fp-image-id` classname on the image block supports block bindings.
 	if ( $has_id_binding ) {
-		// If there's a mismatch with the 'wp-image-' class and the actual id, the id was
+		// If there's a mismatch with the 'fp-image-' class and the actual id, the id was
 		// probably overridden by block bindings. Update it to the correct value.
 		// See https://github.com/FinPress/gutenberg/issues/62886 for why this is needed.
 		$id                       = $attributes['id'];
 		$image_classnames         = $p->get_attribute( 'class' );
-		$class_with_binding_value = "wp-image-$id";
+		$class_with_binding_value = "fp-image-$id";
 		if ( is_string( $image_classnames ) && ! str_contains( $image_classnames, $class_with_binding_value ) ) {
-			$image_classnames = preg_replace( '/wp-image-(\d+)/', $class_with_binding_value, $image_classnames );
+			$image_classnames = preg_replace( '/fp-image-(\d+)/', $class_with_binding_value, $image_classnames );
 			$p->set_attribute( 'class', $image_classnames );
 		}
 	}
@@ -70,7 +70,7 @@ function render_block_core_image( $attributes, $content, $block ) {
 		isset( $lightbox_settings['enabled'] ) &&
 		true === $lightbox_settings['enabled']
 	) {
-		wp_enqueue_script_module( '@finpress/block-library/image/view' );
+		fp_enqueue_script_module( '@finpress/block-library/image/view' );
 
 		/*
 		 * This render needs to happen in a filter with priority 15 to ensure that
@@ -109,16 +109,16 @@ function block_core_image_get_lightbox_settings( $block ) {
 	}
 
 	if ( ! isset( $lightbox_settings ) ) {
-		$lightbox_settings = wp_get_global_settings( array( 'lightbox' ), array( 'block_name' => 'core/image' ) );
+		$lightbox_settings = fp_get_global_settings( array( 'lightbox' ), array( 'block_name' => 'core/image' ) );
 
 		// If not present in global settings, check the top-level global settings.
 		//
 		// NOTE: If no block-level settings are found, the previous call to
-		// `wp_get_global_settings` will return the whole `theme.json` structure in
+		// `fp_get_global_settings` will return the whole `theme.json` structure in
 		// which case we can check if the "lightbox" key is present at the top-level
 		// of the global settings and use its value.
 		if ( isset( $lightbox_settings['lightbox'] ) ) {
-			$lightbox_settings = wp_get_global_settings( array( 'lightbox' ) );
+			$lightbox_settings = fp_get_global_settings( array( 'lightbox' ) );
 		}
 	}
 
@@ -141,7 +141,7 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 	 * as-is. There's nothing that this code can knowingly modify to add the
 	 * lightbox behavior.
 	 */
-	$p = new WP_HTML_Tag_Processor( $block_content );
+	$p = new FP_HTML_Tag_Processor( $block_content );
 	if ( $p->next_tag( 'figure' ) ) {
 		$p->set_bookmark( 'figure' );
 	}
@@ -159,8 +159,8 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 	$dialog_aria_label = __( 'Enlarged image' );
 
 	if ( isset( $block['attrs']['id'] ) ) {
-		$img_uploaded_src = wp_get_attachment_url( $block['attrs']['id'] );
-		$img_metadata     = wp_get_attachment_metadata( $block['attrs']['id'] );
+		$img_uploaded_src = fp_get_attachment_url( $block['attrs']['id'] );
+		$img_metadata     = fp_get_attachment_metadata( $block['attrs']['id'] );
 		$img_width        = $img_metadata['width'] ?? 'none';
 		$img_height       = $img_metadata['height'] ?? 'none';
 	}
@@ -173,7 +173,7 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 	// Create unique id and set the image metadata in the state.
 	$unique_image_id = uniqid();
 
-	wp_interactivity_state(
+	fp_interactivity_state(
 		'core/image',
 		array(
 			'metadata' => array(
@@ -193,30 +193,30 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 		)
 	);
 
-	$p->add_class( 'wp-lightbox-container' );
-	$p->set_attribute( 'data-wp-interactive', 'core/image' );
+	$p->add_class( 'fp-lightbox-container' );
+	$p->set_attribute( 'data-fp-interactive', 'core/image' );
 	$p->set_attribute(
-		'data-wp-context',
-		wp_json_encode(
+		'data-fp-context',
+		fp_json_encode(
 			array(
 				'imageId' => $unique_image_id,
 			),
 			JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
 		)
 	);
-	$p->set_attribute( 'data-wp-key', $unique_image_id );
+	$p->set_attribute( 'data-fp-key', $unique_image_id );
 
 	// Image.
 	$p->next_tag( 'img' );
-	$p->set_attribute( 'data-wp-init', 'callbacks.setButtonStyles' );
-	$p->set_attribute( 'data-wp-on-async--load', 'callbacks.setButtonStyles' );
-	$p->set_attribute( 'data-wp-on-async-window--resize', 'callbacks.setButtonStyles' );
+	$p->set_attribute( 'data-fp-init', 'callbacks.setButtonStyles' );
+	$p->set_attribute( 'data-fp-on-async--load', 'callbacks.setButtonStyles' );
+	$p->set_attribute( 'data-fp-on-async-window--resize', 'callbacks.setButtonStyles' );
 	// Sets an event callback on the `img` because the `figure` element can also
 	// contain a caption, and we don't want to trigger the lightbox when the
 	// caption is clicked.
-	$p->set_attribute( 'data-wp-on-async--click', 'actions.showLightbox' );
-	$p->set_attribute( 'data-wp-class--hide', 'state.isContentHidden' );
-	$p->set_attribute( 'data-wp-class--show', 'state.isContentVisible' );
+	$p->set_attribute( 'data-fp-on-async--click', 'actions.showLightbox' );
+	$p->set_attribute( 'data-fp-class--hide', 'state.isContentHidden' );
+	$p->set_attribute( 'data-fp-class--show', 'state.isContentVisible' );
 
 	$body_content = $p->get_updated_html();
 
@@ -231,10 +231,10 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 			type="button"
 			aria-haspopup="dialog"
 			aria-label="' . esc_attr( $aria_label ) . '"
-			data-wp-init="callbacks.initTriggerButton"
-			data-wp-on-async--click="actions.showLightbox"
-			data-wp-style--right="state.imageButtonRight"
-			data-wp-style--top="state.imageButtonTop"
+			data-fp-init="callbacks.initTriggerButton"
+			data-fp-on-async--click="actions.showLightbox"
+			data-fp-style--right="state.imageButtonRight"
+			data-fp-style--top="state.imageButtonTop"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
 				<path fill="#fff" d="M2 0a2 2 0 0 0-2 2v2h1.5V2a.5.5 0 0 1 .5-.5h2V0H2Zm2 10.5H2a.5.5 0 0 1-.5-.5V8H0v2a2 2 0 0 0 2 2h2v-1.5ZM8 12v-1.5h2a.5.5 0 0 0 .5-.5V8H12v2a2 2 0 0 1-2 2H8Zm2-12a2 2 0 0 1 2 2v2h-1.5V2a.5.5 0 0 0-.5-.5H8V0h2Z" />
@@ -243,7 +243,7 @@ function block_core_image_render_lightbox( $block_content, $block ) {
 
 	$body_content = preg_replace( '/<img[^>]+>/', $button, $body_content );
 
-	add_action( 'wp_footer', 'block_core_image_print_lightbox_overlay' );
+	add_action( 'fp_footer', 'block_core_image_print_lightbox_overlay' );
 
 	return $body_content;
 }
@@ -259,8 +259,8 @@ function block_core_image_print_lightbox_overlay() {
 	// default values because it can't get them from the Global Styles.
 	$background_color   = '#fff';
 	$close_button_color = '#000';
-	if ( wp_theme_has_theme_json() ) {
-		$global_styles_color = wp_get_global_styles( array( 'color' ) );
+	if ( fp_theme_has_theme_json() ) {
+		$global_styles_color = fp_get_global_styles( array( 'color' ) );
 		if ( ! empty( $global_styles_color['background'] ) ) {
 			$background_color = esc_attr( $global_styles_color['background'] );
 		}
@@ -271,38 +271,38 @@ function block_core_image_print_lightbox_overlay() {
 
 	echo <<<HTML
 		<div
-			class="wp-lightbox-overlay zoom"
-			data-wp-interactive="core/image"
-			data-wp-router-region='{ "id": "core/image-overlay", "attachTo": "body" }'
-			data-wp-key="wp-lightbox-overlay"
-			data-wp-context='{}'
-			data-wp-bind--role="state.roleAttribute"
-			data-wp-bind--aria-label="state.currentImage.ariaLabel"
-			data-wp-bind--aria-modal="state.ariaModal"
-			data-wp-class--active="state.overlayEnabled"
-			data-wp-class--show-closing-animation="state.overlayOpened"
-			data-wp-watch="callbacks.setOverlayFocus"
-			data-wp-on--keydown="actions.handleKeydown"
-			data-wp-on-async--touchstart="actions.handleTouchStart"
-			data-wp-on--touchmove="actions.handleTouchMove"
-			data-wp-on-async--touchend="actions.handleTouchEnd"
-			data-wp-on-async--click="actions.hideLightbox"
-			data-wp-on-async-window--resize="callbacks.setOverlayStyles"
-			data-wp-on-async-window--scroll="actions.handleScroll"
-			data-wp-bind--style="state.overlayStyles"
+			class="fp-lightbox-overlay zoom"
+			data-fp-interactive="core/image"
+			data-fp-router-region='{ "id": "core/image-overlay", "attachTo": "body" }'
+			data-fp-key="fp-lightbox-overlay"
+			data-fp-context='{}'
+			data-fp-bind--role="state.roleAttribute"
+			data-fp-bind--aria-label="state.currentImage.ariaLabel"
+			data-fp-bind--aria-modal="state.ariaModal"
+			data-fp-class--active="state.overlayEnabled"
+			data-fp-class--show-closing-animation="state.overlayOpened"
+			data-fp-watch="callbacks.setOverlayFocus"
+			data-fp-on--keydown="actions.handleKeydown"
+			data-fp-on-async--touchstart="actions.handleTouchStart"
+			data-fp-on--touchmove="actions.handleTouchMove"
+			data-fp-on-async--touchend="actions.handleTouchEnd"
+			data-fp-on-async--click="actions.hideLightbox"
+			data-fp-on-async-window--resize="callbacks.setOverlayStyles"
+			data-fp-on-async-window--scroll="actions.handleScroll"
+			data-fp-bind--style="state.overlayStyles"
 			tabindex="-1"
 			>
 				<button type="button" aria-label="$close_button_label" style="fill: $close_button_color" class="close-button">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z"></path></svg>
 				</button>
 				<div class="lightbox-image-container">
-					<figure data-wp-bind--class="state.currentImage.figureClassNames" data-wp-bind--style="state.figureStyles">
-						<img data-wp-bind--alt="state.currentImage.alt" data-wp-bind--class="state.currentImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.currentImage.currentSrc">
+					<figure data-fp-bind--class="state.currentImage.figureClassNames" data-fp-bind--style="state.figureStyles">
+						<img data-fp-bind--alt="state.currentImage.alt" data-fp-bind--class="state.currentImage.imgClassNames" data-fp-bind--style="state.imgStyles" data-fp-bind--src="state.currentImage.currentSrc">
 					</figure>
 				</div>
 				<div class="lightbox-image-container">
-					<figure data-wp-bind--class="state.currentImage.figureClassNames" data-wp-bind--style="state.figureStyles">
-						<img data-wp-bind--alt="state.currentImage.alt" data-wp-bind--class="state.currentImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.enlargedSrc">
+					<figure data-fp-bind--class="state.currentImage.figureClassNames" data-fp-bind--style="state.figureStyles">
+						<img data-fp-bind--alt="state.currentImage.alt" data-fp-bind--class="state.currentImage.imgClassNames" data-fp-bind--style="state.imgStyles" data-fp-bind--src="state.enlargedSrc">
 					</figure>
 				</div>
 				<div class="scrim" style="background-color: $background_color" aria-hidden="true"></div>

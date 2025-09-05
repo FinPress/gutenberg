@@ -22,7 +22,7 @@ Create the live regions.
 
 ### speak
 
-Allows you to easily announce dynamic interface updates to screen readers using ARIA live regions. This module is inspired by the `speak` function in `wp-a11y.js`.
+Allows you to easily announce dynamic interface updates to screen readers using ARIA live regions. This module is inspired by the `speak` function in `fp-a11y.js`.
 
 _Usage_
 
@@ -61,7 +61,7 @@ For context I’ll quote [this article on FinPress.org](https://make.finpress.or
 >
 > #### How.
 >
-> That’s what `wp.a11y.speak()` is meant for. It’s a simple tool that creates and appends an ARIA live notifications area to the <body> element where developers can dispatch text messages. Assistive technologies will automatically announce any text change in this area. This ARIA live region has an ARIA role of “status” so it has an implicit aria-live value of polite and an implicit aria-atomic value of true.
+> That’s what `fp.a11y.speak()` is meant for. It’s a simple tool that creates and appends an ARIA live notifications area to the <body> element where developers can dispatch text messages. Assistive technologies will automatically announce any text change in this area. This ARIA live region has an ARIA role of “status” so it has an implicit aria-live value of polite and an implicit aria-atomic value of true.
 >
 > This means assistive technologies will notify users of updates but generally do not interrupt the current task, and updates take low priority. If you’re creating an application with higher priority updates (such as a notification that their current session is about to expire, for example), then you’ll want to create your own method with an aria-live value of assertive.
 

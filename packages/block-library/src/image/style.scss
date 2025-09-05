@@ -1,4 +1,4 @@
-.wp-block-image {
+.fp-block-image {
 
 	> a,
 	> figure > a {
@@ -126,17 +126,17 @@
 }
 
 // Variations
-:root :where(.wp-block-image.is-style-rounded img, .wp-block-image .is-style-rounded img) {
+:root :where(.fp-block-image.is-style-rounded img, .fp-block-image .is-style-rounded img) {
 	// We use an absolute pixel to prevent the oval shape that a value of 50% would give
 	// to rectangular images. A pill-shape is better than otherwise.
 	border-radius: 9999px;
 }
 
-.wp-block-image figure {
+.fp-block-image figure {
 	margin: 0;
 }
 
-.wp-lightbox-container {
+.fp-lightbox-container {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -195,7 +195,7 @@
 	}
 }
 
-.wp-lightbox-overlay {
+.fp-lightbox-overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -235,12 +235,12 @@
 		left: 50%;
 		transform-origin: top left;
 		transform: translate(-50%, -50%);
-		width: var(--wp--lightbox-container-width);
-		height: var(--wp--lightbox-container-height);
+		width: var(--fp--lightbox-container-width);
+		height: var(--fp--lightbox-container-height);
 		z-index: 9999999999;
 	}
 
-	.wp-block-image {
+	.fp-block-image {
 		position: relative;
 		transform-origin: 0 0;
 		display: flex;
@@ -253,10 +253,10 @@
 		margin: 0;
 
 		img {
-			min-width: var(--wp--lightbox-image-width);
-			min-height: var(--wp--lightbox-image-height);
-			width: var(--wp--lightbox-image-width);
-			height: var(--wp--lightbox-image-height);
+			min-width: var(--fp--lightbox-image-width);
+			min-height: var(--fp--lightbox-image-height);
+			width: var(--fp--lightbox-image-width);
+			height: var(--fp--lightbox-image-height);
 		}
 
 		figcaption {
@@ -378,7 +378,7 @@
 
 @keyframes lightbox-zoom-in {
 	0% {
-		transform: translate(calc((-100vw + var(--wp--lightbox-scrollbar-width)) / 2 + var(--wp--lightbox-initial-left-position)), calc(-50vh + var(--wp--lightbox-initial-top-position))) scale(var(--wp--lightbox-scale));
+		transform: translate(calc((-100vw + var(--fp--lightbox-scrollbar-width)) / 2 + var(--fp--lightbox-initial-left-position)), calc(-50vh + var(--fp--lightbox-initial-top-position))) scale(var(--fp--lightbox-scale));
 	}
 	100% {
 		transform: translate(-50%, -50%) scale(1, 1);
@@ -395,6 +395,6 @@
 	}
 	100% {
 		visibility: hidden;
-		transform: translate(calc((-100vw + var(--wp--lightbox-scrollbar-width)) / 2 + var(--wp--lightbox-initial-left-position)), calc(-50vh + var(--wp--lightbox-initial-top-position))) scale(var(--wp--lightbox-scale));
+		transform: translate(calc((-100vw + var(--fp--lightbox-scrollbar-width)) / 2 + var(--fp--lightbox-initial-left-position)), calc(-50vh + var(--fp--lightbox-initial-top-position))) scale(var(--fp--lightbox-scale));
 	}
 }

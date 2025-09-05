@@ -1,7 +1,7 @@
 /**
  * FinPress dependencies
  */
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { store as coreStore } from '@finpress/core-data';
 import { useSelect } from '@finpress/data';
 import { useMemo, createPortal } from '@finpress/element';
@@ -41,7 +41,7 @@ export default function SidebarBlockEditor( {
 	inspector,
 } ) {
 	const [ isInserterOpened, setIsInserterOpened ] = useInserter( inserter );
-	const isMediumViewport = useViewportMatch( 'small' );
+	const isMediumviewport = useviewportMatch( 'small' );
 	const {
 		hasUploadPermissions,
 		isFixedToolbarActive,
@@ -74,7 +74,7 @@ export default function SidebarBlockEditor( {
 		if ( hasUploadPermissions ) {
 			mediaUploadBlockEditor = ( { onError, ...argumentsObject } ) => {
 				uploadMedia( {
-					wpAllowedMimeTypes: blockEditorSettings.allowedMimeTypes,
+					fpAllowedMimeTypes: blockEditorSettings.allowedMimeTypes,
 					onError: ( { message } ) => onError( message ),
 					...argumentsObject,
 				} );
@@ -85,7 +85,7 @@ export default function SidebarBlockEditor( {
 			...blockEditorSettings,
 			__experimentalSetIsInserterOpened: setIsInserterOpened,
 			mediaUpload: mediaUploadBlockEditor,
-			hasFixedToolbar: isFixedToolbarActive || ! isMediumViewport,
+			hasFixedToolbar: isFixedToolbarActive || ! isMediumviewport,
 			keepCaretInsideBlock,
 			editorTool: 'edit',
 			__unstableHasCustomAppender: true,
@@ -94,7 +94,7 @@ export default function SidebarBlockEditor( {
 		hasUploadPermissions,
 		blockEditorSettings,
 		isFixedToolbarActive,
-		isMediumViewport,
+		isMediumviewport,
 		keepCaretInsideBlock,
 		setIsInserterOpened,
 	] );
@@ -121,10 +121,10 @@ export default function SidebarBlockEditor( {
 					isInserterOpened={ isInserterOpened }
 					setIsInserterOpened={ setIsInserterOpened }
 					isFixedToolbarActive={
-						isFixedToolbarActive || ! isMediumViewport
+						isFixedToolbarActive || ! isMediumviewport
 					}
 				/>
-				{ ( isFixedToolbarActive || ! isMediumViewport ) && (
+				{ ( isFixedToolbarActive || ! isMediumviewport ) && (
 					<BlockToolbar hideDragHandle />
 				) }
 				<BlockCanvas

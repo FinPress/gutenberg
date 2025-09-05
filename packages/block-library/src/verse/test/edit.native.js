@@ -44,9 +44,9 @@ describe( 'Verse block', () => {
 
 	it( 'renders block text set as initial content', async () => {
 		const screen = await initializeEditor( {
-			initialHtml: `<!-- wp:verse -->
-			<pre class="wp-block-verse">Sample text</pre>
-			<!-- /wp:verse -->`,
+			initialHtml: `<!-- fp:verse -->
+			<pre class="fp-block-verse">Sample text</pre>
+			<!-- /fp:verse -->`,
 		} );
 
 		// Get block
@@ -73,9 +73,9 @@ describe( 'Verse block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- wp:verse -->
-		<pre class="wp-block-verse">A great statement.<br>Again</pre>
-		<!-- /wp:verse -->"
+		"<!-- fp:verse -->
+		<pre class="fp-block-verse">A great statement.<br>Again</pre>
+		<!-- /fp:verse -->"
 	` );
 	} );
 
@@ -106,13 +106,13 @@ describe( 'Verse block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- wp:verse -->
-		<pre class="wp-block-verse">Hello</pre>
-		<!-- /wp:verse -->
+		"<!-- fp:verse -->
+		<pre class="fp-block-verse">Hello</pre>
+		<!-- /fp:verse -->
 
-		<!-- wp:paragraph -->
+		<!-- fp:paragraph -->
 		<p></p>
-		<!-- /wp:paragraph -->"
+		<!-- /fp:paragraph -->"
 	` );
 	} );
 } );

@@ -20,7 +20,7 @@ function _gutenberg_add_block_level_presets_class( $block_content, $block ) {
 	}
 
 	// return early if the block doesn't have support for settings.
-	$block_type = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+	$block_type = FP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
 	if ( ! block_has_support( $block_type, array( '__experimentalSettings' ), false ) ) {
 		return $block_content;
 	}
@@ -33,9 +33,9 @@ function _gutenberg_add_block_level_presets_class( $block_content, $block ) {
 
 	// Like the layout hook this assumes the hook only applies to blocks with a single wrapper.
 	// Add the class name to the first element, presuming it's the wrapper, if it exists.
-	$tags = new WP_HTML_Tag_Processor( $block_content );
+	$tags = new FP_HTML_Tag_Processor( $block_content );
 	if ( $tags->next_tag() ) {
-		$tags->add_class( _wp_get_presets_class_name( $block ) );
+		$tags->add_class( _fp_get_presets_class_name( $block ) );
 	}
 
 	return $tags->get_updated_html();
@@ -53,7 +53,7 @@ function _gutenberg_add_block_level_presets_class( $block_content, $block ) {
  */
 function _gutenberg_add_block_level_preset_styles( $pre_render, $block ) {
 	// Return early if the block has not support for descendent block styles.
-	$block_type = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+	$block_type = FP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
 	if ( ! block_has_support( $block_type, array( '__experimentalSettings' ), false ) ) {
 		return null;
 	}
@@ -64,35 +64,35 @@ function _gutenberg_add_block_level_preset_styles( $pre_render, $block ) {
 		return null;
 	}
 
-	$class_name = '.' . _wp_get_presets_class_name( $block );
+	$class_name = '.' . _fp_get_presets_class_name( $block );
 
 	// the root selector for preset variables needs to target every possible block selector
 	// in order for the general setting to override any bock specific setting of a parent block or
 	// the site root.
-	$variables_root_selector = '*,[class*="wp-block"]';
-	$registry                = WP_Block_Type_Registry::get_instance();
+	$variables_root_selector = '*,[class*="fp-block"]';
+	$registry                = FP_Block_Type_Registry::get_instance();
 	$blocks                  = $registry->get_all_registered();
 	foreach ( $blocks as $block_type ) {
 		// We only want to append selectors for block's using custom selectors
-		// i.e. not `wp-block-<name>`.
+		// i.e. not `fp-block-<name>`.
 		$has_custom_selector =
 			( isset( $block_type->supports['__experimentalSelector'] ) && is_string( $block_type->supports['__experimentalSelector'] ) ) ||
 			( isset( $block_type->selectors['root'] ) && is_string( $block_type->selectors['root'] ) );
 
 		if ( $has_custom_selector ) {
-			$variables_root_selector .= ',' . wp_get_block_css_selector( $block_type );
+			$variables_root_selector .= ',' . fp_get_block_css_selector( $block_type );
 		}
 	}
-	$variables_root_selector = WP_Theme_JSON_Gutenberg::scope_selector( $class_name, $variables_root_selector );
+	$variables_root_selector = FP_Theme_JSON_Gutenberg::scope_selector( $class_name, $variables_root_selector );
 
 	// Remove any potentially unsafe styles.
-	$theme_json_shape  = WP_Theme_JSON_Gutenberg::remove_insecure_properties(
+	$theme_json_shape  = FP_Theme_JSON_Gutenberg::remove_insecure_properties(
 		array(
-			'version'  => WP_Theme_JSON_Gutenberg::LATEST_SCHEMA,
+			'version'  => FP_Theme_JSON_Gutenberg::LATEST_SCHEMA,
 			'settings' => $block_settings,
 		)
 	);
-	$theme_json_object = new WP_Theme_JSON_Gutenberg( $theme_json_shape );
+	$theme_json_object = new FP_Theme_JSON_Gutenberg( $theme_json_shape );
 
 	$styles = '';
 
@@ -122,13 +122,13 @@ function _gutenberg_add_block_level_preset_styles( $pre_render, $block ) {
 		 * We could enqueue these styles separately,
 		 * or print them out with other settings presets.
 		 */
-		wp_enqueue_block_support_styles( $styles );
+		fp_enqueue_block_support_styles( $styles );
 	}
 
 	return null;
 }
 // Remove FinPress core filter to avoid rendering duplicate settings style blocks.
-remove_filter( 'render_block', '_wp_add_block_level_presets_class', 10 );
-remove_filter( 'pre_render_block', '_wp_add_block_level_preset_styles', 10 );
+remove_filter( 'render_block', '_fp_add_block_level_presets_class', 10 );
+remove_filter( 'pre_render_block', '_fp_add_block_level_preset_styles', 10 );
 add_filter( 'render_block', '_gutenberg_add_block_level_presets_class', 10, 2 );
 add_filter( 'pre_render_block', '_gutenberg_add_block_level_preset_styles', 10, 2 );

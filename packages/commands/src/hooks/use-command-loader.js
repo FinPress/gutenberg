@@ -12,7 +12,7 @@ import { store as commandsStore } from '../store';
 /**
  * Attach a command loader to the command palette. Used for dynamic commands.
  *
- * @param {import('../store/actions').WPCommandLoaderConfig} loader command loader config.
+ * @param {import('../store/actions').FPCommandLoaderConfig} loader command loader config.
  *
  * @example
  * ```js
@@ -22,8 +22,8 @@ import { store as commandsStore } from '../store';
  * const icons = {
  *     post,
  *     page,
- *     wp_template: layout,
- *     wp_template_part: symbolFilled,
+ *     fp_template: layout,
+ *     fp_template_part: symbolFilled,
  * };
  *
  * function usePageSearchCommandLoader( { search } ) {

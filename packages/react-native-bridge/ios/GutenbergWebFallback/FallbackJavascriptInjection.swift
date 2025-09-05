@@ -8,11 +8,11 @@ public struct FallbackJavascriptInjection {
     }
 
     private let userContentScripts: [WKUserScript]
-    private let injectLocalStorageScriptTemplate = "localStorage.setItem('WP_DATA_USER_%@','%@')"
+    private let injectLocalStorageScriptTemplate = "localStorage.setItem('FP_DATA_USER_%@','%@')"
     private let injectCssScriptTemplate = "window.injectCss(`%@`)"
 
     public let insertBlockScript: WKUserScript
-    public let injectWPBarsCssScript: WKUserScript
+    public let injectFPBarsCssScript: WKUserScript
     public let injectEditorCssScript: WKUserScript
     public let injectCssScript: WKUserScript
     public let injectLocalStorageScript: WKUserScript
@@ -41,7 +41,7 @@ public struct FallbackJavascriptInjection {
 
         insertBlockScript = try script(with: .insertBlock, argument: blockHTML.replacingOccurrences(of: "\\n", with: "\\\\n"))
         injectCssScript = try script(with: .injectCss)
-        injectWPBarsCssScript = try getInjectCssScript(with: .wpBarsStyle)
+        injectFPBarsCssScript = try getInjectCssScript(with: .fpBarsStyle)
         injectEditorCssScript = try getInjectCssScript(with: .editorStyle)
         preventAutosavesScript = try script(with: .preventAutosaves)
         gutenbergObserverScript = try script(with: .gutenbergObserver)

@@ -7,11 +7,11 @@ import { Platform } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { WPUnitControlUnit } from './types';
+import type { FPUnitControlUnit } from './types';
 
 const isWeb = Platform.OS === 'web';
 
-const allUnits: Record< string, WPUnitControlUnit > = {
+const allUnits: Record< string, FPUnitControlUnit > = {
 	px: {
 		value: 'px',
 		label: isWeb ? 'px' : __( 'Pixels (px)' ),
@@ -38,26 +38,26 @@ const allUnits: Record< string, WPUnitControlUnit > = {
 	},
 	vw: {
 		value: 'vw',
-		label: isWeb ? 'vw' : __( 'Viewport width (vw)' ),
-		a11yLabel: __( 'Viewport width (vw)' ),
+		label: isWeb ? 'vw' : __( 'viewport width (vw)' ),
+		a11yLabel: __( 'viewport width (vw)' ),
 		step: 0.1,
 	},
 	vh: {
 		value: 'vh',
-		label: isWeb ? 'vh' : __( 'Viewport height (vh)' ),
-		a11yLabel: __( 'Viewport height (vh)' ),
+		label: isWeb ? 'vh' : __( 'viewport height (vh)' ),
+		a11yLabel: __( 'viewport height (vh)' ),
 		step: 0.1,
 	},
 	vmin: {
 		value: 'vmin',
-		label: isWeb ? 'vmin' : __( 'Viewport smallest dimension (vmin)' ),
-		a11yLabel: __( 'Viewport smallest dimension (vmin)' ),
+		label: isWeb ? 'vmin' : __( 'viewport smallest dimension (vmin)' ),
+		a11yLabel: __( 'viewport smallest dimension (vmin)' ),
 		step: 0.1,
 	},
 	vmax: {
 		value: 'vmax',
-		label: isWeb ? 'vmax' : __( 'Viewport largest dimension (vmax)' ),
-		a11yLabel: __( 'Viewport largest dimension (vmax)' ),
+		label: isWeb ? 'vmax' : __( 'viewport largest dimension (vmax)' ),
+		a11yLabel: __( 'viewport largest dimension (vmax)' ),
 		step: 0.1,
 	},
 	ch: {
@@ -118,7 +118,7 @@ const allUnits: Record< string, WPUnitControlUnit > = {
 		value: 'svi',
 		label: isWeb
 			? 'svi'
-			: __( 'Viewport smallest size in the inline direction (svi)' ),
+			: __( 'viewport smallest size in the inline direction (svi)' ),
 		a11yLabel: __( 'Small viewport width or height (svi)' ),
 		step: 0.1,
 	},
@@ -126,7 +126,7 @@ const allUnits: Record< string, WPUnitControlUnit > = {
 		value: 'svb',
 		label: isWeb
 			? 'svb'
-			: __( 'Viewport smallest size in the block direction (svb)' ),
+			: __( 'viewport smallest size in the block direction (svb)' ),
 		a11yLabel: __( 'Small viewport width or height (svb)' ),
 		step: 0.1,
 	},
@@ -264,7 +264,7 @@ export const DEFAULT_UNIT = allUnits.px;
 export function getParsedQuantityAndUnit(
 	rawValue?: string | number,
 	fallbackUnit?: string,
-	allowedUnits?: WPUnitControlUnit[]
+	allowedUnits?: FPUnitControlUnit[]
 ): [ number | undefined, string | undefined ] {
 	const initialValue = fallbackUnit
 		? `${ rawValue ?? '' }${ fallbackUnit }`
@@ -280,8 +280,8 @@ export function getParsedQuantityAndUnit(
  * @return Whether the list actually contains any units.
  */
 export function hasUnits(
-	units?: WPUnitControlUnit[]
-): units is WPUnitControlUnit[] {
+	units?: FPUnitControlUnit[]
+): units is FPUnitControlUnit[] {
 	// Although the `isArray` check shouldn't be necessary (given the signature of
 	// this typed function), it's better to stay on the side of caution, since
 	// this function may be called from un-typed environments.
@@ -300,7 +300,7 @@ export function hasUnits(
  */
 export function parseQuantityAndUnitFromRawValue(
 	rawValue?: string | number,
-	allowedUnits: WPUnitControlUnit[] = ALL_CSS_UNITS
+	allowedUnits: FPUnitControlUnit[] = ALL_CSS_UNITS
 ): [ number | undefined, string | undefined ] {
 	let trimmedValue;
 	let quantityToReturn;
@@ -344,7 +344,7 @@ export function parseQuantityAndUnitFromRawValue(
  */
 export function getValidParsedQuantityAndUnit(
 	rawValue: string | number,
-	allowedUnits?: WPUnitControlUnit[],
+	allowedUnits?: FPUnitControlUnit[],
 	fallbackQuantity?: number,
 	fallbackUnit?: string
 ): [ number | undefined, string | undefined ] {
@@ -389,8 +389,8 @@ export function getAccessibleLabelForUnit( unit: string ): string | undefined {
  */
 export function filterUnitsWithSettings(
 	allowedUnitValues: string[] = [],
-	availableUnits: WPUnitControlUnit[]
-): WPUnitControlUnit[] {
+	availableUnits: FPUnitControlUnit[]
+): FPUnitControlUnit[] {
 	// Although the `isArray` check shouldn't be necessary (given the signature of
 	// this typed function), it's better to stay on the side of caution, since
 	// this function may be called from un-typed environments.
@@ -419,10 +419,10 @@ export const useCustomUnits = ( {
 	availableUnits = [],
 	defaultValues,
 }: {
-	units?: WPUnitControlUnit[];
+	units?: FPUnitControlUnit[];
 	availableUnits?: string[];
 	defaultValues?: Record< string, number >;
-} ): WPUnitControlUnit[] => {
+} ): FPUnitControlUnit[] => {
 	const customUnitsToReturn = filterUnitsWithSettings(
 		availableUnits,
 		units
@@ -457,8 +457,8 @@ export const useCustomUnits = ( {
 export function getUnitsWithCurrentUnit(
 	rawValue?: string | number,
 	legacyUnit?: string,
-	units: WPUnitControlUnit[] = ALL_CSS_UNITS
-): WPUnitControlUnit[] {
+	units: FPUnitControlUnit[] = ALL_CSS_UNITS
+): FPUnitControlUnit[] {
 	const unitsToReturn = Array.isArray( units ) ? [ ...units ] : [];
 	const [ , currentUnit ] = getParsedQuantityAndUnit(
 		rawValue,

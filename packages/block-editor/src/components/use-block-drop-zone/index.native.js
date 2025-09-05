@@ -23,20 +23,20 @@ import useOnBlockDrop from '../use-on-block-drop';
 
 const UPDATE_TARGET_BLOCK_INDEX_THRESHOLD = 20; // In pixels
 
-/** @typedef {import('../../utils/math').WPPoint} WPPoint */
+/** @typedef {import('../../utils/math').FPPoint} FPPoint */
 
 /**
  * The orientation of a block list.
  *
- * @typedef {'horizontal'|'vertical'|undefined} WPBlockListOrientation
+ * @typedef {'horizontal'|'vertical'|undefined} FPBlockListOrientation
  */
 
 /**
  * Given a list of blocks layouts finds the index that a block should be dropped at.
  *
  * @param {Object}                 blocksLayouts Blocks layouts object.
- * @param {WPPoint}                position      The position of the item being dragged.
- * @param {WPBlockListOrientation} orientation   The orientation of a block list.
+ * @param {FPPoint}                position      The position of the item being dragged.
+ * @param {FPBlockListOrientation} orientation   The orientation of a block list.
  * @param {boolean}                isRTL         Check if current locale is RTL.
  *
  * @return {number|undefined} The block index that's closest to the drag position.
@@ -96,14 +96,14 @@ export function getNearestBlockIndex(
 }
 
 /**
- * @typedef  {Object} WPBlockDropZoneConfig
+ * @typedef  {Object} FPBlockDropZoneConfig
  * @property {string} rootClientId The root client id for the block list.
  */
 
 /**
  * A React hook that can be used to make a block list handle drag and drop.
  *
- * @param {WPBlockDropZoneConfig} dropZoneConfig configuration data for the drop zone.
+ * @param {FPBlockDropZoneConfig} dropZoneConfig configuration data for the drop zone.
  *
  * @return {Object} An object that contains `targetBlockIndex` and the event
  * handlers `onBlockDragOver`, `onBlockDragEnd` and `onBlockDrop`.

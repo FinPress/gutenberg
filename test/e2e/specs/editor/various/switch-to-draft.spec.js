@@ -37,7 +37,7 @@ test.describe( 'Clicking "Switch to draft" on a published/scheduled post/page', 
 					pageUtils,
 					editor,
 				} ) => {
-					await pageUtils.setBrowserViewport( viewport );
+					await pageUtils.setBrowserviewport( viewport );
 
 					await switchToDraftUtils.createTestPost(
 						postType,
@@ -106,9 +106,9 @@ class SwitchToDraftUtils {
 		const payload = {
 			title: `Switch scheduled ${ postType } to draft`,
 			status: 'publish',
-			content: `<!-- wp:paragraph -->
+			content: `<!-- fp:paragraph -->
 <p>This will be a scheduled ${ postType } edited in a ${ viewport } viewport</p>
-<!-- /wp:paragraph -->`,
+<!-- /fp:paragraph -->`,
 		};
 
 		if ( isScheduled ) {
@@ -131,7 +131,7 @@ class SwitchToDraftUtils {
 
 	getPostStatus = async () => {
 		return this.#page.evaluate( () =>
-			window.wp.data
+			window.fp.data
 				.select( 'core/editor' )
 				.getEditedPostAttribute( 'status' )
 		);

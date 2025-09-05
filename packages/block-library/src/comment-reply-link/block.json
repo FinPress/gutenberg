@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/comment-reply-link",
 	"title": "Comment Reply Link",
@@ -52,5 +52,5 @@
 		},
 		"html": false
 	},
-	"style": "wp-block-comment-reply-link"
+	"style": "fp-block-comment-reply-link"
 }

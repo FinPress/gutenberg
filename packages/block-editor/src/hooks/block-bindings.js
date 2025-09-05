@@ -18,7 +18,7 @@ import {
 } from '@finpress/components';
 import { useSelect } from '@finpress/data';
 import { useContext, Fragment } from '@finpress/element';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -39,7 +39,7 @@ const { Menu } = unlock( componentsPrivateApis );
 const EMPTY_OBJECT = {};
 
 const useToolsPanelDropdownMenuProps = () => {
-	const isMobile = useViewportMatch( 'medium', '<' );
+	const isMobile = useviewportMatch( 'medium', '<' );
 	return ! isMobile
 		? {
 				popoverProps: {
@@ -159,7 +159,7 @@ function EditableBlockBindingsPanelItems( {
 	fieldsList,
 } ) {
 	const { updateBlockBindings } = useBlockBindingsUtils();
-	const isMobile = useViewportMatch( 'medium', '<' );
+	const isMobile = useviewportMatch( 'medium', '<' );
 	return (
 		<>
 			{ attributes.map( ( attribute ) => {

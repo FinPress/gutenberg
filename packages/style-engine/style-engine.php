@@ -16,7 +16,7 @@
  *
  * Example usage:
  *
- * $styles = wp_style_engine_get_styles( array( 'color' => array( 'text' => '#cccccc' ) ) );
+ * $styles = fp_style_engine_get_styles( array( 'color' => array( 'text' => '#cccccc' ) ) );
  * // Returns `array( 'css' => 'color: #cccccc', 'declarations' => array( 'color' => '#cccccc' ), 'classnames' => 'has-color' )`.
  *
  * @since 6.1.0
@@ -27,7 +27,7 @@
  *
  *     @type string|null $context                    An identifier describing the origin of the style object, e.g., 'block-supports' or 'global-styles'. Default is `null`.
  *                                                   When set, the Style Engine will attempt to store the CSS rules, where a selector is also passed.
- *     @type bool        $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --wp--preset--* ) values. Default `false`.
+ *     @type bool        $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fp--preset--* ) values. Default `false`.
  *     @type string      $selector                   Optional. When a selector is passed, the value of `$css` in the return value will comprise a full CSS rule `$selector { ...$css_declarations }`,
  *                                                   otherwise, the value will be a concatenated string of CSS declarations.
  * }
@@ -38,8 +38,8 @@
  *     @type string   $classnames   Classnames separated by a space.
  * }
  */
-function wp_style_engine_get_styles( $block_styles, $options = array() ) {
-	$options = wp_parse_args(
+function fp_style_engine_get_styles( $block_styles, $options = array() ) {
+	$options = fp_parse_args(
 		$options,
 		array(
 			'selector'                   => null,
@@ -48,16 +48,16 @@ function wp_style_engine_get_styles( $block_styles, $options = array() ) {
 		)
 	);
 
-	$parsed_styles = WP_Style_Engine::parse_block_styles( $block_styles, $options );
+	$parsed_styles = FP_Style_Engine::parse_block_styles( $block_styles, $options );
 
 	// Output.
 	$styles_output = array();
 
 	if ( ! empty( $parsed_styles['declarations'] ) ) {
-		$styles_output['css']          = WP_Style_Engine::compile_css( $parsed_styles['declarations'], $options['selector'] );
+		$styles_output['css']          = FP_Style_Engine::compile_css( $parsed_styles['declarations'], $options['selector'] );
 		$styles_output['declarations'] = $parsed_styles['declarations'];
 		if ( ! empty( $options['context'] ) ) {
-			WP_Style_Engine::store_css_rule( $options['context'], $options['selector'], $parsed_styles['declarations'] );
+			FP_Style_Engine::store_css_rule( $options['context'], $options['selector'], $parsed_styles['declarations'] );
 		}
 	}
 
@@ -74,7 +74,7 @@ function wp_style_engine_get_styles( $block_styles, $options = array() ) {
  *
  * Example usage:
  * $css_rules = array( array( 'selector' => '.elephant-are-cool', 'declarations' => array( 'color' => 'gray', 'width' => '3em' ) ) );
- * $css       = wp_style_engine_get_stylesheet_from_css_rules( $css_rules );
+ * $css       = fp_style_engine_get_stylesheet_from_css_rules( $css_rules );
  * // Returns `.elephant-are-cool{color:gray;width:3em}`.
  *
  * @since 6.1.0
@@ -99,12 +99,12 @@ function wp_style_engine_get_styles( $block_styles, $options = array() ) {
  *
  * @return string A string of compiled CSS declarations, or empty string.
  */
-function wp_style_engine_get_stylesheet_from_css_rules( $css_rules, $options = array() ) {
+function fp_style_engine_get_stylesheet_from_css_rules( $css_rules, $options = array() ) {
 	if ( empty( $css_rules ) ) {
 		return '';
 	}
 
-	$options = wp_parse_args(
+	$options = fp_parse_args(
 		$options,
 		array(
 			'context' => null,
@@ -119,17 +119,17 @@ function wp_style_engine_get_stylesheet_from_css_rules( $css_rules, $options = a
 
 		$rules_group = $css_rule['rules_group'] ?? null;
 		if ( ! empty( $options['context'] ) ) {
-			WP_Style_Engine::store_css_rule( $options['context'], $css_rule['selector'], $css_rule['declarations'], $rules_group );
+			FP_Style_Engine::store_css_rule( $options['context'], $css_rule['selector'], $css_rule['declarations'], $rules_group );
 		}
 
-		$css_rule_objects[] = new WP_Style_Engine_CSS_Rule( $css_rule['selector'], $css_rule['declarations'], $rules_group );
+		$css_rule_objects[] = new FP_Style_Engine_CSS_Rule( $css_rule['selector'], $css_rule['declarations'], $rules_group );
 	}
 
 	if ( empty( $css_rule_objects ) ) {
 		return '';
 	}
 
-	return WP_Style_Engine::compile_stylesheet_from_css_rules( $css_rule_objects, $options );
+	return FP_Style_Engine::compile_stylesheet_from_css_rules( $css_rule_objects, $options );
 }
 
 /**
@@ -147,10 +147,10 @@ function wp_style_engine_get_stylesheet_from_css_rules( $css_rules, $options = a
  *
  * @return string A compiled CSS string.
  */
-function wp_style_engine_get_stylesheet_from_context( $context, $options = array() ) {
+function fp_style_engine_get_stylesheet_from_context( $context, $options = array() ) {
 	if ( empty( $context ) ) {
 		return '';
 	}
 
-	return WP_Style_Engine::compile_stylesheet_from_css_rules( WP_Style_Engine::get_store( $context )->get_all_rules(), $options );
+	return FP_Style_Engine::compile_stylesheet_from_css_rules( FP_Style_Engine::get_store( $context )->get_all_rules(), $options );
 }

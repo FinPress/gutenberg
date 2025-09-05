@@ -1,7 +1,7 @@
 ( function () {
-	const registerBlockType = wp.blocks.registerBlockType;
-	const { useBlockProps, RichText } = wp.blockEditor;
-	const el = wp.element.createElement;
+	const registerBlockType = fp.blocks.registerBlockType;
+	const { useBlockProps, RichText } = fp.blockEditor;
+	const el = fp.element.createElement;
 
 	registerBlockType( 'core/deprecated-children-matcher', {
 		apiVersion: 3,

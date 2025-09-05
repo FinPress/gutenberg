@@ -4,13 +4,13 @@
 const path = require( 'path' );
 const { defineConfig, devices } = require( '@playwright/test' );
 
-process.env.WP_ARTIFACTS_PATH ??= path.join( process.cwd(), 'artifacts' );
+process.env.FP_ARTIFACTS_PATH ??= path.join( process.cwd(), 'artifacts' );
 process.env.STORAGE_STATE_PATH ??= path.join(
-	process.env.WP_ARTIFACTS_PATH,
+	process.env.FP_ARTIFACTS_PATH,
 	'storage-states/admin.json'
 );
 
-const baseUrl = new URL( process.env.WP_BASE_URL || 'http://localhost:8889' );
+const baseUrl = new URL( process.env.FP_BASE_URL || 'http://localhost:8889' );
 
 const config = defineConfig( {
 	reporter: process.env.CI ? [ [ 'github' ] ] : [ [ 'list' ] ],
@@ -22,7 +22,7 @@ const config = defineConfig( {
 	// Don't report slow test "files", as we will be running our tests in serial.
 	reportSlowTests: null,
 	testDir: './specs',
-	outputDir: path.join( process.env.WP_ARTIFACTS_PATH, 'test-results' ),
+	outputDir: path.join( process.env.FP_ARTIFACTS_PATH, 'test-results' ),
 	snapshotPathTemplate:
 		'{testDir}/{testFileDir}/__snapshots__/{arg}-{projectName}{ext}',
 	globalSetup: require.resolve( './playwright/global-setup.js' ),
@@ -46,7 +46,7 @@ const config = defineConfig( {
 		video: 'on-first-retry',
 	},
 	webServer: {
-		command: 'npm run wp-env start',
+		command: 'npm run fp-env start',
 		port: baseUrl.port,
 		timeout: 120_000, // 120 seconds.
 		reuseExistingServer: true,

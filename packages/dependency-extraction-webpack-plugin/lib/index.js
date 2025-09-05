@@ -210,12 +210,12 @@ class DependencyExtractionWebpackPlugin {
 			}
 
 			// Prepare to look for magic comments, in order to decide whether
-			// `wp-polyfill` is needed.
+			// `fp-polyfill` is needed.
 			const processContentsForMagicComments = ( content ) => {
 				const magicComments = [];
 
-				if ( content.includes( '/* wp:polyfill */' ) ) {
-					magicComments.push( 'wp-polyfill' );
+				if ( content.includes( '/* fp:polyfill */' ) ) {
+					magicComments.push( 'fp-polyfill' );
 				}
 
 				return magicComments;
@@ -227,10 +227,10 @@ class DependencyExtractionWebpackPlugin {
 				const asset = compilation.getAsset( filename );
 				const content = asset.source.buffer();
 
-				const wpMagicComments =
+				const fpMagicComments =
 					processContentsForMagicComments( content );
 				compilation.updateAsset( filename, ( v ) => v, {
-					wpMagicComments,
+					fpMagicComments,
 				} );
 			} );
 		}
@@ -291,7 +291,7 @@ class DependencyExtractionWebpackPlugin {
 			const chunkDynamicDeps = new Set();
 
 			if ( injectPolyfill ) {
-				chunkStaticDeps.add( 'wp-polyfill' );
+				chunkStaticDeps.add( 'fp-polyfill' );
 			}
 
 			/**
@@ -347,13 +347,13 @@ class DependencyExtractionWebpackPlugin {
 			};
 
 			// Prepare to look for magic comments, in order to decide whether
-			// `wp-polyfill` is needed.
+			// `fp-polyfill` is needed.
 			const handleMagicComments = ( info ) => {
 				if ( ! info ) {
 					return;
 				}
-				if ( info.includes( 'wp-polyfill' ) ) {
-					chunkStaticDeps.add( 'wp-polyfill' );
+				if ( info.includes( 'fp-polyfill' ) ) {
+					chunkStaticDeps.add( 'fp-polyfill' );
 				}
 			};
 
@@ -364,7 +364,7 @@ class DependencyExtractionWebpackPlugin {
 				const content = asset.source.buffer();
 
 				processContentsForHash( content );
-				handleMagicComments( asset.info.wpMagicComments );
+				handleMagicComments( asset.info.fpMagicComments );
 			} );
 
 			// Finalise hash.

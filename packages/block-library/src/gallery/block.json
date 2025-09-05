@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/gallery",
 	"title": "Gallery",
@@ -153,6 +153,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "wp-block-gallery-editor",
-	"style": "wp-block-gallery"
+	"editorStyle": "fp-block-gallery-editor",
+	"style": "fp-block-gallery"
 }

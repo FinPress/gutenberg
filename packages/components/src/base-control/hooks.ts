@@ -23,7 +23,7 @@ export function useBaseControlProps(
 
 	const uniqueId = useInstanceId(
 		BaseControl,
-		'wp-components-base-control',
+		'fp-components-base-control',
 		preferredId
 	);
 

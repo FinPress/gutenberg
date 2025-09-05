@@ -38,8 +38,8 @@ const hasSessionStorageSupport = () => {
 		// Private Browsing in Safari 10 and earlier will throw an error when
 		// attempting to set into sessionStorage. The test here is intentional in
 		// causing a thrown error as condition bailing from local autosave.
-		window.sessionStorage.setItem( '__wpEditorTestSessionStorage', '' );
-		window.sessionStorage.removeItem( '__wpEditorTestSessionStorage' );
+		window.sessionStorage.setItem( '__fpEditorTestSessionStorage', '' );
+		window.sessionStorage.removeItem( '__fpEditorTestSessionStorage' );
 		hasStorageSupport = true;
 	} catch {
 		hasStorageSupport = false;
@@ -101,7 +101,7 @@ function useAutosaveNotice() {
 			return;
 		}
 
-		const id = 'wpEditorAutosaveRestore';
+		const id = 'fpEditorAutosaveRestore';
 
 		createWarningNotice(
 			__(

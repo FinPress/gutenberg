@@ -32,7 +32,7 @@ function counterStore( initialCount = 0, step = 1 ) {
 	};
 }
 
-/* eslint-disable @finpress/wp-global-usage */
+/* eslint-disable @finpress/fp-global-usage */
 describe( 'useSelect', () => {
 	const initialScriptDebug = globalThis.SCRIPT_DEBUG;
 	let registry;
@@ -1269,4 +1269,4 @@ describe( 'useSelect', () => {
 		} );
 	} );
 } );
-/* eslint-enable @finpress/wp-global-usage */
+/* eslint-enable @finpress/fp-global-usage */

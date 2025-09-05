@@ -10,7 +10,7 @@
 
 The interval used for the local autosave can be modified by updating the editor settings
 ```js
-wp.data.dispatch( 'core/editor' ).updateEditorSettings( {
+fp.data.dispatch( 'core/editor' ).updateEditorSettings( {
 	localAutosaveInterval: 100000000000,
 } );
 ```

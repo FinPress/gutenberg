@@ -36,7 +36,7 @@ export const getAuthors =
 	( query ) =>
 	async ( { dispatch } ) => {
 		const path = addQueryArgs(
-			'/wp/v2/users/?who=authors&per_page=100',
+			'/fp/v2/users/?who=authors&per_page=100',
 			query
 		);
 		const users = await apiFetch( { path } );
@@ -49,7 +49,7 @@ export const getAuthors =
 export const getCurrentUser =
 	() =>
 	async ( { dispatch } ) => {
-		const currentUser = await apiFetch( { path: '/wp/v2/users/me' } );
+		const currentUser = await apiFetch( { path: '/fp/v2/users/me' } );
 		dispatch.receiveCurrentUser( currentUser );
 	};
 
@@ -283,10 +283,10 @@ export const getEntityRecords =
 				records = Object.values( await response.json() );
 				meta = {
 					totalItems: parseInt(
-						response.headers.get( 'X-WP-Total' )
+						response.headers.get( 'X-FP-Total' )
 					),
 					totalPages: parseInt(
-						response.headers.get( 'X-WP-TotalPages' )
+						response.headers.get( 'X-FP-TotalPages' )
 					),
 				};
 			} else if (
@@ -304,13 +304,13 @@ export const getEntityRecords =
 					const pageRecords = Object.values( await response.json() );
 
 					totalPages = parseInt(
-						response.headers.get( 'X-WP-TotalPages' )
+						response.headers.get( 'X-FP-TotalPages' )
 					);
 
 					if ( ! meta ) {
 						meta = {
 							totalItems: parseInt(
-								response.headers.get( 'X-WP-Total' )
+								response.headers.get( 'X-FP-Total' )
 							),
 							totalPages: 1,
 						};
@@ -545,7 +545,7 @@ export const canUser =
 			resourcePath =
 				entityConfig.baseURL + ( resource.id ? '/' + resource.id : '' );
 		} else {
-			resourcePath = `/wp/v2/${ resource }` + ( id ? '/' + id : '' );
+			resourcePath = `/fp/v2/${ resource }` + ( id ? '/' + id : '' );
 		}
 
 		let response;
@@ -610,7 +610,7 @@ export const getAutosaves =
 	async ( { dispatch, resolveSelect } ) => {
 		const {
 			rest_base: restBase,
-			rest_namespace: restNamespace = 'wp/v2',
+			rest_namespace: restNamespace = 'fp/v2',
 			supports,
 		} = await resolveSelect.getPostType( postType );
 		if ( ! supports?.autosave ) {
@@ -650,7 +650,7 @@ export const __experimentalGetCurrentGlobalStylesId =
 			{ status: 'active' }
 		);
 		const globalStylesURL =
-			activeThemes?.[ 0 ]?._links?.[ 'wp:user-global-styles' ]?.[ 0 ]
+			activeThemes?.[ 0 ]?._links?.[ 'fp:user-global-styles' ]?.[ 0 ]
 				?.href;
 		if ( ! globalStylesURL ) {
 			return;
@@ -672,7 +672,7 @@ export const __experimentalGetCurrentThemeBaseGlobalStyles =
 		const currentTheme = await resolveSelect.getCurrentTheme();
 		// Please adjust the preloaded requests if this changes!
 		const themeGlobalStyles = await apiFetch( {
-			path: `/wp/v2/global-styles/themes/${ currentTheme.stylesheet }?context=view`,
+			path: `/fp/v2/global-styles/themes/${ currentTheme.stylesheet }?context=view`,
 		} );
 		dispatch.__experimentalReceiveThemeBaseGlobalStyles(
 			currentTheme.stylesheet,
@@ -686,7 +686,7 @@ export const __experimentalGetCurrentThemeGlobalStylesVariations =
 		const currentTheme = await resolveSelect.getCurrentTheme();
 		// Please adjust the preloaded requests if this changes!
 		const variations = await apiFetch( {
-			path: `/wp/v2/global-styles/themes/${ currentTheme.stylesheet }/variations?context=view`,
+			path: `/fp/v2/global-styles/themes/${ currentTheme.stylesheet }/variations?context=view`,
 		} );
 		dispatch.__experimentalReceiveThemeGlobalStyleVariations(
 			currentTheme.stylesheet,
@@ -750,7 +750,7 @@ export const getBlockPatternCategories =
 	() =>
 	async ( { dispatch } ) => {
 		const categories = await apiFetch( {
-			path: '/wp/v2/block-patterns/categories',
+			path: '/fp/v2/block-patterns/categories',
 		} );
 		dispatch( { type: 'RECEIVE_BLOCK_PATTERN_CATEGORIES', categories } );
 	};
@@ -760,7 +760,7 @@ export const getUserPatternCategories =
 	async ( { dispatch, resolveSelect } ) => {
 		const patternCategories = await resolveSelect.getEntityRecords(
 			'taxonomy',
-			'wp_pattern_category',
+			'fp_pattern_category',
 			{
 				per_page: -1,
 				_fields: 'id,name,description,slug',
@@ -785,7 +785,7 @@ export const getNavigationFallbackId =
 	() =>
 	async ( { dispatch, select, registry } ) => {
 		const fallback = await apiFetch( {
-			path: addQueryArgs( '/wp-block-editor/v1/navigation-fallback', {
+			path: addQueryArgs( '/fp-block-editor/v1/navigation-fallback', {
 				_embed: true,
 			} ),
 		} );
@@ -804,13 +804,13 @@ export const getNavigationFallbackId =
 			// posts in the state and the fallback created one.
 			const existingFallbackEntityRecord = select.getEntityRecord(
 				'postType',
-				'wp_navigation',
+				'fp_navigation',
 				fallback.id
 			);
 			const invalidateNavigationQueries = ! existingFallbackEntityRecord;
 			dispatch.receiveEntityRecords(
 				'postType',
-				'wp_navigation',
+				'fp_navigation',
 				record,
 				undefined,
 				invalidateNavigationQueries
@@ -819,7 +819,7 @@ export const getNavigationFallbackId =
 			// Resolve to avoid further network requests.
 			dispatch.finishResolution( 'getEntityRecord', [
 				'postType',
-				'wp_navigation',
+				'fp_navigation',
 				fallback.id,
 			] );
 		} );
@@ -829,7 +829,7 @@ export const getDefaultTemplateId =
 	( query ) =>
 	async ( { dispatch, registry, resolveSelect } ) => {
 		const template = await apiFetch( {
-			path: addQueryArgs( '/wp/v2/templates/lookup', query ),
+			path: addQueryArgs( '/fp/v2/templates/lookup', query ),
 		} );
 		// Wait for the the entities config to be loaded, otherwise receiving
 		// the template as an entity will not work.
@@ -838,13 +838,13 @@ export const getDefaultTemplateId =
 		if ( template?.id ) {
 			registry.batch( () => {
 				dispatch.receiveDefaultTemplateId( query, template.id );
-				dispatch.receiveEntityRecords( 'postType', 'wp_template', [
+				dispatch.receiveEntityRecords( 'postType', 'fp_template', [
 					template,
 				] );
 				// Avoid further network requests.
 				dispatch.finishResolution( 'getEntityRecord', [
 					'postType',
-					'wp_template',
+					'fp_template',
 					template.id,
 				] );
 			} );
@@ -909,7 +909,7 @@ export const getRevisions =
 			if ( isPaginated ) {
 				records = Object.values( await response.json() );
 				meta.totalItems = parseInt(
-					response.headers.get( 'X-WP-Total' )
+					response.headers.get( 'X-FP-Total' )
 				);
 			} else {
 				records = Object.values( response );
@@ -1038,7 +1038,7 @@ export const getRegisteredPostMeta =
 		let options;
 		try {
 			const {
-				rest_namespace: restNamespace = 'wp/v2',
+				rest_namespace: restNamespace = 'fp/v2',
 				rest_base: restBase,
 			} = ( await resolveSelect.getPostType( postType ) ) || {};
 			options = await apiFetch( {

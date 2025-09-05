@@ -50,8 +50,8 @@ describe( 'editor utils', () => {
 			},
 			custom: {
 				color: {
-					primary: 'var(--wp--preset--color--primary)',
-					secondary: 'var(--wp--preset--color--secondary)',
+					primary: 'var(--fp--preset--color--primary)',
+					secondary: 'var(--fp--preset--color--secondary)',
 				},
 			},
 		},
@@ -82,7 +82,7 @@ describe( 'editor utils', () => {
 			},
 		},
 		_links: {
-			'wp:theme-file': [
+			'fp:theme-file': [
 				{
 					name: 'file:./assets/image.jpg',
 					href: 'https://finpress.org/assets/image.jpg',
@@ -185,7 +185,7 @@ describe( 'editor utils', () => {
 				const actual = getValueFromVariable(
 					themeJson,
 					'root',
-					'var(--wp--custom--color--secondary)'
+					'var(--fp--custom--color--secondary)'
 				);
 
 				expect( actual ).toBe( '#a65555' );
@@ -261,12 +261,12 @@ describe( 'editor utils', () => {
 			{
 				original: {
 					styles: {
-						color: { text: 'var(--wp--preset--color--red)' },
+						color: { text: 'var(--fp--preset--color--red)' },
 					},
 				},
 				variation: {
 					styles: {
-						color: { text: 'var(--wp--preset--color--blue)' },
+						color: { text: 'var(--fp--preset--color--blue)' },
 					},
 				},
 				expected: false,
@@ -275,7 +275,7 @@ describe( 'editor utils', () => {
 			{
 				original: {
 					styles: {
-						color: { text: 'var(--wp--preset--color--red)' },
+						color: { text: 'var(--fp--preset--color--red)' },
 					},
 					settings: {
 						typography: {
@@ -285,7 +285,7 @@ describe( 'editor utils', () => {
 				},
 				variation: {
 					styles: {
-						color: { text: 'var(--wp--preset--color--red)' },
+						color: { text: 'var(--fp--preset--color--red)' },
 					},
 					settings: {
 						typography: {
@@ -310,13 +310,13 @@ describe( 'editor utils', () => {
 			{ type: 'empty', selector: '', expected: '.is-style-custom' },
 			{
 				type: 'class',
-				selector: '.wp-block',
-				expected: '.wp-block.is-style-custom',
+				selector: '.fp-block',
+				expected: '.fp-block.is-style-custom',
 			},
 			{
 				type: 'id',
-				selector: '#wp-block',
-				expected: '#wp-block.is-style-custom',
+				selector: '#fp-block',
+				expected: '#fp-block.is-style-custom',
 			},
 			{
 				type: 'element tag',
@@ -330,14 +330,14 @@ describe( 'editor utils', () => {
 			},
 			{
 				type: 'descendant',
-				selector: '.wp-block .inner',
-				expected: '.wp-block.is-style-custom .inner',
+				selector: '.fp-block .inner',
+				expected: '.fp-block.is-style-custom .inner',
 			},
 			{
 				type: 'comma-separated',
-				selector: '.wp-block .inner, .wp-block .alternative',
+				selector: '.fp-block .inner, .fp-block .alternative',
 				expected:
-					'.wp-block.is-style-custom .inner, .wp-block.is-style-custom .alternative',
+					'.fp-block.is-style-custom .inner, .fp-block.is-style-custom .alternative',
 			},
 			{
 				type: 'pseudo',
@@ -346,27 +346,27 @@ describe( 'editor utils', () => {
 			},
 			{
 				type: ':is',
-				selector: '.wp-block:is(.outer .inner:first-child)',
+				selector: '.fp-block:is(.outer .inner:first-child)',
 				expected:
-					'.wp-block.is-style-custom:is(.outer .inner:first-child)',
+					'.fp-block.is-style-custom:is(.outer .inner:first-child)',
 			},
 			{
 				type: ':not',
-				selector: '.wp-block:not(.outer .inner:first-child)',
+				selector: '.fp-block:not(.outer .inner:first-child)',
 				expected:
-					'.wp-block.is-style-custom:not(.outer .inner:first-child)',
+					'.fp-block.is-style-custom:not(.outer .inner:first-child)',
 			},
 			{
 				type: ':has',
-				selector: '.wp-block:has(.outer .inner:first-child)',
+				selector: '.fp-block:has(.outer .inner:first-child)',
 				expected:
-					'.wp-block.is-style-custom:has(.outer .inner:first-child)',
+					'.fp-block.is-style-custom:has(.outer .inner:first-child)',
 			},
 			{
 				type: ':where',
-				selector: '.wp-block:where(.outer .inner:first-child)',
+				selector: '.fp-block:where(.outer .inner:first-child)',
 				expected:
-					'.wp-block.is-style-custom:where(.outer .inner:first-child)',
+					'.fp-block.is-style-custom:where(.outer .inner:first-child)',
 			},
 			{
 				type: 'wrapping :where',
@@ -376,9 +376,9 @@ describe( 'editor utils', () => {
 			{
 				type: 'complex',
 				selector:
-					'.wp:where(.something):is(.test:not(.nothing p)):has(div[style]) .content, .wp:where(.nothing):not(.test:is(.something div)):has(span[style]) .inner',
+					'.fp:where(.something):is(.test:not(.nothing p)):has(div[style]) .content, .fp:where(.nothing):not(.test:is(.something div)):has(span[style]) .inner',
 				expected:
-					'.wp.is-style-custom:where(.something):is(.test:not(.nothing p)):has(div[style]) .content, .wp.is-style-custom:where(.nothing):not(.test:is(.something div)):has(span[style]) .inner',
+					'.fp.is-style-custom:where(.something):is(.test:not(.nothing p)):has(div[style]) .content, .fp.is-style-custom:where(.nothing):not(.test:is(.something div)):has(span[style]) .inner',
 			},
 		] )(
 			'should add variation class to ancestor in $type selector',
@@ -433,7 +433,7 @@ describe( 'editor utils', () => {
 				expect(
 					getResolvedThemeFilePath(
 						file,
-						themeJson._links[ 'wp:theme-file' ]
+						themeJson._links[ 'fp:theme-file' ]
 					) === returnedValue
 				).toBe( true );
 			}

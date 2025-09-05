@@ -155,7 +155,7 @@ const deprecated = [
 
 			return (
 				<Tag { ...useBlockProps.save() }>
-					<div className="wp-block-group__inner-container">
+					<div className="fp-block-group__inner-container">
 						<InnerBlocks.Content />
 					</div>
 				</Tag>
@@ -211,7 +211,7 @@ const deprecated = [
 
 			return (
 				<div className={ className } style={ styles }>
-					<div className="wp-block-group__inner-container">
+					<div className="fp-block-group__inner-container">
 						<InnerBlocks.Content />
 					</div>
 				</div>
@@ -267,7 +267,7 @@ const deprecated = [
 
 			return (
 				<div className={ className } style={ styles }>
-					<div className="wp-block-group__inner-container">
+					<div className="fp-block-group__inner-container">
 						<InnerBlocks.Content />
 					</div>
 				</div>

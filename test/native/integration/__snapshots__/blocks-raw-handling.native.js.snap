@@ -39,7 +39,7 @@ exports[`Blocks raw handling pasteHandler ms-word-styled 1`] = `"<br><strong>Lor
 
 exports[`Blocks raw handling pasteHandler nested-divs 1`] = `"First paragraph<br><br>Second paragraph<br>Third paragraph<br>Fourth paragraph<br>Fifth paragraph<br>Sixth paragraph"`;
 
-exports[`Blocks raw handling pasteHandler one-image 1`] = `"<img src="http://localhost/wp-content/uploads/2018/01/Dec-08-2017-15-12-24-17-300x137.gif" alt="" width="300" height="137">"`;
+exports[`Blocks raw handling pasteHandler one-image 1`] = `"<img src="http://localhost/fp-content/uploads/2018/01/Dec-08-2017-15-12-24-17-300x137.gif" alt="" width="300" height="137">"`;
 
 exports[`Blocks raw handling pasteHandler plain 1`] = `"test<br>test<br><br>test"`;
 
@@ -47,31 +47,31 @@ exports[`Blocks raw handling pasteHandler shortcode-matching 1`] = `"[gallery id
 */
 
 exports[`Blocks raw handling pasteHandler should remove extra blank lines 1`] = `
-"<!-- wp:paragraph -->
+"<!-- fp:paragraph -->
 <p>1</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>2</p>
-<!-- /wp:paragraph -->"
+<!-- /fp:paragraph -->"
 `;
 
 exports[`Blocks raw handling pasteHandler should strip HTML formatting space from inline text 1`] = `"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a elit eget tortor molestie egestas. Donec pretium urna vitae mattis imperdiet. Praesent et lorem iaculis, volutpat odio vitae, ornare lacus. Donec ut felis tristique, pharetra erat id, viverra justo. Integer sit amet elementum arcu, eget pharetra felis. In malesuada enim est, sed placerat nulla feugiat at. Vestibulum feugiat vitae elit sit amet tincidunt. Pellentesque finibus sed dolor non facilisis. Curabitur accumsan ante ac hendrerit vestibulum."`;
 
 exports[`Blocks raw handling pasteHandler should strip some text-level elements 1`] = `
-"<!-- wp:paragraph -->
+"<!-- fp:paragraph -->
 <p>This is ncorect</p>
-<!-- /wp:paragraph -->"
+<!-- /fp:paragraph -->"
 `;
 
 exports[`Blocks raw handling pasteHandler should strip windows data 1`] = `
-"<!-- wp:heading -->
-<h2 class="wp-block-heading">Heading Win</h2>
-<!-- /wp:heading -->
+"<!-- fp:heading -->
+<h2 class="fp-block-heading">Heading Win</h2>
+<!-- /fp:heading -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Paragraph Win</p>
-<!-- /wp:paragraph -->"
+<!-- /fp:paragraph -->"
 `;
 
 /*
@@ -79,134 +79,134 @@ exports[`Blocks raw handling pasteHandler slack-paragraphs 1`] = `"test with&nbs
 
 exports[`Blocks raw handling pasteHandler slack-quote 1`] = `"Test with&nbsp;<a target="_blank" href="http://w.org/" rel="noreferrer noopener">link</a>."`;
 
-exports[`Blocks raw handling pasteHandler two-images 1`] = `"<img src="http://localhost/wp-content/uploads/2018/01/Dec-08-2017-15-12-24-17-300x137.gif" alt="" width="300" height="137"> <img src="http://localhost/wp-content/uploads/2018/01/Dec-05-2017-17-52-09-9-300x248.gif" alt="" width="300" height="248">"`;
+exports[`Blocks raw handling pasteHandler two-images 1`] = `"<img src="http://localhost/fp-content/uploads/2018/01/Dec-08-2017-15-12-24-17-300x137.gif" alt="" width="300" height="137"> <img src="http://localhost/fp-content/uploads/2018/01/Dec-05-2017-17-52-09-9-300x248.gif" alt="" width="300" height="248">"`;
 
 exports[`Blocks raw handling pasteHandler finpress 1`] = `"Howdy<br>This is a paragraph.<br>More tag<br><br>Shortcode<br>[gallery ids="1"]<br><img src="block.png" alt=""><br><img src="aligned.png" alt=""> test<br><img src="not-aligned.png" alt=""> test"`;
 */
 
 exports[`Blocks raw handling should correctly handle quotes with mixed content 1`] = `
-"<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:heading {"level":1,"className":"wp-block-heading"} -->
-<h1 class="wp-block-heading">chicken</h1>
-<!-- /wp:heading -->
+"<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:heading {"level":1,"className":"fp-block-heading"} -->
+<h1 class="fp-block-heading">chicken</h1>
+<!-- /fp:heading -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>ribs</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->"
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->"
 `;
 
 exports[`rawHandler should convert HTML post to blocks with minimal content changes 1`] = `
-"<!-- wp:heading -->
-<h2 class="wp-block-heading">Howdy</h2>
-<!-- /wp:heading -->
+"<!-- fp:heading -->
+<h2 class="fp-block-heading">Howdy</h2>
+<!-- /fp:heading -->
 
-<!-- wp:image -->
-<figure class="wp-block-image"><img src="https://w.org" alt=""/></figure>
-<!-- /wp:image -->
+<!-- fp:image -->
+<figure class="fp-block-image"><img src="https://w.org" alt=""/></figure>
+<!-- /fp:image -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>This is a paragraph.</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Preserve <span style="color:red">me</span>!</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">More tag</h3>
-<!-- /wp:heading -->
+<!-- fp:heading {"level":3} -->
+<h3 class="fp-block-heading">More tag</h3>
+<!-- /fp:heading -->
 
-<!-- wp:more -->
+<!-- fp:more -->
 <!--more-->
-<!-- /wp:more -->
+<!-- /fp:more -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Shortcode</h3>
-<!-- /wp:heading -->
+<!-- fp:heading {"level":3} -->
+<h3 class="fp-block-heading">Shortcode</h3>
+<!-- /fp:heading -->
 
-<!-- wp:gallery {"columns":3,"linkTo":"none"} -->
-<figure class="wp-block-gallery has-nested-images columns-3 is-cropped"><!-- wp:image {"id":1} -->
-<figure class="wp-block-image"><img alt="" class="wp-image-1"/></figure>
-<!-- /wp:image --></figure>
-<!-- /wp:gallery -->
+<!-- fp:gallery {"columns":3,"linkTo":"none"} -->
+<figure class="fp-block-gallery has-nested-images columns-3 is-cropped"><!-- fp:image {"id":1} -->
+<figure class="fp-block-image"><img alt="" class="fp-image-1"/></figure>
+<!-- /fp:image --></figure>
+<!-- /fp:gallery -->
 
-<!-- wp:html -->
+<!-- fp:html -->
 <dl>
 	<dt>Term</dt>
 	<dd>
 		Description.
 	</dd>
 </dl>
-<!-- /wp:html -->
+<!-- /fp:html -->
 
-<!-- wp:list {"ordered":true} -->
-<ol><!-- wp:list-item -->
+<!-- fp:list {"ordered":true} -->
+<ol><!-- fp:list-item -->
 <li>Item</li>
-<!-- /wp:list-item --></ol>
-<!-- /wp:list -->
+<!-- /fp:list-item --></ol>
+<!-- /fp:list -->
 
-<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:paragraph -->
 <p>Text.</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->
 
-<!-- wp:quote -->
-<blockquote class="wp-block-quote"><!-- wp:heading {"level":1} -->
-<h1 class="wp-block-heading">Heading</h1>
-<!-- /wp:heading -->
+<!-- fp:quote -->
+<blockquote class="fp-block-quote"><!-- fp:heading {"level":1} -->
+<h1 class="fp-block-heading">Heading</h1>
+<!-- /fp:heading -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Text.</p>
-<!-- /wp:paragraph --></blockquote>
-<!-- /wp:quote -->"
+<!-- /fp:paragraph --></blockquote>
+<!-- /fp:quote -->"
 `;
 
 exports[`rawHandler should convert a caption shortcode 1`] = `
-"<!-- wp:image {"id":122,"align":"none","className":"size-medium wp-image-122"} -->
-<figure class="wp-block-image alignnone size-medium wp-image-122"><img src="image.png" alt="" class="wp-image-122"/><figcaption class="wp-element-caption">test</figcaption></figure>
-<!-- /wp:image -->"
+"<!-- fp:image {"id":122,"align":"none","className":"size-medium fp-image-122"} -->
+<figure class="fp-block-image alignnone size-medium fp-image-122"><img src="image.png" alt="" class="fp-image-122"/><figcaption class="fp-element-caption">test</figcaption></figure>
+<!-- /fp:image -->"
 `;
 
 exports[`rawHandler should convert a caption shortcode with caption 1`] = `
-"<!-- wp:image {"id":122,"align":"none","className":"size-medium wp-image-122"} -->
-<figure class="wp-block-image alignnone size-medium wp-image-122"><img src="image.png" alt="" class="wp-image-122"/><figcaption class="wp-element-caption"><a href="https://w.org">test</a></figcaption></figure>
-<!-- /wp:image -->"
+"<!-- fp:image {"id":122,"align":"none","className":"size-medium fp-image-122"} -->
+<figure class="fp-block-image alignnone size-medium fp-image-122"><img src="image.png" alt="" class="fp-image-122"/><figcaption class="fp-element-caption"><a href="https://w.org">test</a></figcaption></figure>
+<!-- /fp:image -->"
 `;
 
 exports[`rawHandler should convert a caption shortcode with link 1`] = `
-"<!-- wp:image {"id":754,"align":"none"} -->
-<figure class="wp-block-image alignnone"><a href="http://build.finpress-develop.test/wp-content/uploads/2011/07/100_5478.jpg"><img src="http://build.finpress-develop.test/wp-content/uploads/2011/07/100_5478.jpg?w=604" alt="Bell on Wharf" class="wp-image-754"/></a><figcaption class="wp-element-caption">Bell on wharf in San Francisco</figcaption></figure>
-<!-- /wp:image -->"
+"<!-- fp:image {"id":754,"align":"none"} -->
+<figure class="fp-block-image alignnone"><a href="http://build.finpress-develop.test/fp-content/uploads/2011/07/100_5478.jpg"><img src="http://build.finpress-develop.test/fp-content/uploads/2011/07/100_5478.jpg?w=604" alt="Bell on Wharf" class="fp-image-754"/></a><figcaption class="fp-element-caption">Bell on wharf in San Francisco</figcaption></figure>
+<!-- /fp:image -->"
 `;
 
 exports[`rawHandler should convert a list with attributes 1`] = `
-"<!-- wp:list {"ordered":true,"type":"lower-roman","start":2,"reversed":true} -->
-<ol reversed start="2" style="list-style-type:lower-roman"><!-- wp:list-item -->
-<li>1<!-- wp:list {"ordered":true,"type":"lower-roman","start":2,"reversed":true} -->
-<ol reversed start="2" style="list-style-type:lower-roman"><!-- wp:list-item -->
+"<!-- fp:list {"ordered":true,"type":"lower-roman","start":2,"reversed":true} -->
+<ol reversed start="2" style="list-style-type:lower-roman"><!-- fp:list-item -->
+<li>1<!-- fp:list {"ordered":true,"type":"lower-roman","start":2,"reversed":true} -->
+<ol reversed start="2" style="list-style-type:lower-roman"><!-- fp:list-item -->
 <li>1</li>
-<!-- /wp:list-item --></ol>
-<!-- /wp:list --></li>
-<!-- /wp:list-item --></ol>
-<!-- /wp:list -->"
+<!-- /fp:list-item --></ol>
+<!-- /fp:list --></li>
+<!-- /fp:list-item --></ol>
+<!-- /fp:list -->"
 `;
 
 exports[`rawHandler should convert to unsupported HTML block when no transformation is available 1`] = `
-"<!-- wp:html -->
+"<!-- fp:html -->
 <div><p>Hello world!</p></div>
-<!-- /wp:html -->"
+<!-- /fp:html -->"
 `;
 
 exports[`rawHandler should not strip any text-level elements 1`] = `
-"<!-- wp:paragraph -->
+"<!-- fp:paragraph -->
 <p>This is <u>ncorect</u></p>
-<!-- /wp:paragraph -->"
+<!-- /fp:paragraph -->"
 `;
 
 exports[`rawHandler should preserve alignment 1`] = `
-"<!-- wp:paragraph {"align":"center"} -->
+"<!-- fp:paragraph {"align":"center"} -->
 <p class="has-text-align-center">center</p>
-<!-- /wp:paragraph -->"
+<!-- /fp:paragraph -->"
 `;

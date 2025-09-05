@@ -20,9 +20,9 @@
 				]
 			}
 		],
-		"innerHTML": "\n<div\n\tclass=\"wp-block-cover has-background-dim-40 has-background-dim\"\n\tstyle=\"background-image:url(data:image/jpeg;base64,/9j/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/yQALCAABAAEBAREA/8wABgAQEAX/2gAIAQEAAD8A0s8g/9k=)\"\n>\n\t<div class=\"wp-block-cover__inner-container\">\n\t\t\n\t</div>\n</div>\n",
+		"innerHTML": "\n<div\n\tclass=\"fp-block-cover has-background-dim-40 has-background-dim\"\n\tstyle=\"background-image:url(data:image/jpeg;base64,/9j/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/yQALCAABAAEBAREA/8wABgAQEAX/2gAIAQEAAD8A0s8g/9k=)\"\n>\n\t<div class=\"fp-block-cover__inner-container\">\n\t\t\n\t</div>\n</div>\n",
 		"innerContent": [
-			"\n<div\n\tclass=\"wp-block-cover has-background-dim-40 has-background-dim\"\n\tstyle=\"background-image:url(data:image/jpeg;base64,/9j/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/yQALCAABAAEBAREA/8wABgAQEAX/2gAIAQEAAD8A0s8g/9k=)\"\n>\n\t<div class=\"wp-block-cover__inner-container\">\n\t\t",
+			"\n<div\n\tclass=\"fp-block-cover has-background-dim-40 has-background-dim\"\n\tstyle=\"background-image:url(data:image/jpeg;base64,/9j/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/yQALCAABAAEBAREA/8wABgAQEAX/2gAIAQEAAD8A0s8g/9k=)\"\n>\n\t<div class=\"fp-block-cover__inner-container\">\n\t\t",
 			null,
 			"\n\t</div>\n</div>\n"
 		]
@@ -57,9 +57,9 @@
 				"innerContent": [ "\n\t\t<p></p>\n\t\t" ]
 			}
 		],
-		"innerHTML": "\n<div\n\tclass=\"wp-block-cover alignfull\"\n\tstyle=\"background-image: url( https://example.com/some-background-image.png ); min-height: 48vw; background-position: 50% 40%;\"\n>\n\t<div class=\"wp-block-cover__inner-container\">\n\t\t\n\t</div>\n</div>\n",
+		"innerHTML": "\n<div\n\tclass=\"fp-block-cover alignfull\"\n\tstyle=\"background-image: url( https://example.com/some-background-image.png ); min-height: 48vw; background-position: 50% 40%;\"\n>\n\t<div class=\"fp-block-cover__inner-container\">\n\t\t\n\t</div>\n</div>\n",
 		"innerContent": [
-			"\n<div\n\tclass=\"wp-block-cover alignfull\"\n\tstyle=\"background-image: url( https://example.com/some-background-image.png ); min-height: 48vw; background-position: 50% 40%;\"\n>\n\t<div class=\"wp-block-cover__inner-container\">\n\t\t",
+			"\n<div\n\tclass=\"fp-block-cover alignfull\"\n\tstyle=\"background-image: url( https://example.com/some-background-image.png ); min-height: 48vw; background-position: 50% 40%;\"\n>\n\t<div class=\"fp-block-cover__inner-container\">\n\t\t",
 			null,
 			"\n\t</div>\n</div>\n"
 		]
@@ -74,7 +74,7 @@
 	{
 		"blockName": "core/cover",
 		"attrs": {
-			"url": "http://localhost:8888/wp-content/uploads/2021/02/percy.jpg",
+			"url": "http://localhost:8888/fp-content/uploads/2021/02/percy.jpg",
 			"id": 134,
 			"contentPosition": "bottom right"
 		},
@@ -93,9 +93,9 @@
 				]
 			}
 		],
-		"innerHTML": "\n<div class=\"wp-block-cover has-background-dim has-custom-content-position is-position-bottom-right\"><img class=\"wp-block-cover__image-background wp-image-134\" alt=\"\" src=\"http://localhost:8888/wp-content/uploads/2021/02/percy.jpg\" data-object-fit=\"cover\"/>\n\t<div class=\"wp-block-cover__inner-container\">\n\t\t\n\t</div>\n</div>\n",
+		"innerHTML": "\n<div class=\"fp-block-cover has-background-dim has-custom-content-position is-position-bottom-right\"><img class=\"fp-block-cover__image-background fp-image-134\" alt=\"\" src=\"http://localhost:8888/fp-content/uploads/2021/02/percy.jpg\" data-object-fit=\"cover\"/>\n\t<div class=\"fp-block-cover__inner-container\">\n\t\t\n\t</div>\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"wp-block-cover has-background-dim has-custom-content-position is-position-bottom-right\"><img class=\"wp-block-cover__image-background wp-image-134\" alt=\"\" src=\"http://localhost:8888/wp-content/uploads/2021/02/percy.jpg\" data-object-fit=\"cover\"/>\n\t<div class=\"wp-block-cover__inner-container\">\n\t\t",
+			"\n<div class=\"fp-block-cover has-background-dim has-custom-content-position is-position-bottom-right\"><img class=\"fp-block-cover__image-background fp-image-134\" alt=\"\" src=\"http://localhost:8888/fp-content/uploads/2021/02/percy.jpg\" data-object-fit=\"cover\"/>\n\t<div class=\"fp-block-cover__inner-container\">\n\t\t",
 			null,
 			"\n\t</div>\n</div>\n"
 		]

@@ -65,7 +65,7 @@ describe( 'gap', () => {
 
 		it( 'should unwrap var: values from a string into a CSS var() function', () => {
 			expect( getGapCSSValue( 'var:preset|spacing|60' ) ).toEqual(
-				'var(--wp--preset--spacing--60)'
+				'var(--fp--preset--spacing--60)'
 			);
 		} );
 
@@ -75,7 +75,7 @@ describe( 'gap', () => {
 				left: 'var:preset|spacing|60',
 			};
 			expect( getGapCSSValue( blockGapValue ) ).toEqual(
-				'var(--wp--preset--spacing--20) var(--wp--preset--spacing--60)'
+				'var(--fp--preset--spacing--20) var(--fp--preset--spacing--60)'
 			);
 		} );
 	} );

@@ -11,9 +11,9 @@ import {
 
 const block = 'Separator';
 const initialHtml = `
-<!-- wp:separator -->
-<hr class="wp-block-separator has-alpha-channel-opacity"/>
-<!-- /wp:separator -->`;
+<!-- fp:separator -->
+<hr class="fp-block-separator has-alpha-channel-opacity"/>
+<!-- /fp:separator -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ 'Spacer', ...transformsWithInnerBlocks ];

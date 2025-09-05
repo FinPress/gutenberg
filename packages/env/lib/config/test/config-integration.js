@@ -41,17 +41,17 @@ jest.mock( '../detect-directory-type', () => jest.fn() );
 
 describe( 'Config Integration', () => {
 	beforeEach( () => {
-		process.env.WP_ENV_HOME = '/cache';
+		process.env.FP_ENV_HOME = '/cache';
 		detectDirectoryType.mockResolvedValue( null );
 	} );
 
 	afterEach( () => {
-		delete process.env.WP_ENV_HOME;
-		delete process.env.WP_ENV_PORT;
-		delete process.env.WP_ENV_MYSQL_PORT;
-		delete process.env.WP_ENV_TESTS_PORT;
-		delete process.env.WP_ENV_TESTS_MYSQL_PORT;
-		delete process.env.WP_ENV_LIFECYCLE_SCRIPT_AFTER_START;
+		delete process.env.FP_ENV_HOME;
+		delete process.env.FP_ENV_PORT;
+		delete process.env.FP_ENV_MYSQL_PORT;
+		delete process.env.FP_ENV_TESTS_PORT;
+		delete process.env.FP_ENV_TESTS_MYSQL_PORT;
+		delete process.env.FP_ENV_LIFECYCLE_SCRIPT_AFTER_START;
 	} );
 
 	it( 'should use default configuration', async () => {
@@ -70,7 +70,7 @@ describe( 'Config Integration', () => {
 
 	it( 'should load local configuration file', async () => {
 		readFile.mockImplementation( async ( fileName ) => {
-			if ( fileName === '/test/gutenberg/.wp-env.json' ) {
+			if ( fileName === '/test/gutenberg/.fp-env.json' ) {
 				return JSON.stringify( {
 					core: 'FinPress/FinPress#trunk',
 					port: 123,
@@ -104,7 +104,7 @@ describe( 'Config Integration', () => {
 
 	it( 'should load local and override configuration files', async () => {
 		readFile.mockImplementation( async ( fileName ) => {
-			if ( fileName === '/test/gutenberg/.wp-env.json' ) {
+			if ( fileName === '/test/gutenberg/.fp-env.json' ) {
 				return JSON.stringify( {
 					core: 'FinPress/FinPress#trunk',
 					port: 123,
@@ -122,7 +122,7 @@ describe( 'Config Integration', () => {
 				} );
 			}
 
-			if ( fileName === '/test/gutenberg/.wp-env.override.json' ) {
+			if ( fileName === '/test/gutenberg/.fp-env.override.json' ) {
 				return JSON.stringify( {
 					port: 999,
 					lifecycleScripts: {
@@ -154,14 +154,14 @@ describe( 'Config Integration', () => {
 	} );
 
 	it( 'should use environment variables over local and override configuration files', async () => {
-		process.env.WP_ENV_PORT = 12345;
-		process.env.WP_ENV_MYSQL_PORT = 23306;
-		process.env.WP_ENV_TESTS_PORT = 61234;
-		process.env.WP_ENV_TESTS_MYSQL_PORT = 23307;
-		process.env.WP_ENV_LIFECYCLE_SCRIPT_AFTER_START = 'test';
+		process.env.FP_ENV_PORT = 12345;
+		process.env.FP_ENV_MYSQL_PORT = 23306;
+		process.env.FP_ENV_TESTS_PORT = 61234;
+		process.env.FP_ENV_TESTS_MYSQL_PORT = 23307;
+		process.env.FP_ENV_LIFECYCLE_SCRIPT_AFTER_START = 'test';
 
 		readFile.mockImplementation( async ( fileName ) => {
-			if ( fileName === '/test/gutenberg/.wp-env.json' ) {
+			if ( fileName === '/test/gutenberg/.fp-env.json' ) {
 				return JSON.stringify( {
 					core: 'FinPress/FinPress#trunk',
 					port: 123,
@@ -179,7 +179,7 @@ describe( 'Config Integration', () => {
 				} );
 			}
 
-			if ( fileName === '/test/gutenberg/.wp-env.override.json' ) {
+			if ( fileName === '/test/gutenberg/.fp-env.override.json' ) {
 				return JSON.stringify( {
 					port: 999,
 				} );

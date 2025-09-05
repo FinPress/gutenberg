@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const esbuild = require( 'esbuild' );
 
-const wpExternals = {
+const fpExternals = {
 	name: 'finpress-externals',
 	setup( build ) {
 		build.onResolve(
@@ -32,8 +32,8 @@ const wpExternals = {
 esbuild.build( {
 	entryPoints: [ 'src/index.ts' ],
 	bundle: true,
-	outdir: 'build-wp',
-	plugins: [ wpExternals ],
+	outdir: 'build-fp',
+	plugins: [ fpExternals ],
 	jsx: 'automatic',
 	logLevel: 'info',
 	format: 'esm',

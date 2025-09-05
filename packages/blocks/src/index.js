@@ -1,6 +1,6 @@
 // A "block" is the abstract term used to describe units of markup that,
 // when composed together, form the content or layout of a page.
-// The API for blocks is exposed via `wp.blocks`.
+// The API for blocks is exposed via `fp.blocks`.
 //
 // Supported blocks are registered by calling `registerBlockType`. Once registered,
 // the block is made available as an option to the editor interface.

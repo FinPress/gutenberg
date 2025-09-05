@@ -7,7 +7,7 @@ import { Button, ToolbarItem } from '@finpress/components';
 import { NavigableToolbar } from '@finpress/block-editor';
 import { listView, plus } from '@finpress/icons';
 import { useCallback } from '@finpress/element';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 
 /**
  * Internal dependencies
@@ -18,7 +18,7 @@ import { store as editWidgetsStore } from '../../../store';
 import { unlock } from '../../../lock-unlock';
 
 function DocumentTools() {
-	const isMediumViewport = useViewportMatch( 'medium' );
+	const isMediumviewport = useviewportMatch( 'medium' );
 
 	const {
 		isInserterOpen,
@@ -77,7 +77,7 @@ function DocumentTools() {
 				) }
 				size="compact"
 			/>
-			{ isMediumViewport && (
+			{ isMediumviewport && (
 				<>
 					<ToolbarItem as={ UndoButton } />
 					<ToolbarItem as={ RedoButton } />

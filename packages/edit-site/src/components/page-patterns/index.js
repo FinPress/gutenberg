@@ -67,7 +67,7 @@ const DEFAULT_VIEW = {
 
 export default function DataviewsPatterns() {
 	const {
-		query: { postType = 'wp_block', categoryId: categoryIdFromURL },
+		query: { postType = 'fp_block', categoryId: categoryIdFromURL },
 	} = useLocation();
 	const history = useHistory();
 	const categoryId = categoryIdFromURL || PATTERN_DEFAULT_CATEGORY;

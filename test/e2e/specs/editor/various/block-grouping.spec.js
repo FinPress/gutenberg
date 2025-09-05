@@ -194,8 +194,8 @@ test.describe( 'Block Grouping', () => {
 			const { id: ref } = await requestUtils.createBlock( {
 				title: 'Block',
 				status: 'publish',
-				content: `<!-- wp:paragraph -->\n<p>Hey!</p>\n<!-- /wp:paragraph -->`,
-				wp_pattern_category: [],
+				content: `<!-- fp:paragraph -->\n<p>Hey!</p>\n<!-- /fp:paragraph -->`,
+				fp_pattern_category: [],
 			} );
 
 			await editor.insertBlock( {
@@ -258,7 +258,7 @@ test.describe( 'Block Grouping', () => {
 		test.beforeEach( async ( { page, pageUtils, groupingUtils } ) => {
 			// Disable the Group block.
 			await page.evaluate( () => {
-				window.wp.data
+				window.fp.data
 					.dispatch( 'core/edit-post' )
 					.hideBlockTypes( [ 'core/group' ] );
 			} );
@@ -270,7 +270,7 @@ test.describe( 'Block Grouping', () => {
 		test.afterEach( async ( { page } ) => {
 			// Re-enable the Group block.
 			await page.evaluate( () => {
-				window.wp.data
+				window.fp.data
 					.dispatch( 'core/edit-post' )
 					.showBlockTypes( [ 'core/group' ] );
 			} );
@@ -372,7 +372,7 @@ test.describe( 'Block Grouping', () => {
 		} ) => {
 			// Set custom Block as the Block to use for Grouping.
 			await page.evaluate( () => {
-				window.wp.blocks.setGroupingBlockName(
+				window.fp.blocks.setGroupingBlockName(
 					'test/alternative-group-block'
 				);
 			} );

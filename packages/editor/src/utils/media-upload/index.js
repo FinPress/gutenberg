@@ -50,17 +50,17 @@ export default function mediaUpload( {
 		unlockPostSaving,
 	} = dispatch( editorStore );
 
-	const wpAllowedMimeTypes = getEditorSettings().allowedMimeTypes;
+	const fpAllowedMimeTypes = getEditorSettings().allowedMimeTypes;
 	const lockKey = `image-upload-${ uuid() }`;
 	let imageIsUploading = false;
 	maxUploadFileSize =
 		maxUploadFileSize || getEditorSettings().maxUploadFileSize;
 	const currentPost = getCurrentPost();
-	// Templates and template parts' numerical ID is stored in `wp_id`.
+	// Templates and template parts' numerical ID is stored in `fp_id`.
 	const currentPostId =
 		typeof currentPost?.id === 'number'
 			? currentPost.id
-			: currentPost?.wp_id;
+			: currentPost?.fp_id;
 	const setSaveLock = () => {
 		lockPostSaving( lockKey );
 		lockPostAutosaving( lockKey );
@@ -110,7 +110,7 @@ export default function mediaUpload( {
 			clearSaveLock();
 			onError( message );
 		},
-		wpAllowedMimeTypes,
+		fpAllowedMimeTypes,
 		multiple,
 	} );
 }

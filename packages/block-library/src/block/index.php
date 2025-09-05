@@ -1,4 +1,4 @@
-<?php // phpcs:ignore FinPress.Files.FileName.InvalidClassFileName // Needed for WP_Block_Cloner helper class.
+<?php // phpcs:ignore FinPress.Files.FileName.InvalidClassFileName // Needed for FP_Block_Cloner helper class.
 /**
  * Server-side rendering of the `core/block` block.
  *
@@ -10,7 +10,7 @@
  *
  * @since 5.0.0
  *
- * @global WP_Embed $wp_embed
+ * @global FP_Embed $fp_embed
  *
  * @param array $attributes The block attributes.
  *
@@ -24,14 +24,14 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 	}
 
 	$reusable_block = get_post( $attributes['ref'] );
-	if ( ! $reusable_block || 'wp_block' !== $reusable_block->post_type ) {
+	if ( ! $reusable_block || 'fp_block' !== $reusable_block->post_type ) {
 		return '';
 	}
 
 	if ( isset( $seen_refs[ $attributes['ref'] ] ) ) {
-		// WP_DEBUG_DISPLAY must only be honored when WP_DEBUG. This precedent
-		// is set in `wp_debug_mode()`.
-		$is_debug = WP_DEBUG && WP_DEBUG_DISPLAY;
+		// FP_DEBUG_DISPLAY must only be honored when FP_DEBUG. This precedent
+		// is set in `fp_debug_mode()`.
+		$is_debug = FP_DEBUG && FP_DEBUG_DISPLAY;
 
 		return $is_debug ?
 			// translators: Visible only in the front end, this warning takes the place of a faulty block.
@@ -46,9 +46,9 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 	$seen_refs[ $attributes['ref'] ] = true;
 
 	// Handle embeds for reusable blocks.
-	global $wp_embed;
-	$content = $wp_embed->run_shortcode( $reusable_block->post_content );
-	$content = $wp_embed->autoembed( $content );
+	global $fp_embed;
+	$content = $fp_embed->run_shortcode( $reusable_block->post_content );
+	$content = $fp_embed->autoembed( $content );
 
 	// Back compat.
 	// For blocks that have not been migrated in the editor, add some back compat
@@ -59,7 +59,7 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 	if ( isset( $attributes['content'] ) ) {
 		foreach ( $attributes['content'] as &$content_data ) {
 			if ( isset( $content_data['values'] ) ) {
-				$is_assoc_array = is_array( $content_data['values'] ) && ! wp_is_numeric_array( $content_data['values'] );
+				$is_assoc_array = is_array( $content_data['values'] ) && ! fp_is_numeric_array( $content_data['values'] );
 
 				if ( $is_assoc_array ) {
 					$content_data = $content_data['values'];
@@ -84,13 +84,13 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 	$block_instance->parsed_block['innerBlocks']  = parse_blocks( $content );
 	$block_instance->parsed_block['innerContent'] = array_fill( 0, count( $block_instance->parsed_block['innerBlocks'] ), null );
 	if ( method_exists( $block_instance, 'refresh_context_dependents' ) ) {
-		// WP_Block::refresh_context_dependents() was introduced in FinPress 6.8.
+		// FP_Block::refresh_context_dependents() was introduced in FinPress 6.8.
 		$block_instance->refresh_context_dependents();
 	} else {
 		// This branch can be removed once Gutenberg requires FinPress 6.8 or later.
-		if ( ! class_exists( 'WP_Block_Cloner' ) ) {
+		if ( ! class_exists( 'FP_Block_Cloner' ) ) {
 			// phpcs:ignore Gutenberg.Commenting.SinceTag.MissingClassSinceTag
-			class WP_Block_Cloner extends WP_Block {
+			class FP_Block_Cloner extends FP_Block {
 				/**
 				 * Static methods of subclasses have access to protected properties
 				 * of instances of the parent class.
@@ -98,7 +98,7 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 				 */
 				// phpcs:ignore Gutenberg.Commenting.SinceTag.MissingMethodSinceTag
 				public static function clone_instance( $instance ) {
-					return new WP_Block(
+					return new FP_Block(
 						$instance->parsed_block,
 						$instance->available_context,
 						$instance->registry
@@ -106,7 +106,7 @@ function render_block_core_block( $attributes, $content, $block_instance ) {
 				}
 			}
 		}
-		$block_instance = WP_Block_Cloner::clone_instance( $block_instance );
+		$block_instance = FP_Block_Cloner::clone_instance( $block_instance );
 	}
 
 	$content = $block_instance->render( array( 'dynamic' => false ) );

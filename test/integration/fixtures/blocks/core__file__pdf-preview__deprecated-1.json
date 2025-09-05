@@ -3,9 +3,9 @@
 		"name": "core/file",
 		"isValid": true,
 		"attributes": {
-			"href": "http://localhost:8889/wp-content/uploads/2021/04/yolo.pdf",
+			"href": "http://localhost:8889/fp-content/uploads/2021/04/yolo.pdf",
 			"fileName": "yolo",
-			"textLinkHref": "http://localhost:8889/wp-content/uploads/2021/04/yolo.pdf",
+			"textLinkHref": "http://localhost:8889/fp-content/uploads/2021/04/yolo.pdf",
 			"showDownloadButton": true,
 			"downloadButtonText": "Download",
 			"displayPreview": true,

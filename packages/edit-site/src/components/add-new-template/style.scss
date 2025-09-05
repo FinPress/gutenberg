@@ -46,14 +46,14 @@
 			}
 
 			&:hover {
-				background: rgba(var(--wp-admin-theme-color--rgb), 0.04);
+				background: rgba(var(--fp-admin-theme-color--rgb), 0.04);
 
 				* {
-					color: var(--wp-admin-theme-color);
+					color: var(--fp-admin-theme-color);
 				}
 
 				mark {
-					color: var(--wp-admin-theme-color);
+					color: var(--fp-admin-theme-color);
 				}
 			}
 
@@ -62,7 +62,7 @@
 			}
 
 			&:focus:not(:disabled) {
-				box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color) inset;
+				box-shadow: 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color) inset;
 			}
 
 			&__title,
@@ -108,7 +108,7 @@
 	.edit-site-add-new-template__template-button,
 	.edit-site-add-new-template__custom-template-button {
 		svg {
-			fill: var(--wp-admin-theme-color);
+			fill: var(--fp-admin-theme-color);
 		}
 	}
 
@@ -121,7 +121,7 @@
 
 	.edit-site-add-new-template__template-icon {
 		padding: $grid-unit-10;
-		background: rgba(var(--wp-admin-theme-color--rgb), 0.04);
+		background: rgba(var(--fp-admin-theme-color--rgb), 0.04);
 		border-radius: 100%;
 		max-height: $grid-unit-50;
 		max-width: $grid-unit-50;
@@ -149,24 +149,24 @@
 		}
 
 		&:hover {
-			color: var(--wp-admin-theme-color-darker-10);
-			background: rgba(var(--wp-admin-theme-color--rgb), 0.04);
+			color: var(--fp-admin-theme-color-darker-10);
+			background: rgba(var(--fp-admin-theme-color--rgb), 0.04);
 			border-color: transparent;
 
 			span {
-				color: var(--wp-admin-theme-color);
+				color: var(--fp-admin-theme-color);
 			}
 		}
 
 		&:focus {
-			box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+			box-shadow: 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
 			border-color: transparent;
 
 			// Windows High Contrast mode will show this outline, but not the box-shadow.
 			outline: 3px solid transparent;
 
 			span:first-child {
-				color: var(--wp-admin-theme-color);
+				color: var(--fp-admin-theme-color);
 			}
 		}
 	}

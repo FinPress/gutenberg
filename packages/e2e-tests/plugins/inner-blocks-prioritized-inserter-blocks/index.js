@@ -1,7 +1,7 @@
 ( function () {
-	const { registerBlockType } = wp.blocks;
-	const { createElement: el } = wp.element;
-	const { InnerBlocks } = wp.blockEditor;
+	const { registerBlockType } = fp.blocks;
+	const { createElement: el } = fp.element;
+	const { InnerBlocks } = fp.blockEditor;
 
 	const divProps = {
 		className: 'product',

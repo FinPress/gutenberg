@@ -14,17 +14,17 @@ async function setGutenbergExperiments(
 	experiments: string[]
 ) {
 	const response = await this.request.get(
-		'/wp-admin/admin.php?page=gutenberg-experiments'
+		'/fp-admin/admin.php?page=gutenberg-experiments'
 	);
 	const html = await response.text();
-	const nonce = html.match( /name="_wpnonce" value="([^"]+)"/ )![ 1 ];
+	const nonce = html.match( /name="_fpnonce" value="([^"]+)"/ )![ 1 ];
 
-	await this.request.post( '/wp-admin/options.php', {
+	await this.request.post( '/fp-admin/options.php', {
 		form: {
 			option_page: 'gutenberg-experiments',
 			action: 'update',
-			_wpnonce: nonce,
-			_wp_http_referer: '/wp-admin/admin.php?page=gutenberg-experiments',
+			_fpnonce: nonce,
+			_fp_http_referer: '/fp-admin/admin.php?page=gutenberg-experiments',
 			...Object.fromEntries(
 				experiments.map( ( experiment ) => [
 					`gutenberg-experiments[${ experiment }]`,

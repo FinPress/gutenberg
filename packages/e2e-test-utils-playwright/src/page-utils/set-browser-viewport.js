@@ -1,13 +1,13 @@
 /**
  * Named viewport options.
  *
- * @typedef {"large"|"medium"|"small"} WPDimensionsName
+ * @typedef {"large"|"medium"|"small"} FPDimensionsName
  */
 
 /**
- * Viewport dimensions object.
+ * viewport dimensions object.
  *
- * @typedef {Object} WPViewportDimensions
+ * @typedef {Object} FPviewportDimensions
  *
  * @property {number} width  Width, in pixels.
  * @property {number} height Height, in pixels.
@@ -16,9 +16,9 @@
 /**
  * Predefined viewport dimensions to reference by name.
  *
- * @enum {WPViewportDimensions}
+ * @enum {FPviewportDimensions}
  *
- * @type {Record<WPDimensionsName, WPViewportDimensions>}
+ * @type {Record<FPDimensionsName, FPviewportDimensions>}
  */
 const PREDEFINED_DIMENSIONS = {
 	large: { width: 960, height: 700 },
@@ -29,20 +29,20 @@ const PREDEFINED_DIMENSIONS = {
 /**
  * Valid argument argument type from which to derive viewport dimensions.
  *
- * @typedef {WPDimensionsName|WPViewportDimensions} WPViewport
+ * @typedef {FPDimensionsName|FPviewportDimensions} FPviewport
  */
 
 /**
  * Sets browser viewport to specified type.
  *
  * @this {import('./').PageUtils}
- * @param {WPViewport} viewport Viewport name or dimensions object to assign.
+ * @param {FPviewport} viewport viewport name or dimensions object to assign.
  */
-export async function setBrowserViewport( viewport ) {
+export async function setBrowserviewport( viewport ) {
 	const dimensions =
 		typeof viewport === 'string'
 			? PREDEFINED_DIMENSIONS[ viewport ]
 			: viewport;
 
-	await this.page.setViewportSize( dimensions );
+	await this.page.setviewportSize( dimensions );
 }

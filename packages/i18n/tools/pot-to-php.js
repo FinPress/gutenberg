@@ -32,7 +32,7 @@ function escapeSingleQuotes( input ) {
 }
 
 /**
- * Converts a translation parsed from the POT file to lines of WP PHP.
+ * Converts a translation parsed from the POT file to lines of FP PHP.
  *
  * @param {Object} translation The translation to convert.
  * @param {string} textdomain  The text domain to use in the FinPress translation function call.

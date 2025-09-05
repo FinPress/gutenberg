@@ -24,7 +24,7 @@ describe( 'getEntityRecord', () => {
 		{
 			name: 'postType',
 			kind: 'root',
-			baseURL: '/wp/v2/types',
+			baseURL: '/fp/v2/types',
 			baseURLParams: { context: 'edit' },
 		},
 	];
@@ -55,7 +55,7 @@ describe( 'getEntityRecord', () => {
 
 		// Fetch request should have been issued.
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/types/post?context=edit',
+			path: '/fp/v2/types/post?context=edit',
 			parse: false,
 		} );
 
@@ -95,7 +95,7 @@ describe( 'getEntityRecord', () => {
 
 		// Trigger apiFetch, test that the query is present in the url.
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/types/post?context=view&_envelope=1',
+			path: '/fp/v2/types/post?context=view&_envelope=1',
 			parse: false,
 		} );
 
@@ -126,19 +126,19 @@ describe( 'getEntityRecords', () => {
 		{
 			name: 'postType',
 			kind: 'root',
-			baseURL: '/wp/v2/types',
+			baseURL: '/fp/v2/types',
 			baseURLParams: { context: 'edit' },
 		},
 		{
 			name: 'postType',
 			kind: 'root',
-			baseURL: '/wp/v2/types',
+			baseURL: '/fp/v2/types',
 			baseURLParams: { context: 'edit' },
 		},
 		{
 			name: 'post',
 			kind: 'postType',
-			baseURL: '/wp/v2/posts',
+			baseURL: '/fp/v2/posts',
 			baseURLParams: { context: 'edit' },
 		},
 	];
@@ -166,7 +166,7 @@ describe( 'getEntityRecords', () => {
 
 		// Fetch request should have been issued.
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/types?context=edit',
+			path: '/fp/v2/types?context=edit',
 		} );
 
 		// The record should have been received.
@@ -198,7 +198,7 @@ describe( 'getEntityRecords', () => {
 
 		// Fetch request should have been issued.
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/types?context=edit',
+			path: '/fp/v2/types?context=edit',
 		} );
 
 		// The record should have been received.
@@ -232,7 +232,7 @@ describe( 'getEntityRecords', () => {
 
 		// Fetch request should have been issued.
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/types?context=edit',
+			path: '/fp/v2/types?context=edit',
 		} );
 
 		// The record should have been received.
@@ -381,13 +381,13 @@ describe( 'canUser', () => {
 		{
 			name: 'attachment',
 			kind: 'postType',
-			baseURL: '/wp/v2/media',
+			baseURL: '/fp/v2/media',
 			baseURLParams: { context: 'edit' },
 		},
 		{
-			name: 'wp_block',
+			name: 'fp_block',
 			kind: 'postType',
-			baseURL: '/wp/v2/blocks',
+			baseURL: '/fp/v2/blocks',
 			baseURLParams: { context: 'edit' },
 		},
 	];
@@ -424,7 +424,7 @@ describe( 'canUser', () => {
 		} );
 
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/media',
+			path: '/fp/v2/media',
 			method: 'OPTIONS',
 			parse: false,
 		} );
@@ -434,7 +434,7 @@ describe( 'canUser', () => {
 
 	it( 'throws an error when an entity resource object is malformed', async () => {
 		await expect(
-			canUser( 'create', { name: 'wp_block' } )( {
+			canUser( 'create', { name: 'fp_block' } )( {
 				dispatch,
 				registry,
 				resolveSelect,
@@ -453,7 +453,7 @@ describe( 'canUser', () => {
 		)( { dispatch, registry, resolveSelect } );
 
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/media',
+			path: '/fp/v2/media',
 			method: 'OPTIONS',
 			parse: false,
 		} );
@@ -476,7 +476,7 @@ describe( 'canUser', () => {
 		} );
 
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/media',
+			path: '/fp/v2/media',
 			method: 'OPTIONS',
 			parse: false,
 		} );
@@ -498,7 +498,7 @@ describe( 'canUser', () => {
 		)( { dispatch, registry, resolveSelect } );
 
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/media',
+			path: '/fp/v2/media',
 			method: 'OPTIONS',
 			parse: false,
 		} );
@@ -521,7 +521,7 @@ describe( 'canUser', () => {
 		} );
 
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/media',
+			path: '/fp/v2/media',
 			method: 'OPTIONS',
 			parse: false,
 		} );
@@ -544,7 +544,7 @@ describe( 'canUser', () => {
 		)( { dispatch, registry, resolveSelect } );
 
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/blocks/123',
+			path: '/fp/v2/blocks/123',
 			method: 'OPTIONS',
 			parse: false,
 		} );
@@ -562,7 +562,7 @@ describe( 'canUser', () => {
 
 		await canUser( 'create', {
 			kind: 'postType',
-			name: 'wp_block',
+			name: 'fp_block',
 			id: 123,
 		} )( {
 			dispatch,
@@ -571,13 +571,13 @@ describe( 'canUser', () => {
 		} );
 
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: '/wp/v2/blocks/123',
+			path: '/fp/v2/blocks/123',
 			method: 'OPTIONS',
 			parse: false,
 		} );
 
 		expect( dispatch.receiveUserPermission ).toHaveBeenCalledWith(
-			'create/postType/wp_block/123',
+			'create/postType/fp_block/123',
 			true
 		);
 	} );
@@ -629,7 +629,7 @@ describe( 'canUser', () => {
 
 		await canUser( 'create', {
 			kind: 'postType',
-			name: 'wp_block',
+			name: 'fp_block',
 		} )( {
 			dispatch,
 			registry,
@@ -637,7 +637,7 @@ describe( 'canUser', () => {
 		} );
 		await canUser( 'read', {
 			kind: 'postType',
-			name: 'wp_block',
+			name: 'fp_block',
 		} )( {
 			dispatch,
 			registry,
@@ -647,11 +647,11 @@ describe( 'canUser', () => {
 		expect( triggerFetch ).toHaveBeenCalledTimes( 1 );
 
 		expect( dispatch.receiveUserPermission ).toHaveBeenCalledWith(
-			'create/postType/wp_block',
+			'create/postType/fp_block',
 			true
 		);
 		expect( dispatch.receiveUserPermission ).toHaveBeenCalledWith(
-			'read/postType/wp_block',
+			'read/postType/fp_block',
 			true
 		);
 	} );
@@ -770,41 +770,41 @@ describe( 'canUser', () => {
 
 		await canUser( 'create', {
 			kind: 'postType',
-			name: 'wp_block',
+			name: 'fp_block',
 			id: 123,
 		} )( { dispatch, registry, resolveSelect } );
 		await canUser( 'read', {
 			kind: 'postType',
-			name: 'wp_block',
+			name: 'fp_block',
 			id: 123,
 		} )( { dispatch, registry, resolveSelect } );
 		await canUser( 'update', {
 			kind: 'postType',
-			name: 'wp_block',
+			name: 'fp_block',
 			id: 123,
 		} )( { dispatch, registry, resolveSelect } );
 		await canUser( 'delete', {
 			kind: 'postType',
-			name: 'wp_block',
+			name: 'fp_block',
 			id: 123,
 		} )( { dispatch, registry, resolveSelect } );
 
 		expect( triggerFetch ).toHaveBeenCalledTimes( 1 );
 
 		expect( dispatch.receiveUserPermission ).toHaveBeenCalledWith(
-			'create/postType/wp_block/123',
+			'create/postType/fp_block/123',
 			true
 		);
 		expect( dispatch.receiveUserPermission ).toHaveBeenCalledWith(
-			'read/postType/wp_block/123',
+			'read/postType/fp_block/123',
 			true
 		);
 		expect( dispatch.receiveUserPermission ).toHaveBeenCalledWith(
-			'update/postType/wp_block/123',
+			'update/postType/fp_block/123',
 			true
 		);
 		expect( dispatch.receiveUserPermission ).toHaveBeenCalledWith(
-			'delete/postType/wp_block/123',
+			'delete/postType/fp_block/123',
 			true
 		);
 	} );
@@ -842,7 +842,7 @@ describe( 'getAutosaves', () => {
 		await getAutosaves( postType, postId )( { dispatch, resolveSelect } );
 
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: `/wp/v2/${ restBase }/${ postId }/autosaves?context=edit`,
+			path: `/fp/v2/${ restBase }/${ postId }/autosaves?context=edit`,
 		} );
 		expect( dispatch.receiveAutosaves ).toHaveBeenCalledWith(
 			1,
@@ -869,7 +869,7 @@ describe( 'getAutosaves', () => {
 		await getAutosaves( postType, postId )( { dispatch, resolveSelect } );
 
 		expect( triggerFetch ).toHaveBeenCalledWith( {
-			path: `/wp/v2/${ restBase }/${ postId }/autosaves?context=edit`,
+			path: `/fp/v2/${ restBase }/${ postId }/autosaves?context=edit`,
 		} );
 		expect( dispatch.receiveAutosaves ).not.toHaveBeenCalled();
 	} );

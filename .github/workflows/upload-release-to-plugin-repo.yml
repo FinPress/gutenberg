@@ -25,7 +25,7 @@ jobs:
             should_update_trunk: ${{ steps.compute_should_update_trunk.outputs.should_update_trunk }}
 
         steps:
-            - name: Fetch latest version in the WP core repo
+            - name: Fetch latest version in the FP core repo
               id: compute_latest_version_in_core_repo
               run: |
                   latest_version_in_core_repo=$(curl -s 'https://api.finpress.org/plugins/info/1.2/?action=plugin_information&request\[slug\]=gutenberg' | jq -r '.version')
@@ -57,7 +57,7 @@ jobs:
                   }
 
                   # Only update trunk *if* the published release's version in GitHub is GREATER
-                  # than the version currently published in the WP plugins repo. If not, then it
+                  # than the version currently published in the FP plugins repo. If not, then it
                   # will upload it as a new tag.
                   shouldUpdateTrunk=false
                   if is_first_version_greater_than_second "$latestPublishedVersion" "$LATEST_VERSION"; then
@@ -167,7 +167,7 @@ jobs:
         name: Publish as trunk (and tag)
         runs-on: 'ubuntu-24.04'
         permissions: {}
-        environment: wp.org plugin
+        environment: fp.org plugin
         needs: [compute-should-update-trunk, update-changelog]
         if: |
             needs.compute-should-update-trunk.outputs.should_update_trunk == 'true' && github.event.release.assets[0]
@@ -183,7 +183,7 @@ jobs:
               run: |
                   sudo apt-get update -y && sudo apt-get install -y subversion
 
-            - name: Check out Gutenberg trunk from WP.org plugin repo
+            - name: Check out Gutenberg trunk from FP.org plugin repo
               run: |
                   svn checkout "$PLUGIN_REPO_URL/trunk" --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
                   svn checkout "$PLUGIN_REPO_URL/tags" --depth=immediates --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
@@ -227,7 +227,7 @@ jobs:
         name: Publish as tag
         runs-on: 'ubuntu-24.04'
         permissions: {}
-        environment: wp.org plugin
+        environment: fp.org plugin
         needs: [compute-should-update-trunk, update-changelog]
         if: |
             needs.compute-should-update-trunk.outputs.should_update_trunk == 'false' && github.event.release.assets[0]

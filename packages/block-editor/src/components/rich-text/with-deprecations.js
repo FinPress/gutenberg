@@ -18,7 +18,7 @@ export function withDeprecations( Component ) {
 
 		// Handle deprecated format.
 		if ( Array.isArray( value ) ) {
-			deprecated( 'wp.blockEditor.RichText value prop as children type', {
+			deprecated( 'fp.blockEditor.RichText value prop as children type', {
 				since: '6.1',
 				version: '6.3',
 				alternative: 'value prop as string',

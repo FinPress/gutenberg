@@ -1,5 +1,5 @@
-<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph -->
+<!-- fp:group {"layout":{"type":"constrained"}} -->
+<div class="fp-block-group"><!-- fp:paragraph -->
 <p>Group Block with a Paragraph</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
+<!-- /fp:paragraph --></div>
+<!-- /fp:group -->

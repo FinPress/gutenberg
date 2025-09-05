@@ -30,9 +30,9 @@ function gutenberg_is_experiment_enabled( $name ) {
 
 // These files only need to be loaded if within a rest server instance.
 // which this class will exist if that is the case.
-if ( class_exists( 'WP_REST_Controller' ) ) {
-	if ( ! class_exists( 'WP_REST_Block_Editor_Settings_Controller' ) ) {
-		require_once __DIR__ . '/experimental/class-wp-rest-block-editor-settings-controller.php';
+if ( class_exists( 'FP_REST_Controller' ) ) {
+	if ( ! class_exists( 'FP_REST_Block_Editor_Settings_Controller' ) ) {
+		require_once __DIR__ . '/experimental/class-fp-rest-block-editor-settings-controller.php';
 	}
 
 	// FinPress 6.8 compat.
@@ -44,8 +44,8 @@ if ( class_exists( 'WP_REST_Controller' ) ) {
 	require __DIR__ . '/compat/finpress-6.9/class-gutenberg-hierarchical-sort.php';
 
 	// Plugin specific code.
-	require_once __DIR__ . '/class-wp-rest-global-styles-controller-gutenberg.php';
-	require_once __DIR__ . '/class-wp-rest-edit-site-export-controller-gutenberg.php';
+	require_once __DIR__ . '/class-fp-rest-global-styles-controller-gutenberg.php';
+	require_once __DIR__ . '/class-fp-rest-edit-site-export-controller-gutenberg.php';
 	require_once __DIR__ . '/rest-api.php';
 
 	require_once __DIR__ . '/experimental/rest-api.php';
@@ -99,27 +99,27 @@ if ( gutenberg_is_experiment_enabled( 'gutenberg-no-tinymce' ) ) {
 
 // Load the BC Layer to avoid fatal errors of extenders using the Fonts API.
 // @core-merge: do not merge the BC layer files into FinPress Core.
-require __DIR__ . '/experimental/font-face/bc-layer/class-wp-fonts-provider.php';
-require __DIR__ . '/experimental/font-face/bc-layer/class-wp-fonts-utils.php';
-require __DIR__ . '/experimental/font-face/bc-layer/class-wp-fonts.php';
-require __DIR__ . '/experimental/font-face/bc-layer/class-wp-fonts-provider-local.php';
-require __DIR__ . '/experimental/font-face/bc-layer/class-wp-fonts-resolver.php';
+require __DIR__ . '/experimental/font-face/bc-layer/class-fp-fonts-provider.php';
+require __DIR__ . '/experimental/font-face/bc-layer/class-fp-fonts-utils.php';
+require __DIR__ . '/experimental/font-face/bc-layer/class-fp-fonts.php';
+require __DIR__ . '/experimental/font-face/bc-layer/class-fp-fonts-provider-local.php';
+require __DIR__ . '/experimental/font-face/bc-layer/class-fp-fonts-resolver.php';
 require __DIR__ . '/experimental/font-face/bc-layer/class-gutenberg-fonts-api-bc-layer.php';
 require __DIR__ . '/experimental/font-face/bc-layer/webfonts-deprecations.php';
-require __DIR__ . '/experimental/font-face/bc-layer/class-wp-webfonts-utils.php';
-require __DIR__ . '/experimental/font-face/bc-layer/class-wp-webfonts-provider.php';
-require __DIR__ . '/experimental/font-face/bc-layer/class-wp-webfonts-provider-local.php';
-require __DIR__ . '/experimental/font-face/bc-layer/class-wp-webfonts.php';
-require __DIR__ . '/experimental/font-face/bc-layer/class-wp-web-fonts.php';
+require __DIR__ . '/experimental/font-face/bc-layer/class-fp-webfonts-utils.php';
+require __DIR__ . '/experimental/font-face/bc-layer/class-fp-webfonts-provider.php';
+require __DIR__ . '/experimental/font-face/bc-layer/class-fp-webfonts-provider-local.php';
+require __DIR__ . '/experimental/font-face/bc-layer/class-fp-webfonts.php';
+require __DIR__ . '/experimental/font-face/bc-layer/class-fp-web-fonts.php';
 
 // Plugin specific code.
 require __DIR__ . '/script-loader.php';
 require __DIR__ . '/global-styles-and-settings.php';
-require __DIR__ . '/class-wp-theme-json-data-gutenberg.php';
-require __DIR__ . '/class-wp-theme-json-gutenberg.php';
-require __DIR__ . '/class-wp-theme-json-resolver-gutenberg.php';
-require __DIR__ . '/class-wp-theme-json-schema-gutenberg.php';
-require __DIR__ . '/class-wp-duotone-gutenberg.php';
+require __DIR__ . '/class-fp-theme-json-data-gutenberg.php';
+require __DIR__ . '/class-fp-theme-json-gutenberg.php';
+require __DIR__ . '/class-fp-theme-json-resolver-gutenberg.php';
+require __DIR__ . '/class-fp-theme-json-schema-gutenberg.php';
+require __DIR__ . '/class-fp-duotone-gutenberg.php';
 require __DIR__ . '/blocks.php';
 require __DIR__ . '/block-editor-settings.php';
 require __DIR__ . '/client-assets.php';
@@ -130,11 +130,11 @@ require __DIR__ . '/block-template-utils.php';
 
 // Copied package PHP files.
 if ( is_dir( __DIR__ . '/../build/style-engine' ) ) {
-	require_once __DIR__ . '/../build/style-engine/class-wp-style-engine-css-declarations-gutenberg.php';
-	require_once __DIR__ . '/../build/style-engine/class-wp-style-engine-css-rule-gutenberg.php';
-	require_once __DIR__ . '/../build/style-engine/class-wp-style-engine-css-rules-store-gutenberg.php';
-	require_once __DIR__ . '/../build/style-engine/class-wp-style-engine-processor-gutenberg.php';
-	require_once __DIR__ . '/../build/style-engine/class-wp-style-engine-gutenberg.php';
+	require_once __DIR__ . '/../build/style-engine/class-fp-style-engine-css-declarations-gutenberg.php';
+	require_once __DIR__ . '/../build/style-engine/class-fp-style-engine-css-rule-gutenberg.php';
+	require_once __DIR__ . '/../build/style-engine/class-fp-style-engine-css-rules-store-gutenberg.php';
+	require_once __DIR__ . '/../build/style-engine/class-fp-style-engine-processor-gutenberg.php';
+	require_once __DIR__ . '/../build/style-engine/class-fp-style-engine-gutenberg.php';
 	require_once __DIR__ . '/../build/style-engine/style-engine-gutenberg.php';
 }
 

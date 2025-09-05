@@ -28,7 +28,7 @@ _This package assumes that your code will run in an **ES2015+** environment. If 
 
 > **Deprecated** Use `ServerSideRender` non-default export instead.
 
-A compatibility layer for the `ServerSideRender` component when used with `wp` global namespace.
+A compatibility layer for the `ServerSideRender` component when used with `fp` global namespace.
 
 _Usage_
 
@@ -131,7 +131,7 @@ Output uses the block's `render_callback` function, set when defining the block.
 
 ## API Endpoint
 
-The API endpoint for getting the output for ServerSideRender is `/wp/v2/block-renderer/:block`. It will use the block's `render_callback` method.
+The API endpoint for getting the output for ServerSideRender is `/fp/v2/block-renderer/:block`. It will use the block's `render_callback` method.
 
 If you pass `attributes` to `ServerSideRender`, the block must also be registered and have its attributes defined in PHP.
 

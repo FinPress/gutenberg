@@ -200,7 +200,7 @@ const getGlobalAsyncEventDirective = (
 };
 
 export default () => {
-	// data-wp-context
+	// data-fp-context
 	directive(
 		'context',
 		( {
@@ -228,7 +228,7 @@ export default () => {
 					// Check that the value is a JSON object. Send a console warning if not.
 					if ( ! isPlainObject( value ) ) {
 						warn(
-							`The value of data-wp-context in "${ namespace }" store must be a valid stringified JSON object.`
+							`The value of data-fp-context in "${ namespace }" store must be a valid stringified JSON object.`
 						);
 					}
 					deepMerge(
@@ -254,7 +254,7 @@ export default () => {
 		{ priority: 5 }
 	);
 
-	// data-wp-watch--[name]
+	// data-fp-watch--[name]
 	directive( 'watch', ( { directives: { watch }, evaluate } ) => {
 		watch.forEach( ( entry ) => {
 			useWatch( () => {
@@ -290,7 +290,7 @@ export default () => {
 		} );
 	} );
 
-	// data-wp-init--[name]
+	// data-fp-init--[name]
 	directive( 'init', ( { directives: { init }, evaluate } ) => {
 		init.forEach( ( entry ) => {
 			// TODO: Replace with useEffect to prevent unneeded scopes.
@@ -327,7 +327,7 @@ export default () => {
 		} );
 	} );
 
-	// data-wp-on--[event]
+	// data-fp-on--[event]
 	directive( 'on', ( { directives: { on }, element, evaluate } ) => {
 		const events = new Map< string, Set< DirectiveEntry > >();
 		on.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
@@ -380,7 +380,7 @@ export default () => {
 		} );
 	} );
 
-	// data-wp-on-async--[event]
+	// data-fp-on-async--[event]
 	directive(
 		'on-async',
 		( { directives: { 'on-async': onAsync }, element, evaluate } ) => {
@@ -413,20 +413,20 @@ export default () => {
 		}
 	);
 
-	// data-wp-on-window--[event]
+	// data-fp-on-window--[event]
 	directive( 'on-window', getGlobalEventDirective( 'window' ) );
-	// data-wp-on-document--[event]
+	// data-fp-on-document--[event]
 	directive( 'on-document', getGlobalEventDirective( 'document' ) );
 
-	// data-wp-on-async-window--[event]
+	// data-fp-on-async-window--[event]
 	directive( 'on-async-window', getGlobalAsyncEventDirective( 'window' ) );
-	// data-wp-on-async-document--[event]
+	// data-fp-on-async-document--[event]
 	directive(
 		'on-async-document',
 		getGlobalAsyncEventDirective( 'document' )
 	);
 
-	// data-wp-class--[classname]
+	// data-fp-class--[classname]
 	directive(
 		'class',
 		( { directives: { class: classNames }, element, evaluate } ) => {
@@ -473,7 +473,7 @@ export default () => {
 		}
 	);
 
-	// data-wp-style--[style-prop]
+	// data-fp-style--[style-prop]
 	directive( 'style', ( { directives: { style }, element, evaluate } ) => {
 		style.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
 			const styleProp = entry.suffix;
@@ -510,7 +510,7 @@ export default () => {
 		} );
 	} );
 
-	// data-wp-bind--[attribute]
+	// data-fp-bind--[attribute]
 	directive( 'bind', ( { directives: { bind }, element, evaluate } ) => {
 		bind.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
 			const attribute = entry.suffix;
@@ -589,7 +589,7 @@ export default () => {
 		} );
 	} );
 
-	// data-wp-ignore
+	// data-fp-ignore
 	directive(
 		'ignore',
 		( {
@@ -602,7 +602,7 @@ export default () => {
 		} ) => {
 			// Shown deprecation warning
 			warn(
-				'The "data-wp-ignore" directive of the Interactivity API is deprecated since version 6.9 and will be removed in version 7.0.'
+				'The "data-fp-ignore" directive of the Interactivity API is deprecated since version 6.9 and will be removed in version 7.0.'
 			);
 
 			// Preserve the initial inner HTML
@@ -614,7 +614,7 @@ export default () => {
 		}
 	);
 
-	// data-wp-text
+	// data-fp-text
 	directive( 'text', ( { directives: { text }, element, evaluate } ) => {
 		const entry = text.find( isDefaultDirectiveSuffix );
 		if ( ! entry ) {
@@ -634,7 +634,7 @@ export default () => {
 		}
 	} );
 
-	// data-wp-run
+	// data-fp-run
 	directive( 'run', ( { directives: { run }, evaluate } ) => {
 		run.forEach( ( entry ) => {
 			let result = evaluate( entry );
@@ -645,7 +645,7 @@ export default () => {
 		} );
 	} );
 
-	// data-wp-each--[item]
+	// data-fp-each--[item]
 	directive(
 		'each',
 		( {

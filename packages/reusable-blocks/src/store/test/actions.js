@@ -37,9 +37,9 @@ function createRegistryWithStores() {
 	// Register entity here instead of mocking API handlers for loadPostTypeEntities()
 	registry.dispatch( coreStore ).addEntities( [
 		{
-			baseURL: '/wp/v2/reusable-blocks',
+			baseURL: '/fp/v2/reusable-blocks',
 			kind: 'postType',
-			name: 'wp_block',
+			name: 'fp_block',
 			label: 'Reusable blocks',
 		},
 	] );
@@ -108,7 +108,7 @@ describe( 'Actions', () => {
 			apiFetch.mockImplementation( async ( args ) => {
 				const { path, data } = args;
 				switch ( path ) {
-					case '/wp/v2/reusable-blocks':
+					case '/fp/v2/reusable-blocks':
 						return {
 							id: 'new-id',
 							...data,
@@ -156,7 +156,7 @@ describe( 'Actions', () => {
 				id: 123,
 				title: 'My cool block',
 				content:
-					'<!-- wp:test-block {"name":"Big Bird"} --><!-- wp:test-block {"name":"Oscar the Grouch"} /--><!-- wp:test-block {"name":"Cookie Monster"} /--><!-- /wp:test-block -->',
+					'<!-- fp:test-block {"name":"Big Bird"} --><!-- fp:test-block {"name":"Oscar the Grouch"} /--><!-- fp:test-block {"name":"Cookie Monster"} /--><!-- /fp:test-block -->',
 			};
 
 			const registry = createRegistryWithStores();
@@ -164,7 +164,7 @@ describe( 'Actions', () => {
 			apiFetch.mockImplementation( async ( args ) => {
 				const { path, data } = args;
 				switch ( path ) {
-					case '/wp/v2/reusable-blocks/123':
+					case '/fp/v2/reusable-blocks/123':
 						return data;
 					default:
 						throw new Error( `unexpected API endpoint: ${ path }` );
@@ -176,7 +176,7 @@ describe( 'Actions', () => {
 				.insertBlock( associatedBlock );
 			await registry
 				.dispatch( coreStore )
-				.saveEntityRecord( 'postType', 'wp_block', reusableBlock );
+				.saveEntityRecord( 'postType', 'fp_block', reusableBlock );
 
 			await registry
 				.dispatch( reusableBlocksStore )
@@ -223,12 +223,12 @@ describe( 'Actions', () => {
 			apiFetch.mockImplementation( async ( args ) => {
 				const { path, data, method } = args;
 				if (
-					path.startsWith( '/wp/v2/reusable-blocks' ) &&
+					path.startsWith( '/fp/v2/reusable-blocks' ) &&
 					method === 'DELETE'
 				) {
 					return data;
 				} else if (
-					path === '/wp/v2/reusable-blocks/123' &&
+					path === '/fp/v2/reusable-blocks/123' &&
 					method === 'PUT'
 				) {
 					return data;
@@ -240,7 +240,7 @@ describe( 'Actions', () => {
 
 			await registry
 				.dispatch( coreStore )
-				.saveEntityRecord( 'postType', 'wp_block', reusableBlock );
+				.saveEntityRecord( 'postType', 'fp_block', reusableBlock );
 
 			registry
 				.dispatch( blockEditorStore )
@@ -249,7 +249,7 @@ describe( 'Actions', () => {
 			// Confirm that reusable block is stored.
 			const reusableBlockBefore = registry
 				.select( coreStore )
-				.getEntityRecord( 'postType', 'wp_block', reusableBlock.id );
+				.getEntityRecord( 'postType', 'fp_block', reusableBlock.id );
 
 			expect( reusableBlockBefore ).toBeTruthy();
 
@@ -260,7 +260,7 @@ describe( 'Actions', () => {
 			// Check if reusable block was deleted.
 			const reusableBlockAfter = registry
 				.select( coreStore )
-				.getEntityRecord( 'postType', 'wp_block', reusableBlock.id );
+				.getEntityRecord( 'postType', 'fp_block', reusableBlock.id );
 			expect( reusableBlockAfter ).toBeFalsy();
 
 			// Check if block instances were removed from the editor.

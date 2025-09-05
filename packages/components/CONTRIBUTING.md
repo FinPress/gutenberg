@@ -431,7 +431,7 @@ import { Wrapper } from './styles.ts';
 
 function MyComponent( { __nextHasNoOuterMargins = false } ) {
 	if ( ! __nextHasNoOuterMargins ) {
-		deprecated( 'Outer margin styles for wp.components.MyComponent', {
+		deprecated( 'Outer margin styles for fp.components.MyComponent', {
 			since: '6.0',
 			version: '6.2', // Set a reasonable grace period depending on impact
 			hint: 'Set the `__nextHasNoOuterMargins` prop to true to start opting into the new styles, which will become the default in a future version.',

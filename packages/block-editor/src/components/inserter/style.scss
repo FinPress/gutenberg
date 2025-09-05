@@ -365,8 +365,8 @@ $block-inserter-tabs-height: 44px;
 	// Specificity is needed for the border color.
 	&.components-button:focus:not(:disabled) {
 		box-shadow: none;
-		background: var(--wp-admin-theme-color);
-		border-color: var(--wp-admin-theme-color);
+		background: var(--fp-admin-theme-color);
+		border-color: var(--fp-admin-theme-color);
 	}
 }
 
@@ -473,7 +473,7 @@ $block-inserter-tabs-height: 44px;
 			padding: $grid-unit-20 $grid-unit-30 $grid-unit-20;
 
 			&:not(:focus-within) {
-				--wp-components-color-background: #{$white};
+				--fp-components-color-background: #{$white};
 			}
 		}
 	}
@@ -519,7 +519,7 @@ $block-inserter-tabs-height: 44px;
 			}
 
 			&:hover {
-				box-shadow: inset 0 0 0 2px $white, 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+				box-shadow: inset 0 0 0 2px $white, 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
 
 				// Windows High Contrast mode will show this outline, but not the box-shadow.
 				outline: 2px solid transparent;
@@ -557,9 +557,9 @@ $block-inserter-tabs-height: 44px;
 	}
 
 	&:focus .block-editor-inserter__media-list__item-preview > * {
-		outline-color: var(--wp-admin-theme-color);
-		outline-width: var(--wp-admin-border-width-focus);
-		outline-offset: calc((-1 * var(--wp-admin-border-width-focus)));
+		outline-color: var(--fp-admin-theme-color);
+		outline-width: var(--fp-admin-border-width-focus);
+		outline-offset: calc((-1 * var(--fp-admin-border-width-focus)));
 		@media not ( prefers-reduced-motion ) {
 			transition: outline 0.1s linear;
 		}

@@ -25,9 +25,9 @@ import deprecated from '@finpress/deprecated';
  */
 export default function useCopyOnClick( ref, text, timeout = 4000 ) {
 	/* eslint-enable jsdoc/no-undefined-types */
-	deprecated( 'wp.compose.useCopyOnClick', {
+	deprecated( 'fp.compose.useCopyOnClick', {
 		since: '5.8',
-		alternative: 'wp.compose.useCopyToClipboard',
+		alternative: 'fp.compose.useCopyToClipboard',
 	} );
 
 	/** @type {import('react').MutableRefObject<Clipboard | undefined>} */

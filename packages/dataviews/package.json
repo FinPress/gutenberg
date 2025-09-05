@@ -30,9 +30,9 @@
 			"import": "./build-module/index.js",
 			"default": "./build/index.js"
 		},
-		"./wp": {
+		"./fp": {
 			"types": "./build-types/index.d.ts",
-			"default": "./build-wp/index.js"
+			"default": "./build-fp/index.js"
 		},
 		"./package.json": {
 			"default": "./package.json"
@@ -40,7 +40,7 @@
 		"./build-style/": "./build-style/"
 	},
 	"react-native": "src/index",
-	"wpScript": true,
+	"fpScript": true,
 	"types": "build-types",
 	"sideEffects": false,
 	"dependencies": {
@@ -72,6 +72,6 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build:wp": "node build"
+		"build:fp": "node build"
 	}
 }

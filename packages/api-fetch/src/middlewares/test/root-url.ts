@@ -8,15 +8,15 @@ describe( 'Root URL middleware', () => {
 	it( 'should append the root URL', () => {
 		expect.hasAssertions();
 
-		const rootURL = 'http://wp.org/wp-admin/rest/';
+		const rootURL = 'http://fp.org/fp-admin/rest/';
 		const rootURLMiddleware = createRootUrlMiddleware( rootURL );
 		const requestOptions = {
 			method: 'GET',
-			path: '/wp/v2/posts',
+			path: '/fp/v2/posts',
 		};
 		const callback: FetchHandler = async ( options ) => {
 			expect( options.url ).toBe(
-				'http://wp.org/wp-admin/rest/wp/v2/posts'
+				'http://fp.org/fp-admin/rest/fp/v2/posts'
 			);
 		};
 

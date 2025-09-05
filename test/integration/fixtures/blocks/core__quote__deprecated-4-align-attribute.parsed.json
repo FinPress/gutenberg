@@ -15,9 +15,9 @@
 				]
 			}
 		],
-		"innerHTML": "\n<blockquote class=\"wp-block-quote has-text-align-right\"></blockquote>\n",
+		"innerHTML": "\n<blockquote class=\"fp-block-quote has-text-align-right\"></blockquote>\n",
 		"innerContent": [
-			"\n<blockquote class=\"wp-block-quote has-text-align-right\">",
+			"\n<blockquote class=\"fp-block-quote has-text-align-right\">",
 			null,
 			"</blockquote>\n"
 		]

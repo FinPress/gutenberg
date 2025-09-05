@@ -29,23 +29,23 @@ const THRESHOLD_DISTANCE = 30;
 const MINIMUM_HEIGHT_FOR_THRESHOLD = 120;
 const MINIMUM_WIDTH_FOR_THRESHOLD = 120;
 
-/** @typedef {import('../../utils/math').WPPoint} WPPoint */
-/** @typedef {import('../use-on-block-drop/types').WPDropOperation} WPDropOperation */
+/** @typedef {import('../../utils/math').FPPoint} FPPoint */
+/** @typedef {import('../use-on-block-drop/types').FPDropOperation} FPDropOperation */
 
 /**
  * The orientation of a block list.
  *
- * @typedef {'horizontal'|'vertical'|undefined} WPBlockListOrientation
+ * @typedef {'horizontal'|'vertical'|undefined} FPBlockListOrientation
  */
 
 /**
  * The insert position when dropping a block.
  *
- * @typedef {'before'|'after'} WPInsertPosition
+ * @typedef {'before'|'after'} FPInsertPosition
  */
 
 /**
- * @typedef {Object} WPBlockData
+ * @typedef {Object} FPBlockData
  * @property {boolean}       isUnmodifiedDefaultBlock Is the block unmodified default block.
  * @property {() => DOMRect} getBoundingClientRect    Get the bounding client rect of the block.
  * @property {number}        blockIndex               The index of the block.
@@ -54,11 +54,11 @@ const MINIMUM_WIDTH_FOR_THRESHOLD = 120;
 /**
  * Get the drop target position from a given drop point and the orientation.
  *
- * @param {WPBlockData[]}          blocksData  The block data list.
- * @param {WPPoint}                position    The position of the item being dragged.
- * @param {WPBlockListOrientation} orientation The orientation of the block list.
+ * @param {FPBlockData[]}          blocksData  The block data list.
+ * @param {FPPoint}                position    The position of the item being dragged.
+ * @param {FPBlockListOrientation} orientation The orientation of the block list.
  * @param {Object}                 options     Additional options.
- * @return {[number, WPDropOperation]} The drop target position.
+ * @return {[number, FPDropOperation]} The drop target position.
  */
 export function getDropTargetPosition(
 	blocksData,
@@ -296,7 +296,7 @@ function isInsertionPoint( targetToCheck, ownerDocument ) {
 }
 
 /**
- * @typedef  {Object} WPBlockDropZoneConfig
+ * @typedef  {Object} FPBlockDropZoneConfig
  * @property {?HTMLElement} dropZoneElement Optional element to be used as the drop zone.
  * @property {string}       rootClientId    The root client id for the block list.
  */
@@ -304,7 +304,7 @@ function isInsertionPoint( targetToCheck, ownerDocument ) {
 /**
  * A React hook that can be used to make a block list handle drag and drop.
  *
- * @param {WPBlockDropZoneConfig} dropZoneConfig configuration data for the drop zone.
+ * @param {FPBlockDropZoneConfig} dropZoneConfig configuration data for the drop zone.
  */
 export default function useBlockDropZone( {
 	dropZoneElement,

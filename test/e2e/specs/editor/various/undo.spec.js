@@ -508,10 +508,10 @@ class UndoUtils {
 
 	async getSelection() {
 		return await this.page.evaluate( () => {
-			const selectedBlockId = window.wp.data
+			const selectedBlockId = window.fp.data
 				.select( 'core/block-editor' )
 				.getSelectedBlockClientId();
-			const blockIndex = window.wp.data
+			const blockIndex = window.fp.data
 				.select( 'core/block-editor' )
 				.getBlockIndex( selectedBlockId );
 
@@ -521,10 +521,10 @@ class UndoUtils {
 
 			return {
 				blockIndex,
-				startOffset: window.wp.data
+				startOffset: window.fp.data
 					.select( 'core/block-editor' )
 					.getSelectionStart().offset,
-				endOffset: window.wp.data
+				endOffset: window.fp.data
 					.select( 'core/block-editor' )
 					.getSelectionEnd().offset,
 			};

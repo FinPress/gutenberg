@@ -14,7 +14,7 @@ import { store } from './store';
  * the given prop names, where the value passed to the underlying component is
  * the result of the query assigned as the object's value.
  *
- * @see isViewportMatch
+ * @see isviewportMatch
  *
  * @param {Object} queries Object of prop name to viewport query.
  *
@@ -27,23 +27,23 @@ import { store } from './store';
  *     );
  * }
  *
- * MyComponent = withViewportMatch( { isMobile: '< small' } )( MyComponent );
+ * MyComponent = withviewportMatch( { isMobile: '< small' } )( MyComponent );
  * ```
  *
  * @return {Function} Higher-order component.
  */
-const withViewportMatch = ( queries ) => {
+const withviewportMatch = ( queries ) => {
 	const queryEntries = Object.entries( queries );
 	return createHigherOrderComponent(
 		withSelect( ( select ) => {
 			return Object.fromEntries(
 				queryEntries.map( ( [ key, query ] ) => {
-					return [ key, select( store ).isViewportMatch( query ) ];
+					return [ key, select( store ).isviewportMatch( query ) ];
 				} )
 			);
 		} ),
-		'withViewportMatch'
+		'withviewportMatch'
 	);
 };
 
-export default withViewportMatch;
+export default withviewportMatch;

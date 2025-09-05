@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"$schema": "https://schemas.fp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/table",
 	"title": "Table",
@@ -204,8 +204,8 @@
 		}
 	},
 	"selectors": {
-		"root": ".wp-block-table > table",
-		"spacing": ".wp-block-table"
+		"root": ".fp-block-table > table",
+		"spacing": ".fp-block-table"
 	},
 	"styles": [
 		{
@@ -215,6 +215,6 @@
 		},
 		{ "name": "stripes", "label": "Stripes" }
 	],
-	"editorStyle": "wp-block-table-editor",
-	"style": "wp-block-table"
+	"editorStyle": "fp-block-table-editor",
+	"style": "fp-block-table"
 }

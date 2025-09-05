@@ -187,12 +187,12 @@ export function HierarchicalTermSelector( { slug } ) {
 			return {
 				hasCreateAction: _taxonomy
 					? post._links?.[
-							'wp:action-create-' + _taxonomy.rest_base
+							'fp:action-create-' + _taxonomy.rest_base
 					  ] ?? false
 					: false,
 				hasAssignAction: _taxonomy
 					? post._links?.[
-							'wp:action-assign-' + _taxonomy.rest_base
+							'fp:action-assign-' + _taxonomy.rest_base
 					  ] ?? false
 					: false,
 				terms: _taxonomy

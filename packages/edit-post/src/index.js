@@ -166,7 +166,7 @@ export function initializeEditor(
  * Used to reinitialize the editor after an error. Now it's a deprecated noop function.
  */
 export function reinitializeEditor() {
-	deprecated( 'wp.editPost.reinitializeEditor', {
+	deprecated( 'fp.editPost.reinitializeEditor', {
 		since: '6.2',
 		version: '6.3',
 	} );

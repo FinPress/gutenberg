@@ -60,7 +60,7 @@ function FontLibraryProvider( { children } ) {
 	};
 
 	const { records: libraryPosts = [], isResolving: isResolvingLibrary } =
-		useEntityRecords( 'postType', 'wp_font_family', {
+		useEntityRecords( 'postType', 'fp_font_family', {
 			refreshKey,
 			_embed: true,
 		} );

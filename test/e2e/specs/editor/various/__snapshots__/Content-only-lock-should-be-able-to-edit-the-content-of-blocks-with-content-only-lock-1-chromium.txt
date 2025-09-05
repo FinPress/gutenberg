@@ -1,5 +1,5 @@
-<!-- wp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:paragraph -->
+<!-- fp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
+<div class="fp-block-group"><!-- fp:paragraph -->
 <p>Hello World</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
+<!-- /fp:paragraph --></div>
+<!-- /fp:group -->

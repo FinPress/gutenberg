@@ -14,19 +14,19 @@ import {
 
 const block = 'Group';
 const initialHtml = `
-<!-- wp:group -->
-<div id="this-is-another-anchor" class="wp-block-group"><!-- wp:paragraph -->
+<!-- fp:group -->
+<div id="this-is-another-anchor" class="fp-block-group"><!-- fp:paragraph -->
 <p>One.</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Two</p>
-<!-- /wp:paragraph -->
+<!-- /fp:paragraph -->
 
-<!-- wp:paragraph -->
+<!-- fp:paragraph -->
 <p>Three.</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->`;
+<!-- /fp:paragraph --></div>
+<!-- /fp:group -->`;
 
 const transformsWithInnerBlocks = [ 'Columns' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

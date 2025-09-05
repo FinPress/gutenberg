@@ -7,7 +7,7 @@ import { useRef } from '@finpress/element';
 import { __ } from '@finpress/i18n';
 import { Popover, VisuallyHidden } from '@finpress/components';
 import { PinnedItems } from '@finpress/interface';
-import { useViewportMatch } from '@finpress/compose';
+import { useviewportMatch } from '@finpress/compose';
 import { store as preferencesStore } from '@finpress/preferences';
 
 /**
@@ -18,7 +18,7 @@ import SaveButton from '../save-button';
 import MoreMenu from '../more-menu';
 
 function Header() {
-	const isLargeViewport = useViewportMatch( 'medium' );
+	const isLargeviewport = useviewportMatch( 'medium' );
 	const blockToolbarRef = useRef();
 	const { hasFixedToolbar } = useSelect(
 		( select ) => ( {
@@ -34,12 +34,12 @@ function Header() {
 		<>
 			<div className="edit-widgets-header">
 				<div className="edit-widgets-header__navigable-toolbar-wrapper">
-					{ isLargeViewport && (
+					{ isLargeviewport && (
 						<h1 className="edit-widgets-header__title">
 							{ __( 'Widgets' ) }
 						</h1>
 					) }
-					{ ! isLargeViewport && (
+					{ ! isLargeviewport && (
 						<VisuallyHidden
 							as="h1"
 							className="edit-widgets-header__title"
@@ -48,7 +48,7 @@ function Header() {
 						</VisuallyHidden>
 					) }
 					<DocumentTools />
-					{ hasFixedToolbar && isLargeViewport && (
+					{ hasFixedToolbar && isLargeviewport && (
 						<>
 							<div className="selected-block-tools-wrapper">
 								<BlockToolbar hideDragHandle />

@@ -1,8 +1,8 @@
 ( function () {
-	const registerBlockType = wp.blocks.registerBlockType;
-	const el = wp.element.createElement;
-	const InnerBlocks = wp.blockEditor.InnerBlocks;
-	const __ = wp.i18n.__;
+	const registerBlockType = fp.blocks.registerBlockType;
+	const el = fp.element.createElement;
+	const InnerBlocks = fp.blockEditor.InnerBlocks;
+	const __ = fp.i18n.__;
 	const TEMPLATE = [
 		[
 			'core/paragraph',

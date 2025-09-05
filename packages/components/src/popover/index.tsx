@@ -32,7 +32,7 @@ import {
 } from '@finpress/element';
 import {
 	useReducedMotion,
-	useViewportMatch,
+	useviewportMatch,
 	useMergeRefs,
 	__experimentalUseDialog as useDialog,
 } from '@finpress/compose';
@@ -165,7 +165,7 @@ const UnforwardedPopover = (
 	let computedFlipProp = flip;
 	let computedResizeProp = resize;
 	if ( __unstableForcePosition !== undefined ) {
-		deprecated( '`__unstableForcePosition` prop in wp.components.Popover', {
+		deprecated( '`__unstableForcePosition` prop in fp.components.Popover', {
 			since: '6.1',
 			version: '6.3',
 			alternative: '`flip={ false }` and  `resize={ false }`',
@@ -178,21 +178,21 @@ const UnforwardedPopover = (
 	}
 
 	if ( anchorRef !== undefined ) {
-		deprecated( '`anchorRef` prop in wp.components.Popover', {
+		deprecated( '`anchorRef` prop in fp.components.Popover', {
 			since: '6.1',
 			alternative: '`anchor` prop',
 		} );
 	}
 
 	if ( anchorRect !== undefined ) {
-		deprecated( '`anchorRect` prop in wp.components.Popover', {
+		deprecated( '`anchorRect` prop in fp.components.Popover', {
 			since: '6.1',
 			alternative: '`anchor` prop',
 		} );
 	}
 
 	if ( getAnchorRect !== undefined ) {
-		deprecated( '`getAnchorRect` prop in wp.components.Popover', {
+		deprecated( '`getAnchorRect` prop in fp.components.Popover', {
 			since: '6.1',
 			alternative: '`anchor` prop',
 		} );
@@ -200,7 +200,7 @@ const UnforwardedPopover = (
 
 	const computedVariant = isAlternate ? 'toolbar' : variant;
 	if ( isAlternate !== undefined ) {
-		deprecated( '`isAlternate` prop in wp.components.Popover', {
+		deprecated( '`isAlternate` prop in fp.components.Popover', {
 			since: '6.2',
 			alternative: "`variant` prop with the `'toolbar'` value",
 		} );
@@ -218,8 +218,8 @@ const UnforwardedPopover = (
 		[]
 	);
 
-	const isMobileViewport = useViewportMatch( 'medium', '<' );
-	const isExpanded = expandOnMobile && isMobileViewport;
+	const isMobileviewport = useviewportMatch( 'medium', '<' );
+	const isExpanded = expandOnMobile && isMobileviewport;
 	const hasArrow = ! isExpanded && ! noArrow;
 	const normalizedPlacementFromProps = position
 		? positionToPlacement( position )

@@ -63,9 +63,9 @@ export { default as ServerSideRender } from '@finpress/server-side-render';
 
 function deprecateComponent( name, Wrapped, staticsToHoist = [] ) {
 	const Component = forwardRef( ( props, ref ) => {
-		deprecated( 'wp.editor.' + name, {
+		deprecated( 'fp.editor.' + name, {
 			since: '5.3',
-			alternative: 'wp.blockEditor.' + name,
+			alternative: 'fp.blockEditor.' + name,
 			version: '6.2',
 		} );
 
@@ -84,9 +84,9 @@ function deprecateComponent( name, Wrapped, staticsToHoist = [] ) {
 
 function deprecateFunction( name, func ) {
 	return ( ...args ) => {
-		deprecated( 'wp.editor.' + name, {
+		deprecated( 'fp.editor.' + name, {
 			since: '5.3',
-			alternative: 'wp.blockEditor.' + name,
+			alternative: 'fp.blockEditor.' + name,
 			version: '6.2',
 		} );
 
@@ -95,7 +95,7 @@ function deprecateFunction( name, func ) {
 }
 
 /**
- * @deprecated since 5.3, use `wp.blockEditor.RichText` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.RichText` instead.
  */
 const RichText = deprecateComponent( 'RichText', RootRichText, [ 'Content' ] );
 RichText.isEmpty = deprecateFunction(
@@ -106,28 +106,28 @@ RichText.isEmpty = deprecateFunction(
 export { RichText };
 
 /**
- * @deprecated since 5.3, use `wp.blockEditor.Autocomplete` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.Autocomplete` instead.
  */
 export const Autocomplete = deprecateComponent(
 	'Autocomplete',
 	RootAutocomplete
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.AlignmentToolbar` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.AlignmentToolbar` instead.
  */
 export const AlignmentToolbar = deprecateComponent(
 	'AlignmentToolbar',
 	RootAlignmentToolbar
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockAlignmentToolbar` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockAlignmentToolbar` instead.
  */
 export const BlockAlignmentToolbar = deprecateComponent(
 	'BlockAlignmentToolbar',
 	RootBlockAlignmentToolbar
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockControls` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockControls` instead.
  */
 export const BlockControls = deprecateComponent(
 	'BlockControls',
@@ -135,18 +135,18 @@ export const BlockControls = deprecateComponent(
 	[ 'Slot' ]
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockEdit` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockEdit` instead.
  */
 export const BlockEdit = deprecateComponent( 'BlockEdit', RootBlockEdit );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockEditorKeyboardShortcuts` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockEditorKeyboardShortcuts` instead.
  */
 export const BlockEditorKeyboardShortcuts = deprecateComponent(
 	'BlockEditorKeyboardShortcuts',
 	RootBlockEditorKeyboardShortcuts
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockFormatControls` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockFormatControls` instead.
  */
 export const BlockFormatControls = deprecateComponent(
 	'BlockFormatControls',
@@ -154,94 +154,94 @@ export const BlockFormatControls = deprecateComponent(
 	[ 'Slot' ]
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockIcon` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockIcon` instead.
  */
 export const BlockIcon = deprecateComponent( 'BlockIcon', RootBlockIcon );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockInspector` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockInspector` instead.
  */
 export const BlockInspector = deprecateComponent(
 	'BlockInspector',
 	RootBlockInspector
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockList` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockList` instead.
  */
 export const BlockList = deprecateComponent( 'BlockList', RootBlockList );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockMover` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockMover` instead.
  */
 export const BlockMover = deprecateComponent( 'BlockMover', RootBlockMover );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockNavigationDropdown` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockNavigationDropdown` instead.
  */
 export const BlockNavigationDropdown = deprecateComponent(
 	'BlockNavigationDropdown',
 	RootBlockNavigationDropdown
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockSelectionClearer` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockSelectionClearer` instead.
  */
 export const BlockSelectionClearer = deprecateComponent(
 	'BlockSelectionClearer',
 	RootBlockSelectionClearer
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockSettingsMenu` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockSettingsMenu` instead.
  */
 export const BlockSettingsMenu = deprecateComponent(
 	'BlockSettingsMenu',
 	RootBlockSettingsMenu
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockTitle` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockTitle` instead.
  */
 export const BlockTitle = deprecateComponent( 'BlockTitle', RootBlockTitle );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.BlockToolbar` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.BlockToolbar` instead.
  */
 export const BlockToolbar = deprecateComponent(
 	'BlockToolbar',
 	RootBlockToolbar
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.ColorPalette` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.ColorPalette` instead.
  */
 export const ColorPalette = deprecateComponent(
 	'ColorPalette',
 	RootColorPalette
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.ContrastChecker` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.ContrastChecker` instead.
  */
 export const ContrastChecker = deprecateComponent(
 	'ContrastChecker',
 	RootContrastChecker
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.CopyHandler` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.CopyHandler` instead.
  */
 export const CopyHandler = deprecateComponent( 'CopyHandler', RootCopyHandler );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.DefaultBlockAppender` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.DefaultBlockAppender` instead.
  */
 export const DefaultBlockAppender = deprecateComponent(
 	'DefaultBlockAppender',
 	RootDefaultBlockAppender
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.FontSizePicker` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.FontSizePicker` instead.
  */
 export const FontSizePicker = deprecateComponent(
 	'FontSizePicker',
 	RootFontSizePicker
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.Inserter` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.Inserter` instead.
  */
 export const Inserter = deprecateComponent( 'Inserter', RootInserter );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.InnerBlocks` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.InnerBlocks` instead.
  */
 export const InnerBlocks = deprecateComponent( 'InnerBlocks', RootInnerBlocks, [
 	'ButtonBlockAppender',
@@ -249,7 +249,7 @@ export const InnerBlocks = deprecateComponent( 'InnerBlocks', RootInnerBlocks, [
 	'Content',
 ] );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.InspectorAdvancedControls` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.InspectorAdvancedControls` instead.
  */
 export const InspectorAdvancedControls = deprecateComponent(
 	'InspectorAdvancedControls',
@@ -257,7 +257,7 @@ export const InspectorAdvancedControls = deprecateComponent(
 	[ 'Slot' ]
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.InspectorControls` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.InspectorControls` instead.
  */
 export const InspectorControls = deprecateComponent(
 	'InspectorControls',
@@ -265,159 +265,159 @@ export const InspectorControls = deprecateComponent(
 	[ 'Slot' ]
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.PanelColorSettings` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.PanelColorSettings` instead.
  */
 export const PanelColorSettings = deprecateComponent(
 	'PanelColorSettings',
 	RootPanelColorSettings
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.PlainText` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.PlainText` instead.
  */
 export const PlainText = deprecateComponent( 'PlainText', RootPlainText );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.RichTextShortcut` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.RichTextShortcut` instead.
  */
 export const RichTextShortcut = deprecateComponent(
 	'RichTextShortcut',
 	RootRichTextShortcut
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.RichTextToolbarButton` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.RichTextToolbarButton` instead.
  */
 export const RichTextToolbarButton = deprecateComponent(
 	'RichTextToolbarButton',
 	RootRichTextToolbarButton
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.__unstableRichTextInputEvent` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.__unstableRichTextInputEvent` instead.
  */
 export const __unstableRichTextInputEvent = deprecateComponent(
 	'__unstableRichTextInputEvent',
 	__unstableRootRichTextInputEvent
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.MediaPlaceholder` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.MediaPlaceholder` instead.
  */
 export const MediaPlaceholder = deprecateComponent(
 	'MediaPlaceholder',
 	RootMediaPlaceholder
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.MediaUpload` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.MediaUpload` instead.
  */
 export const MediaUpload = deprecateComponent( 'MediaUpload', RootMediaUpload );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.MediaUploadCheck` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.MediaUploadCheck` instead.
  */
 export const MediaUploadCheck = deprecateComponent(
 	'MediaUploadCheck',
 	RootMediaUploadCheck
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.MultiSelectScrollIntoView` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.MultiSelectScrollIntoView` instead.
  */
 export const MultiSelectScrollIntoView = deprecateComponent(
 	'MultiSelectScrollIntoView',
 	RootMultiSelectScrollIntoView
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.NavigableToolbar` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.NavigableToolbar` instead.
  */
 export const NavigableToolbar = deprecateComponent(
 	'NavigableToolbar',
 	RootNavigableToolbar
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.ObserveTyping` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.ObserveTyping` instead.
  */
 export const ObserveTyping = deprecateComponent(
 	'ObserveTyping',
 	RootObserveTyping
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.SkipToSelectedBlock` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.SkipToSelectedBlock` instead.
  */
 export const SkipToSelectedBlock = deprecateComponent(
 	'SkipToSelectedBlock',
 	RootSkipToSelectedBlock
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.URLInput` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.URLInput` instead.
  */
 export const URLInput = deprecateComponent( 'URLInput', RootURLInput );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.URLInputButton` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.URLInputButton` instead.
  */
 export const URLInputButton = deprecateComponent(
 	'URLInputButton',
 	RootURLInputButton
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.URLPopover` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.URLPopover` instead.
  */
 export const URLPopover = deprecateComponent( 'URLPopover', RootURLPopover );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.Warning` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.Warning` instead.
  */
 export const Warning = deprecateComponent( 'Warning', RootWarning );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.WritingFlow` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.WritingFlow` instead.
  */
 export const WritingFlow = deprecateComponent( 'WritingFlow', RootWritingFlow );
 
 /**
- * @deprecated since 5.3, use `wp.blockEditor.createCustomColorsHOC` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.createCustomColorsHOC` instead.
  */
 export const createCustomColorsHOC = deprecateFunction(
 	'createCustomColorsHOC',
 	rootCreateCustomColorsHOC
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.getColorClassName` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.getColorClassName` instead.
  */
 export const getColorClassName = deprecateFunction(
 	'getColorClassName',
 	rootGetColorClassName
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.getColorObjectByAttributeValues` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.getColorObjectByAttributeValues` instead.
  */
 export const getColorObjectByAttributeValues = deprecateFunction(
 	'getColorObjectByAttributeValues',
 	rootGetColorObjectByAttributeValues
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.getColorObjectByColorValue` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.getColorObjectByColorValue` instead.
  */
 export const getColorObjectByColorValue = deprecateFunction(
 	'getColorObjectByColorValue',
 	rootGetColorObjectByColorValue
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.getFontSize` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.getFontSize` instead.
  */
 export const getFontSize = deprecateFunction( 'getFontSize', rootGetFontSize );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.getFontSizeClass` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.getFontSizeClass` instead.
  */
 export const getFontSizeClass = deprecateFunction(
 	'getFontSizeClass',
 	rootGetFontSizeClass
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.createCustomColorsHOC` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.createCustomColorsHOC` instead.
  */
 export const withColorContext = deprecateFunction(
 	'withColorContext',
 	rootWithColorContext
 );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.withColors` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.withColors` instead.
  */
 export const withColors = deprecateFunction( 'withColors', rootWithColors );
 /**
- * @deprecated since 5.3, use `wp.blockEditor.withFontSizes` instead.
+ * @deprecated since 5.3, use `fp.blockEditor.withFontSizes` instead.
  */
 export const withFontSizes = deprecateFunction(
 	'withFontSizes',

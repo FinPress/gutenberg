@@ -104,8 +104,8 @@ const deprecated = [
 			} );
 
 			const style = {
-				'--wp--social-links--icon-color': iconColorValue,
-				'--wp--social-links--icon-background-color':
+				'--fp--social-links--icon-color': iconColorValue,
+				'--fp--social-links--icon-background-color':
 					iconBackgroundColorValue,
 			};
 

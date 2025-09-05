@@ -129,7 +129,7 @@ can be used instead of updating individual sides.
 
 ### `units`
 
- - Type: `WPUnitControlUnit[]`
+ - Type: `FPUnitControlUnit[]`
  - Required: No
  - Default: `CSS_UNITS`
 
