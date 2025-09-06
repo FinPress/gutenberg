@@ -272,7 +272,7 @@ test.describe( 'Cover', () => {
 			.click();
 
 		// Set the viewport to a small screen and open menu.
-		await page.setviewportSize( { width: 375, height: 1000 } );
+		await page.setViewportSize( { width: 375, height: 1000 } );
 		const navigationBlock = editor.canvas.getByRole( 'document', {
 			name: 'Block: Navigation',
 		} );

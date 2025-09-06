@@ -44,5 +44,5 @@ export async function setBrowserviewport( viewport ) {
 			? PREDEFINED_DIMENSIONS[ viewport ]
 			: viewport;
 
-	await this.page.setviewportSize( dimensions );
+	await this.page.setViewportSize( dimensions );
 }

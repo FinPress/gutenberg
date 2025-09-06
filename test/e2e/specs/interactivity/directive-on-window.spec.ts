@@ -34,7 +34,7 @@ test.describe( 'data-fp-on-window', () => {
 			.waitFor();
 
 		// Change the viewport size.
-		await page.setviewportSize( { width: 600, height: 600 } );
+		await page.setViewportSize( { width: 600, height: 600 } );
 		await expect( counter ).toHaveText( '1' );
 
 		// Remove the element.
@@ -47,7 +47,7 @@ test.describe( 'data-fp-on-window', () => {
 			.waitFor();
 
 		// This resize should not increase the counter.
-		await page.setviewportSize( { width: 300, height: 600 } );
+		await page.setViewportSize( { width: 300, height: 600 } );
 
 		// Add the element back.
 		await visibilityButton.click();
@@ -62,7 +62,7 @@ test.describe( 'data-fp-on-window', () => {
 			.waitFor();
 
 		// This resize should increase the counter.
-		await page.setviewportSize( { width: 200, height: 600 } );
+		await page.setViewportSize( { width: 200, height: 600 } );
 		await expect( counter ).toHaveText( '2' );
 	} );
 	test( 'should work with multiple event handlers on the same event type', async ( {
@@ -82,7 +82,7 @@ test.describe( 'data-fp-on-window', () => {
 			.waitFor();
 
 		// This keyboard press should increase the counter.
-		await page.setviewportSize( { width: 600, height: 600 } );
+		await page.setViewportSize( { width: 600, height: 600 } );
 		await expect( resizeHandler ).toHaveText( 'yes' );
 		await expect( resizeSecondHandler ).toHaveText( 'yes' );
 	} );
