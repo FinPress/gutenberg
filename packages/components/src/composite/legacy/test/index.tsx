@@ -167,7 +167,7 @@ describe( 'Shows a deprecation warning', () => {
 	it( 'useCompositeState', () => {
 		renderHook( () => useCompositeState() );
 		expect( console ).toHaveWarnedWith(
-			'fp.components.__unstableUseCompositeState is deprecated since version 6.7. Please use Composite instead.'
+			'fin.components.__unstableUseCompositeState is deprecated since version 6.7. Please use Composite instead.'
 		);
 	} );
 	it( 'Composite', () => {
@@ -177,7 +177,7 @@ describe( 'Shows a deprecation warning', () => {
 		};
 		render( <Test /> );
 		expect( console ).toHaveWarnedWith(
-			'fp.components.__unstableComposite is deprecated since version 6.7. Please use Composite instead.'
+			'fin.components.__unstableComposite is deprecated since version 6.7. Please use Composite instead.'
 		);
 	} );
 	it( 'CompositeItem', () => {
@@ -191,7 +191,7 @@ describe( 'Shows a deprecation warning', () => {
 		};
 		render( <Test /> );
 		expect( console ).toHaveWarnedWith(
-			'fp.components.__unstableCompositeItem is deprecated since version 6.7. Please use Composite.Item instead.'
+			'fin.components.__unstableCompositeItem is deprecated since version 6.7. Please use Composite.Item instead.'
 		);
 	} );
 	it( 'CompositeGroup', () => {
@@ -207,7 +207,7 @@ describe( 'Shows a deprecation warning', () => {
 		};
 		render( <Test /> );
 		expect( console ).toHaveWarnedWith(
-			'fp.components.__unstableCompositeGroup is deprecated since version 6.7. Please use Composite.Group or Composite.Row instead.'
+			'fin.components.__unstableCompositeGroup is deprecated since version 6.7. Please use Composite.Group or Composite.Row instead.'
 		);
 	} );
 } );

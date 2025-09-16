@@ -23,7 +23,7 @@ export function useBaseControlProps(
 
 	const uniqueId = useInstanceId(
 		BaseControl,
-		'fp-components-base-control',
+		'fin-components-base-control',
 		preferredId
 	);
 

@@ -14,10 +14,10 @@
 				"name": "core/image",
 				"isValid": true,
 				"attributes": {
-					"url": "http://fptest.local/fp-content/uploads/2020/09/test-image-edited-1-682x1024.jpg",
+					"url": "http://fintest.local/fin-content/uploads/2020/09/test-image-edited-1-682x1024.jpg",
 					"alt": "",
 					"caption": "",
-					"href": "http://fptest.local/fp-content/uploads/2020/09/test-image-edited-1-682x1024.jpg",
+					"href": "http://fintest.local/fin-content/uploads/2020/09/test-image-edited-1-682x1024.jpg",
 					"id": 705,
 					"sizeSlug": "large",
 					"linkDestination": "media"
@@ -28,10 +28,10 @@
 				"name": "core/image",
 				"isValid": true,
 				"attributes": {
-					"url": "http://fptest.local/fp-content/uploads/2020/09/test-image-edited-1024x682.jpg",
+					"url": "http://fintest.local/fin-content/uploads/2020/09/test-image-edited-1024x682.jpg",
 					"alt": "",
 					"caption": "",
-					"href": "http://fptest.local/fp-content/uploads/2020/09/test-image-edited-1024x682.jpg",
+					"href": "http://fintest.local/fin-content/uploads/2020/09/test-image-edited-1024x682.jpg",
 					"id": 704,
 					"sizeSlug": "large",
 					"linkDestination": "media"
@@ -42,10 +42,10 @@
 				"name": "core/image",
 				"isValid": true,
 				"attributes": {
-					"url": "http://fptest.local/fp-content/uploads/2020/04/test-image-1024x683.jpg",
+					"url": "http://fintest.local/fin-content/uploads/2020/04/test-image-1024x683.jpg",
 					"alt": "",
 					"caption": "",
-					"href": "http://fptest.local/fp-content/uploads/2020/04/test-image-1024x683.jpg",
+					"href": "http://fintest.local/fin-content/uploads/2020/04/test-image-1024x683.jpg",
 					"id": 703,
 					"sizeSlug": "large",
 					"linkDestination": "media"

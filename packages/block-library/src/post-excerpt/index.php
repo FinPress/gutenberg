@@ -20,7 +20,7 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 		return '';
 	}
 
-	$more_text           = ! empty( $attributes['moreText'] ) ? '<a class="fp-block-post-excerpt__more-link" href="' . esc_url( get_the_permalink( $block->context['postId'] ) ) . '">' . fp_kses_post( $attributes['moreText'] ) . '</a>' : '';
+	$more_text           = ! empty( $attributes['moreText'] ) ? '<a class="fin-block-post-excerpt__more-link" href="' . esc_url( get_the_permalink( $block->context['postId'] ) ) . '">' . fin_kses_post( $attributes['moreText'] ) . '</a>' : '';
 	$filter_excerpt_more = static function ( $more ) use ( $more_text ) {
 		return empty( $more_text ) ? $more : '';
 	};
@@ -42,12 +42,12 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	* The purpose of the excerpt length setting is to limit the length of both
 	* automatically generated and user-created excerpts.
 	* Because the excerpt_length filter only applies to auto generated excerpts,
-	* fp_trim_words is used instead.
+	* fin_trim_words is used instead.
 	*/
 	$excerpt_length = $attributes['excerptLength'];
 	$excerpt        = get_the_excerpt( $block->context['postId'] );
 	if ( isset( $excerpt_length ) ) {
-		$excerpt = fp_trim_words( $excerpt, $excerpt_length );
+		$excerpt = fin_trim_words( $excerpt, $excerpt_length );
 	}
 
 	$classes = array();
@@ -59,10 +59,10 @@ function render_block_core_post_excerpt( $attributes, $content, $block ) {
 	}
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classes ) ) );
 
-	$content               = '<p class="fp-block-post-excerpt__excerpt">' . $excerpt;
+	$content               = '<p class="fin-block-post-excerpt__excerpt">' . $excerpt;
 	$show_more_on_new_line = ! isset( $attributes['showMoreOnNewLine'] ) || $attributes['showMoreOnNewLine'];
 	if ( $show_more_on_new_line && ! empty( $more_text ) ) {
-		$content .= '</p><p class="fp-block-post-excerpt__more-text">' . $more_text . '</p>';
+		$content .= '</p><p class="fin-block-post-excerpt__more-text">' . $more_text . '</p>';
 	} else {
 		$content .= " $more_text</p>";
 	}

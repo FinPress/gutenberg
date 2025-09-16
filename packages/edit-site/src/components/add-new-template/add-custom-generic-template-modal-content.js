@@ -39,7 +39,7 @@ function AddCustomGenericTemplateModalContent( { createTemplate, onBack } ) {
 				{
 					slug:
 						kebabCase( title || defaultTitle ) ||
-						'fp-custom-template',
+						'fin-custom-template',
 					title: title || defaultTitle,
 				},
 				false

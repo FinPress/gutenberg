@@ -17,9 +17,9 @@
 function render_block_core_search( $attributes ) {
 	// Older versions of the Search block defaulted the label and buttonText
 	// attributes to `__( 'Search' )` meaning that many posts contain `<!--
-	// fp:search /-->`. Support these by defaulting an undefined label and
+	// fin:search /-->`. Support these by defaulting an undefined label and
 	// buttonText to `__( 'Search' )`.
-	$attributes = fp_parse_args(
+	$attributes = fin_parse_args(
 		$attributes,
 		array(
 			'label'      => __( 'Search' ),
@@ -27,7 +27,7 @@ function render_block_core_search( $attributes ) {
 		)
 	);
 
-	$input_id            = fp_unique_id( 'fp-block-search__input-' );
+	$input_id            = fin_unique_id( 'fin-block-search__input-' );
 	$classnames          = classnames_for_block_core_search( $attributes );
 	$show_label          = ! empty( $attributes['showLabel'] );
 	$use_icon_button     = ! empty( $attributes['buttonUseIcon'] );
@@ -47,11 +47,11 @@ function render_block_core_search( $attributes ) {
 	// It is defined this way because some values depend on it, in case it changes in the future.
 	$open_by_default = false;
 
-	$label_inner_html = empty( $attributes['label'] ) ? __( 'Search' ) : fp_kses_post( $attributes['label'] );
+	$label_inner_html = empty( $attributes['label'] ) ? __( 'Search' ) : fin_kses_post( $attributes['label'] );
 	$label            = new FP_HTML_Tag_Processor( sprintf( '<label %1$s>%2$s</label>', $inline_styles['label'], $label_inner_html ) );
 	if ( $label->next_tag() ) {
 		$label->set_attribute( 'for', $input_id );
-		$label->add_class( 'fp-block-search__label' );
+		$label->add_class( 'fin-block-search__label' );
 		if ( $show_label && ! empty( $attributes['label'] ) ) {
 			if ( ! empty( $typography_classes ) ) {
 				$label->add_class( $typography_classes );
@@ -62,7 +62,7 @@ function render_block_core_search( $attributes ) {
 	}
 
 	$input         = new FP_HTML_Tag_Processor( sprintf( '<input type="search" name="s" required %s/>', $inline_styles['input'] ) );
-	$input_classes = array( 'fp-block-search__input' );
+	$input_classes = array( 'fin-block-search__input' );
 	if ( ! $is_button_inside && ! empty( $border_color_classes ) ) {
 		$input_classes[] = $border_color_classes;
 	}
@@ -78,10 +78,10 @@ function render_block_core_search( $attributes ) {
 		// If it's interactive, enqueue the script module and add the directives.
 		$is_expandable_searchfield = 'button-only' === $button_position;
 		if ( $is_expandable_searchfield ) {
-			fp_enqueue_script_module( '@finpress/block-library/search/view' );
+			fin_enqueue_script_module( '@finpress/block-library/search/view' );
 
-			$input->set_attribute( 'data-fp-bind--aria-hidden', '!context.isSearchInputVisible' );
-			$input->set_attribute( 'data-fp-bind--tabindex', 'state.tabindex' );
+			$input->set_attribute( 'data-fin-bind--aria-hidden', '!context.isSearchInputVisible' );
+			$input->set_attribute( 'data-fin-bind--tabindex', 'state.tabindex' );
 
 			// Adding these attributes manually is needed until the Interactivity API
 			// SSR logic is added to core.
@@ -101,7 +101,7 @@ function render_block_core_search( $attributes ) {
 	}
 
 	if ( $show_button ) {
-		$button_classes         = array( 'fp-block-search__button' );
+		$button_classes         = array( 'fin-block-search__button' );
 		$button_internal_markup = '';
 		if ( ! empty( $color_classes ) ) {
 			$button_classes[] = $color_classes;
@@ -115,7 +115,7 @@ function render_block_core_search( $attributes ) {
 		}
 		if ( ! $use_icon_button ) {
 			if ( ! empty( $attributes['buttonText'] ) ) {
-				$button_internal_markup = fp_kses_post( $attributes['buttonText'] );
+				$button_internal_markup = fin_kses_post( $attributes['buttonText'] );
 			}
 		} else {
 			$button_classes[]       = 'has-icon';
@@ -126,32 +126,32 @@ function render_block_core_search( $attributes ) {
 		}
 
 		// Include the button element class.
-		$button_classes[] = fp_theme_get_element_class_name( 'button' );
+		$button_classes[] = fin_theme_get_element_class_name( 'button' );
 		$button           = new FP_HTML_Tag_Processor( sprintf( '<button type="submit" %s>%s</button>', $inline_styles['button'], $button_internal_markup ) );
 
 		if ( $button->next_tag() ) {
 			$button->add_class( implode( ' ', $button_classes ) );
 			if ( 'button-only' === $attributes['buttonPosition'] ) {
-				$button->set_attribute( 'data-fp-bind--aria-label', 'state.ariaLabel' );
-				$button->set_attribute( 'data-fp-bind--aria-controls', 'state.ariaControls' );
-				$button->set_attribute( 'data-fp-bind--aria-expanded', 'context.isSearchInputVisible' );
-				$button->set_attribute( 'data-fp-bind--type', 'state.type' );
-				$button->set_attribute( 'data-fp-on--click', 'actions.openSearchInput' );
+				$button->set_attribute( 'data-fin-bind--aria-label', 'state.ariaLabel' );
+				$button->set_attribute( 'data-fin-bind--aria-controls', 'state.ariaControls' );
+				$button->set_attribute( 'data-fin-bind--aria-expanded', 'context.isSearchInputVisible' );
+				$button->set_attribute( 'data-fin-bind--type', 'state.type' );
+				$button->set_attribute( 'data-fin-on--click', 'actions.openSearchInput' );
 
 				// Adding these attributes manually is needed until the Interactivity
 				// API SSR logic is added to core.
 				$button->set_attribute( 'aria-label', __( 'Expand search field' ) );
-				$button->set_attribute( 'aria-controls', 'fp-block-search__input-' . $input_id );
+				$button->set_attribute( 'aria-controls', 'fin-block-search__input-' . $input_id );
 				$button->set_attribute( 'aria-expanded', 'false' );
 				$button->set_attribute( 'type', 'button' );
 			} else {
-				$button->set_attribute( 'aria-label', fp_strip_all_tags( $attributes['buttonText'] ) );
+				$button->set_attribute( 'aria-label', fin_strip_all_tags( $attributes['buttonText'] ) );
 			}
 		}
 	}
 
 	$field_markup_classes = array(
-		'fp-block-search__inside-wrapper',
+		'fin-block-search__inside-wrapper',
 	);
 	if ( $is_button_inside && ! empty( $border_color_classes ) ) {
 		$field_markup_classes[] = $border_color_classes;
@@ -171,7 +171,7 @@ function render_block_core_search( $attributes ) {
 	if ( $is_expandable_searchfield ) {
 		$aria_label_expanded  = __( 'Submit Search' );
 		$aria_label_collapsed = __( 'Expand search field' );
-		$form_context         = fp_interactivity_data_fp_context(
+		$form_context         = fin_interactivity_data_fin_context(
 			array(
 				'isSearchInputVisible' => $open_by_default,
 				'inputId'              => $input_id,
@@ -180,11 +180,11 @@ function render_block_core_search( $attributes ) {
 			)
 		);
 		$form_directives      = '
-		 data-fp-interactive="core/search"
+		 data-fin-interactive="core/search"
 		 ' . $form_context . '
-		 data-fp-class--fp-block-search__searchfield-hidden="!context.isSearchInputVisible"
-		 data-fp-on-async--keydown="actions.handleSearchKeydown"
-		 data-fp-on-async--focusout="actions.handleSearchFocusout"
+		 data-fin-class--fin-block-search__searchfield-hidden="!context.isSearchInputVisible"
+		 data-fin-on-async--keydown="actions.handleSearchKeydown"
+		 data-fin-on-async--focusout="actions.handleSearchFocusout"
 		';
 	}
 
@@ -226,28 +226,28 @@ function classnames_for_block_core_search( $attributes ) {
 
 	if ( ! empty( $attributes['buttonPosition'] ) ) {
 		if ( 'button-inside' === $attributes['buttonPosition'] ) {
-			$classnames[] = 'fp-block-search__button-inside';
+			$classnames[] = 'fin-block-search__button-inside';
 		}
 
 		if ( 'button-outside' === $attributes['buttonPosition'] ) {
-			$classnames[] = 'fp-block-search__button-outside';
+			$classnames[] = 'fin-block-search__button-outside';
 		}
 
 		if ( 'no-button' === $attributes['buttonPosition'] ) {
-			$classnames[] = 'fp-block-search__no-button';
+			$classnames[] = 'fin-block-search__no-button';
 		}
 
 		if ( 'button-only' === $attributes['buttonPosition'] ) {
-			$classnames[] = 'fp-block-search__button-only fp-block-search__searchfield-hidden';
+			$classnames[] = 'fin-block-search__button-only fin-block-search__searchfield-hidden';
 		}
 	}
 
 	if ( isset( $attributes['buttonUseIcon'] ) ) {
 		if ( ! empty( $attributes['buttonPosition'] ) && 'no-button' !== $attributes['buttonPosition'] ) {
 			if ( $attributes['buttonUseIcon'] ) {
-				$classnames[] = 'fp-block-search__icon-button';
+				$classnames[] = 'fin-block-search__icon-button';
 			} else {
-				$classnames[] = 'fp-block-search__text-button';
+				$classnames[] = 'fin-block-search__text-button';
 			}
 		}
 	}
@@ -279,7 +279,7 @@ function apply_block_core_search_border_style( $attributes, $property, $side, &$
 		array_splice( $path, 2, 0, $side );
 	}
 
-	$value = _fp_array_get( $attributes, $path, false );
+	$value = _fin_array_get( $attributes, $path, false );
 
 	if ( empty( $value ) ) {
 		return;
@@ -289,7 +289,7 @@ function apply_block_core_search_border_style( $attributes, $property, $side, &$
 		$has_color_preset = str_contains( $value, 'var:preset|color|' );
 		if ( $has_color_preset ) {
 			$named_color_value = substr( $value, strrpos( $value, '|' ) + 1 );
-			$value             = sprintf( 'var(--fp--preset--color--%s)', $named_color_value );
+			$value             = sprintf( 'var(--fin--preset--color--%s)', $named_color_value );
 		}
 	}
 
@@ -500,7 +500,7 @@ function get_typography_styles_for_block_core_search( $attributes ) {
 	if ( ! empty( $attributes['style']['typography']['fontSize'] ) ) {
 		$typography_styles[] = sprintf(
 			'font-size: %s;',
-			fp_get_typography_font_size_value(
+			fin_get_typography_font_size_value(
 				array(
 					'size' => $attributes['style']['typography']['fontSize'],
 				)

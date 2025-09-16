@@ -24,11 +24,11 @@ test.describe( 'adding blocks', () => {
 		// Check the content
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:quote {"className":"is-style-plain"} -->
-<blockquote class="fp-block-quote is-style-plain"><!-- fp:paragraph -->
+			`<!-- fin:quote {"className":"is-style-plain"} -->
+<blockquote class="fin-block-quote is-style-plain"><!-- fin:paragraph -->
 <p>Quote content</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 } );

@@ -19,9 +19,9 @@
 				]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-cover\">\n    <span aria-hidden=\"true\" class=\"fp-block-cover__background has-primary-background-color has-background-dim-100 has-background-dim\"></span>\n\t<div class=\"fp-block-cover__inner-container\">\n\t\t\n\t</div>\n</div>\n",
+		"innerHTML": "\n<div class=\"fin-block-cover\">\n    <span aria-hidden=\"true\" class=\"fin-block-cover__background has-primary-background-color has-background-dim-100 has-background-dim\"></span>\n\t<div class=\"fin-block-cover__inner-container\">\n\t\t\n\t</div>\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-cover\">\n    <span aria-hidden=\"true\" class=\"fp-block-cover__background has-primary-background-color has-background-dim-100 has-background-dim\"></span>\n\t<div class=\"fp-block-cover__inner-container\">\n\t\t",
+			"\n<div class=\"fin-block-cover\">\n    <span aria-hidden=\"true\" class=\"fin-block-cover__background has-primary-background-color has-background-dim-100 has-background-dim\"></span>\n\t<div class=\"fin-block-cover__inner-container\">\n\t\t",
 			null,
 			"\n\t</div>\n</div>\n"
 		]

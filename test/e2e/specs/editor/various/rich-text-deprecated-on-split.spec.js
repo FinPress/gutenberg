@@ -7,10 +7,10 @@ test.describe( 'RichText deprecated onSplit', () => {
 	test.beforeEach( async ( { admin, page, editor } ) => {
 		await admin.createNewPost();
 		await page.evaluate( () => {
-			const registerBlockType = window.fp.blocks.registerBlockType;
-			const { useBlockProps, RichText } = window.fp.blockEditor;
-			const { createBlock, setDefaultBlockName } = window.fp.blocks;
-			const el = window.fp.element.createElement;
+			const registerBlockType = window.fin.blocks.registerBlockType;
+			const { useBlockProps, RichText } = window.fin.blockEditor;
+			const { createBlock, setDefaultBlockName } = window.fin.blocks;
+			const el = window.fin.element.createElement;
 			registerBlockType( 'core/rich-text-deprecated-on-split', {
 				apiVersion: 3,
 				title: 'Deprecated RichText onSplit',

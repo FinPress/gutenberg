@@ -1,11 +1,11 @@
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>A block</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->
+<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>B block</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->

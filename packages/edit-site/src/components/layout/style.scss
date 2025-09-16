@@ -198,7 +198,7 @@ html.canvas-mode-edit-transition::view-transition-group(toggle) {
 
 	&:focus-visible,
 	&:focus {
-		box-shadow: 0 0 0 3px #1e1e1e, 0 0 0 6px var(--fp-admin-theme-color);
+		box-shadow: 0 0 0 3px #1e1e1e, 0 0 0 6px var(--fin-admin-theme-color);
 		outline: 4px solid #0000;
 		outline-offset: 4px;
 	}

@@ -62,9 +62,9 @@ export function convertLegacyBlockNameAndAttributes( name, attributes ) {
 	if ( name === 'core/comments-query-loop' ) {
 		name = 'core/comments';
 		const { className = '' } = newAttributes;
-		if ( ! className.includes( 'fp-block-comments-query-loop' ) ) {
+		if ( ! className.includes( 'fin-block-comments-query-loop' ) ) {
 			newAttributes.className = [
-				'fp-block-comments-query-loop',
+				'fin-block-comments-query-loop',
 				className,
 			].join( ' ' );
 		}

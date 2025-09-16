@@ -19,7 +19,7 @@ test.describe( 'Site editor title', () => {
 		// Navigate to a template.
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 		const title = page
@@ -38,7 +38,7 @@ test.describe( 'Site editor title', () => {
 		// Navigate to a template part.
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//header',
-			postType: 'fp_template_part',
+			postType: 'fin_template_part',
 			canvas: 'edit',
 		} );
 		const title = page

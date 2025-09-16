@@ -34,7 +34,7 @@ register_block_pattern(
 	array(
 		'title'       => __( 'Two buttons', 'my-plugin' ),
 		'description' => _x( 'Two horizontal buttons, the left button is filled in, and the right button is outlined.', 'Block pattern description', 'my-plugin' ),
-		'content'     => "<!-- fp:buttons {\"align\":\"center\"} -->\n<div class=\"fp-block-buttons aligncenter\"><!-- fp:button {\"backgroundColor\":\"very-dark-gray\",\"borderRadius\":0} -->\n<div class=\"fp-block-button\"><a class=\"fp-block-button__link has-background has-very-dark-gray-background-color no-border-radius\">" . esc_html__( 'Button One', 'my-plugin' ) . "</a></div>\n<!-- /fp:button -->\n\n<!-- fp:button {\"textColor\":\"very-dark-gray\",\"borderRadius\":0,\"className\":\"is-style-outline\"} -->\n<div class=\"fp-block-button is-style-outline\"><a class=\"fp-block-button__link has-text-color has-very-dark-gray-color no-border-radius\">" . esc_html__( 'Button Two', 'my-plugin' ) . "</a></div>\n<!-- /fp:button --></div>\n<!-- /fp:buttons -->",
+		'content'     => "<!-- fin:buttons {\"align\":\"center\"} -->\n<div class=\"fin-block-buttons aligncenter\"><!-- fin:button {\"backgroundColor\":\"very-dark-gray\",\"borderRadius\":0} -->\n<div class=\"fin-block-button\"><a class=\"fin-block-button__link has-background has-very-dark-gray-background-color no-border-radius\">" . esc_html__( 'Button One', 'my-plugin' ) . "</a></div>\n<!-- /fin:button -->\n\n<!-- fin:button {\"textColor\":\"very-dark-gray\",\"borderRadius\":0,\"className\":\"is-style-outline\"} -->\n<div class=\"fin-block-button is-style-outline\"><a class=\"fin-block-button__link has-text-color has-very-dark-gray-color no-border-radius\">" . esc_html__( 'Button Two', 'my-plugin' ) . "</a></div>\n<!-- /fin:button --></div>\n<!-- /fin:buttons -->",
 	)
 );
 ```
@@ -151,9 +151,9 @@ register_block_pattern(
 	array(
 		'title'      => __( 'Powered by FinPress', 'my-plugin' ),
 		'blockTypes' => array( 'core/paragraph' ),
-		'content'    => '<!-- fp:paragraph {"backgroundColor":"black","textColor":"white"} -->
+		'content'    => '<!-- fin:paragraph {"backgroundColor":"black","textColor":"white"} -->
 		<p class="has-white-color has-black-background-color has-text-color has-background">Powered by FinPress</p>
-		<!-- /fp:paragraph -->',
+		<!-- /fin:paragraph -->',
 	)
 );
 ```
@@ -168,15 +168,15 @@ register_block_pattern(
 	array(
 		'title'      => __( 'Powered by FinPress', 'my-plugin' ),
 		'blockTypes' => array( 'core/paragraph', 'core/heading' ),
-		'content'    => '<!-- fp:group -->
-						<div class="fp-block-group">
-						<!-- fp:heading {"fontSize":"large"} -->
+		'content'    => '<!-- fin:group -->
+						<div class="fin-block-group">
+						<!-- fin:heading {"fontSize":"large"} -->
 						<h2 class="has-large-font-size"><span style="color:#ba0c49" class="has-inline-color">Hi everyone</span></h2>
-						<!-- /fp:heading -->
-						<!-- fp:paragraph {"backgroundColor":"black","textColor":"white"} -->
+						<!-- /fin:heading -->
+						<!-- fin:paragraph {"backgroundColor":"black","textColor":"white"} -->
 						<p class="has-white-color has-black-background-color has-text-color has-background">Powered by FinPress</p>
-						<!-- /fp:paragraph -->
-						</div><!-- /fp:group -->',
+						<!-- /fin:paragraph -->
+						</div><!-- /fin:group -->',
 	)
 );
 ```

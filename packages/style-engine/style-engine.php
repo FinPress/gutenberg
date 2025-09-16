@@ -16,7 +16,7 @@
  *
  * Example usage:
  *
- * $styles = fp_style_engine_get_styles( array( 'color' => array( 'text' => '#cccccc' ) ) );
+ * $styles = fin_style_engine_get_styles( array( 'color' => array( 'text' => '#cccccc' ) ) );
  * // Returns `array( 'css' => 'color: #cccccc', 'declarations' => array( 'color' => '#cccccc' ), 'classnames' => 'has-color' )`.
  *
  * @since 6.1.0
@@ -27,7 +27,7 @@
  *
  *     @type string|null $context                    An identifier describing the origin of the style object, e.g., 'block-supports' or 'global-styles'. Default is `null`.
  *                                                   When set, the Style Engine will attempt to store the CSS rules, where a selector is also passed.
- *     @type bool        $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fp--preset--* ) values. Default `false`.
+ *     @type bool        $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fin--preset--* ) values. Default `false`.
  *     @type string      $selector                   Optional. When a selector is passed, the value of `$css` in the return value will comprise a full CSS rule `$selector { ...$css_declarations }`,
  *                                                   otherwise, the value will be a concatenated string of CSS declarations.
  * }
@@ -38,8 +38,8 @@
  *     @type string   $classnames   Classnames separated by a space.
  * }
  */
-function fp_style_engine_get_styles( $block_styles, $options = array() ) {
-	$options = fp_parse_args(
+function fin_style_engine_get_styles( $block_styles, $options = array() ) {
+	$options = fin_parse_args(
 		$options,
 		array(
 			'selector'                   => null,
@@ -74,7 +74,7 @@ function fp_style_engine_get_styles( $block_styles, $options = array() ) {
  *
  * Example usage:
  * $css_rules = array( array( 'selector' => '.elephant-are-cool', 'declarations' => array( 'color' => 'gray', 'width' => '3em' ) ) );
- * $css       = fp_style_engine_get_stylesheet_from_css_rules( $css_rules );
+ * $css       = fin_style_engine_get_stylesheet_from_css_rules( $css_rules );
  * // Returns `.elephant-are-cool{color:gray;width:3em}`.
  *
  * @since 6.1.0
@@ -99,12 +99,12 @@ function fp_style_engine_get_styles( $block_styles, $options = array() ) {
  *
  * @return string A string of compiled CSS declarations, or empty string.
  */
-function fp_style_engine_get_stylesheet_from_css_rules( $css_rules, $options = array() ) {
+function fin_style_engine_get_stylesheet_from_css_rules( $css_rules, $options = array() ) {
 	if ( empty( $css_rules ) ) {
 		return '';
 	}
 
-	$options = fp_parse_args(
+	$options = fin_parse_args(
 		$options,
 		array(
 			'context' => null,
@@ -147,7 +147,7 @@ function fp_style_engine_get_stylesheet_from_css_rules( $css_rules, $options = a
  *
  * @return string A compiled CSS string.
  */
-function fp_style_engine_get_stylesheet_from_context( $context, $options = array() ) {
+function fin_style_engine_get_stylesheet_from_context( $context, $options = array() ) {
 	if ( empty( $context ) ) {
 		return '';
 	}

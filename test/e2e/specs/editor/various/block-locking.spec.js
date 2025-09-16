@@ -62,9 +62,9 @@ test.describe( 'Block Locking', () => {
 		await page.click( 'role=button[name="Apply"]' );
 
 		expect( await editor.getEditedPostContent() )
-			.toBe( `<!-- fp:paragraph {"lock":{"move":true,"remove":true}} -->
+			.toBe( `<!-- fin:paragraph {"lock":{"move":true,"remove":true}} -->
 <p>Some paragraph</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'can unlock from toolbar', async ( { editor, page } ) => {
@@ -89,9 +89,9 @@ test.describe( 'Block Locking', () => {
 		).toBeFocused();
 
 		expect( await editor.getEditedPostContent() )
-			.toBe( `<!-- fp:paragraph {"lock":{"move":false,"remove":false}} -->
+			.toBe( `<!-- fin:paragraph {"lock":{"move":false,"remove":false}} -->
 <p>Some paragraph</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'block locking supersedes template locking', async ( {

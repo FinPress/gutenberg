@@ -17,12 +17,12 @@ export function useArchiveLabel() {
 		const currentPostType = getCurrentPostType();
 		const templateId =
 			getCurrentTemplateId() ||
-			( currentPostType === 'fp_template' ? getCurrentPostId() : null );
+			( currentPostType === 'fin_template' ? getCurrentPostId() : null );
 
 		return templateId
 			? select( coreStore ).getEditedEntityRecord(
 					'postType',
-					'fp_template',
+					'fin_template',
 					templateId
 			  )?.slug
 			: null;
@@ -51,7 +51,7 @@ export function useArchiveLabel() {
 		taxonomy = taxonomy === 'tag' ? 'post_tag' : taxonomy;
 
 		//getTaxonomy( 'category' );
-		//fp.data.select('core').getEntityRecords( 'taxonomy', 'category', {slug: 'newcat'} );
+		//fin.data.select('core').getEntityRecords( 'taxonomy', 'category', {slug: 'newcat'} );
 	} else {
 		const authorMatches = templateSlug?.match( /^(author)$|^author-(.+)$/ );
 		if ( authorMatches ) {

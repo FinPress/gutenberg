@@ -48,7 +48,7 @@ function ScreenRoot() {
 			hasVariations:
 				!! __experimentalGetCurrentThemeGlobalStylesVariations()
 					?.length,
-			canEditCSS: !! globalStyles?._links?.[ 'fp:action-edit-css' ],
+			canEditCSS: !! globalStyles?._links?.[ 'fin:action-edit-css' ],
 		};
 	}, [] );
 

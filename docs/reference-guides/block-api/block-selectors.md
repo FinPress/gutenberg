@@ -12,7 +12,7 @@ The root selector is the block's primary CSS selector.
 
 All blocks require a primary CSS selector for their style declarations to be
 included under. If one is not provided through the Block Selectors API, a
-default is generated in the form of `.fp-block-<name>`.
+default is generated in the form of `.fin-block-<name>`.
 
 ### Example
 

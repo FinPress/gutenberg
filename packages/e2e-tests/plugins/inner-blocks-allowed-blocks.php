@@ -11,14 +11,14 @@
  * Registers a custom script for the plugin.
  */
 function enqueue_inner_blocks_allowed_blocks_script() {
-	fp_enqueue_script(
+	fin_enqueue_script(
 		'gutenberg-test-inner-blocks-allowed-blocks',
 		plugins_url( 'inner-blocks-allowed-blocks/index.js', __FILE__ ),
 		array(
-			'fp-blocks',
-			'fp-block-editor',
-			'fp-element',
-			'fp-i18n',
+			'fin-blocks',
+			'fin-block-editor',
+			'fin-element',
+			'fin-i18n',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'inner-blocks-allowed-blocks/index.js' ),
 		true

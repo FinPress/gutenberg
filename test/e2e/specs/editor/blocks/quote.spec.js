@@ -20,11 +20,11 @@ test.describe( 'Quote', () => {
 		// Type content right after.
 		await page.keyboard.type( 'Quote content' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>Quote content</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 
@@ -41,15 +41,15 @@ test.describe( 'Quote', () => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( 'Another paragraph' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>A quote</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Another paragraph</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 
@@ -65,11 +65,11 @@ test.describe( 'Quote', () => {
 		await pageUtils.pressKeys( 'ArrowLeft', { times: 'test'.length } );
 		await page.keyboard.type( '> ' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>test</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 
@@ -85,11 +85,11 @@ test.describe( 'Quote', () => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( 'I’m a quote' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>I’m a quote</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 
@@ -103,11 +103,11 @@ test.describe( 'Quote', () => {
 		await page.keyboard.type( 'test' );
 		await editor.transformBlockTo( 'core/quote' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>test</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 
@@ -128,15 +128,15 @@ test.describe( 'Quote', () => {
 		await page.keyboard.up( 'Shift' );
 		await editor.transformBlockTo( 'core/quote' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>one</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>two</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 
@@ -154,13 +154,13 @@ test.describe( 'Quote', () => {
 			);
 			await editor.clickBlockOptionsMenuItem( 'Ungroup' );
 			expect( await editor.getEditedPostContent() ).toBe(
-				`<!-- fp:paragraph -->
+				`<!-- fin:paragraph -->
 <p>one</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>two</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 			);
 		} );
 
@@ -179,17 +179,17 @@ test.describe( 'Quote', () => {
 			await page.keyboard.type( 'cite' );
 			await editor.clickBlockOptionsMenuItem( 'Ungroup' );
 			expect( await editor.getEditedPostContent() ).toBe(
-				`<!-- fp:paragraph -->
+				`<!-- fin:paragraph -->
 <p>one</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>two</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>cite</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 			);
 		} );
 
@@ -203,13 +203,13 @@ test.describe( 'Quote', () => {
 			await page.keyboard.type( 'cite' );
 			await editor.clickBlockOptionsMenuItem( 'Ungroup' );
 			expect( await editor.getEditedPostContent() ).toBe(
-				`<!-- fp:paragraph -->
+				`<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>cite</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 			);
 		} );
 
@@ -233,11 +233,11 @@ test.describe( 'Quote', () => {
 		await page.keyboard.type( 'test' );
 		await editor.transformBlockTo( 'core/quote' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:heading -->
-<h2 class="fp-block-heading">test</h2>
-<!-- /fp:heading --></blockquote>
-<!-- /fp:quote -->`
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:heading -->
+<h2 class="fin-block-heading">test</h2>
+<!-- /fin:heading --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 
@@ -251,9 +251,9 @@ test.describe( 'Quote', () => {
 		await page.keyboard.type( 'cite' );
 		await editor.transformBlockTo( 'core/pullquote' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:pullquote -->
-<figure class="fp-block-pullquote"><blockquote><p>one<br>two</p><cite>cite</cite></blockquote></figure>
-<!-- /fp:pullquote -->`
+			`<!-- fin:pullquote -->
+<figure class="fin-block-pullquote"><blockquote><p>one<br>two</p><cite>cite</cite></blockquote></figure>
+<!-- /fin:pullquote -->`
 		);
 	} );
 
@@ -264,40 +264,40 @@ test.describe( 'Quote', () => {
 		await page.keyboard.press( 'Enter' );
 		// Expect empty paragraph outside quote block.
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 		await page.keyboard.press( 'Backspace' );
 		await page.keyboard.type( '2' );
 		// Expect the paragraph to be merged into the quote block.
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>2</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 
 	test( 'can be unwrapped on Backspace', async ( { editor, page } ) => {
 		await editor.insertBlock( { name: 'core/quote' } );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->`
 		);
 		await page.keyboard.press( 'Backspace' );
 		expect( await editor.getEditedPostContent() ).toBe( '' );
@@ -314,23 +314,23 @@ test.describe( 'Quote', () => {
 		await editor.clickBlockToolbarButton( 'Add citation' );
 		await page.keyboard.type( '2' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph --><cite>2</cite></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --><cite>2</cite></blockquote>
+<!-- /fin:quote -->`
 		);
 		// Move the cursor to the start of the first paragraph of the quoted block.
 		await pageUtils.pressKeys( 'ArrowLeft', { times: 3 } );
 		await page.keyboard.press( 'Backspace' );
 		expect( await editor.getEditedPostContent() ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:quote -->
-<blockquote class="fp-block-quote"><cite>2</cite></blockquote>
-<!-- /fp:quote -->`
+<!-- fin:quote -->
+<blockquote class="fin-block-quote"><cite>2</cite></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 

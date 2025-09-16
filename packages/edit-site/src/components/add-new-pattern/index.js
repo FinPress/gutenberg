@@ -56,7 +56,7 @@ export default function AddNewPattern() {
 				?.add_new_item,
 			addNewTemplatePartLabel: getPostType( TEMPLATE_PART_POST_TYPE )
 				?.labels?.add_new_item,
-			// Blocks refers to the fp_block post type, this checks the ability to create a post of that type.
+			// Blocks refers to the fin_block post type, this checks the ability to create a post of that type.
 			canCreatePattern: canUser( 'create', {
 				kind: 'postType',
 				name: PATTERN_TYPES.user,

@@ -39,7 +39,7 @@
 	// Focus.
 	// See https://github.com/FinPress/gutenberg/issues/13267 for more context on these selectors.
 	&:focus:not(:disabled) {
-		box-shadow: 0 0 0 var(--fp-admin-border-width-focus) $components-color-accent;
+		box-shadow: 0 0 0 var(--fin-admin-border-width-focus) $components-color-accent;
 
 		// Windows High Contrast mode will show this outline, but not the box-shadow.
 		outline: 3px solid transparent;
@@ -71,7 +71,7 @@
 		}
 
 		&:focus:not(:disabled) {
-			box-shadow: inset 0 0 0 1px $components-color-background, 0 0 0 var(--fp-admin-border-width-focus) $components-color-accent;
+			box-shadow: inset 0 0 0 1px $components-color-background, 0 0 0 var(--fin-admin-border-width-focus) $components-color-accent;
 		}
 
 		&:disabled,
@@ -86,7 +86,7 @@
 			outline: none;
 
 			&:focus:enabled {
-				box-shadow: inset 0 0 0 1px $components-color-background, 0 0 0 var(--fp-admin-border-width-focus) $components-color-accent;
+				box-shadow: inset 0 0 0 1px $components-color-background, 0 0 0 var(--fin-admin-border-width-focus) $components-color-accent;
 			}
 		}
 
@@ -154,7 +154,7 @@
 		}
 
 		&:focus:not(:disabled) {
-			box-shadow: 0 0 0 currentColor inset, 0 0 0 var(--fp-admin-border-width-focus) $components-color-accent;
+			box-shadow: 0 0 0 currentColor inset, 0 0 0 var(--fin-admin-border-width-focus) $components-color-accent;
 		}
 	}
 
@@ -195,9 +195,9 @@
 	 * Destructive buttons.
 	 */
 	&.is-destructive {
-		--fp-components-color-accent: #{$alert-red};
-		--fp-components-color-accent-darker-10: #{darken($alert-red, 10%)};
-		--fp-components-color-accent-darker-20: #{darken($alert-red, 20%)};
+		--fin-components-color-accent: #{$alert-red};
+		--fin-components-color-accent-darker-10: #{darken($alert-red, 10%)};
+		--fin-components-color-accent-darker-20: #{darken($alert-red, 20%)};
 
 		// Only the default variant is styled differently from the non-destructive counterparts.
 		&:not(.is-primary):not(.is-secondary):not(.is-tertiary):not(.is-link) {
@@ -208,7 +208,7 @@
 			}
 
 			&:focus {
-				box-shadow: 0 0 0 var(--fp-admin-border-width-focus) $alert-red;
+				box-shadow: 0 0 0 var(--fin-admin-border-width-focus) $alert-red;
 			}
 
 			&:active:not(:disabled, [aria-disabled="true"]) {
@@ -366,7 +366,7 @@
 		}
 
 		&:focus:not(:disabled) {
-			box-shadow: inset 0 0 0 1px $components-color-background, 0 0 0 var(--fp-admin-border-width-focus) $components-color-accent;
+			box-shadow: inset 0 0 0 1px $components-color-background, 0 0 0 var(--fin-admin-border-width-focus) $components-color-accent;
 
 			// Windows High Contrast mode will show this outline, but not the box-shadow.
 			outline: 2px solid transparent;

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/freeform",
 	"title": "Classic",
@@ -17,5 +17,5 @@
 		"customClassName": false,
 		"reusable": false
 	},
-	"editorStyle": "fp-block-freeform-editor"
+	"editorStyle": "fin-block-freeform-editor"
 }

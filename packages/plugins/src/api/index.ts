@@ -57,10 +57,10 @@ const plugins = {} as Record< string, FPPlugin >;
  * ```js
  * // Using ES5 syntax
  * var el = React.createElement;
- * var Fragment = fp.element.Fragment;
- * var PluginSidebar = fp.editor.PluginSidebar;
- * var PluginSidebarMoreMenuItem = fp.editor.PluginSidebarMoreMenuItem;
- * var registerPlugin = fp.plugins.registerPlugin;
+ * var Fragment = fin.element.Fragment;
+ * var PluginSidebar = fin.editor.PluginSidebar;
+ * var PluginSidebarMoreMenuItem = fin.editor.PluginSidebarMoreMenuItem;
+ * var registerPlugin = fin.plugins.registerPlugin;
  * var moreIcon = React.createElement( 'svg' ); //... svg element.
  *
  * function Component() {
@@ -193,7 +193,7 @@ export function registerPlugin(
  * @example
  * ```js
  * // Using ES5 syntax
- * var unregisterPlugin = fp.plugins.unregisterPlugin;
+ * var unregisterPlugin = fin.plugins.unregisterPlugin;
  *
  * unregisterPlugin( 'plugin-name' );
  * ```

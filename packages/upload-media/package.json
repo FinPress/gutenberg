@@ -23,7 +23,7 @@
 	},
 	"main": "build/index.js",
 	"module": "build-module/index.js",
-	"fpScript": true,
+	"finScript": true,
 	"types": "build-types",
 	"sideEffects": false,
 	"dependencies": {

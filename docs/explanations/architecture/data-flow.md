@@ -107,15 +107,15 @@ _N.B.:_ The defining aspects of blocks are their semantics and the isolation mec
 When blocks are saved to the content after the editing session, its attributes—depending on the nature of the block—are serialized to these explicit comment delimiters.
 
 ```html
-<!-- fp:image -->
-<figure class="fp-block-image"><img src="source.jpg" alt="" /></figure>
-<!-- /fp:image -->
+<!-- fin:image -->
+<figure class="fin-block-image"><img src="source.jpg" alt="" /></figure>
+<!-- /fin:image -->
 ```
 
 A purely dynamic block that is to be server-rendered before display could look like this:
 
 ```html
-<!-- fp:latest-posts {"postsToShow":4,"displayPostDate":true} /-->
+<!-- fin:latest-posts {"postsToShow":4,"displayPostDate":true} /-->
 ```
 
 ## The data lifecycle

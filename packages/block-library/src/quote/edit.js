@@ -122,7 +122,7 @@ export default function QuoteEdit( {
 					addLabel={ __( 'Add citation' ) }
 					removeLabel={ __( 'Remove citation' ) }
 					excludeElementClassName
-					className="fp-block-quote__citation"
+					className="fin-block-quote__citation"
 					insertBlocksAfter={ insertBlocksAfter }
 					{ ...( ! isWebPlatform ? { textAlign } : {} ) }
 				/>

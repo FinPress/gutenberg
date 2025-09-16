@@ -45,24 +45,24 @@ jest.mock( '@finpress/compose', () => ( {
 	) ),
 } ) );
 
-const COVER_BLOCK_PLACEHOLDER_HTML = `<!-- fp:cover {"isDark":false} -->
-<div class="fp-block-cover is-light"><span aria-hidden="true" class="fp-block-cover__background has-background-dim-100 has-background-dim"></span><div class="fp-block-cover__inner-container"></div></div>
-<!-- /fp:cover -->`;
-const COVER_BLOCK_SOLID_COLOR_HTML = `<!-- fp:cover {"overlayColor":"cyan-bluish-gray","isDark":false} -->
-<div class="fp-block-cover is-light"><span aria-hidden="true" class="fp-block-cover__background has-cyan-bluish-gray-background-color has-background-dim-100 has-background-dim"></span><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"align":"center","placeholder":"Write title…"} -->
+const COVER_BLOCK_PLACEHOLDER_HTML = `<!-- fin:cover {"isDark":false} -->
+<div class="fin-block-cover is-light"><span aria-hidden="true" class="fin-block-cover__background has-background-dim-100 has-background-dim"></span><div class="fin-block-cover__inner-container"></div></div>
+<!-- /fin:cover -->`;
+const COVER_BLOCK_SOLID_COLOR_HTML = `<!-- fin:cover {"overlayColor":"cyan-bluish-gray","isDark":false} -->
+<div class="fin-block-cover is-light"><span aria-hidden="true" class="fin-block-cover__background has-cyan-bluish-gray-background-color has-background-dim-100 has-background-dim"></span><div class="fin-block-cover__inner-container"><!-- fin:paragraph {"align":"center","placeholder":"Write title…"} -->
 <p class="has-text-align-center"></p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:cover -->`;
-const COVER_BLOCK_IMAGE_HTML = `<!-- fp:cover {"url":"https://cldup.com/cXyG__fTLN.jpg","id":10710,"dimRatio":50,"overlayColor":"foreground","isUserOverlayColor":true,"isDark":false} -->
-<div class="fp-block-cover is-light"><img class="fp-block-cover__image-background fp-image-10710" alt="" src="https://cldup.com/cXyG__fTLN.jpg" data-object-fit="cover"/><span aria-hidden="true" class="fp-block-cover__background has-foreground-background-color has-background-dim"></span><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"align":"center","placeholder":"Write title…","fontSize":"large"} -->
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:cover -->`;
+const COVER_BLOCK_IMAGE_HTML = `<!-- fin:cover {"url":"https://cldup.com/cXyG__fTLN.jpg","id":10710,"dimRatio":50,"overlayColor":"foreground","isUserOverlayColor":true,"isDark":false} -->
+<div class="fin-block-cover is-light"><img class="fin-block-cover__image-background fin-image-10710" alt="" src="https://cldup.com/cXyG__fTLN.jpg" data-object-fit="cover"/><span aria-hidden="true" class="fin-block-cover__background has-foreground-background-color has-background-dim"></span><div class="fin-block-cover__inner-container"><!-- fin:paragraph {"align":"center","placeholder":"Write title…","fontSize":"large"} -->
 <p class="has-text-align-center has-large-font-size"></p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:cover -->`;
-const COVER_BLOCK_CUSTOM_HEIGHT_HTML = `<!-- fp:cover {"url":"https://cldup.com/cXyG__fTLN.jpg","id":10710,"dimRatio":50,"overlayColor":"foreground","isUserOverlayColor":true,"minHeight":20,"minHeightUnit":"vw","isDark":false} -->
-<div class="fp-block-cover is-light" style="min-height:20vw"><img class="fp-block-cover__image-background fp-image-10710" alt="" src="https://cldup.com/cXyG__fTLN.jpg" data-object-fit="cover"/><span aria-hidden="true" class="fp-block-cover__background has-foreground-background-color has-background-dim"></span><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"align":"center","placeholder":"Write title…","fontSize":"large"} -->
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:cover -->`;
+const COVER_BLOCK_CUSTOM_HEIGHT_HTML = `<!-- fin:cover {"url":"https://cldup.com/cXyG__fTLN.jpg","id":10710,"dimRatio":50,"overlayColor":"foreground","isUserOverlayColor":true,"minHeight":20,"minHeightUnit":"vw","isDark":false} -->
+<div class="fin-block-cover is-light" style="min-height:20vw"><img class="fin-block-cover__image-background fin-image-10710" alt="" src="https://cldup.com/cXyG__fTLN.jpg" data-object-fit="cover"/><span aria-hidden="true" class="fin-block-cover__background has-foreground-background-color has-background-dim"></span><div class="fin-block-cover__inner-container"><!-- fin:paragraph {"align":"center","placeholder":"Write title…","fontSize":"large"} -->
 <p class="has-text-align-center has-large-font-size"></p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:cover -->`;
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:cover -->`;
 
 const COLOR_PINK = '#f78da7';
 const COLOR_RED = '#cf2e2e';

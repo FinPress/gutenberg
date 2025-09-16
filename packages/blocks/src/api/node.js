@@ -29,7 +29,7 @@ import * as children from './children';
  * @return {boolean} Whether node is of intended type.
  */
 function isNodeOfType( node, type ) {
-	deprecated( 'fp.blocks.node.isNodeOfType', {
+	deprecated( 'fin.blocks.node.isNodeOfType', {
 		since: '6.1',
 		version: '6.3',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
@@ -69,10 +69,10 @@ export function getNamedNodeMapAsObject( nodeMap ) {
  * @return {FPBlockNode} Block node equivalent to DOM node.
  */
 export function fromDOM( domNode ) {
-	deprecated( 'fp.blocks.node.fromDOM', {
+	deprecated( 'fin.blocks.node.fromDOM', {
 		since: '6.1',
 		version: '6.3',
-		alternative: 'fp.richText.create',
+		alternative: 'fin.richText.create',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
@@ -104,10 +104,10 @@ export function fromDOM( domNode ) {
  * @return {string} String HTML representation of block node.
  */
 export function toHTML( node ) {
-	deprecated( 'fp.blocks.node.toHTML', {
+	deprecated( 'fin.blocks.node.toHTML', {
 		since: '6.1',
 		version: '6.3',
-		alternative: 'fp.richText.toHTMLString',
+		alternative: 'fin.richText.toHTMLString',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
@@ -123,7 +123,7 @@ export function toHTML( node ) {
  * @return {Function} hpq matcher.
  */
 export function matcher( selector ) {
-	deprecated( 'fp.blocks.node.matcher', {
+	deprecated( 'fin.blocks.node.matcher', {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'html source',

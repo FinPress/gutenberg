@@ -32,14 +32,14 @@ test.describe( 'InnerBlocks Template Sync', () => {
 
 		await page.getByRole( 'textbox', {
 			name: 'Type text or HTML',
-		} ).fill( `<!-- fp:test/test-inner-blocks-no-locking -->
-<!-- fp:paragraph {"fontSize":"large"} -->
+		} ).fill( `<!-- fin:test/test-inner-blocks-no-locking -->
+<!-- fin:paragraph {"fontSize":"large"} -->
 <p class="has-large-font-size">Content…</p>
-<!-- /fp:paragraph -->
-<!-- fp:paragraph -->
+<!-- /fin:paragraph -->
+<!-- fin:paragraph -->
 <p>added paragraph</p>
-<!-- /fp:paragraph -->
-<!-- /fp:test/test-inner-blocks-no-locking -->` );
+<!-- /fin:paragraph -->
+<!-- /fin:test/test-inner-blocks-no-locking -->` );
 
 		await pageUtils.pressKeys( 'secondary+M' );
 		await expect.poll( editor.getBlocks ).toMatchObject( [
@@ -75,14 +75,14 @@ test.describe( 'InnerBlocks Template Sync', () => {
 
 		await page.getByRole( 'textbox', {
 			name: 'Type text or HTML',
-		} ).fill( `<!-- fp:test/test-inner-blocks-locking-all -->
-<!-- fp:paragraph {"fontSize":"large"} -->
+		} ).fill( `<!-- fin:test/test-inner-blocks-locking-all -->
+<!-- fin:paragraph {"fontSize":"large"} -->
 <p class="has-large-font-size">Content…</p>
-<!-- /fp:paragraph -->
-<!-- fp:paragraph -->
+<!-- /fin:paragraph -->
+<!-- fin:paragraph -->
 <p>added paragraph</p>
-<!-- /fp:paragraph -->
-<!-- /fp:test/test-inner-blocks-locking-all -->` );
+<!-- /fin:paragraph -->
+<!-- /fin:test/test-inner-blocks-locking-all -->` );
 
 		await pageUtils.pressKeys( 'secondary+M' );
 		await expect.poll( editor.getBlocks ).toMatchObject( [

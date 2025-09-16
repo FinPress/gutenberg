@@ -12,18 +12,18 @@
 
 @include finpress-admin-schemes();
 
-#fpadminbar,
+#finadminbar,
 #adminmenumain {
 	display: none;
 }
-#fpcontent {
+#fincontent {
 	margin-left: 0;
 }
-body.js #fpbody {
+body.js #finbody {
 	padding-top: 0;
 }
 body {
-	@include fp-admin-reset("#gutenberg-posts-dashboard");
+	@include fin-admin-reset("#gutenberg-posts-dashboard");
 }
 #gutenberg-posts-dashboard {
 	@include reset;

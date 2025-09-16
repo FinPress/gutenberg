@@ -8,24 +8,24 @@
  */
 
 if ( isset( $attributes['state'] ) ) {
-	fp_interactivity_state( 'test/get-server-state', $attributes['state'] );
+	fin_interactivity_state( 'test/get-server-state', $attributes['state'] );
 }
 ?>
 
 <div
-	data-fp-interactive="test/get-server-state"
-	data-fp-watch="callbacks.updateState"
+	data-fin-interactive="test/get-server-state"
+	data-fin-watch="callbacks.updateState"
 >
-	<div data-testid="prop" data-fp-text="state.prop"></div>
-	<div data-testid="nested.prop" data-fp-text="state.nested.prop"></div>
-	<div data-testid="newProp" data-fp-text="state.newProp"></div>
-	<div data-testid="nested.newProp" data-fp-text="state.nested.newProp"></div>
+	<div data-testid="prop" data-fin-text="state.prop"></div>
+	<div data-testid="nested.prop" data-fin-text="state.nested.prop"></div>
+	<div data-testid="newProp" data-fin-text="state.newProp"></div>
+	<div data-testid="nested.newProp" data-fin-text="state.nested.newProp"></div>
 
 	<button
 		data-testid="tryToModifyServerState"
-		<?php echo fp_interactivity_data_fp_context( array( 'result' => 'modify' ) ); ?>
-		data-fp-on--click="actions.attemptModification"
-		data-fp-text="context.result">
+		<?php echo fin_interactivity_data_fin_context( array( 'result' => 'modify' ) ); ?>
+		data-fin-on--click="actions.attemptModification"
+		data-fin-text="context.result">
 	>
 		modify
 	</button>
@@ -39,7 +39,7 @@ if ( isset( $attributes['state'] ) ) {
 				echo <<<HTML
 				<a
 					data-testid="link $i"
-					data-fp-on--click="actions.navigate"
+					data-fin-on--click="actions.navigate"
 					href="$link"
 				>link $i</a>
 HTML;

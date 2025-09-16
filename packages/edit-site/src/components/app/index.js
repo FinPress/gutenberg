@@ -49,9 +49,9 @@ export default function App() {
 			path,
 			query: {
 				...query,
-				fp_theme_preview:
-					'fp_theme_preview' in query
-						? query.fp_theme_preview
+				fin_theme_preview:
+					'fin_theme_preview' in query
+						? query.fin_theme_preview
 						: currentlyPreviewingTheme(),
 			},
 		};

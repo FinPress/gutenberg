@@ -91,7 +91,7 @@ export function getColors( context, isSubMenu ) {
 
 export function getNavigationChildBlockProps( innerBlocksColors ) {
 	return {
-		className: clsx( 'fp-block-navigation__submenu-container', {
+		className: clsx( 'fin-block-navigation__submenu-container', {
 			'has-text-color': !! (
 				innerBlocksColors.textColor || innerBlocksColors.customTextColor
 			),

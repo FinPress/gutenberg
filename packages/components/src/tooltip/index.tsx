@@ -68,7 +68,7 @@ function UnforwardedTooltip(
 		if ( 'development' === process.env.NODE_ENV ) {
 			// eslint-disable-next-line no-console
 			console.error(
-				'fp-components.Tooltip should be called with only a single child element.'
+				'fin-components.Tooltip should be called with only a single child element.'
 			);
 		}
 	}
@@ -82,7 +82,7 @@ function UnforwardedTooltip(
 		computedPlacement = placement;
 	} else if ( position !== undefined ) {
 		computedPlacement = positionToPlacement( position );
-		deprecated( '`position` prop in fp.components.tooltip', {
+		deprecated( '`position` prop in fin.components.tooltip', {
 			since: '6.4',
 			alternative: '`placement` prop',
 		} );

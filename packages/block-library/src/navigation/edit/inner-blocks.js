@@ -52,7 +52,7 @@ export default function NavigationInnerBlocks( {
 
 	const [ blocks, onInput, onChange ] = useEntityBlockEditor(
 		'postType',
-		'fp_navigation'
+		'fin_navigation'
 	);
 
 	// When the block is selected itself or has a top level item selected that
@@ -66,7 +66,7 @@ export default function NavigationInnerBlocks( {
 
 	const hasMenuItems = !! blocks?.length;
 
-	// If there is a `ref` attribute pointing to a `fp_navigation` but
+	// If there is a `ref` attribute pointing to a `fin_navigation` but
 	// that menu has no **items** (i.e. empty) then show a placeholder.
 	// The block must also be selected else the placeholder will display
 	// alongside the appender.
@@ -75,7 +75,7 @@ export default function NavigationInnerBlocks( {
 
 	const innerBlocksProps = useInnerBlocksProps(
 		{
-			className: 'fp-block-navigation__container',
+			className: 'fin-block-navigation__container',
 		},
 		{
 			value: blocks,

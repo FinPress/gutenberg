@@ -17,9 +17,9 @@ Blocks are meant to be combined in different ways. Blocks are hierarchical in th
 Blocks understand content as attributes and are serializable to HTML. To this point, there is a new Block Grammar. Distilled, the block grammar is an HTML comment, either a self-closing tag or with a beginning tag and ending tag. In the main tag, depending on the block type and user customizations, there can be a JSON object. This raw form of the block is referred to as serialized.
 
 ```html
-<!-- fp:paragraph {"key": "value"} -->
+<!-- fin:paragraph {"key": "value"} -->
 <p>Welcome to the world of blocks.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 ```
 
 Blocks can be static or dynamic. Static blocks contain rendered content and an object of Attributes used to re-render based on changes. Dynamic blocks require server-side data and rendering while the post content is being generated (rendering).
@@ -47,7 +47,7 @@ A reusable blocks is **an instance** of a block (or multiple blocks) that can be
 
 Any edits to a reusable block will appear on every other use of that block, saving time from having to make the same edit on different posts.
 
-Internally, reusable blocks are stored as a hidden post type (`fp_block`) and are dynamic blocks that "ref" or reference the `post_id` and return the `post_content` for that block.
+Internally, reusable blocks are stored as a hidden post type (`fin_block`) and are dynamic blocks that "ref" or reference the `post_id` and return the `post_content` for that block.
 
 ## Patterns
 
@@ -57,7 +57,7 @@ A [block pattern](/docs/reference-guides/block-api/block-patterns.md) is a group
 
 While the post editor concentrates on the content of a post, the [template](/docs/reference-guides/block-api/block-templates.md) editor allows declaring and editing an entire site using blocks, from header to footer. Templates are broken down between templates (that describe a full page) and template parts (that describe reusable areas within a template, including semantic areas like header, sidebar, and footer).
 
-These templates and template parts can be composed together and registered by a theme. They are also entirely editable by users using the block editor; a collection of blocks that interact with different properties and settings of the site (like the site title, description, logo, navigation, etc) are especially useful when editing templates and template parts. Customized templates are saved in a `fp_template` post type. Block templates include both static pages and dynamic ones, like archives, singular, home, 404, etc.
+These templates and template parts can be composed together and registered by a theme. They are also entirely editable by users using the block editor; a collection of blocks that interact with different properties and settings of the site (like the site title, description, logo, navigation, etc) are especially useful when editing templates and template parts. Customized templates are saved in a `fin_template` post type. Block templates include both static pages and dynamic ones, like archives, singular, home, 404, etc.
 
 Note: custom post types can also be initialized with a starting `post_content` template that should not be confused with the theme template system described above.
 

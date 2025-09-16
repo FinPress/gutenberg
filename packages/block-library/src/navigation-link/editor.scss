@@ -2,7 +2,7 @@
  * Appender
  */
 
-.fp-block-navigation .block-list-appender {
+.fin-block-navigation .block-list-appender {
 	position: relative;
 }
 
@@ -11,23 +11,23 @@
  */
 
 // Show submenus above the sibling inserter.
-.fp-block-navigation .has-child {
+.fin-block-navigation .has-child {
 	cursor: pointer;
 
-	.fp-block-navigation__submenu-container {
-		z-index: z-index(".has-child .fp-block-navigation__submenu-container");
+	.fin-block-navigation__submenu-container {
+		z-index: z-index(".has-child .fin-block-navigation__submenu-container");
 	}
 
 	&:hover {
-		.fp-block-navigation__submenu-container {
-			z-index: z-index(".has-child:hover .fp-block-navigation__submenu-container");
+		.fin-block-navigation__submenu-container {
+			z-index: z-index(".has-child:hover .fin-block-navigation__submenu-container");
 		}
 	}
 
 	// Show on editor selected, even if on frontend it only stays open on focus-within.
 	&.is-selected,
 	&.has-child-selected {
-		> .fp-block-navigation__submenu-container {
+		> .fin-block-navigation__submenu-container {
 			// We use important here because if the parent block is selected and submenus are present, they should always be visible.
 			visibility: visible !important;
 			opacity: 1 !important;
@@ -44,8 +44,8 @@
  * Navigation Items.
  */
 
-.fp-block-navigation-item {
-	.fp-block-navigation-item__content {
+.fin-block-navigation-item {
+	.fin-block-navigation-item__content {
 		cursor: text;
 	}
 
@@ -63,7 +63,7 @@
 	}
 }
 
-.fp-block-navigation-link__invalid-item {
+.fin-block-navigation-link__invalid-item {
 	color: #000;
 }
 
@@ -71,7 +71,7 @@
  * Menu item setup state. Is shown when a menu item has no URL configured.
  */
 
-.fp-block-navigation-link__placeholder {
+.fin-block-navigation-link__placeholder {
 	position: relative;
 
 	// While in a placeholder state, hide any underlines the theme might add.
@@ -80,7 +80,7 @@
 	background-image: none !important;
 
 	// Draw a wavy underline.
-	.fp-block-navigation-link__placeholder-text {
+	.fin-block-navigation-link__placeholder-text {
 		span {
 			text-decoration: wavy underline;
 			text-decoration-skip-ink: none;
@@ -89,7 +89,7 @@
 	}
 
 	// This needs extra specificity.
-	&.fp-block-navigation-item__content {
+	&.fin-block-navigation-item__content {
 		cursor: pointer;
 	}
 }

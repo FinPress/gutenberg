@@ -14,9 +14,9 @@
 				"innerContent": [ "\n\t<p>test</p>\n\t" ]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-group alignfull has-lighter-blue-background-color has-background\" id=\"test-id\">\n\t\n</div>\n",
+		"innerHTML": "\n<div class=\"fin-block-group alignfull has-lighter-blue-background-color has-background\" id=\"test-id\">\n\t\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-group alignfull has-lighter-blue-background-color has-background\" id=\"test-id\">\n\t",
+			"\n<div class=\"fin-block-group alignfull has-lighter-blue-background-color has-background\" id=\"test-id\">\n\t",
 			null,
 			"\n</div>\n"
 		]

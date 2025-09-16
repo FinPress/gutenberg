@@ -43,7 +43,7 @@ const UnconnectedBaseControl = (
 
 	if ( ! __nextHasNoMarginBottom ) {
 		deprecated(
-			`Bottom margin styles for fp.components.${ __associatedFPComponentName }`,
+			`Bottom margin styles for fin.components.${ __associatedFPComponentName }`,
 			{
 				since: '6.7',
 				version: '7.0',

@@ -2,13 +2,13 @@
 	{
 		"blockName": "core/file",
 		"attrs": {
-			"href": "http://localhost:8888/fp-content/uploads/2018/05/keycodes.js",
+			"href": "http://localhost:8888/fin-content/uploads/2018/05/keycodes.js",
 			"showDownloadButton": true
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-file\"><a href=\"http://localhost:8888/fp-content/uploads/2018/05/keycodes.js\" target=\"_blank\"\n\t\trel=\"noreferrer noopener\">6546</a><a href=\"http://localhost:8888/fp-content/uploads/2018/05/keycodes.js\"\n\t\tclass=\"fp-block-file__button\" download>Download</a></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-file\"><a href=\"http://localhost:8888/fin-content/uploads/2018/05/keycodes.js\" target=\"_blank\"\n\t\trel=\"noreferrer noopener\">6546</a><a href=\"http://localhost:8888/fin-content/uploads/2018/05/keycodes.js\"\n\t\tclass=\"fin-block-file__button\" download>Download</a></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-file\"><a href=\"http://localhost:8888/fp-content/uploads/2018/05/keycodes.js\" target=\"_blank\"\n\t\trel=\"noreferrer noopener\">6546</a><a href=\"http://localhost:8888/fp-content/uploads/2018/05/keycodes.js\"\n\t\tclass=\"fp-block-file__button\" download>Download</a></div>\n"
+			"\n<div class=\"fin-block-file\"><a href=\"http://localhost:8888/fin-content/uploads/2018/05/keycodes.js\" target=\"_blank\"\n\t\trel=\"noreferrer noopener\">6546</a><a href=\"http://localhost:8888/fin-content/uploads/2018/05/keycodes.js\"\n\t\tclass=\"fin-block-file__button\" download>Download</a></div>\n"
 		]
 	}
 ]

@@ -38,7 +38,7 @@ export function htmlToBlocks( html, handler ) {
 			// instead of creating the block to generate it as an unsupported block.
 			if ( Platform.isNative ) {
 				return parse(
-					`<!-- fp:html -->${ node.outerHTML }<!-- /fp:html -->`
+					`<!-- fin:html -->${ node.outerHTML }<!-- /fin:html -->`
 				);
 			}
 			return createBlock(

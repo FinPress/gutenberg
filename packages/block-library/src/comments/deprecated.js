@@ -32,10 +32,10 @@ const v1 = {
 		const classes = className?.split( ' ' ) || [];
 
 		// The ID of the previous version of the block
-		// didn't have the `fp-block-comments` class,
+		// didn't have the `fin-block-comments` class,
 		// so we need to remove it here in order to mimic it.
 		const newClasses = classes?.filter(
-			( cls ) => cls !== 'fp-block-comments'
+			( cls ) => cls !== 'fin-block-comments'
 		);
 		const newBlockProps = {
 			...blockProps,

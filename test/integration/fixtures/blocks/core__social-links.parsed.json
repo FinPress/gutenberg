@@ -14,9 +14,9 @@
 				"innerContent": []
 			}
 		],
-		"innerHTML": "\n<ul class=\"fp-block-social-links\"></ul>\n",
+		"innerHTML": "\n<ul class=\"fin-block-social-links\"></ul>\n",
 		"innerContent": [
-			"\n<ul class=\"fp-block-social-links\">",
+			"\n<ul class=\"fin-block-social-links\">",
 			null,
 			"</ul>\n"
 		]

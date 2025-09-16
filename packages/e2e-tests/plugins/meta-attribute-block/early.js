@@ -1,6 +1,6 @@
 ( function () {
-	const registerBlockType = fp.blocks.registerBlockType;
-	const el = fp.element.createElement;
+	const registerBlockType = fin.blocks.registerBlockType;
+	const el = fin.element.createElement;
 
 	registerBlockType( 'test/test-meta-attribute-block-early', {
 		title: 'Test Meta Attribute Block (Early Registration)',

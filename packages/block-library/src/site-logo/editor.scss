@@ -1,11 +1,11 @@
-.fp-block[data-align="center"] > .fp-block-site-logo,
-.fp-block-site-logo.aligncenter > div {
+.fin-block[data-align="center"] > .fin-block-site-logo,
+.fin-block-site-logo.aligncenter > div {
 	display: table;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.fp-block-site-logo {
+.fin-block-site-logo {
 	// Make the block selectable.
 	a {
 		pointer-events: none;
@@ -45,7 +45,7 @@
 
 // Provide special styling for the placeholder.
 // @todo this particular minimal style of placeholder could be componentized further.
-.fp-block-site-logo.fp-block-site-logo {
+.fin-block-site-logo.fin-block-site-logo {
 
 	&.is-default-size .components-placeholder {
 		height: 60px;
@@ -96,8 +96,8 @@
 			height: $grid-unit-60;
 			border-radius: 50%;
 			position: relative;
-			background: var(--fp-admin-theme-color);
-			border-color: var(--fp-admin-theme-color);
+			background: var(--fin-admin-theme-color);
+			border-color: var(--fin-admin-theme-color);
 			border-style: solid;
 			color: $white;
 
@@ -126,11 +126,11 @@
 		height: $grid-unit-50;
 
 		&:hover {
-			color: var(--fp-admin-theme-color);
+			color: var(--fin-admin-theme-color);
 		}
 
 		&:focus {
-			box-shadow: inset 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
+			box-shadow: inset 0 0 0 var(--fin-admin-border-width-focus) var(--fin-admin-theme-color);
 		}
 	}
 

@@ -10,7 +10,7 @@
  *
  * @since 5.9.0
  *
- * @global FP_Embed $fp_embed FinPress Embed object.
+ * @global FP_Embed $fin_embed FinPress Embed object.
  *
  * @param array $attributes The block attributes.
  *
@@ -28,12 +28,12 @@ function render_block_core_template_part( $attributes ) {
 		$template_part_id    = $theme . '//' . $attributes['slug'];
 		$template_part_query = new FP_Query(
 			array(
-				'post_type'           => 'fp_template_part',
+				'post_type'           => 'fin_template_part',
 				'post_status'         => 'publish',
 				'post_name__in'       => array( $attributes['slug'] ),
 				'tax_query'           => array(
 					array(
-						'taxonomy' => 'fp_theme',
+						'taxonomy' => 'fin_theme',
 						'field'    => 'name',
 						'terms'    => $theme,
 					),
@@ -68,7 +68,7 @@ function render_block_core_template_part( $attributes ) {
 			// Else, if the template part was provided by the active theme,
 			// render the corresponding file content.
 			if ( 0 === validate_file( $attributes['slug'] ) ) {
-				$block_template = get_block_file_template( $template_part_id, 'fp_template_part' );
+				$block_template = get_block_file_template( $template_part_id, 'fin_template_part' );
 
 				if ( isset( $block_template->content ) ) {
 					$content = $block_template->content;
@@ -78,7 +78,7 @@ function render_block_core_template_part( $attributes ) {
 				}
 
 				// Needed for the `render_block_core_template_part_file` and `render_block_core_template_part_none` actions below.
-				$block_template_file = _get_block_template_file( 'fp_template_part', $attributes['slug'] );
+				$block_template_file = _get_block_template_file( 'fin_template_part', $attributes['slug'] );
 				if ( $block_template_file ) {
 					$template_part_file_path = $block_template_file['path'];
 				}
@@ -112,7 +112,7 @@ function render_block_core_template_part( $attributes ) {
 	}
 
 	// FP_DEBUG_DISPLAY must only be honored when FP_DEBUG. This precedent
-	// is set in `fp_debug_mode()`.
+	// is set in `fin_debug_mode()`.
 	$is_debug = FP_DEBUG && FP_DEBUG_DISPLAY;
 
 	if ( is_null( $content ) ) {
@@ -155,13 +155,13 @@ function render_block_core_template_part( $attributes ) {
 	$seen_ids[ $template_part_id ] = true;
 	$content                       = do_blocks( $content );
 	unset( $seen_ids[ $template_part_id ] );
-	$content = fptexturize( $content );
+	$content = fintexturize( $content );
 	$content = convert_smilies( $content );
-	$content = fp_filter_content_tags( $content, "template_part_{$area}" );
+	$content = fin_filter_content_tags( $content, "template_part_{$area}" );
 
 	// Handle embeds for block template parts.
-	global $fp_embed;
-	$content = $fp_embed->autoembed( $content );
+	global $fin_embed;
+	$content = $fin_embed->autoembed( $content );
 
 	if ( empty( $attributes['tagName'] ) || tag_escape( $attributes['tagName'] ) !== $attributes['tagName'] ) {
 		$area_tag = 'div';
@@ -226,7 +226,7 @@ function build_template_part_block_area_variations( $instance_variations ) {
  */
 function build_template_part_block_instance_variations() {
 	// Block themes are unavailable during installation.
-	if ( fp_installing() ) {
+	if ( fin_installing() ) {
 		return array();
 	}
 
@@ -237,9 +237,9 @@ function build_template_part_block_instance_variations() {
 	$variations     = array();
 	$template_parts = get_block_templates(
 		array(
-			'post_type' => 'fp_template_part',
+			'post_type' => 'fin_template_part',
 		),
-		'fp_template_part'
+		'fin_template_part'
 	);
 
 	$defined_areas = get_allowed_block_template_part_areas();

@@ -64,7 +64,7 @@ export default function ReusableBlockConvertButton( {
 				isReusableBlock( blocks[ 0 ] ) &&
 				!! select( coreStore ).getEntityRecord(
 					'postType',
-					'fp_block',
+					'fin_block',
 					blocks[ 0 ].attributes.ref
 				);
 
@@ -83,10 +83,10 @@ export default function ReusableBlockConvertButton( {
 						hasBlockSupport( block.name, 'reusable', true )
 				) &&
 				// Hide when current doesn't have permission to do that.
-				// Blocks refers to the fp_block post type, this checks the ability to create a post of that type.
+				// Blocks refers to the fin_block post type, this checks the ability to create a post of that type.
 				!! canUser( 'create', {
 					kind: 'postType',
-					name: 'fp_block',
+					name: 'fin_block',
 				} );
 
 			return _canConvert;

@@ -38,183 +38,183 @@ exports[`Blocks raw handling pasteHandler ms-word-styled 1`] = `"<br><strong>Lor
 
 exports[`Blocks raw handling pasteHandler nested-divs 1`] = `"First paragraph<br><br>Second paragraph<br>Third paragraph<br>Fourth paragraph<br>Fifth paragraph<br>Sixth paragraph"`;
 
-exports[`Blocks raw handling pasteHandler one-image 1`] = `"<img src="http://localhost/fp-content/uploads/2018/01/Dec-08-2017-15-12-24-17-300x137.gif" alt="" width="300" height="137">"`;
+exports[`Blocks raw handling pasteHandler one-image 1`] = `"<img src="http://localhost/fin-content/uploads/2018/01/Dec-08-2017-15-12-24-17-300x137.gif" alt="" width="300" height="137">"`;
 
 exports[`Blocks raw handling pasteHandler plain 1`] = `"test<br>test<br><br>test"`;
 
 exports[`Blocks raw handling pasteHandler shortcode-matching 1`] = `"[gallery ids="40,41,42"]<br>[gallery ids="1000"]<br>[gallery ids="42"]"`;
 
 exports[`Blocks raw handling pasteHandler should remove extra blank lines 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>2</p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Blocks raw handling pasteHandler should strip HTML formatting space from inline text 1`] = `"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a elit eget tortor molestie egestas. Donec pretium urna vitae mattis imperdiet. Praesent et lorem iaculis, volutpat odio vitae, ornare lacus. Donec ut felis tristique, pharetra erat id, viverra justo. Integer sit amet elementum arcu, eget pharetra felis. In malesuada enim est, sed placerat nulla feugiat at. Vestibulum feugiat vitae elit sit amet tincidunt. Pellentesque finibus sed dolor non facilisis. Curabitur accumsan ante ac hendrerit vestibulum."`;
 
 exports[`Blocks raw handling pasteHandler should strip some text-level elements 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p>This is ncorect</p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Blocks raw handling pasteHandler should strip windows data 1`] = `
-"<!-- fp:heading -->
-<h2 class="fp-block-heading">Heading Win</h2>
-<!-- /fp:heading -->
+"<!-- fin:heading -->
+<h2 class="fin-block-heading">Heading Win</h2>
+<!-- /fin:heading -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Paragraph Win</p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Blocks raw handling pasteHandler slack-paragraphs 1`] = `"test with&nbsp;<a target="_blank" href="http://w.org/" rel="noreferrer noopener">link</a><br>a new line<br><br>a new paragraph<br>another new line<br><br>another paragraph"`;
 
 exports[`Blocks raw handling pasteHandler slack-quote 1`] = `"Test with&nbsp;<a target="_blank" href="http://w.org/" rel="noreferrer noopener">link</a>."`;
 
-exports[`Blocks raw handling pasteHandler two-images 1`] = `"<img src="http://localhost/fp-content/uploads/2018/01/Dec-08-2017-15-12-24-17-300x137.gif" alt="" width="300" height="137"> <img src="http://localhost/fp-content/uploads/2018/01/Dec-05-2017-17-52-09-9-300x248.gif" alt="" width="300" height="248">"`;
+exports[`Blocks raw handling pasteHandler two-images 1`] = `"<img src="http://localhost/fin-content/uploads/2018/01/Dec-08-2017-15-12-24-17-300x137.gif" alt="" width="300" height="137"> <img src="http://localhost/fin-content/uploads/2018/01/Dec-05-2017-17-52-09-9-300x248.gif" alt="" width="300" height="248">"`;
 
 exports[`Blocks raw handling pasteHandler finpress 1`] = `"Howdy<br>This is a paragraph.<br>More tag<br><br>Shortcode<br>[gallery ids="1"]<br><img src="block.png" alt=""><br><img src="aligned.png" alt=""> test<br><img src="not-aligned.png" alt=""> test"`;
 
 exports[`Blocks raw handling should correctly handle quotes with mixed content 1`] = `
-"<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:heading {"level":1} -->
-<h1 class="fp-block-heading">chicken</h1>
-<!-- /fp:heading -->
+"<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:heading {"level":1} -->
+<h1 class="fin-block-heading">chicken</h1>
+<!-- /fin:heading -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>ribs</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->"
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->"
 `;
 
 exports[`rawHandler should convert HTML post to blocks with minimal content changes 1`] = `
-"<!-- fp:heading -->
-<h2 class="fp-block-heading">Howdy</h2>
-<!-- /fp:heading -->
+"<!-- fin:heading -->
+<h2 class="fin-block-heading">Howdy</h2>
+<!-- /fin:heading -->
 
-<!-- fp:image -->
-<figure class="fp-block-image"><img src="https://w.org" alt=""/></figure>
-<!-- /fp:image -->
+<!-- fin:image -->
+<figure class="fin-block-image"><img src="https://w.org" alt=""/></figure>
+<!-- /fin:image -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>This is a paragraph.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Preserve <span style="color:red">me</span>!</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:heading {"level":3} -->
-<h3 class="fp-block-heading">More tag</h3>
-<!-- /fp:heading -->
+<!-- fin:heading {"level":3} -->
+<h3 class="fin-block-heading">More tag</h3>
+<!-- /fin:heading -->
 
-<!-- fp:more -->
+<!-- fin:more -->
 <!--more-->
-<!-- /fp:more -->
+<!-- /fin:more -->
 
-<!-- fp:heading {"level":3} -->
-<h3 class="fp-block-heading">Shortcode</h3>
-<!-- /fp:heading -->
+<!-- fin:heading {"level":3} -->
+<h3 class="fin-block-heading">Shortcode</h3>
+<!-- /fin:heading -->
 
-<!-- fp:gallery {"columns":3,"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-3 is-cropped"><!-- fp:image {"id":1} -->
-<figure class="fp-block-image"><img alt="" class="fp-image-1"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->
+<!-- fin:gallery {"columns":3,"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-3 is-cropped"><!-- fin:image {"id":1} -->
+<figure class="fin-block-image"><img alt="" class="fin-image-1"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->
 
-<!-- fp:html -->
+<!-- fin:html -->
 <dl>
 	<dt>Term</dt>
 	<dd>
 		Description.
 	</dd>
 </dl>
-<!-- /fp:html -->
+<!-- /fin:html -->
 
-<!-- fp:list {"ordered":true} -->
-<ol class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list {"ordered":true} -->
+<ol class="fin-block-list"><!-- fin:list-item -->
 <li>Item</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->
 
-<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>Text.</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->
 
-<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:heading {"level":1} -->
-<h1 class="fp-block-heading">Heading</h1>
-<!-- /fp:heading -->
+<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:heading {"level":1} -->
+<h1 class="fin-block-heading">Heading</h1>
+<!-- /fin:heading -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Text.</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->"
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->"
 `;
 
 exports[`rawHandler should convert a caption shortcode 1`] = `
-"<!-- fp:image {"id":122,"align":"none","className":"size-medium fp-image-122"} -->
-<figure class="fp-block-image alignnone size-medium fp-image-122"><img src="image.png" alt="" class="fp-image-122"/><figcaption class="fp-element-caption">test</figcaption></figure>
-<!-- /fp:image -->"
+"<!-- fin:image {"id":122,"align":"none","className":"size-medium fin-image-122"} -->
+<figure class="fin-block-image alignnone size-medium fin-image-122"><img src="image.png" alt="" class="fin-image-122"/><figcaption class="fin-element-caption">test</figcaption></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`rawHandler should convert a caption shortcode with caption 1`] = `
-"<!-- fp:image {"id":122,"align":"none","className":"size-medium fp-image-122"} -->
-<figure class="fp-block-image alignnone size-medium fp-image-122"><img src="image.png" alt="" class="fp-image-122"/><figcaption class="fp-element-caption"><a href="https://w.org">test</a></figcaption></figure>
-<!-- /fp:image -->"
+"<!-- fin:image {"id":122,"align":"none","className":"size-medium fin-image-122"} -->
+<figure class="fin-block-image alignnone size-medium fin-image-122"><img src="image.png" alt="" class="fin-image-122"/><figcaption class="fin-element-caption"><a href="https://w.org">test</a></figcaption></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`rawHandler should convert a caption shortcode with link 1`] = `
-"<!-- fp:image {"id":754,"align":"none"} -->
-<figure class="fp-block-image alignnone"><a href="http://build.finpress-develop.test/fp-content/uploads/2011/07/100_5478.jpg"><img src="http://build.finpress-develop.test/fp-content/uploads/2011/07/100_5478.jpg?w=604" alt="Bell on Wharf" class="fp-image-754"/></a><figcaption class="fp-element-caption">Bell on wharf in San Francisco</figcaption></figure>
-<!-- /fp:image -->"
+"<!-- fin:image {"id":754,"align":"none"} -->
+<figure class="fin-block-image alignnone"><a href="http://build.finpress-develop.test/fin-content/uploads/2011/07/100_5478.jpg"><img src="http://build.finpress-develop.test/fin-content/uploads/2011/07/100_5478.jpg?w=604" alt="Bell on Wharf" class="fin-image-754"/></a><figcaption class="fin-element-caption">Bell on wharf in San Francisco</figcaption></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`rawHandler should convert a list with attributes 1`] = `
-"<!-- fp:list {"ordered":true,"type":"lower-roman","start":2,"reversed":true} -->
-<ol reversed start="2" style="list-style-type:lower-roman" class="fp-block-list"><!-- fp:list-item -->
-<li>1<!-- fp:list {"ordered":true,"type":"lower-roman","start":2,"reversed":true} -->
-<ol reversed start="2" style="list-style-type:lower-roman" class="fp-block-list"><!-- fp:list-item -->
+"<!-- fin:list {"ordered":true,"type":"lower-roman","start":2,"reversed":true} -->
+<ol reversed start="2" style="list-style-type:lower-roman" class="fin-block-list"><!-- fin:list-item -->
+<li>1<!-- fin:list {"ordered":true,"type":"lower-roman","start":2,"reversed":true} -->
+<ol reversed start="2" style="list-style-type:lower-roman" class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ol>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->"
 `;
 
 exports[`rawHandler should not strip any text-level elements 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p>This is <u>ncorect</u></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`rawHandler should preserve alignment 1`] = `
-"<!-- fp:paragraph {"align":"center"} -->
+"<!-- fin:paragraph {"align":"center"} -->
 <p class="has-text-align-center">center</p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`rawHandler should preserve all paragraphs 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>&nbsp;&nbsp;</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph {"className":"p"} -->
+<!-- fin:paragraph {"className":"p"} -->
 <p class="p"></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;

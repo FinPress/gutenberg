@@ -277,7 +277,7 @@ const generateIndexFile = ( translations, pluginDir ) => {
 if ( require.main === module ) {
 	const args = process.argv.slice( 2 );
 	const plugin = args[ 0 ] || 'gutenberg';
-	const projectSlug = args[ 1 ] || 'fp-plugins/gutenberg';
+	const projectSlug = args[ 1 ] || 'fin-plugins/gutenberg';
 	const destination = args[ 2 ] || './i18n-cache';
 	const usedStringsFile = args[ 3 ];
 

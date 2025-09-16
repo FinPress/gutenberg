@@ -207,7 +207,7 @@ function MediaContainer( props, ref ) {
 				{ ! useFeaturedImage && <PlaceholderContainer { ...props } /> }
 				{ ! featuredImageURL && useFeaturedImage && (
 					<Placeholder
-						className="fp-block-media-text--placeholder-image"
+						className="fin-block-media-text--placeholder-image"
 						style={ positionStyles }
 						withIllustration
 					/>

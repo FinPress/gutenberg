@@ -22,7 +22,7 @@ test.describe( 'Site editor writing flow', () => {
 		// Navigate to a template part with only a couple of blocks.
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//header',
-			postType: 'fp_template_part',
+			postType: 'fin_template_part',
 			canvas: 'edit',
 		} );
 		// Select the first site title block.
@@ -50,7 +50,7 @@ test.describe( 'Site editor writing flow', () => {
 		// Navigate to a template part with only a couple of blocks.
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//header',
-			postType: 'fp_template_part',
+			postType: 'fin_template_part',
 			canvas: 'edit',
 		} );
 		// Make sure the sidebar is open.

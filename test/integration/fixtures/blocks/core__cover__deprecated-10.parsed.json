@@ -21,9 +21,9 @@
 				]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-cover\"><span aria-hidden=\"true\" class=\"fp-block-cover__background has-background-dim\"></span><img class=\"fp-block-cover__image-background fp-image-609\" alt=\"\" src=\"https://w.wiki/59Sd\" data-object-fit=\"cover\"/><div class=\"fp-block-cover__inner-container\"></div></div>\n\t",
+		"innerHTML": "\n<div class=\"fin-block-cover\"><span aria-hidden=\"true\" class=\"fin-block-cover__background has-background-dim\"></span><img class=\"fin-block-cover__image-background fin-image-609\" alt=\"\" src=\"https://w.wiki/59Sd\" data-object-fit=\"cover\"/><div class=\"fin-block-cover__inner-container\"></div></div>\n\t",
 		"innerContent": [
-			"\n<div class=\"fp-block-cover\"><span aria-hidden=\"true\" class=\"fp-block-cover__background has-background-dim\"></span><img class=\"fp-block-cover__image-background fp-image-609\" alt=\"\" src=\"https://w.wiki/59Sd\" data-object-fit=\"cover\"/><div class=\"fp-block-cover__inner-container\">",
+			"\n<div class=\"fin-block-cover\"><span aria-hidden=\"true\" class=\"fin-block-cover__background has-background-dim\"></span><img class=\"fin-block-cover__image-background fin-image-609\" alt=\"\" src=\"https://w.wiki/59Sd\" data-object-fit=\"cover\"/><div class=\"fin-block-cover__inner-container\">",
 			null,
 			"</div></div>\n\t"
 		]

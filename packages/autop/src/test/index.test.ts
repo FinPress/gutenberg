@@ -94,8 +94,8 @@ test( 'skip input elements', () => {
 test( 'source_track_elements', () => {
 	const content = `Paragraph one.
 
-<video class="fp-video-shortcode" id="video-0-1" width="640" height="360" preload="metadata" controls="controls">
-	<source type="video/mp4" src="http://domain.tld/fp-content/uploads/2013/12/xyz.mp4" />
+<video class="fin-video-shortcode" id="video-0-1" width="640" height="360" preload="metadata" controls="controls">
+	<source type="video/mp4" src="http://domain.tld/fin-content/uploads/2013/12/xyz.mp4" />
 	<!-- WebM/VP8 for Firefox4, Opera, and Chrome -->
 	<source type="video/webm" src="myvideo.webm" />
 	<!-- Ogg/Vorbis for older Firefox and Opera versions -->
@@ -104,16 +104,16 @@ test( 'source_track_elements', () => {
 	<track kind="subtitles" src="subtitles.srt" srclang="en" />
 	<!-- Optional: Add chapters -->
 	<track kind="chapters" src="chapters.srt" srclang="en" />
-	<a href="http://domain.tld/fp-content/uploads/2013/12/xyz.mp4">http://domain.tld/fp-content/uploads/2013/12/xyz.mp4</a>
+	<a href="http://domain.tld/fin-content/uploads/2013/12/xyz.mp4">http://domain.tld/fin-content/uploads/2013/12/xyz.mp4</a>
 </video>
 
 Paragraph two.`;
 
 	const content2 = `Paragraph one.
 
-<video class="fp-video-shortcode" id="video-0-1" width="640" height="360" preload="metadata" controls="controls">
+<video class="fin-video-shortcode" id="video-0-1" width="640" height="360" preload="metadata" controls="controls">
 
-<source type="video/mp4" src="http://domain.tld/fp-content/uploads/2013/12/xyz.mp4" />
+<source type="video/mp4" src="http://domain.tld/fin-content/uploads/2013/12/xyz.mp4" />
 
 <!-- WebM/VP8 for Firefox4, Opera, and Chrome -->
 <source type="video/webm" src="myvideo.webm" />
@@ -127,7 +127,7 @@ Paragraph two.`;
 <!-- Optional: Add chapters -->
 <track kind="chapters" src="chapters.srt" srclang="en" />
 
-<a href="http://domain.tld/fp-content/uploads/2013/12/xyz.mp4">http://domain.tld/fp-content/uploads/2013/12/xyz.mp4</a>
+<a href="http://domain.tld/fin-content/uploads/2013/12/xyz.mp4">http://domain.tld/fin-content/uploads/2013/12/xyz.mp4</a>
 
 </video>
 
@@ -135,8 +135,8 @@ Paragraph two.`;
 
 	const expected =
 		'<p>Paragraph one.</p>\n' + // Line breaks only after <p>
-		'<p><video class="fp-video-shortcode" id="video-0-1" width="640" height="360" preload="metadata" controls="controls">' +
-		'<source type="video/mp4" src="http://domain.tld/fp-content/uploads/2013/12/xyz.mp4" />' +
+		'<p><video class="fin-video-shortcode" id="video-0-1" width="640" height="360" preload="metadata" controls="controls">' +
+		'<source type="video/mp4" src="http://domain.tld/fin-content/uploads/2013/12/xyz.mp4" />' +
 		'<!-- WebM/VP8 for Firefox4, Opera, and Chrome -->' +
 		'<source type="video/webm" src="myvideo.webm" />' +
 		'<!-- Ogg/Vorbis for older Firefox and Opera versions -->' +
@@ -145,14 +145,14 @@ Paragraph two.`;
 		'<track kind="subtitles" src="subtitles.srt" srclang="en" />' +
 		'<!-- Optional: Add chapters -->' +
 		'<track kind="chapters" src="chapters.srt" srclang="en" />' +
-		'<a href="http://domain.tld/fp-content/uploads/2013/12/xyz.mp4">' +
-		'http://domain.tld/fp-content/uploads/2013/12/xyz.mp4</a></video></p>\n' +
+		'<a href="http://domain.tld/fin-content/uploads/2013/12/xyz.mp4">' +
+		'http://domain.tld/fin-content/uploads/2013/12/xyz.mp4</a></video></p>\n' +
 		'<p>Paragraph two.</p>';
 
-	// When running the content through autop() from fp_richedit_pre()
+	// When running the content through autop() from fin_richedit_pre()
 	const shortcodeContent = `Paragraph one.
 
-[video width="720" height="480" mp4="http://domain.tld/fp-content/uploads/2013/12/xyz.mp4"]
+[video width="720" height="480" mp4="http://domain.tld/fin-content/uploads/2013/12/xyz.mp4"]
 <!-- WebM/VP8 for Firefox4, Opera, and Chrome -->
 <source type="video/webm" src="myvideo.webm" />
 <!-- Ogg/Vorbis for older Firefox and Opera versions -->
@@ -167,7 +167,7 @@ Paragraph two.`;
 
 	const shortcodeExpected =
 		'<p>Paragraph one.</p>\n' + // Line breaks only after <p>
-		'<p>[video width="720" height="480" mp4="http://domain.tld/fp-content/uploads/2013/12/xyz.mp4"]' +
+		'<p>[video width="720" height="480" mp4="http://domain.tld/fin-content/uploads/2013/12/xyz.mp4"]' +
 		'<!-- WebM/VP8 for Firefox4, Opera, and Chrome --><source type="video/webm" src="myvideo.webm" />' +
 		'<!-- Ogg/Vorbis for older Firefox and Opera versions --><source type="video/ogg" src="myvideo.ogv" />' +
 		'<!-- Optional: Add subtitles for each language --><track kind="subtitles" src="subtitles.srt" srclang="en" />' +
@@ -184,13 +184,13 @@ test( 'param embed elements', () => {
 	const content1 = `Paragraph one.
 
 <object width="400" height="224" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0">
-	<param name="src" value="http://domain.tld/fp-content/uploads/2013/12/xyz.swf" />
+	<param name="src" value="http://domain.tld/fin-content/uploads/2013/12/xyz.swf" />
 	<param name="allowfullscreen" value="true" />
 	<param name="allowscriptaccess" value="always" />
 	<param name="overstretch" value="true" />
 	<param name="flashvars" value="isDynamicSeeking=true" />
 
-	<embed width="400" height="224" type="application/x-shockwave-flash" src="http://domain.tld/fp-content/uploads/2013/12/xyz.swf" wmode="direct" seamlesstabbing="true" allowfullscreen="true" overstretch="true" flashvars="isDynamicSeeking=true" />
+	<embed width="400" height="224" type="application/x-shockwave-flash" src="http://domain.tld/fin-content/uploads/2013/12/xyz.swf" wmode="direct" seamlesstabbing="true" allowfullscreen="true" overstretch="true" flashvars="isDynamicSeeking=true" />
 </object>
 
 Paragraph two.`;
@@ -198,12 +198,12 @@ Paragraph two.`;
 	const expected1 =
 		'<p>Paragraph one.</p>\n' + // Line breaks only after <p>
 		'<p><object width="400" height="224" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0">' +
-		'<param name="src" value="http://domain.tld/fp-content/uploads/2013/12/xyz.swf" />' +
+		'<param name="src" value="http://domain.tld/fin-content/uploads/2013/12/xyz.swf" />' +
 		'<param name="allowfullscreen" value="true" />' +
 		'<param name="allowscriptaccess" value="always" />' +
 		'<param name="overstretch" value="true" />' +
 		'<param name="flashvars" value="isDynamicSeeking=true" />' +
-		'<embed width="400" height="224" type="application/x-shockwave-flash" src="http://domain.tld/fp-content/uploads/2013/12/xyz.swf" wmode="direct" seamlesstabbing="true" allowfullscreen="true" overstretch="true" flashvars="isDynamicSeeking=true" />' +
+		'<embed width="400" height="224" type="application/x-shockwave-flash" src="http://domain.tld/fin-content/uploads/2013/12/xyz.swf" wmode="direct" seamlesstabbing="true" allowfullscreen="true" overstretch="true" flashvars="isDynamicSeeking=true" />' +
 		'</object></p>\n' +
 		'<p>Paragraph two.</p>';
 
@@ -211,7 +211,7 @@ Paragraph two.`;
 
 <div class="video-player" id="x-video-0">
 <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="640" height="360" id="video-0" standby="Standby text">
-<param name="movie" value="http://domain.tld/fp-content/uploads/2013/12/xyz.swf" />
+<param name="movie" value="http://domain.tld/fin-content/uploads/2013/12/xyz.swf" />
 <param name="quality" value="best" />
 
 <param name="seamlesstabbing" value="true" />
@@ -219,7 +219,7 @@ Paragraph two.`;
 <param name="allowscriptaccess" value="always" />
 <param name="overstretch" value="true" />
 
-<!--[if !IE]--><object type="application/x-shockwave-flash" data="http://domain.tld/fp-content/uploads/2013/12/xyz.swf" width="640" height="360" standby="Standby text">
+<!--[if !IE]--><object type="application/x-shockwave-flash" data="http://domain.tld/fin-content/uploads/2013/12/xyz.swf" width="640" height="360" standby="Standby text">
 <param name="quality" value="best" />
 
 <param name="seamlesstabbing" value="true" />
@@ -235,13 +235,13 @@ Paragraph two.`;
 		'<p>Paragraph one.</p>\n' + // Line breaks only after block tags.
 		'<div class="video-player" id="x-video-0">\n' +
 		'<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="640" height="360" id="video-0" standby="Standby text">' +
-		'<param name="movie" value="http://domain.tld/fp-content/uploads/2013/12/xyz.swf" />' +
+		'<param name="movie" value="http://domain.tld/fin-content/uploads/2013/12/xyz.swf" />' +
 		'<param name="quality" value="best" />' +
 		'<param name="seamlesstabbing" value="true" />' +
 		'<param name="allowfullscreen" value="true" />' +
 		'<param name="allowscriptaccess" value="always" />' +
 		'<param name="overstretch" value="true" />' +
-		'<!--[if !IE]--><object type="application/x-shockwave-flash" data="http://domain.tld/fp-content/uploads/2013/12/xyz.swf" width="640" height="360" standby="Standby text">' +
+		'<!--[if !IE]--><object type="application/x-shockwave-flash" data="http://domain.tld/fin-content/uploads/2013/12/xyz.swf" width="640" height="360" standby="Standby text">' +
 		'<param name="quality" value="best" />' +
 		'<param name="seamlesstabbing" value="true" />' +
 		'<param name="allowfullscreen" value="true" />' +
@@ -502,9 +502,9 @@ test( 'that autop doses not add extra closing p in figure', () => {
 
 test( 'that autop correctly adds a start and end tag when followed by a div', () => {
 	const content =
-		'Testing autop with a div\n<div class="fp-some-class">content</div>';
+		'Testing autop with a div\n<div class="fin-some-class">content</div>';
 	const expected =
-		'<p>Testing autop with a div</p>\n<div class="fp-some-class">content</div>';
+		'<p>Testing autop with a div</p>\n<div class="fin-some-class">content</div>';
 
 	expect( autop( content ).trim() ).toBe( expected );
 } );

@@ -1,4 +1,4 @@
-.fp-block-freeform.block-library-rich-text__tinymce {
+.fin-block-freeform.block-library-rich-text__tinymce {
 	height: auto; /* Allow height of embed iframes to be calculated properly */
 	p,
 	li {
@@ -38,7 +38,7 @@
 	}
 
 	a {
-		color: var(--fp-admin-theme-color);
+		color: var(--fin-admin-theme-color);
 	}
 
 	&:focus a[data-mce-selected] {
@@ -82,7 +82,7 @@
 		margin-right: auto;
 	}
 
-	.fp-more-tag {
+	.fin-more-tag {
 		width: 96%;
 		height: 20px;
 		display: block;
@@ -105,7 +105,7 @@
 	}
 
 	/* Image captions */
-	dl.fp-caption {
+	dl.fin-caption {
 		margin: 0; /* dl browser reset */
 		max-width: 100%;
 
@@ -119,14 +119,14 @@
 			-webkit-user-drag: none;
 		}
 
-		.fp-caption-dd {
+		.fin-caption-dd {
 			padding-top: 0.5em;
 			margin: 0; /* browser dd reset */
 		}
 	}
 
 	/* FP Views */
-	.fpview {
+	.finview {
 		width: 99.99%; /* All IE need hasLayout, incl. 11 (ugh, not again!!) */
 		position: relative;
 		clear: both;
@@ -156,7 +156,7 @@
 			padding: 10px;
 		}
 
-		.fpview-error {
+		.finview-error {
 			border: 1px solid $gray-300;
 			padding: 1em 0;
 			margin: 0;
@@ -169,7 +169,7 @@
 		}
 
 		&[data-mce-selected] .loading-placeholder,
-		&[data-mce-selected] .fpview-error {
+		&[data-mce-selected] .finview-error {
 			border-color: transparent;
 		}
 
@@ -183,8 +183,8 @@
 
 		// The following gallery styles were replicated
 		// from the styles applied in the tinymce skin,
-		// /fp-includes/js/tinymce/skins/finpress/fp-content.css.
-		&.fpview-type-gallery::after {
+		// /fin-includes/js/tinymce/skins/finpress/fin-content.css.
+		&.finview-type-gallery::after {
 			content: "";
 			display: table;
 			clear: both;

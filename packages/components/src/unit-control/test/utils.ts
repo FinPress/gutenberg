@@ -308,7 +308,7 @@ describe( 'UnitControl utils', () => {
 			[ 'max(4.5em, 3vh)', undefined, undefined ],
 			[ 'min(10px, 1rem)', undefined, undefined ],
 			[ 'minmax(30px, auto)', undefined, undefined ],
-			[ 'var(--fp--font-size)', undefined, undefined ],
+			[ 'var(--fin--font-size)', undefined, undefined ],
 		];
 
 		test.each( cases )(

@@ -5,9 +5,9 @@
 			"height": "100px"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div style=\"height:100px\" aria-hidden=\"true\" class=\"fp-block-spacer\"></div>\n",
+		"innerHTML": "\n<div style=\"height:100px\" aria-hidden=\"true\" class=\"fin-block-spacer\"></div>\n",
 		"innerContent": [
-			"\n<div style=\"height:100px\" aria-hidden=\"true\" class=\"fp-block-spacer\"></div>\n"
+			"\n<div style=\"height:100px\" aria-hidden=\"true\" class=\"fin-block-spacer\"></div>\n"
 		]
 	}
 ]

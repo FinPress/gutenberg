@@ -1,9 +1,9 @@
 @import "~@finpress/base-styles/colors";
 
 // These `body` styles have different values defined in common.css,
-// but are overridden to these values within major UI sections that contain fp-components,
+// but are overridden to these values within major UI sections that contain fin-components,
 // such as the .interface-interface-skeleton__sidebar section.
-// Let's assume that this is the CSS environment we will be in when fp-components appear in a FP context.
+// Let's assume that this is the CSS environment we will be in when fin-components appear in a FP context.
 body {
 	color: $gray-900 !important;
 	background: $white !important;

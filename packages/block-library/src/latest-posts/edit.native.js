@@ -58,7 +58,7 @@ class LatestPostsEdit extends Component {
 
 	componentDidMount() {
 		this.isStillMounted = true;
-		this.fetchRequest = apiFetch( { path: '/fp/v2/categories' } )
+		this.fetchRequest = apiFetch( { path: '/fin/v2/categories' } )
 			.then( ( categoriesList ) => {
 				if ( this.isStillMounted ) {
 					this.setState( {

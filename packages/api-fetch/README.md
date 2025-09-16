@@ -18,7 +18,7 @@ _This package assumes that your code will run in an **ES2015+** environment. If 
 ```js
 import apiFetch from '@finpress/api-fetch';
 
-apiFetch( { path: '/fp/v2/posts' } ).then( ( posts ) => {
+apiFetch( { path: '/fin/v2/posts' } ).then( ( posts ) => {
 	console.log( posts );
 } );
 ```
@@ -30,7 +30,7 @@ import { addQueryArgs } from '@finpress/url';
 
 const queryParams = { include: [1,2,3] }; // Return posts with ID = 1,2,3.
 
-apiFetch( { path: addQueryArgs( '/fp/v2/posts', queryParams ) } ).then( ( posts ) => {
+apiFetch( { path: addQueryArgs( '/fin/v2/posts', queryParams ) } ).then( ( posts ) => {
 	console.log( posts );
 } );
 ```
@@ -38,7 +38,7 @@ apiFetch( { path: addQueryArgs( '/fp/v2/posts', queryParams ) } ).then( ( posts 
 ### POST
 ```js
 apiFetch( {
-	path: '/fp/v2/posts/1',
+	path: '/fin/v2/posts/1',
 	method: 'POST',
 	data: { title: 'New Post Title' },
 } ).then( ( res ) => {
@@ -83,7 +83,7 @@ For legacy browsers that don't support `AbortController`, you can either:
 const controller =
 	typeof AbortController === 'undefined' ? undefined : new AbortController();
 
-apiFetch( { path: '/fp/v2/posts', signal: controller?.signal } ).catch(
+apiFetch( { path: '/fin/v2/posts', signal: controller?.signal } ).catch(
 	( error ) => {
 		// If the browser doesn't support AbortController then the code below will never log.
 		// However, in most cases this should be fine as it can be considered to be a progressive enhancement.
@@ -135,7 +135,7 @@ The function returned by `createNonceMiddleware` includes a `nonce` property cor
 ```js
 import apiFetch from '@finpress/api-fetch';
 
-const rootURL = 'http://my-finpress-site/fp-json/';
+const rootURL = 'http://my-finpress-site/fin-json/';
 apiFetch.use( apiFetch.createRootURLMiddleware( rootURL ) );
 ```
 

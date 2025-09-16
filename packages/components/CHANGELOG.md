@@ -716,7 +716,7 @@
 -   `BaseControl`: change label's `display` to `block`. ([#63911](https://github.com/FinPress/gutenberg/pull/63911))
 -   `ComboboxControl`: Fix ComboboxControl reset button when using the keyboard. ([#63410](https://github.com/FinPress/gutenberg/pull/63410))
 -   `Button`: Never apply `aria-disabled` to anchor ([#63376](https://github.com/FinPress/gutenberg/pull/63376)).
--   `SelectControl`: Fix hover/focus color in fp-admin ([#63855](https://github.com/FinPress/gutenberg/pull/63855)).
+-   `SelectControl`: Fix hover/focus color in fin-admin ([#63855](https://github.com/FinPress/gutenberg/pull/63855)).
 -   `ToggleControl`: Fix indentation ([#63903](https://github.com/FinPress/gutenberg/pull/63903)).
 
 ### Enhancements
@@ -3134,7 +3134,7 @@
 
 ### Deprecations
 
--   `PanelColor` has been deprecated in favor of `fp.editor.PanelColorSettings`.
+-   `PanelColor` has been deprecated in favor of `fin.editor.PanelColorSettings`.
 
 ## 4.1.2 (2018-10-18)
 
@@ -3161,7 +3161,7 @@
 -   `withAPIData` has been removed. Please use the Core Data module or `@finpress/api-fetch` directly instead.
 -   `Draggable` as a DOM node drag handler has been deprecated. Please, use `Draggable` as a wrap component for your DOM node drag handler.
 -   Change how required built-ins are polyfilled with Babel 7 ([#9171](https://github.com/FinPress/gutenberg/pull/9171)). If you're using an environment that has limited or no support for ES2015+ such as lower versions of IE then using [core-js](https://github.com/zloirock/core-js) or [@babel/polyfill](https://babeljs.io/docs/en/next/babel-polyfill) will add support for these methods.
--   `withContext` has been removed. Please use `fp.element.createContext` instead. See: <https://reactjs.org/docs/context.html>.
+-   `withContext` has been removed. Please use `fin.element.createContext` instead. See: <https://reactjs.org/docs/context.html>.
 
 ### New Features
 

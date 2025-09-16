@@ -198,7 +198,7 @@ The following example will add a contrived "fruits" autocompleter to the block e
 	}
 
 	// Trigger our callback on the `editor.Autocomplete.completers` hook
-	fp.hooks.addFilter(
+	fin.hooks.addFilter(
 		'editor.Autocomplete.completers',
 		'fruit-test/fruits',
 		appendTestCompleters,
@@ -221,11 +221,11 @@ Finally, enqueue your JavaScript file as you would any other, as in the followin
  * Registers a custom script for the plugin.
  */
 function enqueue_fruit_autocompleter_plugin_script() {
-	fp_enqueue_script(
+	fin_enqueue_script(
 		'fruit-autocompleter',
 		plugins_url( '/index.js', __FILE__ ),
 		array(
-			'fp-hooks',
+			'fin-hooks',
 		),
 	);
 }

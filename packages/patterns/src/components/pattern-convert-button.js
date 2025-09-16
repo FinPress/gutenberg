@@ -76,7 +76,7 @@ export default function PatternConvertButton( {
 				isReusableBlock( blocks[ 0 ] ) &&
 				!! select( coreStore ).getEntityRecord(
 					'postType',
-					'fp_block',
+					'fin_block',
 					blocks[ 0 ].attributes.ref
 				);
 
@@ -95,10 +95,10 @@ export default function PatternConvertButton( {
 						hasReusableBlockSupport( block.name )
 				) &&
 				// Hide when current doesn't have permission to do that.
-				// Blocks refers to the fp_block post type, this checks the ability to create a post of that type.
+				// Blocks refers to the fin_block post type, this checks the ability to create a post of that type.
 				!! canUser( 'create', {
 					kind: 'postType',
-					name: 'fp_block',
+					name: 'fin_block',
 				} );
 
 			return _canConvert;
@@ -116,7 +116,7 @@ export default function PatternConvertButton( {
 	}
 
 	const handleSuccess = ( { pattern } ) => {
-		if ( pattern.fp_pattern_sync_status !== PATTERN_SYNC_TYPES.unsynced ) {
+		if ( pattern.fin_pattern_sync_status !== PATTERN_SYNC_TYPES.unsynced ) {
 			const newBlock = createBlock( 'core/block', {
 				ref: pattern.id,
 			} );
@@ -127,7 +127,7 @@ export default function PatternConvertButton( {
 		}
 
 		createSuccessNotice(
-			pattern.fp_pattern_sync_status === PATTERN_SYNC_TYPES.unsynced
+			pattern.fin_pattern_sync_status === PATTERN_SYNC_TYPES.unsynced
 				? sprintf(
 						// translators: %s: the name the user has given to the pattern.
 						__( 'Unsynced pattern created: %s' ),

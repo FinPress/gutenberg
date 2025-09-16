@@ -11,10 +11,10 @@
  * Enqueue plugin JavaScript for the editor
  */
 function gutenberg_test_format_api_scripts() {
-	fp_enqueue_script(
+	fin_enqueue_script(
 		'gutenberg-test-format-api',
 		plugins_url( 'format-api/index.js', __FILE__ ),
-		array( 'fp-block-editor', 'fp-element', 'fp-rich-text' ),
+		array( 'fin-block-editor', 'fin-element', 'fin-rich-text' ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'format-api/index.js' ),
 		true
 	);

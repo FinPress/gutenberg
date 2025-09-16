@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/pullquote",
 	"title": "Pullquote",
@@ -87,6 +87,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-pullquote-editor",
-	"style": "fp-block-pullquote"
+	"editorStyle": "fin-block-pullquote-editor",
+	"style": "fin-block-pullquote"
 }

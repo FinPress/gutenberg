@@ -18,7 +18,7 @@ const MyThemableComponent = ( props: MyThemableComponentProps ) => {
 		<div
 			{ ...props }
 			style={ {
-				color: 'var(--fp-components-color-accent)',
+				color: 'var(--fin-components-color-accent)',
 			} }
 		/>
 	);
@@ -38,10 +38,10 @@ describe( 'Theme', () => {
 			);
 
 			[
-				'--fp-components-color-accent',
-				'--fp-components-color-accent-darker-10',
-				'--fp-components-color-accent-darker-20',
-				'--fp-components-color-accent-inverted',
+				'--fin-components-color-accent',
+				'--fin-components-color-accent-darker-10',
+				'--fin-components-color-accent-darker-20',
+				'--fin-components-color-accent-inverted',
 			].forEach( ( cssVariable ) => {
 				expect(
 					innerElementStyles.getPropertyValue( cssVariable )
@@ -57,10 +57,10 @@ describe( 'Theme', () => {
 			);
 
 			expect( screen.getByTestId( 'theme' ) ).toHaveStyle( {
-				'--fp-components-color-accent': '#123abc',
-				'--fp-components-color-accent-darker-10': '#0e2c8d',
-				'--fp-components-color-accent-darker-20': '#091d5f',
-				'--fp-components-color-accent-inverted': '#fff',
+				'--fin-components-color-accent': '#123abc',
+				'--fin-components-color-accent-darker-10': '#0e2c8d',
+				'--fin-components-color-accent-darker-20': '#091d5f',
+				'--fin-components-color-accent-inverted': '#fff',
 			} );
 		} );
 	} );
@@ -78,11 +78,11 @@ describe( 'Theme', () => {
 			);
 
 			[
-				'--fp-components-color-background',
-				'--fp-components-color-foreground',
-				'--fp-components-color-foreground-inverted',
+				'--fin-components-color-background',
+				'--fin-components-color-foreground',
+				'--fin-components-color-foreground-inverted',
 				...[ '100', '200', '300', '400', '600', '700', '800' ].map(
-					( shade ) => `--fp-components-color-gray-${ shade }`
+					( shade ) => `--fin-components-color-gray-${ shade }`
 				),
 			].forEach( ( cssVariable ) => {
 				expect(
@@ -99,16 +99,16 @@ describe( 'Theme', () => {
 			);
 
 			expect( screen.getByTestId( 'theme' ) ).toHaveStyle( {
-				'--fp-components-color-background': '#ffffff',
-				'--fp-components-color-foreground': '#1e1e1e',
-				'--fp-components-color-foreground-inverted': '#fff',
-				'--fp-components-color-gray-100': '#f0f0f0',
-				'--fp-components-color-gray-200': '#e0e0e0',
-				'--fp-components-color-gray-300': '#dddddd',
-				'--fp-components-color-gray-400': '#cccccc',
-				'--fp-components-color-gray-600': '#949494',
-				'--fp-components-color-gray-700': '#757575',
-				'--fp-components-color-gray-800': '#2f2f2f',
+				'--fin-components-color-background': '#ffffff',
+				'--fin-components-color-foreground': '#1e1e1e',
+				'--fin-components-color-foreground-inverted': '#fff',
+				'--fin-components-color-gray-100': '#f0f0f0',
+				'--fin-components-color-gray-200': '#e0e0e0',
+				'--fin-components-color-gray-300': '#dddddd',
+				'--fin-components-color-gray-400': '#cccccc',
+				'--fin-components-color-gray-600': '#949494',
+				'--fin-components-color-gray-700': '#757575',
+				'--fin-components-color-gray-800': '#2f2f2f',
 			} );
 		} );
 	} );

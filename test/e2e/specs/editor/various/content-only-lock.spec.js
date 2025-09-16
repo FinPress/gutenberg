@@ -17,11 +17,11 @@ test.describe( 'Content-only lock', () => {
 		await pageUtils.pressKeys( 'secondary+M' ); // Emulates CTRL+Shift+Alt + M => toggle code editor
 
 		await page.getByPlaceholder( 'Start writing with text or HTML' )
-			.fill( `<!-- fp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:paragraph -->
+			.fill( `<!-- fin:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:paragraph -->
 <p>Hello</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group -->` );
+<!-- /fin:paragraph --></div>
+<!-- /fin:group -->` );
 
 		await pageUtils.pressKeys( 'secondary+M' );
 		await editor.canvas
@@ -41,13 +41,13 @@ test.describe( 'Content-only lock', () => {
 		await pageUtils.pressKeys( 'secondary+M' ); // Emulates CTRL+Shift+Alt + M => toggle code editor
 
 		await page.getByPlaceholder( 'Start writing with text or HTML' )
-			.fill( `<!-- fp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:paragraph -->
+			.fill( `<!-- fin:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:paragraph -->
 <p>Hello</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group --></div>
-<!-- /fp:group -->` );
+<!-- /fin:paragraph --></div>
+<!-- /fin:group --></div>
+<!-- /fin:group -->` );
 
 		await pageUtils.pressKeys( 'secondary+M' );
 		await editor.canvas
@@ -86,19 +86,19 @@ test.describe( 'Content-only lock', () => {
 		await pageUtils.pressKeys( 'secondary+M' ); // Emulates CTRL+Shift+Alt + M => toggle code editor
 
 		await page.getByPlaceholder( 'Start writing with text or HTML' )
-			.fill( `<!-- fp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
-			<div class="fp-block-group"><!-- fp:paragraph -->
+			.fill( `<!-- fin:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
+			<div class="fin-block-group"><!-- fin:paragraph -->
 			<p>Locked block a</p>
-			<!-- /fp:paragraph -->
+			<!-- /fin:paragraph -->
 			
-			<!-- fp:paragraph -->
+			<!-- fin:paragraph -->
 			<p>Locked block b</p>
-			<!-- /fp:paragraph --></div>
-			<!-- /fp:group -->
+			<!-- /fin:paragraph --></div>
+			<!-- /fin:group -->
 			
-			<!-- fp:heading -->
-			<h2 class="fp-block-heading"><strong>outside block</strong></h2>
-			<!-- /fp:heading -->` );
+			<!-- fin:heading -->
+			<h2 class="fin-block-heading"><strong>outside block</strong></h2>
+			<!-- /fin:heading -->` );
 
 		await pageUtils.pressKeys( 'secondary+M' );
 		// Select the content locked block.

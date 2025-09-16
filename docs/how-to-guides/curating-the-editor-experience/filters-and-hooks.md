@@ -9,7 +9,7 @@ One of the most common ways to modify the Editor is through the [`block_editor_s
 The `block_editor_settings_all` hook passes two parameters to the callback function:
 
 - `$settings` – An array of [configurable settings](https://developer.finpress.org/block-editor/reference-guides/filters/editor-filters/#editor-settings) for the Editor.
-- `$context` – An instance of [`FP_Block_Editor_Context`](https://developer.finpress.org/reference/classes/fp_block_editor_context/), an object that contains information about the current Editor.
+- `$context` – An instance of [`FP_Block_Editor_Context`](https://developer.finpress.org/reference/classes/fin_block_editor_context/), an object that contains information about the current Editor.
 
 The following example disables the Code Editor for users who cannot activate plugins (Administrators). Add this to a plugin or your theme's `functions.php` file to test it.
 
@@ -43,12 +43,12 @@ For instance, in the previous section, color and typography controls were disabl
 
 To provide more flexibility, FinPress 6.1 introduced server-side filters allowing you to customize theme.json data at four different data layers.
 
-- [`fp_theme_json_data_default`](https://developer.finpress.org/reference/hooks/fp_theme_json_data_default/) - Hooks into the default data provided by FinPress
-- [`fp_theme_json_data_blocks`](https://developer.finpress.org/reference/hooks/fp_theme_json_data_blocks/) - Hooks into the data provided by blocks.
-- [`fp_theme_json_data_theme`](https://developer.finpress.org/reference/hooks/fp_theme_json_data_theme/) - Hooks into the data provided by the current theme.
-- [`fp_theme_json_data_user`](https://developer.finpress.org/reference/hooks/fp_theme_json_data_user/) - Hooks into the data provided by the user.
+- [`fin_theme_json_data_default`](https://developer.finpress.org/reference/hooks/fin_theme_json_data_default/) - Hooks into the default data provided by FinPress
+- [`fin_theme_json_data_blocks`](https://developer.finpress.org/reference/hooks/fin_theme_json_data_blocks/) - Hooks into the data provided by blocks.
+- [`fin_theme_json_data_theme`](https://developer.finpress.org/reference/hooks/fin_theme_json_data_theme/) - Hooks into the data provided by the current theme.
+- [`fin_theme_json_data_user`](https://developer.finpress.org/reference/hooks/fin_theme_json_data_user/) - Hooks into the data provided by the user.
 
-In the following example, the data from the current theme's theme.json file is updated using the `fp_theme_json_data_theme` filter. Color controls are restored if the current user is an Administrator.
+In the following example, the data from the current theme's theme.json file is updated using the `fin_theme_json_data_theme` filter. Color controls are restored if the current user is an Administrator.
 
 ```php
 // Disable color controls for all users except Administrators.
@@ -74,7 +74,7 @@ function example_filter_theme_json_data_theme( $theme_json ){
 
 	return $theme_json->update_with( $new_data );
 }
-add_filter( 'fp_theme_json_data_theme', 'example_filter_theme_json_data_theme' );
+add_filter( 'fin_theme_json_data_theme', 'example_filter_theme_json_data_theme' );
 ```
 
 The filter receives an instance of the `FP_Theme_JSON_Data class` with the data for the respective layer. Then, you pass new data in a valid theme.json-like structure to the `update_with( $new_data )` method. A theme.json version number is required in `$new_data`. 

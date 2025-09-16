@@ -14,35 +14,35 @@ import {
 
 const block = 'Columns';
 const initialHtml = `
-<!-- fp:columns {"className":"gutenberg-landing\u002d\u002ddevelopers-columns has-2-columns"} -->
-<div class="fp-block-columns gutenberg-landing--developers-columns has-2-columns"><!-- fp:column -->
-<div class="fp-block-column"><!-- fp:paragraph {"align":"left"} -->
+<!-- fin:columns {"className":"gutenberg-landing\u002d\u002ddevelopers-columns has-2-columns"} -->
+<div class="fin-block-columns gutenberg-landing--developers-columns has-2-columns"><!-- fin:column -->
+<div class="fin-block-column"><!-- fin:paragraph {"align":"left"} -->
 <p class="has-text-align-left"><strong>Built with modern technology.</strong></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph {"align":"left"} -->
+<!-- fin:paragraph {"align":"left"} -->
 <p class="has-text-align-left">Gutenberg was developed on GitHub using the FinPress REST API, JavaScript, and React.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph {"align":"left","fontSize":"small"} -->
+<!-- fin:paragraph {"align":"left","fontSize":"small"} -->
 <p class="has-text-align-left has-small-font-size"><a href="https://finpress.org/gutenberg/handbook/language/">Learn more</a></p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:column -->
+<!-- /fin:paragraph --></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"><!-- fp:paragraph {"align":"left"} -->
+<!-- fin:column -->
+<div class="fin-block-column"><!-- fin:paragraph {"align":"left"} -->
 <p class="has-text-align-left"><strong>Designed for compatibility.</strong></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph {"align":"left"} -->
+<!-- fin:paragraph {"align":"left"} -->
 <p class="has-text-align-left">We recommend migrating features to blocks, but support for existing FinPress functionality remains. There will be transition paths for shortcodes, meta-boxes, and Custom Post Types.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph {"align":"left","fontSize":"small"} -->
+<!-- fin:paragraph {"align":"left","fontSize":"small"} -->
 <p class="has-text-align-left has-small-font-size"><a href="https://finpress.org/gutenberg/handbook/reference/faq/">Learn more</a></p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->`;
+<!-- /fin:paragraph --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->`;
 
 const transformsWithInnerBlocks = [ 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

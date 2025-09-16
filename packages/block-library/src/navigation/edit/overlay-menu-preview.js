@@ -45,7 +45,7 @@ export default function OverlayMenuPreview( { setAttributes, hasIcon, icon } ) {
 				<ToggleGroupControl
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
-					className="fp-block-navigation__overlay-menu-icon-toggle-group"
+					className="fin-block-navigation__overlay-menu-icon-toggle-group"
 					label={ __( 'Icon' ) }
 					value={ icon }
 					onChange={ ( value ) => setAttributes( { icon: value } ) }

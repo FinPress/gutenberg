@@ -42,7 +42,7 @@ test.describe( 'Typewriter', () => {
 				const { activeElement } =
 					document.activeElement?.contentDocument ?? document;
 				return (
-					window.fp.dom.getScrollContainer( activeElement )
+					window.fin.dom.getScrollContainer( activeElement )
 						.scrollTop === 0
 				);
 			} )
@@ -117,7 +117,7 @@ test.describe( 'Typewriter', () => {
 				const { activeElement } =
 					document.activeElement?.contentDocument ?? document;
 				const scrollContainer =
-					window.fp.dom.getScrollContainer( activeElement );
+					window.fin.dom.getScrollContainer( activeElement );
 				return (
 					scrollContainer.scrollHeight ===
 					scrollContainer.clientHeight
@@ -130,7 +130,7 @@ test.describe( 'Typewriter', () => {
 		const scrollPosition = await page.evaluate( () => {
 			const { activeElement } =
 				document.activeElement?.contentDocument ?? document;
-			return window.fp.dom.getScrollContainer( activeElement ).scrollTop;
+			return window.fin.dom.getScrollContainer( activeElement ).scrollTop;
 		} );
 
 		// Expect scrollbar to be at the top.
@@ -141,7 +141,7 @@ test.describe( 'Typewriter', () => {
 		await page.evaluate( () => {
 			const { activeElement } =
 				document.activeElement?.contentDocument ?? document;
-			window.fp.dom.getScrollContainer( activeElement ).scrollTop += 2;
+			window.fin.dom.getScrollContainer( activeElement ).scrollTop += 2;
 		} );
 		// Wait for the caret rectangle to be recalculated.
 		await page.evaluate(
@@ -157,7 +157,7 @@ test.describe( 'Typewriter', () => {
 				document.activeElement?.contentDocument ?? document;
 			// Wait for the Typewriter to scroll down past the initial position.
 			return (
-				window.fp.dom.getScrollContainer( activeElement ).scrollTop > 2
+				window.fin.dom.getScrollContainer( activeElement ).scrollTop > 2
 			);
 		} );
 
@@ -196,7 +196,7 @@ test.describe( 'Typewriter', () => {
 			await page.evaluate( () => {
 				const { activeElement } =
 					document.activeElement?.contentDocument ?? document;
-				return ! window.fp.dom.getScrollContainer( activeElement );
+				return ! window.fin.dom.getScrollContainer( activeElement );
 			} )
 		) {
 			await page.keyboard.press( 'Enter' );
@@ -211,7 +211,7 @@ test.describe( 'Typewriter', () => {
 				const { activeElement } =
 					document.activeElement?.contentDocument ?? document;
 				return (
-					window.fp.dom.getScrollContainer( activeElement )
+					window.fin.dom.getScrollContainer( activeElement )
 						.scrollTop === 0
 				);
 			} ) ) ||
@@ -227,7 +227,7 @@ test.describe( 'Typewriter', () => {
 			const { activeElement } =
 				document.activeElement?.contentDocument ?? document;
 			activeElement.scrollIntoView( false );
-			window.fp.dom.getScrollContainer( activeElement ).scrollTop -=
+			window.fin.dom.getScrollContainer( activeElement ).scrollTop -=
 				activeElement.offsetHeight + 10;
 		} );
 
@@ -259,7 +259,7 @@ test.describe( 'Typewriter', () => {
 			const { activeElement } =
 				document.activeElement?.contentDocument ?? document;
 			activeElement.scrollIntoView();
-			window.fp.dom.getScrollContainer( activeElement ).scrollTop +=
+			window.fin.dom.getScrollContainer( activeElement ).scrollTop +=
 				activeElement.offsetHeight + 10;
 		} );
 
@@ -291,7 +291,7 @@ class TypewriterUtils {
 
 	async getCaretPosition() {
 		return await this.#page.evaluate( () => {
-			return window.fp.dom.computeCaretRect(
+			return window.fin.dom.computeCaretRect(
 				document.activeElement?.contentWindow ?? window
 			).y;
 		} );

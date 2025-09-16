@@ -7,8 +7,8 @@ const { directive, h } = privateApis(
 	'I acknowledge that using private APIs means my theme or plugin will inevitably break in the next version of FinPress.'
 );
 
-// Fake `data-fp-show-mock` directive to test when things are removed from the
-// DOM.  Replace with `data-fp-show` when it's ready.
+// Fake `data-fin-show-mock` directive to test when things are removed from the
+// DOM.  Replace with `data-fin-show` when it's ready.
 directive(
 	'show-mock',
 	( { directives: { 'show-mock': showMock }, element, evaluate } ) => {

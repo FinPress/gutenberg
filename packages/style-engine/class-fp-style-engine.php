@@ -16,7 +16,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 	 *
 	 * This class is for internal Core usage and is not supposed to be used by extenders (plugins and/or themes).
 	 * This class is final and should not be extended.
-	 * This is a low-level API that may need to do breaking changes. Please, use fp_style_engine_get_styles instead.
+	 * This is a low-level API that may need to do breaking changes. Please, use fin_style_engine_get_styles instead.
 	 *
 	 * @access private
 	 */
@@ -31,7 +31,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 		 *                    to match the incoming value, e.g., "color" to match var:preset|color|somePresetSlug.
 		 *  - css_vars      => (array) an array of key value pairs used to generate CSS var values.
 		 *                     The key should be the CSS property name that matches the second element of the preset string value,
-		 *                     i.e., "color" in var:preset|color|somePresetSlug. The value is a CSS var pattern (e.g. `--fp--preset--color--$slug`),
+		 *                     i.e., "color" in var:preset|color|somePresetSlug. The value is a CSS var pattern (e.g. `--fin--preset--color--$slug`),
 		 *                     whose `$slug` fragment will be replaced with the preset slug, which is the third element of the preset string value,
 		 *                     i.e., `somePresetSlug` in var:preset|color|somePresetSlug.
 		 *  - property_keys => (array) array of keys whose values represent a valid CSS property, e.g., "margin" or "border".
@@ -81,7 +81,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 					),
 					'path'          => array( 'color', 'text' ),
 					'css_vars'      => array(
-						'color' => '--fp--preset--color--$slug',
+						'color' => '--fin--preset--color--$slug',
 					),
 					'classnames'    => array(
 						'has-text-color'  => true,
@@ -94,7 +94,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 					),
 					'path'          => array( 'color', 'background' ),
 					'css_vars'      => array(
-						'color' => '--fp--preset--color--$slug',
+						'color' => '--fin--preset--color--$slug',
 					),
 					'classnames'    => array(
 						'has-background'             => true,
@@ -106,7 +106,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 						'default' => 'background',
 					),
 					'css_vars'      => array(
-						'gradient' => '--fp--preset--gradient--$slug',
+						'gradient' => '--fin--preset--gradient--$slug',
 					),
 					'path'          => array( 'color', 'gradient' ),
 					'classnames'    => array(
@@ -134,7 +134,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 					),
 					'path'          => array( 'border', 'radius' ),
 					'css_vars'      => array(
-						'border-radius' => '--fp--preset--border-radius--$slug',
+						'border-radius' => '--fin--preset--border-radius--$slug',
 					),
 				),
 				'style'  => array(
@@ -155,28 +155,28 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 					'value_func' => array( self::class, 'get_individual_property_css_declarations' ),
 					'path'       => array( 'border', 'top' ),
 					'css_vars'   => array(
-						'color' => '--fp--preset--color--$slug',
+						'color' => '--fin--preset--color--$slug',
 					),
 				),
 				'right'  => array(
 					'value_func' => array( self::class, 'get_individual_property_css_declarations' ),
 					'path'       => array( 'border', 'right' ),
 					'css_vars'   => array(
-						'color' => '--fp--preset--color--$slug',
+						'color' => '--fin--preset--color--$slug',
 					),
 				),
 				'bottom' => array(
 					'value_func' => array( self::class, 'get_individual_property_css_declarations' ),
 					'path'       => array( 'border', 'bottom' ),
 					'css_vars'   => array(
-						'color' => '--fp--preset--color--$slug',
+						'color' => '--fin--preset--color--$slug',
 					),
 				),
 				'left'   => array(
 					'value_func' => array( self::class, 'get_individual_property_css_declarations' ),
 					'path'       => array( 'border', 'left' ),
 					'css_vars'   => array(
-						'color' => '--fp--preset--color--$slug',
+						'color' => '--fin--preset--color--$slug',
 					),
 				),
 			),
@@ -187,7 +187,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 					),
 					'path'          => array( 'shadow' ),
 					'css_vars'      => array(
-						'shadow' => '--fp--preset--shadow--$slug',
+						'shadow' => '--fin--preset--shadow--$slug',
 					),
 				),
 			),
@@ -207,7 +207,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 					),
 					'path'          => array( 'dimensions', 'minHeight' ),
 					'css_vars'      => array(
-						'spacing' => '--fp--preset--spacing--$slug',
+						'spacing' => '--fin--preset--spacing--$slug',
 					),
 				),
 			),
@@ -219,7 +219,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 					),
 					'path'          => array( 'spacing', 'padding' ),
 					'css_vars'      => array(
-						'spacing' => '--fp--preset--spacing--$slug',
+						'spacing' => '--fin--preset--spacing--$slug',
 					),
 				),
 				'margin'  => array(
@@ -229,7 +229,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 					),
 					'path'          => array( 'spacing', 'margin' ),
 					'css_vars'      => array(
-						'spacing' => '--fp--preset--spacing--$slug',
+						'spacing' => '--fin--preset--spacing--$slug',
 					),
 				),
 			),
@@ -239,7 +239,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 						'default' => 'font-size',
 					),
 					'css_vars'      => array(
-						'font-size' => '--fp--preset--font-size--$slug',
+						'font-size' => '--fin--preset--font-size--$slug',
 					),
 					'path'          => array( 'typography', 'fontSize' ),
 					'classnames'    => array(
@@ -251,7 +251,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 						'default' => 'font-family',
 					),
 					'css_vars'      => array(
-						'font-family' => '--fp--preset--font-family--$slug',
+						'font-family' => '--fin--preset--font-family--$slug',
 					),
 					'path'          => array( 'typography', 'fontFamily' ),
 					'classnames'    => array(
@@ -320,13 +320,13 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 		protected static function get_slug_from_preset_value( $style_value, $property_key ) {
 			if ( is_string( $style_value ) && is_string( $property_key ) && str_contains( $style_value, "var:preset|{$property_key}|" ) ) {
 				$index_to_splice = strrpos( $style_value, '|' ) + 1;
-				return _fp_to_kebab_case( substr( $style_value, $index_to_splice ) );
+				return _fin_to_kebab_case( substr( $style_value, $index_to_splice ) );
 			}
 			return '';
 		}
 
 		/**
-		 * Util: Generates a CSS var string, e.g., var(--fp--preset--color--background) from a preset string such as `var:preset|space|50`.
+		 * Util: Generates a CSS var string, e.g., var(--fin--preset--color--background) from a preset string such as `var:preset|space|50`.
 		 *
 		 * @param string   $style_value  A single CSS preset value.
 		 * @param string[] $css_vars     An associate array of CSS var patterns used to generate the var string.
@@ -396,7 +396,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 		 * @param array $options      {
 		 *     Optional. An array of options. Default empty array.
 		 *
-		 *     @type bool        $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fp--preset--* ) values. Default `false`.
+		 *     @type bool        $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fin--preset--* ) values. Default `false`.
 		 *     @type string      $selector                   Optional. When a selector is passed, the value of `$css` in the return value will comprise a full CSS rule `$selector { ...$css_declarations }`,
 		 *                                                   otherwise, the value will be a concatenated string of CSS declarations.
 		 * }
@@ -421,7 +421,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 					continue;
 				}
 				foreach ( $definition_group_style as $style_definition ) {
-					$style_value = _fp_array_get( $block_styles, $style_definition['path'], null );
+					$style_value = _fin_array_get( $block_styles, $style_definition['path'], null );
 
 					if ( ! static::is_valid_style_value( $style_value ) ) {
 						continue;
@@ -490,7 +490,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 		 * @param array $options          {
 		 *     Optional. An array of options. Default empty array.
 		 *
-		 *     @type bool $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fp--preset--* ) values. Default `false`.
+		 *     @type bool $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fin--preset--* ) values. Default `false`.
 		 * }
 		 *
 		 * @return string[] An associative array of CSS definitions, e.g., array( "$property" => "$value", "$property" => "$value" ).
@@ -505,7 +505,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 			$should_skip_css_vars = isset( $options['convert_vars_to_classnames'] ) && true === $options['convert_vars_to_classnames'];
 
 			/*
-			* Build CSS var values from `var:preset|<PRESET_TYPE>|<PRESET_SLUG>` values, e.g, `var(--fp--css--rule-slug )`.
+			* Build CSS var values from `var:preset|<PRESET_TYPE>|<PRESET_SLUG>` values, e.g, `var(--fin--css--rule-slug )`.
 			* Check if the value is a CSS preset and there's a corresponding css_var pattern in the style definition.
 			*/
 			if ( is_string( $style_value ) && str_contains( $style_value, 'var:' ) ) {
@@ -534,7 +534,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 						$value = static::get_css_var_value( $value, $style_definition['css_vars'] );
 					}
 
-					$individual_property = sprintf( $style_property_keys['individual'], _fp_to_kebab_case( $key ) );
+					$individual_property = sprintf( $style_property_keys['individual'], _fin_to_kebab_case( $key ) );
 
 					if ( $individual_property && static::is_valid_style_value( $value ) ) {
 						$css_declarations[ $individual_property ] = $value;
@@ -560,7 +560,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 		 * @param array $options                        {
 		 *     Optional. An array of options. Default empty array.
 		 *
-		 *     @type bool $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fp--preset--* ) values. Default `false`.
+		 *     @type bool $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fin--preset--* ) values. Default `false`.
 		 * }
 		 *
 		 * @return string[] An associative array of CSS definitions, e.g., array( "$property" => "$value", "$property" => "$value" ).
@@ -587,7 +587,7 @@ if ( ! class_exists( 'FP_Style_Engine' ) ) {
 
 				// Build a path to the individual rules in definitions.
 				$style_definition_path = array( $definition_group_key, $css_property );
-				$style_definition      = _fp_array_get( static::BLOCK_STYLE_DEFINITIONS_METADATA, $style_definition_path, null );
+				$style_definition      = _fin_array_get( static::BLOCK_STYLE_DEFINITIONS_METADATA, $style_definition_path, null );
 
 				if ( $style_definition && isset( $style_definition['property_keys']['individual'] ) ) {
 					// Set a CSS var if there is a valid preset value.

@@ -48,7 +48,7 @@ function FontLibraryModal( {
 	const canUserCreate = useSelect( ( select ) => {
 		return select( coreStore ).canUser( 'create', {
 			kind: 'postType',
-			name: 'fp_font_family',
+			name: 'fin_font_family',
 		} );
 	}, [] );
 

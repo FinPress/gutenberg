@@ -31,7 +31,7 @@ module.exports = {
 	blockHolderFocused: {
 		borderColor: 'gray',
 	},
-	'fp-block-heading': {
+	'fin-block-heading': {
 		minHeight: 60,
 	},
 	'editor-rich-text': {
@@ -166,10 +166,10 @@ module.exports = {
 	blockShortcodeContainer: {
 		padding: 12,
 	},
-	'fp-block-list-item__list-item--default': {
+	'fin-block-list-item__list-item--default': {
 		fontSize: 16,
 	},
-	'fp-block-list-item__list-item-placeholder': {
+	'fin-block-list-item__list-item-placeholder': {
 		color: '#87a6bc',
 	},
 	innerAppender: {

@@ -30,9 +30,9 @@ describe( 'Video block', () => {
 	it( 'should render empty state when source is not present', async () => {
 		await initializeEditor( {
 			initialHtml: `
-<!-- fp:video -->
-<figure class="fp-block-video"></figure>
-<!-- /fp:video -->
+<!-- fin:video -->
+<figure class="fin-block-video"></figure>
+<!-- /fin:video -->
 		`,
 		} );
 		const addVideoButton = screen.queryByText( 'Add video' );
@@ -42,9 +42,9 @@ describe( 'Video block', () => {
 	it( 'should not render empty state when video source is present', async () => {
 		await initializeEditor( {
 			initialHtml: `
-<!-- fp:video {"id":1234} -->
-<figure class="fp-block-video"><video controls src="https://VIDEO_URL.mp4"></video></figure>
-<!-- /fp:video -->
+<!-- fin:video {"id":1234} -->
+<figure class="fin-block-video"><video controls src="https://VIDEO_URL.mp4"></video></figure>
+<!-- /fin:video -->
 		`,
 		} );
 		const addVideoButton = screen.queryByText( 'Add video' );

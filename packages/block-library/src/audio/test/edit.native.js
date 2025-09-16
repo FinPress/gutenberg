@@ -34,9 +34,9 @@ jest.unmock( '@finpress/react-native-aztec' );
 
 const MEDIA_UPLOAD_STATE_FAILED = 3;
 
-const AUDIO_BLOCK = `<!-- fp:audio {"id":5} -->
-<figure class="fp-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3"></audio></figure>
-<!-- /fp:audio -->`;
+const AUDIO_BLOCK = `<!-- fin:audio {"id":5} -->
+<figure class="fin-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3"></audio></figure>
+<!-- /fin:audio -->`;
 
 let uploadCallBack;
 subscribeMediaUpload.mockImplementation( ( callback ) => {

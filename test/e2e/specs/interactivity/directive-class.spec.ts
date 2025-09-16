@@ -3,7 +3,7 @@
  */
 import { test, expect } from './fixtures';
 
-test.describe( 'data-fp-class', () => {
+test.describe( 'data-fin-class', () => {
 	test.beforeAll( async ( { interactivityUtils: utils } ) => {
 		await utils.activatePlugins();
 		await utils.addPostWithBlock( 'test/directive-class' );

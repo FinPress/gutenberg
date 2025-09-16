@@ -204,9 +204,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.press( 'ArrowLeft' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p><strong><em>1</em> <em>2</em></strong></p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 
 		await page.keyboard.type( 'a' );
 		await page.keyboard.press( 'ArrowRight' );
@@ -229,9 +229,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( 'j' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>a<strong>b<em>c1d</em>e f<em>g2h</em>i</strong>j</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should insert line break at end', async ( {
@@ -243,9 +243,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( 'a' );
 		await pageUtils.pressKeys( 'shift+Enter' );
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>a<br></p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should insert line break at end and continue writing', async ( {
@@ -258,9 +258,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await pageUtils.pressKeys( 'shift+Enter' );
 		await page.keyboard.type( 'b' );
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>a<br>b</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should insert line break mid text', async ( {
@@ -273,9 +273,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.press( 'ArrowLeft' );
 		await pageUtils.pressKeys( 'shift+Enter' );
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>a<br>b</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should insert line break at start', async ( {
@@ -288,9 +288,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.press( 'ArrowLeft' );
 		await pageUtils.pressKeys( 'shift+Enter' );
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p><br>a</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should insert line break in empty container', async ( {
@@ -301,9 +301,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.press( 'Enter' );
 		await pageUtils.pressKeys( 'shift+Enter' );
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p><br></p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should not create extra line breaks in multiline value', async ( {
@@ -313,11 +313,11 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await editor.insertBlock( { name: 'core/list' } );
 		await page.keyboard.type( 'a' );
 		await page.keyboard.press( 'Backspace' );
-		await expect.poll( editor.getEditedPostContent ).toBe( `<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+		await expect.poll( editor.getEditedPostContent ).toBe( `<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->` );
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->` );
 	} );
 
 	// See: https://github.com/FinPress/gutenberg/issues/9626
@@ -363,16 +363,16 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.press( 'Backspace' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>1  3</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 
 		await page.keyboard.type( '2' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>1 2 3</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should not delete surrounding space when deleting a word with Alt+Backspace', async ( {
@@ -389,16 +389,16 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		);
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>alpha  gamma</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 
 		await page.keyboard.type( 'beta' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>alpha beta gamma</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should not delete surrounding space when deleting a selected word', async ( {
@@ -416,16 +416,16 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.press( 'Backspace' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>alpha  gamma</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 
 		await page.keyboard.type( 'beta' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>alpha beta gamma</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should create valid paragraph blocks when rapidly pressing Enter', async ( {
@@ -593,9 +593,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.press( 'Backspace' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>12</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should merge and then split paragraphs', async ( {
@@ -611,13 +611,13 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.press( 'Enter' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>abc</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>123</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should merge and then soft line break', async ( {
@@ -635,9 +635,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.up( 'Shift' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>1<br>2</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should merge forwards', async ( { editor, page } ) => {
@@ -650,9 +650,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( '2' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>123</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should merge forwards properly on multiple triggers', async ( {
@@ -669,20 +669,20 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await pageUtils.pressKeys( 'ArrowUp', { times: 2 } );
 		await pageUtils.pressKeys( 'Delete', { times: 2 } );
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>3</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 
 		await page.keyboard.press( 'Delete' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>13</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should preserve horizontal position when navigating vertically between blocks (-webkit)', async ( {
@@ -700,13 +700,13 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( '1' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>abc</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>123</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should remember initial vertical position', async ( {
@@ -724,13 +724,13 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( 'x' ); // Should be right after "1".
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>1x</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p><br>2</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should navigate contenteditable with side padding', async ( {
@@ -820,13 +820,13 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( '3' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>23</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should not have a dead zone above an aligned block', async ( {
@@ -855,13 +855,13 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 
 		// Confirm correct setup.
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:image {"align":"wide"} -->
-<figure class="fp-block-image alignwide"><img alt=""/></figure>
-<!-- /fp:image -->` );
+<!-- fin:image {"align":"wide"} -->
+<figure class="fin-block-image alignwide"><img alt=""/></figure>
+<!-- /fin:image -->` );
 
 		const paragraphBlock = editor.canvas.locator(
 			'role=document[name="Block: Paragraph"i]'
@@ -929,9 +929,9 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await page.keyboard.type( '2' );
 		// Confirm correct setup.
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:table -->
-<figure class="fp-block-table"><table class="has-fixed-layout"><tbody><tr><td></td><td>2</td></tr><tr><td></td><td></td></tr></tbody></table></figure>
-<!-- /fp:table -->` );
+			.toBe( `<!-- fin:table -->
+<figure class="fin-block-table"><table class="has-fixed-layout"><tbody><tr><td></td><td>2</td></tr><tr><td></td><td></td></tr></tbody></table></figure>
+<!-- /fin:table -->` );
 	} );
 
 	// Checks for regressions of https://github.com/FinPress/gutenberg/issues/40091.
@@ -986,13 +986,13 @@ test.describe( 'Writing Flow (@firefox, @webkit)', () => {
 		await pageUtils.pressKeys( 'primary+b' );
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>first</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>second</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'should move to the start of the first line on ArrowUp (-firefox)', async ( {
@@ -1140,7 +1140,7 @@ class WritingFlowUtils {
 	async getActiveBlockName() {
 		return await this.page.evaluate(
 			() =>
-				window.fp.data.select( 'core/block-editor' ).getSelectedBlock()
+				window.fin.data.select( 'core/block-editor' ).getSelectedBlock()
 					?.name
 		);
 	}

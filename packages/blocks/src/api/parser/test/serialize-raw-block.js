@@ -5,31 +5,31 @@ import { serializeRawBlock } from '../serialize-raw-block';
 
 describe( 'serializeRawBlock', () => {
 	it( 'reserializes block nodes', () => {
-		const expected = `<!-- fp:columns -->
-			<div class="fp-block-columns has-2-columns">
-				<!-- fp:column -->
-				<div class="fp-block-column">
-					<!-- fp:paragraph -->
+		const expected = `<!-- fin:columns -->
+			<div class="fin-block-columns has-2-columns">
+				<!-- fin:column -->
+				<div class="fin-block-column">
+					<!-- fin:paragraph -->
 					<p>A</p>
-					<!-- /fp:paragraph -->
+					<!-- /fin:paragraph -->
 				</div>
-				<!-- /fp:column -->
-				<!-- fp:column -->
-				<div class="fp-block-column">
-					<!-- fp:group -->
-					<div class="fp-block-group">
-						<!-- fp:list -->
+				<!-- /fin:column -->
+				<!-- fin:column -->
+				<div class="fin-block-column">
+					<!-- fin:group -->
+					<div class="fin-block-group">
+						<!-- fin:list -->
 						<ul><li>B</li><li>C</li></ul>
-						<!-- /fp:list -->
-						<!-- fp:paragraph -->
+						<!-- /fin:list -->
+						<!-- fin:paragraph -->
 						<p>D</p>
-						<!-- /fp:paragraph -->
+						<!-- /fin:paragraph -->
 					</div>
-					<!-- /fp:group -->
+					<!-- /fin:group -->
 				</div>
-				<!-- /fp:column -->
+				<!-- /fin:column -->
 			</div>
-			<!-- /fp:columns -->`.replace( /\t/g, '' );
+			<!-- /fin:columns -->`.replace( /\t/g, '' );
 		const input = {
 			blockName: 'core/columns',
 			attrs: {},
@@ -46,9 +46,9 @@ describe( 'serializeRawBlock', () => {
 							innerContent: [ '<p>A</p>' ],
 						},
 					],
-					innerHTML: '<div class="fp-block-column"></div>',
+					innerHTML: '<div class="fin-block-column"></div>',
 					innerContent: [
-						'<div class="fp-block-column">',
+						'<div class="fin-block-column">',
 						null,
 						'</div>',
 					],
@@ -78,9 +78,9 @@ describe( 'serializeRawBlock', () => {
 									innerContent: [ '<p>D</p>' ],
 								},
 							],
-							innerHTML: '<div class="fp-block-group"></div>',
+							innerHTML: '<div class="fin-block-group"></div>',
 							innerContent: [
-								'<div class="fp-block-group">',
+								'<div class="fin-block-group">',
 								null,
 								'',
 								null,
@@ -88,17 +88,17 @@ describe( 'serializeRawBlock', () => {
 							],
 						},
 					],
-					innerHTML: '<div class="fp-block-column"></div>',
+					innerHTML: '<div class="fin-block-column"></div>',
 					innerContent: [
-						'<div class="fp-block-column">',
+						'<div class="fin-block-column">',
 						null,
 						'</div>',
 					],
 				},
 			],
-			innerHTML: '<div class="fp-block-columns has-2-columns"></div>',
+			innerHTML: '<div class="fin-block-columns has-2-columns"></div>',
 			innerContent: [
-				'<div class="fp-block-columns has-2-columns">',
+				'<div class="fin-block-columns has-2-columns">',
 				null,
 				'',
 				null,

@@ -6,7 +6,7 @@ import { RuleTester } from 'eslint';
 /**
  * Internal dependencies
  */
-import rule from '../no-unsafe-fp-apis';
+import rule from '../no-unsafe-fin-apis';
 
 const ruleTester = new RuleTester( {
 	parserOptions: {
@@ -19,7 +19,7 @@ const options = [
 	{ '@finpress/package': [ '__experimentalSafe', '__unstableSafe' ] },
 ];
 
-ruleTester.run( 'no-unsafe-fp-apis', rule, {
+ruleTester.run( 'no-unsafe-fin-apis', rule, {
 	valid: [
 		{ code: "import _ from 'change-case';", options },
 		{ code: "import { camelCase } from 'change-case';", options },

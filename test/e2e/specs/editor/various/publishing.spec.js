@@ -21,7 +21,7 @@ test.describe( 'Publishing', () => {
 					.fill( 'E2E Test Post' );
 
 				await page.evaluate( () =>
-					window.fp.data
+					window.fin.data
 						.dispatch( 'core/editor' )
 						.lockPostSaving( 'futurelock' )
 				);
@@ -50,7 +50,7 @@ test.describe( 'Publishing', () => {
 					.fill( 'E2E Test Post' );
 
 				await page.evaluate( () =>
-					window.fp.data
+					window.fin.data
 						.dispatch( 'core/editor' )
 						.lockPostSaving( 'futurelock' )
 				);

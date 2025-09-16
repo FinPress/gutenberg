@@ -42,7 +42,7 @@
 
 ### Enhancements
 
--   Update the template to use `fp_interactivity_data_fp_context` for the context attribute ([#59995](https://github.com/FinPress/gutenberg/pull/59995)).
+-   Update the template to use `fin_interactivity_data_fin_context` for the context attribute ([#59995](https://github.com/FinPress/gutenberg/pull/59995)).
 
 ## 1.16.0 (2024-03-06)
 

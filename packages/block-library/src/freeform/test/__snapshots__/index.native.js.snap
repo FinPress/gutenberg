@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Classic block converts content into blocks 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p>I'm classic!</p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;

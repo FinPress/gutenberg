@@ -62,7 +62,7 @@ test.describe( 'Copy/cut/paste', () => {
 
 		// The block appender is only visible when there's no selection.
 		await page.evaluate( () => {
-			window.fp.data.dispatch( 'core/block-editor' ).clearSelectedBlock();
+			window.fin.data.dispatch( 'core/block-editor' ).clearSelectedBlock();
 		} );
 		await editor.insertBlock( { name: 'core/paragraph' } );
 		await pageUtils.pressKeys( 'primary+v' );
@@ -81,7 +81,7 @@ test.describe( 'Copy/cut/paste', () => {
 
 		// The block appender is only visible when there's no selection.
 		await page.evaluate( () => {
-			window.fp.data.dispatch( 'core/block-editor' ).clearSelectedBlock();
+			window.fin.data.dispatch( 'core/block-editor' ).clearSelectedBlock();
 		} );
 		await editor.insertBlock( { name: 'core/paragraph' } );
 		await pageUtils.pressKeys( 'primary+v' );
@@ -157,11 +157,11 @@ test.describe( 'Copy/cut/paste', () => {
 
 		await page.evaluate( () => {
 			window.e2eTestPasteOnce = [];
-			let oldBlocks = window.fp.data
+			let oldBlocks = window.fin.data
 				.select( 'core/block-editor' )
 				.getBlocks();
-			window.fp.data.subscribe( () => {
-				const blocks = window.fp.data
+			window.fin.data.subscribe( () => {
+				const blocks = window.fin.data
 					.select( 'core/block-editor' )
 					.getBlocks();
 				if ( blocks !== oldBlocks ) {
@@ -212,11 +212,11 @@ test.describe( 'Copy/cut/paste', () => {
 		// Spacer is focused.
 		await page.evaluate( () => {
 			window.e2eTestPasteOnce = [];
-			let oldBlocks = window.fp.data
+			let oldBlocks = window.fin.data
 				.select( 'core/block-editor' )
 				.getBlocks();
-			window.fp.data.subscribe( () => {
-				const blocks = window.fp.data
+			window.fin.data.subscribe( () => {
+				const blocks = window.fin.data
 					.select( 'core/block-editor' )
 					.getBlocks();
 				if ( blocks !== oldBlocks ) {

@@ -3,7 +3,7 @@
 		"blockName": null,
 		"attrs": {},
 		"innerBlocks": [],
-		"innerHTML": "<!-- fp:core/invalid-$special /-->",
-		"innerContent": [ "<!-- fp:core/invalid-$special /-->" ]
+		"innerHTML": "<!-- fin:core/invalid-$special /-->",
+		"innerContent": [ "<!-- fin:core/invalid-$special /-->" ]
 	}
 ]

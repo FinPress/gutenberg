@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/page-list",
 	"title": "Page List",
@@ -78,6 +78,6 @@
 			}
 		}
 	},
-	"editorStyle": "fp-block-page-list-editor",
-	"style": "fp-block-page-list"
+	"editorStyle": "fin-block-page-list-editor",
+	"style": "fin-block-page-list"
 }

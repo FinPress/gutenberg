@@ -100,10 +100,10 @@ const style = `
 	body > div {
 		width: 100%;
 	}
-	html.fp-has-aspect-ratio,
-	body.fp-has-aspect-ratio,
-	body.fp-has-aspect-ratio > div,
-	body.fp-has-aspect-ratio > div iframe {
+	html.fin-has-aspect-ratio,
+	body.fin-has-aspect-ratio,
+	body.fin-has-aspect-ratio > div,
+	body.fin-has-aspect-ratio > div iframe {
 		width: 100%;
 		height: 100%;
 		overflow: hidden; /* If it has an aspect ratio, it shouldn't scroll. */

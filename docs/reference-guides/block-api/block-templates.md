@@ -10,7 +10,7 @@ The scope of templates include:
 Planned additions:
 
 -   Saved and assigned to pages as "page templates".
--   Defined in a `template.php` file or pulled from a custom post type (`fp_templates`) that is site specific.
+-   Defined in a `template.php` file or pulled from a custom post type (`fin_templates`) that is site specific.
 -   As the equivalent of the theme hierarchy.
 
 ## API
@@ -36,8 +36,8 @@ The following example in JavaScript creates a new block using [InnerBlocks](http
 
 ```js
 const el = React.createElement;
-const { registerBlockType } = fp.blocks;
-const { InnerBlocks } = fp.blockEditor;
+const { registerBlockType } = fin.blocks;
+const { InnerBlocks } = fin.blockEditor;
 
 const BLOCKS_TEMPLATE = [
 	[ 'core/image', {} ],
@@ -67,7 +67,7 @@ To find a comprehensive list of all block attributes that you can define in a te
 
 For example, [packages/block-library/src/heading/block.json](https://github.com/FinPress/gutenberg/blob/c62ccd80c7c6abb85740cf8745439029bf0f4d35/packages/block-library/src/heading/block.json#L5-L25) shows that the block has a `level` attribute, and supports the `anchor` parameter.
 
-If you don't have the Gutenberg plugin installed, you can find `block.json` files inside `fp-includes/blocks/heading/block.json`.
+If you don't have the Gutenberg plugin installed, you can find `block.json` files inside `fin-includes/blocks/heading/block.json`.
 
 ## Custom post types
 

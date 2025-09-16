@@ -97,9 +97,9 @@ export default () => {
 };
 
 const initialHtml = `
-<!-- fp:heading -->
-<h2 class="fp-block-heading">Just a Heading</h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading">Just a Heading</h2>
+<!-- /fin:heading -->
 `;
 ```
 

@@ -15,11 +15,11 @@ There are two ways to register commands: static or dynamic. Both methods receive
 
 ### Static commands
 
-Static commands can be registered using the `fp.data.dispatch( fp.commands.store ).registerCommand` action or using the `fp.commands.useCommand` React hook. Static commands are commonly used to perform a specific action. These could include adding a new page or opening a section of the Editor interface, such as opening the Editor Preferences modal. See the `useCommand` [code example](#usecommand) below.
+Static commands can be registered using the `fin.data.dispatch( fin.commands.store ).registerCommand` action or using the `fin.commands.useCommand` React hook. Static commands are commonly used to perform a specific action. These could include adding a new page or opening a section of the Editor interface, such as opening the Editor Preferences modal. See the `useCommand` [code example](#usecommand) below.
 
 ### Dynamic commands
 
-Dynamic commands, on the other hand, are registered using “command loaders", `fp.commands.useCommandLoader`. These loaders are needed when the command list depends on a search term entered by the user in the Command Palette input or when some commands are only available when some conditions are met.
+Dynamic commands, on the other hand, are registered using “command loaders", `fin.commands.useCommandLoader`. These loaders are needed when the command list depends on a search term entered by the user in the Command Palette input or when some commands are only available when some conditions are met.
 
 For example, when a user types "contact", the Command Palette needs to filter the available pages using that input to try and find the Contact page. See the `useCommandLoader` [code example](#usecommandloader) below.
 
@@ -128,8 +128,8 @@ import { post, page, layout, symbolFilled } from '@finpress/icons';
 const icons = {
     post,
     page,
-    fp_template: layout,
-    fp_template_part: symbolFilled,
+    fin_template: layout,
+    fin_template_part: symbolFilled,
 };
 
 function usePageSearchCommandLoader( { search } ) {

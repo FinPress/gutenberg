@@ -66,7 +66,7 @@ export function reapplyBlockTypeFilters() {
 
 export function __experimentalReapplyBlockFilters() {
 	deprecated(
-		'fp.data.dispatch( "core/blocks" ).__experimentalReapplyBlockFilters',
+		'fin.data.dispatch( "core/blocks" ).__experimentalReapplyBlockFilters',
 		{
 			since: '6.4',
 			alternative: 'reapplyBlockFilters',

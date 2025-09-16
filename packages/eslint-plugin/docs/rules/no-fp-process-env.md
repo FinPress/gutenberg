@@ -1,4 +1,4 @@
-# No FinPress process.env (no-fp-process-env)
+# No FinPress process.env (no-fin-process-env)
 
 FinPress globals were accessed via `process.env` in the past. This practice created difficulty for
 package consumers and was removed.

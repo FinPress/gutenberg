@@ -20,9 +20,9 @@ import { deepFilterHTML, getBlockContentSchema } from './utils';
 export { pasteHandler } from './paste-handler';
 
 export function deprecatedGetPhrasingContentSchema( context ) {
-	deprecated( 'fp.blocks.getPhrasingContentSchema', {
+	deprecated( 'fin.blocks.getPhrasingContentSchema', {
 		since: '5.6',
-		alternative: 'fp.dom.getPhrasingContentSchema',
+		alternative: 'fin.dom.getPhrasingContentSchema',
 	} );
 	return getPhrasingContentSchema( context );
 }
@@ -37,7 +37,7 @@ export function deprecatedGetPhrasingContentSchema( context ) {
  */
 export function rawHandler( { HTML = '' } ) {
 	// If we detect block delimiters, parse entirely as blocks.
-	if ( HTML.indexOf( '<!-- fp:' ) !== -1 ) {
+	if ( HTML.indexOf( '<!-- fin:' ) !== -1 ) {
 		const parseResult = parse( HTML );
 		const isSingleFreeFormBlock =
 			parseResult.length === 1 &&

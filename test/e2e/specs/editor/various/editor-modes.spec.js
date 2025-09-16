@@ -133,9 +133,9 @@ test.describe( 'Editing modes (visual/HTML)', () => {
 
 		// Change content.
 		await page.getByRole( 'textbox', { name: 'Type text or HTML' } )
-			.fill( `<!-- fp:paragraph -->
+			.fill( `<!-- fin:paragraph -->
 <p>Hi world!</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 
 		// Save the post using the shortcut.
 		await pageUtils.pressKeys( 'primary+s' );
@@ -166,9 +166,9 @@ test.describe( 'Editing modes (visual/HTML)', () => {
 
 		// Change the content.
 		await page.getByRole( 'textbox', { name: 'Type text or HTML' } )
-			.fill( `<!-- fp:paragraph -->
+			.fill( `<!-- fin:paragraph -->
 <p>abc</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 
 		// Go back to the visual editor.
 		await pageUtils.pressKeys( 'secondary+M' );

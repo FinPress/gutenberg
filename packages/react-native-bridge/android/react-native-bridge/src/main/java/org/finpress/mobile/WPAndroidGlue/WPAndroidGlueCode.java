@@ -518,7 +518,7 @@ public class FPAndroidGlueCode {
             @Override
             public void requestBlockTypeImpressions(BlockTypeImpressionsCallback blockTypeImpressionsCallback) {
                 // Double utilized to satisfy both React Native's expectations (https://bit.ly/3f3tsT4)
-                // and Gson's deserialization which uses Double for all numbers (https://bit.ly/2VfpvUv)
+                // and Gson's deserialization which uses Double for all numbers (https://bit.ly/2VfinvUv)
                 Map<String, Double> storedImpressions = mOnBlockTypeImpressionsEventListener.onRequestBlockTypeImpressions();
                 WritableMap impressions = Arguments.createMap();
                 for (Map.Entry<String, Double> entry: storedImpressions.entrySet()) {

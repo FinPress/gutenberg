@@ -38,7 +38,7 @@ function block_core_post_template_uses_featured_image( $inner_blocks ) {
  *
  * @since 6.3.0 Changed render_block_context priority to `1`.
  *
- * @global FP_Query $fp_query FinPress Query object.
+ * @global FP_Query $fin_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
@@ -54,7 +54,7 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 	// Use global query if needed.
 	$use_global_query = ( isset( $block->context['query']['inherit'] ) && $block->context['query']['inherit'] );
 	if ( $use_global_query ) {
-		global $fp_query;
+		global $fin_query;
 
 		/*
 		 * If already in the main query loop, duplicate the query instance to not tamper with the main instance.
@@ -62,10 +62,10 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 		 * Otherwise, the main query loop has not started yet and this block is responsible for doing so.
 		 */
 		if ( in_the_loop() ) {
-			$query = clone $fp_query;
+			$query = clone $fin_query;
 			$query->rewind_posts();
 		} else {
-			$query = $fp_query;
+			$query = $fin_query;
 		}
 	} else {
 		$query_args = build_query_vars_from_query_block( $block, $page );
@@ -124,9 +124,9 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 		remove_filter( 'render_block_context', $filter_block_context, 1 );
 
 		// Wrap the render inner blocks in a `li` element with the appropriate post classes.
-		$post_classes = implode( ' ', get_post_class( 'fp-block-post' ) );
+		$post_classes = implode( ' ', get_post_class( 'fin-block-post' ) );
 
-		$inner_block_directives = $enhanced_pagination ? ' data-fp-key="post-template-item-' . $post_id . '"' : '';
+		$inner_block_directives = $enhanced_pagination ? ' data-fin-key="post-template-item-' . $post_id . '"' : '';
 
 		$content .= '<li' . $inner_block_directives . ' class="' . esc_attr( $post_classes ) . '">' . $block_content . '</li>';
 	}
@@ -136,7 +136,7 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 	 * from a secondary query loop back to the main query loop.
 	 * Since we use two custom loops, it's safest to always restore.
 	*/
-	fp_reset_postdata();
+	fin_reset_postdata();
 
 	return sprintf(
 		'<ul %1$s>%2$s</ul>',

@@ -1,8 +1,8 @@
 ( function () {
-	const { useSelect } = fp.data;
-	const { registerBlockType } = fp.blocks;
-	const { createElement: el } = fp.element;
-	const { InnerBlocks, useBlockProps } = fp.blockEditor;
+	const { useSelect } = fin.data;
+	const { registerBlockType } = fin.blocks;
+	const { createElement: el } = fin.element;
+	const { InnerBlocks, useBlockProps } = fin.blockEditor;
 	const divProps = {
 		className: 'product',
 		style: { outline: '1px solid gray', padding: 5 },

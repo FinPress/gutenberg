@@ -21,10 +21,10 @@ The first step is to tell the editor that there is a new plugin that will have i
 Add the following code to a JavaScript file called `plugin-sidebar.js` and save it within your plugin's directory:
 
 ```js
-( function ( fp, React ) {
+( function ( fin, React ) {
 	var el = React.createElement;
-	var registerPlugin = fp.plugins.registerPlugin;
-	var PluginSidebar = fp.editor.PluginSidebar;
+	var registerPlugin = fin.plugins.registerPlugin;
+	var PluginSidebar = fin.editor.PluginSidebar;
 
 	registerPlugin( 'my-plugin-sidebar', {
 		render: function () {
@@ -39,10 +39,10 @@ Add the following code to a JavaScript file called `plugin-sidebar.js` and save 
 			);
 		},
 	} );
-} )( window.fp, window.React );
+} )( window.fin, window.React );
 ```
 
-For this code to work, those utilities need to be available in the browser, so you must specify `fp-plugins`, `fp-editor`, and `react` as dependencies of your script.
+For this code to work, those utilities need to be available in the browser, so you must specify `fin-plugins`, `fin-editor`, and `react` as dependencies of your script.
 
 Here is the PHP code to register your script and specify the dependencies:
 
@@ -54,16 +54,16 @@ Plugin Name: Sidebar plugin
 */
 
 function sidebar_plugin_register() {
-	fp_register_script(
+	fin_register_script(
 		'plugin-sidebar-js',
 		plugins_url( 'plugin-sidebar.js', __FILE__ ),
-		array( 'fp-plugins', 'fp-editor', 'react' )
+		array( 'fin-plugins', 'fin-editor', 'react' )
 	);
 }
 add_action( 'init', 'sidebar_plugin_register' );
 
 function sidebar_plugin_script_enqueue() {
-	fp_enqueue_script( 'plugin-sidebar-js' );
+	fin_enqueue_script( 'plugin-sidebar-js' );
 }
 add_action( 'enqueue_block_editor_assets', 'sidebar_plugin_script_enqueue' );
 ```
@@ -79,11 +79,11 @@ After the sidebar is up and running, the next step is to fill it up with the nec
 To visualize and edit the meta field value you'll use an input component. The `@finpress/components` package contains many components available for you to reuse, and, specifically, the [TextControl](/packages/components/src/text-control/README.md) is aimed at creating an input field:
 
 ```js
-( function ( fp ) {
+( function ( fin ) {
 	var el = React.createElement;
-	var registerPlugin = fp.plugins.registerPlugin;
-	var PluginSidebar = fp.editor.PluginSidebar;
-	var TextControl = fp.components.TextControl;
+	var registerPlugin = fin.plugins.registerPlugin;
+	var PluginSidebar = fin.editor.PluginSidebar;
+	var TextControl = fin.components.TextControl;
 
 	registerPlugin( 'my-plugin-sidebar', {
 		render: function () {
@@ -108,10 +108,10 @@ To visualize and edit the meta field value you'll use an input component. The `@
 			);
 		},
 	} );
-} )( window.fp );
+} )( window.fin );
 ```
 
-Update the `plugin-sidebar.js` with this new code. Notice that it uses a new utility called `fp.components` from the `@finpress/components` package. Be sure to add `fp-components` to the dependencies in the `fp_register_script` function in the PHP file.
+Update the `plugin-sidebar.js` with this new code. Notice that it uses a new utility called `fin.components` from the `@finpress/components` package. Be sure to add `fin-components` to the dependencies in the `fin_register_script` function in the PHP file.
 
 The code introduces:
 
@@ -138,17 +138,17 @@ Plugin Name: Sidebar example
 */
 
 function sidebar_plugin_register() {
-	fp_register_script(
+	fin_register_script(
 		'plugin-sidebar-js',
 		plugins_url( 'plugin-sidebar.js', __FILE__ ),
 		array(
 			'react',
-			'fp-plugins',
-			'fp-editor',
-			'fp-components'
+			'fin-plugins',
+			'fin-editor',
+			'fin-components'
 		)
 	);
-	fp_register_style(
+	fin_register_style(
 		'plugin-sidebar-css',
 		plugins_url( 'plugin-sidebar.css', __FILE__ )
 	);
@@ -156,8 +156,8 @@ function sidebar_plugin_register() {
 add_action( 'init', 'sidebar_plugin_register' );
 
 function sidebar_plugin_script_enqueue() {
-	fp_enqueue_script( 'plugin-sidebar-js' );
-	fp_enqueue_style( 'plugin-sidebar-css' );
+	fin_enqueue_script( 'plugin-sidebar-js' );
+	fin_enqueue_style( 'plugin-sidebar-css' );
 }
 add_action( 'enqueue_block_editor_assets', 'sidebar_plugin_script_enqueue' );
 ```
@@ -187,7 +187,7 @@ register_post_meta( 'post', 'sidebar_plugin_meta_block_field', array(
 To confirm, query the block editor store to see the field is loaded. After implementing, reload the editor page and open your browser's developer console. Use this JavaScript snippet in the console to confirm:
 
 ```js
-fp.data.select( 'core/editor' ).getCurrentPost().meta;
+fin.data.select( 'core/editor' ).getCurrentPost().meta;
 ```
 
 The function will return an object containing the registered meta field you registered.
@@ -199,11 +199,11 @@ If the code returns `undefined` make sure your post type supports `custom-fields
 With the field available in the editor store, it can now be surfaced to the UI. We extract the input control to a function to keep the code clean as we add functionality.
 
 ```js
-( function ( fp ) {
+( function ( fin ) {
 	var el = React.createElement;
-	var registerPlugin = fp.plugins.registerPlugin;
-	var PluginSidebar = fp.editor.PluginSidebar;
-	var TextControl = fp.components.TextControl;
+	var registerPlugin = fin.plugins.registerPlugin;
+	var PluginSidebar = fin.editor.PluginSidebar;
+	var TextControl = fin.components.TextControl;
 
 	var MetaBlockField = function () {
 		return el( TextControl, {
@@ -232,7 +232,7 @@ With the field available in the editor store, it can now be surfaced to the UI. 
 			);
 		},
 	} );
-} )( window.fp );
+} )( window.fin );
 ```
 
 We want to initialize the value in the `MetaBlockField` component with the value of `sidebar_plugin_meta_block_field`, and keep it updated when that value changes.
@@ -240,12 +240,12 @@ We want to initialize the value in the `MetaBlockField` component with the value
 The `useSelect` function is used to fetch data when the component loads and will update if the data changes. Here is the code update with `useSelect`:
 
 ```js
-( function ( fp ) {
+( function ( fin ) {
 	var el = React.createElement;
-	var registerPlugin = fp.plugins.registerPlugin;
-	var PluginSidebar = fp.editor.PluginSidebar;
-	var Text = fp.components.TextControl;
-	var useSelect = fp.data.useSelect;
+	var registerPlugin = fin.plugins.registerPlugin;
+	var PluginSidebar = fin.editor.PluginSidebar;
+	var Text = fin.components.TextControl;
+	var useSelect = fin.data.useSelect;
 
 	var MetaBlockField = function () {
 		var metaFieldValue = useSelect( function ( select ) {
@@ -280,17 +280,17 @@ The `useSelect` function is used to fetch data when the component loads and will
 			);
 		},
 	} );
-} )( window.fp );
+} )( window.fin );
 ```
 
-The `fp.data.useSelect` function is from the `@finpress/data` package, so `fp-data` needs to be added as a dependency in the `fp_register_script` function in PHP.
+The `fin.data.useSelect` function is from the `@finpress/data` package, so `fin-data` needs to be added as a dependency in the `fin_register_script` function in PHP.
 
 Note: The `getEditedPostAttribute` call is used to retrieve the most recent values of the post, including user editions that haven't been yet saved.
 
 Confirm it's working by updating the code, reloading, and opening the sidebar. The input's content is no longer `Initial value` but a void string. Users can't type values yet, but you can check that the component is updated if the value in the store changes. Open the browser's console, execute
 
 ```js
-fp.data
+fin.data
 	.dispatch( 'core/editor' )
 	.editPost( { meta: { sidebar_plugin_meta_block_field: 'hello world!' } } );
 ```
@@ -303,13 +303,13 @@ The last step is to update the meta field when the input content changes.
 The `useDispatch` function takes a store name as its only argument and returns methods that you can use to update the store, in this case we'll use `editPost`
 
 ```js
-( function ( fp ) {
+( function ( fin ) {
 	var el = React.createElement;
-	var registerPlugin = fp.plugins.registerPlugin;
-	var PluginSidebar = fp.editor.PluginSidebar;
-	var TextControl = fp.components.TextControl;
-	var useSelect = fp.data.useSelect;
-	var useDispatch = fp.data.useDispatch;
+	var registerPlugin = fin.plugins.registerPlugin;
+	var PluginSidebar = fin.editor.PluginSidebar;
+	var TextControl = fin.components.TextControl;
+	var useSelect = fin.data.useSelect;
+	var useDispatch = fin.data.useDispatch;
 
 	var MetaBlockField = function ( props ) {
 		var metaFieldValue = useSelect( function ( select ) {
@@ -348,7 +348,7 @@ The `useDispatch` function takes a store name as its only argument and returns m
 			);
 		},
 	} );
-} )( window.fp );
+} )( window.fin );
 ```
 
 After the update, when the user types, the input control calls `editPost` and updates the editor store on each keystroke.
@@ -356,7 +356,7 @@ After the update, when the user types, the input control calls `editPost` and up
 Update the JavaScript, load the sidebar, and type in the input field. You can confirm it is saved by typing something in the input control and executing the JavaScript snippet in your browser's development console:
 
 ```js
-fp.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' )[
+fin.data.select( 'core/editor' ).getEditedPostAttribute( 'meta' )[
 	'sidebar_plugin_meta_block_field'
 ];
 ```

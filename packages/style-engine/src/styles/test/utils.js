@@ -20,24 +20,24 @@ describe( 'utils', () => {
 		it.each( [
 			[ 'min(40%, 400px)', 'min(40%, 400px)' ],
 			[
-				'var(--fp--preset--color--yellow-bun)',
+				'var(--fin--preset--color--yellow-bun)',
 				'var:preset|color|yellow-bun',
 			],
-			[ 'var(--fp--preset--font-size--h-1)', 'var:preset|font-size|h1' ],
+			[ 'var(--fin--preset--font-size--h-1)', 'var:preset|font-size|h1' ],
 			[
-				'var(--fp--preset--font-size--1-px)',
+				'var(--fin--preset--font-size--1-px)',
 				'var:preset|font-size|1px',
 			],
 			[
-				'var(--fp--preset--color--orange-11-orange)',
+				'var(--fin--preset--color--orange-11-orange)',
 				'var:preset|color|orange11orange',
 			],
 			[
-				'var(--fp--preset--color--heavenly-blue)',
+				'var(--fin--preset--color--heavenly-blue)',
 				'var:preset|color|heavenlyBlue',
 			],
 			[
-				'var(--fp--preset--background--dark-secrets-100)',
+				'var(--fin--preset--background--dark-secrets-100)',
 				'var:preset|background|dark_Secrets_100',
 			],
 			[ null, null ],

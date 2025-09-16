@@ -15,9 +15,9 @@ function UnconnectedNavigatorToParentButton(
 	props: FinPressComponentProps< NavigatorBackButtonProps, 'button' >,
 	forwardedRef: React.ForwardedRef< any >
 ) {
-	deprecated( 'fp.components.NavigatorToParentButton', {
+	deprecated( 'fin.components.NavigatorToParentButton', {
 		since: '6.7',
-		alternative: 'fp.components.Navigator.BackButton',
+		alternative: 'fin.components.Navigator.BackButton',
 	} );
 
 	return <NavigatorBackButton ref={ forwardedRef } { ...props } />;

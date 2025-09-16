@@ -1,8 +1,8 @@
 ( function () {
-	const { __ } = fp.i18n;
-	const { registerPlugin } = fp.plugins;
-	const PluginPreviewMenuItem = fp.editor.PluginPreviewMenuItem;
-	const el = fp.element.createElement;
+	const { __ } = fin.i18n;
+	const { registerPlugin } = fin.plugins;
+	const PluginPreviewMenuItem = fin.editor.PluginPreviewMenuItem;
+	const el = fin.element.createElement;
 
 	function CustomPreviewMenuItem() {
 		return el( PluginPreviewMenuItem, {}, __( 'Custom Preview' ) );

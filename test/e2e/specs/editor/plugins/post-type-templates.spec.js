@@ -44,9 +44,9 @@ test.describe( 'Post type templates', () => {
 			await page.reload();
 
 			const expectedContent = await page.evaluate( ( content ) => {
-				const blocks = window.fp.blocks.parse( content );
+				const blocks = window.fin.blocks.parse( content );
 				blocks.splice( 0, 1 );
-				return window.fp.blocks.serialize( blocks );
+				return window.fin.blocks.serialize( blocks );
 			}, beforeContent );
 
 			await expect
@@ -102,9 +102,9 @@ test.describe( 'Post type templates', () => {
 			await admin.createNewPost();
 
 			await expect.poll( editor.getEditedPostContent )
-				.toBe( `<!-- fp:image -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image -->` );
+				.toBe( `<!-- fin:image -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image -->` );
 		} );
 
 		test( 'should not populate edited post with default block for format', async ( {

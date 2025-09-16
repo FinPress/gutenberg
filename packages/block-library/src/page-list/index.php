@@ -36,7 +36,7 @@ function block_core_page_list_build_css_colors( $attributes, $context ) {
 
 	if ( $has_named_text_color ) {
 		// Add the color class.
-		$colors['css_classes'][] = sprintf( 'has-%s-color', _fp_to_kebab_case( $context['textColor'] ) );
+		$colors['css_classes'][] = sprintf( 'has-%s-color', _fin_to_kebab_case( $context['textColor'] ) );
 	} elseif ( $has_picked_text_color ) {
 		$colors['inline_styles'] .= sprintf( 'color: %s;', $context['customTextColor'] );
 	} elseif ( $has_custom_text_color ) {
@@ -57,7 +57,7 @@ function block_core_page_list_build_css_colors( $attributes, $context ) {
 
 	if ( $has_named_background_color ) {
 		// Add the background-color class.
-		$colors['css_classes'][] = sprintf( 'has-%s-background-color', _fp_to_kebab_case( $context['backgroundColor'] ) );
+		$colors['css_classes'][] = sprintf( 'has-%s-background-color', _fin_to_kebab_case( $context['backgroundColor'] ) );
 	} elseif ( $has_picked_background_color ) {
 		$colors['inline_styles'] .= sprintf( 'background-color: %s;', $context['customBackgroundColor'] );
 	} elseif ( $has_custom_background_color ) {
@@ -76,7 +76,7 @@ function block_core_page_list_build_css_colors( $attributes, $context ) {
 
 	// Give overlay colors priority, fall back to Navigation block colors, then global styles.
 	if ( $has_named_overlay_text_color ) {
-		$colors['overlay_css_classes'][] = sprintf( 'has-%s-color', _fp_to_kebab_case( $context['overlayTextColor'] ) );
+		$colors['overlay_css_classes'][] = sprintf( 'has-%s-color', _fin_to_kebab_case( $context['overlayTextColor'] ) );
 	} elseif ( $has_picked_overlay_text_color ) {
 		$colors['overlay_inline_styles'] .= sprintf( 'color: %s;', $context['customOverlayTextColor'] );
 	}
@@ -91,7 +91,7 @@ function block_core_page_list_build_css_colors( $attributes, $context ) {
 	}
 
 	if ( $has_named_overlay_background_color ) {
-		$colors['overlay_css_classes'][] = sprintf( 'has-%s-background-color', _fp_to_kebab_case( $context['overlayBackgroundColor'] ) );
+		$colors['overlay_css_classes'][] = sprintf( 'has-%s-background-color', _fin_to_kebab_case( $context['overlayBackgroundColor'] ) );
 	} elseif ( $has_picked_overlay_background_color ) {
 		$colors['overlay_inline_styles'] .= sprintf( 'background-color: %s;', $context['customOverlayBackgroundColor'] );
 	}
@@ -125,7 +125,7 @@ function block_core_page_list_build_css_font_sizes( $context ) {
 		// Add the custom font size inline style.
 		$font_sizes['inline_styles'] = sprintf(
 			'font-size: %s;',
-			fp_get_typography_font_size_value(
+			fin_get_typography_font_size_value(
 				array(
 					'size' => $context['style']['typography']['fontSize'],
 				)
@@ -169,7 +169,7 @@ function block_core_page_list_render_nested_page_list( $open_submenus_on_click, 
 		}
 
 		if ( $is_navigation_child ) {
-			$css_class .= ' fp-block-navigation-item';
+			$css_class .= ' fin-block-navigation-item';
 
 			if ( $open_submenus_on_click ) {
 				$css_class .= ' open-on-click';
@@ -178,7 +178,7 @@ function block_core_page_list_render_nested_page_list( $open_submenus_on_click, 
 			}
 		}
 
-		$navigation_child_content_class = $is_navigation_child ? ' fp-block-navigation-item__content' : '';
+		$navigation_child_content_class = $is_navigation_child ? ' fin-block-navigation-item__content' : '';
 
 		// If this is the first level of submenus, include the overlay colors.
 		if ( ( ( 0 < $depth && ! $is_nested ) || $is_nested ) && isset( $colors['overlay_css_classes'], $colors['overlay_inline_styles'] ) ) {
@@ -192,31 +192,31 @@ function block_core_page_list_render_nested_page_list( $open_submenus_on_click, 
 			$css_class .= ' menu-item-home';
 		}
 
-		$title = fp_kses_post( $page['title'] );
+		$title = fin_kses_post( $page['title'] );
 		$title = $title ? $title : __( '(no title)' );
 
 		$aria_label = sprintf(
 			/* translators: Accessibility text. %s: Parent page title. */
 			__( '%s submenu' ),
-			fp_strip_all_tags( $title )
+			fin_strip_all_tags( $title )
 		);
 
-		$markup .= '<li class="fp-block-pages-list__item' . esc_attr( $css_class ) . '"' . $style_attribute . '>';
+		$markup .= '<li class="fin-block-pages-list__item' . esc_attr( $css_class ) . '"' . $style_attribute . '>';
 
 		if ( isset( $page['children'] ) && $is_navigation_child && $open_submenus_on_click ) {
-			$markup .= '<button aria-label="' . esc_attr( $aria_label ) . '" class="' . esc_attr( $navigation_child_content_class ) . ' fp-block-navigation-submenu__toggle" aria-expanded="false">' . esc_html( $title ) .
-			'</button><span class="fp-block-page-list__submenu-icon fp-block-navigation__submenu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></span>';
+			$markup .= '<button aria-label="' . esc_attr( $aria_label ) . '" class="' . esc_attr( $navigation_child_content_class ) . ' fin-block-navigation-submenu__toggle" aria-expanded="false">' . esc_html( $title ) .
+			'</button><span class="fin-block-page-list__submenu-icon fin-block-navigation__submenu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></span>';
 		} else {
-			$markup .= '<a class="fp-block-pages-list__item__link' . esc_attr( $navigation_child_content_class ) . '" href="' . esc_url( $page['link'] ) . '"' . $aria_current . '>' . $title . '</a>';
+			$markup .= '<a class="fin-block-pages-list__item__link' . esc_attr( $navigation_child_content_class ) . '" href="' . esc_url( $page['link'] ) . '"' . $aria_current . '>' . $title . '</a>';
 		}
 
 		if ( isset( $page['children'] ) ) {
 			if ( $is_navigation_child && $show_submenu_icons && ! $open_submenus_on_click ) {
-				$markup .= '<button aria-label="' . esc_attr( $aria_label ) . '" class="fp-block-navigation__submenu-icon fp-block-navigation-submenu__toggle" aria-expanded="false">';
+				$markup .= '<button aria-label="' . esc_attr( $aria_label ) . '" class="fin-block-navigation__submenu-icon fin-block-navigation-submenu__toggle" aria-expanded="false">';
 				$markup .= '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg>';
 				$markup .= '</button>';
 			}
-			$markup .= '<ul class="fp-block-navigation__submenu-container">';
+			$markup .= '<ul class="fin-block-navigation__submenu-container">';
 			$markup .= block_core_page_list_render_nested_page_list( $open_submenus_on_click, $show_submenu_icons, $is_navigation_child, $page['children'], $is_nested, $active_page_ancestor_ids, $colors, $depth + 1 );
 			$markup .= '</ul>';
 		}

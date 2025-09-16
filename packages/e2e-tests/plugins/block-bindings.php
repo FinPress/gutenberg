@@ -15,7 +15,7 @@
  */
 function gutenberg_test_block_bindings_registration() {
 	// Define fields list.
-	$upload_dir  = fp_upload_dir();
+	$upload_dir  = fin_upload_dir();
 	$testing_url = $upload_dir['url'] . '/1024x768_e2e_test_image_size.jpeg';
 	$fields_list = array(
 		'text_field'  => array(
@@ -36,23 +36,23 @@ function gutenberg_test_block_bindings_registration() {
 	);
 
 	// Enqueue a custom script for the plugin.
-	fp_enqueue_script(
+	fin_enqueue_script(
 		'gutenberg-test-block-bindings',
 		plugins_url( 'block-bindings/index.js', __FILE__ ),
 		array(
-			'fp-blocks',
-			'fp-block-editor',
-			'fp-components',
-			'fp-compose',
-			'fp-element',
-			'fp-hooks',
+			'fin-blocks',
+			'fin-block-editor',
+			'fin-components',
+			'fin-compose',
+			'fin-element',
+			'fin-hooks',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block-bindings/index.js' ),
 		true
 	);
 
 	// Pass data to the script.
-	fp_localize_script(
+	fin_localize_script(
 		'gutenberg-test-block-bindings',
 		'testingBindings',
 		array(

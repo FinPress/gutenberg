@@ -32,19 +32,19 @@ const getTestComponent = ( attributes = {} ) => {
 
 const getLabel = ( instance ) => {
 	return instance.UNSAFE_getByProps( {
-		className: 'fp-block-search__label',
+		className: 'fin-block-search__label',
 	} );
 };
 
 const getButton = ( instance ) => {
 	return instance.UNSAFE_getByProps( {
-		className: 'fp-block-search__button',
+		className: 'fin-block-search__button',
 	} );
 };
 
 const getSearchInput = ( instance ) => {
 	return instance.UNSAFE_getByProps( {
-		className: 'fp-block-search__input',
+		className: 'fin-block-search__input',
 	} );
 };
 
@@ -110,7 +110,7 @@ describe( 'Search Block', () => {
 
 		it( 'verify button element has not been rendered', () => {
 			expect(
-				hasComponent( instance, 'fp-block-search__button' )
+				hasComponent( instance, 'fin-block-search__button' )
 			).toEqual( false );
 		} );
 
@@ -158,7 +158,7 @@ describe( 'Search Block', () => {
 
 		it( 'verify label has not been rendered', () => {
 			expect(
-				hasComponent( instance, 'fp-block-search__label' )
+				hasComponent( instance, 'fin-block-search__label' )
 			).toEqual( false );
 		} );
 

@@ -1,9 +1,9 @@
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">Click</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->
+<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button">Click</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->

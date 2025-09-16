@@ -1389,7 +1389,7 @@ class MultiBlockSelectionUtils {
 				hasSelectedBlock,
 				getMultiSelectedBlocks,
 				getSelectedBlock,
-			} = window.fp.data.select( 'core/block-editor' );
+			} = window.fin.data.select( 'core/block-editor' );
 			if ( hasMultiSelection() ) {
 				return getMultiSelectedBlocks();
 			} else if ( hasSelectedBlock() ) {
@@ -1402,7 +1402,7 @@ class MultiBlockSelectionUtils {
 	getSelectedFlatIndices = async () => {
 		return await this.#page.evaluate( () => {
 			const { getSelectedBlockClientIds, getClientIdsWithDescendants } =
-				window.fp.data.select( 'core/block-editor' );
+				window.fin.data.select( 'core/block-editor' );
 			const selectedClientIds = getSelectedBlockClientIds();
 			const allClientIds = getClientIdsWithDescendants();
 			return selectedClientIds.map(
@@ -1425,7 +1425,7 @@ class MultiBlockSelectionUtils {
 					hasMultiSelection,
 					getSelectionStart,
 					getSelectionEnd,
-				} = window.fp.data.select( 'core/block-editor' );
+				} = window.fin.data.select( 'core/block-editor' );
 				return {
 					isMultiSelected: hasMultiSelection(),
 					selectionStart: getSelectionStart().clientId,

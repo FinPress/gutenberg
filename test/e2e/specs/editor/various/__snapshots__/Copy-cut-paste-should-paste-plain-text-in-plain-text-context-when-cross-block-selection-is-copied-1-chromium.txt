@@ -1,7 +1,7 @@
-<!-- fp:heading -->
-<h2 class="fp-block-heading">Heading</h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading">Heading</h2>
+<!-- /fin:heading -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Paragraph</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->

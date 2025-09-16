@@ -213,7 +213,7 @@ test.describe( 'Synced pattern', () => {
 		const { id } = await requestUtils.createBlock( {
 			title: 'Alternative greeting block',
 			content:
-				'<!-- fp:paragraph -->\n<p id="reused-paragraph">Guten Tag!</p>\n<!-- /fp:paragraph -->',
+				'<!-- fin:paragraph -->\n<p id="reused-paragraph">Guten Tag!</p>\n<!-- /fin:paragraph -->',
 			status: 'publish',
 		} );
 
@@ -277,7 +277,7 @@ test.describe( 'Synced pattern', () => {
 		const { id } = await requestUtils.createBlock( {
 			title: 'Synced pattern',
 			content:
-				'<!-- fp:paragraph -->\n<p>Before Edit</p>\n<!-- /fp:paragraph -->',
+				'<!-- fin:paragraph -->\n<p>Before Edit</p>\n<!-- /fin:paragraph -->',
 			status: 'publish',
 		} );
 
@@ -336,7 +336,7 @@ test.describe( 'Synced pattern', () => {
 		const { id } = await requestUtils.createBlock( {
 			title: 'Greeting block',
 			content:
-				'<!-- fp:paragraph -->\n<p>Hello there!</p>\n<!-- /fp:paragraph -->',
+				'<!-- fin:paragraph -->\n<p>Hello there!</p>\n<!-- /fin:paragraph -->',
 			status: 'publish',
 		} );
 
@@ -537,7 +537,7 @@ test.describe( 'Synced pattern', () => {
 		const { id } = await requestUtils.createBlock( {
 			title: 'Duplicated reusable block',
 			content:
-				'<!-- fp:paragraph -->\n<p>Awesome Paragraph</p>\n<!-- /fp:paragraph -->',
+				'<!-- fin:paragraph -->\n<p>Awesome Paragraph</p>\n<!-- /fin:paragraph -->',
 			status: 'publish',
 		} );
 		await editor.insertBlock( {

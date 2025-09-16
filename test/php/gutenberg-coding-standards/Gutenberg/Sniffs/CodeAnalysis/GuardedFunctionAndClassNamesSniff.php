@@ -77,8 +77,8 @@ final class GuardedFunctionAndClassNamesSniff implements Sniff {
 	/**
 	 * Functions should be wrapped with !function_exists() to avoid fatal errors.
 	 * E.g.:
-	 * if ( ! function_exists( 'fp_get_navigation' ) ) {
-	 *     function fp_get_navigation( $slug ) { ... }
+	 * if ( ! function_exists( 'fin_get_navigation' ) ) {
+	 *     function fin_get_navigation( $slug ) { ... }
 	 * }
 	 *
 	 * @param File $phpcsFile    The file being scanned.

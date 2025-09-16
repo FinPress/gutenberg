@@ -55,7 +55,7 @@ export default function TextColumnsEdit( { attributes, setAttributes } ) {
 				{ Array.from( { length: columns } ).map( ( _, index ) => {
 					return (
 						<div
-							className="fp-block-column"
+							className="fin-block-column"
 							key={ `column-${ index }` }
 						>
 							<RichText

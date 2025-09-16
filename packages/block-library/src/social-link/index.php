@@ -51,15 +51,15 @@ function render_block_core_social_link( $attributes, $content, $block ) {
 	$icon               = block_core_social_link_get_icon( $service );
 	$wrapper_attributes = get_block_wrapper_attributes(
 		array(
-			'class' => 'fp-social-link fp-social-link-' . $service . block_core_social_link_get_color_classes( $block->context ),
+			'class' => 'fin-social-link fin-social-link-' . $service . block_core_social_link_get_color_classes( $block->context ),
 			'style' => block_core_social_link_get_color_styles( $block->context ),
 		)
 	);
 
 	$link  = '<li ' . $wrapper_attributes . '>';
-	$link .= '<a href="' . esc_url( $url ) . '" class="fp-block-social-link-anchor">';
+	$link .= '<a href="' . esc_url( $url ) . '" class="fin-block-social-link-anchor">';
 	$link .= $icon;
-	$link .= '<span class="fp-block-social-link-label' . ( $show_labels ? '' : ' screen-reader-text' ) . '">' . esc_html( $text ) . '</span>';
+	$link .= '<span class="fin-block-social-link-label' . ( $show_labels ? '' : ' screen-reader-text' ) . '">' . esc_html( $text ) . '</span>';
 	$link .= '</a></li>';
 
 	$processor = new FP_HTML_Tag_Processor( $link );

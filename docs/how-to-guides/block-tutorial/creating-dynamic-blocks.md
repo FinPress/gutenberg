@@ -63,7 +63,7 @@ Because it is a dynamic block it doesn't need to override the default `save` imp
  */
 
 function gutenberg_examples_dynamic_render_callback( $block_attributes, $content ) {
-	$recent_posts = fp_get_recent_posts( array(
+	$recent_posts = fin_get_recent_posts( array(
 		'numberposts' => 1,
 		'post_status' => 'publish',
 	) );
@@ -73,7 +73,7 @@ function gutenberg_examples_dynamic_render_callback( $block_attributes, $content
 	$post = $recent_posts[ 0 ];
 	$post_id = $post['ID'];
 	return sprintf(
-		'<a class="fp-block-my-plugin-latest-post" href="%1$s">%2$s</a>',
+		'<a class="fin-block-my-plugin-latest-post" href="%1$s">%2$s</a>',
 		esc_url( get_permalink( $post_id ) ),
 		esc_html( get_the_title( $post_id ) )
 	);
@@ -83,7 +83,7 @@ function gutenberg_examples_dynamic() {
 	// automatically load dependencies and version
 	$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php');
 
-	fp_register_script(
+	fin_register_script(
 		'gutenberg-examples-dynamic',
 		plugins_url( 'build/block.js', __FILE__ ),
 		$asset_file['dependencies'],
@@ -144,4 +144,4 @@ registerBlockType( 'gutenberg-examples/example-dynamic', {
 
 
 
-Note that this code uses the `fp-server-side-render` package but not `fp-data`. Make sure to update the dependencies in the PHP code. You can use fp-scripts to automatically build dependencies (see the [block-development-examples repo](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/basic-esnext-a2ab62) for PHP code setup).
+Note that this code uses the `fin-server-side-render` package but not `fin-data`. Make sure to update the dependencies in the PHP code. You can use fin-scripts to automatically build dependencies (see the [block-development-examples repo](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/basic-esnext-a2ab62) for PHP code setup).

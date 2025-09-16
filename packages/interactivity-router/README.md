@@ -37,7 +37,7 @@ store( 'my-namespace/myblock', {
 } );
 ```
 
-Now, you can call `actions.navigate()` in your block's `view.js` file to navigate to a different page or e.g. pass it to a `data-fp-on--click` attribute.
+Now, you can call `actions.navigate()` in your block's `view.js` file to navigate to a different page or e.g. pass it to a `data-fin-on--click` attribute.
 
 When loaded, this package [adds the following state and actions](https://github.com/FinPress/gutenberg/blob/ed7d78652526270b63976d7a970dba46a2bfcbb0/packages/interactivity-router/src/index.ts#L212) to the `core/router` store:
 
@@ -68,22 +68,22 @@ const { state, actions } = store( 'core/router', {
 
 ### Directives
 
-#### `data-fp-router-region`
+#### `data-fin-router-region`
 
-It defines a region that is updated on navigation. It requires a unique ID as the value and can only be used in root interactive elements, i.e., elements with `data-fp-interactive` that are not nested inside other elements with `data-fp-interactive`.
+It defines a region that is updated on navigation. It requires a unique ID as the value and can only be used in root interactive elements, i.e., elements with `data-fin-interactive` that are not nested inside other elements with `data-fin-interactive`.
 
 The value can be a string with the region ID, or a JSON object containing the `id` and an optional `attachTo` property.
 
 Example:
 
 ```html
-<div data-fp-interactive="myblock" data-fp-router-region="main-list">
+<div data-fin-interactive="myblock" data-fin-router-region="main-list">
   <ul>
      <li><a href="/post-1">Post 1</a></li>
      <li><a href="/post-2">Post 2</a></li>
      <li><a href="/post-3">Post 3</a></li>
   </ul>
-  <a data-fp-on--click="actions.navigate" href="/page/2">Page 2</a>
+  <a data-fin-on--click="actions.navigate" href="/page/2">Page 2</a>
 </div>
 ```
 
@@ -100,8 +100,8 @@ Example with `attachTo`:
 
 ```html
 <div
-  data-fp-interactive="myblock"
-  data-fp-router-region='{ "id": "myblock/overlay", "attachTo": "body" }'
+  data-fin-interactive="myblock"
+  data-fin-router-region='{ "id": "myblock/overlay", "attachTo": "body" }'
 >
   I'm in a new region!
 </div>
@@ -163,7 +163,7 @@ npm install @finpress/interactivity-router --save
 
 This step is only required if you use the Interactivity API outside FinPress.
 
-Within FinPress, the package is already bundled in Core. To ensure it's enqueued, add `@finpress/interactivity-router` to the dependency array of the script module. This process is often done automatically with tools like [`fp-scripts`](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-scripts/).
+Within FinPress, the package is already bundled in Core. To ensure it's enqueued, add `@finpress/interactivity-router` to the dependency array of the script module. This process is often done automatically with tools like [`fin-scripts`](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-scripts/).
 
 Furthermore, this package assumes your code will run in an **ES2015+** environment. If you're using an environment with limited or no support for such language features and APIs, you should include the polyfill shipped in [`@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code.
 

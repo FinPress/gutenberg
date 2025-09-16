@@ -1,57 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Social links block inserts block with the default icons and the FinPress link set as active 1`] = `
-"<!-- fp:social-links -->
-<ul class="fp-block-social-links"><!-- fp:social-link {"url":"https://finpress.org","service":"finpress"} /-->
+"<!-- fin:social-links -->
+<ul class="fin-block-social-links"><!-- fin:social-link {"url":"https://finpress.org","service":"finpress"} /-->
 
-<!-- fp:social-link {"service":"facebook"} /-->
+<!-- fin:social-link {"service":"facebook"} /-->
 
-<!-- fp:social-link {"service":"twitter"} /-->
+<!-- fin:social-link {"service":"twitter"} /-->
 
-<!-- fp:social-link {"service":"instagram"} /--></ul>
-<!-- /fp:social-links -->"
+<!-- fin:social-link {"service":"instagram"} /--></ul>
+<!-- /fin:social-links -->"
 `;
 
 exports[`Social links block shows active links correctly when not selected 1`] = `
-"<!-- fp:social-links -->
-<ul class="fp-block-social-links"><!-- fp:social-link {"url":"https://finpress.org","service":"finpress"} /-->
+"<!-- fin:social-links -->
+<ul class="fin-block-social-links"><!-- fin:social-link {"url":"https://finpress.org","service":"finpress"} /-->
 
-<!-- fp:social-link {"service":"facebook"} /-->
+<!-- fin:social-link {"service":"facebook"} /-->
 
-<!-- fp:social-link {"service":"twitter"} /-->
+<!-- fin:social-link {"service":"twitter"} /-->
 
-<!-- fp:social-link {"service":"instagram"} /--></ul>
-<!-- /fp:social-links -->
+<!-- fin:social-link {"service":"instagram"} /--></ul>
+<!-- /fin:social-links -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Social links block shows the ghost placeholder when no icon is active 1`] = `
-"<!-- fp:social-links -->
-<ul class="fp-block-social-links"><!-- fp:social-link {"service":"facebook"} /-->
+"<!-- fin:social-links -->
+<ul class="fin-block-social-links"><!-- fin:social-link {"service":"facebook"} /-->
 
-<!-- fp:social-link {"service":"twitter"} /-->
+<!-- fin:social-link {"service":"twitter"} /-->
 
-<!-- fp:social-link {"service":"instagram"} /--></ul>
-<!-- /fp:social-links -->
+<!-- fin:social-link {"service":"instagram"} /--></ul>
+<!-- /fin:social-links -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Social links block shows the social links bottom sheet when tapping on the inline appender 1`] = `
-"<!-- fp:social-links -->
-<ul class="fp-block-social-links"><!-- fp:social-link {"url":"https://finpress.org","service":"finpress"} /-->
+"<!-- fin:social-links -->
+<ul class="fin-block-social-links"><!-- fin:social-link {"url":"https://finpress.org","service":"finpress"} /-->
 
-<!-- fp:social-link {"service":"facebook"} /-->
+<!-- fin:social-link {"service":"facebook"} /-->
 
-<!-- fp:social-link {"service":"twitter"} /-->
+<!-- fin:social-link {"service":"twitter"} /-->
 
-<!-- fp:social-link {"service":"instagram"} /-->
+<!-- fin:social-link {"service":"instagram"} /-->
 
-<!-- fp:social-link-amazon {"url":""} /--></ul>
-<!-- /fp:social-links -->"
+<!-- fin:social-link-amazon {"url":""} /--></ul>
+<!-- /fin:social-links -->"
 `;

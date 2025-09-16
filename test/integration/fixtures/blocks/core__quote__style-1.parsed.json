@@ -13,9 +13,9 @@
 				]
 			}
 		],
-		"innerHTML": "\n<blockquote class=\"fp-block-quote\"><cite>Matt Mullenweg, 2017</cite></blockquote>\n",
+		"innerHTML": "\n<blockquote class=\"fin-block-quote\"><cite>Matt Mullenweg, 2017</cite></blockquote>\n",
 		"innerContent": [
-			"\n<blockquote class=\"fp-block-quote\">",
+			"\n<blockquote class=\"fin-block-quote\">",
 			null,
 			"<cite>Matt Mullenweg, 2017</cite></blockquote>\n"
 		]

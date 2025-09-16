@@ -44,7 +44,7 @@
 
 	// Adding the filter with a priority of 11
 	// to ensure it fires after the default user mentions are added.
-	fp.hooks.addFilter(
+	fin.hooks.addFilter(
 		'editor.Autocomplete.completers',
 		'editor/autocompleters/test',
 		appendTestCompleters,

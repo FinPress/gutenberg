@@ -28,9 +28,9 @@ jest.mock( 'react-native-modal', () => {
 	return mockComponent( 'react-native-modal' );
 } );
 
-const TABLE_BLOCK_HTML = `<!-- fp:table -->
-<figure class="fp-block-table"><table><tbody><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></tbody></table></figure>
-<!-- /fp:table -->`;
+const TABLE_BLOCK_HTML = `<!-- fin:table -->
+<figure class="fin-block-table"><table><tbody><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></tbody></table></figure>
+<!-- /fin:table -->`;
 const MODAL_DISMISS_EVENT = Platform.OS === 'ios' ? 'onDismiss' : 'onModalHide';
 
 setupCoreBlocks();
@@ -147,7 +147,7 @@ describe( 'Unsupported block', () => {
 	it( 'does not show web editor option when block is incompatible with UBE', async () => {
 		await initializeEditor( {
 			// Reusable blocks/Patterns is a block type unsupported by UBE
-			initialHtml: '<!-- fp:block {"ref":7387} /-->',
+			initialHtml: '<!-- fin:block {"ref":7387} /-->',
 			capabilities: {
 				unsupportedBlockEditor: true,
 				canEnableUnsupportedBlockEditor: true,

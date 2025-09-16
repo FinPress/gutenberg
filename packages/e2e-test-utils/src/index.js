@@ -96,7 +96,7 @@ export { visitAdminPage } from './visit-admin-page';
 export { waitForWindowDimensions } from './wait-for-window-dimensions';
 export { showBlockToolbar } from './show-block-toolbar';
 export { openPreviewPage } from './preview';
-export { fpDataSelect } from './fp-data-select';
+export { finDataSelect } from './fin-data-select';
 export { deleteAllWidgets } from './widgets';
 export { deleteAllTemplates } from './templates';
 export {

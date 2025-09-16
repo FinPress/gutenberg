@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/list",
 	"title": "List",
@@ -81,8 +81,8 @@
 		}
 	},
 	"selectors": {
-		"border": ".fp-block-list:not(.fp-block-list .fp-block-list)"
+		"border": ".fin-block-list:not(.fin-block-list .fin-block-list)"
 	},
-	"editorStyle": "fp-block-list-editor",
-	"style": "fp-block-list"
+	"editorStyle": "fin-block-list-editor",
+	"style": "fin-block-list"
 }

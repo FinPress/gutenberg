@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/video",
 	"title": "Video",
@@ -97,6 +97,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-video-editor",
-	"style": "fp-block-video"
+	"editorStyle": "fin-block-video-editor",
+	"style": "fin-block-video"
 }

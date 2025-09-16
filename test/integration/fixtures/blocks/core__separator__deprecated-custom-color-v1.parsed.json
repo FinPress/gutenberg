@@ -5,9 +5,9 @@
 			"customColor": "#cc1d1d"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<hr class=\"fp-block-separator has-text-color has-background\" style=\"background-color:#cc1d1d;color:#cc1d1d\"/>\n",
+		"innerHTML": "\n<hr class=\"fin-block-separator has-text-color has-background\" style=\"background-color:#cc1d1d;color:#cc1d1d\"/>\n",
 		"innerContent": [
-			"\n<hr class=\"fp-block-separator has-text-color has-background\" style=\"background-color:#cc1d1d;color:#cc1d1d\"/>\n"
+			"\n<hr class=\"fin-block-separator has-text-color has-background\" style=\"background-color:#cc1d1d;color:#cc1d1d\"/>\n"
 		]
 	}
 ]

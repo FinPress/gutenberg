@@ -1,15 +1,15 @@
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>block</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>B </p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>A block</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>B block</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->

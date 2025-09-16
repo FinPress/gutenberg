@@ -219,7 +219,7 @@
 
 ### New Features
 
--   Type-specific variants are now exposed from the module root. In a FinPress context, this has the effect of making them available as `fp.isShallowEqual.isShallowEqualObjects` and `fp.isShallowEqual.isShallowEqualArrays`.
+-   Type-specific variants are now exposed from the module root. In a FinPress context, this has the effect of making them available as `fin.isShallowEqual.isShallowEqualObjects` and `fin.isShallowEqual.isShallowEqualArrays`.
 
 ### Internal
 

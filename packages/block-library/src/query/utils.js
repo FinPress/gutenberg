@@ -506,7 +506,7 @@ export function getQueryContextFromTemplate( templateSlug ) {
 		return { isSingular: true };
 	}
 	let isSingular = false;
-	let templateType = templateSlug === 'fp' ? 'custom' : templateSlug;
+	let templateType = templateSlug === 'fin' ? 'custom' : templateSlug;
 	const singularTemplates = [ '404', 'blank', 'single', 'page', 'custom' ];
 	const templateTypeFromSlug = templateSlug.includes( '-' )
 		? templateSlug.split( '-', 1 )[ 0 ]

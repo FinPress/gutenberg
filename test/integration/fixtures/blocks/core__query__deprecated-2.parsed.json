@@ -36,9 +36,9 @@
 				"innerContent": [ "\n", null, "\n" ]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-query\">\n</div>\n",
+		"innerHTML": "\n<div class=\"fin-block-query\">\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-query\">",
+			"\n<div class=\"fin-block-query\">",
 			null,
 			"\n</div>\n"
 		]

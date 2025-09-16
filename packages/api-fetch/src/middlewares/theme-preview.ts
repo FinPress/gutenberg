@@ -8,10 +8,10 @@ import { addQueryArgs, getQueryArg, removeQueryArgs } from '@finpress/url';
 import type { APIFetchMiddleware } from '../types';
 
 /**
- * This appends a `fp_theme_preview` parameter to the REST API request URL if
+ * This appends a `fin_theme_preview` parameter to the REST API request URL if
  * the admin URL contains a `theme` GET parameter.
  *
- * If the REST API request URL has contained the `fp_theme_preview` parameter as `''`,
+ * If the REST API request URL has contained the `fin_theme_preview` parameter as `''`,
  * then bypass this middleware.
  *
  * @param themePath
@@ -21,35 +21,35 @@ const createThemePreviewMiddleware =
 	( themePath: Record< string, any > ): APIFetchMiddleware =>
 	( options, next ) => {
 		if ( typeof options.url === 'string' ) {
-			const fpThemePreview = getQueryArg(
+			const finThemePreview = getQueryArg(
 				options.url,
-				'fp_theme_preview'
+				'fin_theme_preview'
 			);
-			if ( fpThemePreview === undefined ) {
+			if ( finThemePreview === undefined ) {
 				options.url = addQueryArgs( options.url, {
-					fp_theme_preview: themePath,
+					fin_theme_preview: themePath,
 				} );
-			} else if ( fpThemePreview === '' ) {
+			} else if ( finThemePreview === '' ) {
 				options.url = removeQueryArgs(
 					options.url,
-					'fp_theme_preview'
+					'fin_theme_preview'
 				);
 			}
 		}
 
 		if ( typeof options.path === 'string' ) {
-			const fpThemePreview = getQueryArg(
+			const finThemePreview = getQueryArg(
 				options.path,
-				'fp_theme_preview'
+				'fin_theme_preview'
 			);
-			if ( fpThemePreview === undefined ) {
+			if ( finThemePreview === undefined ) {
 				options.path = addQueryArgs( options.path, {
-					fp_theme_preview: themePath,
+					fin_theme_preview: themePath,
 				} );
-			} else if ( fpThemePreview === '' ) {
+			} else if ( finThemePreview === '' ) {
 				options.path = removeQueryArgs(
 					options.path,
-					'fp_theme_preview'
+					'fin_theme_preview'
 				);
 			}
 		}

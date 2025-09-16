@@ -130,10 +130,10 @@ export async function selectGlobalInserterTab( label ) {
 async function focusSelectedBlock() {
 	// Ideally, there should be a UI way to focus the selected block.
 	await page.evaluate( () => {
-		fp.data
+		fin.data
 			.dispatch( 'core/block-editor' )
 			.selectBlock(
-				fp.data
+				fin.data
 					.select( 'core/block-editor' )
 					.getSelectedBlockClientId(),
 				0

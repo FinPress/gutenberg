@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/site-title",
 	"title": "Site Title",
@@ -76,6 +76,6 @@
 			"style": true
 		}
 	},
-	"editorStyle": "fp-block-site-title-editor",
-	"style": "fp-block-site-title"
+	"editorStyle": "fin-block-site-title-editor",
+	"style": "fin-block-site-title"
 }

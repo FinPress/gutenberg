@@ -26,7 +26,7 @@ function MobileNavigationItemView() {
 
 export const navigationItemRoute = {
 	name: 'navigation-item',
-	path: '/fp_navigation/:postId',
+	path: '/fin_navigation/:postId',
 	areas: {
 		sidebar( { siteData } ) {
 			const isBlockTheme = siteData.currentTheme?.is_block_theme;

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/navigation-submenu",
 	"title": "Submenu",
@@ -76,6 +76,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-navigation-submenu-editor",
-	"style": "fp-block-navigation-submenu"
+	"editorStyle": "fin-block-navigation-submenu-editor",
+	"style": "fin-block-navigation-submenu"
 }

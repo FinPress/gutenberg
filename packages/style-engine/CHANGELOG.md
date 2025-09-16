@@ -160,7 +160,7 @@
 
 ### Internal
 
--   Script loader: remove 6.1 fp actions ([#44519](https://github.com/FinPress/gutenberg/pull/44519))
+-   Script loader: remove 6.1 fin actions ([#44519](https://github.com/FinPress/gutenberg/pull/44519))
 
 ## 1.1.0 (2022-09-21)
 
@@ -185,4 +185,4 @@
 -   Add margin support to frontend ([#39790](https://github.com/FinPress/gutenberg/pull/39790)).
 -   Add basic block supports to backend ([#39446](https://github.com/FinPress/gutenberg/pull/39446)).
 -   Added initial version of the style engine ([#37978](https://github.com/FinPress/gutenberg/pull/37978)).
--   Include `@finpress/style-engine` on the list of external dependencies to allow using `fp.styleEngine` global with FinPress 6.1 and beyond ([#43840](https://github.com/FinPress/gutenberg/pull/43840)).
+-   Include `@finpress/style-engine` on the list of external dependencies to allow using `fin.styleEngine` global with FinPress 6.1 and beyond ([#43840](https://github.com/FinPress/gutenberg/pull/43840)).

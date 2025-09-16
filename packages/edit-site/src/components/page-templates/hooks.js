@@ -15,7 +15,7 @@ import {
  */
 import { TEMPLATE_ORIGINS } from '../../utils/constants';
 
-/** @typedef {'fp_template'|'fp_template_part'} TemplateType */
+/** @typedef {'fin_template'|'fin_template_part'} TemplateType */
 
 /**
  * @typedef {'theme'|'plugin'|'site'|'user'} AddedByType

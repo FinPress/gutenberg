@@ -68,13 +68,13 @@ function render_block_core_post_navigation_link( $attributes, $content ) {
 		 */
 		if ( ! $attributes['linkLabel'] ) {
 			if ( $label ) {
-				$format = '<span class="post-navigation-link__label">' . fp_kses_post( $label ) . '</span> %link';
+				$format = '<span class="post-navigation-link__label">' . fin_kses_post( $label ) . '</span> %link';
 			}
 			$link = '%title';
 		} elseif ( isset( $attributes['linkLabel'] ) && $attributes['linkLabel'] ) {
 			// If the label link option is enabled and there is a custom label, display it before the title.
 			if ( $label ) {
-				$link = '<span class="post-navigation-link__label">' . fp_kses_post( $label ) . '</span> <span class="post-navigation-link__title">%title</span>';
+				$link = '<span class="post-navigation-link__label">' . fin_kses_post( $label ) . '</span> <span class="post-navigation-link__title">%title</span>';
 			} else {
 				/*
 				 * If the label link option is enabled and there is no custom label,
@@ -83,7 +83,7 @@ function render_block_core_post_navigation_link( $attributes, $content ) {
 				$label = 'next' === $navigation_type ? _x( 'Next:', 'label before the title of the next post' ) : _x( 'Previous:', 'label before the title of the previous post' );
 				$link  = sprintf(
 					'<span class="post-navigation-link__label">%1$s</span> <span class="post-navigation-link__title">%2$s</span>',
-					fp_kses_post( $label ),
+					fin_kses_post( $label ),
 					'%title'
 				);
 			}
@@ -95,9 +95,9 @@ function render_block_core_post_navigation_link( $attributes, $content ) {
 		$arrow = $arrow_map[ $attributes['arrow'] ][ $navigation_type ];
 
 		if ( 'next' === $navigation_type ) {
-			$format = '%link<span class="fp-block-post-navigation-link__arrow-next is-arrow-' . $attributes['arrow'] . '" aria-hidden="true">' . $arrow . '</span>';
+			$format = '%link<span class="fin-block-post-navigation-link__arrow-next is-arrow-' . $attributes['arrow'] . '" aria-hidden="true">' . $arrow . '</span>';
 		} else {
-			$format = '<span class="fp-block-post-navigation-link__arrow-previous is-arrow-' . $attributes['arrow'] . '" aria-hidden="true">' . $arrow . '</span>%link';
+			$format = '<span class="fin-block-post-navigation-link__arrow-previous is-arrow-' . $attributes['arrow'] . '" aria-hidden="true">' . $arrow . '</span>%link';
 		}
 	}
 

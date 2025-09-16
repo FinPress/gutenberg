@@ -27,11 +27,11 @@ How to manage block updates depends on the nature of the block itself. If the bl
 If needed, one potential workaround for patterns with custom styles is to add a class name to the wrapping block for a pattern. For example, the following adds a themeslug-special class to a Group block:
 
 ```
-<!-- fp:group {"className":"themeslug-special"} -->
-<div class="fp-block-group themeslug-special">
+<!-- fin:group {"className":"themeslug-special"} -->
+<div class="fin-block-group themeslug-special">
 	<!-- Nested pattern blocks -->
 </div>
-<!-- /fp:group -->
+<!-- /fin:group -->
 ```
 
 It is not fool-proof because users can modify the class via the editor UI.  However, because this setting is under the "Advanced" panel it is likely to stay intact in most instances. This gives theme authors some CSS control for some pattern types, allowing them to update existing uses. However, it does not prevent users from making massive alterations that cannot be updated.

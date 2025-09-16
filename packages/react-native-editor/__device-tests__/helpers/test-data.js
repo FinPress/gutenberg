@@ -12,233 +12,233 @@ The finer continuum interprets the polynomial rabbit. When can the geology runs?
 
 exports.listItem1 = `Milk`;
 exports.listItem2 = `Honey`;
-exports.listHtml = `<!-- fp:list -->
+exports.listHtml = `<!-- fin:list -->
 <ul><li>Milk</li><li>Honey</li></ul>
-<!-- /fp:list -->`;
-exports.listHtmlOrdered = `<!-- fp:list {"ordered":true} -->
+<!-- /fin:list -->`;
+exports.listHtmlOrdered = `<!-- fin:list {"ordered":true} -->
 <ol><li>Milk</li><li>Honey</li></ol>
-<!-- /fp:list -->`;
-exports.listEndedHtml = `<!-- fp:list -->
+<!-- /fin:list -->`;
+exports.listEndedHtml = `<!-- fin:list -->
 <ul><li>Milk</li></ul>
-<!-- /fp:list -->
+<!-- /fin:list -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 exports.heading = 'Lorem Ipsum';
 
 exports.pastePlainText = `Hello paste`;
 
-const pastedHtmlText = `<!-- fp:paragraph -->
+const pastedHtmlText = `<!-- fin:paragraph -->
 <p><strong>Hello</strong> paste</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
 exports.pasteHtmlText = pastedHtmlText;
 
 exports.pasteHtmlTextResult = `${ pastedHtmlText }\n\n${ pastedHtmlText }`;
 
-exports.deviceRotationHtml = `<!-- fp:paragraph -->
+exports.deviceRotationHtml = `<!-- fin:paragraph -->
 <p>The finer continuum interprets the polynomial rabbit. When can the geology runs? An astronomer runs. Should a communist consent?</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>The finer continuum interprets the polynomial rabbit. When can the geology runs? An astronomer runs. Should a communist consent?</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
-exports.blockInsertionHtml = `<!-- fp:paragraph -->
+exports.blockInsertionHtml = `<!-- fin:paragraph -->
 <p>Beneath the busy continuum blinks the ineffective husband. Why a metric now outside the official subway? How can the prompt crop exhaust his tree </p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Does this chord crowd my emptied search? A theory bubbles under the cartoon. The discontinued speaker cracks every thick epic. extraordinary twin shifts behind</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>The finer continuum interprets the polynomial rabbit. When can the geology runs? An astronomer runs. Should a communist consent?</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>The finer continuum interprets the polynomial rabbit. When can the geology runs? An astronomer runs. Should a communist consent?</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
-exports.blockInsertionHtmlFromTitle = `<!-- fp:paragraph -->
+exports.blockInsertionHtmlFromTitle = `<!-- fin:paragraph -->
 <p>The finer continuum interprets the polynomial rabbit. When can the geology runs? An astronomer runs. Should a communist consent?</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Beneath the busy continuum blinks the ineffective husband. Why a metric now outside the official subway? How can the prompt crop exhaust his tree </p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Does this chord crowd my emptied search? A theory bubbles under the cartoon. The discontinued speaker cracks every thick epic. extraordinary twin shifts behind</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>The finer continuum interprets the polynomial rabbit. When can the geology runs? An astronomer runs. Should a communist consent?</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
 exports.imageCaption = `Autumn meets winter`;
 
-exports.imageCompletehtml = `<!-- fp:image {"id":1,"sizeslug":"large"} -->
-<figure class="fp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/><figcaption>C'est la vie my friends</figcaption></figure>
-<!-- /fp:image -->
+exports.imageCompletehtml = `<!-- fin:image {"id":1,"sizeslug":"large"} -->
+<figure class="fin-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/><figcaption>C'est la vie my friends</figcaption></figure>
+<!-- /fin:image -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Beneath the busy continuum blinks the ineffective husband. Why a metric now outside the official subway? How can the prompt crop exhaust his tree </p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Does this chord crowd my emptied search? A theory bubbles under the cartoon. The discontinued speaker cracks every thick epic. extraordinary twin shifts behind</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>The finer continuum interprets the polynomial rabbit. When can the geology runs? An astronomer runs. Should a communist consent?</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
-exports.imageShortHtml = `<!-- fp:image {"id":1,"sizeslug":"large"} -->
-<figure class="fp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="A snow-capped mountain top in a cloudy sky with red-leafed trees in the foreground" class="fp-image-1"/><figcaption class="fp-element-caption">Autumn meets winter</figcaption></figure>
-<!-- /fp:image -->`;
+exports.imageShortHtml = `<!-- fin:image {"id":1,"sizeslug":"large"} -->
+<figure class="fin-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="A snow-capped mountain top in a cloudy sky with red-leafed trees in the foreground" class="fin-image-1"/><figcaption class="fin-element-caption">Autumn meets winter</figcaption></figure>
+<!-- /fin:image -->`;
 
-exports.unsupportedBlockHtml = `<!-- fp:jetpack/gif {"giphyUrl":"https://giphy.com/embed/3orieS4jfHJaKwkeli","searchText":"example"} /-->`;
+exports.unsupportedBlockHtml = `<!-- fin:jetpack/gif {"giphyUrl":"https://giphy.com/embed/3orieS4jfHJaKwkeli","searchText":"example"} /-->`;
 
-exports.columnsWithDifferentUnitsHtml = `<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"35%"} -->
-<div class="fp-block-column" style="flex-basis:35%"></div>
-<!-- /fp:column -->
+exports.columnsWithDifferentUnitsHtml = `<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"35%"} -->
+<div class="fin-block-column" style="flex-basis:35%"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"width":"55vw"} -->
-<div class="fp-block-column" style="flex-basis:55vw"></div>
-<!-- /fp:column -->
+<!-- fin:column {"width":"55vw"} -->
+<div class="fin-block-column" style="flex-basis:55vw"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"width":"74rem"} -->
-<div class="fp-block-column" style="flex-basis:74rem"></div>
-<!-- /fp:column -->
+<!-- fin:column {"width":"74rem"} -->
+<div class="fin-block-column" style="flex-basis:74rem"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"width":"74em"} -->
-<div class="fp-block-column" style="flex-basis:74em"></div>
-<!-- /fp:column -->
+<!-- fin:column {"width":"74em"} -->
+<div class="fin-block-column" style="flex-basis:74em"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"width":"82px"} -->
-<div class="fp-block-column" style="flex-basis:82px"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->
+<!-- fin:column {"width":"82px"} -->
+<div class="fin-block-column" style="flex-basis:82px"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->
 `;
 
-exports.coverHeightWithRemUnit = `<!-- fp:cover {"customOverlayColor":"#ffffff","minHeight":20,"minHeightUnit":"rem"} -->
-<div class="fp-block-cover has-background-dim" style="background-color:#ffffff;min-height:20rem"><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"align":"center","placeholder":"Write title…"} -->
+exports.coverHeightWithRemUnit = `<!-- fin:cover {"customOverlayColor":"#ffffff","minHeight":20,"minHeightUnit":"rem"} -->
+<div class="fin-block-cover has-background-dim" style="background-color:#ffffff;min-height:20rem"><div class="fin-block-cover__inner-container"><!-- fin:paragraph {"align":"center","placeholder":"Write title…"} -->
 <p class="has-text-align-center"></p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:cover -->`;
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:cover -->`;
 
-exports.fileBlockPlaceholder = `<!-- fp:file {"id":3,"href":"https://finpress.org/latest.zip"} -->
-<div class="fp-block-file"><a href="https://finpress.org/latest.zip">FinPress.zip</a><a href="https://finpress.org/latest.zip" class="fp-block-file__button fp-element-button" download>Download</a></div>
-<!-- /fp:file -->`;
+exports.fileBlockPlaceholder = `<!-- fin:file {"id":3,"href":"https://finpress.org/latest.zip"} -->
+<div class="fin-block-file"><a href="https://finpress.org/latest.zip">FinPress.zip</a><a href="https://finpress.org/latest.zip" class="fin-block-file__button fin-element-button" download>Download</a></div>
+<!-- /fin:file -->`;
 
-exports.audioBlockPlaceholder = `<!-- fp:audio {"id":5} -->
-<figure class="fp-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3"></audio></figure>
-<!-- /fp:audio -->`;
+exports.audioBlockPlaceholder = `<!-- fin:audio {"id":5} -->
+<figure class="fin-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3"></audio></figure>
+<!-- /fin:audio -->`;
 
-exports.headerBlockEmpty = `<!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading -->`;
+exports.headerBlockEmpty = `<!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading -->`;
 
-exports.separatorBlockEmpty = `<!-- fp:separator -->
-<hr class="fp-block-separator has-alpha-channel-opacity"/>
-<!-- /fp:separator -->`;
+exports.separatorBlockEmpty = `<!-- fin:separator -->
+<hr class="fin-block-separator has-alpha-channel-opacity"/>
+<!-- /fin:separator -->`;
 
-exports.listBlockEmpty = `<!-- fp:list -->
-<ul><!-- fp:list-item -->
+exports.listBlockEmpty = `<!-- fin:list -->
+<ul><!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`;
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`;
 
-exports.imageBlockEmpty = `<!-- fp:image -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image -->`;
+exports.imageBlockEmpty = `<!-- fin:image -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image -->`;
 
-exports.moreBlockEmpty = `<!-- fp:more -->
+exports.moreBlockEmpty = `<!-- fin:more -->
 <!--more-->
-<!-- /fp:more -->`;
+<!-- /fin:more -->`;
 
-exports.paragraphBlockEmpty = `<!-- fp:paragraph -->
+exports.paragraphBlockEmpty = `<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
-exports.paragraphBlockShortText = `<!-- fp:paragraph -->
+exports.paragraphBlockShortText = `<!-- fin:paragraph -->
 <p>Rock music approaches at high velocity.</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
-exports.multiLinesParagraphBlock = `<!-- fp:paragraph -->
+exports.multiLinesParagraphBlock = `<!-- fin:paragraph -->
 <p>multiple lines<br>multiple lines<br>multiple lines</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
-exports.unknownElementParagraphBlock = `<!-- fp:paragraph -->
+exports.unknownElementParagraphBlock = `<!-- fin:paragraph -->
 <p><unknownhtmlelement>abc</unknownhtmlelement>D</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
-exports.lettersInParagraphBlock = `<!-- fp:paragraph -->
+exports.lettersInParagraphBlock = `<!-- fin:paragraph -->
 <p>ABCD</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
-exports.spacerBlock = `<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->`;
+exports.spacerBlock = `<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->`;
 
-exports.galleryBlock = `<!-- fp:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
-<figure class="fp-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://cldup.com/njpygC0aF7.png"" alt=""/><figcaption class="fp-element-caption">Paragraph</figcaption></figure>
-<!-- /fp:image -->
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://cldup.com/HOeupVqCwe.png" alt=""/><figcaption class="fp-element-caption">Heading</figcaption></figure>
-<!-- /fp:image -->
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://cldup.com/s-OlAVlGJS.png" alt=""/><figcaption class="fp-element-caption">Image</figcaption></figure>
-<!-- /fp:image -->
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://cldup.com/aBnr4SymR1.png" alt=""/><figcaption class="fp-element-caption">Cover</figcaption></figure>
-<!-- /fp:image -->
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://cldup.com/aDIyKHI6Up.png" alt=""/><figcaption class="fp-element-caption">Video</figcaption></figure>
-<!-- /fp:image -->
+exports.galleryBlock = `<!-- fin:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
+<figure class="fin-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://cldup.com/njpygC0aF7.png"" alt=""/><figcaption class="fin-element-caption">Paragraph</figcaption></figure>
+<!-- /fin:image -->
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://cldup.com/HOeupVqCwe.png" alt=""/><figcaption class="fin-element-caption">Heading</figcaption></figure>
+<!-- /fin:image -->
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://cldup.com/s-OlAVlGJS.png" alt=""/><figcaption class="fin-element-caption">Image</figcaption></figure>
+<!-- /fin:image -->
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://cldup.com/aBnr4SymR1.png" alt=""/><figcaption class="fin-element-caption">Cover</figcaption></figure>
+<!-- /fin:image -->
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://cldup.com/aDIyKHI6Up.png" alt=""/><figcaption class="fin-element-caption">Video</figcaption></figure>
+<!-- /fin:image -->
 </figure>
-<!-- /fp:gallery -->`;
+<!-- /fin:gallery -->`;
 
-exports.galleryBlockTwoImages = `<!-- fp:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
-<figure class="fp-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://cldup.com/njpygC0aF7.png" alt=""/><figcaption class="fp-element-caption">Paragraph</figcaption></figure>
-<!-- /fp:image -->
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://cldup.com/s-OlAVlGJS.png" alt=""/><figcaption class="fp-element-caption">Image</figcaption></figure>
-<!-- /fp:image -->
+exports.galleryBlockTwoImages = `<!-- fin:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
+<figure class="fin-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://cldup.com/njpygC0aF7.png" alt=""/><figcaption class="fin-element-caption">Paragraph</figcaption></figure>
+<!-- /fin:image -->
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://cldup.com/s-OlAVlGJS.png" alt=""/><figcaption class="fin-element-caption">Image</figcaption></figure>
+<!-- /fin:image -->
 </figure>
-<!-- /fp:gallery -->`;
+<!-- /fin:gallery -->`;
 
-exports.groupNestedStructure = `<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:paragraph {"style":{"color":{"background":"#f9d0d0"}}} -->
+exports.groupNestedStructure = `<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:paragraph {"style":{"color":{"background":"#f9d0d0"}}} -->
 <p class="has-background" style="background-color:#f9d0d0">Level 1</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:spacer {"height":"50px"} -->
-<div style="height:50px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->
+<!-- fin:spacer {"height":"50px"} -->
+<div style="height:50px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->
 
-<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:paragraph {"style":{"color":{"background":"#d5f0ab"}}} -->
+<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:paragraph {"style":{"color":{"background":"#d5f0ab"}}} -->
 <p class="has-background" style="background-color:#d5f0ab">Level 2</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:spacer {"height":"50px"} -->
-<div style="height:50px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->
+<!-- fin:spacer {"height":"50px"} -->
+<div style="height:50px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->
 
-<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:paragraph {"style":{"color":{"background":"#c3e5ff"}}} -->
+<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:paragraph {"style":{"color":{"background":"#c3e5ff"}}} -->
 <p class="has-background" style="background-color:#c3e5ff">Level 3</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:spacer {"height":"50px"} -->
-<div style="height:50px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer --></div>
-<!-- /fp:group --></div>
-<!-- /fp:group --></div>
-<!-- /fp:group -->`;
+<!-- fin:spacer {"height":"50px"} -->
+<div style="height:50px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer --></div>
+<!-- /fin:group --></div>
+<!-- /fin:group --></div>
+<!-- /fin:group -->`;

@@ -1,11 +1,11 @@
-.fp-block-text-columns {
+.fin-block-text-columns {
 	display: flex;
 
 	&.aligncenter {
 		display: flex;
 	}
 
-	.fp-block-column {
+	.fin-block-column {
 		margin: 0 1em;
 		padding: 0;
 
@@ -18,13 +18,13 @@
 		}
 	}
 
-	&.columns-2 .fp-block-column {
+	&.columns-2 .fin-block-column {
 		width: calc(100% / 2);
 	}
-	&.columns-3 .fp-block-column {
+	&.columns-3 .fin-block-column {
 		width: calc(100% / 3);
 	}
-	&.columns-4 .fp-block-column {
+	&.columns-4 .fin-block-column {
 		width: calc(100% / 4);
 	}
 }

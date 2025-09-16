@@ -1,10 +1,10 @@
 ( function () {
-	const { createElement: el, Fragment } = fp.element;
-	const { registerBlockType } = fp.blocks;
-	const { InspectorControls, useBlockProps } = fp.blockEditor;
-	const ServerSideRender = fp.serverSideRender;
+	const { createElement: el, Fragment } = fin.element;
+	const { registerBlockType } = fin.blocks;
+	const { InspectorControls, useBlockProps } = fin.blockEditor;
+	const ServerSideRender = fin.serverSideRender;
 	const { PanelBody, __experimentalNumberControl: NumberControl } =
-		fp.components;
+		fin.components;
 
 	registerBlockType( 'test/server-side-rendered-block', {
 		apiVersion: 3,

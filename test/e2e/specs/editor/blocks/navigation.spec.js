@@ -66,7 +66,7 @@ test.describe( 'Navigation block', () => {
 			await editor.publishPost();
 			const content = await editor.getEditedPostContent();
 
-			expect( content ).toMatch( /<!-- fp:navigation {"ref":\d+} \/-->/ );
+			expect( content ).toMatch( /<!-- fin:navigation {"ref":\d+} \/-->/ );
 		} );
 
 		test( 'default to my only existing menu', async ( {
@@ -79,7 +79,7 @@ test.describe( 'Navigation block', () => {
 			const createdMenu = await requestUtils.createNavigationMenu( {
 				title: 'Test Menu 1',
 				content:
-					'<!-- fp:navigation-link {"label":"FinPress","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /-->',
+					'<!-- fin:navigation-link {"label":"FinPress","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /-->',
 			} );
 
 			await editor.insertBlock( { name: 'core/navigation' } );
@@ -157,7 +157,7 @@ test.describe( 'Navigation block', () => {
 			await requestUtils.createNavigationMenu( {
 				title: 'Test Menu 1',
 				content:
-					'<!-- fp:navigation-link {"label":"Menu 1 Link","type":"custom","url":"http://localhost:8889/#menu-1-link","kind":"custom"} /-->',
+					'<!-- fin:navigation-link {"label":"Menu 1 Link","type":"custom","url":"http://localhost:8889/#menu-1-link","kind":"custom"} /-->',
 			} );
 
 			//FIXME this is needed because if the two menus are created at the same time, the API will return them in the wrong order.
@@ -167,7 +167,7 @@ test.describe( 'Navigation block', () => {
 			const latestMenu = await requestUtils.createNavigationMenu( {
 				title: 'Test Menu 2',
 				content:
-					'<!-- fp:navigation-link {"label":"Menu 2 Link","type":"custom","url":"http://localhost:8889/#menu-2-link","kind":"custom"} /-->',
+					'<!-- fin:navigation-link {"label":"Menu 2 Link","type":"custom","url":"http://localhost:8889/#menu-2-link","kind":"custom"} /-->',
 			} );
 
 			await editor.insertBlock( { name: 'core/navigation' } );
@@ -249,7 +249,7 @@ test.describe( 'Navigation block', () => {
 			await requestUtils.createNavigationMenu( {
 				title: 'Test Menu',
 				content:
-					'<!-- fp:navigation-submenu {"label":"FinPress","type":"custom","url":"http://www.finpress.org/","kind":"custom"} --><!-- fp:navigation-link {"label":"FinPress Child","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /--><!-- /fp:navigation-submenu -->',
+					'<!-- fin:navigation-submenu {"label":"FinPress","type":"custom","url":"http://www.finpress.org/","kind":"custom"} --><!-- fin:navigation-link {"label":"FinPress Child","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /--><!-- /fin:navigation-submenu -->',
 			} );
 
 			await editor.insertBlock( { name: 'core/navigation' } );

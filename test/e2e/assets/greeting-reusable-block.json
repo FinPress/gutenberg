@@ -1,5 +1,5 @@
 {
-	"__file": "fp_block",
+	"__file": "fin_block",
 	"title": "Greeting",
-	"content": "<!-- fp:paragraph -->\n<p>Hello there</p>\n<!-- /fp:paragraph -->"
+	"content": "<!-- fin:paragraph -->\n<p>Hello there</p>\n<!-- /fin:paragraph -->"
 }

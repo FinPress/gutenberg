@@ -30,7 +30,7 @@ type ImportMap = {
 const baseUrl = document.baseURI;
 const pageBaseUrl = baseUrl;
 
-Object.defineProperty( self, 'fpInteractivityRouterImport', {
+Object.defineProperty( self, 'finInteractivityRouterImport', {
 	value: importShim,
 	writable: false,
 	enumerable: false,

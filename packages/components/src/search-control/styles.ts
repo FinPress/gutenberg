@@ -37,6 +37,6 @@ export const StyledInputControl = styled( InputControl )`
 	}
 
 	&:not( :focus-within ) {
-		--fp-components-color-background: ${ COLORS.theme.gray[ 100 ] };
+		--fin-components-color-background: ${ COLORS.theme.gray[ 100 ] };
 	}
 `;

@@ -24,7 +24,7 @@ function myguten_admin_notice() {
 		return;
 	}
 	// Render the notice's HTML.
-	fp_admin_notice(
+	fin_admin_notice(
 		sprintf( __( 'Post draft updated. <a href="%s" target="_blank">Preview post</a>' ), get_preview_post_link() ),
 		array(
 			'type'        => 'success',
@@ -46,8 +46,8 @@ In the block editor, here's an example of the "Post published" notice:
 Producing an equivalent "Post published" notice would require code like this:
 
 ```js
-( function ( fp ) {
-	fp.data.dispatch( 'core/notices' ).createNotice(
+( function ( fin ) {
+	fin.data.dispatch( 'core/notices' ).createNotice(
 		'success', // Can be one of: success, info, warning, error.
 		'Post published.', // Text string to display.
 		{
@@ -61,16 +61,16 @@ Producing an equivalent "Post published" notice would require code like this:
 			],
 		}
 	);
-} )( window.fp );
+} )( window.fin );
 ```
 
 You'll want to use this _Notices Data API_ when producing a notice from within the JavaScript application lifecycle.
 
 To better understand the specific code example above:
 
--   `fp` is FinPress global window variable.
--   `fp.data` is an object provided by the block editor for accessing the block editor data store.
--   `fp.data.dispatch('core/notices')` accesses functionality registered to the block editor data store by the Notices package.
+-   `fin` is FinPress global window variable.
+-   `fin.data` is an object provided by the block editor for accessing the block editor data store.
+-   `fin.data.dispatch('core/notices')` accesses functionality registered to the block editor data store by the Notices package.
 -   `createNotice()` is a function offered by the Notices package to register a new notice. The block editor reads from the notice data store in order to know which notices to display.
 
 Check out the [_Enqueueing assets in the Editor_](/docs/how-to-guides/enqueueing-assets-in-the-editor.md) tutorial for a primer on how to load your custom JavaScript into the block editor.

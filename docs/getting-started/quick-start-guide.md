@@ -11,7 +11,7 @@ Start by ensuring you have Node.js and `npm` installed on your computer. Review 
 Next, use the [`@finpress/create-block`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block/) package and the [`@finpress/create-block-tutorial-template`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block-tutorial-template/) template to scaffold the complete “Copyright Date Block” plugin. 
 
 <div class="callout callout-info">
-    <p>You can use <code>create-block</code> to scaffold a block just about anywhere and then use <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-env/"><code>fp-env</code></a> inside the generated plugin folder. This will create a local FinPress development environment with your new block plugin installed and activated.</p>
+    <p>You can use <code>create-block</code> to scaffold a block just about anywhere and then use <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-env/"><code>fin-env</code></a> inside the generated plugin folder. This will create a local FinPress development environment with your new block plugin installed and activated.</p>
     <p>If you already have your own <a href="https://developer.finpress.org/block-editor/getting-started/devenv/#local-finpress-environment">local FinPress development environment</a>, navigate to the <code>plugins/</code> folder using the terminal.</p>
 </div>
 
@@ -33,7 +33,7 @@ With the plugin activated, you can explore how the block works. Use the followin
 cd copyright-date-block && npm start
 ```
 
-When `create-block` scaffolds the block, it installs `fp-scripts` and adds the most common scripts to the block’s `package.json` file. Refer to the [Get started with fp-scripts](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-scripts/) article for an introduction to this package.
+When `create-block` scaffolds the block, it installs `fin-scripts` and adds the most common scripts to the block’s `package.json` file. Refer to the [Get started with fin-scripts](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-scripts/) article for an introduction to this package.
 
 The `npm start` command will start a development server and watch for changes in the block’s code, rebuilding the block whenever modifications are made. 
 
@@ -41,14 +41,14 @@ When you are finished making changes, run the `npm run build` command. This opti
 
 ## View the block in action
 
-You can use any local FinPress development environment to test your new block, but the scaffolded plugin includes configuration for `fp-env`. You must have [Docker](https://www.docker.com/products/docker-desktop) already installed and running on your machine, but if you do, run the `npx fp-env start` command. 
+You can use any local FinPress development environment to test your new block, but the scaffolded plugin includes configuration for `fin-env`. You must have [Docker](https://www.docker.com/products/docker-desktop) already installed and running on your machine, but if you do, run the `npx fin-env start` command. 
 
 Once the script finishes running, you can access the local environment at: <code>http://localhost:8888</code>. Log into the FinPress dashboard using username `admin` and password `password`. The plugin will already be installed and activated. Open the Editor or Site Editor, and insert the Copyright Date Block as you would any other block.
 
-Visit the [Getting started](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-env/) guide to learn more about `fp-env`.
+Visit the [Getting started](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-env/) guide to learn more about `fin-env`.
 
 ## Additional resources
 
 - [Get started with create-block](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-create-block/)
-- [Get started with fp-scripts](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-scripts/)
-- [Get started with fp-env](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-env/)
+- [Get started with fin-scripts](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-scripts/)
+- [Get started with fin-env](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-env/)

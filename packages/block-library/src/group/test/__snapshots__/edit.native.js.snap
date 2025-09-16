@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Group block inserts block and adds a Heading block as an inner block 1`] = `
-"<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading --></div>
-<!-- /fp:group -->"
+"<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading --></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Group block ungroups inner blocks 1`] = `
-"<!-- fp:image -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image -->
+"<!-- fin:image -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image -->
 
-<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->"
+<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->"
 `;

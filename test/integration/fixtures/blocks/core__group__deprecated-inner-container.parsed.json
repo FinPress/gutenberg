@@ -21,9 +21,9 @@
 				"innerContent": [ "\n\t\t<p>Group block content.</p>\n\t\t" ]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-group alignfull has-secondary-background-color has-background\">\n\t<div class=\"fp-block-group__inner-container\">\n\t\t\n\n\t\t\n\t</div>\n</div>\n",
+		"innerHTML": "\n<div class=\"fin-block-group alignfull has-secondary-background-color has-background\">\n\t<div class=\"fin-block-group__inner-container\">\n\t\t\n\n\t\t\n\t</div>\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-group alignfull has-secondary-background-color has-background\">\n\t<div class=\"fp-block-group__inner-container\">\n\t\t",
+			"\n<div class=\"fin-block-group alignfull has-secondary-background-color has-background\">\n\t<div class=\"fin-block-group__inner-container\">\n\t\t",
 			null,
 			"\n\n\t\t",
 			null,

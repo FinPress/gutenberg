@@ -31,10 +31,10 @@
 	&:focus-visible .edit-site-global-styles-variations_item-preview {
 		outline-color: $gray-900;
 		outline-offset: $border-width;
-		outline-width: var(--fp-admin-border-width-focus);
+		outline-width: var(--fin-admin-border-width-focus);
 	}
 
 	&:focus-visible .edit-site-global-styles-variations_item-preview {
-		outline-color: var(--fp-admin-theme-color);
+		outline-color: var(--fin-admin-theme-color);
 	}
 }

@@ -50,21 +50,21 @@ function gutenberg_build_files_notice() {
  *
  * @since 1.5.0
  *
- * @global string $fp_version             The FinPress version string.
+ * @global string $fin_version             The FinPress version string.
  *
  */
 function gutenberg_pre_init() {
-	global $fp_version;
+	global $fin_version;
 	if ( defined( 'GUTENBERG_DEVELOPMENT_MODE' ) && GUTENBERG_DEVELOPMENT_MODE && ! file_exists( __DIR__ . '/build/blocks' ) ) {
 		add_action( 'admin_notices', 'gutenberg_build_files_notice' );
 		return;
 	}
 
-	// Get unmodified $fp_version.
+	// Get unmodified $fin_version.
 	include ABSPATH . FPINC . '/version.php';
 
 	// Strip '-src' from the version string. Messes up version_compare().
-	$version = str_replace( '-src', '', $fp_version );
+	$version = str_replace( '-src', '', $fin_version );
 
 	// Compare against major release versions (X.Y) rather than minor (X.Y.Z)
 	// unless a minor release is the actual minimum requirement. FinPress reports

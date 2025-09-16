@@ -1,7 +1,7 @@
 ( function () {
-	const registerBlockType = fp.blocks.registerBlockType;
-	const { useBlockProps, RichText } = fp.blockEditor;
-	const el = fp.element.createElement;
+	const registerBlockType = fin.blocks.registerBlockType;
+	const { useBlockProps, RichText } = fin.blockEditor;
+	const el = fin.element.createElement;
 
 	registerBlockType( 'core/deprecated-children-matcher', {
 		apiVersion: 3,

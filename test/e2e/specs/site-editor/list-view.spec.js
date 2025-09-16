@@ -16,7 +16,7 @@ test.describe( 'Site Editor List View', () => {
 		// Select a template part with a few blocks.
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//header',
-			postType: 'fp_template_part',
+			postType: 'fin_template_part',
 			canvas: 'edit',
 		} );
 	} );

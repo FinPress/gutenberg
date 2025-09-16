@@ -26,7 +26,7 @@ function render_block_core_post_content( $attributes, $content, $block ) {
 
 	if ( isset( $seen_ids[ $post_id ] ) ) {
 		// FP_DEBUG_DISPLAY must only be honored when FP_DEBUG. This precedent
-		// is set in `fp_debug_mode()`.
+		// is set in `fin_debug_mode()`.
 		$is_debug = FP_DEBUG && FP_DEBUG_DISPLAY;
 
 		return $is_debug ?
@@ -43,10 +43,10 @@ function render_block_core_post_content( $attributes, $content, $block ) {
 	$content = get_the_content();
 	// Check for nextpage to display page links for paginated posts.
 	if ( has_block( 'core/nextpage' ) ) {
-		$content .= fp_link_pages( array( 'echo' => 0 ) );
+		$content .= fin_link_pages( array( 'echo' => 0 ) );
 	}
 
-	/** This filter is documented in fp-includes/post-template.php */
+	/** This filter is documented in fin-includes/post-template.php */
 	$content = apply_filters( 'the_content', str_replace( ']]>', ']]&gt;', $content ) );
 	unset( $seen_ids[ $post_id ] );
 

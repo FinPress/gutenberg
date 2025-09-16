@@ -12,7 +12,7 @@ export type BaseControlProps = {
 	__nextHasNoMarginBottom?: boolean;
 	/**
 	 * Temporary private prop for showing better deprecation messages,
-	 * e.g. `Some feature from fp.components.${ __associatedFPControl } is deprecated`.
+	 * e.g. `Some feature from fin.components.${ __associatedFPControl } is deprecated`.
 	 *
 	 * @ignore
 	 */

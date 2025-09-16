@@ -133,7 +133,7 @@ Regular editor styles are opt-in and work as is in most cases. Themes can also l
 
 ```php
 function gutenbergtheme_editor_styles() {
-    fp_enqueue_style( 'gutenbergtheme-blocks-style', get_template_directory_uri() . '/blocks.css');
+    fin_enqueue_style( 'gutenbergtheme-blocks-style', get_template_directory_uri() . '/blocks.css');
 }
 add_action( 'enqueue_block_editor_assets', 'gutenbergtheme_editor_styles' );
 ```
@@ -207,7 +207,7 @@ We suggest you look at the [Gutenberg key concepts](/docs/explanations/architect
 In JS:
 
 ```js
-var blocks = fp.blocks.parse( postContent );
+var blocks = fin.blocks.parse( postContent );
 ```
 
 In PHP:

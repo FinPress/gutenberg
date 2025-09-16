@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/site-logo",
 	"title": "Site Logo",
@@ -64,9 +64,9 @@
 	],
 	"selectors": {
 		"filter": {
-			"duotone": ".fp-block-site-logo img, .fp-block-site-logo .components-placeholder__illustration, .fp-block-site-logo .components-placeholder::before"
+			"duotone": ".fin-block-site-logo img, .fin-block-site-logo .components-placeholder__illustration, .fin-block-site-logo .components-placeholder::before"
 		}
 	},
-	"editorStyle": "fp-block-site-logo-editor",
-	"style": "fp-block-site-logo"
+	"editorStyle": "fin-block-site-logo-editor",
+	"style": "fin-block-site-logo"
 }

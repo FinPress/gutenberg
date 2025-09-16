@@ -28,8 +28,8 @@ exports[`props should render alignment 1`] = `
 <div>
   <div
     class="components-flex components-h-stack emotion-0 emotion-1"
-    data-fp-c16t="true"
-    data-fp-component="HStack"
+    data-fin-c16t="true"
+    data-fin-component="HStack"
   >
     <div
       class="emotion-2 emotion-1"
@@ -68,8 +68,8 @@ exports[`props should render correctly 1`] = `
 <div>
   <div
     class="components-flex components-h-stack emotion-0 emotion-1"
-    data-fp-c16t="true"
-    data-fp-component="HStack"
+    data-fin-c16t="true"
+    data-fin-component="HStack"
   >
     <div
       class="emotion-2 emotion-1"
@@ -108,8 +108,8 @@ exports[`props should render spacing 1`] = `
 <div>
   <div
     class="components-flex components-h-stack emotion-0 emotion-1"
-    data-fp-c16t="true"
-    data-fp-component="HStack"
+    data-fin-c16t="true"
+    data-fin-component="HStack"
   >
     <div
       class="emotion-2 emotion-1"

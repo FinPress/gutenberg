@@ -3,7 +3,7 @@
 		"blockName": null,
 		"attrs": {},
 		"innerBlocks": [],
-		"innerHTML": "<!-- fp:core/invalid-Capitals /-->",
-		"innerContent": [ "<!-- fp:core/invalid-Capitals /-->" ]
+		"innerHTML": "<!-- fin:core/invalid-Capitals /-->",
+		"innerContent": [ "<!-- fin:core/invalid-Capitals /-->" ]
 	}
 ]

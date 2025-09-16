@@ -7,7 +7,7 @@ import SidebarNavigationScreenUnsupported from '../sidebar-navigation-screen-uns
 
 export const templateItemRoute = {
 	name: 'template-item',
-	path: '/fp_template/*postId',
+	path: '/fin_template/*postId',
 	areas: {
 		sidebar( { siteData } ) {
 			const isBlockTheme = siteData.currentTheme?.is_block_theme;

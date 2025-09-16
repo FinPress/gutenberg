@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"__experimental": true,
 	"name": "core/form-input",
@@ -21,7 +21,7 @@
 		"label": {
 			"type": "rich-text",
 			"default": "Label",
-			"selector": ".fp-block-form-input__label-content",
+			"selector": ".fin-block-form-input__label-content",
 			"source": "rich-text",
 			"role": "content"
 		},
@@ -32,13 +32,13 @@
 		"required": {
 			"type": "boolean",
 			"default": false,
-			"selector": ".fp-block-form-input__input",
+			"selector": ".fin-block-form-input__input",
 			"source": "attribute",
 			"attribute": "required"
 		},
 		"placeholder": {
 			"type": "string",
-			"selector": ".fp-block-form-input__input",
+			"selector": ".fin-block-form-input__input",
 			"source": "attribute",
 			"attribute": "placeholder",
 			"role": "content"
@@ -69,5 +69,5 @@
 			}
 		}
 	},
-	"style": [ "fp-block-form-input" ]
+	"style": [ "fin-block-form-input" ]
 }

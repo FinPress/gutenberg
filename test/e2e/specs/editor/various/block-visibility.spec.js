@@ -17,10 +17,10 @@ test.describe( 'Block Visibility', () => {
 	test.afterEach( async ( { page } ) => {
 		// Re-enable all blocks.
 		await page.evaluate( () => {
-			const blockTypes = window.fp.data
+			const blockTypes = window.fin.data
 				.select( 'core/blocks' )
 				.getBlockTypes();
-			window.fp.data
+			window.fin.data
 				.dispatch( 'core/edit-post' )
 				.showBlockTypes( blockTypes );
 		} );

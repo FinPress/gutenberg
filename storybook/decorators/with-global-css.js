@@ -35,17 +35,17 @@ const config = {
 	finpress: {
 		lazyStyles: [ finPressStyles ],
 		externalStyles: [
-			// fp-admin loads "global" stylesheets which contain some broadly scoped styles
-			// that affect fp-components
-			'https://finpress.org/gutenberg/fp-admin/css/common.min.css',
-			'https://finpress.org/gutenberg/fp-admin/css/forms.min.css',
+			// fin-admin loads "global" stylesheets which contain some broadly scoped styles
+			// that affect fin-components
+			'https://finpress.org/gutenberg/fin-admin/css/common.min.css',
+			'https://finpress.org/gutenberg/fin-admin/css/forms.min.css',
 			// Icon components need to support dashicons for backwards compatibility
-			'https://finpress.org/gutenberg/fp-includes/css/dashicons.min.css',
+			'https://finpress.org/gutenberg/fin-includes/css/dashicons.min.css',
 		],
-		// In fp-admin, these classes are added to the body element,
+		// In fin-admin, these classes are added to the body element,
 		// which is used as a class scope for some relevant styles in the external
 		// stylesheets listed above. We simulate that here by adding the classes to a wrapper element.
-		classes: [ 'fp-admin', 'fp-core-ui' ],
+		classes: [ 'fin-admin', 'fin-core-ui' ],
 	},
 };
 

@@ -136,22 +136,22 @@ export default function SearchEdit( {
 		return clsx(
 			className,
 			'button-inside' === buttonPosition
-				? 'fp-block-search__button-inside'
+				? 'fin-block-search__button-inside'
 				: undefined,
 			'button-outside' === buttonPosition
-				? 'fp-block-search__button-outside'
+				? 'fin-block-search__button-outside'
 				: undefined,
 			'no-button' === buttonPosition
-				? 'fp-block-search__no-button'
+				? 'fin-block-search__no-button'
 				: undefined,
 			'button-only' === buttonPosition
-				? 'fp-block-search__button-only'
+				? 'fin-block-search__button-only'
 				: undefined,
 			! buttonUseIcon && 'no-button' !== buttonPosition
-				? 'fp-block-search__text-button'
+				? 'fin-block-search__text-button'
 				: undefined,
 			buttonUseIcon && 'no-button' !== buttonPosition
-				? 'fp-block-search__icon-button'
+				? 'fin-block-search__icon-button'
 				: undefined
 		);
 	};
@@ -306,7 +306,7 @@ export default function SearchEdit( {
 				<PlainText
 					ref={ textInputRef }
 					isSelected={ isPlaceholderSelected }
-					className="fp-block-search__input"
+					className="fin-block-search__input"
 					style={ inputStyle }
 					numberOfLines={ 1 }
 					ellipsizeMode="tail" // Currently only works on ios.
@@ -394,7 +394,7 @@ export default function SearchEdit( {
 						onLayout={ onLayoutButton }
 					>
 						<RichText
-							className="fp-block-search__button"
+							className="fin-block-search__button"
 							identifier="buttonText"
 							tagName="p"
 							style={ richTextButtonStyle }
@@ -448,7 +448,7 @@ export default function SearchEdit( {
 					accessibilityLabel={ getAccessibilityLabelForLabel() }
 				>
 					<RichText
-						className="fp-block-search__label"
+						className="fin-block-search__label"
 						identifier="label"
 						tagName="p"
 						style={ styles.richTextLabel }

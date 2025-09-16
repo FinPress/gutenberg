@@ -40,7 +40,7 @@ export function getSerializeCapableElement( children ) {
  * @return {Array<FPBlockNode>} An array of individual block nodes.
  */
 function getChildrenArray( children ) {
-	deprecated( 'fp.blocks.children.getChildrenArray', {
+	deprecated( 'fin.blocks.children.getChildrenArray', {
 		since: '6.1',
 		version: '6.3',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
@@ -61,10 +61,10 @@ function getChildrenArray( children ) {
  * @return {FPBlockChildren} Concatenated block node.
  */
 export function concat( ...blockNodes ) {
-	deprecated( 'fp.blocks.children.concat', {
+	deprecated( 'fin.blocks.children.concat', {
 		since: '6.1',
 		version: '6.3',
-		alternative: 'fp.richText.concat',
+		alternative: 'fin.richText.concat',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
@@ -99,10 +99,10 @@ export function concat( ...blockNodes ) {
  * @return {FPBlockChildren} Block children equivalent to DOM nodes.
  */
 export function fromDOM( domNodes ) {
-	deprecated( 'fp.blocks.children.fromDOM', {
+	deprecated( 'fin.blocks.children.fromDOM', {
 		since: '6.1',
 		version: '6.3',
-		alternative: 'fp.richText.create',
+		alternative: 'fin.richText.create',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
@@ -126,10 +126,10 @@ export function fromDOM( domNodes ) {
  * @return {string} String HTML representation of block node.
  */
 export function toHTML( children ) {
-	deprecated( 'fp.blocks.children.toHTML', {
+	deprecated( 'fin.blocks.children.toHTML', {
 		since: '6.1',
 		version: '6.3',
-		alternative: 'fp.richText.toHTMLString',
+		alternative: 'fin.richText.toHTMLString',
 		link: 'https://developer.finpress.org/block-editor/how-to-guides/block-tutorial/introducing-attributes-and-editable-fields/',
 	} );
 
@@ -147,7 +147,7 @@ export function toHTML( children ) {
  * @return {Function} hpq matcher.
  */
 export function matcher( selector ) {
-	deprecated( 'fp.blocks.children.matcher', {
+	deprecated( 'fin.blocks.children.matcher', {
 		since: '6.1',
 		version: '6.3',
 		alternative: 'html source',

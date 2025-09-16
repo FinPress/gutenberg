@@ -23,15 +23,15 @@ test.describe( 'List (@firefox)', () => {
 		await editor.insertBlock( { name: 'core/paragraph' } );
 		await pageUtils.pressKeys( 'primary+v' );
 
-		const copied = `<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+		const copied = `<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>one</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`;
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`;
 
 		expect( await editor.getEditedPostContent() ).toBe(
 			copied + '\n\n' + copied
@@ -52,15 +52,15 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( 'Another list item' );
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>A list item</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Another list item</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -77,11 +77,11 @@ test.describe( 'List (@firefox)', () => {
 		await pageUtils.pressKeys( 'ArrowLeft', { times: 4 } );
 		await page.keyboard.type( '* ' );
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>test</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -96,11 +96,11 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.type( '1) A list item' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list {"ordered":true} -->
-<ol class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list {"ordered":true} -->
+<ol class="fin-block-list"><!-- fin:list-item -->
 <li>A list item</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -116,9 +116,9 @@ test.describe( 'List (@firefox)', () => {
 		await pageUtils.pressKeys( 'primary+z' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>1. </p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -133,9 +133,9 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Backspace' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>* </p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -153,9 +153,9 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Backspace' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>* </p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -171,9 +171,9 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Backspace' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>* </p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -192,9 +192,9 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Backspace' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>* </p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -209,9 +209,9 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Escape' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>* </p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -263,11 +263,11 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.type( 'I’m a list' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>I’m a list</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -282,11 +282,11 @@ test.describe( 'List (@firefox)', () => {
 		await editor.transformBlockTo( 'core/list' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>test</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -308,15 +308,15 @@ test.describe( 'List (@firefox)', () => {
 		await editor.transformBlockTo( 'core/list' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>one</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -334,15 +334,15 @@ test.describe( 'List (@firefox)', () => {
 		await editor.transformBlockTo( 'core/list' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>one</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -367,15 +367,15 @@ test.describe( 'List (@firefox)', () => {
 		await editor.transformBlockTo( 'core/list' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>one<br>...</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -388,13 +388,13 @@ test.describe( 'List (@firefox)', () => {
 		await editor.transformBlockTo( 'core/paragraph' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>one</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>two</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -412,13 +412,13 @@ test.describe( 'List (@firefox)', () => {
 		await editor.transformBlockTo( 'core/paragraph' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>one</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>two</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -431,17 +431,17 @@ test.describe( 'List (@firefox)', () => {
 		await editor.transformBlockTo( 'core/quote' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>one</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 
@@ -456,15 +456,15 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Enter' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>one</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 
 		await page.keyboard.type( 'two' );
@@ -472,15 +472,15 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Backspace' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>one</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -497,39 +497,39 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Enter' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>one</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		await page.keyboard.press( 'Enter' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>one</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		// Should remove paragraph without creating empty list item.
@@ -540,19 +540,19 @@ test.describe( 'List (@firefox)', () => {
 		await pageUtils.pressKeys( 'ArrowLeft', { times: 'two'.length } );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>one</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -636,21 +636,21 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Enter' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list {"ordered":true} -->
-<ol class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list {"ordered":true} -->
+<ol class="fin-block-list"><!-- fin:list-item -->
 <li>one</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:list {"ordered":true} -->
-<ol class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list {"ordered":true} -->
+<ol class="fin-block-list"><!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -664,19 +664,19 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.type( 'three' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>one<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>one<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>two</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>three</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -690,15 +690,15 @@ test.describe( 'List (@firefox)', () => {
 		await editor.clickBlockToolbarButton( 'Indent' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>one<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>one<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -707,11 +707,11 @@ test.describe( 'List (@firefox)', () => {
 		await editor.clickBlockToolbarButton( 'Select parent block: List' );
 		await editor.clickBlockToolbarButton( 'Ordered' );
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list {"ordered":true} -->
-<ol class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list {"ordered":true} -->
+<ol class="fin-block-list"><!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -728,15 +728,15 @@ test.describe( 'List (@firefox)', () => {
 		await editor.clickBlockToolbarButton( 'Ordered' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>a<!-- fp:list {"ordered":true} -->
-<ol class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>a<!-- fin:list {"ordered":true} -->
+<ol class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ol>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -752,17 +752,17 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Enter' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>aaa</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->`
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->`
 		);
 	} );
 
@@ -774,29 +774,29 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.type( '1' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>a<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>a<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		await editor.clickBlockToolbarButton( 'Outdent' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -811,37 +811,37 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.type( 'i' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>a<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>1<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>a<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>1<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>i</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		await editor.clickBlockToolbarButton( 'Outdent' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>a<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>a<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>i</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		// To do: investigate why the toolbar is not showing up right after
@@ -850,19 +850,19 @@ test.describe( 'List (@firefox)', () => {
 		await editor.clickBlockToolbarButton( 'Outdent' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>a<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>a<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>i</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -881,38 +881,38 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.type( 'c' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>a<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>b<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>a<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>b<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>c</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		await pageUtils.pressKeys( 'ArrowUp', { times: 3 } );
 		await editor.clickBlockToolbarButton( 'Outdent' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
-<li>b<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list-item -->
+<li>b<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>c</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -926,11 +926,11 @@ test.describe( 'List (@firefox)', () => {
 		await pageUtils.pressKeys( 'shift+Enter' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a<br></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -949,19 +949,19 @@ test.describe( 'List (@firefox)', () => {
 		await pageUtils.pressKeys( 'shift+Enter' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>b<br></li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>c</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -980,95 +980,95 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.type( ' i' ); // Should be at level 2.
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>1<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>a<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>1<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>a<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>i</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		await page.keyboard.press( 'Backspace' );
 		await page.keyboard.press( 'Backspace' ); // Should be at level 1.
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>1<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>1<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		await page.keyboard.press( 'Backspace' ); // Should be at level 0.
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>1<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>1<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		await page.keyboard.press( 'Backspace' ); // Should be at level 1.
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>1<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>1<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		await page.keyboard.press( 'Backspace' );
 		await page.keyboard.press( 'Backspace' ); // Should be at level 0.
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		await page.keyboard.press( 'Backspace' ); // Should be at level 0.
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		await page.keyboard.press( 'Backspace' );
@@ -1097,19 +1097,19 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.type( '2' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
-<li>2<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list-item -->
+<li>2<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -1127,15 +1127,15 @@ test.describe( 'List (@firefox)', () => {
 		await pageUtils.pressKeys( 'shift+Space' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li> </li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -1151,9 +1151,9 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.type( '*\u00a0' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>*\u00a0</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -1181,19 +1181,19 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Backspace' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>1<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>1<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>2</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>3</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 
 		// Again create a new paragraph.
@@ -1207,19 +1207,19 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Delete' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>1<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>1<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>2</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>3</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -1238,15 +1238,15 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Backspace' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>2</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -1266,19 +1266,19 @@ test.describe( 'List (@firefox)', () => {
 		await editor.clickBlockToolbarButton( 'Ordered' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list {"ordered":true} -->
-<ol class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list {"ordered":true} -->
+<ol class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>2</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>3</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -1298,19 +1298,19 @@ test.describe( 'List (@firefox)', () => {
 		await editor.clickBlockToolbarButton( 'Unordered' );
 
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			`<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>b</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>c</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`
 		);
 	} );
 
@@ -1324,21 +1324,21 @@ test.describe( 'List (@firefox)', () => {
 
 		// Add empty list block
 		await page.getByPlaceholder( 'Start writing with text or HTML' )
-			.fill( `<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+			.fill( `<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->` );
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->` );
 
 		// Go back to normal editor
 		await pageUtils.pressKeys( 'secondary+M' ); // Emulates CTRL+Shift+Alt + M => toggle code editor
 
 		// Verify no WSOD and content is proper.
-		expect( await editor.getEditedPostContent() ).toBe( `<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+		expect( await editor.getEditedPostContent() ).toBe( `<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->` );
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->` );
 	} );
 
 	test( 'should merge two list with same attributes', async ( {
@@ -1355,38 +1355,38 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( '* c' );
 
-		await expect.poll( editor.getEditedPostContent ).toBe( `<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+		await expect.poll( editor.getEditedPostContent ).toBe( `<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>b</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->
 
-<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>c</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->` );
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->` );
 
 		await page.keyboard.press( 'ArrowLeft' );
 		await page.keyboard.press( 'Backspace' );
 
-		await expect.poll( editor.getEditedPostContent ).toBe( `<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+		await expect.poll( editor.getEditedPostContent ).toBe( `<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>a</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>b</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>c</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->` );
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->` );
 	} );
 
 	test( 'can be exited to selected paragraph', async ( { editor, page } ) => {
@@ -1397,15 +1397,15 @@ test.describe( 'List (@firefox)', () => {
 		await page.keyboard.press( 'Enter' );
 		await page.keyboard.type( '1' );
 
-		expect( await editor.getEditedPostContent() ).toBe( `<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+		expect( await editor.getEditedPostContent() ).toBe( `<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 	} );
 
 	test( 'selects all transformed output', async ( { editor, page } ) => {
@@ -1425,28 +1425,28 @@ test.describe( 'List (@firefox)', () => {
 		await page.getByRole( 'menuitem', { name: 'Paragraph' } ).click();
 
 		expect( await editor.getEditedPostContent() )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>2</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 
 		await page
 			.getByRole( 'button', { name: 'Multiple blocks selected' } )
 			.click();
 		await page.getByRole( 'menuitem', { name: 'List' } ).click();
 
-		expect( await editor.getEditedPostContent() ).toBe( `<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+		expect( await editor.getEditedPostContent() ).toBe( `<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>2</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->` );
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->` );
 	} );
 
 	test.describe( 'should merge two list items with nested lists', () => {

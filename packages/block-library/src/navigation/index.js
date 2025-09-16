@@ -62,7 +62,7 @@ export const settings = {
 
 		const navigation = select( coreStore ).getEditedEntityRecord(
 			'postType',
-			'fp_navigation',
+			'fin_navigation',
 			ref
 		);
 

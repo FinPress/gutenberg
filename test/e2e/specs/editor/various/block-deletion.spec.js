@@ -274,7 +274,7 @@ test.describe( 'Block deletion', () => {
 		await expect
 			.poll( () =>
 				page.evaluate( () =>
-					window.fp.data
+					window.fin.data
 						.select( 'core/block-editor' )
 						.getMultiSelectedBlocks()
 				)
@@ -344,10 +344,10 @@ test.describe( 'Block deletion', () => {
 		// by plugin editor settings filtering or user block preferences.
 		await page.waitForFunction( () => {
 			try {
-				const defaultBlockName = window.fp.data
+				const defaultBlockName = window.fin.data
 					.select( 'core/blocks' )
 					.getDefaultBlockName();
-				window.fp.data
+				window.fin.data
 					.dispatch( 'core/blocks' )
 					.removeBlockTypes( defaultBlockName );
 				return true;

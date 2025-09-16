@@ -1,7 +1,7 @@
 // The following styles are to prevent duplicate spacing and borders for the archives
 // block in the editor given it uses server side rendering.
 // See https://github.com/FinPress/gutenberg/pull/63400
-.fp-block-archives .fp-block-archives {
+.fin-block-archives .fin-block-archives {
 	margin: 0;
 	border: 0;
 }

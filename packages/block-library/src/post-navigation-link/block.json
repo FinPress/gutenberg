@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-navigation-link",
 	"title": "Post Navigation Link",
@@ -60,5 +60,5 @@
 			"clientNavigation": true
 		}
 	},
-	"style": "fp-block-post-navigation-link"
+	"style": "fin-block-post-navigation-link"
 }

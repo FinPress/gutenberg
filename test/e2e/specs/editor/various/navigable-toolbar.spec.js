@@ -21,7 +21,7 @@ test.describe( 'Block Toolbar', () => {
 					const { activeElement } =
 						document.activeElement?.contentDocument ?? document;
 					const scrollable =
-						window.fp.dom.getScrollContainer( activeElement );
+						window.fin.dom.getScrollContainer( activeElement );
 					return ! scrollable || scrollable.scrollTop === 0;
 				} )
 			) {
@@ -34,7 +34,7 @@ test.describe( 'Block Toolbar', () => {
 				const { activeElement } =
 					document.activeElement?.contentDocument ?? document;
 				window.scrollContainer =
-					window.fp.dom.getScrollContainer( activeElement );
+					window.fin.dom.getScrollContainer( activeElement );
 				return window.scrollContainer.scrollTop;
 			} );
 

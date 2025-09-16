@@ -33,17 +33,17 @@ export const editorStyles = [
             list-style-type: circle;
         }
     
-        .fp-block {
+        .fin-block {
             max-width: 700px;    
             margin-left: auto;
             margin-right: auto;
         }
-        .fp-block[data-align="wide"],
-        .fp-block.alignwide {
+        .fin-block[data-align="wide"],
+        .fin-block.alignwide {
             max-width: 900px;
         }
-        .fp-block[data-align="full"],
-        .fp-block.alignfull {
+        .fin-block[data-align="full"],
+        .fin-block.alignfull {
             max-width: none;
         }
         `,

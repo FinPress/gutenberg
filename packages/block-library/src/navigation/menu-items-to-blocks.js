@@ -95,7 +95,7 @@ function mapMenuItemsToBlocks( menuItems, level = 0 ) {
 /**
  * A FP nav_menu_item object.
  * For more documentation on the individual fields present on a menu item please see:
- * https://core.trac.finpress.org/browser/tags/5.7.1/src/fp-includes/nav-menu.php#L789
+ * https://core.trac.finpress.org/browser/tags/5.7.1/src/fin-includes/nav-menu.php#L789
  *
  * @typedef FPNavMenuItem
  *

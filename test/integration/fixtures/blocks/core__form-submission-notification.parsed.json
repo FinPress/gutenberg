@@ -25,9 +25,9 @@
 				]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-form-submission-notification form-notification-type-success\"></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-form-submission-notification form-notification-type-success\"></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-form-submission-notification form-notification-type-success\">",
+			"\n<div class=\"fin-block-form-submission-notification form-notification-type-success\">",
 			null,
 			"</div>\n"
 		]

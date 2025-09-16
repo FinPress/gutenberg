@@ -25,25 +25,25 @@ It is possible to control which complementary is enabled by using the store:
 Below are some examples of how to control the active complementary area using the store:
 
 ```js
-fp.data
+fin.data
 	.select( 'core/interface' )
 	.getActiveComplementaryArea( 'core' );
 // -> "edit-post/document"
 
-fp.data
+fin.data
 	.dispatch( 'core/interface' )
 	.enableComplementaryArea( 'core', 'edit-post/block' );
 
-fp.data
+fin.data
 	.select( 'core/interface' )
 	.getActiveComplementaryArea( 'core' );
 // -> "edit-post/block"
 
-fp.data
+fin.data
 	.dispatch( 'core/interface' )
 	.disableComplementaryArea( 'core' );
 
-fp.data
+fin.data
 	.select( 'core/interface' )
 	.getActiveComplementaryArea( 'core' );
 // -> null
@@ -56,17 +56,17 @@ fp.data
 Example usage: `ComplementaryArea` component makes use of `PinnedItems` and automatically adds a pinned item for the complementary areas marked as a favorite.
 
 ```js
-fp.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
+fin.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
 // -> false
 
-fp.data.dispatch( 'core/interface' ).pinItem( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
+fin.data.dispatch( 'core/interface' ).pinItem( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
 
-fp.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
+fin.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
 // -> true
 
-fp.data.dispatch( 'core/interface' ).unpinItem( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
+fin.data.dispatch( 'core/interface' ).unpinItem( 'core', 'edit-post-block-patterns/block-patterns-sidebar' );
 
-fp.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' ); -> false
+fin.data.select( 'core/interface' ).isItemPinned( 'core', 'edit-post-block-patterns/block-patterns-sidebar' ); -> false
 ```
 
 ### Preferences
@@ -100,13 +100,13 @@ function initialize() {
 Use the `toggleFeature` action and the `isFeatureActive` selector to toggle features within your app:
 
 ```js
-fp.data
+fin.data
 	.select( 'core/interface' )
 	.isFeatureActive( 'namespace/editor-or-plugin-name', 'myFeatureName' ); // true
-fp.data
+fin.data
 	.dispatch( 'core/interface' )
 	.toggleFeature( 'namespace/editor-or-plugin-name', 'myFeatureName' );
-fp.data
+fin.data
 	.select( 'core/interface' )
 	.isFeatureActive( 'namespace/editor-or-plugin-name', 'myFeatureName' ); // false
 ```

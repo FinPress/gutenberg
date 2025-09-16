@@ -6,7 +6,7 @@
  */
 
 /**
- * Performs fpautop() on the shortcode block content.
+ * Performs finautop() on the shortcode block content.
  *
  * @since 5.0.0
  *
@@ -16,7 +16,7 @@
  * @return string Returns the block content.
  */
 function render_block_core_shortcode( $attributes, $content ) {
-	return fpautop( $content );
+	return finautop( $content );
 }
 
 /**

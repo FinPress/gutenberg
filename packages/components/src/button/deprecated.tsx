@@ -26,9 +26,9 @@ function UnforwardedIconButton(
 		DeprecatedIconButtonProps,
 	ref: ForwardedRef< any >
 ) {
-	deprecated( 'fp.components.IconButton', {
+	deprecated( 'fin.components.IconButton', {
 		since: '5.4',
-		alternative: 'fp.components.Button',
+		alternative: 'fin.components.Button',
 		version: '6.2',
 	} );
 

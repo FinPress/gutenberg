@@ -1,15 +1,15 @@
 {
-	"title": "JSON schema for FinPress fp-env configuration files",
+	"title": "JSON schema for FinPress fin-env configuration files",
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"definitions": {
 		"//": {
 			"reference": "https://developer.finpress.org/block-editor/reference-guides/packages/packages-env/"
 		},
-		"fpEnvProperties": {
+		"finEnvProperties": {
 			"type": "object",
 			"properties": {
 				"core": {
-					"description": "The FinPress installation to use. If null is specified, fp-env will use the latest production release of FinPress.",
+					"description": "The FinPress installation to use. If null is specified, fin-env will use the latest production release of FinPress.",
 					"oneOf": [
 						{
 							"type": "string"
@@ -21,7 +21,7 @@
 					"default": null
 				},
 				"phpVersion": {
-					"description": "The PHP version to use. If null is specified, fp-env will use the default version used with production release of FinPress.",
+					"description": "The PHP version to use. If null is specified, fin-env will use the default version used with production release of FinPress.",
 					"oneOf": [
 						{
 							"type": "string"
@@ -54,7 +54,7 @@
 					"default": 8888
 				},
 				"config": {
-					"description": "Mapping of fp-config.php constants to their desired values.",
+					"description": "Mapping of fin-config.php constants to their desired values.",
 					"type": "object",
 					"default": {}
 				},
@@ -73,7 +73,7 @@
 				}
 			}
 		},
-		"fpEnvPropertyNames": {
+		"finEnvPropertyNames": {
 			"enum": [
 				"core",
 				"phpVersion",
@@ -89,7 +89,7 @@
 	},
 	"allOf": [
 		{
-			"$ref": "#/definitions/fpEnvProperties"
+			"$ref": "#/definitions/finEnvProperties"
 		},
 		{
 			"type": "object",
@@ -103,11 +103,11 @@
 					"patternProperties": {
 						"[a-zA-Z]": {
 							"allOf": [
-								{ "$ref": "#/definitions/fpEnvProperties" },
+								{ "$ref": "#/definitions/finEnvProperties" },
 								{
 									"type": "object",
 									"propertyNames": {
-										"$ref": "#/definitions/fpEnvPropertyNames"
+										"$ref": "#/definitions/finEnvPropertyNames"
 									}
 								}
 							]
@@ -126,15 +126,15 @@
 					"default": {},
 					"properties": {
 						"afterStart": {
-							"description": "Runs after fp-env start has finished setting up the environment.",
+							"description": "Runs after fin-env start has finished setting up the environment.",
 							"type": "string"
 						},
 						"afterClean": {
-							"description": "Runs after fp-env clean has finished cleaning the environment.",
+							"description": "Runs after fin-env clean has finished cleaning the environment.",
 							"type": "string"
 						},
 						"afterDestroy": {
-							"description": "Runs after fp-env destroy has destroyed the environment.",
+							"description": "Runs after fin-env destroy has destroyed the environment.",
 							"type": "string"
 						}
 					}
@@ -146,7 +146,7 @@
 			"propertyNames": {
 				"anyOf": [
 					{
-						"$ref": "#/definitions/fpEnvPropertyNames"
+						"$ref": "#/definitions/finEnvPropertyNames"
 					},
 					{
 						"enum": [

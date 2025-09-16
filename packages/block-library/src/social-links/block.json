@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/social-links",
 	"title": "Social Icons",
@@ -101,6 +101,6 @@
 		{ "name": "logos-only", "label": "Logos Only" },
 		{ "name": "pill-shape", "label": "Pill Shape" }
 	],
-	"editorStyle": "fp-block-social-links-editor",
-	"style": "fp-block-social-links"
+	"editorStyle": "fin-block-social-links-editor",
+	"style": "fin-block-social-links"
 }

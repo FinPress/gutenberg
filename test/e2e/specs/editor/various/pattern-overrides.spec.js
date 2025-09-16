@@ -36,7 +36,7 @@ test.describe( 'Pattern Overrides', () => {
 		const editableParagraphName = 'Editable Paragraph';
 
 		await test.step( 'Create a synced pattern and assign blocks to allow overrides', async () => {
-			await admin.visitSiteEditor( { postType: 'fp_block' } );
+			await admin.visitSiteEditor( { postType: 'fin_block' } );
 
 			await page
 				.getByRole( 'region', { name: 'Patterns content' } )
@@ -129,7 +129,7 @@ test.describe( 'Pattern Overrides', () => {
 			).toBeVisible();
 
 			patternId = await page.evaluate( () => {
-				return window.fp.data
+				return window.fin.data
 					.select( 'core/editor' )
 					.getCurrentPostId();
 			} );
@@ -234,15 +234,15 @@ test.describe( 'Pattern Overrides', () => {
 			requestUtils,
 		} ) => {
 			const content = `
-			<!-- fp:paragraph {"metadata":{"name":"Pattern Overrides","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+			<!-- fin:paragraph {"metadata":{"name":"Pattern Overrides","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
 			<p>Pattern Overrides</p>
-			<!-- /fp:paragraph -->
-			<!-- fp:paragraph {"metadata":{"name":"Post Meta Binding","bindings":{"content":{"source":"core/post-meta","args":{"key":"Post Meta Binding"}}}}} -->
+			<!-- /fin:paragraph -->
+			<!-- fin:paragraph {"metadata":{"name":"Post Meta Binding","bindings":{"content":{"source":"core/post-meta","args":{"key":"Post Meta Binding"}}}}} -->
 			<p>Post Meta Binding</p>
-			<!-- /fp:paragraph -->
-			<!-- fp:paragraph {"metadata":{"name":"No Overrides or Binding"}} -->
+			<!-- /fin:paragraph -->
+			<!-- fin:paragraph {"metadata":{"name":"No Overrides or Binding"}} -->
 			<p>No Overrides or Binding</p>
-			<!-- /fp:paragraph -->
+			<!-- /fin:paragraph -->
 			`;
 
 			const { id } = await requestUtils.createBlock( {
@@ -253,7 +253,7 @@ test.describe( 'Pattern Overrides', () => {
 
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//index',
-				postType: 'fp_template',
+				postType: 'fin_template',
 				canvas: 'edit',
 			} );
 
@@ -495,17 +495,17 @@ test.describe( 'Pattern Overrides', () => {
 			const headingName = 'Editable heading';
 			const innerPattern = await requestUtils.createBlock( {
 				title: 'Inner Pattern',
-				content: `<!-- fp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+				content: `<!-- fin:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
 	<p>Inner paragraph</p>
-	<!-- /fp:paragraph -->`,
+	<!-- /fin:paragraph -->`,
 				status: 'publish',
 			} );
 			const outerPattern = await requestUtils.createBlock( {
 				title: 'Outer Pattern',
-				content: `<!-- fp:heading {"metadata":{"name":"${ headingName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-	<h2 class="fp-block-heading">Outer heading</h2>
-	<!-- /fp:heading -->
-	<!-- fp:block {"ref":${ innerPattern.id },"content":{"${ paragraphName }":{"content":"Inner paragraph (edited)"}}} /-->`,
+				content: `<!-- fin:heading {"metadata":{"name":"${ headingName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+	<h2 class="fin-block-heading">Outer heading</h2>
+	<!-- /fin:heading -->
+	<!-- fin:block {"ref":${ innerPattern.id },"content":{"${ paragraphName }":{"content":"Inner paragraph (edited)"}}} /-->`,
 				status: 'publish',
 			} );
 
@@ -599,9 +599,9 @@ test.describe( 'Pattern Overrides', () => {
 		const paragraphName = 'paragraph-name';
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- fp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+			content: `<!-- fin:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
 <p>Editable</p>
-<!-- /fp:paragraph -->`,
+<!-- /fin:paragraph -->`,
 			status: 'publish',
 		} );
 
@@ -646,9 +646,9 @@ test.describe( 'Pattern Overrides', () => {
 		const paragraphName = 'paragraph-name';
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- fp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
+			content: `<!-- fin:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
 <p>Editable</p>
-<!-- /fp:paragraph -->`,
+<!-- /fin:paragraph -->`,
 			status: 'publish',
 		} );
 
@@ -688,11 +688,11 @@ test.describe( 'Pattern Overrides', () => {
 		const buttonName = 'Editable button';
 		const { id } = await requestUtils.createBlock( {
 			title: 'Button with target',
-			content: `<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button {"metadata":{"name":"${ buttonName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button" href="http://fp.org" target="_blank" rel="noreferrer noopener nofollow">Button</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`,
+			content: `<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button {"metadata":{"name":"${ buttonName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button" href="http://fin.org" target="_blank" rel="noreferrer noopener nofollow">Button</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`,
 			status: 'publish',
 		} );
 
@@ -709,7 +709,7 @@ test.describe( 'Pattern Overrides', () => {
 			.getByRole( 'textbox', { name: 'Button text' } )
 			.focus();
 		await expect(
-			page.getByRole( 'link', { name: 'fp.org' } ).getByText( '↗' )
+			page.getByRole( 'link', { name: 'fin.org' } ).getByText( '↗' )
 		).toHaveAttribute( 'aria-label', '(opens in a new tab)' );
 
 		// The link popup doesn't have a role which is a bit unfortunate.
@@ -799,12 +799,12 @@ test.describe( 'Pattern Overrides', () => {
 		const paragraphName = 'Editable paragraph';
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- fp:heading {"metadata":{"name":"${ headingName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-<h2 class="fp-block-heading">Heading</h2>
-<!-- /fp:heading -->
-<!-- fp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+			content: `<!-- fin:heading {"metadata":{"name":"${ headingName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+<h2 class="fin-block-heading">Heading</h2>
+<!-- /fin:heading -->
+<!-- fin:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
 <p>Paragraph</p>
-<!-- /fp:paragraph -->`,
+<!-- /fin:paragraph -->`,
 			status: 'publish',
 		} );
 
@@ -892,9 +892,9 @@ test.describe( 'Pattern Overrides', () => {
 		const paragraphName = 'Editable paragraph';
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- fp:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
+			content: `<!-- fin:paragraph {"metadata":{"name":"${ paragraphName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
 <p>Paragraph</p>
-<!-- /fp:paragraph -->`,
+<!-- /fin:paragraph -->`,
 			status: 'publish',
 		} );
 
@@ -960,9 +960,9 @@ test.describe( 'Pattern Overrides', () => {
 		);
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- fp:image {"metadata":{"name":"${ imageName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image -->`,
+			content: `<!-- fin:image {"metadata":{"name":"${ imageName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image -->`,
 			status: 'publish',
 		} );
 
@@ -984,7 +984,7 @@ test.describe( 'Pattern Overrides', () => {
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveCount( 1 );
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveAttribute(
 			'src',
-			/\/fp-content\/uploads\//
+			/\/fin-content\/uploads\//
 		);
 
 		await editor.publishPost();
@@ -997,7 +997,7 @@ test.describe( 'Pattern Overrides', () => {
 		} );
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveAttribute(
 			'src',
-			/\/fp-content\/uploads\//
+			/\/fin-content\/uploads\//
 		);
 		await expect(
 			blockToolbar.getByRole( 'button', { name: 'Replace' } )
@@ -1021,9 +1021,9 @@ test.describe( 'Pattern Overrides', () => {
 		);
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- fp:image {"metadata":{"name":"${ imageName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image -->`,
+			content: `<!-- fin:image {"metadata":{"name":"${ imageName }","bindings":{"__default":{"source":"core/pattern-overrides"}}}} -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image -->`,
 			status: 'publish',
 		} );
 
@@ -1044,7 +1044,7 @@ test.describe( 'Pattern Overrides', () => {
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveCount( 1 );
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveAttribute(
 			'src',
-			/\/fp-content\/uploads\//
+			/\/fin-content\/uploads\//
 		);
 
 		// Because the image is an inner block of a controlled pattern block,
@@ -1092,11 +1092,11 @@ test.describe( 'Pattern Overrides', () => {
 		// It has media that is not yet uploaded.
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":${ originalImageId },"sizeSlug":"large","linkDestination":"none","metadata":{"bindings":{"__default":{"source":"core/pattern-overrides"}},"name":"${ overrideName }"}} -->
-<figure class="fp-block-image size-large"><img src="${ originalImageSrc }" alt="" class="fp-image-${ originalImageId }"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->`,
+			content: `<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":${ originalImageId },"sizeSlug":"large","linkDestination":"none","metadata":{"bindings":{"__default":{"source":"core/pattern-overrides"}},"name":"${ overrideName }"}} -->
+<figure class="fin-block-image size-large"><img src="${ originalImageSrc }" alt="" class="fin-image-${ originalImageId }"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->`,
 			status: 'publish',
 		} );
 
@@ -1127,7 +1127,7 @@ test.describe( 'Pattern Overrides', () => {
 		);
 		await expect( imageBlock ).toHaveAttribute(
 			'class',
-			`fp-image-${ overrideImageId }`
+			`fin-image-${ overrideImageId }`
 		);
 	} );
 
@@ -1161,9 +1161,9 @@ test.describe( 'Pattern Overrides', () => {
 		// It has media that is not yet uploaded.
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- fp:image {"id":${ originalImageId },"sizeSlug":"large","linkDestination":"none","metadata":{"bindings":{"__default":{"source":"core/pattern-overrides"}},"name":"${ overrideName }"}} -->
-<figure class="fp-block-image size-large"><img src="${ originalImageSrc }" alt="" class="fp-image-${ originalImageId }"/></figure>
-<!-- /fp:image -->`,
+			content: `<!-- fin:image {"id":${ originalImageId },"sizeSlug":"large","linkDestination":"none","metadata":{"bindings":{"__default":{"source":"core/pattern-overrides"}},"name":"${ overrideName }"}} -->
+<figure class="fin-block-image size-large"><img src="${ originalImageSrc }" alt="" class="fin-image-${ originalImageId }"/></figure>
+<!-- /fin:image -->`,
 			status: 'publish',
 		} );
 
@@ -1191,7 +1191,7 @@ test.describe( 'Pattern Overrides', () => {
 		await expect( imageBlock ).not.toHaveAttribute( 'data-id' );
 		await expect( imageBlock ).toHaveAttribute(
 			'class',
-			`fp-image-${ overrideImageId }`
+			`fin-image-${ overrideImageId }`
 		);
 	} );
 
@@ -1207,20 +1207,20 @@ test.describe( 'Pattern Overrides', () => {
 		await test.step( 'create a pattern with synced blocks with the same name', async () => {
 			const { id } = await requestUtils.createBlock( {
 				title: 'Blocks with the same name',
-				content: `<!-- fp:heading {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
+				content: `<!-- fin:heading {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
 			<h2>default name</h2>
-			<!-- /fp:heading -->
-			<!-- fp:paragraph {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
+			<!-- /fin:heading -->
+			<!-- fin:paragraph {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
 			<p>default content</p>
-			<!-- /fp:paragraph -->
-			<!-- fp:paragraph {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
+			<!-- /fin:paragraph -->
+			<!-- fin:paragraph {"metadata":{"name":"${ sharedName }","bindings":{"content":{"source":"core/pattern-overrides"}}}} -->
 			<p>default content</p>
-			<!-- /fp:paragraph -->`,
+			<!-- /fin:paragraph -->`,
 				status: 'publish',
 			} );
 			await admin.visitSiteEditor( {
 				postId: id,
-				postType: 'fp_block',
+				postType: 'fin_block',
 				canvas: 'edit',
 			} );
 
@@ -1260,7 +1260,7 @@ test.describe( 'Pattern Overrides', () => {
 			).toBeVisible();
 
 			patternId = await page.evaluate( () => {
-				return window.fp.data
+				return window.fin.data
 					.select( 'core/editor' )
 					.getCurrentPostId();
 			} );
@@ -1304,18 +1304,18 @@ test.describe( 'Pattern Overrides', () => {
 	} ) => {
 		const pattern = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- fp:paragraph -->
+			content: `<!-- fin:paragraph -->
 <p>paragraph</p>
-<!-- /fp:paragraph -->`,
+<!-- /fin:paragraph -->`,
 			status: 'publish',
 			meta: {
-				fp_pattern_sync_status: 'unsynced',
+				fin_pattern_sync_status: 'unsynced',
 			},
 		} );
 
 		await admin.visitSiteEditor( {
 			postId: pattern.id,
-			postType: 'fp_block',
+			postType: 'fin_block',
 			canvas: 'edit',
 		} );
 
@@ -1350,9 +1350,9 @@ test.describe( 'Pattern Overrides', () => {
 		);
 		const { id } = await requestUtils.createBlock( {
 			title: 'Pattern',
-			content: `<!-- fp:image {"metadata":{"name":"${ imageName }","bindings":{"id":{"source":"core/pattern-overrides"},"url":{"source":"core/pattern-overrides"},"title":{"source":"core/pattern-overrides"},"alt":{"source":"core/pattern-overrides"}}}} -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image -->`,
+			content: `<!-- fin:image {"metadata":{"name":"${ imageName }","bindings":{"id":{"source":"core/pattern-overrides"},"url":{"source":"core/pattern-overrides"},"title":{"source":"core/pattern-overrides"},"alt":{"source":"core/pattern-overrides"}}}} -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image -->`,
 			status: 'publish',
 		} );
 
@@ -1398,7 +1398,7 @@ test.describe( 'Pattern Overrides', () => {
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveCount( 1 );
 		await expect( imageBlock.getByRole( 'img' ) ).toHaveAttribute(
 			'src',
-			/\/fp-content\/uploads\//
+			/\/fin-content\/uploads\//
 		);
 		await editor.showBlockToolbar();
 		await editor.clickBlockToolbarButton( 'More' );
@@ -1414,6 +1414,6 @@ test.describe( 'Pattern Overrides', () => {
 		await page.goto( `/?p=${ postId }` );
 		await expect(
 			page.getByRole( 'img', { name: 'Test Image' } )
-		).toHaveAttribute( 'src', /\/fp-content\/uploads\// );
+		).toHaveAttribute( 'src', /\/fin-content\/uploads\// );
 	} );
 } );

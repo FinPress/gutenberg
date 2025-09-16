@@ -6,8 +6,8 @@ module.exports = {
 		'@finpress/no-unguarded-get-range-at': 'error',
 		'@finpress/no-global-active-element': 'error',
 		'@finpress/no-global-get-selection': 'error',
-		'@finpress/no-unsafe-fp-apis': 'error',
-		'@finpress/no-fp-process-env': 'error',
+		'@finpress/no-unsafe-fin-apis': 'error',
+		'@finpress/no-fin-process-env': 'error',
 	},
 	overrides: [
 		{

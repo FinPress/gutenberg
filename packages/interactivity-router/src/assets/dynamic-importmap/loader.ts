@@ -43,7 +43,7 @@ export const initPromise = lexer.init;
  */
 const initialImportMapElement =
 	window.document.querySelector< HTMLScriptElement >(
-		'script#fp-importmap[type=importmap]'
+		'script#fin-importmap[type=importmap]'
 	);
 
 /**
@@ -191,7 +191,7 @@ function resolveDeps( load: ModuleLoad, seen: Record< string, any > ) {
 			// dynamic import
 			else {
 				pushStringTo( statementStart );
-				resolvedSource += `fpInteractivityRouterImport(`;
+				resolvedSource += `finInteractivityRouterImport(`;
 				dynamicImportEndStack.push( statementEnd - 1 );
 				lastIndex = start;
 			}

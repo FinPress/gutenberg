@@ -1,5 +1,5 @@
-<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>xy</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->

@@ -13,7 +13,7 @@ import deprecated from '@finpress/deprecated';
  * @return {Component} The same component.
  */
 export function withBlockContentContext( OriginalComponent ) {
-	deprecated( 'fp.blocks.withBlockContentContext', {
+	deprecated( 'fin.blocks.withBlockContentContext', {
 		since: '6.1',
 	} );
 

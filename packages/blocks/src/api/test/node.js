@@ -8,12 +8,12 @@ describe( 'getNamedNodeMapAsObject', () => {
 		const node = document.createElement( 'img' );
 		node.setAttribute(
 			'src',
-			'https://s.w.org/style/images/fporg-logo.svg'
+			'https://s.w.org/style/images/finorg-logo.svg'
 		);
 
 		const object = getNamedNodeMapAsObject( node.attributes );
 		expect( object ).toEqual( {
-			src: 'https://s.w.org/style/images/fporg-logo.svg',
+			src: 'https://s.w.org/style/images/finorg-logo.svg',
 		} );
 	} );
 } );

@@ -1,12 +1,12 @@
 $pagination-margin: 0.5em;
-.fp-block-comments-pagination {
+.fin-block-comments-pagination {
 	// Increased specificity to override blocks default margin.
-	> .fp-block-comments-pagination-next,
-	> .fp-block-comments-pagination-previous,
-	> .fp-block-comments-pagination-numbers {
+	> .fin-block-comments-pagination-next,
+	> .fin-block-comments-pagination-previous,
+	> .fin-block-comments-pagination-numbers {
 		font-size: inherit;
 	}
-	.fp-block-comments-pagination-previous-arrow {
+	.fin-block-comments-pagination-previous-arrow {
 		margin-right: 1ch;
 		display: inline-block; // Needed so that the transform works.
 		// chevron(`»`) symbol doesn't need the mirroring by us.
@@ -15,7 +15,7 @@ $pagination-margin: 0.5em;
 			transform: scaleX(1) #{"/*rtl:scaleX(-1);*/"}; // This points the arrow right for LTR and left for RTL.
 		}
 	}
-	.fp-block-comments-pagination-next-arrow {
+	.fin-block-comments-pagination-next-arrow {
 		margin-left: 1ch;
 		display: inline-block; // Needed so that the transform works.
 		// chevron(`»`) symbol doesn't need the mirroring by us.

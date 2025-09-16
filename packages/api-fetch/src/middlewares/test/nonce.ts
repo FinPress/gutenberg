@@ -12,7 +12,7 @@ describe( 'Nonce middleware', () => {
 		const nonceMiddleware = createNonceMiddleware( nonce );
 		const requestOptions = {
 			method: 'GET',
-			path: '/fp/v2/posts',
+			path: '/fin/v2/posts',
 		};
 		const callback: FetchHandler = async ( options ) => {
 			expect( options.headers![ 'X-FP-Nonce' ] ).toBe( nonce );
@@ -28,7 +28,7 @@ describe( 'Nonce middleware', () => {
 		const nonceMiddleware = createNonceMiddleware( nonce );
 		const requestOptions = {
 			method: 'GET',
-			path: '/fp/v2/posts',
+			path: '/fin/v2/posts',
 			headers: { 'X-FP-Nonce': 'existing nonce' },
 		};
 

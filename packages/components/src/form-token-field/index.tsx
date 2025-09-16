@@ -80,7 +80,7 @@ export function FormTokenField( props: FormTokenFieldProps ) {
 	} = useDeprecated36pxDefaultSizeProp< FormTokenFieldProps >( props );
 
 	if ( ! __nextHasNoMarginBottom ) {
-		deprecated( 'Bottom margin styles for fp.components.FormTokenField', {
+		deprecated( 'Bottom margin styles for fin.components.FormTokenField', {
 			since: '6.7',
 			version: '7.0',
 			hint: 'Set the `__nextHasNoMarginBottom` prop to true to start opting into the new styles, which will become the default in a future version.',

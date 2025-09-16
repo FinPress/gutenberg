@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/heading",
 	"title": "Heading",
@@ -75,6 +75,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-heading-editor",
-	"style": "fp-block-heading"
+	"editorStyle": "fin-block-heading-editor",
+	"style": "fin-block-heading"
 }

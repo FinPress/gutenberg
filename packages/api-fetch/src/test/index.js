@@ -46,13 +46,13 @@ describe( 'apiFetch', () => {
 		const body = 'FormData';
 
 		await apiFetch( {
-			path: '/fp/v2/media',
+			path: '/fin/v2/media',
 			method: 'POST',
 			body,
 		} );
 
 		expect( globalThis.fetch ).toHaveBeenCalledWith(
-			'/fp/v2/media?_locale=user',
+			'/fin/v2/media?_locale=user',
 			{
 				credentials: 'include',
 				headers: {
@@ -68,7 +68,7 @@ describe( 'apiFetch', () => {
 		globalThis.fetch.mockResolvedValue( DEFAULT_FETCH_MOCK_RETURN );
 
 		await apiFetch( {
-			path: '/fp/v2/posts',
+			path: '/fin/v2/posts',
 			method: 'POST',
 			headers: {
 				'Content-Type': 'text/plain',
@@ -77,7 +77,7 @@ describe( 'apiFetch', () => {
 		} );
 
 		expect( globalThis.fetch ).toHaveBeenCalledWith(
-			'/fp/v2/posts?_locale=user',
+			'/fin/v2/posts?_locale=user',
 			{
 				body: '{}',
 				credentials: 'include',
@@ -94,14 +94,14 @@ describe( 'apiFetch', () => {
 		globalThis.fetch.mockResolvedValue( DEFAULT_FETCH_MOCK_RETURN );
 
 		await apiFetch( {
-			path: '/fp/v2/posts',
+			path: '/fin/v2/posts',
 			method: 'POST',
 			data: {},
 			credentials: 'omit',
 		} );
 
 		expect( globalThis.fetch ).toHaveBeenCalledWith(
-			'/fp/v2/posts?_locale=user',
+			'/fin/v2/posts?_locale=user',
 			{
 				body: '{}',
 				credentials: 'omit',

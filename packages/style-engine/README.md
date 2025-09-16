@@ -23,7 +23,7 @@ If you're making changes or additions to the Style Engine, please take a moment 
 
 ## Backend API
 
-### fp_style_engine_get_styles()
+### fin_style_engine_get_styles()
 
 Global public function to generate styles from a single style object, e.g., the value of a [block's attributes.style object](https://developer.finpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/#styles) or the [top level styles in theme.json](https://developer.finpress.org/block-editor/reference-guides/block-api/block-supports/).
 
@@ -34,7 +34,7 @@ _Parameters_
 -   _$block_styles_ `array` A block's `attributes.style` object or the top level styles in theme.json
 -   _$options_ `array<string|boolean>` An array of options to determine the output.
     -   _context_ `string` An identifier describing the origin of the style object, e.g., 'block-supports' or 'global-styles'. Default is 'block-supports'. When both `context` and `selector` are set, the Style Engine will store the CSS rules using the `context` as a key.
-    -   _convert_vars_to_classnames_ `boolean` Whether to skip converting CSS var:? values to var( --fp--preset--\* ) values. Default is `false`.
+    -   _convert_vars_to_classnames_ `boolean` Whether to skip converting CSS var:? values to var( --fin--preset--\* ) values. Default is `false`.
     -   _selector_ `string` When a selector is passed, `generate()` will return a full CSS rule `$selector { ...rules }`, otherwise a concatenated string of properties and values.
 
 _Returns_
@@ -55,11 +55,11 @@ To enqueue a style for rendering in the site's frontend, the `$options` array re
 1.  **selector (string)** - this is the CSS selector for your block style CSS declarations.
 2.  **context (string)** - this tells the Style Engine where to store the styles. Styles in the same context will be stored together.
 
-`fp_style_engine_get_styles` will return the compiled CSS and CSS declarations array.
+`fin_style_engine_get_styles` will return the compiled CSS and CSS declarations array.
 
 #### Usage
 
-As mentioned, `fp_style_engine_get_styles()` is useful whenever you wish to generate CSS and/or classnames from a **block's style object**. A good example is [using the Style Engine to generate block supports styles](https://github.com/FinPress/gutenberg/tree/HEAD/packages/style-engine/docs/using-the-style-engine-with-block-supports.md).
+As mentioned, `fin_style_engine_get_styles()` is useful whenever you wish to generate CSS and/or classnames from a **block's style object**. A good example is [using the Style Engine to generate block supports styles](https://github.com/FinPress/gutenberg/tree/HEAD/packages/style-engine/docs/using-the-style-engine-with-block-supports.md).
 
 In the following snippet, we're taking the style object from a block's attributes and passing it to the Style Engine to get the styles. By passing a `context` in the options, the Style Engine will store the styles for later retrieval, for example, should you wish to batch enqueue a set of CSS rules.
 
@@ -70,7 +70,7 @@ $block_attributes =  array(
      ),
 );
 
-$styles = fp_style_engine_get_styles(
+$styles = fin_style_engine_get_styles(
     $block_attributes['style'],
     array(
         'selector' => '.a-selector',
@@ -87,7 +87,7 @@ array(
 */
 ```
 
-### fp_style_engine_get_stylesheet_from_css_rules()
+### fin_style_engine_get_stylesheet_from_css_rules()
 
 Use this function to compile and return a stylesheet for any CSS rules. The Style Engine will automatically merge declarations and combine selectors.
 
@@ -110,31 +110,31 @@ Useful for when you wish to compile a bespoke set of CSS rules from a series of 
 
 The Style Engine will return a sanitized stylesheet. By passing a `context` identifier in the options, the Style Engine will store the styles for later retrieval, for example, should you wish to batch enqueue a set of CSS rules.
 
-You can call `fp_style_engine_get_stylesheet_from_css_rules()` multiple times, and, so long as your styles use the same `context` identifier, they will be stored together.
+You can call `fin_style_engine_get_stylesheet_from_css_rules()` multiple times, and, so long as your styles use the same `context` identifier, they will be stored together.
 
 ```php
 $styles = array(
     array(
-        'selector'     => '.fp-pumpkin',
+        'selector'     => '.fin-pumpkin',
         'declarations' => array( 'color' => 'orange' )
     ),
     array(
-        'selector'     => '.fp-tomato',
+        'selector'     => '.fin-tomato',
         'declarations' => array( 'color' => 'red' )
     ),
     array(
-        'selector'     => '.fp-tomato',
+        'selector'     => '.fin-tomato',
         'declarations' => array( 'padding' => '100px' )
     ),
 );
 
-$stylesheet = fp_style_engine_get_stylesheet_from_css_rules(
+$stylesheet = fin_style_engine_get_stylesheet_from_css_rules(
     $styles,
     array(
         'context' => 'block-supports', // Indicates that these styles should be stored with block supports CSS.
     )
 );
-print_r( $stylesheet ); // .fp-pumpkin{color:orange}.fp-tomato{color:red;padding:100px}
+print_r( $stylesheet ); // .fin-pumpkin{color:orange}.fin-tomato{color:red;padding:100px}
 ```
 
 It's also possible to build simple, nested CSS rules using the `rules_group` key.
@@ -143,26 +143,26 @@ It's also possible to build simple, nested CSS rules using the `rules_group` key
 $styles = array(
     array(
         'rules_group'  => '@media (min-width: 80rem)',
-        'selector'     => '.fp-carrot',
+        'selector'     => '.fin-carrot',
         'declarations' => array( 'color' => 'orange' )
     ),
     array(
         'rules_group'  => '@media (min-width: 80rem)',
-        'selector'     => '.fp-tomato',
+        'selector'     => '.fin-tomato',
         'declarations' => array( 'color' => 'red' )
     ),
 );
 
-$stylesheet = fp_style_engine_get_stylesheet_from_css_rules(
+$stylesheet = fin_style_engine_get_stylesheet_from_css_rules(
     $styles,
     array(
         'context' => 'block-supports', // Indicates that these styles should be stored with block supports CSS.
     )
 );
-print_r( $stylesheet ); // @media (min-width: 80rem){.fp-carrot{color:orange}}@media (min-width: 80rem){.fp-tomato{color:red;}}
+print_r( $stylesheet ); // @media (min-width: 80rem){.fin-carrot{color:orange}}@media (min-width: 80rem){.fin-tomato{color:red;}}
 ```
 
-### fp_style_engine_get_stylesheet_from_context()
+### fin_style_engine_get_stylesheet_from_context()
 
 Returns compiled CSS from a stored context, if found.
 
@@ -186,12 +186,12 @@ A use case would be when you wish to enqueue all stored styles for rendering to 
 // First, let's gather and register our styles.
 $styles = array(
     array(
-        'selector'     => '.fp-apple',
+        'selector'     => '.fin-apple',
         'declarations' => array( 'color' => 'green' )
     ),
 );
 
-fp_style_engine_get_stylesheet_from_css_rules(
+fin_style_engine_get_stylesheet_from_css_rules(
     $styles,
     array(
         'context' => 'fruit-styles',
@@ -199,14 +199,14 @@ fp_style_engine_get_stylesheet_from_css_rules(
 );
 
 // Later, we fetch compiled rules from context store.
-$stylesheet = fp_style_engine_get_stylesheet_from_context( 'fruit-styles' );
+$stylesheet = fin_style_engine_get_stylesheet_from_context( 'fruit-styles' );
 
-print_r( $stylesheet ); // .fp-apple{color:green;}
+print_r( $stylesheet ); // .fin-apple{color:green;}
 
 if ( ! empty( $stylesheet ) ) {
-    fp_register_style( 'my-stylesheet', false, array(), true, true );
-    fp_add_inline_style( 'my-stylesheet', $stylesheet );
-    fp_enqueue_style( 'my-stylesheet' );
+    fin_register_style( 'my-stylesheet', false, array(), true, true );
+    fin_add_inline_style( 'my-stylesheet', $stylesheet );
+    fin_enqueue_style( 'my-stylesheet' );
 }
 ```
 
@@ -266,7 +266,7 @@ The preset value is a string and follows the pattern `var:description|context|sl
 
 Example:
 
-`getCSSValueFromRawStyle( 'var:preset|color|heavenlyBlue' )` // returns 'var(--fp--preset--color--heavenly-blue)'
+`getCSSValueFromRawStyle( 'var:preset|color|heavenlyBlue' )` // returns 'var(--fin--preset--color--heavenly-blue)'
 
 _Parameters_
 
@@ -302,7 +302,7 @@ A guide to the terms and variable names referenced by the Style Engine package.
   <dt>CSS value</dt>
   <dd>The value of a CSS property. The value determines how the property is modified. E.g., the <code>10vw</code> in <code>height: 10vw</code>.</dd>
   <dt>CSS variables (vars) or CSS custom properties</dt>
-  <dd>Properties, whose values can be reused in other CSS declarations. Set using custom property notation (e.g., <code>--fp--preset--olive: #808000;</code>) and  accessed using the <code>var()</code> function (e.g., <code>color: var( --fp--preset--olive );</code>). See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" target="_blank">MDN article on CSS custom properties</a>.</dd>
+  <dd>Properties, whose values can be reused in other CSS declarations. Set using custom property notation (e.g., <code>--fin--preset--olive: #808000;</code>) and  accessed using the <code>var()</code> function (e.g., <code>color: var( --fin--preset--olive );</code>). See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" target="_blank">MDN article on CSS custom properties</a>.</dd>
   <dt>Global styles (Gutenberg internal)</dt>
   <dd>A merged block styles object containing values from a theme's theme.json and user styles settings.</dd>
   <dt>Inline styles</dt>

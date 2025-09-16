@@ -106,9 +106,9 @@ class SwitchToDraftUtils {
 		const payload = {
 			title: `Switch scheduled ${ postType } to draft`,
 			status: 'publish',
-			content: `<!-- fp:paragraph -->
+			content: `<!-- fin:paragraph -->
 <p>This will be a scheduled ${ postType } edited in a ${ viewport } viewport</p>
-<!-- /fp:paragraph -->`,
+<!-- /fin:paragraph -->`,
 		};
 
 		if ( isScheduled ) {
@@ -131,7 +131,7 @@ class SwitchToDraftUtils {
 
 	getPostStatus = async () => {
 		return this.#page.evaluate( () =>
-			window.fp.data
+			window.fin.data
 				.select( 'core/editor' )
 				.getEditedPostAttribute( 'status' )
 		);

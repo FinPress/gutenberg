@@ -32,12 +32,12 @@ function render_block_core_media_text( $attributes, $content ) {
 	$has_media_on_right = isset( $attributes['mediaPosition'] ) && 'right' === $attributes['mediaPosition'];
 	$image_fill         = isset( $attributes['imageFill'] ) && $attributes['imageFill'];
 	$focal_point        = isset( $attributes['focalPoint'] ) ? round( $attributes['focalPoint']['x'] * 100 ) . '% ' . round( $attributes['focalPoint']['y'] * 100 ) . '%' : '50% 50%';
-	$unique_id          = 'fp-block-media-text__media-' . fp_unique_id();
+	$unique_id          = 'fin-block-media-text__media-' . fin_unique_id();
 
 	$block_tag_processor = new FP_HTML_Tag_Processor( $content );
 	$block_query         = array(
 		'tag_name'   => 'div',
-		'class_name' => 'fp-block-media-text',
+		'class_name' => 'fin-block-media-text',
 	);
 
 	while ( $block_tag_processor->next_tag( $block_query ) ) {
@@ -53,7 +53,7 @@ function render_block_core_media_text( $attributes, $content ) {
 	$media_tag_processor   = new FP_HTML_Tag_Processor( $content );
 	$wrapping_figure_query = array(
 		'tag_name'   => 'figure',
-		'class_name' => 'fp-block-media-text__media',
+		'class_name' => 'fin-block-media-text__media',
 	);
 
 	if ( $has_media_on_right ) {
@@ -78,9 +78,9 @@ function render_block_core_media_text( $attributes, $content ) {
 	// Add the image tag inside the figure tag, and update the image attributes
 	// in order to display the featured image.
 	$media_size_slug = isset( $attributes['mediaSizeSlug'] ) ? $attributes['mediaSizeSlug'] : 'full';
-	$image_tag       = '<img class="fp-block-media-text__featured_image">';
+	$image_tag       = '<img class="fin-block-media-text__featured_image">';
 	$content         = preg_replace(
-		'/(<figure\s+id="' . preg_quote( $unique_id, '/' ) . '"\s+class="fp-block-media-text__media"\s*>)/',
+		'/(<figure\s+id="' . preg_quote( $unique_id, '/' ) . '"\s+class="fin-block-media-text__media"\s*>)/',
 		'$1' . $image_tag,
 		$content
 	);
@@ -98,12 +98,12 @@ function render_block_core_media_text( $attributes, $content ) {
 		if ( $image_tag_processor->next_tag(
 			array(
 				'tag_name'   => 'img',
-				'class_name' => 'fp-block-media-text__featured_image',
+				'class_name' => 'fin-block-media-text__featured_image',
 			)
 		) ) {
 			$image_tag_processor->set_attribute( 'src', esc_url( $current_featured_image ) );
-			$image_tag_processor->set_attribute( 'class', 'fp-image-' . get_post_thumbnail_id() . ' size-' . $media_size_slug );
-			$image_tag_processor->set_attribute( 'alt', trim( strip_tags( get_post_meta( get_post_thumbnail_id(), '_fp_attachment_image_alt', true ) ) ) );
+			$image_tag_processor->set_attribute( 'class', 'fin-image-' . get_post_thumbnail_id() . ' size-' . $media_size_slug );
+			$image_tag_processor->set_attribute( 'alt', trim( strip_tags( get_post_meta( get_post_thumbnail_id(), '_fin_attachment_image_alt', true ) ) ) );
 			if ( $image_fill ) {
 				$image_tag_processor->set_attribute( 'style', 'object-position:' . $focal_point . ';' );
 			}

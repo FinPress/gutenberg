@@ -3,10 +3,10 @@
 		"name": "core/file",
 		"isValid": true,
 		"attributes": {
-			"href": "http://localhost:8888/fp-content/uploads/2018/05/keycodes.js",
-			"fileId": "fp-block-file--media-_clientId_0",
+			"href": "http://localhost:8888/fin-content/uploads/2018/05/keycodes.js",
+			"fileId": "fin-block-file--media-_clientId_0",
 			"fileName": "lkjfijwef",
-			"textLinkHref": "http://localhost:8888/fp-content/uploads/2018/05/keycodes.js",
+			"textLinkHref": "http://localhost:8888/fin-content/uploads/2018/05/keycodes.js",
 			"showDownloadButton": false,
 			"downloadButtonText": "",
 			"previewHeight": 600

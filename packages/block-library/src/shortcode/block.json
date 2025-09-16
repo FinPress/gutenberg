@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/shortcode",
 	"title": "Shortcode",
@@ -18,5 +18,5 @@
 		"customClassName": false,
 		"html": false
 	},
-	"editorStyle": "fp-block-shortcode-editor"
+	"editorStyle": "fin-block-shortcode-editor"
 }

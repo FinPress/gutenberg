@@ -103,7 +103,7 @@ function block_core_navigation_link_build_css_font_sizes( $context ) {
 		// Add the custom font size inline style.
 		$font_sizes['inline_styles'] = sprintf(
 			'font-size: %s;',
-			fp_get_typography_font_size_value(
+			fin_get_typography_font_size_value(
 				array(
 					'size' => $context['style']['typography']['fontSize'],
 				)
@@ -137,7 +137,7 @@ function block_core_navigation_link_render_submenu_icon() {
 function block_core_navigation_link_maybe_urldecode( $url ) {
 	$is_url_encoded = false;
 	$query          = parse_url( $url, PHP_URL_QUERY );
-	$query_params   = fp_parse_args( $query );
+	$query_params   = fin_parse_args( $query );
 
 	foreach ( $query_params as $query_param ) {
 		$can_query_param_be_encoded = is_string( $query_param ) && ! empty( $query_param );
@@ -222,13 +222,13 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 
 	$wrapper_attributes = get_block_wrapper_attributes(
 		array(
-			'class' => $css_classes . ' fp-block-navigation-item' . ( $has_submenu ? ' has-child' : '' ) .
+			'class' => $css_classes . ' fin-block-navigation-item' . ( $has_submenu ? ' has-child' : '' ) .
 				( $is_active ? ' current-menu-item' : '' ),
 			'style' => $style_attribute,
 		)
 	);
 	$html               = '<li ' . $wrapper_attributes . '>' .
-		'<a class="fp-block-navigation-item__content" ';
+		'<a class="fin-block-navigation-item__content" ';
 
 	// Start appending HTML attributes to anchor tag.
 	if ( isset( $attributes['url'] ) ) {
@@ -258,18 +258,18 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 	// Start anchor tag content.
 	$html .= '>' .
 		// Wrap title with span to isolate it from submenu icon.
-		'<span class="fp-block-navigation-item__label">';
+		'<span class="fin-block-navigation-item__label">';
 
 	if ( isset( $attributes['label'] ) ) {
-		$html .= fp_kses_post( $attributes['label'] );
+		$html .= fin_kses_post( $attributes['label'] );
 	}
 
 	$html .= '</span>';
 
 	// Add description if available.
 	if ( ! empty( $attributes['description'] ) ) {
-		$html .= '<span class="fp-block-navigation-item__description">';
-		$html .= fp_kses_post( $attributes['description'] );
+		$html .= '<span class="fin-block-navigation-item__description">';
+		$html .= fin_kses_post( $attributes['description'] );
 		$html .= '</span>';
 	}
 
@@ -278,7 +278,7 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 
 	if ( isset( $block->context['showSubmenuIcon'] ) && $block->context['showSubmenuIcon'] && $has_submenu ) {
 		// The submenu icon can be hidden by a CSS rule on the Navigation Block.
-		$html .= '<span class="fp-block-navigation__submenu-icon">' . block_core_navigation_link_render_submenu_icon() . '</span>';
+		$html .= '<span class="fin-block-navigation__submenu-icon">' . block_core_navigation_link_render_submenu_icon() . '</span>';
 	}
 
 	if ( $has_submenu ) {
@@ -288,7 +288,7 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 		}
 
 		$html .= sprintf(
-			'<ul class="fp-block-navigation__submenu-container">%s</ul>',
+			'<ul class="fin-block-navigation__submenu-container">%s</ul>',
 			$inner_blocks_html
 		);
 	}

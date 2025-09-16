@@ -13,18 +13,18 @@
 				"blockName": "core/button",
 				"attrs": {},
 				"innerBlocks": [],
-				"innerHTML": "\n\t<div class=\"fp-block-button\"><a class=\"fp-block-button__link fp-element-button\">My button 1</a></div>\n\t",
+				"innerHTML": "\n\t<div class=\"fin-block-button\"><a class=\"fin-block-button__link fin-element-button\">My button 1</a></div>\n\t",
 				"innerContent": [
-					"\n\t<div class=\"fp-block-button\"><a class=\"fp-block-button__link fp-element-button\">My button 1</a></div>\n\t"
+					"\n\t<div class=\"fin-block-button\"><a class=\"fin-block-button__link fin-element-button\">My button 1</a></div>\n\t"
 				]
 			},
 			{
 				"blockName": "core/button",
 				"attrs": {},
 				"innerBlocks": [],
-				"innerHTML": "\n\t<div class=\"fp-block-button\"><a class=\"fp-block-button__link fp-element-button\">My button 2</a></div>\n\t",
+				"innerHTML": "\n\t<div class=\"fin-block-button\"><a class=\"fin-block-button__link fin-element-button\">My button 2</a></div>\n\t",
 				"innerContent": [
-					"\n\t<div class=\"fp-block-button\"><a class=\"fp-block-button__link fp-element-button\">My button 2</a></div>\n\t"
+					"\n\t<div class=\"fin-block-button\"><a class=\"fin-block-button__link fin-element-button\">My button 2</a></div>\n\t"
 				]
 			},
 			{
@@ -33,9 +33,9 @@
 					"tagName": "a"
 				},
 				"innerBlocks": [],
-				"innerHTML": "\n\t<div class=\"fp-block-button\"><a class=\"fp-block-button__link fp-element-button\">My button 3</a></div>\n\t",
+				"innerHTML": "\n\t<div class=\"fin-block-button\"><a class=\"fin-block-button__link fin-element-button\">My button 3</a></div>\n\t",
 				"innerContent": [
-					"\n\t<div class=\"fp-block-button\"><a class=\"fp-block-button__link fp-element-button\">My button 3</a></div>\n\t"
+					"\n\t<div class=\"fin-block-button\"><a class=\"fin-block-button__link fin-element-button\">My button 3</a></div>\n\t"
 				]
 			},
 			{
@@ -44,15 +44,15 @@
 					"tagName": "button"
 				},
 				"innerBlocks": [],
-				"innerHTML": "\n\t<div class=\"fp-block-button\"><button type=\"button\" class=\"fp-block-button__link fp-element-button\">My button 4</button></div>\n\t",
+				"innerHTML": "\n\t<div class=\"fin-block-button\"><button type=\"button\" class=\"fin-block-button__link fin-element-button\">My button 4</button></div>\n\t",
 				"innerContent": [
-					"\n\t<div class=\"fp-block-button\"><button type=\"button\" class=\"fp-block-button__link fp-element-button\">My button 4</button></div>\n\t"
+					"\n\t<div class=\"fin-block-button\"><button type=\"button\" class=\"fin-block-button__link fin-element-button\">My button 4</button></div>\n\t"
 				]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-buttons alignwide\">\n\t\n\n\t\n\n\t\n\n\t\n</div>\n",
+		"innerHTML": "\n<div class=\"fin-block-buttons alignwide\">\n\t\n\n\t\n\n\t\n\n\t\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-buttons alignwide\">\n\t",
+			"\n<div class=\"fin-block-buttons alignwide\">\n\t",
 			null,
 			"\n\n\t",
 			null,

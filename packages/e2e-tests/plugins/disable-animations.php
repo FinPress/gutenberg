@@ -12,7 +12,7 @@
  */
 function enqueue_disable_animations_stylesheet() {
 	$custom_css = '* { animation-duration: 0ms !important; animation-delay: 0s !important; transition-duration: 0s !important; transition-delay: 0s !important; }';
-	fp_add_inline_style( 'fp-components', $custom_css );
+	fin_add_inline_style( 'fin-components', $custom_css );
 }
 
 add_action( 'admin_enqueue_scripts', 'enqueue_disable_animations_stylesheet' );

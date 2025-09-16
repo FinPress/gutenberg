@@ -11,9 +11,9 @@ import {
 
 const block = 'Heading';
 const initialHtml = `
-<!-- fp:heading -->
-<h2 class="fp-block-heading">Example text</h2>
-<!-- /fp:heading -->`;
+<!-- fin:heading -->
+<h2 class="fin-block-heading">Example text</h2>
+<!-- /fin:heading -->`;
 
 const transformsWithInnerBlocks = [ 'List', 'Quote', 'Columns', 'Group' ];
 const blockTransforms = [

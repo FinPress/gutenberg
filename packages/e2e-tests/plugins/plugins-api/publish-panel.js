@@ -1,10 +1,10 @@
 ( function () {
-	const el = fp.element.createElement;
-	const Fragment = fp.element.Fragment;
-	const __ = fp.i18n.__;
-	const registerPlugin = fp.plugins.registerPlugin;
-	const PluginPostPublishPanel = fp.editor.PluginPostPublishPanel;
-	const PluginPrePublishPanel = fp.editor.PluginPrePublishPanel;
+	const el = fin.element.createElement;
+	const Fragment = fin.element.Fragment;
+	const __ = fin.i18n.__;
+	const registerPlugin = fin.plugins.registerPlugin;
+	const PluginPostPublishPanel = fin.editor.PluginPostPublishPanel;
+	const PluginPrePublishPanel = fin.editor.PluginPrePublishPanel;
 
 	function PanelContent() {
 		return el( 'p', {}, __( 'Here is the panel content!' ) );

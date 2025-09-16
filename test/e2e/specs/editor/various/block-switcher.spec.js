@@ -52,7 +52,7 @@ test.describe( 'Block Switcher', () => {
 		// Remove the quote block from the list of registered blocks.
 		await page.waitForFunction( () => {
 			try {
-				window.fp.blocks.unregisterBlockType( 'core/quote' );
+				window.fin.blocks.unregisterBlockType( 'core/quote' );
 				return true;
 			} catch {
 				return false;

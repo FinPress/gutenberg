@@ -757,7 +757,7 @@ const getActiveBlockData = () => {
 };
 
 // Subscribe to changes in the editor
-// fp.data.subscribe(() => {
+// fin.data.subscribe(() => {
 // getActiveBlockData()
 // })
 
@@ -1454,7 +1454,7 @@ _Properties_
 _Usage_
 
 ```js
-fp.data.dispatch( 'core/block-editor' ).registerInserterMediaCategory( {
+fin.data.dispatch( 'core/block-editor' ).registerInserterMediaCategory( {
 	name: 'openverse',
 	labels: {
 		name: 'Openverse',

@@ -66,7 +66,7 @@ function UnforwardedNumberControl(
 	} );
 
 	if ( hideHTMLArrows ) {
-		deprecated( 'fp.components.NumberControl hideHTMLArrows prop ', {
+		deprecated( 'fin.components.NumberControl hideHTMLArrows prop ', {
 			alternative: 'spinControls="none"',
 			since: '6.2',
 			version: '6.3',

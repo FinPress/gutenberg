@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/tag-cloud",
 	"title": "Tag Cloud",
@@ -65,5 +65,5 @@
 			}
 		}
 	},
-	"editorStyle": "fp-block-tag-cloud-editor"
+	"editorStyle": "fin-block-tag-cloud-editor"
 }

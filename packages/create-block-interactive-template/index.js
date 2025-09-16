@@ -19,8 +19,8 @@ module.exports = {
 		render: 'file:./render.php',
 		example: {},
 		customScripts: {
-			build: 'fp-scripts build --experimental-modules',
-			start: 'fp-scripts start --experimental-modules',
+			build: 'fin-scripts build --experimental-modules',
+			start: 'fin-scripts start --experimental-modules',
 		},
 	},
 	variants: {

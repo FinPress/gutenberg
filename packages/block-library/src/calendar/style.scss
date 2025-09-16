@@ -1,4 +1,4 @@
-.fp-block-calendar {
+.fin-block-calendar {
 	text-align: center;
 
 	th,
@@ -40,6 +40,6 @@
 }
 
 // Keep the hard-coded header background color for backward compatibility.
-:where(.fp-block-calendar table:not(.has-background) th) {
+:where(.fin-block-calendar table:not(.has-background) th) {
 	background: $gray-300;
 }

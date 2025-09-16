@@ -7,7 +7,7 @@ import { isClassicThemeWithStyleBookSupport } from './utils';
 
 export const patternItemRoute = {
 	name: 'pattern-item',
-	path: '/fp_block/:postId',
+	path: '/fin_block/:postId',
 	areas: {
 		sidebar( { siteData } ) {
 			const isBlockTheme = siteData.currentTheme?.is_block_theme;

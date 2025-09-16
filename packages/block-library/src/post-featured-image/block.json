@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-featured-image",
 	"title": "Featured Image",
@@ -97,12 +97,12 @@
 		}
 	},
 	"selectors": {
-		"border": ".fp-block-post-featured-image img, .fp-block-post-featured-image .block-editor-media-placeholder, .fp-block-post-featured-image .fp-block-post-featured-image__overlay",
-		"shadow": ".fp-block-post-featured-image img, .fp-block-post-featured-image .components-placeholder",
+		"border": ".fin-block-post-featured-image img, .fin-block-post-featured-image .block-editor-media-placeholder, .fin-block-post-featured-image .fin-block-post-featured-image__overlay",
+		"shadow": ".fin-block-post-featured-image img, .fin-block-post-featured-image .components-placeholder",
 		"filter": {
-			"duotone": ".fp-block-post-featured-image img, .fp-block-post-featured-image .fp-block-post-featured-image__placeholder, .fp-block-post-featured-image .components-placeholder__illustration, .fp-block-post-featured-image .components-placeholder::before"
+			"duotone": ".fin-block-post-featured-image img, .fin-block-post-featured-image .fin-block-post-featured-image__placeholder, .fin-block-post-featured-image .components-placeholder__illustration, .fin-block-post-featured-image .components-placeholder::before"
 		}
 	},
-	"editorStyle": "fp-block-post-featured-image-editor",
-	"style": "fp-block-post-featured-image"
+	"editorStyle": "fin-block-post-featured-image-editor",
+	"style": "fin-block-post-featured-image"
 }

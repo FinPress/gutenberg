@@ -30,18 +30,18 @@ Not all valid CSS color syntaxes are supported — in particular, keywords (like
 
 If you would like your custom component to be themeable as a child of the `Theme` component, it should use these color variables. (This is a work in progress, and this list of variables may change. We do not recommend using these variables in production at this time.)
 
--  `--fp-components-color-accent`: The accent color.
--  `--fp-components-color-accent-darker-10`: A slightly darker version of the accent color.
--  `--fp-components-color-accent-darker-20`: An even darker version of the accent color.
--  `--fp-components-color-accent-inverted`: The foreground color when the accent color is the background, for example when placing text on the accent color.
--  `--fp-components-color-background`: The background color.
--  `--fp-components-color-foreground`: The foreground color, for example text.
--  `--fp-components-color-foreground-inverted`: The foreground color when the foreground color is the background, for example when placing text on the foreground color.
+-  `--fin-components-color-accent`: The accent color.
+-  `--fin-components-color-accent-darker-10`: A slightly darker version of the accent color.
+-  `--fin-components-color-accent-darker-20`: An even darker version of the accent color.
+-  `--fin-components-color-accent-inverted`: The foreground color when the accent color is the background, for example when placing text on the accent color.
+-  `--fin-components-color-background`: The background color.
+-  `--fin-components-color-foreground`: The foreground color, for example text.
+-  `--fin-components-color-foreground-inverted`: The foreground color when the foreground color is the background, for example when placing text on the foreground color.
 -  Grayscale:
-   -  `--fp-components-color-gray-100`: Used for light gray backgrounds.
-   -  `--fp-components-color-gray-200`: Used sparingly for light borders.
-   -	`--fp-components-color-gray-300`: Used for most borders.
-   -	`--fp-components-color-gray-400`
-   -	`--fp-components-color-gray-600`: Meets 3:1 UI or large text contrast against white.
-   -	`--fp-components-color-gray-700`: Meets 4.6:1 text contrast against white.
-   -	`--fp-components-color-gray-800`
+   -  `--fin-components-color-gray-100`: Used for light gray backgrounds.
+   -  `--fin-components-color-gray-200`: Used sparingly for light borders.
+   -	`--fin-components-color-gray-300`: Used for most borders.
+   -	`--fin-components-color-gray-400`
+   -	`--fin-components-color-gray-600`: Meets 3:1 UI or large text contrast against white.
+   -	`--fin-components-color-gray-700`: Meets 4.6:1 text contrast against white.
+   -	`--fin-components-color-gray-800`

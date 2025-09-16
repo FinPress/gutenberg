@@ -21,7 +21,7 @@ function render_block_core_rss( $attributes ) {
 
 	$rss = fetch_feed( $attributes['feedURL'] );
 
-	if ( is_fp_error( $rss ) ) {
+	if ( is_fin_error( $rss ) ) {
 		return '<div class="components-placeholder"><div class="notice notice-error"><strong>' . __( 'RSS Error:' ) . '</strong> ' . esc_html( $rss->get_error_message() ) . '</div></div>';
 	}
 
@@ -57,7 +57,7 @@ function render_block_core_rss( $attributes ) {
 		if ( $link ) {
 			$title = "<a href='{$link}'{$link_attributes}>{$title}</a>";
 		}
-		$title = "<div class='fp-block-rss__item-title'>{$title}</div>";
+		$title = "<div class='fin-block-rss__item-title'>{$title}</div>";
 
 		$date_markup = '';
 		if ( ! empty( $attributes['displayDate'] ) ) {
@@ -68,7 +68,7 @@ function render_block_core_rss( $attributes ) {
 				$timestamp += (int) ( (float) $gmt_offset * HOUR_IN_SECONDS );
 
 				$date_markup = sprintf(
-					'<time datetime="%1$s" class="fp-block-rss__item-publish-date">%2$s</time> ',
+					'<time datetime="%1$s" class="fin-block-rss__item-publish-date">%2$s</time> ',
 					esc_attr( date_i18n( 'c', $timestamp ) ),
 					esc_html( date_i18n( get_option( 'date_format' ), $timestamp ) )
 				);
@@ -81,7 +81,7 @@ function render_block_core_rss( $attributes ) {
 			if ( is_object( $author ) ) {
 				$author = $author->get_name();
 				if ( ! empty( $author ) ) {
-					$author = '<span class="fp-block-rss__item-author">' . sprintf(
+					$author = '<span class="fin-block-rss__item-author">' . sprintf(
 						/* translators: byline. %s: author. */
 						__( 'by %s' ),
 						esc_html( strip_tags( $author ) )
@@ -94,17 +94,17 @@ function render_block_core_rss( $attributes ) {
 		$description = $item->get_description();
 		if ( $attributes['displayExcerpt'] && ! empty( $description ) ) {
 			$excerpt = html_entity_decode( $description, ENT_QUOTES, get_option( 'blog_charset' ) );
-			$excerpt = esc_attr( fp_trim_words( $excerpt, $attributes['excerptLength'], ' [&hellip;]' ) );
+			$excerpt = esc_attr( fin_trim_words( $excerpt, $attributes['excerptLength'], ' [&hellip;]' ) );
 
 			// Change existing [...] to [&hellip;].
 			if ( '[...]' === substr( $excerpt, -5 ) ) {
 				$excerpt = substr( $excerpt, 0, -5 ) . '[&hellip;]';
 			}
 
-			$excerpt = '<div class="fp-block-rss__item-excerpt">' . esc_html( $excerpt ) . '</div>';
+			$excerpt = '<div class="fin-block-rss__item-excerpt">' . esc_html( $excerpt ) . '</div>';
 		}
 
-		$list_items .= "<li class='fp-block-rss__item'>{$title}{$date_markup}{$author}{$excerpt}</li>";
+		$list_items .= "<li class='fin-block-rss__item'>{$title}{$date_markup}{$author}{$excerpt}</li>";
 	}
 
 	$classnames = array();

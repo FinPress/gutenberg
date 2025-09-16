@@ -252,15 +252,15 @@ describe( 'Social links block', () => {
 		dismissModal( screen.getByTestId( 'link-settings-navigation' ) );
 
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:social-links -->
-		<ul class="fp-block-social-links"><!-- fp:social-link {"url":"https://finpress.org","service":"finpress"} /-->
+		"<!-- fin:social-links -->
+		<ul class="fin-block-social-links"><!-- fin:social-link {"url":"https://finpress.org","service":"finpress"} /-->
 
-		<!-- fp:social-link {"url":"https://facebook.com","service":"facebook","label":"","rel":""} /-->
+		<!-- fin:social-link {"url":"https://facebook.com","service":"facebook","label":"","rel":""} /-->
 
-		<!-- fp:social-link {"service":"twitter"} /-->
+		<!-- fin:social-link {"service":"twitter"} /-->
 
-		<!-- fp:social-link {"service":"instagram"} /--></ul>
-		<!-- /fp:social-links -->"
+		<!-- fin:social-link {"service":"instagram"} /--></ul>
+		<!-- /fin:social-links -->"
 	` );
 	} );
 } );

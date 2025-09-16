@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/social-link",
 	"title": "Social Icon",
@@ -38,5 +38,5 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-social-link-editor"
+	"editorStyle": "fin-block-social-link-editor"
 }

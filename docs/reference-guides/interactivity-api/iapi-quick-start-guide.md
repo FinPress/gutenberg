@@ -24,7 +24,7 @@ With the plugin activated, you can explore how the block works. Use the followin
 cd my-first-interactive-block && npm start
 ```
 
-When `create-block` scaffolds the block, it installs `fp-scripts` and adds the most common scripts to the block’s `package.json` file. Refer to the [Get started with fp-scripts](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-scripts/) article for an introduction to this package.
+When `create-block` scaffolds the block, it installs `fin-scripts` and adds the most common scripts to the block’s `package.json` file. Refer to the [Get started with fin-scripts](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-scripts/) article for an introduction to this package.
 
 The `npm start` command will start a development server and watch for changes in the block’s code, rebuilding the block whenever modifications are made.
 
@@ -32,10 +32,10 @@ When you are finished making changes, run the `npm run build` command. This opti
 
 ## View the block in action
 
-If you have a local FinPress installation already running, you can launch the commands above inside the `plugins` folder of that installation. If not, you can use [`@fp-playground/cli`](https://github.com/FinPress/finpress-playground/tree/trunk/packages/playground/cli) to launch a FinPress site with the plugin installed by executing the following command from the plugin's folder (`my-first-interactive-block`).
+If you have a local FinPress installation already running, you can launch the commands above inside the `plugins` folder of that installation. If not, you can use [`@fin-playground/cli`](https://github.com/FinPress/finpress-playground/tree/trunk/packages/playground/cli) to launch a FinPress site with the plugin installed by executing the following command from the plugin's folder (`my-first-interactive-block`).
 
 ```
-npx @fp-playground/cli server --auto-mount
+npx @fin-playground/cli server --auto-mount
 ```
 
 You should be able to insert the "My First Interactive Block" block into any post and see how it behaves in the front end when published.

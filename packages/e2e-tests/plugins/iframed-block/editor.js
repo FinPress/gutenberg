@@ -1,4 +1,4 @@
-( ( { fp: { element, blocks, blockEditor, compose }, jQuery: $ } ) => {
+( ( { fin: { element, blocks, blockEditor, compose }, jQuery: $ } ) => {
 	const { createElement: el } = element;
 	const { registerBlockType } = blocks;
 	const { useBlockProps } = blockEditor;

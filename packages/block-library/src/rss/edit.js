@@ -83,7 +83,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 				>
 					<form
 						onSubmit={ onSubmitURL }
-						className="fp-block-rss__placeholder-form"
+						className="fin-block-rss__placeholder-form"
 					>
 						<InputControl
 							__next40pxDefaultSize
@@ -95,7 +95,7 @@ export default function RSSEdit( { attributes, setAttributes } ) {
 							onChange={ ( value ) =>
 								setAttributes( { feedURL: value } )
 							}
-							className="fp-block-rss__placeholder-input"
+							className="fin-block-rss__placeholder-input"
 						/>
 						<Button
 							__next40pxDefaultSize

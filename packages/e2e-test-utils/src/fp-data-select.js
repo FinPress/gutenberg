@@ -18,10 +18,10 @@
  *
  * @return {Promise<?Object>} Result of querying.
  */
-export async function fpDataSelect( store, selector, ...parameters ) {
+export async function finDataSelect( store, selector, ...parameters ) {
 	return page.evaluate(
 		( _store, _selector, ..._parameters ) => {
-			return window.fp.data
+			return window.fin.data
 				.select( _store )
 				[ _selector ]( ..._parameters );
 		},

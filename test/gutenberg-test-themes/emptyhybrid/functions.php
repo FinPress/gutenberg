@@ -12,7 +12,7 @@ if ( ! function_exists( 'emptyhybrid_support' ) ) :
 	function emptyhybrid_support() {
 
 		// Adding support for core block visual styles.
-		add_theme_support( 'fp-block-styles' );
+		add_theme_support( 'fin-block-styles' );
 
 		// Enqueue editor styles.
 		add_editor_style( 'style.css' );
@@ -29,7 +29,7 @@ if ( ! function_exists( 'emptyhybrid_scripts' ) ) :
 	 */
 	function emptyhybrid_scripts() {
 		// Enqueue theme stylesheet.
-		fp_enqueue_style( 'emptyhybrid-style', get_template_directory_uri() . '/style.css', array(), fp_get_theme()->get( 'Version' ) );
+		fin_enqueue_style( 'emptyhybrid-style', get_template_directory_uri() . '/style.css', array(), fin_get_theme()->get( 'Version' ) );
 	}
-	add_action( 'fp_enqueue_scripts', 'emptyhybrid_scripts' );
+	add_action( 'fin_enqueue_scripts', 'emptyhybrid_scripts' );
 endif;

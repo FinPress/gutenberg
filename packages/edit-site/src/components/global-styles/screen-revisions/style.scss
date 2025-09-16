@@ -20,9 +20,9 @@
 	}
 
 	&:hover {
-		background: rgba(var(--fp-admin-theme-color--rgb), 0.04);
+		background: rgba(var(--fin-admin-theme-color--rgb), 0.04);
 		.edit-site-global-styles-screen-revisions__date {
-			color: var(--fp-admin-theme-color);
+			color: var(--fin-admin-theme-color);
 		}
 	}
 
@@ -54,15 +54,15 @@
 		outline: 3px solid transparent;
 		outline-offset: -2px;
 
-		color: var(--fp-admin-theme-color);
-		background: rgba(var(--fp-admin-theme-color--rgb), 0.04);
+		color: var(--fin-admin-theme-color);
+		background: rgba(var(--fin-admin-theme-color--rgb), 0.04);
 
 		.edit-site-global-styles-screen-revisions__date {
-			color: var(--fp-admin-theme-color);
+			color: var(--fin-admin-theme-color);
 		}
 
 		&::before {
-			background: var(--fp-admin-theme-color);
+			background: var(--fin-admin-theme-color);
 		}
 
 		.edit-site-global-styles-screen-revisions__changes > li,

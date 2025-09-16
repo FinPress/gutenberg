@@ -1,8 +1,8 @@
 ( function () {
-	const registerBlockType = fp.blocks.registerBlockType;
-	const el = fp.element.createElement;
-	const InnerBlocks = fp.blockEditor.InnerBlocks;
-	const __ = fp.i18n.__;
+	const registerBlockType = fin.blocks.registerBlockType;
+	const el = fin.element.createElement;
+	const InnerBlocks = fin.blockEditor.InnerBlocks;
+	const __ = fin.i18n.__;
 	const TEMPLATE = [
 		[
 			'core/paragraph',

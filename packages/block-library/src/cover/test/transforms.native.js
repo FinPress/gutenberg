@@ -11,17 +11,17 @@ import {
 
 const block = 'Cover';
 const initialHtmlWithImage = `
-<!-- fp:cover {"url":"https://cldup.com/cXyG__fTLN.jpg","id":890,"dimRatio":20,"overlayColor":"luminous-vivid-orange","isUserOverlayColor":true,"focalPoint":{"x":"0.63","y":"0.83"},"minHeight":219} -->
-<div class="fp-block-cover" style="min-height:219px"><img class="fp-block-cover__image-background fp-image-890" alt="" src="https://cldup.com/cXyG__fTLN.jpg" style="object-position:63% 83%" data-object-fit="cover" data-object-position="63% 83%"/><span aria-hidden="true" class="fp-block-cover__background has-luminous-vivid-orange-background-color has-background-dim-20 has-background-dim"></span><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"align":"center","placeholder":"Write title…","className":"has-text-color has-very-light-gray-color","fontSize":"large"} -->
+<!-- fin:cover {"url":"https://cldup.com/cXyG__fTLN.jpg","id":890,"dimRatio":20,"overlayColor":"luminous-vivid-orange","isUserOverlayColor":true,"focalPoint":{"x":"0.63","y":"0.83"},"minHeight":219} -->
+<div class="fin-block-cover" style="min-height:219px"><img class="fin-block-cover__image-background fin-image-890" alt="" src="https://cldup.com/cXyG__fTLN.jpg" style="object-position:63% 83%" data-object-fit="cover" data-object-position="63% 83%"/><span aria-hidden="true" class="fin-block-cover__background has-luminous-vivid-orange-background-color has-background-dim-20 has-background-dim"></span><div class="fin-block-cover__inner-container"><!-- fin:paragraph {"align":"center","placeholder":"Write title…","className":"has-text-color has-very-light-gray-color","fontSize":"large"} -->
 <p class="has-text-align-center has-text-color has-very-light-gray-color has-large-font-size">Cool cover</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:cover -->`;
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:cover -->`;
 const initialHtmlWithVideo = `
-<!-- fp:cover {"url":"https://i.cloudup.com/YtZFJbuQCE.mov","id":891,"dimRatio":20,"overlayColor":"luminous-vivid-orange","isUserOverlayColor":true,"backgroundType":"video","focalPoint":{"x":"0.63","y":"0.83"},"minHeight":219,"isDark":false} -->
-<div class="fp-block-cover is-light" style="min-height:219px"><video class="fp-block-cover__video-background intrinsic-ignore" autoplay muted loop playsinline src="https://i.cloudup.com/YtZFJbuQCE.mov" style="object-position:63% 83%" data-object-fit="cover" data-object-position="63% 83%"></video><span aria-hidden="true" class="fp-block-cover__background has-luminous-vivid-orange-background-color has-background-dim-20 has-background-dim"></span><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"align":"center","placeholder":"Write title…","className":"has-text-color has-very-light-gray-color","fontSize":"large"} -->
+<!-- fin:cover {"url":"https://i.cloudup.com/YtZFJbuQCE.mov","id":891,"dimRatio":20,"overlayColor":"luminous-vivid-orange","isUserOverlayColor":true,"backgroundType":"video","focalPoint":{"x":"0.63","y":"0.83"},"minHeight":219,"isDark":false} -->
+<div class="fin-block-cover is-light" style="min-height:219px"><video class="fin-block-cover__video-background intrinsic-ignore" autoplay muted loop playsinline src="https://i.cloudup.com/YtZFJbuQCE.mov" style="object-position:63% 83%" data-object-fit="cover" data-object-position="63% 83%"></video><span aria-hidden="true" class="fin-block-cover__background has-luminous-vivid-orange-background-color has-background-dim-20 has-background-dim"></span><div class="fin-block-cover__inner-container"><!-- fin:paragraph {"align":"center","placeholder":"Write title…","className":"has-text-color has-very-light-gray-color","fontSize":"large"} -->
 <p class="has-text-align-center has-text-color has-very-light-gray-color has-large-font-size">Cool cover</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:cover -->`;
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:cover -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransformsWithImage = [

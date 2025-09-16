@@ -105,7 +105,7 @@ function block_core_home_link_build_li_wrapper_attributes( $context ) {
 		$font_sizes['css_classes']
 	);
 	$style_attribute = ( $colors['inline_styles'] . $font_sizes['inline_styles'] );
-	$classes[]       = 'fp-block-navigation-item';
+	$classes[]       = 'fin-block-navigation-item';
 
 	if ( is_front_page() ) {
 		$classes[] = 'current-menu-item';
@@ -149,11 +149,11 @@ function render_block_core_home_link( $attributes, $content, $block ) {
 	}
 
 	return sprintf(
-		'<li %1$s><a class="fp-block-home-link__content fp-block-navigation-item__content" href="%2$s" rel="home"%3$s>%4$s</a></li>',
+		'<li %1$s><a class="fin-block-home-link__content fin-block-navigation-item__content" href="%2$s" rel="home"%3$s>%4$s</a></li>',
 		block_core_home_link_build_li_wrapper_attributes( $block->context ),
 		esc_url( home_url() ),
 		$aria_current,
-		fp_kses_post( $attributes['label'] )
+		fin_kses_post( $attributes['label'] )
 	);
 }
 

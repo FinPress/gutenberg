@@ -23,7 +23,7 @@ test.describe( 'Post visibility', () => {
 			await page.getByRole( 'radio', { name: 'Private' } ).click();
 
 			const currentStatus = await page.evaluate( () => {
-				return window.fp.data
+				return window.fin.data
 					.select( 'core/editor' )
 					.getEditedPostAttribute( 'status' );
 			} );
@@ -68,7 +68,7 @@ test.describe( 'Post visibility', () => {
 			.click();
 
 		const currentStatus = await page.evaluate( () => {
-			return window.fp.data
+			return window.fin.data
 				.select( 'core/editor' )
 				.getEditedPostAttribute( 'status' );
 		} );

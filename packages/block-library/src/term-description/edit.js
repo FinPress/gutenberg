@@ -36,7 +36,7 @@ export default function TermDescriptionEdit( {
 				/>
 			</BlockControls>
 			<div { ...blockProps }>
-				<div className="fp-block-term-description__placeholder">
+				<div className="fin-block-term-description__placeholder">
 					<span>{ __( 'Term Description' ) }</span>
 				</div>
 			</div>

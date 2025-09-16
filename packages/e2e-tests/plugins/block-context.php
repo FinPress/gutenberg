@@ -11,13 +11,13 @@
  * Registers plugin test context blocks.
  */
 function gutenberg_test_register_context_blocks() {
-	fp_register_script(
+	fin_register_script(
 		'gutenberg-test-block-context',
 		plugins_url( 'block-context/index.js', __FILE__ ),
 		array(
-			'fp-block-editor',
-			'fp-blocks',
-			'fp-element',
+			'fin-block-editor',
+			'fin-blocks',
+			'fin-element',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block-context/index.js' ),
 		true

@@ -511,7 +511,7 @@ function getWOFF2Tag( flag ) {
 		`OS/2`,
 		`post`,
 		`cvt `,
-		`fpgm`,
+		`fingm`,
 		`glyf`,
 		`loca`,
 		`prep`,
@@ -616,7 +616,7 @@ Promise.all( [
 		return cvt$1;
 	} ),
 	Promise.resolve().then( function () {
-		return fpgm$1;
+		return fingm$1;
 	} ),
 	Promise.resolve().then( function () {
 		return gasp$1;
@@ -3246,7 +3246,7 @@ class cvt extends SimpleTable {
 	}
 }
 var cvt$1 = Object.freeze( { __proto__: null, cvt: cvt } );
-class fpgm extends SimpleTable {
+class fingm extends SimpleTable {
 	constructor( dict, dataview ) {
 		const { p: p } = super( dict, dataview );
 		lazy$1( this, `instructions`, () =>
@@ -3254,7 +3254,7 @@ class fpgm extends SimpleTable {
 		);
 	}
 }
-var fpgm$1 = Object.freeze( { __proto__: null, fpgm: fpgm } );
+var fingm$1 = Object.freeze( { __proto__: null, fingm: fingm } );
 class gasp extends SimpleTable {
 	constructor( dict, dataview ) {
 		const { p: p } = super( dict, dataview );

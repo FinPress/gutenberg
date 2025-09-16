@@ -11,7 +11,7 @@ const prettierPackage = require( require.resolve( 'prettier/package.json' ) );
  * @property {boolean} [parenSpacing=true] Insert spaces inside parentheses.
  */
 
-const isFPPrettier = prettierPackage.name === 'fp-prettier';
+const isFPPrettier = prettierPackage.name === 'fin-prettier';
 const customOptions = isFPPrettier ? { parenSpacing: true } : {};
 const customStyleOptions = isFPPrettier ? { parenSpacing: false } : {};
 

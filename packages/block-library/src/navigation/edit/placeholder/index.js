@@ -45,7 +45,7 @@ export default function NavigationPlaceholder( {
 
 	return (
 		<>
-			<Placeholder className="fp-block-navigation-placeholder">
+			<Placeholder className="fin-block-navigation-placeholder">
 				{
 					// The <PlaceholderPreview> component is displayed conditionally via CSS depending on
 					// whether the block is selected or not. This is achieved via CSS to avoid
@@ -54,10 +54,10 @@ export default function NavigationPlaceholder( {
 				<PlaceholderPreview isVisible={ ! isSelected } />
 				<div
 					aria-hidden={ ! isSelected ? true : undefined }
-					className="fp-block-navigation-placeholder__controls"
+					className="fin-block-navigation-placeholder__controls"
 				>
-					<div className="fp-block-navigation-placeholder__actions">
-						<div className="fp-block-navigation-placeholder__actions__indicator">
+					<div className="fin-block-navigation-placeholder__actions">
+						<div className="fin-block-navigation-placeholder__actions__indicator">
 							<Icon icon={ navigation } /> { __( 'Navigation' ) }
 						</div>
 

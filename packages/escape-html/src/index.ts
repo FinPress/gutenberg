@@ -63,7 +63,7 @@ export function escapeLessThan( value: string ): string {
  * "[...] the text cannot contain an ambiguous ampersand [...] must not contain
  * any literal U+0022 QUOTATION MARK characters (")"
  *
- * Note we also escape the greater than symbol, as this is used by fptexturize to
+ * Note we also escape the greater than symbol, as this is used by fintexturize to
  * split HTML strings. This is a FinPress specific fix
  *
  * Note that if a resolution for Trac#45387 comes to fruition, it is no longer

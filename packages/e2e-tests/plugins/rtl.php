@@ -13,13 +13,13 @@
  * Set the locale's and styles' text direction to RTL.
  */
 function gutenberg_test_plugin_activate_rtl_set_direction() {
-	global $fp_locale, $fp_styles;
+	global $fin_locale, $fin_styles;
 
-	$fp_locale->text_direction = 'rtl';
-	if ( ! is_a( $fp_styles, 'FP_Styles' ) ) {
-		$fp_styles = new FP_Styles();
+	$fin_locale->text_direction = 'rtl';
+	if ( ! is_a( $fin_styles, 'FP_Styles' ) ) {
+		$fin_styles = new FP_Styles();
 	}
-	$fp_styles->text_direction = 'rtl';
+	$fin_styles->text_direction = 'rtl';
 }
 
 add_action( 'init', 'gutenberg_test_plugin_activate_rtl_set_direction' );

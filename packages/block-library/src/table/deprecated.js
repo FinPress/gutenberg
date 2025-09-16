@@ -158,7 +158,7 @@ const v4 = {
 				width: true,
 			},
 		},
-		__experimentalSelector: '.fp-block-table > table',
+		__experimentalSelector: '.fin-block-table > table',
 		interactivity: {
 			clientNavigation: true,
 		},
@@ -258,7 +258,7 @@ const v4 = {
 };
 
 // In #41140 support was added to global styles for caption elements which
-// added a `fp-element-caption` classname to the embed figcaption element.
+// added a `fin-element-caption` classname to the embed figcaption element.
 const v3Query = {
 	content: {
 		type: 'string',
@@ -378,7 +378,7 @@ const v3 = {
 				width: true,
 			},
 		},
-		__experimentalSelector: '.fp-block-table > table',
+		__experimentalSelector: '.fin-block-table > table',
 	},
 	save( { attributes } ) {
 		const { hasFixedLayout, head, body, foot, caption } = attributes;
@@ -546,7 +546,7 @@ const v2 = {
 	supports: {
 		anchor: true,
 		align: true,
-		__experimentalSelector: '.fp-block-table > table',
+		__experimentalSelector: '.fin-block-table > table',
 	},
 	save: ( { attributes } ) => {
 		const { hasFixedLayout, head, body, foot, backgroundColor, caption } =

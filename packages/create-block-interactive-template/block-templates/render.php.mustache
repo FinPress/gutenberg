@@ -11,10 +11,10 @@
  */
 
 // Generates a unique id for aria-controls.
-$unique_id = fp_unique_id( 'p-' );
+$unique_id = fin_unique_id( 'p-' );
 
 // Adds the global state.
-fp_interactivity_state(
+fin_interactivity_state(
 	'{{namespace}}',
 	array(
 		'isDark'    => false,
@@ -27,19 +27,19 @@ fp_interactivity_state(
 
 <div
 	<?php echo get_block_wrapper_attributes(); ?>
-	data-fp-interactive="{{namespace}}"
-	<?php echo fp_interactivity_data_fp_context( array( 'isOpen' => false ) ); ?>
-	data-fp-watch="callbacks.logIsOpen"
-	data-fp-class--dark-theme="state.isDark"
+	data-fin-interactive="{{namespace}}"
+	<?php echo fin_interactivity_data_fin_context( array( 'isOpen' => false ) ); ?>
+	data-fin-watch="callbacks.logIsOpen"
+	data-fin-class--dark-theme="state.isDark"
 >
 	<button
-		data-fp-on--click="actions.toggleTheme"
-		data-fp-text="state.themeText"
+		data-fin-on--click="actions.toggleTheme"
+		data-fin-text="state.themeText"
 	></button>
 
 	<button
-		data-fp-on--click="actions.toggleOpen"
-		data-fp-bind--aria-expanded="context.isOpen"
+		data-fin-on--click="actions.toggleOpen"
+		data-fin-bind--aria-expanded="context.isOpen"
 		aria-controls="<?php echo esc_attr( $unique_id ); ?>"
 	>
 		<?php esc_html_e( 'Toggle', '{{textdomain}}' ); ?>
@@ -47,7 +47,7 @@ fp_interactivity_state(
 
 	<p
 		id="<?php echo esc_attr( $unique_id ); ?>"
-		data-fp-bind--hidden="!context.isOpen"
+		data-fin-bind--hidden="!context.isOpen"
 	>
 		<?php
 			esc_html_e( '{{title}} - hello from an interactive block!', '{{textdomain}}' );

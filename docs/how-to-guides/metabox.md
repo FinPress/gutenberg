@@ -111,7 +111,7 @@ registerBlockType( 'myguten/meta-block', {
 
 Confirm this works by creating a post and add the Meta Block. You will see your field that you can type a value in. When you save the post, either as a draft or published, the post meta value will be saved too. You can verify by saving and reloading your draft, the form will still be filled in on reload.
 
-You could also confirm the data is saved by checking the database table `fp_postmeta` and confirm the new post id contains the new field data.
+You could also confirm the data is saved by checking the database table `fin_postmeta` and confirm the new post id contains the new field data.
 
 **Troubleshooting**: Be sure to build your code between changes, you updated the PHP code from Step 1, and JavaScript files are enqueued. Check the build output and developer console for errors.
 
@@ -245,9 +245,9 @@ When the meta box area is saving, we display an updating overlay, to prevent use
 
 An example save url would look like:
 
-`example.org/fp-admin/post.php?post=1&action=edit&meta-box-loader=1`
+`example.org/fin-admin/post.php?post=1&action=edit&meta-box-loader=1`
 
-This url is automatically passed into React via a `_fpMetaBoxUrl` global variable.
+This url is automatically passed into React via a `_finMetaBoxUrl` global variable.
 
 This page mimics the `post.php` post form, so when it is submitted it will fire all of the normal hooks and actions, and have the proper global state to correctly fire any PHP meta box mumbo jumbo without needing to modify any existing code. On successful submission, React will signal a `handleMetaBoxReload` to remove the updating overlay.
 

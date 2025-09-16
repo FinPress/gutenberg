@@ -109,7 +109,7 @@ describe( 'BorderControl', () => {
 			// and do not have `display: none` styling, we can't rely on
 			// `.toBeInTheDocument()` or `.toBeVisible()` assertions.
 			expect( label ).toHaveAttribute(
-				'data-fp-component',
+				'data-fin-component',
 				'VisuallyHidden'
 			);
 		} );

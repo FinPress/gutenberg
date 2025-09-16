@@ -35,7 +35,7 @@ export class PerfUtils {
 	 */
 	async getCanvas(
 		canvasLocator = this.page.locator(
-			'.fp-block-post-content, iframe[name=editor-canvas]'
+			'.fin-block-post-content, iframe[name=editor-canvas]'
 		)
 	) {
 		const isFramed = await canvasLocator.evaluate(
@@ -69,10 +69,10 @@ export class PerfUtils {
 	 * Disables the editor autosave function.
 	 */
 	async disableAutosave() {
-		await this.page.waitForFunction( () => window?.fp?.data );
+		await this.page.waitForFunction( () => window?.fin?.data );
 
 		await this.page.evaluate( () => {
-			return window.fp.data
+			return window.fin.data
 				.dispatch( 'core/editor' )
 				.updateEditorSettings( {
 					autosaveInterval: 100000000000,
@@ -112,7 +112,7 @@ export class PerfUtils {
 	 */
 	async setRenderingMode( newRenderingMode: string ) {
 		await this.page.evaluate( ( _newRenderingMode ) => {
-			const { dispatch } = window.fp.data;
+			const { dispatch } = window.fin.data;
 			dispatch( 'core/editor' ).setRenderingMode( _newRenderingMode );
 		}, newRenderingMode );
 	}
@@ -159,12 +159,12 @@ export class PerfUtils {
 		}
 
 		await this.page.waitForFunction(
-			() => window?.fp?.blocks && window?.fp?.data
+			() => window?.fin?.blocks && window?.fin?.data
 		);
 
 		return await this.page.evaluate( ( html: string ) => {
-			const { parse } = window.fp.blocks;
-			const { dispatch } = window.fp.data;
+			const { parse } = window.fin.blocks;
+			const { dispatch } = window.fin.data;
 			const blocks = parse( html );
 
 			blocks.forEach( ( block: any ) => {
@@ -183,12 +183,12 @@ export class PerfUtils {
 	 */
 	async load1000Paragraphs() {
 		await this.page.waitForFunction(
-			() => window?.fp?.blocks && window?.fp?.data
+			() => window?.fin?.blocks && window?.fin?.data
 		);
 
 		await this.page.evaluate( () => {
-			const { createBlock } = window.fp.blocks;
-			const { dispatch } = window.fp.data;
+			const { createBlock } = window.fin.blocks;
+			const { dispatch } = window.fin.data;
 			const blocks = Array.from( { length: 1000 } ).map( () =>
 				createBlock( 'core/paragraph', { content: 'paragraph' } )
 			);

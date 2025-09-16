@@ -18,7 +18,7 @@ test.describe( 'Site editor iframe rendering mode', () => {
 	} ) => {
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 		const compatMode = await editor.canvas

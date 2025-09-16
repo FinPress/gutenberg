@@ -9,24 +9,24 @@
 				"blockName": "core/button",
 				"attrs": {},
 				"innerBlocks": [],
-				"innerHTML": "\n\t<div class=\"fp-block-button\"><a class=\"fp-block-button__link\">My button 1</a></div>\n\t",
+				"innerHTML": "\n\t<div class=\"fin-block-button\"><a class=\"fin-block-button__link\">My button 1</a></div>\n\t",
 				"innerContent": [
-					"\n\t<div class=\"fp-block-button\"><a class=\"fp-block-button__link\">My button 1</a></div>\n\t"
+					"\n\t<div class=\"fin-block-button\"><a class=\"fin-block-button__link\">My button 1</a></div>\n\t"
 				]
 			},
 			{
 				"blockName": "core/button",
 				"attrs": {},
 				"innerBlocks": [],
-				"innerHTML": "\n\t<div class=\"fp-block-button\"><a class=\"fp-block-button__link\">My button 2</a></div>\n\t",
+				"innerHTML": "\n\t<div class=\"fin-block-button\"><a class=\"fin-block-button__link\">My button 2</a></div>\n\t",
 				"innerContent": [
-					"\n\t<div class=\"fp-block-button\"><a class=\"fp-block-button__link\">My button 2</a></div>\n\t"
+					"\n\t<div class=\"fin-block-button\"><a class=\"fin-block-button__link\">My button 2</a></div>\n\t"
 				]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-buttons aligncenter\">\n\t\n\n\t\n</div>\n",
+		"innerHTML": "\n<div class=\"fin-block-buttons aligncenter\">\n\t\n\n\t\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-buttons aligncenter\">\n\t",
+			"\n<div class=\"fin-block-buttons aligncenter\">\n\t",
 			null,
 			"\n\n\t",
 			null,

@@ -14,19 +14,19 @@ import {
 
 const block = 'Group';
 const initialHtml = `
-<!-- fp:group -->
-<div id="this-is-another-anchor" class="fp-block-group"><!-- fp:paragraph -->
+<!-- fin:group -->
+<div id="this-is-another-anchor" class="fin-block-group"><!-- fin:paragraph -->
 <p>One.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Two</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Three.</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group -->`;
+<!-- /fin:paragraph --></div>
+<!-- /fin:group -->`;
 
 const transformsWithInnerBlocks = [ 'Columns' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

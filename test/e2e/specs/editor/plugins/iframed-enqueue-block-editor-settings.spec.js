@@ -35,10 +35,10 @@ test.describe( 'iframed block editor settings styles', () => {
 		);
 
 		await page.evaluate( () => {
-			const settings = window.fp.data
+			const settings = window.fin.data
 				.select( 'core/editor' )
 				.getEditorSettings();
-			window.fp.data.dispatch( 'core/editor' ).updateEditorSettings( {
+			window.fin.data.dispatch( 'core/editor' ).updateEditorSettings( {
 				...settings,
 				styles: [
 					...settings.styles,
@@ -65,13 +65,13 @@ test.describe( 'iframed block editor settings styles', () => {
 		await page.evaluate( () => {
 			// Make sure that theme styles are added even if the theme styles
 			// preference is off.
-			window.fp.data
+			window.fin.data
 				.dispatch( 'core/edit-post' )
 				.toggleFeature( 'themeStyles' );
-			const settings = window.fp.data
+			const settings = window.fin.data
 				.select( 'core/editor' )
 				.getEditorSettings();
-			window.fp.data.dispatch( 'core/editor' ).updateEditorSettings( {
+			window.fin.data.dispatch( 'core/editor' ).updateEditorSettings( {
 				...settings,
 				styles: [
 					...settings.styles,
@@ -88,7 +88,7 @@ test.describe( 'iframed block editor settings styles', () => {
 
 		await page.evaluate( () => {
 			// Now enable theme styles.
-			window.fp.data
+			window.fin.data
 				.dispatch( 'core/edit-post' )
 				.toggleFeature( 'themeStyles' );
 		} );

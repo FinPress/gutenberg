@@ -11,7 +11,7 @@ const testIds = {
 	button: 'search-block-button',
 };
 
-const searchBlockHtml = `<!-- fp:search {"label":"","buttonText":""} /-->`;
+const searchBlockHtml = `<!-- fin:search {"label":"","buttonText":""} /-->`;
 
 describe( 'Gutenberg Editor Search Block tests.', () => {
 	it( 'Able to add the Search Block.', async () => {

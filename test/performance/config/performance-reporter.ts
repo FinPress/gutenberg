@@ -37,11 +37,11 @@ export interface FPRawPerformanceResults {
 	loadPages: number[];
 	listViewOpen: number[];
 	navigate: number[];
-	fpBeforeTemplate: number[];
-	fpTemplate: number[];
-	fpTotal: number[];
-	fpMemoryUsage: number[];
-	fpDbQueries: number[];
+	finBeforeTemplate: number[];
+	finTemplate: number[];
+	finTotal: number[];
+	finMemoryUsage: number[];
+	finDbQueries: number[];
 }
 
 type PerformanceStats = {
@@ -73,11 +73,11 @@ export interface FPPerformanceResults {
 	loadPages?: PerformanceStats;
 	listViewOpen?: PerformanceStats;
 	navigate?: PerformanceStats;
-	fpBeforeTemplate?: PerformanceStats;
-	fpTemplate?: PerformanceStats;
-	fpTotal?: PerformanceStats;
-	fpMemoryUsage?: PerformanceStats;
-	fpDbQueries?: PerformanceStats;
+	finBeforeTemplate?: PerformanceStats;
+	finTemplate?: PerformanceStats;
+	finTotal?: PerformanceStats;
+	finMemoryUsage?: PerformanceStats;
+	finDbQueries?: PerformanceStats;
 }
 
 /**
@@ -111,11 +111,11 @@ export function curateResults(
 		loadPages: stats( results.loadPages ),
 		listViewOpen: stats( results.listViewOpen ),
 		navigate: stats( results.navigate ),
-		fpBeforeTemplate: stats( results.fpBeforeTemplate ),
-		fpTemplate: stats( results.fpTemplate ),
-		fpTotal: stats( results.fpTotal ),
-		fpMemoryUsage: stats( results.fpMemoryUsage ),
-		fpDbQueries: stats( results.fpDbQueries ),
+		finBeforeTemplate: stats( results.finBeforeTemplate ),
+		finTemplate: stats( results.finTemplate ),
+		finTotal: stats( results.finTotal ),
+		finMemoryUsage: stats( results.finMemoryUsage ),
+		finDbQueries: stats( results.finDbQueries ),
 	};
 
 	return Object.fromEntries(
@@ -126,11 +126,11 @@ export function curateResults(
 }
 
 function formatValue( metric: string, value: number ) {
-	if ( 'fpMemoryUsage' === metric ) {
+	if ( 'finMemoryUsage' === metric ) {
 		return `${ ( value / Math.pow( 10, 6 ) ).toFixed( 2 ) } MB`;
 	}
 
-	if ( 'fpDbQueries' === metric ) {
+	if ( 'finDbQueries' === metric ) {
 		return value.toString();
 	}
 

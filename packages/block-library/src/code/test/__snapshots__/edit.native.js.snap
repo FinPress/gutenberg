@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Code renders given text without crashing 1`] = `
-"<!-- fp:code -->
-<pre class="fp-block-code"><code>Sample text</code></pre>
-<!-- /fp:code -->"
+"<!-- fin:code -->
+<pre class="fin-block-code"><code>Sample text</code></pre>
+<!-- /fin:code -->"
 `;
 
 exports[`Code renders without crashing 1`] = `
-"<!-- fp:code -->
-<pre class="fp-block-code"><code></code></pre>
-<!-- /fp:code -->"
+"<!-- fin:code -->
+<pre class="fin-block-code"><code></code></pre>
+<!-- /fin:code -->"
 `;

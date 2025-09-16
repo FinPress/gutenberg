@@ -48,7 +48,7 @@ function render_block_core_query_pagination_previous( $attributes, $content, $bl
 		$block_query     = new FP_Query( build_query_vars_from_query_block( $block, $page ) );
 		$block_max_pages = $block_query->max_num_pages;
 		$total           = ! $max_page || $max_page > $block_max_pages ? $block_max_pages : $max_page;
-		fp_reset_postdata();
+		fin_reset_postdata();
 
 		if ( 1 < $page && $page <= $total ) {
 			$content = sprintf(
@@ -65,13 +65,13 @@ function render_block_core_query_pagination_previous( $attributes, $content, $bl
 		if ( $p->next_tag(
 			array(
 				'tag_name'   => 'a',
-				'class_name' => 'fp-block-query-pagination-previous',
+				'class_name' => 'fin-block-query-pagination-previous',
 			)
 		) ) {
-			$p->set_attribute( 'data-fp-key', 'query-pagination-previous' );
-			$p->set_attribute( 'data-fp-on--click', 'core/query::actions.navigate' );
-			$p->set_attribute( 'data-fp-on-async--mouseenter', 'core/query::actions.prefetch' );
-			$p->set_attribute( 'data-fp-watch', 'core/query::callbacks.prefetch' );
+			$p->set_attribute( 'data-fin-key', 'query-pagination-previous' );
+			$p->set_attribute( 'data-fin-on--click', 'core/query::actions.navigate' );
+			$p->set_attribute( 'data-fin-on-async--mouseenter', 'core/query::actions.prefetch' );
+			$p->set_attribute( 'data-fin-watch', 'core/query::callbacks.prefetch' );
 			$content = $p->get_updated_html();
 		}
 	}

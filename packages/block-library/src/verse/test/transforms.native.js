@@ -11,9 +11,9 @@ import {
 
 const block = 'Verse';
 const initialHtml = `
-<!-- fp:verse {"textAlign":"center"} -->
-<pre class="fp-block-verse has-text-align-center">Come<br>Home.</pre>
-<!-- /fp:verse -->`;
+<!-- fin:verse {"textAlign":"center"} -->
+<pre class="fin-block-verse has-text-align-center">Come<br>Home.</pre>
+<!-- /fin:verse -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [

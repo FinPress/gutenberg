@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/comments-pagination",
 	"title": "Comments Pagination",
@@ -63,6 +63,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-comments-pagination-editor",
-	"style": "fp-block-comments-pagination"
+	"editorStyle": "fin-block-comments-pagination-editor",
+	"style": "fin-block-comments-pagination"
 }

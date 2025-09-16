@@ -447,7 +447,7 @@ function a11ySpeak( messageKey: keyof typeof navigationTexts ) {
 	if ( ! hasLoadedNavigationTextsData ) {
 		hasLoadedNavigationTextsData = true;
 		const content = document.getElementById(
-			'fp-script-module-data-@finpress/interactivity-router'
+			'fin-script-module-data-@finpress/interactivity-router'
 		)?.textContent;
 		if ( content ) {
 			try {

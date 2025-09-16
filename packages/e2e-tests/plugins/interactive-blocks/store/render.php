@@ -6,11 +6,11 @@
  */
 ?>
 
-<div data-fp-interactive="test/store">
-	<div data-fp-text="state.0" data-testid="state-0"></div>
+<div data-fin-interactive="test/store">
+	<div data-fin-text="state.0" data-testid="state-0"></div>
 	<div
 		data-testid="non-plain object"
-		data-fp-text="state.isNotProxified"
-		data-fp-init="callbacks.init"
+		data-fin-text="state.isNotProxified"
+		data-fin-init="callbacks.init"
 	></div>
 </div>

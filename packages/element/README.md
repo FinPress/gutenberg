@@ -114,7 +114,7 @@ _Parameters_
 
 _Returns_
 
--   `Element`: A fp element.
+-   `Element`: A fin element.
 
 ### createPortal
 

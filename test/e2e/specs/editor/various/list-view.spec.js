@@ -1160,7 +1160,7 @@ test.describe( 'List View', () => {
 
 		await editor.insertBlock( { name: 'core/heading' } );
 		await page.evaluate( () =>
-			window.fp.data.dispatch( 'core/block-editor' ).clearSelectedBlock()
+			window.fin.data.dispatch( 'core/block-editor' ).clearSelectedBlock()
 		);
 		await listView
 			.getByRole( 'gridcell', { name: 'Paragraph' } )
@@ -1444,7 +1444,7 @@ class ListViewUtils {
 				: null;
 		// Don't use the util to get the unmodified default block when it's empty.
 		const blocks = await this.#page.evaluate( () =>
-			window.fp.data.select( 'core/block-editor' ).getBlocks()
+			window.fin.data.select( 'core/block-editor' ).getBlocks()
 		);
 		function recursivelyApplyAttributes( _blocks ) {
 			return _blocks.map( ( block ) => ( {

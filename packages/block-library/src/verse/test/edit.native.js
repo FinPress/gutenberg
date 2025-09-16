@@ -44,9 +44,9 @@ describe( 'Verse block', () => {
 
 	it( 'renders block text set as initial content', async () => {
 		const screen = await initializeEditor( {
-			initialHtml: `<!-- fp:verse -->
-			<pre class="fp-block-verse">Sample text</pre>
-			<!-- /fp:verse -->`,
+			initialHtml: `<!-- fin:verse -->
+			<pre class="fin-block-verse">Sample text</pre>
+			<!-- /fin:verse -->`,
 		} );
 
 		// Get block
@@ -73,9 +73,9 @@ describe( 'Verse block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:verse -->
-		<pre class="fp-block-verse">A great statement.<br>Again</pre>
-		<!-- /fp:verse -->"
+		"<!-- fin:verse -->
+		<pre class="fin-block-verse">A great statement.<br>Again</pre>
+		<!-- /fin:verse -->"
 	` );
 	} );
 
@@ -106,13 +106,13 @@ describe( 'Verse block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:verse -->
-		<pre class="fp-block-verse">Hello</pre>
-		<!-- /fp:verse -->
+		"<!-- fin:verse -->
+		<pre class="fin-block-verse">Hello</pre>
+		<!-- /fin:verse -->
 
-		<!-- fp:paragraph -->
+		<!-- fin:paragraph -->
 		<p></p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 } );

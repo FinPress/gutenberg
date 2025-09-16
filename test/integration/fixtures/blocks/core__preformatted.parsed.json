@@ -3,9 +3,9 @@
 		"blockName": "core/preformatted",
 		"attrs": {},
 		"innerBlocks": [],
-		"innerHTML": "\n<pre class=\"fp-block-preformatted\">Some <em>preformatted</em> text...<br>And more!</pre>\n",
+		"innerHTML": "\n<pre class=\"fin-block-preformatted\">Some <em>preformatted</em> text...<br>And more!</pre>\n",
 		"innerContent": [
-			"\n<pre class=\"fp-block-preformatted\">Some <em>preformatted</em> text...<br>And more!</pre>\n"
+			"\n<pre class=\"fin-block-preformatted\">Some <em>preformatted</em> text...<br>And more!</pre>\n"
 		]
 	}
 ]

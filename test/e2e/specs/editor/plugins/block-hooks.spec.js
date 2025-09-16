@@ -3,12 +3,12 @@
  */
 const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
-const dummyBlocksContent = `<!-- fp:heading -->
-<h2 class="fp-block-heading">This is a dummy heading</h2>
-<!-- /fp:heading -->
-<!-- fp:paragraph {"className":"dummy-paragraph"} -->
+const dummyBlocksContent = `<!-- fin:heading -->
+<h2 class="fin-block-heading">This is a dummy heading</h2>
+<!-- /fin:heading -->
+<!-- fin:paragraph {"className":"dummy-paragraph"} -->
 <p class="dummy-paragraph">This is a dummy paragraph.</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 const dummyClassicContent =
 	'<h2 class="dummy-heading">This is a dummy heading</h2><p class="dummy-paragraph">This is a dummy paragraph.</p>';
 
@@ -31,7 +31,7 @@ test.describe( 'Block Hooks API', () => {
 		},
 		{
 			name: 'Synced Pattern',
-			postType: 'fp_block',
+			postType: 'fin_block',
 			blockType: 'core/block',
 			createMethod: 'createBlock',
 		},
@@ -54,12 +54,12 @@ test.describe( 'Block Hooks API', () => {
 					containerPost = await requestUtils.createPost( {
 						title: `Block Hooks in ${ name }`,
 						status: 'publish',
-						content: `<!-- fp:${ blockType } {"ref":${ postObject.id }} /-->`,
+						content: `<!-- fin:${ blockType } {"ref":${ postObject.id }} /-->`,
 						meta: {
 							// Prevent Block Hooks from injecting blocks into the container
 							// post content so they won't distract from the ones injected
 							// into the block instance.
-							_fp_ignored_hooked_blocks: '["core/paragraph"]',
+							_fin_ignored_hooked_blocks: '["core/paragraph"]',
 						},
 					} );
 				} else {
@@ -83,7 +83,7 @@ test.describe( 'Block Hooks API', () => {
 				await expect(
 					page.locator( '.entry-content > *' )
 				).toHaveClass( [
-					'fp-block-heading',
+					'fin-block-heading',
 					getHookedBlockClassName( 'after', 'core/heading' ),
 					'dummy-paragraph',
 					getHookedBlockClassName( 'last_child', blockType ),
@@ -157,7 +157,7 @@ test.describe( 'Block Hooks API', () => {
 				await expect(
 					page.locator( '.entry-content > *' )
 				).toHaveClass( [
-					'fp-block-heading',
+					'fin-block-heading',
 					getHookedBlockClassName( 'after', 'core/heading' ),
 					getHookedBlockClassName( 'last_child', blockType ),
 					'dummy-paragraph',
@@ -183,12 +183,12 @@ test.describe( 'Block Hooks API', () => {
 					containerPost = await requestUtils.createPost( {
 						title: `Block Hooks in ${ name }`,
 						status: 'publish',
-						content: `<!-- fp:${ blockType } {"ref":${ postObject.id }} /-->`,
+						content: `<!-- fin:${ blockType } {"ref":${ postObject.id }} /-->`,
 						meta: {
 							// Prevent Block Hooks from injecting blocks into the container
 							// post content so they won't distract from the ones injected
 							// into the block instance.
-							_fp_ignored_hooked_blocks: '["core/paragraph"]',
+							_fin_ignored_hooked_blocks: '["core/paragraph"]',
 						},
 					} );
 				} else {
@@ -286,7 +286,7 @@ test.describe( 'Block Hooks API', () => {
 				title: 'Navigation Menu',
 				status: 'publish',
 				content:
-					'<!-- fp:navigation-link {"label":"finpress.org","url":"https://finpress.org","kind":"custom"} /-->',
+					'<!-- fin:navigation-link {"label":"finpress.org","url":"https://finpress.org","kind":"custom"} /-->',
 			} );
 
 			// The navigation menu in the site editor is only supported in block themes.
@@ -300,7 +300,7 @@ test.describe( 'Block Hooks API', () => {
 			containerPost = await requestUtils.createPage( {
 				title: 'Block Hooks in Navigation Menu',
 				status: 'publish',
-				content: `<!-- fp:navigation {"ref":${ postObject.id }} /-->`,
+				content: `<!-- fin:navigation {"ref":${ postObject.id }} /-->`,
 			} );
 		} );
 
@@ -316,11 +316,11 @@ test.describe( 'Block Hooks API', () => {
 		} ) => {
 			await page.goto( `/?p=${ containerPost.id }` );
 			await expect(
-				page.locator( '.fp-block-navigation__container > *' )
+				page.locator( '.fin-block-navigation__container > *' )
 			).toHaveClass( [
-				'fp-block-navigation-item fp-block-home-link',
-				' fp-block-navigation-item fp-block-navigation-link',
-				'fp-block-page-list',
+				'fin-block-navigation-item fin-block-home-link',
+				' fin-block-navigation-item fin-block-navigation-link',
+				'fin-block-page-list',
 			] );
 		} );
 
@@ -331,7 +331,7 @@ test.describe( 'Block Hooks API', () => {
 		} ) => {
 			await admin.visitSiteEditor( {
 				postId: postObject.id,
-				postType: 'fp_navigation',
+				postType: 'fin_navigation',
 				canvas: 'edit',
 			} );
 
@@ -395,11 +395,11 @@ test.describe( 'Block Hooks API', () => {
 			// Verify that the frontend reflects the changes made in the editor.
 			await page.goto( `/?p=${ containerPost.id }` );
 			await expect(
-				page.locator( '.fp-block-navigation__container > *' )
+				page.locator( '.fin-block-navigation__container > *' )
 			).toHaveClass( [
-				' fp-block-navigation-item fp-block-navigation-link',
-				'fp-block-navigation-item fp-block-home-link',
-				'fp-block-page-list',
+				' fin-block-navigation-item fin-block-navigation-link',
+				'fin-block-navigation-item fin-block-home-link',
+				'fin-block-page-list',
 			] );
 		} );
 	} );

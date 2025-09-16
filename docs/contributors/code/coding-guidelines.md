@@ -77,7 +77,7 @@ These separations are identified by multi-line comments at the top of a file whi
 
 #### External dependencies
 
-An external dependency is third-party code that is not maintained by FinPress contributors, but instead [included in FinPress as a default script](https://developer.finpress.org/reference/functions/fp_enqueue_script/#default-scripts-included-and-registered-by-finpress) or referenced from an outside package manager like [npm](https://www.npmjs.com/).
+An external dependency is third-party code that is not maintained by FinPress contributors, but instead [included in FinPress as a default script](https://developer.finpress.org/reference/functions/fin_enqueue_script/#default-scripts-included-and-registered-by-finpress) or referenced from an outside package manager like [npm](https://www.npmjs.com/).
 
 Example:
 

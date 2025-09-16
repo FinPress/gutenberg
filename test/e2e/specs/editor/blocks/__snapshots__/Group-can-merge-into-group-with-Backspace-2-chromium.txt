@@ -1,9 +1,9 @@
-<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:paragraph -->
+<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>2</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group -->
+<!-- /fin:paragraph --></div>
+<!-- /fin:group -->

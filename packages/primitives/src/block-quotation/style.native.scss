@@ -1,21 +1,21 @@
-%fpBlockQuote-shared {
+%finBlockQuote-shared {
 	border-left-width: 4px;
 	border-left-style: solid;
 	padding-left: $block-edge-to-content;
 	margin-left: 0;
 }
 
-.fpBlockQuoteLight {
-	@extend %fpBlockQuote-shared;
+.finBlockQuoteLight {
+	@extend %finBlockQuote-shared;
 	border-left-color: $black;
 }
 
-.fpBlockQuoteDark {
-	@extend %fpBlockQuote-shared;
+.finBlockQuoteDark {
+	@extend %finBlockQuote-shared;
 	border-left-color: $white;
 }
 
-.fpBlockQuoteCitation {
+.finBlockQuoteCitation {
 	margin-top: 16px;
 	font-size: 14px;
 }

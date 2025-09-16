@@ -65,7 +65,7 @@ export function DimensionControl( props: DimensionControlProps ) {
 		className = '',
 	} = props;
 
-	deprecated( 'fp.components.DimensionControl', {
+	deprecated( 'fin.components.DimensionControl', {
 		since: '6.7',
 		version: '7.0',
 	} );

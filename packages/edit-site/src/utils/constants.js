@@ -10,11 +10,11 @@ import { privateApis as patternPrivateApis } from '@finpress/patterns';
 import { unlock } from '../lock-unlock';
 
 // Navigation
-export const NAVIGATION_POST_TYPE = 'fp_navigation';
+export const NAVIGATION_POST_TYPE = 'fin_navigation';
 
 // Templates.
-export const TEMPLATE_POST_TYPE = 'fp_template';
-export const TEMPLATE_PART_POST_TYPE = 'fp_template_part';
+export const TEMPLATE_POST_TYPE = 'fin_template';
+export const TEMPLATE_PART_POST_TYPE = 'fin_template_part';
 export const TEMPLATE_ORIGINS = {
 	custom: 'custom',
 	theme: 'theme',

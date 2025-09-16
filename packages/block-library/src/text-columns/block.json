@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/text-columns",
 	"title": "Text Columns (deprecated)",
@@ -34,6 +34,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-text-columns-editor",
-	"style": "fp-block-text-columns"
+	"editorStyle": "fin-block-text-columns-editor",
+	"style": "fin-block-text-columns"
 }

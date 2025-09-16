@@ -1,24 +1,24 @@
 // Editor specific styles for Social Links.
-.fp-block-social-links div.block-editor-url-input {
+.fin-block-social-links div.block-editor-url-input {
 	display: inline-block;
 	margin-left: $grid-unit-10;
 }
 
 
 // Prevent toolbar from jumping when selecting / hovering a link.
-.fp-social-link:hover {
+.fin-social-link:hover {
 	transform: none;
 }
 
 // Specificity for the following styles are fixed at 0-1-0 to match and be
 // overridable by global styles.
-:root :where(.fp-block-social-links) {
+:root :where(.fin-block-social-links) {
 	padding: 0;
 }
 
 // Center flex items. This has an equivalent in style.scss.
-.fp-block[data-align="center"] > .fp-block-social-links,
-.fp-block.fp-block-social-links.aligncenter {
+.fin-block[data-align="center"] > .fin-block-social-links,
+.fin-block.fin-block-social-links.aligncenter {
 	justify-content: center;
 }
 
@@ -29,17 +29,17 @@
 }
 
 // Unconfigured placeholder links are semitransparent.
-.fp-social-link.fp-social-link__is-incomplete {
+.fin-social-link.fin-social-link__is-incomplete {
 	opacity: 0.5;
 }
 
-.fp-block-social-links .is-selected .fp-social-link__is-incomplete,
-.fp-social-link.fp-social-link__is-incomplete:hover,
-.fp-social-link.fp-social-link__is-incomplete:focus {
+.fin-block-social-links .is-selected .fin-social-link__is-incomplete,
+.fin-social-link.fin-social-link__is-incomplete:hover,
+.fin-social-link.fin-social-link__is-incomplete:focus {
 	opacity: 1;
 }
 
-.fp-block-social-links .block-list-appender {
+.fin-block-social-links .block-list-appender {
 	position: static; // display inline.
 
 	.block-editor-inserter {

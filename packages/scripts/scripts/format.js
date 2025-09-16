@@ -25,7 +25,7 @@ const {
 	hasProjectFile,
 } = require( '../utils' );
 
-// Check if the project has fp-prettier installed and if the project has a Prettier config.
+// Check if the project has fin-prettier installed and if the project has a Prettier config.
 function checkPrettier() {
 	try {
 		const prettierResolvePath = require.resolve( 'prettier' );
@@ -33,7 +33,7 @@ function checkPrettier() {
 		const prettierPackageName = prettierPackageJson.packageJson.name;
 
 		if (
-			! [ 'fp-prettier', '@finpress/prettier' ].includes(
+			! [ 'fin-prettier', '@finpress/prettier' ].includes(
 				prettierPackageName
 			)
 		) {
@@ -43,7 +43,7 @@ function checkPrettier() {
 					chalk.red(
 						'Incompatible version of Prettier was found in your project\n'
 					) +
-					"You need to install the 'fp-prettier' package to get " +
+					"You need to install the 'fin-prettier' package to get " +
 					'code formatting compliant with the FinPress coding standards.\n\n',
 			};
 		}
@@ -54,7 +54,7 @@ function checkPrettier() {
 				chalk.red(
 					"The 'prettier' package was not found in your project\n"
 				) +
-				"You need to install the 'fp-prettier' package under an alias to get " +
+				"You need to install the 'fin-prettier' package under an alias to get " +
 				'code formatting compliant with the FinPress coding standards.\n\n',
 		};
 	}

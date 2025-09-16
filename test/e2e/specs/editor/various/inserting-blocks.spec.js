@@ -107,13 +107,13 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 		await page.mouse.up();
 
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:paragraph -->
+			.toBe( `<!-- fin:paragraph -->
 <p>Dummy text</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading -->` );
+<!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading -->` );
 	} );
 
 	test( 'cancels dragging blocks from the global inserter by pressing Escape', async ( {
@@ -693,7 +693,7 @@ test.describe( 'Inserting blocks (@firefox, @webkit)', () => {
 				.poll( () =>
 					page.evaluate(
 						() =>
-							window.fp.data
+							window.fin.data
 								.select( 'core/block-editor' )
 								.getSelectedBlock()?.name
 					)
@@ -736,9 +736,9 @@ test.describe( 'insert media from inserter', () => {
 		await page.getByRole( 'tab', { name: 'Images' } ).click();
 		await page.getByLabel( uploadedMedia.title.raw ).click();
 		await expect.poll( editor.getEditedPostContent ).toBe(
-			`<!-- fp:image {"id":${ uploadedMedia.id }} -->
-<figure class="fp-block-image"><img src="${ uploadedMedia.source_url }" alt="${ uploadedMedia.alt_text }" class="fp-image-${ uploadedMedia.id }"/></figure>
-<!-- /fp:image -->`
+			`<!-- fin:image {"id":${ uploadedMedia.id }} -->
+<figure class="fin-block-image"><img src="${ uploadedMedia.source_url }" alt="${ uploadedMedia.alt_text }" class="fin-image-${ uploadedMedia.id }"/></figure>
+<!-- /fin:image -->`
 		);
 	} );
 } );

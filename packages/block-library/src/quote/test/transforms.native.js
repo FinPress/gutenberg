@@ -14,11 +14,11 @@ import {
 
 const block = 'Quote';
 const initialHtml = `
-<!-- fp:quote {"textAlign":"left","className":"is-style-large"} -->
-<blockquote class="fp-block-quote has-text-align-left is-style-large"><!-- fp:paragraph -->
+<!-- fin:quote {"textAlign":"left","className":"is-style-large"} -->
+<blockquote class="fin-block-quote has-text-align-left is-style-large"><!-- fin:paragraph -->
 <p>"This will make running your own blog a viable alternative again."</p>
-<!-- /fp:paragraph --><cite>— <a href="https://twitter.com/azumbrunnen_/status/1019347243084800005">Adrian Zumbrunnen</a></cite></blockquote>
-<!-- /fp:quote -->`;
+<!-- /fin:paragraph --><cite>— <a href="https://twitter.com/azumbrunnen_/status/1019347243084800005">Adrian Zumbrunnen</a></cite></blockquote>
+<!-- /fin:quote -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [

@@ -1,12 +1,12 @@
 ( function () {
-	const el = fp.element.createElement;
-	const Fragment = fp.element.Fragment;
-	const Button = fp.components.Button;
-	const PanelBody = fp.components.PanelBody;
-	const InspectorControls = fp.blockEditor.InspectorControls;
-	const addFilter = fp.hooks.addFilter;
-	const createBlock = fp.blocks.createBlock;
-	const __ = fp.i18n.__;
+	const el = fin.element.createElement;
+	const Fragment = fin.element.Fragment;
+	const Button = fin.components.Button;
+	const PanelBody = fin.components.PanelBody;
+	const InspectorControls = fin.blockEditor.InspectorControls;
+	const addFilter = fin.hooks.addFilter;
+	const createBlock = fin.blocks.createBlock;
+	const __ = fin.i18n.__;
 
 	function ResetBlockButton( props ) {
 		return el(

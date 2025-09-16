@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/navigation",
 	"title": "Navigation",
@@ -140,6 +140,6 @@
 		"interactivity": true,
 		"renaming": false
 	},
-	"editorStyle": "fp-block-navigation-editor",
-	"style": "fp-block-navigation"
+	"editorStyle": "fin-block-navigation-editor",
+	"style": "fin-block-navigation"
 }

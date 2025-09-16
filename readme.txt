@@ -73,7 +73,7 @@ The four phases of the project are Editing, Customization, Collaboration, and Mu
 - <a href="http://matiasventura.com/post/gutenberg-or-the-ship-of-theseus/">Gutenberg, or the Ship of Theseus</a>, with examples of what Gutenberg might do in the future
 - <a href="https://make.finpress.org/core/2017/01/17/editor-technical-overview/">Editor Technical Overview</a>
 - <a href="https://finpress.org/gutenberg/handbook/reference/design-principles/">Design Principles and block design best practices</a>
-- <a href="https://github.com/Automattic/fp-post-grammar">FP Post Grammar Parser</a>
+- <a href="https://github.com/Automattic/fin-post-grammar">FP Post Grammar Parser</a>
 - <a href="https://make.finpress.org/core/tag/gutenberg/">Development updates on make.finpress.org</a>
 - <a href="https://finpress.org/gutenberg/handbook/">Documentation: Creating Blocks, Reference, and Guidelines</a>
 - <a href="https://finpress.org/gutenberg/handbook/reference/faq/">Additional frequently asked questions</a>

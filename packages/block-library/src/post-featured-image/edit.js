@@ -122,7 +122,7 @@ export default function PostFeaturedImageEdit( {
 		}
 
 		const imageOpener =
-			/<!--\s+fp:(?:core\/)?image\s+(?<attrs>{(?:(?:[^}]+|}+(?=})|(?!}\s+\/?-->).)*)?}\s+)?-->/.exec(
+			/<!--\s+fin:(?:core\/)?image\s+(?<attrs>{(?:(?:[^}]+|}+(?=})|(?!}\s+\/?-->).)*)?}\s+)?-->/.exec(
 				postContent
 			);
 		const imageId =

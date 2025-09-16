@@ -12,7 +12,7 @@ You can use the functions documented on this page to register a block with JavaS
 
 -   **Type:** `Function`
 
-Every block starts by registering a new block type definition. To register, you use the `registerBlockType` function from the [`fp-blocks` package](/packages/blocks/README.md#registerBlockType). The function takes two arguments, a block `name` and a block configuration object.
+Every block starts by registering a new block type definition. To register, you use the `registerBlockType` function from the [`fin-blocks` package](/packages/blocks/README.md#registerBlockType). The function takes two arguments, a block `name` and a block configuration object.
 
 ### Block Name
 
@@ -27,7 +27,7 @@ registerBlockType( 'my-plugin/book', {} );
 
 _Note:_ A block name can only contain lowercase alphanumeric characters and dashes, and must begin with a letter.
 
-_Note:_ This name is used on the comment delimiters as `<!-- fp:my-plugin/book -->`. Those blocks provided by core don't include a namespace when serialized.
+_Note:_ This name is used on the comment delimiters as `<!-- fin:my-plugin/book -->`. Those blocks provided by core don't include a namespace when serialized.
 
 #### Important: Choose Your Namespace Carefully
 
@@ -117,7 +117,7 @@ icon: 'book-alt',
 icon: <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z" /><path d="M19 13H5v-2h14v2z" /></svg>,
 ```
 
-**Note:** Custom SVG icons are automatically wrapped in the [`fp.primitives.SVG` component](/packages/primitives/README.md) to add accessibility attributes (`aria-hidden`, `role`, and `focusable`).
+**Note:** Custom SVG icons are automatically wrapped in the [`fin.primitives.SVG` component](/packages/primitives/README.md) to add accessibility attributes (`aria-hidden`, `role`, and `focusable`).
 
 An object can also be passed as icon, in this case, icon, as specified above, should be included in the src property.
 

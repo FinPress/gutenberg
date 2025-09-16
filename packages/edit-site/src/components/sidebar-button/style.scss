@@ -9,8 +9,8 @@
 	}
 	&:focus-visible:not(:disabled) {
 		box-shadow:
-			0 0 0 var(--fp-admin-border-width-focus)
-			var(--fp-admin-theme-color);
+			0 0 0 var(--fin-admin-border-width-focus)
+			var(--fin-admin-theme-color);
 		outline: 3px solid transparent;
 	}
 

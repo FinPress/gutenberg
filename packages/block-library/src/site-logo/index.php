@@ -23,11 +23,11 @@ function render_block_core_site_logo( $attributes ) {
 		return array( $image[0], (int) $attributes['width'], (int) $height );
 	};
 
-	add_filter( 'fp_get_attachment_image_src', $adjust_width_height_filter );
+	add_filter( 'fin_get_attachment_image_src', $adjust_width_height_filter );
 
 	$custom_logo = get_custom_logo();
 
-	remove_filter( 'fp_get_attachment_image_src', $adjust_width_height_filter );
+	remove_filter( 'fin_get_attachment_image_src', $adjust_width_height_filter );
 
 	if ( empty( $custom_logo ) ) {
 		return ''; // Return early if no custom logo is set, avoiding extraneous wrapper div.

@@ -85,7 +85,7 @@ test.describe( 'Cover', () => {
 		);
 
 		// The overlay is a separate aria-hidden span before the image.
-		const overlay = coverBlock.locator( '.fp-block-cover__background' );
+		const overlay = coverBlock.locator( '.fin-block-cover__background' );
 
 		await expect( overlay ).toHaveCSS(
 			'background-color',
@@ -221,7 +221,7 @@ test.describe( 'Cover', () => {
 		} );
 
 		// The overlay is a separate aria-hidden span before the image.
-		const overlay = coverBlock.locator( '.fp-block-cover__background' );
+		const overlay = coverBlock.locator( '.fin-block-cover__background' );
 
 		await expect( overlay ).toHaveCSS( 'background-color', 'rgb(0, 0, 0)' );
 		await expect( overlay ).toHaveCSS( 'opacity', '0.5' );
@@ -283,7 +283,7 @@ test.describe( 'Cover', () => {
 
 		// Check if inner container of the second cover is clickable.
 		const secondInnerContainer = secondCoverBlock.locator(
-			'.fp-block-cover__inner-container'
+			'.fin-block-cover__inner-container'
 		);
 		let isClickable;
 		try {
@@ -338,7 +338,7 @@ test.describe( 'Cover', () => {
 		] );
 
 		const coverImage = coverBlock.locator(
-			'img.fp-block-cover__image-background'
+			'img.fin-block-cover__image-background'
 		);
 
 		await expect( coverImage ).toHaveCSS( 'object-position', '20% 30%' );

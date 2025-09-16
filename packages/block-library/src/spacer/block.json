@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/spacer",
 	"title": "Spacer",
@@ -28,6 +28,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-spacer-editor",
-	"style": "fp-block-spacer"
+	"editorStyle": "fin-block-spacer-editor",
+	"style": "fin-block-spacer"
 }

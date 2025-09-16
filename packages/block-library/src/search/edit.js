@@ -134,7 +134,7 @@ export default function SearchEdit( {
 		},
 	} );
 	const unitControlInstanceId = useInstanceId( UnitControl );
-	const unitControlInputId = `fp-block-search__width-${ unitControlInstanceId }`;
+	const unitControlInputId = `fin-block-search__width-${ unitControlInstanceId }`;
 	const isButtonPositionInside = 'button-inside' === buttonPosition;
 	const isButtonPositionOutside = 'button-outside' === buttonPosition;
 	const hasNoButton = 'no-button' === buttonPosition;
@@ -170,21 +170,21 @@ export default function SearchEdit( {
 		return clsx(
 			className,
 			isButtonPositionInside
-				? 'fp-block-search__button-inside'
+				? 'fin-block-search__button-inside'
 				: undefined,
 			isButtonPositionOutside
-				? 'fp-block-search__button-outside'
+				? 'fin-block-search__button-outside'
 				: undefined,
-			hasNoButton ? 'fp-block-search__no-button' : undefined,
-			hasOnlyButton ? 'fp-block-search__button-only' : undefined,
+			hasNoButton ? 'fin-block-search__no-button' : undefined,
+			hasOnlyButton ? 'fin-block-search__button-only' : undefined,
 			! buttonUseIcon && ! hasNoButton
-				? 'fp-block-search__text-button'
+				? 'fin-block-search__text-button'
 				: undefined,
 			buttonUseIcon && ! hasNoButton
-				? 'fp-block-search__icon-button'
+				? 'fin-block-search__icon-button'
 				: undefined,
 			hasOnlyButton && isSearchFieldHidden
-				? 'fp-block-search__searchfield-hidden'
+				? 'fin-block-search__searchfield-hidden'
 				: undefined
 		);
 	};
@@ -222,7 +222,7 @@ export default function SearchEdit( {
 	const renderTextField = () => {
 		// If the input is inside the wrapper, the wrapper gets the border color styles/classes, not the input control.
 		const textFieldClasses = clsx(
-			'fp-block-search__input',
+			'fin-block-search__input',
 			isButtonPositionInside ? undefined : borderProps.className,
 			typographyProps.className
 		);
@@ -258,7 +258,7 @@ export default function SearchEdit( {
 	const renderButton = () => {
 		// If the button is inside the wrapper, the wrapper gets the border color styles/classes, not the button.
 		const buttonClasses = clsx(
-			'fp-block-search__button',
+			'fin-block-search__button',
 			colorProps.className,
 			typographyProps.className,
 			isButtonPositionInside ? undefined : borderProps.className,
@@ -559,7 +559,7 @@ export default function SearchEdit( {
 	} );
 
 	const labelClassnames = clsx(
-		'fp-block-search__label',
+		'fin-block-search__label',
 		typographyProps.className
 	);
 
@@ -589,7 +589,7 @@ export default function SearchEdit( {
 					height: 'auto',
 				} }
 				className={ clsx(
-					'fp-block-search__inside-wrapper',
+					'fin-block-search__inside-wrapper',
 					isButtonPositionInside ? borderProps.className : undefined
 				) }
 				style={ getWrapperStyles() }

@@ -187,17 +187,17 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toMatchInlineSnapshot( `
-		"<ul class="fp-block-list"><!-- fp:list-item -->
+		"<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>one</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>two</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>three</li>
-		<!-- /fp:list-item --></ul>"
+		<!-- /fin:list-item --></ul>"
 	` );
 		expect( console ).toHaveLogged();
 	} );
@@ -212,17 +212,17 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toMatchInlineSnapshot( `
-		"<ul class="fp-block-list"><!-- fp:list-item -->
+		"<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>one</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>two</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>three</li>
-		<!-- /fp:list-item --></ul>"
+		<!-- /fin:list-item --></ul>"
 	` );
 		expect( console ).toHaveLogged();
 	} );
@@ -259,7 +259,7 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toBe(
-			'<h1 class="fp-block-heading">Some <em>heading</em></h1><p>A paragraph.</p>'
+			'<h1 class="fin-block-heading">Some <em>heading</em></h1><p>A paragraph.</p>'
 		);
 		expect( console ).toHaveLogged();
 	} );
@@ -309,7 +309,7 @@ describe( 'Blocks raw handling', () => {
 
 	it( 'should treat single list item as inline text', () => {
 		const filtered = pasteHandler( {
-			HTML: '<ul class="fp-block-list"><li>Some <strong>bold</strong> text.</li></ul>',
+			HTML: '<ul class="fin-block-list"><li>Some <strong>bold</strong> text.</li></ul>',
 			plainText: 'Some <strong>bold</strong> text.\n',
 			mode: 'AUTO',
 		} );
@@ -320,7 +320,7 @@ describe( 'Blocks raw handling', () => {
 
 	it( 'should treat multiple list items as a block', () => {
 		const filtered = pasteHandler( {
-			HTML: '<ul class="fp-block-list"><li>One</li><li>Two</li><li>Three</li></ul>',
+			HTML: '<ul class="fin-block-list"><li>One</li><li>Two</li><li>Three</li></ul>',
 			plainText: 'One\nTwo\nThree\n',
 			mode: 'AUTO',
 		} )
@@ -328,17 +328,17 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( filtered ).toMatchInlineSnapshot( `
-		"<ul class="fp-block-list"><!-- fp:list-item -->
+		"<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>One</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>Two</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>Three</li>
-		<!-- /fp:list-item --></ul>"
+		<!-- /fin:list-item --></ul>"
 	` );
 		expect( console ).toHaveLogged();
 	} );
@@ -346,7 +346,7 @@ describe( 'Blocks raw handling', () => {
 	it( 'should correctly handle quotes with mixed content', () => {
 		const filtered = serialize(
 			pasteHandler( {
-				HTML: '<blockquote><h1 class="fp-block-heading">chicken</h1><p>ribs</p></blockquote>',
+				HTML: '<blockquote><h1 class="fin-block-heading">chicken</h1><p>ribs</p></blockquote>',
 				mode: 'AUTO',
 			} )
 		);
@@ -356,7 +356,7 @@ describe( 'Blocks raw handling', () => {
 	} );
 
 	it( 'should paste gutenberg content from plain text', () => {
-		const block = '<!-- fp:latest-posts /-->';
+		const block = '<!-- fin:latest-posts /-->';
 		expect(
 			serialize(
 				pasteHandler( {
@@ -388,7 +388,7 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( transformed ).toBe(
-			'<pre class="fp-block-preformatted">1\n2</pre>'
+			'<pre class="fin-block-preformatted">1\n2</pre>'
 		);
 		expect( console ).toHaveLogged();
 	} );
@@ -402,7 +402,7 @@ describe( 'Blocks raw handling', () => {
 			.join( '' );
 
 		expect( transformed ).toBe(
-			'<pre class="fp-block-code"><code>1\n2</code></pre>'
+			'<pre class="fin-block-code"><code>1\n2</code></pre>'
 		);
 		expect( console ).toHaveLogged();
 	} );

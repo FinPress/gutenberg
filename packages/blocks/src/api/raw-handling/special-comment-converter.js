@@ -99,7 +99,7 @@ function createBlock( commentNode, doc ) {
 }
 
 function createMore( customText, noTeaser, doc ) {
-	const node = doc.createElement( 'fp-block' );
+	const node = doc.createElement( 'fin-block' );
 	node.dataset.block = 'core/more';
 	if ( customText ) {
 		node.dataset.customText = customText;
@@ -112,7 +112,7 @@ function createMore( customText, noTeaser, doc ) {
 }
 
 function createNextpage( doc ) {
-	const node = doc.createElement( 'fp-block' );
+	const node = doc.createElement( 'fin-block' );
 	node.dataset.block = 'core/nextpage';
 
 	return node;

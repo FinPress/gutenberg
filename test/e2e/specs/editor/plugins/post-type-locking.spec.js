@@ -124,9 +124,9 @@ test.describe( 'Post-type locking', () => {
 
 			// Modify template.
 			await page.getByRole( 'textbox', { name: 'Type text or HTML' } )
-				.fill( `<!-- fp:paragraph {"placeholder":"Add a description"} -->
+				.fill( `<!-- fin:paragraph {"placeholder":"Add a description"} -->
 <p></p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 
 			// Go back to the visual editor.
 			await pageUtils.pressKeys( 'secondary+M' );

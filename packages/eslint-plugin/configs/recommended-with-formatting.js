@@ -1,5 +1,5 @@
 // Exclude bundled FinPress packages from the list.
-const fpPackagesRegExp = '^@finpress/(?!(icons|interface|style-engine))';
+const finPackagesRegExp = '^@finpress/(?!(icons|interface|style-engine))';
 
 const config = {
 	extends: [
@@ -17,10 +17,10 @@ const config = {
 		window: true,
 		document: true,
 		SCRIPT_DEBUG: 'readonly',
-		fp: 'readonly',
+		fin: 'readonly',
 	},
 	settings: {
-		'import/internal-regex': fpPackagesRegExp,
+		'import/internal-regex': finPackagesRegExp,
 		'import/extensions': [ '.js', '.jsx' ],
 	},
 	rules: {
@@ -33,7 +33,7 @@ const config = {
 		'import/no-unresolved': [
 			'error',
 			{
-				ignore: [ fpPackagesRegExp ],
+				ignore: [ finPackagesRegExp ],
 			},
 		],
 		'import/default': 'warn',

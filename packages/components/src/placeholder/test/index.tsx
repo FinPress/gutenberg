@@ -147,11 +147,11 @@ describe( 'Placeholder', () => {
 		} );
 
 		it( 'should add an additional className to the top container', () => {
-			render( <Placeholder className="fp-placeholder" /> );
+			render( <Placeholder className="fin-placeholder" /> );
 			const placeholder = getPlaceholder();
 
 			expect( placeholder ).toHaveClass( 'components-placeholder' );
-			expect( placeholder ).toHaveClass( 'fp-placeholder' );
+			expect( placeholder ).toHaveClass( 'fin-placeholder' );
 		} );
 
 		it( 'should add additional props to the top level container', () => {

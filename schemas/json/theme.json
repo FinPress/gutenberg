@@ -77,7 +77,7 @@
 							"default": false
 						},
 						"radiusSizes": {
-							"description": "Border radius size presets for the border radius selector.\nGenerates a custom property (`--fp--preset--border-radius--{slug}`) per preset value.",
+							"description": "Border radius size presets for the border radius selector.\nGenerates a custom property (`--fin--preset--border-radius--{slug}`) per preset value.",
 							"type": "array",
 							"items": {
 								"type": "object",
@@ -173,7 +173,7 @@
 							}
 						},
 						"gradients": {
-							"description": "Gradient presets for the gradient picker.\nGenerates a single class (`.has-{slug}-background`) and custom property (`--fp--preset--gradient--{slug}`) per preset value.",
+							"description": "Gradient presets for the gradient picker.\nGenerates a single class (`.has-{slug}-background`) and custom property (`--fin--preset--gradient--{slug}`) per preset value.",
 							"type": "array",
 							"items": {
 								"type": "object",
@@ -201,7 +201,7 @@
 							"default": false
 						},
 						"palette": {
-							"description": "Color palette presets for the color picker.\nGenerates three classes (`.has-{slug}-color`, `.has-{slug}-background-color`, and `.has-{slug}-border-color`) and a single custom property (`--fp--preset--color--{slug}`) per preset value.",
+							"description": "Color palette presets for the color picker.\nGenerates three classes (`.has-{slug}-color`, `.has-{slug}-background-color`, and `.has-{slug}-border-color`) and a single custom property (`--fin--preset--color--{slug}`) per preset value.",
 							"type": "array",
 							"items": {
 								"type": "object",
@@ -376,7 +376,7 @@
 							"default": true
 						},
 						"presets": {
-							"description": "Shadow presets for the shadow picker.\nGenerates a single custom property (`--fp--preset--shadow--{slug}`) per preset value.",
+							"description": "Shadow presets for the shadow picker.\nGenerates a single custom property (`--fin--preset--shadow--{slug}`) per preset value.",
 							"type": "array",
 							"items": {
 								"type": "object",
@@ -411,7 +411,7 @@
 					"type": "object",
 					"properties": {
 						"blockGap": {
-							"description": "Enables `--fp--style--block-gap` to be generated from styles.spacing.blockGap.\nA value of `null` instead of `false` further disables layout styles from being generated.",
+							"description": "Enables `--fin--style--block-gap` to be generated from styles.spacing.blockGap.\nA value of `null` instead of `false` further disables layout styles from being generated.",
 							"oneOf": [
 								{ "type": "boolean" },
 								{ "type": "null" }
@@ -448,7 +448,7 @@
 							"default": true
 						},
 						"spacingSizes": {
-							"description": "Space size presets for the space size selector.\nGenerates a custom property (`--fp--preset--spacing--{slug}`) per preset value.",
+							"description": "Space size presets for the space size selector.\nGenerates a custom property (`--fin--preset--spacing--{slug}`) per preset value.",
 							"type": "array",
 							"items": {
 								"type": "object",
@@ -470,7 +470,7 @@
 							}
 						},
 						"spacingScale": {
-							"description": "Settings to auto-generate space size presets for the space size selector.\nGenerates a custom property (--fp--preset--spacing--{slug}`) per preset value.",
+							"description": "Settings to auto-generate space size presets for the space size selector.\nGenerates a custom property (--fin--preset--spacing--{slug}`) per preset value.",
 							"type": "object",
 							"properties": {
 								"operator": {
@@ -636,7 +636,7 @@
 							"default": true
 						},
 						"fontSizes": {
-							"description": "Font size presets for the font size selector.\nGenerates a single class (`.has-{slug}-color`) and custom property (`--fp--preset--font-size--{slug}`) per preset value.",
+							"description": "Font size presets for the font size selector.\nGenerates a single class (`.has-{slug}-color`) and custom property (`--fin--preset--font-size--{slug}`) per preset value.",
 							"type": "array",
 							"items": {
 								"type": "object",
@@ -680,7 +680,7 @@
 							}
 						},
 						"fontFamilies": {
-							"description": "Font family presets for the font family selector.\nGenerates a single custom property (`--fp--preset--font-family--{slug}`) per preset value.",
+							"description": "Font family presets for the font family selector.\nGenerates a single custom property (`--fin--preset--font-family--{slug}`) per preset value.",
 							"type": "array",
 							"items": {
 								"description": "Font family preset",
@@ -1163,7 +1163,7 @@
 			"additionalProperties": false
 		},
 		"settingsCustomAdditionalProperties": {
-			"description": "Generate custom CSS custom properties of the form `--fp--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.",
+			"description": "Generate custom CSS custom properties of the form `--fin--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.",
 			"type": "object",
 			"additionalProperties": {
 				"oneOf": [
@@ -1531,7 +1531,7 @@
 					"type": "object",
 					"properties": {
 						"blockGap": {
-							"description": "Sets the `--fp--style--block-gap` CSS custom property when settings.spacing.blockGap is true.",
+							"description": "Sets the `--fin--style--block-gap` CSS custom property when settings.spacing.blockGap is true.",
 							"oneOf": [
 								{ "type": "string" },
 								{ "$ref": "#/definitions/refComplete" }

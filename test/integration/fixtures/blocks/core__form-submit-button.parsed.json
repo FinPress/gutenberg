@@ -14,23 +14,23 @@
 							"type": "submit"
 						},
 						"innerBlocks": [],
-						"innerHTML": "\n<div class=\"fp-block-button\"><button type=\"submit\" class=\"fp-block-button__link fp-element-button\">Submit</button></div>\n",
+						"innerHTML": "\n<div class=\"fin-block-button\"><button type=\"submit\" class=\"fin-block-button__link fin-element-button\">Submit</button></div>\n",
 						"innerContent": [
-							"\n<div class=\"fp-block-button\"><button type=\"submit\" class=\"fp-block-button__link fp-element-button\">Submit</button></div>\n"
+							"\n<div class=\"fin-block-button\"><button type=\"submit\" class=\"fin-block-button__link fin-element-button\">Submit</button></div>\n"
 						]
 					}
 				],
-				"innerHTML": "\n<div class=\"fp-block-buttons\"></div>\n",
+				"innerHTML": "\n<div class=\"fin-block-buttons\"></div>\n",
 				"innerContent": [
-					"\n<div class=\"fp-block-buttons\">",
+					"\n<div class=\"fin-block-buttons\">",
 					null,
 					"</div>\n"
 				]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-form-submit-button\"></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-form-submit-button\"></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-form-submit-button\">",
+			"\n<div class=\"fin-block-form-submit-button\">",
 			null,
 			"</div>\n"
 		]

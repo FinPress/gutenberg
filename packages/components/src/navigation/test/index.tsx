@@ -177,7 +177,7 @@ describe( 'Navigation', () => {
 		const menuItems = screen.getAllByRole( 'listitem' );
 
 		expect( console ).toHaveWarnedWith(
-			'fp.components.Navigation (and all subcomponents) is deprecated since version 6.8 and will be removed in version 7.1. Please use fp.components.Navigator instead.'
+			'fin.components.Navigation (and all subcomponents) is deprecated since version 6.8 and will be removed in version 7.1. Please use fin.components.Navigator instead.'
 		);
 
 		expect( menuItems ).toHaveLength( 4 );

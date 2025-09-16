@@ -13,12 +13,12 @@ describe( 'Parser', () => {
 		else:
 			return "Hello Pony"`;
 
-	const originalCodeBlockHtml = `<pre class="fp-block-code"><code>${ codeContent }</code></pre>`;
+	const originalCodeBlockHtml = `<pre class="fin-block-code"><code>${ codeContent }</code></pre>`;
 
 	const gbCodeBlockHtml = `
-		<!-- fp:code -->
+		<!-- fin:code -->
 		${ originalCodeBlockHtml }
-		<!-- /fp:code -->`;
+		<!-- /fin:code -->`;
 
 	it( 'parses the code block ok', () => {
 		const codeBlockInstance = parse( gbCodeBlockHtml )[ 0 ];

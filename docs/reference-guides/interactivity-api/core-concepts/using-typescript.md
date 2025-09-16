@@ -108,14 +108,14 @@ In conclusion, inferring the types is useful when you have a simple store define
 
 ### 2. Manually type the server state, but infer the rest from your client store definition
 
-The global state that is initialized on the server with the `fp_interactivity_state` function doesn't exist on your client store definition and, therefore, needs to be manually typed. But if you don't want to define all the types of your store, you can infer the types of your client store definition and merge them with the types of your server initialized state.
+The global state that is initialized on the server with the `fin_interactivity_state` function doesn't exist on your client store definition and, therefore, needs to be manually typed. But if you don't want to define all the types of your store, you can infer the types of your client store definition and merge them with the types of your server initialized state.
 
-_Please, visit [the Server-side Rendering guide](/docs/reference-guides/interactivity-api/core-concepts/server-side-rendering.md) to learn more about `fp_interactivity_state` and how directives are processed on the server._
+_Please, visit [the Server-side Rendering guide](/docs/reference-guides/interactivity-api/core-concepts/server-side-rendering.md) to learn more about `fin_interactivity_state` and how directives are processed on the server._
 
 Following our previous example, let's move our `counter` state initialization to the server.
 
 ```php
-fp_interactivity_state( 'myCounterPlugin', array(
+fin_interactivity_state( 'myCounterPlugin', array(
 	'counter' => 1,
 ));
 ```
@@ -214,10 +214,10 @@ That's it! In conclusion, this approach is useful when you want to control all t
 
 ## Typing the local context
 
-The initial local context is defined on the server using the `data-fp-context` directive.
+The initial local context is defined on the server using the `data-fin-context` directive.
 
 ```html
-<div data-fp-context='{ "counter": 0 }'>...</div>
+<div data-fin-context='{ "counter": 0 }'>...</div>
 ```
 
 For that reason, you need to define its type manually and pass it to the `getContext` function to ensure the returned properties are correctly typed.
@@ -361,10 +361,10 @@ const myStore: {
 };
 ```
 
-When using `fp_interactivity_state` in the server, remember that you also need to define the initial value of your derived state, like this:
+When using `fin_interactivity_state` in the server, remember that you also need to define the initial value of your derived state, like this:
 
 ```php
-fp_interactivity_state( 'myCounterPlugin', array(
+fin_interactivity_state( 'myCounterPlugin', array(
 	'counter' => 1,
 	'double'  => 2,
 ));
@@ -565,7 +565,7 @@ First, let's initialize the global and derived state of the `todo-list` block on
 <?php
 // todo-list-block/render.php
 $todos = array( 'Buy milk', 'Walk the dog' );
-fp_interactivity_state( 'myTodoPlugin', array(
+fin_interactivity_state( 'myTodoPlugin', array(
   'todos'         => $todos,
   'filter'        => 'all',
   'filteredTodos' => $todos,
@@ -615,7 +615,7 @@ First, let's add the current post title to the server state.
 ```php
 <?php
 // add-post-to-todo-block/render.php
-fp_interactivity_state( 'myTodoPlugin', array(
+fin_interactivity_state( 'myTodoPlugin', array(
   'postTitle' => get_the_title(),
 ));
 ?>

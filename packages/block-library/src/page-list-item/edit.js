@@ -44,7 +44,7 @@ export default function PageListItemEdit( { context, attributes } ) {
 	const navigationChildBlockProps =
 		getNavigationChildBlockProps( innerBlocksColors );
 	const blockProps = useBlockProps( navigationChildBlockProps, {
-		className: 'fp-block-pages-list__item',
+		className: 'fin-block-pages-list__item',
 	} );
 
 	const innerBlocksProps = useInnerBlocksProps( blockProps );
@@ -52,9 +52,9 @@ export default function PageListItemEdit( { context, attributes } ) {
 	return (
 		<li
 			key={ id }
-			className={ clsx( 'fp-block-pages-list__item', {
+			className={ clsx( 'fin-block-pages-list__item', {
 				'has-child': hasChildren,
-				'fp-block-navigation-item': isNavigationChild,
+				'fin-block-navigation-item': isNavigationChild,
 				'open-on-click': context.openSubmenusOnClick,
 				'open-on-hover-click':
 					! context.openSubmenusOnClick && context.showSubmenuIcon,
@@ -65,19 +65,19 @@ export default function PageListItemEdit( { context, attributes } ) {
 				<>
 					<button
 						type="button"
-						className="fp-block-navigation-item__content fp-block-navigation-submenu__toggle"
+						className="fin-block-navigation-item__content fin-block-navigation-submenu__toggle"
 						aria-expanded="false"
 					>
 						{ decodeEntities( label ) }
 					</button>
-					<span className="fp-block-page-list__submenu-icon fp-block-navigation__submenu-icon">
+					<span className="fin-block-page-list__submenu-icon fin-block-navigation__submenu-icon">
 						<ItemSubmenuIcon />
 					</span>
 				</>
 			) : (
 				<a
-					className={ clsx( 'fp-block-pages-list__item__link', {
-						'fp-block-navigation-item__content': isNavigationChild,
+					className={ clsx( 'fin-block-pages-list__item__link', {
+						'fin-block-navigation-item__content': isNavigationChild,
 					} ) }
 					href={ link }
 				>
@@ -89,7 +89,7 @@ export default function PageListItemEdit( { context, attributes } ) {
 					{ ! context.openSubmenusOnClick &&
 						context.showSubmenuIcon && (
 							<button
-								className="fp-block-navigation-item__content fp-block-navigation-submenu__toggle fp-block-page-list__submenu-icon fp-block-navigation__submenu-icon"
+								className="fin-block-navigation-item__content fin-block-navigation-submenu__toggle fin-block-page-list__submenu-icon fin-block-navigation__submenu-icon"
 								aria-expanded="false"
 								type="button"
 							>

@@ -15,7 +15,7 @@ test.describe( 'Push to Global Styles button', () => {
 	test.beforeEach( async ( { admin } ) => {
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 	} );

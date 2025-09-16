@@ -11,7 +11,7 @@
  * The post title is fetched and if it is blank then a default string is
  * returned.
  *
- * Copied from `fp-admin/includes/template.php`, but we can't include that
+ * Copied from `fin-admin/includes/template.php`, but we can't include that
  * file because:
  *
  * 1. It causes bugs with test fixture generation and strange Docker 255 error
@@ -25,7 +25,7 @@
  * @param int|FP_Post $post Optional. Post ID or FP_Post object. Default is global $post.
  * @return string The post title if set; "(no title)" if no title is set.
  */
-function fp_latest_comments_draft_or_post_title( $post = 0 ) {
+function fin_latest_comments_draft_or_post_title( $post = 0 ) {
 	$title = get_the_title( $post );
 	if ( empty( $title ) ) {
 		$title = __( '(no title)' );
@@ -44,7 +44,7 @@ function fp_latest_comments_draft_or_post_title( $post = 0 ) {
  */
 function render_block_core_latest_comments( $attributes ) {
 	$comments = get_comments(
-		/** This filter is documented in fp-includes/widgets/class-fp-widget-recent-comments.php */
+		/** This filter is documented in fin-includes/widgets/class-fin-widget-recent-comments.php */
 		apply_filters(
 			'widget_comments_args',
 			array(
@@ -59,11 +59,11 @@ function render_block_core_latest_comments( $attributes ) {
 	$list_items_markup = '';
 	if ( ! empty( $comments ) ) {
 		// Prime the cache for associated posts. This is copied from \FP_Widget_Recent_Comments::widget().
-		$post_ids = array_unique( fp_list_pluck( $comments, 'comment_post_ID' ) );
+		$post_ids = array_unique( fin_list_pluck( $comments, 'comment_post_ID' ) );
 		_prime_post_caches( $post_ids, strpos( get_option( 'permalink_structure' ), '%category%' ), false );
 
 		foreach ( $comments as $comment ) {
-			$list_items_markup .= '<li class="fp-block-latest-comments__comment">';
+			$list_items_markup .= '<li class="fin-block-latest-comments__comment">';
 			if ( $attributes['displayAvatar'] ) {
 				$avatar = get_avatar(
 					$comment,
@@ -71,7 +71,7 @@ function render_block_core_latest_comments( $attributes ) {
 					'',
 					'',
 					array(
-						'class' => 'fp-block-latest-comments__comment-avatar',
+						'class' => 'fin-block-latest-comments__comment-avatar',
 					)
 				);
 				if ( $avatar ) {
@@ -80,7 +80,7 @@ function render_block_core_latest_comments( $attributes ) {
 			}
 
 			$list_items_markup .= '<article>';
-			$list_items_markup .= '<footer class="fp-block-latest-comments__comment-meta">';
+			$list_items_markup .= '<footer class="fin-block-latest-comments__comment-meta">';
 			$author_url         = get_comment_author_url( $comment );
 			if ( empty( $author_url ) && ! empty( $comment->user_id ) ) {
 				$author_url = get_author_posts_url( $comment->user_id );
@@ -88,14 +88,14 @@ function render_block_core_latest_comments( $attributes ) {
 
 			$author_markup = '';
 			if ( $author_url ) {
-				$author_markup .= '<a class="fp-block-latest-comments__comment-author" href="' . esc_url( $author_url ) . '">' . get_comment_author( $comment ) . '</a>';
+				$author_markup .= '<a class="fin-block-latest-comments__comment-author" href="' . esc_url( $author_url ) . '">' . get_comment_author( $comment ) . '</a>';
 			} else {
-				$author_markup .= '<span class="fp-block-latest-comments__comment-author">' . get_comment_author( $comment ) . '</span>';
+				$author_markup .= '<span class="fin-block-latest-comments__comment-author">' . get_comment_author( $comment ) . '</span>';
 			}
 
 			// `_draft_or_post_title` calls `esc_html()` so we don't need to wrap that call in
 			// `esc_html`.
-			$post_title = '<a class="fp-block-latest-comments__comment-link" href="' . esc_url( get_comment_link( $comment ) ) . '">' . fp_latest_comments_draft_or_post_title( $comment->comment_post_ID ) . '</a>';
+			$post_title = '<a class="fin-block-latest-comments__comment-link" href="' . esc_url( get_comment_link( $comment ) ) . '">' . fin_latest_comments_draft_or_post_title( $comment->comment_post_ID ) . '</a>';
 
 			$list_items_markup .= sprintf(
 				/* translators: 1: author name (inside <a> or <span> tag, based on if they have a URL), 2: post title related to this comment */
@@ -106,14 +106,14 @@ function render_block_core_latest_comments( $attributes ) {
 
 			if ( $attributes['displayDate'] ) {
 				$list_items_markup .= sprintf(
-					'<time datetime="%1$s" class="fp-block-latest-comments__comment-date">%2$s</time>',
+					'<time datetime="%1$s" class="fin-block-latest-comments__comment-date">%2$s</time>',
 					esc_attr( get_comment_date( 'c', $comment ) ),
 					date_i18n( get_option( 'date_format' ), get_comment_date( 'U', $comment ) )
 				);
 			}
 			$list_items_markup .= '</footer>';
 			if ( $attributes['displayExcerpt'] ) {
-				$list_items_markup .= '<div class="fp-block-latest-comments__comment-excerpt">' . fpautop( get_comment_excerpt( $comment ) ) . '</div>';
+				$list_items_markup .= '<div class="fin-block-latest-comments__comment-excerpt">' . finautop( get_comment_excerpt( $comment ) ) . '</div>';
 			}
 			$list_items_markup .= '</article></li>';
 		}

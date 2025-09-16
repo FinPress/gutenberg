@@ -10,11 +10,11 @@ describe( 'Namespace & Endpoint middleware', () => {
 
 		const requestOptions = {
 			method: 'GET',
-			namespace: '/fp/v2',
+			namespace: '/fin/v2',
 			endpoint: '/posts',
 		};
 		const callback: FetchHandler = async ( options ) => {
-			expect( options.path ).toBe( 'fp/v2/posts' );
+			expect( options.path ).toBe( 'fin/v2/posts' );
 			expect( options.namespace ).toBeUndefined();
 			expect( options.endpoint ).toBeUndefined();
 		};

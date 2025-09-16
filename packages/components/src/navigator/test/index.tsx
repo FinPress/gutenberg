@@ -650,7 +650,7 @@ describe( 'Navigator', () => {
 		render( <Navigator.Screen path="not-valid">Test</Navigator.Screen> );
 
 		expect( console ).toHaveWarnedWith(
-			'fp.components.Navigator.Screen: the `path` should follow a URL-like scheme; it should start with and be separated by the `/` character.'
+			'fin.components.Navigator.Screen: the `path` should follow a URL-like scheme; it should start with and be separated by the `/` character.'
 		);
 	} );
 
@@ -884,7 +884,7 @@ describe( 'Navigator', () => {
 
 			// Rendering `NavigatorToParentButton` logs a deprecation notice
 			expect( console ).toHaveWarnedWith(
-				'fp.components.NavigatorToParentButton is deprecated since version 6.7. Please use fp.components.Navigator.BackButton instead.'
+				'fin.components.NavigatorToParentButton is deprecated since version 6.7. Please use fin.components.Navigator.BackButton instead.'
 			);
 		} );
 
@@ -907,7 +907,7 @@ describe( 'Navigator', () => {
 			).toHaveFocus();
 
 			expect( console ).toHaveWarnedWith(
-				'fp.components.useNavigator().goToParent is deprecated since version 6.7. Please use fp.components.useNavigator().goBack instead.'
+				'fin.components.useNavigator().goToParent is deprecated since version 6.7. Please use fin.components.useNavigator().goBack instead.'
 			);
 		} );
 	} );

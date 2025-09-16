@@ -202,8 +202,8 @@ export function Draggable( {
 			}
 		}
 
-		// Aim for 60fps (16 ms per frame) for now. We can potentially use requestAnimationFrame (raf) instead,
-		// note that browsers may throttle raf below 60fps in certain conditions.
+		// Aim for 60fins (16 ms per frame) for now. We can potentially use requestAnimationFrame (raf) instead,
+		// note that browsers may throttle raf below 60fins in certain conditions.
 		// @ts-ignore
 		const throttledDragOver = throttle( over, 16 );
 

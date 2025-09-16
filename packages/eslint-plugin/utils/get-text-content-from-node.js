@@ -1,7 +1,7 @@
 /**
  * Returns the actual text content from an argument passed to a translation function.
  *
- * @see eslint-plugin-fpcalypso
+ * @see eslint-plugin-fincalypso
  *
  * @param {Object} node A Literal, TemplateLiteral or BinaryExpression (+) node
  * @return {string|boolean} The concatenated string or false.

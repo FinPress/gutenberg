@@ -4,7 +4,7 @@
 		"isValid": true,
 		"attributes": {
 			"tagName": "div",
-			"className": "fp-block-comments-query-loop comments-post-extra",
+			"className": "fin-block-comments-query-loop comments-post-extra",
 			"textColor": "luminous-vivid-orange"
 		},
 		"innerBlocks": [

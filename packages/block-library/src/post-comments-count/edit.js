@@ -37,7 +37,7 @@ export default function PostCommentsCountEdit( {
 		}
 		const currentPostId = postId;
 		apiFetch( {
-			path: addQueryArgs( '/fp/v2/comments', {
+			path: addQueryArgs( '/fin/v2/comments', {
 				post: postId,
 			} ),
 			parse: false,

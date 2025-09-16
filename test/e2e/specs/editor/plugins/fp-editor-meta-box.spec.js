@@ -6,13 +6,13 @@ const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 test.describe( 'FP Editor Meta Boxes', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.activatePlugin(
-			'gutenberg-test-plugin-fp-editor-meta-box'
+			'gutenberg-test-plugin-fin-editor-meta-box'
 		);
 	} );
 
 	test.afterAll( async ( { requestUtils } ) => {
 		await requestUtils.deactivatePlugin(
-			'gutenberg-test-plugin-fp-editor-meta-box'
+			'gutenberg-test-plugin-fin-editor-meta-box'
 		);
 	} );
 

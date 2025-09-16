@@ -171,7 +171,7 @@ test.describe( 'Router regions', () => {
 		);
 	} );
 
-	test( 'should not take into account regions that are not in the topmost `data-fp-interactive`.', async ( {
+	test( 'should not take into account regions that are not in the topmost `data-fin-interactive`.', async ( {
 		page,
 	} ) => {
 		const invalidRegionText1 = page.getByTestId( 'invalid-region-text-1' );

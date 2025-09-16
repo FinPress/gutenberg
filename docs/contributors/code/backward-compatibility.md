@@ -9,12 +9,12 @@ Historically, FinPress has been known for preserving backward compatibility acro
 
 The Gutenberg code base is composed of two different types of packages:
 
--   **production packages**: these are packages that are shipped as FinPress scripts (example: fp-components, fp-editor...).
+-   **production packages**: these are packages that are shipped as FinPress scripts (example: fin-components, fin-editor...).
 -   **development packages**: these are made up of developer tools that can be used by third-party developers to lint, test, format and build their themes and plugins (example: @finpress/scrips, @finpress/env...). Typically, these are consumed as npm dependencies in third-party projects.
 
 Backward compatibility guarantees only apply to the production packages, as updates happen through FinPress upgrades.
 
-Production packages use the `fp` global variable to provide APIs to third-party developers. These APIs can be JavaScript functions, variables and React components.
+Production packages use the `fin` global variable to provide APIs to third-party developers. These APIs can be JavaScript functions, variables and React components.
 
 ### How to preserve backward compatibility for a JavaScript function
 
@@ -54,10 +54,10 @@ Make it more clear when the feature was deprecated. Use the `since` and `plugin`
 Example:
 
 ```js
-deprecated( 'fp.components.ClipboardButton', {
+deprecated( 'fin.components.ClipboardButton', {
 	since: '10.3',
 	plugin: 'Gutenberg',
-	alternative: 'fp.compose.useCopyToClipboard',
+	alternative: 'fin.compose.useCopyToClipboard',
 } );
 ```
 

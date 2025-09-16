@@ -11,14 +11,14 @@
  * Registers a custom script for the plugin.
  */
 function enqueue_block_api_plugin_script() {
-	fp_enqueue_script(
+	fin_enqueue_script(
 		'gutenberg-test-block-api',
 		plugins_url( 'block-api/index.js', __FILE__ ),
 		array(
-			'fp-blocks',
-			'fp-block-editor',
-			'fp-element',
-			'fp-hooks',
+			'fin-blocks',
+			'fin-block-editor',
+			'fin-element',
+			'fin-hooks',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'block-api/index.js' ),
 		true

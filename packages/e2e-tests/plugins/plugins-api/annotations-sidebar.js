@@ -1,15 +1,15 @@
 ( function () {
-	const Button = fp.components.Button;
-	const PanelBody = fp.components.PanelBody;
-	const select = fp.data.select;
-	const dispatch = fp.data.dispatch;
-	const Fragment = fp.element.Fragment;
-	const el = fp.element.createElement;
-	const Component = fp.element.Component;
-	const __ = fp.i18n.__;
-	const registerPlugin = fp.plugins.registerPlugin;
-	const PluginSidebar = fp.editor.PluginSidebar;
-	const PluginSidebarMoreMenuItem = fp.editor.PluginSidebarMoreMenuItem;
+	const Button = fin.components.Button;
+	const PanelBody = fin.components.PanelBody;
+	const select = fin.data.select;
+	const dispatch = fin.data.dispatch;
+	const Fragment = fin.element.Fragment;
+	const el = fin.element.createElement;
+	const Component = fin.element.Component;
+	const __ = fin.i18n.__;
+	const registerPlugin = fin.plugins.registerPlugin;
+	const PluginSidebar = fin.editor.PluginSidebar;
+	const PluginSidebarMoreMenuItem = fin.editor.PluginSidebarMoreMenuItem;
 
 	class SidebarContents extends Component {
 		constructor( props ) {

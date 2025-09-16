@@ -247,9 +247,9 @@ function UnconnectedNavigator(
 			goTo: ( path: string, options?: NavigateOptions ) =>
 				dispatch( { type: 'goto', path, options } ),
 			goToParent: ( options: NavigateToParentOptions | undefined ) => {
-				deprecated( `fp.components.useNavigator().goToParent`, {
+				deprecated( `fin.components.useNavigator().goToParent`, {
 					since: '6.7',
-					alternative: 'fp.components.useNavigator().goBack',
+					alternative: 'fin.components.useNavigator().goBack',
 				} );
 				dispatch( { type: 'gotoparent', options } );
 			},

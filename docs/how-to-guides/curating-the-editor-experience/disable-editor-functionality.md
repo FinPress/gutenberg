@@ -15,9 +15,9 @@ This attribute allows you to specify which heading levels should appear in the d
 You can apply this attribute directly in the block markup, a technique that will be commonly used in block templates, template parts, and patterns. For example, the following markup disables H1, H2, and H6 in the Heading block by setting `"levelOptions":[3,4,5]`.
 
 ```html
-<!-- fp:heading {"level":3,"levelOptions":[3,4,5],"className":"fp-block-heading"} -->
-<h3 class="fp-block-heading">Markup example</h3>
-<!-- /fp:heading -->
+<!-- fin:heading {"level":3,"levelOptions":[3,4,5],"className":"fin-block-heading"} -->
+<h3 class="fin-block-heading">Markup example</h3>
+<!-- /fin:heading -->
 ```
 
 You can also use [block filters](/docs/reference-guides/filters/block-filters.md) to set the default value of this attribute globally or for specific blocks. The example below disables H1, H2, and H6 for all Heading blocks. You can further customize this by restricting certain heading levels based on conditions like user capabilities.
@@ -55,8 +55,8 @@ Some Core blocks are actually [block variations](https://developer.finpress.org/
 Block variations are registered using JavaScript and need to be disabled with JavaScript. The code below will disable the Row variation.
 
 ```js
-fp.domReady( () => {
-	fp.blocks.unregisterBlockVariation( 'core/group', 'group-row' );
+fin.domReady( () => {
+	fin.blocks.unregisterBlockVariation( 'core/group', 'group-row' );
 });
 ```
 
@@ -64,11 +64,11 @@ Assuming the code was placed in a `disable-variations.js` file located in the ro
 
 ```php
 function example_disable_variations_script() {
-	fp_enqueue_script(
+	fin_enqueue_script(
 		'example-disable-variations-script',
 		get_template_directory_uri() . '/disable-variations.js',
-       	array( 'fp-dom-ready' ),
-		fp_get_theme()->get( 'Version' ),
+       	array( 'fin-dom-ready' ),
+		fin_get_theme()->get( 'Version' ),
 		true
 	);
 }
@@ -84,8 +84,8 @@ Unlike block variations, you can register styles in either JavaScript or PHP. If
 So, you would use the following code to disable the "Rounded" block style for the Image block.
 
 ```js
-fp.domReady( () => {
-	fp.blocks.unregisterBlockStyle( 'core/image', 'rounded' );
+fin.domReady( () => {
+	fin.blocks.unregisterBlockStyle( 'core/image', 'rounded' );
 });
 ```
 
@@ -113,12 +113,12 @@ Blocks that support [RichText](https://developer.finpress.org/block-editor/refer
 Formatting options need to be disabled with JavaScript using `unregisterFormatType`. The code below will globally disable the Inline Image, Language, Keyboard Input, Subscript, and Superscript options.
 
 ```js
-fp.domReady( () => {
-	fp.richText.unregisterFormatType( 'core/image' );
-	fp.richText.unregisterFormatType( 'core/language' );
-	fp.richText.unregisterFormatType( 'core/keyboard' );
-	fp.richText.unregisterFormatType( 'core/subscript' );
-	fp.richText.unregisterFormatType( 'core/superscript' );
+fin.domReady( () => {
+	fin.richText.unregisterFormatType( 'core/image' );
+	fin.richText.unregisterFormatType( 'core/language' );
+	fin.richText.unregisterFormatType( 'core/keyboard' );
+	fin.richText.unregisterFormatType( 'core/subscript' );
+	fin.richText.unregisterFormatType( 'core/superscript' );
 });
 ```
 

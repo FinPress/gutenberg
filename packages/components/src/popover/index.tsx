@@ -165,7 +165,7 @@ const UnforwardedPopover = (
 	let computedFlipProp = flip;
 	let computedResizeProp = resize;
 	if ( __unstableForcePosition !== undefined ) {
-		deprecated( '`__unstableForcePosition` prop in fp.components.Popover', {
+		deprecated( '`__unstableForcePosition` prop in fin.components.Popover', {
 			since: '6.1',
 			version: '6.3',
 			alternative: '`flip={ false }` and  `resize={ false }`',
@@ -178,21 +178,21 @@ const UnforwardedPopover = (
 	}
 
 	if ( anchorRef !== undefined ) {
-		deprecated( '`anchorRef` prop in fp.components.Popover', {
+		deprecated( '`anchorRef` prop in fin.components.Popover', {
 			since: '6.1',
 			alternative: '`anchor` prop',
 		} );
 	}
 
 	if ( anchorRect !== undefined ) {
-		deprecated( '`anchorRect` prop in fp.components.Popover', {
+		deprecated( '`anchorRect` prop in fin.components.Popover', {
 			since: '6.1',
 			alternative: '`anchor` prop',
 		} );
 	}
 
 	if ( getAnchorRect !== undefined ) {
-		deprecated( '`getAnchorRect` prop in fp.components.Popover', {
+		deprecated( '`getAnchorRect` prop in fin.components.Popover', {
 			since: '6.1',
 			alternative: '`anchor` prop',
 		} );
@@ -200,7 +200,7 @@ const UnforwardedPopover = (
 
 	const computedVariant = isAlternate ? 'toolbar' : variant;
 	if ( isAlternate !== undefined ) {
-		deprecated( '`isAlternate` prop in fp.components.Popover', {
+		deprecated( '`isAlternate` prop in fin.components.Popover', {
 			since: '6.2',
 			alternative: "`variant` prop with the `'toolbar'` value",
 		} );

@@ -11,19 +11,19 @@ import {
 
 const block = 'List';
 const initialHtml = `
-<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>First Item</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Second Item</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Third Item</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->`;
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->`;
 
 const transformsWithInnerBlocks = [ 'Quote', 'Columns', 'Group' ];
 const blockTransforms = [

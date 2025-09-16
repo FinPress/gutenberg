@@ -48,7 +48,7 @@ export default function UnsavedInnerBlocks( {
 
 	const innerBlocksProps = useInnerBlocksProps(
 		{
-			className: 'fp-block-navigation__container',
+			className: 'fin-block-navigation__container',
 		},
 		{
 			renderAppender: hasSelection ? undefined : false,
@@ -67,7 +67,7 @@ export default function UnsavedInnerBlocks( {
 				select( coreStore );
 
 			return {
-				isSaving: isSavingEntityRecord( 'postType', 'fp_navigation' ),
+				isSaving: isSavingEntityRecord( 'postType', 'fin_navigation' ),
 				hasResolvedAllNavigationMenus: hasFinishedResolution(
 					'getEntityRecords',
 					SELECT_NAVIGATION_MENUS_ARGS
@@ -80,7 +80,7 @@ export default function UnsavedInnerBlocks( {
 	// Automatically save the uncontrolled blocks.
 	useEffect( () => {
 		// The block will be disabled when used in a BlockPreview.
-		// In this case avoid automatic creation of a fp_navigation post.
+		// In this case avoid automatic creation of a fin_navigation post.
 		// Otherwise the user will be spammed with lots of menus!
 		//
 		// Also ensure other navigation menus have loaded so an

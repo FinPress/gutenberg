@@ -1,4 +1,4 @@
-.fp-block-media-text {
+.fin-block-media-text {
 	// This block's direction should not be manipulated by rtl, as the mediaPosition control does.
 	/*!rtl:begin:ignore*/
 	direction: ltr;
@@ -14,29 +14,29 @@
 	}
 }
 
-.fp-block-media-text.is-vertically-aligned-top {
-	> .fp-block-media-text__content,
-	> .fp-block-media-text__media {
+.fin-block-media-text.is-vertically-aligned-top {
+	> .fin-block-media-text__content,
+	> .fin-block-media-text__media {
 		align-self: start;
 	}
 }
 
-.fp-block-media-text,
-.fp-block-media-text.is-vertically-aligned-center {
-	> .fp-block-media-text__content,
-	> .fp-block-media-text__media {
+.fin-block-media-text,
+.fin-block-media-text.is-vertically-aligned-center {
+	> .fin-block-media-text__content,
+	> .fin-block-media-text__media {
 		align-self: center;
 	}
 }
 
-.fp-block-media-text.is-vertically-aligned-bottom {
-	> .fp-block-media-text__content,
-	> .fp-block-media-text__media {
+.fin-block-media-text.is-vertically-aligned-bottom {
+	> .fin-block-media-text__content,
+	> .fin-block-media-text__media {
 		align-self: end;
 	}
 }
 
-.fp-block-media-text > .fp-block-media-text__media {
+.fin-block-media-text > .fin-block-media-text__media {
 	/*!rtl:begin:ignore*/
 	grid-column: 1;
 	grid-row: 1;
@@ -44,7 +44,7 @@
 	margin: 0;
 }
 
-.fp-block-media-text > .fp-block-media-text__content {
+.fin-block-media-text > .fin-block-media-text__content {
 	direction: ltr;
 	/*!rtl:begin:ignore*/
 	grid-column: 2;
@@ -54,26 +54,26 @@
 	word-break: break-word;
 }
 
-.fp-block-media-text.has-media-on-the-right > .fp-block-media-text__media {
+.fin-block-media-text.has-media-on-the-right > .fin-block-media-text__media {
 	/*!rtl:begin:ignore*/
 	grid-column: 2;
 	grid-row: 1;
 	/*!rtl:end:ignore*/
 }
 
-.fp-block-media-text.has-media-on-the-right > .fp-block-media-text__content {
+.fin-block-media-text.has-media-on-the-right > .fin-block-media-text__content {
 	/*!rtl:begin:ignore*/
 	grid-column: 1;
 	grid-row: 1;
 	/*!rtl:end:ignore*/
 }
 
-.fp-block-media-text__media a {
+.fin-block-media-text__media a {
 	display: block;
 }
 
-.fp-block-media-text__media img,
-.fp-block-media-text__media video {
+.fin-block-media-text__media img,
+.fin-block-media-text__media video {
 	height: auto;
 	max-width: unset;
 	width: 100%;
@@ -81,18 +81,18 @@
 }
 
 /* `is-image-fill` is deprecated and the styles are kept for backwards compatibility. */
-.fp-block-media-text.is-image-fill > .fp-block-media-text__media {
+.fin-block-media-text.is-image-fill > .fin-block-media-text__media {
 	height: 100%;
 	min-height: 250px;
 	background-size: cover;
 }
 
-.fp-block-media-text.is-image-fill > .fp-block-media-text__media > a {
+.fin-block-media-text.is-image-fill > .fin-block-media-text__media > a {
 	display: block;
 	height: 100%;
 }
 
-.fp-block-media-text.is-image-fill > .fp-block-media-text__media img {
+.fin-block-media-text.is-image-fill > .fin-block-media-text__media img {
 	// The image is visually hidden but accessible to assistive technologies.
 	position: absolute;
 	width: 1px;
@@ -105,17 +105,17 @@
 }
 
 /* Image fill for versions 8 and onwards */
-.fp-block-media-text.is-image-fill-element > .fp-block-media-text__media {
+.fin-block-media-text.is-image-fill-element > .fin-block-media-text__media {
 	height: 100%;
 	min-height: 250px;
 }
 
-.fp-block-media-text.is-image-fill-element > .fp-block-media-text__media > a {
+.fin-block-media-text.is-image-fill-element > .fin-block-media-text__media > a {
 	display: block;
 	height: 100%;
 }
 
-.fp-block-media-text.is-image-fill-element > .fp-block-media-text__media img {
+.fin-block-media-text.is-image-fill-element > .fin-block-media-text__media img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -129,13 +129,13 @@
 * we would have no way of setting the style again to the inline style.
 */
 @media (max-width: #{ ($break-small) }) {
-	.fp-block-media-text.is-stacked-on-mobile {
+	.fin-block-media-text.is-stacked-on-mobile {
 		grid-template-columns: 100% !important;
-		> .fp-block-media-text__media {
+		> .fin-block-media-text__media {
 			grid-column: 1;
 			grid-row: 1;
 		}
-		> .fp-block-media-text__content {
+		> .fin-block-media-text__content {
 			grid-column: 1;
 			grid-row: 2;
 		}

@@ -76,19 +76,19 @@ describe( 'Quote', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:quote -->
-		<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+		"<!-- fin:quote -->
+		<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 		<p>A great statement.</p>
-		<!-- /fp:paragraph -->
+		<!-- /fin:paragraph -->
 
-		<!-- fp:paragraph -->
+		<!-- fin:paragraph -->
 		<p>Again.</p>
-		<!-- /fp:paragraph --><cite>A <br>person</cite></blockquote>
-		<!-- /fp:quote -->
+		<!-- /fin:paragraph --><cite>A <br>person</cite></blockquote>
+		<!-- /fin:quote -->
 
-		<!-- fp:paragraph -->
+		<!-- fin:paragraph -->
 		<p></p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 } );

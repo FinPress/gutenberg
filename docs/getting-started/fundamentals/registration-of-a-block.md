@@ -65,7 +65,7 @@ The function accepts two parameters:
 - **`settings` (`Object`):** This is an object containing the block's client-side settings.
 
 <div class="callout callout-tip">
-	You can import the contents of the <code>block.json</code> file (or any other <code>.json</code> file) directly into your JavaScript files if you're using a build process, such as the one provided by <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-scripts/#the-build-process-with-fp-scripts"><code>fp-scripts</code></a>.
+	You can import the contents of the <code>block.json</code> file (or any other <code>.json</code> file) directly into your JavaScript files if you're using a build process, such as the one provided by <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-scripts/#the-build-process-with-fin-scripts"><code>fin-scripts</code></a>.
 </div>
 
 The `settings` object passed as the second parameter includes many properties, but these are the two most important ones:
@@ -96,4 +96,4 @@ _See the [full block example](https://github.com/FinPress/block-development-exam
 - [`register_block_type` PHP function](https://developer.finpress.org/reference/functions/register_block_type/)
 - [`registerBlockType` JS function](https://developer.finpress.org/block-editor/reference-guides/packages/packages-blocks/#registerblocktype)
 - [Why a block needs to be registered in both the server and the client?](https://github.com/FinPress/gutenberg/discussions/55884) | GitHub Discussion
-- [Block Registration diagram](https://excalidraw.com/#json=PUQu7jpvbKsUHYfpHWn7s,61QnhpZtjykp3s44lbUN_g)
+- [Block Registration diagram](https://excalidraw.com/#json=PUQu7jpvbKsUHYfinHWn7s,61QnhpZtjykp3s44lbUN_g)

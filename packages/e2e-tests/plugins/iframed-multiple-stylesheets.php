@@ -10,23 +10,23 @@
 add_action(
 	'init',
 	static function () {
-		fp_register_script(
+		fin_register_script(
 			'iframed-multiple-stylesheets-editor-script',
 			plugin_dir_url( __FILE__ ) . 'iframed-multiple-stylesheets/editor.js',
 			array(
-				'fp-blocks',
-				'fp-block-editor',
-				'fp-element',
+				'fin-blocks',
+				'fin-block-editor',
+				'fin-element',
 			),
 			filemtime( plugin_dir_path( __FILE__ ) . 'iframed-multiple-stylesheets/editor.js' )
 		);
-		fp_register_style(
+		fin_register_style(
 			'iframed-multiple-stylesheets-style',
 			plugin_dir_url( __FILE__ ) . 'iframed-multiple-stylesheets/style.css',
 			array(),
 			filemtime( plugin_dir_path( __FILE__ ) . 'iframed-multiple-stylesheets/style.css' )
 		);
-		fp_register_style(
+		fin_register_style(
 			'iframed-multiple-stylesheets-style2',
 			plugin_dir_url( __FILE__ ) . 'iframed-multiple-stylesheets/style2.css',
 			array(),

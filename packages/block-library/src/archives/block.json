@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/archives",
 	"title": "Archives",
@@ -67,5 +67,5 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-archives-editor"
+	"editorStyle": "fin-block-archives-editor"
 }

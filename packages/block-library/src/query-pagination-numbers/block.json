@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/query-pagination-numbers",
 	"title": "Page Numbers",
@@ -41,5 +41,5 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-query-pagination-numbers-editor"
+	"editorStyle": "fin-block-query-pagination-numbers-editor"
 }

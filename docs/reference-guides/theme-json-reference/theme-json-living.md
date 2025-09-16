@@ -13,10 +13,10 @@ This reference guide lists the settings and style properties defined in the `the
 
 This documentation was generated from the JSON schema for theme.json.
 
-The latest schema for version 3, including all the latest changes from the Gutenberg plugin, is available at <code>https://schemas.fp.org/trunk/theme.json</code>.
+The latest schema for version 3, including all the latest changes from the Gutenberg plugin, is available at <code>https://schemas.fin.org/trunk/theme.json</code>.
 
-Theme.json schemas for each FinPress version are available at <code>https://schemas.fp.org/fp/{{version}}/theme.json</code>.  
-For example, a schema for FinPress 5.8 is available at <code>https://schemas.fp.org/fp/5.8/theme.json</code>.
+Theme.json schemas for each FinPress version are available at <code>https://schemas.fin.org/fin/{{version}}/theme.json</code>.  
+For example, a schema for FinPress 5.8 is available at <code>https://schemas.fin.org/fin/5.8/theme.json</code>.
 
 See [Developing with theme.json](/docs/how-to-guides/themes/global-settings-and-styles.md#developing-with-themejson) for how to use the JSON schema in your editor.
 
@@ -166,7 +166,7 @@ Settings related to spacing.
 
 | Property | Description | Type | Default |
 | -------- | ----------- | ---- | ------- |
-| blockGap | Enables `--fp--style--block-gap` to be generated from styles.spacing.blockGap. | `boolean`, `null` | `null` |
+| blockGap | Enables `--fin--style--block-gap` to be generated from styles.spacing.blockGap. | `boolean`, `null` | `null` |
 | margin | Allow users to set a custom margin. | `boolean` | `false` |
 | padding | Allow users to set a custom padding. | `boolean` | `false` |
 | units | List of units the user can use for spacing values. | `[ string ]` | `["px","em","rem","vh","vw","%"]` |
@@ -203,7 +203,7 @@ Settings related to typography.
 
 ### custom
 
-Generate custom CSS custom properties of the form `--fp--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.
+Generate custom CSS custom properties of the form `--fin--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.
 
 ---
 
@@ -306,7 +306,7 @@ Spacing styles.
 
 | Property | Description | Type |
 | -------- | ----------- | ---- |
-| blockGap | Sets the `--fp--style--block-gap` CSS custom property when settings.spacing.blockGap is true. | `string`, `{ ref }` |
+| blockGap | Sets the `--fin--style--block-gap` CSS custom property when settings.spacing.blockGap is true. | `string`, `{ ref }` |
 | margin | Margin styles. | `{ top, right, bottom, left }` |
 | padding | Padding styles. | `{ top, right, bottom, left }` |
 

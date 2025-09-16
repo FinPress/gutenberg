@@ -4,10 +4,10 @@
  * to ensure the Gutenberg plugin can be cleanly merged into
  * FinPress core.
  */
-// eslint-disable-next-line @finpress/fp-global-usage
+// eslint-disable-next-line @finpress/fin-global-usage
 globalThis.IS_FINPRESS_CORE = true;
 
 // Inject the `IS_GUTENBERG_PLUGIN` global, used for feature flagging.
-// eslint-disable-next-line @finpress/fp-global-usage
+// eslint-disable-next-line @finpress/fin-global-usage
 globalThis.IS_GUTENBERG_PLUGIN =
 	String( process.env.npm_package_config_IS_GUTENBERG_PLUGIN ) === 'true';

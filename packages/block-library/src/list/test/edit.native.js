@@ -59,10 +59,10 @@ describe( 'List block', () => {
 	} );
 
 	it( 'adds one item to the list', async () => {
-		const initialHtml = `<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
-		<li></li><!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		const initialHtml = `<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
+		<li></li><!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -87,31 +87,31 @@ describe( 'List block', () => {
 	} );
 
 	it( 'shows different indentation levels', async () => {
-		const initialHtml = `<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		const initialHtml = `<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>List item 1</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
-		<li>List item 2<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
+		<li>List item 2<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>List item nested 1</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
-		<li>List item nested 2<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
+		<li>List item nested 2<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Extra item 1</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
 		<li>Extra item 2</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list --></li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list --></li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list --></li>
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list --></li>
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
 		<li>List item 3</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -139,14 +139,14 @@ describe( 'List block', () => {
 	} );
 
 	it( 'changes the indentation level', async () => {
-		const initialHtml = `<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		const initialHtml = `<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Item 1</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
 		<li>Item 2</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -182,15 +182,15 @@ describe( 'List block', () => {
 	} );
 
 	it( 'removes the indentation level', async () => {
-		const initialHtml = `<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
-		<li>Item 1<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		const initialHtml = `<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
+		<li>Item 1<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Item 2</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list --></li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list --></li>
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -229,17 +229,17 @@ describe( 'List block', () => {
 	} );
 
 	it( 'changes to ordered list', async () => {
-		const initialHtml = `<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		const initialHtml = `<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Item 1</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
 		<li>Item 2</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
 		<li>Item 3</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -257,17 +257,17 @@ describe( 'List block', () => {
 	} );
 
 	it( 'changes to reverse ordered list', async () => {
-		const initialHtml = `<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		const initialHtml = `<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Item 1</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
 		<li>Item 2</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
 		<li>Item 3</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -296,17 +296,17 @@ describe( 'List block', () => {
 	} );
 
 	it( 'sets a start value to an ordered list', async () => {
-		const initialHtml = `<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		const initialHtml = `<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Item 1</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
 		<li>Item 2</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
 		<li>Item 3</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -339,12 +339,12 @@ describe( 'List block', () => {
 
 	it( 'splits empty list items into paragraphs', async () => {
 		// Arrange
-		const initialHtml = `<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
-		<li>One</li><!-- /fp:list-item -->
-		<!-- fp:list-item -->
-		<li>Two</li><!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		const initialHtml = `<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
+		<li>One</li><!-- /fin:list-item -->
+		<!-- fin:list-item -->
+		<li>Two</li><!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 		const screen = await initializeEditor( { initialHtml } );
 
 		// Act
@@ -367,40 +367,40 @@ describe( 'List block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		"<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>One</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->
 
-		<!-- fp:paragraph -->
+		<!-- fin:paragraph -->
 		<p></p>
-		<!-- /fp:paragraph -->
+		<!-- /fin:paragraph -->
 
-		<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Two</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->"
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->"
 	` );
 	} );
 
 	it( 'merges paragraphs into list items', async () => {
-		const initialHtml = `<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		const initialHtml = `<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>One</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->
 
-		<!-- fp:paragraph -->
+		<!-- fin:paragraph -->
 		<p>Two</p>
-		<!-- /fp:paragraph -->
+		<!-- /fin:paragraph -->
 
-		<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Three</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 		const screen = await initializeEditor( { initialHtml } );
 
 		// Act
@@ -414,39 +414,39 @@ describe( 'List block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		"<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>One</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>Two</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>Three</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->"
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->"
 	` );
 	} );
 
 	it( 'merges lists into lists', async () => {
 		// Arrange
-		const initialHtml = `<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		const initialHtml = `<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>One</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>Two</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->
 
-		<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Three</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 		const screen = await initializeEditor( { initialHtml } );
 
 		// Act
@@ -463,31 +463,31 @@ describe( 'List block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		"<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>One</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>Two</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>Three</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->"
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->"
 	` );
 	} );
 
 	it( 'unwraps first item when attempting to merge with non-list block', async () => {
-		const initialHtml = `<!-- fp:paragraph -->
+		const initialHtml = `<!-- fin:paragraph -->
 		<p>A quick brown fox.</p>
-		<!-- /fp:paragraph -->
-		<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
-		<li>One</li><!-- /fp:list-item --><!-- fp:list-item -->
-		<li>Two</li><!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		<!-- /fin:paragraph -->
+		<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
+		<li>One</li><!-- /fin:list-item --><!-- fin:list-item -->
+		<li>Two</li><!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -516,38 +516,38 @@ describe( 'List block', () => {
 		} );
 
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A quick brown fox.</p>
-		<!-- /fp:paragraph -->
+		<!-- /fin:paragraph -->
 
-		<!-- fp:paragraph -->
+		<!-- fin:paragraph -->
 		<p>One</p>
-		<!-- /fp:paragraph -->
+		<!-- /fin:paragraph -->
 
-		<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Two</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->"
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->"
 	` );
 	} );
 
 	it( 'merges first item into its own paragraph block and keeps its nested items', async () => {
-		const initialHtml = `<!-- fp:paragraph -->
+		const initialHtml = `<!-- fin:paragraph -->
 		<p>A quick brown fox.</p>
-		<!-- /fp:paragraph -->
-		<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
-		<li>One<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		<!-- /fin:paragraph -->
+		<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
+		<li>One<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Two</li>
-		<!-- /fp:list-item -->
-		<!-- fp:list-item -->
+		<!-- /fin:list-item -->
+		<!-- fin:list-item -->
 		<li>Three</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list --></li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->`;
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list --></li>
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -580,23 +580,23 @@ describe( 'List block', () => {
 		await act( async () => {} );
 
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A quick brown fox.</p>
-		<!-- /fp:paragraph -->
+		<!-- /fin:paragraph -->
 
-		<!-- fp:paragraph -->
+		<!-- fin:paragraph -->
 		<p>One</p>
-		<!-- /fp:paragraph -->
+		<!-- /fin:paragraph -->
 
-		<!-- fp:list -->
-		<ul class="fp-block-list"><!-- fp:list-item -->
+		<!-- fin:list -->
+		<ul class="fin-block-list"><!-- fin:list-item -->
 		<li>Two</li>
-		<!-- /fp:list-item -->
+		<!-- /fin:list-item -->
 
-		<!-- fp:list-item -->
+		<!-- fin:list-item -->
 		<li>Three</li>
-		<!-- /fp:list-item --></ul>
-		<!-- /fp:list -->"
+		<!-- /fin:list-item --></ul>
+		<!-- /fin:list -->"
 	` );
 	} );
 } );

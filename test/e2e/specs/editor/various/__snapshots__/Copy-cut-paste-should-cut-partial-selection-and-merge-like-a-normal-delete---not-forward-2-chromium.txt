@@ -1,11 +1,11 @@
-<!-- fp:heading -->
-<h2 class="fp-block-heading">ading</h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading">ading</h2>
+<!-- /fin:heading -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Paragra</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading">Heph</h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading">Heph</h2>
+<!-- /fin:heading -->

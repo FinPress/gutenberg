@@ -1,7 +1,7 @@
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Copy - collapsed selection</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>2</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->

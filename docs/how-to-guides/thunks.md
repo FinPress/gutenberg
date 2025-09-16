@@ -88,7 +88,7 @@ Imagine a simple React app that allows you to set the temperature on a thermosta
 If we used controls to save the temperature, the store definition would look like below:
 
 ```js
-const store = fp.data.createReduxStore( 'my-store', {
+const store = fin.data.createReduxStore( 'my-store', {
     actions: {
         saveTemperatureToAPI: function*( temperature ) {
             const result = yield { type: 'FETCH_JSON', url: 'https://...', method: 'POST', data: { temperature } };
@@ -113,7 +113,7 @@ While the code is reasonably straightforward, there is a level of indirection. T
 Let's see how this indirection can be removed with thunks:
 
 ```js
-const store = fp.data.createReduxStore( 'my-store', {
+const store = fin.data.createReduxStore( 'my-store', {
     actions: {
         saveTemperatureToAPI: ( temperature ) => async () => {
             const response = await window.fetch( 'https://...', {
@@ -130,7 +130,7 @@ const store = fp.data.createReduxStore( 'my-store', {
 That's pretty cool! What's even better is that resolvers are supported as well:
 
 ```js
-const store = fp.data.createReduxStore( 'my-store', {
+const store = fin.data.createReduxStore( 'my-store', {
     // ...
     selectors: {
         getTemperature: ( state ) => state.temperature

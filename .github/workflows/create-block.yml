@@ -3,7 +3,7 @@ name: Create Block
 on:
     pull_request:
     push:
-        branches: [trunk, fp/latest]
+        branches: [trunk, fin/latest]
 
 # Cancels all previous workflow runs for pull requests that have not completed.
 concurrency:

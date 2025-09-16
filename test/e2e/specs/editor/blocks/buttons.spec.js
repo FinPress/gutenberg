@@ -18,11 +18,11 @@ test.describe( 'Buttons', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">Content</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`
+			`<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button">Content</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`
 		);
 	} );
 
@@ -43,11 +43,11 @@ test.describe( 'Buttons', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">Content</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`
+			`<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button">Content</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`
 		);
 	} );
 
@@ -74,11 +74,11 @@ test.describe( 'Buttons', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">FinPress</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`
+			`<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button">FinPress</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`
 		);
 	} );
 
@@ -163,11 +163,11 @@ test.describe( 'Buttons', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button" href="https://www.finpress.org/">FinPress</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`
+			`<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button" href="https://www.finpress.org/">FinPress</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`
 		);
 	} );
 
@@ -282,11 +282,11 @@ test.describe( 'Buttons', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button {"width":25} -->
-<div class="fp-block-button has-custom-width fp-block-button__width-25"><a class="fp-block-button__link fp-element-button">Content</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`
+			`<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button {"width":25} -->
+<div class="fin-block-button has-custom-width fin-block-button__width-25"><a class="fin-block-button__link fin-element-button">Content</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`
 		);
 	} );
 
@@ -311,11 +311,11 @@ test.describe( 'Buttons', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:buttons -->
-<div class=\"fp-block-buttons\"><!-- fp:button {\"backgroundColor\":\"vivid-red\",\"textColor\":\"cyan-bluish-gray\",\"style\":{\"elements\":{\"link\":{\"color\":{\"text\":\"var:preset|color|cyan-bluish-gray\"}}}}} -->
-<div class=\"fp-block-button\"><a class=\"fp-block-button__link has-cyan-bluish-gray-color has-vivid-red-background-color has-text-color has-background has-link-color fp-element-button\">Content</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`
+			`<!-- fin:buttons -->
+<div class=\"fin-block-buttons\"><!-- fin:button {\"backgroundColor\":\"vivid-red\",\"textColor\":\"cyan-bluish-gray\",\"style\":{\"elements\":{\"link\":{\"color\":{\"text\":\"var:preset|color|cyan-bluish-gray\"}}}}} -->
+<div class=\"fin-block-button\"><a class=\"fin-block-button__link has-cyan-bluish-gray-color has-vivid-red-background-color has-text-color has-background has-link-color fin-element-button\">Content</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`
 		);
 	} );
 
@@ -343,11 +343,11 @@ test.describe( 'Buttons', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:buttons -->
-<div class=\"fp-block-buttons\"><!-- fp:button {\"style\":{\"color\":{\"text\":\"#ff0000\",\"background\":\"#00ff00\"},\"elements\":{\"link\":{\"color\":{\"text\":\"#ff0000\"}}}}} -->
-<div class=\"fp-block-button\"><a class=\"fp-block-button__link has-text-color has-background has-link-color fp-element-button\" style=\"color:#ff0000;background-color:#00ff00\">Content</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`
+			`<!-- fin:buttons -->
+<div class=\"fin-block-buttons\"><!-- fin:button {\"style\":{\"color\":{\"text\":\"#ff0000\",\"background\":\"#00ff00\"},\"elements\":{\"link\":{\"color\":{\"text\":\"#ff0000\"}}}}} -->
+<div class=\"fin-block-button\"><a class=\"fin-block-button__link has-text-color has-background has-link-color fin-element-button\" style=\"color:#ff0000;background-color:#00ff00\">Content</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`
 		);
 	} );
 
@@ -372,11 +372,11 @@ test.describe( 'Buttons', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:buttons -->
-<div class=\"fp-block-buttons\"><!-- fp:button {\"gradient\":\"purple-to-yellow\"} -->
-<div class=\"fp-block-button\"><a class=\"fp-block-button__link has-purple-to-yellow-gradient-background has-background fp-element-button\">Content</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`
+			`<!-- fin:buttons -->
+<div class=\"fin-block-buttons\"><!-- fin:button {\"gradient\":\"purple-to-yellow\"} -->
+<div class=\"fin-block-button\"><a class=\"fin-block-button__link has-purple-to-yellow-gradient-background has-background fin-element-button\">Content</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`
 		);
 	} );
 
@@ -409,11 +409,11 @@ test.describe( 'Buttons', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:buttons -->
-<div class=\"fp-block-buttons\"><!-- fp:button {\"style\":{\"color\":{\"gradient\":\"linear-gradient(135deg,rgb(255,0,0) 0%,rgb(0,255,0) 100%)\"}}} -->
-<div class=\"fp-block-button\"><a class=\"fp-block-button__link has-background fp-element-button\" style=\"background:linear-gradient(135deg,rgb(255,0,0) 0%,rgb(0,255,0) 100%)\">Content</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`
+			`<!-- fin:buttons -->
+<div class=\"fin-block-buttons\"><!-- fin:button {\"style\":{\"color\":{\"gradient\":\"linear-gradient(135deg,rgb(255,0,0) 0%,rgb(0,255,0) 100%)\"}}} -->
+<div class=\"fin-block-button\"><a class=\"fin-block-button__link has-background fin-element-button\" style=\"background:linear-gradient(135deg,rgb(255,0,0) 0%,rgb(0,255,0) 100%)\">Content</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`
 		);
 	} );
 

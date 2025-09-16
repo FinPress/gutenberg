@@ -122,13 +122,13 @@ const SocialLinkEdit = ( {
 	} = context;
 	const [ showURLPopover, setPopover ] = useState( false );
 	const wrapperClasses = clsx(
-		'fp-social-link',
+		'fin-social-link',
 		// Manually adding this class for backwards compatibility of CSS when moving the
 		// blockProps from the li to the button: https://github.com/FinPress/gutenberg/pull/64883
-		'fp-block-social-link',
-		'fp-social-link-' + service,
+		'fin-block-social-link',
+		'fin-social-link-' + service,
 		{
-			'fp-social-link__is-incomplete': ! url,
+			'fin-social-link__is-incomplete': ! url,
 			[ `has-${ iconColor }-color` ]: iconColor,
 			[ `has-${ iconBackgroundColor }-background-color` ]:
 				iconBackgroundColor,
@@ -159,7 +159,7 @@ const SocialLinkEdit = ( {
 
 	const ref = useRef();
 	const blockProps = useBlockProps( {
-		className: 'fp-block-social-link-anchor',
+		className: 'fin-block-social-link-anchor',
 		ref: useMergeRefs( [ setPopoverAnchor, ref ] ),
 		onClick: () => setPopover( true ),
 		onKeyDown: ( event ) => {
@@ -192,7 +192,7 @@ const SocialLinkEdit = ( {
 							<TextControl
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
-								className="fp-block-social-link__toolbar_content_text"
+								className="fin-block-social-link__toolbar_content_text"
 								label={ __( 'Text' ) }
 								help={ __(
 									'Provide a text label or use the default.'
@@ -271,7 +271,7 @@ const SocialLinkEdit = ( {
 				<button aria-haspopup="dialog" { ...blockProps } role="button">
 					<Icon icon={ icon } />
 					<span
-						className={ clsx( 'fp-block-social-link-label', {
+						className={ clsx( 'fin-block-social-link-label', {
 							'screen-reader-text': ! showLabels,
 						} ) }
 					>

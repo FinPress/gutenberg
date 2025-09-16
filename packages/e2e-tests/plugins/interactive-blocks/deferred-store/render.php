@@ -5,7 +5,7 @@
  * @package gutenberg-test-interactive-blocks
  */
 
-fp_interactivity_state(
+fin_interactivity_state(
 	'test/deferred-store',
 	array(
 		'number' => 2,
@@ -16,12 +16,12 @@ fp_interactivity_state(
 ?>
 
 <div
-	data-fp-interactive="test/deferred-store"
-	<?php echo fp_interactivity_data_fp_context( array( 'text' => '!dlrow ,olleH' ) ); ?>
+	data-fin-interactive="test/deferred-store"
+	<?php echo fin_interactivity_data_fin_context( array( 'text' => '!dlrow ,olleH' ) ); ?>
 >
-	<span data-fp-text="state.reversedText" data-testid="result"></span>
-	<span data-fp-text="state.reversedTextGetter" data-testid="result-getter"></span>
+	<span data-fin-text="state.reversedText" data-testid="result"></span>
+	<span data-fin-text="state.reversedTextGetter" data-testid="result-getter"></span>
 
-	<span data-fp-text="state.number" data-testid="state-number"></span>
-	<span data-fp-text="state.double" data-testid="state-double"></span>
+	<span data-fin-text="state.number" data-testid="state-number"></span>
+	<span data-fin-text="state.double" data-testid="state-double"></span>
 </div>

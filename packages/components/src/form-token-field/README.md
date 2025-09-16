@@ -37,7 +37,7 @@ The `value` property is handled in a manner similar to controlled form component
     default is to trim the token value. This function is also applied when
     matching suggestions against the current value so that matching works
     correctly with leading or trailing spaces. (In the editor, this is needed to
-    remove leading and trailing spaces from tag names, like fp-admin does.
+    remove leading and trailing spaces from tag names, like fin-admin does.
     Otherwise the REST API won't save them.)
 -   `onChange` - Function to call when the tokens have changed. An array of new
     tokens is passed to the callback.

@@ -8,9 +8,9 @@
  */
 
 add_action(
-	'fp_enqueue_scripts',
+	'fin_enqueue_scripts',
 	function () {
-		fp_enqueue_style(
+		fin_enqueue_style(
 			'green-from-link',
 			plugin_dir_url( __FILE__ ) . 'style-from-link.css',
 			array()
@@ -22,9 +22,9 @@ add_action(
 			}
 		';
 
-		fp_register_style( 'test-router-styles', false );
-		fp_enqueue_style( 'test-router-styles' );
-		fp_add_inline_style( 'test-router-styles', $custom_css );
+		fin_register_style( 'test-router-styles', false );
+		fin_enqueue_style( 'test-router-styles' );
+		fin_add_inline_style( 'test-router-styles', $custom_css );
 	}
 );
 

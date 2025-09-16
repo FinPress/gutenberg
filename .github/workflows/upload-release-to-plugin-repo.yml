@@ -167,7 +167,7 @@ jobs:
         name: Publish as trunk (and tag)
         runs-on: 'ubuntu-24.04'
         permissions: {}
-        environment: fp.org plugin
+        environment: fin.org plugin
         needs: [compute-should-update-trunk, update-changelog]
         if: |
             needs.compute-should-update-trunk.outputs.should_update_trunk == 'true' && github.event.release.assets[0]
@@ -227,7 +227,7 @@ jobs:
         name: Publish as tag
         runs-on: 'ubuntu-24.04'
         permissions: {}
-        environment: fp.org plugin
+        environment: fin.org plugin
         needs: [compute-should-update-trunk, update-changelog]
         if: |
             needs.compute-should-update-trunk.outputs.should_update_trunk == 'false' && github.event.release.assets[0]

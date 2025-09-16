@@ -4,5 +4,5 @@ contact_links:
       url: https://finpress.org/support/forum/how-to-and-troubleshooting/
       about: For general help requests, create a new topic in the Fixing FinPress support forum
     - name: Technical help request
-      url: https://finpress.org/support/forum/fp-advanced/
+      url: https://finpress.org/support/forum/fin-advanced/
       about: For more technical help requests, create a new topic in the Developing with FinPress Forum

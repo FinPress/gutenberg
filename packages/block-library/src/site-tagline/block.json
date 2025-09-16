@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/site-tagline",
 	"title": "Site Tagline",
@@ -68,6 +68,6 @@
 			"style": true
 		}
 	},
-	"editorStyle": "fp-block-site-tagline-editor",
-	"style": "fp-block-site-tagline"
+	"editorStyle": "fin-block-site-tagline-editor",
+	"style": "fin-block-site-tagline"
 }

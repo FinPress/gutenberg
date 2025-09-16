@@ -14,9 +14,9 @@ const isSiteEditor = getPath( window.location.href )?.includes(
 );
 
 const deprecateSlot = ( name ) => {
-	deprecated( `fp.editPost.${ name }`, {
+	deprecated( `fin.editPost.${ name }`, {
 		since: '6.6',
-		alternative: `fp.editor.${ name }`,
+		alternative: `fin.editor.${ name }`,
 	} );
 };
 

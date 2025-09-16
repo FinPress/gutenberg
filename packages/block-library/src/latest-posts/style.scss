@@ -1,4 +1,4 @@
-.fp-block-latest-posts {
+.fin-block-latest-posts {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 
@@ -10,7 +10,7 @@
 		/*rtl:ignore*/
 		margin-left: 2em;
 	}
-	&.fp-block-latest-posts__list {
+	&.fin-block-latest-posts__list {
 		list-style: none;
 
 		li {
@@ -43,27 +43,27 @@
 }
 
 :root {
-	:where(.fp-block-latest-posts.is-grid) {
+	:where(.fin-block-latest-posts.is-grid) {
 		padding: 0;
 	}
-	:where(.fp-block-latest-posts.fp-block-latest-posts__list) {
+	:where(.fin-block-latest-posts.fin-block-latest-posts__list) {
 		padding-left: 0;
 	}
 }
 
-.fp-block-latest-posts__post-date,
-.fp-block-latest-posts__post-author {
+.fin-block-latest-posts__post-date,
+.fin-block-latest-posts__post-author {
 	display: block;
 	font-size: 0.8125em;
 }
 
-.fp-block-latest-posts__post-excerpt,
-.fp-block-latest-posts__post-full-content {
+.fin-block-latest-posts__post-excerpt,
+.fin-block-latest-posts__post-full-content {
 	margin-top: 0.5em;
 	margin-bottom: 1em;
 }
 
-.fp-block-latest-posts__featured-image {
+.fin-block-latest-posts__featured-image {
 	a {
 		display: inline-block;
 	}

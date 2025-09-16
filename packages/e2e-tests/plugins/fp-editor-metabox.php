@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/FinPress/gutenberg
  * Author: Gutenberg Team
  *
- * @package gutenberg-test-fp-editor-metabox
+ * @package gutenberg-test-fin-editor-metabox
  */
 
 add_action( 'add_meta_boxes', 'gutenberg_test_add_tinymce_meta_box' );
@@ -29,11 +29,11 @@ function gutenberg_test_add_tinymce_meta_box() {
  */
 function gutenberg_test_render_tinymce_meta_box( $post ) {
 	$field_value = get_post_meta( $post->ID, 'test_tinymce', true );
-	fp_editor(
+	fin_editor(
 		$field_value,
 		'test_tinymce_id',
 		array(
-			'fpautop'       => true,
+			'finautop'       => true,
 			'media_buttons' => false,
 			'textarea_name' => 'test_tinymce',
 			'textarea_rows' => 10,

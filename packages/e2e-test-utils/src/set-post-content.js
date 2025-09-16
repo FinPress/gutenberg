@@ -7,8 +7,8 @@
  */
 export async function setPostContent( content ) {
 	return await page.evaluate( ( _content ) => {
-		const { dispatch } = window.fp.data;
-		const blocks = fp.blocks.parse( _content );
+		const { dispatch } = window.fin.data;
+		const blocks = fin.blocks.parse( _content );
 		dispatch( 'core/block-editor' ).resetBlocks( blocks );
 	}, content );
 }

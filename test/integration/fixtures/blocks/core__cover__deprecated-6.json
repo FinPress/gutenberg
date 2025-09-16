@@ -60,7 +60,7 @@
 		"name": "core/cover",
 		"isValid": true,
 		"attributes": {
-			"url": "http://localhost:8888/fp-content/uploads/2021/02/percy.jpg",
+			"url": "http://localhost:8888/fin-content/uploads/2021/02/percy.jpg",
 			"id": 134,
 			"hasParallax": false,
 			"dimRatio": 50,

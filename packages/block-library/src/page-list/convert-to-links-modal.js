@@ -14,23 +14,23 @@ export function ConvertToLinksModal( { onClick, onClose, disabled } ) {
 		<Modal
 			onRequestClose={ onClose }
 			title={ __( 'Edit Page List' ) }
-			className="fp-block-page-list-modal"
+			className="fin-block-page-list-modal"
 			aria={ {
 				describedby: useInstanceId(
 					ConvertToLinksModal,
-					'fp-block-page-list-modal__description'
+					'fin-block-page-list-modal__description'
 				),
 			} }
 		>
 			<p
 				id={ useInstanceId(
 					ConvertToLinksModal,
-					'fp-block-page-list-modal__description'
+					'fin-block-page-list-modal__description'
 				) }
 			>
 				{ convertDescription }
 			</p>
-			<div className="fp-block-page-list-modal-buttons">
+			<div className="fin-block-page-list-modal-buttons">
 				<Button
 					__next40pxDefaultSize
 					variant="tertiary"

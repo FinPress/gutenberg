@@ -22,14 +22,14 @@ import {
 import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
 import { registerCoreBlocks } from '@finpress/block-library';
 
-const TWO_COLUMNS_BLOCK_HTML = `<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->`;
+const TWO_COLUMNS_BLOCK_HTML = `<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->`;
 
 beforeAll( () => {
 	// Register all core blocks
@@ -468,15 +468,15 @@ describe( 'Columns block', () => {
 
 	it( 'transforms a nested Columns block into a Group block', async () => {
 		await initializeEditor( {
-			initialHtml: `<!-- fp:group {"layout":{"type":"constrained"}} -->
-			<div class="fp-block-group"><!-- fp:columns -->
-			<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
-			<div class="fp-block-column" style="flex-basis:100%"><!-- fp:paragraph -->
+			initialHtml: `<!-- fin:group {"layout":{"type":"constrained"}} -->
+			<div class="fin-block-group"><!-- fin:columns -->
+			<div class="fin-block-columns"><!-- fin:column {"width":"100%"} -->
+			<div class="fin-block-column" style="flex-basis:100%"><!-- fin:paragraph -->
 			<p></p>
-			<!-- /fp:paragraph --></div>
-			<!-- /fp:column --></div>
-			<!-- /fp:columns --></div>
-			<!-- /fp:group -->`,
+			<!-- /fin:paragraph --></div>
+			<!-- /fin:column --></div>
+			<!-- /fin:columns --></div>
+			<!-- /fin:group -->`,
 		} );
 
 		// Get Columns block

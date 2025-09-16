@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/categories",
 	"title": "Terms List",
@@ -91,6 +91,6 @@
 			}
 		}
 	},
-	"editorStyle": "fp-block-categories-editor",
-	"style": "fp-block-categories"
+	"editorStyle": "fin-block-categories-editor",
+	"style": "fin-block-categories"
 }

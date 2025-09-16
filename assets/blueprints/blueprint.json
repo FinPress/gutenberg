@@ -1,6 +1,6 @@
 {
 	"$schema": "https://playground.finpress.net/blueprint-schema.json",
-	"landingPage": "/fp-admin/post.php?post=1&action=edit",
+	"landingPage": "/fin-admin/post.php?post=1&action=edit",
 	"plugins": [ "gutenberg" ],
 	"login": true,
 	"features": {
@@ -8,7 +8,7 @@
 	},
 	"preferredVersions": {
 		"php": "latest",
-		"fp": "latest"
+		"fin": "latest"
 	},
 	"steps": [
 		{

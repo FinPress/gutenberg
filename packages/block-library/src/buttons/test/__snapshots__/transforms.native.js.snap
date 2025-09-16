@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Buttons block transforms to Columns block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
-<div class="fp-block-column" style="flex-basis:100%"><!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">Solid Button</a></div>
-<!-- /fp:button -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"100%"} -->
+<div class="fin-block-column" style="flex-basis:100%"><!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button">Solid Button</a></div>
+<!-- /fin:button -->
 
-<!-- fp:button {"gradient":"luminous-vivid-amber-to-luminous-vivid-orange"} -->
-<div class="fp-block-button"><a class="fp-block-button__link has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background has-background fp-element-button">Gradient Button</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:button {"gradient":"luminous-vivid-amber-to-luminous-vivid-orange"} -->
+<div class="fin-block-button"><a class="fin-block-button__link has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background has-background fin-element-button">Gradient Button</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Buttons block transforms to Group block 1`] = `
-"<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">Solid Button</a></div>
-<!-- /fp:button -->
+"<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button">Solid Button</a></div>
+<!-- /fin:button -->
 
-<!-- fp:button {"gradient":"luminous-vivid-amber-to-luminous-vivid-orange"} -->
-<div class="fp-block-button"><a class="fp-block-button__link has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background has-background fp-element-button">Gradient Button</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons --></div>
-<!-- /fp:group -->"
+<!-- fin:button {"gradient":"luminous-vivid-amber-to-luminous-vivid-orange"} -->
+<div class="fin-block-button"><a class="fin-block-button__link has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background has-background fin-element-button">Gradient Button</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons --></div>
+<!-- /fin:group -->"
 `;

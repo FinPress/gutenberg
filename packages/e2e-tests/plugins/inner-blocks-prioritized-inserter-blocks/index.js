@@ -1,7 +1,7 @@
 ( function () {
-	const { registerBlockType } = fp.blocks;
-	const { createElement: el } = fp.element;
-	const { InnerBlocks } = fp.blockEditor;
+	const { registerBlockType } = fin.blocks;
+	const { createElement: el } = fin.element;
+	const { InnerBlocks } = fin.blockEditor;
 
 	const divProps = {
 		className: 'product',

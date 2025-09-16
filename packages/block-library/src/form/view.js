@@ -2,14 +2,14 @@ let formSettings;
 try {
 	formSettings = JSON.parse(
 		document.getElementById(
-			'fp-script-module-data-@finpress/block-library/form/view'
+			'fin-script-module-data-@finpress/block-library/form/view'
 		)?.textContent
 	);
 } catch {}
 
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable no-undef */
-document.querySelectorAll( 'form.fp-block-form' ).forEach( function ( form ) {
+document.querySelectorAll( 'form.fin-block-form' ).forEach( function ( form ) {
 	// Bail If the form settings not provided or the form is not using the mailto: action.
 	if (
 		! formSettings ||
@@ -21,7 +21,7 @@ document.querySelectorAll( 'form.fp-block-form' ).forEach( function ( form ) {
 
 	const redirectNotification = ( status ) => {
 		const urlParams = new URLSearchParams( window.location.search );
-		urlParams.append( 'fp-form-result', status );
+		urlParams.append( 'fin-form-result', status );
 		window.location.search = urlParams.toString();
 	};
 
@@ -33,7 +33,7 @@ document.querySelectorAll( 'form.fp-block-form' ).forEach( function ( form ) {
 		formData.formAction = form.action;
 		formData._ajax_nonce = formSettings.nonce;
 		formData.action = formSettings.action;
-		formData._fp_http_referer = window.location.href;
+		formData._fin_http_referer = window.location.href;
 		formData.formAction = form.action;
 
 		try {

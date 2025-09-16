@@ -1,14 +1,14 @@
 <?php
 /**
- * Adds the fp-block-list class to the rendered list block.
+ * Adds the fin-block-list class to the rendered list block.
  *
  * @package FinPress
  */
 
 /**
- * Adds the fp-block-list class to the rendered list block.
+ * Adds the fin-block-list class to the rendered list block.
  * Ensures that pre-existing list blocks use the class name on the front.
- * For example, <ol> is transformed to <ol class="fp-block-list">.
+ * For example, <ol> is transformed to <ol class="fin-block-list">.
  *
  * @since 6.6.0
  *
@@ -29,7 +29,7 @@ function block_core_list_render( $attributes, $content ) {
 	$list_tags = array( 'OL', 'UL' );
 	while ( $processor->next_tag() ) {
 		if ( in_array( $processor->get_tag(), $list_tags, true ) ) {
-			$processor->add_class( 'fp-block-list' );
+			$processor->add_class( 'fin-block-list' );
 			break;
 		}
 	}

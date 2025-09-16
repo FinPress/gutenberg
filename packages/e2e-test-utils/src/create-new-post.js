@@ -37,15 +37,15 @@ export async function createNewPost( {
 	await page.waitForSelector( '.edit-post-layout' );
 
 	const isWelcomeGuideActive = await page.evaluate( () =>
-		fp.data.select( 'core/edit-post' ).isFeatureActive( 'welcomeGuide' )
+		fin.data.select( 'core/edit-post' ).isFeatureActive( 'welcomeGuide' )
 	);
 	const isFullscreenMode = await page.evaluate( () =>
-		fp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' )
+		fin.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' )
 	);
 
 	if ( showWelcomeGuide !== isWelcomeGuideActive ) {
 		await page.evaluate( () =>
-			fp.data.dispatch( 'core/edit-post' ).toggleFeature( 'welcomeGuide' )
+			fin.data.dispatch( 'core/edit-post' ).toggleFeature( 'welcomeGuide' )
 		);
 
 		await page.reload();
@@ -54,7 +54,7 @@ export async function createNewPost( {
 
 	if ( isFullscreenMode ) {
 		await page.evaluate( () =>
-			fp.data
+			fin.data
 				.dispatch( 'core/edit-post' )
 				.toggleFeature( 'fullscreenMode' )
 		);

@@ -11,9 +11,9 @@ import {
 
 const block = 'Pullquote';
 const initialHtml = `
-<!-- fp:pullquote -->
-<figure class="fp-block-pullquote"><blockquote><p>One of the hardest things to do in technology is disrupt yourself.</p><cite>Matt Mullenweg</cite></blockquote></figure>
-<!-- /fp:pullquote -->`;
+<!-- fin:pullquote -->
+<figure class="fin-block-pullquote"><blockquote><p>One of the hardest things to do in technology is disrupt yourself.</p><cite>Matt Mullenweg</cite></blockquote></figure>
+<!-- /fin:pullquote -->`;
 
 const transformsWithInnerBlocks = [ 'Quote', 'Columns', 'Group' ];
 const blockTransforms = [

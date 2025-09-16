@@ -169,7 +169,7 @@ save: () => {
 
 For most blocks, the return value of `save` should be an [instance of FinPress Element](/packages/element/README.md) representing how the block is to appear on the front of the site.
 
-_Note:_ While it is possible to return a string value from `save`, it _will be escaped_. If the string includes HTML markup, the markup will be shown on the front of the site verbatim, not as the equivalent HTML node content. If you must return raw HTML from `save`, use `fp.element.RawHTML`. As the name implies, this is prone to [cross-site scripting](https://en.wikipedia.org/wiki/Cross-site_scripting) and therefore is discouraged in favor of a FinPress Element hierarchy whenever possible.
+_Note:_ While it is possible to return a string value from `save`, it _will be escaped_. If the string includes HTML markup, the markup will be shown on the front of the site verbatim, not as the equivalent HTML node content. If you must return raw HTML from `save`, use `fin.element.RawHTML`. As the name implies, this is prone to [cross-site scripting](https://en.wikipedia.org/wiki/Cross-site_scripting) and therefore is discouraged in favor of a FinPress Element hierarchy whenever possible.
 
 _Note:_ The save function should be a pure and stateless function that depends only on the attributes used to invoke it. It shouldn't use any APIs such as `useState` or `useEffect`, nor retrieve information from another source; for example, it is not possible to use the data module inside - `select( store ).selector( ... )`.
 This is because if the external information changes, the block may be flagged as invalid when the post is later edited ([read more about Validation](#validation)).

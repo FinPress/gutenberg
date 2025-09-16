@@ -237,7 +237,7 @@ export default function PostNavigationLinkEdit( {
 			<div { ...blockProps }>
 				{ ! isNext && displayArrow && (
 					<span
-						className={ `fp-block-post-navigation-link__arrow-previous is-arrow-${ arrow }` }
+						className={ `fin-block-post-navigation-link__arrow-previous is-arrow-${ arrow }` }
 					>
 						{ displayArrow }
 					</span>
@@ -263,7 +263,7 @@ export default function PostNavigationLinkEdit( {
 				) }
 				{ isNext && displayArrow && (
 					<span
-						className={ `fp-block-post-navigation-link__arrow-next is-arrow-${ arrow }` }
+						className={ `fin-block-post-navigation-link__arrow-next is-arrow-${ arrow }` }
 						aria-hidden
 					>
 						{ displayArrow }

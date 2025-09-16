@@ -28,7 +28,7 @@ These fixtures must be named like
 `core/image` block, the following four fixture files must exist:
 
 1. `core__image.html` (or `core__image__specific-test-name.html`). Must
-   contain a `<!-- fp:core/image -->` block.
+   contain a `<!-- fin:core/image -->` block.
 2. `core__image.parsed.json` (or `core__image__specific-test-name.parsed.json`).
 3. `core__image.json` (or `core__image__specific-test-name.json`).
 4. `core__image.serialized.html` (or

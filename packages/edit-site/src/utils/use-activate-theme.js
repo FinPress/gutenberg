@@ -32,14 +32,14 @@ export function useActivateTheme() {
 			const activationURL =
 				'themes.php?action=activate&stylesheet=' +
 				currentlyPreviewingTheme() +
-				'&_fpnonce=' +
+				'&_finnonce=' +
 				window.FP_BLOCK_THEME_ACTIVATE_NONCE;
 			startResolution( 'activateTheme' );
 			await window.fetch( activationURL );
 			finishResolution( 'activateTheme' );
-			// Remove the fp_theme_preview query param: we've finished activating
+			// Remove the fin_theme_preview query param: we've finished activating
 			// the queue and are switching to normal Site Editor.
-			history.navigate( addQueryArgs( path, { fp_theme_preview: '' } ) );
+			history.navigate( addQueryArgs( path, { fin_theme_preview: '' } ) );
 		}
 	};
 }

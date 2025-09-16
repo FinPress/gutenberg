@@ -3,9 +3,9 @@
 		"blockName": "core/pullquote",
 		"attrs": {},
 		"innerBlocks": [],
-		"innerHTML": "\n<blockquote class=\"fp-block-pullquote alignnone\">\n    <p>Testing deprecated pullquote block...</p>\n\t<footer>...with a caption</footer>\n</blockquote>\n",
+		"innerHTML": "\n<blockquote class=\"fin-block-pullquote alignnone\">\n    <p>Testing deprecated pullquote block...</p>\n\t<footer>...with a caption</footer>\n</blockquote>\n",
 		"innerContent": [
-			"\n<blockquote class=\"fp-block-pullquote alignnone\">\n    <p>Testing deprecated pullquote block...</p>\n\t<footer>...with a caption</footer>\n</blockquote>\n"
+			"\n<blockquote class=\"fin-block-pullquote alignnone\">\n    <p>Testing deprecated pullquote block...</p>\n\t<footer>...with a caption</footer>\n</blockquote>\n"
 		]
 	}
 ]

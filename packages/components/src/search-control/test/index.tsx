@@ -80,7 +80,7 @@ describe( 'SearchControl', () => {
 			);
 
 			expect( console ).toHaveWarnedWith(
-				'`onClose` prop in fp.components.SearchControl is deprecated since version 6.8.'
+				'`onClose` prop in fin.components.SearchControl is deprecated since version 6.8.'
 			);
 			expect(
 				screen.queryByRole( 'button', { name: 'Close search' } )

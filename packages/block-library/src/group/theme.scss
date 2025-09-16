@@ -1,5 +1,5 @@
 // Add low specificity default padding to groups with backgrounds.
-:where(.fp-block-group.has-background) {
+:where(.fin-block-group.has-background) {
 	// Matches paragraph block padding.
 	padding: $block-bg-padding--v $block-bg-padding--h;
 }

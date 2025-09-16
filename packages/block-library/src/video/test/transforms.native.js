@@ -11,9 +11,9 @@ import {
 
 const block = 'Video';
 const initialHtml = `
-<!-- fp:video -->
-<figure class="fp-block-video"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video><figcaption class="fp-element-caption">Cloudup video</figcaption></figure>
-<!-- /fp:video -->`;
+<!-- fin:video -->
+<figure class="fin-block-video"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video><figcaption class="fin-element-caption">Cloudup video</figcaption></figure>
+<!-- /fin:video -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const nonMediaTransforms = [ 'File' ];

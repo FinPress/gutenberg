@@ -1,8 +1,8 @@
 ( function () {
-	const { registerBlockType } = fp.blocks;
-	const { useBlockProps } = fp.blockEditor;
-	const { createElement: el } = fp.element;
-	const { addFilter } = fp.hooks;
+	const { registerBlockType } = fin.blocks;
+	const { useBlockProps } = fin.blockEditor;
+	const { createElement: el } = fin.element;
+	const { addFilter } = fin.hooks;
 
 	registerBlockType( 'e2e-tests/hello-world', {
 		apiVersion: 3,

@@ -26,7 +26,7 @@ describe( 'isSimpleCssValue', () => {
 		[ 'max(4.5em, 3vh)', false ],
 		[ 'min(10px, 1rem)', false ],
 		[ 'minmax(30px, auto)', false ],
-		[ 'var(--fp--font-size)', false ],
+		[ 'var(--fin--font-size)', false ],
 	] )( 'given %p as argument, returns %p', ( cssValue, result ) => {
 		expect( isSimpleCssValue( cssValue ) ).toBe( result );
 	} );

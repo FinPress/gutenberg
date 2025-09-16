@@ -1,4 +1,4 @@
-.fp-block-cover {
+.fin-block-cover {
 	// Override default cover styles
 	// because we're not ready yet to show the cover block.
 	&.is-placeholder {
@@ -10,7 +10,7 @@
 		.components-placeholder {
 			&.is-large {
 				justify-content: flex-start;
-				z-index: z-index(".fp-block-cover.is-placeholder .components-placeholder.is-large");
+				z-index: z-index(".fin-block-cover.is-placeholder .components-placeholder.is-large");
 			}
 		}
 
@@ -38,7 +38,7 @@
 			z-index: 1;
 		}
 
-		.fp-block-cover__inner-container {
+		.fin-block-cover__inner-container {
 			z-index: 2;
 		}
 	}
@@ -52,19 +52,19 @@
 		margin: 0;
 	}
 
-	// The .fp-block-cover class is used just to increase selector specificity.
-	.fp-block-cover__inner-container {
+	// The .fin-block-cover class is used just to increase selector specificity.
+	.fin-block-cover__inner-container {
 		// Avoid text align inherit from cover image align.
 		text-align: left;
 		margin-left: 0;
 		margin-right: 0;
 	}
 
-	.fp-block-cover__placeholder-background-options {
+	.fin-block-cover__placeholder-background-options {
 		width: 100%;
 	}
 
-	.fp-block-cover__image--placeholder-image {
+	.fin-block-cover__image--placeholder-image {
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -74,8 +74,8 @@
 
 }
 
-[data-align="left"] > .fp-block-cover,
-[data-align="right"] > .fp-block-cover {
+[data-align="left"] > .fin-block-cover,
+[data-align="right"] > .fin-block-cover {
 	max-width: $content-width * 0.5;
 	width: 100%;
 }
@@ -110,7 +110,7 @@
 
 // Remove the parallax fixed background when in the patterns preview panel as it
 // doesn't work with the transforms that are applied to resize the block in that context.
-.block-editor-block-patterns-list__list-item .has-parallax.fp-block-cover {
+.block-editor-block-patterns-list__list-item .has-parallax.fin-block-cover {
 	background-attachment: scroll;
 }
 

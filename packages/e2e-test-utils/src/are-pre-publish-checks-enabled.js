@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { fpDataSelect } from './fp-data-select';
+import { finDataSelect } from './fin-data-select';
 
 /**
  * Verifies if publish checks are enabled.
@@ -9,5 +9,5 @@ import { fpDataSelect } from './fp-data-select';
  * @return {Promise<boolean>} Boolean which represents the state of prepublish checks.
  */
 export async function arePrePublishChecksEnabled() {
-	return fpDataSelect( 'core', 'isPublishSidebarEnabled' );
+	return finDataSelect( 'core', 'isPublishSidebarEnabled' );
 }

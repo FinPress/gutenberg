@@ -285,7 +285,7 @@ export default function NavigationSubmenuEdit( {
 
 	const blockProps = useBlockProps( {
 		ref: useMergeRefs( [ setPopoverAnchor, listItemRef ] ),
-		className: clsx( 'fp-block-navigation-item', {
+		className: clsx( 'fin-block-navigation-item', {
 			'is-editing': isSelected || isParentOfSelectedBlock,
 			'is-dragging-within': isDraggingWithin,
 			'has-link': !! url,
@@ -378,7 +378,7 @@ export default function NavigationSubmenuEdit( {
 						icon={ removeSubmenu }
 						title={ __( 'Convert to Link' ) }
 						onClick={ transformToLink }
-						className="fp-block-navigation__submenu__revert"
+						className="fin-block-navigation__submenu__revert"
 						disabled={ ! canConvertToLink }
 					/>
 				</ToolbarGroup>
@@ -500,12 +500,12 @@ export default function NavigationSubmenuEdit( {
 			</InspectorControls>
 			<div { ...blockProps }>
 				{ /* eslint-disable jsx-a11y/anchor-is-valid */ }
-				<ParentElement className="fp-block-navigation-item__content">
+				<ParentElement className="fin-block-navigation-item__content">
 					{ /* eslint-enable */ }
 					<RichText
 						ref={ ref }
 						identifier="label"
-						className="fp-block-navigation-item__label"
+						className="fin-block-navigation-item__label"
 						value={ label }
 						onChange={ ( labelValue ) =>
 							setAttributes( { label: labelValue } )
@@ -523,7 +523,7 @@ export default function NavigationSubmenuEdit( {
 						} }
 					/>
 					{ description && (
-						<span className="fp-block-navigation-item__description">
+						<span className="fin-block-navigation-item__description">
 							{ description }
 						</span>
 					) }
@@ -556,7 +556,7 @@ export default function NavigationSubmenuEdit( {
 					) }
 				</ParentElement>
 				{ ( showSubmenuIcon || openSubmenusOnClick ) && (
-					<span className="fp-block-navigation__submenu-icon">
+					<span className="fin-block-navigation__submenu-icon">
 						<ItemSubmenuIcon />
 					</span>
 				) }

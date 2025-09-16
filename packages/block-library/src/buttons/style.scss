@@ -1,13 +1,13 @@
 // This variable is repeated across Button, Buttons, and Buttons editor styles.
 $blocks-block__margin: 0.5em;
 
-.fp-block-buttons {
+.fin-block-buttons {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 
 	&.is-vertical {
 		flex-direction: column;
-		> .fp-block-button {
+		> .fin-block-button {
 			&:last-child {
 				margin-bottom: 0;
 			}
@@ -15,7 +15,7 @@ $blocks-block__margin: 0.5em;
 	}
 
 	// Increased specificity to override blocks default margin.
-	> .fp-block-button {
+	> .fin-block-button {
 		display: inline-block;
 		margin: 0;
 	}
@@ -63,7 +63,7 @@ $blocks-block__margin: 0.5em;
 		.is-content-justification-right,
 		.is-content-justification-left,
 		.is-content-justification-center
-	) .fp-block-button.aligncenter {
+	) .fin-block-button.aligncenter {
 	/* stylelint-enable @stylistic/indentation */
 		margin-left: auto;
 		margin-right: auto;
@@ -71,25 +71,25 @@ $blocks-block__margin: 0.5em;
 	}
 
 	&[style*="text-decoration"] {
-		.fp-block-button,
-		.fp-block-button__link {
+		.fin-block-button,
+		.fin-block-button__link {
 			text-decoration: inherit;
 		}
 	}
 
 	&.has-custom-font-size {
-		.fp-block-button__link {
+		.fin-block-button__link {
 			font-size: inherit;
 		}
 	}
 
 	// Needed to make the buttons stretch correctly in a vertical layout.
-	.fp-block-button__link {
+	.fin-block-button__link {
 		width: 100%;
 	}
 }
 
 // Legacy buttons that did not come in a wrapping container.
-.fp-block-button.aligncenter {
+.fin-block-button.aligncenter {
 	text-align: center;
 }

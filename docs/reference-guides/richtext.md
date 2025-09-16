@@ -86,7 +86,7 @@ If you want to limit the formats allowed, you can specify using `allowedFormats`
 The RichText component uses formats to display inline elements, for example images within the paragraph block. If you just want to disable a format from the editor, you can use the `unregisterFormatType` function. For example to disable inline images, use:
 
 ```
-fp.richText.unregisterFormatType( 'core/image' );
+fin.richText.unregisterFormatType( 'core/image' );
 ```
 
 To apply, you would need to enqueue the above script in your plugin or theme. See the JavaScript tutorial for [how to load JavaScript in FinPress](https://developer.finpress.org/block-editor/how-to-guides/javascript/loading-javascript/).

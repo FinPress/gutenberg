@@ -21,7 +21,7 @@ function render_block_core_comment_author_name( $attributes, $content, $block ) 
 	}
 
 	$comment            = get_comment( $block->context['commentId'] );
-	$commenter          = fp_get_current_commenter();
+	$commenter          = fin_get_current_commenter();
 	$show_pending_links = isset( $commenter['comment_author'] ) && $commenter['comment_author'];
 	if ( empty( $comment ) ) {
 		return '';
@@ -43,7 +43,7 @@ function render_block_core_comment_author_name( $attributes, $content, $block ) 
 		$comment_author = sprintf( '<a rel="external nofollow ugc" href="%1s" target="%2s" >%3s</a>', esc_url( $link ), esc_attr( $attributes['linkTarget'] ), $comment_author );
 	}
 	if ( '0' === $comment->comment_approved && ! $show_pending_links ) {
-		$comment_author = fp_kses( $comment_author, array() );
+		$comment_author = fin_kses( $comment_author, array() );
 	}
 
 	return sprintf(

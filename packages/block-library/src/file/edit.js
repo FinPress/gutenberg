@@ -148,7 +148,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 			fileName: newMedia.title,
 			textLinkHref: newMedia.url,
 			id: newMedia.id,
-			fileId: `fp-block-file--media-${ clientId }`,
+			fileId: `fin-block-file--media-${ clientId }`,
 			blob: undefined,
 			...pdfAttributes,
 		} );
@@ -284,7 +284,7 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 						showHandle={ isSelected }
 					>
 						<object
-							className="fp-block-file__preview"
+							className="fin-block-file__preview"
 							data={ href }
 							type="application/pdf"
 							aria-label={ __(
@@ -292,11 +292,11 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 							) }
 						/>
 						{ ! isSelected && (
-							<div className="fp-block-file__preview-overlay" />
+							<div className="fin-block-file__preview-overlay" />
 						) }
 					</ResizableBox>
 				) }
-				<div className="fp-block-file__content-wrapper">
+				<div className="fin-block-file__content-wrapper">
 					<RichText
 						identifier="fileName"
 						tagName="a"
@@ -311,14 +311,14 @@ function FileEdit( { attributes, isSelected, setAttributes, clientId } ) {
 						href={ textLinkHref }
 					/>
 					{ showDownloadButton && (
-						<div className="fp-block-file__button-richtext-wrapper">
+						<div className="fin-block-file__button-richtext-wrapper">
 							{ /* Using RichText here instead of PlainText so that it can be styled like a button. */ }
 							<RichText
 								identifier="downloadButtonText"
 								tagName="div" // Must be block-level or else cursor disappears.
 								aria-label={ __( 'Download button text' ) }
 								className={ clsx(
-									'fp-block-file__button',
+									'fin-block-file__button',
 									__experimentalGetElementClassName(
 										'button'
 									)

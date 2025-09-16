@@ -3,7 +3,7 @@
  */
 import { test, expect } from './fixtures';
 
-test.describe( 'data-fp-each', () => {
+test.describe( 'data-fin-each', () => {
 	test.beforeAll( async ( { interactivityUtils: utils } ) => {
 		await utils.activatePlugins();
 		await utils.addPostWithBlock( 'test/directive-each' );
@@ -45,7 +45,7 @@ test.describe( 'data-fp-each', () => {
 		await expect( elements ).toHaveText( [ 'A', 'B', 'C' ] );
 	} );
 
-	test.describe( 'without `fp-each-key`', () => {
+	test.describe( 'without `fin-each-key`', () => {
 		test.beforeEach( async ( { page } ) => {
 			const elements = page.getByTestId( 'fruits' ).getByTestId( 'item' );
 
@@ -134,7 +134,7 @@ test.describe( 'data-fp-each', () => {
 		} );
 	} );
 
-	test.describe( 'with `fp-each-key`', () => {
+	test.describe( 'with `fin-each-key`', () => {
 		test.beforeEach( async ( { page } ) => {
 			const elements = page.getByTestId( 'books' ).getByTestId( 'item' );
 
@@ -488,7 +488,7 @@ test.describe( 'data-fp-each', () => {
 		await expect( banana ).toHaveAttribute( 'data-tag', '1' );
 	} );
 
-	test( 'directives inside elements with `fp-each-child` should not run', async ( {
+	test( 'directives inside elements with `fin-each-child` should not run', async ( {
 		page,
 	} ) => {
 		const element = page

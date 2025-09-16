@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/buttons",
 	"title": "Buttons",
@@ -64,6 +64,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-buttons-editor",
-	"style": "fp-block-buttons"
+	"editorStyle": "fin-block-buttons-editor",
+	"style": "fin-block-buttons"
 }

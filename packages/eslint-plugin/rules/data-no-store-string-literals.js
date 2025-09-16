@@ -175,12 +175,12 @@ function getFixes( fixer, context, callNode ) {
 			);
 		}
 	} else {
-		const fpImports = imports.filter( ( node ) =>
+		const finImports = imports.filter( ( node ) =>
 			node.source.value.startsWith( '@finpress/' )
 		);
 		const lastImport =
-			fpImports.length > 0
-				? arrayLast( fpImports )
+			finImports.length > 0
+				? arrayLast( finImports )
 				: arrayLast( imports );
 
 		fixes.push(

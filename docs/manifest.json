@@ -24,9 +24,9 @@
 		"parent": "devenv"
 	},
 	{
-		"title": "Get started with fp-env",
-		"slug": "get-started-with-fp-env",
-		"markdown_source": "../docs/getting-started/devenv/get-started-with-fp-env.md",
+		"title": "Get started with fin-env",
+		"slug": "get-started-with-fin-env",
+		"markdown_source": "../docs/getting-started/devenv/get-started-with-fin-env.md",
 		"parent": "devenv"
 	},
 	{
@@ -36,9 +36,9 @@
 		"parent": "devenv"
 	},
 	{
-		"title": "Get started with fp-scripts",
-		"slug": "get-started-with-fp-scripts",
-		"markdown_source": "../docs/getting-started/devenv/get-started-with-fp-scripts.md",
+		"title": "Get started with fin-scripts",
+		"slug": "get-started-with-fin-scripts",
+		"markdown_source": "../docs/getting-started/devenv/get-started-with-fin-scripts.md",
 		"parent": "devenv"
 	},
 	{

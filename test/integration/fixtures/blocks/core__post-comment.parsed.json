@@ -3,7 +3,7 @@
 		"blockName": "core/post-comment",
 		"attrs": {},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-post-comment\"></div>\n",
-		"innerContent": [ "\n<div class=\"fp-block-post-comment\"></div>\n" ]
+		"innerHTML": "\n<div class=\"fin-block-post-comment\"></div>\n",
+		"innerContent": [ "\n<div class=\"fin-block-post-comment\"></div>\n" ]
 	}
 ]

@@ -8,7 +8,7 @@ import { I18nManager, LogBox } from 'react-native';
  */
 import { unregisterBlockType, getBlockType } from '@finpress/blocks';
 import { addAction, addFilter, doAction } from '@finpress/hooks';
-import * as fpData from '@finpress/data';
+import * as finData from '@finpress/data';
 import { registerCoreBlocks } from '@finpress/block-library';
 // eslint-disable-next-line no-restricted-imports
 import { initializeEditor } from '@finpress/edit-post';
@@ -28,10 +28,10 @@ const reactNativeSetup = () => {
 };
 
 const gutenbergSetup = () => {
-	// fp-data
+	// fin-data
 	const userId = 1;
 	const storageKey = 'FP_DATA_USER_' + userId;
-	fpData.use( fpData.plugins.persistence, { storageKey } );
+	finData.use( finData.plugins.persistence, { storageKey } );
 
 	setupApiFetch();
 

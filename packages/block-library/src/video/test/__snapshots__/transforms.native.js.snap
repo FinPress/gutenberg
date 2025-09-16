@@ -1,41 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Video block transforms to Columns block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
-<div class="fp-block-column" style="flex-basis:100%"><!-- fp:video -->
-<figure class="fp-block-video"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video><figcaption class="fp-element-caption">Cloudup video</figcaption></figure>
-<!-- /fp:video --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"100%"} -->
+<div class="fin-block-column" style="flex-basis:100%"><!-- fin:video -->
+<figure class="fin-block-video"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video><figcaption class="fin-element-caption">Cloudup video</figcaption></figure>
+<!-- /fin:video --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Video block transforms to Cover block 1`] = `
-"<!-- fp:cover {"url":"https://i.cloudup.com/YtZFJbuQCE.mov","dimRatio":50,"backgroundType":"video"} -->
-<div class="fp-block-cover"><video class="fp-block-cover__video-background intrinsic-ignore" autoplay muted loop playsinline src="https://i.cloudup.com/YtZFJbuQCE.mov" data-object-fit="cover"></video><span aria-hidden="true" class="fp-block-cover__background has-background-dim"></span><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"align":"center","fontSize":"large"} -->
+"<!-- fin:cover {"url":"https://i.cloudup.com/YtZFJbuQCE.mov","dimRatio":50,"backgroundType":"video"} -->
+<div class="fin-block-cover"><video class="fin-block-cover__video-background intrinsic-ignore" autoplay muted loop playsinline src="https://i.cloudup.com/YtZFJbuQCE.mov" data-object-fit="cover"></video><span aria-hidden="true" class="fin-block-cover__background has-background-dim"></span><div class="fin-block-cover__inner-container"><!-- fin:paragraph {"align":"center","fontSize":"large"} -->
 <p class="has-text-align-center has-large-font-size">Cloudup video</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:cover -->"
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:cover -->"
 `;
 
 exports[`Video block transforms to File block 1`] = `
-"<!-- fp:file {"href":"https://i.cloudup.com/YtZFJbuQCE.mov"} -->
-<div class="fp-block-file"><a href="https://i.cloudup.com/YtZFJbuQCE.mov">Cloudup video</a><a href="https://i.cloudup.com/YtZFJbuQCE.mov" class="fp-block-file__button fp-element-button" download>Download</a></div>
-<!-- /fp:file -->"
+"<!-- fin:file {"href":"https://i.cloudup.com/YtZFJbuQCE.mov"} -->
+<div class="fin-block-file"><a href="https://i.cloudup.com/YtZFJbuQCE.mov">Cloudup video</a><a href="https://i.cloudup.com/YtZFJbuQCE.mov" class="fin-block-file__button fin-element-button" download>Download</a></div>
+<!-- /fin:file -->"
 `;
 
 exports[`Video block transforms to Group block 1`] = `
-"<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:video -->
-<figure class="fp-block-video"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video><figcaption class="fp-element-caption">Cloudup video</figcaption></figure>
-<!-- /fp:video --></div>
-<!-- /fp:group -->"
+"<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:video -->
+<figure class="fin-block-video"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video><figcaption class="fin-element-caption">Cloudup video</figcaption></figure>
+<!-- /fin:video --></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Video block transforms to Media & Text block 1`] = `
-"<!-- fp:media-text {"mediaType":"video"} -->
-<div class="fp-block-media-text is-stacked-on-mobile"><figure class="fp-block-media-text__media"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure><div class="fp-block-media-text__content"><!-- fp:paragraph -->
+"<!-- fin:media-text {"mediaType":"video"} -->
+<div class="fin-block-media-text is-stacked-on-mobile"><figure class="fin-block-media-text__media"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure><div class="fin-block-media-text__content"><!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:media-text -->"
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:media-text -->"
 `;

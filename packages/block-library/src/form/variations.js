@@ -17,7 +17,7 @@ const variations = [
 		description: __( 'A comment form for posts and pages.' ),
 		attributes: {
 			submissionMethod: 'custom',
-			action: '{SITE_URL}/fp-comments-post.php',
+			action: '{SITE_URL}/fin-comments-post.php',
 			method: 'post',
 			anchor: 'comment-form',
 		},
@@ -60,7 +60,7 @@ const variations = [
 			! blockAttributes?.type || blockAttributes?.type === 'text',
 	},
 	{
-		name: 'fp-privacy-form',
+		name: 'fin-privacy-form',
 		title: __( 'Experimental Privacy Request Form' ),
 		keywords: [ 'GDPR' ],
 		description: __( 'A form to request data exports and/or deletion.' ),
@@ -117,15 +117,15 @@ const variations = [
 				'core/form-input',
 				{
 					type: 'hidden',
-					name: 'fp-action',
-					value: 'fp_privacy_send_request',
+					name: 'fin-action',
+					value: 'fin_privacy_send_request',
 				},
 			],
 			[
 				'core/form-input',
 				{
 					type: 'hidden',
-					name: 'fp-privacy-request',
+					name: 'fin-privacy-request',
 					value: '1',
 				},
 			],

@@ -134,7 +134,7 @@ function PostAuthorEdit( {
 				supportsAuthor:
 					getPostType( postType )?.supports?.author ?? false,
 				canAssignAuthor: currentPost?._links?.[
-					'fp:action-assign-author'
+					'fin:action-assign-author'
 				]
 					? true
 					: false,
@@ -324,7 +324,7 @@ function PostAuthorEdit( {
 
 			<div { ...blockProps }>
 				{ showAvatar && authorDetails?.avatar_urls && (
-					<div className="fp-block-post-author__avatar">
+					<div className="fin-block-post-author__avatar">
 						<img
 							width={ avatarSize }
 							src={ authorDetails.avatar_urls[ avatarSize ] }
@@ -332,11 +332,11 @@ function PostAuthorEdit( {
 						/>
 					</div>
 				) }
-				<div className="fp-block-post-author__content">
+				<div className="fin-block-post-author__content">
 					{ ( ! RichText.isEmpty( byline ) || isSelected ) && (
 						<RichText
 							identifier="byline"
-							className="fp-block-post-author__byline"
+							className="fin-block-post-author__byline"
 							aria-label={ __( 'Post author byline text' ) }
 							placeholder={ __( 'Write byline…' ) }
 							value={ byline }
@@ -345,7 +345,7 @@ function PostAuthorEdit( {
 							}
 						/>
 					) }
-					<p className="fp-block-post-author__name">
+					<p className="fin-block-post-author__name">
 						{ isLink ? (
 							<a
 								href="#post-author-pseudo-link"
@@ -359,7 +359,7 @@ function PostAuthorEdit( {
 					</p>
 					{ showBio && (
 						<p
-							className="fp-block-post-author__bio"
+							className="fin-block-post-author__bio"
 							dangerouslySetInnerHTML={ {
 								__html: authorDetails?.description,
 							} }

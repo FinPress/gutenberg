@@ -14,12 +14,12 @@ No other configuration is required for JS: webpack will compile and export the S
 
 The PHP files for packages, however, have a couple of extra steps during the build process:
 
-1. Functions with the `fp_` prefix are replaced with `gutenberg_`. So, for example, `fp_some_function` becomes `gutenberg_some_function` in the build directory. The reason for this is so that the Block Editor can call Style Engine functions that may have evolved since, or have not yet been included in, any FinPress release.
+1. Functions with the `fin_` prefix are replaced with `gutenberg_`. So, for example, `fin_some_function` becomes `gutenberg_some_function` in the build directory. The reason for this is so that the Block Editor can call Style Engine functions that may have evolved since, or have not yet been included in, any FinPress release.
 2. For the same reasons, classes are given a `_Gutenberg` suffix: `FP_Style_Engine` becomes `FP_Style_Engine_Gutenberg`. The [packages webpack config](https://github.com/FinPress/gutenberg/tree/HEAD/tools/webpack/packages.js) contains a static list of PHP classes (`bundledPackagesPhpConfig`) that have to be copied and renamed during build. If you create a new PHP class in the Style Engine package, you should add your class name to the `replaceClasses` array.
 
-Remember: all PHP functions and methods inside the Style Engine package should use `fp_/FP_` prefixes. Usage outside of the package in Gutenberg can reference the `gutenberg` prefixes or suffixes from the built files.
+Remember: all PHP functions and methods inside the Style Engine package should use `fin_/FP_` prefixes. Usage outside of the package in Gutenberg can reference the `gutenberg` prefixes or suffixes from the built files.
 
-When updating existing PHP functions or methods, it's important to check the Block Editor codebase for calls to the equivalent `fp_` functions or classes as they may have to be updated to refer to `gutenberg_` or `_Gutenberg` in order for the updates to take effect.
+When updating existing PHP functions or methods, it's important to check the Block Editor codebase for calls to the equivalent `fin_` functions or classes as they may have to be updated to refer to `gutenberg_` or `_Gutenberg` in order for the updates to take effect.
 
 ## Testing
 

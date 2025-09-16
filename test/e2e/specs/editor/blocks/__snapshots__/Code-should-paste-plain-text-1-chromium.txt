@@ -1,4 +1,4 @@
-<!-- fp:code -->
-<pre class="fp-block-code"><code>&lt;img />
+<!-- fin:code -->
+<pre class="fin-block-code"><code>&lt;img />
 	&lt;br></code></pre>
-<!-- /fp:code -->
+<!-- /fin:code -->

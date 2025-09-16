@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/file",
 	"title": "File",
@@ -92,6 +92,6 @@
 		},
 		"interactivity": true
 	},
-	"editorStyle": "fp-block-file-editor",
-	"style": "fp-block-file"
+	"editorStyle": "fin-block-file-editor",
+	"style": "fin-block-file"
 }

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 2,
 	"name": "test/router-styles-green",
 	"title": "E2E Interactivity tests - router styles - Green",

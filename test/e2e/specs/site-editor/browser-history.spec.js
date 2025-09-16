@@ -15,7 +15,7 @@ test.describe( 'Site editor browser history', () => {
 	test( 'Back button works properly', async ( { admin, page } ) => {
 		await admin.visitAdminPage( 'index.php' );
 		await admin.visitSiteEditor();
-		await expect( page ).toHaveURL( '/fp-admin/site-editor.php' );
+		await expect( page ).toHaveURL( '/fin-admin/site-editor.php' );
 
 		// Navigate to a single template
 		await page.click( 'role=button[name="Templates"]' );
@@ -23,18 +23,18 @@ test.describe( 'Site editor browser history', () => {
 			.locator( '.fields-field__title', { hasText: 'Index' } )
 			.click();
 		await expect( page ).toHaveURL(
-			'/fp-admin/site-editor.php?p=%2Ffp_template%2Femptytheme%2F%2Findex&canvas=edit'
+			'/fin-admin/site-editor.php?p=%2Ffin_template%2Femptytheme%2F%2Findex&canvas=edit'
 		);
 
 		// Navigate back to the template list
 		await page.goBack();
 		await expect( page ).toHaveURL(
-			'/fp-admin/site-editor.php?p=%2Ftemplate'
+			'/fin-admin/site-editor.php?p=%2Ftemplate'
 		);
 
 		// Navigate back to the dashboard
 		await page.goBack();
 		await page.goBack();
-		await expect( page ).toHaveURL( '/fp-admin/index.php' );
+		await expect( page ).toHaveURL( '/fin-admin/index.php' );
 	} );
 } );

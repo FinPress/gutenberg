@@ -111,7 +111,7 @@ if ( ! class_exists( 'FP_Style_Engine_Processor' ) ) {
 				'optimize' => false,
 				'prettify' => SCRIPT_DEBUG,
 			);
-			$options  = fp_parse_args( $options, $defaults );
+			$options  = fin_parse_args( $options, $defaults );
 
 			// If we have stores, get the rules from them.
 			foreach ( $this->stores as $store ) {
@@ -144,7 +144,7 @@ if ( ! class_exists( 'FP_Style_Engine_Processor' ) ) {
 			foreach ( $this->css_rules as $rule ) {
 				$declarations = $rule->get_declarations()->get_declarations();
 				ksort( $declarations );
-				$selectors_json[ $rule->get_selector() ] = fp_json_encode( $declarations );
+				$selectors_json[ $rule->get_selector() ] = fin_json_encode( $declarations );
 			}
 
 			// Combine selectors that have the same styles.

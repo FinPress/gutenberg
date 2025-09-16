@@ -11,14 +11,14 @@
  * Registers a custom script for the plugin.
  */
 function enqueue_align_plugin_script() {
-	fp_enqueue_script(
+	fin_enqueue_script(
 		'gutenberg-test-align-hook',
 		plugins_url( 'align-hook/index.js', __FILE__ ),
 		array(
-			'fp-blocks',
-			'fp-element',
-			'fp-block-editor',
-			'fp-i18n',
+			'fin-blocks',
+			'fin-element',
+			'fin-block-editor',
+			'fin-i18n',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'align-hook/index.js' ),
 		true

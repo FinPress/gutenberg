@@ -99,7 +99,7 @@ const useDefaultPageIndex = ( { defaultPage, postId, perPage, queryArgs } ) => {
 		// We need to fetch comments to know the index. Use HEAD and limit
 		// fields just to ID, to make this call as light as possible.
 		apiFetch( {
-			path: addQueryArgs( '/fp/v2/comments', {
+			path: addQueryArgs( '/fin/v2/comments', {
 				...queryArgs,
 				post: postId,
 				per_page: perPage,

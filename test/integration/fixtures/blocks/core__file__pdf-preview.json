@@ -3,10 +3,10 @@
 		"name": "core/file",
 		"isValid": true,
 		"attributes": {
-			"href": "http://localhost:8889/fp-content/uploads/2021/04/yolo.pdf",
-			"fileId": "fp-block-file--media-_clientId_0",
+			"href": "http://localhost:8889/fin-content/uploads/2021/04/yolo.pdf",
+			"fileId": "fin-block-file--media-_clientId_0",
 			"fileName": "yolo",
-			"textLinkHref": "http://localhost:8889/fp-content/uploads/2021/04/yolo.pdf",
+			"textLinkHref": "http://localhost:8889/fin-content/uploads/2021/04/yolo.pdf",
 			"showDownloadButton": true,
 			"downloadButtonText": "Download",
 			"displayPreview": true,

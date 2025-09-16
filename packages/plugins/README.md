@@ -49,7 +49,7 @@ _Usage_
 ```js
 // Using ES5 syntax
 var el = React.createElement;
-var PluginArea = fp.plugins.PluginArea;
+var PluginArea = fin.plugins.PluginArea;
 
 function Layout() {
 	return el( 'div', { scope: 'my-page' }, 'Content of the page', PluginArea );
@@ -87,10 +87,10 @@ _Usage_
 ```js
 // Using ES5 syntax
 var el = React.createElement;
-var Fragment = fp.element.Fragment;
-var PluginSidebar = fp.editor.PluginSidebar;
-var PluginSidebarMoreMenuItem = fp.editor.PluginSidebarMoreMenuItem;
-var registerPlugin = fp.plugins.registerPlugin;
+var Fragment = fin.element.Fragment;
+var PluginSidebar = fin.editor.PluginSidebar;
+var PluginSidebarMoreMenuItem = fin.editor.PluginSidebarMoreMenuItem;
+var registerPlugin = fin.plugins.registerPlugin;
 var moreIcon = React.createElement( 'svg' ); //... svg element.
 
 function Component() {
@@ -162,7 +162,7 @@ _Usage_
 
 ```js
 // Using ES5 syntax
-var unregisterPlugin = fp.plugins.unregisterPlugin;
+var unregisterPlugin = fin.plugins.unregisterPlugin;
 
 unregisterPlugin( 'plugin-name' );
 ```

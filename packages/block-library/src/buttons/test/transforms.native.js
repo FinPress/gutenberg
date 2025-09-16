@@ -11,15 +11,15 @@ import {
 
 const block = 'Buttons';
 const initialHtml = `
-<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">Solid Button</a></div>
-<!-- /fp:button -->
+<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button">Solid Button</a></div>
+<!-- /fin:button -->
 
-<!-- fp:button {"gradient":"luminous-vivid-amber-to-luminous-vivid-orange"} -->
-<div class="fp-block-button"><a class="fp-block-button__link has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background has-background fp-element-button">Gradient Button</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`;
+<!-- fin:button {"gradient":"luminous-vivid-amber-to-luminous-vivid-orange"} -->
+<div class="fin-block-button"><a class="fin-block-button__link has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background has-background fin-element-button">Gradient Button</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

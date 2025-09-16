@@ -70,7 +70,7 @@ export default function SiteTitleEdit( {
 	const blockProps = useBlockProps( {
 		className: clsx( {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
-			'fp-block-site-title__placeholder': ! canUserEdit && ! title,
+			'fin-block-site-title__placeholder': ! canUserEdit && ! title,
 		} ),
 	} );
 	const siteTitleContent = canUserEdit ? (

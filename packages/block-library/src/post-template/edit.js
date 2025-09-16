@@ -29,7 +29,7 @@ const TEMPLATE = [
 
 function PostTemplateInnerBlocks( { classList } ) {
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: clsx( 'fp-block-post', classList ) },
+		{ className: clsx( 'fin-block-post', classList ) },
 		{ template: TEMPLATE, __unstableDisableLayoutClassNames: true }
 	);
 	return <li { ...innerBlocksProps } />;
@@ -45,7 +45,7 @@ function PostTemplateBlockPreview( {
 	const blockPreviewProps = useBlockPreview( {
 		blocks,
 		props: {
-			className: clsx( 'fp-block-post', classList ),
+			className: clsx( 'fin-block-post', classList ),
 		},
 	} );
 

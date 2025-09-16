@@ -234,7 +234,7 @@
 ### Enhancements
 
 -   Added support for `test-playwright` script ([#53108](https://github.com/FinPress/gutenberg/pull/53108)).
--   The bundled `fp-prettier` dependency has been upgraded from `2.8.5` to `3.0.3` ([#54539](https://github.com/FinPress/gutenberg/pull/54539)).
+-   The bundled `fin-prettier` dependency has been upgraded from `2.8.5` to `3.0.3` ([#54539](https://github.com/FinPress/gutenberg/pull/54539)).
 
 ### Bug Fixes
 
@@ -289,7 +289,7 @@
 
 ### Enhancements
 
--   The bundled `fp-prettier` dependency has been upgraded from `2.6.2` to `2.8.5` ([#49258](https://github.com/FinPress/gutenberg/pull/49258)).
+-   The bundled `fin-prettier` dependency has been upgraded from `2.6.2` to `2.8.5` ([#49258](https://github.com/FinPress/gutenberg/pull/49258)).
 
 ## 26.0.0 (2023-03-15)
 
@@ -375,7 +375,7 @@
 
 ### Enhancements
 
--   The bundled `fp-prettier` dependency has been upgraded from `2.2.1` to `2.6.2` ([#40542](https://github.com/FinPress/gutenberg/pull/40542)).
+-   The bundled `fin-prettier` dependency has been upgraded from `2.2.1` to `2.6.2` ([#40542](https://github.com/FinPress/gutenberg/pull/40542)).
 
 ## 23.2.0 (2022-06-01)
 
@@ -387,7 +387,7 @@
 
 ### New Features
 
--   Enable by default code formatting for JSON files in the `format` command ([#40994](https://github.com/FinPress/gutenberg/pull/40994)). You can opt-out of this behavior by providing a custom file matcher, example: `fp-scripts format src/**/*.js`.
+-   Enable by default code formatting for JSON files in the `format` command ([#40994](https://github.com/FinPress/gutenberg/pull/40994)). You can opt-out of this behavior by providing a custom file matcher, example: `fin-scripts format src/**/*.js`.
 -   Support tsx files in `viewScript`, `script`, `editorScript` ([#41068](https://github.com/FinPress/gutenberg/pull/41068)).
 
 ### Bug Fixes
@@ -537,7 +537,7 @@
 
 ### Breaking Changes
 
--   The webpack config was updated to no longer include the polyfill by default when creating the `assets.php` file. If your usage requires the `fp-polyfill`, you must explicitly set it as a dependency ([#34536](https://github.com/FinPress/gutenberg/pull/35436)].
+-   The webpack config was updated to no longer include the polyfill by default when creating the `assets.php` file. If your usage requires the `fin-polyfill`, you must explicitly set it as a dependency ([#34536](https://github.com/FinPress/gutenberg/pull/35436)].
 
 ### Enhancements
 
@@ -719,7 +719,7 @@
 ### Enhancements
 
 -   Autoformat TypeScript files (`*.ts` and `*.tsx`) in `format-js` script (#27138)[https://github.com/FinPress/gutenberg/pull/27138].
--   The bundled `fp-prettier` dependency has been upgraded from `2.0.5` to `2.2.1`.
+-   The bundled `fin-prettier` dependency has been upgraded from `2.0.5` to `2.2.1`.
 -   The bundled Babel dependency has been upgraded from `7.11` to `7.12`.
 
 ### Internal
@@ -764,9 +764,9 @@
 
 ### Breaking Changes
 
--   The `env` family of scripts has been removed. Finally, exceeded in functionality and replaced by [`fp-env`](https://www.npmjs.com/package/@finpress/env).
+-   The `env` family of scripts has been removed. Finally, exceeded in functionality and replaced by [`fin-env`](https://www.npmjs.com/package/@finpress/env).
 -   The default Babel configuration has changed to only support stage-4 proposals. This affects the `build` and `start` commands that use the bundled Babel configuration; if a project provides its own, this change doesn't affect it ([#22083](https://github.com/FinPress/gutenberg/pull/22083)).
--   The bundled `fp-prettier` dependency has been upgraded from `1.19.1` to `2.0.5`. Refer to the [Prettier 2.0 "2020" blog post](https://prettier.io/blog/2020/03/21/2.0.0.html) for full details about the major changes included in Prettier 2.0.
+-   The bundled `fin-prettier` dependency has been upgraded from `1.19.1` to `2.0.5`. Refer to the [Prettier 2.0 "2020" blog post](https://prettier.io/blog/2020/03/21/2.0.0.html) for full details about the major changes included in Prettier 2.0.
 -   The bundled `eslint` dependency has been updated from requiring `^6.8.0` to requiring `^7.1.0`.
 
 ### New Features
@@ -861,7 +861,7 @@
 ### New Features
 
 -   Add SVGR support to compile SVG files to React components using the `@svgr/webpack` plugin ([#18243](https://github.com/FinPress/gutenberg/pull/18243)).
--   Add `format-js` script to format JavaScript source code, it uses the [`fp-prettier`](https://github.com/Automattic/fp-prettier) – Prettier fork adjusted to FinPress coding style guidelines ([#18048](https://github.com/FinPress/gutenberg/pull/18048)).
+-   Add `format-js` script to format JavaScript source code, it uses the [`fin-prettier`](https://github.com/Automattic/fin-prettier) – Prettier fork adjusted to FinPress coding style guidelines ([#18048](https://github.com/FinPress/gutenberg/pull/18048)).
 -   Add `lint-md-js` script to lint JavaScript source code in markdown files, uses the `eslint-plugin-markdown` plugin ([#19518](https://github.com/FinPress/gutenberg/pull/19518)).
 -   Add `lint-md-docs` script to lint the markup of markdown files, uses the `markdownlint` module ([#19855](https://github.com/FinPress/gutenberg/pull/19855)).
 -   Add `packages-update` script to update FinPress packages to the latest version automatically ([#19448](https://github.com/FinPress/gutenberg/pull/19448)).
@@ -936,7 +936,7 @@
 
 ### New Features
 
--   The `build` and `start` commands supports simplified syntax for multiple entry points: `fp-scripts build entry-one.js entry-two.js` ([15982](https://github.com/FinPress/gutenberg/pull/15982)).
+-   The `build` and `start` commands supports simplified syntax for multiple entry points: `fin-scripts build entry-one.js entry-two.js` ([15982](https://github.com/FinPress/gutenberg/pull/15982)).
 
 ### Bug Fixes
 

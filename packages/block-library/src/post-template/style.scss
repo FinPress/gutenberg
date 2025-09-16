@@ -1,4 +1,4 @@
-.fp-block-post-template {
+.fin-block-post-template {
 	margin-top: 0;
 	margin-bottom: 0;
 	max-width: 100%;
@@ -30,28 +30,28 @@
 }
 
 @media ( max-width: $break-small ) {
-	// Temporary specificity bump until "fp-container" layout specificity is revisited.
-	.fp-block-post-template-is-layout-grid.fp-block-post-template-is-layout-grid.fp-block-post-template-is-layout-grid.fp-block-post-template-is-layout-grid {
+	// Temporary specificity bump until "fin-container" layout specificity is revisited.
+	.fin-block-post-template-is-layout-grid.fin-block-post-template-is-layout-grid.fin-block-post-template-is-layout-grid.fin-block-post-template-is-layout-grid {
 		grid-template-columns: 1fr;
 	}
 }
 
-.fp-block-post-template-is-layout-constrained > li > .alignright,
-.fp-block-post-template-is-layout-flow > li > .alignright {
+.fin-block-post-template-is-layout-constrained > li > .alignright,
+.fin-block-post-template-is-layout-flow > li > .alignright {
 	float: right;
 	margin-inline-start: 2em;
 	margin-inline-end: 0;
 }
 
-.fp-block-post-template-is-layout-constrained > li > .alignleft,
-.fp-block-post-template-is-layout-flow > li > .alignleft {
+.fin-block-post-template-is-layout-constrained > li > .alignleft,
+.fin-block-post-template-is-layout-flow > li > .alignleft {
 	float: left;
 	margin-inline-start: 0;
 	margin-inline-end: 2em;
 }
 
-.fp-block-post-template-is-layout-constrained > li > .aligncenter,
-.fp-block-post-template-is-layout-flow > li > .aligncenter {
+.fin-block-post-template-is-layout-constrained > li > .aligncenter,
+.fin-block-post-template-is-layout-flow > li > .aligncenter {
 	margin-inline-start: auto;
 	margin-inline-end: auto;
 }

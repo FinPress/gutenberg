@@ -100,7 +100,7 @@ function InstalledFonts() {
 				customFontFamilyId &&
 				canUser( 'delete', {
 					kind: 'postType',
-					name: 'fp_font_family',
+					name: 'fin_font_family',
 					id: customFontFamilyId,
 				} )
 			);

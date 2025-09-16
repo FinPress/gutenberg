@@ -47,9 +47,9 @@ function UnforwardedRadioGroup(
 		[ radioStore, disabled ]
 	);
 
-	deprecated( 'fp.components.__experimentalRadioGroup', {
+	deprecated( 'fin.components.__experimentalRadioGroup', {
 		alternative:
-			'fp.components.RadioControl or fp.components.__experimentalToggleGroupControl',
+			'fin.components.RadioControl or fin.components.__experimentalToggleGroupControl',
 		since: '6.8',
 	} );
 

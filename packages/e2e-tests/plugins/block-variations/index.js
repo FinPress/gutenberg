@@ -1,9 +1,9 @@
 ( function () {
-	const el = fp.element.createElement;
-	const registerBlockVariation = fp.blocks.registerBlockVariation;
-	const __ = fp.i18n.__;
-	const Circle = fp.primitives.Circle;
-	const SVG = fp.primitives.SVG;
+	const el = fin.element.createElement;
+	const registerBlockVariation = fin.blocks.registerBlockVariation;
+	const __ = fin.i18n.__;
+	const Circle = fin.primitives.Circle;
+	const SVG = fin.primitives.SVG;
 
 	const redCircle = el( Circle, {
 		cx: 24,

@@ -11,11 +11,11 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<?php fp_head(); ?>
+	<?php fin_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
-<?php fp_body_open(); ?>
+<?php fin_body_open(); ?>
 <div id="page" class="site">
 	<?php block_template_part( 'header' ); ?>
 </div>

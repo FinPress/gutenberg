@@ -97,7 +97,7 @@ export function normalizeRawBlock( rawBlock, options ) {
 	let rawInnerHTML = rawBlock.innerHTML.trim();
 
 	// Fallback content may be upgraded from classic content expecting implicit
-	// automatic paragraphs, so preserve them. Assumes fpautop is idempotent,
+	// automatic paragraphs, so preserve them. Assumes finautop is idempotent,
 	// meaning there are no negative consequences to repeated autop calls.
 	if (
 		rawBlockName === fallbackBlockName &&

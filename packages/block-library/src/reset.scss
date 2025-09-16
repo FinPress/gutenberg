@@ -21,21 +21,21 @@
 		background: #fff;
 	}
 
-	.fp-align-wrapper {
+	.fin-align-wrapper {
 		max-width: $content-width;
 
-		> .fp-block,
-		&.fp-align-full {
+		> .fin-block,
+		&.fin-align-full {
 			max-width: none;
 		}
 
-		&.fp-align-wide {
+		&.fin-align-wide {
 			max-width: $content-width;
 		}
 	}
 
 	a {
-		// This inherits the blue link color set by fp-admin, which is unfortunate.
+		// This inherits the blue link color set by fin-admin, which is unfortunate.
 		// However both inherit and unset properties set the color to black.
 		transition: none;
 	}

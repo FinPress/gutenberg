@@ -23,11 +23,11 @@
 	},
 	"styles": {
 		"color": {
-			"background": "var(--fp--preset--color--background)",
-			"text": "var(--fp--preset--color--foreground)"
+			"background": "var(--fin--preset--color--background)",
+			"text": "var(--fin--preset--color--foreground)"
 		},
 		"typography": {
-			"fontSize": "var(--fp--preset--font-size--medium)"
+			"fontSize": "var(--fin--preset--font-size--medium)"
 		}
 	}
 }

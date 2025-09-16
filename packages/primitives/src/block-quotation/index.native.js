@@ -17,8 +17,8 @@ export const BlockQuotation = forwardRef( ( { ...props }, ref ) => {
 
 	const blockQuoteStyle = [
 		usePreferredColorSchemeStyle(
-			styles.fpBlockQuoteLight,
-			styles.fpBlockQuoteDark
+			styles.finBlockQuoteLight,
+			styles.finBlockQuoteDark
 		),
 		style?.baseColors?.color?.text && {
 			borderLeftColor: style.baseColors.color.text,
@@ -38,7 +38,7 @@ export const BlockQuotation = forwardRef( ( { ...props }, ref ) => {
 		if ( identifierKey === 'citation' ) {
 			return cloneElement( child, {
 				style: {
-					...styles.fpBlockQuoteCitation,
+					...styles.finBlockQuoteCitation,
 					...colorStyle,
 				},
 			} );

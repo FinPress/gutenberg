@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/cover",
 	"title": "Cover",
@@ -152,9 +152,9 @@
 	},
 	"selectors": {
 		"filter": {
-			"duotone": ".fp-block-cover > .fp-block-cover__image-background, .fp-block-cover > .fp-block-cover__video-background"
+			"duotone": ".fin-block-cover > .fin-block-cover__image-background, .fin-block-cover > .fin-block-cover__video-background"
 		}
 	},
-	"editorStyle": "fp-block-cover-editor",
-	"style": "fp-block-cover"
+	"editorStyle": "fin-block-cover-editor",
+	"style": "fin-block-cover"
 }

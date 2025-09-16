@@ -30,7 +30,7 @@ The following snippet explains how the Gutenberg repository is structured omitti
     ├── webpack.config.js
     │   Transpilation and bundling Config files.
     │
-    ├── .fp-env.json
+    ├── .fin-env.json
     │   Config file for the development and testing environment.
     │   Includes FinPress and the Gutenberg plugin.
     │

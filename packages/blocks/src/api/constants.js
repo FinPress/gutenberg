@@ -16,7 +16,7 @@ export const DEPRECATED_ENTRY_KEYS = [
 
 export const __EXPERIMENTAL_STYLE_PROPERTY = {
 	// Kept for back-compatibility purposes.
-	'--fp--style--color--link': {
+	'--fin--style--color--link': {
 		value: [ 'color', 'link' ],
 		support: [ 'color', 'link' ],
 	},
@@ -258,21 +258,21 @@ export const __EXPERIMENTAL_STYLE_PROPERTY = {
 		support: [ 'typography', '__experimentalWritingMode' ],
 		useEngine: true,
 	},
-	'--fp--style--root--padding': {
+	'--fin--style--root--padding': {
 		value: [ 'spacing', 'padding' ],
 		support: [ 'spacing', 'padding' ],
 		properties: {
-			'--fp--style--root--padding-top': 'top',
-			'--fp--style--root--padding-right': 'right',
-			'--fp--style--root--padding-bottom': 'bottom',
-			'--fp--style--root--padding-left': 'left',
+			'--fin--style--root--padding-top': 'top',
+			'--fin--style--root--padding-right': 'right',
+			'--fin--style--root--padding-bottom': 'bottom',
+			'--fin--style--root--padding-left': 'left',
 		},
 		rootOnly: true,
 	},
 };
 
 export const __EXPERIMENTAL_ELEMENTS = {
-	link: 'a:where(:not(.fp-element-button))',
+	link: 'a:where(:not(.fin-element-button))',
 	heading: 'h1, h2, h3, h4, h5, h6',
 	h1: 'h1',
 	h2: 'h2',
@@ -280,9 +280,9 @@ export const __EXPERIMENTAL_ELEMENTS = {
 	h4: 'h4',
 	h5: 'h5',
 	h6: 'h6',
-	button: '.fp-element-button, .fp-block-button__link',
+	button: '.fin-element-button, .fin-block-button__link',
 	caption:
-		'.fp-element-caption, .fp-block-audio figcaption, .fp-block-embed figcaption, .fp-block-gallery figcaption, .fp-block-image figcaption, .fp-block-table figcaption, .fp-block-video figcaption',
+		'.fin-element-caption, .fin-block-audio figcaption, .fin-block-embed figcaption, .fin-block-gallery figcaption, .fin-block-image figcaption, .fin-block-table figcaption, .fin-block-video figcaption',
 	cite: 'cite',
 };
 

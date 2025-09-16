@@ -159,7 +159,7 @@ const getGlobalStylesOpenCssCommands = () =>
 				: undefined;
 
 			return {
-				canEditCSS: !! globalStyles?._links?.[ 'fp:action-edit-css' ],
+				canEditCSS: !! globalStyles?._links?.[ 'fin:action-edit-css' ],
 			};
 		}, [] );
 

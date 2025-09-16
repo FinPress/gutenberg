@@ -57,10 +57,10 @@ function gutenberg_test_set_hooked_block_inner_html( $hooked_block, $hooked_bloc
 }
 add_filter( 'hooked_block_core/paragraph', 'gutenberg_test_set_hooked_block_inner_html', 10, 4 );
 
-function gutenberg_register_fp_ignored_hooked_blocks_meta() {
+function gutenberg_register_fin_ignored_hooked_blocks_meta() {
 	register_post_meta(
 		'post',
-		'_fp_ignored_hooked_blocks',
+		'_fin_ignored_hooked_blocks',
 		array(
 			'show_in_rest'  => true,
 			'single'        => true,
@@ -71,4 +71,4 @@ function gutenberg_register_fp_ignored_hooked_blocks_meta() {
 		)
 	);
 }
-add_action( 'rest_api_init', 'gutenberg_register_fp_ignored_hooked_blocks_meta' );
+add_action( 'rest_api_init', 'gutenberg_register_fin_ignored_hooked_blocks_meta' );

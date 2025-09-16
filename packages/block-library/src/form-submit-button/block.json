@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"__experimental": true,
 	"name": "core/form-submit-button",
@@ -11,5 +11,5 @@
 	"description": "A submission button for forms.",
 	"keywords": [ "submit", "button", "form" ],
 	"textdomain": "default",
-	"style": [ "fp-block-form-submit-button" ]
+	"style": [ "fin-block-form-submit-button" ]
 }

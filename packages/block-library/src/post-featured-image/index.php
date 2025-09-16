@@ -52,7 +52,7 @@ function render_block_core_post_featured_image( $attributes, $content, $block ) 
 		$extra_styles .= "object-fit:{$attributes['scale']};";
 	}
 	if ( ! empty( $attributes['style']['shadow'] ) ) {
-		$shadow_styles = fp_style_engine_get_styles( array( 'shadow' => $attributes['style']['shadow'] ) );
+		$shadow_styles = fin_style_engine_get_styles( array( 'shadow' => $attributes['style']['shadow'] ) );
 
 		if ( ! empty( $shadow_styles['css'] ) ) {
 			$extra_styles .= $shadow_styles['css'];
@@ -147,7 +147,7 @@ function get_block_core_post_featured_image_overlay_element_markup( $attributes 
 	$has_custom_gradient = isset( $attributes['customGradient'] ) && $attributes['customGradient'];
 	$has_solid_overlay   = isset( $attributes['overlayColor'] ) && $attributes['overlayColor'];
 	$has_custom_overlay  = isset( $attributes['customOverlayColor'] ) && $attributes['customOverlayColor'];
-	$class_names         = array( 'fp-block-post-featured-image__overlay' );
+	$class_names         = array( 'fin-block-post-featured-image__overlay' );
 	$styles              = array();
 
 	if ( ! $has_dim_background ) {
@@ -242,7 +242,7 @@ function get_block_core_post_featured_image_border_attributes( $attributes ) {
 		);
 	}
 
-	$styles     = fp_style_engine_get_styles( array( 'border' => $border_styles ) );
+	$styles     = fin_style_engine_get_styles( array( 'border' => $border_styles ) );
 	$attributes = array();
 	if ( ! empty( $styles['classnames'] ) ) {
 		$attributes['class'] = $styles['classnames'];

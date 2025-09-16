@@ -8,7 +8,7 @@ import type { MouseEvent, ReactElement } from 'react';
  */
 import type { NestedHeadingData } from './utils';
 
-const ENTRY_CLASS_NAME = 'fp-block-table-of-contents__entry';
+const ENTRY_CLASS_NAME = 'fin-block-table-of-contents__entry';
 
 export default function TableOfContentsList( {
 	nestedHeadingList,

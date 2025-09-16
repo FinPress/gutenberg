@@ -43,7 +43,7 @@ The list of available format types is maintained in the `core/rich-text` store. 
 Run this code in your browser's console to confirm:
 
 ```js
-fp.data.select( 'core/rich-text' ).getFormatTypes();
+fin.data.select( 'core/rich-text' ).getFormatTypes();
 ```
 
 It'll return an array containing the format types, including your own.

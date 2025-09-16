@@ -48,7 +48,7 @@ export default function QueryTitleEdit( {
 
 	const TagName = `h${ level }`;
 	const blockProps = useBlockProps( {
-		className: clsx( 'fp-block-query-title__placeholder', {
+		className: clsx( 'fin-block-query-title__placeholder', {
 			[ `has-text-align-${ textAlign }` ]: textAlign,
 		} ),
 	} );

@@ -10,9 +10,9 @@ describe( 'Parser', () => {
 	const originalMoreBlockHtml = '<!--more-->';
 
 	const gbMoreBlockHtml = `
-		<!-- fp:more -->
+		<!-- fin:more -->
 		${ originalMoreBlockHtml }
-		<!-- /fp:more -->`;
+		<!-- /fin:more -->`;
 
 	it( 'parses the more block ok', () => {
 		const moreBlockInstance = parse( gbMoreBlockHtml )[ 0 ];

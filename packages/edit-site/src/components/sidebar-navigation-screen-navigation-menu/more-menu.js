@@ -58,7 +58,7 @@ export default function ScreenNavigationMoreMenu( props ) {
 						<MenuItem
 							onClick={ () => {
 								history.navigate(
-									`/fp_navigation/${ menuId }?canvas=edit`
+									`/fin_navigation/${ menuId }?canvas=edit`
 								);
 							} }
 						>

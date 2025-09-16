@@ -82,7 +82,7 @@ export default function Edit( {
 		}
 		const currentPostId = postId;
 		apiFetch( {
-			path: addQueryArgs( '/fp/v2/comments', {
+			path: addQueryArgs( '/fin/v2/comments', {
 				post: postId,
 				_fields: 'id',
 			} ),

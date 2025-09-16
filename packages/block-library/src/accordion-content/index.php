@@ -17,36 +17,36 @@ function block_core_accordion_content_render( $attributes, $content ) {
 	}
 
 	$p         = new FP_HTML_Tag_Processor( $content );
-	$unique_id = fp_unique_id( 'accordion-content-' );
+	$unique_id = fin_unique_id( 'accordion-content-' );
 
 	// Initialize the state of the item on the server using a closure,
 	// since we need to get derived state based on the current context.
-	fp_interactivity_state(
+	fin_interactivity_state(
 		'core/accordion',
 		array(
 			'isOpen' => function () {
-				$context = fp_interactivity_get_context();
+				$context = fin_interactivity_get_context();
 				return $context['openByDefault'];
 			},
 		)
 	);
 
-	if ( $p->next_tag( array( 'class_name' => 'fp-block-accordion-content' ) ) ) {
+	if ( $p->next_tag( array( 'class_name' => 'fin-block-accordion-content' ) ) ) {
 		$open_by_default = $attributes['openByDefault'] ? 'true' : 'false';
-		$p->set_attribute( 'data-fp-context', '{ "id": "' . $unique_id . '", "openByDefault": ' . $open_by_default . ' }' );
-		$p->set_attribute( 'data-fp-class--is-open', 'state.isOpen' );
-		$p->set_attribute( 'data-fp-init', 'callbacks.initIsOpen' );
+		$p->set_attribute( 'data-fin-context', '{ "id": "' . $unique_id . '", "openByDefault": ' . $open_by_default . ' }' );
+		$p->set_attribute( 'data-fin-class--is-open', 'state.isOpen' );
+		$p->set_attribute( 'data-fin-init', 'callbacks.initIsOpen' );
 
 		if ( $p->next_tag( array( 'class_name' => 'accordion-content__toggle' ) ) ) {
-			$p->set_attribute( 'data-fp-on--click', 'actions.toggle' );
+			$p->set_attribute( 'data-fin-on--click', 'actions.toggle' );
 			$p->set_attribute( 'id', $unique_id );
 			$p->set_attribute( 'aria-controls', $unique_id . '-panel' );
-			$p->set_attribute( 'data-fp-bind--aria-expanded', 'state.isOpen' );
+			$p->set_attribute( 'data-fin-bind--aria-expanded', 'state.isOpen' );
 
-			if ( $p->next_tag( array( 'class_name' => 'fp-block-accordion-panel' ) ) ) {
+			if ( $p->next_tag( array( 'class_name' => 'fin-block-accordion-panel' ) ) ) {
 				$p->set_attribute( 'id', $unique_id . '-panel' );
 				$p->set_attribute( 'aria-labelledby', $unique_id );
-				$p->set_attribute( 'data-fp-bind--inert', '!state.isOpen' );
+				$p->set_attribute( 'data-fin-bind--inert', '!state.isOpen' );
 
 				// Only modify content if all directives have been set.
 				$content = $p->get_updated_html();

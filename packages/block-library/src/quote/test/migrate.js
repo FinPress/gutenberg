@@ -36,13 +36,13 @@ describe( 'Migrate quote block', () => {
 			citation: 'Author',
 		} );
 		expect( serialize( innerBlocks ) ).toEqual(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>First paragraph</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Second paragraph</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -55,9 +55,9 @@ describe( 'Migrate quote block', () => {
 			citation: 'Author',
 		} );
 		expect( serialize( innerBlocks ) ).toEqual(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -70,17 +70,17 @@ describe( 'Migrate quote block', () => {
 			citation: 'Author',
 		} );
 		expect( serialize( innerBlocks ) ).toEqual(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p><strong>Bold</strong></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p> and </p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p><em>italic</em></p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 } );

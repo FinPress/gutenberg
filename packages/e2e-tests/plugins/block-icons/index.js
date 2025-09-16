@@ -1,7 +1,7 @@
 ( function () {
-	const registerBlockType = fp.blocks.registerBlockType;
-	const el = fp.element.createElement;
-	const InnerBlocks = fp.blockEditor.InnerBlocks;
+	const registerBlockType = fin.blocks.registerBlockType;
+	const el = fin.element.createElement;
+	const InnerBlocks = fin.blockEditor.InnerBlocks;
 	const circle = el( 'circle', {
 		cx: 10,
 		cy: 10,

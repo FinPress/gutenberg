@@ -1,4 +1,4 @@
-# Prevent unsafe API usage (no-unsafe-fp-apis)
+# Prevent unsafe API usage (no-unsafe-fin-apis)
 
 Prevent unsafe APIs from `@finpress/*` packages from being imported.
 
@@ -35,7 +35,7 @@ This should be an object where the keys are import package names and the values 
 
 ```json
 {
-	"@finpress/no-unsafe-fp-apis": [
+	"@finpress/no-unsafe-fin-apis": [
 		"error",
 		{ "@finpress/block-editor": [ "__experimentalBlock" ] }
 	]

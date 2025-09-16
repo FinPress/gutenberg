@@ -9,7 +9,7 @@
 export async function getBlockSetting( blockName, setting ) {
 	return page.evaluate(
 		( _blockName, _setting ) => {
-			const blockType = fp.data
+			const blockType = fin.data
 				.select( 'core/blocks' )
 				.getBlockType( _blockName );
 			return blockType && blockType[ _setting ];

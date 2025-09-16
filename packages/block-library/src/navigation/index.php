@@ -151,7 +151,7 @@ class FP_Navigation_Block_Renderer {
 		$inner_block_content = $inner_block->render();
 		if ( ! empty( $inner_block_content ) ) {
 			if ( static::does_block_need_a_list_item_wrapper( $inner_block ) ) {
-				return '<li class="fp-block-navigation-item">' . $inner_block_content . '</li>';
+				return '<li class="fin-block-navigation-item">' . $inner_block_content . '</li>';
 			}
 		}
 
@@ -175,7 +175,7 @@ class FP_Navigation_Block_Renderer {
 		$class                = static::get_classes( $attributes );
 		$container_attributes = get_block_wrapper_attributes(
 			array(
-				'class' => 'fp-block-navigation__container ' . $class,
+				'class' => 'fin-block-navigation__container ' . $class,
 				'style' => $style,
 			)
 		);
@@ -293,7 +293,7 @@ class FP_Navigation_Block_Renderer {
 		// - the gutenberg plugin is active
 		// - `__unstableLocation` is defined
 		// - we have menu items at the defined location
-		// - we don't have a relationship to a `fp_navigation` Post (via `ref`).
+		// - we don't have a relationship to a `fin_navigation` Post (via `ref`).
 		// ...then create inner blocks from the classic menu assigned to that location.
 		if (
 			defined( 'IS_GUTENBERG_PLUGIN' ) && IS_GUTENBERG_PLUGIN &&
@@ -463,17 +463,17 @@ class FP_Navigation_Block_Renderer {
 	private static function get_responsive_container_markup( $attributes, $inner_blocks, $inner_blocks_html ) {
 		$is_interactive  = static::is_interactive( $attributes, $inner_blocks );
 		$colors          = block_core_navigation_build_css_colors( $attributes );
-		$modal_unique_id = fp_unique_id( 'modal-' );
+		$modal_unique_id = fin_unique_id( 'modal-' );
 
 		$is_hidden_by_default = isset( $attributes['overlayMenu'] ) && 'always' === $attributes['overlayMenu'];
 
 		$responsive_container_classes = array(
-			'fp-block-navigation__responsive-container',
+			'fin-block-navigation__responsive-container',
 			$is_hidden_by_default ? 'hidden-by-default' : '',
 			implode( ' ', $colors['overlay_css_classes'] ),
 		);
 		$open_button_classes          = array(
-			'fp-block-navigation__responsive-container-open',
+			'fin-block-navigation__responsive-container-open',
 			$is_hidden_by_default ? 'always-shown' : '',
 		);
 
@@ -497,27 +497,27 @@ class FP_Navigation_Block_Renderer {
 		$close_button_directives         = '';
 		if ( $is_interactive ) {
 			$open_button_directives                  = '
-				data-fp-on-async--click="actions.openMenuOnClick"
-				data-fp-on--keydown="actions.handleMenuKeydown"
+				data-fin-on-async--click="actions.openMenuOnClick"
+				data-fin-on--keydown="actions.handleMenuKeydown"
 			';
 			$responsive_container_directives         = '
-				data-fp-class--has-modal-open="state.isMenuOpen"
-				data-fp-class--is-menu-open="state.isMenuOpen"
-				data-fp-watch="callbacks.initMenu"
-				data-fp-on--keydown="actions.handleMenuKeydown"
-				data-fp-on-async--focusout="actions.handleMenuFocusout"
+				data-fin-class--has-modal-open="state.isMenuOpen"
+				data-fin-class--is-menu-open="state.isMenuOpen"
+				data-fin-watch="callbacks.initMenu"
+				data-fin-on--keydown="actions.handleMenuKeydown"
+				data-fin-on-async--focusout="actions.handleMenuFocusout"
 				tabindex="-1"
 			';
 			$responsive_dialog_directives            = '
-				data-fp-bind--aria-modal="state.ariaModal"
-				data-fp-bind--aria-label="state.ariaLabel"
-				data-fp-bind--role="state.roleAttribute"
+				data-fin-bind--aria-modal="state.ariaModal"
+				data-fin-bind--aria-label="state.ariaLabel"
+				data-fin-bind--role="state.roleAttribute"
 			';
 			$close_button_directives                 = '
-				data-fp-on-async--click="actions.closeMenuOnClick"
+				data-fin-on-async--click="actions.closeMenuOnClick"
 			';
 			$responsive_container_content_directives = '
-				data-fp-watch="callbacks.focusFirstElement"
+				data-fin-watch="callbacks.focusFirstElement"
 			';
 		}
 
@@ -526,10 +526,10 @@ class FP_Navigation_Block_Renderer {
 		return sprintf(
 			'<button aria-haspopup="dialog" %3$s class="%6$s" %10$s>%8$s</button>
 				<div class="%5$s" %7$s id="%1$s" %11$s>
-					<div class="fp-block-navigation__responsive-close" tabindex="-1">
-						<div class="fp-block-navigation__responsive-dialog" %12$s>
-							<button %4$s class="fp-block-navigation__responsive-container-close" %13$s>%9$s</button>
-							<div class="fp-block-navigation__responsive-container-content" %14$s id="%1$s-content">
+					<div class="fin-block-navigation__responsive-close" tabindex="-1">
+						<div class="fin-block-navigation__responsive-dialog" %12$s>
+							<button %4$s class="fin-block-navigation__responsive-container-close" %13$s>%9$s</button>
+							<div class="fin-block-navigation__responsive-container-content" %14$s id="%1$s-content">
 								%2$s
 							</div>
 						</div>
@@ -597,7 +597,7 @@ class FP_Navigation_Block_Renderer {
 			return '';
 		}
 		// When adding to this array be mindful of security concerns.
-		$nav_element_context    = fp_interactivity_data_fp_context(
+		$nav_element_context    = fin_interactivity_data_fin_context(
 			array(
 				'overlayOpenedBy' => array(
 					'click' => false,
@@ -610,7 +610,7 @@ class FP_Navigation_Block_Renderer {
 			)
 		);
 		$nav_element_directives = '
-		 data-fp-interactive="core/navigation" '
+		 data-fin-interactive="core/navigation" '
 		. $nav_element_context;
 
 		return $nav_element_directives;
@@ -627,7 +627,7 @@ class FP_Navigation_Block_Renderer {
 	 */
 	private static function handle_view_script_module_loading( $attributes, $block, $inner_blocks ) {
 		if ( static::is_interactive( $attributes, $inner_blocks ) ) {
-			fp_enqueue_script_module( '@finpress/block-library/navigation/view' );
+			fin_enqueue_script_module( '@finpress/block-library/navigation/view' );
 		}
 	}
 
@@ -730,7 +730,7 @@ if ( defined( 'IS_GUTENBERG_PLUGIN' ) && IS_GUTENBERG_PLUGIN ) {
 		}
 
 		// Build menu data. The following approximates the code in
-		// `fp_nav_menu()` and `gutenberg_output_block_nav_menu`.
+		// `fin_nav_menu()` and `gutenberg_output_block_nav_menu`.
 
 		// Find the location in the list of locations, returning early if the
 		// location can't be found.
@@ -741,13 +741,13 @@ if ( defined( 'IS_GUTENBERG_PLUGIN' ) && IS_GUTENBERG_PLUGIN ) {
 
 		// Get the menu from the location, returning early if there is no
 		// menu or there was an error.
-		$menu = fp_get_nav_menu_object( $locations[ $location ] );
-		if ( ! $menu || is_fp_error( $menu ) ) {
+		$menu = fin_get_nav_menu_object( $locations[ $location ] );
+		if ( ! $menu || is_fin_error( $menu ) ) {
 			return;
 		}
 
-		$menu_items = fp_get_nav_menu_items( $menu->term_id, array( 'update_post_term_cache' => false ) );
-		_fp_menu_item_classes_by_context( $menu_items );
+		$menu_items = fin_get_nav_menu_items( $menu->term_id, array( 'update_post_term_cache' => false ) );
+		_fin_menu_item_classes_by_context( $menu_items );
 
 		return $menu_items;
 	}
@@ -817,11 +817,11 @@ function block_core_navigation_add_directives_to_submenu( $tags, $block_attribut
 		)
 	) ) {
 		// Add directives to the parent `<li>`.
-		$tags->set_attribute( 'data-fp-interactive', 'core/navigation' );
-		$tags->set_attribute( 'data-fp-context', '{ "submenuOpenedBy": { "click": false, "hover": false, "focus": false }, "type": "submenu", "modal": null, "previousFocus": null }' );
-		$tags->set_attribute( 'data-fp-watch', 'callbacks.initMenu' );
-		$tags->set_attribute( 'data-fp-on--focusout', 'actions.handleMenuFocusout' );
-		$tags->set_attribute( 'data-fp-on--keydown', 'actions.handleMenuKeydown' );
+		$tags->set_attribute( 'data-fin-interactive', 'core/navigation' );
+		$tags->set_attribute( 'data-fin-context', '{ "submenuOpenedBy": { "click": false, "hover": false, "focus": false }, "type": "submenu", "modal": null, "previousFocus": null }' );
+		$tags->set_attribute( 'data-fin-watch', 'callbacks.initMenu' );
+		$tags->set_attribute( 'data-fin-on--focusout', 'actions.handleMenuFocusout' );
+		$tags->set_attribute( 'data-fin-on--keydown', 'actions.handleMenuKeydown' );
 
 		// This is a fix for Safari. Without it, Safari doesn't change the active
 		// element when the user clicks on a button. It can be removed once we add
@@ -830,29 +830,29 @@ function block_core_navigation_add_directives_to_submenu( $tags, $block_attribut
 		$tags->set_attribute( 'tabindex', '-1' );
 
 		if ( ! isset( $block_attributes['openSubmenusOnClick'] ) || false === $block_attributes['openSubmenusOnClick'] ) {
-			$tags->set_attribute( 'data-fp-on-async--mouseenter', 'actions.openMenuOnHover' );
-			$tags->set_attribute( 'data-fp-on-async--mouseleave', 'actions.closeMenuOnHover' );
+			$tags->set_attribute( 'data-fin-on-async--mouseenter', 'actions.openMenuOnHover' );
+			$tags->set_attribute( 'data-fin-on-async--mouseleave', 'actions.closeMenuOnHover' );
 		}
 
 		// Add directives to the toggle submenu button.
 		if ( $tags->next_tag(
 			array(
 				'tag_name'   => 'BUTTON',
-				'class_name' => 'fp-block-navigation-submenu__toggle',
+				'class_name' => 'fin-block-navigation-submenu__toggle',
 			)
 		) ) {
-			$tags->set_attribute( 'data-fp-on-async--click', 'actions.toggleMenuOnClick' );
-			$tags->set_attribute( 'data-fp-bind--aria-expanded', 'state.isMenuOpen' );
+			$tags->set_attribute( 'data-fin-on-async--click', 'actions.toggleMenuOnClick' );
+			$tags->set_attribute( 'data-fin-bind--aria-expanded', 'state.isMenuOpen' );
 			// The `aria-expanded` attribute for SSR is already added in the submenu block.
 		}
 		// Add directives to the submenu.
 		if ( $tags->next_tag(
 			array(
 				'tag_name'   => 'UL',
-				'class_name' => 'fp-block-navigation__submenu-container',
+				'class_name' => 'fin-block-navigation__submenu-container',
 			)
 		) ) {
-			$tags->set_attribute( 'data-fp-on-async--focus', 'actions.openMenuOnFocus' );
+			$tags->set_attribute( 'data-fin-on-async--focus', 'actions.openMenuOnFocus' );
 		}
 
 		// Iterate through subitems if exist.
@@ -1044,8 +1044,8 @@ function block_core_navigation_block_contains_core_navigation( $inner_blocks ) {
  * Retrieves the appropriate fallback to be used on the front of the
  * site when there is no menu assigned to the Nav block.
  *
- * This aims to mirror how the fallback mechanic for fp_nav_menu works.
- * See https://developer.finpress.org/reference/functions/fp_nav_menu/#more-information.
+ * This aims to mirror how the fallback mechanic for fin_nav_menu works.
+ * See https://developer.finpress.org/reference/functions/fin_nav_menu/#more-information.
  *
  * @since 5.9.0
  *
@@ -1279,16 +1279,16 @@ function block_core_navigation_get_classic_menu_fallback() {
 
 	_deprecated_function( __FUNCTION__, '6.3.0', 'FP_Navigation_Fallback::get_classic_menu_fallback' );
 
-	$classic_nav_menus = fp_get_nav_menus();
+	$classic_nav_menus = fin_get_nav_menus();
 
 	// If menus exist.
-	if ( $classic_nav_menus && ! is_fp_error( $classic_nav_menus ) ) {
+	if ( $classic_nav_menus && ! is_fin_error( $classic_nav_menus ) ) {
 		// Handles simple use case where user has a classic menu and switches to a block theme.
 
 		// Returns the menu assigned to location `primary`.
 		$locations = get_nav_menu_locations();
 		if ( isset( $locations['primary'] ) ) {
-			$primary_menu = fp_get_nav_menu_object( $locations['primary'] );
+			$primary_menu = fin_get_nav_menu_object( $locations['primary'] );
 			if ( $primary_menu ) {
 				return $primary_menu;
 			}
@@ -1326,11 +1326,11 @@ function block_core_navigation_get_classic_menu_fallback_blocks( $classic_nav_me
 
 	_deprecated_function( __FUNCTION__, '6.3.0', 'FP_Navigation_Fallback::get_classic_menu_fallback_blocks' );
 
-	// BEGIN: Code that already exists in fp_nav_menu().
-	$menu_items = fp_get_nav_menu_items( $classic_nav_menu->term_id, array( 'update_post_term_cache' => false ) );
+	// BEGIN: Code that already exists in fin_nav_menu().
+	$menu_items = fin_get_nav_menu_items( $classic_nav_menu->term_id, array( 'update_post_term_cache' => false ) );
 
 	// Set up the $menu_item variables.
-	_fp_menu_item_classes_by_context( $menu_items );
+	_fin_menu_item_classes_by_context( $menu_items );
 
 	$sorted_menu_items = array();
 	foreach ( (array) $menu_items as $menu_item ) {
@@ -1339,7 +1339,7 @@ function block_core_navigation_get_classic_menu_fallback_blocks( $classic_nav_me
 
 	unset( $menu_items, $menu_item );
 
-	// END: Code that already exists in fp_nav_menu().
+	// END: Code that already exists in fin_nav_menu().
 
 	$menu_items_by_parent_id = array();
 	foreach ( $sorted_menu_items as $menu_item ) {
@@ -1384,18 +1384,18 @@ function block_core_navigation_maybe_use_classic_menu_fallback() {
 	}
 
 	// Create a new navigation menu from the classic menu.
-	$fp_insert_post_result = fp_insert_post(
+	$fin_insert_post_result = fin_insert_post(
 		array(
 			'post_content' => $classic_nav_menu_blocks,
 			'post_title'   => $classic_nav_menu->name,
 			'post_name'    => $classic_nav_menu->slug,
 			'post_status'  => 'publish',
-			'post_type'    => 'fp_navigation',
+			'post_type'    => 'fin_navigation',
 		),
 		true // So that we can check whether the result is an error.
 	);
 
-	if ( is_fp_error( $fp_insert_post_result ) ) {
+	if ( is_fin_error( $fin_insert_post_result ) ) {
 		return;
 	}
 
@@ -1404,7 +1404,7 @@ function block_core_navigation_maybe_use_classic_menu_fallback() {
 }
 
 /**
- * Finds the most recently published `fp_navigation` Post.
+ * Finds the most recently published `fin_navigation` Post.
  *
  * @since 6.1.0
  *
@@ -1418,7 +1418,7 @@ function block_core_navigation_get_most_recently_published_navigation() {
 
 	// Default to the most recently created menu.
 	$parsed_args = array(
-		'post_type'              => 'fp_navigation',
+		'post_type'              => 'fin_navigation',
 		'no_found_rows'          => true,
 		'update_post_meta_cache' => false,
 		'update_post_term_cache' => false,

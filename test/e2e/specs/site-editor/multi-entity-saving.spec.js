@@ -7,21 +7,21 @@ test.describe( 'Site Editor - Multi-entity save flow', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await Promise.all( [
 			requestUtils.activateTheme( 'emptytheme' ),
-			requestUtils.deleteAllTemplates( 'fp_template' ),
+			requestUtils.deleteAllTemplates( 'fin_template' ),
 		] );
 	} );
 
 	test.afterAll( async ( { requestUtils } ) => {
 		await Promise.all( [
 			requestUtils.activateTheme( 'twentytwentyone' ),
-			requestUtils.deleteAllTemplates( 'fp_template' ),
+			requestUtils.deleteAllTemplates( 'fin_template' ),
 		] );
 	} );
 
 	test.beforeEach( async ( { admin } ) => {
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 	} );

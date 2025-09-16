@@ -13,14 +13,14 @@ import { __ } from '@finpress/i18n';
 export default function NavigationMenuDeleteControl( { onDelete } ) {
 	const [ isConfirmDialogVisible, setIsConfirmDialogVisible ] =
 		useState( false );
-	const id = useEntityId( 'postType', 'fp_navigation' );
+	const id = useEntityId( 'postType', 'fin_navigation' );
 	const { deleteEntityRecord } = useDispatch( coreStore );
 
 	return (
 		<>
 			<Button
 				__next40pxDefaultSize
-				className="fp-block-navigation-delete-menu-button"
+				className="fin-block-navigation-delete-menu-button"
 				variant="secondary"
 				isDestructive
 				onClick={ () => {
@@ -33,7 +33,7 @@ export default function NavigationMenuDeleteControl( { onDelete } ) {
 				<ConfirmDialog
 					isOpen
 					onConfirm={ () => {
-						deleteEntityRecord( 'postType', 'fp_navigation', id, {
+						deleteEntityRecord( 'postType', 'fin_navigation', id, {
 							force: true,
 						} );
 						onDelete();

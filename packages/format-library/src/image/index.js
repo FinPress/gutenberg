@@ -38,7 +38,7 @@ function getCurrentImageId( activeObjectAttributes ) {
 	}
 
 	const [ , id ] =
-		activeObjectAttributes.className.match( /fp-image-(\d+)/ ) ?? [];
+		activeObjectAttributes.className.match( /fin-image-(\d+)/ ) ?? [];
 
 	return id ? parseInt( id, 10 ) : undefined;
 }
@@ -172,7 +172,7 @@ function Edit( {
 						insertObject( value, {
 							type: name,
 							attributes: {
-								className: `fp-image-${ id }`,
+								className: `fin-image-${ id }`,
 								style: `width: ${ Math.min(
 									imgWidth,
 									150

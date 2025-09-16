@@ -5,9 +5,9 @@
 			"width": "center"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-text-columns aligncenter columns-2\">\n    <div class=\"fp-block-column\">\n        <p>One</p>\n    </div>\n    <div class=\"fp-block-column\">\n        <p>Two</p>\n    </div>\n</div>\n",
+		"innerHTML": "\n<div class=\"fin-block-text-columns aligncenter columns-2\">\n    <div class=\"fin-block-column\">\n        <p>One</p>\n    </div>\n    <div class=\"fin-block-column\">\n        <p>Two</p>\n    </div>\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-text-columns aligncenter columns-2\">\n    <div class=\"fp-block-column\">\n        <p>One</p>\n    </div>\n    <div class=\"fp-block-column\">\n        <p>Two</p>\n    </div>\n</div>\n"
+			"\n<div class=\"fin-block-text-columns aligncenter columns-2\">\n    <div class=\"fin-block-column\">\n        <p>One</p>\n    </div>\n    <div class=\"fin-block-column\">\n        <p>Two</p>\n    </div>\n</div>\n"
 		]
 	}
 ]

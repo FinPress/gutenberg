@@ -5,9 +5,9 @@
 			"fontSize": "xx-large"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-button has-custom-font-size has-xx-large-font-size\"><a class=\"fp-block-button__link fp-element-button\">My button 1</a></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-button has-custom-font-size has-xx-large-font-size\"><a class=\"fin-block-button__link fin-element-button\">My button 1</a></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-button has-custom-font-size has-xx-large-font-size\"><a class=\"fp-block-button__link fp-element-button\">My button 1</a></div>\n"
+			"\n<div class=\"fin-block-button has-custom-font-size has-xx-large-font-size\"><a class=\"fin-block-button__link fin-element-button\">My button 1</a></div>\n"
 		]
 	},
 	{
@@ -28,9 +28,9 @@
 			}
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-button\" style=\"font-style:normal;font-weight:800\"><a class=\"fp-block-button__link fp-element-button\">My button 2</a></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-button\" style=\"font-style:normal;font-weight:800\"><a class=\"fin-block-button__link fin-element-button\">My button 2</a></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-button\" style=\"font-style:normal;font-weight:800\"><a class=\"fp-block-button__link fp-element-button\">My button 2</a></div>\n"
+			"\n<div class=\"fin-block-button\" style=\"font-style:normal;font-weight:800\"><a class=\"fin-block-button__link fin-element-button\">My button 2</a></div>\n"
 		]
 	},
 	{
@@ -50,9 +50,9 @@
 			}
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-button\" style=\"letter-spacing:39px\"><a class=\"fp-block-button__link fp-element-button\">My button 3</a></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-button\" style=\"letter-spacing:39px\"><a class=\"fin-block-button__link fin-element-button\">My button 3</a></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-button\" style=\"letter-spacing:39px\"><a class=\"fp-block-button__link fp-element-button\">My button 3</a></div>\n"
+			"\n<div class=\"fin-block-button\" style=\"letter-spacing:39px\"><a class=\"fin-block-button__link fin-element-button\">My button 3</a></div>\n"
 		]
 	},
 	{
@@ -73,9 +73,9 @@
 			}
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-button\" style=\"letter-spacing:39px\"><button type=\"button\" class=\"fp-block-button__link fp-element-button\">My button 4</button></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-button\" style=\"letter-spacing:39px\"><button type=\"button\" class=\"fin-block-button__link fin-element-button\">My button 4</button></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-button\" style=\"letter-spacing:39px\"><button type=\"button\" class=\"fp-block-button__link fp-element-button\">My button 4</button></div>\n"
+			"\n<div class=\"fin-block-button\" style=\"letter-spacing:39px\"><button type=\"button\" class=\"fin-block-button__link fin-element-button\">My button 4</button></div>\n"
 		]
 	}
 ]

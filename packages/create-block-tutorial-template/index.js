@@ -32,7 +32,7 @@ module.exports = {
 		editorScript: 'file:./index.js',
 		render: 'file:./render.php',
 		example: {},
-		fpEnv: true,
+		finEnv: true,
 	},
 	pluginTemplatesPath: join( __dirname, 'plugin-templates' ),
 	blockTemplatesPath: join( __dirname, 'block-templates' ),

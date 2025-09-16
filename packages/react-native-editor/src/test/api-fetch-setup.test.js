@@ -9,35 +9,35 @@ import { isPathSupported, shouldEnableCaching } from '../api-fetch-setup';
 
 const supportedPaths = {
 	GET: [
-		'fp/v2/media/54?context=edit&_locale=user',
-		'fp/v2/media/5?context=edit',
-		'fp/v2/media/54/',
-		'fp/v2/media/',
-		'fp/v2/media?context=edit&_locale=user',
-		'fp/v2/categories/',
-		'fp/v2/blocks/28?_locale=user',
-		'/fp/v2/blocks?per_page=100&context=edit&_locale=user',
+		'fin/v2/media/54?context=edit&_locale=user',
+		'fin/v2/media/5?context=edit',
+		'fin/v2/media/54/',
+		'fin/v2/media/',
+		'fin/v2/media?context=edit&_locale=user',
+		'fin/v2/categories/',
+		'fin/v2/blocks/28?_locale=user',
+		'/fin/v2/blocks?per_page=100&context=edit&_locale=user',
 	],
 };
 
 // Made up examples.
 const unsupportedPaths = {
-	GET: [ 'fp/v1/media/' ],
-	POST: [ 'fp/v2/categories' ],
+	GET: [ 'fin/v1/media/' ],
+	POST: [ 'fin/v2/categories' ],
 };
 
 const enabledCachingPaths = [
-	'fp/v2/media/54?context=edit&_locale=user',
-	'fp/v2/media/5?context=edit',
-	'fp/v2/media/54/',
-	'fp/v2/media/',
-	'fp/v2/media?context=edit&_locale=user',
-	'fp/v2/categories/',
+	'fin/v2/media/54?context=edit&_locale=user',
+	'fin/v2/media/5?context=edit',
+	'fin/v2/media/54/',
+	'fin/v2/media/',
+	'fin/v2/media?context=edit&_locale=user',
+	'fin/v2/categories/',
 ];
 
 const disabledCachingPaths = [
-	'fp/v2/blocks/28?_locale=user',
-	'/fp/v2/blocks?per_page=100&context=edit&_locale=user',
+	'fin/v2/blocks/28?_locale=user',
+	'/fin/v2/blocks?per_page=100&context=edit&_locale=user',
 ];
 
 describe( 'isPathSupported', () => {
@@ -99,11 +99,11 @@ describe( 'shouldEnableCaching', () => {
 			'native.disabled_caching_endpoints',
 			'gutenberg-mobile',
 			( endpoints ) => {
-				return [ ...endpoints, /fp\/v2\/categories/i ];
+				return [ ...endpoints, /fin\/v2\/categories/i ];
 			}
 		);
 
 		// Filter was used to stop caching an endpoint from `enabledCachingPaths` array.
-		expect( shouldEnableCaching( 'fp/v2/categories' ) ).toBe( false );
+		expect( shouldEnableCaching( 'fin/v2/categories' ) ).toBe( false );
 	} );
 } );

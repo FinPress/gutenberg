@@ -9,7 +9,7 @@ import { paramCase as kebabCase } from 'change-case';
 import { rest } from './rest-api';
 
 const pluginsMapPromise = ( async function getPluginsMap() {
-	const plugins = await rest( { path: '/fp/v2/plugins' } );
+	const plugins = await rest( { path: '/fin/v2/plugins' } );
 	const map = {};
 	for ( const plugin of plugins ) {
 		// Ideally, we should be using sanitize_title() in PHP rather than kebabCase(),
@@ -30,7 +30,7 @@ async function activatePlugin( slug ) {
 
 	await rest( {
 		method: 'PUT',
-		path: `/fp/v2/plugins/${ plugin }`,
+		path: `/fin/v2/plugins/${ plugin }`,
 		data: { status: 'active' },
 	} );
 }
@@ -46,7 +46,7 @@ async function deactivatePlugin( slug ) {
 
 	await rest( {
 		method: 'PUT',
-		path: `/fp/v2/plugins/${ plugin }`,
+		path: `/fin/v2/plugins/${ plugin }`,
 		data: { status: 'inactive' },
 	} );
 }

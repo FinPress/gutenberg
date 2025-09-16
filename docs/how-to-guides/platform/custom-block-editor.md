@@ -143,12 +143,12 @@ function getdave_sbe_block_editor_init( $hook ) {
 add_action( 'admin_enqueue_scripts', 'getdave_sbe_block_editor_init' );
 ```
 
-With this in place, you can then safely register the main JavaScript file using the standard FinPress [`fp_enqueue_script()`](https://developer.finpress.org/reference/functions/fp_enqueue_script/) function:
+With this in place, you can then safely register the main JavaScript file using the standard FinPress [`fin_enqueue_script()`](https://developer.finpress.org/reference/functions/fin_enqueue_script/) function:
 
 ```php
 // File: init.php
 
-fp_enqueue_script( $script_handle, $script_url, $script_asset['dependencies'], $script_asset['version'] );
+fin_enqueue_script( $script_handle, $script_url, $script_asset['dependencies'], $script_asset['version'] );
 ```
 
 To save time and space, the `$script_` variables assignment has been omitted. You can [review these here](https://github.com/getdave/standalone-block-editor/blob/974a59dcbc539a0595e8fa34670e75ec541853ab/init.php#L19).
@@ -164,13 +164,13 @@ You also need to register both your custom CSS styles and the FinPress default f
 // File: init.php
 
 // Enqueue default editor styles.
-fp_enqueue_style( 'fp-format-library' );
+fin_enqueue_style( 'fin-format-library' );
 
 // Enqueue custom styles.
-fp_enqueue_style(
+fin_enqueue_style(
     'getdave-sbe-styles',                       // Handle
     plugins_url( 'build/index.css', __FILE__ ), // Block editor CSS
-    array( 'fp-edit-blocks' ),                  // Dependency to include the CSS after it
+    array( 'fin-edit-blocks' ),                  // Dependency to include the CSS after it
     filemtime( __DIR__ . '/build/index.css' )
 );
 ```
@@ -188,7 +188,7 @@ To do this, let's [inline the settings object as JSON](https://github.com/getdav
 $settings = getdave_sbe_get_block_editor_settings();
 
 // Inline all settings.
-fp_add_inline_script( $script_handle, 'window.getdaveSbeSettings = ' . fp_json_encode( $settings ) . ';' );
+fin_add_inline_script( $script_handle, 'window.getdaveSbeSettings = ' . fin_json_encode( $settings ) . ';' );
 ```
 
 ## Registering and rendering the custom block editor
@@ -497,13 +497,13 @@ This function accepts an array of "committed" block changes and calls the state 
 If you open DeveloperTools and inspect the LocalStorage you will see serialized block data stored and updated as changes occur within the editor. Below is an example of the format:
 
 ```
-<!-- fp:heading -->
+<!-- fin:heading -->
 <h2>An experiment with a standalone Block Editor in the FinPress admin</h2>
-<!-- /fp:heading -->
+<!-- /fin:heading -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>This is an experiment to discover how easy (or otherwise) it is to create a standalone instance of the Block Editor in the FinPress admin.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 ```
 
 ### Retrieving previous block data

@@ -20,7 +20,7 @@ import { unlock } from '../../lock-unlock';
 
 const { useLocation } = unlock( routerPrivateApis );
 
-export const postType = `fp_navigation`;
+export const postType = `fin_navigation`;
 
 export default function SidebarNavigationScreenNavigationMenu( { backPath } ) {
 	const {

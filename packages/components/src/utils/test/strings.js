@@ -62,10 +62,10 @@ describe( 'kebabCase', () => {
 	} );
 
 	/**
-	 * Should cover all test cases of `_fp_to_kebab_case()`.
+	 * Should cover all test cases of `_fin_to_kebab_case()`.
 	 *
-	 * @see https://developer.finpress.org/reference/functions/_fp_to_kebab_case/
-	 * @see https://github.com/FinPress/finpress-develop/blob/76376fdbc3dc0b3261de377dffc350677345e7ba/tests/phpunit/tests/functions/fpToKebabCase.php#L35-L62
+	 * @see https://developer.finpress.org/reference/functions/_fin_to_kebab_case/
+	 * @see https://github.com/FinPress/finpress-develop/blob/76376fdbc3dc0b3261de377dffc350677345e7ba/tests/phpunit/tests/functions/finToKebabCase.php#L35-L62
 	 */
 	it.each( [
 		[ 'white', 'white' ],

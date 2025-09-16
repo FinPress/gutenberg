@@ -27,9 +27,9 @@ export default function ClipboardButton( {
 	text,
 	...buttonProps
 }: FinPressComponentProps< ClipboardButtonProps, 'button', false > ) {
-	deprecated( 'fp.components.ClipboardButton', {
+	deprecated( 'fin.components.ClipboardButton', {
 		since: '5.8',
-		alternative: 'fp.compose.useCopyToClipboard',
+		alternative: 'fin.compose.useCopyToClipboard',
 	} );
 
 	const timeoutIdRef = useRef< NodeJS.Timeout >();

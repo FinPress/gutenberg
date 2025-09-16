@@ -316,7 +316,7 @@ For each user feature we should also add a importance categorization label  to i
 ## 1.88.0
 
 -   [*] Bump Android `minSdkVersion` to 24 [#47604]
--   [*] Update React Native Reanimated to 2.9.1-fp-3 [#47574]
+-   [*] Update React Native Reanimated to 2.9.1-fin-3 [#47574]
 -   [*] Bump Aztec version to `1.6.3` [#47610]
 
 ## 1.87.3

@@ -42,9 +42,9 @@ describe( 'Code', () => {
 	} );
 
 	it( 'renders given text without crashing', async () => {
-		const initialHtml = `<!-- fp:code -->
-		<pre class="fp-block-code"><code>Sample text</code></pre>
-		<!-- /fp:code -->`;
+		const initialHtml = `<!-- fin:code -->
+		<pre class="fin-block-code"><code>Sample text</code></pre>
+		<!-- /fin:code -->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,

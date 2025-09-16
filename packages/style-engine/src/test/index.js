@@ -102,7 +102,7 @@ describe( 'generate', () => {
 				spacing: { margin: '3px' },
 			} )
 		).toEqual(
-			'color: var(--fp--preset--color--ham-sandwich); margin: 3px;'
+			'color: var(--fin--preset--color--ham-sandwich); margin: 3px;'
 		);
 	} );
 
@@ -115,7 +115,7 @@ describe( 'generate', () => {
 				spacing: { margin: { top: 'var:preset|spacing|3XL' } },
 			} )
 		).toEqual(
-			'color: var(--fp--preset--font-size--h-1); margin-top: var(--fp--preset--spacing--3-xl);'
+			'color: var(--fin--preset--font-size--h-1); margin-top: var(--fin--preset--spacing--3-xl);'
 		);
 	} );
 
@@ -130,7 +130,7 @@ describe( 'generate', () => {
 				},
 			} )
 		).toEqual(
-			'border-color: var(--fp--preset--color--perky-peppermint); border-style: dotted; border-width: 0.5em; border-radius: 11px;'
+			'border-color: var(--fin--preset--color--perky-peppermint); border-style: dotted; border-width: 0.5em; border-radius: 11px;'
 		);
 	} );
 
@@ -166,7 +166,7 @@ describe( 'generate', () => {
 				},
 			} )
 		).toEqual(
-			'border-top-left-radius: 1px; border-top-right-radius: 2px; border-bottom-left-radius: 3px; border-bottom-right-radius: 4px; border-top-color: var(--fp--preset--color--sandy-beach); border-top-style: dashed; border-top-width: 9px; border-right-color: var(--fp--preset--color--leafy-avenue); border-right-width: 5rem; border-bottom-color: #eee; border-bottom-style: solid; border-bottom-width: 2%; border-left-color: var(--fp--preset--color--avocado-blues); border-left-style: dotted; border-left-width: 100px;'
+			'border-top-left-radius: 1px; border-top-right-radius: 2px; border-bottom-left-radius: 3px; border-bottom-right-radius: 4px; border-top-color: var(--fin--preset--color--sandy-beach); border-top-style: dashed; border-top-width: 9px; border-right-color: var(--fin--preset--color--leafy-avenue); border-right-width: 5rem; border-bottom-color: #eee; border-bottom-style: solid; border-bottom-width: 2%; border-left-color: var(--fin--preset--color--avocado-blues); border-left-style: dotted; border-left-width: 100px;'
 		);
 	} );
 } );
@@ -425,7 +425,7 @@ describe( 'getCSSRules', () => {
 			{
 				selector: '.some-selector a',
 				key: 'color',
-				value: 'var(--fp--preset--color--bomba-picante)',
+				value: 'var(--fin--preset--color--bomba-picante)',
 			},
 			{
 				selector: '.some-selector a',

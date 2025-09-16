@@ -39,7 +39,7 @@ const Overlay = ( { attributes, overlayColor } ) => {
 		<span
 			aria-hidden="true"
 			className={ clsx(
-				'fp-block-post-featured-image__overlay',
+				'fin-block-post-featured-image__overlay',
 				dimRatioToClass( dimRatio ),
 				{
 					[ overlayColor.class ]: overlayColor.class,

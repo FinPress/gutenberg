@@ -1,5 +1,5 @@
 ( function () {
-	fp.richText.registerFormatType( 'my-plugin/link', {
+	fin.richText.registerFormatType( 'my-plugin/link', {
 		title: 'Custom Link',
 		tagName: 'a',
 		attributes: {
@@ -7,14 +7,14 @@
 		},
 		className: 'my-plugin-link',
 		edit( props ) {
-			return fp.element.createElement(
-				fp.blockEditor.RichTextToolbarButton,
+			return fin.element.createElement(
+				fin.blockEditor.RichTextToolbarButton,
 				{
 					icon: 'admin-links',
 					title: 'Custom Link',
 					onClick() {
 						props.onChange(
-							fp.richText.toggleFormat( props.value, {
+							fin.richText.toggleFormat( props.value, {
 								type: 'my-plugin/link',
 								attributes: {
 									url: 'https://example.com',

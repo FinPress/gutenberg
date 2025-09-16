@@ -48,7 +48,7 @@ A transformation of type `block` is an object that takes the following parameter
 
 **Example: from Paragraph block to Heading block**
 
-To declare this transformation we add the following code into the heading block configuration, which uses the `createBlock` function from the [`fp-blocks` package](/packages/blocks/README.md#createBlock).
+To declare this transformation we add the following code into the heading block configuration, which uses the `createBlock` function from the [`fin-blocks` package](/packages/blocks/README.md#createBlock).
 
 ```js
 transforms: {

@@ -52,7 +52,7 @@ test.describe( 'adding inline tokens', () => {
 
 		// Check the content.
 		const contentRegex = new RegExp(
-			`a <img class="fp-image-\\d+" style="width:\\s*10px;?" src="[^"]+\\/${ fileName }\\.png" alt=""\\/?>`
+			`a <img class="fin-image-\\d+" style="width:\\s*10px;?" src="[^"]+\\/${ fileName }\\.png" alt=""\\/?>`
 		);
 		await expect.poll( editor.getBlocks ).toMatchObject( [
 			{
@@ -73,7 +73,7 @@ test.describe( 'adding inline tokens', () => {
 
 		// Check the content.
 		const contentRegex2 = new RegExp(
-			`a <img class="fp-image-\\d+" style="width:\\s*20px;?" src="[^"]+\\/${ fileName }\\.png" alt="Alt"\\/?>`
+			`a <img class="fin-image-\\d+" style="width:\\s*20px;?" src="[^"]+\\/${ fileName }\\.png" alt="Alt"\\/?>`
 		);
 
 		await expect.poll( editor.getBlocks ).toMatchObject( [

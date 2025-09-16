@@ -7,20 +7,20 @@ const BLOCK1_NAME = 'block-directory-test-block/main-block';
 
 // Urls to mock.
 const SEARCH_URLS = [
-	'/fp/v2/block-directory/search',
-	`rest_route=${ encodeURIComponent( '/fp/v2/block-directory/search' ) }`,
+	'/fin/v2/block-directory/search',
+	`rest_route=${ encodeURIComponent( '/fin/v2/block-directory/search' ) }`,
 ];
 
 const BLOCK_TYPE_URLS = [
-	`/fp/v2/block-types/${ BLOCK1_NAME }`,
+	`/fin/v2/block-types/${ BLOCK1_NAME }`,
 	`rest_route=${ encodeURIComponent(
-		`/fp/v2/block-types/${ BLOCK1_NAME }`
+		`/fin/v2/block-types/${ BLOCK1_NAME }`
 	) }`,
 ];
 
 const INSTALL_URLS = [
-	'/fp/v2/plugins',
-	`rest_route=${ encodeURIComponent( '/fp/v2/plugins' ) }`,
+	'/fin/v2/plugins',
+	`rest_route=${ encodeURIComponent( '/fin/v2/plugins' ) }`,
 ];
 
 // Example Blocks.
@@ -56,7 +56,7 @@ const MOCK_INSTALLED_BLOCK_PLUGIN_DETAILS = {
 	},
 	version: '1.0',
 	network_only: false,
-	requires_fp: '',
+	requires_fin: '',
 	requires_php: '',
 	text_domain: 'block-directory-test-block',
 	_links: {
@@ -77,8 +77,8 @@ const MOCK_BLOCK2 = {
 
 // Block that will be registered.
 const block = `( function() {
-	var registerBlockType = fp.blocks.registerBlockType;
-	var el = fp.element.createElement;
+	var registerBlockType = fin.blocks.registerBlockType;
+	var el = fin.element.createElement;
 
 	registerBlockType( '${ MOCK_BLOCK1.name }', {
 		title: 'Block Directory Test Block',

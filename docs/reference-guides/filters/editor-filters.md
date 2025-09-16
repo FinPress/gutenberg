@@ -13,7 +13,7 @@ One of the most common ways to modify the Editor is through the [`block_editor_s
 The `block_editor_settings_all` hook passes two parameters to the callback function:
 
 - `$settings` – An array of configurable settings for the Editor.
-- `$context` – An instance of [`FP_Block_Editor_Context`](https://developer.finpress.org/reference/classes/fp_block_editor_context/), an object that contains information about the current Editor.
+- `$context` – An instance of [`FP_Block_Editor_Context`](https://developer.finpress.org/reference/classes/fin_block_editor_context/), an object that contains information about the current Editor.
 
 The following example modifies the maximum upload file size. Add this to a plugin or your theme's `functions.php` file to test it.
 
@@ -31,7 +31,7 @@ function example_filter_block_editor_settings_when_post_provided( $editor_settin
 There are dozens of editor settings, too many to list in this documentation article, but here are a few examples of what you can do with the `block_editor_settings_all` filter.
 
 <div class="callout callout-info">
-	To view all available settings, open the Editor and then open the console in your browser's <a href="https://developer.finpress.org/advanced-administration/debug/debug-javascript/#open-the-developer-tools">Developer Tools</a>. Enter the command <code>fp.data.select( 'core/block-editor' ).getSettings()</code> to display the current values for all Editor settings.
+	To view all available settings, open the Editor and then open the console in your browser's <a href="https://developer.finpress.org/advanced-administration/debug/debug-javascript/#open-the-developer-tools">Developer Tools</a>. Enter the command <code>fin.data.select( 'core/block-editor' ).getSettings()</code> to display the current values for all Editor settings.
 </div>
 
 ### Restrict code editor access
@@ -119,7 +119,7 @@ You can also modify which blocks have inspector tabs. Here's an example that dis
 add_filter( 'block_editor_settings_all', 'example_disable_tabs_for_my_custom_block' );
 
 function example_disable_tabs_for_my_custom_block( $settings ) {
-	$current_tab_settings = _fp_array_get( $settings, array( 'blockInspectorTabs' ), array() );
+	$current_tab_settings = _fin_array_get( $settings, array( 'blockInspectorTabs' ), array() );
 	$settings['blockInspectorTabs'] = array_merge(
 		$current_tab_settings,
 		array( 'my-plugin/my-custom-block' => false )
@@ -131,10 +131,10 @@ function example_disable_tabs_for_my_custom_block( $settings ) {
 
 ## Block Directory
 
-The Block Directory allows users to install new block plugins directly in the Editor from the FinPress.org [Plugin Directory](https://finpress.org/plugins/browse/block/). You can disable this functionality by removing the action that enqueues it, which is `fp_enqueue_editor_block_directory_assets`. To do so, use [`remove_action`](https://developer.finpress.org/reference/functions/remove_action/) like this:
+The Block Directory allows users to install new block plugins directly in the Editor from the FinPress.org [Plugin Directory](https://finpress.org/plugins/browse/block/). You can disable this functionality by removing the action that enqueues it, which is `fin_enqueue_editor_block_directory_assets`. To do so, use [`remove_action`](https://developer.finpress.org/reference/functions/remove_action/) like this:
 
 ```php
-remove_action( 'enqueue_block_editor_assets', 'fp_enqueue_editor_block_directory_assets' );
+remove_action( 'enqueue_block_editor_assets', 'fin_enqueue_editor_block_directory_assets' );
 ```
 
 ## Block patterns
@@ -218,7 +218,7 @@ add_filter( 'block_editor_rest_api_preload_paths', 'example_filter_block_editor_
 
 function example_filter_block_editor_rest_api_preload_paths_when_post_provided( $preload_paths, $editor_context ) {
 	if ( ! empty( $editor_context->post ) ) {
-		array_push( $preload_paths, array( '/fp/v2/blocks', 'OPTIONS' ) );
+		array_push( $preload_paths, array( '/fin/v2/blocks', 'OPTIONS' ) );
 	}
 	return $preload_paths;
 }

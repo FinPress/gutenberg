@@ -1,10 +1,10 @@
-.fp-block-social-links .fp-social-link {
+.fin-block-social-links .fin-social-link {
 	line-height: 0;
 }
 
 // The editor uses the button element, the frontend uses a link.
 // Therefore we unstyle the button element to make it more like the frontend.
-.fp-block-social-link-anchor {
+.fin-block-social-link-anchor {
 	align-items: center;
 	background: none;
 	border: 0;
@@ -24,23 +24,23 @@
 	// This rule is duplicated from the style.scss and needs to be the same as there.
 	padding: 0.25em;
 
-	// Override the shared `.fp-block-social-link` class used on both the li and button
+	// Override the shared `.fin-block-social-link` class used on both the li and button
 	// due to backwards compatibility from moving the blockProps from the li to the button.
 	&:hover {
 		transform: none;
 	}
 }
 
-:root :where(.fp-block-social-links.is-style-pill-shape .fp-social-link button) {
+:root :where(.fin-block-social-links.is-style-pill-shape .fin-social-link button) {
 	padding-left: calc((2/3) * 1em);
 	padding-right: calc((2/3) * 1em);
 }
 
-:root :where(.fp-block-social-links.is-style-logos-only .fp-social-link button) {
+:root :where(.fin-block-social-links.is-style-logos-only .fin-social-link button) {
 	padding: 0;
 }
 
-.fp-block-social-link__toolbar_content_text {
+.fin-block-social-link__toolbar_content_text {
 	// Corresponds to the size of the text control input in the block inspector.
 	width: 250px;
 }

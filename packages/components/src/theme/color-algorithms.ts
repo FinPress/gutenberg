@@ -37,7 +37,7 @@ function validateInputs( inputs: ThemeInputValues ) {
 	for ( const [ key, value ] of Object.entries( inputs ) ) {
 		if ( typeof value !== 'undefined' && ! colord( value ).isValid() ) {
 			warning(
-				`fp.components.Theme: "${ value }" is not a valid color value for the '${ key }' prop.`
+				`fin.components.Theme: "${ value }" is not a valid color value for the '${ key }' prop.`
 			);
 		}
 	}
@@ -70,7 +70,7 @@ export function checkContrasts(
 function warnContrastIssues( issues: ReturnType< typeof checkContrasts > ) {
 	for ( const error of Object.values( issues ) ) {
 		if ( error ) {
-			warning( 'fp.components.Theme: ' + error );
+			warning( 'fin.components.Theme: ' + error );
 		}
 	}
 }

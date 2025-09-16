@@ -4,7 +4,7 @@ module.exports = {
 	rules: {
 		'declaration-property-value-disallowed-list': [
 			{
-				'/.*/': [ '/--fp-admin-theme-/', '/--fp-components-color-/' ],
+				'/.*/': [ '/--fin-admin-theme-/', '/--fin-components-color-/' ],
 			},
 			{
 				message:

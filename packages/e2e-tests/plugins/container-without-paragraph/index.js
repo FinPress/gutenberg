@@ -1,18 +1,18 @@
 ( function () {
-	fp.blocks.registerBlockType( 'test/container-without-paragraph', {
+	fin.blocks.registerBlockType( 'test/container-without-paragraph', {
 		title: 'Container without paragraph',
 		category: 'text',
 		icon: 'yes',
 
 		edit() {
-			return fp.element.createElement( fp.blockEditor.InnerBlocks, {
+			return fin.element.createElement( fin.blockEditor.InnerBlocks, {
 				allowedBlocks: [ 'core/image', 'core/gallery' ],
 			} );
 		},
 
 		save() {
-			return fp.element.createElement(
-				fp.blockEditor.InnerBlocks.Content
+			return fin.element.createElement(
+				fin.blockEditor.InnerBlocks.Content
 			);
 		},
 	} );

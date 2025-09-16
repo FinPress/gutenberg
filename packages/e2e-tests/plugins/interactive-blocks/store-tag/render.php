@@ -12,30 +12,30 @@ $test_store_tag_counter = 'ok' === $attributes['condition'] ? 3 : 0;
 $test_store_tag_double  = $test_store_tag_counter * 2;
 ?>
 
-<div data-fp-interactive="store-tag">
+<div data-fin-interactive="store-tag">
 	<div>
 		Counter:
 		<span
-			data-fp-bind--children="state.counter.value"
+			data-fin-bind--children="state.counter.value"
 			data-testid="counter value"
 			><?php echo $test_store_tag_counter; ?></span
 		>
 		<br />
 		Double:
 		<span
-			data-fp-bind--children="state.counter.double"
+			data-fin-bind--children="state.counter.double"
 			data-testid="counter double"
 			><?php echo $test_store_tag_double; ?></span
 		>
 		<br />
 		<button
-			data-fp-on--click="actions.counter.increment"
+			data-fin-on--click="actions.counter.increment"
 			data-testid="counter button"
 		>
 			+1
 		</button>
 		<span
-			data-fp-bind--children="state.counter.clicks"
+			data-fin-bind--children="state.counter.clicks"
 			data-testid="counter clicks"
 			>0</span
 		>
@@ -59,7 +59,7 @@ if ( 'missing' !== $attributes['condition'] ) {
 	}
 
 	echo <<<HTML
-	<script type="application/json" id="fp-script-module-data-@finpress/interactivity">
+	<script type="application/json" id="fin-script-module-data-@finpress/interactivity">
 		$test_store_tag_json
 	</script>
 HTML;

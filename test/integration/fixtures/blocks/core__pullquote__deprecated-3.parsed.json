@@ -6,9 +6,9 @@
 			"textColor": "secondary"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<figure class=\"fp-block-pullquote\" style=\"border-color:#cd2653\"><blockquote class=\"has-text-color has-secondary-color\"><p>pullquote</p></blockquote></figure>\n",
+		"innerHTML": "\n<figure class=\"fin-block-pullquote\" style=\"border-color:#cd2653\"><blockquote class=\"has-text-color has-secondary-color\"><p>pullquote</p></blockquote></figure>\n",
 		"innerContent": [
-			"\n<figure class=\"fp-block-pullquote\" style=\"border-color:#cd2653\"><blockquote class=\"has-text-color has-secondary-color\"><p>pullquote</p></blockquote></figure>\n"
+			"\n<figure class=\"fin-block-pullquote\" style=\"border-color:#cd2653\"><blockquote class=\"has-text-color has-secondary-color\"><p>pullquote</p></blockquote></figure>\n"
 		]
 	}
 ]

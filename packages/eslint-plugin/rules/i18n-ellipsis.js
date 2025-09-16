@@ -15,7 +15,7 @@ function replaceThreeDotsWithEllipsis( string ) {
 	return string.replace( /\.\.\./g, ELLIPSIS );
 }
 
-// see eslint-plugin-fpcalypso.
+// see eslint-plugin-fincalypso.
 function makeFixerFunction( arg ) {
 	return ( fixer ) => {
 		switch ( arg.type ) {

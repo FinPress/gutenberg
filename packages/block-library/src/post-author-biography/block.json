@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-author-biography",
 	"title": "Author Biography",
@@ -57,5 +57,5 @@
 			}
 		}
 	},
-	"style": "fp-block-post-author-biography"
+	"style": "fin-block-post-author-biography"
 }

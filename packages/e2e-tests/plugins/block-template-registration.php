@@ -16,7 +16,7 @@ add_action(
 			array(
 				'title'       => 'Plugin Template',
 				'description' => 'A template registered by a plugin.',
-				'content'     => '<!-- fp:template-part {"slug":"header","tagName":"header"} /--><!-- fp:group {"tagName":"main","layout":{"inherit":true}} --><main class="fp-block-group"><!-- fp:paragraph --><p>This is a plugin-registered template.</p><!-- /fp:paragraph --></main><!-- /fp:group -->',
+				'content'     => '<!-- fin:template-part {"slug":"header","tagName":"header"} /--><!-- fin:group {"tagName":"main","layout":{"inherit":true}} --><main class="fin-block-group"><!-- fin:paragraph --><p>This is a plugin-registered template.</p><!-- /fin:paragraph --></main><!-- /fin:group -->',
 				'post_types'  => array( 'post' ),
 			)
 		);
@@ -33,7 +33,7 @@ add_action(
 			array(
 				'title'       => 'Custom Template (overridden by the theme)',
 				'description' => 'A custom template registered by a plugin and overridden by a theme.',
-				'content'     => '<!-- fp:template-part {"slug":"header","tagName":"header"} /--><!-- fp:group {"tagName":"main","layout":{"inherit":true}} --><main class="fp-block-group"><!-- fp:paragraph --><p>This is a plugin-registered template and overridden by a theme.</p><!-- /fp:paragraph --></main><!-- /fp:group -->',
+				'content'     => '<!-- fin:template-part {"slug":"header","tagName":"header"} /--><!-- fin:group {"tagName":"main","layout":{"inherit":true}} --><main class="fin-block-group"><!-- fin:paragraph --><p>This is a plugin-registered template and overridden by a theme.</p><!-- /fin:paragraph --></main><!-- /fin:group -->',
 				'post_types'  => array( 'post' ),
 			)
 		);
@@ -44,7 +44,7 @@ add_action(
 			array(
 				'title'       => 'Plugin Unregistered Template',
 				'description' => 'A plugin-registered template that is unregistered.',
-				'content'     => '<!-- fp:template-part {"slug":"header","tagName":"header"} /--><!-- fp:group {"tagName":"main","layout":{"inherit":true}} --><main class="fp-block-group"><!-- fp:paragraph --><p>This is a plugin-registered template that is also unregistered.</p><!-- /fp:paragraph --></main><!-- /fp:group -->',
+				'content'     => '<!-- fin:template-part {"slug":"header","tagName":"header"} /--><!-- fin:group {"tagName":"main","layout":{"inherit":true}} --><main class="fin-block-group"><!-- fin:paragraph --><p>This is a plugin-registered template that is also unregistered.</p><!-- /fin:paragraph --></main><!-- /fin:group -->',
 			)
 		);
 		unregister_block_template( 'gutenberg//plugin-unregistered-template' );
@@ -55,7 +55,7 @@ add_action(
 			array(
 				'title'       => 'Plugin Page Template',
 				'description' => 'A plugin-registered page template.',
-				'content'     => '<!-- fp:template-part {"slug":"header","tagName":"header"} /--><!-- fp:group {"tagName":"main","layout":{"inherit":true}} --><main class="fp-block-group"><!-- fp:paragraph --><p>This is a plugin-registered page template.</p><!-- /fp:paragraph --></main><!-- /fp:group -->',
+				'content'     => '<!-- fin:template-part {"slug":"header","tagName":"header"} /--><!-- fin:group {"tagName":"main","layout":{"inherit":true}} --><main class="fin-block-group"><!-- fin:paragraph --><p>This is a plugin-registered page template.</p><!-- /fin:paragraph --></main><!-- /fin:group -->',
 			)
 		);
 
@@ -65,7 +65,7 @@ add_action(
 			array(
 				'title'       => 'Plugin Author Template',
 				'description' => 'A plugin-registered author template.',
-				'content'     => '<!-- fp:template-part {"slug":"header","tagName":"header"} /--><!-- fp:group {"tagName":"main","layout":{"inherit":true}} --><main class="fp-block-group"><!-- fp:paragraph --><p>This is a plugin-registered author template.</p><!-- /fp:paragraph --></main><!-- /fp:group -->',
+				'content'     => '<!-- fin:template-part {"slug":"header","tagName":"header"} /--><!-- fin:group {"tagName":"main","layout":{"inherit":true}} --><main class="fin-block-group"><!-- fin:paragraph --><p>This is a plugin-registered author template.</p><!-- /fin:paragraph --></main><!-- /fin:group -->',
 			)
 		);
 	}

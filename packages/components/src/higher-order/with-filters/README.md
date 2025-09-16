@@ -32,7 +32,7 @@ addFilter(
 const MyComponentWithFilters = withFilters( 'MyHookName' )( MyComponent );
 ```
 
-`withFilters` expects a string argument which provides a hook name. It returns a function which can then be used in composing your component. The hook name allows plugin developers to customize or completely override the component passed to this higher-order component using `fp.hooks.addFilter` method.
+`withFilters` expects a string argument which provides a hook name. It returns a function which can then be used in composing your component. The hook name allows plugin developers to customize or completely override the component passed to this higher-order component using `fin.hooks.addFilter` method.
 
 It is also possible to override props by implementing a higher-order component which works as follows:
 

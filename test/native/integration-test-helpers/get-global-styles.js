@@ -112,24 +112,24 @@ const GLOBAL_STYLES_RAW_FEATURES = {
 
 const GLOBAL_STYLES_RAW_STYLES = {
 	color: {
-		background: 'var(--fp--preset--color--foreground)',
-		text: 'var(--fp--preset--color--tertiary)',
+		background: 'var(--fin--preset--color--foreground)',
+		text: 'var(--fin--preset--color--tertiary)',
 	},
 	elements: {
 		h1: {
 			typography: {
-				fontSize: 'var(--fp--preset--font-size--xx-large)',
+				fontSize: 'var(--fin--preset--font-size--xx-large)',
 				lineHeight: '1.15',
 			},
 		},
 		h2: {
 			typography: {
-				fontSize: 'var(--fp--preset--font-size--x-large)',
+				fontSize: 'var(--fin--preset--font-size--x-large)',
 			},
 		},
 		h3: {
 			typography: {
-				fontSize: 'var(--fp--preset--font-size--large)',
+				fontSize: 'var(--fin--preset--font-size--large)',
 			},
 		},
 		h4: {
@@ -140,32 +140,32 @@ const GLOBAL_STYLES_RAW_STYLES = {
 		},
 		h5: {
 			typography: {
-				fontSize: 'var(--fp--preset--font-size--medium)',
+				fontSize: 'var(--fin--preset--font-size--medium)',
 			},
 		},
 		h6: {
 			typography: {
-				fontSize: 'var(--fp--preset--font-size--small)',
+				fontSize: 'var(--fin--preset--font-size--small)',
 			},
 		},
 		heading: {
 			color: {
-				text: 'var(--fp--preset--color--tertiary)',
+				text: 'var(--fin--preset--color--tertiary)',
 			},
 			typography: {
-				fontFamily: 'var(--fp--preset--font-family--heading)',
+				fontFamily: 'var(--fin--preset--font-family--heading)',
 				lineHeight: '1.2',
 			},
 		},
 		link: {
 			color: {
-				text: 'var(--fp--preset--color--tertiary)',
+				text: 'var(--fin--preset--color--tertiary)',
 			},
 		},
 	},
 	typography: {
-		fontFamily: 'var(--fp--preset--font-family--body)',
-		fontSize: 'var(--fp--preset--font-size--medium)',
+		fontFamily: 'var(--fin--preset--font-family--body)',
+		fontSize: 'var(--fin--preset--font-size--medium)',
 		lineHeight: '1.55',
 	},
 };

@@ -1,38 +1,38 @@
-.fp-block-navigation {
+.fin-block-navigation {
 	// space-between justification.
 	&.items-justified-space-between {
-		.fp-block-page-list > div,
-		.fp-block-page-list {
+		.fin-block-page-list > div,
+		.fin-block-page-list {
 			display: contents;
 			flex: 1;
 		}
 
-		&.has-child-selected .fp-block-page-list > div,
-		&.has-child-selected .fp-block-page-list,
-		&.is-selected .fp-block-page-list > div,
-		&.is-selected .fp-block-page-list {
+		&.has-child-selected .fin-block-page-list > div,
+		&.has-child-selected .fin-block-page-list,
+		&.is-selected .fin-block-page-list > div,
+		&.is-selected .fin-block-page-list {
 			flex: inherit;
 		}
 	}
 }
 
-.fp-block-navigation .fp-block-navigation__submenu-container > .fp-block-page-list {
+.fin-block-navigation .fin-block-navigation__submenu-container > .fin-block-page-list {
 	display: block; // This is needed to make sure the page list container is 100% wide, so that the children are correctly positioned.
 }
 
 // Make links unclickable in the editor.
-.fp-block-pages-list__item__link {
+.fin-block-pages-list__item__link {
 	pointer-events: none;
 }
 
 // Modal that shows conversion option.
-.fp-block-page-list-modal {
+.fin-block-page-list-modal {
 	@include break-small() {
 		max-width: $break-mobile;
 	}
 }
 
-.fp-block-page-list-modal-buttons {
+.fin-block-page-list-modal-buttons {
 	display: flex;
 	justify-content: flex-end;
 	gap: $grid-unit-15;
@@ -40,9 +40,9 @@
 
 // Simulate open on click behaviour in the editor by opening on focus instead.
 
-.fp-block-page-list {
+.fin-block-page-list {
 	.open-on-click:focus-within {
-		> .fp-block-navigation__submenu-container {
+		> .fin-block-navigation__submenu-container {
 			visibility: visible;
 			opacity: 1;
 			width: auto;
@@ -54,6 +54,6 @@
 
 // Space spinner to give it breathing
 // room when block is selected and has focus outline.
-.fp-block-page-list__loading-indicator-container {
+.fin-block-page-list__loading-indicator-container {
 	padding: $grid-unit-10 $grid-unit-15;
 }

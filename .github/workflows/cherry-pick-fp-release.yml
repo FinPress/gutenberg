@@ -94,7 +94,7 @@ jobs:
               id: cherry-pick
               if: env.cherry_pick == 'true'
               run: |
-                  TARGET_BRANCH="fp/${version}"
+                  TARGET_BRANCH="fin/${version}"
                   COMMIT_SHA="${commit_sha}"
                   echo "Target branch: $TARGET_BRANCH"
                   echo "Commit SHA: $COMMIT_SHA"
@@ -141,7 +141,7 @@ jobs:
                   script: |
                       const prNumber = process.env.pr_number;
                       const cherryPickSha = process.env.cherry_pick_sha;
-                      const targetBranch = `fp/${process.env.version}`;
+                      const targetBranch = `fin/${process.env.version}`;
                       console.log(`prNumber: ${prNumber}`);
                       console.log(`cherryPickSha: ${cherryPickSha}`);
                       console.log(`targetBranch: ${targetBranch}`);
@@ -159,7 +159,7 @@ jobs:
                   script: |
                       const prNumber = process.env.pr_number;
                       const commitSha = process.env.commit_sha;
-                      const targetBranch = `fp/${process.env.version}`;
+                      const targetBranch = `fin/${process.env.version}`;
                       console.log(`prNumber: ${prNumber}`);
                       console.log(`targetBranch: ${targetBranch}`);
                       await github.rest.issues.createComment({

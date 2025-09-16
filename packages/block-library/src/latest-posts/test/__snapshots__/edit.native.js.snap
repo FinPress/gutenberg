@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Latest Posts block inserts block 1`] = `"<!-- fp:latest-posts /-->"`;
+exports[`Latest Posts block inserts block 1`] = `"<!-- fin:latest-posts /-->"`;

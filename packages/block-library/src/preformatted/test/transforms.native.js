@@ -11,9 +11,9 @@ import {
 
 const block = 'Preformatted';
 const initialHtml = `
-<!-- fp:preformatted -->
-<pre class="fp-block-preformatted">Some <em>preformatted</em> text...<br>And more!</pre>
-<!-- /fp:preformatted -->`;
+<!-- fin:preformatted -->
+<pre class="fin-block-preformatted">Some <em>preformatted</em> text...<br>And more!</pre>
+<!-- /fin:preformatted -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [

@@ -129,17 +129,17 @@
 /packages/project-management-automation
 /packages/report-flaky-tests                    @kevin940726
 
-# fp-env
+# fin-env
 /packages/env                                   @ObliviousHarmony @t-hamano
 
 # PHP
 /lib                                            @spacedmonkey
 /lib/block-supports/layout.php                  @tellthemachines
-/lib/class-fp-theme-json-gutenberg.php          @tellthemachines
+/lib/class-fin-theme-json-gutenberg.php          @tellthemachines
 /lib/compat/*/html-api                          @dmsnell
 /lib/experimental/rest-api.php                  @timothybjacobs
-/lib/experimental/class-fp-rest-*               @timothybjacobs
-/lib/experimental/class-fp-rest-block-editor-settings-controller.php @timothybjacobs @spacedmonkey
+/lib/experimental/class-fin-rest-*               @timothybjacobs
+/lib/experimental/class-fin-rest-block-editor-settings-controller.php @timothybjacobs @spacedmonkey
 
 # Native (Unowned)
 *.native.js

@@ -80,10 +80,10 @@ export function Navigation( {
 	const navigationTree = useCreateNavigationTree();
 	const defaultSlideOrigin = isRTL() ? 'right' : 'left';
 
-	deprecated( 'fp.components.Navigation (and all subcomponents)', {
+	deprecated( 'fin.components.Navigation (and all subcomponents)', {
 		since: '6.8',
 		version: '7.1',
-		alternative: 'fp.components.Navigator',
+		alternative: 'fin.components.Navigator',
 	} );
 
 	const setActiveMenu: NavigationContextType[ 'setActiveMenu' ] = (

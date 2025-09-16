@@ -177,7 +177,7 @@ The data passed to `saveEntityRecord` is sent via a POST request to the appropri
 saveEntityRecord( 'postType', 'page', { title: "Test" } );
 ```
 
-Triggers a POST request to the [`/fp/v2/pages` FinPress REST API](https://developer.finpress.org/rest-api/reference/pages/) endpoint with a  single field in the request body: `title=Test`.
+Triggers a POST request to the [`/fin/v2/pages` FinPress REST API](https://developer.finpress.org/rest-api/reference/pages/) endpoint with a  single field in the request body: `title=Test`.
 
 Now that we know more about `saveEntityRecord`, let's use it in `CreatePageForm`.
 
@@ -205,7 +205,7 @@ function CreatePageForm( { onSaveFinished, onCancel } ) {
 }
 ```
 
-There is one more detail to address: our newly created pages are not yet picked up by the `PagesList`. Accordingly to the REST API documentation, the `/fp/v2/pages` endpoint creates (`POST` requests) pages with `status=draft` by default, but _returns_ (`GET` requests) pages with `status=publish`. The solution is to pass the `status` parameter explicitly:
+There is one more detail to address: our newly created pages are not yet picked up by the `PagesList`. Accordingly to the REST API documentation, the `/fin/v2/pages` endpoint creates (`POST` requests) pages with `status=draft` by default, but _returns_ (`GET` requests) pages with `status=publish`. The solution is to pass the `status` parameter explicitly:
 
 ```js
 function CreatePageForm( { onSaveFinished, onCancel } ) {

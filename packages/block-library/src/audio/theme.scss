@@ -1,7 +1,7 @@
-.fp-block-audio :where(figcaption) {
+.fin-block-audio :where(figcaption) {
 	@include caption-style-theme();
 }
 
-.fp-block-audio {
+.fin-block-audio {
 	margin: 0 0 1em 0;
 }

@@ -28,10 +28,10 @@ export const normalizeTextString = ( value: string ): string => {
 /**
  * Converts any string to kebab case.
  * Backwards compatible with Lodash's `_.kebabCase()`.
- * Backwards compatible with `_fp_to_kebab_case()`.
+ * Backwards compatible with `_fin_to_kebab_case()`.
  *
  * @see https://lodash.com/docs/4.17.15#kebabCase
- * @see https://developer.finpress.org/reference/functions/_fp_to_kebab_case/
+ * @see https://developer.finpress.org/reference/functions/_fin_to_kebab_case/
  *
  * @param str String to convert.
  * @return Kebab-cased string

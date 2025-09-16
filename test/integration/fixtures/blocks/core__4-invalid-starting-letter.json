@@ -3,7 +3,7 @@
 		"name": "core/freeform",
 		"isValid": true,
 		"attributes": {
-			"content": "<p><!-- fp:core/4-invalid /--></p>"
+			"content": "<p><!-- fin:core/4-invalid /--></p>"
 		},
 		"innerBlocks": []
 	}

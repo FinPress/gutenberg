@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-comments-count",
 	"title": "Comments Count",
@@ -51,5 +51,5 @@
 			"clientNavigation": true
 		}
 	},
-	"style": "fp-block-post-comments-count"
+	"style": "fin-block-post-comments-count"
 }

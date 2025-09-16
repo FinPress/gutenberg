@@ -6,10 +6,10 @@ import { rendererPath, removeBlockSupportAttributes } from '../hook';
 describe( 'rendererPath', () => {
 	test( 'should return an base path for empty input', () => {
 		expect( rendererPath( 'core/test-block', null ) ).toBe(
-			'/fp/v2/block-renderer/core/test-block?context=edit'
+			'/fin/v2/block-renderer/core/test-block?context=edit'
 		);
 		expect( rendererPath( 'core/test-block' ) ).toBe(
-			'/fp/v2/block-renderer/core/test-block?context=edit'
+			'/fin/v2/block-renderer/core/test-block?context=edit'
 		);
 	} );
 
@@ -22,7 +22,7 @@ describe( 'rendererPath', () => {
 				numberArg: 123,
 			} )
 		).toBe(
-			'/fp/v2/block-renderer/core/test-block?context=edit&attributes%5BstringArg%5D=test&attributes%5BnullArg%5D=&attributes%5BemptyArg%5D=&attributes%5BnumberArg%5D=123'
+			'/fin/v2/block-renderer/core/test-block?context=edit&attributes%5BstringArg%5D=test&attributes%5BnullArg%5D=&attributes%5BemptyArg%5D=&attributes%5BnumberArg%5D=123'
 		);
 	} );
 
@@ -35,7 +35,7 @@ describe( 'rendererPath', () => {
 				},
 			} )
 		).toBe(
-			'/fp/v2/block-renderer/core/test-block?context=edit&attributes%5BobjectArg%5D%5BstringProp%5D=test&attributes%5BobjectArg%5D%5BnumberProp%5D=123'
+			'/fin/v2/block-renderer/core/test-block?context=edit&attributes%5BobjectArg%5D%5BstringProp%5D=test&attributes%5BobjectArg%5D%5BnumberProp%5D=123'
 		);
 	} );
 
@@ -56,7 +56,7 @@ describe( 'rendererPath', () => {
 				],
 			} )
 		).toBe(
-			'/fp/v2/block-renderer/core/test-block?context=edit&attributes%5Bchildren%5D%5B0%5D%5Bname%5D=bobby&attributes%5Bchildren%5D%5B0%5D%5Bage%5D=12&attributes%5Bchildren%5D%5B0%5D%5Bsex%5D=M&attributes%5Bchildren%5D%5B1%5D%5Bname%5D=sally&attributes%5Bchildren%5D%5B1%5D%5Bage%5D=8&attributes%5Bchildren%5D%5B1%5D%5Bsex%5D=F'
+			'/fin/v2/block-renderer/core/test-block?context=edit&attributes%5Bchildren%5D%5B0%5D%5Bname%5D=bobby&attributes%5Bchildren%5D%5B0%5D%5Bage%5D=12&attributes%5Bchildren%5D%5B0%5D%5Bsex%5D=M&attributes%5Bchildren%5D%5B1%5D%5Bname%5D=sally&attributes%5Bchildren%5D%5B1%5D%5Bage%5D=8&attributes%5Bchildren%5D%5B1%5D%5Bsex%5D=F'
 		);
 	} );
 
@@ -72,7 +72,7 @@ describe( 'rendererPath', () => {
 				}
 			)
 		).toBe(
-			'/fp/v2/block-renderer/core/test-block?context=edit&attributes%5BstringArg%5D=test&id=1234'
+			'/fin/v2/block-renderer/core/test-block?context=edit&attributes%5BstringArg%5D=test&id=1234'
 		);
 	} );
 

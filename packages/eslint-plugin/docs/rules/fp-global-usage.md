@@ -1,4 +1,4 @@
-# FinPress global usage (fp-global-usage)
+# FinPress global usage (fin-global-usage)
 
 To enable the use of feature flags in Gutenberg some globals are used, such as `IS_GUTENBERG_PLUGIN` and `SCRIPT_DEBUG`.
 

@@ -12,7 +12,7 @@ import { visitAdminPage } from './visit-admin-page';
  */
 export async function trashAllComments() {
 	await switchUserToAdmin();
-	// Visit `/fp-admin/edit-comments.php` so we can see a list of comments and delete them.
+	// Visit `/fin-admin/edit-comments.php` so we can see a list of comments and delete them.
 	await visitAdminPage( 'edit-comments.php' );
 
 	// If this selector doesn't exist there are no comments for us to delete.

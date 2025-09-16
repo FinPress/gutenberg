@@ -8,7 +8,7 @@
 		"gutenberg",
 		"finpress",
 		"editor",
-		"fp",
+		"fin",
 		"react",
 		"javascript"
 	],
@@ -27,8 +27,8 @@
 		"lock": false
 	},
 	"require-dev": {
-		"dieselfox1/phpcompatibility-fp": "^2.1.3",
-		"fin-coding-standards/fpcs": "^3.0",
+		"dieselfox1/phpcompatibility-fin": "^2.1.3",
+		"fin-coding-standards/fincs": "^3.0",
 		"sirbrillig/phpcs-variable-analysis": "^2.8",
 		"spatie/phpunit-watcher": "^1.23",
 		"yoast/phpunit-polyfills": "^1.1.0",

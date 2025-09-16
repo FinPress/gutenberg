@@ -11,7 +11,7 @@ const unescapeString = ( arg ) => {
 	return decodeEntities( arg );
 };
 
-export const CATEGORY_SLUG = 'fp_pattern_category';
+export const CATEGORY_SLUG = 'fin_pattern_category';
 
 export default function CategorySelector( {
 	categoryTerms,

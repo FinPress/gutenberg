@@ -109,7 +109,7 @@ function createFrame(
  * @param {Record<string, Element>} conversionMap      The map used to convert the string to
  *                                                     a react element.
  * @throws {TypeError}
- * @return {Element}  A fp element.
+ * @return {Element}  A fin element.
  */
 const createInterpolateElement = ( interpolatedString, conversionMap ) => {
 	indoc = interpolatedString;

@@ -23,7 +23,7 @@ test.describe( 'isTyping', () => {
 		await page.keyboard.type( 'Type' );
 
 		const blockToolbarPopover = page.locator(
-			'[data-fp-component="Popover"]',
+			'[data-fin-component="Popover"]',
 			{
 				has: page.locator( 'role=toolbar[name="Block tools"i]' ),
 			}

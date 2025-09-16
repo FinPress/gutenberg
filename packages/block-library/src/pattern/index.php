@@ -24,7 +24,7 @@ function register_block_core_pattern() {
  *
  * @since 6.3.0 Backwards compatibility: blocks with no `syncStatus` attribute do not receive block wrapper.
  *
- * @global FP_Embed $fp_embed Used to process embedded content within patterns
+ * @global FP_Embed $fin_embed Used to process embedded content within patterns
  *
  * @param array $attributes Block attributes.
  *
@@ -46,7 +46,7 @@ function render_block_core_pattern( $attributes ) {
 
 	if ( isset( $seen_refs[ $attributes['slug'] ] ) ) {
 		// FP_DEBUG_DISPLAY must only be honored when FP_DEBUG. This precedent
-		// is set in `fp_debug_mode()`.
+		// is set in `fin_debug_mode()`.
 		$is_debug = FP_DEBUG && FP_DEBUG_DISPLAY;
 
 		return $is_debug ?
@@ -62,8 +62,8 @@ function render_block_core_pattern( $attributes ) {
 
 	$content = do_blocks( $content );
 
-	global $fp_embed;
-	$content = $fp_embed->autoembed( $content );
+	global $fin_embed;
+	$content = $fin_embed->autoembed( $content );
 
 	unset( $seen_refs[ $attributes['slug'] ] );
 	return $content;

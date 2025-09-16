@@ -1,5 +1,5 @@
 // Allow these default styles to be overridden by global styles.
-:where(.fp-block-post-comments-form) {
+:where(.fin-block-post-comments-form) {
 	textarea,
 	input:not([type="submit"]) {
 		border: 1px solid $gray-600;

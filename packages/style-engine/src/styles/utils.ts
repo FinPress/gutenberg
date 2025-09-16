@@ -134,7 +134,7 @@ export function generateBoxRules(
  *
  * Example:
  *
- * `getCSSValueFromRawStyle( 'var:preset|color|heavenlyBlue' )` // returns 'var(--fp--preset--color--heavenly-blue)'
+ * `getCSSValueFromRawStyle( 'var:preset|color|heavenlyBlue' )` // returns 'var(--fin--preset--color--heavenly-blue)'
  *
  * @param styleValue A string representing a raw CSS value. Non-strings won't be processed.
  *
@@ -162,7 +162,7 @@ export function getCSSValueFromRawStyle< StyleValue = string >(
 				} )
 			)
 			.join( VARIABLE_PATH_SEPARATOR_TOKEN_STYLE );
-		return `var(--fp--${ variable })` as StyleValue;
+		return `var(--fin--${ variable })` as StyleValue;
 	}
 	return styleValue;
 }

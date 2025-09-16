@@ -138,7 +138,7 @@ function proxyComposite< C extends Component >(
 	const displayName = ProxiedComponent.displayName ?? '';
 
 	const Component = ( legacyProps: CompositeStateProps ) => {
-		deprecated( `fp.components.${ displayName }`, {
+		deprecated( `fin.components.${ displayName }`, {
 			since: '6.7',
 			alternative: LEGACY_TO_NEW_DISPLAY_NAME.hasOwnProperty(
 				displayName
@@ -225,7 +225,7 @@ export const CompositeItem = proxyComposite(
 export function useCompositeState(
 	legacyStateOptions: LegacyStateOptions = {}
 ): CompositeState {
-	deprecated( `fp.components.__unstableUseCompositeState`, {
+	deprecated( `fin.components.__unstableUseCompositeState`, {
 		since: '6.7',
 		alternative: LEGACY_TO_NEW_DISPLAY_NAME.__unstableUseCompositeState,
 	} );

@@ -5,10 +5,10 @@ const isValidLink = ( ref: HTMLAnchorElement ) =>
 	ref.href &&
 	( ! ref.target || ref.target === '_self' ) &&
 	ref.origin === window.location.origin &&
-	! ref.pathname.startsWith( '/fp-admin' ) &&
-	! ref.pathname.startsWith( '/fp-login.php' ) &&
+	! ref.pathname.startsWith( '/fin-admin' ) &&
+	! ref.pathname.startsWith( '/fin-login.php' ) &&
 	! ref.getAttribute( 'href' ).startsWith( '#' ) &&
-	! new URL( ref.href ).searchParams.has( '_fpnonce' );
+	! new URL( ref.href ).searchParams.has( '_finnonce' );
 
 // Check if the event is valid for client-side navigation.
 const isValidEvent = ( event: MouseEvent ) =>

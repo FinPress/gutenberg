@@ -6,7 +6,7 @@ const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 test.describe( 'Navigation block - Frontend interactivity', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'emptytheme' );
-		await requestUtils.deleteAllTemplates( 'fp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fin_template_part' );
 		await requestUtils.deleteAllPages();
 		await requestUtils.deleteAllMenus();
 	} );
@@ -16,7 +16,7 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 	} );
 
 	test.afterEach( async ( { requestUtils } ) => {
-		await requestUtils.deleteAllTemplates( 'fp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fin_template_part' );
 		await requestUtils.deleteAllPages();
 		await requestUtils.deleteAllMenus();
 	} );
@@ -25,14 +25,14 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 		test.beforeEach( async ( { admin, editor, requestUtils } ) => {
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//header',
-				postType: 'fp_template_part',
+				postType: 'fin_template_part',
 				canvas: 'edit',
 			} );
 			await requestUtils.createNavigationMenu( {
 				title: 'Hidden menu',
 				content: `
-					<!-- fp:navigation-link {"label":"Item 1","type":"custom","url":"http://www.finpress.org/"} /-->
-					<!-- fp:navigation-link {"label":"Item 2","type":"custom","url":"http://www.finpress.org/"} /-->
+					<!-- fin:navigation-link {"label":"Item 1","type":"custom","url":"http://www.finpress.org/"} /-->
+					<!-- fin:navigation-link {"label":"Item 2","type":"custom","url":"http://www.finpress.org/"} /-->
 					`,
 			} );
 			await editor.insertBlock( {
@@ -137,24 +137,24 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 		test.beforeEach( async ( { admin, editor, requestUtils } ) => {
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//header',
-				postType: 'fp_template_part',
+				postType: 'fin_template_part',
 				canvas: 'edit',
 			} );
 			await requestUtils.createNavigationMenu( {
 				title: 'Hidden menu',
 				content: `
-					<!-- fp:navigation-link {"label":"Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
-					<!-- fp:navigation-submenu {"label":"Simple Submenu","type":"internal","url":"#heading","kind":"custom"} -->
-						<!-- fp:navigation-link {"label":"Simple Submenu Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
-					<!-- /fp:navigation-submenu -->
-					<!-- fp:navigation-submenu {"label":"Complex Submenu","type":"internal","url":"#heading","kind":"custom"} -->
-						<!-- fp:navigation-link {"label":"Complex Submenu Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
-						<!-- fp:navigation-submenu {"label":"Nested Submenu","type":"internal","url":"#heading","kind":"custom"} -->
-							<!-- fp:navigation-link {"label":"Nested Submenu Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
-						<!-- /fp:navigation-submenu -->
-						<!-- fp:navigation-link {"label":"Complex Submenu Link 2","type":"custom","url":"http://www.finpress.org/"} /-->
-					<!-- /fp:navigation-submenu -->
-					<!-- fp:navigation-link {"label":"Link 2","type":"custom","url":"http://www.finpress.org/"} /-->
+					<!-- fin:navigation-link {"label":"Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
+					<!-- fin:navigation-submenu {"label":"Simple Submenu","type":"internal","url":"#heading","kind":"custom"} -->
+						<!-- fin:navigation-link {"label":"Simple Submenu Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
+					<!-- /fin:navigation-submenu -->
+					<!-- fin:navigation-submenu {"label":"Complex Submenu","type":"internal","url":"#heading","kind":"custom"} -->
+						<!-- fin:navigation-link {"label":"Complex Submenu Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
+						<!-- fin:navigation-submenu {"label":"Nested Submenu","type":"internal","url":"#heading","kind":"custom"} -->
+							<!-- fin:navigation-link {"label":"Nested Submenu Link 1","type":"custom","url":"http://www.finpress.org/"} /-->
+						<!-- /fin:navigation-submenu -->
+						<!-- fin:navigation-link {"label":"Complex Submenu Link 2","type":"custom","url":"http://www.finpress.org/"} /-->
+					<!-- /fin:navigation-submenu -->
+					<!-- fin:navigation-link {"label":"Link 2","type":"custom","url":"http://www.finpress.org/"} /-->
 					`,
 			} );
 			await editor.insertBlock( {
@@ -370,18 +370,18 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 		test.beforeEach( async ( { admin, editor, requestUtils } ) => {
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//header',
-				postType: 'fp_template_part',
+				postType: 'fin_template_part',
 				canvas: 'edit',
 			} );
 			await requestUtils.createNavigationMenu( {
 				title: 'Hidden menu',
 				content: `
-					<!-- fp:navigation-submenu {"label":"Submenu","type":"internal","url":"#heading","kind":"custom"} -->
-						<!-- fp:navigation-link {"label":"Submenu Link","type":"custom","url":"http://www.finpress.org/"} /-->
-						<!-- fp:navigation-submenu {"label":"Nested Menu","type":"internal","url":"#heading","kind":"custom"} -->
-							<!-- fp:navigation-link {"label":"Nested Menu Link","type":"custom","url":"http://www.finpress.org/"} /-->
-						<!-- /fp:navigation-submenu -->
-					<!-- /fp:navigation-submenu -->
+					<!-- fin:navigation-submenu {"label":"Submenu","type":"internal","url":"#heading","kind":"custom"} -->
+						<!-- fin:navigation-link {"label":"Submenu Link","type":"custom","url":"http://www.finpress.org/"} /-->
+						<!-- fin:navigation-submenu {"label":"Nested Menu","type":"internal","url":"#heading","kind":"custom"} -->
+							<!-- fin:navigation-link {"label":"Nested Menu Link","type":"custom","url":"http://www.finpress.org/"} /-->
+						<!-- /fin:navigation-submenu -->
+					<!-- /fin:navigation-submenu -->
 					`,
 			} );
 			await editor.insertBlock( {
@@ -466,14 +466,14 @@ test.describe( 'Navigation block - Frontend interactivity', () => {
 
 			await admin.visitSiteEditor( {
 				postId: 'emptytheme//header',
-				postType: 'fp_template_part',
+				postType: 'fin_template_part',
 				canvas: 'edit',
 			} );
 			await requestUtils.createNavigationMenu( {
 				title: 'Page list menu',
 				content: `
-					<!-- fp:page-list /-->
-					<!-- fp:navigation-link {"label":"Link","type":"custom","url":"http://www.finpress.org/"} /-->
+					<!-- fin:page-list /-->
+					<!-- fin:navigation-link {"label":"Link","type":"custom","url":"http://www.finpress.org/"} /-->
 					`,
 			} );
 			await editor.insertBlock( {

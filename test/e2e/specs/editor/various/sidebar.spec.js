@@ -136,7 +136,7 @@ test.describe( 'Sidebar', () => {
 
 		await page.evaluate( () => {
 			const { removeEditorPanel } =
-				window.fp.data.dispatch( 'core/editor' );
+				window.fin.data.dispatch( 'core/editor' );
 
 			removeEditorPanel( 'taxonomy-panel-category' );
 			removeEditorPanel( 'taxonomy-panel-post_tag' );

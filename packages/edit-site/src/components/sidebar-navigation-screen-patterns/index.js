@@ -102,7 +102,7 @@ function CategoriesGroup( {
 
 export default function SidebarNavigationScreenPatterns( { backPath } ) {
 	const {
-		query: { postType = 'fp_block', categoryId },
+		query: { postType = 'fin_block', categoryId },
 	} = useLocation();
 	const currentCategory =
 		categoryId ||

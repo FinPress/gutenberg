@@ -30,16 +30,16 @@ function gutenberg_test_meta_box_add_meta_box() {
 add_action( 'add_meta_boxes', 'gutenberg_test_meta_box_add_meta_box' );
 
 /**
- * Print excerpt in <meta> tag in fp_head
+ * Print excerpt in <meta> tag in fin_head
  */
 function gutenberg_test_meta_box_render_head() {
 	global $post;
 	setup_postdata( $post );
 	// Emulates what plugins like Yoast do with meta data on the front end.
 	// Tests that our excerpt processing does not interfere with dynamic blocks.
-	$excerpt = fp_strip_all_tags( get_the_excerpt() );
+	$excerpt = fin_strip_all_tags( get_the_excerpt() );
 	?>
 	<meta property="gutenberg:hello" content="<?php echo esc_attr( $excerpt ); ?>" />
 	<?php
 }
-add_action( 'fp_head', 'gutenberg_test_meta_box_render_head' );
+add_action( 'fin_head', 'gutenberg_test_meta_box_render_head' );

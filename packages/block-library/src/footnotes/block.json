@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/footnotes",
 	"title": "Footnotes",
@@ -60,5 +60,5 @@
 			"clientNavigation": true
 		}
 	},
-	"style": "fp-block-footnotes"
+	"style": "fin-block-footnotes"
 }

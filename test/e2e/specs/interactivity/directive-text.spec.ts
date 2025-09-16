@@ -3,7 +3,7 @@
  */
 import { test, expect } from './fixtures';
 
-test.describe( 'data-fp-text', () => {
+test.describe( 'data-fin-text', () => {
 	test.beforeAll( async ( { interactivityUtils: utils } ) => {
 		await utils.activatePlugins();
 		await utils.addPostWithBlock( 'test/directive-text' );

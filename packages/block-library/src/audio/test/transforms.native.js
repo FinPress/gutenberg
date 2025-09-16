@@ -11,9 +11,9 @@ import {
 
 const block = 'Audio';
 const initialHtml = `
-<!-- fp:audio {"id":5} -->
-<figure class="fp-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3"></audio></figure>
-<!-- /fp:audio -->`;
+<!-- fin:audio {"id":5} -->
+<figure class="fin-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3"></audio></figure>
+<!-- /fin:audio -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ 'File', ...transformsWithInnerBlocks ];

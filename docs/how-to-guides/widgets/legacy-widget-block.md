@@ -187,7 +187,7 @@ is defined in the `@finpress/widgets` package.
 
 ```php
 add_action( 'enqueue_block_editor_assets', function() {
-	fp_enqueue_script( 'fp-widgets' );
-	fp_add_inline_script( 'fp-widgets', 'fp.widgets.registerLegacyWidgetBlock()' );
+	fin_enqueue_script( 'fin-widgets' );
+	fin_add_inline_script( 'fin-widgets', 'fin.widgets.registerLegacyWidgetBlock()' );
 } );
 ```

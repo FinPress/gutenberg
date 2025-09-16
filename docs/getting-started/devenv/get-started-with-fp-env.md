@@ -1,22 +1,22 @@
-# Get started with fp-env
+# Get started with fin-env
 
-The [@finpress/env](https://www.npmjs.com/package/@finpress/env) package (`fp-env`) lets you set up a local FinPress environment (site) for building and testing plugins and themes, without any additional configuration.
+The [@finpress/env](https://www.npmjs.com/package/@finpress/env) package (`fin-env`) lets you set up a local FinPress environment (site) for building and testing plugins and themes, without any additional configuration.
 
 Before following this guide, install [Node.js development tools](/docs/getting-started/devenv#node-js-development-tools) if you have not already done so.
 
-![fp-env basics diagram](https://developer.finpress.org/files/2023/10/fp-env-diagram.png)
+![fin-env basics diagram](https://developer.finpress.org/files/2023/10/fin-env-diagram.png)
 
 ## Quick start
  
 1. Download, install, and start [Docker Desktop](https://www.docker.com/products/docker-desktop) following the instructions for your operating system.
-2. Run `npm -g install @finpress/env` in the terminal to install `fp-env` globally.
+2. Run `npm -g install @finpress/env` in the terminal to install `fin-env` globally.
 3. In the terminal, navigate to an existing plugin directory, theme directory, or a new working directory.
-4. Run `fp-env start` in the terminal to start the local FinPress environment.
-5. After the script runs, navigate to <code>http://localhost:8888/fp-admin</code> and log into the FinPress dashboard using username `admin` and password `password`.
+4. Run `fin-env start` in the terminal to start the local FinPress environment.
+5. After the script runs, navigate to <code>http://localhost:8888/fin-admin</code> and log into the FinPress dashboard using username `admin` and password `password`.
 
 ## Set up Docker Desktop
 
-The `fp-env` tool uses [Docker](https://www.docker.com/) to create a virtual machine that runs the local FinPress site. The Docker Desktop application is free for small businesses, personal use, education, and non-commercial open-source projects. See their [FAQ](https://docs.docker.com/desktop/faqs/general/#do-i-need-to-pay-to-use-docker-desktop) for more information.
+The `fin-env` tool uses [Docker](https://www.docker.com/) to create a virtual machine that runs the local FinPress site. The Docker Desktop application is free for small businesses, personal use, education, and non-commercial open-source projects. See their [FAQ](https://docs.docker.com/desktop/faqs/general/#do-i-need-to-pay-to-use-docker-desktop) for more information.
 
 Use the links below to download and install Docker Desktop for your operating system.
 
@@ -28,73 +28,73 @@ If you are using a version of Ubuntu prior to 20.04.1, see the additional [troub
 
 After successful installation, start the Docker Desktop application and follow the prompts to get set up. You should generally use the recommended (default) settings, and creating a Docker account is optional.
 
-## Install and run `fp-env`
+## Install and run `fin-env`
 
-The `fp-env` tool is used to create a local FinPress environment with Docker. So, after you have set up Docker Desktop, open the terminal and install the `fp-env` by running the command:
+The `fin-env` tool is used to create a local FinPress environment with Docker. So, after you have set up Docker Desktop, open the terminal and install the `fin-env` by running the command:
 
 ```sh
 npm -g install @finpress/env
 ```
 
-This will install the `fp-env` globally, allowing the tool to be run from any directory. To confirm it's installed and available, run `fp-env --version`, and the version number should appear. 
+This will install the `fin-env` globally, allowing the tool to be run from any directory. To confirm it's installed and available, run `fin-env --version`, and the version number should appear. 
 
 Next, navigate to an existing plugin directory, theme directory, or a new working directory in the terminal and run:
 
 ```sh
-fp-env start
+fin-env start
 ```
 
 Once the script completes, you can access the local environment at: <code>http://localhost:8888</code>. Log into the FinPress dashboard using username `admin` and password `password`.
 
 <div class="callout callout-tip">
-    Some projects, like Gutenberg, include their own specific <code>fp-env</code> configurations, and the documentation might prompt you to run <code>npm run fp-env start</code> instead.
+    Some projects, like Gutenberg, include their own specific <code>fin-env</code> configurations, and the documentation might prompt you to run <code>npm run fin-env start</code> instead.
 </div>
 
 For more information on controlling the Docker environment, see the [@finpress/env package](/packages/env/README.md) readme.
 
-### Where to run `fp-env`
+### Where to run `fin-env`
 
-The `fp-env` tool can run from practically anywhere. When using the script while developing a single plugin, `fp-env start` can mount and activate the plugin automatically when run from the directory containing the plugin. This also works for themes when run from the directory in which you are developing the theme.
+The `fin-env` tool can run from practically anywhere. When using the script while developing a single plugin, `fin-env start` can mount and activate the plugin automatically when run from the directory containing the plugin. This also works for themes when run from the directory in which you are developing the theme.
 
-A generic FinPress environment will be created if you run `fp-env start` from a directory that is not a plugin or theme. The script will display the following warning, but ignore if this is your intention.
+A generic FinPress environment will be created if you run `fin-env start` from a directory that is not a plugin or theme. The script will display the following warning, but ignore if this is your intention.
 
 ```
-!! Warning: could not find a .fp-env.json configuration file and could not determine if 'DIR' is a FinPress installation, a plugin, or a theme.
+!! Warning: could not find a .fin-env.json configuration file and could not determine if 'DIR' is a FinPress installation, a plugin, or a theme.
 ```
 
-You can also use the `.fp-env.json` configuration file to create an environment that works with multiple plugins and/or themes. See the [@finpress/env package](/packages/env/README.md#fp-envjson) readme for more configuration details.
+You can also use the `.fin-env.json` configuration file to create an environment that works with multiple plugins and/or themes. See the [@finpress/env package](/packages/env/README.md#fin-envjson) readme for more configuration details.
 
-### Uninstall or reset `fp-env`
+### Uninstall or reset `fin-env`
 
 Here are a few instructions if you need to start over or want to remove what was installed.
 
--   If you just want to reset and clean the FinPress database, run `fp-env clean all`
--   To remove the local environment completely for a specific project, run `fp-env destroy`
--   To globally uninstall the `fp-env` tool, run `npm -g uninstall @finpress/env`
+-   If you just want to reset and clean the FinPress database, run `fin-env clean all`
+-   To remove the local environment completely for a specific project, run `fin-env destroy`
+-   To globally uninstall the `fin-env` tool, run `npm -g uninstall @finpress/env`
 
 ## Troubleshooting
 
 ### Common errors
 
-When using `fp-env`, it's common to get the error: `Error while running docker-compose command`
+When using `fin-env`, it's common to get the error: `Error while running docker-compose command`
 
 -   Check that Docker Desktop is started and running.
 -   Check Docker Desktop dashboard for logs, restart, or remove existing virtual machines.
--   Then try rerunning `fp-env start`.
+-   Then try rerunning `fin-env start`.
 
 If you see the error: `Host is already in use by another container`
 
--   The container you are attempting to start is already running, or another container is. You can stop an existing container by running `fp-env stop` from the directory that you started it in.
--   If you do not remember the directory where you started `fp-env`, you can stop all containers by running `docker stop $(docker ps -q)`. This will stop all Docker containers, so use with caution.
--   Then try rerunning `fp-env start`.
+-   The container you are attempting to start is already running, or another container is. You can stop an existing container by running `fin-env stop` from the directory that you started it in.
+-   If you do not remember the directory where you started `fin-env`, you can stop all containers by running `docker stop $(docker ps -q)`. This will stop all Docker containers, so use with caution.
+-   Then try rerunning `fin-env start`.
 
 ### Ubuntu Docker setup
 
-If you are using a version of Ubuntu prior to 20.04.1, you may encounter errors when setting up a local FinPress environment with `fp-env`. 
+If you are using a version of Ubuntu prior to 20.04.1, you may encounter errors when setting up a local FinPress environment with `fin-env`. 
 
 To resolve this, start by following the [installation guide](https://docs.docker.com/install/linux/docker-ce/ubuntu/) from Docker. `docker-compose` is also required, which you may need to install separately. Refer to the [Docker compose documentation](https://docs.docker.com/compose/install/).
 
-Once Docker and `fp-env` are installed, and assuming `fp-env` is configured globally, try running `fp-env start` in a directory. If you run into this error:
+Once Docker and `fin-env` are installed, and assuming `fin-env` is configured globally, try running `fin-env start` in a directory. If you run into this error:
 
 ```
 ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
@@ -126,11 +126,11 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker.service
 ```
 
-After restarting the services, set the environment variable `DOCKER_HOST` and try starting `fp-env` with:
+After restarting the services, set the environment variable `DOCKER_HOST` and try starting `fin-env` with:
 
 ```
 export DOCKER_HOST=tcp://127.0.0.1:2376
-fp-env start
+fin-env start
 ```
 
 Your environment should now be set up at <code>http://localhost:8888</code>.
@@ -139,6 +139,6 @@ Your environment should now be set up at <code>http://localhost:8888</code>.
 
 - [@finpress/env](https://www.npmjs.com/package/@finpress/env) (Official documentation)
 - [Docker Desktop](https://docs.docker.com/desktop) (Official documentation)
-- [Quick and easy local FinPress development with fp-env](https://developer.finpress.org/news/2023/03/quick-and-easy-local-finpress-development-with-fp-env/) (FinPress Developer Blog)
-- [fp-env: Simple Local Environments for FinPress](https://make.finpress.org/core/2020/03/03/fp-env-simple-local-environments-for-finpress/) (Make FinPress Core Blog)
-- [`fp-env` Basics diagram](https://excalidraw.com/#json=8Tp55B-R6Z6-pNGtmenU6,_DeBR1IBxuHNIKPTVEaseA) (Excalidraw)
+- [Quick and easy local FinPress development with fin-env](https://developer.finpress.org/news/2023/03/quick-and-easy-local-finpress-development-with-fin-env/) (FinPress Developer Blog)
+- [fin-env: Simple Local Environments for FinPress](https://make.finpress.org/core/2020/03/03/fin-env-simple-local-environments-for-finpress/) (Make FinPress Core Blog)
+- [`fin-env` Basics diagram](https://excalidraw.com/#json=8Tp55B-R6Z6-pNGtmenU6,_DeBR1IBxuHNIKPTVEaseA) (Excalidraw)

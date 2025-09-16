@@ -5,9 +5,9 @@
 			"color": "accent"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<hr class=\"fp-block-separator has-text-color has-background has-accent-background-color has-accent-color\"/>\n",
+		"innerHTML": "\n<hr class=\"fin-block-separator has-text-color has-background has-accent-background-color has-accent-color\"/>\n",
 		"innerContent": [
-			"\n<hr class=\"fp-block-separator has-text-color has-background has-accent-background-color has-accent-color\"/>\n"
+			"\n<hr class=\"fin-block-separator has-text-color has-background has-accent-background-color has-accent-color\"/>\n"
 		]
 	}
 ]

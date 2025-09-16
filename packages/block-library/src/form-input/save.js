@@ -47,7 +47,7 @@ export default function save( { attributes } ) {
 	};
 
 	const inputClasses = clsx(
-		'fp-block-form-input__input',
+		'fin-block-form-input__input',
 		colorProps.className,
 		borderProps.className
 	);
@@ -66,12 +66,12 @@ export default function save( { attributes } ) {
 		<div { ...blockProps }>
 			{ /* eslint-disable jsx-a11y/label-has-associated-control */ }
 			<label
-				className={ clsx( 'fp-block-form-input__label', {
+				className={ clsx( 'fin-block-form-input__label', {
 					'is-label-inline': inlineLabel,
 				} ) }
 			>
 				{ ! isCheckboxOrRadio && (
-					<span className="fp-block-form-input__label-content">
+					<span className="fin-block-form-input__label-content">
 						<RichText.Content value={ label } />
 					</span>
 				) }
@@ -85,7 +85,7 @@ export default function save( { attributes } ) {
 					style={ inputStyle }
 				/>
 				{ isCheckboxOrRadio && (
-					<span className="fp-block-form-input__label-content">
+					<span className="fin-block-form-input__label-content">
 						<RichText.Content value={ label } />
 					</span>
 				) }

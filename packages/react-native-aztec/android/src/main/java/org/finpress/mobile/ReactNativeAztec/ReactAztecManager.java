@@ -55,9 +55,9 @@ import org.finpress.aztec.plugins.MarkPlugin;
 import org.finpress.aztec.plugins.shortcodes.AudioShortcodePlugin;
 import org.finpress.aztec.plugins.shortcodes.CaptionShortcodePlugin;
 import org.finpress.aztec.plugins.shortcodes.VideoShortcodePlugin;
-import org.finpress.aztec.plugins.fpcomments.HiddenGutenbergPlugin;
-import org.finpress.aztec.plugins.fpcomments.FinPressCommentsPlugin;
-import org.finpress.aztec.plugins.fpcomments.toolbar.MoreToolbarButton;
+import org.finpress.aztec.plugins.fincomments.HiddenGutenbergPlugin;
+import org.finpress.aztec.plugins.fincomments.FinPressCommentsPlugin;
+import org.finpress.aztec.plugins.fincomments.toolbar.MoreToolbarButton;
 
 import java.util.Map;
 import java.util.ArrayList;

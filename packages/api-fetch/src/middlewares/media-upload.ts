@@ -19,8 +19,8 @@ import type { APIFetchOptions, APIFetchMiddleware } from '../types';
 function isMediaUploadRequest( options: APIFetchOptions ) {
 	const isCreateMethod = !! options.method && options.method === 'POST';
 	const isMediaEndpoint =
-		( !! options.path && options.path.indexOf( '/fp/v2/media' ) !== -1 ) ||
-		( !! options.url && options.url.indexOf( '/fp/v2/media' ) !== -1 );
+		( !! options.path && options.path.indexOf( '/fin/v2/media' ) !== -1 ) ||
+		( !! options.url && options.url.indexOf( '/fin/v2/media' ) !== -1 );
 
 	return isMediaEndpoint && isCreateMethod;
 }
@@ -45,7 +45,7 @@ const mediaUploadMiddleware: APIFetchMiddleware = ( options, next ) => {
 	const postProcess = ( attachmentId: string ): Promise< any > => {
 		retries++;
 		return next( {
-			path: `/fp/v2/media/${ attachmentId }/post-process`,
+			path: `/fin/v2/media/${ attachmentId }/post-process`,
 			method: 'POST',
 			data: { action: 'create-image-subsizes' },
 			parse: false,
@@ -54,7 +54,7 @@ const mediaUploadMiddleware: APIFetchMiddleware = ( options, next ) => {
 				return postProcess( attachmentId );
 			}
 			next( {
-				path: `/fp/v2/media/${ attachmentId }?force=true`,
+				path: `/fin/v2/media/${ attachmentId }?force=true`,
 				method: 'DELETE',
 			} );
 
@@ -70,7 +70,7 @@ const mediaUploadMiddleware: APIFetchMiddleware = ( options, next ) => {
 			}
 
 			const attachmentId = response.headers.get(
-				'x-fp-upload-attachment-id'
+				'x-fin-upload-attachment-id'
 			);
 			if (
 				response.status >= 500 &&

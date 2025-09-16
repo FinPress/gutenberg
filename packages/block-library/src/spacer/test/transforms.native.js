@@ -11,9 +11,9 @@ import {
 
 const block = 'Spacer';
 const initialHtml = `
-<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->`;
+<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ 'Separator', ...transformsWithInnerBlocks ];

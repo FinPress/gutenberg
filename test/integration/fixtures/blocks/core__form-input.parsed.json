@@ -3,9 +3,9 @@
 		"blockName": "core/form-input",
 		"attrs": {},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-form-input\"><label class=\"fp-block-form-input__label\"><span class=\"fp-block-form-input__label-content\">Label</span><input class=\"fp-block-form-input__input\" type=\"text\" name=\"label\" aria-required=\"false\"/></label></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-form-input\"><label class=\"fin-block-form-input__label\"><span class=\"fin-block-form-input__label-content\">Label</span><input class=\"fin-block-form-input__input\" type=\"text\" name=\"label\" aria-required=\"false\"/></label></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-form-input\"><label class=\"fp-block-form-input__label\"><span class=\"fp-block-form-input__label-content\">Label</span><input class=\"fp-block-form-input__input\" type=\"text\" name=\"label\" aria-required=\"false\"/></label></div>\n"
+			"\n<div class=\"fin-block-form-input\"><label class=\"fin-block-form-input__label\"><span class=\"fin-block-form-input__label-content\">Label</span><input class=\"fin-block-form-input__input\" type=\"text\" name=\"label\" aria-required=\"false\"/></label></div>\n"
 		]
 	},
 	{
@@ -21,9 +21,9 @@
 			"type": "email"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-form-input\"><label class=\"fp-block-form-input__label\"><span class=\"fp-block-form-input__label-content\">Label</span><input class=\"fp-block-form-input__input\" type=\"email\" name=\"label\" aria-required=\"false\"/></label></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-form-input\"><label class=\"fin-block-form-input__label\"><span class=\"fin-block-form-input__label-content\">Label</span><input class=\"fin-block-form-input__input\" type=\"email\" name=\"label\" aria-required=\"false\"/></label></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-form-input\"><label class=\"fp-block-form-input__label\"><span class=\"fp-block-form-input__label-content\">Label</span><input class=\"fp-block-form-input__input\" type=\"email\" name=\"label\" aria-required=\"false\"/></label></div>\n"
+			"\n<div class=\"fin-block-form-input\"><label class=\"fin-block-form-input__label\"><span class=\"fin-block-form-input__label-content\">Label</span><input class=\"fin-block-form-input__input\" type=\"email\" name=\"label\" aria-required=\"false\"/></label></div>\n"
 		]
 	},
 	{
@@ -39,9 +39,9 @@
 			"type": "number"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-form-input\"><label class=\"fp-block-form-input__label\"><span class=\"fp-block-form-input__label-content\">Label</span><input class=\"fp-block-form-input__input\" type=\"number\" name=\"label\" aria-required=\"false\"/></label></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-form-input\"><label class=\"fin-block-form-input__label\"><span class=\"fin-block-form-input__label-content\">Label</span><input class=\"fin-block-form-input__input\" type=\"number\" name=\"label\" aria-required=\"false\"/></label></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-form-input\"><label class=\"fp-block-form-input__label\"><span class=\"fp-block-form-input__label-content\">Label</span><input class=\"fp-block-form-input__input\" type=\"number\" name=\"label\" aria-required=\"false\"/></label></div>\n"
+			"\n<div class=\"fin-block-form-input\"><label class=\"fin-block-form-input__label\"><span class=\"fin-block-form-input__label-content\">Label</span><input class=\"fin-block-form-input__input\" type=\"number\" name=\"label\" aria-required=\"false\"/></label></div>\n"
 		]
 	},
 	{
@@ -57,9 +57,9 @@
 			"type": "tel"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-form-input\"><label class=\"fp-block-form-input__label\"><span class=\"fp-block-form-input__label-content\">Label</span><input class=\"fp-block-form-input__input\" type=\"tel\" name=\"label\" aria-required=\"false\"/></label></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-form-input\"><label class=\"fin-block-form-input__label\"><span class=\"fin-block-form-input__label-content\">Label</span><input class=\"fin-block-form-input__input\" type=\"tel\" name=\"label\" aria-required=\"false\"/></label></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-form-input\"><label class=\"fp-block-form-input__label\"><span class=\"fp-block-form-input__label-content\">Label</span><input class=\"fp-block-form-input__input\" type=\"tel\" name=\"label\" aria-required=\"false\"/></label></div>\n"
+			"\n<div class=\"fin-block-form-input\"><label class=\"fin-block-form-input__label\"><span class=\"fin-block-form-input__label-content\">Label</span><input class=\"fin-block-form-input__input\" type=\"tel\" name=\"label\" aria-required=\"false\"/></label></div>\n"
 		]
 	},
 	{
@@ -75,9 +75,9 @@
 			"type": "url"
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-form-input\"><label class=\"fp-block-form-input__label\"><span class=\"fp-block-form-input__label-content\">Label</span><input class=\"fp-block-form-input__input\" type=\"url\" name=\"label\" aria-required=\"false\"/></label></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-form-input\"><label class=\"fin-block-form-input__label\"><span class=\"fin-block-form-input__label-content\">Label</span><input class=\"fin-block-form-input__input\" type=\"url\" name=\"label\" aria-required=\"false\"/></label></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-form-input\"><label class=\"fp-block-form-input__label\"><span class=\"fp-block-form-input__label-content\">Label</span><input class=\"fp-block-form-input__input\" type=\"url\" name=\"label\" aria-required=\"false\"/></label></div>\n"
+			"\n<div class=\"fin-block-form-input\"><label class=\"fin-block-form-input__label\"><span class=\"fin-block-form-input__label-content\">Label</span><input class=\"fin-block-form-input__input\" type=\"url\" name=\"label\" aria-required=\"false\"/></label></div>\n"
 		]
 	}
 ]

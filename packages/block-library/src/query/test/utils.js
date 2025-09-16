@@ -93,7 +93,7 @@ describe( 'Query block utils', () => {
 				isSingular: true,
 				templateType: 'page',
 			} );
-			expect( getQueryContextFromTemplate( 'fp' ) ).toStrictEqual( {
+			expect( getQueryContextFromTemplate( 'fin' ) ).toStrictEqual( {
 				isSingular: true,
 				templateType: 'custom',
 			} );

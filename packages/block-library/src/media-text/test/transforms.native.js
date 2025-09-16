@@ -11,17 +11,17 @@ import {
 
 const block = 'Media & Text';
 const initialHtmlWithImage = `
-<!-- fp:media-text {"mediaId":4674,"mediaType":"image","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
-<div class="fp-block-media-text alignwide is-stacked-on-mobile"><figure class="fp-block-media-text__media"><img src="https://cldup.com/cXyG__fTLN.jpg" class="fp-image-4674 size-full"/></figure><div class="fp-block-media-text__content"><!-- fp:paragraph {"className":"has-large-font-size"} -->
+<!-- fin:media-text {"mediaId":4674,"mediaType":"image","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
+<div class="fin-block-media-text alignwide is-stacked-on-mobile"><figure class="fin-block-media-text__media"><img src="https://cldup.com/cXyG__fTLN.jpg" class="fin-image-4674 size-full"/></figure><div class="fin-block-media-text__content"><!-- fin:paragraph {"className":"has-large-font-size"} -->
 <p class="has-large-font-size">Mountain</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:media-text -->`;
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:media-text -->`;
 const initialHtmlWithVideo = `
-<!-- fp:media-text {"mediaId":4675,"mediaType":"video","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
-<div class="fp-block-media-text alignwide is-stacked-on-mobile"><figure class="fp-block-media-text__media"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure><div class="fp-block-media-text__content"><!-- fp:paragraph {"className":"has-large-font-size"} -->
+<!-- fin:media-text {"mediaId":4675,"mediaType":"video","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
+<div class="fin-block-media-text alignwide is-stacked-on-mobile"><figure class="fin-block-media-text__media"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure><div class="fin-block-media-text__content"><!-- fin:paragraph {"className":"has-large-font-size"} -->
 <p class="has-large-font-size">Cloudup</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:media-text -->`;
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:media-text -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransformsWithImage = [

@@ -9,7 +9,7 @@ import { canvas } from './canvas';
 export async function clickBlockAppender() {
 	// The block appender is only visible when there's no selection.
 	await page.evaluate( () =>
-		window.fp.data.dispatch( 'core/block-editor' ).clearSelectedBlock()
+		window.fin.data.dispatch( 'core/block-editor' ).clearSelectedBlock()
 	);
 	const appender = await canvas().waitForSelector(
 		'.block-editor-default-block-appender__content'

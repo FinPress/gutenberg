@@ -71,7 +71,7 @@ function useConvertClassicToBlockMenu(
 			// 2. Convert the classic items into blocks.
 			const { innerBlocks } = menuItemsToBlocks( classicMenuItems );
 
-			// 3. Create the `fp_navigation` Post with the blocks.
+			// 3. Create the `fin_navigation` Post with the blocks.
 			try {
 				navigationMenu = await createNavigationMenu(
 					menuName,
@@ -80,15 +80,15 @@ function useConvertClassicToBlockMenu(
 				);
 
 				/**
-				 * Immediately trigger editEntityRecord to change the fp_navigation post status to 'publish'.
+				 * Immediately trigger editEntityRecord to change the fin_navigation post status to 'publish'.
 				 * This status change causes the menu to be displayed on the front of the site and sets the post state to be "dirty".
 				 * The problem being solved is if saveEditedEntityRecord was used here, the menu would be updated on the frontend and the editor _automatically_,
 				 * without user interaction.
-				 * If the user abandons the site editor without saving, there would still be a fp_navigation post created as draft.
+				 * If the user abandons the site editor without saving, there would still be a fin_navigation post created as draft.
 				 */
 				await editEntityRecord(
 					'postType',
-					'fp_navigation',
+					'fin_navigation',
 					navigationMenu.id,
 					{
 						status: 'publish',

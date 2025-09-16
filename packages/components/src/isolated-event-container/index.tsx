@@ -17,7 +17,7 @@ type DivProps = ComponentPropsWithoutRef< 'div' >;
 
 const IsolatedEventContainer = forwardRef< HTMLDivElement, DivProps >(
 	( props, ref ) => {
-		deprecated( 'fp.components.IsolatedEventContainer', {
+		deprecated( 'fin.components.IsolatedEventContainer', {
 			since: '5.7',
 		} );
 

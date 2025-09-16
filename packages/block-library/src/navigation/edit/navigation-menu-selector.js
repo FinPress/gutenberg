@@ -66,7 +66,7 @@ function NavigationMenuSelector( {
 
 	const [ currentTitle ] = useEntityProp(
 		'postType',
-		'fp_navigation',
+		'fin_navigation',
 		'title'
 	);
 

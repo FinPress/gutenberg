@@ -146,7 +146,7 @@ module.exports = {
 	],
 	plugins: [ 'react-compiler' ],
 	globals: {
-		fp: 'off',
+		fin: 'off',
 		globalThis: 'readonly',
 	},
 	settings: {
@@ -164,7 +164,7 @@ module.exports = {
 			{ props: 'never', children: 'never' },
 		],
 		'@finpress/dependency-group': 'error',
-		'@finpress/fp-global-usage': 'error',
+		'@finpress/fin-global-usage': 'error',
 		'@finpress/react-no-unsafe-timeout': 'error',
 		'@finpress/i18n-hyphenated-range': 'error',
 		'@finpress/i18n-no-flanking-whitespace': 'error',
@@ -174,7 +174,7 @@ module.exports = {
 				allowedTextDomain: 'default',
 			},
 		],
-		'@finpress/no-unsafe-fp-apis': 'off',
+		'@finpress/no-unsafe-fin-apis': 'off',
 		'@finpress/data-no-store-string-literals': 'error',
 		'import/default': 'error',
 		'import/named': 'error',
@@ -466,16 +466,16 @@ module.exports = {
 					...restrictedSyntaxComponents,
 					{
 						selector:
-							':matches(Literal[value=/--fp-admin-theme-/],TemplateElement[value.cooked=/--fp-admin-theme-/])',
+							':matches(Literal[value=/--fin-admin-theme-/],TemplateElement[value.cooked=/--fin-admin-theme-/])',
 						message:
-							'--fp-admin-theme-* variables do not support component theming. Use variables from the COLORS object in packages/components/src/utils/colors-values.js instead.',
+							'--fin-admin-theme-* variables do not support component theming. Use variables from the COLORS object in packages/components/src/utils/colors-values.js instead.',
 					},
 					{
 						selector:
 							// Allow overriding definitions, but not access with var()
-							':matches(Literal[value=/var\\(\\s*--fp-components-color-/],TemplateElement[value.cooked=/var\\(\\s*--fp-components-color-/])',
+							':matches(Literal[value=/var\\(\\s*--fin-components-color-/],TemplateElement[value.cooked=/var\\(\\s*--fin-components-color-/])',
 						message:
-							'To ensure proper fallbacks, --fp-components-color-* variables should not be used directly. Use variables from the COLORS object in packages/components/src/utils/colors-values.js instead.',
+							'To ensure proper fallbacks, --fin-components-color-* variables should not be used directly. Use variables from the COLORS object in packages/components/src/utils/colors-values.js instead.',
 					},
 				],
 			},

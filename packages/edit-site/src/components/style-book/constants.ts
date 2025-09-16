@@ -240,7 +240,7 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 	}
 
 	.edit-site-style-book__example.is-selected {
-		box-shadow: 0 0 0 1px var(--fp-components-color-accent, var(--fp-admin-theme-color, #007cba));
+		box-shadow: 0 0 0 1px var(--fin-components-color-accent, var(--fin-admin-theme-color, #007cba));
 	}
 
 	.edit-site-style-book__example.is-disabled-example {
@@ -248,7 +248,7 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 	}
 
 	.edit-site-style-book__example:focus:not(:disabled) {
-		box-shadow: 0 0 0 var(--fp-admin-border-width-focus) var(--fp-components-color-accent, var(--fp-admin-theme-color, #007cba));
+		box-shadow: 0 0 0 var(--fin-admin-border-width-focus) var(--fin-components-color-accent, var(--fin-admin-theme-color, #007cba));
 		outline: 3px solid transparent;
 	}
 
@@ -299,10 +299,10 @@ export const STYLE_BOOK_IFRAME_STYLES = `
 	.edit-site-style-book__example-preview .block-list-appender {
 		display: none;
 	}
-	:where(.is-root-container > .fp-block:first-child) {
+	:where(.is-root-container > .fin-block:first-child) {
 		margin-top: 0;
 	}
-	:where(.is-root-container > .fp-block:last-child) {
+	:where(.is-root-container > .fin-block:last-child) {
 		margin-bottom: 0;
 	}
 `;

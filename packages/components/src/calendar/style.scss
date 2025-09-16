@@ -1,11 +1,11 @@
 /* Root of the component. */
 // Internal variables
-$fp-components-calendar-outline-focus: var(--fp-admin-border-width-focus) solid $components-color-accent;
-$fp-components-calendar-button-height: $grid-unit-40;
-$fp-components-calendar-button-width: $grid-unit-40;
-$fp-components-calendar-nav-height: $grid-unit-40;
-$fp-components-calendar-range-middle-background-color: color-mix(in srgb, $components-color-accent 4%, transparent);
-$fp-components-calendar-preview-border-color: color-mix(in srgb, $components-color-accent 16%, transparent);
+$fin-components-calendar-outline-focus: var(--fin-admin-border-width-focus) solid $components-color-accent;
+$fin-components-calendar-button-height: $grid-unit-40;
+$fin-components-calendar-button-width: $grid-unit-40;
+$fin-components-calendar-nav-height: $grid-unit-40;
+$fin-components-calendar-range-middle-background-color: color-mix(in srgb, $components-color-accent 4%, transparent);
+$fin-components-calendar-preview-border-color: color-mix(in srgb, $components-color-accent 16%, transparent);
 
 .components-calendar {
 	// TODO: add font family rule when Theme is ready
@@ -53,8 +53,8 @@ $fp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	display: flex;
 	position: relative;
 
-	width: $fp-components-calendar-button-width;
-	height: $fp-components-calendar-button-height;
+	width: $fin-components-calendar-button-width;
+	height: $fin-components-calendar-button-height;
 
 	border: none;
 	border-radius: $radius-small;
@@ -96,7 +96,7 @@ $fp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	}
 
 	&:focus-visible {
-		outline: $fp-components-calendar-outline-focus;
+		outline: $fin-components-calendar-outline-focus;
 		outline-offset: 1px;
 	}
 }
@@ -130,8 +130,8 @@ $fp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	position: relative;
 	appearance: none;
 
-	width: $fp-components-calendar-button-width;
-	height: $fp-components-calendar-button-height;
+	width: $fin-components-calendar-button-width;
+	height: $fin-components-calendar-button-height;
 
 	color: inherit;
 
@@ -143,7 +143,7 @@ $fp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	}
 
 	&:focus-visible {
-		outline: $fp-components-calendar-outline-focus;
+		outline: $fin-components-calendar-outline-focus;
 	}
 }
 
@@ -166,7 +166,7 @@ $fp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	justify-content: center;
 	align-content: center;
 
-	height: $fp-components-calendar-nav-height;
+	height: $fin-components-calendar-nav-height;
 	margin-bottom: $grid-unit-15;
 }
 
@@ -194,12 +194,12 @@ $fp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	align-items: center;
 	justify-content: space-between;
 
-	height: $fp-components-calendar-nav-height;
+	height: $fin-components-calendar-nav-height;
 }
 
 .components-calendar__weekday {
-	width: $fp-components-calendar-button-width;
-	height: $fp-components-calendar-button-height;
+	width: $fin-components-calendar-button-width;
+	height: $fin-components-calendar-button-height;
 	padding: 0;
 
 	color: $components-color-gray-700;
@@ -269,7 +269,7 @@ $fp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 // Middle of date range
 .components-calendar__range-middle .components-calendar__day-button {
 	&::before {
-		background-color: $fp-components-calendar-range-middle-background-color;
+		background-color: $fin-components-calendar-range-middle-background-color;
 		border-radius: 0;
 
 		// Render a top and bottom transparent border to highlight the selected
@@ -309,7 +309,7 @@ $fp-components-calendar-preview-border-color: color-mix(in srgb, $components-col
 	position: absolute;
 	inset: 0;
 	pointer-events: none;
-	color: $fp-components-calendar-preview-border-color;
+	color: $fin-components-calendar-preview-border-color;
 
 	@media ( forced-colors: active ) {
 		color: inherit;

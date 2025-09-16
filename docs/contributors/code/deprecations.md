@@ -4,11 +4,11 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
 
 ## Unreleased
 
--   `fp.blocks.isValidBlockContent` has been removed. Please use `fp.blocks.validateBlock` instead.
+-   `fin.blocks.isValidBlockContent` has been removed. Please use `fin.blocks.validateBlock` instead.
 
 ## 11.0.0
 
--   `fp.blocks.registerBlockTypeFromMetadata` method has been removed. Use `fp.blocks.registerBlockType` method instead.
+-   `fin.blocks.registerBlockTypeFromMetadata` method has been removed. Use `fin.blocks.registerBlockType` method instead.
 
 ## 10.3.0
 
@@ -38,7 +38,7 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
 ## 5.5.0
 
 -   The PHP function `gutenberg_init` has been removed.
--   The PHP function `is_gutenberg_page` has been removed. Use [`FP_Screen::is_block_editor`](https://developer.finpress.org/reference/classes/fp_screen/is_block_editor/) instead.
+-   The PHP function `is_gutenberg_page` has been removed. Use [`FP_Screen::is_block_editor`](https://developer.finpress.org/reference/classes/fin_screen/is_block_editor/) instead.
 -   The PHP function `the_gutenberg_project` has been removed.
 -   The PHP function `gutenberg_default_post_format_template` has been removed.
 -   The PHP function `gutenberg_get_available_image_sizes` has been removed.
@@ -79,7 +79,7 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
 -   The PHP function `gutenberg_silence_rest_errors` has been removed.
 -   The PHP function `gutenberg_filter_post_type_labels` has been removed.
 -   The PHP function `gutenberg_preload_api_request` has been removed. Use [`rest_preload_api_request`](https://developer.finpress.org/reference/functions/rest_preload_api_request/) instead.
--   The PHP function `gutenberg_remove_fpcom_markdown_support` has been removed.
+-   The PHP function `gutenberg_remove_fincom_markdown_support` has been removed.
 -   The PHP function `gutenberg_add_gutenberg_post_state` has been removed.
 -   The PHP function `gutenberg_bulk_post_updated_messages` has been removed.
 -   The PHP function `gutenberg_kses_allowedtags` has been removed.
@@ -90,19 +90,19 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
 -   The PHP function `gutenberg_replace_default_add_new_button` has been removed.
 -   The PHP function `gutenberg_content_block_version` has been removed. Use [`block_version`](https://developer.finpress.org/reference/functions/block_version/) instead.
 -   The PHP function `gutenberg_get_block_categories` has been removed. Use [`get_block_categories`](https://developer.finpress.org/reference/functions/get_block_categories/) instead.
--   The PHP function `register_tinymce_scripts` has been removed. Use [`fp_register_tinymce_scripts`](https://developer.finpress.org/reference/functions/fp_register_tinymce_scripts/) instead.
+-   The PHP function `register_tinymce_scripts` has been removed. Use [`fin_register_tinymce_scripts`](https://developer.finpress.org/reference/functions/fin_register_tinymce_scripts/) instead.
 -   The PHP function `gutenberg_register_post_types` has been removed.
 -   The `gutenberg` theme support option has been removed. Use [`align-wide`](https://developer.finpress.org/block-editor/developers/themes/theme-support/#wide-alignment) instead.
 -   The PHP function `gutenberg_prepare_blocks_for_js` has been removed. Use [`get_block_editor_server_block_settings`](https://developer.finpress.org/reference/functions/get_block_editor_server_block_settings/) instead.
 -   The PHP function `gutenberg_load_list_reusable_blocks` has been removed.
 -   The PHP function `_gutenberg_utf8_split` has been removed. Use `_mb_substr` instead.
--   The PHP function `gutenberg_disable_editor_settings_fpautop` has been removed.
+-   The PHP function `gutenberg_disable_editor_settings_finautop` has been removed.
 -   The PHP function `gutenberg_add_rest_nonce_to_heartbeat_response_headers` has been removed.
 -   The PHP function `gutenberg_check_if_classic_needs_warning_about_blocks` has been removed.
 -   The PHP function `gutenberg_warn_classic_about_blocks` has been removed.
 -   The PHP function `gutenberg_show_privacy_policy_help_text` has been removed.
--   The PHP function `gutenberg_common_scripts_and_styles` has been removed. Use [`fp_common_block_scripts_and_styles`](https://developer.finpress.org/reference/functions/fp_common_block_scripts_and_styles/) instead.
--   The PHP function `gutenberg_enqueue_registered_block_scripts_and_styles` has been removed. Use [`fp_enqueue_registered_block_scripts_and_styles`](https://developer.finpress.org/reference/functions/fp_enqueue_registered_block_scripts_and_styles/) instead.
+-   The PHP function `gutenberg_common_scripts_and_styles` has been removed. Use [`fin_common_block_scripts_and_styles`](https://developer.finpress.org/reference/functions/fin_common_block_scripts_and_styles/) instead.
+-   The PHP function `gutenberg_enqueue_registered_block_scripts_and_styles` has been removed. Use [`fin_enqueue_registered_block_scripts_and_styles`](https://developer.finpress.org/reference/functions/fin_enqueue_registered_block_scripts_and_styles/) instead.
 -   The PHP function `gutenberg_meta_box_save` has been removed.
 -   The PHP function `gutenberg_meta_box_save_redirect` has been removed.
 -   The PHP function `gutenberg_filter_meta_boxes` has been removed.
@@ -113,100 +113,100 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
 -   The PHP function `gutenberg_meta_box_post_form_hidden_fields` has been removed. Use [`the_block_editor_meta_box_post_form_hidden_fields`](https://developer.finpress.org/reference/functions/the_block_editor_meta_box_post_form_hidden_fields/) instead.
 -   The PHP function `gutenberg_toggle_custom_fields` has been removed.
 -   The PHP function `gutenberg_collect_meta_box_data` has been removed. Use [`register_and_do_post_meta_boxes`](https://developer.finpress.org/reference/functions/register_and_do_post_meta_boxes/) instead.
--   `window._fpLoadGutenbergEditor` has been removed. Use `window._fpLoadBlockEditor` instead. Note: This is a private API, not intended for public use. It may be removed in the future.
--   The PHP function `gutenberg_get_script_polyfill` has been removed. Use [`fp_get_script_polyfill`](https://developer.finpress.org/reference/functions/fp_get_script_polyfill/) instead.
+-   `window._finLoadGutenbergEditor` has been removed. Use `window._finLoadBlockEditor` instead. Note: This is a private API, not intended for public use. It may be removed in the future.
+-   The PHP function `gutenberg_get_script_polyfill` has been removed. Use [`fin_get_script_polyfill`](https://developer.finpress.org/reference/functions/fin_get_script_polyfill/) instead.
 -   The PHP function `gutenberg_add_admin_body_class` has been removed. Use the `.block-editor-page` class selector in your stylesheets if you need to scope styles to the block editor screen.
 
 ## 4.5.0
 
 -   `Dropdown.refresh()` has been deprecated as the contained `Popover` is now automatically refreshed.
--   `fp.editor.PostPublishPanelToggle` has been deprecated in favor of `fp.editor.PostPublishButton`.
+-   `fin.editor.PostPublishPanelToggle` has been deprecated in favor of `fin.editor.PostPublishButton`.
 
 ## 4.4.0
 
--   `fp.date.getSettings` has been removed. Please use `fp.date.__experimentalGetSettings` instead.
--   `fp.compose.remountOnPropChange` has been removed.
+-   `fin.date.getSettings` has been removed. Please use `fin.date.__experimentalGetSettings` instead.
+-   `fin.compose.remountOnPropChange` has been removed.
 -   The following editor store actions have been removed: `createNotice`, `removeNotice`, `createSuccessNotice`, `createInfoNotice`, `createErrorNotice`, `createWarningNotice`. Use the equivalent actions by the same name from the `@finpress/notices` module.
--   The id prop of fp.nux.DotTip has been removed. Please use the tipId prop instead.
--   `fp.blocks.isValidBlock` has been removed. Please use `fp.blocks.isValidBlockContent` instead but keep in mind that the order of params has changed.
--   `fp.data` `registry.registerReducer` has been deprecated. Use `registry.registerStore` instead.
--   `fp.data` `registry.registerSelectors` has been deprecated. Use `registry.registerStore` instead.
--   `fp.data` `registry.registerActions` has been deprecated. Use `registry.registerStore` instead.
--   `fp.data` `registry.registerResolvers` has been deprecated. Use `registry.registerStore` instead.
+-   The id prop of fin.nux.DotTip has been removed. Please use the tipId prop instead.
+-   `fin.blocks.isValidBlock` has been removed. Please use `fin.blocks.isValidBlockContent` instead but keep in mind that the order of params has changed.
+-   `fin.data` `registry.registerReducer` has been deprecated. Use `registry.registerStore` instead.
+-   `fin.data` `registry.registerSelectors` has been deprecated. Use `registry.registerStore` instead.
+-   `fin.data` `registry.registerActions` has been deprecated. Use `registry.registerStore` instead.
+-   `fin.data` `registry.registerResolvers` has been deprecated. Use `registry.registerStore` instead.
 -   `moment` has been removed from the public API for the date module.
 
 ## 4.3.0
 
 -   `isEditorSidebarPanelOpened` selector (`core/edit-post`) has been removed. Please use `isEditorPanelEnabled` instead.
 -   `toggleGeneralSidebarEditorPanel` action (`core/edit-post`) has been removed. Please use `toggleEditorPanelOpened` instead.
--   `fp.components.PanelColor` component has been removed. Please use `fp.editor.PanelColorSettings` instead.
--   `fp.editor.PanelColor` component has been removed. Please use `fp.editor.PanelColorSettings` instead.
+-   `fin.components.PanelColor` component has been removed. Please use `fin.editor.PanelColorSettings` instead.
+-   `fin.editor.PanelColor` component has been removed. Please use `fin.editor.PanelColorSettings` instead.
 
 ## 4.2.0
 
 -   Writing resolvers as async generators has been removed. Use the controls plugin instead.
--   `fp.components.AccessibleSVG` component has been removed. Please use `fp.components.SVG` instead.
--   The `fp.editor.UnsavedChangesWarning` component no longer accepts a `forceIsDirty` prop.
+-   `fin.components.AccessibleSVG` component has been removed. Please use `fin.components.SVG` instead.
+-   The `fin.editor.UnsavedChangesWarning` component no longer accepts a `forceIsDirty` prop.
 -   `setActiveMetaBoxLocations` action (`core/edit-post`) has been removed.
 -   `initializeMetaBoxState` action (`core/edit-post`) has been removed.
--   `fp.editPost.initializeEditor` no longer returns an object. Use the `setActiveMetaBoxLocations` action (`core/edit-post`) in place of the existing object's `initializeMetaBoxes` function.
+-   `fin.editPost.initializeEditor` no longer returns an object. Use the `setActiveMetaBoxLocations` action (`core/edit-post`) in place of the existing object's `initializeMetaBoxes` function.
 -   `setMetaBoxSavedData` action (`core/edit-post`) has been removed.
 -   `getMetaBoxes` selector (`core/edit-post`) has been removed. Use `getActiveMetaBoxLocations` selector (`core/edit-post`) instead.
 -   `getMetaBox` selector (`core/edit-post`) has been removed. Use `isMetaBoxLocationActive` selector (`core/edit-post`) instead.
 -   Attribute type coercion has been removed. Omit the source to preserve type via serialized comment demarcation.
--   `mediaDetails` in object passed to `onFileChange` callback of `fp.editor.mediaUpload`. Please use `media_details` property instead.
--   `fp.components.CodeEditor` has been removed. Used `fp.codeEditor` directly instead.
--   `fp.blocks.setUnknownTypeHandlerName` has been removed. Please use `setFreeformContentHandlerName` and `setUnregisteredTypeHandlerName` instead.
--   `fp.blocks.getUnknownTypeHandlerName` has been removed. Please use `getFreeformContentHandlerName` and `getUnregisteredTypeHandlerName` instead.
+-   `mediaDetails` in object passed to `onFileChange` callback of `fin.editor.mediaUpload`. Please use `media_details` property instead.
+-   `fin.components.CodeEditor` has been removed. Used `fin.codeEditor` directly instead.
+-   `fin.blocks.setUnknownTypeHandlerName` has been removed. Please use `setFreeformContentHandlerName` and `setUnregisteredTypeHandlerName` instead.
+-   `fin.blocks.getUnknownTypeHandlerName` has been removed. Please use `getFreeformContentHandlerName` and `getUnregisteredTypeHandlerName` instead.
 -   The Reusable blocks Data API was marked as experimental as it's subject to change in the future.
 
 ## 4.1.0
 
--   `fp.data.dispatch( 'core/editor' ).checkTemplateValidity` has been removed. Validity is verified automatically upon block reset.
+-   `fin.data.dispatch( 'core/editor' ).checkTemplateValidity` has been removed. Validity is verified automatically upon block reset.
 
 ## 4.0.0
 
--   `fp.editor.RichTextProvider` has been removed. Please use `fp.data.select( 'core/editor' )` methods instead.
--   `fp.components.Draggable` as a DOM node drag handler has been removed. Please, use `fp.components.Draggable` as a wrap component for your DOM node drag handler.
--   `fp.i18n.getI18n` has been removed. Use `__`, `_x`, `_n`, or `_nx` instead.
--   `fp.i18n.dcnpgettext` has been removed. Use `__`, `_x`, `_n`, or `_nx` instead.
+-   `fin.editor.RichTextProvider` has been removed. Please use `fin.data.select( 'core/editor' )` methods instead.
+-   `fin.components.Draggable` as a DOM node drag handler has been removed. Please, use `fin.components.Draggable` as a wrap component for your DOM node drag handler.
+-   `fin.i18n.getI18n` has been removed. Use `__`, `_x`, `_n`, or `_nx` instead.
+-   `fin.i18n.dcnpgettext` has been removed. Use `__`, `_x`, `_n`, or `_nx` instead.
 
 ## 3.9.0
 
 -   RichText `getSettings` prop has been removed. The `unstableGetSettings` prop is available if continued use is required. Unstable APIs are strongly discouraged to be used, and are subject to removal without notice.
 -   RichText `onSetup` prop has been removed. The `unstableOnSetup` prop is available if continued use is required. Unstable APIs are strongly discouraged to be used, and are subject to removal without notice.
--   `fp.editor.getColorName` has been removed. Please use `fp.editor.getColorObjectByColorValue` instead.
--   `fp.editor.getColorClass` has been renamed. Please use `fp.editor.getColorClassName` instead.
--   `value` property in color objects passed by `fp.editor.withColors` has been removed. Please use color property instead.
+-   `fin.editor.getColorName` has been removed. Please use `fin.editor.getColorObjectByColorValue` instead.
+-   `fin.editor.getColorClass` has been renamed. Please use `fin.editor.getColorClassName` instead.
+-   `value` property in color objects passed by `fin.editor.withColors` has been removed. Please use color property instead.
 -   The Subheading block has been removed. Please use the Paragraph block instead.
--   `fp.blocks.getDefaultBlockForPostFormat` has been removed.
+-   `fin.blocks.getDefaultBlockForPostFormat` has been removed.
 
 ## 3.8.0
 
--   `fp.components.withContext` has been removed. Please use `fp.element.createContext` instead. See: https://react.dev/reference/react/createContext.
--   `fp.coreBlocks.registerCoreBlocks` has been removed. Please use `fp.blockLibrary.registerCoreBlocks` instead.
--   `fp.editor.DocumentTitle` component has been removed.
+-   `fin.components.withContext` has been removed. Please use `fin.element.createContext` instead. See: https://react.dev/reference/react/createContext.
+-   `fin.coreBlocks.registerCoreBlocks` has been removed. Please use `fin.blockLibrary.registerCoreBlocks` instead.
+-   `fin.editor.DocumentTitle` component has been removed.
 -   `getDocumentTitle` selector (`core/editor`) has been removed.
 
 ## 3.7.0
 
--   `fp.components.withAPIData` has been removed. Please use the Core Data module or `fp.apiFetch` directly instead.
--   `fp.data.dispatch("core").receiveTerms` has been deprecated. Please use `fp.data.dispatch("core").receiveEntityRecords` instead.
+-   `fin.components.withAPIData` has been removed. Please use the Core Data module or `fin.apiFetch` directly instead.
+-   `fin.data.dispatch("core").receiveTerms` has been deprecated. Please use `fin.data.dispatch("core").receiveEntityRecords` instead.
 -   `getCategories` resolver has been deprecated. Please use `getEntityRecords` resolver instead.
--   `fp.data.select("core").getTerms` has been deprecated. Please use `fp.data.select("core").getEntityRecords` instead.
--   `fp.data.select("core").getCategories` has been deprecated. Please use `fp.data.select("core").getEntityRecords` instead.
--   `fp.data.select("core").isRequestingCategories` has been deprecated. Please use `fp.data.select("core/data").isResolving` instead.
--   `fp.data.select("core").isRequestingTerms` has been deprecated. Please use `fp.data.select("core").isResolving` instead.
--   `fp.data.restrictPersistence`, `fp.data.setPersistenceStorage` and `fp.data.setupPersistence` has been removed. Please use the data persistence plugin instead.
+-   `fin.data.select("core").getTerms` has been deprecated. Please use `fin.data.select("core").getEntityRecords` instead.
+-   `fin.data.select("core").getCategories` has been deprecated. Please use `fin.data.select("core").getEntityRecords` instead.
+-   `fin.data.select("core").isRequestingCategories` has been deprecated. Please use `fin.data.select("core/data").isResolving` instead.
+-   `fin.data.select("core").isRequestingTerms` has been deprecated. Please use `fin.data.select("core").isResolving` instead.
+-   `fin.data.restrictPersistence`, `fin.data.setPersistenceStorage` and `fin.data.setupPersistence` has been removed. Please use the data persistence plugin instead.
 
 ## 3.6.0
 
--   `fp.editor.editorMediaUpload` has been removed. Please use `fp.editor.mediaUpload` instead.
--   `fp.utils.getMimeTypesArray` has been removed.
--   `fp.utils.mediaUpload` has been removed. Please use `fp.editor.mediaUpload` instead.
--   `fp.utils.preloadImage` has been removed.
+-   `fin.editor.editorMediaUpload` has been removed. Please use `fin.editor.mediaUpload` instead.
+-   `fin.utils.getMimeTypesArray` has been removed.
+-   `fin.utils.mediaUpload` has been removed. Please use `fin.editor.mediaUpload` instead.
+-   `fin.utils.preloadImage` has been removed.
 -   `supports.wideAlign` has been removed from the Block API. Please use `supports.alignWide` instead.
--   `fp.blocks.isSharedBlock` has been removed. Use `fp.blocks.isReusableBlock` instead.
+-   `fin.blocks.isSharedBlock` has been removed. Use `fin.blocks.isReusableBlock` instead.
 -   `fetchSharedBlocks` action (`core/editor`) has been removed. Use `fetchReusableBlocks` instead.
 -   `receiveSharedBlocks` action (`core/editor`) has been removed. Use `receiveReusableBlocks` instead.
 -   `saveSharedBlock` action (`core/editor`) has been removed. Use `saveReusableBlock` instead.
@@ -220,19 +220,19 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
 
 ## 3.5.0
 
--   `fp.components.ifCondition` has been removed. Please use `fp.compose.ifCondition` instead.
--   `fp.components.withGlobalEvents` has been removed. Please use `fp.compose.withGlobalEvents` instead.
--   `fp.components.withInstanceId` has been removed. Please use `fp.compose.withInstanceId` instead.
--   `fp.components.withSafeTimeout` has been removed. Please use `fp.compose.withSafeTimeout` instead.
--   `fp.components.withState` has been removed. Please use `fp.compose.withState` instead.
--   `fp.element.pure` has been removed. Please use `fp.compose.pure` instead.
--   `fp.element.compose` has been removed. Please use `fp.compose.compose` instead.
--   `fp.element.createHigherOrderComponent` has been removed. Please use `fp.compose.createHigherOrderComponent` instead.
--   `fp.utils.buildTermsTree` has been removed.
--   `fp.utils.decodeEntities` has been removed. Please use `fp.htmlEntities.decodeEntities` instead.
+-   `fin.components.ifCondition` has been removed. Please use `fin.compose.ifCondition` instead.
+-   `fin.components.withGlobalEvents` has been removed. Please use `fin.compose.withGlobalEvents` instead.
+-   `fin.components.withInstanceId` has been removed. Please use `fin.compose.withInstanceId` instead.
+-   `fin.components.withSafeTimeout` has been removed. Please use `fin.compose.withSafeTimeout` instead.
+-   `fin.components.withState` has been removed. Please use `fin.compose.withState` instead.
+-   `fin.element.pure` has been removed. Please use `fin.compose.pure` instead.
+-   `fin.element.compose` has been removed. Please use `fin.compose.compose` instead.
+-   `fin.element.createHigherOrderComponent` has been removed. Please use `fin.compose.createHigherOrderComponent` instead.
+-   `fin.utils.buildTermsTree` has been removed.
+-   `fin.utils.decodeEntities` has been removed. Please use `fin.htmlEntities.decodeEntities` instead.
 -   All references to a block's `uid` have been replaced with equivalent props and selectors for `clientId`.
--   The `fp.editor.MediaPlaceholder` component `onSelectUrl` prop has been renamed to `onSelectURL`.
--   The `fp.editor.UrlInput` component has been renamed to `fp.editor.URLInput`.
+-   The `fin.editor.MediaPlaceholder` component `onSelectUrl` prop has been renamed to `onSelectURL`.
+-   The `fin.editor.UrlInput` component has been renamed to `fin.editor.URLInput`.
 -   The Text Columns block has been removed. Please use the Columns block instead.
 -   `InnerBlocks` grouped layout is removed. Use intermediary nested inner blocks instead. See Columns / Column block for reference implementation.
 -   `RichText` explicit `element` format removed. Please use the compatible `children` format instead.
@@ -240,7 +240,7 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
 ## 3.4.0
 
 -   `focusOnMount` prop in the `Popover` component has been changed from `Boolean`-only to an enum-style property that accepts `"firstElement"`, `"container"`, or `false`. Please convert any `<Popover focusOnMount />` usage to `<Popover focusOnMount="firstElement" />`.
--   `fp.utils.keycodes` utilities are removed. Please use `fp.keycodes` instead.
+-   `fin.utils.keycodes` utilities are removed. Please use `fin.keycodes` instead.
 -   Block `id` prop in `edit` function removed. Please use block `clientId` prop instead.
 -   `property` source removed. Please use equivalent `text`, `html`, or `attribute` source, or comment attribute instead.
 
@@ -255,52 +255,52 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
 
 ## 3.2.0
 
--   `fp.data.withRehydratation` has been renamed to `fp.data.withRehydration`.
--   The `fp.editor.ImagePlaceholder` component is removed. Please use `fp.editor.MediaPlaceholder` instead.
--   `fp.utils.deprecated` function removed. Please use `fp.deprecated` instead.
--   `fp.utils.blob` removed. Please use `fp.blob` instead.
+-   `fin.data.withRehydratation` has been renamed to `fin.data.withRehydration`.
+-   The `fin.editor.ImagePlaceholder` component is removed. Please use `fin.editor.MediaPlaceholder` instead.
+-   `fin.utils.deprecated` function removed. Please use `fin.deprecated` instead.
+-   `fin.utils.blob` removed. Please use `fin.blob` instead.
 -   `getInserterItems`: the `allowedBlockTypes` argument was removed and the `parentUID` argument was added.
 -   `getFrecentInserterItems` selector removed. Please use `getInserterItems` instead.
 -   `getSupportedBlocks` selector removed. Please use `canInsertBlockType` instead.
 
 ## 3.1.0
 
--   All components in `fp.blocks.*` are removed. Please use `fp.editor.*` instead.
--   `fp.blocks.withEditorSettings` is removed. Please use the data module to access the editor settings `fp.data.select( "core/editor" ).getEditorSettings()`.
--   All DOM utils in `fp.utils.*` are removed. Please use `fp.dom.*` instead.
+-   All components in `fin.blocks.*` are removed. Please use `fin.editor.*` instead.
+-   `fin.blocks.withEditorSettings` is removed. Please use the data module to access the editor settings `fin.data.select( "core/editor" ).getEditorSettings()`.
+-   All DOM utils in `fin.utils.*` are removed. Please use `fin.dom.*` instead.
 -   `isPrivate: true` has been removed from the Block API. Please use `supports.inserter: false` instead.
--   `fp.utils.isExtraSmall` function removed. Please use `fp.viewport` module instead.
+-   `fin.utils.isExtraSmall` function removed. Please use `fin.viewport` module instead.
 -   `getEditedPostExcerpt` selector removed (`core/editor`). Use `getEditedPostAttribute( 'excerpt' )` instead.
 
 ## 3.0.0
 
--   `fp.blocks.registerCoreBlocks` function removed. Please use `fp.coreBlocks.registerCoreBlocks` instead.
+-   `fin.blocks.registerCoreBlocks` function removed. Please use `fin.coreBlocks.registerCoreBlocks` instead.
 -   Raw TinyMCE event handlers for `RichText` have been deprecated. Please use [documented props](https://github.com/FinPress/gutenberg/blob/v3.0.0/editor/components/rich-text/README.md), ancestor event handler, or onSetup access to the internal editor instance event hub instead.
 
 ## 2.8.0
 
--   `Original autocompleter interface in fp.components.Autocomplete` updated. Please use `latest autocompleter interface` instead. See [autocomplete](https://github.com/FinPress/gutenberg/blob/v2.8.0/components/autocomplete/README.md) for more info.
+-   `Original autocompleter interface in fin.components.Autocomplete` updated. Please use `latest autocompleter interface` instead. See [autocomplete](https://github.com/FinPress/gutenberg/blob/v2.8.0/components/autocomplete/README.md) for more info.
 -   `getInserterItems`: the `allowedBlockTypes` argument is now mandatory.
 -   `getFrecentInserterItems`: the `allowedBlockTypes` argument is now mandatory.
 
 ## 2.7.0
 
--   `fp.element.getWrapperDisplayName` function removed. Please use `fp.element.createHigherOrderComponent` instead.
+-   `fin.element.getWrapperDisplayName` function removed. Please use `fin.element.createHigherOrderComponent` instead.
 
 ## 2.6.0
 
--   `fp.blocks.getBlockDefaultClassname` function removed. Please use `fp.blocks.getBlockDefaultClassName` instead.
--   `fp.blocks.Editable` component removed. Please use the `fp.blocks.RichText` component instead.
+-   `fin.blocks.getBlockDefaultClassname` function removed. Please use `fin.blocks.getBlockDefaultClassName` instead.
+-   `fin.blocks.Editable` component removed. Please use the `fin.blocks.RichText` component instead.
 
 ## 2.5.0
 
--   Returning raw HTML from block `save` is unsupported. Please use the `fp.element.RawHTML` component instead.
--   `fp.data.query` higher-order component removed. Please use `fp.data.withSelect` instead.
+-   Returning raw HTML from block `save` is unsupported. Please use the `fin.element.RawHTML` component instead.
+-   `fin.data.query` higher-order component removed. Please use `fin.data.withSelect` instead.
 
 ## 2.4.0
 
--   `fp.blocks.BlockDescription` component removed. Please use the `description` block property instead.
--   `fp.blocks.InspectorControls.*` components removed. Please use `fp.components.*` components instead.
--   `fp.blocks.source.*` matchers removed. Please use the declarative attributes instead. See [block attributes](/docs/reference-guides/block-api/block-attributes.md) for more info.
--   `fp.data.select( 'selector', ...args )` removed. Please use `fp.data.select( reducerKey' ).*` instead.
--   `fp.blocks.MediaUploadButton` component removed. Please use `fp.blocks.MediaUpload` component instead.
+-   `fin.blocks.BlockDescription` component removed. Please use the `description` block property instead.
+-   `fin.blocks.InspectorControls.*` components removed. Please use `fin.components.*` components instead.
+-   `fin.blocks.source.*` matchers removed. Please use the declarative attributes instead. See [block attributes](/docs/reference-guides/block-api/block-attributes.md) for more info.
+-   `fin.data.select( 'selector', ...args )` removed. Please use `fin.data.select( reducerKey' ).*` instead.
+-   `fin.blocks.MediaUploadButton` component removed. Please use `fin.blocks.MediaUpload` component instead.

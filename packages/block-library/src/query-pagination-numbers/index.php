@@ -10,7 +10,7 @@
  *
  * @since 5.8.0
  *
- * @global FP_Query $fp_query FinPress Query object.
+ * @global FP_Query $fin_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
@@ -26,12 +26,12 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 
 	$wrapper_attributes = get_block_wrapper_attributes();
 	$content            = '';
-	global $fp_query;
+	global $fin_query;
 	$mid_size = isset( $block->attributes['midSize'] ) ? (int) $block->attributes['midSize'] : null;
 	if ( isset( $block->context['query']['inherit'] ) && $block->context['query']['inherit'] ) {
 		// Take into account if we have set a bigger `max page`
 		// than what the query has.
-		$total         = ! $max_page || $max_page > $fp_query->max_num_pages ? $fp_query->max_num_pages : $max_page;
+		$total         = ! $max_page || $max_page > $fin_query->max_num_pages ? $fin_query->max_num_pages : $max_page;
 		$paginate_args = array(
 			'prev_next' => false,
 			'total'     => $total,
@@ -42,11 +42,11 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 		$content = paginate_links( $paginate_args );
 	} else {
 		$block_query = new FP_Query( build_query_vars_from_query_block( $block, $page ) );
-		// `paginate_links` works with the global $fp_query, so we have to
+		// `paginate_links` works with the global $fin_query, so we have to
 		// temporarily switch it with our custom query.
-		$prev_fp_query = $fp_query;
-		$fp_query      = $block_query;
-		$total         = ! $max_page || $max_page > $fp_query->max_num_pages ? $fp_query->max_num_pages : $max_page;
+		$prev_fin_query = $fin_query;
+		$fin_query      = $block_query;
+		$total         = ! $max_page || $max_page > $fin_query->max_num_pages ? $fin_query->max_num_pages : $max_page;
 		$paginate_args = array(
 			'base'      => '%_%',
 			'format'    => "?$page_key=%#%",
@@ -86,8 +86,8 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 			$paginate_args['add_args'] = array( 'paged' => $paged );
 		}
 		$content = paginate_links( $paginate_args );
-		fp_reset_postdata(); // Restore original Post Data.
-		$fp_query = $prev_fp_query;
+		fin_reset_postdata(); // Restore original Post Data.
+		$fin_query = $prev_fin_query;
 	}
 
 	if ( empty( $content ) ) {
@@ -100,11 +100,11 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 		while ( $p->next_tag(
 			array( 'class_name' => 'page-numbers' )
 		) ) {
-			if ( null === $p->get_attribute( 'data-fp-key' ) ) {
-				$p->set_attribute( 'data-fp-key', 'index-' . $tag_index++ );
+			if ( null === $p->get_attribute( 'data-fin-key' ) ) {
+				$p->set_attribute( 'data-fin-key', 'index-' . $tag_index++ );
 			}
 			if ( 'A' === $p->get_tag() ) {
-				$p->set_attribute( 'data-fp-on--click', 'core/query::actions.navigate' );
+				$p->set_attribute( 'data-fin-on--click', 'core/query::actions.navigate' );
 			}
 		}
 		$content = $p->get_updated_html();

@@ -62,7 +62,7 @@ test.describe( 'Meta boxes', () => {
 		await page.goto( `/?p=${ postId }` );
 
 		await expect(
-			page.locator( '.entry-content .fp-block-latest-posts__post-title' )
+			page.locator( '.entry-content .fin-block-latest-posts__post-title' )
 		).toContainText( [ 'Dynamic block test', 'A published post' ] );
 	} );
 

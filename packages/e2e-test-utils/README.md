@@ -239,7 +239,7 @@ Delete all the templates of given type.
 
 _Parameters_
 
--   _type_ `('fp_template'|'fp_template_part')`: - Template type to delete.
+-   _type_ `('fin_template'|'fin_template_part')`: - Template type to delete.
 
 ### deleteAllWidgets
 
@@ -353,7 +353,7 @@ _Returns_
 
 ### getAllBlocks
 
-Returns an array with all blocks; Equivalent to calling fp.data.select( 'core/block-editor' ).getBlocks();
+Returns an array with all blocks; Equivalent to calling fin.data.select( 'core/block-editor' ).getBlocks();
 
 _Returns_
 
@@ -907,7 +907,7 @@ _Parameters_
 -   _width_ `number`: Width of the window.
 -   _height_ `number`: Height of the window.
 
-### fpDataSelect
+### finDataSelect
 
 Queries the FinPress data module.
 

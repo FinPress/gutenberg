@@ -13,9 +13,9 @@
 			}
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-button\"><a class=\"fp-block-button__link no-border-radius has-text-color has-background fp-element-button\" style=\"background-color:#aa5a20;color:#1b9b6c\">My button</a></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-button\"><a class=\"fin-block-button__link no-border-radius has-text-color has-background fin-element-button\" style=\"background-color:#aa5a20;color:#1b9b6c\">My button</a></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-button\"><a class=\"fp-block-button__link no-border-radius has-text-color has-background fp-element-button\" style=\"background-color:#aa5a20;color:#1b9b6c\">My button</a></div>\n"
+			"\n<div class=\"fin-block-button\"><a class=\"fin-block-button__link no-border-radius has-text-color has-background fin-element-button\" style=\"background-color:#aa5a20;color:#1b9b6c\">My button</a></div>\n"
 		]
 	}
 ]

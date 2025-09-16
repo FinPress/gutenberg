@@ -175,7 +175,7 @@
 
 ### Bug Fixes
 
--   Ensure that the config can work with both `prettier` and `fp-prettier` without reporting warnings ([#40479](https://github.com/FinPress/gutenberg/pull/40479)).
+-   Ensure that the config can work with both `prettier` and `fin-prettier` without reporting warnings ([#40479](https://github.com/FinPress/gutenberg/pull/40479)).
 
 ## 1.0.0 (2021-01-21)
 

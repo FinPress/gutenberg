@@ -41,7 +41,7 @@ async function login( retries = 3 ) {
 	formData.append( 'pwd', FP_PASSWORD );
 
 	// Login to admin using fetch.
-	const loginResponse = await fetch( createURL( 'fp-login.php' ), {
+	const loginResponse = await fetch( createURL( 'fin-login.php' ), {
 		method: 'POST',
 		headers: formData.getHeaders(),
 		body: formData,
@@ -56,7 +56,7 @@ async function login( retries = 3 ) {
 		.join( ';' );
 
 	apiFetch.nonceEndpoint = createURL(
-		'fp-admin/admin-ajax.php',
+		'fin-admin/admin-ajax.php',
 		'action=rest-nonce'
 	);
 

@@ -14,14 +14,14 @@ test.describe( 'Global styles variations', () => {
 		await requestUtils.activateTheme(
 			'gutenberg-test-themes/style-variations'
 		);
-		await requestUtils.deleteAllTemplates( 'fp_template' );
-		await requestUtils.deleteAllTemplates( 'fp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fin_template' );
+		await requestUtils.deleteAllTemplates( 'fin_template_part' );
 	} );
 
 	test.afterEach( async ( { requestUtils } ) => {
 		await Promise.all( [
-			requestUtils.deleteAllTemplates( 'fp_template' ),
-			requestUtils.deleteAllTemplates( 'fp_template_part' ),
+			requestUtils.deleteAllTemplates( 'fin_template' ),
+			requestUtils.deleteAllTemplates( 'fin_template_part' ),
 		] );
 	} );
 
@@ -36,7 +36,7 @@ test.describe( 'Global styles variations', () => {
 	} ) => {
 		await admin.visitSiteEditor( {
 			postId: 'gutenberg-test-themes/style-variations//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 
@@ -72,7 +72,7 @@ test.describe( 'Global styles variations', () => {
 	} ) => {
 		await admin.visitSiteEditor( {
 			postId: 'gutenberg-test-themes/style-variations//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 		await siteEditorStyleVariations.browseStyles();
@@ -108,7 +108,7 @@ test.describe( 'Global styles variations', () => {
 	} ) => {
 		await admin.visitSiteEditor( {
 			postId: 'gutenberg-test-themes/style-variations//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 		await siteEditorStyleVariations.browseStyles();
@@ -144,7 +144,7 @@ test.describe( 'Global styles variations', () => {
 	} ) => {
 		await admin.visitSiteEditor( {
 			postId: 'gutenberg-test-themes/style-variations//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 		await siteEditorStyleVariations.browseStyles();
@@ -174,7 +174,7 @@ test.describe( 'Global styles variations', () => {
 	} ) => {
 		await admin.visitSiteEditor( {
 			postId: 'gutenberg-test-themes/style-variations//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 		await siteEditorStyleVariations.browseStyles();

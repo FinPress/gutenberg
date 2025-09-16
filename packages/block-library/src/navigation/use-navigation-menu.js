@@ -16,7 +16,7 @@ import { PRELOADED_NAVIGATION_MENUS_QUERY } from './constants';
 export default function useNavigationMenu( ref ) {
 	const permissions = useResourcePermissions( {
 		kind: 'postType',
-		name: 'fp_navigation',
+		name: 'fin_navigation',
 		id: ref,
 	} );
 
@@ -50,7 +50,7 @@ export default function useNavigationMenu( ref ) {
 		hasResolved: hasResolvedNavigationMenus,
 	} = useEntityRecords(
 		'postType',
-		`fp_navigation`,
+		`fin_navigation`,
 		PRELOADED_NAVIGATION_MENUS_QUERY
 	);
 
@@ -91,7 +91,7 @@ function selectExistingMenu( select, ref ) {
 	const { getEntityRecord, getEditedEntityRecord, hasFinishedResolution } =
 		select( coreStore );
 
-	const args = [ 'postType', 'fp_navigation', ref ];
+	const args = [ 'postType', 'fin_navigation', ref ];
 	const navigationMenu = getEntityRecord( ...args );
 	const editedNavigationMenu = getEditedEntityRecord( ...args );
 	const hasResolvedNavigationMenu = hasFinishedResolution(

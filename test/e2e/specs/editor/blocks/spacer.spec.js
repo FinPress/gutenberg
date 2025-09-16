@@ -59,15 +59,15 @@ test.describe( 'Spacer', () => {
 		editor,
 		page,
 	} ) => {
-		await page.waitForFunction( () => window?.fp?.data );
+		await page.waitForFunction( () => window?.fin?.data );
 
 		// Mock the theme.json data to simulate a theme without spacing units
 		await page.evaluate( () => {
-			const settings = window.fp.data
+			const settings = window.fin.data
 				.select( 'core/block-editor' )
 				.getSettings();
 			window.__originalSettings = settings;
-			window.fp.data.dispatch( 'core/block-editor' ).updateSettings( {
+			window.fin.data.dispatch( 'core/block-editor' ).updateSettings( {
 				...settings,
 				spacing: { units: false },
 			} );

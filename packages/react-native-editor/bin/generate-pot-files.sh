@@ -32,12 +32,12 @@ while test $# -gt 0; do
     -h|--help)
       echo "options:"
       echo "-h, --help                              show brief help"
-      echo "-w, --skip-upgrade-fp-cli               skip FP-CLI upgrade"
+      echo "-w, --skip-upgrade-fin-cli               skip FP-CLI upgrade"
       echo "-p, --path                              use local path for generating files"
       echo "-d, --debug                             print extra info for debugging"
       exit 0
       ;;
-    -w|--skip-upgrade-fp-cli*)
+    -w|--skip-upgrade-fin-cli*)
       shift
       SKIP_UPGRADE_FP_CLI='true'
       ;;
@@ -64,13 +64,13 @@ function error() {
   exit 1
 }
 
-function setup_fp_cli() {
-  local cli_path="$SCRIPT_DIR/fp-cli.phar"
+function setup_fin_cli() {
+  local cli_path="$SCRIPT_DIR/fin-cli.phar"
 
   # Install FP-CLI command
   if [[ ! -f "$cli_path" ]]; then
     echo -e "\n\033[1mInstalling FP-CLI\033[0m"
-    curl -Ls https://raw.githubusercontent.com/fp-cli/builds/gh-pages/phar/fp-cli.phar -o $cli_path
+    curl -Ls https://raw.githubusercontent.com/fin-cli/builds/gh-pages/phar/fin-cli.phar -o $cli_path
     chmod +x $cli_path
   fi
 
@@ -191,7 +191,7 @@ fi
 # Define constants
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 GUTENBERG_SOURCE_CODE_DIR="$SCRIPT_DIR/../../.."
-FP_CLI="php -d memory_limit=4G -d error_reporting=E_ALL&~E_DEPRECATED $SCRIPT_DIR/fp-cli.phar"
+FP_CLI="php -d memory_limit=4G -d error_reporting=E_ALL&~E_DEPRECATED $SCRIPT_DIR/fin-cli.phar"
 BUNDLE_CLI="$GUTENBERG_SOURCE_CODE_DIR/node_modules/.bin/react-native bundle --config ${METRO_CONFIG:-metro.config.js}"
 
 # Set target path
@@ -232,7 +232,7 @@ IOS_EXTRACT_SOURCE_FILES_PATH="$EXTRACT_SOURCE_FILES_DIR/ios"
 echo -e "\n\033[1m== Generating POT files in \"$TARGET_PATH\" ==\033[0m"
 
 # Setup FP cli
-setup_fp_cli
+setup_fin_cli
 
 # Generate JS bundle
 mkdir -p $ANDROID_BUNDLE_DIR

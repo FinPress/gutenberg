@@ -39,10 +39,10 @@ import { isUnmodifiedDefaultBlock, normalizeBlockType } from './utils';
  * @return {string} The block's default class.
  */
 export function getBlockDefaultClassName( blockName ) {
-	// Generated HTML classes for blocks follow the `fp-block-{name}` nomenclature.
+	// Generated HTML classes for blocks follow the `fin-block-{name}` nomenclature.
 	// Blocks provided by FinPress drop the prefixes 'core/' or 'core-' (historically used in 'core-embed/').
 	const className =
-		'fp-block-' + blockName.replace( /\//, '-' ).replace( /^core-/, '' );
+		'fin-block-' + blockName.replace( /\//, '-' ).replace( /^core-/, '' );
 
 	return applyFilters(
 		'blocks.getBlockDefaultClassName',
@@ -292,7 +292,7 @@ export function serializeAttributes( attributes ) {
 			// Bypass server stripslashes behavior which would unescape stringify's
 			// escaping of quotation mark.
 			//
-			// See: https://developer.finpress.org/reference/functions/fp_kses_stripslashes/
+			// See: https://developer.finpress.org/reference/functions/fin_kses_stripslashes/
 			.replace( /\\"/g, '\\u0022' )
 	);
 }
@@ -348,16 +348,16 @@ export function getCommentDelimitedContent(
 		? rawBlockName.slice( 5 )
 		: rawBlockName;
 
-	// @todo make the `fp:` prefix potentially configurable.
+	// @todo make the `fin:` prefix potentially configurable.
 
 	if ( ! content ) {
-		return `<!-- fp:${ blockName } ${ serializedAttributes }/-->`;
+		return `<!-- fin:${ blockName } ${ serializedAttributes }/-->`;
 	}
 
 	return (
-		`<!-- fp:${ blockName } ${ serializedAttributes }-->\n` +
+		`<!-- fin:${ blockName } ${ serializedAttributes }-->\n` +
 		content +
-		`\n<!-- /fp:${ blockName } -->`
+		`\n<!-- /fin:${ blockName } -->`
 	);
 }
 

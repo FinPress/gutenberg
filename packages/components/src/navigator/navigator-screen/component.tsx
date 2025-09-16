@@ -36,7 +36,7 @@ function UnconnectedNavigatorScreen(
 ) {
 	if ( ! /^\//.test( props.path ) ) {
 		warning(
-			'fp.components.Navigator.Screen: the `path` should follow a URL-like scheme; it should start with and be separated by the `/` character.'
+			'fin.components.Navigator.Screen: the `path` should follow a URL-like scheme; it should start with and be separated by the `/` character.'
 		);
 	}
 

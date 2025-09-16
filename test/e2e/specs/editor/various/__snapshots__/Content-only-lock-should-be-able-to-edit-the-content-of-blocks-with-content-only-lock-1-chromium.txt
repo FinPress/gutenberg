@@ -1,5 +1,5 @@
-<!-- fp:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:paragraph -->
+<!-- fin:group {"templateLock":"contentOnly","layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:paragraph -->
 <p>Hello World</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group -->
+<!-- /fin:paragraph --></div>
+<!-- /fin:group -->

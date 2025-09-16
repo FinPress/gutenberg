@@ -501,7 +501,7 @@ export default function NavigationLinkEdit( {
 
 	const blockProps = useBlockProps( {
 		ref: useMergeRefs( [ setPopoverAnchor, listItemRef ] ),
-		className: clsx( 'fp-block-navigation-item', {
+		className: clsx( 'fin-block-navigation-item', {
 			'is-editing': isSelected || isParentOfSelectedBlock,
 			'is-dragging-within': isDraggingWithin,
 			'has-link': !! url,
@@ -538,8 +538,8 @@ export default function NavigationLinkEdit( {
 		};
 	}
 
-	const classes = clsx( 'fp-block-navigation-item__content', {
-		'fp-block-navigation-link__placeholder': ! url || isInvalid || isDraft,
+	const classes = clsx( 'fin-block-navigation-item__content', {
+		'fin-block-navigation-link__placeholder': ! url || isInvalid || isDraft,
 	} );
 
 	const missingText = getMissingText( type );
@@ -585,7 +585,7 @@ export default function NavigationLinkEdit( {
 				<a className={ classes }>
 					{ /* eslint-enable */ }
 					{ ! url && ! isEditingControl ? (
-						<div className="fp-block-navigation-link__placeholder-text">
+						<div className="fin-block-navigation-link__placeholder-text">
 							<span>{ missingText }</span>
 						</div>
 					) : (
@@ -597,7 +597,7 @@ export default function NavigationLinkEdit( {
 										<RichText
 											ref={ ref }
 											identifier="label"
-											className="fp-block-navigation-item__label"
+											className="fin-block-navigation-item__label"
 											value={ label }
 											onChange={ ( labelValue ) =>
 												setAttributes( {
@@ -620,7 +620,7 @@ export default function NavigationLinkEdit( {
 											withoutInteractiveFormatting
 										/>
 										{ description && (
-											<span className="fp-block-navigation-item__description">
+											<span className="fin-block-navigation-item__description">
 												{ description }
 											</span>
 										) }
@@ -629,8 +629,8 @@ export default function NavigationLinkEdit( {
 							{ ( isInvalid || isDraft || isEditingControl ) && (
 								<div
 									className={ clsx(
-										'fp-block-navigation-link__placeholder-text',
-										'fp-block-navigation-link__label',
+										'fin-block-navigation-link__placeholder-text',
+										'fin-block-navigation-link__label',
 										{
 											'is-invalid': isInvalid,
 											'is-draft': isDraft,

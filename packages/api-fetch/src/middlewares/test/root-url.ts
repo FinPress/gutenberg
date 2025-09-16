@@ -8,15 +8,15 @@ describe( 'Root URL middleware', () => {
 	it( 'should append the root URL', () => {
 		expect.hasAssertions();
 
-		const rootURL = 'http://fp.org/fp-admin/rest/';
+		const rootURL = 'http://fin.org/fin-admin/rest/';
 		const rootURLMiddleware = createRootUrlMiddleware( rootURL );
 		const requestOptions = {
 			method: 'GET',
-			path: '/fp/v2/posts',
+			path: '/fin/v2/posts',
 		};
 		const callback: FetchHandler = async ( options ) => {
 			expect( options.url ).toBe(
-				'http://fp.org/fp-admin/rest/fp/v2/posts'
+				'http://fin.org/fin-admin/rest/fin/v2/posts'
 			);
 		};
 

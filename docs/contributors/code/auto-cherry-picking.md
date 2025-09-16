@@ -9,7 +9,7 @@ You can also use it in different scenarios by passing a custom label as the firs
 Running `npm run other:cherry-pick` yields the following prompt:
 
 ```
-You are on branch "fp/6.2".
+You are on branch "fin/6.2".
 This script will:
 • Cherry-pick the merged PRs labeled as "Backport to FP Beta/RC" to this branch
 • Ask whether you want to push this branch
@@ -27,7 +27,7 @@ Here's what happens once you agree:
 ```
 Trying to cherry-pick one by one..
 
-$ git pull origin fp/6.2 --rebase...
+$ git pull origin fin/6.2 --rebase...
 $ git fetch origin trunk...
 
 Found the following PRs to cherry-pick:
@@ -46,7 +46,7 @@ Summary:
     1 PRs got cherry-picked cleanly
     0 PRs failed
 
-About to push to origin/fp/6.2
+About to push to origin/fin/6.2
 Do you want to proceed? (Y/n)
 ```
 
@@ -58,9 +58,9 @@ If some cherry-picks still failed, the script would skip them and let you know w
 Either way, here's what happens once you proceed past the cherry-picking stage:
 
 ```
-Pushing to origin/fp/6.2
+Pushing to origin/fin/6.2
 Commenting and removing labels...
-  41198: I just cherry-picked this PR to the fp/6.2 branch to get it included in the next release: afe9b757b4
+  41198: I just cherry-picked this PR to the fin/6.2 branch to get it included in the next release: afe9b757b4
 Done!
 ```
 
@@ -90,4 +90,4 @@ In the future, it would be great if the script automatically selected the
 relevant label based on the currently selected branch:
 
 * release/X.Y - plugin release – "Backport to Gutenberg RC"
-* fp/X.Y - FP release – "Backport to FP Beta/RC"
+* fin/X.Y - FP release – "Backport to FP Beta/RC"

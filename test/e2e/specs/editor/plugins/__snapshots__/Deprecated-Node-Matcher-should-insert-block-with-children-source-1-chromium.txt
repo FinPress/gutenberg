@@ -1,3 +1,3 @@
-<!-- fp:deprecated-children-matcher -->
-<p class="fp-block-deprecated-children-matcher">test<br/><strong>a</strong></p>
-<!-- /fp:deprecated-children-matcher -->
+<!-- fin:deprecated-children-matcher -->
+<p class="fin-block-deprecated-children-matcher">test<br/><strong>a</strong></p>
+<!-- /fin:deprecated-children-matcher -->

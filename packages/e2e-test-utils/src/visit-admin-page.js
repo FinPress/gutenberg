@@ -18,17 +18,17 @@ import { getPageError } from './get-page-error';
  * @param {string} query     String to be serialized as query portion of URL.
  */
 export async function visitAdminPage( adminPath, query ) {
-	await page.goto( createURL( join( 'fp-admin', adminPath ), query ) );
+	await page.goto( createURL( join( 'fin-admin', adminPath ), query ) );
 
 	// Handle upgrade required screen.
-	if ( isCurrentURL( 'fp-admin/upgrade.php' ) ) {
+	if ( isCurrentURL( 'fin-admin/upgrade.php' ) ) {
 		// Click update.
 		await page.click( '.button.button-large.button-primary' );
 		// Click continue.
 		await page.click( '.button.button-large' );
 	}
 
-	if ( isCurrentURL( 'fp-login.php' ) ) {
+	if ( isCurrentURL( 'fin-login.php' ) ) {
 		await loginUser();
 		await visitAdminPage( adminPath, query );
 	}

@@ -62,7 +62,7 @@ function PostAuthorNameEdit( {
 		<a
 			href="#author-pseudo-link"
 			onClick={ ( event ) => event.preventDefault() }
-			className="fp-block-post-author-name__link"
+			className="fin-block-post-author-name__link"
 		>
 			{ displayName }
 		</a>

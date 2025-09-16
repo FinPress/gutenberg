@@ -16,9 +16,9 @@ export async function loginUser(
 	username = FP_USERNAME,
 	password = FP_PASSWORD
 ) {
-	if ( ! isCurrentURL( 'fp-login.php' ) ) {
+	if ( ! isCurrentURL( 'fin-login.php' ) ) {
 		const waitForLoginPageNavigation = page.waitForNavigation();
-		await page.goto( createURL( 'fp-login.php' ) );
+		await page.goto( createURL( 'fin-login.php' ) );
 		await waitForLoginPageNavigation;
 	}
 
@@ -30,7 +30,7 @@ export async function loginUser(
 	await page.type( '#user_pass', password );
 
 	await Promise.all( [
-		page.click( '#fp-submit' ),
+		page.click( '#fin-submit' ),
 		page.waitForNavigation( { waitUntil: 'networkidle0' } ),
 	] );
 }

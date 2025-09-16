@@ -10,10 +10,10 @@
 add_action(
 	'init',
 	static function () {
-		fp_register_script(
+		fin_register_script(
 			'server-side-rendered-block',
 			plugins_url( 'server-side-rendered-block/editor.js', __FILE__ ),
-			array( 'fp-blocks', 'fp-element', 'fp-editor', 'fp-components', 'fp-server-side-render' ),
+			array( 'fin-blocks', 'fin-element', 'fin-editor', 'fin-components', 'fin-server-side-render' ),
 			filemtime( plugin_dir_path( __FILE__ ) . 'server-side-rendered-block/editor.js' ),
 			true
 		);

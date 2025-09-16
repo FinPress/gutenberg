@@ -13,14 +13,14 @@ import { getMimeTypesArray } from './get-mime-types-array';
  * Verifies if the user is allowed to upload this mime type.
  *
  * @param file               File object.
- * @param fpAllowedMimeTypes List of allowed mime types and file extensions.
+ * @param finAllowedMimeTypes List of allowed mime types and file extensions.
  */
 export function validateMimeTypeForUser(
 	file: File,
-	fpAllowedMimeTypes?: Record< string, string > | null
+	finAllowedMimeTypes?: Record< string, string > | null
 ) {
 	// Allowed types for the current FP_User.
-	const allowedMimeTypesForUser = getMimeTypesArray( fpAllowedMimeTypes );
+	const allowedMimeTypesForUser = getMimeTypesArray( finAllowedMimeTypes );
 
 	if ( ! allowedMimeTypesForUser ) {
 		return;

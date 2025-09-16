@@ -8,9 +8,9 @@ export default function DropZoneProvider( {
 }: {
 	children: React.ReactNode;
 } ) {
-	deprecated( 'fp.components.DropZoneProvider', {
+	deprecated( 'fin.components.DropZoneProvider', {
 		since: '5.8',
-		hint: 'fp.component.DropZone no longer needs a provider. fp.components.DropZoneProvider is safe to remove from your code.',
+		hint: 'fin.component.DropZone no longer needs a provider. fin.components.DropZoneProvider is safe to remove from your code.',
 	} );
 	return children;
 }

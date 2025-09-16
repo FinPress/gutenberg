@@ -212,7 +212,7 @@ const v4 = {
 	},
 };
 
-// This deprecation covers the serialization of the `fp-block-heading` class
+// This deprecation covers the serialization of the `fin-block-heading` class
 // into the block's markup after className support was enabled.
 const v5 = {
 	supports: {

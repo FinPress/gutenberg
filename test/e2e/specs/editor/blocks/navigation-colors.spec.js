@@ -21,7 +21,7 @@ test.describe( 'Navigation colors', () => {
 
 		const { id: menuId } = await requestUtils.createNavigationMenu( {
 			title: 'Colored menu',
-			content: `<!-- fp:navigation-submenu {"label":"Custom Link","type":"custom","url":"https://finpress.org","kind":"custom"} --><!-- fp:navigation-link {"label":"Submenu Link","type":"custom","url":"https://finpress.org","kind":"custom"} /--><!-- /fp:navigation-submenu --><!-- fp:navigation-link {"label":"Page Link","type":"page","id": ${ pageId },"url":"http://localhost:8889/?page_id=${ pageId }","kind":"post-type"} /-->`,
+			content: `<!-- fin:navigation-submenu {"label":"Custom Link","type":"custom","url":"https://finpress.org","kind":"custom"} --><!-- fin:navigation-link {"label":"Submenu Link","type":"custom","url":"https://finpress.org","kind":"custom"} /--><!-- /fin:navigation-submenu --><!-- fin:navigation-link {"label":"Page Link","type":"page","id": ${ pageId },"url":"http://localhost:8889/?page_id=${ pageId }","kind":"post-type"} /-->`,
 			attributes: { openSubmenusOnClick: true },
 		} );
 
@@ -418,7 +418,7 @@ class ColorControl {
 		await this.page.mouse.move( 1000, 1000 );
 
 		const overlay = this.editor.canvas
-			.locator( '.fp-block-navigation__responsive-container' )
+			.locator( '.fin-block-navigation__responsive-container' )
 			.filter( { hasText: 'Submenu Link' } );
 
 		// All of the mobile menu navigation links should be the same color as the submenuTextColor.
@@ -470,7 +470,7 @@ class ColorControl {
 			.locator( 'a' )
 			.filter( { hasText: 'Submenu Link' } );
 		const submenuWrapper = this.page
-			.locator( '.fp-block-navigation__submenu-container' )
+			.locator( '.fin-block-navigation__submenu-container' )
 			.filter( { has: submenuLink } );
 
 		// Submenu link color.
@@ -492,7 +492,7 @@ class ColorControl {
 		await expect( pageLink ).toHaveCSS( 'color', submenuTextColor );
 
 		const overlayFront = this.page
-			.locator( '.fp-block-navigation__responsive-container' )
+			.locator( '.fin-block-navigation__responsive-container' )
 			.filter( { hasText: 'Submenu Link' } );
 
 		// The mobile menu background should be the same color as the submenu background.

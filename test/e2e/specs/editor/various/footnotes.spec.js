@@ -10,12 +10,12 @@ async function getFootnotes( page, withoutSave = false ) {
 	}
 	await page.waitForSelector( 'button:text("Saved")' );
 	const footnotes = await page.evaluate( () => {
-		return window.fp.data
+		return window.fin.data
 			.select( 'core' )
 			.getEntityRecord(
 				'postType',
 				'post',
-				window.fp.data.select( 'core/editor' ).getCurrentPostId()
+				window.fin.data.select( 'core/editor' ).getCurrentPostId()
 			).meta.footnotes;
 	} );
 	return JSON.parse( footnotes );
@@ -354,7 +354,7 @@ test.describe( 'Footnotes', () => {
 		const previewPage = await editor.openPreviewPage();
 
 		await expect(
-			previewPage.locator( 'ol.fp-block-footnotes' )
+			previewPage.locator( 'ol.fin-block-footnotes' )
 		).toHaveText( 'first footnote” ↩︎second footnote ↩︎' );
 
 		await previewPage.close();
@@ -388,7 +388,7 @@ test.describe( 'Footnotes', () => {
 		const previewPage2 = await editor.openPreviewPage();
 
 		await expect(
-			previewPage2.locator( 'ol.fp-block-footnotes' )
+			previewPage2.locator( 'ol.fin-block-footnotes' )
 		).toHaveText( 'second footnote ↩︎first footnote” ↩︎' );
 
 		await previewPage2.close();
@@ -411,7 +411,7 @@ test.describe( 'Footnotes', () => {
 		const postId = await editor.publishPost();
 
 		// Test previewing changes to meta.
-		await editor.canvas.locator( 'ol.fp-block-footnotes li span' ).click();
+		await editor.canvas.locator( 'ol.fin-block-footnotes li span' ).click();
 		await page.keyboard.press( 'End' );
 		await page.keyboard.type( '2' );
 
@@ -419,7 +419,7 @@ test.describe( 'Footnotes', () => {
 		const previewPage = await editor.openPreviewPage();
 
 		await expect(
-			previewPage.locator( 'ol.fp-block-footnotes li' )
+			previewPage.locator( 'ol.fin-block-footnotes li' )
 		).toHaveText( '12 ↩︎' );
 
 		await previewPage.close();
@@ -427,16 +427,16 @@ test.describe( 'Footnotes', () => {
 
 		// Test again, this time with an existing revision (different code
 		// path).
-		await editor.canvas.locator( 'ol.fp-block-footnotes li span' ).click();
+		await editor.canvas.locator( 'ol.fin-block-footnotes li span' ).click();
 		await page.keyboard.press( 'End' );
 		// Test slashing.
 		await page.keyboard.type( '3"' );
 
 		const previewPage2 = await editor.openPreviewPage();
 
-		// Note: quote will get curled by fptexturize.
+		// Note: quote will get curled by fintexturize.
 		await expect(
-			previewPage2.locator( 'ol.fp-block-footnotes li' )
+			previewPage2.locator( 'ol.fin-block-footnotes li' )
 		).toHaveText( '123″  ↩︎' );
 
 		// Verify that the published post is unchanged after previewing changes to meta.
@@ -452,7 +452,7 @@ test.describe( 'Footnotes', () => {
 		await page.goto( `/?p=${ postId }` );
 
 		// Verify that the published post footnote still says "1".
-		await expect( page.locator( 'ol.fp-block-footnotes li' ) ).toHaveText(
+		await expect( page.locator( 'ol.fin-block-footnotes li' ) ).toHaveText(
 			'1 ↩︎'
 		);
 	} );
@@ -462,7 +462,7 @@ test.describe( 'Footnotes', () => {
 		page,
 	} ) => {
 		await page.evaluate( () => {
-			window.fp.blocks.registerBlockType( 'core/test-block-string', {
+			window.fin.blocks.registerBlockType( 'core/test-block-string', {
 				apiVersion: 3,
 				title: 'Block with string attribute',
 				attributes: { string: { type: 'string' } },

@@ -1,8 +1,8 @@
-.fp-block-file {
+.fin-block-file {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 
-	&:not(.fp-element-button) {
+	&:not(.fin-element-button) {
 		font-size: 0.8em;
 	}
 
@@ -15,22 +15,22 @@
 		text-align: right;
 	}
 
-	* + .fp-block-file__button {
+	* + .fin-block-file__button {
 		margin-left: 0.75em;
 	}
 }
 
 // Lowest specificity to avoid overriding layout styles.
-:where(.fp-block-file) {
+:where(.fin-block-file) {
 	margin-bottom: 1.5em;
 }
 
-.fp-block-file__embed {
+.fin-block-file__embed {
 	margin-bottom: 1em;
 }
 
 //This needs a low specificity so it won't override the rules from the button element if defined in theme.json.
-:where(.fp-block-file__button) {
+:where(.fin-block-file__button) {
 	border-radius: 2em;
 	padding: 0.5em 1em;
 	display: inline-block;

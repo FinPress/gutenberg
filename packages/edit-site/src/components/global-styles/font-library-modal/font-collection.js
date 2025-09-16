@@ -56,7 +56,7 @@ const DEFAULT_CATEGORY = {
 	name: _x( 'All', 'font categories' ),
 };
 
-const LOCAL_STORAGE_ITEM = 'fp-font-library-google-fonts-permission';
+const LOCAL_STORAGE_ITEM = 'fin-font-library-google-fonts-permission';
 const MIN_WINDOW_HEIGHT = 500;
 
 function FontCollection( { slug } ) {

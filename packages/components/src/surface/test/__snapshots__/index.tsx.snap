@@ -10,8 +10,8 @@ Snapshot Diff:
     <div
 -     class="components-surface css-1bmtyqd-PolymorphicDiv-Surface-getBorders-primary e19lxcc00"
 +     class="components-surface css-1u146xf-PolymorphicDiv-Surface-getBorders-primary e19lxcc00"
-      data-fp-c16t="true"
-      data-fp-component="Surface"
+      data-fin-c16t="true"
+      data-fin-component="Surface"
     >
       Surface
     </div>
@@ -27,8 +27,8 @@ Snapshot Diff:
     <div
 -     class="components-surface css-iin9ud-PolymorphicDiv-Surface-getBorders-primary e19lxcc00"
 +     class="components-surface css-1u146xf-PolymorphicDiv-Surface-getBorders-primary e19lxcc00"
-      data-fp-c16t="true"
-      data-fp-component="Surface"
+      data-fin-c16t="true"
+      data-fin-component="Surface"
     >
       Surface
     </div>
@@ -44,8 +44,8 @@ Snapshot Diff:
     <div
 -     class="components-surface css-4j30ez-PolymorphicDiv-Surface-getBorders-primary e19lxcc00"
 +     class="components-surface css-1u146xf-PolymorphicDiv-Surface-getBorders-primary e19lxcc00"
-      data-fp-c16t="true"
-      data-fp-component="Surface"
+      data-fin-c16t="true"
+      data-fin-component="Surface"
     >
       Surface
     </div>
@@ -61,8 +61,8 @@ Snapshot Diff:
     <div
 -     class="components-surface css-1v7smm4-PolymorphicDiv-Surface-getBorders-primary e19lxcc00"
 +     class="components-surface css-1u146xf-PolymorphicDiv-Surface-getBorders-primary e19lxcc00"
-      data-fp-c16t="true"
-      data-fp-component="Surface"
+      data-fin-c16t="true"
+      data-fin-component="Surface"
     >
       Surface
     </div>
@@ -78,8 +78,8 @@ exports[`props should render correctly 1`] = `
 <div>
   <div
     class="components-surface emotion-0 emotion-1"
-    data-fp-c16t="true"
-    data-fp-component="Surface"
+    data-fin-c16t="true"
+    data-fin-component="Surface"
   >
     Surface
   </div>
@@ -96,8 +96,8 @@ Snapshot Diff:
     <div
 -     class="components-surface css-1afnk4j-PolymorphicDiv-Surface-getBorders-secondary e19lxcc00"
 +     class="components-surface css-1u146xf-PolymorphicDiv-Surface-getBorders-primary e19lxcc00"
-      data-fp-c16t="true"
-      data-fp-component="Surface"
+      data-fin-c16t="true"
+      data-fin-component="Surface"
     >
       Surface
     </div>

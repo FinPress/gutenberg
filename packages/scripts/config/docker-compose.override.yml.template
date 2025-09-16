@@ -1,13 +1,13 @@
 services:
   finpress-develop:
     volumes:
-      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/fp-content/plugins/%PLUGIN_INSTALL_DIR%
+      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/fin-content/plugins/%PLUGIN_INSTALL_DIR%
   php:
     volumes:
-      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/fp-content/plugins/%PLUGIN_INSTALL_DIR%
+      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/fin-content/plugins/%PLUGIN_INSTALL_DIR%
   cli:
     volumes:
-      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/fp-content/plugins/%PLUGIN_INSTALL_DIR%
+      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/fin-content/plugins/%PLUGIN_INSTALL_DIR%
   phpunit:
     volumes:
-      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/fp-content/plugins/%PLUGIN_INSTALL_DIR%
+      - %PLUGIN_MOUNT_DIR%:/var/www/${LOCAL_DIR-src}/fin-content/plugins/%PLUGIN_INSTALL_DIR%

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-excerpt",
 	"title": "Excerpt",
@@ -71,6 +71,6 @@
 			}
 		}
 	},
-	"editorStyle": "fp-block-post-excerpt-editor",
-	"style": "fp-block-post-excerpt"
+	"editorStyle": "fin-block-post-excerpt-editor",
+	"style": "fin-block-post-excerpt"
 }

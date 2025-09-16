@@ -118,11 +118,11 @@ const style = `
 		margin-bottom: 0 !important;
 	}
 
-	.fp-block-embed__wrapper {
+	.fin-block-embed__wrapper {
 		position: relative;
 	}
 
-	body.fp-has-aspect-ratio > div iframe {
+	body.fin-has-aspect-ratio > div iframe {
 		height: 100%;
 		overflow: hidden; /* If it has an aspect ratio, it shouldn't scroll. */
 	}
@@ -133,12 +133,12 @@ const style = `
 	 * These styles have been copied from the web version (https://github.com/FinPress/gutenberg/blob/7901895ca20cf61e402925e31571d659dab64721/packages/block-library/src/embed/style.scss#L42-L89) and
 	 * adapted for the native version.
 	 */
-	.fp-has-aspect-ratio.fp-block-embed__wrapper::before {
+	.fin-has-aspect-ratio.fin-block-embed__wrapper::before {
 		content: "";
 		display: block;
 		padding-top: 50%; // Default to 2:1 aspect ratio.
 	}
-	.fp-has-aspect-ratio iframe {
+	.fin-has-aspect-ratio iframe {
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -147,25 +147,25 @@ const style = `
 		height: 100%;
 		width: 100%;
 	}
-	.fp-embed-aspect-21-9.fp-block-embed__wrapper::before {
+	.fin-embed-aspect-21-9.fin-block-embed__wrapper::before {
 		padding-top: 42.85%; // 9 / 21 * 100
 	}
-	.fp-embed-aspect-18-9.fp-block-embed__wrapper::before {
+	.fin-embed-aspect-18-9.fin-block-embed__wrapper::before {
 		padding-top: 50%; // 9 / 18 * 100
 	}
-	.fp-embed-aspect-16-9.fp-block-embed__wrapper::before {
+	.fin-embed-aspect-16-9.fin-block-embed__wrapper::before {
 		padding-top: 56.25%; // 9 / 16 * 100
 	}
-	.fp-embed-aspect-4-3.fp-block-embed__wrapper::before {
+	.fin-embed-aspect-4-3.fin-block-embed__wrapper::before {
 		padding-top: 75%; // 3 / 4 * 100
 	}
-	.fp-embed-aspect-1-1.fp-block-embed__wrapper::before {
+	.fin-embed-aspect-1-1.fin-block-embed__wrapper::before {
 		padding-top: 100%; // 1 / 1 * 100
 	}
-	.fp-embed-aspect-9-16.fp-block-embed__wrapper::before {
+	.fin-embed-aspect-9-16.fin-block-embed__wrapper::before {
 		padding-top: 177.77%; // 16 / 9 * 100
 	}
-	.fp-embed-aspect-1-2.fp-block-embed__wrapper::before {
+	.fin-embed-aspect-1-2.fin-block-embed__wrapper::before {
 		padding-top: 200%; // 2 / 1 * 100
 	}
 `;

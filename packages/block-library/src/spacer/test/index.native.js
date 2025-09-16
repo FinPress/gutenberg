@@ -51,9 +51,9 @@ describe( 'Spacer block', () => {
 	} );
 
 	it( 'updates height to 50px', async () => {
-		const initialHtml = `<!-- fp:spacer -->
-		<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-		<!-- /fp:spacer -->`;
+		const initialHtml = `<!-- fin:spacer -->
+		<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+		<!-- /fin:spacer -->`;
 		const screen = await initializeEditor( {
 			initialHtml,
 		} );
@@ -79,9 +79,9 @@ describe( 'Spacer block', () => {
 	} );
 
 	it( 'updates height to 25vh', async () => {
-		const initialHtml = `<!-- fp:spacer -->
-		<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-		<!-- /fp:spacer -->`;
+		const initialHtml = `<!-- fin:spacer -->
+		<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+		<!-- /fin:spacer -->`;
 		const screen = await initializeEditor( {
 			initialHtml,
 		} );
@@ -113,9 +113,9 @@ describe( 'Spacer block', () => {
 	} );
 
 	it( 'increments height', async () => {
-		const initialHtml = `<!-- fp:spacer -->
-		<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-		<!-- /fp:spacer -->`;
+		const initialHtml = `<!-- fin:spacer -->
+		<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+		<!-- /fin:spacer -->`;
 		const screen = await initializeEditor( {
 			initialHtml,
 		} );
@@ -143,9 +143,9 @@ describe( 'Spacer block', () => {
 	} );
 
 	it( 'decrements height', async () => {
-		const initialHtml = `<!-- fp:spacer -->
-		<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-		<!-- /fp:spacer -->`;
+		const initialHtml = `<!-- fin:spacer -->
+		<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+		<!-- /fin:spacer -->`;
 		const screen = await initializeEditor( {
 			initialHtml,
 		} );
@@ -198,9 +198,9 @@ describe( 'Spacer block', () => {
 			},
 		};
 
-		const initialHtml = `<!-- fp:spacer {"height":"var:preset|spacing|110"} -->
-		<div style="height:var(--fp--preset--spacing--110)" aria-hidden="true" class="fp-block-spacer"></div>
-		<!-- /fp:spacer -->`;
+		const initialHtml = `<!-- fin:spacer {"height":"var:preset|spacing|110"} -->
+		<div style="height:var(--fin--preset--spacing--110)" aria-hidden="true" class="fin-block-spacer"></div>
+		<!-- /fin:spacer -->`;
 		const screen = await initializeEditor( {
 			initialHtml,
 			rawStyles: JSON.stringify( RAW_STYLES ),
@@ -228,9 +228,9 @@ describe( 'Spacer block', () => {
 	} );
 
 	it( 'inserts block with spacingSizes preset without matching global styles values', async () => {
-		const initialHtml = `<!-- fp:spacer {"height":"var:preset|spacing|30"} -->
-		<div style="height:var(--fp--preset--spacing--30)" aria-hidden="true" class="fp-block-spacer"></div>
-		<!-- /fp:spacer -->`;
+		const initialHtml = `<!-- fin:spacer {"height":"var:preset|spacing|30"} -->
+		<div style="height:var(--fin--preset--spacing--30)" aria-hidden="true" class="fin-block-spacer"></div>
+		<!-- /fin:spacer -->`;
 		const screen = await initializeEditor( {
 			initialHtml,
 		} );

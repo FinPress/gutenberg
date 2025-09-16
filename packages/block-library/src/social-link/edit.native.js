@@ -62,8 +62,8 @@ const SocialLinkEdit = ( {
 	const [ isLinkSheetVisible, setIsLinkSheetVisible ] = useState( false );
 	const [ hasUrl, setHasUrl ] = useState( !! url );
 	const activeIcon =
-		styles[ `fp-social-link-${ service }` ] ||
-		styles[ `fp-social-link` ] ||
+		styles[ `fin-social-link-${ service }` ] ||
+		styles[ `fin-social-link` ] ||
 		DEFAULT_ACTIVE_ICON_STYLES;
 	const animatedValue = useRef( new Animated.Value( 0 ) ).current;
 

@@ -45,7 +45,7 @@ export function getGradientAstWithDefault( value?: string | null ) {
 	} catch ( error ) {
 		// eslint-disable-next-line no-console
 		console.warn(
-			'fp.components.CustomGradientPicker failed to parse the gradient with error',
+			'fin.components.CustomGradientPicker failed to parse the gradient with error',
 			error
 		);
 

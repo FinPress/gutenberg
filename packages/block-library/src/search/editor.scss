@@ -1,13 +1,13 @@
-.fp-block[data-align="center"] {
-	.fp-block-search {
-		.fp-block-search__inside-wrapper {
+.fin-block[data-align="center"] {
+	.fin-block-search {
+		.fin-block-search__inside-wrapper {
 			margin: auto;
 		}
 	}
 }
 
-.fp-block-search {
-	:where(.fp-block-search__button) {
+.fin-block-search {
+	:where(.fin-block-search__button) {
 		height: auto;
 		border-radius: initial;
 		display: flex;
@@ -17,7 +17,7 @@
 	}
 }
 
-.fp-block-search__inspector-controls {
+.fin-block-search__inspector-controls {
 	.components-base-control {
 		// Counteract the margin added by the block inspector.
 		margin-bottom: 0;

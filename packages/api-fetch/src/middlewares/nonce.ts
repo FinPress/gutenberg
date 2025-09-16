@@ -21,7 +21,7 @@ function createNonceMiddleware(
 		// thereof) was specified, no need to add a nonce header.
 		for ( const headerName in headers ) {
 			if (
-				headerName.toLowerCase() === 'x-fp-nonce' &&
+				headerName.toLowerCase() === 'x-fin-nonce' &&
 				headers[ headerName ] === middleware.nonce
 			) {
 				return next( options );

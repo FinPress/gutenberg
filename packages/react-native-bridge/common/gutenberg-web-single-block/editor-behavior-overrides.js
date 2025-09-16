@@ -66,7 +66,7 @@ function manageTextSelectionContextMenu() {
 			if ( currentToggle ) {
 				event.stopPropagation();
 				hideContextMenuListeners.push( () => currentToggle.click() );
-				window.fpwebkit.hideTextSelectionContextMenu();
+				window.finwebkit.hideTextSelectionContextMenu();
 			}
 		},
 		true
@@ -120,7 +120,7 @@ function toggleBlockSelectedStyles( registry ) {
 	};
 }
 
-window.fp.data.use( toggleBlockSelectedStyles );
+window.fin.data.use( toggleBlockSelectedStyles );
 
 // The editor-canvas iframe relies upon `srcdoc`, which does not trigger a
 // `load` event. Thus, we must poll for the iframe to be ready.

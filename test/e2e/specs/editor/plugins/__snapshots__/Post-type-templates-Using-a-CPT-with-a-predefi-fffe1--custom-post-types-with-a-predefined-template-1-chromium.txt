@@ -1,27 +1,27 @@
-<!-- fp:image -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image -->
+<!-- fin:image -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image -->
 
-<!-- fp:paragraph {"placeholder":"Add a book description"} -->
+<!-- fin:paragraph {"placeholder":"Add a book description"} -->
 <p></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->
 
-<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"><!-- fp:image -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image --></div>
-<!-- /fp:column -->
+<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"><!-- fin:image -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image --></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"><!-- fp:paragraph {"placeholder":"Add a inner paragraph"} -->
+<!-- fin:column -->
+<div class="fin-block-column"><!-- fin:paragraph {"placeholder":"Add a inner paragraph"} -->
 <p></p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->
+<!-- /fin:paragraph --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->

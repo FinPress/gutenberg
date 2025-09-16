@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/latest-posts",
 	"title": "Latest Posts",
@@ -127,6 +127,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-latest-posts-editor",
-	"style": "fp-block-latest-posts"
+	"editorStyle": "fin-block-latest-posts-editor",
+	"style": "fin-block-latest-posts"
 }

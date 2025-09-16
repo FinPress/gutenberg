@@ -29,7 +29,7 @@ export default function QueryToolbar( {
 		: __( 'Choose pattern' );
 
 	return (
-		<ToolbarGroup className="fp-block-template-part__block-control-group">
+		<ToolbarGroup className="fin-block-template-part__block-control-group">
 			<DropdownContentWrapper>
 				<Dropdown
 					contentClassName="block-editor-block-settings-menu__popover"

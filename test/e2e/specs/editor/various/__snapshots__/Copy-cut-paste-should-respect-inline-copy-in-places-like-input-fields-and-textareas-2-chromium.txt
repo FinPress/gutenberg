@@ -1,7 +1,7 @@
-<!-- fp:shortcode -->
+<!-- fin:shortcode -->
 [my-shortcode]
-<!-- /fp:shortcode -->
+<!-- /fin:shortcode -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Pasted: e]</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->

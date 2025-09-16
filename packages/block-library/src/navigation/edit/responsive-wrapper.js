@@ -33,7 +33,7 @@ export default function ResponsiveWrapper( {
 	}
 
 	const responsiveContainerClasses = clsx(
-		'fp-block-navigation__responsive-container',
+		'fin-block-navigation__responsive-container',
 		{
 			'has-text-color':
 				!! overlayTextColor.color || !! overlayTextColor?.class,
@@ -60,14 +60,14 @@ export default function ResponsiveWrapper( {
 	};
 
 	const openButtonClasses = clsx(
-		'fp-block-navigation__responsive-container-open',
+		'fin-block-navigation__responsive-container-open',
 		{ 'always-shown': isHiddenByDefault }
 	);
 
 	const modalId = `${ id }-modal`;
 
 	const dialogProps = {
-		className: 'fp-block-navigation__responsive-dialog',
+		className: 'fin-block-navigation__responsive-dialog',
 		...( isOpen && {
 			role: 'dialog',
 			'aria-modal': true,
@@ -96,13 +96,13 @@ export default function ResponsiveWrapper( {
 				id={ modalId }
 			>
 				<div
-					className="fp-block-navigation__responsive-close"
+					className="fin-block-navigation__responsive-close"
 					tabIndex="-1"
 				>
 					<div { ...dialogProps }>
 						<Button
 							__next40pxDefaultSize
-							className="fp-block-navigation__responsive-container-close"
+							className="fin-block-navigation__responsive-container-close"
 							aria-label={ hasIcon && __( 'Close menu' ) }
 							onClick={ () => onToggle( false ) }
 						>
@@ -110,7 +110,7 @@ export default function ResponsiveWrapper( {
 							{ ! hasIcon && __( 'Close' ) }
 						</Button>
 						<div
-							className="fp-block-navigation__responsive-container-content"
+							className="fin-block-navigation__responsive-container-content"
 							id={ `${ modalId }-content` }
 						>
 							{ children }

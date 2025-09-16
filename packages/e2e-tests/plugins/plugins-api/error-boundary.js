@@ -1,5 +1,5 @@
 ( function () {
-	const registerPlugin = fp.plugins.registerPlugin;
+	const registerPlugin = fin.plugins.registerPlugin;
 
 	function MyErrorPlugin() {
 		throw new Error( 'Whoops!' );

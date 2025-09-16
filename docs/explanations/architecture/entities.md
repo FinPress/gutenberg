@@ -16,7 +16,7 @@ The editor keeps track of all these modifications and orchestrates the saving of
 To be able to edit an entity, you need to first fetch it and load it into the `core-data` store. For example, the following code loads the post with ID 1 into the store. (The entity is the post, the post 1 is the entity record).
 
 ````js
-fp.data.select( 'core' ).getEntityRecord( 'postType', 'post', 1 );
+fin.data.select( 'core' ).getEntityRecord( 'postType', 'post', 1 );
 ````
 
 Once the entity is loaded, you can edit it. For example, the following code sets the title of the post to "Hello World". For each fetched entity record, the `core-data` store keeps track of the following:
@@ -29,13 +29,13 @@ The package also exposes a set of actions to manipulate the fetched entity recor
 To edit an entity record, you can call `editEntityRecord`, which takes the entity type, the entity ID, and the new entity record as parameters. The following example sets the title of the post with ID 1 to "Hello World".
 
 ````js
-fp.data.dispatch( 'core' ).editEntityRecord( 'postType', 'post', 1, { title: 'Hello World' } );
+fin.data.dispatch( 'core' ).editEntityRecord( 'postType', 'post', 1, { title: 'Hello World' } );
 ````
 
 Once you have edited an entity record, you can save it. The following code saves the post with ID 1.
 
 ````js
-fp.data.dispatch( 'core' ).saveEditedEntityRecord( 'postType', 'post', 1 );
+fin.data.dispatch( 'core' ).saveEditedEntityRecord( 'postType', 'post', 1 );
 ````
 
 ## Undo/Redo
@@ -54,7 +54,7 @@ For example, let's say a user edits the title of a post, followed by a modificat
 
  - `[ { kind: 'postType', name: 'post', id: 1, property: 'title', from: '', to: 'Hello World' } ]`
  - `[ { kind: 'postType', name: 'post', id: 1, property: 'slug', from: 'Previous slug', to: 'This is the slug of the hello world post' } ]`
- - `[ { kind: 'postType', name: 'fp_block', id: 2, property: 'title', from: 'Reusable Block', to: 'Awesome Reusable Block' } ]`
+ - `[ { kind: 'postType', name: 'fin_block', id: 2, property: 'title', from: 'Reusable Block', to: 'Awesome Reusable Block' } ]`
 
 The store also keeps track of a "pointer" to the current "undo/redo" step. By default, the pointer always points to the last item in the stack. This pointer is updated when the user performs an undo or redo operation.
 
@@ -67,5 +67,5 @@ Cached changes are kept outside the undo/redo stack in what is called a "cache" 
 By default, all calls to `editEntityRecord` are considered "non-cached" unless the `isCached` option is passed as true. Example:
 
 ```js
-fp.data.dispatch( 'core' ).editEntityRecord( 'postType', 'post', 1, { title: 'Hello World' }, { isCached: true } );
+fin.data.dispatch( 'core' ).editEntityRecord( 'postType', 'post', 1, { title: 'Hello World' }, { isCached: true } );
 ```

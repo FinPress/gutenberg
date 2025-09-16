@@ -1,4 +1,4 @@
-.fp-block-post-featured-image {
+.fin-block-post-featured-image {
 	margin-left: 0;
 	margin-right: 0;
 	a {
@@ -18,13 +18,13 @@
 		width: 100%;
 	}
 
-	.fp-block-post-featured-image__overlay {
+	.fin-block-post-featured-image__overlay {
 		&.has-background-dim {
 			position: absolute;
 			inset: 0;
 			background-color: $black;
 
-			@at-root .fp-block-post-featured-image {
+			@at-root .fin-block-post-featured-image {
 				position: relative;
 			}
 		}

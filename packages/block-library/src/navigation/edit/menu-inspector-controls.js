@@ -114,9 +114,9 @@ const MainContent = ( {
 		  );
 
 	return (
-		<div className="fp-block-navigation__menu-inspector-controls">
+		<div className="fin-block-navigation__menu-inspector-controls">
 			{ ! hasChildren && (
-				<p className="fp-block-navigation__menu-inspector-controls__empty-message">
+				<p className="fin-block-navigation__menu-inspector-controls__empty-message">
 					{ __( 'This Navigation Menu is empty.' ) }
 				</p>
 			) }
@@ -147,9 +147,9 @@ const MenuInspectorControls = ( props ) => {
 	return (
 		<InspectorControls group="list">
 			<PanelBody title={ null }>
-				<HStack className="fp-block-navigation-off-canvas-editor__header">
+				<HStack className="fin-block-navigation-off-canvas-editor__header">
 					<Heading
-						className="fp-block-navigation-off-canvas-editor__title"
+						className="fin-block-navigation-off-canvas-editor__title"
 						level={ 2 }
 					>
 						{ __( 'Menu' ) }

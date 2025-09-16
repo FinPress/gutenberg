@@ -4,77 +4,77 @@
 const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 const EDITOR_ZOOM_OUT_CONTENT = `
-<!-- fp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="fp-block-group"><!-- fp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
-<div class="fp-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fp:paragraph -->
+<!-- fin:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="fin-block-group"><!-- fin:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+<div class="fin-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fin:paragraph -->
 <p>First Section Start</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<!-- fin:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
 <p>First Section Center</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>First Section End</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group -->
+<!-- /fin:paragraph --></div>
+<!-- /fin:group -->
 
-<!-- fp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
-<div class="fp-block-group has-base-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fp:paragraph -->
+<!-- fin:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+<div class="fin-block-group has-base-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fin:paragraph -->
 <p>Second Section Start</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<!-- fin:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
 <p>Second Section Center</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Second Section End</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group -->
+<!-- /fin:paragraph --></div>
+<!-- /fin:group -->
 
-<!-- fp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
-<div class="fp-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fp:paragraph -->
+<!-- fin:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+<div class="fin-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fin:paragraph -->
 <p>Third Section Start</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<!-- fin:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
 <p>Third Section Center</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Third Section End</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group -->
+<!-- /fin:paragraph --></div>
+<!-- /fin:group -->
 
-<!-- fp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
-<div class="fp-block-group has-base-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fp:paragraph -->
+<!-- fin:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+<div class="fin-block-group has-base-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fin:paragraph -->
 <p>Fourth Section Start</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<!-- fin:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
 <p>Fourth Section Center</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Fourth Section End</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group --></main>
-<!-- /fp:group -->`;
+<!-- /fin:paragraph --></div>
+<!-- /fin:group --></main>
+<!-- /fin:group -->`;
 
-const EDITOR_ZOOM_OUT_CONTENT_NO_SECTION_ROOT = `<!-- fp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
-<div class="fp-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fp:paragraph -->
+const EDITOR_ZOOM_OUT_CONTENT_NO_SECTION_ROOT = `<!-- fin:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"}},"dimensions":{"minHeight":"100vh"}},"backgroundColor":"base-2","layout":{"type":"flex","orientation":"vertical","verticalAlignment":"space-between"}} -->
+<div class="fin-block-group has-base-2-background-color has-background" style="min-height:100vh;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- fin:paragraph -->
 <p>First Section Start</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
+<!-- fin:paragraph {"style":{"layout":{"selfStretch":"fit","flexSize":null}}} -->
 <p>First Section Center</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>First Section End</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group -->`;
+<!-- /fin:paragraph --></div>
+<!-- /fin:group -->`;
 
 test.describe( 'Zoom Out', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
@@ -83,14 +83,14 @@ test.describe( 'Zoom Out', () => {
 
 	test.afterAll( async ( { requestUtils } ) => {
 		await requestUtils.activateTheme( 'twentytwentyone' );
-		await requestUtils.deleteAllTemplates( 'fp_template' );
-		await requestUtils.deleteAllTemplates( 'fp_template_part' );
+		await requestUtils.deleteAllTemplates( 'fin_template' );
+		await requestUtils.deleteAllTemplates( 'fin_template_part' );
 	} );
 
 	test.beforeEach( async ( { admin } ) => {
 		await admin.visitSiteEditor( {
 			postId: 'twentytwentyfour//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 	} );
@@ -134,7 +134,7 @@ test.describe( 'Zoom Out', () => {
 			const { activeElement } =
 				document.activeElement?.contentDocument ?? document;
 			window.scrollContainer =
-				window.fp.dom.getScrollContainer( activeElement );
+				window.fin.dom.getScrollContainer( activeElement );
 			return window.scrollContainer;
 		} );
 

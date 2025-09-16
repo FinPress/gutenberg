@@ -2,7 +2,7 @@
 	const { Masonry, document } = win;
 	win.addEventListener( 'DOMContentLoaded', () => {
 		document
-			.querySelectorAll( '.fp-block-test-iframed-masonry-block' )
+			.querySelectorAll( '.fin-block-test-iframed-masonry-block' )
 			.forEach( ( element ) => {
 				new Masonry( element, {
 					itemSelector: '.grid-item',

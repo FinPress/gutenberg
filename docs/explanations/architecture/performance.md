@@ -45,8 +45,8 @@ To achieve that the command first prepares the following folder structure:
     ├── tests/test/emptytheme
     |   The theme used for the tests environment. (site editor)
     │
-    │── envs/branch1/.fp-env.json
-    │   The fp-env config file for branch1 (similar to all other branches except the plugin folder).
+    │── envs/branch1/.fin-env.json
+    │   The fin-env config file for branch1 (similar to all other branches except the plugin folder).
     │── envs/branch1/plugin
     │   A built clone of the Gutenberg plugin for branch1 (git checkout branch1)
     │

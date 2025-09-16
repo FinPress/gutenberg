@@ -99,7 +99,7 @@ export function pasteHandler( {
 		// Check plain text if there is no HTML.
 		const content = HTML ? HTML : plainText;
 
-		if ( content.indexOf( '<!-- fp:' ) !== -1 ) {
+		if ( content.indexOf( '<!-- fin:' ) !== -1 ) {
 			const parseResult = parse( content );
 			const isSingleFreeFormBlock =
 				parseResult.length === 1 &&

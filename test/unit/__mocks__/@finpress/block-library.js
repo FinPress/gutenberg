@@ -1,5 +1,5 @@
 // Make sure the classic block is registered.
-window.fp = window.fp || {};
-window.fp.oldEditor = {};
+window.fin = window.fin || {};
+window.fin.oldEditor = {};
 
 export * from '../../../../packages/block-library/src';

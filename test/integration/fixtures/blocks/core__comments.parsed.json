@@ -41,9 +41,9 @@
 										"innerContent": []
 									}
 								],
-								"innerHTML": "\n    <div class=\"fp-block-column\" style=\"flex-basis:40px\"></div>\n    ",
+								"innerHTML": "\n    <div class=\"fin-block-column\" style=\"flex-basis:40px\"></div>\n    ",
 								"innerContent": [
-									"\n    <div class=\"fp-block-column\" style=\"flex-basis:40px\">",
+									"\n    <div class=\"fin-block-column\" style=\"flex-basis:40px\">",
 									null,
 									"</div>\n    "
 								]
@@ -96,9 +96,9 @@
 												"innerContent": []
 											}
 										],
-										"innerHTML": "\n    <div class=\"fp-block-group\" style=\"margin-top:0px;margin-bottom:0px\">\n    \n    </div>\n    ",
+										"innerHTML": "\n    <div class=\"fin-block-group\" style=\"margin-top:0px;margin-bottom:0px\">\n    \n    </div>\n    ",
 										"innerContent": [
-											"\n    <div class=\"fp-block-group\" style=\"margin-top:0px;margin-bottom:0px\">",
+											"\n    <div class=\"fin-block-group\" style=\"margin-top:0px;margin-bottom:0px\">",
 											null,
 											"\n    \n    ",
 											null,
@@ -122,9 +122,9 @@
 										"innerContent": []
 									}
 								],
-								"innerHTML": "\n    <div class=\"fp-block-column\">\n    \n    \n    \n    \n    \n    </div>\n    ",
+								"innerHTML": "\n    <div class=\"fin-block-column\">\n    \n    \n    \n    \n    \n    </div>\n    ",
 								"innerContent": [
-									"\n    <div class=\"fp-block-column\">",
+									"\n    <div class=\"fin-block-column\">",
 									null,
 									"\n    \n    ",
 									null,
@@ -136,9 +136,9 @@
 								]
 							}
 						],
-						"innerHTML": "\n    <div class=\"fp-block-columns\">\n    \n    </div>\n    ",
+						"innerHTML": "\n    <div class=\"fin-block-columns\">\n    \n    </div>\n    ",
 						"innerContent": [
-							"\n    <div class=\"fp-block-columns\">",
+							"\n    <div class=\"fin-block-columns\">",
 							null,
 							"\n    \n    ",
 							null,
@@ -164,9 +164,9 @@
 				"innerContent": []
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-comments comments-post-extra\">\n\n    \n    \n    \n    \n    </div>\n    ",
+		"innerHTML": "\n<div class=\"fin-block-comments comments-post-extra\">\n\n    \n    \n    \n    \n    </div>\n    ",
 		"innerContent": [
-			"\n<div class=\"fp-block-comments comments-post-extra\">",
+			"\n<div class=\"fin-block-comments comments-post-extra\">",
 			null,
 			"\n\n    ",
 			null,

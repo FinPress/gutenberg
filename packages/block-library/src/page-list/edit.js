@@ -55,8 +55,8 @@ function BlockContent( {
 	if ( ! hasResolvedPages ) {
 		return (
 			<div { ...blockProps }>
-				<div className="fp-block-page-list__loading-indicator-container">
-					<Spinner className="fp-block-page-list__loading-indicator" />
+				<div className="fin-block-page-list__loading-indicator-container">
+					<Spinner className="fin-block-page-list__loading-indicator" />
 				</div>
 			</div>
 		);
@@ -173,7 +173,7 @@ export default function PageListEdit( {
 	}, [ pages ] );
 
 	const blockProps = useBlockProps( {
-		className: clsx( 'fp-block-page-list', {
+		className: clsx( 'fin-block-page-list', {
 			'has-text-color': !! context.textColor,
 			[ getColorClassName( 'color', context.textColor ) ]:
 				!! context.textColor,

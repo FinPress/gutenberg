@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/table",
 	"title": "Table",
@@ -204,8 +204,8 @@
 		}
 	},
 	"selectors": {
-		"root": ".fp-block-table > table",
-		"spacing": ".fp-block-table"
+		"root": ".fin-block-table > table",
+		"spacing": ".fin-block-table"
 	},
 	"styles": [
 		{
@@ -215,6 +215,6 @@
 		},
 		{ "name": "stripes", "label": "Stripes" }
 	],
-	"editorStyle": "fp-block-table-editor",
-	"style": "fp-block-table"
+	"editorStyle": "fin-block-table-editor",
+	"style": "fin-block-table"
 }

@@ -1,18 +1,18 @@
 <?php
 /**
- * Appending the fp-block-heading to before rendering the stored `core/heading` block contents.
+ * Appending the fin-block-heading to before rendering the stored `core/heading` block contents.
  *
  * @package FinPress
  */
 
 /**
- * Adds a fp-block-heading class to the heading block content.
+ * Adds a fin-block-heading class to the heading block content.
  *
  * For example, the following block content:
  *  <h2 class="align-left">Hello World</h2>
  *
  * Would be transformed to:
- *  <h2 class="align-left fp-block-heading">Hello World</h2>
+ *  <h2 class="align-left fin-block-heading">Hello World</h2>
  *
  * @since 6.2.0
  *
@@ -31,7 +31,7 @@ function block_core_heading_render( $attributes, $content ) {
 	$header_tags = array( 'H1', 'H2', 'H3', 'H4', 'H5', 'H6' );
 	while ( $p->next_tag() ) {
 		if ( in_array( $p->get_tag(), $header_tags, true ) ) {
-			$p->add_class( 'fp-block-heading' );
+			$p->add_class( 'fin-block-heading' );
 			break;
 		}
 	}

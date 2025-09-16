@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/navigation-link",
 	"title": "Custom Link",
@@ -82,6 +82,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-navigation-link-editor",
-	"style": "fp-block-navigation-link"
+	"editorStyle": "fin-block-navigation-link-editor",
+	"style": "fin-block-navigation-link"
 }

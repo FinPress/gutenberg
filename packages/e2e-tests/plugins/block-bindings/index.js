@@ -1,9 +1,9 @@
-const { registerBlockBindingsSource } = fp.blocks;
-const { InspectorControls } = fp.blockEditor;
-const { PanelBody, TextControl } = fp.components;
-const { createHigherOrderComponent } = fp.compose;
-const { createElement: el, Fragment } = fp.element;
-const { addFilter } = fp.hooks;
+const { registerBlockBindingsSource } = fin.blocks;
+const { InspectorControls } = fin.blockEditor;
+const { PanelBody, TextControl } = fin.components;
+const { createHigherOrderComponent } = fin.compose;
+const { createElement: el, Fragment } = fin.element;
+const { addFilter } = fin.hooks;
 const { fieldsList } = window.testingBindings || {};
 
 const getValues = ( { bindings } ) => {

@@ -56,11 +56,11 @@ function render_block_core_post_author( $attributes, $content, $block ) {
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => implode( ' ', $classes ) ) );
 
 	return sprintf( '<div %1$s>', $wrapper_attributes ) .
-	( ! empty( $attributes['showAvatar'] ) ? '<div class="fp-block-post-author__avatar">' . $avatar . '</div>' : '' ) .
-	'<div class="fp-block-post-author__content">' .
-	( ! empty( $byline ) ? '<p class="fp-block-post-author__byline">' . fp_kses_post( $byline ) . '</p>' : '' ) .
-	'<p class="fp-block-post-author__name">' . $author_name . '</p>' .
-	( ! empty( $attributes['showBio'] ) ? '<p class="fp-block-post-author__bio">' . get_the_author_meta( 'user_description', $author_id ) . '</p>' : '' ) .
+	( ! empty( $attributes['showAvatar'] ) ? '<div class="fin-block-post-author__avatar">' . $avatar . '</div>' : '' ) .
+	'<div class="fin-block-post-author__content">' .
+	( ! empty( $byline ) ? '<p class="fin-block-post-author__byline">' . fin_kses_post( $byline ) . '</p>' : '' ) .
+	'<p class="fin-block-post-author__name">' . $author_name . '</p>' .
+	( ! empty( $attributes['showBio'] ) ? '<p class="fin-block-post-author__bio">' . get_the_author_meta( 'user_description', $author_id ) . '</p>' : '' ) .
 	'</div>' .
 	'</div>';
 }

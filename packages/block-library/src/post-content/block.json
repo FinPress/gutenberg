@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-content",
 	"title": "Content",
@@ -74,6 +74,6 @@
 			}
 		}
 	},
-	"style": "fp-block-post-content",
-	"editorStyle": "fp-block-post-content-editor"
+	"style": "fin-block-post-content",
+	"editorStyle": "fin-block-post-content-editor"
 }

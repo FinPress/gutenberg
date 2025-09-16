@@ -18,7 +18,7 @@ export default function SitePreview() {
 		<iframe
 			src={ addQueryArgs( siteUrl, {
 				// Parameter for hiding the admin bar.
-				fp_site_preview: 1,
+				fin_site_preview: 1,
 			} ) }
 			title={ __( 'Site Preview' ) }
 			style={ {

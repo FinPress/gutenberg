@@ -5,6 +5,6 @@
  */
 export async function selectBlockByClientId( clientId ) {
 	await page.evaluate( ( id ) => {
-		fp.data.dispatch( 'core/block-editor' ).selectBlock( id );
+		fin.data.dispatch( 'core/block-editor' ).selectBlock( id );
 	}, clientId );
 }

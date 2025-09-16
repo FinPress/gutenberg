@@ -43,14 +43,14 @@ function ClassicEdit( props ) {
 		( select ) => select( store ).getSettings().styles
 	);
 	useEffect( () => {
-		const { baseURL, suffix, settings } = window.fpEditorL10n.tinymce;
+		const { baseURL, suffix, settings } = window.finEditorL10n.tinymce;
 
 		window.tinymce.EditorManager.overrideDefaults( {
 			base_url: baseURL,
 			suffix,
 		} );
 
-		window.fp.oldEditor.initialize( props.id, {
+		window.fin.oldEditor.initialize( props.id, {
 			tinymce: {
 				...settings,
 				setup( editor ) {
@@ -67,7 +67,7 @@ function ClassicEdit( props ) {
 		} );
 
 		return () => {
-			window.fp.oldEditor.remove( props.id );
+			window.fin.oldEditor.remove( props.id );
 		};
 	}, [] );
 
@@ -136,7 +136,7 @@ export default function ModalEdit( props ) {
 								onClick={ () => {
 									setAttributes( {
 										content:
-											window.fp.oldEditor.getContent(
+											window.fin.oldEditor.getContent(
 												id
 											),
 									} );

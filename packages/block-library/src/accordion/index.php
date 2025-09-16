@@ -15,28 +15,28 @@ function render_block_core_accordion( $attributes, $content ) {
 		return $content;
 	}
 
-	$suffix = fp_scripts_get_suffix();
+	$suffix = fin_scripts_get_suffix();
 	if ( defined( 'IS_GUTENBERG_PLUGIN' ) && IS_GUTENBERG_PLUGIN ) {
 		$module_url = gutenberg_url( '/build-module/block-library/accordion/view.min.js' );
 	}
 
-	fp_register_script_module(
+	fin_register_script_module(
 		'@finpress/block-library/accordion',
 		isset( $module_url ) ? $module_url : includes_url( "blocks/accordion/view{$suffix}.js" ),
 		array( '@finpress/interactivity' ),
 		defined( 'GUTENBERG_VERSION' ) ? GUTENBERG_VERSION : get_bloginfo( 'version' )
 	);
 
-	fp_enqueue_script_module( '@finpress/block-library/accordion' );
+	fin_enqueue_script_module( '@finpress/block-library/accordion' );
 
 	$p             = new FP_HTML_Tag_Processor( $content );
 	$autoclose     = $attributes['autoclose'] ? 'true' : 'false';
 	$icon          = $attributes['icon'] ?? 'plus';
 	$icon_position = $attributes['iconPosition'] ?? 'right';
 
-	if ( $p->next_tag( array( 'class_name' => 'fp-block-accordion' ) ) ) {
-		$p->set_attribute( 'data-fp-interactive', 'core/accordion' );
-		$p->set_attribute( 'data-fp-context', '{ "autoclose": ' . $autoclose . ', "isOpen": [], "icon": "' . $icon . '", "iconPosition": "' . $icon_position . '" }' );
+	if ( $p->next_tag( array( 'class_name' => 'fin-block-accordion' ) ) ) {
+		$p->set_attribute( 'data-fin-interactive', 'core/accordion' );
+		$p->set_attribute( 'data-fin-context', '{ "autoclose": ' . $autoclose . ', "isOpen": [], "icon": "' . $icon . '", "iconPosition": "' . $icon_position . '" }' );
 
 		// Only modify content if directives have been set.
 		$content = $p->get_updated_html();

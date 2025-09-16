@@ -1,7 +1,7 @@
 # Patterns
 
 > **Note**
-> This package is currently only used internally by the Gutenberg project to manage the creation and editing of user patterns using the `fp_block` CPT in the context of the block editor. The likes of the `PatternsMenuItems` component expect to be rendered within a `BlockEditorProvider` in order to work.
+> This package is currently only used internally by the Gutenberg project to manage the creation and editing of user patterns using the `fin_block` CPT in the context of the block editor. The likes of the `PatternsMenuItems` component expect to be rendered within a `BlockEditorProvider` in order to work.
 
 ## Installation
 

@@ -17,7 +17,7 @@ jobs:
         runs-on: 'ubuntu-24.04'
         permissions:
             contents: read
-        environment: fp.org plugin
+        environment: fin.org plugin
         env:
             PLUGIN_REPO_URL: 'https://plugins.svn.finpress.org/gutenberg'
             SVN_USERNAME: ${{ secrets.SVN_USERNAME }}

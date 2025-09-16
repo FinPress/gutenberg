@@ -45,10 +45,10 @@ test.describe( 'Preload', () => {
 		// To do: these should all be removed or preloaded.
 		expect( requests ).toEqual( [
 			// Seems to be coming from `enableComplementaryArea`.
-			'/fp/v2/users/me',
+			'/fin/v2/users/me',
 			// There are two separate settings OPTIONS requests. We should fix
 			// so the one for canUser and getEntityRecord are reused.
-			'/fp/v2/settings',
+			'/fin/v2/settings',
 		] );
 	} );
 } );

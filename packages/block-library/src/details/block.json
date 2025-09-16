@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/details",
 	"title": "Details",
@@ -22,7 +22,7 @@
 			"type": "string",
 			"source": "attribute",
 			"attribute": "name",
-			"selector": ".fp-block-details"
+			"selector": ".fin-block-details"
 		},
 		"allowedBlocks": {
 			"type": "array"
@@ -78,6 +78,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-details-editor",
-	"style": "fp-block-details"
+	"editorStyle": "fin-block-details-editor",
+	"style": "fin-block-details"
 }

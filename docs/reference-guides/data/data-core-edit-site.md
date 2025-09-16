@@ -68,7 +68,7 @@ _Returns_
 
 > **Deprecated**
 
-Returns the current edited post type (fp_template or fp_template_part).
+Returns the current edited post type (fin_template or fin_template_part).
 
 _Parameters_
 

@@ -1206,7 +1206,7 @@ class LinkUtils {
 
 	async toggleFixedToolbar( isFixed ) {
 		await this.page.evaluate( ( _isFixed ) => {
-			const { select, dispatch } = window.fp.data;
+			const { select, dispatch } = window.fin.data;
 			const isCurrentlyFixed =
 				select( 'core/preferences' ).get( 'fixedToolbar' );
 

@@ -1,8 +1,8 @@
 ( function () {
-	const { registerBlockType } = fp.blocks;
-	const { useBlockProps, BlockControls } = fp.blockEditor;
-	const { Dropdown, ToolbarButton, TextControl } = fp.components;
-	const { createElement: el, useState } = fp.element;
+	const { registerBlockType } = fin.blocks;
+	const { useBlockProps, BlockControls } = fin.blockEditor;
+	const { Dropdown, ToolbarButton, TextControl } = fin.components;
+	const { createElement: el, useState } = fin.element;
 
 	registerBlockType( 'e2e-tests/observe-typing', {
 		apiVersion: 3,

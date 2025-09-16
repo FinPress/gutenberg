@@ -34,21 +34,21 @@ $z-layers: (
 	".interface-interface-skeleton__content": 20,
 	".edit-widgets-header": 30,
 
-	".fp-block-cover.is-placeholder .components-placeholder.is-large": 1, // Cover block resizer component inside a large placeholder.
+	".fin-block-cover.is-placeholder .components-placeholder.is-large": 1, // Cover block resizer component inside a large placeholder.
 	// These z-index are now used only for a deprecated version of the cover block.
-	".fp-block-cover__inner-container": 1, // InnerBlocks area inside cover image block.
-	".fp-block-cover.has-background-dim::before": 1, // Overlay area inside block cover need to be higher than the video background.
-	".fp-block-cover__image-background": 0, // Image background inside cover block.
-	".fp-block-cover__video-background": 0, // Video background inside cover block.
+	".fin-block-cover__inner-container": 1, // InnerBlocks area inside cover image block.
+	".fin-block-cover.has-background-dim::before": 1, // Overlay area inside block cover need to be higher than the video background.
+	".fin-block-cover__image-background": 0, // Image background inside cover block.
+	".fin-block-cover__video-background": 0, // Video background inside cover block.
 
-	".fp-block-template-part__placeholder-preview-filter-input": 1,
+	".fin-block-template-part__placeholder-preview-filter-input": 1,
 
 	// Fixed position appender:
 	".block-editor-block-list__block .block-list-appender": 2,
 
 	// Navigation menu dropdown.
-	".has-child .fp-block-navigation__submenu-container": 28,
-	".has-child:hover .fp-block-navigation__submenu-container": 29,
+	".has-child .fin-block-navigation__submenu-container": 28,
+	".has-child:hover .fin-block-navigation__submenu-container": 29,
 
 	// Active pill button
 	".components-button {:focus or .is-primary}": 1,
@@ -63,7 +63,7 @@ $z-layers: (
 	".components-drop-zone__content": 50,
 
 	// The floated blocks should be above the other blocks to allow selection.
-	"{core/image aligned left or right} .fp-block": 21,
+	"{core/image aligned left or right} .fin-block": 21,
 
 	// Needs to be below media library that has a z-index of 160000.
 	"{core/video track editor popover}": 160000 - 10,
@@ -84,17 +84,17 @@ $z-layers: (
 	".block-editor-block-pattern-setup .{next,previous}-slide": 101,
 	".block-editor-block-pattern-setup .active-slide": 102,
 
-	// Show sidebar above fp-admin navigation bar for mobile viewports:
-	// #fpadminbar { z-index: 99999 }
+	// Show sidebar above fin-admin navigation bar for mobile viewports:
+	// #finadminbar { z-index: 99999 }
 	".interface-interface-skeleton__sidebar": 100000,
 	".editor-layout__toggle-sidebar-panel": 100000,
 	".edit-widgets-sidebar": 100000,
 	".editor-post-publish-panel": 100001,
-	// For larger views, the fp-admin navbar dropdown should be at top of
+	// For larger views, the fin-admin navbar dropdown should be at top of
 	// the Publish Post sidebar.
 	".editor-post-publish-panel {greater than small}": 99998,
 
-	// For larger views, the fp-admin navbar dropdown should be on top of
+	// For larger views, the fin-admin navbar dropdown should be on top of
 	// the multi-entity saving sidebar.
 	".edit-site-editor__toggle-save-panel": 100000,
 
@@ -115,10 +115,10 @@ $z-layers: (
 	// Show snackbars above everything (similar to popovers)
 	".components-snackbar-list": 100000,
 
-	// Show modal under the fp-admin menus and the popover
+	// Show modal under the fin-admin menus and the popover
 	".components-modal__screen-overlay": 100000,
 
-	// Show popovers above fp-admin menus and submenus and sidebar:
+	// Show popovers above fin-admin menus and submenus and sidebar:
 	// #adminmenuwrap { z-index: 9990 }
 	".components-popover": 1000000,
 
@@ -140,7 +140,7 @@ $z-layers: (
 	// Note: The ConfirmDialog component's z-index is being set to 1000001 in packages/components/src/confirm-dialog/styles.ts
 	// because it uses emotion and not sass. We need it to render on top its parent popover.
 
-	// ...Except for popovers immediately beneath fp-admin menu on large breakpoints
+	// ...Except for popovers immediately beneath fin-admin menu on large breakpoints
 	".components-popover.block-editor-inserter__popover": 99999,
 	".components-popover.table-of-contents__popover": 99998,
 	".components-popover.interface-more-menu__content": 99998,
@@ -157,10 +157,10 @@ $z-layers: (
 	// The focus styles of the region navigation containers should be above their content.
 	".is-focusing-regions {region} :focus::after": 1000000,
 
-	// Show NUX tips above popovers, fp-admin menus, submenus, and sidebar:
+	// Show NUX tips above popovers, fin-admin menus, submenus, and sidebar:
 	".nux-dot-tip": 1000001,
 
-	// Show tooltips above NUX tips, fp-admin menus, submenus, and sidebar:
+	// Show tooltips above NUX tips, fin-admin menus, submenus, and sidebar:
 	".components-tooltip": 1000002,
 
 	// Make sure corner handles are above side handles for ResizableBox component

@@ -361,7 +361,7 @@
 				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/insert-block.js",
 				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/local-storage-overrides.json",
 				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/prevent-autosaves.js",
-				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/fp-bar-override.css",
+				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/fin-bar-override.css",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/RCTI18nStrings.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FinPress-Aztec-iOS/FinPress-Aztec-iOS.bundle",
 			);
@@ -375,7 +375,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/insert-block.js",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/local-storage-overrides.json",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/prevent-autosaves.js",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/fp-bar-override.css",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/fin-bar-override.css",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCTI18nStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FinPress-Aztec-iOS.bundle",
 			);
@@ -461,7 +461,7 @@
 				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/insert-block.js",
 				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/local-storage-overrides.json",
 				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/prevent-autosaves.js",
-				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/fp-bar-override.css",
+				"${PODS_ROOT}/../../../react-native-bridge/common/gutenberg-web-single-block/fin-bar-override.css",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/RCTI18nStrings.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FinPress-Aztec-iOS/FinPress-Aztec-iOS.bundle",
 			);
@@ -475,7 +475,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/insert-block.js",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/local-storage-overrides.json",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/prevent-autosaves.js",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/fp-bar-override.css",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/fin-bar-override.css",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCTI18nStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FinPress-Aztec-iOS.bundle",
 			);

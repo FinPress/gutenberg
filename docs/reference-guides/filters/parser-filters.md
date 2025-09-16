@@ -26,11 +26,11 @@ class EmptyParser {
   }
 }
 
-function fpdocs_select_empty_parser( $prev_parser_class ) {
+function findocs_select_empty_parser( $prev_parser_class ) {
     return 'EmptyParser';
 }
 
-add_filter( 'block_parser_class', 'fpdocs_select_empty_parser', 10, 1 );
+add_filter( 'block_parser_class', 'findocs_select_empty_parser', 10, 1 );
 ```
 
 > **Note**: At the present time it's not possible to replace the client-side parser.

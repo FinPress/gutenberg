@@ -24,19 +24,19 @@ test.describe( 'Editing Navigation Menus', () => {
 			const createdMenu = await requestUtils.createNavigationMenu( {
 				title: 'Primary Menu',
 				content:
-					'<!-- fp:navigation-link {"label":"FinPress","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /-->',
+					'<!-- fin:navigation-link {"label":"FinPress","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /-->',
 			} );
 
 			// Add another so we get a list of Navigation menus in the editor.
 			await requestUtils.createNavigationMenu( {
 				title: 'Another One',
 				content:
-					'<!-- fp:navigation-link {"label":"Another Item","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /-->',
+					'<!-- fin:navigation-link {"label":"Another Item","type":"custom","url":"http://www.finpress.org/","kind":"custom"} /-->',
 			} );
 
 			await admin.visitSiteEditor( {
 				postId: createdMenu?.id,
-				postType: 'fp_navigation',
+				postType: 'fin_navigation',
 				canvas: 'edit',
 			} );
 

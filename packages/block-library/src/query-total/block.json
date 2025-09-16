@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/query-total",
 	"title": "Query Total",
@@ -57,5 +57,5 @@
 			"clientNavigation": true
 		}
 	},
-	"style": "fp-block-query-total"
+	"style": "fin-block-query-total"
 }

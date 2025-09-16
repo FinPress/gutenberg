@@ -22,8 +22,8 @@ import { store as commandsStore } from '../store';
  * const icons = {
  *     post,
  *     page,
- *     fp_template: layout,
- *     fp_template_part: symbolFilled,
+ *     fin_template: layout,
+ *     fin_template_part: symbolFilled,
  * };
  *
  * function usePageSearchCommandLoader( { search } ) {

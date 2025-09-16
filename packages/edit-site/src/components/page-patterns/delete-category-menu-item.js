@@ -34,7 +34,7 @@ export default function DeleteCategoryMenuItem( { category, onClose } ) {
 		try {
 			await deleteEntityRecord(
 				'taxonomy',
-				'fp_pattern_category',
+				'fin_pattern_category',
 				category.id,
 				{ force: true },
 				{ throwOnError: true }

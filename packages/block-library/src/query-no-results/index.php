@@ -10,7 +10,7 @@
  *
  * @since 6.0.0
  *
- * @global FP_Query $fp_query FinPress Query object.
+ * @global FP_Query $fin_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
@@ -29,8 +29,8 @@ function render_block_core_query_no_results( $attributes, $content, $block ) {
 	// Override the custom query with the global query if needed.
 	$use_global_query = ( isset( $block->context['query']['inherit'] ) && $block->context['query']['inherit'] );
 	if ( $use_global_query ) {
-		global $fp_query;
-		$query = $fp_query;
+		global $fin_query;
+		$query = $fin_query;
 	} else {
 		$query_args = build_query_vars_from_query_block( $block, $page );
 		$query      = new FP_Query( $query_args );

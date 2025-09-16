@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/comment-content",
 	"title": "Comment Content",
@@ -55,5 +55,5 @@
 		},
 		"html": false
 	},
-	"style": "fp-block-comment-content"
+	"style": "fin-block-comment-content"
 }

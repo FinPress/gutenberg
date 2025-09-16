@@ -24,9 +24,9 @@ function UnforwardedButtonGroup(
 	const classes = clsx( 'components-button-group', className );
 
 	if ( ! __shouldNotWarnDeprecated ) {
-		deprecated( 'fp.components.ButtonGroup', {
+		deprecated( 'fin.components.ButtonGroup', {
 			since: '6.8',
-			alternative: 'fp.components.__experimentalToggleGroupControl',
+			alternative: 'fin.components.__experimentalToggleGroupControl',
 		} );
 	}
 

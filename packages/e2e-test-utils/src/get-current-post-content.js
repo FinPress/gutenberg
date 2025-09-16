@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { fpDataSelect } from './fp-data-select';
+import { finDataSelect } from './fin-data-select';
 
 /**
  * Returns a promise which resolves with the current post content (HTML string).
@@ -9,6 +9,6 @@ import { fpDataSelect } from './fp-data-select';
  * @return {Promise} Promise resolving with current post content markup.
  */
 export async function getCurrentPostContent() {
-	const post = await fpDataSelect( 'core/editor', 'getCurrentPost' );
+	const post = await finDataSelect( 'core/editor', 'getCurrentPost' );
 	return post.content;
 }

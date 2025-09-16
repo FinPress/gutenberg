@@ -1,4 +1,4 @@
-ul.fp-block-rss { // The ul is needed for specificity to override the reset styles in the editor.
+ul.fin-block-rss { // The ul is needed for specificity to override the reset styles in the editor.
 
 	&.alignleft {
 		/*rtl:ignore*/
@@ -28,12 +28,12 @@ ul.fp-block-rss { // The ul is needed for specificity to override the reset styl
 	}
 }
 
-.fp-block-rss__item-publish-date,
-.fp-block-rss__item-author {
+.fin-block-rss__item-publish-date,
+.fin-block-rss__item-author {
 	display: block;
 	font-size: 0.8125em;
 }
-.fp-block-rss {
+.fin-block-rss {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 	list-style: none;

@@ -78,7 +78,7 @@ const v2 = {
 			if ( displayType === 'modified' ) {
 				className = clsx(
 					className,
-					'fp-block-post-date__modified-date'
+					'fin-block-post-date__modified-date'
 				);
 			}
 

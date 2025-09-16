@@ -1,9 +1,9 @@
 ( function () {
-	const { fp } = window;
-	const { registerBlockType } = fp.blocks;
-	const { createElement: el } = fp.element;
-	const { InnerBlocks } = fp.blockEditor;
-	const { useSelect } = fp.data;
+	const { fin } = window;
+	const { registerBlockType } = fin.blocks;
+	const { createElement: el } = fin.element;
+	const { InnerBlocks } = fin.blockEditor;
+	const { useSelect } = fin.data;
 
 	const allowedBlocks = [ 'core/quote', 'core/video' ];
 

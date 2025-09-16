@@ -9,7 +9,7 @@ The Block Bindings API lets you “bind” dynamic data to the block’s attribu
 An example could be connecting an Image block `url` attribute to a function that returns random images from an external API.
 
 ```html
-<!-- fp:image {
+<!-- fin:image {
 	"metadata":{
 		"bindings":{
 			"url":{
@@ -63,7 +63,7 @@ add_action(
 	'init',
 	function () {
 		register_block_bindings_source(
-			'fpmovies/visualization-date',
+			'finmovies/visualization-date',
 			array(
 				'label'              => __( 'Visualization Date', 'custom-bindings' ),
 				'get_value_callback' => function ( array $source_args, $block_instance ) {
@@ -87,7 +87,7 @@ add_action(
 	function () {
 		register_meta(
 			'post',
-			'fp_movies_visualization_date',
+			'fin_movies_visualization_date',
 			array(
 				'show_in_rest' => true,
 				'single'       => true,
@@ -119,9 +119,9 @@ The filter has the following parameters:
 Example:
 
 ```php
-function fpmovies_format_visualization_date( $value, $name ) {
+function finmovies_format_visualization_date( $value, $name ) {
 	// Prevent the filter to be applied to other sources.
-	if ( $name !== 'fpmovies/visualization-date' ) {
+	if ( $name !== 'finmovies/visualization-date' ) {
 		return $value;
 	}
 	if ( ! $value ) {
@@ -130,16 +130,16 @@ function fpmovies_format_visualization_date( $value, $name ) {
 	return date( 'm/d/Y', strtotime( $value ) );
 }
 
-add_filter( 'block_bindings_source_value', 'fpmovies_format_visualization_date', 10, 2 );
+add_filter( 'block_bindings_source_value', 'finmovies_format_visualization_date', 10, 2 );
 ```
 
 #### Server registration Core examples
 
 There are a few examples in Core that can be used as reference.
 
-- Post Meta. [Source code](https://github.com/FinPress/finpress-develop/blob/trunk/src/fp-includes/block-bindings/post-meta.php)
-- Pattern overrides. [Source code](https://github.com/FinPress/finpress-develop/blob/trunk/src/fp-includes/block-bindings/pattern-overrides.php)
-- Twenty Twenty-Five theme. [Source code](https://github.com/FinPress/finpress-develop/blob/trunk/src/fp-content/themes/twentytwentyfive/functions.php)
+- Post Meta. [Source code](https://github.com/FinPress/finpress-develop/blob/trunk/src/fin-includes/block-bindings/post-meta.php)
+- Pattern overrides. [Source code](https://github.com/FinPress/finpress-develop/blob/trunk/src/fin-includes/block-bindings/pattern-overrides.php)
+- Twenty Twenty-Five theme. [Source code](https://github.com/FinPress/finpress-develop/blob/trunk/src/fin-content/themes/twentytwentyfive/functions.php)
 
 
 ### Editor registration
@@ -169,22 +169,22 @@ import { __ } from '@finpress/i18n';
 import { store as coreDataStore } from '@finpress/core-data';
 
 registerBlockBindingsSource( {
-	name: 'fpmovies/visualization-date',
+	name: 'finmovies/visualization-date',
 	label: __( 'Visualization Date', 'custom-bindings' ), // We can skip the label, as it was already defined in the server in the previous example.
 	usesContext: [ 'postType' ], // We can skip postId, as it was already defined in the server in the previous example.
 	getValues( { select, context } ) {
-		let fpMoviesVisualizationDate;
+		let finMoviesVisualizationDate;
 		const { getEditedEntityRecord } = select( coreDataStore );
 		if ( context?.postType && context?.postId ) {
-			fpMoviesVisualizationDate = getEditedEntityRecord(
+			finMoviesVisualizationDate = getEditedEntityRecord(
 				'postType',
 				context?.postType,
 				context?.postId
-			).meta?.fp_movies_visualization_date;
+			).meta?.fin_movies_visualization_date;
 		}
-		if ( fpMoviesVisualizationDate ) {
+		if ( finMoviesVisualizationDate ) {
 			return {
-				content: fpMoviesVisualizationDate,
+				content: finMoviesVisualizationDate,
 			};
 		}
 
@@ -199,7 +199,7 @@ registerBlockBindingsSource( {
 			context?.postId,
 			{
 				meta: {
-					fp_movies_visualization_date: bindings?.content?.newValue,
+					fin_movies_visualization_date: bindings?.content?.newValue,
 				},
 			}
 		);

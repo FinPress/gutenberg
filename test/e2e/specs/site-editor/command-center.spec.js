@@ -31,7 +31,7 @@ test.describe( 'Site editor command palette', () => {
 			.fill( 'new' );
 		await page.getByRole( 'option', { name: 'Add Page' } ).click();
 		await expect( page ).toHaveURL(
-			/\/fp-admin\/site-editor.php\?p=%2Fpage%2F(\d+)&canvas=edit/
+			/\/fin-admin\/site-editor.php\?p=%2Fpage%2F(\d+)&canvas=edit/
 		);
 		await expect(
 			page
@@ -51,7 +51,7 @@ test.describe( 'Site editor command palette', () => {
 			.fill( 'create' );
 		await page.getByRole( 'option', { name: 'Add Page' } ).click();
 		await expect( page ).toHaveURL(
-			/\/fp-admin\/site-editor.php\?p=%2Fpage%2F(\d+)&canvas=edit/
+			/\/fin-admin\/site-editor.php\?p=%2Fpage%2F(\d+)&canvas=edit/
 		);
 		await expect(
 			page
@@ -70,7 +70,7 @@ test.describe( 'Site editor command palette', () => {
 			.getByRole( 'combobox', { name: 'Search commands and settings' } )
 			.fill( 'create' );
 		await page.getByRole( 'option', { name: 'Add Post' } ).click();
-		await expect( page ).toHaveURL( /\/fp-admin\/post-new\.php/ );
+		await expect( page ).toHaveURL( /\/fin-admin\/post-new\.php/ );
 	} );
 
 	test( 'Open the command palette and navigate to a template', async ( {

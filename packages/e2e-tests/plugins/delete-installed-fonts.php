@@ -11,7 +11,7 @@
  * Saves a randomly generated temporary font directory to use for e2e tests.
  */
 function gutenberg_e2e_set_temp_font_dir() {
-	update_option( 'gutenberg_e2e_font_dir', '/e2e_fonts_' . fp_generate_uuid4() );
+	update_option( 'gutenberg_e2e_font_dir', '/e2e_fonts_' . fin_generate_uuid4() );
 }
 register_activation_hook( __FILE__, 'gutenberg_e2e_set_temp_font_dir' );
 
@@ -37,7 +37,7 @@ add_filter( 'font_dir', 'gutenberg_filter_e2e_font_dir' );
 function gutenberg_delete_installed_fonts() {
 	$font_family_ids = new FP_Query(
 		array(
-			'post_type'      => 'fp_font_family',
+			'post_type'      => 'fin_font_family',
 			'posts_per_page' => -1,
 			'fields'         => 'ids',
 		)
@@ -45,11 +45,11 @@ function gutenberg_delete_installed_fonts() {
 
 	// Delete all font families, their child font faces, and associated font files.
 	foreach ( $font_family_ids->posts as $font_family_id ) {
-		fp_delete_post( $font_family_id, true );
+		fin_delete_post( $font_family_id, true );
 	}
 
 	// Delete the font directory, which should now be empty.
-	$font_path = fp_get_font_dir()['path'];
+	$font_path = fin_get_font_dir()['path'];
 
 	if ( is_dir( $font_path ) ) {
 		rmdir( $font_path );
@@ -57,7 +57,7 @@ function gutenberg_delete_installed_fonts() {
 
 	// Delete any installed fonts from global styles.
 	$global_styles_post_id = FP_Theme_JSON_Resolver_Gutenberg::get_user_global_styles_post_id();
-	$request               = new FP_REST_Request( 'POST', '/fp/v2/global-styles/' . $global_styles_post_id );
+	$request               = new FP_REST_Request( 'POST', '/fin/v2/global-styles/' . $global_styles_post_id );
 	$request->set_body_params( array( 'settings' => array( 'typography' => array( 'fontFamilies' => array() ) ) ) );
 
 	rest_do_request( $request );

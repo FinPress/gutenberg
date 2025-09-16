@@ -276,8 +276,8 @@ const SiteLogo = ( {
 	const shouldUseNewUrl = ! window?.__experimentalUseCustomizerSiteLogoUrl;
 
 	const siteIconSettingsUrl = shouldUseNewUrl
-		? siteUrl + '/fp-admin/options-general.php'
-		: siteUrl + '/fp-admin/customize.php?autofocus[section]=title_tagline';
+		? siteUrl + '/fin-admin/options-general.php'
+		: siteUrl + '/fin-admin/customize.php?autofocus[section]=title_tagline';
 
 	const syncSiteIconHelpText = createInterpolateElement(
 		__(

@@ -1,8 +1,8 @@
 ( function () {
-	const el = fp.element.createElement;
-	const __ = fp.i18n.__;
-	const registerPlugin = fp.plugins.registerPlugin;
-	const PluginPostStatusInfo = fp.editor.PluginPostStatusInfo;
+	const el = fin.element.createElement;
+	const __ = fin.i18n.__;
+	const registerPlugin = fin.plugins.registerPlugin;
+	const PluginPostStatusInfo = fin.editor.PluginPostStatusInfo;
 
 	function MyPostStatusInfoPlugin() {
 		return el(

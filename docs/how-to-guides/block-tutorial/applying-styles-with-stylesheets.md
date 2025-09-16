@@ -56,9 +56,9 @@ registerBlockType( 'gutenberg-examples/example-02-stylesheets', {
 
 The inline style works well for a small amount of CSS to apply. If you have much more than the above you will likely find that it is easier to manage with them in a separate stylesheet file.
 
-The `useBlockProps` hooks includes the classname for the block automatically, it generates a name for each block using the block's name prefixed with `fp-block-`, replacing the `/` namespace separator with a single `-`.
+The `useBlockProps` hooks includes the classname for the block automatically, it generates a name for each block using the block's name prefixed with `fin-block-`, replacing the `/` namespace separator with a single `-`.
 
-For example the block name: `gutenberg-examples/example-02-stylesheets` would get the classname: `fp-block-gutenberg-examples-example-02-stylesheets`. It might be a bit long but best to avoid conflicts with other blocks.
+For example the block name: `gutenberg-examples/example-02-stylesheets` would get the classname: `fin-block-gutenberg-examples-example-02-stylesheets`. It might be a bit long but best to avoid conflicts with other blocks.
 
 ```jsx
 import { registerBlockType } from '@finpress/blocks';
@@ -118,7 +118,7 @@ So in your plugin directory, create an `editor.css` file to load in editor view:
 
 ```css
 /* green background */
-.fp-block-gutenberg-examples-example-02-stylesheets {
+.fin-block-gutenberg-examples-example-02-stylesheets {
 	background: #090;
 	color: white;
 	padding: 20px;
@@ -129,7 +129,7 @@ And a `style.css` file to load on the frontend:
 
 ```css
 /* red background */
-.fp-block-gutenberg-examples-example-02-stylesheets {
+.fin-block-gutenberg-examples-example-02-stylesheets {
 	background: #900;
 	color: white;
 	padding: 20px;
@@ -149,7 +149,7 @@ Example:
 - In `view.js` you would place `import './view.scss';` (interactive block template)
 </div>
 
-**Note:** If you have multiple files to include, you can use standard `fp_enqueue_style` functions like any other plugin or theme. You will want to use the following hooks for the block editor:
+**Note:** If you have multiple files to include, you can use standard `fin_enqueue_style` functions like any other plugin or theme. You will want to use the following hooks for the block editor:
 
 -   `enqueue_block_editor_assets` - to load only in editor view
 -   `enqueue_block_assets` - loads both on frontend and editor view

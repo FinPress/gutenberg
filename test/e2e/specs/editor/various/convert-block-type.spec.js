@@ -23,16 +23,16 @@ test.describe( 'Code block', () => {
 
 		// Verify the content starts out as a Code block.
 
-		await expect.poll( editor.getEditedPostContent ).toBe( `<!-- fp:code -->
-<pre class="fp-block-code"><code>${ code }</code></pre>
-<!-- /fp:code -->` );
+		await expect.poll( editor.getEditedPostContent ).toBe( `<!-- fin:code -->
+<pre class="fin-block-code"><code>${ code }</code></pre>
+<!-- /fin:code -->` );
 
 		await editor.transformBlockTo( 'core/preformatted' );
 
 		// The content should now be a Preformatted block with no data loss.
 		await expect.poll( editor.getEditedPostContent )
-			.toBe( `<!-- fp:preformatted -->
-<pre class="fp-block-preformatted">${ code }</pre>
-<!-- /fp:preformatted -->` );
+			.toBe( `<!-- fin:preformatted -->
+<pre class="fin-block-preformatted">${ code }</pre>
+<!-- /fin:preformatted -->` );
 	} );
 } );

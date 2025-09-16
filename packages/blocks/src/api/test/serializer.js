@@ -214,7 +214,7 @@ describe( 'block serializer', () => {
 				''
 			);
 
-			expect( content ).toBe( '<!-- fp:test-block /-->' );
+			expect( content ).toBe( '<!-- fin:test-block /-->' );
 		} );
 
 		it( 'should include the namespace for non-core blocks', () => {
@@ -225,7 +225,7 @@ describe( 'block serializer', () => {
 			);
 
 			expect( content ).toBe(
-				'<!-- fp:my-wonderful-namespace/test-block /-->'
+				'<!-- fin:my-wonderful-namespace/test-block /-->'
 			);
 		} );
 
@@ -237,7 +237,7 @@ describe( 'block serializer', () => {
 			);
 
 			expect( content ).toBe(
-				'<!-- fp:test-block -->\nDelicious\n<!-- /fp:test-block -->'
+				'<!-- fin:test-block -->\nDelicious\n<!-- /fin:test-block -->'
 			);
 		} );
 
@@ -249,7 +249,7 @@ describe( 'block serializer', () => {
 			);
 
 			expect( content ).toBe(
-				'<!-- fp:test-block {"fruit":"Banana"} /-->'
+				'<!-- fin:test-block {"fruit":"Banana"} /-->'
 			);
 		} );
 
@@ -261,7 +261,7 @@ describe( 'block serializer', () => {
 			);
 
 			expect( content ).toBe(
-				'<!-- fp:test-block {"fruit":"Banana"} -->\nDelicious\n<!-- /fp:test-block -->'
+				'<!-- fin:test-block {"fruit":"Banana"} -->\nDelicious\n<!-- /fin:test-block -->'
 			);
 		} );
 	} );
@@ -306,9 +306,9 @@ describe( 'block serializer', () => {
 			const content = serializeBlock( block, { isInnerBlocks: true } );
 
 			expect( content ).toBe(
-				'<!-- fp:freeform {"fruit":"Bananas"} -->\n' +
+				'<!-- fin:freeform {"fruit":"Bananas"} -->\n' +
 					'Bananas\n' +
-					'<!-- /fp:freeform -->'
+					'<!-- /fin:freeform -->'
 			);
 		} );
 		it( 'serializes the unregistered fallback block without comment delimiters', () => {
@@ -353,7 +353,7 @@ describe( 'block serializer', () => {
 			};
 
 			expect( serializeBlock( block ) ).toBe(
-				'<!-- fp:quote -->\n<p>Not a quote</p>\n<!-- /fp:quote -->'
+				'<!-- fin:quote -->\n<p>Not a quote</p>\n<!-- /fin:quote -->'
 			);
 		} );
 		it( 're-generates content from invalid blocks when source information is missing (losing content)', () => {
@@ -371,7 +371,7 @@ describe( 'block serializer', () => {
 				isValid: false,
 			};
 
-			expect( serializeBlock( block ) ).toBe( '<!-- fp:quote /-->' );
+			expect( serializeBlock( block ) ).toBe( '<!-- fin:quote /-->' );
 		} );
 	} );
 
@@ -413,7 +413,7 @@ describe( 'block serializer', () => {
 				stuff: 'left & right -- but <not>',
 			} );
 			const expectedPostContent =
-				'<!-- fp:test-block {"stuff":"left \\u0026 right \\u002d\\u002d but \\u003cnot\\u003e"} -->\n<p>Ribs &amp; Chicken</p>\n<!-- /fp:test-block -->';
+				'<!-- fin:test-block {"stuff":"left \\u0026 right \\u002d\\u002d but \\u003cnot\\u003e"} -->\n<p>Ribs &amp; Chicken</p>\n<!-- /fin:test-block -->';
 
 			expect( serialize( [ block ] ) ).toEqual( expectedPostContent );
 			expect( serialize( block ) ).toEqual( expectedPostContent );
@@ -428,7 +428,7 @@ describe( 'block serializer', () => {
 			block.originalContent = 'Correct';
 
 			expect( serialize( block ) ).toEqual(
-				'<!-- fp:test-block -->\nCorrect\n<!-- /fp:test-block -->'
+				'<!-- fin:test-block -->\nCorrect\n<!-- /fin:test-block -->'
 			);
 		} );
 
@@ -441,7 +441,7 @@ describe( 'block serializer', () => {
 			block.originalContent = 'Correct';
 
 			expect( serialize( block ) ).toEqual(
-				'<!-- fp:test-block {"throw":true} -->\nCorrect\n<!-- /fp:test-block -->'
+				'<!-- fin:test-block {"throw":true} -->\nCorrect\n<!-- /fin:test-block -->'
 			);
 		} );
 	} );

@@ -176,7 +176,7 @@ function CoverEdit( {
 	// to preview in edit the dynamic featured image
 	const url = useFeaturedImage
 		? mediaUrl
-		: // Ensure the url is not malformed due to sanitization through `fp_kses`.
+		: // Ensure the url is not malformed due to sanitization through `fin_kses`.
 		  originalUrl?.replaceAll( '&amp;', '&' );
 	const backgroundType = useFeaturedImage
 		? IMAGE_BACKGROUND_TYPE
@@ -379,7 +379,7 @@ function CoverEdit( {
 
 	const innerBlocksProps = useInnerBlocksProps(
 		{
-			className: 'fp-block-cover__inner-container',
+			className: 'fin-block-cover__inner-container',
 		},
 		{
 			// Avoid template sync when the `templateLock` value is `all` or `contentOnly`.
@@ -515,7 +515,7 @@ function CoverEdit( {
 						onError={ onUploadError }
 						toggleUseFeaturedImage={ toggleUseFeaturedImage }
 					>
-						<div className="fp-block-cover__placeholder-background-options">
+						<div className="fin-block-cover__placeholder-background-options">
 							<ColorPalette
 								disableCustomColors
 								value={ overlayColor.color }
@@ -561,7 +561,7 @@ function CoverEdit( {
 
 				{ ! url && useFeaturedImage && (
 					<Placeholder
-						className="fp-block-cover__image--placeholder-image"
+						className="fin-block-cover__image--placeholder-image"
 						withIllustration
 					/>
 				) }
@@ -571,7 +571,7 @@ function CoverEdit( {
 					( isImgElement ? (
 						<img
 							ref={ mediaElement }
-							className="fp-block-cover__image-background"
+							className="fin-block-cover__image-background"
 							alt={ alt }
 							src={ url }
 							style={ mediaStyle }
@@ -583,7 +583,7 @@ function CoverEdit( {
 							aria-label={ alt ? alt : undefined }
 							className={ clsx(
 								classes,
-								'fp-block-cover__image-background'
+								'fin-block-cover__image-background'
 							) }
 							style={ { backgroundImage, backgroundPosition } }
 						/>
@@ -591,7 +591,7 @@ function CoverEdit( {
 				{ url && isVideoBackground && (
 					<video
 						ref={ mediaElement }
-						className="fp-block-cover__video-background"
+						className="fin-block-cover__video-background"
 						autoPlay
 						muted
 						loop
@@ -605,15 +605,15 @@ function CoverEdit( {
 					<span
 						aria-hidden="true"
 						className={ clsx(
-							'fp-block-cover__background',
+							'fin-block-cover__background',
 							dimRatioToClass( dimRatio ),
 							{
 								[ overlayColor.class ]: overlayColor.class,
 								'has-background-dim': dimRatio !== undefined,
 								// For backwards compatibility. Former versions of the Cover Block applied
-								// `.fp-block-cover__gradient-background` in the presence of
+								// `.fin-block-cover__gradient-background` in the presence of
 								// media, a gradient and a dim.
-								'fp-block-cover__gradient-background':
+								'fin-block-cover__gradient-background':
 									url && gradientValue && dimRatio !== 0,
 								'has-background-gradient': gradientValue,
 								[ gradientClass ]: gradientClass,

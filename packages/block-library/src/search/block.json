@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/search",
 	"title": "Search",
@@ -61,7 +61,7 @@
 		"interactivity": true,
 		"typography": {
 			"__experimentalSkipSerialization": true,
-			"__experimentalSelector": ".fp-block-search__label, .fp-block-search__input, .fp-block-search__button",
+			"__experimentalSelector": ".fin-block-search__label, .fin-block-search__input, .fin-block-search__button",
 			"fontSize": true,
 			"lineHeight": true,
 			"__experimentalFontFamily": true,
@@ -90,6 +90,6 @@
 		},
 		"html": false
 	},
-	"editorStyle": "fp-block-search-editor",
-	"style": "fp-block-search"
+	"editorStyle": "fin-block-search-editor",
+	"style": "fin-block-search"
 }

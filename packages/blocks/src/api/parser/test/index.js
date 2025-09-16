@@ -151,7 +151,7 @@ describe( 'block parser', () => {
 				attrs: { fruit: 'Bananas' },
 			} );
 			expect( block.name ).toBe( 'core/unregistered-block' );
-			expect( block.attributes.content ).toContain( 'fp:test-block' );
+			expect( block.attributes.content ).toContain( 'fin:test-block' );
 		} );
 
 		it( 'should fall back to the freeform content handler if block type not specified', () => {
@@ -277,9 +277,9 @@ describe( 'block parser', () => {
 			} );
 
 			const parsed = parse(
-				`<!-- fp:core/test-block {"smoked":"yes","url":"http://google.com","chicken":"ribs & 'wings'"} -->` +
+				`<!-- fin:core/test-block {"smoked":"yes","url":"http://google.com","chicken":"ribs & 'wings'"} -->` +
 					'Brisket' +
-					'<!-- /fp:core/test-block -->'
+					'<!-- /fin:core/test-block -->'
 			);
 
 			expect( parsed ).toHaveLength( 1 );
@@ -313,9 +313,9 @@ describe( 'block parser', () => {
 			} );
 
 			const parsed = parse(
-				'<!-- fp:core/test-block -->\nRibs\n<!-- /fp:core/test-block -->' +
+				'<!-- fin:core/test-block -->\nRibs\n<!-- /fin:core/test-block -->' +
 					'<p>Broccoli</p>' +
-					'<!-- fp:core/unknown-block -->Ribs<!-- /fp:core/unknown-block -->'
+					'<!-- fin:core/unknown-block -->Ribs<!-- /fin:core/unknown-block -->'
 			);
 
 			expect( parsed ).toHaveLength( 1 );
@@ -330,7 +330,7 @@ describe( 'block parser', () => {
 			registerBlockType( 'core/test-block', defaultBlockSettings );
 
 			const parsed = parse(
-				'<!-- fp:test-block {"fruit":"Bananas"} -->\nBananas\n<!-- /fp:test-block -->'
+				'<!-- fin:test-block {"fruit":"Bananas"} -->\nBananas\n<!-- /fin:test-block -->'
 			);
 
 			expect( parsed ).toHaveLength( 1 );
@@ -344,9 +344,9 @@ describe( 'block parser', () => {
 			setUnregisteredTypeHandlerName( 'core/unknown-block' );
 
 			const parsed = parse(
-				'<!-- fp:test-block {"fruit":"Bananas"} -->\nBananas\n<!-- /fp:test-block -->' +
+				'<!-- fin:test-block {"fruit":"Bananas"} -->\nBananas\n<!-- /fin:test-block -->' +
 					'<p>Broccoli</p>' +
-					'<!-- fp:core/unknown/block -->Ribs<!-- /fp:core/unknown/block -->'
+					'<!-- fin:core/unknown/block -->Ribs<!-- /fin:core/unknown/block -->'
 			);
 			expect( parsed ).toHaveLength( 1 );
 			expect( parsed[ 0 ].name ).toBe( 'core/test-block' );
@@ -359,9 +359,9 @@ describe( 'block parser', () => {
 			setFreeformContentHandlerName( 'core/unknown-block' );
 
 			const parsed = parse(
-				'<!-- fp:test-block {"fruit":"Bananas"} -->\nBananas\n<!-- /fp:test-block -->' +
+				'<!-- fin:test-block {"fruit":"Bananas"} -->\nBananas\n<!-- /fin:test-block -->' +
 					'<p>Broccoli</p>' +
-					'<!-- fp:core/unknown-block -->Ribs<!-- /fp:core/unknown-block -->'
+					'<!-- fin:core/unknown-block -->Ribs<!-- /fin:core/unknown-block -->'
 			);
 
 			expect( parsed ).toHaveLength( 3 );
@@ -380,9 +380,9 @@ describe( 'block parser', () => {
 
 			const parsed = parse(
 				'<p>Cauliflower</p>' +
-					'<!-- fp:test-block {"fruit":"Bananas"} -->\nBananas\n<!-- /fp:test-block -->' +
+					'<!-- fin:test-block {"fruit":"Bananas"} -->\nBananas\n<!-- /fin:test-block -->' +
 					'\n<p>Broccoli</p>\n' +
-					'<!-- fp:test-block {"fruit":"Bananas"} -->\nBananas\n<!-- /fp:test-block -->' +
+					'<!-- fin:test-block {"fruit":"Bananas"} -->\nBananas\n<!-- /fin:test-block -->' +
 					'<p>Romanesco</p>'
 			);
 
@@ -408,7 +408,7 @@ describe( 'block parser', () => {
 		it( 'should parse blocks with empty content', () => {
 			registerBlockType( 'core/test-block', defaultBlockSettings );
 			const parsed = parse(
-				'<!-- fp:core/test-block --><!-- /fp:core/test-block -->'
+				'<!-- fin:core/test-block --><!-- /fin:core/test-block -->'
 			);
 
 			expect( parsed ).toHaveLength( 1 );
@@ -421,8 +421,8 @@ describe( 'block parser', () => {
 			registerBlockType( 'core/test-block', defaultBlockSettings );
 			registerBlockType( 'core/void-block', defaultBlockSettings );
 			const parsed = parse(
-				'<!-- fp:core/test-block --><!-- /fp:core/test-block -->' +
-					'<!-- fp:core/void-block /-->'
+				'<!-- fin:core/test-block --><!-- /fin:core/test-block -->' +
+					'<!-- fin:core/void-block /-->'
 			);
 
 			expect( parsed ).toHaveLength( 2 );

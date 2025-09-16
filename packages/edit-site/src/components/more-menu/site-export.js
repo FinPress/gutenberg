@@ -14,7 +14,7 @@ export default function SiteExport() {
 	const canExport = useSelect( ( select ) => {
 		const targetHints =
 			select( coreStore ).getCurrentTheme()?._links?.[
-				'fp:export-theme'
+				'fin:export-theme'
 			]?.[ 0 ]?.targetHints ?? {};
 
 		return !! targetHints.allow?.includes( 'GET' );
@@ -28,7 +28,7 @@ export default function SiteExport() {
 	async function handleExport() {
 		try {
 			const response = await apiFetch( {
-				path: '/fp-block-editor/v1/export',
+				path: '/fin-block-editor/v1/export',
 				parse: false,
 				headers: {
 					Accept: 'application/zip',

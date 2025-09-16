@@ -1,9 +1,9 @@
 ( function () {
-	const registerBlockType = fp.blocks.registerBlockType;
-	const createBlock = fp.blocks.createBlock;
-	const el = fp.element.createElement;
-	const { InnerBlocks, useBlockProps } = fp.blockEditor;
-	const useState = window.fp.element.useState;
+	const registerBlockType = fin.blocks.registerBlockType;
+	const createBlock = fin.blocks.createBlock;
+	const el = fin.element.createElement;
+	const { InnerBlocks, useBlockProps } = fin.blockEditor;
+	const useState = window.fin.element.useState;
 
 	const TEMPLATE = [
 		[

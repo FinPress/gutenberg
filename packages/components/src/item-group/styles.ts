@@ -34,7 +34,7 @@ export const unstyledButton = ( as: 'a' | 'button' ) => {
 		}
 
 		&:focus-visible {
-			box-shadow: 0 0 0 var( --fp-admin-border-width-focus )
+			box-shadow: 0 0 0 var( --fin-admin-border-width-focus )
 				${ COLORS.theme.accent };
 			// Windows high contrast mode.
 			outline: 2px solid transparent;

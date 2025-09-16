@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/rss",
 	"title": "RSS",
@@ -76,6 +76,6 @@
 			"link": true
 		}
 	},
-	"editorStyle": "fp-block-rss-editor",
-	"style": "fp-block-rss"
+	"editorStyle": "fin-block-rss-editor",
+	"style": "fin-block-rss"
 }

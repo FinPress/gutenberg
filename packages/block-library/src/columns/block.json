@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/columns",
 	"title": "Columns",
@@ -85,6 +85,6 @@
 		},
 		"shadow": true
 	},
-	"editorStyle": "fp-block-columns-editor",
-	"style": "fp-block-columns"
+	"editorStyle": "fin-block-columns-editor",
+	"style": "fin-block-columns"
 }

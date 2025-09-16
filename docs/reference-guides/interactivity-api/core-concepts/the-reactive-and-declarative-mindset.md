@@ -84,28 +84,28 @@ As you can see, for each condition, you have to use JavaScript to modify everyth
 The declarative approach simplifies the process by focusing on _what_ should happen. The UI updates automatically in response to changes in state. Here is a similar example using the Interactivity API's declarative approach:
 
 ```html
-<div id="my-interactive-plugin" data-fp-interactive="myInteractivePlugin">
+<div id="my-interactive-plugin" data-fin-interactive="myInteractivePlugin">
 	<button
-		data-fp-on--click="actions.toggleVisibility"
-		data-fp-bind--aria-expanded="state.isVisible"
-		data-fp-text="state.visibilityText"
+		data-fin-on--click="actions.toggleVisibility"
+		data-fin-bind--aria-expanded="state.isVisible"
+		data-fin-text="state.visibilityText"
 		aria-controls="status-paragraph"
 	>
 		show
 	</button>
 	<button
-		data-fp-on--click="actions.toggleActivation"
-		data-fp-bind--disabled="!state.isVisible"
-		data-fp-text="state.activationText"
+		data-fin-on--click="actions.toggleActivation"
+		data-fin-bind--disabled="!state.isVisible"
+		data-fin-text="state.activationText"
 	>
 		activate
 	</button>
 	<p
 		id="status-paragraph"
-		data-fp-bind--hidden="!state.isVisible"
-		data-fp-class--active="state.isActive"
-		data-fp-class--inactive="!state.isActive"
-		data-fp-text="state.paragraphText"
+		data-fin-bind--hidden="!state.isVisible"
+		data-fin-class--active="state.isActive"
+		data-fin-class--inactive="!state.isActive"
+		data-fin-text="state.paragraphText"
 	>
 		this is inactive
 	</p>
@@ -187,7 +187,7 @@ The Interactivity API uses a fine-grained reactivity system. Here's how it works
 
 2. **Actions**: These are functions, usually triggered by event handlers, that mutate the global state or local context.
 
-3. **Reactive Bindings**: HTML elements are bound to reactive state values using special attributes like `data-fp-bind`, `data-fp-text`, or `data-fp-class`.
+3. **Reactive Bindings**: HTML elements are bound to reactive state values using special attributes like `data-fin-bind`, `data-fin-text`, or `data-fin-class`.
 
 4. **Automatic Updates**: When the actions mutate the global state or local context, the Interactivity API automatically updates all the parts of the DOM that depend on that state (either directly or through the derived state).
 
@@ -222,9 +222,9 @@ The HTML bindings look like this:
 
 ```html
 <button
-	data-fp-on--click="actions.toggleVisibility"
-	data-fp-text="state.visibilityText"
-	data-fp-bind--aria-expanded="state.isVisible"
+	data-fin-on--click="actions.toggleVisibility"
+	data-fin-text="state.visibilityText"
+	data-fin-bind--aria-expanded="state.isVisible"
 >
 	show
 </button>
@@ -235,8 +235,8 @@ Here's how reactivity works in practice:
 1. When the button is clicked, it triggers the `toggleVisibility` action.
 2. This action updates `state.isVisible`.
 3. The Interactivity API detects this change and automatically:
-    - Updates the button's text content (because of `data-fp-text="state.visibilityText"`).
-    - Changes the `aria-expanded` attribute (due to `data-fp-bind--aria-expanded="state.isVisible"`).
+    - Updates the button's text content (because of `data-fin-text="state.visibilityText"`).
+    - Changes the `aria-expanded` attribute (due to `data-fin-bind--aria-expanded="state.isVisible"`).
     - Updates any other parts of the DOM that depend on `isVisible` or `visibilityText`.
 
 ### Mutability vs immutability
@@ -266,18 +266,18 @@ There's no need to create a new array or use the spread operator as you might in
 
 ### Reactive side effects
 
-In addition to automatically updating the UI, the Interactivity API allows you to perform side effects when reactive data changes using directives like `data-fp-watch`. Side effects are useful for tasks like logging, making API calls, or updating other parts of your application that aren't directly tied to the UI.
+In addition to automatically updating the UI, the Interactivity API allows you to perform side effects when reactive data changes using directives like `data-fin-watch`. Side effects are useful for tasks like logging, making API calls, or updating other parts of your application that aren't directly tied to the UI.
 
-Here's an example of how you might use `data-fp-watch`:
+Here's an example of how you might use `data-fin-watch`:
 
 ```html
 <div
-	data-fp-interactive="myCounterPlugin"
-	data-fp-context='{ "counter": 0 }'
-	data-fp-watch="callbacks.logCounter"
+	data-fin-interactive="myCounterPlugin"
+	data-fin-context='{ "counter": 0 }'
+	data-fin-watch="callbacks.logCounter"
 >
-	<p>Counter: <span data-fp-text="context.counter"></span></p>
-	<button data-fp-on--click="actions.increment">Increment</button>
+	<p>Counter: <span data-fin-text="context.counter"></span></p>
+	<button data-fin-on--click="actions.increment">Increment</button>
 </div>
 ```
 
@@ -300,12 +300,12 @@ store( 'myCounterPlugin', {
 
 In this example:
 
-1. The `data-fp-context` directive adds a local context with a property `counter` whose value is `0`.
-2. The `data-fp-watch` directive is set to `callbacks.logCounter`.
+1. The `data-fin-context` directive adds a local context with a property `counter` whose value is `0`.
+2. The `data-fin-watch` directive is set to `callbacks.logCounter`.
 3. Every time `context.counter` changes, the `logCounter` callback will be executed.
 4. The `logCounter` callback logs the current counter to the console.
 
-This allows you to create declarative side effects that automatically run in response to data changes. Some other use cases for `data-fp-watch` might include:
+This allows you to create declarative side effects that automatically run in response to data changes. Some other use cases for `data-fin-watch` might include:
 
 -   Saving data to `localStorage` when the data changes.
 -   Sending analytics events.

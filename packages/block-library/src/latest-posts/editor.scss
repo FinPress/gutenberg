@@ -1,20 +1,20 @@
-.fp-block-latest-posts {
+.fin-block-latest-posts {
 	// Apply overflow for post items, so any floated featured images won't crop the focus style.
 	> li {
 		overflow: hidden;
 	}
 }
 
-.fp-block-latest-posts li a > div {
+.fin-block-latest-posts li a > div {
 	display: inline;
 }
 
-:root :where(.fp-block-latest-posts) {
+:root :where(.fin-block-latest-posts) {
 	padding-left: 2.5em;
 }
 :root {
-	:where(.fp-block-latest-posts.is-grid),
-	:where(.fp-block-latest-posts__list) {
+	:where(.fin-block-latest-posts.is-grid),
+	:where(.fin-block-latest-posts__list) {
 		padding-left: 0;
 	}
 }

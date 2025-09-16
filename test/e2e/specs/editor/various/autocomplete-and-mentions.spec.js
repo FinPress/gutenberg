@@ -89,15 +89,15 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 			if ( type === 'mention' ) {
 				testData.triggerString = 'I am @da';
 				testData.optionText = 'Darth Vader yourfather';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>I am @yourfather.</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			} else if ( type === 'option' ) {
 				testData.triggerString = 'I like ~s';
 				testData.optionText = '🍓 Strawberry';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>I like 🍓.</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			}
 
 			await editor.canvas
@@ -141,15 +141,15 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 			if ( type === 'mention' ) {
 				testData.triggerString = '@j';
 				testData.optionText = 'Jane Doe testuser';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>Stuck in the middle with @testuser you.</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			} else if ( type === 'option' ) {
 				testData.triggerString = 'a ~m';
 				testData.optionText = '🥭 Mango';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>Stuck in the middle with a 🥭 you.</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			}
 
 			await editor.canvas
@@ -179,17 +179,17 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 				testData.secondTriggerString = ' @fr';
 				testData.firstOptionText = 'Bilbo Baggins thebetterhobbit';
 				testData.secondOptionText = 'Frodo Baggins ringbearer';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>The two greatest hobbits, in order: @thebetterhobbit @ringbearer.</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			} else if ( type === 'option' ) {
 				testData.firstTriggerString = 'An awesome combination: ~m';
 				testData.secondTriggerString = ' ~b';
 				testData.firstOptionText = '🥭 Mango';
 				testData.secondOptionText = '🫐 Blueberry';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>An awesome combination: 🥭 🫐.</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			}
 
 			await editor.canvas
@@ -223,15 +223,15 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 			if ( type === 'mention' ) {
 				testData.triggerString = '@';
 				testData.optionText = 'Katniss Everdeen mockingjay';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>@mockingjay</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			} else if ( type === 'option' ) {
 				testData.triggerString = '~';
 				testData.optionText = '🍓 Strawberry';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>🍓</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			}
 
 			await editor.canvas
@@ -262,15 +262,15 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 			if ( type === 'mention' ) {
 				testData.triggerString = '@';
 				testData.optionText = 'Jean-Luc Picard makeitso';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>@makeitso</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			} else if ( type === 'option' ) {
 				testData.triggerString = '~';
 				testData.optionText = '🍒 Cherry';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>🍒</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			}
 
 			await editor.canvas
@@ -297,17 +297,17 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 				testData.triggerString = 'My name is @j';
 				testData.optionText = 'Jane Doe testuser';
 				testData.postCompleterInput = ' ...a secret.';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>My name is @j ...a secret.</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			} else if ( type === 'option' ) {
 				testData.triggerString = 'My favorite fruit is ~a';
 				testData.optionText = '🍎 Apple';
 				testData.postCompleterInput =
 					" ...no I changed my mind. It's mango.";
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>My favorite fruit is ~a ...no I changed my mind. It's mango.</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			}
 
 			await editor.canvas
@@ -342,9 +342,9 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 				await page.keyboard.press( 'Enter' );
 				await page.keyboard.type( ' grapes.' );
 				await expect.poll( editor.getEditedPostContent )
-					.toBe( `<!-- fp:paragraph -->
+					.toBe( `<!-- fin:paragraph -->
 <p>Sorry, we are all out of ~g grapes.</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 			} );
 		}
 
@@ -356,47 +356,47 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 			if ( type === 'mention' ) {
 				testData.triggerString = '@bu';
 				testData.optionText = 'Buddy Elf buddytheelf';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>@buddytheelf test</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>@buddytheelf test</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>@buddytheelf test</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>@buddytheelf test</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			} else if ( type === 'option' ) {
 				testData.triggerString = '~b';
 				testData.optionText = '🫐 Blueberry';
-				testData.snapshot = `<!-- fp:paragraph -->
+				testData.snapshot = `<!-- fin:paragraph -->
 <p>🫐 test</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>🫐 test</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>🫐 test</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>🫐 test</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 			}
 
 			await editor.canvas
@@ -455,9 +455,9 @@ test.describe( 'Autocomplete (@firefox, @webkit)', () => {
 		await selectedOption.click();
 
 		// Verify it's been inserted.
-		const snapshot = `<!-- fp:table -->
-<figure class="fp-block-table"><table class="has-fixed-layout"><tbody><tr><td>@testuser</td><td></td></tr><tr><td></td><td></td></tr></tbody></table></figure>
-<!-- /fp:table -->`;
+		const snapshot = `<!-- fin:table -->
+<figure class="fin-block-table"><table class="has-fixed-layout"><tbody><tr><td>@testuser</td><td></td></tr><tr><td></td><td></td></tr></tbody></table></figure>
+<!-- /fin:table -->`;
 		await expect.poll( editor.getEditedPostContent ).toBe( snapshot );
 	} );
 

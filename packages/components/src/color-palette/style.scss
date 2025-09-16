@@ -18,7 +18,7 @@ $border-as-box-shadow: inset 0 0 0 $border-width rgba(0, 0, 0, 0.2);
 	box-shadow: $border-as-box-shadow;
 
 	&:focus {
-		box-shadow: inset 0 0 0 var(--fp-admin-border-width-focus) $components-color-accent;
+		box-shadow: inset 0 0 0 var(--fin-admin-border-width-focus) $components-color-accent;
 		// Show a outline in Windows high contrast mode.
 		outline-width: 2px;
 	}

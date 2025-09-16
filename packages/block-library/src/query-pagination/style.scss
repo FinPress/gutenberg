@@ -1,18 +1,18 @@
-.fp-block-query-pagination {
+.fin-block-query-pagination {
 	// This moves the next link to the right side of the container,
 	// which is important when it's the only block displayed
 	// and the block has a "space-between" justification.
 	&.is-content-justification-space-between {
-		> .fp-block-query-pagination-next:last-of-type {
+		> .fin-block-query-pagination-next:last-of-type {
 			margin-inline-start: auto;
 		}
-		> .fp-block-query-pagination-previous:first-child {
+		> .fin-block-query-pagination-previous:first-child {
 			margin-inline-end: auto;
 		}
 	}
 
 
-	.fp-block-query-pagination-previous-arrow {
+	.fin-block-query-pagination-previous-arrow {
 		margin-right: 1ch;
 		display: inline-block; // Needed so that the transform works.
 		// chevron(`»`) symbol doesn't need the mirroring by us.
@@ -21,7 +21,7 @@
 			transform: scaleX(1) #{"/*rtl:scaleX(-1);*/"}; // This points the arrow right for LTR and left for RTL.
 		}
 	}
-	.fp-block-query-pagination-next-arrow {
+	.fin-block-query-pagination-next-arrow {
 		margin-left: 1ch;
 		display: inline-block; // Needed so that the transform works.
 		// chevron(`»`) symbol doesn't need the mirroring by us.

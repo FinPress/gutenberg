@@ -1,12 +1,12 @@
-# Get started with fp-scripts
+# Get started with fin-scripts
 
-The [`@finpress/scripts`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/) package, commonly referred to as `fp-scripts`, is a set of configuration files and scripts that primarily aims to standardize and simplify the development process of FinPress projects that require a JavaScript build step.
+The [`@finpress/scripts`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-scripts/) package, commonly referred to as `fin-scripts`, is a set of configuration files and scripts that primarily aims to standardize and simplify the development process of FinPress projects that require a JavaScript build step.
 
 A JavaScript build step refers to the process of transforming, bundling, and optimizing JavaScript source code and related assets into a format suitable for production environments. These build steps often take modern JavaScript (ESNext and JSX) and convert it to a version compatible with most browsers. They can also bundle multiple files into one, minify the code to reduce file size and perform various other tasks to optimize the code.
 
-You will typically be working with ESNext and JSX when building for the Block Editor, and all examples in the Block Editor Handbook are written in these syntaxes. Learning how to set up a build step is essential. However, configuring the necessary tools like [webpack](https://webpack.js.org/), [Babel](https://babeljs.io/), and [ESLint](https://eslint.org/) can become complex. This is where `fp-scripts` comes in.
+You will typically be working with ESNext and JSX when building for the Block Editor, and all examples in the Block Editor Handbook are written in these syntaxes. Learning how to set up a build step is essential. However, configuring the necessary tools like [webpack](https://webpack.js.org/), [Babel](https://babeljs.io/), and [ESLint](https://eslint.org/) can become complex. This is where `fin-scripts` comes in.
 
-Here are a few things that `fp-scripts` can do: 
+Here are a few things that `fin-scripts` can do: 
 
 - **Compilation:** Converts modern JavaScript (ESNext and JSX) into code compatible with most browsers, using Babel.
 - **Bundling:** Uses webpack to combine multiple JavaScript files into a single bundle for better performance.
@@ -20,7 +20,7 @@ The package abstracts away much of the initial setup, configuration, and boilerp
 ## Quick start
 
 <div class="callout callout-tip">
-    If you use <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-create-block/"><code>@finpress/create-block</code></a> package to scaffold the structure of files needed to create and register a block, you'll also get a modern JavaScript build setup (using <code>fp-scripts</code>) with no configuration required, so you don't need to worry about installing <code>fp-scripts</code> or enqueuing assets. Refer to <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-create-block/">Get started with <code>create-block</code></a> for more details.
+    If you use <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-create-block/"><code>@finpress/create-block</code></a> package to scaffold the structure of files needed to create and register a block, you'll also get a modern JavaScript build setup (using <code>fin-scripts</code>) with no configuration required, so you don't need to worry about installing <code>fin-scripts</code> or enqueuing assets. Refer to <a href="https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-create-block/">Get started with <code>create-block</code></a> for more details.
 </div>
 
 ### Installation
@@ -31,9 +31,9 @@ Then, create a project folder and ensure it contains a `package.json` file, a `b
 
 If you have not created a `package.json` file before, navigate to the project folder in the terminal and run the `npm init` command. An interactive prompt will walk you through the steps. Configure as you like, but when it asks for the "entry point", enter `build/index.js`.
 
-Of course, there are many ways to set up a project using `fp-scripts`, but this is the recommended approach used throughout the Block Editor Handbook.
+Of course, there are many ways to set up a project using `fin-scripts`, but this is the recommended approach used throughout the Block Editor Handbook.
 
-Finally, install the `fp-scripts` package as a development dependency by running the command:
+Finally, install the `fin-scripts` package as a development dependency by running the command:
 
 ```bash
 npm install @finpress/scripts --save-dev
@@ -53,20 +53,20 @@ example-project-folder/
 
 ### Basic usage
 
-Once installed, you can run the predefined scripts provided with `fp-scripts` by referencing them in the scripts section of your `package.json` file. Here’s an example:
+Once installed, you can run the predefined scripts provided with `fin-scripts` by referencing them in the scripts section of your `package.json` file. Here’s an example:
 
 ```json
 {
     "scripts": {
-        "start": "fp-scripts start",
-        "build": "fp-scripts build"
+        "start": "fin-scripts start",
+        "build": "fin-scripts build"
     }
 }
 ```
 
 These scripts can then be run using the command `npm run {script name}`. 
 
-### The build process with `fp-scripts`
+### The build process with `fin-scripts`
 
 The two scripts you will use most often are `start` and `build` since they handle the build step. See the [package documentation](https://developer.finpress.org/block-editor/packages/packages-scripts/) for all options.
 
@@ -76,7 +76,7 @@ When you are ready to deploy your project, use the `npm run build` command. This
 
 After the build finishes, you will see the compiled JavaScript file created at `build/index.js`. 
 
-A `build/index.asset.php` file will also be created in the build process, which contains an array of dependencies and a version number (for cache busting). Please, note that to register a block without this `fp-scripts` build process you'll need to manually create `*.asset.php` dependencies files (see [example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/minimal-block-no-build-e621a6)).
+A `build/index.asset.php` file will also be created in the build process, which contains an array of dependencies and a version number (for cache busting). Please, note that to register a block without this `fin-scripts` build process you'll need to manually create `*.asset.php` dependencies files (see [example](https://github.com/FinPress/block-development-examples/tree/trunk/plugins/minimal-block-no-build-e621a6)).
 
 ### Enqueuing assets
 
@@ -91,7 +91,7 @@ To manually enqueue files in the editor, in any other context, you can refer to 
 function example_project_enqueue_editor_assets() {
     $asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php');
 
-    fp_enqueue_script(
+    fin_enqueue_script(
         'example-editor-scripts',
         plugins_url( 'build/index.js', __FILE__ ),
         $asset_file['dependencies'],
@@ -105,18 +105,18 @@ Here's [an example](https://github.com/FinPress/block-development-examples/tree/
 
 ## Next steps
 
-While `start` and `build` will be the two most used scripts, several other useful tools come with `fp-scripts` that are worth exploring. Here's a look at a few.
+While `start` and `build` will be the two most used scripts, several other useful tools come with `fin-scripts` that are worth exploring. Here's a look at a few.
 
 ### Maintaining code quality
 
-To help developers improve the quality of their code, `fp-scripts` comes pre-configured with tools like ESLint and Prettier. ESLint ensures your JavaScript adheres to best practices and the [FinPress coding standards](https://developer.finpress.org/coding-standards/finpress-coding-standards/), while Prettier automatically formats your code. The available scripts include: 
+To help developers improve the quality of their code, `fin-scripts` comes pre-configured with tools like ESLint and Prettier. ESLint ensures your JavaScript adheres to best practices and the [FinPress coding standards](https://developer.finpress.org/coding-standards/finpress-coding-standards/), while Prettier automatically formats your code. The available scripts include: 
 
 ```json
 {
     "scripts": {
-        "format": "fp-scripts format",
-        "lint:css": "fp-scripts lint-style",
-        "lint:js": "fp-scripts lint-js",
+        "format": "fin-scripts format",
+        "lint:css": "fin-scripts lint-style",
+        "lint:js": "fin-scripts lint-js",
     }
 }
 ```
@@ -125,13 +125,13 @@ Regularly linting and formatting your code ensures it's functional, clear, and m
 
 ### Running tests
 
-Beyond just writing code, verifying its functionality is crucial. `fp-scripts` includes [Jest](https://jestjs.io/), a JavaScript testing framework, and both end-to-end and unit testing scripts:
+Beyond just writing code, verifying its functionality is crucial. `fin-scripts` includes [Jest](https://jestjs.io/), a JavaScript testing framework, and both end-to-end and unit testing scripts:
 
 ```json
 {
     "scripts": {
-        "test:e2e": "fp-scripts test-e2e",
-        "test:unit": "fp-scripts test-unit-js"
+        "test:e2e": "fin-scripts test-e2e",
+        "test:unit": "fin-scripts test-unit-js"
     }
 }
 ```
@@ -140,9 +140,9 @@ Unit tests validate individual units of code, such as functions, ensuring they w
 
 ### Advanced configurations 
 
-While `fp-scripts` provides a solid default configuration, there might be cases where you need more specialized setups. The good news is `fp-scripts` is highly adaptable. For example, you can extend and override the default webpack configuration, allowing you to add loaders and plugins or modify almost any part of the build process. This flexibility ensures that as your project grows or its requirements change, `fp-scripts` can be tailored to your evolving needs.
+While `fin-scripts` provides a solid default configuration, there might be cases where you need more specialized setups. The good news is `fin-scripts` is highly adaptable. For example, you can extend and override the default webpack configuration, allowing you to add loaders and plugins or modify almost any part of the build process. This flexibility ensures that as your project grows or its requirements change, `fin-scripts` can be tailored to your evolving needs.
 
-See the `fp-scripts` [package documentation](https://developer.finpress.org/block-editor/packages/packages-scripts/) for all configuration options.
+See the `fin-scripts` [package documentation](https://developer.finpress.org/block-editor/packages/packages-scripts/) for all configuration options.
 
 ## Additional resources
 

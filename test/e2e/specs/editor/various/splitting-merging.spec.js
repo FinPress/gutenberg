@@ -33,13 +33,13 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>First</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Second</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 
 		// Press Backspace to merge paragraph blocks.
@@ -49,13 +49,13 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		await page.keyboard.type( 'Between' );
 		// Check the content.
 		expect( content ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>First</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Second</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 
 		await pageUtils.pressKeys( 'Backspace', { times: 7 } ); // Delete "Between"
@@ -75,13 +75,13 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 
 		// Check the content.
 		expect( content ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>First</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Second</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -104,9 +104,9 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>Bar</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -138,13 +138,13 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>First</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Still Second</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -172,13 +172,13 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>Foo</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -209,13 +209,13 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p><strong>Foo</strong></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -236,9 +236,9 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>Second</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -279,17 +279,17 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>First</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Second</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 
@@ -363,13 +363,13 @@ test.describe( 'splitting and merging blocks (@firefox, @webkit)', () => {
 		// Check the content.
 		const content = await editor.getEditedPostContent();
 		expect( content ).toBe(
-			`<!-- fp:paragraph -->
+			`<!-- fin:paragraph -->
 <p>1</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>2</p>
-<!-- /fp:paragraph -->`
+<!-- /fin:paragraph -->`
 		);
 	} );
 

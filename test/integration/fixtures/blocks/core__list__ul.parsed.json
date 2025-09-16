@@ -52,9 +52,9 @@
 				]
 			}
 		],
-		"innerHTML": "\n<ul class=\"fp-block-list\">\n\n\n\n\n\n\n\n\n\n</ul>\n",
+		"innerHTML": "\n<ul class=\"fin-block-list\">\n\n\n\n\n\n\n\n\n\n</ul>\n",
 		"innerContent": [
-			"\n<ul class=\"fp-block-list\">",
+			"\n<ul class=\"fin-block-list\">",
 			null,
 			"\n\n",
 			null,

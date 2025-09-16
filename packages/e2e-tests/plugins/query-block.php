@@ -16,11 +16,11 @@ register_block_pattern(
 	array(
 		'title'      => __( 'Query Test 1', 'gutenberg' ),
 		'blockTypes' => array( 'core/query' ),
-		'content'    => '<!-- fp:query {"query":{"perPage":1,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
-						<!-- fp:post-template -->
-						<!-- fp:post-title {"isLink":true} /-->
-						<!-- /fp:post-template -->
-						<!-- /fp:query -->',
+		'content'    => '<!-- fin:query {"query":{"perPage":1,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
+						<!-- fin:post-template -->
+						<!-- fin:post-title {"isLink":true} /-->
+						<!-- /fin:post-template -->
+						<!-- /fin:query -->',
 	)
 );
 register_block_pattern(
@@ -28,11 +28,11 @@ register_block_pattern(
 	array(
 		'title'      => __( 'Query Test 2', 'gutenberg' ),
 		'blockTypes' => array( 'core/query' ),
-		'content'    => '<!-- fp:query {"query":{"perPage":1,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
-						<!-- fp:post-template -->
-						<!-- fp:post-title {"isLink":true} /-->
-						<!-- fp:post-date /-->
-						<!-- /fp:post-template -->
-						<!-- /fp:query -->',
+		'content'    => '<!-- fin:query {"query":{"perPage":1,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
+						<!-- fin:post-template -->
+						<!-- fin:post-title {"isLink":true} /-->
+						<!-- fin:post-date /-->
+						<!-- /fin:post-template -->
+						<!-- /fin:query -->',
 	)
 );

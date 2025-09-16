@@ -121,7 +121,7 @@ if ( ! class_exists( 'FP_Style_Engine_CSS_Declarations' ) ) {
 		 * @return string The filtered declaration or an empty string.
 		 */
 		protected static function filter_declaration( $property, $value, $spacer = '' ) {
-			$filtered_value = fp_strip_all_tags( $value, true );
+			$filtered_value = fin_strip_all_tags( $value, true );
 
 			if ( '' !== $filtered_value ) {
 				return safecss_filter_attr( "{$property}:{$spacer}{$filtered_value}" );

@@ -95,7 +95,7 @@ test.describe( 'Directives (w/ priority)', () => {
 			} )
 		).toMatchObject( {
 			type: 'div',
-			props: { 'data-fp-non-existent-directive': '' },
+			props: { 'data-fin-non-existent-directive': '' },
 		} );
 	} );
 } );

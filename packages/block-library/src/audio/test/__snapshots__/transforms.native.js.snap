@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Audio block transformations to Columns block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
-<div class="fp-block-column" style="flex-basis:100%"><!-- fp:audio {"id":5} -->
-<figure class="fp-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3"></audio></figure>
-<!-- /fp:audio --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"100%"} -->
+<div class="fin-block-column" style="flex-basis:100%"><!-- fin:audio {"id":5} -->
+<figure class="fin-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3"></audio></figure>
+<!-- /fin:audio --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Audio block transformations to File block 1`] = `
-"<!-- fp:file {"id":5,"href":"https://cldup.com/59IrU0WJtq.mp3"} -->
-<div class="fp-block-file"><a href="https://cldup.com/59IrU0WJtq.mp3" class="fp-block-file__button fp-element-button" download>Download</a></div>
-<!-- /fp:file -->"
+"<!-- fin:file {"id":5,"href":"https://cldup.com/59IrU0WJtq.mp3"} -->
+<div class="fin-block-file"><a href="https://cldup.com/59IrU0WJtq.mp3" class="fin-block-file__button fin-element-button" download>Download</a></div>
+<!-- /fin:file -->"
 `;
 
 exports[`Audio block transformations to Group block 1`] = `
-"<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:audio {"id":5} -->
-<figure class="fp-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3"></audio></figure>
-<!-- /fp:audio --></div>
-<!-- /fp:group -->"
+"<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:audio {"id":5} -->
+<figure class="fin-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3"></audio></figure>
+<!-- /fin:audio --></div>
+<!-- /fin:group -->"
 `;

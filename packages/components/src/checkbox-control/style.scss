@@ -38,7 +38,7 @@
 	}
 
 	&:focus {
-		@include button-style-outset__focus(var(--fp-admin-theme-color));
+		@include button-style-outset__focus(var(--fin-admin-theme-color));
 	}
 
 	&:checked,

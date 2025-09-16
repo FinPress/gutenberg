@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/comments",
 	"title": "Comments",
@@ -59,6 +59,6 @@
 			}
 		}
 	},
-	"editorStyle": "fp-block-comments-editor",
+	"editorStyle": "fin-block-comments-editor",
 	"usesContext": [ "postId", "postType" ]
 }

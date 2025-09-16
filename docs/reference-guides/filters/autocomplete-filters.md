@@ -38,7 +38,7 @@ function appendAcronymCompleter( completers, blockName ) {
 }
 
 // Adding the filter
-fp.hooks.addFilter(
+fin.hooks.addFilter(
 	'editor.Autocomplete.completers',
 	'my-plugin/autocompleters/acronym',
 	appendAcronymCompleter

@@ -21,9 +21,9 @@
 				"innerContent": [ "\n<p>Group block content.</p>\n" ]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-group alignfull has-secondary-background-color has-background\">\n\n</div>\n",
+		"innerHTML": "\n<div class=\"fin-block-group alignfull has-secondary-background-color has-background\">\n\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-group alignfull has-secondary-background-color has-background\">",
+			"\n<div class=\"fin-block-group alignfull has-secondary-background-color has-background\">",
 			null,
 			"\n\n",
 			null,

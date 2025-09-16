@@ -7,14 +7,14 @@
 			"request": "launch",
 			"port": 9003,
 			"pathMappings": {
-				"/var/www/html/fp-content/plugins/gutenberg": "${workspaceFolder}"
+				"/var/www/html/fin-content/plugins/gutenberg": "${workspaceFolder}"
 			}
 		},
 		{
 			"type": "node",
 			"request": "launch",
 			"name": "Debug current e2e test",
-			"program": "${workspaceFolder}/node_modules/@finpress/scripts/bin/fp-scripts.js",
+			"program": "${workspaceFolder}/node_modules/@finpress/scripts/bin/fin-scripts.js",
 			"args": [
 				"test-e2e",
 				"--config=${workspaceFolder}/packages/e2e-tests/jest.config.js",

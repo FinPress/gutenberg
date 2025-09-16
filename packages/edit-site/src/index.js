@@ -99,7 +99,7 @@ export function initializeEditor( id, settings ) {
 }
 
 export function reinitializeEditor() {
-	deprecated( 'fp.editSite.reinitializeEditor', {
+	deprecated( 'fin.editSite.reinitializeEditor', {
 		since: '6.2',
 		version: '6.3',
 	} );

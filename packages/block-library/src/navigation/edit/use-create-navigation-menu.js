@@ -64,7 +64,7 @@ export default function useCreateNavigationMenu( clientId ) {
 			};
 
 			// Return affords ability to await on this function directly
-			return saveEntityRecord( 'postType', 'fp_navigation', record )
+			return saveEntityRecord( 'postType', 'fin_navigation', record )
 				.then( ( response ) => {
 					setValue( response );
 					setStatus( CREATE_NAVIGATION_MENU_SUCCESS );
@@ -74,7 +74,7 @@ export default function useCreateNavigationMenu( clientId ) {
 					if ( postStatus !== 'publish' ) {
 						editEntityRecord(
 							'postType',
-							'fp_navigation',
+							'fin_navigation',
 							response.id,
 							{ status: 'publish' }
 						);

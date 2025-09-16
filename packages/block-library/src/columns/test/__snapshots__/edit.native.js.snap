@@ -1,305 +1,305 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Columns block adds a column block using the appender 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block changes the vertical alignment on individual Column 1`] = `
-"<!-- fp:columns {"verticalAlignment":"top"} -->
-<div class="fp-block-columns are-vertically-aligned-top"><!-- fp:column {"verticalAlignment":"bottom"} -->
-<div class="fp-block-column is-vertically-aligned-bottom"></div>
-<!-- /fp:column -->
+"<!-- fin:columns {"verticalAlignment":"top"} -->
+<div class="fin-block-columns are-vertically-aligned-top"><!-- fin:column {"verticalAlignment":"bottom"} -->
+<div class="fin-block-column is-vertically-aligned-bottom"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"verticalAlignment":"top"} -->
-<div class="fp-block-column is-vertically-aligned-top"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column {"verticalAlignment":"top"} -->
+<div class="fin-block-column is-vertically-aligned-top"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block changes vertical alignment on Columns 1`] = `
-"<!-- fp:columns {"verticalAlignment":"top"} -->
-<div class="fp-block-columns are-vertically-aligned-top"><!-- fp:column {"verticalAlignment":"top"} -->
-<div class="fp-block-column is-vertically-aligned-top"></div>
-<!-- /fp:column -->
+"<!-- fin:columns {"verticalAlignment":"top"} -->
+<div class="fin-block-columns are-vertically-aligned-top"><!-- fin:column {"verticalAlignment":"top"} -->
+<div class="fin-block-column is-vertically-aligned-top"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"verticalAlignment":"top"} -->
-<div class="fp-block-column is-vertically-aligned-top"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column {"verticalAlignment":"top"} -->
+<div class="fin-block-column is-vertically-aligned-top"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block inserts block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"50%"} -->
-<div class="fp-block-column" style="flex-basis:50%"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"50%"} -->
+<div class="fin-block-column" style="flex-basis:50%"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"width":"50%"} -->
-<div class="fp-block-column" style="flex-basis:50%"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column {"width":"50%"} -->
+<div class="fin-block-column" style="flex-basis:50%"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block removes column with the remove button 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block removes the only one left Column with the remove button 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Columns block sets current vertical alignment on new Columns 1`] = `
-"<!-- fp:columns {"verticalAlignment":"top"} -->
-<div class="fp-block-columns are-vertically-aligned-top"><!-- fp:column {"verticalAlignment":"top"} -->
-<div class="fp-block-column is-vertically-aligned-top"></div>
-<!-- /fp:column -->
+"<!-- fin:columns {"verticalAlignment":"top"} -->
+<div class="fin-block-columns are-vertically-aligned-top"><!-- fin:column {"verticalAlignment":"top"} -->
+<div class="fin-block-column is-vertically-aligned-top"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"verticalAlignment":"top"} -->
-<div class="fp-block-column is-vertically-aligned-top"></div>
-<!-- /fp:column -->
+<!-- fin:column {"verticalAlignment":"top"} -->
+<div class="fin-block-column is-vertically-aligned-top"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"verticalAlignment":"top"} -->
-<div class="fp-block-column is-vertically-aligned-top"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column {"verticalAlignment":"top"} -->
+<div class="fin-block-column is-vertically-aligned-top"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block transforms a nested Columns block into a Group block 1`] = `
-"<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
-<div class="fp-block-column" style="flex-basis:100%"><!-- fp:paragraph -->
+"<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"100%"} -->
+<div class="fin-block-column" style="flex-basis:100%"><!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns --></div>
-<!-- /fp:group --></div>
-<!-- /fp:group -->"
+<!-- /fin:paragraph --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns --></div>
+<!-- /fin:group --></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Columns block when using columns percentage mechanism sets custom values correctly 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"90%"} -->
-<div class="fp-block-column" style="flex-basis:90%"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"90%"} -->
+<div class="fin-block-column" style="flex-basis:90%"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"width":"55.5%"} -->
-<div class="fp-block-column" style="flex-basis:55.5%"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column {"width":"55.5%"} -->
+<div class="fin-block-column" style="flex-basis:55.5%"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using columns percentage mechanism updates the slider's input value 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"55.6%"} -->
-<div class="fp-block-column" style="flex-basis:55.6%"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"55.6%"} -->
+<div class="fin-block-column" style="flex-basis:55.6%"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using the columns layout picker sets the predefined percentages for 25 / 50 / 25 block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"25%"} -->
-<div class="fp-block-column" style="flex-basis:25%"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"25%"} -->
+<div class="fin-block-column" style="flex-basis:25%"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"width":"50%"} -->
-<div class="fp-block-column" style="flex-basis:50%"></div>
-<!-- /fp:column -->
+<!-- fin:column {"width":"50%"} -->
+<div class="fin-block-column" style="flex-basis:50%"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"width":"25%"} -->
-<div class="fp-block-column" style="flex-basis:25%"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column {"width":"25%"} -->
+<div class="fin-block-column" style="flex-basis:25%"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using the columns layout picker sets the predefined percentages for 33 / 33 / 33 block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using the columns layout picker sets the predefined percentages for 33 / 66 block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"33.33%"} -->
-<div class="fp-block-column" style="flex-basis:33.33%"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"33.33%"} -->
+<div class="fin-block-column" style="flex-basis:33.33%"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"width":"66.66%"} -->
-<div class="fp-block-column" style="flex-basis:66.66%"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column {"width":"66.66%"} -->
+<div class="fin-block-column" style="flex-basis:66.66%"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using the columns layout picker sets the predefined percentages for 50 / 50 block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using the columns layout picker sets the predefined percentages for 66 / 33 block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"66.66%"} -->
-<div class="fp-block-column" style="flex-basis:66.66%"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"66.66%"} -->
+<div class="fin-block-column" style="flex-basis:66.66%"></div>
+<!-- /fin:column -->
 
-<!-- fp:column {"width":"33.33%"} -->
-<div class="fp-block-column" style="flex-basis:33.33%"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column {"width":"33.33%"} -->
+<div class="fin-block-column" style="flex-basis:33.33%"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using the columns layout picker sets the predefined percentages for 100 block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using the number of columns setting adds a column block when incrementing the value 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using the number of columns setting adds at least 15 Column blocks without limitation 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column -->
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column -->
 
-<!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using the number of columns setting reaches the minimum limit of number of column blocks 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Columns block when using the number of columns setting removes a column block when decrementing the value 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column -->
-<div class="fp-block-column"></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column -->
+<div class="fin-block-column"></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;

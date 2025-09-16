@@ -27,7 +27,7 @@ const Edit = () => {
 		templateLock: 'all',
 	} );
 	return (
-		<div className="fp-block-form-submit-wrapper" { ...innerBlocksProps } />
+		<div className="fin-block-form-submit-wrapper" { ...innerBlocksProps } />
 	);
 };
 export default Edit;

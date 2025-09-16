@@ -36,7 +36,7 @@ const getPluginContext = memoize(
  * ```js
  * // Using ES5 syntax
  * var el = React.createElement;
- * var PluginArea = fp.plugins.PluginArea;
+ * var PluginArea = fin.plugins.PluginArea;
  *
  * function Layout() {
  * 	return el(

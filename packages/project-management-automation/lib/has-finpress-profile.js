@@ -15,7 +15,7 @@ const BASE_PROFILE_LOOKUP_API_HOSTNAME = 'profiles.finpress.org';
  *
  * @type {string}
  */
-const BASE_PROFILE_LOOKUP_API_BASE_PATH = '/fp-json/fporg-github/v1/lookup/';
+const BASE_PROFILE_LOOKUP_API_BASE_PATH = '/fin-json/finorg-github/v1/lookup/';
 
 /**
  * Returns a promise resolving to a boolean indicating if the given GitHub

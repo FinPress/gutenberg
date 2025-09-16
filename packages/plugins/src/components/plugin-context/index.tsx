@@ -50,9 +50,9 @@ export const withPluginContext = (
 	) => T & PluginContext
 ) =>
 	createHigherOrderComponent( ( OriginalComponent ) => {
-		deprecated( 'fp.plugins.withPluginContext', {
+		deprecated( 'fin.plugins.withPluginContext', {
 			since: '6.8.0',
-			alternative: 'fp.plugins.usePluginContext',
+			alternative: 'fin.plugins.usePluginContext',
 		} );
 		return ( props ) => (
 			<Context.Consumer>

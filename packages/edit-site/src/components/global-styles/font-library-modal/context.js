@@ -60,7 +60,7 @@ function FontLibraryProvider( { children } ) {
 	};
 
 	const { records: libraryPosts = [], isResolving: isResolvingLibrary } =
-		useEntityRecords( 'postType', 'fp_font_family', {
+		useEntityRecords( 'postType', 'fin_font_family', {
 			refreshKey,
 			_embed: true,
 		} );

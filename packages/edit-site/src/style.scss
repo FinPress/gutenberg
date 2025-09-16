@@ -52,17 +52,17 @@
 
 /* stylelint-enable */
 
-body.js #fpadminbar {
+body.js #finadminbar {
 	display: none;
 }
 
-body.js #fpbody {
+body.js #finbody {
 	padding-top: 0;
 }
 
 body.js.appearance_page_gutenberg-template-parts,
 body.js.site-editor-php {
-	@include fp-admin-reset(".edit-site");
+	@include fin-admin-reset(".edit-site");
 }
 
 body.js.site-editor-php {

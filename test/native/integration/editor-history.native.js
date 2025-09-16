@@ -57,17 +57,17 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:verse -->
-		<pre class="fp-block-verse"></pre>
-		<!-- /fp:verse -->
+		"<!-- fin:verse -->
+		<pre class="fin-block-verse"></pre>
+		<!-- /fin:verse -->
 
-		<!-- fp:image -->
-		<figure class="fp-block-image"><img alt=""/></figure>
-		<!-- /fp:image -->
+		<!-- fin:image -->
+		<figure class="fin-block-image"><img alt=""/></figure>
+		<!-- /fin:image -->
 
-		<!-- fp:paragraph -->
+		<!-- fin:paragraph -->
 		<p></p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		// Act
@@ -85,17 +85,17 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:verse -->
-		<pre class="fp-block-verse"></pre>
-		<!-- /fp:verse -->
+		"<!-- fin:verse -->
+		<pre class="fin-block-verse"></pre>
+		<!-- /fin:verse -->
 
-		<!-- fp:image -->
-		<figure class="fp-block-image"><img alt=""/></figure>
-		<!-- /fp:image -->
+		<!-- fin:image -->
+		<figure class="fin-block-image"><img alt=""/></figure>
+		<!-- /fin:image -->
 
-		<!-- fp:paragraph -->
+		<!-- fin:paragraph -->
 		<p></p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -116,9 +116,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		// Act
@@ -126,9 +126,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A quick brown fox</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		// Act
@@ -136,9 +136,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p></p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		// Act
@@ -146,9 +146,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A quick brown fox</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		// Act
@@ -156,9 +156,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -184,9 +184,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <strong><em>quick</em></strong> brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		// Act
@@ -194,9 +194,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <strong>quick</strong> brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		// Act
@@ -204,9 +204,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		// Act
@@ -215,16 +215,16 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <strong><em>quick</em></strong> brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
 	it( 'should preserve editor history when a link has been added and configured to open in a new tab', async () => {
 		// Arrange
 		const initialHtml = `
-			<!-- fp:paragraph --><p>A <a href="http://finpress.org">quick</a> brown fox jumps over the lazy dog.</p><!-- /fp:paragraph -->
+			<!-- fin:paragraph --><p>A <a href="http://finpress.org">quick</a> brown fox jumps over the lazy dog.</p><!-- /fin:paragraph -->
 		`;
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -251,9 +251,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <a href="http://finpress.org" target="_blank" rel="noreferrer noopener">quick</a> brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		// Act
@@ -262,9 +262,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <a href="http://finpress.org">quick</a> brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		// Act
@@ -273,9 +273,9 @@ describe( 'Editor History', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <a href="http://finpress.org" target="_blank" rel="noreferrer noopener">quick</a> brown fox jumps over the lazy dog. A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 } );

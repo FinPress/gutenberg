@@ -29,28 +29,28 @@ const ALERT = {
 
 // Should match packages/components/src/utils/theme-variables.scss
 const THEME = {
-	accent: `var(--fp-components-color-accent, var(--fp-admin-theme-color, #3858e9))`,
-	accentDarker10: `var(--fp-components-color-accent-darker-10, var(--fp-admin-theme-color-darker-10, #2145e6))`,
-	accentDarker20: `var(--fp-components-color-accent-darker-20, var(--fp-admin-theme-color-darker-20, #183ad6))`,
+	accent: `var(--fin-components-color-accent, var(--fin-admin-theme-color, #3858e9))`,
+	accentDarker10: `var(--fin-components-color-accent-darker-10, var(--fin-admin-theme-color-darker-10, #2145e6))`,
+	accentDarker20: `var(--fin-components-color-accent-darker-20, var(--fin-admin-theme-color-darker-20, #183ad6))`,
 	/** Used when placing text on the accent color. */
-	accentInverted: `var(--fp-components-color-accent-inverted, ${ white })`,
+	accentInverted: `var(--fin-components-color-accent-inverted, ${ white })`,
 
-	background: `var(--fp-components-color-background, ${ white })`,
+	background: `var(--fin-components-color-background, ${ white })`,
 
-	foreground: `var(--fp-components-color-foreground, ${ GRAY[ 900 ] })`,
+	foreground: `var(--fin-components-color-foreground, ${ GRAY[ 900 ] })`,
 	/** Used when placing text on the foreground color. */
-	foregroundInverted: `var(--fp-components-color-foreground-inverted, ${ white })`,
+	foregroundInverted: `var(--fin-components-color-foreground-inverted, ${ white })`,
 
 	gray: {
 		/** @deprecated Use `COLORS.theme.foreground` instead. */
-		900: `var(--fp-components-color-foreground, ${ GRAY[ 900 ] })`,
-		800: `var(--fp-components-color-gray-800, ${ GRAY[ 800 ] })`,
-		700: `var(--fp-components-color-gray-700, ${ GRAY[ 700 ] })`,
-		600: `var(--fp-components-color-gray-600, ${ GRAY[ 600 ] })`,
-		400: `var(--fp-components-color-gray-400, ${ GRAY[ 400 ] })`,
-		300: `var(--fp-components-color-gray-300, ${ GRAY[ 300 ] })`,
-		200: `var(--fp-components-color-gray-200, ${ GRAY[ 200 ] })`,
-		100: `var(--fp-components-color-gray-100, ${ GRAY[ 100 ] })`,
+		900: `var(--fin-components-color-foreground, ${ GRAY[ 900 ] })`,
+		800: `var(--fin-components-color-gray-800, ${ GRAY[ 800 ] })`,
+		700: `var(--fin-components-color-gray-700, ${ GRAY[ 700 ] })`,
+		600: `var(--fin-components-color-gray-600, ${ GRAY[ 600 ] })`,
+		400: `var(--fin-components-color-gray-400, ${ GRAY[ 400 ] })`,
+		300: `var(--fin-components-color-gray-300, ${ GRAY[ 300 ] })`,
+		200: `var(--fin-components-color-gray-200, ${ GRAY[ 200 ] })`,
+		100: `var(--fin-components-color-gray-100, ${ GRAY[ 100 ] })`,
 	},
 };
 

@@ -11,14 +11,14 @@
  * Registers a custom script for the plugin.
  */
 function enqueue_observe_typing_plugin_script() {
-	fp_enqueue_script(
+	fin_enqueue_script(
 		'gutenberg-test-observe-typing',
 		plugins_url( 'observe-typing/index.js', __FILE__ ),
 		array(
-			'fp-blocks',
-			'fp-block-editor',
-			'fp-components',
-			'fp-element',
+			'fin-blocks',
+			'fin-block-editor',
+			'fin-components',
+			'fin-element',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'observe-typing/index.js' ),
 		true

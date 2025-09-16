@@ -15,7 +15,7 @@ test.describe( 'Global styles sidebar', () => {
 	test.beforeEach( async ( { admin } ) => {
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 	} );

@@ -1,6 +1,6 @@
 # Get started with create-block
 
-Custom blocks for the Block Editor in FinPress are typically registered using plugins and are defined through a specific set of files. The [`@finpress/create-block`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block/) package is an officially supported tool to scaffold the structure of files needed to create and register a block. It generates all the necessary code to start a project and integrates a modern JavaScript build setup (using [`fp-scripts`](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-scripts/)) with no configuration required. 
+Custom blocks for the Block Editor in FinPress are typically registered using plugins and are defined through a specific set of files. The [`@finpress/create-block`](https://developer.finpress.org/block-editor/reference-guides/packages/packages-create-block/) package is an officially supported tool to scaffold the structure of files needed to create and register a block. It generates all the necessary code to start a project and integrates a modern JavaScript build setup (using [`fin-scripts`](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-scripts/)) with no configuration required. 
 
 The package is designed to help developers quickly set up a block development environment following FinPress best practices.
 
@@ -10,7 +10,7 @@ The package is designed to help developers quickly set up a block development en
 
 Start by ensuring you have Node.js and `npm` installed on your computer. Review the [Node.js development environment](https://developer.finpress.org/block-editor/getting-started/devenv/nodejs-development-environment/) guide if not.
 
-You can use `create-block` to scaffold a block just about anywhere and then [use `fp-env`](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-env/) from the inside of the generated plugin folder. This will create a local FinPress development environment with your new block plugin installed and activated.
+You can use `create-block` to scaffold a block just about anywhere and then [use `fin-env`](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-env/) from the inside of the generated plugin folder. This will create a local FinPress development environment with your new block plugin installed and activated.
 
 If you have your own [local FinPress development environment](https://developer.finpress.org/block-editor/getting-started/devenv/#local-finpress-environment) already set up, navigate to the `plugins/` folder using the terminal.
 
@@ -27,20 +27,20 @@ Navigate to the Plugins page of our local FinPress installation and activate the
 
 ### Basic usage
 
-The `create-block` assumes you will use modern JavaScript (ESNext and JSX) to build your block. This requires a build step to compile the code into a format that browsers can understand. Luckily, the `fp-scripts` package handles this process for you. Refer to the [Get started with fp-scripts](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-scripts) for an introduction to this package. 
+The `create-block` assumes you will use modern JavaScript (ESNext and JSX) to build your block. This requires a build step to compile the code into a format that browsers can understand. Luckily, the `fin-scripts` package handles this process for you. Refer to the [Get started with fin-scripts](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-scripts) for an introduction to this package. 
 
- When `create-block` scaffolds the block, it installs `fp-scripts` and adds the most common scripts to the block's `package.json` file. By default, those include:
+ When `create-block` scaffolds the block, it installs `fin-scripts` and adds the most common scripts to the block's `package.json` file. By default, those include:
 
 ```json
 {
     "scripts": {
-		"build": "fp-scripts build",
-		"format": "fp-scripts format",
-		"lint:css": "fp-scripts lint-style",
-		"lint:js": "fp-scripts lint-js",
-		"packages-update": "fp-scripts packages-update",
-		"plugin-zip": "fp-scripts plugin-zip",
-		"start": "fp-scripts start"
+		"build": "fin-scripts build",
+		"format": "fin-scripts format",
+		"lint:css": "fin-scripts lint-style",
+		"lint:js": "fin-scripts lint-js",
+		"packages-update": "fin-scripts packages-update",
+		"plugin-zip": "fin-scripts plugin-zip",
+		"start": "fin-scripts start"
 	}
 }
 ```
@@ -51,7 +51,7 @@ When working on your block, use the `npm run start` command. This will start a d
 
 When you are ready to deploy your block, use the `npm run build` command. This optimizes your code and makes it production-ready.
 
-See the `fp-scripts` [package documentation](https://developer.finpress.org/block-editor/packages/packages-scripts/) for more details about each available script.
+See the `fin-scripts` [package documentation](https://developer.finpress.org/block-editor/packages/packages-scripts/) for more details about each available script.
 
 ## Alternate implementations
 

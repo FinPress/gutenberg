@@ -11,9 +11,9 @@ import {
 
 const block = 'Separator';
 const initialHtml = `
-<!-- fp:separator -->
-<hr class="fp-block-separator has-alpha-channel-opacity"/>
-<!-- /fp:separator -->`;
+<!-- fin:separator -->
+<hr class="fin-block-separator has-alpha-channel-opacity"/>
+<!-- /fin:separator -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ 'Spacer', ...transformsWithInnerBlocks ];

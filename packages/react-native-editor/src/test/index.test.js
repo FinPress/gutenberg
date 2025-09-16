@@ -7,10 +7,10 @@ import { initializeEditor, render } from 'test/helpers';
 /**
  * FinPress dependencies
  */
-import * as fpHooks from '@finpress/hooks';
+import * as finHooks from '@finpress/hooks';
 import { registerCoreBlocks } from '@finpress/block-library';
 // eslint-disable-next-line no-restricted-imports
-import * as fpEditPost from '@finpress/edit-post';
+import * as finEditPost from '@finpress/edit-post';
 
 /**
  * Internal dependencies
@@ -96,7 +96,7 @@ describe( 'Register Gutenberg', () => {
 	} );
 
 	it( 'dispatches "native.pre-render" hook before the editor is rendered', () => {
-		const doAction = jest.spyOn( fpHooks, 'doAction' );
+		const doAction = jest.spyOn( finHooks, 'doAction' );
 
 		// An empty component is provided in order to listen for render calls of the editor component.
 		const onRenderEditor = jest.fn();
@@ -127,7 +127,7 @@ describe( 'Register Gutenberg', () => {
 	} );
 
 	it( 'dispatches "native.block_editor_props" hook before the editor is rendered', () => {
-		const applyFilters = jest.spyOn( fpHooks, 'applyFilters' );
+		const applyFilters = jest.spyOn( finHooks, 'applyFilters' );
 
 		// An empty component is provided in order to listen for render calls of the editor component.
 		const onRenderEditor = jest.fn();
@@ -171,12 +171,12 @@ describe( 'Register Gutenberg', () => {
 		// The mocked editor component is provided via `initializeEditor` function of
 		// `@finpress/edit-post` package, instead of via the setup as above test cases.
 		const initializeEditorMock = jest
-			.spyOn( fpEditPost, 'initializeEditor' )
+			.spyOn( finEditPost, 'initializeEditor' )
 			.mockReturnValue( <MockEditor /> );
 
 		// Listen to FP hook
 		const callback = jest.fn();
-		fpHooks.addAction(
+		finHooks.addAction(
 			'native.post-register-core-blocks',
 			'test',
 			callback

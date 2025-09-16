@@ -33,7 +33,7 @@ function SuffixItem( {
 	}
 
 	if ( onClose ) {
-		deprecated( '`onClose` prop in fp.components.SearchControl', {
+		deprecated( '`onClose` prop in fin.components.SearchControl', {
 			since: '6.8',
 		} );
 	}

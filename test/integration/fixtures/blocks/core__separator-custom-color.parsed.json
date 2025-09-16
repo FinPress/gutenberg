@@ -9,9 +9,9 @@
 			}
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<hr class=\"fp-block-separator has-text-color has-alpha-channel-opacity has-background\" style=\"background-color:#5da54c;color:#5da54c\"/>\n",
+		"innerHTML": "\n<hr class=\"fin-block-separator has-text-color has-alpha-channel-opacity has-background\" style=\"background-color:#5da54c;color:#5da54c\"/>\n",
 		"innerContent": [
-			"\n<hr class=\"fp-block-separator has-text-color has-alpha-channel-opacity has-background\" style=\"background-color:#5da54c;color:#5da54c\"/>\n"
+			"\n<hr class=\"fin-block-separator has-text-color has-alpha-channel-opacity has-background\" style=\"background-color:#5da54c;color:#5da54c\"/>\n"
 		]
 	}
 ]

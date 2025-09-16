@@ -3,9 +3,9 @@
 		"blockName": "core/code",
 		"attrs": {},
 		"innerBlocks": [],
-		"innerHTML": "\n<pre class=\"fp-block-code\"><code>export default function MyButton() {\n\treturn &lt;Button&gt;Click Me!&lt;/Button&gt;;\n}</code></pre>\n",
+		"innerHTML": "\n<pre class=\"fin-block-code\"><code>export default function MyButton() {\n\treturn &lt;Button&gt;Click Me!&lt;/Button&gt;;\n}</code></pre>\n",
 		"innerContent": [
-			"\n<pre class=\"fp-block-code\"><code>export default function MyButton() {\n\treturn &lt;Button&gt;Click Me!&lt;/Button&gt;;\n}</code></pre>\n"
+			"\n<pre class=\"fin-block-code\"><code>export default function MyButton() {\n\treturn &lt;Button&gt;Click Me!&lt;/Button&gt;;\n}</code></pre>\n"
 		]
 	}
 ]

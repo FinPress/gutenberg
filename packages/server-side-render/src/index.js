@@ -5,7 +5,7 @@ import { ServerSideRenderWithPostId } from './server-side-render';
 import { useServerSideRender } from './hook';
 
 /**
- * A compatibility layer for the `ServerSideRender` component when used with `fp` global namespace.
+ * A compatibility layer for the `ServerSideRender` component when used with `fin` global namespace.
  *
  * @deprecated Use `ServerSideRender` non-default export instead.
  *

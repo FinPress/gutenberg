@@ -43,15 +43,15 @@ export default function save( { attributes } ) {
 The function generates the following markup representation of the block when `attributes.content` has the value `"This is some preformatted text"`:
 
 ```html
-<!-- fp:preformatted -->
-<pre class="fp-block-preformatted">This is some preformatted text</pre>
-<!-- /fp:preformatted -->
+<!-- fin:preformatted -->
+<pre class="fin-block-preformatted">This is some preformatted text</pre>
+<!-- /fin:preformatted -->
 ```
 
 On the front end, the block will return the following markup. Notice how the delimiters are no longer present.
 
 ```html
-<pre class="fp-block-preformatted">This is some preformatted text</pre>
+<pre class="fin-block-preformatted">This is some preformatted text</pre>
 ```
 </details>
 <br/>
@@ -95,7 +95,7 @@ Both of these methods receive the following data:
 
  - `$attributes`: The array of attributes for the block.
  - `$content`: The markup of the block as stored in the database, if any.
- - `$block`: The instance of the [FP_Block](https://developer.finpress.org/reference/classes/fp_block/) class that represents the rendered block ([metadata of the block](https://developer.finpress.org/block-editor/reference-guides/block-api/block-metadata/)).
+ - `$block`: The instance of the [FP_Block](https://developer.finpress.org/reference/classes/fin_block/) class that represents the rendered block ([metadata of the block](https://developer.finpress.org/block-editor/reference-guides/block-api/block-metadata/)).
 
 <details><summary><strong>View an example of dynamic rendering in the Site Title block</strong></summary>
 <br/>
@@ -146,13 +146,13 @@ function render_block_core_site_title( $attributes ) {
 However, there is no `save` function defined for this block, as you can see from its [`index.js`](https://github.com/FinPress/gutenberg/blob/trunk/packages/block-library/src/site-title/index.js) file, which means the markup representation of the block in the database looks like this:
 
 ```html
-<!-- fp:site-title /-->
+<!-- fin:site-title /-->
 ```
 
 On the front end, the `render_callback` is used to dynamically render the markup for the block depending on the specific values on the server at the time the block is requested. These values include the current site title, URL, link target, etc.
 
 ```
-<h1 class="fp-block-site-title"><a href="https://www.fp.org" target="_self" rel="home">My FinPress Website</a></h1>
+<h1 class="fin-block-site-title"><a href="https://www.fin.org" target="_self" rel="home">My FinPress Website</a></h1>
 ```
 
 </details>

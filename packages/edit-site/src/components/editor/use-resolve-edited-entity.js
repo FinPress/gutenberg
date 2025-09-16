@@ -91,7 +91,7 @@ export function useResolveEditedEntity() {
 				return getTemplateId( 'page', homePage?.postId );
 			}
 
-			if ( homePage?.postType === 'fp_template' ) {
+			if ( homePage?.postType === 'fin_template' ) {
 				return homePage?.postId;
 			}
 		},

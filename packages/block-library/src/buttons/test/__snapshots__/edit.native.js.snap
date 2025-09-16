@@ -1,99 +1,99 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Buttons block color customization sets a background color 1`] = `
-"<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button {"backgroundColor":"luminous-vivid-amber"} -->
-<div class="fp-block-button"><a class="fp-block-button__link has-luminous-vivid-amber-background-color has-background fp-element-button" href=""></a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->"
+"<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button {"backgroundColor":"luminous-vivid-amber"} -->
+<div class="fin-block-button"><a class="fin-block-button__link has-luminous-vivid-amber-background-color has-background fin-element-button" href=""></a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->"
 `;
 
 exports[`Buttons block color customization sets a custom gradient background color 1`] = `
-"<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button {"style":{"color":{"gradient":"linear-gradient(200deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)"}}} -->
-<div class="fp-block-button"><a class="fp-block-button__link has-background fp-element-button" href="" style="background:linear-gradient(200deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)"></a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->"
+"<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button {"style":{"color":{"gradient":"linear-gradient(200deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)"}}} -->
+<div class="fin-block-button"><a class="fin-block-button__link has-background fin-element-button" href="" style="background:linear-gradient(200deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)"></a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->"
 `;
 
 exports[`Buttons block color customization sets a gradient background color 1`] = `
-"<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button {"gradient":"light-green-cyan-to-vivid-green-cyan"} -->
-<div class="fp-block-button"><a class="fp-block-button__link has-light-green-cyan-to-vivid-green-cyan-gradient-background has-background fp-element-button" href=""></a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->"
+"<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button {"gradient":"light-green-cyan-to-vivid-green-cyan"} -->
+<div class="fin-block-button"><a class="fin-block-button__link has-light-green-cyan-to-vivid-green-cyan-gradient-background has-background fin-element-button" href=""></a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->"
 `;
 
 exports[`Buttons block color customization sets a text color 1`] = `
-"<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button {"textColor":"pale-pink"} -->
-<div class="fp-block-button"><a class="fp-block-button__link has-pale-pink-color has-text-color fp-element-button" href=""></a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->"
+"<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button {"textColor":"pale-pink"} -->
+<div class="fin-block-button"><a class="fin-block-button__link has-pale-pink-color has-text-color fin-element-button" href=""></a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->"
 `;
 
 exports[`Buttons block justify content sets Justify items center option 1`] = `
-"<!-- fp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button"></a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->"
+"<!-- fin:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button"></a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->"
 `;
 
 exports[`Buttons block justify content sets Justify items left option 1`] = `
-"<!-- fp:buttons {"layout":{"type":"flex","justifyContent":"left"}} -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button"></a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->"
+"<!-- fin:buttons {"layout":{"type":"flex","justifyContent":"left"}} -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button"></a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->"
 `;
 
 exports[`Buttons block justify content sets Justify items right option 1`] = `
-"<!-- fp:buttons {"layout":{"type":"flex","justifyContent":"right"}} -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button"></a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->"
+"<!-- fin:buttons {"layout":{"type":"flex","justifyContent":"right"}} -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button"></a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->"
 `;
 
 exports[`Buttons block when a button is shown adds another button using the inline appender 1`] = `
-"<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button" href=""></a></div>
-<!-- /fp:button -->
+"<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button" href=""></a></div>
+<!-- /fin:button -->
 
-<!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button" href=""></a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->
+<!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button" href=""></a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Buttons block when a button is shown adds another button using the inserter 1`] = `
-"<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button" href=""></a></div>
-<!-- /fp:button -->
+"<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button" href=""></a></div>
+<!-- /fin:button -->
 
-<!-- fp:button -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button">Hello!</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->"
+<!-- fin:button -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button">Hello!</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->"
 `;
 
 exports[`Buttons block when a button is shown adjusts the border radius 1`] = `
-"<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button {"style":{"border":{"radius":"6px"}}} -->
-<div class="fp-block-button"><a class="fp-block-button__link fp-element-button" href="" style="border-radius:6px">Hello</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->"
+"<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button {"style":{"border":{"radius":"6px"}}} -->
+<div class="fin-block-button"><a class="fin-block-button__link fin-element-button" href="" style="border-radius:6px">Hello</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->"
 `;
 
 exports[`Buttons block when a button is shown removing button along with buttons block removes the button and buttons block when deleting the block using the block delete action 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;

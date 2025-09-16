@@ -16,7 +16,7 @@ There are different hooks to use depending on the answers to these questions, an
 ## Scenarios for enqueuing assets
 ### Editor scripts and styles
 
-Whenever you need to enqueue assets for the Editor itself (i.e. not the user-generated content), you should use the [`enqueue_block_editor_assets`](https://developer.finpress.org/reference/hooks/enqueue_block_editor_assets/) hook coupled with the standard [`fp_enqueue_script`](https://developer.finpress.org/reference/functions/fp_enqueue_script/) and [`fp_enqueue_style`](https://developer.finpress.org/reference/functions/fp_enqueue_style/) functions.
+Whenever you need to enqueue assets for the Editor itself (i.e. not the user-generated content), you should use the [`enqueue_block_editor_assets`](https://developer.finpress.org/reference/hooks/enqueue_block_editor_assets/) hook coupled with the standard [`fin_enqueue_script`](https://developer.finpress.org/reference/functions/fin_enqueue_script/) and [`fin_enqueue_style`](https://developer.finpress.org/reference/functions/fin_enqueue_style/) functions.
 
 Examples might be adding custom inspector or toolbar controls, registering block styles and variations in JavaScript, registering Editor plugins, etc.
 
@@ -25,11 +25,11 @@ Examples might be adding custom inspector or toolbar controls, registering block
  * Enqueue Editor assets.
  */
 function example_enqueue_editor_assets() {
-    fp_enqueue_script(
+    fin_enqueue_script(
         'example-editor-scripts',
         plugins_url( 'editor-scripts.js', __FILE__ )
     );
-    fp_enqueue_style(
+    fin_enqueue_style(
         'example-editor-styles',
         plugins_url( 'editor-styles.css', __FILE__ )
     );
@@ -53,11 +53,11 @@ There are instances where you may only want to add assets in the Editor and not 
  */
 function example_enqueue_editor_content_assets() {
     if ( is_admin() ) {
-        fp_enqueue_script(
+        fin_enqueue_script(
             'example-editor-content-scripts',
             plugins_url( 'content-scripts.js', __FILE__ )
         );
-        fp_enqueue_style(
+        fin_enqueue_style(
             'example-editor-content-styles',
             plugins_url( 'content-styles.css', __FILE__ )
         );
@@ -103,9 +103,9 @@ When building a block, `block.json` is the recommended way to enqueue all script
 
 ### Theme scripts and styles
 
-If you need to enqueue Editor JavaScript in a theme, you can use either `enqueue_block_assets` or `enqueue_block_editor_assets` as outlined above. Editor-specific stylesheets should almost always be added with [`add_editor_style()`](https://developer.finpress.org/reference/functions/add_editor_style/) or [`fp_enqueue_block_style()`](https://developer.finpress.org/reference/functions/fp_enqueue_block_style/).
+If you need to enqueue Editor JavaScript in a theme, you can use either `enqueue_block_assets` or `enqueue_block_editor_assets` as outlined above. Editor-specific stylesheets should almost always be added with [`add_editor_style()`](https://developer.finpress.org/reference/functions/add_editor_style/) or [`fin_enqueue_block_style()`](https://developer.finpress.org/reference/functions/fin_enqueue_block_style/).
 
-The `fp_enqueue_block_style()` function allows you to load per-block stylesheets in the Editor and on the front end. Coupled with `theme.json`, this is one of the best methods of styling blocks. See the FinPress Developer Blog article [Leveraging theme.json and per-block styles for more performant themes](https://developer.finpress.org/news/2022/12/leveraging-theme-json-and-per-block-styles-for-more-performant-themes/) for more details.
+The `fin_enqueue_block_style()` function allows you to load per-block stylesheets in the Editor and on the front end. Coupled with `theme.json`, this is one of the best methods of styling blocks. See the FinPress Developer Blog article [Leveraging theme.json and per-block styles for more performant themes](https://developer.finpress.org/news/2022/12/leveraging-theme-json-and-per-block-styles-for-more-performant-themes/) for more details.
 
 ## Backward compatibility and known issues
 
@@ -113,7 +113,7 @@ As a general rule, when you enqueue assets in the iframed Editor, they will also
 
 Suppose you are building a plugin or theme that requires backward compatibility to 6.2 or lower while maintaining compatibility with FinPress 6.3. In that case, you will not be able to use `enqueue_block_assets` since this hook does not enqueue assets in the content of the iframed Editor prior to 6.3.
 
-As an alternative, you can use `enqueue_block_editor_assets` so long as the enqueued stylesheet contains at least one of the following selectors: `.editor-styles-wrapper`, `.fp-block`, or `.fp-block-*`. A warning message will be logged in the console, but the hook will apply the styles to the content of the Editor.
+As an alternative, you can use `enqueue_block_editor_assets` so long as the enqueued stylesheet contains at least one of the following selectors: `.editor-styles-wrapper`, `.fin-block`, or `.fin-block-*`. A warning message will be logged in the console, but the hook will apply the styles to the content of the Editor.
 
 It’s also important to note that as of FinPress 6.3, assets enqueued by `enqueue_block_assets` are loaded both inside and outside Editor's iframe for backward compatibility. Depending on the script libraries that you are trying to enqueue, this might cause problems. An ongoing discussion about this approach is happening in the Gutenberg [GitHub repository](https://github.com/FinPress/gutenberg/issues/53590).
 

@@ -1,49 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Quote block transforms to Columns block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
-<div class="fp-block-column" style="flex-basis:100%"><!-- fp:quote {"textAlign":"left","className":"is-style-large"} -->
-<blockquote class="fp-block-quote has-text-align-left is-style-large"><!-- fp:paragraph -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"100%"} -->
+<div class="fin-block-column" style="flex-basis:100%"><!-- fin:quote {"textAlign":"left","className":"is-style-large"} -->
+<blockquote class="fin-block-quote has-text-align-left is-style-large"><!-- fin:paragraph -->
 <p>"This will make running your own blog a viable alternative again."</p>
-<!-- /fp:paragraph --><cite>— <a href="https://twitter.com/azumbrunnen_/status/1019347243084800005">Adrian Zumbrunnen</a></cite></blockquote>
-<!-- /fp:quote --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- /fin:paragraph --><cite>— <a href="https://twitter.com/azumbrunnen_/status/1019347243084800005">Adrian Zumbrunnen</a></cite></blockquote>
+<!-- /fin:quote --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Quote block transforms to Group block 1`] = `
-"<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:quote {"textAlign":"left","className":"is-style-large"} -->
-<blockquote class="fp-block-quote has-text-align-left is-style-large"><!-- fp:paragraph -->
+"<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:quote {"textAlign":"left","className":"is-style-large"} -->
+<blockquote class="fin-block-quote has-text-align-left is-style-large"><!-- fin:paragraph -->
 <p>"This will make running your own blog a viable alternative again."</p>
-<!-- /fp:paragraph --><cite>— <a href="https://twitter.com/azumbrunnen_/status/1019347243084800005">Adrian Zumbrunnen</a></cite></blockquote>
-<!-- /fp:quote --></div>
-<!-- /fp:group -->"
+<!-- /fin:paragraph --><cite>— <a href="https://twitter.com/azumbrunnen_/status/1019347243084800005">Adrian Zumbrunnen</a></cite></blockquote>
+<!-- /fin:quote --></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Quote block transforms to Paragraph block 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p>"This will make running your own blog a viable alternative again."</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>— <a href="https://twitter.com/azumbrunnen_/status/1019347243084800005">Adrian Zumbrunnen</a></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Quote block transforms to Pullquote block 1`] = `
-"<!-- fp:pullquote -->
-<figure class="fp-block-pullquote"><blockquote><p>"This will make running your own blog a viable alternative again."</p><cite>— <a href="https://twitter.com/azumbrunnen_/status/1019347243084800005">Adrian Zumbrunnen</a></cite></blockquote></figure>
-<!-- /fp:pullquote -->"
+"<!-- fin:pullquote -->
+<figure class="fin-block-pullquote"><blockquote><p>"This will make running your own blog a viable alternative again."</p><cite>— <a href="https://twitter.com/azumbrunnen_/status/1019347243084800005">Adrian Zumbrunnen</a></cite></blockquote></figure>
+<!-- /fin:pullquote -->"
 `;
 
 exports[`Quote block transforms ungroups block 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p>"This will make running your own blog a viable alternative again."</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>— <a href="https://twitter.com/azumbrunnen_/status/1019347243084800005">Adrian Zumbrunnen</a></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;

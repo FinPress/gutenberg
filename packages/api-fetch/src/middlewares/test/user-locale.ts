@@ -10,11 +10,11 @@ describe( 'User locale middleware', () => {
 
 		const requestOptions = {
 			method: 'GET',
-			path: '/fp/v2/posts',
+			path: '/fin/v2/posts',
 		};
 
 		const callback: FetchHandler = async ( options ) => {
-			expect( options.path ).toBe( '/fp/v2/posts?_locale=user' );
+			expect( options.path ).toBe( '/fin/v2/posts?_locale=user' );
 		};
 
 		userLocaleMiddleware( requestOptions, callback );
@@ -25,11 +25,11 @@ describe( 'User locale middleware', () => {
 
 		const requestOptions = {
 			method: 'GET',
-			path: '/fp/v2/posts?foo=bar',
+			path: '/fin/v2/posts?foo=bar',
 		};
 
 		const callback: FetchHandler = async ( options ) => {
-			expect( options.path ).toBe( '/fp/v2/posts?foo=bar&_locale=user' );
+			expect( options.path ).toBe( '/fin/v2/posts?foo=bar&_locale=user' );
 		};
 
 		userLocaleMiddleware( requestOptions, callback );
@@ -40,11 +40,11 @@ describe( 'User locale middleware', () => {
 
 		const requestOptions = {
 			method: 'GET',
-			path: '/fp/v2/posts?_locale=foo',
+			path: '/fin/v2/posts?_locale=foo',
 		};
 
 		const callback: FetchHandler = async ( options ) => {
-			expect( options.path ).toBe( '/fp/v2/posts?_locale=foo' );
+			expect( options.path ).toBe( '/fin/v2/posts?_locale=foo' );
 		};
 
 		userLocaleMiddleware( requestOptions, callback );
@@ -55,11 +55,11 @@ describe( 'User locale middleware', () => {
 
 		const requestOptions = {
 			method: 'GET',
-			path: '/fp/v2/posts?foo=bar&_locale=foo',
+			path: '/fin/v2/posts?foo=bar&_locale=foo',
 		};
 
 		const callback: FetchHandler = async ( options ) => {
-			expect( options.path ).toBe( '/fp/v2/posts?foo=bar&_locale=foo' );
+			expect( options.path ).toBe( '/fin/v2/posts?foo=bar&_locale=foo' );
 		};
 
 		userLocaleMiddleware( requestOptions, callback );
@@ -70,12 +70,12 @@ describe( 'User locale middleware', () => {
 
 		const requestOptions = {
 			method: 'GET',
-			url: 'http://fp.org/fp-json/fp/v2/posts',
+			url: 'http://fin.org/fin-json/fin/v2/posts',
 		};
 
 		const callback: FetchHandler = async ( options ) => {
 			expect( options.url ).toBe(
-				'http://fp.org/fp-json/fp/v2/posts?_locale=user'
+				'http://fin.org/fin-json/fin/v2/posts?_locale=user'
 			);
 		};
 
@@ -87,12 +87,12 @@ describe( 'User locale middleware', () => {
 
 		const requestOptions = {
 			method: 'GET',
-			url: 'http://fp.org/fp-json/fp/v2/posts?foo=bar',
+			url: 'http://fin.org/fin-json/fin/v2/posts?foo=bar',
 		};
 
 		const callback: FetchHandler = async ( options ) => {
 			expect( options.url ).toBe(
-				'http://fp.org/fp-json/fp/v2/posts?foo=bar&_locale=user'
+				'http://fin.org/fin-json/fin/v2/posts?foo=bar&_locale=user'
 			);
 		};
 
@@ -104,12 +104,12 @@ describe( 'User locale middleware', () => {
 
 		const requestOptions = {
 			method: 'GET',
-			url: 'http://fp.org/fp-json/fp/v2/posts?_locale=foo',
+			url: 'http://fin.org/fin-json/fin/v2/posts?_locale=foo',
 		};
 
 		const callback: FetchHandler = async ( options ) => {
 			expect( options.url ).toBe(
-				'http://fp.org/fp-json/fp/v2/posts?_locale=foo'
+				'http://fin.org/fin-json/fin/v2/posts?_locale=foo'
 			);
 		};
 
@@ -121,12 +121,12 @@ describe( 'User locale middleware', () => {
 
 		const requestOptions = {
 			method: 'GET',
-			url: 'http://fp.org/fp-json/fp/v2/posts?foo=bar&_locale=foo',
+			url: 'http://fin.org/fin-json/fin/v2/posts?foo=bar&_locale=foo',
 		};
 
 		const callback: FetchHandler = async ( options ) => {
 			expect( options.url ).toBe(
-				'http://fp.org/fp-json/fp/v2/posts?foo=bar&_locale=foo'
+				'http://fin.org/fin-json/fin/v2/posts?foo=bar&_locale=foo'
 			);
 		};
 

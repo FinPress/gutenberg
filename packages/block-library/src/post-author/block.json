@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-author",
 	"title": "Author",
@@ -84,9 +84,9 @@
 	},
 	"selectors": {
 		"filter": {
-			"duotone": ".fp-block-post-author .fp-block-post-author__avatar img"
+			"duotone": ".fin-block-post-author .fin-block-post-author__avatar img"
 		}
 	},
-	"editorStyle": "fp-block-post-author-editor",
-	"style": "fp-block-post-author"
+	"editorStyle": "fin-block-post-author-editor",
+	"style": "fin-block-post-author"
 }

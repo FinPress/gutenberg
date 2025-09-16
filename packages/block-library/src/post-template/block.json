@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/post-template",
 	"title": "Post Template",
@@ -64,6 +64,6 @@
 			"style": true
 		}
 	},
-	"style": "fp-block-post-template",
-	"editorStyle": "fp-block-post-template-editor"
+	"style": "fin-block-post-template",
+	"editorStyle": "fin-block-post-template-editor"
 }

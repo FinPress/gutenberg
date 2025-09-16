@@ -11,13 +11,13 @@
  * Registers a custom script for the plugin.
  */
 function enqueue_container_without_paragraph_plugin_script() {
-	fp_enqueue_script(
+	fin_enqueue_script(
 		'gutenberg-test-container-without-paragraph',
 		plugins_url( 'container-without-paragraph/index.js', __FILE__ ),
 		array(
-			'fp-blocks',
-			'fp-element',
-			'fp-block-editor',
+			'fin-blocks',
+			'fin-element',
+			'fin-block-editor',
 		),
 		filemtime( plugin_dir_path( __FILE__ ) . 'container-without-paragraph/index.js' ),
 		true

@@ -6,7 +6,7 @@
  */
 
 /**
- * When the `core/file` block is rendering, check if we need to enqueue the `fp-block-file-view` script.
+ * When the `core/file` block is rendering, check if we need to enqueue the `fin-block-file-view` script.
  *
  * @since 5.8.0
  *
@@ -21,11 +21,11 @@ function render_block_core_file( $attributes, $content ) {
 	}
 
 	// If it's interactive, enqueue the script module and add the directives.
-	fp_enqueue_script_module( '@finpress/block-library/file/view' );
+	fin_enqueue_script_module( '@finpress/block-library/file/view' );
 
 	$processor = new FP_HTML_Tag_Processor( $content );
 	if ( $processor->next_tag() ) {
-		$processor->set_attribute( 'data-fp-interactive', 'core/file' );
+		$processor->set_attribute( 'data-fin-interactive', 'core/file' );
 	}
 
 	// If there are no OBJECT elements, something might have already modified the block.
@@ -33,7 +33,7 @@ function render_block_core_file( $attributes, $content ) {
 		return $content;
 	}
 
-	$processor->set_attribute( 'data-fp-bind--hidden', '!state.hasPdfPreview' );
+	$processor->set_attribute( 'data-fin-bind--hidden', '!state.hasPdfPreview' );
 	$processor->set_attribute( 'hidden', true );
 
 	$filename     = $processor->get_attribute( 'aria-label' );

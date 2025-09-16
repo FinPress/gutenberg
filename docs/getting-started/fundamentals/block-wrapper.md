@@ -21,7 +21,7 @@ This hook simplifies several tasks, including:
 - Assigning a unique `id` to the block's HTML structure.
 - Adding various accessibility and `data-` attributes for enhanced functionality and information.
 - Incorporating classes and inline styles that reflect the block's custom settings. By default, this includes:
-    - The `fp-block` class for general block styling.
+    - The `fin-block` class for general block styling.
     - A block-specific class that combines the block's namespace and name, ensuring unique and targeted styling capabilities.
 
 In the following example, the Editor markup of the block is defined in the `Edit` component using the `useBlockProps()` hook.
@@ -49,9 +49,9 @@ The markup of the block in the Block Editor could look like this, where the clas
     data-title="Minimal Gutenberg Block ca6eda"
     class="
         block-editor-block-list__block
-        fp-block
+        fin-block
         is-selected
-        fp-block-block-development-examples-minimal-block-ca6eda
+        fin-block-block-development-examples-minimal-block-ca6eda
     "
 >Hello World - Block Editor</p>
 ```
@@ -81,7 +81,7 @@ _See the [full block example](https://github.com/FinPress/block-development-exam
 The markup of the block on the front end could look like this, where the class is applied automatically:
 
 ```html
-<p class="fp-block-block-development-examples-minimal-block-ca6eda">Hello World – Frontend</p>
+<p class="fin-block-block-development-examples-minimal-block-ca6eda">Hello World – Frontend</p>
 ```
 
 If you want to add any additional classes or attributes to the `save` function of the block, they should be passed as an argument of `useBlockProps.save()`. (See [example](https://github.com/FinPress/block-development-examples/blob/trunk/plugins/stylesheets-79a4c3/src/save.js))
@@ -90,7 +90,7 @@ When you add `supports` for any feature, the proper classes get added to the obj
 
 ```html
 <p class="
-    fp-block-block-development-examples-block-supports-6aa4dd
+    fin-block-block-development-examples-block-supports-6aa4dd
     has-accent-4-color
     has-contrast-background-color
     has-text-color

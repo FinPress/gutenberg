@@ -61,14 +61,14 @@ function ActionItemSlot( {
 function ActionItem( { name, as: Component = Button, onClick, ...props } ) {
 	return (
 		<Fill name={ name }>
-			{ ( { onClick: fpOnClick } ) => {
+			{ ( { onClick: finOnClick } ) => {
 				return (
 					<Component
 						onClick={
-							onClick || fpOnClick
+							onClick || finOnClick
 								? ( ...args ) => {
 										( onClick || noop )( ...args );
-										( fpOnClick || noop )( ...args );
+										( finOnClick || noop )( ...args );
 								  }
 								: undefined
 						}

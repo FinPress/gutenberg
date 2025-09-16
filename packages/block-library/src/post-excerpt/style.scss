@@ -1,25 +1,25 @@
 // Lowest specificity on wrapper margins to avoid overriding layout styles.
-:where(.fp-block-post-excerpt) {
+:where(.fin-block-post-excerpt) {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 
-	margin-top: var(--fp--style--block-gap);
-	margin-bottom: var(--fp--style--block-gap);
+	margin-top: var(--fin--style--block-gap);
+	margin-bottom: var(--fin--style--block-gap);
 }
 
 // Zero out the margin on the excerpt paragraph, to match the body paragraphs.
-.fp-block-post-excerpt__excerpt {
+.fin-block-post-excerpt__excerpt {
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
 // Matches block gap.
-.fp-block-post-excerpt__more-text {
-	margin-top: var(--fp--style--block-gap);
+.fin-block-post-excerpt__more-text {
+	margin-top: var(--fin--style--block-gap);
 	margin-bottom: 0;
 }
 
-.fp-block-post-excerpt__more-link {
+.fin-block-post-excerpt__more-link {
 	display: inline-block;
 }
 

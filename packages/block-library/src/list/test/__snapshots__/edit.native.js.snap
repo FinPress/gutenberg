@@ -1,121 +1,121 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`List block adds one item to the list 1`] = `
-"<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+"<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>First list item</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->"
 `;
 
 exports[`List block changes the indentation level 1`] = `
-"<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
-<li>Item 1<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+"<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
+<li>Item 1<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>Item 2</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->"
 `;
 
 exports[`List block changes to ordered list 1`] = `
-"<!-- fp:list {"ordered":true} -->
-<ol class="fp-block-list"><!-- fp:list-item -->
+"<!-- fin:list {"ordered":true} -->
+<ol class="fin-block-list"><!-- fin:list-item -->
 <li>Item 1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Item 2</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Item 3</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->"
 `;
 
 exports[`List block changes to reverse ordered list 1`] = `
-"<!-- fp:list {"ordered":true,"reversed":true} -->
-<ol reversed class="fp-block-list"><!-- fp:list-item -->
+"<!-- fin:list {"ordered":true,"reversed":true} -->
+<ol reversed class="fin-block-list"><!-- fin:list-item -->
 <li>Item 1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Item 2</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Item 3</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->"
 `;
 
 exports[`List block inserts block 1`] = `
-"<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+"<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->"
 `;
 
 exports[`List block removes the indentation level 1`] = `
-"<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+"<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>Item 1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Item 2</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->"
 `;
 
 exports[`List block sets a start value to an ordered list 1`] = `
-"<!-- fp:list {"ordered":true,"start":25} -->
-<ol start="25" class="fp-block-list"><!-- fp:list-item -->
+"<!-- fin:list {"ordered":true,"start":25} -->
+<ol start="25" class="fin-block-list"><!-- fin:list-item -->
 <li>Item 1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Item 2</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Item 3</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->"
 `;
 
 exports[`List block shows different indentation levels 1`] = `
-"<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+"<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>List item 1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
-<li>List item 2<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list-item -->
+<li>List item 2<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>List item nested 1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
-<li>List item nested 2<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list-item -->
+<li>List item nested 2<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>Extra item 1</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Extra item 2</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list --></li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item --></ul>
+<!-- /fin:list --></li>
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>List item 3</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->"
 `;

@@ -89,9 +89,9 @@ These assertions are more readable and explicit. You can add additional assertio
 Due to the lack of inline snapshots in Playwright, some migrated tests are using string assertions (`toBe`) to simulate similar effects without having to create dozens of snapshot files.
 
 ```js
-expect( await editor.getEditedPostContent() ).toBe( `<!-- fp:paragraph -->
+expect( await editor.getEditedPostContent() ).toBe( `<!-- fin:paragraph -->
 <p>Paragraph</p>
-<!-- /fp:paragraph -->` );
+<!-- /fin:paragraph -->` );
 ```
 
 We can consider this pattern as a variant of snapshot testing, and we should follow the same rule when writing them. It's often better to rewrite them using `editor.getBlocks` or other methods to make explicit assertions.

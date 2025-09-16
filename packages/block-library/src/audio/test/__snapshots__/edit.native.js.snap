@@ -534,13 +534,13 @@ exports[`Audio block renders placeholder without crashing 1`] = `
 `;
 
 exports[`Audio block should enable autoplay setting 1`] = `
-"<!-- fp:audio {"id":5} -->
-<figure class="fp-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3" autoplay></audio></figure>
-<!-- /fp:audio -->"
+"<!-- fin:audio {"id":5} -->
+<figure class="fin-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3" autoplay></audio></figure>
+<!-- /fin:audio -->"
 `;
 
 exports[`Audio block should enable loop setting 1`] = `
-"<!-- fp:audio {"id":5} -->
-<figure class="fp-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3" loop></audio></figure>
-<!-- /fp:audio -->"
+"<!-- fin:audio {"id":5} -->
+<figure class="fin-block-audio"><audio controls src="https://cldup.com/59IrU0WJtq.mp3" loop></audio></figure>
+<!-- /fin:audio -->"
 `;

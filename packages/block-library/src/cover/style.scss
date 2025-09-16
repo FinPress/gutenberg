@@ -1,5 +1,5 @@
-.fp-block-cover-image,
-.fp-block-cover {
+.fin-block-cover-image,
+.fin-block-cover {
 	min-height: 430px;
 	padding: 1em;
 	position: relative;
@@ -7,7 +7,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	// Prevent the `fp-block-cover__background` span from overflowing the container when border-radius is applied.
+	// Prevent the `fin-block-cover__background` span from overflowing the container when border-radius is applied.
 	// `overflow: hidden` is provided as a fallback for browsers that don't support `overflow: clip`.
 	overflow: hidden;
 	// Use clip instead of overflow: hidden so that sticky position works on child elements.
@@ -45,10 +45,10 @@
 	}
 
 	// The first selector is required for old Cover markup/
-	// Keep .fp-block-cover__gradient-background for v8 deprecation.
+	// Keep .fin-block-cover__gradient-background for v8 deprecation.
 	&.has-background-dim:not(.has-background-gradient)::before,
-	.fp-block-cover__background,
-	.fp-block-cover__gradient-background {
+	.fin-block-cover__background,
+	.fin-block-cover__gradient-background {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -64,17 +64,17 @@
 	@for $i from 1 through 10 {
 		&.has-background-dim.has-background-dim-#{ $i * 10 } {
 			&:not(.has-background-gradient)::before,
-			.fp-block-cover__background,
-			.fp-block-cover__gradient-background {
+			.fin-block-cover__background,
+			.fin-block-cover__gradient-background {
 				opacity: $i * 0.1;
 			}
 		}
 	}
 
 	@for $i from 0 through 10 {
-		// Keep .fp-block-cover__gradient-background for v8 deprecation
-		.fp-block-cover__gradient-background.has-background-dim.has-background-dim-#{ $i * 10 },
-		.fp-block-cover__background.has-background-dim.has-background-dim-#{ $i * 10 } {
+		// Keep .fin-block-cover__gradient-background for v8 deprecation
+		.fin-block-cover__gradient-background.has-background-dim.has-background-dim-#{ $i * 10 },
+		.fin-block-cover__background.has-background-dim.has-background-dim-#{ $i * 10 } {
 			opacity: $i * 0.1;
 		}
 	}
@@ -93,7 +93,7 @@
 		display: flex;
 	}
 
-	.fp-block-cover__inner-container {
+	.fin-block-cover__inner-container {
 		position: relative; // Needed for the inner container to be positioned above other elements with absolute positioning.
 		width: 100%;
 		color: inherit;
@@ -142,7 +142,7 @@
 	}
 
 	&.has-custom-content-position.has-custom-content-position {
-		.fp-block-cover__inner-container {
+		.fin-block-cover__inner-container {
 			margin: 0;
 		}
 		&.is-position-top-left,
@@ -151,7 +151,7 @@
 		&.is-position-center-right,
 		&.is-position-bottom-left,
 		&.is-position-bottom-right {
-			.fp-block-cover__inner-container {
+			.fin-block-cover__inner-container {
 				margin: 0;
 				width: auto;
 			}
@@ -160,8 +160,8 @@
 	}
 
 	// Extra specificity for in edit mode where other styles would override it otherwise.
-	.fp-block-cover__image-background,
-	video.fp-block-cover__video-background {
+	.fin-block-cover__image-background,
+	video.fin-block-cover__video-background {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -180,10 +180,10 @@
 	}
 }
 
-.fp-block-cover-image,
-.fp-block-cover,
-.fp-block-cover__image-background,
-video.fp-block-cover__video-background {
+.fin-block-cover-image,
+.fin-block-cover,
+.fin-block-cover__image-background,
+video.fin-block-cover__video-background {
 	&.has-parallax {
 		background-attachment: fixed;
 		background-size: cover;
@@ -209,12 +209,12 @@ video.fp-block-cover__video-background {
 }
 
 // Styles below only exist to support older versions of the block.
-// Versions that not had inner blocks and used an h2 heading had a section (and not a div) with a class fp-block-cover-image (and not a fp-block-cover).
+// Versions that not had inner blocks and used an h2 heading had a section (and not a div) with a class fin-block-cover-image (and not a fin-block-cover).
 // We are using the previous referred differences to target old versions.
 
-section.fp-block-cover-image h2,
-.fp-block-cover-image-text,
-.fp-block-cover-text {
+section.fin-block-cover-image h2,
+.fin-block-cover-image-text,
+.fin-block-cover-text {
 	color: $white;
 	a,
 	a:hover,
@@ -224,8 +224,8 @@ section.fp-block-cover-image h2,
 	}
 }
 
-.fp-block-cover-image
-.fp-block-cover {
+.fin-block-cover-image
+.fin-block-cover {
 	&.has-left-content {
 		justify-content: flex-start;
 	}
@@ -235,23 +235,23 @@ section.fp-block-cover-image h2,
 	}
 }
 
-section.fp-block-cover-image.has-left-content > h2,
-.fp-block-cover-image.has-left-content .fp-block-cover-image-text,
-.fp-block-cover.has-left-content .fp-block-cover-text {
+section.fin-block-cover-image.has-left-content > h2,
+.fin-block-cover-image.has-left-content .fin-block-cover-image-text,
+.fin-block-cover.has-left-content .fin-block-cover-text {
 	margin-left: 0;
 	text-align: left;
 }
 
-section.fp-block-cover-image.has-right-content > h2,
-.fp-block-cover-image.has-right-content .fp-block-cover-image-text,
-.fp-block-cover.has-right-content .fp-block-cover-text {
+section.fin-block-cover-image.has-right-content > h2,
+.fin-block-cover-image.has-right-content .fin-block-cover-image-text,
+.fin-block-cover.has-right-content .fin-block-cover-text {
 	margin-right: 0;
 	text-align: right;
 }
 
-section.fp-block-cover-image > h2,
-.fp-block-cover-image .fp-block-cover-image-text,
-.fp-block-cover .fp-block-cover-text {
+section.fin-block-cover-image > h2,
+.fin-block-cover-image .fin-block-cover-image-text,
+.fin-block-cover .fin-block-cover-text {
 	font-size: 2em;
 	line-height: 1.25;
 	z-index: 1;
@@ -266,58 +266,58 @@ section.fp-block-cover-image > h2,
 // `:where` to allow for generic global styles that have a low specificity to
 // still take precedence.
 
-:where(.fp-block-cover:not(.has-text-color)),
-:where(.fp-block-cover-image:not(.has-text-color)) {
+:where(.fin-block-cover:not(.has-text-color)),
+:where(.fin-block-cover-image:not(.has-text-color)) {
 	color: $white;
 }
 
-:where(.fp-block-cover.is-light:not(.has-text-color)),
-:where(.fp-block-cover-image.is-light:not(.has-text-color)) {
+:where(.fin-block-cover.is-light:not(.has-text-color)),
+:where(.fin-block-cover-image.is-light:not(.has-text-color)) {
 	color: $black;
 }
 
 :root {
-	:where(.fp-block-cover p:not(.has-text-color)),
-	:where(.fp-block-cover h1:not(.has-text-color)),
-	:where(.fp-block-cover h2:not(.has-text-color)),
-	:where(.fp-block-cover h3:not(.has-text-color)),
-	:where(.fp-block-cover h4:not(.has-text-color)),
-	:where(.fp-block-cover h5:not(.has-text-color)),
-	:where(.fp-block-cover h6:not(.has-text-color)) {
+	:where(.fin-block-cover p:not(.has-text-color)),
+	:where(.fin-block-cover h1:not(.has-text-color)),
+	:where(.fin-block-cover h2:not(.has-text-color)),
+	:where(.fin-block-cover h3:not(.has-text-color)),
+	:where(.fin-block-cover h4:not(.has-text-color)),
+	:where(.fin-block-cover h5:not(.has-text-color)),
+	:where(.fin-block-cover h6:not(.has-text-color)) {
 		color: inherit;
 	}
 }
 
 // Backward compatibility for v14 deprecation. Only applied to the frontend.
-// Regarding the `.fp-block-cover__background + .fp-block-cover__inner-container`
-// selector: When the `.fp-block-cover__inner-container` comes right after the
-// `.fp-block-cover__background` , it means that it's using the new HTML
+// Regarding the `.fin-block-cover__background + .fin-block-cover__inner-container`
+// selector: When the `.fin-block-cover__inner-container` comes right after the
+// `.fin-block-cover__background` , it means that it's using the new HTML
 // structure or that it's using the color background or gradient (even in
 // the deprecated version). In the color background or gradient option we don't
 // need the z-index because the elements are in the expected order.
-body:not(.editor-styles-wrapper) .fp-block-cover:not(
-.fp-block-cover:has(
-	.fp-block-cover__background + .fp-block-cover__inner-container
+body:not(.editor-styles-wrapper) .fin-block-cover:not(
+.fin-block-cover:has(
+	.fin-block-cover__background + .fin-block-cover__inner-container
 )
 ) {
-	.fp-block-cover__video-background {
-		z-index: z-index(".fp-block-cover__video-background");
+	.fin-block-cover__video-background {
+		z-index: z-index(".fin-block-cover__video-background");
 	}
 
-	.fp-block-cover__image-background {
-		z-index: z-index(".fp-block-cover__image-background");
+	.fin-block-cover__image-background {
+		z-index: z-index(".fin-block-cover__image-background");
 	}
 
 	// The first selector is required for old Cover markup/
-	// Keep .fp-block-cover__gradient-background for v8 deprecation.
+	// Keep .fin-block-cover__gradient-background for v8 deprecation.
 	&.has-background-dim:not(.has-background-gradient)::before,
-	.fp-block-cover__background,
-	.fp-block-cover__gradient-background {
-		z-index: z-index(".fp-block-cover.has-background-dim::before");
+	.fin-block-cover__background,
+	.fin-block-cover__gradient-background {
+		z-index: z-index(".fin-block-cover.has-background-dim::before");
 	}
 
-	.fp-block-cover__inner-container {
-		z-index: z-index(".fp-block-cover__inner-container");
+	.fin-block-cover__inner-container {
+		z-index: z-index(".fin-block-cover__inner-container");
 
 		// Reset the z-index to auto when the body has a modal open. So when the
 		// modal is inside the cover, it doesn't create a stacking context.

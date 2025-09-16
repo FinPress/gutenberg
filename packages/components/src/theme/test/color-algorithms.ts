@@ -31,7 +31,7 @@ describe( 'Theme color algorithms', () => {
 		it( 'should warn if standard foreground colors are not readable against background', () => {
 			generateThemeVariables( { background: '#777' } );
 			expect( console ).toHaveWarnedWith(
-				'fp.components.Theme: The background color provided ("#777") does not have sufficient contrast against the standard foreground colors.'
+				'fin.components.Theme: The background color provided ("#777") does not have sufficient contrast against the standard foreground colors.'
 			);
 		} );
 
@@ -50,19 +50,19 @@ describe( 'Theme color algorithms', () => {
 				background: '#000',
 			} );
 			expect( console ).toHaveWarnedWith(
-				'fp.components.Theme: The background color ("#000") does not have sufficient contrast against the accent color ("#111").'
+				'fin.components.Theme: The background color ("#000") does not have sufficient contrast against the accent color ("#111").'
 			);
 
 			generateThemeVariables( { background: '#1a1a1a' } );
 			expect( console ).toHaveWarnedWith(
-				'fp.components.Theme: The background color ("#1a1a1a") does not have sufficient contrast against the accent color ("#3858e9").'
+				'fin.components.Theme: The background color ("#1a1a1a") does not have sufficient contrast against the accent color ("#3858e9").'
 			);
 		} );
 
 		it( 'should warn if a readable grayscale cannot be generated', () => {
 			generateThemeVariables( { background: '#ddd' } );
 			expect( console ).toHaveWarnedWith(
-				'fp.components.Theme: The background color provided ("#ddd") cannot generate a set of grayscale foreground colors with sufficient contrast. Try adjusting the color to be lighter or darker.'
+				'fin.components.Theme: The background color provided ("#ddd") cannot generate a set of grayscale foreground colors with sufficient contrast. Try adjusting the color to be lighter or darker.'
 			);
 		} );
 	} );

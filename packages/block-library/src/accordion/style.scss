@@ -1,9 +1,9 @@
-.fp-block-accordion-content {
+.fin-block-accordion-content {
 	display: grid;
 	grid-template-rows: max-content 0fr;
 }
 
-.fp-block-accordion-content.is-open {
+.fin-block-accordion-content.is-open {
 	grid-template-rows: max-content 1fr;
 }
 
@@ -24,7 +24,7 @@
 	background: none;
 	border: none;
 	color: inherit;
-	padding: var(--fp--preset--spacing--20, 1em) 0;
+	padding: var(--fin--preset--spacing--20, 1em) 0;
 	cursor: pointer;
 	outline: none;
 	overflow-x: hidden;
@@ -39,14 +39,14 @@
 	width: 100%;
 }
 
-.is-layout-flow > .fp-block-accordion-panel,
-.fp-block-accordion-panel {
+.is-layout-flow > .fin-block-accordion-panel,
+.fin-block-accordion-panel {
 	overflow: hidden;
 	margin: 0;
 }
 
 .accordion-panel__wrapper {
-	padding-bottom: var(--fp--preset--spacing--20, 1em);
+	padding-bottom: var(--fin--preset--spacing--20, 1em);
 }
 
 /* No icon block style */
@@ -54,18 +54,18 @@
 	background-color: unset;
 }
 
-.fp-block-accordion-header.icon-position-left .accordion-content__toggle {
+.fin-block-accordion-header.icon-position-left .accordion-content__toggle {
 	/* stylelint-disable-next-line declaration-property-value-allowed-list -- This should be refactored to not use the row-reverse value. */
 	flex-direction: row-reverse;
 }
 
 /* RTL language support */
-[dir="rtl"] .fp-block-accordion-header:not(.icon-position-left) .accordion-content__toggle {
+[dir="rtl"] .fin-block-accordion-header:not(.icon-position-left) .accordion-content__toggle {
 	/* stylelint-disable-next-line declaration-property-value-allowed-list -- Automatically adjust icon position for RTL languages. */
 	flex-direction: row-reverse;
 }
 
-[dir="rtl"] .fp-block-accordion-header.icon-position-left .accordion-content__toggle {
+[dir="rtl"] .fin-block-accordion-header.icon-position-left .accordion-content__toggle {
 	flex-direction: row;
 }
 
@@ -76,11 +76,11 @@
 
 /* Add transitions only for users who do not prefer reduced motion */
 @media (prefers-reduced-motion: no-preference) {
-	.fp-block-accordion-content .accordion-content__toggle-icon {
+	.fin-block-accordion-content .accordion-content__toggle-icon {
 		transition: transform 0.2s ease-in-out;
 	}
 
-	.fp-block-accordion-content {
+	.fin-block-accordion-content {
 		transition: grid-template-rows 0.3s ease-out;
 	}
 }

@@ -4,7 +4,7 @@
 		"isValid": true,
 		"attributes": {
 			"isLink": false,
-			"className": "fp-block-post-date__modified-date",
+			"className": "fin-block-post-date__modified-date",
 			"metadata": {
 				"bindings": {
 					"datetime": {

@@ -85,11 +85,11 @@ const { getByText, findByText } = render(
 Here is an example of rendering the Buttons block (extracted from [this code](https://github.com/FinPress/gutenberg/blob/9201906891a68ca305daf7f8b6cd006e2b26291e/packages/block-library/src/buttons/test/edit.native.js#L32-L39)):
 
 ```js
-const initialHtml = `<!-- fp:buttons -->
-<div class="fp-block-buttons"><!-- fp:button {"style":{"border":{"radius":"5px"}}} -->
-<div class="fp-block-button"><a class="fp-block-button__link" style="border-radius:5px" >Hello</a></div>
-<!-- /fp:button --></div>
-<!-- /fp:buttons -->`;
+const initialHtml = `<!-- fin:buttons -->
+<div class="fin-block-buttons"><!-- fin:button {"style":{"border":{"radius":"5px"}}} -->
+<div class="fin-block-button"><a class="fin-block-button__link" style="border-radius:5px" >Hello</a></div>
+<!-- /fin:button --></div>
+<!-- /fin:buttons -->`;
 const { getByLabelText } = initializeEditor( {
 	initialHtml,
 } );
@@ -185,7 +185,7 @@ Additionally when rendering the entire editor, we can also verify if the HTML ou
 
 ```js
 expect( getEditorHtml() ).toBe(
-	'<!-- fp:spacer {"height":50} -->\n<div style="height:50px" aria-hidden="true" class="fp-block-spacer"></div>\n<!-- /fp:spacer -->'
+	'<!-- fin:spacer {"height":50} -->\n<div style="height:50px" aria-hidden="true" class="fin-block-spacer"></div>\n<!-- /fin:spacer -->'
 );
 ```
 

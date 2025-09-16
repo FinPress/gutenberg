@@ -12,10 +12,10 @@
 
 	.components-form-token-field__suggestions-list:not(:empty) {
 		position: absolute;
-		border: $border-width solid var(--fp-admin-theme-color);
+		border: $border-width solid var(--fin-admin-theme-color);
 		border-bottom-left-radius: $radius-small;
 		border-bottom-right-radius: $radius-small;
-		box-shadow: 0 0 0.5px 0.5px var(--fp-admin-theme-color);
+		box-shadow: 0 0 0.5px 0.5px var(--fin-admin-theme-color);
 		box-sizing: border-box;
 		z-index: 1;
 		background-color: $white;
@@ -51,7 +51,7 @@
 }
 
 .patterns-pattern-overrides-toolbar-indicator .patterns-pattern-overrides-toolbar-indicator-icon.has-colors svg {
-	fill: var(--fp-block-synced-color);
+	fill: var(--fin-block-synced-color);
 }
 
 .editor-collapsible-block-toolbar .patterns-pattern-overrides-toolbar-indicator {

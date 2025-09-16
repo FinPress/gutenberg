@@ -1,13 +1,13 @@
-.fp-block-rss li a > div {
+.fin-block-rss li a > div {
 	display: inline;
 }
 
-.fp-block-rss__placeholder-form .fp-block-rss__placeholder-input {
+.fin-block-rss__placeholder-form .fin-block-rss__placeholder-input {
 	flex: 1 1 auto;
 }
 // Reset all styles when skipping block supports while server-side rendering.
 // This prevents issues such as duplicate padding, borders etc.
-.fp-block-rss .fp-block-rss {
+.fin-block-rss .fin-block-rss {
 	all: inherit;
 	margin: 0;
 	padding: 0;

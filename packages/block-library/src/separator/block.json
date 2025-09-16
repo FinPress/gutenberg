@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/separator",
 	"title": "Separator",
@@ -43,6 +43,6 @@
 		{ "name": "wide", "label": "Wide Line" },
 		{ "name": "dots", "label": "Dots" }
 	],
-	"editorStyle": "fp-block-separator-editor",
-	"style": "fp-block-separator"
+	"editorStyle": "fin-block-separator-editor",
+	"style": "fin-block-separator"
 }

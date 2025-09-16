@@ -32,7 +32,7 @@ import { createElement } from '@finpress/element';
  */
 import './jsdom-patches';
 
-global.fp = {
+global.fin = {
 	element: {
 		createElement, // Load the element creation function, needed by Gutenberg-web.
 	},

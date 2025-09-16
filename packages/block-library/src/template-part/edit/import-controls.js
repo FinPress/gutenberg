@@ -52,7 +52,7 @@ export function TemplatePartImportControls( { area, setAttributes } ) {
 		const sidebarOptions = ( sidebars ?? [] )
 			.filter(
 				( widgetArea ) =>
-					widgetArea.id !== 'fp_inactive_widgets' &&
+					widgetArea.id !== 'fin_inactive_widgets' &&
 					widgetArea.widgets.length > 0
 			)
 			.map( ( widgetArea ) => {

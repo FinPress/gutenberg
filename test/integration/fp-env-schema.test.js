@@ -6,10 +6,10 @@ import Ajv from 'ajv';
 /**
  * Internal dependencies
  */
-import fpEnvSchema from '../../schemas/json/fp-env.json';
-import fpEnvJsonFile from '../../.fp-env.json';
+import finEnvSchema from '../../schemas/json/fin-env.json';
+import finEnvJsonFile from '../../.fin-env.json';
 
-describe( '.fp-env.json schema', () => {
+describe( '.fin-env.json schema', () => {
 	const ajv = new Ajv( {
 		allowMatchingProperties: true,
 	} );
@@ -19,19 +19,19 @@ describe( '.fp-env.json schema', () => {
 		// because validateSchema only checks syntax, whereas, compile checks
 		// if the schema is semantically correct with strict mode.
 		// See https://github.com/ajv-validator/ajv/issues/1434#issuecomment-822982571
-		const result = ajv.compile( fpEnvSchema );
+		const result = ajv.compile( finEnvSchema );
 
 		expect( result.errors ).toBe( null );
 	} );
 
-	test( 'validates schema for .fp-env.json', () => {
-		// We want to validate the .fp-env.json file using the local schema.
-		const { $schema, ...metadata } = fpEnvJsonFile;
+	test( 'validates schema for .fin-env.json', () => {
+		// We want to validate the .fin-env.json file using the local schema.
+		const { $schema, ...metadata } = finEnvJsonFile;
 
-		// we expect the $schema property to be present in the .fp-env.json file
+		// we expect the $schema property to be present in the .fin-env.json file
 		expect( $schema ).toBeTruthy();
 
-		const result = ajv.validate( fpEnvSchema, metadata ) || ajv.errors;
+		const result = ajv.validate( finEnvSchema, metadata ) || ajv.errors;
 
 		expect( result ).toBe( true );
 	} );

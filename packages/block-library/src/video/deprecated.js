@@ -11,7 +11,7 @@ import Tracks from './tracks';
 
 const { attributes: blockAttributes } = metadata;
 
-// In #41140 support was added to global styles for caption elements which added a `fp-element-caption` classname
+// In #41140 support was added to global styles for caption elements which added a `fin-element-caption` classname
 // to the video figcaption element.
 const v1 = {
 	attributes: blockAttributes,

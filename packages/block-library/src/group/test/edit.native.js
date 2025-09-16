@@ -16,16 +16,16 @@ import {
 import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
 import { registerCoreBlocks } from '@finpress/block-library';
 
-const NESTED_GROUP_BLOCK = `<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:image -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image -->
-<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer --></div>
-<!-- /fp:group --></div>
-<!-- /fp:group -->`;
+const NESTED_GROUP_BLOCK = `<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:image -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image -->
+<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer --></div>
+<!-- /fin:group --></div>
+<!-- /fin:group -->`;
 
 beforeAll( () => {
 	// Register all core blocks

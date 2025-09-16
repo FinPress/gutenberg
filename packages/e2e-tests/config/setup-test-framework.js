@@ -149,7 +149,7 @@ function observeConsoleLogging() {
 		// (Posts > Add New) will display a console warning about
 		// non - unique IDs.
 		// See: https://core.trac.finpress.org/ticket/23165
-		if ( text.includes( 'elements with non-unique id #_fpnonce' ) ) {
+		if ( text.includes( 'elements with non-unique id #_finnonce' ) ) {
 			return;
 		}
 
@@ -250,7 +250,7 @@ beforeAll( async () => {
 	await resetPreferences();
 	await activateTheme( 'twentytwentyone' );
 	await trashAllPosts();
-	await trashAllPosts( 'fp_block' );
+	await trashAllPosts( 'fin_block' );
 	await setupBrowser();
 	await activatePlugin( 'gutenberg-test-plugin-disables-the-css-animations' );
 	await page.emulateMediaFeatures( [

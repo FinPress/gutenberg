@@ -24,23 +24,23 @@ function render_block_core_query( $attributes, $content, $block ) {
 	// Enqueue the script module and add the necessary directives if the block is
 	// interactive.
 	if ( $is_interactive ) {
-		fp_enqueue_script_module( '@finpress/block-library/query/view' );
+		fin_enqueue_script_module( '@finpress/block-library/query/view' );
 
 		$p = new FP_HTML_Tag_Processor( $content );
 		if ( $p->next_tag() ) {
 			// Add the necessary directives.
-			$p->set_attribute( 'data-fp-interactive', 'core/query' );
-			$p->set_attribute( 'data-fp-router-region', 'query-' . $attributes['queryId'] );
-			$p->set_attribute( 'data-fp-context', '{}' );
-			$p->set_attribute( 'data-fp-key', $attributes['queryId'] );
+			$p->set_attribute( 'data-fin-interactive', 'core/query' );
+			$p->set_attribute( 'data-fin-router-region', 'query-' . $attributes['queryId'] );
+			$p->set_attribute( 'data-fin-context', '{}' );
+			$p->set_attribute( 'data-fin-key', $attributes['queryId'] );
 			$content = $p->get_updated_html();
 		}
 	}
 
 	// Add the styles to the block type if the block is interactive and remove
 	// them if it's not.
-	$style_asset = 'fp-block-query';
-	if ( ! fp_style_is( $style_asset ) ) {
+	$style_asset = 'fin-block-query';
+	if ( ! fin_style_is( $style_asset ) ) {
 		$style_handles = $block->block_type->style_handles;
 		// If the styles are not needed, and they are still in the `style_handles`, remove them.
 		if ( ! $is_interactive && in_array( $style_asset, $style_handles, true ) ) {
@@ -104,7 +104,7 @@ function block_core_query_disable_enhanced_pagination( $parsed_block ) {
 			/**
 			 * Filter that disables the enhanced pagination feature during block
 			 * rendering when a plugin block has been found inside. It does so
-			 * by adding an attribute called `data-fp-navigation-disabled` which
+			 * by adding an attribute called `data-fin-navigation-disabled` which
 			 * is later handled by the front-end logic.
 			 *
 			 * @param string   $content  The block content.
@@ -120,7 +120,7 @@ function block_core_query_disable_enhanced_pagination( $parsed_block ) {
 
 				if ( isset( $dirty_enhanced_queries[ $block['attrs']['queryId'] ] ) ) {
 					// Disable navigation in the router store config.
-					fp_interactivity_config( 'core/router', array( 'clientNavigationDisabled' => true ) );
+					fin_interactivity_config( 'core/router', array( 'clientNavigationDisabled' => true ) );
 					$dirty_enhanced_queries[ $block['attrs']['queryId'] ] = null;
 				}
 

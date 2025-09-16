@@ -9,7 +9,7 @@ test.describe( 'Block Renaming', () => {
 
 		// Registering block must be after creation of Post.
 		await page.evaluate( () => {
-			const registerBlockType = window.fp.blocks.registerBlockType;
+			const registerBlockType = window.fin.blocks.registerBlockType;
 
 			registerBlockType(
 				'my-plugin/block-that-does-not-support-renaming',

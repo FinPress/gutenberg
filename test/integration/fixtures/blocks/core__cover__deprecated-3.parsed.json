@@ -6,9 +6,9 @@
 			"id": 35
 		},
 		"innerBlocks": [],
-		"innerHTML": "\n<div class=\"fp-block-cover has-background-dim\" style=\"background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==)\"><p class=\"fp-block-cover-text\"><strong>Cover Block</strong></p></div>\n",
+		"innerHTML": "\n<div class=\"fin-block-cover has-background-dim\" style=\"background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==)\"><p class=\"fin-block-cover-text\"><strong>Cover Block</strong></p></div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-cover has-background-dim\" style=\"background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==)\"><p class=\"fp-block-cover-text\"><strong>Cover Block</strong></p></div>\n"
+			"\n<div class=\"fin-block-cover has-background-dim\" style=\"background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==)\"><p class=\"fin-block-cover-text\"><strong>Cover Block</strong></p></div>\n"
 		]
 	}
 ]

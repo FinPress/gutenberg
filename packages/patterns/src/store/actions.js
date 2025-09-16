@@ -25,7 +25,7 @@ export const createPattern =
 		const meta =
 			syncType === PATTERN_SYNC_TYPES.unsynced
 				? {
-						fp_pattern_sync_status: syncType,
+						fin_pattern_sync_status: syncType,
 				  }
 				: undefined;
 
@@ -34,12 +34,12 @@ export const createPattern =
 			content,
 			status: 'publish',
 			meta,
-			fp_pattern_category: categories,
+			fin_pattern_category: categories,
 		};
 
 		const updatedRecord = await registry
 			.dispatch( coreStore )
-			.saveEntityRecord( 'postType', 'fp_block', reusableBlock );
+			.saveEntityRecord( 'postType', 'fin_block', reusableBlock );
 
 		return updatedRecord;
 	};
@@ -61,7 +61,7 @@ export const createPatternFromFile =
 			throw new Error( 'Invalid JSON file' );
 		}
 		if (
-			parsedContent.__file !== 'fp_block' ||
+			parsedContent.__file !== 'fin_block' ||
 			! parsedContent.title ||
 			! parsedContent.content ||
 			typeof parsedContent.title !== 'string' ||

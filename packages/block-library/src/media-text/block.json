@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/media-text",
 	"title": "Media & Text",
@@ -145,6 +145,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-media-text-editor",
-	"style": "fp-block-media-text"
+	"editorStyle": "fin-block-media-text-editor",
+	"style": "fin-block-media-text"
 }

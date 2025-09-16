@@ -25,7 +25,7 @@ const persistenceLayer = create();
 Next, configure the preferences package to use this persistence layer:
 
 ```js
-fp.data( 'core/preferences' ).setPersistenceLayer( persistenceLayer );
+fin.data( 'core/preferences' ).setPersistenceLayer( persistenceLayer );
 ```
 
 ## Reference

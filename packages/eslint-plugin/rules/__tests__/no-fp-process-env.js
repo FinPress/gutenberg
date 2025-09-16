@@ -6,7 +6,7 @@ import { RuleTester } from 'eslint';
 /**
  * Internal dependencies
  */
-import rule from '../no-fp-process-env';
+import rule from '../no-fin-process-env';
 
 const ruleTester = new RuleTester( {
 	parserOptions: {
@@ -14,7 +14,7 @@ const ruleTester = new RuleTester( {
 	},
 } );
 
-ruleTester.run( 'no-fp-process-env', rule, {
+ruleTester.run( 'no-fin-process-env', rule, {
 	valid: [
 		{ code: 'process.env.NODE_ENV' },
 		{ code: 'process.env.WHATEVER' },

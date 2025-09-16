@@ -41,7 +41,7 @@ function AddNewItemModalContent( { type, setIsAdding } ) {
 				let dataViewTaxonomyId;
 				const dataViewTypeRecords = await getEntityRecords(
 					'taxonomy',
-					'fp_dataviews_type',
+					'fin_dataviews_type',
 					{ slug: type }
 				);
 				if ( dataViewTypeRecords && dataViewTypeRecords.length > 0 ) {
@@ -49,7 +49,7 @@ function AddNewItemModalContent( { type, setIsAdding } ) {
 				} else {
 					const record = await saveEntityRecord(
 						'taxonomy',
-						'fp_dataviews_type',
+						'fin_dataviews_type',
 						{ name: type }
 					);
 					if ( record && record.id ) {
@@ -58,11 +58,11 @@ function AddNewItemModalContent( { type, setIsAdding } ) {
 				}
 				const savedRecord = await saveEntityRecord(
 					'postType',
-					'fp_dataviews',
+					'fin_dataviews',
 					{
 						title,
 						status: 'publish',
-						fp_dataviews_type: dataViewTaxonomyId,
+						fin_dataviews_type: dataViewTaxonomyId,
 						content: JSON.stringify( defaultViews[ 0 ].view ),
 					}
 				);

@@ -167,7 +167,7 @@ export function autop( text: string, br: boolean = true ): string {
 				continue;
 			}
 
-			const name = '<pre fp-pre-tag-' + i + '></pre>';
+			const name = '<pre fin-pre-tag-' + i + '></pre>';
 			preTags.push( [ name, textPart.substr( start ) + '</pre>' ] );
 
 			text += textPart.substr( 0, start ) + name;
@@ -197,7 +197,7 @@ export function autop( text: string, br: boolean = true ): string {
 	text = text.replace( /\r\n|\r/g, '\n' );
 
 	// Find newlines in all elements and add placeholders.
-	text = replaceInHtmlTags( text, { '\n': ' <!-- fpnl --> ' } );
+	text = replaceInHtmlTags( text, { '\n': ' <!-- finnl --> ' } );
 
 	// Collapse line breaks before and after <option> elements so they don't get autop'd.
 	if ( text.indexOf( '<option' ) !== -1 ) {
@@ -318,8 +318,8 @@ export function autop( text: string, br: boolean = true ): string {
 	} );
 
 	// Restore newlines in all elements.
-	if ( -1 !== text.indexOf( '<!-- fpnl -->' ) ) {
-		text = text.replace( /\s?<!-- fpnl -->\s?/g, '\n' );
+	if ( -1 !== text.indexOf( '<!-- finnl -->' ) ) {
+		text = text.replace( /\s?<!-- finnl -->\s?/g, '\n' );
 	}
 
 	return text;
@@ -360,7 +360,7 @@ export function removep( html: string ): string {
 			/<(script|style)[^>]*>[\s\S]*?<\/\1>/g,
 			( match ) => {
 				preserve.push( match );
-				return '<fp-preserve>';
+				return '<fin-preserve>';
 			}
 		);
 	}
@@ -369,9 +369,9 @@ export function removep( html: string ): string {
 	if ( html.indexOf( '<pre' ) !== -1 ) {
 		preserveLinebreaks = true;
 		html = html.replace( /<pre[^>]*>[\s\S]+?<\/pre>/g, ( a ) => {
-			a = a.replace( /<br ?\/?>(\r\n|\n)?/g, '<fp-line-break>' );
-			a = a.replace( /<\/?p( [^>]*)?>(\r\n|\n)?/g, '<fp-line-break>' );
-			return a.replace( /\r?\n/g, '<fp-line-break>' );
+			a = a.replace( /<br ?\/?>(\r\n|\n)?/g, '<fin-line-break>' );
+			a = a.replace( /<\/?p( [^>]*)?>(\r\n|\n)?/g, '<fin-line-break>' );
+			return a.replace( /\r?\n/g, '<fin-line-break>' );
 		} );
 	}
 
@@ -380,7 +380,7 @@ export function removep( html: string ): string {
 		preserveBr = true;
 		html = html.replace( /\[caption[\s\S]+?\[\/caption\]/g, ( a ) => {
 			return a
-				.replace( /<br([^>]*)>/g, '<fp-temp-br$1>' )
+				.replace( /<br([^>]*)>/g, '<fin-temp-br$1>' )
 				.replace( /[\r\n\t]+/, '' );
 		} );
 	}
@@ -470,16 +470,16 @@ export function removep( html: string ): string {
 	html = html.replace( /[\s\u00a0]+$/, '' );
 
 	if ( preserveLinebreaks ) {
-		html = html.replace( /<fp-line-break>/g, '\n' );
+		html = html.replace( /<fin-line-break>/g, '\n' );
 	}
 
 	if ( preserveBr ) {
-		html = html.replace( /<fp-temp-br([^>]*)>/g, '<br$1>' );
+		html = html.replace( /<fin-temp-br([^>]*)>/g, '<br$1>' );
 	}
 
 	// Restore preserved tags.
 	if ( preserve.length ) {
-		html = html.replace( /<fp-preserve>/g, () => {
+		html = html.replace( /<fin-preserve>/g, () => {
 			return preserve.shift() as string;
 		} );
 	}

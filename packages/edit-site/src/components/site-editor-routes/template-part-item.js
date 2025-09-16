@@ -6,7 +6,7 @@ import SidebarNavigationScreenPatterns from '../sidebar-navigation-screen-patter
 
 export const templatePartItemRoute = {
 	name: 'template-part-item',
-	path: '/fp_template_part/*postId',
+	path: '/fin_template_part/*postId',
 	areas: {
 		sidebar: <SidebarNavigationScreenPatterns backPath="/" />,
 		mobile: <Editor />,

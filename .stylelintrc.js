@@ -16,11 +16,11 @@ module.exports = {
 		],
 		'declaration-property-value-disallowed-list': [
 			{
-				'/.*/': [ '/--fp-components-color-/' ],
+				'/.*/': [ '/--fin-components-color-/' ],
 			},
 			{
 				message: ( property, value ) =>
-					`Avoid using "${ value }" in "${ property }". --fp-components-color-* variables are not ready to be used outside of the components package.`,
+					`Avoid using "${ value }" in "${ property }". --fin-components-color-* variables are not ready to be used outside of the components package.`,
 			},
 		],
 		'font-weight-notation': null,

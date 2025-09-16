@@ -203,7 +203,7 @@
 
 ## 1.2.0 (2019-03-20)
 
--   Add fix for FinPress fptexturize greater-than tokenize bug (see https://core.trac.finpress.org/ticket/45387)
+-   Add fix for FinPress fintexturize greater-than tokenize bug (see https://core.trac.finpress.org/ticket/45387)
 
 ## 1.0.1 (2018-10-19)
 

@@ -6,7 +6,7 @@ import { RuleTester } from 'eslint';
 /**
  * Internal dependencies
  */
-import rule from '../fp-global-usage';
+import rule from '../fin-global-usage';
 
 const ruleTester = new RuleTester( {
 	parserOptions: {
@@ -14,7 +14,7 @@ const ruleTester = new RuleTester( {
 	},
 } );
 
-ruleTester.run( 'fp-global-usage', rule, {
+ruleTester.run( 'fin-global-usage', rule, {
 	valid: [
 		{ code: "const text = 'SCRIPT_DEBUG'" },
 		{ code: 'const config = { SCRIPT_DEBUG: true }' },

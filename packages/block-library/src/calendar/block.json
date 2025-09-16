@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/calendar",
 	"title": "Calendar",
@@ -43,5 +43,5 @@
 			"clientNavigation": true
 		}
 	},
-	"style": "fp-block-calendar"
+	"style": "fin-block-calendar"
 }

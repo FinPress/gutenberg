@@ -1,7 +1,7 @@
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>First block</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Second block</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->

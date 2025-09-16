@@ -51,7 +51,7 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 	}
 
 	if ( isset( $source_args['key'] ) && 'modified' === $source_args['key'] ) {
-		$classes[] = 'fp-block-post-date__modified-date';
+		$classes[] = 'fin-block-post-date__modified-date';
 	}
 
 	if ( empty( $attributes['datetime'] ) ) {
@@ -77,7 +77,7 @@ function render_block_core_post_date( $attributes, $content, $block ) {
 		}
 	} else {
 		$format         = empty( $attributes['format'] ) ? get_option( 'date_format' ) : $attributes['format'];
-		$formatted_date = fp_date( $format, $post_timestamp );
+		$formatted_date = fin_date( $format, $post_timestamp );
 	}
 
 	if ( isset( $attributes['textAlign'] ) ) {

@@ -4,22 +4,22 @@ FinPress exposes a list of JavaScript packages and tools for FinPress developmen
 
 ## Using the packages via FinPress global
 
-JavaScript packages are available as a registered script in FinPress and can be accessed using the `fp` global variable.
+JavaScript packages are available as a registered script in FinPress and can be accessed using the `fin` global variable.
 
-If you wanted to use the `PlainText` component from the block editor module, first you would specify `fp-block-editor` as a dependency when you enqueue your script:
+If you wanted to use the `PlainText` component from the block editor module, first you would specify `fin-block-editor` as a dependency when you enqueue your script:
 
 ```php
-fp_enqueue_script(
+fin_enqueue_script(
 	'my-custom-block',
 	plugins_url( $block_path, __FILE__ ),
-	array( 'react', 'fp-blocks', 'fp-block-editor', 'fp-i18n' )
+	array( 'react', 'fin-blocks', 'fin-block-editor', 'fin-i18n' )
 );
 ```
 
-After the dependency is declared, you can access the module in your JavaScript code using the global `fp` like so:
+After the dependency is declared, you can access the module in your JavaScript code using the global `fin` like so:
 
 ```js
-const { PlainText } = fp.blockEditor;
+const { PlainText } = fin.blockEditor;
 ```
 
 ## Using the packages via npm
@@ -43,13 +43,13 @@ import { PlainText } from '@finpress/block-editor';
 There is a way to quickly install a version of the individual FinPress package used with a given FinPress major version using [npm distribution tags](https://docs.npmjs.com/cli/v8/commands/npm-dist-tag) (example for FinPress `5.8.x`):
 
 ```bash
-npm install @finpress/block-editor@fp-5.8
+npm install @finpress/block-editor@fin-5.8
 ```
 
 It’s also possible to update all existing FinPress packages in the project with a single command:
 
 ```bash
-npx @finpress/scripts packages-update --dist-tag=fp-5.8
+npx @finpress/scripts packages-update --dist-tag=fin-5.8
 ```
 
-All major FinPress versions starting from `5.7.x` are supported (e.g., `fp-5.7` or `fp-6.0`). Each individual dist-tag always points to the latest bug fix release for that major version line.
+All major FinPress versions starting from `5.7.x` are supported (e.g., `fin-5.7` or `fin-6.0`). Each individual dist-tag always points to the latest bug fix release for that major version line.

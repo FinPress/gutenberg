@@ -1,7 +1,7 @@
-.fp-block-video :where(figcaption) {
+.fin-block-video :where(figcaption) {
 	@include caption-style-theme();
 }
 
-.fp-block-video {
+.fin-block-video {
 	margin: 0 0 1em 0;
 }

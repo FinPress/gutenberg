@@ -20,9 +20,9 @@
 				"innerContent": [ "\n\t<p>Column One, Paragraph Two</p>\n\t" ]
 			}
 		],
-		"innerHTML": "\n<div class=\"fp-block-column\" style=\"flex-basis:33.33%\">\n\t\n\t\n</div>\n",
+		"innerHTML": "\n<div class=\"fin-block-column\" style=\"flex-basis:33.33%\">\n\t\n\t\n</div>\n",
 		"innerContent": [
-			"\n<div class=\"fp-block-column\" style=\"flex-basis:33.33%\">\n\t",
+			"\n<div class=\"fin-block-column\" style=\"flex-basis:33.33%\">\n\t",
 			null,
 			"\n\t",
 			null,

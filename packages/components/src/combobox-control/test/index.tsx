@@ -114,7 +114,7 @@ describe.each( [
 
 		expect( label ).toBeInTheDocument();
 		expect( label ).toHaveAttribute(
-			'data-fp-component',
+			'data-fin-component',
 			'VisuallyHidden'
 		);
 	} );

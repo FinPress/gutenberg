@@ -1,13 +1,13 @@
 // Provide special styling for the placeholder.
 // @todo this particular minimal style of placeholder could be componentized further.
-.fp-block-post-featured-image {
+.fin-block-post-featured-image {
 	.block-editor-media-placeholder {
 		z-index: 1; // Need to put it above the overlay so the upload button works.
 		backdrop-filter: none; // Removes background blur so the overlay's actual color is visible.
 	}
 
 	// Style the placeholder.
-	.fp-block-post-featured-image__placeholder,
+	.fin-block-post-featured-image__placeholder,
 	.components-placeholder {
 		justify-content: center;
 		align-items: center;
@@ -30,8 +30,8 @@
 			height: $grid-unit-60;
 			border-radius: 50%;
 			position: relative;
-			background: var(--fp-admin-theme-color);
-			border-color: var(--fp-admin-theme-color);
+			background: var(--fin-admin-theme-color);
+			border-color: var(--fin-admin-theme-color);
 			border-style: solid;
 			color: $white;
 
@@ -48,7 +48,7 @@
 	// its border so that a user selection for border color or width displays
 	// a visual border. They also override the `img { border: none; }` applied
 	// by core.
-	.fp-block-post-featured-image__placeholder,
+	.fin-block-post-featured-image__placeholder,
 	.components-placeholder,
 	img {
 		// The following is required to overcome FP Core applying styles that clear

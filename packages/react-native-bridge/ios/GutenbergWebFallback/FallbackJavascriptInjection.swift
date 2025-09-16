@@ -41,7 +41,7 @@ public struct FallbackJavascriptInjection {
 
         insertBlockScript = try script(with: .insertBlock, argument: blockHTML.replacingOccurrences(of: "\\n", with: "\\\\n"))
         injectCssScript = try script(with: .injectCss)
-        injectFPBarsCssScript = try getInjectCssScript(with: .fpBarsStyle)
+        injectFPBarsCssScript = try getInjectCssScript(with: .finBarsStyle)
         injectEditorCssScript = try getInjectCssScript(with: .editorStyle)
         preventAutosavesScript = try script(with: .preventAutosaves)
         gutenbergObserverScript = try script(with: .gutenbergObserver)

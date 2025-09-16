@@ -38,8 +38,8 @@ exports[`props should render correctly 1`] = `
 <div
   class="components-scrollable emotion-0 emotion-1"
   data-testid="scrollable"
-  data-fp-c16t="true"
-  data-fp-component="Scrollable"
+  data-fin-c16t="true"
+  data-fin-component="Scrollable"
 >
   FinPress.org - Code is Poetry
 </div>

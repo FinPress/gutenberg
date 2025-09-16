@@ -72,8 +72,8 @@ To address this need, we've started to experiment with CSS Custom Properties, ak
 
 ```css
 body {
-	--fp--preset--color--black: #000000;
-	--fp--preset--color--white: #ffffff;
+	--fin--preset--color--black: #000000;
+	--fin--preset--color--white: #ffffff;
 }
 ```
 
@@ -102,8 +102,8 @@ body {
 
 ```css
 body {
-	--fp--custom--line-height--body: 1.7;
-	--fp--custom--line-height--heading: 1.3;
+	--fin--custom--line-height--body: 1.7;
+	--fin--custom--line-height--heading: 1.3;
 }
 ```
 
@@ -343,7 +343,7 @@ The following presets can be defined via `theme.json`:
 
 The naming schema for the classes and the custom properties is as follows:
 
-- Custom Properties: `--fp--preset--{preset-category}--{preset-slug}` such as `--fp--preset--color--black`
+- Custom Properties: `--fin--preset--{preset-category}--{preset-slug}` such as `--fin--preset--color--black`
 - Classes: `.has-{preset-slug}-{preset-category}` such as `.has-black-color`.
 
 
@@ -466,27 +466,27 @@ The naming schema for the classes and the custom properties is as follows:
 ```css
 /* Top-level custom properties */
 body {
-	--fp--preset--color--strong-magenta: #a156b4;
-	--fp--preset--color--very-dark-grey: #444;
-	--fp--preset--gradient--blush-bordeaux: linear-gradient( 135deg, rgb( 254, 205, 165 ) 0%, rgb( 254, 45, 45 ) 50%, rgb( 107, 0, 62 ) 100% );
-	--fp--preset--gradient--blush-light-purple: linear-gradient( 135deg, rgb( 255, 206, 236 ) 0%, rgb( 152, 150, 240 ) 100% );
-	--fp--preset--font-size--x-large: 46;
-	--fp--preset--font-size--big: 32;
-	--fp--preset--font-family--helvetica-arial: Helvetica Neue, Helvetica, Arial, sans-serif;
-	--fp--preset--font-family--system: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell, \"Helvetica Neue\",sans-serif;
-	--fp--preset--spacing--20: 0.44rem;
-	--fp--preset--spacing--30: 0.67rem;
-	--fp--preset--spacing--40: 1rem;
-	--fp--preset--spacing--50: 1.5rem;
-	--fp--preset--spacing--60: 2.25rem;
-	--fp--preset--spacing--70: 3.38rem;
-	--fp--preset--spacing--80: 5.06rem;
+	--fin--preset--color--strong-magenta: #a156b4;
+	--fin--preset--color--very-dark-grey: #444;
+	--fin--preset--gradient--blush-bordeaux: linear-gradient( 135deg, rgb( 254, 205, 165 ) 0%, rgb( 254, 45, 45 ) 50%, rgb( 107, 0, 62 ) 100% );
+	--fin--preset--gradient--blush-light-purple: linear-gradient( 135deg, rgb( 255, 206, 236 ) 0%, rgb( 152, 150, 240 ) 100% );
+	--fin--preset--font-size--x-large: 46;
+	--fin--preset--font-size--big: 32;
+	--fin--preset--font-family--helvetica-arial: Helvetica Neue, Helvetica, Arial, sans-serif;
+	--fin--preset--font-family--system: -apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell, \"Helvetica Neue\",sans-serif;
+	--fin--preset--spacing--20: 0.44rem;
+	--fin--preset--spacing--30: 0.67rem;
+	--fin--preset--spacing--40: 1rem;
+	--fin--preset--spacing--50: 1.5rem;
+	--fin--preset--spacing--60: 2.25rem;
+	--fin--preset--spacing--70: 3.38rem;
+	--fin--preset--spacing--80: 5.06rem;
 }
 
 /* Block-level custom properties (bounded to the group block) */
-.fp-block-group {
-	--fp--preset--color--black: #000000;
-	--fp--preset--color--white: #ffffff;
+.fin-block-group {
+	--fin--preset--color--black: #000000;
+	--fin--preset--color--white: #ffffff;
 }
 
 /* Top-level classes */
@@ -502,12 +502,12 @@ body {
 .has-normal-font-size { font-size: 16; }
 
 /* Block-level classes (bounded to the group block) */
-.fp-block-group.has-black-color { color: #a156b4 !important; }
-.fp-block-group.has-black-background-color { background-color: #a156b4 !important; }
-.fp-block-group.has-black-border-color { border-color: #a156b4 !important; }
-.fp-block-group.has-white-color { color: #444 !important; }
-.fp-block-group.has-white-background-color { background-color: #444 !important; }
-.fp-block-group.has-white-border-color { border-color: #444 !important; }
+.fin-block-group.has-black-color { color: #a156b4 !important; }
+.fin-block-group.has-black-background-color { background-color: #a156b4 !important; }
+.fin-block-group.has-black-border-color { border-color: #a156b4 !important; }
+.fin-block-group.has-white-color { color: #444 !important; }
+.fin-block-group.has-white-background-color { background-color: #444 !important; }
+.fin-block-group.has-white-border-color { border-color: #444 !important; }
 
 ```
 {% end %}
@@ -518,7 +518,7 @@ Preset classes are attached to the content of a post by some user action. That's
 
 #### Custom
 
-In addition to create CSS Custom Properties for the presets, the `theme.json` also allows for themes to create their own, so they don't have to be enqueued separately. Any values declared within the `custom` field will be transformed to CSS Custom Properties following this naming schema: `--fp--custom--<variable-name>`.
+In addition to create CSS Custom Properties for the presets, the `theme.json` also allows for themes to create their own, so they don't have to be enqueued separately. Any values declared within the `custom` field will be transformed to CSS Custom Properties following this naming schema: `--fin--custom--<variable-name>`.
 
 For example:
 
@@ -552,13 +552,13 @@ For example:
 
 ```css
 body {
-	--fp--custom--base-font: 16;
-	--fp--custom--line-height--small: 1.2;
-	--fp--custom--line-height--medium: 1.4;
-	--fp--custom--line-height--large: 1.8;
+	--fin--custom--base-font: 16;
+	--fin--custom--line-height--small: 1.2;
+	--fin--custom--line-height--medium: 1.4;
+	--fin--custom--line-height--large: 1.8;
 }
-.fp-block-group {
-	--fp--custom--base-font: 32;
+.fin-block-group {
+	--fin--custom--base-font: 32;
 }
 ```
 
@@ -854,7 +854,7 @@ Styles found at the top-level will be enqueued using the `body` selector.
 	"version": 3,
 	"styles": {
 		"color": {
-			"text": "var(--fp--preset--color--primary)"
+			"text": "var(--fin--preset--color--primary)"
 		}
 	}
 }
@@ -864,7 +864,7 @@ Styles found at the top-level will be enqueued using the `body` selector.
 
 ```css
 body {
-	color: var( --fp--preset--color--primary );
+	color: var( --fin--preset--color--primary );
 }
 ```
 
@@ -873,7 +873,7 @@ body {
 
 Styles found within a block will be enqueued using the block selector.
 
-By default, the block selector is generated based on its name such as `.fp-block-<blockname-without-namespace>`. For example, `.fp-block-group` for the `core/group` block. There are some blocks that want to opt-out from this default behavior. They can do so by explicitly telling the system which selector to use for them via the `__experimentalSelector` key within the `supports` section of its `block.json` file. Note that the block needs to be registered server-side for the `__experimentalSelector` field to be available to the style engine.
+By default, the block selector is generated based on its name such as `.fin-block-<blockname-without-namespace>`. For example, `.fin-block-group` for the `core/group` block. There are some blocks that want to opt-out from this default behavior. They can do so by explicitly telling the system which selector to use for them via the `__experimentalSelector` key within the `supports` section of its `block.json` file. Note that the block needs to be registered server-side for the `__experimentalSelector` field to be available to the style engine.
 
 {% codetabs %}
 {% Input %}
@@ -883,17 +883,17 @@ By default, the block selector is generated based on its name such as `.fp-block
 	"version": 3,
 	"styles": {
 		"color": {
-			"text": "var(--fp--preset--color--primary)"
+			"text": "var(--fin--preset--color--primary)"
 		},
 		"blocks": {
 			"core/paragraph": {
 				"color": {
-					"text": "var(--fp--preset--color--secondary)"
+					"text": "var(--fin--preset--color--secondary)"
 				}
 			},
 			"core/group": {
 				"color": {
-					"text": "var(--fp--preset--color--tertiary)"
+					"text": "var(--fin--preset--color--tertiary)"
 				}
 			}
 		}
@@ -905,13 +905,13 @@ By default, the block selector is generated based on its name such as `.fp-block
 
 ```css
 body {
-	color: var( --fp--preset--color--primary );
+	color: var( --fin--preset--color--primary );
 }
 p { /* The core/paragraph opts out from the default behaviour and uses p as a selector. */
-	color: var( --fp--preset--color--secondary );
+	color: var( --fin--preset--color--secondary );
 }
-.fp-block-group {
-	color: var( --fp--preset--color--tertiary );
+.fin-block-group {
+	color: var( --fin--preset--color--tertiary );
 }
 ```
 {% end %}
@@ -924,7 +924,7 @@ If you register a background color for the root using styles.color.background:
 ```JSON
 "styles": {
 		"color": {
-			"background": "var(--fp--preset--color--primary)"
+			"background": "var(--fin--preset--color--primary)"
 		}
 	}
 ```
@@ -945,8 +945,8 @@ In addition to top-level and block-level styles, there's the concept of elements
 
 Supported by Gutenberg:
 
-- `button`: maps to the `fp-element-button` CSS class. Also maps to `fp-block-button__link` for backwards compatibility.
-- `caption`: maps to the `.fp-element-caption, .fp-block-audio figcaption, .fp-block-embed figcaption, .fp-block-gallery figcaption, .fp-block-image figcaption, .fp-block-table figcaption, .fp-block-video figcaption` CSS classes.
+- `button`: maps to the `fin-element-button` CSS class. Also maps to `fin-block-button__link` for backwards compatibility.
+- `caption`: maps to the `.fin-element-caption, .fin-block-audio figcaption, .fin-block-embed figcaption, .fin-block-gallery figcaption, .fin-block-image figcaption, .fin-block-table figcaption, .fin-block-video figcaption` CSS classes.
 - `heading`: maps to all headings, the `h1 to h6` CSS selectors.
 
 Supported by FinPress:
@@ -970,22 +970,22 @@ If they're found in the top-level the element selector will be used. If they're 
 	"version": 3,
 	"styles": {
 		"typography": {
-			"fontSize": "var(--fp--preset--font-size--normal)"
+			"fontSize": "var(--fin--preset--font-size--normal)"
 		},
 		"elements": {
 			"h1": {
 				"typography": {
-					"fontSize": "var(--fp--preset--font-size--huge)"
+					"fontSize": "var(--fin--preset--font-size--huge)"
 				}
 			},
 			"h2": {
 				"typography": {
-					"fontSize": "var(--fp--preset--font-size--big)"
+					"fontSize": "var(--fin--preset--font-size--big)"
 				}
 			},
 			"h3": {
 				"typography": {
-					"fontSize": "var(--fp--preset--font-size--medium)"
+					"fontSize": "var(--fin--preset--font-size--medium)"
 				}
 			}
 		},
@@ -994,12 +994,12 @@ If they're found in the top-level the element selector will be used. If they're 
 				"elements": {
 					"h2": {
 						"typography": {
-							"fontSize": "var(--fp--preset--font-size--small)"
+							"fontSize": "var(--fin--preset--font-size--small)"
 						}
 					},
 					"h3": {
 						"typography": {
-							"fontSize": "var(--fp--preset--font-size--smaller)"
+							"fontSize": "var(--fin--preset--font-size--smaller)"
 						}
 					}
 				}
@@ -1013,22 +1013,22 @@ If they're found in the top-level the element selector will be used. If they're 
 
 ```css
 body {
-	font-size: var( --fp--preset--font-size--normal );
+	font-size: var( --fin--preset--font-size--normal );
 }
 h1 {
-	font-size: var( --fp--preset--font-size--huge );
+	font-size: var( --fin--preset--font-size--huge );
 }
 h2 {
-	font-size: var( --fp--preset--font-size--big );
+	font-size: var( --fin--preset--font-size--big );
 }
 h3 {
-	font-size: var( --fp--preset--font-size--medium );
+	font-size: var( --fin--preset--font-size--medium );
 }
-.fp-block-group h2 {
-	font-size: var( --fp--preset--font-size--small );
+.fin-block-group h2 {
+	font-size: var( --fin--preset--font-size--small );
 }
-.fp-block-group h3 {
-	font-size: var( --fp--preset--font-size--smaller );
+.fin-block-group h3 {
+	font-size: var( --fin--preset--font-size--smaller );
 }
 ```
 {% end %}
@@ -1081,7 +1081,7 @@ For example, this is how to provide styles for the existing `plain` variation fo
 The resulting CSS output is:
 
 ```css
-.fp-block-quote.is-style-plain {
+.fin-block-quote.is-style-plain {
 	background-color: red;
 }
 ```
@@ -1101,7 +1101,7 @@ The following is an example of a `theme.json` partial that defines styles for th
 
 ```json
 {
-	"$schema": "https://schemas.fp.org/trunk/theme.json",
+	"$schema": "https://schemas.fin.org/trunk/theme.json",
 	"version": 3,
 	"title": "Variation A",
 	"slug": "variation-a",
@@ -1250,11 +1250,11 @@ It can be difficult to remember the theme.json settings and properties and which
 
 Many code editors support JSON schema and can provide help like tooltips, autocomplete, or schema validation right in your editor.
 
-Theme.json schemas for each FinPress version are available at `https://schemas.fp.org/fp/{{version}}/theme.json`. For example a schema for FinPress 5.8 is available at `https://schemas.fp.org/fp/5.8/theme.json`. To ensure that you're only using features available to your users, it's best to use the oldest version that your theme supports.
+Theme.json schemas for each FinPress version are available at `https://schemas.fin.org/fin/{{version}}/theme.json`. For example a schema for FinPress 5.8 is available at `https://schemas.fin.org/fin/5.8/theme.json`. To ensure that you're only using features available to your users, it's best to use the oldest version that your theme supports.
 
-The latest schema including all the latest changes from the Gutenberg plugin is available at `https://schemas.fp.org/trunk/theme.json`.
+The latest schema including all the latest changes from the Gutenberg plugin is available at `https://schemas.fin.org/trunk/theme.json`.
 
-Check your editor's documentation for JSON schema support. In Visual Studio Code, for example, you need to add `"$schema": "https://schemas.fp.org/fp/x.x/theme.json"` as a top-level property of your theme.json file, but other editors may be configured differently.
+Check your editor's documentation for JSON schema support. In Visual Studio Code, for example, you need to add `"$schema": "https://schemas.fin.org/fin/x.x/theme.json"` as a top-level property of your theme.json file, but other editors may be configured differently.
 
 ![Example using validation with schema](https://developer.finpress.org/files/2021/11/theme-json-schema-updated.gif)
 
@@ -1265,37 +1265,37 @@ Check your editor's documentation for JSON schema support. In Visual Studio Code
 
 One thing you may have noticed is the naming schema used for the CSS Custom Properties the system creates, including the use of double hyphen, `--`, to separate the different "concepts". Take the following examples.
 
-**Presets** such as `--fp--preset--color--black` can be divided into the following chunks:
+**Presets** such as `--fin--preset--color--black` can be divided into the following chunks:
 
-- `--fp`: prefix to namespace the CSS variable.
+- `--fin`: prefix to namespace the CSS variable.
 - `preset `: indicates is a CSS variable that belongs to the presets.
 - `color`: indicates which preset category the variable belongs to. It can be `color`, `font-size`, `gradients`.
 - `black`: the `slug` of the particular preset value.
 
-**Custom** properties such as `--fp--custom--line-height--body`, which can be divided into the following chunks:
+**Custom** properties such as `--fin--custom--line-height--body`, which can be divided into the following chunks:
 
-- `--fp`: prefix to namespace the CSS variable.
+- `--fin`: prefix to namespace the CSS variable.
 - `custom`: indicates is a "free-form" CSS variable created by the theme.
 - `line-height--body`: the result of converting the "custom" object keys into a string.
 
 The `--` as a separator has two functions:
 
 - Readability, for human understanding. It can be thought as similar to the BEM naming schema, it separates "categories".
-- Parsability, for machine understanding. Using a defined structure allows machines to understand the meaning of the property `--fp--preset--color--black`: it's a value bounded to the color preset whose slug is "black", which then gives us room to do more things with them.
+- Parsability, for machine understanding. Using a defined structure allows machines to understand the meaning of the property `--fin--preset--color--black`: it's a value bounded to the color preset whose slug is "black", which then gives us room to do more things with them.
 
 ### Why using `--` as a separator?
 
 We could have used any other separator, such as a single `-`.
 
-However, that'd have been problematic, as it'd have been impossible to tell how `--fp-custom-line-height-template-header` should be converted back into an object, unless we force theme authors not to use `-` in their variable names.
+However, that'd have been problematic, as it'd have been impossible to tell how `--fin-custom-line-height-template-header` should be converted back into an object, unless we force theme authors not to use `-` in their variable names.
 
-By reserving `--` as a category separator and let theme authors use `-` for word-boundaries, the naming is clearer: `--fp--custom--line-height--template-header`.
+By reserving `--` as a category separator and let theme authors use `-` for word-boundaries, the naming is clearer: `--fin--custom--line-height--template-header`.
 
 ### How settings under "custom" create new CSS Custom Properties
 
 The algorithm to create CSS Variables out of the settings under the "custom" key works this way:
 
-This is for clarity, but also because we want a mechanism to parse back a variable name such `--fp--custom--line-height--body` to its object form in theme.json. We use the same separation for presets.
+This is for clarity, but also because we want a mechanism to parse back a variable name such `--fin--custom--line-height--body` to its object form in theme.json. We use the same separation for presets.
 
 For example:
 
@@ -1320,8 +1320,8 @@ For example:
 
 ```css
 body {
-	--fp--custom--line-height--body: 1.7;
-	--fp--custom--font-primary: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif";
+	--fin--custom--line-height--body: 1.7;
+	--fin--custom--font-primary: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif";
 }
 ```
 {% end %}
@@ -1354,16 +1354,16 @@ In FinPress 5.9 release, CSS of presets are consolidated into the global stylesh
 ```css
 /* CSS Custom Properties for the preset values */
 body {
-  --fp--preset--<PRESET_TYPE>--<PRESET_SLUG>: <DEFAULT_VALUE>;
-  --fp--preset--color--pale-pink: #f78da7;
-  --fp--preset--font-size--large: 36px;
+  --fin--preset--<PRESET_TYPE>--<PRESET_SLUG>: <DEFAULT_VALUE>;
+  --fin--preset--color--pale-pink: #f78da7;
+  --fin--preset--font-size--large: 36px;
   /* etc. */
 }
 
 /* CSS classes for the preset values */
 .has-<PRESET_SLUG>-<PRESET_TYPE> { ... }
-.has-pale-pink-color { color: var(--fp--preset--color--pale-pink) !important; }
-.has-large-font-size { font-size: var(--fp--preset--font-size--large) !important; }
+.has-pale-pink-color { color: var(--fin--preset--color--pale-pink) !important; }
+.has-large-font-size { font-size: var(--fin--preset--font-size--large) !important; }
 ```
 
 For themes to override the default values they can use the `theme.json` and provide the same slug. Themes that do not use a `theme.json` can still override the default values by enqueuing some CSS that sets the corresponding CSS Custom Property.
@@ -1372,22 +1372,22 @@ For themes to override the default values they can use the `theme.json` and prov
 
 ```css
 body {
- --fp--preset--font-size--large: <NEW_VALUE>;
+ --fin--preset--font-size--large: <NEW_VALUE>;
 }
 ```
 
 ### Specificity for link colors provided by the user
 
-In FinPress 5.8, when a user selected a link color for a specific block we attached a class to that block in the form of `.fp-element-<ID>` and then enqueued the following style:
+In FinPress 5.8, when a user selected a link color for a specific block we attached a class to that block in the form of `.fin-element-<ID>` and then enqueued the following style:
 
 ```css
-.fp-element-<ID> a { color: <USER_COLOR_VALUE> !important; }
+.fin-element-<ID> a { color: <USER_COLOR_VALUE> !important; }
 ```
 
 While this preserved user preferences at all times, the specificity was too strong and conflicted with some blocks with legit uses of an HTML element that shouldn’t be considered links. To [address this issue](https://github.com/FinPress/gutenberg/pull/34689), in FinPress 5.9 release, the `!important` was removed and updated the corresponding blocks to style the a elements with a specificity higher than the user link color, which now is:
 
 ```css
-.fp-element-<ID> a { color: <USER_COLOR_VALUE>; }
+.fin-element-<ID> a { color: <USER_COLOR_VALUE>; }
 ```
 
 As a result of this change, it’s now the block author and theme author’s responsibility to make sure the user choices are respected at all times and that the link color provided by the user (specificity 011) is not overridden.
@@ -1418,8 +1418,8 @@ The setting for `blockGap` is either a boolean or `null` value and is `null` by 
 - `false`: Opt out of displaying _Block spacing_ controls in the editor UI, with `blockGap` styles stored in `theme.json` still being rendered. This allows themes to use `blockGap` values without allowing users to make changes within the editor.
 - `null` (default): Opt out of displaying _Block spacing_ controls, _and_ prevent the output of `blockGap` styles.
 
-The value defined for the root `styles.spacing.blockGap` style is also output as a CSS property, named `--fp--style--block-gap`.
+The value defined for the root `styles.spacing.blockGap` style is also output as a CSS property, named `--fin--style--block-gap`.
 
 ### Why does it take so long to update the styles in the browser?
 
-When you are actively developing with theme.json you may notice it takes 30+ seconds for your changes to show up in the browser, this is because `theme.json` is cached. To remove this caching issue, set either [`FP_DEBUG`](https://developer.finpress.org/advanced-administration/debug/debug-finpress/#fp_debug) or [`SCRIPT_DEBUG`](https://developer.finpress.org/advanced-administration/debug/debug-finpress/#script_debug) to 'true' in your [`fp-config.php`](https://developer.finpress.org/advanced-administration/finpress/fp-config/). This tells FinPress to skip the cache and always use fresh data.
+When you are actively developing with theme.json you may notice it takes 30+ seconds for your changes to show up in the browser, this is because `theme.json` is cached. To remove this caching issue, set either [`FP_DEBUG`](https://developer.finpress.org/advanced-administration/debug/debug-finpress/#fin_debug) or [`SCRIPT_DEBUG`](https://developer.finpress.org/advanced-administration/debug/debug-finpress/#script_debug) to 'true' in your [`fin-config.php`](https://developer.finpress.org/advanced-administration/finpress/fin-config/). This tells FinPress to skip the cache and always use fresh data.

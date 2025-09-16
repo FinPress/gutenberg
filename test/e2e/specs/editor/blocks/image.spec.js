@@ -54,9 +54,9 @@ test.describe( 'Image', () => {
 		await expect( image ).toHaveAttribute( 'src', new RegExp( fileName ) );
 
 		const regex = new RegExp(
-			`<!-- fp:image {"id":(\\d+),"sizeSlug":"full","linkDestination":"none"} -->
-<figure class="fp-block-image size-full"><img src="[^"]+\\/${ fileName }\\.png" alt="" class="fp-image-\\1"/></figure>
-<!-- \\/fp:image -->`
+			`<!-- fin:image {"id":(\\d+),"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="fin-block-image size-full"><img src="[^"]+\\/${ fileName }\\.png" alt="" class="fin-image-\\1"/></figure>
+<!-- \\/fin:image -->`
 		);
 		expect( await editor.getEditedPostContent() ).toMatch( regex );
 	} );
@@ -410,14 +410,14 @@ test.describe( 'Image', () => {
 		);
 
 		await expect( image ).toHaveAttribute( 'src', new RegExp( fileName ) );
-		await editor.canvas.locator( '.fp-block-image' ).focus();
+		await editor.canvas.locator( '.fin-block-image' ).focus();
 		await pageUtils.pressKeys( 'primary+z' );
 
 		// Expect an empty image block (placeholder) rather than one with a
 		// broken temporary URL.
-		expect( await editor.getEditedPostContent() ).toBe( `<!-- fp:image -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image -->` );
+		expect( await editor.getEditedPostContent() ).toBe( `<!-- fin:image -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image -->` );
 	} );
 
 	test( 'can be replaced by dragging-and-dropping images from the inserter', async ( {
@@ -526,7 +526,7 @@ test.describe( 'Image', () => {
 		} );
 
 		await page.evaluate( () => {
-			const { createBlock } = window.fp.blocks;
+			const { createBlock } = window.fin.blocks;
 			const block = createBlock( 'core/image', {
 				url: 'https://live.staticflickr.com/3894/14962688165_04759a8b03_b.jpg',
 				alt: 'Cat',
@@ -542,10 +542,10 @@ test.describe( 'Image', () => {
 			dummy.draggable = 'true';
 			dummy.addEventListener( 'dragstart', ( event ) => {
 				event.dataTransfer.setData(
-					'fp-blocks',
+					'fin-blocks',
 					JSON.stringify( { blocks: [ block ] } )
 				);
-				event.dataTransfer.setData( 'fp-block:core/image', '' );
+				event.dataTransfer.setData( 'fin-block:core/image', '' );
 				setTimeout( () => {
 					dummy.remove();
 				}, 0 );
@@ -639,7 +639,7 @@ test.describe( 'Image', () => {
 		);
 
 		const imgUrl =
-			'https://fp20.finpress.net/fp-content/themes/twentyseventeen-fp20/images/fp20-logo-white.svg';
+			'https://fin20.finpress.net/fin-content/themes/twentyseventeen-fin20/images/fin20-logo-white.svg';
 
 		await form.getByLabel( 'URL' ).fill( imgUrl );
 		await form.getByRole( 'button', { name: 'Apply' } ).click();
@@ -748,7 +748,7 @@ test.describe( 'Image', () => {
 				.locator( 'img[src^="http"]' )
 		).toHaveAttribute(
 			'src',
-			expect.stringMatching( /\/fp-content\/uploads\// )
+			expect.stringMatching( /\/fin-content\/uploads\// )
 		);
 	} );
 
@@ -777,7 +777,7 @@ test.describe( 'Image', () => {
 				.locator( 'img[src^="http"]' )
 		).toHaveAttribute(
 			'src',
-			expect.stringMatching( /\/fp-content\/uploads\// )
+			expect.stringMatching( /\/fin-content\/uploads\// )
 		);
 	} );
 
@@ -808,7 +808,7 @@ test.describe( 'Image', () => {
 				.locator( 'img[src^="http"]' )
 		).toHaveAttribute(
 			'src',
-			expect.stringMatching( /\/fp-content\/uploads\// )
+			expect.stringMatching( /\/fin-content\/uploads\// )
 		);
 	} );
 
@@ -950,9 +950,9 @@ test.describe( 'Image - lightbox', () => {
 				editor,
 				page,
 			} ) => {
-				await editor.setContent( `<!-- fp:image {"id":${ uploadedMedia.id },"sizeSlug":"full","linkDestination":"none"} -->
-				<figure class="fp-block-image size-full"><img src="${ uploadedMedia.source_url }" alt="" class="fp-image-${ uploadedMedia.id }"/></figure>
-				<!-- /fp:image --> ` );
+				await editor.setContent( `<!-- fin:image {"id":${ uploadedMedia.id },"sizeSlug":"full","linkDestination":"none"} -->
+				<figure class="fin-block-image size-full"><img src="${ uploadedMedia.source_url }" alt="" class="fin-image-${ uploadedMedia.id }"/></figure>
+				<!-- /fin:image --> ` );
 
 				const imageBlock = editor.canvas.locator(
 					'role=document[name="Block: Image"i]'
@@ -975,9 +975,9 @@ test.describe( 'Image - lightbox', () => {
 				editor,
 				page,
 			} ) => {
-				await editor.setContent( `<!-- fp:image {"id":${ uploadedMedia.id },"sizeSlug":"full","linkDestination":"none","lightbox":{"enabled":true}} -->
-				<figure class="fp-block-image size-full"><img src="${ uploadedMedia.source_url }" alt="" class="fp-image-${ uploadedMedia.id }"/></figure>
-				<!-- /fp:image --> ` );
+				await editor.setContent( `<!-- fin:image {"id":${ uploadedMedia.id },"sizeSlug":"full","linkDestination":"none","lightbox":{"enabled":true}} -->
+				<figure class="fin-block-image size-full"><img src="${ uploadedMedia.source_url }" alt="" class="fin-image-${ uploadedMedia.id }"/></figure>
+				<!-- /fin:image --> ` );
 
 				const imageBlock = editor.canvas.locator(
 					'role=document[name="Block: Image"i]'
@@ -1009,21 +1009,21 @@ test.describe( 'Image - lightbox', () => {
 			editor,
 			page,
 		} ) => {
-			await editor.setContent( `<!-- fp:image {"id":${ uploadedMedia.id },"sizeSlug":"full","linkDestination":"none",
+			await editor.setContent( `<!-- fin:image {"id":${ uploadedMedia.id },"sizeSlug":"full","linkDestination":"none",
 			"lightbox":{"enabled":true},"style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
-			<figure class="fp-block-image size-full" style="margin-top:var(--fp--preset--spacing--40);margin-right:var(--fp--preset--spacing--40);margin-bottom:var(--fp--preset--spacing--40);margin-left:var(--fp--preset--spacing--40)">
-			<img src="${ uploadedMedia.source_url }" alt="" class="fp-image-${ uploadedMedia.id }"/></figure>
-			<!-- /fp:image --> ` );
+			<figure class="fin-block-image size-full" style="margin-top:var(--fin--preset--spacing--40);margin-right:var(--fin--preset--spacing--40);margin-bottom:var(--fin--preset--spacing--40);margin-left:var(--fin--preset--spacing--40)">
+			<img src="${ uploadedMedia.source_url }" alt="" class="fin-image-${ uploadedMedia.id }"/></figure>
+			<!-- /fin:image --> ` );
 
 			const postId = await editor.publishPost();
 			await page.goto( `/?p=${ postId }` );
 
-			const lightboxImage = page.locator( '.fp-lightbox-container img' );
+			const lightboxImage = page.locator( '.fin-lightbox-container img' );
 			await expect( lightboxImage ).toBeVisible();
 			await lightboxImage.click();
 
 			const figure = page
-				.locator( '.fp-lightbox-overlay .fp-block-image' )
+				.locator( '.fin-lightbox-overlay .fin-block-image' )
 				.first();
 			await expect( figure ).toBeVisible();
 			const margin = await figure.evaluate( ( element ) => {
@@ -1046,7 +1046,7 @@ test.describe( 'Image - Site editor', () => {
 	test.beforeEach( async ( { admin } ) => {
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 	} );
@@ -1081,9 +1081,9 @@ test.describe( 'Image - Site editor', () => {
 		await expect( image ).toHaveAttribute( 'src', new RegExp( fileName ) );
 
 		const regex = new RegExp(
-			`<!-- fp:image {"id":(\\d+),"sizeSlug":"full","linkDestination":"none"} -->
-<figure class="fp-block-image size-full"><img src="[^"]+\\/${ fileName }\\.png" alt="" class="fp-image-\\1"/></figure>
-<!-- \\/fp:image -->`
+			`<!-- fin:image {"id":(\\d+),"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="fin-block-image size-full"><img src="[^"]+\\/${ fileName }\\.png" alt="" class="fin-image-\\1"/></figure>
+<!-- \\/fin:image -->`
 		);
 		expect( await editor.getEditedPostContent() ).toMatch( regex );
 	} );

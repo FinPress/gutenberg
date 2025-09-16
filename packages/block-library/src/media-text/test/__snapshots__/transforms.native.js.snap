@@ -1,73 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Media & Text block transformations with Image to Columns block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
-<div class="fp-block-column" style="flex-basis:100%"><!-- fp:media-text {"align":"wide","mediaId":4674,"mediaType":"image","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
-<div class="fp-block-media-text alignwide is-stacked-on-mobile"><figure class="fp-block-media-text__media"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-4674 size-full"/></figure><div class="fp-block-media-text__content"><!-- fp:paragraph {"className":"has-large-font-size"} -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"100%"} -->
+<div class="fin-block-column" style="flex-basis:100%"><!-- fin:media-text {"align":"wide","mediaId":4674,"mediaType":"image","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
+<div class="fin-block-media-text alignwide is-stacked-on-mobile"><figure class="fin-block-media-text__media"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-4674 size-full"/></figure><div class="fin-block-media-text__content"><!-- fin:paragraph {"className":"has-large-font-size"} -->
 <p class="has-large-font-size">Mountain</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:media-text --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:media-text --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Media & Text block transformations with Image to Cover block 1`] = `
-"<!-- fp:cover {"url":"https://cldup.com/cXyG__fTLN.jpg","id":4674,"dimRatio":50,"align":"wide"} -->
-<div class="fp-block-cover alignwide"><img class="fp-block-cover__image-background fp-image-4674" alt="" src="https://cldup.com/cXyG__fTLN.jpg" data-object-fit="cover"/><span aria-hidden="true" class="fp-block-cover__background has-background-dim"></span><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"className":"has-large-font-size"} -->
+"<!-- fin:cover {"url":"https://cldup.com/cXyG__fTLN.jpg","id":4674,"dimRatio":50,"align":"wide"} -->
+<div class="fin-block-cover alignwide"><img class="fin-block-cover__image-background fin-image-4674" alt="" src="https://cldup.com/cXyG__fTLN.jpg" data-object-fit="cover"/><span aria-hidden="true" class="fin-block-cover__background has-background-dim"></span><div class="fin-block-cover__inner-container"><!-- fin:paragraph {"className":"has-large-font-size"} -->
 <p class="has-large-font-size">Mountain</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:cover -->"
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:cover -->"
 `;
 
 exports[`Media & Text block transformations with Image to Group block 1`] = `
-"<!-- fp:group {"align":"wide","layout":{"type":"constrained"}} -->
-<div class="fp-block-group alignwide"><!-- fp:media-text {"align":"wide","mediaId":4674,"mediaType":"image","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
-<div class="fp-block-media-text alignwide is-stacked-on-mobile"><figure class="fp-block-media-text__media"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-4674 size-full"/></figure><div class="fp-block-media-text__content"><!-- fp:paragraph {"className":"has-large-font-size"} -->
+"<!-- fin:group {"align":"wide","layout":{"type":"constrained"}} -->
+<div class="fin-block-group alignwide"><!-- fin:media-text {"align":"wide","mediaId":4674,"mediaType":"image","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
+<div class="fin-block-media-text alignwide is-stacked-on-mobile"><figure class="fin-block-media-text__media"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-4674 size-full"/></figure><div class="fin-block-media-text__content"><!-- fin:paragraph {"className":"has-large-font-size"} -->
 <p class="has-large-font-size">Mountain</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:media-text --></div>
-<!-- /fp:group -->"
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:media-text --></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Media & Text block transformations with Image to Image block 1`] = `
-"<!-- fp:image {"id":4674} -->
-<figure class="fp-block-image"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-4674"/></figure>
-<!-- /fp:image -->"
+"<!-- fin:image {"id":4674} -->
+<figure class="fin-block-image"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-4674"/></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`Media & Text block transformations with Video to Columns block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
-<div class="fp-block-column" style="flex-basis:100%"><!-- fp:media-text {"align":"wide","mediaId":4675,"mediaType":"video","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
-<div class="fp-block-media-text alignwide is-stacked-on-mobile"><figure class="fp-block-media-text__media"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure><div class="fp-block-media-text__content"><!-- fp:paragraph {"className":"has-large-font-size"} -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"100%"} -->
+<div class="fin-block-column" style="flex-basis:100%"><!-- fin:media-text {"align":"wide","mediaId":4675,"mediaType":"video","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
+<div class="fin-block-media-text alignwide is-stacked-on-mobile"><figure class="fin-block-media-text__media"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure><div class="fin-block-media-text__content"><!-- fin:paragraph {"className":"has-large-font-size"} -->
 <p class="has-large-font-size">Cloudup</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:media-text --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:media-text --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Media & Text block transformations with Video to Cover block 1`] = `
-"<!-- fp:cover {"url":"https://i.cloudup.com/YtZFJbuQCE.mov","id":4675,"dimRatio":50,"backgroundType":"video","align":"wide"} -->
-<div class="fp-block-cover alignwide"><video class="fp-block-cover__video-background intrinsic-ignore" autoplay muted loop playsinline src="https://i.cloudup.com/YtZFJbuQCE.mov" data-object-fit="cover"></video><span aria-hidden="true" class="fp-block-cover__background has-background-dim"></span><div class="fp-block-cover__inner-container"><!-- fp:paragraph {"className":"has-large-font-size"} -->
+"<!-- fin:cover {"url":"https://i.cloudup.com/YtZFJbuQCE.mov","id":4675,"dimRatio":50,"backgroundType":"video","align":"wide"} -->
+<div class="fin-block-cover alignwide"><video class="fin-block-cover__video-background intrinsic-ignore" autoplay muted loop playsinline src="https://i.cloudup.com/YtZFJbuQCE.mov" data-object-fit="cover"></video><span aria-hidden="true" class="fin-block-cover__background has-background-dim"></span><div class="fin-block-cover__inner-container"><!-- fin:paragraph {"className":"has-large-font-size"} -->
 <p class="has-large-font-size">Cloudup</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:cover -->"
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:cover -->"
 `;
 
 exports[`Media & Text block transformations with Video to Group block 1`] = `
-"<!-- fp:group {"align":"wide","layout":{"type":"constrained"}} -->
-<div class="fp-block-group alignwide"><!-- fp:media-text {"align":"wide","mediaId":4675,"mediaType":"video","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
-<div class="fp-block-media-text alignwide is-stacked-on-mobile"><figure class="fp-block-media-text__media"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure><div class="fp-block-media-text__content"><!-- fp:paragraph {"className":"has-large-font-size"} -->
+"<!-- fin:group {"align":"wide","layout":{"type":"constrained"}} -->
+<div class="fin-block-group alignwide"><!-- fin:media-text {"align":"wide","mediaId":4675,"mediaType":"video","isStackedOnMobile":false,"className":"is-stacked-on-mobile"} -->
+<div class="fin-block-media-text alignwide is-stacked-on-mobile"><figure class="fin-block-media-text__media"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure><div class="fin-block-media-text__content"><!-- fin:paragraph {"className":"has-large-font-size"} -->
 <p class="has-large-font-size">Cloudup</p>
-<!-- /fp:paragraph --></div></div>
-<!-- /fp:media-text --></div>
-<!-- /fp:group -->"
+<!-- /fin:paragraph --></div></div>
+<!-- /fin:media-text --></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Media & Text block transformations with Video to Video block 1`] = `
-"<!-- fp:video {"id":4675} -->
-<figure class="fp-block-video"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure>
-<!-- /fp:video -->"
+"<!-- fin:video {"id":4675} -->
+<figure class="fin-block-video"><video controls src="https://i.cloudup.com/YtZFJbuQCE.mov"></video></figure>
+<!-- /fin:video -->"
 `;

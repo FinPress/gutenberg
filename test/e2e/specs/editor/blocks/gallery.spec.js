@@ -65,11 +65,11 @@ test.describe( 'Gallery', () => {
 
 		const editedPostContent = await editor.getEditedPostContent();
 		expect( editedPostContent )
-			.toBe( `<!-- fp:gallery {"columns":3,"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-3 is-cropped"><!-- fp:image {"id":${ uploadedMedia.id },"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="${ uploadedMedia.source_url }" alt="${ uploadedMedia.alt_text }" class="fp-image-${ uploadedMedia.id }"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->` );
+			.toBe( `<!-- fin:gallery {"columns":3,"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-3 is-cropped"><!-- fin:image {"id":${ uploadedMedia.id },"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="${ uploadedMedia.source_url }" alt="${ uploadedMedia.alt_text }" class="fin-image-${ uploadedMedia.id }"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->` );
 
 		await page.click(
 			'role=region[name="Editor top bar"i] >> role=button[name="Undo"i]'
@@ -107,7 +107,7 @@ test.describe( 'Gallery', () => {
 		await expect( image ).toHaveAttribute( 'src', new RegExp( fileName ) );
 
 		const regex = new RegExp(
-			`<!-- fp:gallery {\\"linkTo\\":\\"none\\"} -->\\s*<figure class=\\"fp-block-gallery has-nested-images columns-default is-cropped\\"><!-- fp:image {\\"id\\":\\d+,\\"sizeSlug\\":\\"(?:full|large)\\",\\"linkDestination\\":\\"none\\"} -->\\s*<figure class=\\"fp-block-image (?:size-full|size-large)\\"><img src=\\"[^"]+\/${ fileName }\.png\\" alt=\\"\\" class=\\"fp-image-\\d+\\"\/><\/figure>\\s*<!-- \/fp:image --><\/figure>\\s*<!-- \/fp:gallery -->`
+			`<!-- fin:gallery {\\"linkTo\\":\\"none\\"} -->\\s*<figure class=\\"fin-block-gallery has-nested-images columns-default is-cropped\\"><!-- fin:image {\\"id\\":\\d+,\\"sizeSlug\\":\\"(?:full|large)\\",\\"linkDestination\\":\\"none\\"} -->\\s*<figure class=\\"fin-block-image (?:size-full|size-large)\\"><img src=\\"[^"]+\/${ fileName }\.png\\" alt=\\"\\" class=\\"fin-image-\\d+\\"\/><\/figure>\\s*<!-- \/fin:image --><\/figure>\\s*<!-- \/fin:gallery -->`
 		);
 		await expect.poll( editor.getEditedPostContent ).toMatch( regex );
 	} );

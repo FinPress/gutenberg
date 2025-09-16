@@ -21,7 +21,7 @@ const ManageMenusButton = ( {
 			disabled={ disabled }
 			className={ className }
 			href={ addQueryArgs( 'edit.php', {
-				post_type: 'fp_navigation',
+				post_type: 'fin_navigation',
 			} ) }
 		>
 			{ __( 'Manage menus' ) }

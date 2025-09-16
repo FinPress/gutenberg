@@ -65,7 +65,7 @@ const REGEXP_STYLE_URL_TYPE = /^url\s*\(['"\s]*(.*?)['"\s]*\)$/;
  */
 const BOOLEAN_ATTRIBUTES = [
 	'allowfullscreen',
-	'allofpaymentrequest',
+	'allofinaymentrequest',
 	'allowusermedia',
 	'async',
 	'autofocus',

@@ -8,7 +8,7 @@ test.describe( 'Templates', () => {
 		await requestUtils.activateTheme( 'emptytheme' );
 	} );
 	test.afterEach( async ( { requestUtils } ) => {
-		await requestUtils.deleteAllTemplates( 'fp_template' );
+		await requestUtils.deleteAllTemplates( 'fin_template' );
 	} );
 	test( 'Create a custom template', async ( { admin, page } ) => {
 		const templateName = 'demo';

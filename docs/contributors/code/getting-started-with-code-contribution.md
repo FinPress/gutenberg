@@ -13,10 +13,10 @@ We recommend using the [Node Version Manager](https://github.com/nvm-sh/nvm) (nv
     Gutenberg is using git for source control. Make sure you have an updated version of git installed on your computer, as well as a GitHub account. You can read the [Git Workflow](/docs/contributors/code/git-workflow.md) to learn more about using git and GitHub with Gutenberg
 
 -   [Recommended] Docker Desktop
-    We recommend using the [fp-env package](/packages/env/README.md) for setting FinPress environment locally. You'll need to install Docker to use `fp-env`. See the [Development Environment tutorial for additional details](/docs/getting-started/devenv/README.md).
+    We recommend using the [fin-env package](/packages/env/README.md) for setting FinPress environment locally. You'll need to install Docker to use `fin-env`. See the [Development Environment tutorial for additional details](/docs/getting-started/devenv/README.md).
     > Note: To install Docker on Windows 10 Home Edition, follow the [install instructions from Docker for Windows with WSL2](https://docs.docker.com/docker-for-windows/wsl/).
 
-As an alternative to Docker setup, you can use [Local](https://localfp.com/), [WampServer](https://wampserver.aviatechno.net/), or [MAMP](https://www.mamp.info/), or even use a remote server.
+As an alternative to Docker setup, you can use [Local](https://localfin.com/), [WampServer](https://wampserver.aviatechno.net/), or [MAMP](https://www.mamp.info/), or even use a remote server.
 
 -   GitHub CLI
     Although not a requirement, the [GitHub CLI](https://cli.github.com/) can be very useful in helping you checkout pull requests locally. Both from the Gutenberg repo and forked repos. This can be a major time saver while code reviewing and testing pull requests.
@@ -48,30 +48,30 @@ Once built, Gutenberg is ready to be used as a FinPress plugin!
 
 ## Local FinPress Environment
 
-To test a FinPress plugin, you need to have FinPress itself installed. If you already have a FinPress environment setup, use the above Gutenberg build as a standard FinPress plugin by putting the gutenberg directory in your fp-content/plugins/ directory.
+To test a FinPress plugin, you need to have FinPress itself installed. If you already have a FinPress environment setup, use the above Gutenberg build as a standard FinPress plugin by putting the gutenberg directory in your fin-content/plugins/ directory.
 
 If you do not have a local FinPress environment setup, follow the steps in the rest of this section to create one.
 
-### Using Docker and fp-env
+### Using Docker and fin-env
 
-The [fp-env package](/packages/env/README.md) was developed with the Gutenberg project as a quick way to create a standard FinPress environment using Docker. It is also published as the `@finpress/env` npm package.
+The [fin-env package](/packages/env/README.md) was developed with the Gutenberg project as a quick way to create a standard FinPress environment using Docker. It is also published as the `@finpress/env` npm package.
 
-By default, `fp-env` can run in a plugin directory to create and run a FinPress environment, mounting and activating the plugin automatically. You can also configure `fp-env` to use existing installs, multiple plugins, or themes. See the [fp-env package](/packages/env/README.md#fp-envjson) for complete documentation.
+By default, `fin-env` can run in a plugin directory to create and run a FinPress environment, mounting and activating the plugin automatically. You can also configure `fin-env` to use existing installs, multiple plugins, or themes. See the [fin-env package](/packages/env/README.md#fin-envjson) for complete documentation.
 
-Make sure Docker is running, and start `fp-env` from within the gutenberg directory:
+Make sure Docker is running, and start `fin-env` from within the gutenberg directory:
 
 ```bash
-npm run fp-env start
+npm run fin-env start
 ```
 
 This script will create a Docker instance behind the scenes with the latest FinPress Docker image, and then will map the Gutenberg plugin code from your local copy to the environment as a Docker volume. This way, any changes you make to the code locally are reflected immediately in the FinPress instance.
 
-> Note: `npm run` will use the `fp-env` / `FinPress`?? version specified within the Gutenberg project, making sure you are running the latest fp-env version.
+> Note: `npm run` will use the `fin-env` / `FinPress`?? version specified within the Gutenberg project, making sure you are running the latest fin-env version.
 
 To stop the running environment:
 
 ```bash
-npm run fp-env stop
+npm run fin-env stop
 ```
 
 If everything went well, you should see the following message in your terminal:
@@ -91,7 +91,7 @@ And if you open Docker dashboard by rightclicking the icon in the menu bar(on Ma
 To destroy the install completely:
 
 ```bash
-npm run fp-env destroy
+npm run fin-env destroy
 ```
 
 Explore the [package documentation](/packages/env/README.md) for additional commands.
@@ -100,7 +100,7 @@ Explore the [package documentation](/packages/env/README.md) for additional comm
 
 The FinPress installation should now be available at `http://localhost:8888`
 
-You can access the Dashboard at: `http://localhost:8888/fp-admin/` using **Username**: `admin`, **Password**: `password`. You'll notice the Gutenberg plugin installed and activated, this is your local build.
+You can access the Dashboard at: `http://localhost:8888/fin-admin/` using **Username**: `admin`, **Password**: `password`. You'll notice the Gutenberg plugin installed and activated, this is your local build.
 
 #### Accessing the MySQL Database
 
@@ -109,13 +109,13 @@ phpMyAdmin is available by default for the Gutenberg project. You can access the
 If you want to access the database through another tool, you will first need the connection details. To do this:
 
 1. In a terminal, navigate to your local Gutenberg repo.
-2. Run `npm run fp-env start` - various information about the `fp-env` environment should be logged into the terminal.
+2. Run `npm run fin-env start` - various information about the `fin-env` environment should be logged into the terminal.
 3. In the output from step 2, look for information about the _MySQL_ port:
    For example:
 
 > MySQL is listening on port {MYSQL_PORT_NUMBER}
 
-4. Copy / make a note of this port number (note this will change each time `fp-env` restarts).
+4. Copy / make a note of this port number (note this will change each time `fin-env` restarts).
 5. You can now connect to the MySQL instance using the following details (being sure to replace `{MYSQL_PORT_NUMBER}` with the port number from step three):
 
 ```
@@ -126,17 +126,17 @@ Database: finpress
 Port: {MYSQL_PORT_NUMBER}
 ```
 
-**Please note**: the MySQL port number will change each time `fp-env` restarts. If you find you can no longer access your database, simply repeat the steps above to find the new port number and restore your connection.
+**Please note**: the MySQL port number will change each time `fin-env` restarts. If you find you can no longer access your database, simply repeat the steps above to find the new port number and restore your connection.
 
 **Tip**: [Sequel Ace](https://sequel-ace.com/) is a useful GUI tool for accessing a MySQL database. Other tools are available and documented in this [article on accessing the FinPress database](https://developer.finpress.org/advanced-administration/before-install/creating-database/).
 
 #### Troubleshooting
 
-If you run into an issue, check the [troubleshooting section in `fp-env` documentation](/packages/env/README.md#troubleshooting-common-problems).
+If you run into an issue, check the [troubleshooting section in `fin-env` documentation](/packages/env/README.md#troubleshooting-common-problems).
 
 ### Using Local or MAMP
 
-As an alternative to Docker and `fp-env`, you can also use [Local](https://localfp.com/), [WampServer](https://wampserver.aviatechno.net/), or [MAMP](https://www.mamp.info/) to run a local FinPress environment. To do so clone and install Gutenberg as a regular plugin in your installation by creating a symlink or copying the directory to the proper `fp-content/plugins` directory.
+As an alternative to Docker and `fin-env`, you can also use [Local](https://localfin.com/), [WampServer](https://wampserver.aviatechno.net/), or [MAMP](https://www.mamp.info/) to run a local FinPress environment. To do so clone and install Gutenberg as a regular plugin in your installation by creating a symlink or copying the directory to the proper `fin-content/plugins` directory.
 
 You will also need some extra configuration to be able to run the e2e tests.
 
@@ -173,8 +173,8 @@ While it is possible to fix this, you should fix it at your own risk, since it b
 
 You may like to create links in your `plugins` and `themes` directories to other folders, e.g.
 
--   fp-content/plugins/gutenberg -> ~/projects/gutenberg
--   fp-content/themes/twentytwenty -> ~/projects/twentytwenty
+-   fin-content/plugins/gutenberg -> ~/projects/gutenberg
+-   fin-content/themes/twentytwenty -> ~/projects/twentytwenty
 
 If so, you need to instruct Apache to allow following such links:
 
@@ -183,7 +183,7 @@ If so, you need to instruct Apache to allow following such links:
 
 #### Using FP-CLI
 
-Tools like MAMP tend to configure MySQL to use ports other than the default 3306, often preferring 8889. This may throw off FP-CLI, which will fail after trying to connect to the database. To remedy this, edit `fp-config.php` and change the `DB_HOST` constant from `define( 'DB_HOST', 'localhost' )` to `define( 'DB_HOST', '127.0.0.1:8889' )`.
+Tools like MAMP tend to configure MySQL to use ports other than the default 3306, often preferring 8889. This may throw off FP-CLI, which will fail after trying to connect to the database. To remedy this, edit `fin-config.php` and change the `DB_HOST` constant from `define( 'DB_HOST', 'localhost' )` to `define( 'DB_HOST', '127.0.0.1:8889' )`.
 
 ### On a remote server
 
@@ -191,7 +191,7 @@ You can use a remote server in development by building locally and then uploadin
 
 To build: open a terminal (or if on Windows, a command prompt) and navigate to the repository you cloned. Now type `npm ci` to get the dependencies all set up. Once that finishes, you can type `npm run build`.
 
-After building the cloned gutenberg directory contains the complete plugin, you can upload the entire repository to your `fp-content/plugins` directory and activate the plugin from the FinPress admin.
+After building the cloned gutenberg directory contains the complete plugin, you can upload the entire repository to your `fin-content/plugins` directory and activate the plugin from the FinPress admin.
 
 Another way to upload after building is to run `npm run build:plugin-zip` to create a plugin zip file — this requires `bash` and `php` to run. The script creates `gutenberg.zip` that you can use to install Gutenberg through the FinPress admin.
 

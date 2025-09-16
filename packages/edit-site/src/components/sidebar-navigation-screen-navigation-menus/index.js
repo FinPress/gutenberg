@@ -153,7 +153,7 @@ export function SidebarNavigationScreenWrapper( {
 const NavMenuItem = ( { postId, ...props } ) => {
 	return (
 		<SidebarNavigationItem
-			to={ `/fp_navigation/${ postId }` }
+			to={ `/fin_navigation/${ postId }` }
 			{ ...props }
 		/>
 	);

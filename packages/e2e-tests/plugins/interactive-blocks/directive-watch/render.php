@@ -1,39 +1,39 @@
 <?php
 /**
- * HTML for testing the directive `data-fp-watch`.
+ * HTML for testing the directive `data-fin-watch`.
  *
  * @package gutenberg-test-interactive-blocks
  */
 ?>
 
-<div data-fp-interactive="directive-watch">
-	<div data-fp-show-mock="state.isOpen">
+<div data-fin-interactive="directive-watch">
+	<div data-fin-show-mock="state.isOpen">
 		<input
 			data-testid="input"
-			data-fp-watch="callbacks.elementAddedToTheDOM"
+			data-fin-watch="callbacks.elementAddedToTheDOM"
 		/>
 	</div>
 
 	<div
-		data-fp-text="state.elementInTheDOM"
+		data-fin-text="state.elementInTheDOM"
 		data-testid="element in the DOM"
 	></div>
 
-	<div data-fp-watch="callbacks.changeFocus"></div>
+	<div data-fin-watch="callbacks.changeFocus"></div>
 
 	<div
 		data-testid="short-circuit infinite loops"
-		data-fp-watch="callbacks.infiniteLoop"
-		data-fp-text="state.counter"
+		data-fin-watch="callbacks.infiniteLoop"
+		data-fin-text="state.counter"
 	>
 		0
 	</div>
 
-	<button data-testid="toggle" data-fp-on--click="actions.toggle">
+	<button data-testid="toggle" data-fin-on--click="actions.toggle">
 		Update
 	</button>
 
-	<button data-testid="increment" data-fp-on--click="actions.increment">
+	<button data-testid="increment" data-fin-on--click="actions.increment">
 		Increment
 	</button>
 </div>

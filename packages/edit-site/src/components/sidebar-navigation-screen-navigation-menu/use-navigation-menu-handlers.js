@@ -165,7 +165,7 @@ function useDuplicateNavigationMenu() {
 				createSuccessNotice( __( 'Duplicated Navigation Menu' ), {
 					type: 'snackbar',
 				} );
-				history.navigate( `/fp_navigation/${ savedRecord.id }` );
+				history.navigate( `/fin_navigation/${ savedRecord.id }` );
 			}
 		} catch ( error ) {
 			createErrorNotice(

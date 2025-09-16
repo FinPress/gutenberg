@@ -235,7 +235,7 @@ function getWebpackEntryPoints( buildType ) {
 	 */
 	return () => {
 		// 1. Uses the recommended command format that lists entry points as paths to JavaScript files.
-		//    Example: `fp-scripts build one.js two.js`.
+		//    Example: `fin-scripts build one.js two.js`.
 		if ( process.env.FP_ENTRY ) {
 			return buildType === 'script'
 				? JSON.parse( process.env.FP_ENTRY )

@@ -1,7 +1,7 @@
 ( function () {
-	const el = fp.element.createElement;
-	const { InnerBlocks, useBlockProps } = fp.blockEditor;
-	const { createBlock, registerBlockType } = fp.blocks;
+	const el = fin.element.createElement;
+	const { InnerBlocks, useBlockProps } = fin.blockEditor;
+	const { createBlock, registerBlockType } = fin.blocks;
 
 	registerBlockType( 'test/alternative-group-block', {
 		apiVersion: 3,

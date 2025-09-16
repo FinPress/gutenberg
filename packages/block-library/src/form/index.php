@@ -14,7 +14,7 @@
  * @return string The content of the block being rendered.
  */
 function render_block_core_form( $attributes, $content ) {
-	fp_enqueue_script_module( '@finpress/block-library/form/view' );
+	fin_enqueue_script_module( '@finpress/block-library/form/view' );
 
 	$processed_content = new FP_HTML_Tag_Processor( $content );
 	$processed_content->next_tag( 'form' );
@@ -55,7 +55,7 @@ function render_block_core_form( $attributes, $content ) {
  * @return string The extra fields.
  */
 function block_core_form_extra_fields_comment_form( $extra_fields, $attributes ) {
-	if ( ! empty( $attributes['action'] ) && str_ends_with( $attributes['action'], '/fp-comments-post.php' ) ) {
+	if ( ! empty( $attributes['action'] ) && str_ends_with( $attributes['action'], '/fin-comments-post.php' ) ) {
 		$extra_fields .= '<input type="hidden" name="comment_post_ID" value="' . get_the_ID() . '" id="comment_post_ID">';
 	}
 	return $extra_fields;
@@ -66,62 +66,62 @@ add_filter( 'render_block_core_form_extra_fields', 'block_core_form_extra_fields
  * Sends an email if the form is a contact form.
  */
 function block_core_form_send_email() {
-	check_ajax_referer( 'fp-block-form' );
+	check_ajax_referer( 'fin-block-form' );
 
 	// Get the POST data.
-	$params = fp_unslash( $_POST );
+	$params = fin_unslash( $_POST );
 	// Start building the email content.
 	$content = sprintf(
 		/* translators: %s: The request URI. */
 		__( 'Form submission from %1$s' ) . '</br>',
-		'<a href="' . esc_url( get_site_url( null, $params['_fp_http_referer'] ) ) . '">' . get_bloginfo( 'name' ) . '</a>'
+		'<a href="' . esc_url( get_site_url( null, $params['_fin_http_referer'] ) ) . '">' . get_bloginfo( 'name' ) . '</a>'
 	);
 
-	$skip_fields = array( 'formAction', '_ajax_nonce', 'action', '_fp_http_referer' );
+	$skip_fields = array( 'formAction', '_ajax_nonce', 'action', '_fin_http_referer' );
 	foreach ( $params as $key => $value ) {
 		if ( in_array( $key, $skip_fields, true ) ) {
 			continue;
 		}
-		$content .= sanitize_key( $key ) . ': ' . fp_kses_post( $value ) . '</br>';
+		$content .= sanitize_key( $key ) . ': ' . fin_kses_post( $value ) . '</br>';
 	}
 
 	// Filter the email content.
 	$content = apply_filters( 'render_block_core_form_email_content', $content, $params );
 
 	// Send the email.
-	$result = fp_mail(
+	$result = fin_mail(
 		str_replace( 'mailto:', '', $params['formAction'] ),
 		__( 'Form submission' ),
 		$content
 	);
 
 	if ( ! $result ) {
-		fp_send_json_error( $result );
+		fin_send_json_error( $result );
 	}
-	fp_send_json_success( $result );
+	fin_send_json_success( $result );
 }
-add_action( 'fp_ajax_fp_block_form_email_submit', 'block_core_form_send_email' );
-add_action( 'fp_ajax_nopriv_fp_block_form_email_submit', 'block_core_form_send_email' );
+add_action( 'fin_ajax_fin_block_form_email_submit', 'block_core_form_send_email' );
+add_action( 'fin_ajax_nopriv_fin_block_form_email_submit', 'block_core_form_send_email' );
 
 /**
  * Send the data export/remove request if the form is a privacy-request form.
  */
 function block_core_form_privacy_form() {
 	// Get the POST data.
-	$params = fp_unslash( $_POST );
+	$params = fin_unslash( $_POST );
 
 	// Bail early if not a form submission, or if the nonce is not valid.
-	if ( empty( $params['fp-action'] )
-		|| 'fp_privacy_send_request' !== $params['fp-action']
-		|| empty( $params['fp-privacy-request'] )
-		|| '1' !== $params['fp-privacy-request']
+	if ( empty( $params['fin-action'] )
+		|| 'fin_privacy_send_request' !== $params['fin-action']
+		|| empty( $params['fin-privacy-request'] )
+		|| '1' !== $params['fin-privacy-request']
 		|| empty( $params['email'] )
 	) {
 		return;
 	}
 
 	// Get the request types.
-	$request_types  = _fp_privacy_action_request_types();
+	$request_types  = _fin_privacy_action_request_types();
 	$requests_found = array();
 	foreach ( $request_types as $request_type ) {
 		if ( ! empty( $params[ $request_type ] ) ) {
@@ -139,16 +139,16 @@ function block_core_form_privacy_form() {
 	$actions_performed = array();
 	foreach ( $requests_found as $action_name ) {
 		// Get the request ID.
-		$request_id = fp_create_user_request( $params['email'], $action_name );
+		$request_id = fin_create_user_request( $params['email'], $action_name );
 
 		// Bail early if the request ID is invalid.
-		if ( is_fp_error( $request_id ) ) {
+		if ( is_fin_error( $request_id ) ) {
 			$actions_errored[] = $action_name;
 			continue;
 		}
 
 		// Send the request email.
-		fp_send_user_request( $request_id );
+		fin_send_user_request( $request_id );
 		$actions_performed[] = $action_name;
 	}
 
@@ -176,7 +176,7 @@ function block_core_form_privacy_form() {
 	// Add filter to show the core/form-submission-notification block.
 	add_filter( 'show_form_submission_notification_block', $show_notification, 10, 2 );
 }
-add_action( 'fp', 'block_core_form_privacy_form' );
+add_action( 'fin', 'block_core_form_privacy_form' );
 
 /**
  * Registers the `core/form` block on server.

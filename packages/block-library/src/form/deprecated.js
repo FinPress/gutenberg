@@ -84,7 +84,7 @@ const v1 = {
 		return (
 			<form
 				{ ...blockProps }
-				className="fp-block-form"
+				className="fin-block-form"
 				encType={ submissionMethod === 'email' ? 'text/plain' : null }
 			>
 				<InnerBlocks.Content />

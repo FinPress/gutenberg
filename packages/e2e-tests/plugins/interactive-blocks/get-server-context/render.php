@@ -15,35 +15,35 @@ $child_ctx  = $attributes['childContext'];
 
 <nav
 	data-testid="navigate"
-	data-fp-interactive="test/get-server-context"
-	data-fp-on--click="actions.navigate"
+	data-fin-interactive="test/get-server-context"
+	data-fin-on--click="actions.navigate"
 >
 	<a data-testid="modified" href="<?php echo esc_url( $link1 ); ?>">modified</a>
 	<a data-testid="newProps" href="<?php echo esc_url( $link2 ); ?>">newProps</a>
 </nav>
 
 <div
-	data-fp-interactive="test/get-server-context"
-	data-fp-router-region="server-context"
-	data-fp-watch="callbacks.updateServerContextParent"
-	<?php echo fp_interactivity_data_fp_context( $parent_ctx ); ?>
+	data-fin-interactive="test/get-server-context"
+	data-fin-router-region="server-context"
+	data-fin-watch="callbacks.updateServerContextParent"
+	<?php echo fin_interactivity_data_fin_context( $parent_ctx ); ?>
 >
 	<div
-		data-fp-watch="callbacks.updateServerContextChild"
-		<?php echo fp_interactivity_data_fp_context( $child_ctx ); ?>
+		data-fin-watch="callbacks.updateServerContextChild"
+		<?php echo fin_interactivity_data_fin_context( $child_ctx ); ?>
 	>
-		<div data-testid="prop" data-fp-text="context.prop"></div>
-		<div data-testid="nested.prop" data-fp-text="context.nested.prop"></div>
-		<div data-testid="newProp" data-fp-text="context.newProp"></div>
-		<div data-testid="nested.newProp" data-fp-text="context.nested.newProp"></div>
-		<div data-testid="inherited.prop" data-fp-text="context.inherited.prop"></div>
-		<div data-testid="inherited.newProp" data-fp-text="context.inherited.newProp"></div>
+		<div data-testid="prop" data-fin-text="context.prop"></div>
+		<div data-testid="nested.prop" data-fin-text="context.nested.prop"></div>
+		<div data-testid="newProp" data-fin-text="context.newProp"></div>
+		<div data-testid="nested.newProp" data-fin-text="context.nested.newProp"></div>
+		<div data-testid="inherited.prop" data-fin-text="context.inherited.prop"></div>
+		<div data-testid="inherited.newProp" data-fin-text="context.inherited.newProp"></div>
 
 		<button
 			data-testid="tryToModifyServerContext"
-			<?php echo fp_interactivity_data_fp_context( array( 'result' => 'modify' ) ); ?>
-			data-fp-on--click="actions.attemptModification"
-			data-fp-text="context.result">
+			<?php echo fin_interactivity_data_fin_context( array( 'result' => 'modify' ) ); ?>
+			data-fin-on--click="actions.attemptModification"
+			data-fin-text="context.result">
 		>
 			modify
 		</button>

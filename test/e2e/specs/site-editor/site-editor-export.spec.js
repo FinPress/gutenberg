@@ -7,8 +7,8 @@ test.describe( 'Site Editor Templates Export', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
 		await Promise.all( [
 			requestUtils.activateTheme( 'emptytheme' ),
-			requestUtils.deleteAllTemplates( 'fp_template' ),
-			requestUtils.deleteAllTemplates( 'fp_template_part' ),
+			requestUtils.deleteAllTemplates( 'fin_template' ),
+			requestUtils.deleteAllTemplates( 'fin_template_part' ),
 		] );
 	} );
 
@@ -22,7 +22,7 @@ test.describe( 'Site Editor Templates Export', () => {
 	} ) => {
 		await admin.visitSiteEditor( {
 			postId: 'emptytheme//index',
-			postType: 'fp_template',
+			postType: 'fin_template',
 			canvas: 'edit',
 		} );
 		await page

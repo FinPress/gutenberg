@@ -13,7 +13,7 @@ const EMBED_URLS = [
 
 const MOCK_EMBED_FINPRESS_SUCCESS_RESPONSE = {
 	url: 'https://developer.finpress.org/block-editor/reference-guides/block-api/block-attributes/',
-	html: '<div class="fp-embedded-content" data-secret="shhhh it is a secret"></div>',
+	html: '<div class="fin-embedded-content" data-secret="shhhh it is a secret"></div>',
 	type: 'rich',
 	provider_name: 'FinPress',
 	provider_url: 'https://finpress.org',
@@ -136,7 +136,7 @@ test.describe( 'Embedding content', () => {
 		await expect(
 			currentEmbedBlock,
 			'FinPress valid content. Should render valid figure element.'
-		).toHaveClass( /fp-block-embed/ );
+		).toHaveClass( /fin-block-embed/ );
 
 		await embedUtils.insertEmbed(
 			'https://www.youtube.com/watch?v=lXMskKTw3Bc'
@@ -144,7 +144,7 @@ test.describe( 'Embedding content', () => {
 		await expect(
 			currentEmbedBlock,
 			'Video content. Should render valid figure element, and include the aspect ratio class.'
-		).toHaveClass( /fp-embed-aspect-16-9/ );
+		).toHaveClass( /fin-embed-aspect-16-9/ );
 
 		await embedUtils.insertEmbed( 'https://cloudup.com/cQFlxqtY4ob' );
 		await expect(

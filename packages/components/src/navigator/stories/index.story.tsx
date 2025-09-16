@@ -37,14 +37,14 @@ const meta: Meta< typeof Navigator > = {
 			return (
 				<>
 					<style>{ `
-					  /* The data-fp-component attribute is a private implementation
+					  /* The data-fin-component attribute is a private implementation
 						 * detail of the Navigator component. Do not use outside of
 						 * its source code.
 						 */
-						[data-fp-component="Navigator"] {
+						[data-fin-component="Navigator"] {
 							height: 250px;
 						}
-						[data-fp-component="Navigator.Screen"] {
+						[data-fin-component="Navigator.Screen"] {
 							padding: 8px;
 						}
 					` }</style>

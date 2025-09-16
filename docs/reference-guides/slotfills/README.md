@@ -218,9 +218,9 @@ import { __, sprintf } from '@finpress/i18n';
 const SiteEditorDocumentSettingPanel = () => {
 	// Allowed areas in the Site Editor.
 	const allowedSiteEditorScreens = [
-		'fp_template', // Templates
-		'fp_block', // Patterns
-		'fp_template_part', // Template Parts
+		'fin_template', // Templates
+		'fin_block', // Patterns
+		'fin_template_part', // Template Parts
 	];
 
 	const { isViewable, postType } = useSelect( ( select ) => {
@@ -264,7 +264,7 @@ registerPlugin( 'example-site-editor-only', {
 
 ## How do they work?
 
-SlotFills are created using `createSlotFill`. This creates two components, `Slot` and `Fill` which are then used to create a new component that is exported on the `fp.plugins` global.
+SlotFills are created using `createSlotFill`. This creates two components, `Slot` and `Fill` which are then used to create a new component that is exported on the `fin.plugins` global.
 
 **Definition of the `PluginPostStatusInfo` SlotFill** ([see core code](https://github.com/FinPress/gutenberg/blob/HEAD/packages/editor/src/components/plugin-post-status-info/index.js#L55))
 

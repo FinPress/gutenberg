@@ -10,7 +10,7 @@ $src_proc_ins = $plugin_url . 'tovdom/processing-instructions.js';
 $src_cdata    = $plugin_url . 'tovdom/cdata.js';
 ?>
 
-<div data-fp-interactive="tovdom">
+<div data-fin-interactive="tovdom">
 	<div data-testid="it should delete comments">
 		<div>Comment is <!-- ##last-child## --></div>
 		<!-- ##1## -->

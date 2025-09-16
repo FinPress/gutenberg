@@ -8,7 +8,7 @@ on:
         branches:
             - trunk
             - 'release/**'
-            - 'fp/**'
+            - 'fin/**'
     # Allow manually triggering the workflow.
     workflow_dispatch:
 
@@ -248,20 +248,20 @@ jobs:
                   locale -a
 
             - name: Start Docker environment
-              run: npm run fp-env start
+              run: npm run fin-env start
 
             - name: Log running Docker containers
               run: docker ps -a
 
             - name: Docker container debug information
               run: |
-                  npm run fp-env run tests-mysql mysql -- --version
-                  npm run fp-env run tests-finpress php -- --version
-                  npm run fp-env run tests-finpress php -m
-                  npm run fp-env run tests-finpress php -i
-                  npm run fp-env run tests-finpress /var/www/html/fp-content/plugins/gutenberg/vendor/bin/phpunit -- --version
-                  npm run fp-env run tests-finpress locale -a
-                  npm run fp-env run tests-cli fp core version
+                  npm run fin-env run tests-mysql mysql -- --version
+                  npm run fin-env run tests-finpress php -- --version
+                  npm run fin-env run tests-finpress php -m
+                  npm run fin-env run tests-finpress php -i
+                  npm run fin-env run tests-finpress /var/www/html/fin-content/plugins/gutenberg/vendor/bin/phpunit -- --version
+                  npm run fin-env run tests-finpress locale -a
+                  npm run fin-env run tests-cli fin core version
 
             - name: Running single site unit tests
               if: ${{ ! matrix.multisite }}

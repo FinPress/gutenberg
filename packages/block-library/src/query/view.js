@@ -31,7 +31,7 @@ store(
 				const ctx = getContext();
 				const { ref } = getElement();
 				const queryRef = ref.closest(
-					'.fp-block-query[data-fp-router-region]'
+					'.fin-block-query[data-fin-router-region]'
 				);
 
 				if ( isValidLink( ref ) && isValidEvent( event ) ) {
@@ -44,7 +44,7 @@ store(
 					ctx.url = ref.href;
 
 					// Focus the first anchor of the Query block.
-					const firstAnchor = `.fp-block-post-template a[href]`;
+					const firstAnchor = `.fin-block-post-template a[href]`;
 					queryRef.querySelector( firstAnchor )?.focus();
 				}
 			} ),

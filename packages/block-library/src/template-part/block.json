@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/template-part",
 	"title": "Template Part",
@@ -29,5 +29,5 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-template-part-editor"
+	"editorStyle": "fin-block-template-part-editor"
 }

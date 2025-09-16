@@ -1,7 +1,7 @@
 ( function () {
-	const { InnerBlocks } = fp.blockEditor;
-	const { createElement: el } = fp.element;
-	const { registerBlockType } = fp.blocks;
+	const { InnerBlocks } = fin.blockEditor;
+	const { createElement: el } = fin.element;
+	const { registerBlockType } = fin.blocks;
 
 	registerBlockType( 'test/child-blocks-unrestricted-parent', {
 		title: 'Child Blocks Unrestricted Parent',

@@ -12,8 +12,8 @@ exports[`props should render correctly 1`] = `
 <hr
   aria-orientation="horizontal"
   class="components-divider emotion-0 emotion-1"
-  data-fp-c16t="true"
-  data-fp-component="Divider"
+  data-fin-c16t="true"
+  data-fin-component="Divider"
   role="separator"
 />
 `;

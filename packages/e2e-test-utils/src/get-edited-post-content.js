@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { fpDataSelect } from './fp-data-select';
+import { finDataSelect } from './fin-data-select';
 
 /**
  * Returns a promise which resolves with the edited post content (HTML string).
@@ -9,5 +9,5 @@ import { fpDataSelect } from './fp-data-select';
  * @return {Promise} Promise resolving with post content markup.
  */
 export async function getEditedPostContent() {
-	return fpDataSelect( 'core/editor', 'getEditedPostContent' );
+	return finDataSelect( 'core/editor', 'getEditedPostContent' );
 }

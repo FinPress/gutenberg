@@ -11,7 +11,7 @@
  * Add a non-FP_Widget marquee widget.
  */
 function marquee_greeting_init() {
-	fp_register_sidebar_widget(
+	fin_register_sidebar_widget(
 		'marquee_greeting',
 		'Marquee Greeting',
 		static function () {
@@ -20,7 +20,7 @@ function marquee_greeting_init() {
 		}
 	);
 
-	fp_register_widget_control(
+	fin_register_widget_control(
 		'marquee_greeting',
 		'Marquee Greeting',
 		static function () {

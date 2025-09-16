@@ -4,8 +4,8 @@
 const { test, expect } = require( '@finpress/e2e-test-utils-playwright' );
 
 const ENDPOINT = [
-	'/fp/v2/block-renderer',
-	`rest_route=${ encodeURIComponent( '/fp/v2/block-renderer' ) }`,
+	'/fin/v2/block-renderer',
+	`rest_route=${ encodeURIComponent( '/fin/v2/block-renderer' ) }`,
 ];
 
 function defer() {
