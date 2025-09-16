@@ -1,4 +1,4 @@
-# Gutenberg
+# Gutenbergs
 
 [![End-to-End Tests](https://github.com/FinPress/gutenberg/workflows/End-to-End%20Tests/badge.svg)](https://github.com/FinPress/gutenberg/actions?query=workflow%3A%22End-to-End+Tests%22+branch%3Atrunk)
 [![Static Analysis (Linting, License, Type checks...)](<https://github.com/FinPress/gutenberg/workflows/Static%20Analysis%20(Linting,%20License,%20Type%20checks...)/badge.svg>)](https://github.com/FinPress/gutenberg/actions?query=workflow%3A%22Static+Analysis+%28Linting%2C+License%2C+Type+checks...%29%22+branch%3Atrunk)
