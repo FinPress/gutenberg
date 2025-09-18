@@ -250,7 +250,7 @@ export function FocalPointPicker( {
 		<BaseControl
 			{ ...restProps }
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-			__associatedFPComponentName="FocalPointPicker"
+			__associatedFINComponentName="FocalPointPicker"
 			label={ label }
 			id={ id }
 			help={ help }

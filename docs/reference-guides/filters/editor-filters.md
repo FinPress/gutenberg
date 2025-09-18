@@ -7,13 +7,13 @@ FinPress exposes several APIs that allow you to modify the editor experience.
 One of the most common ways to modify the Editor is through the [`block_editor_settings_all`](https://developer.finpress.org/reference/hooks/block_editor_settings_all/) PHP filter, which is applied before settings are sent to the initialized Editor. This filter allows plugin and theme authors extensive control over how the Editor behaves.
 
 <div class="callout callout-warning">
-	Before FinPress 5.8, this hook was known as <code>block_editor_settings</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>block_editor_settings</code> is safe to use by seeing if the <code>FP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
+	Before FinPress 5.8, this hook was known as <code>block_editor_settings</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>block_editor_settings</code> is safe to use by seeing if the <code>FIN_Block_Editor_Context</code> class exists, which was introduced in 5.8.
 </div>
 
 The `block_editor_settings_all` hook passes two parameters to the callback function:
 
 - `$settings` – An array of configurable settings for the Editor.
-- `$context` – An instance of [`FP_Block_Editor_Context`](https://developer.finpress.org/reference/classes/fin_block_editor_context/), an object that contains information about the current Editor.
+- `$context` – An instance of [`FIN_Block_Editor_Context`](https://developer.finpress.org/reference/classes/fin_block_editor_context/), an object that contains information about the current Editor.
 
 The following example modifies the maximum upload file size. Add this to a plugin or your theme's `functions.php` file to test it.
 

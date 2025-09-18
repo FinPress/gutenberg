@@ -5,7 +5,7 @@ import { useEntityRecords } from '@finpress/core-data';
 
 /**
  * @typedef {Object} NavigationEntitiesData
- * @property {Array|undefined} pages                - a collection of FP Post entity objects of post type "Page".
+ * @property {Array|undefined} pages                - a collection of FIN Post entity objects of post type "Page".
  * @property {boolean}         isResolvingPages     - indicates whether the request to fetch pages is currently resolving.
  * @property {boolean}         hasResolvedPages     - indicates whether the request to fetch pages has finished resolving.
  * @property {Array|undefined} menus                - a collection of Menu entity objects.

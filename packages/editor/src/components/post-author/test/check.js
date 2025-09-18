@@ -26,7 +26,7 @@ function setupUseSelectMock( hasAssignAuthorAction ) {
 			getEditedPostAttribute: () => {},
 			getCurrentPost: () => ( {
 				_links: {
-					'fp:action-assign-author': hasAssignAuthorAction,
+					'fin:action-assign-author': hasAssignAuthorAction,
 				},
 			} ),
 		} ) );

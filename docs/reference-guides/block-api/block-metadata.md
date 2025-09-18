@@ -427,7 +427,7 @@ See the [Example documentation](/docs/reference-guides/block-api/block-registrat
 
 ### Variations
 
--   Type: `object[]|FPDefinedPath` ([learn more](#findefinedpath))
+-   Type: `object[]|FINDefinedPath` ([learn more](#findefinedpath))
 -   Optional
 -   Localized: Yes (`title`, `description`, and `keywords` of each variation only)
 -   Property: `variations`
@@ -519,7 +519,7 @@ The key is the name of the block (`string`) to hook into, and the value is the p
 
 ### Editor script
 
--   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#findefinedasset))
+-   Type: `FINDefinedAsset`|`FINDefinedAsset[]` ([learn more](#findefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `editorScript`
@@ -536,7 +536,7 @@ _Note: An option to pass also an array of editor scripts exists since FinPress `
 
 ### Script
 
--   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#findefinedasset))
+-   Type: `FINDefinedAsset`|`FINDefinedAsset[]` ([learn more](#findefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `script`
@@ -553,7 +553,7 @@ _Note: An option to pass also an array of scripts exists since FinPress `6.1.0`.
 
 ### View script
 
--   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#findefinedasset))
+-   Type: `FINDefinedAsset`|`FINDefinedAsset[]` ([learn more](#findefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `viewScript`
@@ -571,7 +571,7 @@ _Note: An option to pass also an array of view scripts exists since FinPress `6.
 
 ### View script module
 
--   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#findefinedasset))
+-   Type: `FINDefinedAsset`|`FINDefinedAsset[]` ([learn more](#findefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `viewScriptModule`
@@ -591,7 +591,7 @@ _Note: Available since FinPress `6.5.0`._
 
 ### Editor style
 
--   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#findefinedasset))
+-   Type: `FINDefinedAsset`|`FINDefinedAsset[]` ([learn more](#findefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `editorStyle`
@@ -608,7 +608,7 @@ _Note: An option to pass also an array of editor styles exists since FinPress `5
 
 ### Style
 
--   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#findefinedasset))
+-   Type: `FINDefinedAsset`|`FINDefinedAsset[]` ([learn more](#findefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `style`
@@ -625,7 +625,7 @@ _Note: An option to pass also an array of styles exists since FinPress `5.9.0`._
 
 ### View Style
 
--   Type: `FPDefinedAsset`|`FPDefinedAsset[]` ([learn more](#findefinedasset))
+-   Type: `FINDefinedAsset`|`FINDefinedAsset[]` ([learn more](#findefinedasset))
 -   Optional
 -   Localized: No
 -   Property: `viewStyle`
@@ -643,7 +643,7 @@ Frontend-only styles are especially useful for interactive blocks, to style part
 
 ### Render
 
--   Type: `FPDefinedPath` ([learn more](#findefinedpath))
+-   Type: `FINDefinedPath` ([learn more](#findefinedpath))
 -   Optional
 -   Localized: No
 -   Property: `render`
@@ -657,7 +657,7 @@ PHP file to use when rendering the block type on the server to show on the front
 
 -   `$attributes` (`array`): The block attributes.
 -   `$content` (`string`): The block default content.
--   `$block` (`FP_Block`): The block instance.
+-   `$block` (`FIN_Block`): The block instance.
 
 An example implementation of the `render.php` file defined with `render` could look like:
 
@@ -671,9 +671,9 @@ _Note: This file loads for every instance of the block type when rendering the p
 
 ## Assets
 
-### `FPDefinedPath`
+### `FINDefinedPath`
 
-The `FPDefinedPath` type is a subtype of string, where the value represents a path to a JavaScript, CSS or PHP file relative to where the `block.json` file is located. The path provided must be prefixed with `file:`. This approach is based on how npm handles [local paths](https://docs.npmjs.com/files/package.json#local-paths) for packages.
+The `FINDefinedPath` type is a subtype of string, where the value represents a path to a JavaScript, CSS or PHP file relative to where the `block.json` file is located. The path provided must be prefixed with `file:`. This approach is based on how npm handles [local paths](https://docs.npmjs.com/files/package.json#local-paths) for packages.
 
 **Example:**
 
@@ -685,9 +685,9 @@ In `block.json`:
 }
 ```
 
-### `FPDefinedAsset`
+### `FINDefinedAsset`
 
-It extends `FPDefinedPath` for JavaScript and CSS files. An alternative to the file path would be a script handle, script module ID, or style handle referencing an already registered asset using FinPress helpers.
+It extends `FINDefinedPath` for JavaScript and CSS files. An alternative to the file path would be a script handle, script module ID, or style handle referencing an already registered asset using FinPress helpers.
 
 **Example:**
 
@@ -709,7 +709,7 @@ In `block.json`:
 
 In the context of FinPress, when a block is registered with PHP, it will automatically register all scripts, script modules, and styles that are found in the `block.json` file and use file paths rather than asset handles.
 
-That's why the `FPDefinedAsset` type has to offer a way to mirror the parameters necessary to register scripts, script modules, and styles using [`fin_register_script`](https://developer.finpress.org/reference/functions/fin_register_script/), [`fin_register_script_module`](https://developer.finpress.org/reference/functions/fin_register_script_module/), and [`fin_register_style`](https://developer.finpress.org/reference/functions/fin_register_style/), and then assign these as handles or script module IDs associated with the block.
+That's why the `FINDefinedAsset` type has to offer a way to mirror the parameters necessary to register scripts, script modules, and styles using [`fin_register_script`](https://developer.finpress.org/reference/functions/fin_register_script/), [`fin_register_script_module`](https://developer.finpress.org/reference/functions/fin_register_script_module/), and [`fin_register_style`](https://developer.finpress.org/reference/functions/fin_register_style/), and then assign these as handles or script module IDs associated with the block.
 
 It's possible to provide an object which takes the following shape:
 

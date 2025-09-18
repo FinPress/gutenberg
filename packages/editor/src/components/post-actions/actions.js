@@ -55,7 +55,7 @@ export function usePostActions( { postType, onActionPerformed, context } ) {
 			// will have received the whole template from the REST API.
 			const frontPageTemplate = getEntityRecord(
 				'postType',
-				'fp_template',
+				'fin_template',
 				frontPageTemplateId
 			);
 

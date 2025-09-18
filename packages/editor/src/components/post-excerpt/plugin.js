@@ -19,8 +19,8 @@ const { Fill, Slot } = createSlotFill( 'PluginPostExcerpt' );
  * @example
  * ```js
  * // Using ES5 syntax
- * var __ = fp.i18n.__;
- * var PluginPostExcerpt = fp.editPost.__experimentalPluginPostExcerpt;
+ * var __ = fin.i18n.__;
+ * var PluginPostExcerpt = fin.editPost.__experimentalPluginPostExcerpt;
  *
  * function MyPluginPostExcerpt() {
  * 	return React.createElement(

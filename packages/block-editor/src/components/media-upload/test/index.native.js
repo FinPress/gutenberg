@@ -142,7 +142,7 @@ describe( 'MediaUpload component', () => {
 		);
 	} );
 
-	it( 'can select media from FP media library', () => {
+	it( 'can select media from FIN media library', () => {
 		expectMediaPickerForOption(
 			'FinPress Media Library',
 			false,
@@ -162,7 +162,7 @@ describe( 'MediaUpload component', () => {
 		);
 	} );
 
-	it( 'can select multiple media from FP media library', () => {
+	it( 'can select multiple media from FIN media library', () => {
 		expectMediaPickerForOption(
 			'FinPress Media Library',
 			true,

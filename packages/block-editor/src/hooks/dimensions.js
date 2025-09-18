@@ -199,7 +199,7 @@ function useBlockProps( { name, minHeight, style } ) {
  * @deprecated
  */
 export function useCustomSides() {
-	deprecated( 'fp.blockEditor.__experimentalUseCustomSides', {
+	deprecated( 'fin.blockEditor.__experimentalUseCustomSides', {
 		since: '6.3',
 		version: '6.4',
 	} );

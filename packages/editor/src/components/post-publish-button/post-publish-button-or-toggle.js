@@ -34,7 +34,7 @@ export default function PostPublishButtonOrToggle( {
 		return {
 			hasPublishAction:
 				!! select( editorStore ).getCurrentPost()?._links?.[
-					'fp:action-publish'
+					'fin:action-publish'
 				] ?? false,
 			isBeingScheduled:
 				select( editorStore ).isEditedPostBeingScheduled(),

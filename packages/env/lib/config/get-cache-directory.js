@@ -9,15 +9,15 @@ const os = require( 'os' );
 /**
  * Gets the directory in which generated files are created.
  *
- * By default: '~/.fp-env/'. On Linux with snap packages: '~/fp-env/'. Can be
- * overridden with the FP_ENV_HOME environment variable.
+ * By default: '~/.fin-env/'. On Linux with snap packages: '~/fin-env/'. Can be
+ * overridden with the FIN_ENV_HOME environment variable.
  *
- * @return {Promise<string>} The absolute path to the `fp-env` home directory.
+ * @return {Promise<string>} The absolute path to the `fin-env` home directory.
  */
 module.exports = async function getCacheDirectory() {
 	// Allow user to override download location.
-	if ( process.env.FP_ENV_HOME ) {
-		return path.resolve( process.env.FP_ENV_HOME );
+	if ( process.env.FIN_ENV_HOME ) {
+		return path.resolve( process.env.FIN_ENV_HOME );
 	}
 
 	/**
@@ -35,5 +35,5 @@ module.exports = async function getCacheDirectory() {
 		usesSnap = false;
 	}
 
-	return path.resolve( os.homedir(), usesSnap ? 'fp-env' : '.fp-env' );
+	return path.resolve( os.homedir(), usesSnap ? 'fin-env' : '.fin-env' );
 };

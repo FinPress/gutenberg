@@ -178,7 +178,7 @@
 
 ### New Features
 
--   Include `@finpress/style-engine` on the list of external dependencies to allow using `fp.styleEngine` global with FinPress 6.1 and beyond ([#43840](https://github.com/FinPress/gutenberg/pull/43840)).
+-   Include `@finpress/style-engine` on the list of external dependencies to allow using `fin.styleEngine` global with FinPress 6.1 and beyond ([#43840](https://github.com/FinPress/gutenberg/pull/43840)).
 
 ## 4.0.0 (2022-08-24)
 

@@ -13,31 +13,31 @@
  * @since 5.9.0
  * @since 6.0.0 Adds the whole theme to the export archive.
  *
- * @global string $fp_version The FinPress version string.
+ * @global string $fin_version The FinPress version string.
  *
- * @return FP_Error|string Path of the ZIP file or error on failure.
+ * @return FIN_Error|string Path of the ZIP file or error on failure.
  */
 function gutenberg_generate_block_templates_export_file() {
-	global $fp_version;
+	global $fin_version;
 
 	if ( ! class_exists( 'ZipArchive' ) ) {
-		return new FP_Error( 'missing_zip_package', __( 'Zip Export not supported.', 'gutenberg' ) );
+		return new FIN_Error( 'missing_zip_package', __( 'Zip Export not supported.', 'gutenberg' ) );
 	}
 
-	$obscura    = fp_generate_password( 12, false, false );
+	$obscura    = fin_generate_password( 12, false, false );
 	$theme_name = basename( get_stylesheet() );
 	$filename   = get_temp_dir() . $theme_name . $obscura . '.zip';
 
 	$zip = new ZipArchive();
 	if ( true !== $zip->open( $filename, ZipArchive::CREATE | ZipArchive::OVERWRITE ) ) {
-		return new FP_Error( 'unable_to_create_zip', __( 'Unable to open export file (archive) for writing.', 'gutenberg' ) );
+		return new FIN_Error( 'unable_to_create_zip', __( 'Unable to open export file (archive) for writing.', 'gutenberg' ) );
 	}
 
 	$zip->addEmptyDir( 'templates' );
 	$zip->addEmptyDir( 'parts' );
 
 	// Get path of the theme.
-	$theme_path = fp_normalize_path( get_stylesheet_directory() );
+	$theme_path = fin_normalize_path( get_stylesheet_directory() );
 
 	// Create recursive directory iterator.
 	$theme_files = new RecursiveIteratorIterator(
@@ -50,10 +50,10 @@ function gutenberg_generate_block_templates_export_file() {
 		// Skip directories as they are added automatically.
 		if ( ! $file->isDir() ) {
 			// Get real and relative path for current file.
-			$file_path     = fp_normalize_path( $file );
+			$file_path     = fin_normalize_path( $file );
 			$relative_path = substr( $file_path, strlen( $theme_path ) + 1 );
 
-			if ( ! fp_is_theme_directory_ignored( $relative_path ) ) {
+			if ( ! fin_is_theme_directory_ignored( $relative_path ) ) {
 				$zip->addFile( $file_path, $relative_path );
 			}
 		}
@@ -74,7 +74,7 @@ function gutenberg_generate_block_templates_export_file() {
 	}
 
 	// Load template parts into the zip file.
-	$template_parts = get_block_templates( array(), 'fp_template_part' );
+	$template_parts = get_block_templates( array(), 'fin_template_part' );
 	foreach ( $template_parts as $template_part ) {
 		$zip->addFromString(
 			'parts/' . $template_part->slug . '.html',
@@ -83,20 +83,20 @@ function gutenberg_generate_block_templates_export_file() {
 	}
 
 	// Load theme.json into the zip file.
-	$tree = FP_Theme_JSON_Resolver_Gutenberg::get_theme_data( array(), array( 'with_supports' => false ) );
+	$tree = FIN_Theme_JSON_Resolver_Gutenberg::get_theme_data( array(), array( 'with_supports' => false ) );
 	// Merge with user data.
-	$tree->merge( FP_Theme_JSON_Resolver_Gutenberg::get_user_data() );
+	$tree->merge( FIN_Theme_JSON_Resolver_Gutenberg::get_user_data() );
 
 	$theme_json_raw = $tree->get_data();
 	// If a version is defined, add a schema.
 	if ( $theme_json_raw['version'] ) {
-		$theme_json_version = 'fp/' . substr( $fp_version, 0, 3 );
-		$schema             = array( '$schema' => 'https://schemas.fp.org/' . $theme_json_version . '/theme.json' );
+		$theme_json_version = 'fin/' . substr( $fin_version, 0, 3 );
+		$schema             = array( '$schema' => 'https://schemas.fin.org/' . $theme_json_version . '/theme.json' );
 		$theme_json_raw     = array_merge( $schema, $theme_json_raw );
 	}
 
 	// Convert to a string.
-	$theme_json_encoded = fp_json_encode( $theme_json_raw, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+	$theme_json_encoded = fin_json_encode( $theme_json_raw, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
 	// Replace 4 spaces with a tab.
 	$theme_json_tabbed = preg_replace( '~(?:^|\G)\h{4}~m', "\t", $theme_json_encoded );

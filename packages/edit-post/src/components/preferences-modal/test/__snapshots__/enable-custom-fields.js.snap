@@ -64,8 +64,8 @@ exports[`EnableCustomFieldsOption renders a checked checkbox and a confirmation 
       >
         <div
           class="components-flex components-h-stack emotion-4 emotion-5"
-          data-fp-c16t="true"
-          data-fp-component="HStack"
+          data-fin-c16t="true"
+          data-fin-component="HStack"
         >
           <span
             class="components-form-toggle is-checked"
@@ -84,8 +84,8 @@ exports[`EnableCustomFieldsOption renders a checked checkbox and a confirmation 
           </span>
           <label
             class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-            data-fp-c16t="true"
-            data-fp-component="FlexBlock"
+            data-fin-c16t="true"
+            data-fin-component="FlexBlock"
             for="inspector-toggle-control-3"
           />
         </div>
@@ -170,8 +170,8 @@ exports[`EnableCustomFieldsOption renders a checked checkbox when custom fields 
       >
         <div
           class="components-flex components-h-stack emotion-4 emotion-5"
-          data-fp-c16t="true"
-          data-fp-component="HStack"
+          data-fin-c16t="true"
+          data-fin-component="HStack"
         >
           <span
             class="components-form-toggle is-checked"
@@ -191,8 +191,8 @@ exports[`EnableCustomFieldsOption renders a checked checkbox when custom fields 
           </span>
           <label
             class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-            data-fp-c16t="true"
-            data-fp-component="FlexBlock"
+            data-fin-c16t="true"
+            data-fin-component="FlexBlock"
             for="inspector-toggle-control-0"
           />
         </div>
@@ -266,8 +266,8 @@ exports[`EnableCustomFieldsOption renders an unchecked checkbox and a confirmati
       >
         <div
           class="components-flex components-h-stack emotion-4 emotion-5"
-          data-fp-c16t="true"
-          data-fp-component="HStack"
+          data-fin-c16t="true"
+          data-fin-component="HStack"
         >
           <span
             class="components-form-toggle"
@@ -287,8 +287,8 @@ exports[`EnableCustomFieldsOption renders an unchecked checkbox and a confirmati
           </span>
           <label
             class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-            data-fp-c16t="true"
-            data-fp-component="FlexBlock"
+            data-fin-c16t="true"
+            data-fin-component="FlexBlock"
             for="inspector-toggle-control-2"
           />
         </div>
@@ -373,8 +373,8 @@ exports[`EnableCustomFieldsOption renders an unchecked checkbox when custom fiel
       >
         <div
           class="components-flex components-h-stack emotion-4 emotion-5"
-          data-fp-c16t="true"
-          data-fp-component="HStack"
+          data-fin-c16t="true"
+          data-fin-component="HStack"
         >
           <span
             class="components-form-toggle"
@@ -393,8 +393,8 @@ exports[`EnableCustomFieldsOption renders an unchecked checkbox when custom fiel
           </span>
           <label
             class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-            data-fp-c16t="true"
-            data-fp-component="FlexBlock"
+            data-fin-c16t="true"
+            data-fin-component="FlexBlock"
             for="inspector-toggle-control-1"
           />
         </div>

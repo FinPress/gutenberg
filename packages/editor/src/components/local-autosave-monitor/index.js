@@ -38,8 +38,8 @@ const hasSessionStorageSupport = () => {
 		// Private Browsing in Safari 10 and earlier will throw an error when
 		// attempting to set into sessionStorage. The test here is intentional in
 		// causing a thrown error as condition bailing from local autosave.
-		window.sessionStorage.setItem( '__fpEditorTestSessionStorage', '' );
-		window.sessionStorage.removeItem( '__fpEditorTestSessionStorage' );
+		window.sessionStorage.setItem( '__finEditorTestSessionStorage', '' );
+		window.sessionStorage.removeItem( '__finEditorTestSessionStorage' );
 		hasStorageSupport = true;
 	} catch {
 		hasStorageSupport = false;
@@ -101,7 +101,7 @@ function useAutosaveNotice() {
 			return;
 		}
 
-		const id = 'fpEditorAutosaveRestore';
+		const id = 'finEditorAutosaveRestore';
 
 		createWarningNotice(
 			__(

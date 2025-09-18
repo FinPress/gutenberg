@@ -8,7 +8,7 @@
 	convertDeprecationsToExceptions="true"
 	>
 	<php>
-		<env name="FINPRESS_TABLE_PREFIX" value="fptests_" />
+		<env name="FINPRESS_TABLE_PREFIX" value="fintests_" />
 	</php>
 	<testsuites>
 		<testsuite name="default">

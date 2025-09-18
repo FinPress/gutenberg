@@ -51,7 +51,7 @@ export const PRESET_METADATA = [
 		path: [ 'color', 'duotone' ],
 		valueKey: 'colors',
 		cssVarInfix: 'duotone',
-		valueFunc: ( { slug } ) => `url( '#fp-duotone-${ slug }' )`,
+		valueFunc: ( { slug } ) => `url( '#fin-duotone-${ slug }' )`,
 		classes: [],
 	},
 	{
@@ -323,7 +323,7 @@ export function getValueFromVariable( features, blockName, variable ) {
 		}
 	}
 	const USER_VALUE_PREFIX = 'var:';
-	const THEME_VALUE_PREFIX = 'var(--fp--';
+	const THEME_VALUE_PREFIX = 'var(--fin--';
 	const THEME_VALUE_SUFFIX = ')';
 
 	let parsedVar;
@@ -338,7 +338,7 @@ export function getValueFromVariable( features, blockName, variable ) {
 			.slice( THEME_VALUE_PREFIX.length, -THEME_VALUE_SUFFIX.length )
 			.split( '--' );
 	} else {
-		// We don't know how to parse the value: either is raw of uses complex CSS such as `calc(1px * var(--fp--variable) )`
+		// We don't know how to parse the value: either is raw of uses complex CSS such as `calc(1px * var(--fin--variable) )`
 		return variable;
 	}
 
@@ -404,13 +404,13 @@ export function scopeSelector( scope, selector ) {
  * ```js
  * const scope = '.custom-scope';
  * const selectors = {
- *     color: '.fp-my-block p',
- *     typography: { fontSize: '.fp-my-block caption' },
+ *     color: '.fin-my-block p',
+ *     typography: { fontSize: '.fin-my-block caption' },
  * };
  * const result = scopeFeatureSelector( scope, selectors );
  * // result is {
- * //     color: '.custom-scope .fp-my-block p',
- * //     typography: { fonSize: '.custom-scope .fp-my-block caption' },
+ * //     color: '.custom-scope .fin-my-block p',
+ * //     typography: { fonSize: '.custom-scope .fin-my-block caption' },
  * // }
  * ```
  *
@@ -501,8 +501,8 @@ export function areGlobalStyleConfigsEqual( original, variation ) {
  * selector.
  *
  * For example, take the Button block which has a compound selector:
- * `.fp-block-button .fp-block-button__link`. With a variation named 'custom',
- * the class `.is-style-custom` should be added to the `.fp-block-button`
+ * `.fin-block-button .fin-block-button__link`. With a variation named 'custom',
+ * the class `.is-style-custom` should be added to the `.fin-block-button`
  * ancestor only.
  *
  * This function will take into account comma separated and complex selectors.
@@ -612,7 +612,7 @@ export function getResolvedValue( ruleValue, tree ) {
 	if ( resolvedValue?.url ) {
 		resolvedValue.url = getResolvedThemeFilePath(
 			resolvedValue.url,
-			tree?._links?.[ 'fp:theme-file' ]
+			tree?._links?.[ 'fin:theme-file' ]
 		);
 	}
 

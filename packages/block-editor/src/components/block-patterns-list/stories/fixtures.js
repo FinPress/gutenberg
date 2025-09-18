@@ -68,7 +68,7 @@ export default [
 								},
 								innerBlocks: [],
 								originalContent:
-									'<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>',
+									'<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>',
 								validationIssues: [],
 							},
 							{
@@ -90,7 +90,7 @@ export default [
 								},
 								innerBlocks: [],
 								originalContent:
-									'<figure class="fp-block-image size-large is-style-default"><img src="https://pd.w.org/2022/03/3866241b433db4ee2.96648572.jpeg" alt="" /></figure>',
+									'<figure class="fin-block-image size-large is-style-default"><img src="https://pd.w.org/2022/03/3866241b433db4ee2.96648572.jpeg" alt="" /></figure>',
 								validationIssues: [],
 							},
 							{
@@ -103,7 +103,7 @@ export default [
 								},
 								innerBlocks: [],
 								originalContent:
-									'<div style="height:48px" aria-hidden="true" class="fp-block-spacer"></div>',
+									'<div style="height:48px" aria-hidden="true" class="fin-block-spacer"></div>',
 								validationIssues: [],
 							},
 							{
@@ -135,7 +135,7 @@ export default [
 								},
 								innerBlocks: [],
 								originalContent:
-									'<h2 class="fp-block-heading alignwide has-text-align-center has-white-color has-text-color" style="padding-left:32px;font-size:50px;font-style:normal;font-weight:400;letter-spacing:32px;line-height:1;text-transform:uppercase">Etcetera</h2>',
+									'<h2 class="fin-block-heading alignwide has-text-align-center has-white-color has-text-color" style="padding-left:32px;font-size:50px;font-style:normal;font-weight:400;letter-spacing:32px;line-height:1;text-transform:uppercase">Etcetera</h2>',
 								validationIssues: [],
 							},
 							{
@@ -148,17 +148,17 @@ export default [
 								},
 								innerBlocks: [],
 								originalContent:
-									'<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>',
+									'<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>',
 								validationIssues: [],
 							},
 						],
 						originalContent:
-							'<div class="fp-block-group">\n\n\n\n\n\n\n\n</div>',
+							'<div class="fin-block-group">\n\n\n\n\n\n\n\n</div>',
 						validationIssues: [],
 					},
 				],
 				originalContent:
-					'<div class="fp-block-cover alignfull is-light" style="margin-top:0;padding-top:5vw;padding-right:5vw;padding-bottom:5vw;padding-left:5vw;min-height:66vh"><span aria-hidden="true" class="fp-block-cover__background has-background-dim-100 has-background-dim has-background-gradient" style="background:linear-gradient(90deg,rgb(35,74,20) 50%,rgb(225,137,116) 50%)"></span><div class="fp-block-cover__inner-container"></div></div>',
+					'<div class="fin-block-cover alignfull is-light" style="margin-top:0;padding-top:5vw;padding-right:5vw;padding-bottom:5vw;padding-left:5vw;min-height:66vh"><span aria-hidden="true" class="fin-block-cover__background has-background-dim-100 has-background-dim has-background-gradient" style="background:linear-gradient(90deg,rgb(35,74,20) 50%,rgb(225,137,116) 50%)"></span><div class="fin-block-cover__inner-container"></div></div>',
 				validationIssues: [],
 			},
 		],
@@ -327,17 +327,17 @@ export default [
 												},
 												innerBlocks: [],
 												originalContent:
-													'<div class="fp-block-button has-custom-font-size" style="font-size:17px;font-style:normal;font-weight:700;letter-spacing:0px;text-decoration:none;text-transform:uppercase"><a class="fp-block-button__link has-white-color has-black-background-color has-text-color has-background fp-element-button" style="border-radius:0px;border-top-style:none;border-top-width:0px;border-right-style:none;border-right-width:0px;border-bottom-style:none;border-bottom-width:0px;border-left-style:none;border-left-width:0px;padding-top:14px;padding-right:36px;padding-bottom:14px;padding-left:36px">Shop Now</a></div>',
+													'<div class="fin-block-button has-custom-font-size" style="font-size:17px;font-style:normal;font-weight:700;letter-spacing:0px;text-decoration:none;text-transform:uppercase"><a class="fin-block-button__link has-white-color has-black-background-color has-text-color has-background fin-element-button" style="border-radius:0px;border-top-style:none;border-top-width:0px;border-right-style:none;border-right-width:0px;border-bottom-style:none;border-bottom-width:0px;border-left-style:none;border-left-width:0px;padding-top:14px;padding-right:36px;padding-bottom:14px;padding-left:36px">Shop Now</a></div>',
 												validationIssues: [],
 											},
 										],
 										originalContent:
-											'<div class="fp-block-buttons"></div>',
+											'<div class="fin-block-buttons"></div>',
 										validationIssues: [],
 									},
 								],
 								originalContent:
-									'<div class="fp-block-group">\n\n</div>',
+									'<div class="fin-block-group">\n\n</div>',
 								validationIssues: [],
 							},
 							{
@@ -415,17 +415,17 @@ export default [
 									},
 								],
 								originalContent:
-									'<div class="fp-block-group">\n\n</div>',
+									'<div class="fin-block-group">\n\n</div>',
 								validationIssues: [],
 							},
 						],
 						originalContent:
-							'<div class="fp-block-group">\n\n</div>',
+							'<div class="fin-block-group">\n\n</div>',
 						validationIssues: [],
 					},
 				],
 				originalContent:
-					'<div class="fp-block-cover alignfull is-light" style="margin-top:0;padding-top:5vw;padding-right:5vw;padding-bottom:5vw;padding-left:5vw"><span aria-hidden="true" class="fp-block-cover__background has-background-dim-100 has-background-dim" style="background-color:#e68b14"></span><div class="fp-block-cover__inner-container"></div></div>',
+					'<div class="fin-block-cover alignfull is-light" style="margin-top:0;padding-top:5vw;padding-right:5vw;padding-bottom:5vw;padding-left:5vw"><span aria-hidden="true" class="fin-block-cover__background has-background-dim-100 has-background-dim" style="background-color:#e68b14"></span><div class="fin-block-cover__inner-container"></div></div>',
 				validationIssues: [],
 			},
 		],
@@ -457,7 +457,7 @@ export default [
 						},
 						innerBlocks: [],
 						originalContent:
-							'<div style="height:70px" aria-hidden="true" class="fp-block-spacer"></div>',
+							'<div style="height:70px" aria-hidden="true" class="fin-block-spacer"></div>',
 						validationIssues: [],
 					},
 					{
@@ -505,7 +505,7 @@ export default [
 									},
 								],
 								originalContent:
-									'<div class="fp-block-column" style="flex-basis:50%"></div>',
+									'<div class="fin-block-column" style="flex-basis:50%"></div>',
 								validationIssues: [],
 							},
 							{
@@ -534,17 +534,17 @@ export default [
 										},
 										innerBlocks: [],
 										originalContent:
-											'<hr class="fp-block-separator has-text-color has-background is-style-wide" style="background-color:#000000;color:#000000" />',
+											'<hr class="fin-block-separator has-text-color has-background is-style-wide" style="background-color:#000000;color:#000000" />',
 										validationIssues: [],
 									},
 								],
 								originalContent:
-									'<div class="fp-block-column" style="flex-basis:50%"></div>',
+									'<div class="fin-block-column" style="flex-basis:50%"></div>',
 								validationIssues: [],
 							},
 						],
 						originalContent:
-							'<div class="fp-block-columns alignwide are-vertically-aligned-center">\n\n</div>',
+							'<div class="fin-block-columns alignwide are-vertically-aligned-center">\n\n</div>',
 						validationIssues: [],
 					},
 					{
@@ -564,7 +564,7 @@ export default [
 								attributes: {},
 								innerBlocks: [],
 								originalContent:
-									'<div class="fp-block-column"></div>',
+									'<div class="fin-block-column"></div>',
 								validationIssues: [],
 							},
 							{
@@ -597,7 +597,7 @@ export default [
 									},
 								],
 								originalContent:
-									'<div class="fp-block-column"></div>',
+									'<div class="fin-block-column"></div>',
 								validationIssues: [],
 							},
 							{
@@ -630,12 +630,12 @@ export default [
 									},
 								],
 								originalContent:
-									'<div class="fp-block-column"></div>',
+									'<div class="fin-block-column"></div>',
 								validationIssues: [],
 							},
 						],
 						originalContent:
-							'<div class="fp-block-columns alignwide">\n\n\n\n</div>',
+							'<div class="fin-block-columns alignwide">\n\n\n\n</div>',
 						validationIssues: [],
 					},
 					{
@@ -647,12 +647,12 @@ export default [
 						},
 						innerBlocks: [],
 						originalContent:
-							'<div style="height:40px" aria-hidden="true" class="fp-block-spacer"></div>',
+							'<div style="height:40px" aria-hidden="true" class="fin-block-spacer"></div>',
 						validationIssues: [],
 					},
 				],
 				originalContent:
-					'<div class="fp-block-group alignfull has-background" style="background-color:#f2f0e9">\n\n\n\n\n\n</div>',
+					'<div class="fin-block-group alignfull has-background" style="background-color:#f2f0e9">\n\n\n\n\n\n</div>',
 				validationIssues: [],
 			},
 		],
@@ -822,12 +822,12 @@ export default [
 							},
 						],
 						originalContent:
-							'<div class="fp-block-group">\n\n\n\n\n\n</div>',
+							'<div class="fin-block-group">\n\n\n\n\n\n</div>',
 						validationIssues: [],
 					},
 				],
 				originalContent:
-					'<div class="fp-block-cover alignfull is-light has-black-color has-text-color" style="margin-top:0;padding-top:48px;padding-right:48px;padding-bottom:48px;padding-left:48px;min-height:66vh"><span aria-hidden="true" class="fp-block-cover__background has-background-dim-100 has-background-dim" style="background-color:#ffb43c"></span><div class="fp-block-cover__inner-container"></div></div>',
+					'<div class="fin-block-cover alignfull is-light has-black-color has-text-color" style="margin-top:0;padding-top:48px;padding-right:48px;padding-bottom:48px;padding-left:48px;min-height:66vh"><span aria-hidden="true" class="fin-block-cover__background has-background-dim-100 has-background-dim" style="background-color:#ffb43c"></span><div class="fin-block-cover__inner-container"></div></div>',
 				validationIssues: [],
 			},
 		],

@@ -55,7 +55,7 @@ The instructions to choose a block variation.
 
 #### `variations`
 
--   Type: `Array<FPBlockVariation>`
+-   Type: `Array<FINBlockVariation>`
 
 The different variations of the block.
 

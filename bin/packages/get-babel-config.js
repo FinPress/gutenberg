@@ -8,10 +8,10 @@ module.exports = ( environment = '', file ) => {
 	 */
 	const callerOpts = {
 		caller: {
-			name: `FP_BUILD_${ environment.toUpperCase() }`,
+			name: `FIN_BUILD_${ environment.toUpperCase() }`,
 		},
 	};
-	// Add `/* fp:polyfill */` magic comment where needed.
+	// Add `/* fin:polyfill */` magic comment where needed.
 	callerOpts.caller.addPolyfillComments = true;
 	switch ( environment ) {
 		case 'main':

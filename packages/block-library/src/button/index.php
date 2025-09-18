@@ -16,7 +16,7 @@
  * @return string The block content.
  */
 function render_block_core_button( $attributes, $content ) {
-	$p = new FP_HTML_Tag_Processor( $content );
+	$p = new FIN_HTML_Tag_Processor( $content );
 
 	/*
 	 * The button block can render an `<a>` or `<button>` and also has a

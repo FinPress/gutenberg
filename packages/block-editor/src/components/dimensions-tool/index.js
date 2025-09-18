@@ -15,7 +15,7 @@ import WidthHeightTool from './width-height-tool';
  */
 
 /**
- * @typedef {import('@finpress/components/build-types/unit-control/types').FPUnitControlUnit} FPUnitControlUnit
+ * @typedef {import('@finpress/components/build-types/unit-control/types').FINUnitControlUnit} FINUnitControlUnit
  */
 
 /**
@@ -39,7 +39,7 @@ import WidthHeightTool from './width-height-tool';
  * @property {DimensionsControlsOnChange} [onChange]           Callback to update the dimensions values.
  * @property {SelectControlProps[]}       [aspectRatioOptions] Aspect ratio options.
  * @property {SelectControlProps[]}       [scaleOptions]       Scale options.
- * @property {FPUnitControlUnit[]}        [unitsOptions]       Units options.
+ * @property {FINUnitControlUnit[]}        [unitsOptions]       Units options.
  */
 
 /**

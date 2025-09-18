@@ -9,7 +9,7 @@
 /**
  * Tests for various cases in Navigation Submenu rendering
  */
-class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
+class Render_Block_Navigation_Submenu_Test extends FIN_UnitTestCase {
 	private static $category;
 	private static $page;
 	private static $draft;
@@ -38,15 +38,15 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 
-		$this->original_block_supports      = FP_Block_Supports::$block_to_render;
-		FP_Block_Supports::$block_to_render = array(
+		$this->original_block_supports      = FIN_Block_Supports::$block_to_render;
+		FIN_Block_Supports::$block_to_render = array(
 			'attrs'     => array(),
 			'blockName' => '',
 		);
 	}
 
 	public function tear_down() {
-		FP_Block_Supports::$block_to_render = $this->original_block_supports;
+		FIN_Block_Supports::$block_to_render = $this->original_block_supports;
 		parent::tear_down();
 	}
 
@@ -58,9 +58,9 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 		$page_id = self::$page->ID;
 
 		$parsed_blocks = parse_blocks(
-			'<!-- fp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
-            <!-- fp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
-        <!-- /fp:navigation-submenu -->'
+			'<!-- fin:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
+            <!-- fin:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
+        <!-- /fin:navigation-submenu -->'
 		);
 
 		$this->assertEquals( 1, count( $parsed_blocks ), 'Submenu block not parsable.' );
@@ -73,7 +73,7 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 			'overlayBackgroundColor' => 'yellow',
 		);
 
-		$navigation_submenu_block = new FP_Block( $block, $context );
+		$navigation_submenu_block = new FIN_Block( $block, $context );
 
 		$rendered_html = gutenberg_render_block_core_navigation_submenu(
 			$navigation_submenu_block->attributes,
@@ -81,17 +81,17 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 			$navigation_submenu_block
 		);
 
-		$tags = new FP_HTML_Tag_Processor( $rendered_html );
+		$tags = new FIN_HTML_Tag_Processor( $rendered_html );
 		$tags->next_tag(
 			array(
 				'tag_name'   => 'ul',
-				'class_name' => 'fp-block-navigation__submenu-container',
+				'class_name' => 'fin-block-navigation__submenu-container',
 			)
 		);
 		$tags->get_attribute( 'class' );
 
 		$this->assertEquals(
-			'fp-block-navigation__submenu-container has-text-color has-purple-color has-background has-yellow-background-color',
+			'fin-block-navigation__submenu-container has-text-color has-purple-color has-background has-yellow-background-color',
 			$tags->get_attribute( 'class' ),
 			'Submenu block colors inherited from context not applied correctly'
 		);
@@ -105,9 +105,9 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 		$page_id = self::$page->ID;
 
 		$parsed_blocks = parse_blocks(
-			'<!-- fp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
-            <!-- fp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
-        <!-- /fp:navigation-submenu -->'
+			'<!-- fin:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
+            <!-- fin:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
+        <!-- /fin:navigation-submenu -->'
 		);
 
 		$this->assertEquals( 1, count( $parsed_blocks ), 'Submenu block not parsable.' );
@@ -120,10 +120,10 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 			'customOverlayBackgroundColor' => '#E10E0E',
 		);
 
-		$navigation_submenu_block = new FP_Block( $block, $context );
+		$navigation_submenu_block = new FIN_Block( $block, $context );
 
 		$this->assertStringContainsString(
-			'<ul style="color:' . $context['customOverlayTextColor'] . ';background-color:' . $context['customOverlayBackgroundColor'] . ';" class="fp-block-navigation__submenu-container has-text-color has-background">',
+			'<ul style="color:' . $context['customOverlayTextColor'] . ';background-color:' . $context['customOverlayBackgroundColor'] . ';" class="fin-block-navigation__submenu-container has-text-color has-background">',
 			gutenberg_render_block_core_navigation_submenu(
 				$navigation_submenu_block->attributes,
 				array(),
@@ -141,9 +141,9 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 		$page_id = self::$page->ID;
 
 		$parsed_blocks = parse_blocks(
-			'<!-- fp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
-            <!-- fp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
-        <!-- /fp:navigation-submenu -->'
+			'<!-- fin:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
+            <!-- fin:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
+        <!-- /fin:navigation-submenu -->'
 		);
 
 		$this->assertEquals( 1, count( $parsed_blocks ), 'Submenu block not parsable.' );
@@ -156,10 +156,10 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 			'customOverlayBackgroundColor' => '#E10E0E',
 		);
 
-		$navigation_submenu_block = new FP_Block( $block, $context );
+		$navigation_submenu_block = new FIN_Block( $block, $context );
 
 		$this->assertStringContainsString(
-			'<ul style="background-color:' . $context['customOverlayBackgroundColor'] . ';" class="fp-block-navigation__submenu-container has-text-color has-' . $context['overlayTextColor'] . '-color has-background">',
+			'<ul style="background-color:' . $context['customOverlayBackgroundColor'] . ';" class="fin-block-navigation__submenu-container has-text-color has-' . $context['overlayTextColor'] . '-color has-background">',
 			gutenberg_render_block_core_navigation_submenu(
 				$navigation_submenu_block->attributes,
 				array(),
@@ -177,9 +177,9 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 		$page_id = self::$page->ID;
 
 		$parsed_blocks = parse_blocks(
-			'<!-- fp:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
-            <!-- fp:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
-        <!-- /fp:navigation-submenu -->'
+			'<!-- fin:navigation-submenu {"label":"Submenu Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} -->
+            <!-- fin:navigation-link {"label":"Submenu Item Link Label","type":"page","id":' . $page_id . ',"url":"http://localhost:8888/?page_id=' . $page_id . '","kind":"post-type"} /-->
+        <!-- /fin:navigation-submenu -->'
 		);
 
 		$this->assertEquals( 1, count( $parsed_blocks ), 'Submenu block not parsable.' );
@@ -189,7 +189,7 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 		// Intentionally empty - no colors.
 		$context = array();
 
-		$navigation_submenu_block = new FP_Block( $block, $context );
+		$navigation_submenu_block = new FIN_Block( $block, $context );
 
 		$actual = gutenberg_render_block_core_navigation_submenu(
 			$navigation_submenu_block->attributes,
@@ -198,7 +198,7 @@ class Render_Block_Navigation_Submenu_Test extends FP_UnitTestCase {
 		);
 
 		$this->assertStringContainsString(
-			'<ul class="fp-block-navigation__submenu-container">',
+			'<ul class="fin-block-navigation__submenu-container">',
 			$actual,
 			'Submenu block should not apply colors if missing from context'
 		);

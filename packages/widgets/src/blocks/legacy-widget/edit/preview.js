@@ -23,7 +23,7 @@ export default function Preview( { idBase, instance, isVisible } ) {
 				: new window.AbortController();
 
 		async function fetchPreviewHTML() {
-			const restRoute = `/fp/v2/widget-types/${ idBase }/render`;
+			const restRoute = `/fin/v2/widget-types/${ idBase }/render`;
 			return await apiFetch( {
 				path: restRoute,
 				method: 'POST',
@@ -113,7 +113,7 @@ export default function Preview( { idBase, instance, isVisible } ) {
 				</Placeholder>
 			) }
 			<div
-				className={ clsx( 'fp-block-legacy-widget__edit-preview', {
+				className={ clsx( 'fin-block-legacy-widget__edit-preview', {
 					'is-offscreen': ! isVisible || ! isLoaded,
 				} ) }
 			>
@@ -124,7 +124,7 @@ export default function Preview( { idBase, instance, isVisible } ) {
 					*/ }
 					<iframe
 						ref={ ref }
-						className="fp-block-legacy-widget__edit-preview-iframe"
+						className="fin-block-legacy-widget__edit-preview-iframe"
 						tabIndex="-1"
 						title={ __( 'Legacy Widget Preview' ) }
 						srcDoc={ srcDoc }

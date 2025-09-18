@@ -238,7 +238,7 @@ describe( 'reducer', () => {
 
 	it( 'deletes an item with string ID', () => {
 		const kind = 'postType';
-		const name = 'fp_template';
+		const name = 'fin_template';
 		const original = deepFreeze( {
 			items: {
 				default: {

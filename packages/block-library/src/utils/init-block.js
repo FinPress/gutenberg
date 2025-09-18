@@ -8,7 +8,7 @@ import { registerBlockType } from '@finpress/blocks';
  *
  * @param {Object} block The block to be registered.
  *
- * @return {FPBlockType | undefined} The block, if it has been successfully registered;
+ * @return {FINBlockType | undefined} The block, if it has been successfully registered;
  *                        otherwise `undefined`.
  */
 export default function initBlock( block ) {

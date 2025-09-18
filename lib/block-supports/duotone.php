@@ -6,63 +6,63 @@
  */
 
 // Register the block support. (overrides core one).
-FP_Block_Supports::get_instance()->register(
+FIN_Block_Supports::get_instance()->register(
 	'duotone',
 	array(
-		'register_attribute' => array( 'FP_Duotone_Gutenberg', 'register_duotone_support' ),
+		'register_attribute' => array( 'FIN_Duotone_Gutenberg', 'register_duotone_support' ),
 	)
 );
 
 // Set up metadata prior to rendering any blocks.
-if ( class_exists( 'FP_Duotone' ) ) {
-	remove_action( 'fp_loaded', array( 'FP_Duotone', 'set_global_styles_presets' ) );
-	remove_action( 'fp_loaded', array( 'FP_Duotone', 'set_global_style_block_names' ) );
+if ( class_exists( 'FIN_Duotone' ) ) {
+	remove_action( 'fin_loaded', array( 'FIN_Duotone', 'set_global_styles_presets' ) );
+	remove_action( 'fin_loaded', array( 'FIN_Duotone', 'set_global_style_block_names' ) );
 }
-add_action( 'fp_loaded', array( 'FP_Duotone_Gutenberg', 'set_global_styles_presets' ), 10 );
-add_action( 'fp_loaded', array( 'FP_Duotone_Gutenberg', 'set_global_style_block_names' ), 10 );
+add_action( 'fin_loaded', array( 'FIN_Duotone_Gutenberg', 'set_global_styles_presets' ), 10 );
+add_action( 'fin_loaded', array( 'FIN_Duotone_Gutenberg', 'set_global_style_block_names' ), 10 );
 
 // Add classnames to blocks using duotone support.
-if ( function_exists( 'fp_render_duotone_support' ) ) {
+if ( function_exists( 'fin_render_duotone_support' ) ) {
 	// Deprecated render function.
-	remove_filter( 'render_block', 'fp_render_duotone_support' );
+	remove_filter( 'render_block', 'fin_render_duotone_support' );
 }
-if ( class_exists( 'FP_Duotone' ) ) {
-	remove_filter( 'render_block', array( 'FP_Duotone', 'render_duotone_support' ) );
-	remove_filter( 'render_block_core/image', array( 'FP_Duotone', 'restore_image_outer_container' ) );
+if ( class_exists( 'FIN_Duotone' ) ) {
+	remove_filter( 'render_block', array( 'FIN_Duotone', 'render_duotone_support' ) );
+	remove_filter( 'render_block_core/image', array( 'FIN_Duotone', 'restore_image_outer_container' ) );
 }
-add_filter( 'render_block', array( 'FP_Duotone_Gutenberg', 'render_duotone_support' ), 10, 2 );
-add_filter( 'render_block_core/image', array( 'FP_Duotone_Gutenberg', 'restore_image_outer_container' ), 10, 1 );
+add_filter( 'render_block', array( 'FIN_Duotone_Gutenberg', 'render_duotone_support' ), 10, 2 );
+add_filter( 'render_block_core/image', array( 'FIN_Duotone_Gutenberg', 'restore_image_outer_container' ), 10, 1 );
 
 // Enqueue styles.
 // Block styles (core-block-supports-inline-css) before the style engine (gutenberg_enqueue_stored_styles).
 // Global styles (global-styles-inline-css) after the other global styles (gutenberg_enqueue_global_styles).
-if ( class_exists( 'FP_Duotone' ) ) {
-	remove_action( 'fp_enqueue_scripts', array( 'FP_Duotone', 'output_block_styles' ) );
-	remove_action( 'fp_enqueue_scripts', array( 'FP_Duotone', 'output_global_styles' ) );
+if ( class_exists( 'FIN_Duotone' ) ) {
+	remove_action( 'fin_enqueue_scripts', array( 'FIN_Duotone', 'output_block_styles' ) );
+	remove_action( 'fin_enqueue_scripts', array( 'FIN_Duotone', 'output_global_styles' ) );
 }
-add_action( 'fp_enqueue_scripts', array( 'FP_Duotone_Gutenberg', 'output_block_styles' ), 9 );
-add_action( 'fp_enqueue_scripts', array( 'FP_Duotone_Gutenberg', 'output_global_styles' ), 11 );
+add_action( 'fin_enqueue_scripts', array( 'FIN_Duotone_Gutenberg', 'output_block_styles' ), 9 );
+add_action( 'fin_enqueue_scripts', array( 'FIN_Duotone_Gutenberg', 'output_global_styles' ), 11 );
 
 // Add SVG filters to the footer. Also, for classic themes, output block styles (core-block-supports-inline-css).
-if ( class_exists( 'FP_Duotone' ) ) {
-	remove_action( 'fp_footer', array( 'FP_Duotone', 'output_footer_assets' ) );
+if ( class_exists( 'FIN_Duotone' ) ) {
+	remove_action( 'fin_footer', array( 'FIN_Duotone', 'output_footer_assets' ) );
 }
-add_action( 'fp_footer', array( 'FP_Duotone_Gutenberg', 'output_footer_assets' ), 10 );
+add_action( 'fin_footer', array( 'FIN_Duotone_Gutenberg', 'output_footer_assets' ), 10 );
 
 // Add styles and SVGs for use in the editor via the EditorStyles component.
-if ( class_exists( 'FP_Duotone' ) ) {
-	remove_filter( 'block_editor_settings_all', array( 'FP_Duotone', 'add_editor_settings' ) );
+if ( class_exists( 'FIN_Duotone' ) ) {
+	remove_filter( 'block_editor_settings_all', array( 'FIN_Duotone', 'add_editor_settings' ) );
 }
-add_filter( 'block_editor_settings_all', array( 'FP_Duotone_Gutenberg', 'add_editor_settings' ), 10 );
+add_filter( 'block_editor_settings_all', array( 'FIN_Duotone_Gutenberg', 'add_editor_settings' ), 10 );
 
 // Migrate the old experimental duotone support flag.
-if ( class_exists( 'FP_Duotone' ) ) {
-	remove_filter( 'block_type_metadata_settings', array( 'FP_Duotone', 'migrate_experimental_duotone_support_flag' ) );
+if ( class_exists( 'FIN_Duotone' ) ) {
+	remove_filter( 'block_type_metadata_settings', array( 'FIN_Duotone', 'migrate_experimental_duotone_support_flag' ) );
 }
-add_filter( 'block_type_metadata_settings', array( 'FP_Duotone_Gutenberg', 'migrate_experimental_duotone_support_flag' ), 10, 2 );
+add_filter( 'block_type_metadata_settings', array( 'FIN_Duotone_Gutenberg', 'migrate_experimental_duotone_support_flag' ), 10, 2 );
 
 /*
- * Deprecated functions below. All new functions should be added in class-fp-duotone-gutenberg.php.
+ * Deprecated functions below. All new functions should be added in class-fin-duotone-gutenberg.php.
  */
 
 /**
@@ -384,7 +384,7 @@ function gutenberg_tinycolor_string_to_rgb( $color_str ) {
  */
 function gutenberg_get_duotone_filter_id( $preset ) {
 	_deprecated_function( __FUNCTION__, '6.3.0' );
-	return FP_Duotone_Gutenberg::get_filter_id_from_preset( $preset );
+	return FIN_Duotone_Gutenberg::get_filter_id_from_preset( $preset );
 }
 
 /**
@@ -397,7 +397,7 @@ function gutenberg_get_duotone_filter_id( $preset ) {
  */
 function gutenberg_get_duotone_filter_property( $preset ) {
 	_deprecated_function( __FUNCTION__, '6.3.0' );
-	return FP_Duotone_Gutenberg::get_filter_css_property_value_from_preset( $preset );
+	return FIN_Duotone_Gutenberg::get_filter_css_property_value_from_preset( $preset );
 }
 
 /**
@@ -410,31 +410,31 @@ function gutenberg_get_duotone_filter_property( $preset ) {
  */
 function gutenberg_get_duotone_filter_svg( $preset ) {
 	_deprecated_function( __FUNCTION__, '6.3.0' );
-	return FP_Duotone_Gutenberg::get_filter_svg_from_preset( $preset );
+	return FIN_Duotone_Gutenberg::get_filter_svg_from_preset( $preset );
 }
 
 /**
  * Registers the style and colors block attributes for block types that support it.
  *
- * @deprecated 6.3.0 Use FP_Duotone_Gutenberg::register_duotone_support() instead.
+ * @deprecated 6.3.0 Use FIN_Duotone_Gutenberg::register_duotone_support() instead.
  *
- * @param FP_Block_Type $block_type Block Type.
+ * @param FIN_Block_Type $block_type Block Type.
  */
 function gutenberg_register_duotone_support( $block_type ) {
-	_deprecated_function( __FUNCTION__, '6.3.0', 'FP_Duotone_Gutenberg::register_duotone_support' );
-	return FP_Duotone_Gutenberg::register_duotone_support( $block_type );
+	_deprecated_function( __FUNCTION__, '6.3.0', 'FIN_Duotone_Gutenberg::register_duotone_support' );
+	return FIN_Duotone_Gutenberg::register_duotone_support( $block_type );
 }
 
 /**
  * Render out the duotone stylesheet and SVG.
  *
- * @deprecated 6.3.0 Use FP_Duotone_Gutenberg::render_duotone_support() instead.
+ * @deprecated 6.3.0 Use FIN_Duotone_Gutenberg::render_duotone_support() instead.
  *
  * @param  string $block_content Rendered block content.
  * @param  array  $block         Block object.
  * @return string                Filtered block content.
  */
 function gutenberg_render_duotone_support( $block_content, $block ) {
-	_deprecated_function( __FUNCTION__, '6.3.0', 'FP_Duotone_Gutenberg::render_duotone_support' );
-	return FP_Duotone_Gutenberg::render_duotone_support( $block_content, $block );
+	_deprecated_function( __FUNCTION__, '6.3.0', 'FIN_Duotone_Gutenberg::render_duotone_support' );
+	return FIN_Duotone_Gutenberg::render_duotone_support( $block_content, $block );
 }

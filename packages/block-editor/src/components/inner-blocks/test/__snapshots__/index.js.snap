@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InnerBlocks should force serialize for invalid block with inner blocks 1`] = `
-"<!-- fp:test-block -->
-<p>Invalid<!-- fp:test-block -->
+"<!-- fin:test-block -->
+<p>Invalid<!-- fin:test-block -->
 <p></p>
-<!-- /fp:test-block --></p>
-<!-- /fp:test-block -->"
+<!-- /fin:test-block --></p>
+<!-- /fin:test-block -->"
 `;
 
 exports[`InnerBlocks should return element as string, with inner blocks 1`] = `
-"<div>Bananas<!-- fp:fruit {"fruit":"Apples"} -->
+"<div>Bananas<!-- fin:fruit {"fruit":"Apples"} -->
 <div>Apples</div>
-<!-- /fp:fruit --></div>"
+<!-- /fin:fruit --></div>"
 `;

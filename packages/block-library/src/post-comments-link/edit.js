@@ -44,7 +44,7 @@ function PostCommentsLinkEdit( { context, attributes, setAttributes } ) {
 		} ).then( ( res ) => {
 			// Stale requests will have the `currentPostId` of an older closure.
 			if ( currentPostId === postId ) {
-				setCommentsCount( res.headers.get( 'X-FP-Total' ) );
+				setCommentsCount( res.headers.get( 'X-FIN-Total' ) );
 			}
 		} );
 	}, [ postId ] );

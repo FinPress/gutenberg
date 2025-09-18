@@ -306,11 +306,11 @@ Registers a new format provided a unique name and an object defining its behavio
 _Parameters_
 
 -   _name_ `string`: Format name.
--   _settings_ `FPFormat`: Format settings.
+-   _settings_ `FINFormat`: Format settings.
 
 _Returns_
 
--   `FPFormat|undefined`: The format, if it has been successfully registered; otherwise `undefined`.
+-   `FINFormat|undefined`: The format, if it has been successfully registered; otherwise `undefined`.
 
 ### remove
 
@@ -448,7 +448,7 @@ _Parameters_
 
 _Returns_
 
--   `FPFormat|undefined`: The previous format value, if it has been successfully unregistered; otherwise `undefined`.
+-   `FINFormat|undefined`: The previous format value, if it has been successfully unregistered; otherwise `undefined`.
 
 ### useAnchor
 
@@ -458,7 +458,7 @@ _Parameters_
 
 -   _$1_ `Object`: Named parameters.
 -   _$1.editableContentElement_ `HTMLElement|null`: The element containing the editable content.
--   _$1.settings_ `FPFormat=`: The format type's settings.
+-   _$1.settings_ `FINFormat=`: The format type's settings.
 
 _Returns_
 
@@ -473,7 +473,7 @@ _Parameters_
 -   _$1_ `Object`: Named parameters.
 -   _$1.ref_ `RefObject<HTMLElement>`: React ref of the element containing the editable content.
 -   _$1.value_ `RichTextValue`: Value to check for selection.
--   _$1.settings_ `FPFormat`: The format type's settings.
+-   _$1.settings_ `FINFormat`: The format type's settings.
 
 _Returns_
 

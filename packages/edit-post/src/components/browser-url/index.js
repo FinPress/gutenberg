@@ -23,11 +23,11 @@ export default function BrowserURL() {
 		const { getCurrentPost } = select( editorStore );
 		const post = getCurrentPost();
 		let { id, status, type } = post;
-		const isTemplate = [ 'fp_template', 'fp_template_part' ].includes(
+		const isTemplate = [ 'fin_template', 'fin_template_part' ].includes(
 			type
 		);
 		if ( isTemplate ) {
-			id = post.fp_id;
+			id = post.fin_id;
 		}
 
 		return {

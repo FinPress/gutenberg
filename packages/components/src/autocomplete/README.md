@@ -32,7 +32,7 @@ A function to be called when an option is selected to replace the existing text.
 An array of all of the completers to apply to the current element.
 
 -   Required: Yes
--   Type: `Array< FPCompleter >`
+-   Type: `Array< FINCompleter >`
 
 ### contentRef
 

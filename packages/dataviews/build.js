@@ -4,7 +4,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const esbuild = require( 'esbuild' );
 
-const fpExternals = {
+const finExternals = {
 	name: 'finpress-externals',
 	setup( build ) {
 		build.onResolve(
@@ -32,8 +32,8 @@ const fpExternals = {
 esbuild.build( {
 	entryPoints: [ 'src/index.ts' ],
 	bundle: true,
-	outdir: 'build-fp',
-	plugins: [ fpExternals ],
+	outdir: 'build-fin',
+	plugins: [ finExternals ],
 	jsx: 'automatic',
 	logLevel: 'info',
 	format: 'esm',

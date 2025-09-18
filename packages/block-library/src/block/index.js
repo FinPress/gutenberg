@@ -29,7 +29,7 @@ export const settings = {
 
 		const entity = select( coreStore ).getEditedEntityRecord(
 			'postType',
-			'fp_block',
+			'fin_block',
 			ref
 		);
 		if ( ! entity?.title ) {

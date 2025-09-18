@@ -149,7 +149,7 @@ ln -s gutenberg/packages/e2e-tests/plugins/* .
 You'll need to run this again if new plugins are added. To run e2e tests:
 
 ```bash
-FP_BASE_URL=http://localhost:8888/gutenberg/ npm run test:e2e
+FIN_BASE_URL=http://localhost:8888/gutenberg/ npm run test:e2e
 ```
 
 #### Caching of PHP files
@@ -181,9 +181,9 @@ If so, you need to instruct Apache to allow following such links:
 -   Open or start a new file at `/Applications/MAMP/htdocs/.htaccess`
 -   Add the following line: `Options +SymLinksIfOwnerMatch`
 
-#### Using FP-CLI
+#### Using FIN-CLI
 
-Tools like MAMP tend to configure MySQL to use ports other than the default 3306, often preferring 8889. This may throw off FP-CLI, which will fail after trying to connect to the database. To remedy this, edit `fin-config.php` and change the `DB_HOST` constant from `define( 'DB_HOST', 'localhost' )` to `define( 'DB_HOST', '127.0.0.1:8889' )`.
+Tools like MAMP tend to configure MySQL to use ports other than the default 3306, often preferring 8889. This may throw off FIN-CLI, which will fail after trying to connect to the database. To remedy this, edit `fin-config.php` and change the `DB_HOST` constant from `define( 'DB_HOST', 'localhost' )` to `define( 'DB_HOST', '127.0.0.1:8889' )`.
 
 ### On a remote server
 

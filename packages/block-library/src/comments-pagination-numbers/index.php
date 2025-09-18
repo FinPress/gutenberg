@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  *
  * @return string Returns the pagination numbers for the comments.
  */
@@ -24,7 +24,7 @@ function render_block_core_comments_pagination_numbers( $attributes, $content, $
 
 	$comment_vars = build_comment_query_vars_from_block( $block );
 
-	$total   = ( new FP_Comment_Query( $comment_vars ) )->max_num_pages;
+	$total   = ( new FIN_Comment_Query( $comment_vars ) )->max_num_pages;
 	$current = ! empty( $comment_vars['paged'] ) ? $comment_vars['paged'] : null;
 
 	// Render links.

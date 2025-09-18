@@ -48,16 +48,16 @@ function fin_style_engine_get_styles( $block_styles, $options = array() ) {
 		)
 	);
 
-	$parsed_styles = FP_Style_Engine::parse_block_styles( $block_styles, $options );
+	$parsed_styles = FIN_Style_Engine::parse_block_styles( $block_styles, $options );
 
 	// Output.
 	$styles_output = array();
 
 	if ( ! empty( $parsed_styles['declarations'] ) ) {
-		$styles_output['css']          = FP_Style_Engine::compile_css( $parsed_styles['declarations'], $options['selector'] );
+		$styles_output['css']          = FIN_Style_Engine::compile_css( $parsed_styles['declarations'], $options['selector'] );
 		$styles_output['declarations'] = $parsed_styles['declarations'];
 		if ( ! empty( $options['context'] ) ) {
-			FP_Style_Engine::store_css_rule( $options['context'], $options['selector'], $parsed_styles['declarations'] );
+			FIN_Style_Engine::store_css_rule( $options['context'], $options['selector'], $parsed_styles['declarations'] );
 		}
 	}
 
@@ -119,17 +119,17 @@ function fin_style_engine_get_stylesheet_from_css_rules( $css_rules, $options = 
 
 		$rules_group = $css_rule['rules_group'] ?? null;
 		if ( ! empty( $options['context'] ) ) {
-			FP_Style_Engine::store_css_rule( $options['context'], $css_rule['selector'], $css_rule['declarations'], $rules_group );
+			FIN_Style_Engine::store_css_rule( $options['context'], $css_rule['selector'], $css_rule['declarations'], $rules_group );
 		}
 
-		$css_rule_objects[] = new FP_Style_Engine_CSS_Rule( $css_rule['selector'], $css_rule['declarations'], $rules_group );
+		$css_rule_objects[] = new FIN_Style_Engine_CSS_Rule( $css_rule['selector'], $css_rule['declarations'], $rules_group );
 	}
 
 	if ( empty( $css_rule_objects ) ) {
 		return '';
 	}
 
-	return FP_Style_Engine::compile_stylesheet_from_css_rules( $css_rule_objects, $options );
+	return FIN_Style_Engine::compile_stylesheet_from_css_rules( $css_rule_objects, $options );
 }
 
 /**
@@ -152,5 +152,5 @@ function fin_style_engine_get_stylesheet_from_context( $context, $options = arra
 		return '';
 	}
 
-	return FP_Style_Engine::compile_stylesheet_from_css_rules( FP_Style_Engine::get_store( $context )->get_all_rules(), $options );
+	return FIN_Style_Engine::compile_stylesheet_from_css_rules( FIN_Style_Engine::get_store( $context )->get_all_rules(), $options );
 }

@@ -2,7 +2,7 @@
 //
 // If the `--fin-components-color-accent` variable is not defined, fallback to
 // `--fin-admin-theme-color`. If the `--fin-admin-theme-color` variable is not
-// defined, fallback to the default theme color (FP blueberry).
+// defined, fallback to the default theme color (FIN blueberry).
 $components-color-accent: var(--fin-components-color-accent, var(--fin-admin-theme-color, #3858e9));
 $components-color-accent-darker-10: var(--fin-components-color-accent-darker-10, var(--fin-admin-theme-color-darker-10, #2145e6));
 $components-color-accent-darker-20: var(--fin-components-color-accent-darker-20, var(--fin-admin-theme-color-darker-20, #183ad6));

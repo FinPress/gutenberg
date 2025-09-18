@@ -61,7 +61,7 @@ async function install( arg: string, alias: string ): Promise< void > {
  * Given an arg string as would be passed to `npm install`, requires the package
  * corresponding to the name and specifier parsed from the arg. If the package
  * is not installed (or not installed at that version), the package is installed
- * to a temporary directory at `node_modules/.fp-lazy` relative to where the
+ * to a temporary directory at `node_modules/.fin-lazy` relative to where the
  * current working directory.
  *
  * @param arg       A string that you might pass

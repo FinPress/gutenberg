@@ -1,9 +1,9 @@
-/** @typedef {import('@finpress/keycodes').FPKeycodeModifier} FPKeycodeModifier */
+/** @typedef {import('@finpress/keycodes').FINKeycodeModifier} FINKeycodeModifier */
 
 /**
  * Configuration of a registered keyboard shortcut.
  *
- * @typedef {Object} FPCommandConfig
+ * @typedef {Object} FINCommandConfig
  *
  * @property {string}      name        Command name.
  * @property {string}      label       Command label.
@@ -16,24 +16,24 @@
  */
 
 /**
- * @typedef {(search: string) => FPCommandConfig[]} FPCommandLoaderHook hoo
+ * @typedef {(search: string) => FINCommandConfig[]} FINCommandLoaderHook hoo
  */
 
 /**
  * Command loader config.
  *
- * @typedef {Object} FPCommandLoaderConfig
+ * @typedef {Object} FINCommandLoaderConfig
  *
  * @property {string}              name     Command loader name.
  * @property {string=}             context  Command loader context.
- * @property {FPCommandLoaderHook} hook     Command loader hook.
+ * @property {FINCommandLoaderHook} hook     Command loader hook.
  * @property {boolean}             disabled Whether to disable the command loader.
  */
 
 /**
  * Returns an action object used to register a new command.
  *
- * @param {FPCommandConfig} config Command config.
+ * @param {FINCommandConfig} config Command config.
  *
  * @return {Object} action.
  */
@@ -61,7 +61,7 @@ export function unregisterCommand( name ) {
 /**
  * Register command loader.
  *
- * @param {FPCommandLoaderConfig} config Command loader config.
+ * @param {FINCommandLoaderConfig} config Command loader config.
  *
  * @return {Object} action.
  */

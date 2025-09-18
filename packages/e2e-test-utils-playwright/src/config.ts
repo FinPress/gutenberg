@@ -1,12 +1,12 @@
 const {
-	FP_USERNAME = 'admin',
-	FP_PASSWORD = 'password',
-	FP_BASE_URL = 'http://localhost:8889',
+	FIN_USERNAME = 'admin',
+	FIN_PASSWORD = 'password',
+	FIN_BASE_URL = 'http://localhost:8889',
 } = process.env;
 
-const FP_ADMIN_USER = {
-	username: FP_USERNAME,
-	password: FP_PASSWORD,
+const FIN_ADMIN_USER = {
+	username: FIN_USERNAME,
+	password: FIN_PASSWORD,
 } as const;
 
-export { FP_ADMIN_USER, FP_USERNAME, FP_PASSWORD, FP_BASE_URL };
+export { FIN_ADMIN_USER, FIN_USERNAME, FIN_PASSWORD, FIN_BASE_URL };

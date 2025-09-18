@@ -53,7 +53,7 @@ test.describe( 'Content-only lock', () => {
 		await editor.canvas
 			.locator( 'role=document[name="Block: Paragraph"i]' )
 			.click();
-		await page.keyboard.type( ' FP' );
+		await page.keyboard.type( ' FIN' );
 		await expect.poll( editor.getBlocks ).toMatchObject( [
 			{
 				name: 'core/group',
@@ -68,7 +68,7 @@ test.describe( 'Content-only lock', () => {
 						innerBlocks: [
 							{
 								name: 'core/paragraph',
-								attributes: { content: 'Hello FP' },
+								attributes: { content: 'Hello FIN' },
 							},
 						],
 					},

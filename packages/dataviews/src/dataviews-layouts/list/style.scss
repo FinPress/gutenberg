@@ -56,11 +56,11 @@ div.dataviews-view-list {
 		}
 
 		&.is-selected.is-selected {
-			border-top: 1px solid rgba(var(--fp-admin-theme-color--rgb), 0.12);
+			border-top: 1px solid rgba(var(--fin-admin-theme-color--rgb), 0.12);
 
 			& + div[role="row"],
 			& + div[role="article"] {
-				border-top: 1px solid rgba(var(--fp-admin-theme-color--rgb), 0.12);
+				border-top: 1px solid rgba(var(--fin-admin-theme-color--rgb), 0.12);
 			}
 		}
 
@@ -71,12 +71,12 @@ div.dataviews-view-list {
 			&:hover,
 			&.is-hovered,
 			&:focus-within {
-				color: var(--fp-admin-theme-color);
+				color: var(--fin-admin-theme-color);
 				background-color: #f8f8f8;
 
 				.dataviews-view-list__title-field,
 				.dataviews-view-list__fields {
-					color: var(--fp-admin-theme-color);
+					color: var(--fin-admin-theme-color);
 				}
 			}
 		}
@@ -88,12 +88,12 @@ div.dataviews-view-list {
 	div[role="article"].is-selected,
 	div[role="article"].is-selected:focus-within {
 		.dataviews-view-list__item-wrapper {
-			background-color: rgba(var(--fp-admin-theme-color--rgb), 0.04);
+			background-color: rgba(var(--fin-admin-theme-color--rgb), 0.04);
 			color: $gray-900;
 
 			.dataviews-view-list__title-field,
 			.dataviews-view-list__fields {
-				color: var(--fp-admin-theme-color);
+				color: var(--fin-admin-theme-color);
 			}
 		}
 	}
@@ -115,8 +115,8 @@ div.dataviews-view-list {
 			&::before {
 				position: absolute;
 				content: "";
-				inset: var(--fp-admin-border-width-focus);
-				box-shadow: inset 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
+				inset: var(--fin-admin-border-width-focus);
+				box-shadow: inset 0 0 0 var(--fin-admin-border-width-focus) var(--fin-admin-theme-color);
 				border-radius: $radius-small;
 				// Windows High Contrast mode will show this outline, but not the box-shadow.
 				outline: 2px solid transparent;

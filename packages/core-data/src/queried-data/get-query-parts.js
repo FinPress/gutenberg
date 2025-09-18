@@ -11,7 +11,7 @@ import { withWeakMapCache, getNormalizedCommaSeparable } from '../utils';
 /**
  * An object of properties describing a specific query.
  *
- * @typedef {Object} FPQueriedDataQueryParts
+ * @typedef {Object} FINQueriedDataQueryParts
  *
  * @property {number}      page      The query page (1-based index, default 1).
  * @property {number}      perPage   Items per page for query (default 10).
@@ -31,11 +31,11 @@ import { withWeakMapCache, getNormalizedCommaSeparable } from '../utils';
  *
  * @param {Object} query Optional query object.
  *
- * @return {FPQueriedDataQueryParts} Query parts.
+ * @return {FINQueriedDataQueryParts} Query parts.
  */
 export function getQueryParts( query ) {
 	/**
-	 * @type {FPQueriedDataQueryParts}
+	 * @type {FINQueriedDataQueryParts}
 	 */
 	const parts = {
 		stableKey: '',

@@ -174,7 +174,7 @@ describe( 'Register Gutenberg', () => {
 			.spyOn( finEditPost, 'initializeEditor' )
 			.mockReturnValue( <MockEditor /> );
 
-		// Listen to FP hook
+		// Listen to FIN hook
 		const callback = jest.fn();
 		finHooks.addAction(
 			'native.post-register-core-blocks',

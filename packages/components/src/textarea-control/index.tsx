@@ -42,7 +42,7 @@ function UnforwardedTextareaControl(
 	return (
 		<BaseControl
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-			__associatedFPComponentName="TextareaControl"
+			__associatedFINComponentName="TextareaControl"
 			label={ label }
 			hideLabelFromVision={ hideLabelFromVision }
 			id={ id }

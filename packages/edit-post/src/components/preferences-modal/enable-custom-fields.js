@@ -23,7 +23,7 @@ function submitCustomFieldsForm() {
 
 	// Ensure the referrer values is up to update with any
 	customFieldsForm
-		.querySelector( '[name="_fp_http_referer"]' )
+		.querySelector( '[name="_fin_http_referer"]' )
 		.setAttribute( 'value', getPathAndQueryString( window.location.href ) );
 
 	customFieldsForm.submit();

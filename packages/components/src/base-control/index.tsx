@@ -32,7 +32,7 @@ const UnconnectedBaseControl = (
 ) => {
 	const {
 		__nextHasNoMarginBottom = false,
-		__associatedFPComponentName = 'BaseControl',
+		__associatedFINComponentName = 'BaseControl',
 		id,
 		label,
 		hideLabelFromVision = false,
@@ -43,7 +43,7 @@ const UnconnectedBaseControl = (
 
 	if ( ! __nextHasNoMarginBottom ) {
 		deprecated(
-			`Bottom margin styles for fin.components.${ __associatedFPComponentName }`,
+			`Bottom margin styles for fin.components.${ __associatedFINComponentName }`,
 			{
 				since: '6.7',
 				version: '7.0',

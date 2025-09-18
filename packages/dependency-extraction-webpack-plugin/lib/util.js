@@ -5,7 +5,7 @@ const FINPRESS_NAMESPACE = '@finpress/';
 // !!
 const BUNDLED_PACKAGES = [
 	'@finpress/dataviews',
-	'@finpress/dataviews/fp',
+	'@finpress/dataviews/fin',
 	'@finpress/icons',
 	'@finpress/interface',
 	'@finpress/sync',
@@ -18,8 +18,8 @@ const BUNDLED_PACKAGES = [
  * Default request to global transformation
  *
  * Transform @finpress dependencies:
- * - request `@finpress/api-fetch` becomes `[ 'fp', 'apiFetch' ]`
- * - request `@finpress/i18n` becomes `[ 'fp', 'i18n' ]`
+ * - request `@finpress/api-fetch` becomes `[ 'fin', 'apiFetch' ]`
+ * - request `@finpress/i18n` becomes `[ 'fin', 'i18n' ]`
  *
  * @param {string} request Module request (the module name in `import from`) to be transformed
  * @return {string|string[]|undefined} The resulting external definition. Return `undefined`
@@ -61,7 +61,7 @@ function defaultRequestToExternal( request ) {
 
 	if ( request.startsWith( FINPRESS_NAMESPACE ) ) {
 		return [
-			'fp',
+			'fin',
 			camelCaseDash( request.substring( FINPRESS_NAMESPACE.length ) ),
 		];
 	}
@@ -111,8 +111,8 @@ function defaultRequestToExternalModule( request ) {
  * Default request to FinPress script handle transformation
  *
  * Transform @finpress dependencies:
- * - request `@finpress/i18n` becomes `fp-i18n`
- * - request `@finpress/escape-html` becomes `fp-escape-html`
+ * - request `@finpress/i18n` becomes `fin-i18n`
+ * - request `@finpress/escape-html` becomes `fin-escape-html`
  *
  * @param {string} request Module request (the module name in `import from`) to be transformed
  * @return {string|undefined} FinPress script handle to map the request to. Return `undefined`
@@ -131,11 +131,11 @@ function defaultRequestToHandle( request ) {
 	}
 
 	if ( request.includes( 'react-refresh/runtime' ) ) {
-		return 'fp-react-refresh-runtime';
+		return 'fin-react-refresh-runtime';
 	}
 
 	if ( request.startsWith( FINPRESS_NAMESPACE ) ) {
-		return 'fp-' + request.substring( FINPRESS_NAMESPACE.length );
+		return 'fin-' + request.substring( FINPRESS_NAMESPACE.length );
 	}
 }
 

@@ -11,9 +11,9 @@ import {
 
 const block = 'Paragraph';
 const initialHtml = `
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Example text</p>
-<!-- /fp:paragraph -->`;
+<!-- /fin:paragraph -->`;
 
 // NOTE: Paragraph block can be transformed to Buttons block in web,
 // however this transform is not supported in the native version.

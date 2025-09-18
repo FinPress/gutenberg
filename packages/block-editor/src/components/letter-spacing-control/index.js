@@ -42,7 +42,7 @@ export default function LetterSpacingControl( {
 		( otherProps.size === undefined || otherProps.size === 'default' )
 	) {
 		deprecated(
-			`36px default size for fp.blockEditor.__experimentalLetterSpacingControl`,
+			`36px default size for fin.blockEditor.__experimentalLetterSpacingControl`,
 			{
 				since: '6.8',
 				version: '7.1',

@@ -79,7 +79,7 @@ const store = createReduxStore( 'my-shop', {
 
 	resolvers: {
 		getPrice: ( item ) => async ({ dispatch }) => { {
-			const path = '/fp/v2/prices/' + item;
+			const path = '/fin/v2/prices/' + item;
 			const price = await apiFetch( { path } );
 			dispatch.setPrice( item, price );
 		},
@@ -396,7 +396,7 @@ _Parameters_
 
 _Returns_
 
--   `FPDataRegistry`: Data registry.
+-   `FINDataRegistry`: Data registry.
 
 ### createRegistryControl
 
@@ -1036,7 +1036,7 @@ function Component() {
 
 ## Selectors
 
-The following selectors are available on the object returned by `fp.data.select( 'core' )`.
+The following selectors are available on the object returned by `fin.data.select( 'core' )`.
 
 _Example_
 

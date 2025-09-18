@@ -126,7 +126,7 @@ function LinkControlSearchResults( {
 export default LinkControlSearchResults;
 
 export const __experimentalLinkControlSearchResults = ( props ) => {
-	deprecated( 'fp.blockEditor.__experimentalLinkControlSearchResults', {
+	deprecated( 'fin.blockEditor.__experimentalLinkControlSearchResults', {
 		since: '6.8',
 	} );
 

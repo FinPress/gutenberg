@@ -49,7 +49,7 @@ add_action(
 		);
 		unregister_block_template( 'gutenberg//plugin-unregistered-template' );
 
-		// Custom template used to test overriding default FP templates.
+		// Custom template used to test overriding default FIN templates.
 		register_block_template(
 			'gutenberg//page',
 			array(
@@ -59,7 +59,7 @@ add_action(
 			)
 		);
 
-		// Custom template used to test overriding default FP templates which can be created by the user.
+		// Custom template used to test overriding default FIN templates which can be created by the user.
 		register_block_template(
 			'gutenberg//author-admin',
 			array(

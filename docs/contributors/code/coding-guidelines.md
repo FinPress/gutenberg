@@ -548,13 +548,13 @@ Define custom types using the [JSDoc `@typedef` tag](https://jsdoc.app/tags-type
 
 A custom type should include a description, and should always include its base type.
 
-Custom types should be named as succinctly as possible, while still retaining clarity of meaning and avoiding conflict with other global or scoped types. A `FP` prefix should be applied to all custom types. Avoid superfluous or redundant prefixes and suffixes (for example, a `Type` suffix, or `Custom` prefix). Custom types are not global by default, so a custom type does not need to be excessively specific to a particular package. However, they should be named with enough specificity to avoid ambiguity or name collisions when brought into the same scope as another type.
+Custom types should be named as succinctly as possible, while still retaining clarity of meaning and avoiding conflict with other global or scoped types. A `FIN` prefix should be applied to all custom types. Avoid superfluous or redundant prefixes and suffixes (for example, a `Type` suffix, or `Custom` prefix). Custom types are not global by default, so a custom type does not need to be excessively specific to a particular package. However, they should be named with enough specificity to avoid ambiguity or name collisions when brought into the same scope as another type.
 
 ```js
 /**
  * A block selection object.
  *
- * @typedef FPBlockSelection
+ * @typedef FINBlockSelection
  *
  * @property {string} clientId     A block client ID.
  * @property {string} attributeKey A block attribute key.
@@ -571,7 +571,7 @@ Custom types can also be used to describe a set of predefined options. While the
 /**
  * Named breakpoint sizes.
  *
- * @typedef {'huge'|'wide'|'large'|'medium'|'small'|'mobile'} FPBreakpoint
+ * @typedef {'huge'|'wide'|'large'|'medium'|'small'|'mobile'} FINBreakpoint
  */
 ```
 
@@ -584,7 +584,7 @@ Use the [TypeScript `import` function](https://www.typescriptlang.org/docs/handb
 Since an imported type declaration can occupy an excess of the available line length and become verbose when referenced multiple times, you are encouraged to create an alias of the external type using a `@typedef` declaration at the top of the file, immediately following [the `import` groupings](/docs/contributors/code/coding-guidelines.md#imports).
 
 ```js
-/** @typedef {import('@finpress/data').FPDataRegistry} FPDataRegistry */
+/** @typedef {import('@finpress/data').FINDataRegistry} FINDataRegistry */
 ```
 
 Note that all custom types defined in another file can be imported.
@@ -594,7 +594,7 @@ When considering which types should be made available from a FinPress package, t
 ```js
 // packages/data/src/index.js
 
-/** @typedef {import('./registry').FPDataRegistry} FPDataRegistry */
+/** @typedef {import('./registry').FINDataRegistry} FINDataRegistry */
 ```
 
 In this snippet, the `@typedef` will support the usage of the previous example's `import('@finpress/data')`.
@@ -640,7 +640,7 @@ Similar to the "Custom Types" advice concerning type unions and with literal val
  * An apiFetch middleware handler. Passed the fetch options, the middleware is
  * expected to call the `next` middleware once it has completed its handling.
  *
- * @typedef {(options:FPAPIFetchOptions,next:FPAPIFetchMiddleware)=>void} FPAPIFetchMiddleware
+ * @typedef {(options:FINAPIFetchOptions,next:FINAPIFetchMiddleware)=>void} FINAPIFetchMiddleware
  */
 ```
 
@@ -648,13 +648,13 @@ Similar to the "Custom Types" advice concerning type unions and with literal val
 /**
  * Named breakpoint sizes.
  *
- * @typedef {"huge"|"wide"|"large"|"medium"|"small"|"mobile"} FPBreakpoint
+ * @typedef {"huge"|"wide"|"large"|"medium"|"small"|"mobile"} FINBreakpoint
  */
 
 /**
  * Hash of breakpoint names with pixel width at which it becomes effective.
  *
- * @type {Record<FPBreakpoint,number>}
+ * @type {Record<FINBreakpoint,number>}
  */
 const BREAKPOINTS = { huge: 1440 /* , ... */ };
 ```
@@ -683,8 +683,8 @@ Similarly, use the `undefined` type only if you're expecting an explicit value o
 /**
  * Returns true if the next HTML token closes the current token.
  *
- * @param {FPHTMLToken}           currentToken Current token to compare with.
- * @param {FPHTMLToken|undefined} nextToken    Next token to compare against.
+ * @param {FINHTMLToken}           currentToken Current token to compare with.
+ * @param {FINHTMLToken|undefined} nextToken    Next token to compare against.
  *
  * @return {boolean} True if `nextToken` closes `currentToken`, false otherwise.
  */
@@ -727,7 +727,7 @@ When documenting a [function type](#generic-types), you must always include the 
  * An apiFetch middleware handler. Passed the fetch options, the middleware is
  * expected to call the `next` middleware once it has completed its handling.
  *
- * @typedef {(options:FPAPIFetchOptions,next:FPAPIFetchMiddleware)=>void} FPAPIFetchMiddleware
+ * @typedef {(options:FINAPIFetchOptions,next:FINAPIFetchMiddleware)=>void} FINAPIFetchMiddleware
  */
 ```
 
@@ -751,7 +751,7 @@ When documenting an example, use the markdown <code>\`\`\`</code> code block to 
  * select( 'my-shop' ).getPrice( 'hammer' );
  * ```
  *
- * @return {Record<string,FPDataSelector>} Object containing the store's
+ * @return {Record<string,FINDataSelector>} Object containing the store's
  *                                         selectors.
  */
 ````

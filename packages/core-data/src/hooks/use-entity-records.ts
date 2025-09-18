@@ -149,8 +149,8 @@ export function __experimentalUseEntityRecords(
 	queryArgs: any,
 	options: any
 ) {
-	deprecated( `fp.data.__experimentalUseEntityRecords`, {
-		alternative: 'fp.data.useEntityRecords',
+	deprecated( `fin.data.__experimentalUseEntityRecords`, {
+		alternative: 'fin.data.useEntityRecords',
 		since: '6.1',
 	} );
 	return useEntityRecords( kind, name, queryArgs, options );

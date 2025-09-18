@@ -10,21 +10,21 @@
  *
  * @since 5.9.0
  *
- * @global array      $fp_registered_sidebars
+ * @global array      $fin_registered_sidebars
  * @global int|string $_sidebar_being_rendered
  *
  * @param array    $attributes The block attributes.
  * @param string   $content The block content.
- * @param FP_Block $block The block.
+ * @param FIN_Block $block The block.
  *
  * @return string Rendered block.
  */
 function render_block_core_widget_group( $attributes, $content, $block ) {
-	global $fp_registered_sidebars, $_sidebar_being_rendered;
+	global $fin_registered_sidebars, $_sidebar_being_rendered;
 
-	if ( isset( $fp_registered_sidebars[ $_sidebar_being_rendered ] ) ) {
-		$before_title = $fp_registered_sidebars[ $_sidebar_being_rendered ]['before_title'];
-		$after_title  = $fp_registered_sidebars[ $_sidebar_being_rendered ]['after_title'];
+	if ( isset( $fin_registered_sidebars[ $_sidebar_being_rendered ] ) ) {
+		$before_title = $fin_registered_sidebars[ $_sidebar_being_rendered ]['before_title'];
+		$after_title  = $fin_registered_sidebars[ $_sidebar_being_rendered ]['after_title'];
 	} else {
 		$before_title = '<h2 class="widget-title">';
 		$after_title  = '</h2>';
@@ -36,7 +36,7 @@ function render_block_core_widget_group( $attributes, $content, $block ) {
 		$html .= $before_title . esc_html( $attributes['title'] ) . $after_title;
 	}
 
-	$html .= '<div class="fp-widget-group__inner-blocks">';
+	$html .= '<div class="fin-widget-group__inner-blocks">';
 	foreach ( $block->inner_blocks as $inner_block ) {
 		$html .= $inner_block->render();
 	}

@@ -109,7 +109,7 @@ function UnforwardedSelectControl< V extends string >(
 			id={ id }
 			className={ classes }
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-			__associatedFPComponentName="SelectControl"
+			__associatedFINComponentName="SelectControl"
 		>
 			<StyledInputBase
 				disabled={ disabled }

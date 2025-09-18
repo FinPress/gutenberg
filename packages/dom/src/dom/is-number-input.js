@@ -17,7 +17,7 @@ import isHTMLInputElement from './is-html-input-element';
  * @return {node is HTMLInputElement} True if the node is number input.
  */
 export default function isNumberInput( node ) {
-	deprecated( 'fp.dom.isNumberInput', {
+	deprecated( 'fin.dom.isNumberInput', {
 		since: '6.1',
 		version: '6.5',
 	} );

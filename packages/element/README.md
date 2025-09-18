@@ -205,11 +205,11 @@ _Changelog_
 
 ### isEmptyElement
 
-Checks if the provided FP element is empty.
+Checks if the provided FIN element is empty.
 
 _Parameters_
 
--   _element_ `*`: FP element to check.
+-   _element_ `*`: FIN element to check.
 
 _Returns_
 

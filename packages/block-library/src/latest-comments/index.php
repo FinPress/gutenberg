@@ -22,7 +22,7 @@
  *
  * @since 3.3.0
  *
- * @param int|FP_Post $post Optional. Post ID or FP_Post object. Default is global $post.
+ * @param int|FIN_Post $post Optional. Post ID or FIN_Post object. Default is global $post.
  * @return string The post title if set; "(no title)" if no title is set.
  */
 function fin_latest_comments_draft_or_post_title( $post = 0 ) {
@@ -58,7 +58,7 @@ function render_block_core_latest_comments( $attributes ) {
 
 	$list_items_markup = '';
 	if ( ! empty( $comments ) ) {
-		// Prime the cache for associated posts. This is copied from \FP_Widget_Recent_Comments::widget().
+		// Prime the cache for associated posts. This is copied from \FIN_Widget_Recent_Comments::widget().
 		$post_ids = array_unique( fin_list_pluck( $comments, 'comment_post_ID' ) );
 		_prime_post_caches( $post_ids, strpos( get_option( 'permalink_structure' ), '%category%' ), false );
 

@@ -163,7 +163,7 @@ function getVisualTypeName( suggestion ) {
 export default LinkControlSearchItem;
 
 export const __experimentalLinkControlSearchItem = ( props ) => {
-	deprecated( 'fp.blockEditor.__experimentalLinkControlSearchItem', {
+	deprecated( 'fin.blockEditor.__experimentalLinkControlSearchItem', {
 		since: '6.8',
 	} );
 

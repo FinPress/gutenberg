@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  * @return string Returns the filtered post content of the current post.
  */
 function render_block_core_post_content( $attributes, $content, $block ) {
@@ -25,9 +25,9 @@ function render_block_core_post_content( $attributes, $content, $block ) {
 	$post_id = $block->context['postId'];
 
 	if ( isset( $seen_ids[ $post_id ] ) ) {
-		// FP_DEBUG_DISPLAY must only be honored when FP_DEBUG. This precedent
+		// FIN_DEBUG_DISPLAY must only be honored when FIN_DEBUG. This precedent
 		// is set in `fin_debug_mode()`.
-		$is_debug = FP_DEBUG && FP_DEBUG_DISPLAY;
+		$is_debug = FIN_DEBUG && FIN_DEBUG_DISPLAY;
 
 		return $is_debug ?
 			// translators: Visible only in the front end, this warning takes the place of a faulty block.

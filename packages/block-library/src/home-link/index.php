@@ -131,7 +131,7 @@ function block_core_home_link_build_li_wrapper_attributes( $context ) {
  *
  * @param array    $attributes The block attributes.
  * @param string   $content    The saved content.
- * @param FP_Block $block      The parsed block.
+ * @param FIN_Block $block      The parsed block.
  *
  * @return string Returns the post content with the home url added.
  */
@@ -163,7 +163,7 @@ function render_block_core_home_link( $attributes, $content, $block ) {
  * @since 6.0.0
  *
  * @uses render_block_core_home_link()
- * @throws FP_Error An FP_Error exception parsing the block definition.
+ * @throws FIN_Error An FIN_Error exception parsing the block definition.
  */
 function register_block_core_home_link() {
 	register_block_type_from_metadata(

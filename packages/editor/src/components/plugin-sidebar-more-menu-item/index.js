@@ -11,13 +11,13 @@ import { ComplementaryAreaMoreMenuItem } from '@finpress/interface';
  * @param {Object}                props                                 Component props.
  * @param {string}                props.target                          A string identifying the target sidebar you wish to be activated by this menu item. Must be the same as the `name` prop you have given to that sidebar.
  * @param {React.ReactNode}       [props.children]                      Children to be rendered.
- * @param {FPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FP element, to be rendered to the left of the menu item label.
+ * @param {FINBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FIN element, to be rendered to the left of the menu item label.
  *
  * @example
  * ```js
  * // Using ES5 syntax
- * var __ = fp.i18n.__;
- * var PluginSidebarMoreMenuItem = fp.editor.PluginSidebarMoreMenuItem;
+ * var __ = fin.i18n.__;
+ * var PluginSidebarMoreMenuItem = fin.editor.PluginSidebarMoreMenuItem;
  * var moreIcon = React.createElement( 'svg' ); //... svg element.
  *
  * function MySidebarMoreMenuItem() {

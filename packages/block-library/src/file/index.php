@@ -23,7 +23,7 @@ function render_block_core_file( $attributes, $content ) {
 	// If it's interactive, enqueue the script module and add the directives.
 	fin_enqueue_script_module( '@finpress/block-library/file/view' );
 
-	$processor = new FP_HTML_Tag_Processor( $content );
+	$processor = new FIN_HTML_Tag_Processor( $content );
 	if ( $processor->next_tag() ) {
 		$processor->set_attribute( 'data-fin-interactive', 'core/file' );
 	}

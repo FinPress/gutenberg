@@ -16,7 +16,7 @@ function block_core_accordion_content_render( $attributes, $content ) {
 		return $content;
 	}
 
-	$p         = new FP_HTML_Tag_Processor( $content );
+	$p         = new FIN_HTML_Tag_Processor( $content );
 	$unique_id = fin_unique_id( 'accordion-content-' );
 
 	// Initialize the state of the item on the server using a closure,

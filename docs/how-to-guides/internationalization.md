@@ -95,7 +95,7 @@ You can create and ship your own translations with your plugin, if you have suff
 
 The translation files must be in the JED 1.x JSON format.
 
-To create a JED translation file, first you need to extract the strings from the text. Typically, the language files all live in a directory called `languages` in your plugin. Using [FP-CLI](https://fin-cli.org/), you create a `.pot` file using the following command from within your plugin directory:
+To create a JED translation file, first you need to extract the strings from the text. Typically, the language files all live in a directory called `languages` in your plugin. Using [FIN-CLI](https://fin-cli.org/), you create a `.pot` file using the following command from within your plugin directory:
 
 ```
 mkdir languages
@@ -116,7 +116,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2019-03-08T11:26:56-08:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: FP-CLI 2.1.0\n"
+"X-Generator: FIN-CLI 2.1.0\n"
 "X-Domain: myguten\n"
 
 #. Plugin Name of the plugin
@@ -176,7 +176,7 @@ msgid "Hello World"
 msgstr "Saltuon mundo"
 ```
 
-The last step to create the translation file is to convert the `myguten-eo.po` to the JSON format needed. For this, you can use FP-CLI's [`fin i18n make-json` command](https://developer.finpress.org/cli/commands/i18n/make-json/), which requires FP-CLI v2.2.0 and later.
+The last step to create the translation file is to convert the `myguten-eo.po` to the JSON format needed. For this, you can use FIN-CLI's [`fin i18n make-json` command](https://developer.finpress.org/cli/commands/i18n/make-json/), which requires FIN-CLI v2.2.0 and later.
 
 ```
 fin i18n make-json myguten-eo.po --no-purge
@@ -187,7 +187,7 @@ This will generate the JSON file `myguten-eo-[md5].json` with the contents:
 ```json
 {
 	"translation-revision-date": "2019-04-26T13:30:11-07:00",
-	"generator": "FP-CLI/2.2.0",
+	"generator": "FIN-CLI/2.2.0",
 	"source": "block.js",
 	"domain": "messages",
 	"locale_data": {

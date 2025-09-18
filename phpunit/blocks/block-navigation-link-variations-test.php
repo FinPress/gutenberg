@@ -11,7 +11,7 @@
  *
  * @group blocks
  */
-class Block_Navigation_Link_Variations_Test extends FP_UnitTestCase {
+class Block_Navigation_Link_Variations_Test extends FIN_UnitTestCase {
 
 	/**
 	 * Whether to use a shim/workaround for FinPress Core versions < 6.5.
@@ -67,14 +67,14 @@ class Block_Navigation_Link_Variations_Test extends FP_UnitTestCase {
 			)
 		);
 
-		$this->pre_65_compat = ! method_exists( 'FP_Block_Type', 'get_variations' );
+		$this->pre_65_compat = ! method_exists( 'FIN_Block_Type', 'get_variations' );
 
 		/*
 		 * In Core versions < 6.5, variations for post types/taxonomies registered after init#10 (= after the block type was registered)
 		 * need to be manually registered.
 		 * set_up runs after init#10, therefore register the variations here with the old deprecated functions.
 		 *
-		 * TODO: After two FP versions (6.7), we can remove this.
+		 * TODO: After two FIN versions (6.7), we can remove this.
 		 */
 		if ( $this->pre_65_compat ) {
 			$this->handle_pre_65_post_type_variation_registration( $post_type );
@@ -109,7 +109,7 @@ class Block_Navigation_Link_Variations_Test extends FP_UnitTestCase {
 	 * @covers ::block_core_navigation_link_register_post_type_variation
 	 */
 	public function test_navigation_link_variations_custom_post_type() {
-		$registry       = FP_Block_Type_Registry::get_instance();
+		$registry       = FIN_Block_Type_Registry::get_instance();
 		$nav_link_block = $registry->get_registered( 'core/navigation-link' );
 		// Use property and let __get handle it, so it works for core versions before adding get_variations as well
 		$variations = $nav_link_block->variations;
@@ -124,7 +124,7 @@ class Block_Navigation_Link_Variations_Test extends FP_UnitTestCase {
 	 * @covers ::block_core_navigation_link_register_post_type_variation
 	 */
 	public function test_navigation_link_variations_private_custom_post_type() {
-		$registry       = FP_Block_Type_Registry::get_instance();
+		$registry       = FIN_Block_Type_Registry::get_instance();
 		$nav_link_block = $registry->get_registered( 'core/navigation-link' );
 		// Use property and let __get handle it, so it works for core versions before adding get_variations as well
 		$variations = $nav_link_block->variations;
@@ -137,7 +137,7 @@ class Block_Navigation_Link_Variations_Test extends FP_UnitTestCase {
 	 * @covers ::block_core_navigation_link_register_taxonomy_variation
 	 */
 	public function test_navigation_link_variations_custom_taxonomy() {
-		$registry       = FP_Block_Type_Registry::get_instance();
+		$registry       = FIN_Block_Type_Registry::get_instance();
 		$nav_link_block = $registry->get_registered( 'core/navigation-link' );
 		// Use property and let __get handle it, so it works for core versions before adding get_variations as well
 		$variations = $nav_link_block->variations;
@@ -152,7 +152,7 @@ class Block_Navigation_Link_Variations_Test extends FP_UnitTestCase {
 	 * @covers ::block_core_navigation_link_register_taxonomy_variation
 	 */
 	public function test_navigation_link_variations_private_custom_taxonomy() {
-		$registry       = FP_Block_Type_Registry::get_instance();
+		$registry       = FIN_Block_Type_Registry::get_instance();
 		$nav_link_block = $registry->get_registered( 'core/navigation-link' );
 		// Use property and let __get handle it, so it works for core versions before adding get_variations as well
 		$variations = $nav_link_block->variations;
@@ -181,7 +181,7 @@ class Block_Navigation_Link_Variations_Test extends FP_UnitTestCase {
 			$this->handle_pre_65_post_type_variation_registration( $post_type );
 		}
 
-		$registry       = FP_Block_Type_Registry::get_instance();
+		$registry       = FIN_Block_Type_Registry::get_instance();
 		$nav_link_block = $registry->get_registered( 'core/navigation-link' );
 		// Use property and let __get handle it, so it works for core versions before adding get_variations as well
 		$variations = $nav_link_block->variations;
@@ -220,7 +220,7 @@ class Block_Navigation_Link_Variations_Test extends FP_UnitTestCase {
 			$this->handle_pre_65_taxonomy_variation_registration( $taxonomy );
 		}
 
-		$registry       = FP_Block_Type_Registry::get_instance();
+		$registry       = FIN_Block_Type_Registry::get_instance();
 		$nav_link_block = $registry->get_registered( 'core/navigation-link' );
 		// Use property and let __get handle it, so it works for core versions before adding get_variations as well
 		$variations = $nav_link_block->variations;
@@ -262,7 +262,7 @@ class Block_Navigation_Link_Variations_Test extends FP_UnitTestCase {
 	 * Registers a block variation for a post type with the deprecated methods for Core versions < 6.5.
 	 * See comment in set_up for dexplanation.
 	 *
-	 * @param FP_Post_Type $post_type
+	 * @param FIN_Post_Type $post_type
 	 */
 	private function handle_pre_65_post_type_variation_registration( $post_type ) {
 		$this->setExpectedDeprecated( 'gutenberg_block_core_navigation_link_register_post_type_variation' );
@@ -286,7 +286,7 @@ class Block_Navigation_Link_Variations_Test extends FP_UnitTestCase {
 	 * Registers a block variation for a taxonomy with the deprecated methods for Core versions < 6.5.
 	 * See comment in set_up for dexplanation.
 	 *
-	 * @param FP_Taxonomy $post_type
+	 * @param FIN_Taxonomy $post_type
 	 */
 	private function handle_pre_65_taxonomy_variation_registration( $taxonomy ) {
 		$this->setExpectedDeprecated( 'gutenberg_block_core_navigation_link_register_taxonomy_variation' );

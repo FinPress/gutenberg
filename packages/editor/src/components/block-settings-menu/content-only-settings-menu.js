@@ -41,7 +41,7 @@ function ContentOnlySettingsMenuItems( { clientId, onClose } ) {
 			if ( patternParent ) {
 				record = select( coreStore ).getEntityRecord(
 					'postType',
-					'fp_block',
+					'fin_block',
 					getBlockAttributes( patternParent ).ref
 				);
 			} else if (
@@ -52,7 +52,7 @@ function ContentOnlySettingsMenuItems( { clientId, onClose } ) {
 			) {
 				record = select( coreStore ).getEntityRecord(
 					'postType',
-					'fp_template',
+					'fin_template',
 					getCurrentTemplateId()
 				);
 			}
@@ -61,7 +61,7 @@ function ContentOnlySettingsMenuItems( { clientId, onClose } ) {
 			}
 			const _canEditTemplates = select( coreStore ).canUser( 'create', {
 				kind: 'postType',
-				name: 'fp_template',
+				name: 'fin_template',
 			} );
 			return {
 				canEditTemplates: _canEditTemplates,
@@ -82,7 +82,7 @@ function ContentOnlySettingsMenuItems( { clientId, onClose } ) {
 		);
 	}
 
-	const isPattern = entity.type === 'fp_block';
+	const isPattern = entity.type === 'fin_block';
 	let helpText = isPattern
 		? __(
 				'Edit the pattern to move, delete, or make further changes to this block.'

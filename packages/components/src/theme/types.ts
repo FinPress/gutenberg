@@ -8,7 +8,7 @@ export type ThemeInputValues = {
 	 * The accent color (used by components as the primary color).
 	 *
 	 * If an accent color is not defined, the default fallback value is the original
-	 * FP Admin main theme color. Not all valid CSS color syntaxes are supported —
+	 * FIN Admin main theme color. Not all valid CSS color syntaxes are supported —
 	 * in particular, keywords (like `'currentcolor'`, `'inherit'`, `'initial'`,
 	 * `'revert'`, `'unset'`...) and CSS custom properties (e.g.
 	 * `var(--my-custom-property)`) are _not_ supported values for this property.

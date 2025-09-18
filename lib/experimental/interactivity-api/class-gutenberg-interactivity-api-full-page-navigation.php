@@ -23,22 +23,22 @@ if ( ! class_exists( 'Gutenberg_Interactivity_API_Full_Page_Navigation' ) ) {
 		}
 
 		public function __construct() {
-			add_action( 'fp_head', array( $this, 'buffer_start' ) );
-			add_action( 'fp_footer', array( $this, 'buffer_end' ), 8 );
-			add_action( 'fp_enqueue_scripts', array( $this, 'enqueue_script_modules' ) );
+			add_action( 'fin_head', array( $this, 'buffer_start' ) );
+			add_action( 'fin_footer', array( $this, 'buffer_end' ), 8 );
+			add_action( 'fin_enqueue_scripts', array( $this, 'enqueue_script_modules' ) );
 		}
 
 		/**
 		 * Enqueues the required script modules.
 		 */
 		public function enqueue_script_modules() {
-			fp_enqueue_script_module(
+			fin_enqueue_script_module(
 				'@finpress/interactivity-router/full-page'
 			);
 		}
 
 		/**
-		 * Starts output buffering at the end of the 'fp_head' action, adding the
+		 * Starts output buffering at the end of the 'fin_head' action, adding the
 		 * required directives for client-side navigation to the BODY tags when the
 		 * buffer is flushed.
 		 */
@@ -47,7 +47,7 @@ if ( ! class_exists( 'Gutenberg_Interactivity_API_Full_Page_Navigation' ) ) {
 		}
 
 		/**
-		 * Flushes the output buffer at the end of the 'fp_footer' action.
+		 * Flushes the output buffer at the end of the 'fin_footer' action.
 		 */
 		public function buffer_end() {
 			ob_end_flush();
@@ -65,10 +65,10 @@ if ( ! class_exists( 'Gutenberg_Interactivity_API_Full_Page_Navigation' ) ) {
 		 * @return string The same HTML with modified BODY attributes.
 		 */
 		public function add_directives_to_body( $buffer ) {
-			$p = new FP_HTML_Tag_Processor( $buffer );
+			$p = new FIN_HTML_Tag_Processor( $buffer );
 			if ( $p->next_tag( array( 'tag_name' => 'BODY' ) ) ) {
-				$p->set_attribute( 'data-fp-interactive', true );
-				$p->set_attribute( 'data-fp-router-region', 'core/body' );
+				$p->set_attribute( 'data-fin-interactive', true );
+				$p->set_attribute( 'data-fin-router-region', 'core/body' );
 				return $p->get_updated_html();
 			} else {
 				return $buffer;

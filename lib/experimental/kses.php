@@ -11,7 +11,7 @@
  * Sanitizes global styles user content removing unsafe rules.
  *
  * This function is identical to the core version, but called the
- * Gutenberg version of the theme JSON class (`FP_Theme_JSON_Gutenberg`).
+ * Gutenberg version of the theme JSON class (`FIN_Theme_JSON_Gutenberg`).
  *
  * This function should not be backported to core.
  *
@@ -21,7 +21,7 @@
  * @return string Filtered post content with unsafe rules removed.
  */
 function gutenberg_filter_global_styles_post( $data ) {
-	$decoded_data        = json_decode( fp_unslash( $data ), true );
+	$decoded_data        = json_decode( fin_unslash( $data ), true );
 	$json_decoding_error = json_last_error();
 	if (
 		JSON_ERROR_NONE === $json_decoding_error &&
@@ -31,10 +31,10 @@ function gutenberg_filter_global_styles_post( $data ) {
 	) {
 		unset( $decoded_data['isGlobalStylesUserThemeJSON'] );
 
-		$data_to_encode = FP_Theme_JSON_Gutenberg::remove_insecure_properties( $decoded_data, 'custom' );
+		$data_to_encode = FIN_Theme_JSON_Gutenberg::remove_insecure_properties( $decoded_data, 'custom' );
 
 		$data_to_encode['isGlobalStylesUserThemeJSON'] = true;
-		return fp_slash( fp_json_encode( $data_to_encode ) );
+		return fin_slash( fin_json_encode( $data_to_encode ) );
 	}
 	return $data;
 }
@@ -51,13 +51,13 @@ function gutenberg_filter_global_styles_post( $data ) {
  * This function should not be backported to core.
  */
 function gutenberg_override_core_kses_init_filters() {
-	if ( has_filter( 'content_save_pre', 'fp_filter_global_styles_post' ) ) {
-		remove_filter( 'content_save_pre', 'fp_filter_global_styles_post', 9 );
+	if ( has_filter( 'content_save_pre', 'fin_filter_global_styles_post' ) ) {
+		remove_filter( 'content_save_pre', 'fin_filter_global_styles_post', 9 );
 		add_filter( 'content_save_pre', 'gutenberg_filter_global_styles_post', 9 );
 	}
 
-	if ( has_filter( 'content_filtered_save_pre', 'fp_filter_global_styles_post' ) ) {
-		remove_filter( 'content_filtered_save_pre', 'fp_filter_global_styles_post', 9 );
+	if ( has_filter( 'content_filtered_save_pre', 'fin_filter_global_styles_post' ) ) {
+		remove_filter( 'content_filtered_save_pre', 'fin_filter_global_styles_post', 9 );
 		add_filter( 'content_filtered_save_pre', 'gutenberg_filter_global_styles_post', 9 );
 	}
 }
@@ -69,7 +69,7 @@ if ( ! function_exists( 'allow_filter_in_styles' ) ) {
 	/**
 	 * See https://github.com/FinPress/finpress-develop/pull/4108
 	 *
-	 * Mark CSS safe if it contains a "filter: url('#fp-duotone-...')" rule.
+	 * Mark CSS safe if it contains a "filter: url('#fin-duotone-...')" rule.
 	 *
 	 * This function should not be backported to core.
 	 *
@@ -78,7 +78,7 @@ if ( ! function_exists( 'allow_filter_in_styles' ) ) {
 	 */
 	function allow_filter_in_styles( $allow_css, $css_test_string ) {
 		if ( preg_match(
-			"/^filter:\s*url\((['\"]?)#fp-duotone-[-a-zA-Z0-9]+\\1\)(\s+!important)?$/",
+			"/^filter:\s*url\((['\"]?)#fin-duotone-[-a-zA-Z0-9]+\\1\)(\s+!important)?$/",
 			$css_test_string
 		) ) {
 			return true;

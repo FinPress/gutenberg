@@ -62,7 +62,7 @@ function getPostDataFields( select, context ) {
 }
 
 /**
- * @type {FPBlockBindingsSource}
+ * @type {FINBlockBindingsSource}
  */
 export default {
 	name: 'core/post-data',

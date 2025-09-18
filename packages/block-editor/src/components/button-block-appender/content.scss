@@ -14,12 +14,12 @@
 	}
 
 	&:hover {
-		color: var(--fp-admin-theme-color);
-		box-shadow: inset 0 0 0 $border-width var(--fp-admin-theme-color);
+		color: var(--fin-admin-theme-color);
+		box-shadow: inset 0 0 0 $border-width var(--fin-admin-theme-color);
 	}
 
 	&:focus {
-		box-shadow: inset 0 0 0 2px var(--fp-admin-theme-color);
+		box-shadow: inset 0 0 0 2px var(--fin-admin-theme-color);
 	}
 
 	&:active {
@@ -34,8 +34,8 @@
 	.is-layout-constrained.block-editor-block-list__block:not(.is-selected) > &,
 	.is-layout-flow.block-editor-block-list__block:not(.is-selected) > &,
 	// Legacy groups have an inner container so need to be targeted separately
-	.block-editor-block-list__block:not(.is-selected) > .is-layout-constrained.fp-block-group__inner-container > &,
-	.block-editor-block-list__block:not(.is-selected) > .is-layout-flow.fp-block-group__inner-container > & {
+	.block-editor-block-list__block:not(.is-selected) > .is-layout-constrained.fin-block-group__inner-container > &,
+	.block-editor-block-list__block:not(.is-selected) > .is-layout-flow.fin-block-group__inner-container > & {
 		pointer-events: none;
 
 		&::after {
@@ -76,7 +76,7 @@
 
 	// Drop zone.
 	&.is-drag-over .block-editor-button-block-appender {
-		background-color: var(--fp-admin-theme-color);
+		background-color: var(--fin-admin-theme-color);
 		box-shadow: inset 0 0 0 $border-width $light-gray-placeholder;
 		color: $light-gray-placeholder;
 		@media not ( prefers-reduced-motion ) {

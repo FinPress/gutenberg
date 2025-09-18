@@ -12,7 +12,7 @@ import { store as customizeWidgetsStore } from '../store';
 
 export default function getInserterOuterSection() {
 	const {
-		fp: { customize },
+		fin: { customize },
 	} = window;
 
 	const OuterSection = customize.OuterSection;
@@ -45,7 +45,7 @@ export default function getInserterOuterSection() {
 			super( ...args );
 
 			// This is necessary since we're creating a new class which is not identical to the original OuterSection.
-			// @See https://github.com/FinPress/finpress-develop/blob/42b05c397c50d9dc244083eff52991413909d4bd/src/js/_enqueues/fp/customize/controls.js#L1427-L1436
+			// @See https://github.com/FinPress/finpress-develop/blob/42b05c397c50d9dc244083eff52991413909d4bd/src/js/_enqueues/fin/customize/controls.js#L1427-L1436
 			this.params.type = 'outer';
 
 			this.activeElementBeforeExpanded = null;

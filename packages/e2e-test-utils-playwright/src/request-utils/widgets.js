@@ -5,14 +5,14 @@
  */
 export async function deleteAllWidgets() {
 	const [ widgets, sidebars ] = await Promise.all( [
-		this.rest( { path: '/fp/v2/widgets' } ),
-		this.rest( { path: '/fp/v2/sidebars' } ),
+		this.rest( { path: '/fin/v2/widgets' } ),
+		this.rest( { path: '/fin/v2/sidebars' } ),
 	] );
 
 	await this.batchRest(
 		widgets.map( ( widget ) => ( {
 			method: 'DELETE',
-			path: `/fp/v2/widgets/${ widget.id }?force=true`,
+			path: `/fin/v2/widgets/${ widget.id }?force=true`,
 		} ) )
 	);
 
@@ -21,7 +21,7 @@ export async function deleteAllWidgets() {
 		sidebars.map( ( sidebar ) =>
 			this.rest( {
 				method: 'POST',
-				path: `/fp/v2/sidebars/${ sidebar.id }`,
+				path: `/fin/v2/sidebars/${ sidebar.id }`,
 				data: { id: sidebar.id, widgets: [] },
 			} )
 		)
@@ -38,7 +38,7 @@ export async function deleteAllWidgets() {
 export async function addWidgetBlock( serializedBlock, widgetAreaId ) {
 	const { id: blockId } = await this.rest( {
 		method: 'POST',
-		path: '/fp/v2/widgets',
+		path: '/fin/v2/widgets',
 		data: {
 			id_base: 'block',
 			sidebar: widgetAreaId,
@@ -49,7 +49,7 @@ export async function addWidgetBlock( serializedBlock, widgetAreaId ) {
 	} );
 
 	const { widgets } = await this.rest( {
-		path: `/fp/v2/sidebars/${ widgetAreaId }`,
+		path: `/fin/v2/sidebars/${ widgetAreaId }`,
 	} );
 
 	const updatedWidgets = new Set( widgets );
@@ -60,7 +60,7 @@ export async function addWidgetBlock( serializedBlock, widgetAreaId ) {
 
 	await this.rest( {
 		method: 'PUT',
-		path: `/fp/v2/sidebars/${ widgetAreaId }`,
+		path: `/fin/v2/sidebars/${ widgetAreaId }`,
 		data: {
 			widgets: [ ...updatedWidgets ],
 		},

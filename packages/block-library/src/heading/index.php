@@ -26,7 +26,7 @@ function block_core_heading_render( $attributes, $content ) {
 		return $content;
 	}
 
-	$p = new FP_HTML_Tag_Processor( $content );
+	$p = new FIN_HTML_Tag_Processor( $content );
 
 	$header_tags = array( 'H1', 'H2', 'H3', 'H4', 'H5', 'H6' );
 	while ( $p->next_tag() ) {

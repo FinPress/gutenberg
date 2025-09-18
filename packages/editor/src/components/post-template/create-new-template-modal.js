@@ -96,7 +96,7 @@ export default function CreateNewTemplateModal( { onClose } ) {
 			] );
 
 		const newTemplate = await createTemplate( {
-			slug: kebabCase( title || DEFAULT_TITLE ) || 'fp-custom-template',
+			slug: kebabCase( title || DEFAULT_TITLE ) || 'fin-custom-template',
 			content: newTemplateContent,
 			title: title || DEFAULT_TITLE,
 		} );
@@ -104,7 +104,7 @@ export default function CreateNewTemplateModal( { onClose } ) {
 		setIsBusy( false );
 		onNavigateToEntityRecord( {
 			postId: newTemplate.id,
-			postType: 'fp_template',
+			postType: 'fin_template',
 		} );
 		cancel();
 	};

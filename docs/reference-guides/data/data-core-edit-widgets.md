@@ -50,7 +50,7 @@ _Parameters_
 
 _Returns_
 
--   `FPBlock`: The widget area block.
+-   `FINBlock`: The widget area block.
 
 ### getReferenceWidgetBlocks
 

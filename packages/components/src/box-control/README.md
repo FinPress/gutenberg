@@ -129,7 +129,7 @@ can be used instead of updating individual sides.
 
 ### `units`
 
- - Type: `FPUnitControlUnit[]`
+ - Type: `FINUnitControlUnit[]`
  - Required: No
  - Default: `CSS_UNITS`
 

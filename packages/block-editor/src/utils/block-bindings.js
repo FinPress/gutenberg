@@ -112,7 +112,7 @@ export function replacePatternOverridesDefaultBinding( blockName, bindings ) {
 /**
  * Contains utils to update the block `bindings` metadata.
  *
- * @typedef {Object} FPBlockBindingsUtils
+ * @typedef {Object} FINBlockBindingsUtils
  *
  * @property {Function} updateBlockBindings    Updates the value of the bindings connected to block attributes.
  * @property {Function} removeAllBlockBindings Removes the bindings property of the `metadata` attribute.
@@ -130,7 +130,7 @@ export function replacePatternOverridesDefaultBinding( blockName, bindings ) {
  *
  * @param {?string} clientId Optional block client ID. If not set, it will use the current block client ID from the context.
  *
- * @return {?FPBlockBindingsUtils} Object containing the block bindings utils.
+ * @return {?FINBlockBindingsUtils} Object containing the block bindings utils.
  *
  * @example
  * ```js

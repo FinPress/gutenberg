@@ -14,7 +14,7 @@ const { Fill, Slot } = createSlotFill( 'PluginPostPublishPanel' );
  * @param {string}                [props.className]                     An optional class name added to the panel.
  * @param {string}                [props.title]                         Title displayed at the top of the panel.
  * @param {boolean}               [props.initialOpen=false]             Whether to have the panel initially opened. When no title is provided it is always opened.
- * @param {FPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FP element, to be rendered when the sidebar is pinned to toolbar.
+ * @param {FINBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FIN element, to be rendered when the sidebar is pinned to toolbar.
  * @param {React.ReactNode}       props.children                        Children to be rendered
  *
  * @example

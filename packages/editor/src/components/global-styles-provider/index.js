@@ -60,7 +60,7 @@ function useGlobalStylesUserConfig() {
 			/*
 			 * Ensure that the global styles ID request is complete by testing `_globalStylesId`,
 			 * before firing off the `canUser` OPTIONS request for user capabilities, otherwise it will
-			 * fetch `/fp/v2/global-styles` instead of `/fp/v2/global-styles/{id}`.
+			 * fetch `/fin/v2/global-styles` instead of `/fin/v2/global-styles/{id}`.
 			 * NOTE: Please keep in sync any preload paths sent to `block_editor_rest_api_preload()`,
 			 * or set using the `block_editor_rest_api_preload_paths` filter, if this changes.
 			 */

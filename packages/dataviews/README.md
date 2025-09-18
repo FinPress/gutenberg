@@ -17,7 +17,7 @@ npm install @finpress/dataviews --save
 
 <div class="callout callout-info">At <a href="https://finpress.github.io/gutenberg/">FinPress Gutenberg's Storybook</a> there's an <a href="https://finpress.github.io/gutenberg/?path=/docs/dataviews-dataviews--docs">example implementation of the Dataviews component</a>.</div>
 
-**Important note** If you're trying to use the `DataViews` component in a FinPress plugin or theme and you're building your scripts using the `@finpress/scripts` package, you need to import the components from `@finpress/dataviews/fp` instead of `@finpress/dataviews`.
+**Important note** If you're trying to use the `DataViews` component in a FinPress plugin or theme and you're building your scripts using the `@finpress/scripts` package, you need to import the components from `@finpress/dataviews/fin` instead of `@finpress/dataviews`.
 
 ### Usage
 

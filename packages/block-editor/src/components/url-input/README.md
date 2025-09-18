@@ -23,11 +23,11 @@ _Required._ Called when the value changes. The second parameter is `null` unless
 		"self": [
 			{
 				"embeddable": true,
-				"href": "https://example.com/fp-json/fp/v2/pages/1"
+				"href": "https://example.com/fin-json/fin/v2/pages/1"
 			}
 		],
-		"about": [ { "href": "https://example.com/fp-json/fp/v2/types/page" } ],
-		"collection": [ { "href": "https://example.com/fp-json/fp/v2/search" } ]
+		"about": [ { "href": "https://example.com/fin-json/fin/v2/types/page" } ],
+		"collection": [ { "href": "https://example.com/fin-json/fin/v2/search" } ]
 	}
 }
 ```
@@ -94,11 +94,11 @@ _Required._ Called when the value changes. The second parameter is `null` unless
 		"self": [
 			{
 				"embeddable": true,
-				"href": "https://example.com/fp-json/fp/v2/pages/1"
+				"href": "https://example.com/fin-json/fin/v2/pages/1"
 			}
 		],
-		"about": [ { "href": "https://example.com/fp-json/fp/v2/types/page" } ],
-		"collection": [ { "href": "https://example.com/fp-json/fp/v2/search" } ]
+		"about": [ { "href": "https://example.com/fin-json/fin/v2/types/page" } ],
+		"collection": [ { "href": "https://example.com/fin-json/fin/v2/search" } ]
 	}
 }
 ```

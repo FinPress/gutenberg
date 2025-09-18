@@ -181,7 +181,7 @@ export const getCurrentPost = createRegistrySelector(
  * @example
  *
  *```js
- * const currentPostType = fp.data.select( 'core/editor' ).getCurrentPostType();
+ * const currentPostType = fin.data.select( 'core/editor' ).getCurrentPostType();
  *```
  * @return {string} Post type.
  */
@@ -391,7 +391,7 @@ export const getAutosaveAttribute = createRegistrySelector(
 		const postType = getCurrentPostType( state );
 
 		// Currently template autosaving is not supported.
-		if ( postType === 'fp_template' ) {
+		if ( postType === 'fin_template' ) {
 			return false;
 		}
 
@@ -617,9 +617,9 @@ export const isEditedPostAutosaveable = createRegistrySelector(
 		const postTypeObject = select( coreStore ).getPostType( postType );
 
 		// Currently template autosaving is not supported.
-		// @todo: Remove hardcode check for template after bumping required FP version to 6.8.
+		// @todo: Remove hardcode check for template after bumping required FIN version to 6.8.
 		if (
-			postType === 'fp_template' ||
+			postType === 'fin_template' ||
 			! postTypeObject?.supports?.autosave
 		) {
 			return false;
@@ -1162,7 +1162,7 @@ export function getActivePostLock( state ) {
 export function canUserUseUnfilteredHTML( state ) {
 	return Boolean(
 		getCurrentPost( state )._links?.hasOwnProperty(
-			'fp:action-unfiltered-html'
+			'fin:action-unfiltered-html'
 		)
 	);
 }
@@ -1258,12 +1258,12 @@ export const isEditorPanelOpened = createRegistrySelector(
 /**
  * A block selection object.
  *
- * @typedef {Object} FPBlockSelection
+ * @typedef {Object} FINBlockSelection
  *
  * @property {string} clientId     A block client ID.
  * @property {string} attributeKey A block attribute key.
  * @property {number} offset       An attribute value offset, based on the rich
- *                                 text value. See `fp.richText.create`.
+ *                                 text value. See `fin.richText.create`.
  */
 
 /**
@@ -1272,7 +1272,7 @@ export const isEditorPanelOpened = createRegistrySelector(
  * @deprecated since Gutenberg 10.0.0.
  *
  * @param {Object} state
- * @return {FPBlockSelection} The selection start.
+ * @return {FINBlockSelection} The selection start.
  */
 export function getEditorSelectionStart( state ) {
 	deprecated( "select('core/editor').getEditorSelectionStart", {
@@ -1288,7 +1288,7 @@ export function getEditorSelectionStart( state ) {
  * @deprecated since Gutenberg 10.0.0.
  *
  * @param {Object} state
- * @return {FPBlockSelection} The selection end.
+ * @return {FINBlockSelection} The selection end.
  */
 export function getEditorSelectionEnd( state ) {
 	deprecated( "select('core/editor').getEditorSelectionStart", {
@@ -1302,7 +1302,7 @@ export function getEditorSelectionEnd( state ) {
  * Returns the current selection.
  *
  * @param {Object} state
- * @return {FPBlockSelection} The selection end.
+ * @return {FINBlockSelection} The selection end.
  */
 export function getEditorSelection( state ) {
 	return getEditedPostAttribute( state, 'selection' );
@@ -1425,9 +1425,9 @@ export function inSomeHistory() {
 
 function getBlockEditorSelector( name ) {
 	return createRegistrySelector( ( select ) => ( state, ...args ) => {
-		deprecated( "`fp.data.select( 'core/editor' )." + name + '`', {
+		deprecated( "`fin.data.select( 'core/editor' )." + name + '`', {
 			since: '5.3',
-			alternative: "`fp.data.select( 'core/block-editor' )." + name + '`',
+			alternative: "`fin.data.select( 'core/block-editor' )." + name + '`',
 			version: '6.2',
 		} );
 

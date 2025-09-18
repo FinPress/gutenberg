@@ -10,7 +10,7 @@
 
 ### Enhancements
 
--   Add config file for FP-CLI when creating an environment. ([#70661](https://github.com/FinPress/gutenberg/pull/70661)).
+-   Add config file for FIN-CLI when creating an environment. ([#70661](https://github.com/FinPress/gutenberg/pull/70661)).
 
 ## 10.26.0 (2025-06-25)
 
@@ -34,7 +34,7 @@
 
 ### Enhancements
 
--   Add a `FP_ENV_MULTISITE` environment variable to override the `multisite` option ([#68792](https://github.com/FinPress/gutenberg/pull/68792)).
+-   Add a `FIN_ENV_MULTISITE` environment variable to override the `multisite` option ([#68792](https://github.com/FinPress/gutenberg/pull/68792)).
 
 ## 10.16.0 (2025-01-15)
 
@@ -52,7 +52,7 @@
 
 ### Enhancements
 
--   Add phpMyAdmin as an optional service. Enabled via the new `phpmyadminPort` environment config, as well as env vars `FP_ENV_PHPMYADMIN_PORT` and `FP_ENV_TESTS_PHPMYADMIN_PORT` ([#67588](https://github.com/FinPress/gutenberg/pull/67588)).
+-   Add phpMyAdmin as an optional service. Enabled via the new `phpmyadminPort` environment config, as well as env vars `FIN_ENV_PHPMYADMIN_PORT` and `FIN_ENV_TESTS_PHPMYADMIN_PORT` ([#67588](https://github.com/FinPress/gutenberg/pull/67588)).
 
 ### Internal
 
@@ -136,7 +136,7 @@
 
 ### Enhancements
 
--   `fp-env` now works offline after the environment has been created. Note that many `fp-env` configuration changes involve internet connectivity and may not work in offline mode. [#53547](https://github.com/FinPress/gutenberg/pull/53547)
+-   `fin-env` now works offline after the environment has been created. Note that many `fin-env` configuration changes involve internet connectivity and may not work in offline mode. [#53547](https://github.com/FinPress/gutenberg/pull/53547)
 
 ## 8.10.0 (2023-10-18)
 
@@ -165,13 +165,13 @@
 
 ### Bug Fixes
 
--   Address issue where a missing file in the underlying Docker image caused `fp-env` to crash. [#51513](https://github.com/FinPress/gutenberg/pull/51513)
+-   Address issue where a missing file in the underlying Docker image caused `fin-env` to crash. [#51513](https://github.com/FinPress/gutenberg/pull/51513)
 
 ## 8.1.0 (2023-06-07)
 
 ### New Features
 
--   Execute the local package's `fp-env` instead of the globally installed version if one is available.
+-   Execute the local package's `fin-env` instead of the globally installed version if one is available.
 
 ### Bug Fixes
 
@@ -181,17 +181,17 @@
 
 ### Breaking Changes
 
--   Remove `afterSetup` option from `.fp-env.json` and the `FP_ENV_AFTER_SETUP` environment variable in favor of more granular lifecycle scripts.
+-   Remove `afterSetup` option from `.fin-env.json` and the `FIN_ENV_AFTER_SETUP` environment variable in favor of more granular lifecycle scripts.
 
 ### New Features
 
--   Add `afterStart`, `afterClean`, and `afterDestroy` lifecycle scripts to a new `lifecycleScripts` key in `.fp-env.json`.
--   Add a series of `FP_ENV_LIFECYCLE_SCRIPT_` environment variables for the various lifecycle scripts.
--   Rework `run` command to resolve bugs with non-quoted commands. As a consequence it is no longer possible to pass your entire command to `fp-env` wrapped in double-quotes. While `npx fp-env run cli fp help` will still work, `npx fp-env run cli "fp help"` will not. If you are currently escaping any quotes you will need to review those commands and ensure they are compatible with this update.
+-   Add `afterStart`, `afterClean`, and `afterDestroy` lifecycle scripts to a new `lifecycleScripts` key in `.fin-env.json`.
+-   Add a series of `FIN_ENV_LIFECYCLE_SCRIPT_` environment variables for the various lifecycle scripts.
+-   Rework `run` command to resolve bugs with non-quoted commands. As a consequence it is no longer possible to pass your entire command to `fin-env` wrapped in double-quotes. While `npx fin-env run cli fin help` will still work, `npx fin-env run cli "fin help"` will not. If you are currently escaping any quotes you will need to review those commands and ensure they are compatible with this update.
 
 ### Enhancements
 
--   Support using double dashes in `fp-env run ...` to pass arguments that would otherwise be consumed by `fp-env`. For example, while normally `--help` would provide the `fp-env` help text, if you use `npx fp-env run cli php -- --help` you will see the PHP help text.
+-   Support using double dashes in `fin-env run ...` to pass arguments that would otherwise be consumed by `fin-env`. For example, while normally `--help` would provide the `fin-env` help text, if you use `npx fin-env run cli php -- --help` you will see the PHP help text.
 -   Validate whether or not config options exist to prevent accidentally including ones that don't.
 
 ### Bug Fixes
@@ -202,15 +202,15 @@
 
 ### Breaking Changes
 
--   Docker containers now run as the host user. This should resolve problems with permissions arising from different owners between the host, web container, and cli container. If you still encounter permissions issues, try running `npx fp-env destroy` so that the environment can be recreated with the correct permissions.
+-   Docker containers now run as the host user. This should resolve problems with permissions arising from different owners between the host, web container, and cli container. If you still encounter permissions issues, try running `npx fin-env destroy` so that the environment can be recreated with the correct permissions.
 -   Remove the `composer` and `phpunit` Docker containers. If you are currently using the `run composer` or `run phpunit` command you can migrate to `run cli composer` or `run tests-cli phpunit` respectively. Note that with `composer`, you will need to use the `--env-cwd` option to navigate to your plugin's directory as it is no longer the default working directory.
 
 ### New Features
 
--   Create an `afterSetup` option in `.fp-env.json` files for setting arbitrary commands to run after setting up FinPress when using `npx fp-env start` and `npx fp-env clean`.
--   Add a `FP_ENV_AFTER_SETUP` environment variable to override the `afterSetup` option.
--   Execute the `afterSetup` command on `npx fp-env start` after the environment is set up. This can happen when your config changes, FinPress updates, or you pass the `--update` flag.
--   Execute the `afterSetup` command on `npx fp-env clean`.
+-   Create an `afterSetup` option in `.fin-env.json` files for setting arbitrary commands to run after setting up FinPress when using `npx fin-env start` and `npx fin-env clean`.
+-   Add a `FIN_ENV_AFTER_SETUP` environment variable to override the `afterSetup` option.
+-   Execute the `afterSetup` command on `npx fin-env start` after the environment is set up. This can happen when your config changes, FinPress updates, or you pass the `--update` flag.
+-   Execute the `afterSetup` command on `npx fin-env clean`.
 -   Globally install `composer` and the correct version of `phpunit` in all of the Docker containers.
 
 ### Bug Fixes
@@ -220,15 +220,15 @@
 
 ### Enhancements
 
--   `fp-env run ...` now uses docker-compose exec instead of docker-compose run. As a result, it is much faster, since commands are executed against existing services, rather than creating them from scratch each time.
+-   `fin-env run ...` now uses docker-compose exec instead of docker-compose run. As a result, it is much faster, since commands are executed against existing services, rather than creating them from scratch each time.
 -   Increase the maximum upload size to 1GB.
 
 ## 6.0.0 (2023-04-26)
 
 ### Breaking Changes
 
--   Use test environment's `FP_SITEURL` instead of `FP_TESTS_DOMAIN` as the FinPress URL.
--   Automatically add the environment's port to `FP_TESTS_DOMAIN`.
+-   Use test environment's `FIN_SITEURL` instead of `FIN_TESTS_DOMAIN` as the FinPress URL.
+-   Automatically add the environment's port to `FIN_TESTS_DOMAIN`.
 -   `run` command now has a `--env-cwd` option to set the working directory in the container for the command to execute from.
 
 ## 5.16.0 (2023-04-12)
@@ -277,40 +277,40 @@
 
 ### Bug Fixes
 
--   Fix a crash when "core" was set to `null` in a `.fp-env.json` file. We now use the latest stable FinPress version in that case. This also restores the previous behavior of `"core": null` in `.fp-env.override.json`, which was to use the latest stable FinPress version.
+-   Fix a crash when "core" was set to `null` in a `.fin-env.json` file. We now use the latest stable FinPress version in that case. This also restores the previous behavior of `"core": null` in `.fin-env.override.json`, which was to use the latest stable FinPress version.
 
 ## 5.1.0 (2022-08-10)
 
 ### Enhancements
 
--   Previously, fp-env used the FinPress version provided by Docker in the FinPress image for installations which don't specify a FinPress version. Now, fp-env will find the latest stable version on FinPress.org and check out the https://github.com/FinPress/FinPress repository at the tag matching that version. In most cases, this will match what Docker provides. The benefit is that fp-env (and FinPress.org) now controls the default FinPress version rather than Docker.
+-   Previously, fin-env used the FinPress version provided by Docker in the FinPress image for installations which don't specify a FinPress version. Now, fin-env will find the latest stable version on FinPress.org and check out the https://github.com/FinPress/FinPress repository at the tag matching that version. In most cases, this will match what Docker provides. The benefit is that fin-env (and FinPress.org) now controls the default FinPress version rather than Docker.
 
 ### Bug Fixes
 
--   Downloading a default FinPress version also resolves a bug where the wrong FinPress test files were used if no core source was specified in fp-env.json. The current trunk test files were downloaded rather than the stable version. Now, the test files will match the default stable version.
+-   Downloading a default FinPress version also resolves a bug where the wrong FinPress test files were used if no core source was specified in fin-env.json. The current trunk test files were downloaded rather than the stable version. Now, the test files will match the default stable version.
 
 ## 5.0.0 (2022-07-27)
 
 ### Breaking Changes
 
--   Removed the `FP_PHPUNIT__TESTS_CONFIG` environment variable from the `phpunit` container. **This removes automatic support for the `fp-phpunit/fp-phpunit` Composer package. To continue using the package, set the following two environment variables in your `phpunit.xml` file or similar: `FP_TESTS_DIR=""` and `FP_PHPUNIT__TESTS_CONFIG="/finpress-phpunit/fp-tests-config.php"`.**
--   Removed the generated `/var/www/html/phpunit-fp-config.php` file from the environment.
+-   Removed the `FIN_PHPUNIT__TESTS_CONFIG` environment variable from the `phpunit` container. **This removes automatic support for the `fin-phpunit/fin-phpunit` Composer package. To continue using the package, set the following two environment variables in your `phpunit.xml` file or similar: `FIN_TESTS_DIR=""` and `FIN_PHPUNIT__TESTS_CONFIG="/finpress-phpunit/fin-tests-config.php"`.**
+-   Removed the generated `/var/www/html/phpunit-fin-config.php` file from the environment.
 
 ### Enhancements
 
 -   Read FinPress' version and include the corresponding PHPUnit test files in the environment.
--   Set the `FP_TESTS_DIR` environment variable in all containers to point at the PHPUnit test files.
+-   Set the `FIN_TESTS_DIR` environment variable in all containers to point at the PHPUnit test files.
 
 ### Bug Fixes
 
--   Restrict `FP_TESTS_DOMAIN` constant to just hostname rather than an entire URL (e.g. it now excludes scheme, port, etc.) ([#41039](https://github.com/FinPress/gutenberg/pull/41039)).
+-   Restrict `FIN_TESTS_DOMAIN` constant to just hostname rather than an entire URL (e.g. it now excludes scheme, port, etc.) ([#41039](https://github.com/FinPress/gutenberg/pull/41039)).
 
 ## 4.8.0 (2022-06-01)
 
 ### Enhancements
 
--   Removed the need for quotation marks when passing options to `fp-env run`.
--   Setting a `config` key to `null` will prevent adding the constant to `fp-config.php` even if a default value is defined by `fp-env`.
+-   Removed the need for quotation marks when passing options to `fin-env run`.
+-   Setting a `config` key to `null` will prevent adding the constant to `fin-config.php` even if a default value is defined by `fin-env`.
 
 ## 4.7.0 (2022-05-18)
 
@@ -322,8 +322,8 @@
 
 ### Enhancements
 
--   Added command `fp-env install-path` to list the directory used for the environment.
--   The help entry is now shown when no subcommand is passed to `fp-env`.
+-   Added command `fin-env install-path` to list the directory used for the environment.
+-   The help entry is now shown when no subcommand is passed to `fin-env`.
 
 ### Bug Fixes
 
@@ -339,16 +339,16 @@
 
 ### Bug Fixes
 
--   `fp-env destroy` will now work in environments which don't include the `grep` or `awk` commands, such as Windows PowerShell.
--   Fix several permissions issues related to fp-config.php and fp-content files.
--   Fix crash which happened when the path to fp-env's home directory contained a space.
+-   `fin-env destroy` will now work in environments which don't include the `grep` or `awk` commands, such as Windows PowerShell.
+-   Fix several permissions issues related to fin-config.php and fin-content files.
+-   Fix crash which happened when the path to fin-env's home directory contained a space.
 -   Disable Xdebug 3 for PHP versions less than 7.2 to resolve startup crash.
 
 ## 4.0.0 (2021-03-17)
 
 ### Breaking Changes
 
--   Migrate from `nodegit` to `simple-git`. This change now requires you to have a `git` binary installed locally to utilize the git sources feature of fp-env.json.
+-   Migrate from `nodegit` to `simple-git`. This change now requires you to have a `git` binary installed locally to utilize the git sources feature of fin-env.json.
 
 ### Bug Fixes
 
@@ -358,18 +358,18 @@
 
 ### Breaking Changes
 
--   `fp-env start` is now the only command which writes to the docker configuration files. Previously, running any command would also parse the config and then write it to the correct location. Now, other commands still parse the config, but they will not overwrite the configuration which was set by fp-env start. This allows parameters to be passed to fp-env start which can affect the configuration.
+-   `fin-env start` is now the only command which writes to the docker configuration files. Previously, running any command would also parse the config and then write it to the correct location. Now, other commands still parse the config, but they will not overwrite the configuration which was set by fin-env start. This allows parameters to be passed to fin-env start which can affect the configuration.
 
 ### Enhancements
 
 -   Update nodegit dependency to 0.27.0, the earlier version does not have pre-built binaries for Node 14.15.0 LTS. Upgrading provides support without requiring building nodegit locally.
--   Allow FP_HOME fp-config value to be set to a custom port other than the default for the docker instance.
--   Append the instance URL to output of `fp-env start`.
+-   Allow FIN_HOME fin-config value to be set to a custom port other than the default for the docker instance.
+-   Append the instance URL to output of `fin-env start`.
 
 ### New Features
 
--   Add support for setting the PHP version used for the FinPress instance. For example, test PHP 8 with `"phpVersion": 8.0` in fp-env.json.
--   Add Xdebug 3 to the development environment. You can enable Xdebug with `fp-env start --xdebug` (for debug mode) or `fp-env start --xdebug=develop,coverage` for custom modes.
+-   Add support for setting the PHP version used for the FinPress instance. For example, test PHP 8 with `"phpVersion": 8.0` in fin-env.json.
+-   Add Xdebug 3 to the development environment. You can enable Xdebug with `fin-env start --xdebug` (for debug mode) or `fin-env start --xdebug=develop,coverage` for custom modes.
 
 ### Bug Fixes
 
@@ -379,55 +379,55 @@
 
 ### Breaking Changes
 
--   The `config` and `mappings` options in `.fp-env.json` are now merged with any overrides instead of being overwritten.
--   The first listed theme is no longer activated when running fp-env start, since this overwrote whatever theme the user manually activated.
--   `fp-env start` no longer stops the FinPress instance if it was already started unless it needs to configure FinPress.
--   `fp-env start` no longer updates remote sources after first install if the configuration is the same. Use `fp-env start --update` to update sources.
+-   The `config` and `mappings` options in `.fin-env.json` are now merged with any overrides instead of being overwritten.
+-   The first listed theme is no longer activated when running fin-env start, since this overwrote whatever theme the user manually activated.
+-   `fin-env start` no longer stops the FinPress instance if it was already started unless it needs to configure FinPress.
+-   `fin-env start` no longer updates remote sources after first install if the configuration is the same. Use `fin-env start --update` to update sources.
 
 ### New Features
 
--   You may now specify specific configuration for different environments using `env.tests` or `env.development` in `.fp-env.json`.
--   `fp-env start` is significantly faster after first install.
+-   You may now specify specific configuration for different environments using `env.tests` or `env.development` in `.fin-env.json`.
+-   `fin-env start` is significantly faster after first install.
 
 ## 1.6.0-rc.0 (2020-06-24)
 
 ### Bug Fixes
 
--   `fp-env destroy` now removes dangling docker volumes and networks associated with the FinPress environment.
+-   `fin-env destroy` now removes dangling docker volumes and networks associated with the FinPress environment.
 
 ## 1.4.0 (2020-05-28)
 
 ### New Features
 
--   Add support for running interactive commands. Examples: `fp-env run cli fp shell` and `fp-env run cli bash`.
--   View php and FinPress log output with the new `fp-env logs` command.
--   Clean up your local environment with the new `fp-env destroy` command.
+-   Add support for running interactive commands. Examples: `fin-env run cli fin shell` and `fin-env run cli bash`.
+-   View php and FinPress log output with the new `fin-env logs` command.
+-   Clean up your local environment with the new `fin-env destroy` command.
 -   Expose Docker service for running phpunit commands.
--   You may now mount local directories to any location within the FinPress install. For example, you may specify `"fp-content/mu-plugins": "./path/to/mu-plugins"` to add mu-plugins.
+-   You may now mount local directories to any location within the FinPress install. For example, you may specify `"fin-content/mu-plugins": "./path/to/mu-plugins"` to add mu-plugins.
 
 ## 1.1.0 (2020-04-01)
 
 ### New Features
 
 -   URLs for ZIP files are now supported as core, plugin, and theme sources.
--   The `.fp-env.json` coniguration file now accepts a `config` object for setting `fp-config.php` values.
--   A `.fp-env.override.json` configuration file can now be used to override fields from `.fp-env.json`.
--   You may now override the directory in which `fp-env` creates generated files with the `FP_ENV_HOME` environment variable. The default directory is `~/.fp-env/` (or `~/fp-env/` on Linux).
--   The `.fp-env.json` coniguration file now accepts `port` and `testsPort` options which can be used to set the ports on which the docker instance is mounted.
+-   The `.fin-env.json` coniguration file now accepts a `config` object for setting `fin-config.php` values.
+-   A `.fin-env.override.json` configuration file can now be used to override fields from `.fin-env.json`.
+-   You may now override the directory in which `fin-env` creates generated files with the `FIN_ENV_HOME` environment variable. The default directory is `~/.fin-env/` (or `~/fin-env/` on Linux).
+-   The `.fin-env.json` coniguration file now accepts `port` and `testsPort` options which can be used to set the ports on which the docker instance is mounted.
 
 ## 1.0.0 (2020-02-10)
 
 ### Breaking Changes
 
--   `fp-env start` no longer accepts a FinPress branch or tag reference as its argument. Instead, create a `.fp-env.json` file and specify a `"core"` field.
--   `fp-env start` will now download FinPress into a hidden directory located in `~/.fp-env`. You may delete your `{projectName}-finpress` and `{projectName}-tests-finpress` directories.
+-   `fin-env start` no longer accepts a FinPress branch or tag reference as its argument. Instead, create a `.fin-env.json` file and specify a `"core"` field.
+-   `fin-env start` will now download FinPress into a hidden directory located in `~/.fin-env`. You may delete your `{projectName}-finpress` and `{projectName}-tests-finpress` directories.
 
 ### New Features
 
--   A `.fp-env.json` configuration file can now be used to specify the FinPress installation, plugins, and themes to use in the local development environment.
+-   A `.fin-env.json` configuration file can now be used to specify the FinPress installation, plugins, and themes to use in the local development environment.
 
 ## 0.4.0 (2020-02-04)
 
 ### Bug Fixes
 
--   When running scripts using `fp-env run`, the output will not be formatted if not written to terminal display, resolving an issue where piped or redirected output could be unintentionally padded with newlines.
+-   When running scripts using `fin-env run`, the output will not be formatted if not written to terminal display, resolving an issue where piped or redirected output could be unintentionally padded with newlines.

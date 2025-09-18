@@ -60,7 +60,7 @@ function block_core_navigation_submenu_render_submenu_icon() {
  *
  * @param array    $attributes The block attributes.
  * @param string   $content    The saved content.
- * @param FP_Block $block      The parsed block.
+ * @param FIN_Block $block      The parsed block.
  *
  * @return string Returns the post content with the legacy widget added.
  */
@@ -254,7 +254,7 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
 		}
 
 		if ( strpos( $inner_blocks_html, 'current-menu-item' ) ) {
-			$tag_processor = new FP_HTML_Tag_Processor( $html );
+			$tag_processor = new FIN_HTML_Tag_Processor( $html );
 			while ( $tag_processor->next_tag( array( 'class_name' => 'fin-block-navigation-item' ) ) ) {
 				$tag_processor->add_class( 'current-menu-ancestor' );
 			}
@@ -287,7 +287,7 @@ function render_block_core_navigation_submenu( $attributes, $content, $block ) {
  * @since 5.9.0
  *
  * @uses render_block_core_navigation_submenu()
- * @throws FP_Error An FP_Error exception parsing the block definition.
+ * @throws FIN_Error An FIN_Error exception parsing the block definition.
  */
 function register_block_core_navigation_submenu() {
 	register_block_type_from_metadata(

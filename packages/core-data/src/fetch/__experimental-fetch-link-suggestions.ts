@@ -133,7 +133,7 @@ export default async function fetchLinkSuggestions(
 	if ( ! type || type === 'post' ) {
 		queries.push(
 			apiFetch< SearchAPIResult[] >( {
-				path: addQueryArgs( '/fp/v2/search', {
+				path: addQueryArgs( '/fin/v2/search', {
 					search,
 					page,
 					per_page: perPage,
@@ -161,7 +161,7 @@ export default async function fetchLinkSuggestions(
 	if ( ! type || type === 'term' ) {
 		queries.push(
 			apiFetch< SearchAPIResult[] >( {
-				path: addQueryArgs( '/fp/v2/search', {
+				path: addQueryArgs( '/fin/v2/search', {
 					search,
 					page,
 					per_page: perPage,
@@ -189,7 +189,7 @@ export default async function fetchLinkSuggestions(
 	if ( ! disablePostFormats && ( ! type || type === 'post-format' ) ) {
 		queries.push(
 			apiFetch< SearchAPIResult[] >( {
-				path: addQueryArgs( '/fp/v2/search', {
+				path: addQueryArgs( '/fin/v2/search', {
 					search,
 					page,
 					per_page: perPage,
@@ -217,7 +217,7 @@ export default async function fetchLinkSuggestions(
 	if ( ! type || type === 'attachment' ) {
 		queries.push(
 			apiFetch< MediaAPIResult[] >( {
-				path: addQueryArgs( '/fp/v2/media', {
+				path: addQueryArgs( '/fin/v2/media', {
 					search,
 					page,
 					per_page: perPage,

@@ -251,14 +251,14 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`overrides\` should 
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`polyfill-magic-comment\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('fp-polyfill'), 'version' => '9725ab782f6b09598d3d', 'type' => 'module');
+"<?php return array('dependencies' => array('fin-polyfill'), 'version' => '9725ab782f6b09598d3d', 'type' => 'module');
 "
 `;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`polyfill-magic-comment\` should produce expected output: External modules should match snapshot 1`] = `[]`;
 
 exports[`DependencyExtractionWebpackPlugin modules Webpack \`polyfill-magic-comment-minified\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('fp-polyfill'), 'version' => '31d6cfe0d16ae931b73c', 'type' => 'module');
+"<?php return array('dependencies' => array('fin-polyfill'), 'version' => '31d6cfe0d16ae931b73c', 'type' => 'module');
 "
 `;
 
@@ -375,7 +375,7 @@ exports[`DependencyExtractionWebpackPlugin modules Webpack \`finpress-require\` 
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`combine-assets\` should produce expected output: Asset file 'assets.php' should match snapshot 1`] = `
-"<?php return array('fileA.js' => array('dependencies' => array('lodash', 'fp-blob'), 'version' => 'e1840d27f0719ffa42d3'), 'fileB.js' => array('dependencies' => array('fp-token-list'), 'version' => '1e60e007d6496c9b46cf'));
+"<?php return array('fileA.js' => array('dependencies' => array('lodash', 'fin-blob'), 'version' => 'e1840d27f0719ffa42d3'), 'fileB.js' => array('dependencies' => array('fin-token-list'), 'version' => '1e60e007d6496c9b46cf'));
 "
 `;
 
@@ -389,7 +389,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`combine-assets\` sh
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",
@@ -397,7 +397,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`combine-assets\` sh
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "tokenList",
     ],
     "userRequest": "@finpress/token-list",
@@ -406,7 +406,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`combine-assets\` sh
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-dependency-graph\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('fp-interactivity'), 'version' => '82601013091064d44360');
+"<?php return array('dependencies' => array('fin-interactivity'), 'version' => '82601013091064d44360');
 "
 `;
 
@@ -415,7 +415,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-dependency-g
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "interactivity",
     ],
     "userRequest": "@finpress/interactivity",
@@ -424,7 +424,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-dependency-g
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-dynamic-dependency-graph\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('fp-interactivity'), 'version' => '162f4d352c99e6c37be1');
+"<?php return array('dependencies' => array('fin-interactivity'), 'version' => '162f4d352c99e6c37be1');
 "
 `;
 
@@ -433,7 +433,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-dynamic-depe
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "interactivity",
     ],
     "userRequest": "@finpress/interactivity",
@@ -442,7 +442,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-dynamic-depe
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-external-deps\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('fp-interactivity'), 'version' => '4c336c2cbbbff439b43e');
+"<?php return array('dependencies' => array('fin-interactivity'), 'version' => '4c336c2cbbbff439b43e');
 "
 `;
 
@@ -451,7 +451,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-external-dep
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "interactivity",
     ],
     "userRequest": "@finpress/interactivity",
@@ -460,7 +460,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`cyclic-external-dep
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`dynamic-import\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('fp-blob'), 'version' => '29070464c1c503708675');
+"<?php return array('dependencies' => array('fin-blob'), 'version' => '29070464c1c503708675');
 "
 `;
 
@@ -469,7 +469,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`dynamic-import\` sh
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",
@@ -484,7 +484,7 @@ Module not found: Error: Ensure error in script build.
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`function-output-filename\` should produce expected output: Asset file 'chunk--main--main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('lodash', 'fp-blob'), 'version' => '0633d70f7567175ad0d5');
+"<?php return array('dependencies' => array('lodash', 'fin-blob'), 'version' => '0633d70f7567175ad0d5');
 "
 `;
 
@@ -498,7 +498,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`function-output-fil
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",
@@ -507,7 +507,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`function-output-fil
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`has-extension-suffix\` should produce expected output: Asset file 'index.min.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('lodash', 'fp-blob'), 'version' => '91d6fc79d8288f1bd30f');
+"<?php return array('dependencies' => array('lodash', 'fin-blob'), 'version' => '91d6fc79d8288f1bd30f');
 "
 `;
 
@@ -521,7 +521,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`has-extension-suffi
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",
@@ -570,7 +570,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`no-deps\` should pr
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`no-deps\` should produce expected output: External modules should match snapshot 1`] = `[]`;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`option-function-output-filename\` should produce expected output: Asset file 'chunk--main--main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('lodash', 'fp-blob'), 'version' => '0633d70f7567175ad0d5');
+"<?php return array('dependencies' => array('lodash', 'fin-blob'), 'version' => '0633d70f7567175ad0d5');
 "
 `;
 
@@ -584,7 +584,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`option-function-out
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",
@@ -593,7 +593,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`option-function-out
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`option-output-filename\` should produce expected output: Asset file 'main-foo.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('lodash', 'fp-blob'), 'version' => '0633d70f7567175ad0d5');
+"<?php return array('dependencies' => array('lodash', 'fin-blob'), 'version' => '0633d70f7567175ad0d5');
 "
 `;
 
@@ -607,7 +607,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`option-output-filen
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",
@@ -628,7 +628,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`output-format-json\
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`overrides\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('fp-blob', 'fp-script-handle-for-rxjs', 'fp-url'), 'version' => '35e570db18559a76b3e6');
+"<?php return array('dependencies' => array('fin-blob', 'fin-script-handle-for-rxjs', 'fin-url'), 'version' => '35e570db18559a76b3e6');
 "
 `;
 
@@ -650,7 +650,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`overrides\` should 
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",
@@ -658,7 +658,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`overrides\` should 
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "url",
     ],
     "userRequest": "@finpress/url",
@@ -667,26 +667,26 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`overrides\` should 
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`polyfill-magic-comment\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('fp-polyfill'), 'version' => '48f720dd907eea75c1fd');
+"<?php return array('dependencies' => array('fin-polyfill'), 'version' => '48f720dd907eea75c1fd');
 "
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`polyfill-magic-comment\` should produce expected output: External modules should match snapshot 1`] = `[]`;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`polyfill-magic-comment-minified\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('fp-polyfill'), 'version' => '31d6cfe0d16ae931b73c');
+"<?php return array('dependencies' => array('fin-polyfill'), 'version' => '31d6cfe0d16ae931b73c');
 "
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`polyfill-magic-comment-minified\` should produce expected output: External modules should match snapshot 1`] = `[]`;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`runtime-chunk-single\` should produce expected output: Asset file 'a.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('fp-blob'), 'version' => 'd091f1cbbf7603d6e12c', 'handle' => 'runtime-chunk-single-scripts-a');
+"<?php return array('dependencies' => array('fin-blob'), 'version' => 'd091f1cbbf7603d6e12c', 'handle' => 'runtime-chunk-single-scripts-a');
 "
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`runtime-chunk-single\` should produce expected output: Asset file 'b.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('lodash', 'fp-blob'), 'version' => '845bc6d4ffbdb9419ebd', 'handle' => 'runtime-chunk-single-scripts-b');
+"<?php return array('dependencies' => array('lodash', 'fin-blob'), 'version' => '845bc6d4ffbdb9419ebd', 'handle' => 'runtime-chunk-single-scripts-b');
 "
 `;
 
@@ -705,7 +705,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`runtime-chunk-singl
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",
@@ -714,7 +714,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`runtime-chunk-singl
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`style-imports\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('lodash', 'fp-blob'), 'version' => '041fb611b5192ffe83f9');
+"<?php return array('dependencies' => array('lodash', 'fin-blob'), 'version' => '041fb611b5192ffe83f9');
 "
 `;
 
@@ -728,7 +728,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`style-imports\` sho
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",
@@ -737,7 +737,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`style-imports\` sho
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('lodash', 'fp-blob'), 'version' => '0633d70f7567175ad0d5');
+"<?php return array('dependencies' => array('lodash', 'fin-blob'), 'version' => '0633d70f7567175ad0d5');
 "
 `;
 
@@ -751,7 +751,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress\` should p
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",
@@ -760,7 +760,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress\` should p
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress-interactivity\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('lodash', 'fp-interactivity'), 'version' => 'b16015e38aea0509f75f');
+"<?php return array('dependencies' => array('lodash', 'fin-interactivity'), 'version' => 'b16015e38aea0509f75f');
 "
 `;
 
@@ -774,7 +774,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress-interactiv
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "interactivity",
     ],
     "userRequest": "@finpress/interactivity",
@@ -783,7 +783,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress-interactiv
 `;
 
 exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress-require\` should produce expected output: Asset file 'main.asset.php' should match snapshot 1`] = `
-"<?php return array('dependencies' => array('lodash', 'fp-blob'), 'version' => '7087050d1490e856fec8');
+"<?php return array('dependencies' => array('lodash', 'fin-blob'), 'version' => '7087050d1490e856fec8');
 "
 `;
 
@@ -797,7 +797,7 @@ exports[`DependencyExtractionWebpackPlugin scripts Webpack \`finpress-require\` 
   {
     "externalType": "window",
     "request": [
-      "fp",
+      "fin",
       "blob",
     ],
     "userRequest": "@finpress/blob",

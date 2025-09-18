@@ -49,7 +49,7 @@ function mockGetMedia( media ) {
 
 const FETCH_MEDIA = {
 	request: {
-		path: `/fp/v2/media/1?context=edit`,
+		path: `/fin/v2/media/1?context=edit`,
 		parse: false,
 	},
 	response: {
@@ -97,13 +97,13 @@ afterAll( () => {
 describe( 'Image Block', () => {
 	it( 'sets link to None', async () => {
 		const initialHtml = `
-		<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
-		<figure class="fp-block-image size-large is-style-default">
+		<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
+		<figure class="fin-block-image size-large is-style-default">
 			<a href="https://cldup.com/cXyG__fTLN.jpg">
-				<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/>
+				<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/>
 			</a>
-		<figcaption class="fp-element-caption">Mountain</figcaption></figure>
-		<!-- /fp:image -->`;
+		<figcaption class="fin-element-caption">Mountain</figcaption></figure>
+		<!-- /fin:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
 		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
@@ -118,19 +118,19 @@ describe( 'Image Block', () => {
 		fireEvent.press( screen.getByText( 'Media File' ) );
 		fireEvent.press( screen.getByText( 'None' ) );
 
-		const expectedHtml = `<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none","className":"is-style-default"} -->
-<figure class="fp-block-image size-large is-style-default"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/><figcaption class="fp-element-caption">Mountain</figcaption></figure>
-<!-- /fp:image -->`;
+		const expectedHtml = `<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none","className":"is-style-default"} -->
+<figure class="fin-block-image size-large is-style-default"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/><figcaption class="fin-element-caption">Mountain</figcaption></figure>
+<!-- /fin:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );
 
 	it( 'sets link to Media File', async () => {
 		const initialHtml = `
-		<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none","className":"is-style-default"} -->
-		<figure class="fp-block-image size-large is-style-default">
-			<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/>
-		<figcaption class="fp-element-caption">Mountain</figcaption></figure>
-		<!-- /fp:image -->`;
+		<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none","className":"is-style-default"} -->
+		<figure class="fin-block-image size-large is-style-default">
+			<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/>
+		<figcaption class="fin-element-caption">Mountain</figcaption></figure>
+		<!-- /fin:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
 		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
@@ -145,19 +145,19 @@ describe( 'Image Block', () => {
 		fireEvent.press( screen.getByText( 'None' ) );
 		fireEvent.press( screen.getByText( 'Media File' ) );
 
-		const expectedHtml = `<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
-<figure class="fp-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/></a><figcaption class="fp-element-caption">Mountain</figcaption></figure>
-<!-- /fp:image -->`;
+		const expectedHtml = `<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
+<figure class="fin-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/></a><figcaption class="fin-element-caption">Mountain</figcaption></figure>
+<!-- /fin:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );
 
 	it( 'sets link to Custom URL', async () => {
 		const initialHtml = `
-		<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none","className":"is-style-default"} -->
-		<figure class="fp-block-image size-large is-style-default">
-			<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/>
-		<figcaption class="fp-element-caption">Mountain</figcaption></figure>
-		<!-- /fp:image -->`;
+		<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none","className":"is-style-default"} -->
+		<figure class="fin-block-image size-large is-style-default">
+			<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/>
+		<figcaption class="fin-element-caption">Mountain</figcaption></figure>
+		<!-- /fin:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
 		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
@@ -182,19 +182,19 @@ describe( 'Image Block', () => {
 			() => new Promise( ( resolve ) => setTimeout( resolve, 100 ) )
 		);
 
-		const expectedHtml = `<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
-<figure class="fp-block-image size-large is-style-default"><a href="http://finpress.org"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/></a><figcaption class="fp-element-caption">Mountain</figcaption></figure>
-<!-- /fp:image -->`;
+		const expectedHtml = `<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
+<figure class="fin-block-image size-large is-style-default"><a href="http://finpress.org"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/></a><figcaption class="fin-element-caption">Mountain</figcaption></figure>
+<!-- /fin:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );
 
 	it( 'swaps the link between destinations', async () => {
 		const initialHtml = `
-		<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none","className":"is-style-default"} -->
-		<figure class="fp-block-image size-large is-style-default">
-			<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/>
-		<figcaption class="fp-element-caption">Mountain</figcaption></figure>
-		<!-- /fp:image -->`;
+		<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none","className":"is-style-default"} -->
+		<figure class="fin-block-image size-large is-style-default">
+			<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/>
+		<figcaption class="fin-element-caption">Mountain</figcaption></figure>
+		<!-- /fin:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
 		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
@@ -213,21 +213,21 @@ describe( 'Image Block', () => {
 		fireEvent.press( await screen.findByText( 'Custom URL' ) );
 		fireEvent.press( screen.getByText( 'Media File' ) );
 
-		const expectedHtml = `<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
-<figure class="fp-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/></a><figcaption class="fp-element-caption">Mountain</figcaption></figure>
-<!-- /fp:image -->`;
+		const expectedHtml = `<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
+<figure class="fin-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/></a><figcaption class="fin-element-caption">Mountain</figcaption></figure>
+<!-- /fin:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );
 
 	it( 'does not display the Link To URL within the Custom URL input when set to Media File and query parameters are present', async () => {
 		const initialHtml = `
-		<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
-		<figure class="fp-block-image size-large is-style-default">
+		<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
+		<figure class="fin-block-image size-large is-style-default">
 			<a href="https://cldup.com/cXyG__fTLN.jpg">
-				<img src="https://cldup.com/cXyG__fTLN.jpg?w=683" alt="" class="fp-image-1"/>
+				<img src="https://cldup.com/cXyG__fTLN.jpg?w=683" alt="" class="fin-image-1"/>
 			</a>
-		<figcaption class="fp-element-caption">Mountain</figcaption></figure>
-		<!-- /fp:image -->`;
+		<figcaption class="fin-element-caption">Mountain</figcaption></figure>
+		<!-- /fin:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
 		// Check that image is not fetched via `getEntityRecord` due to the presence of query parameters in the URL.
 		expect( apiFetch ).not.toHaveBeenCalledWith( FETCH_MEDIA.request );
@@ -246,13 +246,13 @@ describe( 'Image Block', () => {
 
 	it( 'sets link target', async () => {
 		const initialHtml = `
-		<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
-		<figure class="fp-block-image size-large is-style-default">
+		<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
+		<figure class="fin-block-image size-large is-style-default">
 			<a href="https://finpress.org">
-				<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/>
+				<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/>
 			</a>
-		<figcaption class="fp-element-caption">Mountain</figcaption></figure>
-		<!-- /fp:image -->`;
+		<figcaption class="fin-element-caption">Mountain</figcaption></figure>
+		<!-- /fin:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
 		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
@@ -268,22 +268,22 @@ describe( 'Image Block', () => {
 		const linkTargetButton = screen.getByText( 'Open in new tab' );
 		fireEvent.press( linkTargetButton );
 
-		const expectedHtml = `<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
-<figure class="fp-block-image size-large is-style-default"><a href="https://finpress.org" target="_blank" rel="noreferrer noopener"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/></a><figcaption class="fp-element-caption">Mountain</figcaption></figure>
-<!-- /fp:image -->`;
+		const expectedHtml = `<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
+<figure class="fin-block-image size-large is-style-default"><a href="https://finpress.org" target="_blank" rel="noreferrer noopener"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/></a><figcaption class="fin-element-caption">Mountain</figcaption></figure>
+<!-- /fin:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );
 
 	it( 'unset link target', async () => {
 		const initialHtml = `
-		<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
-		<figure class="fp-block-image size-large is-style-default">
+		<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
+		<figure class="fin-block-image size-large is-style-default">
 			<a href="https://finpress.org" target="_blank" rel="noreferrer noopener">
-				<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/>
+				<img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/>
 			</a>
-			<figcaption class="fp-element-caption">Mountain</figcaption>
+			<figcaption class="fin-element-caption">Mountain</figcaption>
 		</figure>
-		<!-- /fp:image -->`;
+		<!-- /fin:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
 		// Check that image is fetched via `getEntityRecord`
 		expect( apiFetch ).toHaveBeenCalledWith( FETCH_MEDIA.request );
@@ -299,9 +299,9 @@ describe( 'Image Block', () => {
 		const linkTargetButton = screen.getByText( 'Open in new tab' );
 		fireEvent.press( linkTargetButton );
 
-		const expectedHtml = `<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
-<figure class="fp-block-image size-large is-style-default"><a href="https://finpress.org"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/></a><figcaption class="fp-element-caption">Mountain</figcaption></figure>
-<!-- /fp:image -->`;
+		const expectedHtml = `<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"custom","className":"is-style-default"} -->
+<figure class="fin-block-image size-large is-style-default"><a href="https://finpress.org"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/></a><figcaption class="fin-element-caption">Mountain</figcaption></figure>
+<!-- /fin:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );
 
@@ -441,19 +441,19 @@ describe( 'Image Block', () => {
 		} );
 
 		const initialHtml = `
-		<!-- fp:image -->
-		<figure class="fp-block-image">
+		<!-- fin:image -->
+		<figure class="fin-block-image">
 				<img alt="" />
 		</figure>
-		<!-- /fp:image -->`;
+		<!-- /fin:image -->`;
 		const screen = await initializeEditor( { initialHtml } );
 
 		fireEvent.press( screen.getByText( 'Add image' ) );
 		fireEvent.press( screen.getByText( 'FinPress Media Library' ) );
 
-		const expectedHtml = `<!-- fp:image {"id":${ IMAGE.id },"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="${ IMAGE.url }" alt="${ IMAGE.alt }" class="fp-image-${ IMAGE.id }"/></figure>
-<!-- /fp:image -->`;
+		const expectedHtml = `<!-- fin:image {"id":${ IMAGE.id },"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="${ IMAGE.url }" alt="${ IMAGE.alt }" class="fin-image-${ IMAGE.id }"/></figure>
+<!-- /fin:image -->`;
 		expect( getEditorHtml() ).toBe( expectedHtml );
 	} );
 } );

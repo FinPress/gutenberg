@@ -97,7 +97,7 @@ export default function PostStatus() {
 				postId: getCurrentPostId(),
 				postType: getCurrentPostType(),
 				canEdit:
-					getCurrentPost()._links?.[ 'fp:action-publish' ] ?? false,
+					getCurrentPost()._links?.[ 'fin:action-publish' ] ?? false,
 			};
 		},
 		[]

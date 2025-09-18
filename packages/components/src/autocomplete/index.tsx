@@ -38,7 +38,7 @@ import type {
 	OptionCompletion,
 	ReplaceOption,
 	UseAutocompleteProps,
-	FPCompleter,
+	FINCompleter,
 } from './types';
 import getNodeText from '../utils/get-node-text';
 
@@ -62,7 +62,7 @@ export function useAutocomplete( {
 	>( EMPTY_FILTERED_OPTIONS );
 	const [ filterValue, setFilterValue ] =
 		useState< AutocompleterUIProps[ 'filterValue' ] >( '' );
-	const [ autocompleter, setAutocompleter ] = useState< FPCompleter | null >(
+	const [ autocompleter, setAutocompleter ] = useState< FINCompleter | null >(
 		null
 	);
 	const [ AutocompleterUI, setAutocompleterUI ] = useState<
@@ -239,7 +239,7 @@ export function useAutocomplete( {
 
 		// Find the completer with the highest triggerPrefix index in the
 		// textContent.
-		const completer = completers.reduce< FPCompleter | null >(
+		const completer = completers.reduce< FINCompleter | null >(
 			( lastTrigger, currentCompleter ) => {
 				const triggerIndex = textContent.lastIndexOf(
 					currentCompleter.triggerPrefix

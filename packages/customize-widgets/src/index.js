@@ -27,7 +27,7 @@ import getSidebarSection from './controls/sidebar-section';
 import getSidebarControl from './controls/sidebar-control';
 import './filters';
 
-const { fp } = window;
+const { fin } = window;
 
 const DISABLED_BLOCKS = [
 	'core/more',
@@ -77,15 +77,15 @@ export function initialize( editorName, blockEditorSettings ) {
 
 	const SidebarControl = getSidebarControl( blockEditorSettings );
 
-	fp.customize.sectionConstructor.sidebar = getSidebarSection();
-	fp.customize.controlConstructor.sidebar_block_editor = SidebarControl;
+	fin.customize.sectionConstructor.sidebar = getSidebarSection();
+	fin.customize.controlConstructor.sidebar_block_editor = SidebarControl;
 
 	const container = document.createElement( 'div' );
 	document.body.appendChild( container );
 
-	fp.customize.bind( 'ready', () => {
+	fin.customize.bind( 'ready', () => {
 		const sidebarControls = [];
-		fp.customize.control.each( ( control ) => {
+		fin.customize.control.each( ( control ) => {
 			if ( control instanceof SidebarControl ) {
 				sidebarControls.push( control );
 			}
@@ -94,7 +94,7 @@ export function initialize( editorName, blockEditorSettings ) {
 		createRoot( container ).render(
 			<StrictMode>
 				<CustomizeWidgets
-					api={ fp.customize }
+					api={ fin.customize }
 					sidebarControls={ sidebarControls }
 					blockEditorSettings={ blockEditorSettings }
 				/>

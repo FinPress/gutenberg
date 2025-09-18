@@ -11,7 +11,7 @@ export default function save( { attributes } ) {
 				className="widget-title"
 				value={ attributes.title }
 			/>
-			<div className="fp-widget-group__inner-blocks">
+			<div className="fin-widget-group__inner-blocks">
 				<InnerBlocks.Content />
 			</div>
 		</>

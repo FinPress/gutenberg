@@ -10,7 +10,7 @@
  * @covers ::gutenberg_render_block_core_block
  * @group blocks
  */
-class Test_Blocks_RenderReusable extends FP_UnitTestCase {
+class Test_Blocks_RenderReusable extends FIN_UnitTestCase {
 
 	/**
 	 * Test block ID.
@@ -19,7 +19,7 @@ class Test_Blocks_RenderReusable extends FP_UnitTestCase {
 	 */
 	protected static $block_id;
 
-	public static function fpSetUpBeforeClass( $factory ) {
+	public static function finSetUpBeforeClass( $factory ) {
 		register_block_bindings_source(
 			'test/block-binding',
 			array(
@@ -33,16 +33,16 @@ class Test_Blocks_RenderReusable extends FP_UnitTestCase {
 
 		self::$block_id = $factory->post->create(
 			array(
-				'post_type'    => 'fp_block',
+				'post_type'    => 'fin_block',
 				'post_status'  => 'publish',
 				'post_title'   => 'Test Block',
-				'post_content' => '<!-- fp:core/paragraph {"metadata":{"bindings":{"content":{"source":"test/block-binding","args":{"key":"ignored"}}}}} --><p>Hello world!</p><!-- /fp:core/paragraph -->',
+				'post_content' => '<!-- fin:core/paragraph {"metadata":{"bindings":{"content":{"source":"test/block-binding","args":{"key":"ignored"}}}}} --><p>Hello world!</p><!-- /fin:core/paragraph -->',
 			)
 		);
 	}
 
-	public static function fpTearDownAfterClass() {
-		fp_delete_post( self::$block_id, true );
+	public static function finTearDownAfterClass() {
+		fin_delete_post( self::$block_id, true );
 		unregister_block_bindings_source( 'test/block-binding' );
 	}
 
@@ -50,7 +50,7 @@ class Test_Blocks_RenderReusable extends FP_UnitTestCase {
 	 * @see https://github.com/FinPress/gutenberg/issues/70391
 	 */
 	public function test_render_respects_custom_context() {
-		$synced_pattern_block_instance = new FP_Block(
+		$synced_pattern_block_instance = new FIN_Block(
 			array(
 				'blockName' => 'core/block',
 				'attrs'     => array(

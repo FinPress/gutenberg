@@ -11,9 +11,9 @@ import {
 
 const block = 'Image';
 const initialHtml = `
-<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
-<figure class="fp-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/></a><figcaption class="fp-element-caption">Mountain</figcaption></figure>
-<!-- /fp:image -->`;
+<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"media","className":"is-style-default"} -->
+<figure class="fin-block-image size-large is-style-default"><a href="https://cldup.com/cXyG__fTLN.jpg"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/></a><figcaption class="fin-element-caption">Mountain</figcaption></figure>
+<!-- /fin:image -->`;
 
 const transformsWithInnerBlocks = [ 'Gallery', 'Columns', 'Group' ];
 const nonMediaTransforms = [ 'File' ];

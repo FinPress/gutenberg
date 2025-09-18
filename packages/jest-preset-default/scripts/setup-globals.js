@@ -1,5 +1,5 @@
 // Run all tests with development tools enabled.
-// eslint-disable-next-line @finpress/fp-global-usage
+// eslint-disable-next-line @finpress/fin-global-usage
 globalThis.SCRIPT_DEBUG = true;
 
 // These are necessary to load TinyMCE successfully.

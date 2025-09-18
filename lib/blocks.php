@@ -188,8 +188,8 @@ add_action( 'init', 'gutenberg_reregister_core_block_types' );
  * as follows.
  *
  * ```
- * --- a/fp-includes/blocks.php
- * +++ b/fp-includes/blocks.php
+ * --- a/fin-includes/blocks.php
+ * +++ b/fin-includes/blocks.php
  * @ @ -153,7 +153,8 @ @ function register_block_script_handle( $metadata, $field_name, $index = 0 ) {
  *                 $script_handle,
  *                 $script_uri,
@@ -205,10 +205,10 @@ add_action( 'init', 'gutenberg_reregister_core_block_types' );
  * @see register_block_script_handle()
  */
 function gutenberg_defer_block_view_scripts() {
-	$block_types = FP_Block_Type_Registry::get_instance()->get_all_registered();
+	$block_types = FIN_Block_Type_Registry::get_instance()->get_all_registered();
 	foreach ( $block_types as $block_type ) {
 		foreach ( $block_type->view_script_handles as $view_script_handle ) {
-			fp_script_add_data( $view_script_handle, 'strategy', 'defer' );
+			fin_script_add_data( $view_script_handle, 'strategy', 'defer' );
 		}
 	}
 }
@@ -223,13 +223,13 @@ add_action( 'init', 'gutenberg_defer_block_view_scripts', 100 );
  * @return void
  */
 function gutenberg_deregister_core_block_and_assets( $block_name ) {
-	$registry = FP_Block_Type_Registry::get_instance();
+	$registry = FIN_Block_Type_Registry::get_instance();
 	if ( $registry->is_registered( $block_name ) ) {
 		$block_type = $registry->get_registered( $block_name );
 		if ( ! empty( $block_type->view_script_handles ) ) {
 			foreach ( $block_type->view_script_handles as $view_script_handle ) {
-				if ( str_starts_with( $view_script_handle, 'fp-block-' ) ) {
-					fp_deregister_script( $view_script_handle );
+				if ( str_starts_with( $view_script_handle, 'fin-block-' ) ) {
+					fin_deregister_script( $view_script_handle );
 				}
 			}
 		}
@@ -245,7 +245,7 @@ function gutenberg_deregister_core_block_and_assets( $block_name ) {
  * @return void
  */
 function gutenberg_register_core_block_assets( $block_name ) {
-	if ( ! fp_should_load_separate_core_block_assets() ) {
+	if ( ! fin_should_load_separate_core_block_assets() ) {
 		return;
 	}
 
@@ -260,26 +260,26 @@ function gutenberg_register_core_block_assets( $block_name ) {
 	$stylesheet_path = gutenberg_dir_path() . $style_path . ( is_rtl() ? 'style-rtl.css' : 'style.css' );
 
 	if ( file_exists( $stylesheet_path ) ) {
-		fp_deregister_style( "fp-block-{$block_name}" );
-		fp_register_style(
-			"fp-block-{$block_name}",
+		fin_deregister_style( "fin-block-{$block_name}" );
+		fin_register_style(
+			"fin-block-{$block_name}",
 			$stylesheet_url,
 			array(),
 			$default_version
 		);
-		fp_style_add_data( "fp-block-{$block_name}", 'rtl', 'replace' );
+		fin_style_add_data( "fin-block-{$block_name}", 'rtl', 'replace' );
 
-		// Add a reference to the stylesheet's path to allow calculations for inlining styles in `fp_head`.
-		fp_style_add_data( "fp-block-{$block_name}", 'path', $stylesheet_path );
+		// Add a reference to the stylesheet's path to allow calculations for inlining styles in `fin_head`.
+		fin_style_add_data( "fin-block-{$block_name}", 'path', $stylesheet_path );
 	} else {
-		fp_register_style( "fp-block-{$block_name}", false, array() );
+		fin_register_style( "fin-block-{$block_name}", false, array() );
 	}
 
 	/*
-	 * If the current theme supports fp-block-styles, dequeue the core styles
+	 * If the current theme supports fin-block-styles, dequeue the core styles
 	 * and enqueue the plugin ones instead.
 	 */
-	if ( current_theme_supports( 'fp-block-styles' ) ) {
+	if ( current_theme_supports( 'fin-block-styles' ) ) {
 
 		// Get the path to the block's stylesheet.
 		$theme_style_path = is_rtl()
@@ -288,29 +288,29 @@ function gutenberg_register_core_block_assets( $block_name ) {
 
 		// If the file exists, enqueue it.
 		if ( file_exists( gutenberg_dir_path() . $theme_style_path ) ) {
-			fp_deregister_style( "fp-block-{$block_name}-theme" );
-			fp_register_style(
-				"fp-block-{$block_name}-theme",
+			fin_deregister_style( "fin-block-{$block_name}-theme" );
+			fin_register_style(
+				"fin-block-{$block_name}-theme",
 				gutenberg_url( $theme_style_path ),
 				array(),
 				$default_version
 			);
-			fp_style_add_data( "fp-block-{$block_name}-theme", 'path', gutenberg_dir_path() . $theme_style_path );
+			fin_style_add_data( "fin-block-{$block_name}-theme", 'path', gutenberg_dir_path() . $theme_style_path );
 		}
 	}
 
 	$editor_style_path = "build/block-library/blocks/$block_name/style-editor.css";
 	if ( file_exists( gutenberg_dir_path() . $editor_style_path ) ) {
-		fp_deregister_style( "fp-block-{$block_name}-editor" );
-		fp_register_style(
-			"fp-block-{$block_name}-editor",
+		fin_deregister_style( "fin-block-{$block_name}-editor" );
+		fin_register_style(
+			"fin-block-{$block_name}-editor",
 			gutenberg_url( $editor_style_path ),
 			array(),
 			$default_version
 		);
-		fp_style_add_data( "fp-block-{$block_name}-editor", 'rtl', 'replace' );
+		fin_style_add_data( "fin-block-{$block_name}-editor", 'rtl', 'replace' );
 	} else {
-		fp_register_style( "fp-block-{$block_name}-editor", false );
+		fin_register_style( "fin-block-{$block_name}-editor", false );
 	}
 }
 
@@ -397,9 +397,9 @@ function gutenberg_register_legacy_social_link_blocks() {
 add_action( 'init', 'gutenberg_register_legacy_social_link_blocks' );
 
 /**
- * Migrate the legacy `sync_status` meta key (added 16.1) to the new `fp_pattern_sync_status` meta key (16.1.1).
+ * Migrate the legacy `sync_status` meta key (added 16.1) to the new `fin_pattern_sync_status` meta key (16.1.1).
  *
- * This filter is INTENTIONALLY left out of core as the meta key was fist introduced to core in 6.3 as `fp_pattern_sync_status`.
+ * This filter is INTENTIONALLY left out of core as the meta key was fist introduced to core in 6.3 as `fin_pattern_sync_status`.
  * see https://github.com/FinPress/gutenberg/pull/52232
  *
  * @param mixed  $value     The value to return, either a single metadata value or an array of values depending on the value of $single.
@@ -407,8 +407,8 @@ add_action( 'init', 'gutenberg_register_legacy_social_link_blocks' );
  * @param string $meta_key  Metadata key.
  * @param bool   $single    Whether to return only the first value of the specified $meta_key.
  */
-function gutenberg_legacy_fp_block_post_meta( $value, $object_id, $meta_key, $single ) {
-	if ( 'fp_pattern_sync_status' !== $meta_key ) {
+function gutenberg_legacy_fin_block_post_meta( $value, $object_id, $meta_key, $single ) {
+	if ( 'fin_pattern_sync_status' !== $meta_key ) {
 		return $value;
 	}
 
@@ -423,7 +423,7 @@ function gutenberg_legacy_fp_block_post_meta( $value, $object_id, $meta_key, $si
 	return $value;
 }
 
-add_filter( 'default_post_metadata', 'gutenberg_legacy_fp_block_post_meta', 10, 4 );
+add_filter( 'default_post_metadata', 'gutenberg_legacy_fin_block_post_meta', 10, 4 );
 
 
 
@@ -447,11 +447,11 @@ function _gutenberg_filter_post_meta_footnotes( $footnotes ) {
 		if ( ! empty( $footnote['content'] ) && ! empty( $footnote['id'] ) ) {
 			$footnotes_sanitized[] = array(
 				'id'      => sanitize_key( $footnote['id'] ),
-				'content' => fp_unslash( fp_filter_post_kses( fp_slash( $footnote['content'] ) ) ),
+				'content' => fin_unslash( fin_filter_post_kses( fin_slash( $footnote['content'] ) ) ),
 			);
 		}
 	}
-	return fp_json_encode( $footnotes_sanitized );
+	return fin_json_encode( $footnotes_sanitized );
 }
 
 /**
@@ -478,7 +478,7 @@ function _gutenberg_footnotes_remove_filters() {
  * @access private
  */
 function _gutenberg_footnotes_kses_init() {
-	if ( function_exists( '_fp_filter_post_meta_footnotes' ) ) {
+	if ( function_exists( '_fin_filter_post_meta_footnotes' ) ) {
 		return;
 	}
 	_gutenberg_footnotes_remove_filters();
@@ -501,7 +501,7 @@ function _gutenberg_footnotes_kses_init() {
  * @return string Input argument of the filter.
  */
 function _gutenberg_footnotes_force_filtered_html_on_import_filter( $arg ) {
-	if ( function_exists( '_fp_filter_post_meta_footnotes' ) ) {
+	if ( function_exists( '_fin_filter_post_meta_footnotes' ) ) {
 		return;
 	}
 	// force_filtered_html_on_import is true we need to init the global styles kses filters.

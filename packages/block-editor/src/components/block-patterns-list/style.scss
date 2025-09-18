@@ -53,8 +53,8 @@
 	// Selected
 	&.is-selected .block-editor-block-preview__container::after {
 		outline-color: $gray-900;
-		outline-width: var(--fp-admin-border-width-focus);
-		outline-offset: calc(-1 * var(--fp-admin-border-width-focus));
+		outline-width: var(--fin-admin-border-width-focus);
+		outline-offset: calc(-1 * var(--fin-admin-border-width-focus));
 	}
 
 	// Hover state
@@ -64,9 +64,9 @@
 
 	// Focused state
 	&[data-focus-visible] .block-editor-block-preview__container::after {
-		outline-color: var(--fp-admin-theme-color);
-		outline-width: var(--fp-admin-border-width-focus);
-		outline-offset: calc(-1 * var(--fp-admin-border-width-focus));
+		outline-color: var(--fin-admin-theme-color);
+		outline-width: var(--fin-admin-border-width-focus);
+		outline-offset: calc(-1 * var(--fin-admin-border-width-focus));
 	}
 
 	.block-editor-patterns__pattern-details:not(:empty) {
@@ -80,7 +80,7 @@
 		height: 24px;
 
 		.block-editor-patterns__pattern-icon {
-			fill: var(--fp-block-synced-color);
+			fill: var(--fin-block-synced-color);
 		}
 	}
 }

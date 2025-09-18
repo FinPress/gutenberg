@@ -234,7 +234,7 @@ function useDuotoneStyles( {
 
 	// Possible values for duotone attribute:
 	// 1. Array of colors - e.g. ['#000000', '#ffffff'].
-	// 2. Variable for an existing Duotone preset - e.g. 'var:preset|duotone|green-blue' or 'var(--fp--preset--duotone--green-blue)''
+	// 2. Variable for an existing Duotone preset - e.g. 'var:preset|duotone|green-blue' or 'var(--fin--preset--duotone--green-blue)''
 	// 3. A CSS string - e.g. 'unset' to remove globally applied duotone.
 	const isCustom = Array.isArray( duotoneAttr );
 	const duotonePreset = isCustom
@@ -243,7 +243,7 @@ function useDuotoneStyles( {
 	const isPreset = typeof duotoneAttr === 'string' && duotonePreset;
 	const isCSS = typeof duotoneAttr === 'string' && ! isPreset;
 
-	// Match the structure of FP_Duotone_Gutenberg::render_duotone_support() in PHP.
+	// Match the structure of FIN_Duotone_Gutenberg::render_duotone_support() in PHP.
 	let colors = null;
 	if ( isPreset ) {
 		// Array of colors.
@@ -369,7 +369,7 @@ function useBlockProps( { clientId, name, style } ) {
 
 	const attribute = style?.color?.duotone;
 
-	const filterClass = `fp-duotone-${ id }`;
+	const filterClass = `fin-duotone-${ id }`;
 
 	const shouldRender = selector && attribute;
 

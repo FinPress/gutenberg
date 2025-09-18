@@ -10,11 +10,11 @@
  *
  * @since 6.8.0
  *
- * @global FP_Query $fin_query FinPress Query object.
+ * @global FIN_Query $fin_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  *
  * @return string The rendered block content.
  */
@@ -27,7 +27,7 @@ function render_block_core_query_total( $attributes, $content, $block ) {
 	} else {
 		$page_key     = isset( $block->context['queryId'] ) ? 'query-' . $block->context['queryId'] . '-page' : 'query-page';
 		$current_page = isset( $_GET[ $page_key ] ) ? (int) $_GET[ $page_key ] : 1;
-		$query_to_use = new FP_Query( build_query_vars_from_query_block( $block, $current_page ) );
+		$query_to_use = new FIN_Query( build_query_vars_from_query_block( $block, $current_page ) );
 	}
 
 	$max_rows       = $query_to_use->found_posts;

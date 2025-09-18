@@ -36,7 +36,7 @@ function useBlockPropsChildLayoutStyles( { style } ) {
 	const parentLayout = useLayout() || {};
 	const { columnCount, minimumColumnWidth } = parentLayout;
 	const id = useInstanceId( LAYOUT_CHILD_BLOCK_PROPS_REFERENCE );
-	const selector = `.fp-container-content-${ id }`;
+	const selector = `.fin-container-content-${ id }`;
 
 	// Check that the grid layout attributes are of the correct type, so that we don't accidentally
 	// write code that stores a string attribute instead of a number.
@@ -163,8 +163,8 @@ function useBlockPropsChildLayoutStyles( { style } ) {
 		return;
 	}
 
-	// Attach a `fp-container-content` id-based classname.
-	return { className: `fp-container-content-${ id }` };
+	// Attach a `fin-container-content` id-based classname.
+	return { className: `fin-container-content-${ id }` };
 }
 
 function ChildLayoutControlsPure( { clientId, style, setAttributes } ) {

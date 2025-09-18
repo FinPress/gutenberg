@@ -8,7 +8,7 @@
  * @covers ::gutenberg_render_block_core_post_excerpt
  * @group blocks
  */
-class Tests_Blocks_RenderBlockCorePostExcerpt extends FP_UnitTestCase {
+class Tests_Blocks_RenderBlockCorePostExcerpt extends FIN_UnitTestCase {
 
 	/**
 	 * Post object with data.
@@ -34,9 +34,9 @@ class Tests_Blocks_RenderBlockCorePostExcerpt extends FP_UnitTestCase {
 	/**
 	 * Setup method.
 	 *
-	 * @param FP_UnitTest_Factory $factory Helper that lets us create fake data.
+	 * @param FIN_UnitTest_Factory $factory Helper that lets us create fake data.
 	 */
-	public static function fpSetUpBeforeClass( FP_UnitTest_Factory $factory ) {
+	public static function finSetUpBeforeClass( FIN_UnitTest_Factory $factory ) {
 
 		self::$post = $factory->post->create_and_get(
 			array(
@@ -45,7 +45,7 @@ class Tests_Blocks_RenderBlockCorePostExcerpt extends FP_UnitTestCase {
 			)
 		);
 
-		$post_id = fp_insert_post(
+		$post_id = fin_insert_post(
 			array(
 				'post_content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Sed tincidunt vitae ex eu cursus. Morbi vel facilisis sapien, quis tincidunt augue. Ut ac dui at magna efficitur tristique et vel sapien.
@@ -74,16 +74,16 @@ class Tests_Blocks_RenderBlockCorePostExcerpt extends FP_UnitTestCase {
 			'innerHTML'    => array(),
 		);
 
-		FP_Block_Supports::init();
-		FP_Block_Supports::$block_to_render = $block;
+		FIN_Block_Supports::init();
+		FIN_Block_Supports::$block_to_render = $block;
 	}
 
 	/**
 	 * Tear down method.
 	 */
-	public static function fpTearDownAfterClass() {
-		fp_delete_post( self::$post->ID, true );
-		fp_delete_post( self::$second_post->ID, true );
+	public static function finTearDownAfterClass() {
+		fin_delete_post( self::$post->ID, true );
+		fin_delete_post( self::$second_post->ID, true );
 	}
 
 	/**
@@ -120,9 +120,9 @@ class Tests_Blocks_RenderBlockCorePostExcerpt extends FP_UnitTestCase {
 			'Failed to assert that $rendered contains a closing html paragraph tag.'
 		);
 		$this->assertStringContainsString(
-			'fp-block-post-excerpt__excerpt',
+			'fin-block-post-excerpt__excerpt',
 			$rendered,
-			'Failed to assert that $rendered contain the "fp-block-post-excerpt__excerpt" string.'
+			'Failed to assert that $rendered contain the "fin-block-post-excerpt__excerpt" string.'
 		);
 		$this->assertStringNotContainsString(
 			'has-text-align',
@@ -146,7 +146,7 @@ class Tests_Blocks_RenderBlockCorePostExcerpt extends FP_UnitTestCase {
 
 		$rendered = gutenberg_render_block_core_post_excerpt( self::$attributes, '', $block );
 		$this->assertStringContainsString(
-			'fp-block-post-excerpt__more-link',
+			'fin-block-post-excerpt__more-link',
 			$rendered,
 			'Failed to assert that $rendered contains the expected string.'
 		);
@@ -156,7 +156,7 @@ class Tests_Blocks_RenderBlockCorePostExcerpt extends FP_UnitTestCase {
 			'showMoreOnNewLine' => true,
 		);
 		$this->assertStringContainsString(
-			'fp-block-post-excerpt__more-link',
+			'fin-block-post-excerpt__more-link',
 			$rendered,
 			'Failed to assert that $rendered contains the expected string.'
 		);

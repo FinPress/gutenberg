@@ -10,13 +10,13 @@ const { readFile } = require( 'fs' ).promises;
 /**
  * README file tokens, defined as a tuple of token identifier, source path.
  *
- * @typedef {[string,string]} FPReadmeFileTokens
+ * @typedef {[string,string]} FINReadmeFileTokens
  */
 
 /**
  * README file data, defined as a tuple of README file path, token details.
  *
- * @typedef {[string,FPReadmeFileTokens]} FPReadmeFileData
+ * @typedef {[string,FINReadmeFileTokens]} FINReadmeFileData
  */
 
 /**
@@ -203,7 +203,7 @@ glob.stream( [
 	`${ DATA_DOCS_DIR }/${ getDataDocumentationPattern( files ) }`,
 ] )
 	.pipe( filterTokenTransform )
-	.on( 'data', async ( /** @type {FPReadmeFileData} */ data ) => {
+	.on( 'data', async ( /** @type {FINReadmeFileData} */ data ) => {
 		const [ file, tokens ] = data;
 		const output = relative( ROOT_DIR, file );
 

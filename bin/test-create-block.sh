@@ -29,7 +29,7 @@ trap cleanup EXIT
 # First test block
 
 status "Scaffolding Example Static (ES5) block..."
-npx fp-create-block example-static-es5 -t es5
+npx fin-create-block example-static-es5 -t es5
 cd example-static-es5
 
 status "Verifying project..."
@@ -45,7 +45,7 @@ cd ..
 # Second test block
 
 status "Scaffolding Example Static block..."
-npx fp-create-block example-static --no-fp-scripts
+npx fin-create-block example-static --no-fin-scripts
 cd example-static
 
 status "Verifying project..."
@@ -63,10 +63,10 @@ if [ "$expected" -ne "$actual" ]; then
 fi
 
 status "Formatting files..."
-../node_modules/.bin/fp-scripts format
+../node_modules/.bin/fin-scripts format
 
 status "Building block..."
-../node_modules/.bin/fp-scripts build
+../node_modules/.bin/fin-scripts build
 
 status "Verifying build..."
 expected=9
@@ -77,10 +77,10 @@ if [ "$expected" -ne "$actual" ]; then
 fi
 
 status "Linting CSS files..."
-../node_modules/.bin/fp-scripts lint-style
+../node_modules/.bin/fin-scripts lint-style
 
 status "Linting JavaScript files..."
-../node_modules/.bin/fp-scripts lint-js
+../node_modules/.bin/fin-scripts lint-js
 
 status "Creating a plugin zip file..."
-../node_modules/.bin/fp-scripts plugin-zip
+../node_modules/.bin/fin-scripts plugin-zip

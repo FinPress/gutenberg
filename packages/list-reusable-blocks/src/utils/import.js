@@ -23,7 +23,7 @@ async function importReusableBlock( file ) {
 		throw new Error( 'Invalid JSON file' );
 	}
 	if (
-		parsedContent.__file !== 'fp_block' ||
+		parsedContent.__file !== 'fin_block' ||
 		! parsedContent.title ||
 		! parsedContent.content ||
 		typeof parsedContent.title !== 'string' ||
@@ -33,16 +33,16 @@ async function importReusableBlock( file ) {
 	) {
 		throw new Error( 'Invalid pattern JSON file' );
 	}
-	const postType = await apiFetch( { path: `/fp/v2/types/fp_block` } );
+	const postType = await apiFetch( { path: `/fin/v2/types/fin_block` } );
 	const reusableBlock = await apiFetch( {
-		path: `/fp/v2/${ postType.rest_base }`,
+		path: `/fin/v2/${ postType.rest_base }`,
 		data: {
 			title: parsedContent.title,
 			content: parsedContent.content,
 			status: 'publish',
 			meta:
 				parsedContent.syncStatus === 'unsynced'
-					? { fp_pattern_sync_status: parsedContent.syncStatus }
+					? { fin_pattern_sync_status: parsedContent.syncStatus }
 					: undefined,
 		},
 		method: 'POST',

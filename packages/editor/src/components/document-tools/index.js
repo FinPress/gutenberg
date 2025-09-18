@@ -62,7 +62,7 @@ function DocumentTools( { className, disableBlockTools = false } ) {
 			showTools:
 				!! window?.__experimentalEditorWriteMode &&
 				( getRenderingMode() !== 'post-only' ||
-					getCurrentPostType() === 'fp_template' ),
+					getCurrentPostType() === 'fin_template' ),
 		};
 	}, [] );
 

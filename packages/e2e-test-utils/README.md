@@ -182,11 +182,11 @@ _Parameters_
 
 ### createURL
 
-Creates new URL by parsing base URL, FPPath and query string.
+Creates new URL by parsing base URL, FINPath and query string.
 
 _Parameters_
 
--   _FPPath_ `string`: String to be serialized as pathname.
+-   _FINPath_ `string`: String to be serialized as pathname.
 -   _query_ `?string`: String to be serialized as query portion of URL.
 
 _Returns_
@@ -474,7 +474,7 @@ _Parameters_
 
 ### installPlugin
 
-Installs a plugin from the FP.org repository.
+Installs a plugin from the FIN.org repository.
 
 _Parameters_
 
@@ -483,7 +483,7 @@ _Parameters_
 
 ### installTheme
 
-Installs a theme from the FP.org repository.
+Installs a theme from the FIN.org repository.
 
 _Parameters_
 
@@ -497,7 +497,7 @@ Checks if current URL is a FinPress path.
 
 _Parameters_
 
--   _FPPath_ `string`: String to be serialized as pathname.
+-   _FINPath_ `string`: String to be serialized as pathname.
 -   _query_ `?string`: String to be serialized as query portion of URL.
 
 _Returns_
@@ -711,7 +711,7 @@ Sets browser viewport to specified type.
 
 _Parameters_
 
--   _viewport_ `FPviewport`: viewport name or dimensions object to assign.
+-   _viewport_ `FINviewport`: viewport name or dimensions object to assign.
 
 ### setClipboardData
 

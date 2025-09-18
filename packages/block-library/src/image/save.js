@@ -50,7 +50,7 @@ export default function save( { attributes } ) {
 	} );
 
 	const imageClasses = clsx( borderProps.className, {
-		[ `fp-image-${ id }` ]: !! id,
+		[ `fin-image-${ id }` ]: !! id,
 	} );
 
 	const image = (

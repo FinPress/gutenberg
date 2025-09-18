@@ -22,7 +22,7 @@ This function is designed to register block types and primarily uses two paramet
 
 During the development process, the `block.json` file is typically moved from the `src` (source) directory to the `build` directory as part of compiling your code. Therefore, when registering your block, ensure the `$block_type` path points to the `block.json` file within the `build` directory.
 
-The `register_block_type()` function returns the registered block type (`FP_Block_Type`) on success or `false` on failure. Here is a simple example using the `render_callback`.
+The `register_block_type()` function returns the registered block type (`FIN_Block_Type`) on success or `false` on failure. Here is a simple example using the `render_callback`.
 
 ```php
 register_block_type(
@@ -73,7 +73,7 @@ The `settings` object passed as the second parameter includes many properties, b
 - **`edit`:** The React component that gets used in the Editor for our block.
 - **`save`:** The function that returns the static HTML markup that gets saved to the database.
 
-The `registerBlockType()` function returns the registered block type (`FPBlock`) on success or `undefined` on failure. Here's an example:
+The `registerBlockType()` function returns the registered block type (`FINBlock`) on success or `undefined` on failure. Here's an example:
 
 ```js
 import { registerBlockType } from '@finpress/blocks';

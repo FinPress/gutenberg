@@ -77,10 +77,10 @@ const { useCommandContext } = unlock( commandsPrivateApis );
 const { Editor, FullscreenMode, NavigableRegion } = unlock( editorPrivateApis );
 const { BlockKeyboardShortcuts } = unlock( blockLibraryPrivateApis );
 const DESIGN_POST_TYPES = [
-	'fp_template',
-	'fp_template_part',
-	'fp_block',
-	'fp_navigation',
+	'fin_template',
+	'fin_template_part',
+	'fin_block',
+	'fin_navigation',
 ];
 
 function useEditorStyles( ...additionalStyles ) {
@@ -383,7 +383,7 @@ function Layout( {
 		initialPostType,
 		'post-only'
 	);
-	const isEditingTemplate = currentPostType === 'fp_template';
+	const isEditingTemplate = currentPostType === 'fin_template';
 	const {
 		mode,
 		isFullscreenActive,
@@ -410,7 +410,7 @@ function Layout( {
 				getPostType( currentPostType )?.viewable ?? false;
 			const canViewTemplate = canUser( 'read', {
 				kind: 'postType',
-				name: 'fp_template',
+				name: 'fin_template',
 			} );
 			const { getBlockSelectionStart, isZoomOut } = unlock(
 				select( blockEditorStore )
@@ -425,7 +425,7 @@ function Layout( {
 			const isNotDesignPostType =
 				! DESIGN_POST_TYPES.includes( currentPostType );
 			const isDirectlyEditingPattern =
-				currentPostType === 'fp_block' &&
+				currentPostType === 'fin_block' &&
 				! onNavigateToPreviousEntityRecord;
 			const _templateId = getTemplateId( currentPostType, currentPostId );
 			const defaultMode = getDefaultRenderingMode( currentPostType );

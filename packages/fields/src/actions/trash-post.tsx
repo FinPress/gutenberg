@@ -27,7 +27,7 @@ const trashPost: Action< PostWithPermissions > = {
 	isPrimary: true,
 	icon: trash,
 	isEligible( item ) {
-		if ( isTemplateOrTemplatePart( item ) || item.type === 'fp_block' ) {
+		if ( isTemplateOrTemplatePart( item ) || item.type === 'fin_block' ) {
 			return false;
 		}
 

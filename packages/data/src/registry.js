@@ -14,7 +14,7 @@ import { lock, unlock } from './lock-unlock';
 /** @typedef {import('./types').StoreDescriptor} StoreDescriptor */
 
 /**
- * @typedef {Object} FPDataRegistry An isolated orchestrator of store registrations.
+ * @typedef {Object} FINDataRegistry An isolated orchestrator of store registrations.
  *
  * @property {Function} registerGenericStore Given a namespace key and settings
  *                                           object, registers a new generic
@@ -34,7 +34,7 @@ import { lock, unlock } from './lock-unlock';
  */
 
 /**
- * @typedef {Object} FPDataPlugin An object of registry function overrides.
+ * @typedef {Object} FINDataPlugin An object of registry function overrides.
  *
  * @property {Function} registerStore registers store.
  */
@@ -51,7 +51,7 @@ function getStoreName( storeNameOrDescriptor ) {
  * @param {Object}  storeConfigs Initial store configurations.
  * @param {?Object} parent       Parent registry.
  *
- * @return {FPDataRegistry} Data registry.
+ * @return {FINDataRegistry} Data registry.
  */
 export function createRegistry( storeConfigs = {}, parent = null ) {
 	const stores = {};
@@ -286,9 +286,9 @@ export function createRegistry( storeConfigs = {}, parent = null ) {
 	}
 
 	function registerGenericStore( name, store ) {
-		deprecated( 'fp.data.registerGenericStore', {
+		deprecated( 'fin.data.registerGenericStore', {
 			since: '5.9',
-			alternative: 'fp.data.register( storeDescriptor )',
+			alternative: 'fin.data.register( storeDescriptor )',
 		} );
 		registerStoreInstance( name, () => store );
 	}

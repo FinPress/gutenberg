@@ -103,10 +103,10 @@ export function useInBetweenInserter() {
 				let element = children.find( ( blockEl ) => {
 					const blockElRect = blockEl.getBoundingClientRect();
 					return (
-						( blockEl.classList.contains( 'fp-block' ) &&
+						( blockEl.classList.contains( 'fin-block' ) &&
 							orientation === 'vertical' &&
 							blockElRect.top > offsetTop ) ||
-						( blockEl.classList.contains( 'fp-block' ) &&
+						( blockEl.classList.contains( 'fin-block' ) &&
 							orientation === 'horizontal' &&
 							( isRTL()
 								? blockElRect.right < offsetLeft

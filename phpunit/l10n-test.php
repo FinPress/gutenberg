@@ -1,15 +1,15 @@
 <?php
 /**
- * Tests_L10n_fpWordcount class
+ * Tests_L10n_finWordcount class
  *
  * @package FinPress
  */
 
-class Tests_L10n_fpWordcount extends FP_UnitTestCase {
+class Tests_L10n_finWordcount extends FIN_UnitTestCase {
 	/**
 	 * Tests that words are counted correctly based on the type
 	 *
-	 * @covers ::fp_word_count
+	 * @covers ::fin_word_count
 	 *
 	 * @dataProvider data_get_string_variations
 	 *
@@ -23,9 +23,9 @@ class Tests_L10n_fpWordcount extends FP_UnitTestCase {
 			'shortcodes' => array( 'shortcode' ),
 		);
 
-		$this->assertEquals( fp_word_count( $input_string, 'words', $settings ), $words );
-		$this->assertEquals( fp_word_count( $input_string, 'characters_excluding_spaces', $settings ), $characters_excluding_spaces );
-		$this->assertEquals( fp_word_count( $input_string, 'characters_including_spaces', $settings ), $characters_including_spaces );
+		$this->assertEquals( fin_word_count( $input_string, 'words', $settings ), $words );
+		$this->assertEquals( fin_word_count( $input_string, 'characters_excluding_spaces', $settings ), $characters_excluding_spaces );
+		$this->assertEquals( fin_word_count( $input_string, 'characters_including_spaces', $settings ), $characters_including_spaces );
 	}
 
 	/**

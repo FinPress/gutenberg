@@ -27,27 +27,27 @@ import { applyBuiltInValidationFixes } from './apply-built-in-validation-fixes';
  * the HTML content of the block as only the latter is relevant for block
  * validation and edit operations.
  *
- * @typedef FPRawBlock
+ * @typedef FINRawBlock
  *
  * @property {string=}         blockName    Block name
  * @property {Object=}         attrs        Block raw or comment attributes.
  * @property {string}          innerHTML    HTML content of the block.
  * @property {(string|null)[]} innerContent Content without inner blocks.
- * @property {FPRawBlock[]}    innerBlocks  Inner Blocks.
+ * @property {FINRawBlock[]}    innerBlocks  Inner Blocks.
  */
 
 /**
  * Fully parsed block object.
  *
- * @typedef FPBlock
+ * @typedef FINBlock
  *
  * @property {string}     name                    Block name
  * @property {Object}     attributes              Block raw or comment attributes.
- * @property {FPBlock[]}  innerBlocks             Inner Blocks.
+ * @property {FINBlock[]}  innerBlocks             Inner Blocks.
  * @property {string}     originalContent         Original content of the block before validation fixes.
  * @property {boolean}    isValid                 Whether the block is valid.
  * @property {Object[]}   validationIssues        Validation issues.
- * @property {FPRawBlock} [__unstableBlockSource] Un-processed original copy of block if created through parser.
+ * @property {FINRawBlock} [__unstableBlockSource] Un-processed original copy of block if created through parser.
  */
 
 /**
@@ -61,9 +61,9 @@ import { applyBuiltInValidationFixes } from './apply-built-in-validation-fixes';
  * both in the parser level for previous content and to convert such blocks
  * used in Custom Post Types templates.
  *
- * @param {FPRawBlock} rawBlock
+ * @param {FINRawBlock} rawBlock
  *
- * @return {FPRawBlock} The block's name and attributes, changed accordingly if a match was found
+ * @return {FINRawBlock} The block's name and attributes, changed accordingly if a match was found
  */
 function convertLegacyBlocks( rawBlock ) {
 	const [ correctName, correctedAttributes ] =
@@ -82,10 +82,10 @@ function convertLegacyBlocks( rawBlock ) {
  * Normalize the raw block by applying the fallback block name if none given,
  * sanitize the parsed HTML...
  *
- * @param {FPRawBlock}    rawBlock The raw block object.
+ * @param {FINRawBlock}    rawBlock The raw block object.
  * @param {ParseOptions?} options  Extra options for handling block parsing.
  *
- * @return {FPRawBlock} The normalized block object.
+ * @return {FINRawBlock} The normalized block object.
  */
 export function normalizeRawBlock( rawBlock, options ) {
 	const fallbackBlockName = getFreeformContentHandlerName();
@@ -119,9 +119,9 @@ export function normalizeRawBlock( rawBlock, options ) {
 /**
  * Uses the "unregistered blockType" to create a block object.
  *
- * @param {FPRawBlock} rawBlock block.
+ * @param {FINRawBlock} rawBlock block.
  *
- * @return {FPRawBlock} The unregistered block object.
+ * @return {FINRawBlock} The unregistered block object.
  */
 function createMissingBlockType( rawBlock ) {
 	const unregisteredFallbackBlock =
@@ -158,9 +158,9 @@ function createMissingBlockType( rawBlock ) {
  *
  * The name here is regrettable but `validateBlock` is already taken.
  *
- * @param {FPBlock}                               unvalidatedBlock
- * @param {import('../registration').FPBlockType} blockType
- * @return {FPBlock}                              validated block, with auto-fixes if initially invalid
+ * @param {FINBlock}                               unvalidatedBlock
+ * @param {import('../registration').FINBlockType} blockType
+ * @return {FINBlock}                              validated block, with auto-fixes if initially invalid
  */
 function applyBlockValidation( unvalidatedBlock, blockType ) {
 	// Attempt to validate the block.
@@ -188,10 +188,10 @@ function applyBlockValidation( unvalidatedBlock, blockType ) {
 /**
  * Given a raw block returned by grammar parsing, returns a fully parsed block.
  *
- * @param {FPRawBlock}   rawBlock The raw block object.
+ * @param {FINRawBlock}   rawBlock The raw block object.
  * @param {ParseOptions} options  Extra options for handling block parsing.
  *
- * @return {FPBlock | undefined} Fully parsed block.
+ * @return {FINBlock | undefined} Fully parsed block.
  */
 export function parseRawBlock( rawBlock, options ) {
 	let normalizedBlock = normalizeRawBlock( rawBlock, options );

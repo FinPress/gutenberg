@@ -45,7 +45,7 @@ export default function PublishButtonLabel() {
 			isSaving: isSavingPost(),
 			isPublishing: isPublishingPost(),
 			hasPublishAction:
-				getCurrentPost()._links?.[ 'fp:action-publish' ] ?? false,
+				getCurrentPost()._links?.[ 'fin:action-publish' ] ?? false,
 			postType: getCurrentPostType(),
 			isAutosaving: isAutosavingPost(),
 			hasNonPostEntityChanges:

@@ -115,7 +115,7 @@ export const getWidgetAreaForWidgetId = createRegistrySelector(
  *
  * @param {string} clientId The client id of a block in a widget area.
  *
- * @return {FPBlock} The widget area block.
+ * @return {FINBlock} The widget area block.
  */
 export const getParentWidgetAreaBlock = createRegistrySelector(
 	( select ) => ( state, clientId ) => {

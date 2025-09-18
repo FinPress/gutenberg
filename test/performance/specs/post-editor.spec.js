@@ -676,9 +676,9 @@ test.describe( 'Post Editor Performance', () => {
 
 				const startTime = performance.now();
 
-				// This is the FP v6.5 and older locator.
+				// This is the FIN v6.5 and older locator.
 				const oldLocator = page.getByRole( 'button', { name: 'Test' } );
-				// This is the FP v6.6 and newer locator.
+				// This is the FIN v6.6 and newer locator.
 				const newLocator = page.getByRole( 'tab', { name: 'Test' } );
 
 				await oldLocator.or( newLocator ).click();

@@ -1,9 +1,9 @@
 <?php
 /**
- * Add module fields from block metadata to FP_Block_Type settings.
+ * Add module fields from block metadata to FIN_Block_Type settings.
  *
  * This filter allows us to register modules from block metadata and attach additional fields to
- * FP_Block_Type instances.
+ * FIN_Block_Type instances.
  *
  * @param array $settings Array of determined settings for registering a block type.
  * @param array $metadata Metadata provided for registering a block type.
@@ -78,14 +78,14 @@ function gutenberg_register_block_module_id( $metadata, $field_name, $index = 0 
 	$path                  = dirname( $metadata['file'] );
 	$module_asset_raw_path = $path . '/' . substr_replace( $module_path, '.asset.php', - strlen( '.js' ) );
 	$module_id             = gutenberg_generate_block_asset_module_id( $metadata['name'], $field_name, $index );
-	$module_asset_path     = fp_normalize_path( realpath( $module_asset_raw_path ) );
+	$module_asset_path     = fin_normalize_path( realpath( $module_asset_raw_path ) );
 
-	$module_path_norm    = fp_normalize_path( realpath( $path . '/' . $module_path ) );
+	$module_path_norm    = fin_normalize_path( realpath( $path . '/' . $module_path ) );
 	$module_uri          = get_block_asset_url( $module_path_norm );
 	$module_asset        = ! empty( $module_asset_path ) ? require $module_asset_path : array();
 	$module_dependencies = isset( $module_asset['dependencies'] ) ? $module_asset['dependencies'] : array();
 
-	fp_register_script_module(
+	fin_register_script_module(
 		$module_id,
 		$module_uri,
 		$module_dependencies,
@@ -109,7 +109,7 @@ function gutenberg_register_block_module_id( $metadata, $field_name, $index = 0 
  */
 function gutenberg_generate_block_asset_module_id( $block_name, $field_name, $index = 0 ) {
 	if ( str_starts_with( $block_name, 'core/' ) ) {
-		$asset_handle = str_replace( 'core/', 'fp-block-', $block_name );
+		$asset_handle = str_replace( 'core/', 'fin-block-', $block_name );
 		if ( str_starts_with( $field_name, 'editor' ) ) {
 			$asset_handle .= '-editor';
 		}
@@ -149,7 +149,7 @@ function gutenberg_register_view_module_ids_rest_field() {
 		'view_module_ids',
 		array(
 			'get_callback' => function ( $item ) {
-				$block_type = FP_Block_Type_Registry::get_instance()->get_registered( $item['name'] );
+				$block_type = FIN_Block_Type_Registry::get_instance()->get_registered( $item['name'] );
 				if ( isset( $block_type->view_script_module_ids ) ) {
 					return $block_type->view_script_module_ids;
 				}
@@ -165,7 +165,7 @@ add_action( 'rest_api_init', 'gutenberg_register_view_module_ids_rest_field' );
  * Registers the module if no module with that module identifier has already
  * been registered.
  *
- * @deprecated 17.6.0 gutenberg_register_module is deprecated. Please use fp_register_script_module instead.
+ * @deprecated 17.6.0 gutenberg_register_module is deprecated. Please use fin_register_script_module instead.
  *
  * @param string            $module_identifier The identifier of the module. Should be unique. It will be used in the final import map.
  * @param string            $src               Full URL of the module, or path of the script relative to the FinPress root directory.
@@ -173,30 +173,30 @@ add_action( 'rest_api_init', 'gutenberg_register_view_module_ids_rest_field' );
  * @param string|false|null $version           Optional. String specifying module version number. Defaults to false. It is added to the URL as a query string for cache busting purposes. If $version is set to false, the version number is the currently installed FinPress version. If $version is set to null, no version is added.
  */
 function gutenberg_register_module( $module_identifier, $src = '', $dependencies = array(), $version = false ) {
-	_deprecated_function( __FUNCTION__, 'Gutenberg 17.6.0', 'fp_register_script_module' );
-	fp_script_modules()->register( $module_identifier, $src, $dependencies, $version );
+	_deprecated_function( __FUNCTION__, 'Gutenberg 17.6.0', 'fin_register_script_module' );
+	fin_script_modules()->register( $module_identifier, $src, $dependencies, $version );
 }
 
 /**
  * Marks the module to be enqueued in the page.
  *
- * @deprecated 17.6.0 gutenberg_enqueue_module is deprecated. Please use fp_enqueue_script_module instead.
+ * @deprecated 17.6.0 gutenberg_enqueue_module is deprecated. Please use fin_enqueue_script_module instead.
  *
  * @param string $module_identifier The identifier of the module.
  */
 function gutenberg_enqueue_module( $module_identifier ) {
-	_deprecated_function( __FUNCTION__, 'Gutenberg 17.6.0', 'fp_enqueue_script_module' );
-	fp_script_modules()->enqueue( $module_identifier );
+	_deprecated_function( __FUNCTION__, 'Gutenberg 17.6.0', 'fin_enqueue_script_module' );
+	fin_script_modules()->enqueue( $module_identifier );
 }
 
 /**
  * Unmarks the module so it is not longer enqueued in the page.
  *
- * @deprecated 17.6.0 gutenberg_dequeue_module is deprecated. Please use fp_dequeue_script_module instead.
+ * @deprecated 17.6.0 gutenberg_dequeue_module is deprecated. Please use fin_dequeue_script_module instead.
  *
  * @param string $module_identifier The identifier of the module.
  */
 function gutenberg_dequeue_module( $module_identifier ) {
-	_deprecated_function( __FUNCTION__, 'Gutenberg 17.6.0', 'fp_dequeue_script_module' );
-	fp_script_modules()->dequeue( $module_identifier );
+	_deprecated_function( __FUNCTION__, 'Gutenberg 17.6.0', 'fin_dequeue_script_module' );
+	fin_script_modules()->dequeue( $module_identifier );
 }

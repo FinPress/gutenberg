@@ -4,7 +4,7 @@
 import { usePrevious } from '@finpress/compose';
 import { useState, useLayoutEffect } from '@finpress/element';
 
-/** @typedef {import('../register-format-type').FPFormat} FPFormat */
+/** @typedef {import('../register-format-type').FINFormat} FINFormat */
 /** @typedef {import('../types').RichTextValue} RichTextValue */
 
 /**
@@ -150,7 +150,7 @@ function getAnchor( editableContentElement, tagName, className ) {
  * @param {Object}           $1                        Named parameters.
  * @param {HTMLElement|null} $1.editableContentElement The element containing
  *                                                     the editable content.
- * @param {FPFormat=}        $1.settings               The format type's settings.
+ * @param {FINFormat=}        $1.settings               The format type's settings.
  * @return {Element|VirtualAnchorElement|undefined|null} The active element or selection range.
  */
 export function useAnchor( { editableContentElement, settings = {} } ) {

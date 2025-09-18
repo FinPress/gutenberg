@@ -53,8 +53,8 @@ describe( 'getCleanTemplatePartSlug', () => {
 		);
 	} );
 
-	it( 'should default the slug to fp-custom-part', () => {
+	it( 'should default the slug to fin-custom-part', () => {
 		const title = '';
-		expect( getCleanTemplatePartSlug( title ) ).toBe( 'fp-custom-part' );
+		expect( getCleanTemplatePartSlug( title ) ).toBe( 'fin-custom-part' );
 	} );
 } );

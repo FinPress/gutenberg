@@ -35,15 +35,15 @@
 				scroll-margin: 5px 0;
 
 				&:hover .block-editor-block-preview__container {
-					box-shadow: 0 0 0 2px var(--fp-admin-theme-color);
+					box-shadow: 0 0 0 2px var(--fin-admin-theme-color);
 				}
 
 				&:focus .block-editor-block-preview__container {
-					@include button-style-outset__focus(var(--fp-admin-theme-color));
+					@include button-style-outset__focus(var(--fin-admin-theme-color));
 				}
 				&:hover .block-editor-block-pattern-setup-list__item-title,
 				&:focus .block-editor-block-pattern-setup-list__item-title {
-					color: var(--fp-admin-theme-color);
+					color: var(--fin-admin-theme-color);
 				}
 			}
 

@@ -658,7 +658,7 @@ This variable should display the value of the `startingYear` attribute and the `
 	<ul>
 		<li><code>$attributes</code> (array): The block attributes.</li>
 		<li><code>$content</code> (string): The block default content.</li>
-		<li><code>$block</code> (FP_Block): The block instance.</li>
+		<li><code>$block</code> (FIN_Block): The block instance.</li>
 	</ul>
 </div>
 

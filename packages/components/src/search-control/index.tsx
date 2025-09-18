@@ -89,7 +89,7 @@ function UnforwardedSearchControl(
 				// to provide backwards compatible margin for SearchControl.
 				// (In a standard InputControl, the BaseControl `__nextHasNoMarginBottom` is always set to true.)
 				_overrides: { __nextHasNoMarginBottom },
-				__associatedFPComponentName: 'SearchControl',
+				__associatedFINComponentName: 'SearchControl',
 			},
 			// `isBorderless` is still experimental and not a public prop for InputControl yet.
 			InputBase: { isBorderless: true },

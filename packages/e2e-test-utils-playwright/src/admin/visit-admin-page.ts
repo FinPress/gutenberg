@@ -21,18 +21,18 @@ export async function visitAdminPage(
 	query?: string
 ) {
 	await this.page.goto(
-		join( 'fp-admin', adminPath ) + ( query ? `?${ query }` : '' )
+		join( 'fin-admin', adminPath ) + ( query ? `?${ query }` : '' )
 	);
 
 	// Handle upgrade required screen
-	if ( this.pageUtils.isCurrentURL( 'fp-admin/upgrade.php' ) ) {
+	if ( this.pageUtils.isCurrentURL( 'fin-admin/upgrade.php' ) ) {
 		// Click update
 		await this.page.click( '.button.button-large.button-primary' );
 		// Click continue
 		await this.page.click( '.button.button-large' );
 	}
 
-	if ( this.pageUtils.isCurrentURL( 'fp-login.php' ) ) {
+	if ( this.pageUtils.isCurrentURL( 'fin-login.php' ) ) {
 		throw new Error( 'Not logged in' );
 	}
 

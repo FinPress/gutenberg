@@ -26,48 +26,48 @@ const { getLatestFinPressVersion } = require( '../finpress' );
 const mergeConfigs = require( './merge-configs' );
 
 /**
- * @typedef {import('./parse-source-string').FPSource} FPSource
+ * @typedef {import('./parse-source-string').FINSource} FINSource
  */
 
 /**
  * The root configuration options.
  *
- * @typedef FPRootConfigOptions
+ * @typedef FINRootConfigOptions
  * @property {number}                               port                          The port to use in the development environment.
  * @property {number}                               testsPort                     The port to use in the tests environment.
  * @property {Object.<string, string|null>}         lifecycleScripts              The scripts to run at certain points in the command lifecycle.
  * @property {Object.<string, string|null>}         lifecycleScripts.afterStart   The script to run after the "start" command has completed.
  * @property {Object.<string, string|null>}         lifecycleScripts.afterClean   The script to run after the "clean" command has completed.
  * @property {Object.<string, string|null>}         lifecycleScripts.afterDestroy The script to run after the "destroy" command has completed.
- * @property {Object.<string, FPEnvironmentConfig>} env                           The environment-specific configuration options.
+ * @property {Object.<string, FINEnvironmentConfig>} env                           The environment-specific configuration options.
  */
 
 /**
  * The environment-specific configuration options. (development/tests/etc)
  *
- * @typedef FPEnvironmentConfig
- * @property {FPSource}                  coreSource     The FinPress installation to load in the environment.
- * @property {FPSource[]}                pluginSources  Plugins to load in the environment.
- * @property {FPSource[]}                themeSources   Themes to load in the environment.
+ * @typedef FINEnvironmentConfig
+ * @property {FINSource}                  coreSource     The FinPress installation to load in the environment.
+ * @property {FINSource[]}                pluginSources  Plugins to load in the environment.
+ * @property {FINSource[]}                themeSources   Themes to load in the environment.
  * @property {number}                    port           The port to use.
  * @property {number}                    mysqlPort      The port to use for MySQL. Random if empty.
  * @property {number}                    phpmyadminPort The port to use for phpMyAdmin. If empty, disabled phpMyAdmin.
  * @property {boolean}                   multisite      Whether to set up a multisite installation.
- * @property {Object}                    config         Mapping of fp-config.php constants to their desired values.
- * @property {Object.<string, FPSource>} mappings       Mapping of FinPress directories to local directories which should be mounted.
+ * @property {Object}                    config         Mapping of fin-config.php constants to their desired values.
+ * @property {Object.<string, FINSource>} mappings       Mapping of FinPress directories to local directories which should be mounted.
  * @property {string|null}               phpVersion     Version of PHP to use in the environments, of the format 0.0.
  */
 
 /**
  * The root configuration options.
  *
- * @typedef {FPEnvironmentConfig & FPRootConfigOptions} FPRootConfig
+ * @typedef {FINEnvironmentConfig & FINRootConfigOptions} FINRootConfig
  */
 
 /**
  * A FinPress installation, plugin or theme to be loaded into the environment.
  *
- * @typedef FPSource
+ * @typedef FINSource
  * @property {'local'|'git'|'zip'} type     The source type.
  * @property {string}              path     The path to the FinPress installation, plugin or theme.
  * @property {?string}             url      The URL to the source download if the source type is not local.
@@ -94,15 +94,15 @@ const DEFAULT_ENVIRONMENT_CONFIG = {
 	mappings: {},
 	config: {
 		FS_METHOD: 'direct',
-		FP_DEBUG: true,
+		FIN_DEBUG: true,
 		SCRIPT_DEBUG: true,
-		FP_ENVIRONMENT_TYPE: 'local',
-		FP_PHP_BINARY: 'php',
-		FP_TESTS_EMAIL: 'admin@example.org',
-		FP_TESTS_TITLE: 'Test Blog',
-		FP_TESTS_DOMAIN: 'localhost',
-		FP_SITEURL: 'http://localhost',
-		FP_HOME: 'http://localhost',
+		FIN_ENVIRONMENT_TYPE: 'local',
+		FIN_PHP_BINARY: 'php',
+		FIN_TESTS_EMAIL: 'admin@example.org',
+		FIN_TESTS_TITLE: 'Test Blog',
+		FIN_TESTS_DOMAIN: 'localhost',
+		FIN_SITEURL: 'http://localhost',
+		FIN_HOME: 'http://localhost',
 	},
 };
 
@@ -112,9 +112,9 @@ const DEFAULT_ENVIRONMENT_CONFIG = {
  *
  *
  * @param {string} configDirectoryPath A path to the directory we are parsing the config for.
- * @param {string} cacheDirectoryPath  Path to the work directory located in ~/.fp-env.
+ * @param {string} cacheDirectoryPath  Path to the work directory located in ~/.fin-env.
  *
- * @return {Promise<FPRootConfig>} Parsed config.
+ * @return {Promise<FINRootConfig>} Parsed config.
  */
 async function parseConfig( configDirectoryPath, cacheDirectoryPath ) {
 	// The local config will be used to override any defaults.
@@ -170,12 +170,12 @@ function getConfigFilePath( configDirectoryPath, type = 'local' ) {
 	let fileName;
 	switch ( type ) {
 		case 'local': {
-			fileName = '.fp-env.json';
+			fileName = '.fin-env.json';
 			break;
 		}
 
 		case 'override': {
-			fileName = '.fp-env.override.json';
+			fileName = '.fin-env.override.json';
 			break;
 		}
 
@@ -192,10 +192,10 @@ function getConfigFilePath( configDirectoryPath, type = 'local' ) {
  *
  * @param {string} configDirectoryPath        A path to the config file's directory.
  * @param {Object} options
- * @param {string} options.shouldInferType    Indicates whether or not we should infer the type of project fp-env is being used in.
- * @param {string} options.cacheDirectoryPath Path to the work directory located in ~/.fp-env.
+ * @param {string} options.shouldInferType    Indicates whether or not we should infer the type of project fin-env is being used in.
+ * @param {string} options.cacheDirectoryPath Path to the work directory located in ~/.fin-env.
  *
- * @return {Promise<FPEnvironmentConfig>} The default config object.
+ * @return {Promise<FINEnvironmentConfig>} The default config object.
  */
 async function getDefaultConfig(
 	configDirectoryPath,
@@ -241,7 +241,7 @@ async function getDefaultConfig(
 			development: {},
 			tests: {
 				config: {
-					FP_DEBUG: false,
+					FIN_DEBUG: false,
 					SCRIPT_DEBUG: false,
 				},
 			},
@@ -256,9 +256,9 @@ async function getDefaultConfig(
 /**
  * Gets a service configuration object containing overrides from our environment variables.
  *
- * @param {string} cacheDirectoryPath Path to the work directory located in ~/.fp-env.
+ * @param {string} cacheDirectoryPath Path to the work directory located in ~/.fin-env.
  *
- * @return {FPEnvironmentConfig} An object containing the environment variable overrides.
+ * @return {FINEnvironmentConfig} An object containing the environment variable overrides.
  */
 function getEnvironmentVarOverrides( cacheDirectoryPath ) {
 	const overrides = getConfigFromEnvironmentVars( cacheDirectoryPath );
@@ -320,9 +320,9 @@ function getEnvironmentVarOverrides( cacheDirectoryPath ) {
  *
  * @param {string} configFile                 The config file that we're parsing.
  * @param {Object} options
- * @param {string} options.cacheDirectoryPath Path to the work directory located in ~/.fp-env.
+ * @param {string} options.cacheDirectoryPath Path to the work directory located in ~/.fin-env.
  *
- * @return {Promise<FPRootConfig|null>} The parsed root config object.
+ * @return {Promise<FINRootConfig|null>} The parsed root config object.
  */
 async function parseConfigFile( configFile, options ) {
 	const rawConfig = await readRawConfigFile( configFile );
@@ -339,9 +339,9 @@ async function parseConfigFile( configFile, options ) {
  * @param {string} configFile                 The config file we're parsing.
  * @param {Object} rawConfig                  The raw config we're parsing.
  * @param {Object} options
- * @param {string} options.cacheDirectoryPath Path to the work directory located in ~/.fp-env.
+ * @param {string} options.cacheDirectoryPath Path to the work directory located in ~/.fin-env.
  *
- * @return {Promise<FPRootConfig>} The root config object.
+ * @return {Promise<FINRootConfig>} The root config object.
  */
 async function parseRootConfig( configFile, rawConfig, options ) {
 	const parsedConfig = await parseEnvironmentConfig(
@@ -401,10 +401,10 @@ async function parseRootConfig( configFile, rawConfig, options ) {
  * @param {string|null} environment                If set, the environment that we're parsing the config for.
  * @param {Object}      config                     A config object to parse.
  * @param {Object}      options
- * @param {string}      options.cacheDirectoryPath Path to the work directory located in ~/.fp-env.
+ * @param {string}      options.cacheDirectoryPath Path to the work directory located in ~/.fin-env.
  * @param {boolean}     options.rootConfig         Indicates whether or not this is the root config object.
  *
- * @return {Promise<FPEnvironmentConfig>} The environment config object.
+ * @return {Promise<FINEnvironmentConfig>} The environment config object.
  */
 async function parseEnvironmentConfig(
 	configFile,
@@ -526,8 +526,8 @@ async function parseEnvironmentConfig(
 		// There are some configuration options that have a special purpose and need to be validated too.
 		for ( const key in parsedConfig.config ) {
 			switch ( key ) {
-				case 'FP_HOME':
-				case 'FP_SITEURL': {
+				case 'FIN_HOME':
+				case 'FIN_SITEURL': {
 					checkValidURL(
 						configFile,
 						`${ environmentPrefix }config.${ key }`,
@@ -548,9 +548,9 @@ async function parseEnvironmentConfig(
 			false
 		);
 		parsedConfig.mappings = Object.entries( config.mappings ).reduce(
-			( result, [ fpDir, localDir ] ) => {
+			( result, [ finDir, localDir ] ) => {
 				const source = parseSourceString( localDir, options );
-				result[ fpDir ] = source;
+				result[ finDir ] = source;
 				return result;
 			},
 			{}
@@ -570,14 +570,14 @@ async function parseEnvironmentConfig(
 async function parseCoreSource( coreSource, options ) {
 	// An empty source means we should use the latest version of FinPress.
 	if ( ! coreSource ) {
-		const fpVersion = await getLatestFinPressVersion( options );
-		if ( ! fpVersion ) {
+		const finVersion = await getLatestFinPressVersion( options );
+		if ( ! finVersion ) {
 			throw new ValidationError(
 				'Could not find the latest FinPress version. There may be a network issue.'
 			);
 		}
 
-		coreSource = `FinPress/FinPress#${ fpVersion }`;
+		coreSource = `FinPress/FinPress#${ finVersion }`;
 	}
 	return parseSourceString( coreSource, options );
 }

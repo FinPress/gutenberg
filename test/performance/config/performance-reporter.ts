@@ -15,7 +15,7 @@ import type {
  */
 import { stats, round } from '../utils';
 
-export interface FPRawPerformanceResults {
+export interface FINRawPerformanceResults {
 	timeToFirstByte: number[];
 	largestContentfulPaint: number[];
 	lcpMinusTtfb: number[];
@@ -51,7 +51,7 @@ type PerformanceStats = {
 	cnt: number; // number of data points
 };
 
-export interface FPPerformanceResults {
+export interface FINPerformanceResults {
 	timeToFirstByte?: PerformanceStats;
 	largestContentfulPaint?: PerformanceStats;
 	lcpMinusTtfb?: PerformanceStats;
@@ -87,8 +87,8 @@ export interface FPPerformanceResults {
  * @return Curated statistics for the results.
  */
 export function curateResults(
-	results: FPRawPerformanceResults
-): FPPerformanceResults {
+	results: FINRawPerformanceResults
+): FINPerformanceResults {
 	const output = {
 		timeToFirstByte: stats( results.timeToFirstByte ),
 		largestContentfulPaint: stats( results.largestContentfulPaint ),
@@ -138,7 +138,7 @@ function formatValue( metric: string, value: number ) {
 }
 
 class PerformanceReporter implements Reporter {
-	private results: Record< string, FPPerformanceResults >;
+	private results: Record< string, FINPerformanceResults >;
 
 	constructor() {
 		this.results = {};
@@ -156,7 +156,7 @@ class PerformanceReporter implements Reporter {
 
 			const testSuite = path.basename( test.location.file, '.spec.js' );
 			const resultsId = process.env.RESULTS_ID || testSuite;
-			const resultsPath = process.env.FP_ARTIFACTS_PATH as string;
+			const resultsPath = process.env.FIN_ARTIFACTS_PATH as string;
 			const resultsBody = attachment.body.toString();
 
 			// Save raw results to file.

@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  *
  * @return string Returns the previous posts link for the query.
  */
@@ -45,7 +45,7 @@ function render_block_core_query_pagination_previous( $attributes, $content, $bl
 		$content = get_previous_posts_link( $label );
 		remove_filter( 'previous_posts_link_attributes', $filter_link_attributes );
 	} else {
-		$block_query     = new FP_Query( build_query_vars_from_query_block( $block, $page ) );
+		$block_query     = new FIN_Query( build_query_vars_from_query_block( $block, $page ) );
 		$block_max_pages = $block_query->max_num_pages;
 		$total           = ! $max_page || $max_page > $block_max_pages ? $block_max_pages : $max_page;
 		fin_reset_postdata();
@@ -61,7 +61,7 @@ function render_block_core_query_pagination_previous( $attributes, $content, $bl
 	}
 
 	if ( $enhanced_pagination && isset( $content ) ) {
-		$p = new FP_HTML_Tag_Processor( $content );
+		$p = new FIN_HTML_Tag_Processor( $content );
 		if ( $p->next_tag(
 			array(
 				'tag_name'   => 'a',

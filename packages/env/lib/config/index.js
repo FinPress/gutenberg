@@ -7,10 +7,10 @@ const { ValidationError } = require( './validate-config' );
 const dbEnv = require( './db-env' );
 
 /**
- * @typedef {import('./load-config').FPConfig} FPConfig
- * @typedef {import('./parse-config').FPRootConfig} FPRootConfig
- * @typedef {import('./parse-config').FPEnvironmentConfig} FPEnvironmentConfig
- * @typedef {import('./parse-source-string').FPSource} FPSource
+ * @typedef {import('./load-config').FINConfig} FINConfig
+ * @typedef {import('./parse-config').FINRootConfig} FINRootConfig
+ * @typedef {import('./parse-config').FINEnvironmentConfig} FINEnvironmentConfig
+ * @typedef {import('./parse-source-string').FINSource} FINSource
  */
 
 module.exports = {

@@ -89,7 +89,7 @@ describe( 'uploadMedia', () => {
 			filesList: [ imageFile ],
 			onError,
 			onFileChange,
-			fpAllowedMimeTypes: { jpeg: 'image/jpeg' },
+			finAllowedMimeTypes: { jpeg: 'image/jpeg' },
 		} );
 
 		expect( onError ).not.toHaveBeenCalled();
@@ -125,7 +125,7 @@ describe( 'uploadMedia', () => {
 			filesList: [ imageFile ],
 			onError,
 			onFileChange,
-			fpAllowedMimeTypes: { jpeg: 'image/jpeg', mp4: 'video/mp4' },
+			finAllowedMimeTypes: { jpeg: 'image/jpeg', mp4: 'video/mp4' },
 		} );
 
 		expect( onError ).not.toHaveBeenCalled();
@@ -140,7 +140,7 @@ describe( 'uploadMedia', () => {
 			filesList: [ imageFile, xmlFile ],
 			onError,
 			onFileChange,
-			fpAllowedMimeTypes: { jpeg: 'image/jpeg' },
+			finAllowedMimeTypes: { jpeg: 'image/jpeg' },
 		} );
 
 		expect( onError ).toHaveBeenCalledWith(
@@ -163,7 +163,7 @@ describe( 'uploadMedia', () => {
 			maxUploadFileSize: 1,
 			onError,
 			onFileChange,
-			fpAllowedMimeTypes: { jpeg: 'image/jpeg' },
+			finAllowedMimeTypes: { jpeg: 'image/jpeg' },
 		} );
 
 		expect( onError ).toHaveBeenCalledWith(
@@ -183,7 +183,7 @@ describe( 'uploadMedia', () => {
 			allowedTypes: [ 'image' ],
 			filesList: [ imageFile ],
 			onError,
-			fpAllowedMimeTypes: { aac: 'audio/aac' },
+			finAllowedMimeTypes: { aac: 'audio/aac' },
 		} );
 
 		expect( onError ).toHaveBeenCalledWith(

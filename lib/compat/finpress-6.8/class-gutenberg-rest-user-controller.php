@@ -25,8 +25,8 @@ add_filter( 'rest_user_collection_params', 'gutenberg_add_search_columns_param',
 /**
  * Modify user query based on search_columns parameter
  *
- * @param array           $prepared_args Array of arguments for FP_User_Query.
- * @param FP_REST_Request $request       The REST API request.
+ * @param array           $prepared_args Array of arguments for FIN_User_Query.
+ * @param FIN_REST_Request $request       The REST API request.
  * @return array Modified arguments
  */
 function gutenberg_modify_user_query_args( $prepared_args, $request ) {

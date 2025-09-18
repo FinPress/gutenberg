@@ -321,8 +321,8 @@ function VisualEditor( {
 	}, [ autoFocus, isCleanNewPost ] );
 
 	// Add some styles for alignwide/alignfull Post Content and its children.
-	const alignCSS = `.is-root-container.alignwide { max-width: var(--fp--style--global--wide-size); margin-left: auto; margin-right: auto;}
-		.is-root-container.alignwide:where(.is-layout-flow) > :not(.alignleft):not(.alignright) { max-width: var(--fp--style--global--wide-size);}
+	const alignCSS = `.is-root-container.alignwide { max-width: var(--fin--style--global--wide-size); margin-left: auto; margin-right: auto;}
+		.is-root-container.alignwide:where(.is-layout-flow) > :not(.alignleft):not(.alignright) { max-width: var(--fin--style--global--wide-size);}
 		.is-root-container.alignfull { max-width: none; margin-left: auto; margin-right: auto;}
 		.is-root-container.alignfull:where(.is-layout-flow) > :not(.alignleft):not(.alignright) { max-width: none;}`;
 
@@ -461,8 +461,8 @@ function VisualEditor( {
 								'is-' + deviceType.toLowerCase() + '-preview',
 								renderingMode !== 'post-only' ||
 									isDesignPostType
-									? 'fp-site-blocks'
-									: `${ blockListLayoutClass } fp-block-post-content`, // Ensure root level blocks receive default/flow blockGap styling rules.
+									? 'fin-site-blocks'
+									: `${ blockListLayoutClass } fin-block-post-content`, // Ensure root level blocks receive default/flow blockGap styling rules.
 								{
 									'has-global-padding':
 										renderingMode === 'post-only' &&

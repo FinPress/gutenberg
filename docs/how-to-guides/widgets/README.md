@@ -1,6 +1,6 @@
 # Widgets
 
-The Gutenberg plugin replaces the Widgets Editor screen in FP Admin with a new screen based on the FinPress block editor.
+The Gutenberg plugin replaces the Widgets Editor screen in FIN Admin with a new screen based on the FinPress block editor.
 
 **Contents**
 

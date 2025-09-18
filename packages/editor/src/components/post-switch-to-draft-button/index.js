@@ -21,7 +21,7 @@ import { store as editorStore } from '../../store';
  * @return {React.ReactNode} The rendered component.
  */
 export default function PostSwitchToDraftButton() {
-	deprecated( 'fp.editor.PostSwitchToDraftButton', {
+	deprecated( 'fin.editor.PostSwitchToDraftButton', {
 		since: '6.7',
 		version: '6.9',
 	} );

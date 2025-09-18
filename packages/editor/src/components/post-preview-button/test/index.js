@@ -211,7 +211,7 @@ describe( 'PostPreviewButton', () => {
 
 		expect( screen.getByRole( 'link' ) ).toHaveAttribute(
 			'target',
-			'fp-preview-123'
+			'fin-preview-123'
 		);
 	} );
 
@@ -227,7 +227,7 @@ describe( 'PostPreviewButton', () => {
 
 		await user.click( screen.getByRole( 'link' ) );
 
-		expect( global.open ).toHaveBeenCalledWith( '', 'fp-preview-123' );
+		expect( global.open ).toHaveBeenCalledWith( '', 'fin-preview-123' );
 	} );
 
 	it( 'should display a `Generating preview` message while waiting for autosaving', async () => {

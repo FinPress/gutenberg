@@ -3,7 +3,7 @@ build
 build-module
 build-style
 build-types
-build-fp
+build-fin
 node_modules
 gutenberg.zip
 coverage
@@ -40,7 +40,7 @@ Thumbs.db
 junit.xml
 
 # Local overrides
-.fp-env.override.json
+.fin-env.override.json
 playwright.config.override.ts
 phpcs.xml
 phpunit.xml

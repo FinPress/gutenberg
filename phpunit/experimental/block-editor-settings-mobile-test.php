@@ -1,6 +1,6 @@
 <?php
 /**
- * Unit tests covering FP_REST_Block_Editor_Settings_Controller functionality.
+ * Unit tests covering FIN_REST_Block_Editor_Settings_Controller functionality.
  *
  * @package gutenberg
  */
@@ -8,9 +8,9 @@
 /**
  * Unit tests for the mobile block editor settings.
  *
- * @covers FP_REST_Block_Editor_Settings_Controller
+ * @covers FIN_REST_Block_Editor_Settings_Controller
  */
-class Gutenberg_REST_Block_Editor_Settings_Controller_Test extends FP_Test_REST_Controller_Testcase {
+class Gutenberg_REST_Block_Editor_Settings_Controller_Test extends FIN_Test_REST_Controller_Testcase {
 	/**
 	 * @var int
 	 */
@@ -19,15 +19,15 @@ class Gutenberg_REST_Block_Editor_Settings_Controller_Test extends FP_Test_REST_
 	public function set_up() {
 		parent::set_up();
 		switch_theme( 'block-theme' );
-		remove_action( 'fp_print_styles', 'print_emoji_styles' );
+		remove_action( 'fin_print_styles', 'print_emoji_styles' );
 	}
 
 	/**
 	 * Create fake admin user before our tests run.
 	 *
-	 * @param FP_UnitTest_Factory $factory Helper that lets us create fake data.
+	 * @param FIN_UnitTest_Factory $factory Helper that lets us create fake data.
 	 */
-	public static function fpSetupBeforeClass( $factory ) {
+	public static function finSetupBeforeClass( $factory ) {
 		self::$admin_id = $factory->user->create(
 			array(
 				'role' => 'administrator',
@@ -35,7 +35,7 @@ class Gutenberg_REST_Block_Editor_Settings_Controller_Test extends FP_Test_REST_
 		);
 	}
 
-	public static function fpTearDownAfterClass() {
+	public static function finTearDownAfterClass() {
 		// Delete the test user.
 		self::delete_user( self::$admin_id );
 	}
@@ -43,14 +43,14 @@ class Gutenberg_REST_Block_Editor_Settings_Controller_Test extends FP_Test_REST_
 	public function test_register_routes() {
 		$routes = rest_get_server()->get_routes();
 		$this->assertArrayHasKey(
-			'/fp-block-editor/v1/settings',
+			'/fin-block-editor/v1/settings',
 			$routes
 		);
 	}
 
 	public function test_get_items() {
-		fp_set_current_user( self::$admin_id );
-		$request = new FP_REST_Request( 'GET', '/fp-block-editor/v1/settings' );
+		fin_set_current_user( self::$admin_id );
+		$request = new FIN_REST_Request( 'GET', '/fin-block-editor/v1/settings' );
 		$request->set_param( 'context', 'mobile' );
 		$response = rest_get_server()->dispatch( $request );
 		$data     = $response->get_data();

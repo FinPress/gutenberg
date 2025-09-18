@@ -45,14 +45,14 @@ import { NEW_BLOCK_TYPES } from '@finpress/block-library';
 import { __ } from '@finpress/i18n';
 
 const postTypeEntities = [
-	{ name: 'post', baseURL: '/fp/v2/posts' },
-	{ name: 'page', baseURL: '/fp/v2/pages' },
+	{ name: 'post', baseURL: '/fin/v2/posts' },
+	{ name: 'page', baseURL: '/fin/v2/pages' },
 	{
 		name: 'attachment',
-		baseURL: '/fp/v2/media',
+		baseURL: '/fin/v2/media',
 		baseURLParams: { context: 'edit' },
 	},
-	{ name: 'fp_block', baseURL: '/fp/v2/blocks' },
+	{ name: 'fin_block', baseURL: '/fin/v2/blocks' },
 ].map( ( postTypeEntity ) => ( {
 	kind: 'postType',
 	...postTypeEntity,

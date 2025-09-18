@@ -41,7 +41,7 @@
 
 	&.is-connected {
 		.block-editor-block-switcher .components-button::before {
-			background: color-mix(in srgb, var(--fp-block-synced-color) 10%, transparent);
+			background: color-mix(in srgb, var(--fin-block-synced-color) 10%, transparent);
 			border-radius: $radius-small;
 		}
 	}
@@ -49,12 +49,12 @@
 	&.is-synced,
 	&.is-connected {
 		.block-editor-block-switcher .components-button .block-editor-block-icon {
-			color: var(--fp-block-synced-color);
+			color: var(--fin-block-synced-color);
 		}
 
 		.components-toolbar-button.block-editor-block-switcher__no-switcher-icon {
 			&:disabled .block-editor-block-icon.has-colors {
-				color: var(--fp-block-synced-color);
+				color: var(--fin-block-synced-color);
 			}
 		}
 	}

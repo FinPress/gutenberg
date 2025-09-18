@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Registers the Block editor settings REST API routes.
  */
 function gutenberg_register_block_editor_settings() {
-	$editor_settings = new FP_REST_Block_Editor_Settings_Controller();
+	$editor_settings = new FIN_REST_Block_Editor_Settings_Controller();
 	$editor_settings->register_routes();
 }
 add_action( 'rest_api_init', 'gutenberg_register_block_editor_settings' );
@@ -35,7 +35,7 @@ add_action( 'rest_api_init', 'gutenberg_register_block_editor_settings' );
  * @param int    $id        ID of the post.
  * @param string $title     Title of the post.
  * @param string $name      Slug of the post.
- * @param object $post      FP_Post object.
+ * @param object $post      FIN_Post object.
  *
  * @return array Array containing the sample permalink with placeholder for the post name, and the post name.
  */
@@ -59,7 +59,7 @@ function gutenberg_auto_draft_get_sample_permalink( $permalink, $id, $title, $na
 		$post->post_name = sanitize_title( $name ? $name : $title, $post->ID );
 	}
 
-	$post->post_name = fp_unique_post_slug( $post->post_name, $post->ID, $post->post_status, $post->post_type, $post->post_parent );
+	$post->post_name = fin_unique_post_slug( $post->post_name, $post->ID, $post->post_status, $post->post_type, $post->post_parent );
 
 	$post->filter = 'sample';
 

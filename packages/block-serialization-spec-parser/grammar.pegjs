@@ -216,7 +216,7 @@ Block
   / Block_Balanced
 
 Block_Void
-  = "<!--" __ "fp:" blockName:Block_Name __ attrs:(a:Block_Attributes __ {
+  = "<!--" __ "fin:" blockName:Block_Name __ attrs:(a:Block_Attributes __ {
     /** <?php return $a; ?> **/
     return a;
   })? "/-->"
@@ -270,7 +270,7 @@ Block_Balanced
   }
 
 Block_Start
-  = "<!--" __ "fp:" blockName:Block_Name __ attrs:(a:Block_Attributes __ {
+  = "<!--" __ "fin:" blockName:Block_Name __ attrs:(a:Block_Attributes __ {
     /** <?php return $a; ?> **/
     return a;
   })? "-->"
@@ -289,7 +289,7 @@ Block_Start
   }
 
 Block_End
-  = "<!--" __ "/fp:" blockName:Block_Name __ "-->"
+  = "<!--" __ "/fin:" blockName:Block_Name __ "-->"
   {
     /** <?php
     return array(

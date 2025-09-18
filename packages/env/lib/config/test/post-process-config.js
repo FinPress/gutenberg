@@ -182,14 +182,14 @@ describe( 'postProcessConfig', () => {
 		} );
 	} );
 
-	describe( 'appendPortToFPConfigs', () => {
+	describe( 'appendPortToFINConfigs', () => {
 		it( 'should add port to certain environment config options', () => {
 			const processed = postProcessConfig( {
 				port: 123,
 				config: {
-					FP_TESTS_DOMAIN: 'localhost',
-					FP_SITEURL: 'localhost',
-					FP_HOME: 'localhost',
+					FIN_TESTS_DOMAIN: 'localhost',
+					FIN_SITEURL: 'localhost',
+					FIN_HOME: 'localhost',
 				},
 				env: {
 					development: {
@@ -206,48 +206,48 @@ describe( 'postProcessConfig', () => {
 				// we shouldn't add the port to the config options for it.
 				port: 123,
 				config: {
-					FP_TESTS_DOMAIN: 'localhost',
-					FP_SITEURL: 'localhost',
-					FP_HOME: 'localhost',
+					FIN_TESTS_DOMAIN: 'localhost',
+					FIN_SITEURL: 'localhost',
+					FIN_HOME: 'localhost',
 				},
 				env: {
 					development: {
 						port: 123,
 						config: {
-							FP_TESTS_DOMAIN: 'localhost:123',
-							FP_SITEURL: 'localhost:123',
-							FP_HOME: 'localhost:123',
+							FIN_TESTS_DOMAIN: 'localhost:123',
+							FIN_SITEURL: 'localhost:123',
+							FIN_HOME: 'localhost:123',
 						},
 					},
 					tests: {
 						port: 456,
 						config: {
-							FP_TESTS_DOMAIN: 'localhost:456',
-							FP_SITEURL: 'localhost:456',
-							FP_HOME: 'localhost:456',
+							FIN_TESTS_DOMAIN: 'localhost:456',
+							FIN_SITEURL: 'localhost:456',
+							FIN_HOME: 'localhost:456',
 						},
 					},
 				},
 			} );
 		} );
 
-		it( 'should not overwrite port in FP_HOME', () => {
+		it( 'should not overwrite port in FIN_HOME', () => {
 			const processed = postProcessConfig( {
 				env: {
 					development: {
 						port: 123,
 						config: {
-							FP_TESTS_DOMAIN: 'localhost:777',
-							FP_SITEURL: 'localhost:777',
-							FP_HOME: 'localhost:777',
+							FIN_TESTS_DOMAIN: 'localhost:777',
+							FIN_SITEURL: 'localhost:777',
+							FIN_HOME: 'localhost:777',
 						},
 					},
 					tests: {
 						port: 456,
 						config: {
-							FP_TESTS_DOMAIN: 'localhost:777',
-							FP_SITEURL: 'localhost:777',
-							FP_HOME: 'localhost:777',
+							FIN_TESTS_DOMAIN: 'localhost:777',
+							FIN_SITEURL: 'localhost:777',
+							FIN_HOME: 'localhost:777',
 						},
 					},
 				},
@@ -258,17 +258,17 @@ describe( 'postProcessConfig', () => {
 					development: {
 						port: 123,
 						config: {
-							FP_TESTS_DOMAIN: 'localhost:123',
-							FP_SITEURL: 'localhost:123',
-							FP_HOME: 'localhost:777',
+							FIN_TESTS_DOMAIN: 'localhost:123',
+							FIN_SITEURL: 'localhost:123',
+							FIN_HOME: 'localhost:777',
 						},
 					},
 					tests: {
 						port: 456,
 						config: {
-							FP_TESTS_DOMAIN: 'localhost:456',
-							FP_SITEURL: 'localhost:456',
-							FP_HOME: 'localhost:777',
+							FIN_TESTS_DOMAIN: 'localhost:456',
+							FIN_SITEURL: 'localhost:456',
+							FIN_HOME: 'localhost:777',
 						},
 					},
 				},

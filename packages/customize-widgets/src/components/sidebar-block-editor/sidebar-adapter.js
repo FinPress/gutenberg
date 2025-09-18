@@ -3,7 +3,7 @@
  */
 import { settingIdToWidgetId } from '../../utils';
 
-const { fp } = window;
+const { fin } = window;
 
 function parseWidgetId( widgetId ) {
 	const matches = widgetId.match( /^(.+)-(\d+)$/ );
@@ -167,7 +167,7 @@ export default class SidebarAdapter {
 	}
 
 	_createWidget( widget ) {
-		const widgetModel = fp.customize.Widgets.availableWidgets.findWhere( {
+		const widgetModel = fin.customize.Widgets.availableWidgets.findWhere( {
 			id_base: widget.idBase,
 		} );
 
@@ -185,7 +185,7 @@ export default class SidebarAdapter {
 			: `widget_${ widget.idBase }`;
 
 		const settingArgs = {
-			transport: fp.customize.Widgets.data.selectiveRefreshableWidgets[
+			transport: fin.customize.Widgets.data.selectiveRefreshableWidgets[
 				widgetModel.get( 'id_base' )
 			]
 				? 'postMessage'

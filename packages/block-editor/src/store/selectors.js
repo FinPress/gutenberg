@@ -51,12 +51,12 @@ const { isContentBlock } = unlock( blocksPrivateApis );
 /**
  * A block selection object.
  *
- * @typedef {Object} FPBlockSelection
+ * @typedef {Object} FINBlockSelection
  *
  * @property {string} clientId     A block client ID.
  * @property {string} attributeKey A block attribute key.
  * @property {number} offset       An attribute value offset, based on the rich
- *                                 text value. See `fp.richText.create`.
+ *                                 text value. See `fin.richText.create`.
  */
 
 // Module constants.
@@ -222,7 +222,7 @@ export function getBlocks( state, rootClientId ) {
 export const __unstableGetClientIdWithClientIdsTree = createSelector(
 	( state, clientId ) => {
 		deprecated(
-			"fp.data.select( 'core/block-editor' ).__unstableGetClientIdWithClientIdsTree",
+			"fin.data.select( 'core/block-editor' ).__unstableGetClientIdWithClientIdsTree",
 			{
 				since: '6.3',
 				version: '6.5',
@@ -251,7 +251,7 @@ export const __unstableGetClientIdWithClientIdsTree = createSelector(
 export const __unstableGetClientIdsTree = createSelector(
 	( state, rootClientId = '' ) => {
 		deprecated(
-			"fp.data.select( 'core/block-editor' ).__unstableGetClientIdsTree",
+			"fin.data.select( 'core/block-editor' ).__unstableGetClientIdsTree",
 			{
 				since: '6.3',
 				version: '6.5',
@@ -381,10 +381,10 @@ export const getBlocksByName = createSelector(
  */
 export function __experimentalGetGlobalBlocksByName( state, blockName ) {
 	deprecated(
-		"fp.data.select( 'core/block-editor' ).__experimentalGetGlobalBlocksByName",
+		"fin.data.select( 'core/block-editor' ).__experimentalGetGlobalBlocksByName",
 		{
 			since: '6.5',
-			alternative: `fp.data.select( 'core/block-editor' ).getBlocksByName`,
+			alternative: `fin.data.select( 'core/block-editor' ).getBlocksByName`,
 		}
 	);
 	return getBlocksByName( state, blockName );
@@ -397,7 +397,7 @@ export function __experimentalGetGlobalBlocksByName( state, blockName ) {
  * @param {Object}   state     Editor state.
  * @param {string[]} clientIds Client IDs for which blocks are to be returned.
  *
- * @return {FPBlock[]} Block objects.
+ * @return {FINBlock[]} Block objects.
  */
 export const getBlocksByClientId = createSelector(
 	( state, clientIds ) =>
@@ -445,7 +445,7 @@ export function getBlockCount( state, rootClientId ) {
  *
  * @param {Object} state Block editor state.
  *
- * @return {FPBlockSelection} Selection start information.
+ * @return {FINBlockSelection} Selection start information.
  */
 export function getSelectionStart( state ) {
 	return state.selection.selectionStart;
@@ -457,7 +457,7 @@ export function getSelectionStart( state ) {
  *
  * @param {Object} state Block editor state.
  *
- * @return {FPBlockSelection} Selection end information.
+ * @return {FINBlockSelection} Selection end information.
  */
 export function getSelectionEnd( state ) {
 	return state.selection.selectionEnd;
@@ -571,7 +571,7 @@ export function getSelectedBlockClientId( state ) {
  * 	}
  *
  * 	// Subscribe to changes in the editor
- * 	// fp.data.subscribe(() => {
+ * 	// fin.data.subscribe(() => {
  * 		// getActiveBlockData()
  * 	// })
  *
@@ -1482,7 +1482,7 @@ export function isAncestorBeingDragged( state, clientId ) {
  */
 export function isCaretWithinFormattedText() {
 	deprecated(
-		'fp.data.select( "core/block-editor" ).isCaretWithinFormattedText',
+		'fin.data.select( "core/block-editor" ).isCaretWithinFormattedText',
 		{
 			since: '6.1',
 			version: '6.3',
@@ -2131,9 +2131,9 @@ const buildBlockTypeItem =
  * @param    {Object}   state             Editor state.
  * @param    {?string}  rootClientId      Optional root client ID of block list.
  *
- * @return {FPEditorInserterItem[]} Items that appear in inserter.
+ * @return {FINEditorInserterItem[]} Items that appear in inserter.
  *
- * @typedef {Object} FPEditorInserterItem
+ * @typedef {Object} FINEditorInserterItem
  * @property {string}   id                Unique identifier for the item.
  * @property {string}   name              The type of block to create.
  * @property {Object}   initialAttributes Attributes to pass to the newly created block.
@@ -2149,10 +2149,10 @@ export const getInserterItems = createRegistrySelector( ( select ) =>
 	createSelector(
 		( state, rootClientId = null, options = DEFAULT_INSERTER_OPTIONS ) => {
 			const buildReusableBlockInserterItem = ( reusableBlock ) => {
-				const icon = ! reusableBlock.fp_pattern_sync_status
+				const icon = ! reusableBlock.fin_pattern_sync_status
 					? {
 							src: symbol,
-							foreground: 'var(--fp-block-synced-color)',
+							foreground: 'var(--fin-block-synced-color)',
 					  }
 					: symbol;
 				const id = `core/block/${ reusableBlock.id }`;
@@ -2171,7 +2171,7 @@ export const getInserterItems = createRegistrySelector( ( select ) =>
 					utility: 1, // Deprecated.
 					frecency,
 					content: reusableBlock.content?.raw,
-					syncStatus: reusableBlock.fp_pattern_sync_status,
+					syncStatus: reusableBlock.fin_pattern_sync_status,
 				};
 			};
 
@@ -2288,9 +2288,9 @@ export const getInserterItems = createRegistrySelector( ( select ) =>
  * @param    {Object|Object[]} blocks       Block object or array objects.
  * @param    {?string}         rootClientId Optional root client ID of block list.
  *
- * @return {FPEditorTransformItem[]} Items that appear in inserter.
+ * @return {FINEditorTransformItem[]} Items that appear in inserter.
  *
- * @typedef {Object} FPEditorTransformItem
+ * @typedef {Object} FINEditorTransformItem
  * @property {string}          id           Unique identifier for the item.
  * @property {string}          name         The type of block to create.
  * @property {string}          title        Title of the item, as it appears in the inserter.
@@ -2411,10 +2411,10 @@ export const getAllowedBlocks = createRegistrySelector( ( select ) =>
 export const __experimentalGetAllowedBlocks = createSelector(
 	( state, rootClientId = null ) => {
 		deprecated(
-			'fp.data.select( "core/block-editor" ).__experimentalGetAllowedBlocks',
+			'fin.data.select( "core/block-editor" ).__experimentalGetAllowedBlocks',
 			{
 				alternative:
-					'fp.data.select( "core/block-editor" ).getAllowedBlocks',
+					'fin.data.select( "core/block-editor" ).getAllowedBlocks',
 				since: '6.2',
 				version: '6.4',
 			}
@@ -2431,9 +2431,9 @@ export const __experimentalGetAllowedBlocks = createSelector(
  * @param    {Object}         state            Editor state.
  * @param    {?string}        rootClientId     Optional root client ID of block list.
  *
- * @return {FPDirectInsertBlock|undefined}              The block type to be directly inserted.
+ * @return {FINDirectInsertBlock|undefined}              The block type to be directly inserted.
  *
- * @typedef {Object} FPDirectInsertBlock
+ * @typedef {Object} FINDirectInsertBlock
  * @property {string}         name             The type of block.
  * @property {?Object}        attributes       Attributes to pass to the newly created block.
  * @property {?Array<string>} attributesToCopy Attributes to be copied from adjacent blocks when inserted.
@@ -2456,10 +2456,10 @@ export function __experimentalGetDirectInsertBlock(
 	rootClientId = null
 ) {
 	deprecated(
-		'fp.data.select( "core/block-editor" ).__experimentalGetDirectInsertBlock',
+		'fin.data.select( "core/block-editor" ).__experimentalGetDirectInsertBlock',
 		{
 			alternative:
-				'fp.data.select( "core/block-editor" ).getDirectInsertBlock',
+				'fin.data.select( "core/block-editor" ).getDirectInsertBlock',
 			since: '6.3',
 			version: '6.4',
 		}
@@ -2594,10 +2594,10 @@ export const getPatternsByBlockTypes = createRegistrySelector( ( select ) =>
 export const __experimentalGetPatternsByBlockTypes = createRegistrySelector(
 	( select ) => {
 		deprecated(
-			'fp.data.select( "core/block-editor" ).__experimentalGetPatternsByBlockTypes',
+			'fin.data.select( "core/block-editor" ).__experimentalGetPatternsByBlockTypes',
 			{
 				alternative:
-					'fp.data.select( "core/block-editor" ).getPatternsByBlockTypes',
+					'fin.data.select( "core/block-editor" ).getPatternsByBlockTypes',
 				since: '6.2',
 				version: '6.4',
 			}
@@ -2621,7 +2621,7 @@ export const __experimentalGetPatternsByBlockTypes = createRegistrySelector(
  * @param {Object[]} blocks       The selected blocks.
  * @param {?string}  rootClientId Optional root client ID of block list.
  *
- * @return {FPBlockPattern[]} Items that are eligible for a pattern transformation.
+ * @return {FINBlockPattern[]} Items that are eligible for a pattern transformation.
  */
 export const __experimentalGetPatternTransformItems = createRegistrySelector(
 	( select ) =>
@@ -2741,7 +2741,7 @@ export const __experimentalGetReusableBlockTitle = createRegistrySelector(
 		createSelector(
 			( state, ref ) => {
 				deprecated(
-					"fp.data.select( 'core/block-editor' ).__experimentalGetReusableBlockTitle",
+					"fin.data.select( 'core/block-editor' ).__experimentalGetReusableBlockTitle",
 					{
 						since: '6.6',
 						version: '6.8',
@@ -2829,7 +2829,7 @@ export const __unstableGetEditorMode = createRegistrySelector(
  */
 export function hasBlockMovingClientId() {
 	deprecated(
-		'fp.data.select( "core/block-editor" ).hasBlockMovingClientId',
+		'fin.data.select( "core/block-editor" ).hasBlockMovingClientId',
 		{
 			since: '6.7',
 			hint: 'Block moving mode feature has been removed',
@@ -2952,7 +2952,7 @@ export function isBlockVisible( state, clientId ) {
  */
 export function getHoveredBlockClientId() {
 	deprecated(
-		"fp.data.select( 'core/block-editor' ).getHoveredBlockClientId",
+		"fin.data.select( 'core/block-editor' ).getHoveredBlockClientId",
 		{
 			since: '6.9',
 			version: '7.1',
@@ -3209,7 +3209,7 @@ export const isGroupable = createRegistrySelector(
  */
 export const __unstableGetContentLockingParent = ( state, clientId ) => {
 	deprecated(
-		"fp.data.select( 'core/block-editor' ).__unstableGetContentLockingParent",
+		"fin.data.select( 'core/block-editor' ).__unstableGetContentLockingParent",
 		{
 			since: '6.1',
 			version: '6.7',
@@ -3229,7 +3229,7 @@ export const __unstableGetContentLockingParent = ( state, clientId ) => {
  */
 export function __unstableGetTemporarilyEditingAsBlocks( state ) {
 	deprecated(
-		"fp.data.select( 'core/block-editor' ).__unstableGetTemporarilyEditingAsBlocks",
+		"fin.data.select( 'core/block-editor' ).__unstableGetTemporarilyEditingAsBlocks",
 		{
 			since: '6.1',
 			version: '6.7',
@@ -3249,7 +3249,7 @@ export function __unstableGetTemporarilyEditingAsBlocks( state ) {
  */
 export function __unstableGetTemporarilyEditingFocusModeToRevert( state ) {
 	deprecated(
-		"fp.data.select( 'core/block-editor' ).__unstableGetTemporarilyEditingFocusModeToRevert",
+		"fin.data.select( 'core/block-editor' ).__unstableGetTemporarilyEditingFocusModeToRevert",
 		{
 			since: '6.5',
 			version: '6.7',

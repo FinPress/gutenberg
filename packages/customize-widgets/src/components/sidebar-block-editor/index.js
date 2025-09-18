@@ -74,7 +74,7 @@ export default function SidebarBlockEditor( {
 		if ( hasUploadPermissions ) {
 			mediaUploadBlockEditor = ( { onError, ...argumentsObject } ) => {
 				uploadMedia( {
-					fpAllowedMimeTypes: blockEditorSettings.allowedMimeTypes,
+					finAllowedMimeTypes: blockEditorSettings.allowedMimeTypes,
 					onError: ( { message } ) => onError( message ),
 					...argumentsObject,
 				} );

@@ -584,7 +584,7 @@ Dropdown for selecting a heading level (1 through 6) or paragraph (0).
 
 _Parameters_
 
--   _props_ `FPHeadingLevelDropdownProps`: Component props.
+-   _props_ `FINHeadingLevelDropdownProps`: Component props.
 
 _Returns_
 
@@ -665,7 +665,7 @@ Renders a link control. A link control is a controlled input which maintains a v
 
 _Parameters_
 
--   _props_ `FPLinkControlProps`: Component props.
+-   _props_ `FINLinkControlProps`: Component props.
 
 ### MediaPlaceholder
 
@@ -931,7 +931,7 @@ _Parameters_
 
 _Returns_
 
--   `?FPBlockBindingsUtils`: Object containing the block bindings utils.
+-   `?FINBlockBindingsUtils`: Object containing the block bindings utils.
 
 _Changelog_
 
@@ -953,7 +953,7 @@ _Parameters_
 
 _Returns_
 
--   `?FPBlockDisplayInformation`: Block's display information, or `null` when the block or its type not found.
+-   `?FINBlockDisplayInformation`: Block's display information, or `null` when the block or its type not found.
 
 ### useBlockEditContext
 

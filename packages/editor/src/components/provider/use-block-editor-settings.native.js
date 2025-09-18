@@ -23,7 +23,7 @@ function useNativeBlockEditorSettings( settings, postType, postId ) {
 				reusableBlocks: supportReusableBlock
 					? select( coreStore ).getEntityRecords(
 							'postType',
-							'fp_block',
+							'fin_block',
 							// Unbounded queries are not supported on native so as a workaround, we set per_page with the maximum value that native version can handle.
 							// Related issue: https://github.com/finpress-mobile/gutenberg-mobile/issues/2661
 							{ per_page: 100 }

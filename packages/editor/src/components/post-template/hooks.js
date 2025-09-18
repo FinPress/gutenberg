@@ -38,7 +38,7 @@ export function useAllowSwitchingTemplates() {
 			// If current page is set front page or posts page, we also need
 			// to check if the current theme has a template for it. If not
 			const templates = isFrontPage
-				? getEntityRecords( 'postType', 'fp_template', {
+				? getEntityRecords( 'postType', 'fin_template', {
 						per_page: -1,
 				  } )
 				: [];
@@ -54,7 +54,7 @@ export function useAllowSwitchingTemplates() {
 function useTemplates( postType ) {
 	return useSelect(
 		( select ) =>
-			select( coreStore ).getEntityRecords( 'postType', 'fp_template', {
+			select( coreStore ).getEntityRecords( 'postType', 'fin_template', {
 				per_page: -1,
 				post_type: postType,
 			} ),

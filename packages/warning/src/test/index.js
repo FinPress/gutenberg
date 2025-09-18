@@ -5,7 +5,7 @@ import warning from '..';
 import { logged } from '../utils';
 
 // eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable @finpress/fp-global-usage */
+/* eslint-disable @finpress/fin-global-usage */
 
 describe( 'warning', () => {
 	const initialScriptDebug = globalThis.SCRIPT_DEBUG;

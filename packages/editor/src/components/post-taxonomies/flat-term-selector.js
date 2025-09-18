@@ -80,7 +80,7 @@ export function FlatTermSelector( { slug, __nextHasNoMarginBottom } ) {
 
 	if ( ! __nextHasNoMarginBottom ) {
 		deprecated(
-			'Bottom margin styles for fp.editor.PostTaxonomiesFlatTermSelector',
+			'Bottom margin styles for fin.editor.PostTaxonomiesFlatTermSelector',
 			{
 				since: '6.7',
 				version: '7.0',
@@ -117,12 +117,12 @@ export function FlatTermSelector( { slug, __nextHasNoMarginBottom } ) {
 			return {
 				hasCreateAction: _taxonomy
 					? post._links?.[
-							'fp:action-create-' + _taxonomy.rest_base
+							'fin:action-create-' + _taxonomy.rest_base
 					  ] ?? false
 					: false,
 				hasAssignAction: _taxonomy
 					? post._links?.[
-							'fp:action-assign-' + _taxonomy.rest_base
+							'fin:action-assign-' + _taxonomy.rest_base
 					  ] ?? false
 					: false,
 				taxonomy: _taxonomy,

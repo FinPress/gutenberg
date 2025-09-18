@@ -44,8 +44,8 @@ _Optional._ Called when the block can be removed. `forward` is true when the sel
 ## Example
 
 ```js
-const { registerBlockType } = fp.blocks;
-const { EditableText } = fp.editor;
+const { registerBlockType } = fin.blocks;
+const { EditableText } = fin.editor;
 
 registerBlockType( /* ... */, {
 	// ...

@@ -4,13 +4,13 @@
 import { createHigherOrderComponent } from '@finpress/compose';
 import { addFilter } from '@finpress/hooks';
 
-const { fp } = window;
+const { fin } = window;
 
 const withWideWidgetDisplay = createHigherOrderComponent(
 	( BlockEdit ) => ( props ) => {
 		const { idBase } = props.attributes;
 		const isWide =
-			fp.customize.Widgets.data.availableWidgets.find(
+			fin.customize.Widgets.data.availableWidgets.find(
 				( widget ) => widget.id_base === idBase
 			)?.is_wide ?? false;
 

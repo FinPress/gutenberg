@@ -254,7 +254,7 @@ function block_core_page_list_nest_pages( $current_level, $children ) {
  *
  * @param array    $attributes The block attributes.
  * @param string   $content    The saved content.
- * @param FP_Block $block      The parsed block.
+ * @param FIN_Block $block      The parsed block.
  *
  * @return string Returns the page list markup.
  */

@@ -11,25 +11,25 @@
  *
  * @group blocks
  */
-class Tests_Blocks_Render_Post_Time_To_Read extends FP_UnitTestCase {
+class Tests_Blocks_Render_Post_Time_To_Read extends FIN_UnitTestCase {
 	/**
 	 * @var array
 	 */
 	protected static $posts;
 	/**
-	 * @var FP_Post
+	 * @var FIN_Post
 	 */
 	protected static $no_content_post;
 	/**
-	 * @var FP_Post
+	 * @var FIN_Post
 	 */
 	protected static $less_than_one_minute_post;
 	/**
-	 * @var FP_Post
+	 * @var FIN_Post
 	 */
 	protected static $one_minute_post;
 	/**
-	 * @var FP_Post
+	 * @var FIN_Post
 	 */
 	protected static $two_minutes_post;
 	/**
@@ -37,7 +37,7 @@ class Tests_Blocks_Render_Post_Time_To_Read extends FP_UnitTestCase {
 	 */
 	private $original_block_supports;
 
-	public static function fpSetUpBeforeClass() {
+	public static function finSetUpBeforeClass() {
 		$content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
 		self::$no_content_post = self::factory()->post->create_and_get(
@@ -77,23 +77,23 @@ class Tests_Blocks_Render_Post_Time_To_Read extends FP_UnitTestCase {
 		self::$posts[]          = self::$two_minutes_post;
 	}
 
-	public static function fpTearDownAfterClass() {
+	public static function finTearDownAfterClass() {
 		foreach ( self::$posts as $post_to_delete ) {
-			fp_delete_post( $post_to_delete->ID, true );
+			fin_delete_post( $post_to_delete->ID, true );
 		}
 	}
 
 	public function set_up() {
 		parent::set_up();
-		$this->original_block_supports      = FP_Block_Supports::$block_to_render;
-		FP_Block_Supports::$block_to_render = array(
+		$this->original_block_supports      = FIN_Block_Supports::$block_to_render;
+		FIN_Block_Supports::$block_to_render = array(
 			'attrs'     => array(),
 			'blockName' => 'core/post-time-to-read',
 		);
 	}
 
 	public function tear_down() {
-		FP_Block_Supports::$block_to_render = $this->original_block_supports;
+		FIN_Block_Supports::$block_to_render = $this->original_block_supports;
 		parent::tear_down();
 	}
 
@@ -101,20 +101,20 @@ class Tests_Blocks_Render_Post_Time_To_Read extends FP_UnitTestCase {
 	 * @covers ::render_block_core_post_time_to_read
 	 */
 	public function test_no_content_post() {
-		global $fp_query;
+		global $fin_query;
 
-		$fp_query->post  = self::$no_content_post;
+		$fin_query->post  = self::$no_content_post;
 		$GLOBALS['post'] = self::$no_content_post;
 
 		$page_id       = self::$no_content_post->ID;
 		$attributes    = array();
-		$parsed_blocks = parse_blocks( '<!-- fp:post-time-to-read /-->' );
+		$parsed_blocks = parse_blocks( '<!-- fin:post-time-to-read /-->' );
 		$parsed_block  = $parsed_blocks[0];
 		$context       = array( 'postId' => $page_id );
-		$block         = new FP_Block( $parsed_block, $context );
+		$block         = new FIN_Block( $parsed_block, $context );
 
 		$actual   = gutenberg_render_block_core_post_time_to_read( $attributes, '', $block );
-		$expected = '<div class="fp-block-post-time-to-read">1 minute</div>';
+		$expected = '<div class="fin-block-post-time-to-read">1 minute</div>';
 
 		$this->assertSame( $expected, $actual );
 	}
@@ -123,20 +123,20 @@ class Tests_Blocks_Render_Post_Time_To_Read extends FP_UnitTestCase {
 	 * @covers ::render_block_core_post_time_to_read
 	 */
 	public function test_less_than_one_minute_post() {
-		global $fp_query;
+		global $fin_query;
 
-		$fp_query->post  = self::$less_than_one_minute_post;
+		$fin_query->post  = self::$less_than_one_minute_post;
 		$GLOBALS['post'] = self::$less_than_one_minute_post;
 
 		$page_id       = self::$less_than_one_minute_post->ID;
 		$attributes    = array();
-		$parsed_blocks = parse_blocks( '<!-- fp:post-time-to-read /-->' );
+		$parsed_blocks = parse_blocks( '<!-- fin:post-time-to-read /-->' );
 		$parsed_block  = $parsed_blocks[0];
 		$context       = array( 'postId' => $page_id );
-		$block         = new FP_Block( $parsed_block, $context );
+		$block         = new FIN_Block( $parsed_block, $context );
 
 		$actual   = gutenberg_render_block_core_post_time_to_read( $attributes, '', $block );
-		$expected = '<div class="fp-block-post-time-to-read">1 minute</div>';
+		$expected = '<div class="fin-block-post-time-to-read">1 minute</div>';
 
 		$this->assertSame( $expected, $actual );
 	}
@@ -145,20 +145,20 @@ class Tests_Blocks_Render_Post_Time_To_Read extends FP_UnitTestCase {
 	 * @covers ::render_block_core_post_time_to_read
 	 */
 	public function test_one_minute_post() {
-		global $fp_query;
+		global $fin_query;
 
-		$fp_query->post  = self::$one_minute_post;
+		$fin_query->post  = self::$one_minute_post;
 		$GLOBALS['post'] = self::$one_minute_post;
 
 		$page_id       = self::$one_minute_post->ID;
 		$attributes    = array();
-		$parsed_blocks = parse_blocks( '<!-- fp:post-time-to-read /-->' );
+		$parsed_blocks = parse_blocks( '<!-- fin:post-time-to-read /-->' );
 		$parsed_block  = $parsed_blocks[0];
 		$context       = array( 'postId' => $page_id );
-		$block         = new FP_Block( $parsed_block, $context );
+		$block         = new FIN_Block( $parsed_block, $context );
 
 		$actual   = gutenberg_render_block_core_post_time_to_read( $attributes, '', $block );
-		$expected = '<div class="fp-block-post-time-to-read">1 minute</div>';
+		$expected = '<div class="fin-block-post-time-to-read">1 minute</div>';
 
 		$this->assertSame( $expected, $actual );
 	}
@@ -167,20 +167,20 @@ class Tests_Blocks_Render_Post_Time_To_Read extends FP_UnitTestCase {
 	 * @covers ::render_block_core_post_time_to_read
 	 */
 	public function test_two_minutes_post() {
-		global $fp_query;
+		global $fin_query;
 
-		$fp_query->post  = self::$two_minutes_post;
+		$fin_query->post  = self::$two_minutes_post;
 		$GLOBALS['post'] = self::$two_minutes_post;
 
 		$page_id       = self::$two_minutes_post->ID;
 		$attributes    = array();
-		$parsed_blocks = parse_blocks( '<!-- fp:post-time-to-read /-->' );
+		$parsed_blocks = parse_blocks( '<!-- fin:post-time-to-read /-->' );
 		$parsed_block  = $parsed_blocks[0];
 		$context       = array( 'postId' => $page_id );
-		$block         = new FP_Block( $parsed_block, $context );
+		$block         = new FIN_Block( $parsed_block, $context );
 
 		$actual   = gutenberg_render_block_core_post_time_to_read( $attributes, '', $block );
-		$expected = '<div class="fp-block-post-time-to-read">2 minutes</div>';
+		$expected = '<div class="fin-block-post-time-to-read">2 minutes</div>';
 
 		$this->assertSame( $expected, $actual );
 	}

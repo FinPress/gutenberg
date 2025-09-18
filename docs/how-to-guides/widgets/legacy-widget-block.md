@@ -38,7 +38,7 @@ A "No preview available." message is automatically shown by the Legacy Widget bl
 Widgets may take advantage of this by returning early from `widget()` when a preview should not be displayed.
 
 ```php
-class ExampleWidget extends FP_Widget {
+class ExampleWidget extends FIN_Widget {
 	...
 	public function widget( $instance ) {
 		if ( ! isset( $instance['name'] ) ) {
@@ -72,7 +72,7 @@ This can be safely done if:
 If it is safe to do so, then include a widget option named `show_instance_in_rest` with its value set to `true` when registering your widget.
 
 ```php
-class ExampleWidget extends FP_Widget {
+class ExampleWidget extends FIN_Widget {
 	...
 	/**
 	 * Sets up the widget
@@ -91,10 +91,10 @@ class ExampleWidget extends FP_Widget {
 
 This allows the block editor and other REST API clients to see your widget's instance array by accessing `instance.raw` in the REST API response.
 
-Note that [versions of FinPress prior to 5.8.0 allowed you to enable this feature by setting `$show_instance_in_rest` to `true`](https://core.trac.finpress.org/ticket/53332) in the class that extends `FP_Widget`.
+Note that [versions of FinPress prior to 5.8.0 allowed you to enable this feature by setting `$show_instance_in_rest` to `true`](https://core.trac.finpress.org/ticket/53332) in the class that extends `FIN_Widget`.
 
 ```php
-class ExampleWidget extends FP_Widget {
+class ExampleWidget extends FIN_Widget {
 	...
 	public $show_instance_in_rest = true;
 	...
@@ -153,7 +153,7 @@ the FinPress post editor. This is not enabled by default.
 
 First, ensure that any styles and scripts required by the legacy widgets are
 loaded onto the page. A convenient way of doing this is to manually perform all
-of the hooks that ordinarily run when a user browses to the widgets FP Admin
+of the hooks that ordinarily run when a user browses to the widgets FIN Admin
 screen.
 
 ```php

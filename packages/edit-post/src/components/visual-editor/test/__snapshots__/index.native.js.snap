@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`when nothing is selected media buttons and picker display correctly 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p>First example paragraph.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Second example paragraph.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"></figure>
-<!-- /fp:gallery -->"
+<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"></figure>
+<!-- /fin:gallery -->"
 `;

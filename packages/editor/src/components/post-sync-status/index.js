@@ -20,11 +20,11 @@ export default function PostSyncStatus() {
 		const { getEditedPostAttribute } = select( editorStore );
 		const meta = getEditedPostAttribute( 'meta' );
 
-		// When the post is first created, the top level fp_pattern_sync_status is not set so get meta value instead.
+		// When the post is first created, the top level fin_pattern_sync_status is not set so get meta value instead.
 		const currentSyncStatus =
-			meta?.fp_pattern_sync_status === 'unsynced'
+			meta?.fin_pattern_sync_status === 'unsynced'
 				? 'unsynced'
-				: getEditedPostAttribute( 'fp_pattern_sync_status' );
+				: getEditedPostAttribute( 'fin_pattern_sync_status' );
 
 		return {
 			syncStatus: currentSyncStatus,
@@ -32,7 +32,7 @@ export default function PostSyncStatus() {
 		};
 	} );
 
-	if ( postType !== 'fp_block' ) {
+	if ( postType !== 'fin_block' ) {
 		return null;
 	}
 

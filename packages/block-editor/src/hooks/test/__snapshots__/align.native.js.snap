@@ -1,73 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Align options for group block sets Full width option 1`] = `
-"<!-- fp:group {"align":"full","layout":{"type":"constrained"}} -->
-<div class="fp-block-group alignfull"></div>
-<!-- /fp:group -->"
+"<!-- fin:group {"align":"full","layout":{"type":"constrained"}} -->
+<div class="fin-block-group alignfull"></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Align options for group block sets None option 1`] = `
-"<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"></div>
-<!-- /fp:group -->"
+"<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Align options for group block sets Wide width option 1`] = `
-"<!-- fp:group {"align":"wide","layout":{"type":"constrained"}} -->
-<div class="fp-block-group alignwide"></div>
-<!-- /fp:group -->"
+"<!-- fin:group {"align":"wide","layout":{"type":"constrained"}} -->
+<div class="fin-block-group alignwide"></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Align options for media block sets Align center option 1`] = `
-"<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none","align":"center"} -->
-<figure class="fp-block-image aligncenter size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-1"/></figure>
-<!-- /fp:image -->"
+"<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none","align":"center"} -->
+<figure class="fin-block-image aligncenter size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-1"/></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`Align options for media block sets Align left option 1`] = `
-"<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none","align":"left"} -->
-<figure class="fp-block-image alignleft size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-1"/></figure>
-<!-- /fp:image -->"
+"<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none","align":"left"} -->
+<figure class="fin-block-image alignleft size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-1"/></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`Align options for media block sets Align right option 1`] = `
-"<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none","align":"right"} -->
-<figure class="fp-block-image alignright size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-1"/></figure>
-<!-- /fp:image -->"
+"<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none","align":"right"} -->
+<figure class="fin-block-image alignright size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-1"/></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`Align options for media block sets Full width option 1`] = `
-"<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none","align":"full"} -->
-<figure class="fp-block-image alignfull size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-1"/></figure>
-<!-- /fp:image -->"
+"<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none","align":"full"} -->
+<figure class="fin-block-image alignfull size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-1"/></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`Align options for media block sets None option 1`] = `
-"<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-1"/></figure>
-<!-- /fp:image -->"
+"<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-1"/></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`Align options for media block sets Wide width option 1`] = `
-"<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none","align":"wide"} -->
-<figure class="fp-block-image alignwide size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-1"/></figure>
-<!-- /fp:image -->"
+"<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none","align":"wide"} -->
+<figure class="fin-block-image alignwide size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-1"/></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`Align options for text block sets Align text center option 1`] = `
-"<!-- fp:paragraph {"align":"center"} -->
+"<!-- fin:paragraph {"align":"center"} -->
 <p class="has-text-align-center"></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Align options for text block sets Align text left option 1`] = `
-"<!-- fp:paragraph {"align":"left"} -->
+"<!-- fin:paragraph {"align":"left"} -->
 <p class="has-text-align-left"></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Align options for text block sets Align text right option 1`] = `
-"<!-- fp:paragraph {"align":"right"} -->
+"<!-- fin:paragraph {"align":"right"} -->
 <p class="has-text-align-right"></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;

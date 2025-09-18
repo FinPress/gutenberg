@@ -128,7 +128,7 @@ describe( 'isLockAvailable', () => {
 										},
 									},
 								},
-								fp_template_part: {
+								fin_template_part: {
 									locks: [],
 									children: {
 										17: {
@@ -146,7 +146,7 @@ describe( 'isLockAvailable', () => {
 				isLockAvailable(
 					deepFreeze( subState ),
 					'core',
-					[ 'postType', 'fp_template_part', 17 ],
+					[ 'postType', 'fin_template_part', 17 ],
 					{ exclusive: true }
 				)
 			).toBe( true );

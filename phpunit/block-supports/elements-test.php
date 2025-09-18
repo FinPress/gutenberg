@@ -6,7 +6,7 @@
  * @package Gutenberg
  */
 
-class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
+class FIN_Block_Supports_Elements_Test extends FIN_UnitTestCase {
 	/**
 	 * @var string|null
 	 */
@@ -18,7 +18,7 @@ class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
 	}
 
 	public function tear_down() {
-		FP_Style_Engine_CSS_Rules_Store_Gutenberg::remove_all_stores();
+		FIN_Style_Engine_CSS_Rules_Store_Gutenberg::remove_all_stores();
 		unregister_block_type( $this->test_block_name );
 		$this->test_block_name = null;
 		parent::tear_down();
@@ -139,7 +139,7 @@ class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
 					'button' => array( 'color' => $color_styles ),
 				),
 				'block_markup'    => '<p>Hello <a href="http://www.finpress.org/">FinPress</a>!</p>',
-				'expected_markup' => '/^<p class="fp-elements-[a-f0-9]{32}">Hello <a href="http:\/\/www.finpress.org\/">FinPress<\/a>!<\/p>$/',
+				'expected_markup' => '/^<p class="fin-elements-[a-f0-9]{32}">Hello <a href="http:\/\/www.finpress.org\/">FinPress<\/a>!<\/p>$/',
 			),
 			'link element styles apply class to wrapper'   => array(
 				'color_settings'  => array( 'link' => true ),
@@ -147,7 +147,7 @@ class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
 					'link' => array( 'color' => $color_styles ),
 				),
 				'block_markup'    => '<p>Hello <a href="http://www.finpress.org/">FinPress</a>!</p>',
-				'expected_markup' => '/^<p class="fp-elements-[a-f0-9]{32}">Hello <a href="http:\/\/www.finpress.org\/">FinPress<\/a>!<\/p>$/',
+				'expected_markup' => '/^<p class="fin-elements-[a-f0-9]{32}">Hello <a href="http:\/\/www.finpress.org\/">FinPress<\/a>!<\/p>$/',
 			),
 			'heading element styles apply class to wrapper' => array(
 				'color_settings'  => array( 'heading' => true ),
@@ -155,7 +155,7 @@ class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
 					'heading' => array( 'color' => $color_styles ),
 				),
 				'block_markup'    => '<p>Hello <a href="http://www.finpress.org/">FinPress</a>!</p>',
-				'expected_markup' => '/^<p class="fp-elements-[a-f0-9]{32}">Hello <a href="http:\/\/www.finpress.org\/">FinPress<\/a>!<\/p>$/',
+				'expected_markup' => '/^<p class="fin-elements-[a-f0-9]{32}">Hello <a href="http:\/\/www.finpress.org\/">FinPress<\/a>!<\/p>$/',
 			),
 			'element styles apply class to wrapper when it has other classes' => array(
 				'color_settings'  => array( 'link' => true ),
@@ -163,7 +163,7 @@ class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
 					'link' => array( 'color' => $color_styles ),
 				),
 				'block_markup'    => '<p class="has-dark-gray-background-color has-background">Hello <a href="http://www.finpress.org/">FinPress</a>!</p>',
-				'expected_markup' => '/^<p class="has-dark-gray-background-color has-background fp-elements-[a-f0-9]{32}">Hello <a href="http:\/\/www.finpress.org\/">FinPress<\/a>!<\/p>$/',
+				'expected_markup' => '/^<p class="has-dark-gray-background-color has-background fin-elements-[a-f0-9]{32}">Hello <a href="http:\/\/www.finpress.org\/">FinPress<\/a>!<\/p>$/',
 			),
 			'element styles apply class to wrapper when it has other attributes' => array(
 				'color_settings'  => array( 'link' => true ),
@@ -171,7 +171,7 @@ class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
 					'link' => array( 'color' => $color_styles ),
 				),
 				'block_markup'    => '<p id="anchor">Hello <a href="http://www.finpress.org/">FinPress</a>!</p>',
-				'expected_markup' => '/^<p class="fp-elements-[a-f0-9]{32}" id="anchor">Hello <a href="http:\/\/www.finpress.org\/">FinPress<\/a>!<\/p>$/',
+				'expected_markup' => '/^<p class="fin-elements-[a-f0-9]{32}" id="anchor">Hello <a href="http:\/\/www.finpress.org\/">FinPress<\/a>!<\/p>$/',
 			),
 		);
 	}
@@ -219,7 +219,7 @@ class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
 			'text'       => 'var:preset|color|vivid-red',
 			'background' => '#fff',
 		);
-		$color_css_rules = preg_quote( '{color:var(--fp--preset--color--vivid-red);background-color:#fff;}' );
+		$color_css_rules = preg_quote( '{color:var(--fin--preset--color--vivid-red);background-color:#fff;}' );
 
 		return array(
 			'button element styles are not applied if serialization is skipped' => array(
@@ -268,7 +268,7 @@ class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
 				'elements_styles' => array(
 					'button' => array( 'color' => $color_styles ),
 				),
-				'expected_styles' => '/^.fp-elements-[a-f0-9]{32} .fp-element-button, .fp-elements-[a-f0-9]{32} .fp-block-button__link' . $color_css_rules . '$/',
+				'expected_styles' => '/^.fin-elements-[a-f0-9]{32} .fin-element-button, .fin-elements-[a-f0-9]{32} .fin-block-button__link' . $color_css_rules . '$/',
 			),
 			'link element styles are applied'            => array(
 				'color_settings'  => array( 'link' => true ),
@@ -280,15 +280,15 @@ class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
 						),
 					),
 				),
-				'expected_styles' => '/^.fp-elements-[a-f0-9]{32} a:where\(:not\(.fp-element-button\)\)' . $color_css_rules .
-					'.fp-elements-[a-f0-9]{32} a:where\(:not\(.fp-element-button\)\):hover' . $color_css_rules . '$/',
+				'expected_styles' => '/^.fin-elements-[a-f0-9]{32} a:where\(:not\(.fin-element-button\)\)' . $color_css_rules .
+					'.fin-elements-[a-f0-9]{32} a:where\(:not\(.fin-element-button\)\):hover' . $color_css_rules . '$/',
 			),
 			'generic heading element styles are applied' => array(
 				'color_settings'  => array( 'heading' => true ),
 				'elements_styles' => array(
 					'heading' => array( 'color' => $color_styles ),
 				),
-				'expected_styles' => '/^.fp-elements-[a-f0-9]{32} h1, .fp-elements-[a-f0-9]{32} h2, .fp-elements-[a-f0-9]{32} h3, .fp-elements-[a-f0-9]{32} h4, .fp-elements-[a-f0-9]{32} h5, .fp-elements-[a-f0-9]{32} h6' . $color_css_rules . '$/',
+				'expected_styles' => '/^.fin-elements-[a-f0-9]{32} h1, .fin-elements-[a-f0-9]{32} h2, .fin-elements-[a-f0-9]{32} h3, .fin-elements-[a-f0-9]{32} h4, .fin-elements-[a-f0-9]{32} h5, .fin-elements-[a-f0-9]{32} h6' . $color_css_rules . '$/',
 			),
 			'individual heading element styles are applied' => array(
 				'color_settings'  => array( 'heading' => true ),
@@ -300,12 +300,12 @@ class FP_Block_Supports_Elements_Test extends FP_UnitTestCase {
 					'h5' => array( 'color' => $color_styles ),
 					'h6' => array( 'color' => $color_styles ),
 				),
-				'expected_styles' => '/^.fp-elements-[a-f0-9]{32} h1' . $color_css_rules .
-					'.fp-elements-[a-f0-9]{32} h2' . $color_css_rules .
-					'.fp-elements-[a-f0-9]{32} h3' . $color_css_rules .
-					'.fp-elements-[a-f0-9]{32} h4' . $color_css_rules .
-					'.fp-elements-[a-f0-9]{32} h5' . $color_css_rules .
-					'.fp-elements-[a-f0-9]{32} h6' . $color_css_rules . '$/',
+				'expected_styles' => '/^.fin-elements-[a-f0-9]{32} h1' . $color_css_rules .
+					'.fin-elements-[a-f0-9]{32} h2' . $color_css_rules .
+					'.fin-elements-[a-f0-9]{32} h3' . $color_css_rules .
+					'.fin-elements-[a-f0-9]{32} h4' . $color_css_rules .
+					'.fin-elements-[a-f0-9]{32} h5' . $color_css_rules .
+					'.fin-elements-[a-f0-9]{32} h6' . $color_css_rules . '$/',
 			),
 		);
 	}

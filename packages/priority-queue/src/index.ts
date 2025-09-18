@@ -6,36 +6,36 @@ import requestIdleCallback from './request-idle-callback';
 /**
  * Enqueued callback to invoke once idle time permits.
  */
-export type FPPriorityQueueCallback = VoidFunction;
+export type FINPriorityQueueCallback = VoidFunction;
 
 /**
  * An object used to associate callbacks in a particular context grouping.
  */
-export type FPPriorityQueueContext = object;
+export type FINPriorityQueueContext = object;
 
 /**
  * Interface for the priority queue instance.
  */
-export interface FPPriorityQueue {
+export interface FINPriorityQueue {
 	/**
 	 * Add a callback to the queue for a given context.
 	 */
 	add: (
-		element: FPPriorityQueueContext,
-		item: FPPriorityQueueCallback
+		element: FINPriorityQueueContext,
+		item: FINPriorityQueueCallback
 	) => void;
 
 	/**
 	 * Flush and run the callback for a given context immediately.
 	 * @return true if a callback was run, false otherwise.
 	 */
-	flush: ( element: FPPriorityQueueContext ) => boolean;
+	flush: ( element: FINPriorityQueueContext ) => boolean;
 
 	/**
 	 * Cancel (remove) the callback for a given context without running it.
 	 * @return true if a callback was cancelled, false otherwise.
 	 */
-	cancel: ( element: FPPriorityQueueContext ) => boolean;
+	cancel: ( element: FINPriorityQueueContext ) => boolean;
 
 	/**
 	 * Reset the entire queue, clearing pending callbacks.
@@ -63,12 +63,12 @@ export interface FPPriorityQueue {
  * queue.add( ctx2, () => console.log( 'This will be printed second' ) );
  *```
  *
- * @return {FPPriorityQueue} Queue object with `add`, `flush` and `reset` methods.
+ * @return {FINPriorityQueue} Queue object with `add`, `flush` and `reset` methods.
  */
-export const createQueue = (): FPPriorityQueue => {
+export const createQueue = (): FINPriorityQueue => {
 	const waitingList = new Map<
-		FPPriorityQueueContext,
-		FPPriorityQueueCallback
+		FINPriorityQueueContext,
+		FINPriorityQueueCallback
 	>();
 	let isRunning = false;
 
@@ -117,12 +117,12 @@ export const createQueue = (): FPPriorityQueue => {
 	 * in their second parameter. Missing dependencies can cause unexpected
 	 * loops and race conditions in the queue.
 	 *
-	 * @param {FPPriorityQueueContext}  element Context object.
-	 * @param {FPPriorityQueueCallback} item    Callback function.
+	 * @param {FINPriorityQueueContext}  element Context object.
+	 * @param {FINPriorityQueueCallback} item    Callback function.
 	 */
-	const add: FPPriorityQueue[ 'add' ] = (
-		element: FPPriorityQueueContext,
-		item: FPPriorityQueueCallback
+	const add: FINPriorityQueue[ 'add' ] = (
+		element: FINPriorityQueueContext,
+		item: FINPriorityQueueCallback
 	) => {
 		waitingList.set( element, item );
 		if ( ! isRunning ) {
@@ -135,12 +135,12 @@ export const createQueue = (): FPPriorityQueue => {
 	 * Flushes queue for a given context, returning true if the flush was
 	 * performed, or false if there is no queue for the given context.
 	 *
-	 * @param {FPPriorityQueueContext} element Context object.
+	 * @param {FINPriorityQueueContext} element Context object.
 	 *
 	 * @return {boolean} Whether flush was performed.
 	 */
-	const flush: FPPriorityQueue[ 'flush' ] = (
-		element: FPPriorityQueueContext
+	const flush: FINPriorityQueue[ 'flush' ] = (
+		element: FINPriorityQueueContext
 	) => {
 		const callback = waitingList.get( element );
 		if ( undefined === callback ) {
@@ -158,12 +158,12 @@ export const createQueue = (): FPPriorityQueue => {
 	 * executing them. Returns `true` if there were scheduled callbacks to cancel,
 	 * or `false` if there was is no queue for the given context.
 	 *
-	 * @param {FPPriorityQueueContext} element Context object.
+	 * @param {FINPriorityQueueContext} element Context object.
 	 *
 	 * @return {boolean} Whether any callbacks got cancelled.
 	 */
-	const cancel: FPPriorityQueue[ 'cancel' ] = (
-		element: FPPriorityQueueContext
+	const cancel: FINPriorityQueue[ 'cancel' ] = (
+		element: FINPriorityQueueContext
 	) => {
 		return waitingList.delete( element );
 	};
@@ -171,7 +171,7 @@ export const createQueue = (): FPPriorityQueue => {
 	/**
 	 * Reset the queue without running the pending callbacks.
 	 */
-	const reset: FPPriorityQueue[ 'reset' ] = () => {
+	const reset: FINPriorityQueue[ 'reset' ] = () => {
 		waitingList.clear();
 		isRunning = false;
 	};

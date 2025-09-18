@@ -337,7 +337,7 @@ async function saveWidget( id, formData = null ) {
 	let widget;
 	if ( formData ) {
 		widget = await apiFetch( {
-			path: `/fp/v2/widgets/${ id }?context=edit`,
+			path: `/fin/v2/widgets/${ id }?context=edit`,
 			method: 'PUT',
 			data: {
 				form_data: formData,
@@ -345,7 +345,7 @@ async function saveWidget( id, formData = null ) {
 		} );
 	} else {
 		widget = await apiFetch( {
-			path: `/fp/v2/widgets/${ id }?context=edit`,
+			path: `/fin/v2/widgets/${ id }?context=edit`,
 			method: 'GET',
 		} );
 	}
@@ -354,7 +354,7 @@ async function saveWidget( id, formData = null ) {
 
 async function encodeWidget( { idBase, instance, number, formData = null } ) {
 	const response = await apiFetch( {
-		path: `/fp/v2/widget-types/${ idBase }/encode`,
+		path: `/fin/v2/widget-types/${ idBase }/encode`,
 		method: 'POST',
 		data: {
 			instance,

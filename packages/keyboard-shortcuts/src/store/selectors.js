@@ -8,9 +8,9 @@ import {
 	rawShortcut,
 } from '@finpress/keycodes';
 
-/** @typedef {import('./actions').FPShortcutKeyCombination} FPShortcutKeyCombination */
+/** @typedef {import('./actions').FINShortcutKeyCombination} FINShortcutKeyCombination */
 
-/** @typedef {import('@finpress/keycodes').FPKeycodeHandlerByModifier} FPKeycodeHandlerByModifier */
+/** @typedef {import('@finpress/keycodes').FINKeycodeHandlerByModifier} FINKeycodeHandlerByModifier */
 
 /**
  * Shared reference to an empty array for cases where it is important to avoid
@@ -23,9 +23,9 @@ const EMPTY_ARRAY = [];
 /**
  * Shortcut formatting methods.
  *
- * @property {FPKeycodeHandlerByModifier} display     Display formatting.
- * @property {FPKeycodeHandlerByModifier} rawShortcut Raw shortcut formatting.
- * @property {FPKeycodeHandlerByModifier} ariaLabel   ARIA label formatting.
+ * @property {FINKeycodeHandlerByModifier} display     Display formatting.
+ * @property {FINKeycodeHandlerByModifier} rawShortcut Raw shortcut formatting.
+ * @property {FINKeycodeHandlerByModifier} ariaLabel   ARIA label formatting.
  */
 const FORMATTING_METHODS = {
 	display: displayShortcut,
@@ -36,7 +36,7 @@ const FORMATTING_METHODS = {
 /**
  * Returns a string representing the key combination.
  *
- * @param {?FPShortcutKeyCombination} shortcut       Key combination.
+ * @param {?FINShortcutKeyCombination} shortcut       Key combination.
  * @param {keyof FORMATTING_METHODS}  representation Type of representation
  *                                                   (display, raw, ariaLabel).
  *
@@ -93,7 +93,7 @@ function getKeyCombinationRepresentation( shortcut, representation ) {
  * };
  *```
  *
- * @return {FPShortcutKeyCombination?} Key combination.
+ * @return {FINShortcutKeyCombination?} Key combination.
  */
 export function getShortcutKeyCombination( state, name ) {
 	return state[ name ] ? state[ name ].keyCombination : null;
@@ -222,7 +222,7 @@ export function getShortcutDescription( state, name ) {
  * };
  *```
  *
- * @return {FPShortcutKeyCombination[]} Key combinations.
+ * @return {FINShortcutKeyCombination[]} Key combinations.
  */
 export function getShortcutAliases( state, name ) {
 	return state[ name ] && state[ name ].aliases
@@ -277,7 +277,7 @@ export function getShortcutAliases( state, name ) {
  * };
  *```
  *
- * @return {FPShortcutKeyCombination[]} Key combinations.
+ * @return {FINShortcutKeyCombination[]} Key combinations.
  */
 export const getAllShortcutKeyCombinations = createSelector(
 	( state, name ) => {

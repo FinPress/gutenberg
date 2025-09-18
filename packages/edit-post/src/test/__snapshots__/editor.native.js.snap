@@ -1,105 +1,105 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Editor adds empty image block when pasting unsupported HTML local image path 1`] = `
-"<!-- fp:image -->
-<figure class="fp-block-image"><img src="" alt=""/></figure>
-<!-- /fp:image -->"
+"<!-- fin:image -->
+<figure class="fin-block-image"><img src="" alt=""/></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`Editor adds image block when pasting HTML local image path 1`] = `
-"<!-- fp:image -->
-<figure class="fp-block-image"><img src="file:///path/to/file.png" alt=""/></figure>
-<!-- /fp:image -->"
+"<!-- fin:image -->
+<figure class="fin-block-image"><img src="file:///path/to/file.png" alt=""/></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`Editor appends media correctly for allowed types 1`] = `
-"<!-- fp:image -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt=""/></figure>
-<!-- /fp:image -->
+"<!-- fin:image -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt=""/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-3.jpeg" alt=""/></figure>
-<!-- /fp:image -->"
+<!-- fin:image -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-3.jpeg" alt=""/></figure>
+<!-- /fin:image -->"
 `;
 
 exports[`Editor appends media correctly for allowed types and skips unsupported ones 1`] = `
-"<!-- fp:image -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt=""/></figure>
-<!-- /fp:image -->
+"<!-- fin:image -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt=""/></figure>
+<!-- /fin:image -->
 
-<!-- fp:video -->
-<figure class="fp-block-video"><video controls src="file:///local-video-4.mp4"></video></figure>
-<!-- /fp:video -->"
+<!-- fin:video -->
+<figure class="fin-block-video"><video controls src="file:///local-video-4.mp4"></video></figure>
+<!-- /fin:video -->"
 `;
 
 exports[`Editor on content update parses markdown into blocks 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing<br />elit.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading">Overview</h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading">Overview</h2>
+<!-- /fin:heading -->
 
-<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>Lorem ipsum dolor sit amet</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Consectetur adipiscing<br>elit</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Integer nec odio</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading">Details</h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading">Details</h2>
+<!-- /fin:heading -->
 
-<!-- fp:list {"ordered":true} -->
-<ol class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list {"ordered":true} -->
+<ol class="fin-block-list"><!-- fin:list-item -->
 <li>Sed cursus ante dapibus diam</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Nulla quis sem at nibh elementum imperdiet</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Duis sagittis ipsum <code>## Mixed Lists</code></li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->
 
-<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>Key Points:</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->
 
-<!-- fp:list {"ordered":true} -->
-<ol class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list {"ordered":true} -->
+<ol class="fin-block-list"><!-- fin:list-item -->
 <li>Lorem ipsum dolor sit amet</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li><br>Consectetur adipiscing elit</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Integer nec odio</li>
-<!-- /fp:list-item --></ol>
-<!-- /fp:list -->
+<!-- /fin:list-item --></ol>
+<!-- /fin:list -->
 
-<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>Additional Info:<br>-<br>Sed cursus ante dapibus diam</li>
-<!-- /fp:list-item -->
+<!-- /fin:list-item -->
 
-<!-- fp:list-item -->
+<!-- fin:list-item -->
 <li>Nulla quis sem at nibh elementum imperdiet</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->"
 `;

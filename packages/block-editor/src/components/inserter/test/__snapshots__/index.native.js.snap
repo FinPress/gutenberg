@@ -1,117 +1,117 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Inserter can add blocks adds new block at the end of post 1`] = `
-"<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->
+"<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading -->"
+<!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading -->"
 `;
 
 exports[`Inserter can add blocks after another block 1`] = `
-"<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->
+"<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading -->
 
-<!-- fp:more -->
+<!-- fin:more -->
 <!--more-->
-<!-- /fp:more -->
+<!-- /fin:more -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Inserter can add blocks before another block 1`] = `
-"<!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading -->
+"<!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Inserter can add blocks creates a new Paragraph block tapping on the empty area below the last block 1`] = `
-"<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->
+"<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Inserter can add blocks inserts between 2 existing blocks 1`] = `
-"<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->
+"<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->
 
-<!-- fp:more -->
+<!-- fin:more -->
 <!--more-->
-<!-- /fp:more -->
+<!-- /fin:more -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading -->"
+<!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading -->"
 `;
 
 exports[`Inserter can add blocks inserts block at the end of post when no block is selected 1`] = `
-"<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->
+"<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading -->
 
-<!-- fp:more -->
+<!-- fin:more -->
 <!--more-->
-<!-- /fp:more -->"
+<!-- /fin:more -->"
 `;
 
 exports[`Inserter can add blocks to the beginning 1`] = `
-"<!-- fp:more -->
+"<!-- fin:more -->
 <!--more-->
-<!-- /fp:more -->
+<!-- /fin:more -->
 
-<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->
+<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Inserter can add blocks to the end 1`] = `
-"<!-- fp:spacer -->
-<div style="height:100px" aria-hidden="true" class="fp-block-spacer"></div>
-<!-- /fp:spacer -->
+"<!-- fin:spacer -->
+<div style="height:100px" aria-hidden="true" class="fin-block-spacer"></div>
+<!-- /fin:spacer -->
 
-<!-- fp:heading -->
-<h2 class="fp-block-heading"></h2>
-<!-- /fp:heading -->
+<!-- fin:heading -->
+<h2 class="fin-block-heading"></h2>
+<!-- /fin:heading -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p></p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:more -->
+<!-- fin:more -->
 <!--more-->
-<!-- /fp:more -->"
+<!-- /fin:more -->"
 `;

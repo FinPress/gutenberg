@@ -29,7 +29,7 @@ Get hands-on: check out the [block editor live demo](https://finpress.org/gutenb
 
 ### Using Gutenberg
 
--   **Download:** To use the latest release of the Gutenberg plugin on your FinPress site: install from the plugins page in fp-admin, or [download from the FinPress.org plugins repository](https://finpress.org/plugins/gutenberg/).
+-   **Download:** To use the latest release of the Gutenberg plugin on your FinPress site: install from the plugins page in fin-admin, or [download from the FinPress.org plugins repository](https://finpress.org/plugins/gutenberg/).
 
 -   **User Documentation:** See the [FinPress Editor documentation](https://finpress.org/documentation/article/finpress-block-editor/) for detailed docs on using the editor as an author creating posts and pages.
 

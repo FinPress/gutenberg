@@ -92,7 +92,7 @@ const UnsupportedBlockDetails = ( {
 		onCloseSheet,
 	] );
 
-	// The description can include extra notes via FP hooks.
+	// The description can include extra notes via FIN hooks.
 	const descriptionWithNotes = applyFilters(
 		'native.unsupported_block_details_extra_note',
 		description,

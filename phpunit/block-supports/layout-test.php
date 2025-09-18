@@ -6,7 +6,7 @@
  * @package Gutenberg
  */
 
-class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
+class FIN_Block_Supports_Layout_Test extends FIN_UnitTestCase {
 	/**
 	 * @var string|null
 	 */
@@ -25,25 +25,25 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 		$this->theme_root     = realpath( __DIR__ . '/../data/themedir1' );
-		$this->orig_theme_dir = $GLOBALS['fp_theme_directories'];
+		$this->orig_theme_dir = $GLOBALS['fin_theme_directories'];
 
 		// /themes is necessary as theme.php functions assume /themes is the root if there is only one root.
-		$GLOBALS['fp_theme_directories'] = array( FP_CONTENT_DIR . '/themes', $this->theme_root );
+		$GLOBALS['fin_theme_directories'] = array( FIN_CONTENT_DIR . '/themes', $this->theme_root );
 
 		add_filter( 'theme_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'stylesheet_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'template_root', array( $this, 'filter_set_theme_root' ) );
 		$this->queries = array();
 		// Clear caches.
-		fp_clean_themes_cache();
-		unset( $GLOBALS['fp_themes'] );
+		fin_clean_themes_cache();
+		unset( $GLOBALS['fin_themes'] );
 	}
 
 	public function tear_down() {
-		$GLOBALS['fp_theme_directories'] = $this->orig_theme_dir;
-		fp_clean_themes_cache();
-		unset( $GLOBALS['fp_themes'] );
-		FP_Style_Engine_CSS_Rules_Store_Gutenberg::remove_all_stores();
+		$GLOBALS['fin_theme_directories'] = $this->orig_theme_dir;
+		fin_clean_themes_cache();
+		unset( $GLOBALS['fin_themes'] );
+		FIN_Style_Engine_CSS_Rules_Store_Gutenberg::remove_all_stores();
 		parent::tear_down();
 	}
 
@@ -58,8 +58,8 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 			'blockName' => 'core/image',
 			'attrs'     => array(),
 		);
-		$block_content = '<figure class="fp-block-image size-full"><img src="/my-image.jpg"/></figure>';
-		$expected      = '<figure class="fp-block-image size-full"><img src="/my-image.jpg"/></figure>';
+		$block_content = '<figure class="fin-block-image size-full"><img src="/my-image.jpg"/></figure>';
+		$expected      = '<figure class="fin-block-image size-full"><img src="/my-image.jpg"/></figure>';
 
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_content, $block ) );
 	}
@@ -71,8 +71,8 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 			'blockName' => 'core/image',
 			'attrs'     => array(),
 		);
-		$block_content = '<figure class="fp-block-image alignright size-full"><img src="/my-image.jpg"/></figure>';
-		$expected      = '<div class="fp-block-image"><figure class="alignright size-full"><img src="/my-image.jpg"/></figure></div>';
+		$block_content = '<figure class="fin-block-image alignright size-full"><img src="/my-image.jpg"/></figure>';
+		$expected      = '<div class="fin-block-image"><figure class="alignright size-full"><img src="/my-image.jpg"/></figure></div>';
 
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_content, $block ) );
 	}
@@ -87,19 +87,19 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 			),
 		);
 
-		$block_classes_end_placement    = '<figure class="fp-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
-		$block_classes_start_placement  = '<figure class="is-style-round my-custom-classname fp-block-image alignright size-full"><img src="/my-image.jpg"/></figure>';
-		$block_classes_middle_placement = '<figure class="fp-block-image is-style-round my-custom-classname alignright size-full"><img src="/my-image.jpg"/></figure>';
-		$block_classes_random_placement = '<figure class="is-style-round fp-block-image alignright my-custom-classname size-full"><img src="/my-image.jpg"/></figure>';
-		$expected                       = '<div class="fp-block-image is-style-round my-custom-classname"><figure class="alignright size-full"><img src="/my-image.jpg"/></figure></div>';
+		$block_classes_end_placement    = '<figure class="fin-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
+		$block_classes_start_placement  = '<figure class="is-style-round my-custom-classname fin-block-image alignright size-full"><img src="/my-image.jpg"/></figure>';
+		$block_classes_middle_placement = '<figure class="fin-block-image is-style-round my-custom-classname alignright size-full"><img src="/my-image.jpg"/></figure>';
+		$block_classes_random_placement = '<figure class="is-style-round fin-block-image alignright my-custom-classname size-full"><img src="/my-image.jpg"/></figure>';
+		$expected                       = '<div class="fin-block-image is-style-round my-custom-classname"><figure class="alignright size-full"><img src="/my-image.jpg"/></figure></div>';
 
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_classes_end_placement, $block ) );
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_classes_start_placement, $block ) );
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_classes_middle_placement, $block ) );
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_classes_random_placement, $block ) );
 
-		$block_classes_other_attributes = '<figure style="color: red" class=\'is-style-round fp-block-image alignright my-custom-classname size-full\' data-random-tag=">"><img src="/my-image.jpg"/></figure>';
-		$expected_other_attributes      = '<div class="fp-block-image is-style-round my-custom-classname"><figure style="color: red" class=\'alignright size-full\' data-random-tag=">"><img src="/my-image.jpg"/></figure></div>';
+		$block_classes_other_attributes = '<figure style="color: red" class=\'is-style-round fin-block-image alignright my-custom-classname size-full\' data-random-tag=">"><img src="/my-image.jpg"/></figure>';
+		$expected_other_attributes      = '<div class="fin-block-image is-style-round my-custom-classname"><figure style="color: red" class=\'alignright size-full\' data-random-tag=">"><img src="/my-image.jpg"/></figure></div>';
 
 		$this->assertSame( $expected_other_attributes, gutenberg_restore_image_outer_container( $block_classes_other_attributes, $block ) );
 	}
@@ -112,8 +112,8 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 				'className' => 'is-style-round my-custom-classname',
 			),
 		);
-		$block_content = '<figure class="fp-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
-		$expected      = '<figure class="fp-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
+		$block_content = '<figure class="fin-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
+		$expected      = '<figure class="fin-block-image alignright size-full is-style-round my-custom-classname"><img src="/my-image.jpg"/></figure>';
 
 		$this->assertSame( $expected, gutenberg_restore_image_outer_container( $block_content, $block ) );
 	}
@@ -178,21 +178,21 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 			),
 			'only selector should return empty value'      => array(
 				'args'            => array(
-					'selector' => '.fp-layout',
+					'selector' => '.fin-layout',
 				),
 				'expected_output' => '',
 			),
 			'default layout and block gap support'         => array(
 				'args'            => array(
-					'selector'              => '.fp-layout',
+					'selector'              => '.fin-layout',
 					'has_block_gap_support' => true,
 					'gap_value'             => '1em',
 				),
-				'expected_output' => '.fp-layout > *{margin-block-start:0;margin-block-end:0;}.fp-layout > * + *{margin-block-start:1em;margin-block-end:0;}',
+				'expected_output' => '.fin-layout > *{margin-block-start:0;margin-block-end:0;}.fin-layout > * + *{margin-block-start:1em;margin-block-end:0;}',
 			),
 			'skip serialization should return empty value' => array(
 				'args'            => array(
-					'selector'                      => '.fp-layout',
+					'selector'                      => '.fin-layout',
 					'has_block_gap_support'         => true,
 					'gap_value'                     => '1em',
 					'should_skip_gap_serialization' => true,
@@ -201,26 +201,26 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 			),
 			'default layout and axial block gap support'   => array(
 				'args'            => array(
-					'selector'              => '.fp-layout',
+					'selector'              => '.fin-layout',
 					'has_block_gap_support' => true,
 					'gap_value'             => array( 'top' => '1em' ),
 				),
-				'expected_output' => '.fp-layout > *{margin-block-start:0;margin-block-end:0;}.fp-layout > * + *{margin-block-start:1em;margin-block-end:0;}',
+				'expected_output' => '.fin-layout > *{margin-block-start:0;margin-block-end:0;}.fin-layout > * + *{margin-block-start:1em;margin-block-end:0;}',
 			),
 			'constrained layout with sizes'                => array(
 				'args'            => array(
-					'selector' => '.fp-layout',
+					'selector' => '.fin-layout',
 					'layout'   => array(
 						'type'        => 'constrained',
 						'contentSize' => '800px',
 						'wideSize'    => '1200px',
 					),
 				),
-				'expected_output' => '.fp-layout > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:800px;margin-left:auto !important;margin-right:auto !important;}.fp-layout > .alignwide{max-width:1200px;}.fp-layout .alignfull{max-width:none;}',
+				'expected_output' => '.fin-layout > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:800px;margin-left:auto !important;margin-right:auto !important;}.fin-layout > .alignwide{max-width:1200px;}.fin-layout .alignfull{max-width:none;}',
 			),
 			'constrained layout with sizes and block spacing' => array(
 				'args'            => array(
-					'selector'      => '.fp-layout',
+					'selector'      => '.fin-layout',
 					'layout'        => array(
 						'type'        => 'constrained',
 						'contentSize' => '800px',
@@ -233,44 +233,44 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						),
 					),
 				),
-				'expected_output' => '.fp-layout > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:800px;margin-left:auto !important;margin-right:auto !important;}.fp-layout > .alignwide{max-width:1200px;}.fp-layout .alignfull{max-width:none;}.fp-layout > .alignfull{margin-right:calc(10px * -1);margin-left:calc(20px * -1);}',
+				'expected_output' => '.fin-layout > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width:800px;margin-left:auto !important;margin-right:auto !important;}.fin-layout > .alignwide{max-width:1200px;}.fin-layout .alignfull{max-width:none;}.fin-layout > .alignfull{margin-right:calc(10px * -1);margin-left:calc(20px * -1);}',
 			),
 			'constrained layout with block gap support'    => array(
 				'args'            => array(
-					'selector'              => '.fp-layout',
+					'selector'              => '.fin-layout',
 					'layout'                => array(
 						'type' => 'constrained',
 					),
 					'has_block_gap_support' => true,
 					'gap_value'             => '2.5rem',
 				),
-				'expected_output' => '.fp-layout > *{margin-block-start:0;margin-block-end:0;}.fp-layout > * + *{margin-block-start:2.5rem;margin-block-end:0;}',
+				'expected_output' => '.fin-layout > *{margin-block-start:0;margin-block-end:0;}.fin-layout > * + *{margin-block-start:2.5rem;margin-block-end:0;}',
 			),
 			'constrained layout with axial block gap support' => array(
 				'args'            => array(
-					'selector'              => '.fp-layout',
+					'selector'              => '.fin-layout',
 					'layout'                => array(
 						'type' => 'constrained',
 					),
 					'has_block_gap_support' => true,
 					'gap_value'             => array( 'top' => '2.5rem' ),
 				),
-				'expected_output' => '.fp-layout > *{margin-block-start:0;margin-block-end:0;}.fp-layout > * + *{margin-block-start:2.5rem;margin-block-end:0;}',
+				'expected_output' => '.fin-layout > *{margin-block-start:0;margin-block-end:0;}.fin-layout > * + *{margin-block-start:2.5rem;margin-block-end:0;}',
 			),
 			'constrained layout with block gap support and spacing preset' => array(
 				'args'            => array(
-					'selector'              => '.fp-layout',
+					'selector'              => '.fin-layout',
 					'layout'                => array(
 						'type' => 'constrained',
 					),
 					'has_block_gap_support' => true,
 					'gap_value'             => 'var:preset|spacing|50',
 				),
-				'expected_output' => '.fp-layout > *{margin-block-start:0;margin-block-end:0;}.fp-layout > * + *{margin-block-start:var(--fp--preset--spacing--50);margin-block-end:0;}',
+				'expected_output' => '.fin-layout > *{margin-block-start:0;margin-block-end:0;}.fin-layout > * + *{margin-block-start:var(--fin--preset--spacing--50);margin-block-end:0;}',
 			),
 			'flex layout with no args should return empty value' => array(
 				'args'            => array(
-					'selector' => '.fp-layout',
+					'selector' => '.fin-layout',
 					'layout'   => array(
 						'type' => 'flex',
 					),
@@ -279,7 +279,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 			),
 			'horizontal flex layout should return empty value' => array(
 				'args'            => array(
-					'selector' => '.fp-layout',
+					'selector' => '.fin-layout',
 					'layout'   => array(
 						'type'        => 'flex',
 						'orientation' => 'horizontal',
@@ -289,7 +289,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 			),
 			'flex layout with properties'                  => array(
 				'args'            => array(
-					'selector' => '.fp-layout',
+					'selector' => '.fin-layout',
 					'layout'   => array(
 						'type'              => 'flex',
 						'orientation'       => 'horizontal',
@@ -298,11 +298,11 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						'verticalAlignment' => 'bottom',
 					),
 				),
-				'expected_output' => '.fp-layout{flex-wrap:nowrap;justify-content:flex-start;align-items:flex-end;}',
+				'expected_output' => '.fin-layout{flex-wrap:nowrap;justify-content:flex-start;align-items:flex-end;}',
 			),
 			'flex layout with properties and block gap'    => array(
 				'args'            => array(
-					'selector'              => '.fp-layout',
+					'selector'              => '.fin-layout',
 					'layout'                => array(
 						'type'              => 'flex',
 						'orientation'       => 'horizontal',
@@ -313,11 +313,11 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 					'has_block_gap_support' => true,
 					'gap_value'             => '29px',
 				),
-				'expected_output' => '.fp-layout{flex-wrap:nowrap;gap:29px;justify-content:flex-start;align-items:flex-end;}',
+				'expected_output' => '.fin-layout{flex-wrap:nowrap;gap:29px;justify-content:flex-start;align-items:flex-end;}',
 			),
 			'flex layout with properties and axial block gap' => array(
 				'args'            => array(
-					'selector'              => '.fp-layout',
+					'selector'              => '.fin-layout',
 					'layout'                => array(
 						'type'              => 'flex',
 						'orientation'       => 'horizontal',
@@ -331,11 +331,11 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						'left' => '2px',
 					),
 				),
-				'expected_output' => '.fp-layout{flex-wrap:nowrap;gap:1px 2px;justify-content:flex-start;align-items:flex-end;}',
+				'expected_output' => '.fin-layout{flex-wrap:nowrap;gap:1px 2px;justify-content:flex-start;align-items:flex-end;}',
 			),
 			'flex layout with properties and axial block gap using spacing preset' => array(
 				'args'            => array(
-					'selector'              => '.fp-layout',
+					'selector'              => '.fin-layout',
 					'layout'                => array(
 						'type'              => 'flex',
 						'orientation'       => 'horizontal',
@@ -349,11 +349,11 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 					),
 					'fallback_gap_value'    => '11px',
 				),
-				'expected_output' => '.fp-layout{flex-wrap:nowrap;gap:11px var(--fp--preset--spacing--40);justify-content:flex-start;align-items:flex-end;}',
+				'expected_output' => '.fin-layout{flex-wrap:nowrap;gap:11px var(--fin--preset--spacing--40);justify-content:flex-start;align-items:flex-end;}',
 			),
 			'vertical flex layout with properties'         => array(
 				'args'            => array(
-					'selector' => '.fp-layout',
+					'selector' => '.fin-layout',
 					'layout'   => array(
 						'type'              => 'flex',
 						'orientation'       => 'vertical',
@@ -362,40 +362,40 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						'verticalAlignment' => 'bottom',
 					),
 				),
-				'expected_output' => '.fp-layout{flex-wrap:nowrap;flex-direction:column;align-items:flex-start;justify-content:flex-end;}',
+				'expected_output' => '.fin-layout{flex-wrap:nowrap;flex-direction:column;align-items:flex-start;justify-content:flex-end;}',
 			),
 			'default grid layout'                          => array(
 				'args'            => array(
-					'selector' => '.fp-layout',
+					'selector' => '.fin-layout',
 					'layout'   => array(
 						'type' => 'grid',
 					),
 				),
-				'expected_output' => '.fp-layout{grid-template-columns:repeat(auto-fill, minmax(min(12rem, 100%), 1fr));container-type:inline-size;}',
+				'expected_output' => '.fin-layout{grid-template-columns:repeat(auto-fill, minmax(min(12rem, 100%), 1fr));container-type:inline-size;}',
 			),
 			'grid layout with columnCount'                 => array(
 				'args'            => array(
-					'selector' => '.fp-layout',
+					'selector' => '.fin-layout',
 					'layout'   => array(
 						'type'        => 'grid',
 						'columnCount' => 3,
 					),
 				),
-				'expected_output' => '.fp-layout{grid-template-columns:repeat(3, minmax(0, 1fr));}',
+				'expected_output' => '.fin-layout{grid-template-columns:repeat(3, minmax(0, 1fr));}',
 			),
 			'default layout with blockGap to verify converting gap value into valid CSS' => array(
 				'args'            => array(
-					'selector'              => '.fp-block-group.fp-container-6',
+					'selector'              => '.fin-block-group.fin-container-6',
 					'layout'                => array(
 						'type' => 'default',
 					),
 					'has_block_gap_support' => true,
 					'gap_value'             => 'var:preset|spacing|70',
 					'block_spacing'         => array(
-						'blockGap' => 'var(--fp--preset--spacing--70)',
+						'blockGap' => 'var(--fin--preset--spacing--70)',
 					),
 				),
-				'expected_output' => '.fp-block-group.fp-container-6 > *{margin-block-start:0;margin-block-end:0;}.fp-block-group.fp-container-6 > * + *{margin-block-start:var(--fp--preset--spacing--70);margin-block-end:0;}',
+				'expected_output' => '.fin-block-group.fin-container-6 > *{margin-block-start:0;margin-block-end:0;}.fin-block-group.fin-container-6 > * + *{margin-block-start:var(--fin--preset--spacing--70);margin-block-end:0;}',
 			),
 		);
 	}
@@ -425,7 +425,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 		return array(
 			'single wrapper block layout with flow type'   => array(
 				'args'            => array(
-					'block_content' => '<div class="fp-block-group"></div>',
+					'block_content' => '<div class="fin-block-group"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -434,17 +434,17 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="fp-block-group"></div>',
+						'innerHTML'    => '<div class="fin-block-group"></div>',
 						'innerContent' => array(
-							'<div class="fp-block-group"></div>',
+							'<div class="fin-block-group"></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="fp-block-group is-layout-flow fp-block-group-is-layout-flow"></div>',
+				'expected_output' => '<div class="fin-block-group is-layout-flow fin-block-group-is-layout-flow"></div>',
 			),
 			'single wrapper block layout with constrained type' => array(
 				'args'            => array(
-					'block_content' => '<div class="fp-block-group"></div>',
+					'block_content' => '<div class="fin-block-group"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -453,17 +453,17 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="fp-block-group"></div>',
+						'innerHTML'    => '<div class="fin-block-group"></div>',
 						'innerContent' => array(
-							'<div class="fp-block-group"></div>',
+							'<div class="fin-block-group"></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="fp-block-group is-layout-constrained fp-block-group-is-layout-constrained"></div>',
+				'expected_output' => '<div class="fin-block-group is-layout-constrained fin-block-group-is-layout-constrained"></div>',
 			),
 			'multiple wrapper block layout with flow type' => array(
 				'args'            => array(
-					'block_content' => '<div class="fp-block-group"><div class="fp-block-group__inner-wrapper"></div></div>',
+					'block_content' => '<div class="fin-block-group"><div class="fin-block-group__inner-wrapper"></div></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -472,15 +472,15 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="fp-block-group"><div class="fp-block-group__inner-wrapper"></div></div>',
+						'innerHTML'    => '<div class="fin-block-group"><div class="fin-block-group__inner-wrapper"></div></div>',
 						'innerContent' => array(
-							'<div class="fp-block-group"><div class="fp-block-group__inner-wrapper">',
+							'<div class="fin-block-group"><div class="fin-block-group__inner-wrapper">',
 							' ',
 							' </div></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="fp-block-group"><div class="fp-block-group__inner-wrapper is-layout-flow fp-block-group-is-layout-flow"></div></div>',
+				'expected_output' => '<div class="fin-block-group"><div class="fin-block-group__inner-wrapper is-layout-flow fin-block-group-is-layout-flow"></div></div>',
 			),
 			'block with child layout'                      => array(
 				'args'            => array(
@@ -501,11 +501,11 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						),
 					),
 				),
-				'expected_output' => '<p class="fp-container-content-b7aa651c">Some text.</p>',
+				'expected_output' => '<p class="fin-container-content-b7aa651c">Some text.</p>',
 			),
 			'single wrapper block layout with flex type'   => array(
 				'args'            => array(
-					'block_content' => '<div class="fp-block-group"></div>',
+					'block_content' => '<div class="fin-block-group"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -516,17 +516,17 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="fp-block-group"></div>',
+						'innerHTML'    => '<div class="fin-block-group"></div>',
 						'innerContent' => array(
-							'<div class="fp-block-group"></div>',
+							'<div class="fin-block-group"></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="fp-block-group is-horizontal is-nowrap is-layout-flex fp-container-core-group-is-layout-67f0b8e2 fp-block-group-is-layout-flex"></div>',
+				'expected_output' => '<div class="fin-block-group is-horizontal is-nowrap is-layout-flex fin-container-core-group-is-layout-67f0b8e2 fin-block-group-is-layout-flex"></div>',
 			),
 			'single wrapper block layout with grid type'   => array(
 				'args'            => array(
-					'block_content' => '<div class="fp-block-group"></div>',
+					'block_content' => '<div class="fin-block-group"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -535,13 +535,13 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="fp-block-group"></div>',
+						'innerHTML'    => '<div class="fin-block-group"></div>',
 						'innerContent' => array(
-							'<div class="fp-block-group"></div>',
+							'<div class="fin-block-group"></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="fp-block-group is-layout-grid fp-container-core-group-is-layout-9649a0d9 fp-block-group-is-layout-grid"></div>',
+				'expected_output' => '<div class="fin-block-group is-layout-grid fin-container-core-group-is-layout-9649a0d9 fin-block-group-is-layout-grid"></div>',
 			),
 		);
 	}
@@ -570,7 +570,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 		return array(
 			'group block with existing inner container'    => array(
 				'args'            => array(
-					'block_content' => '<div class="fp-block-group"><div class="fp-block-group__inner-container"></div></div>',
+					'block_content' => '<div class="fin-block-group"><div class="fin-block-group__inner-container"></div></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -579,19 +579,19 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="fp-block-group"><div class="fp-block-group__inner-container"></div></div>',
+						'innerHTML'    => '<div class="fin-block-group"><div class="fin-block-group__inner-container"></div></div>',
 						'innerContent' => array(
-							'<div class="fp-block-group"><div class="fp-block-group__inner-container">',
+							'<div class="fin-block-group"><div class="fin-block-group__inner-container">',
 							' ',
 							' </div></div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="fp-block-group"><div class="fp-block-group__inner-container"></div></div>',
+				'expected_output' => '<div class="fin-block-group"><div class="fin-block-group__inner-container"></div></div>',
 			),
 			'group block with no existing inner container' => array(
 				'args'            => array(
-					'block_content' => '<div class="fp-block-group"></div>',
+					'block_content' => '<div class="fin-block-group"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -600,19 +600,19 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="fp-block-group"></div>',
+						'innerHTML'    => '<div class="fin-block-group"></div>',
 						'innerContent' => array(
-							'<div class="fp-block-group">',
+							'<div class="fin-block-group">',
 							' ',
 							' </div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="fp-block-group"><div class="fp-block-group__inner-container"></div></div>',
+				'expected_output' => '<div class="fin-block-group"><div class="fin-block-group__inner-container"></div></div>',
 			),
 			'group block with layout classnames'           => array(
 				'args'            => array(
-					'block_content' => '<div class="fp-block-group is-layout-constrained fp-block-group-is-layout-constrained"></div>',
+					'block_content' => '<div class="fin-block-group is-layout-constrained fin-block-group-is-layout-constrained"></div>',
 					'block'         => array(
 						'blockName'    => 'core/group',
 						'attrs'        => array(
@@ -621,15 +621,15 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 							),
 						),
 						'innerBlocks'  => array(),
-						'innerHTML'    => '<div class="fp-block-group"></div>',
+						'innerHTML'    => '<div class="fin-block-group"></div>',
 						'innerContent' => array(
-							'<div class="fp-block-group">',
+							'<div class="fin-block-group">',
 							' ',
 							' </div>',
 						),
 					),
 				),
-				'expected_output' => '<div class="fp-block-group"><div class="fp-block-group__inner-container is-layout-constrained fp-block-group-is-layout-constrained"></div></div>',
+				'expected_output' => '<div class="fin-block-group"><div class="fin-block-group__inner-container is-layout-constrained fin-block-group-is-layout-constrained"></div></div>',
 			),
 		);
 	}
@@ -648,13 +648,13 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 	public function test_layout_support_flag_renders_consistent_container_hash( $block_attrs, $expected_class ) {
 		switch_theme( 'default' );
 
-		$block_content = '<div class="fp-block-group"></div>';
+		$block_content = '<div class="fin-block-group"></div>';
 		$block         = array(
 			'blockName'    => 'core/group',
 			'innerBlocks'  => array(),
-			'innerHTML'    => '<div class="fp-block-group"></div>',
+			'innerHTML'    => '<div class="fin-block-group"></div>',
 			'innerContent' => array(
-				'<div class="fp-block-group"></div>',
+				'<div class="fin-block-group"></div>',
 			),
 			'attrs'        => $block_attrs,
 		);
@@ -669,7 +669,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 		remove_theme_support( 'appearance-tools' );
 
 		// Process the output and look for the expected class in the first rendered element.
-		$processor = new FP_HTML_Tag_Processor( $output );
+		$processor = new FIN_HTML_Tag_Processor( $output );
 		$processor->next_tag();
 
 		$this->assertTrue(
@@ -696,7 +696,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						),
 					),
 				),
-				'expected_class'   => 'fp-container-core-group-is-layout-c5c7d83f',
+				'expected_class'   => 'fin-container-core-group-is-layout-c5c7d83f',
 			),
 			'default type block gap 24px'      => array(
 				'block_attributes' => array(
@@ -709,7 +709,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						),
 					),
 				),
-				'expected_class'   => 'fp-container-core-group-is-layout-634f0b9d',
+				'expected_class'   => 'fin-container-core-group-is-layout-634f0b9d',
 			),
 			'constrained type justified left'  => array(
 				'block_attributes' => array(
@@ -718,7 +718,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						'justifyContent' => 'left',
 					),
 				),
-				'expected_class'   => 'fp-container-core-group-is-layout-12dd3699',
+				'expected_class'   => 'fin-container-core-group-is-layout-12dd3699',
 			),
 			'constrained type justified right' => array(
 				'block_attributes' => array(
@@ -727,7 +727,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						'justifyContent' => 'right',
 					),
 				),
-				'expected_class'   => 'fp-container-core-group-is-layout-f1f2ed93',
+				'expected_class'   => 'fin-container-core-group-is-layout-f1f2ed93',
 			),
 			'flex type horizontal'             => array(
 				'block_attributes' => array(
@@ -737,7 +737,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						'flexWrap'    => 'nowrap',
 					),
 				),
-				'expected_class'   => 'fp-container-core-group-is-layout-2487dcaa',
+				'expected_class'   => 'fin-container-core-group-is-layout-2487dcaa',
 			),
 			'flex type vertical'               => array(
 				'block_attributes' => array(
@@ -746,7 +746,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						'orientation' => 'vertical',
 					),
 				),
-				'expected_class'   => 'fp-container-core-group-is-layout-fe9cc265',
+				'expected_class'   => 'fin-container-core-group-is-layout-fe9cc265',
 			),
 			'grid type'                        => array(
 				'block_attributes' => array(
@@ -754,7 +754,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						'type' => 'grid',
 					),
 				),
-				'expected_class'   => 'fp-container-core-group-is-layout-478b6e6b',
+				'expected_class'   => 'fin-container-core-group-is-layout-478b6e6b',
 			),
 			'grid type 3 columns'              => array(
 				'block_attributes' => array(
@@ -763,7 +763,7 @@ class FP_Block_Supports_Layout_Test extends FP_UnitTestCase {
 						'columnCount' => 3,
 					),
 				),
-				'expected_class'   => 'fp-container-core-group-is-layout-d3b710ac',
+				'expected_class'   => 'fin-container-core-group-is-layout-d3b710ac',
 			),
 		);
 	}

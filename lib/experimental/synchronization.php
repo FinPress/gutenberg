@@ -15,10 +15,10 @@ function gutenberg_rest_api_init_collaborative_editing() {
 	}
 	$collaborative_editing_secret = get_site_option( 'collaborative_editing_secret' );
 	if ( ! $collaborative_editing_secret ) {
-		$collaborative_editing_secret = fp_generate_password( 64, false );
+		$collaborative_editing_secret = fin_generate_password( 64, false );
 	}
 	add_site_option( 'collaborative_editing_secret', $collaborative_editing_secret );
 
-	fp_add_inline_script( 'fp-sync', 'window.__experimentalCollaborativeEditingSecret = "' . $collaborative_editing_secret . '";', 'before' );
+	fin_add_inline_script( 'fin-sync', 'window.__experimentalCollaborativeEditingSecret = "' . $collaborative_editing_secret . '";', 'before' );
 }
 add_action( 'admin_init', 'gutenberg_rest_api_init_collaborative_editing' );

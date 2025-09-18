@@ -73,7 +73,7 @@ function gutenberg_apply_colors_support( $block_type, $block_attributes ) {
 }
 
 // Register the block support.
-FP_Block_Supports::get_instance()->register(
+FIN_Block_Supports::get_instance()->register(
 	'colors',
 	array(
 		'register_attribute' => 'gutenberg_register_colors_support',

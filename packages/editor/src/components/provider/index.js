@@ -51,9 +51,9 @@ const noop = () => {};
  * (post content, post title) to be used within them without issues.
  */
 const NON_CONTEXTUAL_POST_TYPES = [
-	'fp_block',
-	'fp_navigation',
-	'fp_template_part',
+	'fin_block',
+	'fin_navigation',
+	'fin_template_part',
 ];
 
 /**
@@ -83,7 +83,7 @@ function useBlockEditorProps( post, template, mode ) {
 			id: template?.id,
 		} );
 	const maybeNavigationBlocks = useMemo( () => {
-		if ( post.type === 'fp_navigation' ) {
+		if ( post.type === 'fin_navigation' ) {
 			return [
 				createBlock( 'core/navigation', {
 					ref: post.id,
@@ -115,7 +115,7 @@ function useBlockEditorProps( post, template, mode ) {
 	// too frequently. This ensures that clientIds are stable.
 	const disableRootLevelChanges =
 		( !! template && mode === 'template-locked' ) ||
-		post.type === 'fp_navigation';
+		post.type === 'fin_navigation';
 	if ( disableRootLevelChanges ) {
 		return [ blocks, noop, noop ];
 	}
@@ -207,7 +207,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 						: undefined,
 					selection: getEditorSelection(),
 					postTypeEntities:
-						post.type === 'fp_template'
+						post.type === 'fin_template'
 							? getEntitiesConfig( 'postType' )
 							: null,
 				};
@@ -220,7 +220,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 		const defaultBlockContext = useMemo( () => {
 			const postContext = {};
 			// If it is a template, try to inherit the post type from the name.
-			if ( post.type === 'fp_template' ) {
+			if ( post.type === 'fin_template' ) {
 				if ( post.slug === 'page' ) {
 					postContext.postType = 'page';
 				} else if ( post.slug === 'single' ) {
@@ -248,7 +248,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 			return {
 				...postContext,
 				templateSlug:
-					rootLevelPost.type === 'fp_template'
+					rootLevelPost.type === 'fin_template'
 						? rootLevelPost.slug
 						: undefined,
 			};
@@ -371,7 +371,7 @@ export const ExperimentalEditorProvider = withRegistryProvider(
 									{ mode === 'template-locked' && (
 										<DisableNonPageContentBlocks />
 									) }
-									{ type === 'fp_navigation' && (
+									{ type === 'fin_navigation' && (
 										<NavigationBlockEditingMode />
 									) }
 									<EditorKeyboardShortcuts />

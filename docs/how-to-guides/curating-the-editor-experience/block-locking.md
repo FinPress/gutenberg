@@ -40,7 +40,7 @@ Agencies and plugin authors can offer an even more curated experience by limitin
 Developers can add a filter to the [block_editor_settings_all](https://developer.finpress.org/reference/hooks/block_editor_settings_all/) hook to configure permissions around locking blocks.  The hook passes two parameters to the callback function:
 
 - `$settings` - An array of configurable settings for the Editor.
-- `$context` - An instance of FP_Block_Editor_Context, an object that contains information about the current Editor.
+- `$context` - An instance of FIN_Block_Editor_Context, an object that contains information about the current Editor.
 
 Specifically, developers can alter the `$settings['canLockBlocks']` value by setting it to `true` or `false`, typically by running through one or more conditional checks. 
 

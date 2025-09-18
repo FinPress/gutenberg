@@ -20,7 +20,7 @@ export default function PostScheduleCheck( { children } ) {
 	const hasPublishAction = useSelect( ( select ) => {
 		return (
 			select( editorStore ).getCurrentPost()._links?.[
-				'fp:action-publish'
+				'fin:action-publish'
 			] ?? false
 		);
 	}, [] );

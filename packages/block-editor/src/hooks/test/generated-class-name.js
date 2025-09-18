@@ -48,18 +48,18 @@ describe( 'generated className', () => {
 				attributes
 			);
 
-			expect( extraProps.className ).toBe( 'fp-block-chicken-ribs foo' );
+			expect( extraProps.className ).toBe( 'fin-block-chicken-ribs foo' );
 		} );
 
 		it( 'should not inject duplicates into className', () => {
 			const attributes = { className: 'bar' };
 			const extraProps = addSaveProps(
-				{ className: 'foo fp-block-chicken-ribs' },
+				{ className: 'foo fin-block-chicken-ribs' },
 				blockSettings,
 				attributes
 			);
 
-			expect( extraProps.className ).toBe( 'fp-block-chicken-ribs foo' );
+			expect( extraProps.className ).toBe( 'fin-block-chicken-ribs foo' );
 		} );
 	} );
 } );

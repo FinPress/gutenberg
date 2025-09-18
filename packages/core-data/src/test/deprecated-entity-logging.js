@@ -71,7 +71,7 @@ function createTestRegistry() {
 	const mediaEntityConfig = {
 		name: 'media',
 		kind: 'root',
-		baseURL: '/fp/v2/media',
+		baseURL: '/fin/v2/media',
 		baseURLParams: { context: 'edit' },
 		plural: 'mediaItems',
 		label: 'Media',

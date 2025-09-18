@@ -395,7 +395,7 @@ Determines whether the block's attributes are equal to the default attributes wh
 
 _Parameters_
 
--   _block_ `FPBlock`: Block Object.
+-   _block_ `FINBlock`: Block Object.
 -   _role_ `?string`: Optional role to filter attributes for modification check.
 
 _Returns_
@@ -408,7 +408,7 @@ Determines whether the block is a default block and its attributes are equal to 
 
 _Parameters_
 
--   _block_ `FPBlock`: Block Object
+-   _block_ `FINBlock`: Block Object
 -   _role_ `?string`: Optional role to filter attributes for modification check.
 
 _Returns_
@@ -451,11 +451,11 @@ Function that receives an icon as set by the blocks during the registration and 
 
 _Parameters_
 
--   _icon_ `FPBlockTypeIconRender`: Render behavior of a block type icon; one of a Dashicon slug, an element, or a component.
+-   _icon_ `FINBlockTypeIconRender`: Render behavior of a block type icon; one of a Dashicon slug, an element, or a component.
 
 _Returns_
 
--   `FPBlockTypeIconDescriptor`: Object describing the icon.
+-   `FINBlockTypeIconDescriptor`: Object describing the icon.
 
 ### parse
 
@@ -544,7 +544,7 @@ registerBlockBindingsSource( {
 
 _Parameters_
 
--   _source_ `FPBlockBindingsSource`: Object describing a block bindings source.
+-   _source_ `FINBlockBindingsSource`: Object describing a block bindings source.
 
 _Changelog_
 
@@ -640,7 +640,7 @@ _Parameters_
 
 _Returns_
 
--   `FPBlockType | undefined`: The block, if it has been successfully registered; otherwise `undefined`.
+-   `FINBlockType | undefined`: The block, if it has been successfully registered; otherwise `undefined`.
 
 ### registerBlockVariation
 
@@ -675,7 +675,7 @@ const ExampleComponent = () => {
 _Parameters_
 
 -   _blockName_ `string`: Name of the block (example: “core/columns”).
--   _variation_ `FPBlockVariation`: Object describing a block variation.
+-   _variation_ `FINBlockVariation`: Object describing a block variation.
 
 ### serialize
 
@@ -684,7 +684,7 @@ Takes a block or set of blocks and returns the serialized post content.
 _Parameters_
 
 -   _blocks_ `Array`: Block(s) to serialize.
--   _options_ `FPBlockSerializationOptions`: Serialization options.
+-   _options_ `FINBlockSerializationOptions`: Serialization options.
 
 _Returns_
 
@@ -703,7 +703,7 @@ _Related_
 
 _Parameters_
 
--   _rawBlock_ `FPRawBlock`: A block node as returned by a valid parser.
+-   _rawBlock_ `FINRawBlock`: A block node as returned by a valid parser.
 -   _options_ `[Options]`: Serialization options.
 
 _Returns_
@@ -747,7 +747,7 @@ const ExampleComponent = () => {
 
 _Parameters_
 
--   _categories_ `FPBlockCategory[]`: Block categories.
+-   _categories_ `FINBlockCategory[]`: Block categories.
 
 ### setDefaultBlockName
 
@@ -927,7 +927,7 @@ _Parameters_
 
 _Returns_
 
--   `FPBlockType | undefined`: The previous block value, if it has been successfully unregistered; otherwise `undefined`.
+-   `FINBlockType | undefined`: The previous block value, if it has been successfully unregistered; otherwise `undefined`.
 
 ### unregisterBlockVariation
 
@@ -985,7 +985,7 @@ const ExampleComponent = () => {
 _Parameters_
 
 -   _slug_ `string`: Block category slug.
--   _category_ `FPBlockCategory`: Object containing the category properties that should be updated.
+-   _category_ `FINBlockCategory`: Object containing the category properties that should be updated.
 
 ### validateBlock
 
@@ -993,8 +993,8 @@ Returns an object with `isValid` property set to `true` if the parsed block is v
 
 _Parameters_
 
--   _block_ `FPBlock`: block object.
--   _blockTypeOrName_ `[FPBlockType|string]`: Block type or name, inferred from block if not given.
+-   _block_ `FINBlock`: block object.
+-   _blockTypeOrName_ `[FINBlockType|string]`: Block type or name, inferred from block if not given.
 
 _Returns_
 

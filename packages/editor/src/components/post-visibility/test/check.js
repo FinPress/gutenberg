@@ -20,7 +20,7 @@ function setupMockSelect( hasPublishAction ) {
 		return mapSelect( () => ( {
 			getCurrentPost: () => ( {
 				_links: {
-					'fp:action-publish': hasPublishAction,
+					'fin:action-publish': hasPublishAction,
 				},
 			} ),
 		} ) );

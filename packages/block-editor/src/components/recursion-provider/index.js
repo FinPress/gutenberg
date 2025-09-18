@@ -85,17 +85,17 @@ export function useHasRecursion( uniqueId, blockName = '' ) {
 }
 
 export const DeprecatedExperimentalRecursionProvider = ( props ) => {
-	deprecated( 'fp.blockEditor.__experimentalRecursionProvider', {
+	deprecated( 'fin.blockEditor.__experimentalRecursionProvider', {
 		since: '6.5',
-		alternative: 'fp.blockEditor.RecursionProvider',
+		alternative: 'fin.blockEditor.RecursionProvider',
 	} );
 	return <RecursionProvider { ...props } />;
 };
 
 export const DeprecatedExperimentalUseHasRecursion = ( ...args ) => {
-	deprecated( 'fp.blockEditor.__experimentalUseHasRecursion', {
+	deprecated( 'fin.blockEditor.__experimentalUseHasRecursion', {
 		since: '6.5',
-		alternative: 'fp.blockEditor.useHasRecursion',
+		alternative: 'fin.blockEditor.useHasRecursion',
 	} );
 	return useHasRecursion( ...args );
 };

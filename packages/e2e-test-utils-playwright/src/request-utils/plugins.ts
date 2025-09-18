@@ -21,7 +21,7 @@ async function getPluginsMap( this: RequestUtils, forceRefetch = false ) {
 	}
 
 	const plugins = await this.rest( {
-		path: '/fp/v2/plugins',
+		path: '/fin/v2/plugins',
 	} );
 	this.pluginsMap = {};
 	for ( const plugin of plugins ) {
@@ -78,7 +78,7 @@ async function activatePlugin( this: RequestUtils, slug: string ) {
 
 	await this.rest( {
 		method: 'PUT',
-		path: `/fp/v2/plugins/${ plugin }`,
+		path: `/fin/v2/plugins/${ plugin }`,
 		data: { status: 'active' },
 	} );
 }
@@ -95,7 +95,7 @@ async function deactivatePlugin( this: RequestUtils, slug: string ) {
 
 	await this.rest( {
 		method: 'PUT',
-		path: `/fp/v2/plugins/${ plugin }`,
+		path: `/fin/v2/plugins/${ plugin }`,
 		data: { status: 'inactive' },
 	} );
 }

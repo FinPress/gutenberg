@@ -9,7 +9,7 @@ import { createContext, useContext } from '@finpress/element';
 import useMediaQuery from '../use-media-query';
 
 /**
- * @typedef {"xhuge" | "huge" | "wide" | "xlarge" | "large" | "medium" | "small" | "mobile"} FPBreakpoint
+ * @typedef {"xhuge" | "huge" | "wide" | "xlarge" | "large" | "medium" | "small" | "mobile"} FINBreakpoint
  */
 
 /**
@@ -17,7 +17,7 @@ import useMediaQuery from '../use-media-query';
  *
  * @see _breakpoints.scss
  *
- * @type {Record<FPBreakpoint, number>}
+ * @type {Record<FINBreakpoint, number>}
  */
 const BREAKPOINTS = {
 	xhuge: 1920,
@@ -31,13 +31,13 @@ const BREAKPOINTS = {
 };
 
 /**
- * @typedef {">=" | "<"} FPviewportOperator
+ * @typedef {">=" | "<"} FINviewportOperator
  */
 
 /**
  * Object mapping media query operators to the condition to be used.
  *
- * @type {Record<FPviewportOperator, string>}
+ * @type {Record<FINviewportOperator, string>}
  */
 const CONDITIONS = {
 	'>=': 'min-width',
@@ -47,7 +47,7 @@ const CONDITIONS = {
 /**
  * Object mapping media query operators to a function that given a breakpointValue and a width evaluates if the operator matches the values.
  *
- * @type {Record<FPviewportOperator, (breakpointValue: number, width: number) => boolean>}
+ * @type {Record<FINviewportOperator, (breakpointValue: number, width: number) => boolean>}
  */
 const OPERATOR_EVALUATORS = {
 	'>=': ( breakpointValue, width ) => width >= breakpointValue,
@@ -61,8 +61,8 @@ const viewportMatchWidthContext = createContext(
 /**
  * Returns true if the viewport matches the given query, or false otherwise.
  *
- * @param {FPBreakpoint}       breakpoint      Breakpoint size name.
- * @param {FPviewportOperator} [operator=">="] viewport operator.
+ * @param {FINBreakpoint}       breakpoint      Breakpoint size name.
+ * @param {FINviewportOperator} [operator=">="] viewport operator.
  *
  * @example
  *

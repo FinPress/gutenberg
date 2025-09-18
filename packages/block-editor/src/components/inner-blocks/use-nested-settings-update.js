@@ -12,7 +12,7 @@ import isShallowEqual from '@finpress/is-shallow-equal';
 import { store as blockEditorStore } from '../../store';
 import { getLayoutType } from '../../layouts';
 
-/** @typedef {import('../../selectors').FPDirectInsertBlock } FPDirectInsertBlock */
+/** @typedef {import('../../selectors').FINDirectInsertBlock } FINDirectInsertBlock */
 
 const pendingSettingsUpdates = new WeakMap();
 
@@ -45,10 +45,10 @@ function useShallowMemo( value ) {
  * @param {string[]}             allowedBlocks              An array of block names which are permitted
  *                                                          in inner blocks.
  * @param {string[]}             prioritizedInserterBlocks  Block names and/or block variations to be prioritized in the inserter, in the format {blockName}/{variationName}.
- * @param {?FPDirectInsertBlock} defaultBlock               The default block to insert: [ blockName, { blockAttributes } ].
+ * @param {?FINDirectInsertBlock} defaultBlock               The default block to insert: [ blockName, { blockAttributes } ].
  * @param {?boolean}             directInsert               If a default block should be inserted directly by the appender.
  *
- * @param {?FPDirectInsertBlock} __experimentalDefaultBlock A deprecated prop for the default block to insert: [ blockName, { blockAttributes } ]. Use `defaultBlock` instead.
+ * @param {?FINDirectInsertBlock} __experimentalDefaultBlock A deprecated prop for the default block to insert: [ blockName, { blockAttributes } ]. Use `defaultBlock` instead.
  *
  * @param {?boolean}             __experimentalDirectInsert A deprecated prop for whether a default block should be inserted directly by the appender. Use `directInsert` instead.
  *

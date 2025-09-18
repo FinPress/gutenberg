@@ -48,13 +48,13 @@ export function setDefaults( scope, defaults ) {
 	};
 }
 
-/** @typedef {() => Promise<Object>} FPPreferencesPersistenceLayerGet */
-/** @typedef {(Object) => void} FPPreferencesPersistenceLayerSet */
+/** @typedef {() => Promise<Object>} FINPreferencesPersistenceLayerGet */
+/** @typedef {(Object) => void} FINPreferencesPersistenceLayerSet */
 /**
- * @typedef FPPreferencesPersistenceLayer
+ * @typedef FINPreferencesPersistenceLayer
  *
- * @property {FPPreferencesPersistenceLayerGet} get An async function that gets data from the persistence layer.
- * @property {FPPreferencesPersistenceLayerSet} set A function that sets data in the persistence layer.
+ * @property {FINPreferencesPersistenceLayerGet} get An async function that gets data from the persistence layer.
+ * @property {FINPreferencesPersistenceLayerSet} set A function that sets data in the persistence layer.
  */
 
 /**
@@ -68,7 +68,7 @@ export function setDefaults( scope, defaults ) {
  * application's lifecycle, before any other actions have been dispatched to
  * the preferences store.
  *
- * @param {FPPreferencesPersistenceLayer} persistenceLayer The persistence layer.
+ * @param {FINPreferencesPersistenceLayer} persistenceLayer The persistence layer.
  *
  * @return {Object} Action object.
  */

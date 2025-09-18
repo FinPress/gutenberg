@@ -1,9 +1,9 @@
-/** @typedef {import('./registry').FPDataRegistry} FPDataRegistry */
+/** @typedef {import('./registry').FINDataRegistry} FINDataRegistry */
 
 /**
  * Creates a middleware handling resolvers cache invalidation.
  *
- * @param {FPDataRegistry} registry  Registry for which to create the middleware.
+ * @param {FINDataRegistry} registry  Registry for which to create the middleware.
  * @param {string}         storeName Name of the store for which to create the middleware.
  *
  * @return {Function} Middleware function.

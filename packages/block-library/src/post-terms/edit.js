@@ -105,7 +105,7 @@ export default function PostTermsEdit( {
 					<RichText
 						identifier="prefix"
 						allowedFormats={ ALLOWED_FORMATS }
-						className="fp-block-post-terms__prefix"
+						className="fin-block-post-terms__prefix"
 						aria-label={ __( 'Prefix' ) }
 						placeholder={ __( 'Prefix' ) + ' ' }
 						value={ prefix }
@@ -135,7 +135,7 @@ export default function PostTermsEdit( {
 						.reduce( ( prev, curr ) => (
 							<>
 								{ prev }
-								<span className="fp-block-post-terms__separator">
+								<span className="fin-block-post-terms__separator">
 									{ separator || ' ' }
 								</span>
 								{ curr }
@@ -150,7 +150,7 @@ export default function PostTermsEdit( {
 					<RichText
 						identifier="suffix"
 						allowedFormats={ ALLOWED_FORMATS }
-						className="fp-block-post-terms__suffix"
+						className="fin-block-post-terms__suffix"
 						aria-label={ __( 'Suffix' ) }
 						placeholder={ ' ' + __( 'Suffix' ) }
 						value={ suffix }

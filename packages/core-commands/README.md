@@ -1,6 +1,6 @@
 # Core Commands
 
-This package includes a list of reusable FinPress Admin commands. These commands can be used in multiple FP Admin pages.
+This package includes a list of reusable FinPress Admin commands. These commands can be used in multiple FIN Admin pages.
 
 ## Installation
 

@@ -17,14 +17,14 @@ import type { DateSettings } from './types';
 
 export * from './types';
 
-const FP_ZONE = 'FP';
+const FIN_ZONE = 'FIN';
 
 // This regular expression tests positive for UTC offsets as described in ISO 8601.
 // See: https://en.wikipedia.org/wiki/ISO_8601#Time_offsets_from_UTC
 const VALID_UTC_OFFSET = /^[+-][0-1][0-9](:?[0-9][0-9])?$/;
 
 // Changes made here will likely need to be synced with Core in the file
-// src/fp-includes/script-loader.php in `fp_default_packages_inline_scripts()`.
+// src/fin-includes/script-loader.php in `fin_default_packages_inline_scripts()`.
 let settings: DateSettings = {
 	l10n: {
 		locale: 'en',
@@ -95,14 +95,14 @@ let settings: DateSettings = {
 };
 
 /**
- * Adds a locale to moment, using the format supplied by `fp_localize_script()`.
+ * Adds a locale to moment, using the format supplied by `fin_localize_script()`.
  *
  * @param dateSettings Settings, including locale data.
  */
 export function setSettings( dateSettings: DateSettings ) {
 	settings = dateSettings;
 
-	setupFPTimezone();
+	setupFINTimezone();
 
 	// Does moment already have a locale with the right name?
 	if ( momentLib.locales().includes( dateSettings.l10n.locale ) ) {
@@ -177,36 +177,36 @@ export function getSettings() {
  * @return {DateSettings} Settings, including locale data.
  */
 export function __experimentalGetSettings() {
-	deprecated( 'fp.date.__experimentalGetSettings', {
+	deprecated( 'fin.date.__experimentalGetSettings', {
 		since: '6.1',
-		alternative: 'fp.date.getSettings',
+		alternative: 'fin.date.getSettings',
 	} );
 	return getSettings();
 }
 
-function setupFPTimezone() {
-	// Get the current timezone settings from the FP timezone string.
+function setupFINTimezone() {
+	// Get the current timezone settings from the FIN timezone string.
 	const currentTimezone = momentLib.tz.zone( settings.timezone.string );
 
-	// Check to see if we have a valid TZ data, if so, use it for the custom FP_ZONE timezone, otherwise just use the offset.
+	// Check to see if we have a valid TZ data, if so, use it for the custom FIN_ZONE timezone, otherwise just use the offset.
 	if ( currentTimezone ) {
-		// Create FP timezone based off settings.timezone.string.  We need to include the additional data so that we
+		// Create FIN timezone based off settings.timezone.string.  We need to include the additional data so that we
 		// don't lose information about daylight savings time and other items.
 		// See https://github.com/FinPress/gutenberg/pull/48083
 		momentLib.tz.add(
 			momentLib.tz.pack( {
-				name: FP_ZONE,
+				name: FIN_ZONE,
 				abbrs: currentTimezone.abbrs,
 				untils: currentTimezone.untils,
 				offsets: currentTimezone.offsets,
 			} )
 		);
 	} else {
-		// Create FP timezone based off dateSettings.
+		// Create FIN timezone based off dateSettings.
 		momentLib.tz.add(
 			momentLib.tz.pack( {
-				name: FP_ZONE,
-				abbrs: [ FP_ZONE ],
+				name: FIN_ZONE,
+				abbrs: [ FIN_ZONE ],
 				untils: [ null ],
 				offsets: [ -settings.timezone.offset * 60 || 0 ],
 			} )
@@ -481,7 +481,7 @@ export function gmdate(
 }
 
 /**
- * Formats a date (like `fp_date()` in PHP), translating it into site's locale.
+ * Formats a date (like `fin_date()` in PHP), translating it into site's locale.
  *
  * Backward Compatibility Notice: if `timezone` is set to `true`, the function
  * behaves like `gmdateI18n`.
@@ -520,7 +520,7 @@ export function dateI18n(
 }
 
 /**
- * Formats a date (like `fp_date()` in PHP), translating it into site's locale
+ * Formats a date (like `fin_date()` in PHP), translating it into site's locale
  * and using the UTC timezone.
  *
  * @param dateFormat PHP-style formatting string.
@@ -542,37 +542,37 @@ export function gmdateI18n(
 /**
  * Check whether a date is considered in the future according to the FinPress settings.
  *
- * @param dateValue Date String or Date object in the Defined FP Timezone.
+ * @param dateValue Date String or Date object in the Defined FIN Timezone.
  *
  * @return Is in the future.
  */
 export function isInTheFuture( dateValue: Date | string | number ) {
-	const now = momentLib.tz( FP_ZONE );
-	const momentObject = momentLib.tz( dateValue, FP_ZONE );
+	const now = momentLib.tz( FIN_ZONE );
+	const momentObject = momentLib.tz( dateValue, FIN_ZONE );
 
 	return momentObject.isAfter( now );
 }
 
 /**
- * Create and return a JavaScript Date Object from a date string in the FP timezone.
+ * Create and return a JavaScript Date Object from a date string in the FIN timezone.
  *
- * @param dateString Date formatted in the FP timezone.
+ * @param dateString Date formatted in the FIN timezone.
  *
  * @return  Date
  */
 export function getDate( dateString?: string | null ) {
 	if ( ! dateString ) {
-		return momentLib.tz( FP_ZONE ).toDate();
+		return momentLib.tz( FIN_ZONE ).toDate();
 	}
 
-	return momentLib.tz( dateString, FP_ZONE ).toDate();
+	return momentLib.tz( dateString, FIN_ZONE ).toDate();
 }
 
 /**
  * Returns a human-readable time difference between two dates, like human_time_diff() in PHP.
  *
- * @param from From date, in the FP timezone.
- * @param to   To date, formatted in the FP timezone.
+ * @param from From date, in the FIN timezone.
+ * @param to   To date, formatted in the FIN timezone.
  *
  * @return Human-readable time difference.
  */
@@ -580,8 +580,8 @@ export function humanTimeDiff(
 	from: Moment | Date | string | number,
 	to?: Moment | Date | string | number
 ) {
-	const fromMoment = momentLib.tz( from, FP_ZONE );
-	const toMoment = to ? momentLib.tz( to, FP_ZONE ) : momentLib.tz( FP_ZONE );
+	const fromMoment = momentLib.tz( from, FIN_ZONE );
+	const toMoment = to ? momentLib.tz( to, FIN_ZONE ) : momentLib.tz( FIN_ZONE );
 	return fromMoment.from( toMoment );
 }
 
@@ -636,4 +636,4 @@ function isUTCOffset( offset: number | string ) {
 	return VALID_UTC_OFFSET.test( offset );
 }
 
-setupFPTimezone();
+setupFINTimezone();

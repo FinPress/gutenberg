@@ -24,7 +24,7 @@ export async function getBlocks(
 	{ clientId, full = false }: { clientId?: string; full?: boolean } = {}
 ) {
 	await this.page.waitForFunction(
-		() => window?.fp?.blocks && window?.fp?.data
+		() => window?.fin?.blocks && window?.fin?.data
 	);
 
 	return await this.page.evaluate(
@@ -37,7 +37,7 @@ export async function getBlocks(
 					Object.entries( attributes ).map( ( [ key, value ] ) => {
 						// Serialize RichTextData to string.
 						if (
-							value instanceof window.fp.richText.RichTextData
+							value instanceof window.fin.richText.RichTextData
 						) {
 							return [ key, ( value as string ).toString() ];
 						}
@@ -57,14 +57,14 @@ export async function getBlocks(
 				} ) );
 			}
 
-			const blocks = window.fp.data
+			const blocks = window.fin.data
 				.select( 'core/block-editor' )
 				.getBlocks( _clientId ) as Block[];
 
 			// The editor might still contain an unmodified empty block even when it's technically "empty".
 			if (
 				blocks.length === 1 &&
-				window.fp.blocks.isUnmodifiedDefaultBlock( blocks[ 0 ] )
+				window.fin.blocks.isUnmodifiedDefaultBlock( blocks[ 0 ] )
 			) {
 				return [];
 			}

@@ -40,7 +40,7 @@ import { getFontStylesAndWeights } from '../../utils/get-font-styles-and-weights
  * Returns a font-size value based on a given font-size preset.
  * Takes into account fluid typography parameters and attempts to return a css formula depending on available, valid values.
  *
- * The Core PHP equivalent is fp_get_typography_font_size_value().
+ * The Core PHP equivalent is fin_get_typography_font_size_value().
  *
  * @param {Preset}                     preset
  * @param {Object}                     settings

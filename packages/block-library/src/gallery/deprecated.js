@@ -129,7 +129,7 @@ export function getImageBlock( image, sizeSlug, linkTo ) {
 	} );
 }
 
-// In #41140 support was added to global styles for caption elements which added a `fp-element-caption` classname
+// In #41140 support was added to global styles for caption elements which added a `fin-element-caption` classname
 // to the gallery figcaption element.
 const v7 = {
 	attributes: {
@@ -368,7 +368,7 @@ const v6 = {
 								data-full-url={ image.fullUrl }
 								data-link={ image.link }
 								className={
-									image.id ? `fp-image-${ image.id }` : null
+									image.id ? `fin-image-${ image.id }` : null
 								}
 							/>
 						);
@@ -531,7 +531,7 @@ const v5 = {
 								data-full-url={ image.fullUrl }
 								data-link={ image.link }
 								className={
-									image.id ? `fp-image-${ image.id }` : null
+									image.id ? `fin-image-${ image.id }` : null
 								}
 							/>
 						);
@@ -678,7 +678,7 @@ const v4 = {
 								data-full-url={ image.fullUrl }
 								data-link={ image.link }
 								className={
-									image.id ? `fp-image-${ image.id }` : null
+									image.id ? `fin-image-${ image.id }` : null
 								}
 							/>
 						);
@@ -723,7 +723,7 @@ const v3 = {
 			type: 'array',
 			default: [],
 			source: 'query',
-			selector: 'ul.fp-block-gallery .blocks-gallery-item',
+			selector: 'ul.fin-block-gallery .blocks-gallery-item',
 			query: {
 				url: {
 					source: 'attribute',
@@ -810,7 +810,7 @@ const v3 = {
 							data-full-url={ image.fullUrl }
 							data-link={ image.link }
 							className={
-								image.id ? `fp-image-${ image.id }` : null
+								image.id ? `fin-image-${ image.id }` : null
 							}
 						/>
 					);
@@ -845,7 +845,7 @@ const v2 = {
 			type: 'array',
 			default: [],
 			source: 'query',
-			selector: 'ul.fp-block-gallery .blocks-gallery-item',
+			selector: 'ul.fin-block-gallery .blocks-gallery-item',
 			query: {
 				url: {
 					source: 'attribute',
@@ -939,7 +939,7 @@ const v2 = {
 							data-id={ image.id }
 							data-link={ image.link }
 							className={
-								image.id ? `fp-image-${ image.id }` : null
+								image.id ? `fin-image-${ image.id }` : null
 							}
 						/>
 					);
@@ -972,7 +972,7 @@ const v1 = {
 			type: 'array',
 			default: [],
 			source: 'query',
-			selector: 'div.fp-block-gallery figure.blocks-gallery-image img',
+			selector: 'div.fin-block-gallery figure.blocks-gallery-image img',
 			query: {
 				url: {
 					source: 'attribute',

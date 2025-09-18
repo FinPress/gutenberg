@@ -24,7 +24,7 @@ export function PostPendingStatusCheck( { children } ) {
 			select( editorStore );
 		return {
 			hasPublishAction:
-				getCurrentPost()._links?.[ 'fp:action-publish' ] ?? false,
+				getCurrentPost()._links?.[ 'fin:action-publish' ] ?? false,
 			isPublished: isCurrentPostPublished(),
 		};
 	}, [] );

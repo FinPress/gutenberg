@@ -12,7 +12,7 @@
 /**
  * Registers the style block attribute for block types that support it.
  *
- * @param FP_Block_Type $block_type Block Type.
+ * @param FIN_Block_Type $block_type Block Type.
  */
 function gutenberg_register_spacing_support( $block_type ) {
 	$has_spacing_support = block_has_support( $block_type, array( 'spacing' ), false );
@@ -33,13 +33,13 @@ function gutenberg_register_spacing_support( $block_type ) {
  * Add CSS classes for block spacing to the incoming attributes array.
  * This will be applied to the block markup in the front-end.
  *
- * @param FP_Block_Type $block_type       Block Type.
+ * @param FIN_Block_Type $block_type       Block Type.
  * @param array         $block_attributes Block attributes.
  *
  * @return array Block spacing CSS classes and inline styles.
  */
 function gutenberg_apply_spacing_support( $block_type, $block_attributes ) {
-	if ( fp_should_skip_block_supports_serialization( $block_type, 'spacing' ) ) {
+	if ( fin_should_skip_block_supports_serialization( $block_type, 'spacing' ) ) {
 		return array();
 	}
 
@@ -52,8 +52,8 @@ function gutenberg_apply_spacing_support( $block_type, $block_attributes ) {
 		return $attributes;
 	}
 
-	$skip_padding         = fp_should_skip_block_supports_serialization( $block_type, 'spacing', 'padding' );
-	$skip_margin          = fp_should_skip_block_supports_serialization( $block_type, 'spacing', 'margin' );
+	$skip_padding         = fin_should_skip_block_supports_serialization( $block_type, 'spacing', 'padding' );
+	$skip_margin          = fin_should_skip_block_supports_serialization( $block_type, 'spacing', 'margin' );
 	$spacing_block_styles = array(
 		'padding' => null,
 		'margin'  => null,
@@ -74,7 +74,7 @@ function gutenberg_apply_spacing_support( $block_type, $block_attributes ) {
 }
 
 // Register the block support.
-FP_Block_Supports::get_instance()->register(
+FIN_Block_Supports::get_instance()->register(
 	'spacing',
 	array(
 		'register_attribute' => 'gutenberg_register_spacing_support',

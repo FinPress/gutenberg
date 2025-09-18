@@ -28,32 +28,32 @@ const gutenbergScriptModules = new Map();
 for ( const packageDir of packageDirs ) {
 	const packageJson = require( `@finpress/${ packageDir }/package.json` );
 
-	if ( ! Object.hasOwn( packageJson, 'fpScriptModuleExports' ) ) {
+	if ( ! Object.hasOwn( packageJson, 'finScriptModuleExports' ) ) {
 		continue;
 	}
 
 	const moduleName = packageJson.name.substring( FINPRESS_NAMESPACE.length );
-	let { fpScriptModuleExports } = packageJson;
+	let { finScriptModuleExports } = packageJson;
 
-	// Special handling for { "fpScriptModuleExports": "./build-module/index.js" }.
-	if ( typeof fpScriptModuleExports === 'string' ) {
-		fpScriptModuleExports = { '.': fpScriptModuleExports };
+	// Special handling for { "finScriptModuleExports": "./build-module/index.js" }.
+	if ( typeof finScriptModuleExports === 'string' ) {
+		finScriptModuleExports = { '.': finScriptModuleExports };
 	}
 
-	if ( Object.getPrototypeOf( fpScriptModuleExports ) !== Object.prototype ) {
-		throw new Error( 'fpScriptModuleExports must be an object' );
+	if ( Object.getPrototypeOf( finScriptModuleExports ) !== Object.prototype ) {
+		throw new Error( 'finScriptModuleExports must be an object' );
 	}
 
 	for ( const [ exportName, exportPath ] of Object.entries(
-		fpScriptModuleExports
+		finScriptModuleExports
 	) ) {
 		if ( typeof exportPath !== 'string' ) {
-			throw new Error( 'fpScriptModuleExports paths must be strings' );
+			throw new Error( 'finScriptModuleExports paths must be strings' );
 		}
 
 		if ( ! exportPath.startsWith( './' ) ) {
 			throw new Error(
-				'fpScriptModuleExports paths must start with "./"'
+				'finScriptModuleExports paths must start with "./"'
 			);
 		}
 
@@ -75,7 +75,7 @@ module.exports = {
 		outputModule: true,
 	},
 	output: {
-		devtoolNamespace: 'fp',
+		devtoolNamespace: 'fin',
 		filename: '[name].min.js',
 		library: {
 			type: 'module',

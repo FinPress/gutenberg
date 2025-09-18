@@ -15,7 +15,7 @@ module.exports = [
 	// methods are actually in use.
 	//
 	// This limitation causes a number of packages to unnecessarily get a
-	// dependency on `fp-polyfill`, which in most cases gets loaded as part of
+	// dependency on `fin-polyfill`, which in most cases gets loaded as part of
 	// the critical path and can thus have an impact on performance.
 	//
 	// There is no good solution to this, and the one we've opted for here is

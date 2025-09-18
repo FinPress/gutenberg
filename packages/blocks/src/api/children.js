@@ -12,13 +12,13 @@ import * as node from './node';
 /**
  * A representation of a block's rich text value.
  *
- * @typedef {FPBlockNode[]} FPBlockChildren
+ * @typedef {FINBlockNode[]} FINBlockChildren
  */
 
 /**
  * Given block children, returns a serialize-capable FinPress element.
  *
- * @param {FPBlockChildren} children Block children object to convert.
+ * @param {FINBlockChildren} children Block children object to convert.
  *
  * @return {Element} A serialize-capable element.
  */
@@ -35,9 +35,9 @@ export function getSerializeCapableElement( children ) {
 /**
  * Given block children, returns an array of block nodes.
  *
- * @param {FPBlockChildren} children Block children object to convert.
+ * @param {FINBlockChildren} children Block children object to convert.
  *
- * @return {Array<FPBlockNode>} An array of individual block nodes.
+ * @return {Array<FINBlockNode>} An array of individual block nodes.
  */
 function getChildrenArray( children ) {
 	deprecated( 'fin.blocks.children.getChildrenArray', {
@@ -56,9 +56,9 @@ function getChildrenArray( children ) {
  * Given two or more block nodes, returns a new block node representing a
  * concatenation of its values.
  *
- * @param {...FPBlockChildren} blockNodes Block nodes to concatenate.
+ * @param {...FINBlockChildren} blockNodes Block nodes to concatenate.
  *
- * @return {FPBlockChildren} Concatenated block node.
+ * @return {FINBlockChildren} Concatenated block node.
  */
 export function concat( ...blockNodes ) {
 	deprecated( 'fin.blocks.children.concat', {
@@ -96,7 +96,7 @@ export function concat( ...blockNodes ) {
  *
  * @param {Iterable.<Node>} domNodes Iterable set of DOM nodes to convert.
  *
- * @return {FPBlockChildren} Block children equivalent to DOM nodes.
+ * @return {FINBlockChildren} Block children equivalent to DOM nodes.
  */
 export function fromDOM( domNodes ) {
 	deprecated( 'fin.blocks.children.fromDOM', {
@@ -121,7 +121,7 @@ export function fromDOM( domNodes ) {
 /**
  * Given a block node, returns its HTML string representation.
  *
- * @param {FPBlockChildren} children Block node(s) to convert to string.
+ * @param {FINBlockChildren} children Block node(s) to convert to string.
  *
  * @return {string} String HTML representation of block node.
  */
@@ -139,7 +139,7 @@ export function toHTML( children ) {
 }
 
 /**
- * Given a selector, returns an hpq matcher generating a FPBlockChildren value
+ * Given a selector, returns an hpq matcher generating a FINBlockChildren value
  * matching the selector result.
  *
  * @param {string} selector DOM selector.

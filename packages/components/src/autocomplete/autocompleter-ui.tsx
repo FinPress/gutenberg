@@ -25,7 +25,7 @@ import Button from '../button';
 import Popover from '../popover';
 import { VisuallyHidden } from '../visually-hidden';
 import { createPortal } from 'react-dom';
-import type { AutocompleterUIProps, KeyedOption, FPCompleter } from './types';
+import type { AutocompleterUIProps, KeyedOption, FINCompleter } from './types';
 
 type ListBoxProps = {
 	items: KeyedOption[];
@@ -79,7 +79,7 @@ function ListBox( {
 	);
 }
 
-export function getAutoCompleterUI( autocompleter: FPCompleter ) {
+export function getAutoCompleterUI( autocompleter: FINCompleter ) {
 	const useItems =
 		autocompleter.useItems ?? getDefaultUseItems( autocompleter );
 

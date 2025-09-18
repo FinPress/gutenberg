@@ -2,20 +2,20 @@
 
 The persistence plugin enhances a registry to enable registered stores to opt in to persistent storage.
 
-By default, persistence occurs by [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). In environments where `localStorage` is not available, it will gracefully fall back to an in-memory object storage which will not persist between sessions. You can provide your own storage implementation by providing the [`storage` option](#options). Unless set otherwise, state will be persisted on the `FP_DATA` key in storage.
+By default, persistence occurs by [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). In environments where `localStorage` is not available, it will gracefully fall back to an in-memory object storage which will not persist between sessions. You can provide your own storage implementation by providing the [`storage` option](#options). Unless set otherwise, state will be persisted on the `FIN_DATA` key in storage.
 
 ## Usage
 
 Call the `use` method on the default or your own registry to include the persistence plugin:
 
 ```js
-fp.data.use( fp.data.plugins.persistence, { storageKey: 'example' } );
+fin.data.use( fin.data.plugins.persistence, { storageKey: 'example' } );
 ```
 
 Then, when registering a store, set a `persist` property as `true` (persist all state) or an array of state keys to persist.
 
 ```js
-fp.data.registerStore( 'my-plugin', {
+fin.data.registerStore( 'my-plugin', {
 	// ...
 
 	persist: [ 'preferences' ],

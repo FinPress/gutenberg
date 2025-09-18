@@ -136,7 +136,7 @@ export function getSpacingPresetCssVar( value ) {
 		return value;
 	}
 
-	return `var(--fp--preset--spacing--${ slug[ 1 ] })`;
+	return `var(--fin--preset--spacing--${ slug[ 1 ] })`;
 }
 
 /**

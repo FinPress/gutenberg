@@ -210,12 +210,12 @@ class DependencyExtractionWebpackPlugin {
 			}
 
 			// Prepare to look for magic comments, in order to decide whether
-			// `fp-polyfill` is needed.
+			// `fin-polyfill` is needed.
 			const processContentsForMagicComments = ( content ) => {
 				const magicComments = [];
 
-				if ( content.includes( '/* fp:polyfill */' ) ) {
-					magicComments.push( 'fp-polyfill' );
+				if ( content.includes( '/* fin:polyfill */' ) ) {
+					magicComments.push( 'fin-polyfill' );
 				}
 
 				return magicComments;
@@ -227,10 +227,10 @@ class DependencyExtractionWebpackPlugin {
 				const asset = compilation.getAsset( filename );
 				const content = asset.source.buffer();
 
-				const fpMagicComments =
+				const finMagicComments =
 					processContentsForMagicComments( content );
 				compilation.updateAsset( filename, ( v ) => v, {
-					fpMagicComments,
+					finMagicComments,
 				} );
 			} );
 		}
@@ -291,7 +291,7 @@ class DependencyExtractionWebpackPlugin {
 			const chunkDynamicDeps = new Set();
 
 			if ( injectPolyfill ) {
-				chunkStaticDeps.add( 'fp-polyfill' );
+				chunkStaticDeps.add( 'fin-polyfill' );
 			}
 
 			/**
@@ -347,13 +347,13 @@ class DependencyExtractionWebpackPlugin {
 			};
 
 			// Prepare to look for magic comments, in order to decide whether
-			// `fp-polyfill` is needed.
+			// `fin-polyfill` is needed.
 			const handleMagicComments = ( info ) => {
 				if ( ! info ) {
 					return;
 				}
-				if ( info.includes( 'fp-polyfill' ) ) {
-					chunkStaticDeps.add( 'fp-polyfill' );
+				if ( info.includes( 'fin-polyfill' ) ) {
+					chunkStaticDeps.add( 'fin-polyfill' );
 				}
 			};
 
@@ -364,7 +364,7 @@ class DependencyExtractionWebpackPlugin {
 				const content = asset.source.buffer();
 
 				processContentsForHash( content );
-				handleMagicComments( asset.info.fpMagicComments );
+				handleMagicComments( asset.info.finMagicComments );
 			} );
 
 			// Finalise hash.

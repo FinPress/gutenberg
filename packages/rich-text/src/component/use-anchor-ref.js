@@ -13,7 +13,7 @@ import { getActiveFormat } from '../get-active-format';
  * @template T
  * @typedef {import('@finpress/element').RefObject<T>} RefObject<T>
  */
-/** @typedef {import('../register-format-type').FPFormat} FPFormat */
+/** @typedef {import('../register-format-type').FINFormat} FINFormat */
 /** @typedef {import('../types').RichTextValue} RichTextValue */
 
 /**
@@ -26,7 +26,7 @@ import { getActiveFormat } from '../get-active-format';
  * @param {RefObject<HTMLElement>} $1.ref      React ref of the element
  *                                             containing  the editable content.
  * @param {RichTextValue}          $1.value    Value to check for selection.
- * @param {FPFormat}               $1.settings The format type's settings.
+ * @param {FINFormat}               $1.settings The format type's settings.
  *
  * @return {Element|Range} The active element or selection range.
  */

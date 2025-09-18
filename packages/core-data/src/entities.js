@@ -64,13 +64,13 @@ export const rootEntitiesConfig = [
 		name: 'postType',
 		kind: 'root',
 		key: 'slug',
-		baseURL: '/fp/v2/types',
+		baseURL: '/fin/v2/types',
 		baseURLParams: { context: 'edit' },
 		plural: 'postTypes',
 		syncConfig: {
 			fetch: async ( id ) => {
 				return apiFetch( {
-					path: `/fp/v2/types/${ id }?context=edit`,
+					path: `/fin/v2/types/${ id }?context=edit`,
 				} );
 			},
 			applyChangesToDoc: ( doc, changes ) => {
@@ -91,7 +91,7 @@ export const rootEntitiesConfig = [
 	{
 		name: 'media',
 		kind: 'root',
-		baseURL: '/fp/v2/media',
+		baseURL: '/fin/v2/media',
 		baseURLParams: { context: 'edit' },
 		plural: 'mediaItems',
 		label: __( 'Media' ),
@@ -102,7 +102,7 @@ export const rootEntitiesConfig = [
 		name: 'taxonomy',
 		kind: 'root',
 		key: 'slug',
-		baseURL: '/fp/v2/taxonomies',
+		baseURL: '/fin/v2/taxonomies',
 		baseURLParams: { context: 'edit' },
 		plural: 'taxonomies',
 		label: __( 'Taxonomy' ),
@@ -110,7 +110,7 @@ export const rootEntitiesConfig = [
 	{
 		name: 'sidebar',
 		kind: 'root',
-		baseURL: '/fp/v2/sidebars',
+		baseURL: '/fin/v2/sidebars',
 		baseURLParams: { context: 'edit' },
 		plural: 'sidebars',
 		transientEdits: { blocks: true },
@@ -119,7 +119,7 @@ export const rootEntitiesConfig = [
 	{
 		name: 'widget',
 		kind: 'root',
-		baseURL: '/fp/v2/widgets',
+		baseURL: '/fin/v2/widgets',
 		baseURLParams: { context: 'edit' },
 		plural: 'widgets',
 		transientEdits: { blocks: true },
@@ -128,7 +128,7 @@ export const rootEntitiesConfig = [
 	{
 		name: 'widgetType',
 		kind: 'root',
-		baseURL: '/fp/v2/widget-types',
+		baseURL: '/fin/v2/widget-types',
 		baseURLParams: { context: 'edit' },
 		plural: 'widgetTypes',
 		label: __( 'Widget types' ),
@@ -137,7 +137,7 @@ export const rootEntitiesConfig = [
 		label: __( 'User' ),
 		name: 'user',
 		kind: 'root',
-		baseURL: '/fp/v2/users',
+		baseURL: '/fin/v2/users',
 		getTitle: ( record ) => record?.name || record?.slug,
 		baseURLParams: { context: 'edit' },
 		plural: 'users',
@@ -146,7 +146,7 @@ export const rootEntitiesConfig = [
 	{
 		name: 'comment',
 		kind: 'root',
-		baseURL: '/fp/v2/comments',
+		baseURL: '/fin/v2/comments',
 		baseURLParams: { context: 'edit' },
 		plural: 'comments',
 		label: __( 'Comment' ),
@@ -155,7 +155,7 @@ export const rootEntitiesConfig = [
 	{
 		name: 'menu',
 		kind: 'root',
-		baseURL: '/fp/v2/menus',
+		baseURL: '/fin/v2/menus',
 		baseURLParams: { context: 'edit' },
 		plural: 'menus',
 		label: __( 'Menu' ),
@@ -164,7 +164,7 @@ export const rootEntitiesConfig = [
 	{
 		name: 'menuItem',
 		kind: 'root',
-		baseURL: '/fp/v2/menu-items',
+		baseURL: '/fin/v2/menu-items',
 		baseURLParams: { context: 'edit' },
 		plural: 'menuItems',
 		label: __( 'Menu Item' ),
@@ -174,7 +174,7 @@ export const rootEntitiesConfig = [
 	{
 		name: 'menuLocation',
 		kind: 'root',
-		baseURL: '/fp/v2/menu-locations',
+		baseURL: '/fin/v2/menu-locations',
 		baseURLParams: { context: 'edit' },
 		plural: 'menuLocations',
 		label: __( 'Menu Location' ),
@@ -184,12 +184,12 @@ export const rootEntitiesConfig = [
 		label: __( 'Global Styles' ),
 		name: 'globalStyles',
 		kind: 'root',
-		baseURL: '/fp/v2/global-styles',
+		baseURL: '/fin/v2/global-styles',
 		baseURLParams: { context: 'edit' },
 		plural: 'globalStylesVariations', // Should be different from name.
 		getTitle: () => __( 'Custom Styles' ),
 		getRevisionsUrl: ( parentId, revisionId ) =>
-			`/fp/v2/global-styles/${ parentId }/revisions${
+			`/fin/v2/global-styles/${ parentId }/revisions${
 				revisionId ? '/' + revisionId : ''
 			}`,
 		supportsPagination: true,
@@ -198,7 +198,7 @@ export const rootEntitiesConfig = [
 		label: __( 'Themes' ),
 		name: 'theme',
 		kind: 'root',
-		baseURL: '/fp/v2/themes',
+		baseURL: '/fin/v2/themes',
 		baseURLParams: { context: 'edit' },
 		plural: 'themes',
 		key: 'stylesheet',
@@ -207,7 +207,7 @@ export const rootEntitiesConfig = [
 		label: __( 'Plugins' ),
 		name: 'plugin',
 		kind: 'root',
-		baseURL: '/fp/v2/plugins',
+		baseURL: '/fin/v2/plugins',
 		baseURLParams: { context: 'edit' },
 		plural: 'plugins',
 		key: 'plugin',
@@ -216,7 +216,7 @@ export const rootEntitiesConfig = [
 		label: __( 'Status' ),
 		name: 'status',
 		kind: 'root',
-		baseURL: '/fp/v2/statuses',
+		baseURL: '/fin/v2/statuses',
 		baseURLParams: { context: 'edit' },
 		plural: 'statuses',
 		key: 'slug',
@@ -306,13 +306,13 @@ function makeBlocksSerializable( blocks ) {
  */
 async function loadPostTypeEntities() {
 	const postTypes = await apiFetch( {
-		path: '/fp/v2/types?context=view',
+		path: '/fin/v2/types?context=view',
 	} );
 	return Object.entries( postTypes ?? {} ).map( ( [ name, postType ] ) => {
-		const isTemplate = [ 'fp_template', 'fp_template_part' ].includes(
+		const isTemplate = [ 'fin_template', 'fin_template_part' ].includes(
 			name
 		);
-		const namespace = postType?.rest_namespace ?? 'fp/v2';
+		const namespace = postType?.rest_namespace ?? 'fin/v2';
 		return {
 			kind: 'postType',
 			baseURL: `/${ namespace }/${ postType.rest_base }`,
@@ -374,7 +374,7 @@ async function loadPostTypeEntities() {
 				}/${ parentId }/revisions${
 					revisionId ? '/' + revisionId : ''
 				}`,
-			revisionKey: isTemplate ? 'fp_id' : DEFAULT_ENTITY_KEY,
+			revisionKey: isTemplate ? 'fin_id' : DEFAULT_ENTITY_KEY,
 		};
 	} );
 }
@@ -386,10 +386,10 @@ async function loadPostTypeEntities() {
  */
 async function loadTaxonomyEntities() {
 	const taxonomies = await apiFetch( {
-		path: '/fp/v2/taxonomies?context=view',
+		path: '/fin/v2/taxonomies?context=view',
 	} );
 	return Object.entries( taxonomies ?? {} ).map( ( [ name, taxonomy ] ) => {
-		const namespace = taxonomy?.rest_namespace ?? 'fp/v2';
+		const namespace = taxonomy?.rest_namespace ?? 'fin/v2';
 		return {
 			kind: 'taxonomy',
 			baseURL: `/${ namespace }/${ taxonomy.rest_base }`,
@@ -412,10 +412,10 @@ async function loadSiteEntity() {
 		label: __( 'Site' ),
 		name: 'site',
 		kind: 'root',
-		baseURL: '/fp/v2/settings',
+		baseURL: '/fin/v2/settings',
 		syncConfig: {
 			fetch: async () => {
-				return apiFetch( { path: '/fp/v2/settings' } );
+				return apiFetch( { path: '/fin/v2/settings' } );
 			},
 			applyChangesToDoc: ( doc, changes ) => {
 				const document = doc.getMap( 'document' );

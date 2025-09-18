@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { createBlobURL, isBlobURL, revokeBlobURL } from '@finpress/blob';
 import type { createRegistry } from '@finpress/data';
 
-type FPDataRegistry = ReturnType< typeof createRegistry >;
+type FINDataRegistry = ReturnType< typeof createRegistry >;
 
 /**
  * Internal dependencies
@@ -65,7 +65,7 @@ type Selectors = {
 type ThunkArgs = {
 	select: Selectors;
 	dispatch: ActionCreators;
-	registry: FPDataRegistry;
+	registry: FINDataRegistry;
 };
 
 interface AddItemArgs {

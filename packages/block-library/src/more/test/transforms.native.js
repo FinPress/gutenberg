@@ -11,9 +11,9 @@ import {
 
 const block = 'More';
 const initialHtml = `
-<!-- fp:more -->
+<!-- fin:more -->
 <!--more-->
-<!-- /fp:more -->`;
+<!-- /fin:more -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

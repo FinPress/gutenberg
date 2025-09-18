@@ -30,7 +30,7 @@ const reactNativeSetup = () => {
 const gutenbergSetup = () => {
 	// fin-data
 	const userId = 1;
-	const storageKey = 'FP_DATA_USER_' + userId;
+	const storageKey = 'FIN_DATA_USER_' + userId;
 	finData.use( finData.plugins.persistence, { storageKey } );
 
 	setupApiFetch();

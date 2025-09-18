@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`More block inserts block 1`] = `
-"<!-- fp:more -->
+"<!-- fin:more -->
 <!--more-->
-<!-- /fp:more -->"
+<!-- /fin:more -->"
 `;

@@ -8,7 +8,7 @@ import {
 	useMergeRefs,
 } from '@finpress/compose';
 import { isKeyboardEvent } from '@finpress/keycodes';
-import type { FPKeycodeModifier } from '@finpress/keycodes';
+import type { FINKeycodeModifier } from '@finpress/keycodes';
 
 const defaultShortcuts = {
 	previous: [
@@ -38,8 +38,8 @@ const defaultShortcuts = {
 };
 
 type Shortcuts = {
-	previous: readonly { modifier: FPKeycodeModifier; character: string }[];
-	next: readonly { modifier: FPKeycodeModifier; character: string }[];
+	previous: readonly { modifier: FINKeycodeModifier; character: string }[];
+	next: readonly { modifier: FINKeycodeModifier; character: string }[];
 };
 
 export function useNavigateRegions( shortcuts: Shortcuts = defaultShortcuts ) {

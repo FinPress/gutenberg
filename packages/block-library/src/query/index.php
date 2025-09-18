@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      The block instance.
+ * @param FIN_Block $block      The block instance.
  *
  * @return string Returns the modified output of the query block.
  */
@@ -26,7 +26,7 @@ function render_block_core_query( $attributes, $content, $block ) {
 	if ( $is_interactive ) {
 		fin_enqueue_script_module( '@finpress/block-library/query/view' );
 
-		$p = new FP_HTML_Tag_Processor( $content );
+		$p = new FIN_HTML_Tag_Processor( $content );
 		if ( $p->next_tag() ) {
 			// Add the necessary directives.
 			$p->set_attribute( 'data-fin-interactive', 'core/query' );
@@ -87,7 +87,7 @@ function block_core_query_disable_enhanced_pagination( $parsed_block ) {
 	static $render_query_callback  = null;
 
 	$block_name              = $parsed_block['blockName'];
-	$block_type              = FP_Block_Type_Registry::get_instance()->get_registered( $block_name );
+	$block_type              = FIN_Block_Type_Registry::get_instance()->get_registered( $block_name );
 	$has_enhanced_pagination = isset( $parsed_block['attrs']['enhancedPagination'] ) && true === $parsed_block['attrs']['enhancedPagination'] && isset( $parsed_block['attrs']['queryId'] );
 	/*
 	 * Client side navigation can be true in two states:

@@ -20,7 +20,7 @@ const POPOVER_PROPS = {
 /**
  * HeadingLevelDropdown props.
  *
- * @typedef FPHeadingLevelDropdownProps
+ * @typedef FINHeadingLevelDropdownProps
  *
  * @property {number}     value    The chosen heading level.
  * @property {number[]}   options  An array of supported heading levels.
@@ -31,7 +31,7 @@ const POPOVER_PROPS = {
 /**
  * Dropdown for selecting a heading level (1 through 6) or paragraph (0).
  *
- * @param {FPHeadingLevelDropdownProps} props Component props.
+ * @param {FINHeadingLevelDropdownProps} props Component props.
  *
  * @return {ComponentType} The toolbar.
  */

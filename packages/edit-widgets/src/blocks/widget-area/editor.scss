@@ -1,6 +1,6 @@
 $panel-title-height: 48px;
 
-.fp-block[data-type="core/widget-area"] {
+.fin-block[data-type="core/widget-area"] {
 	max-width: $widget-area-width;
 	margin-left: auto;
 	margin-right: auto;
@@ -26,13 +26,13 @@ $panel-title-height: 48px;
 		}
 	}
 
-	.block-list-appender.fp-block {
+	.block-list-appender.fin-block {
 		width: initial;
 		position: relative;
 	}
 
 	// Override theme custom widths for blocks.
-	.editor-styles-wrapper .fp-block.fp-block.fp-block.fp-block.fp-block {
+	.editor-styles-wrapper .fin-block.fin-block.fin-block.fin-block.fin-block {
 		max-width: 100%;
 	}
 
@@ -41,7 +41,7 @@ $panel-title-height: 48px;
 	}
 }
 
-.blocks-widgets-container .fp-block-widget-area__inner-blocks.editor-styles-wrapper {
+.blocks-widgets-container .fin-block-widget-area__inner-blocks.editor-styles-wrapper {
 	margin: 0;
 	padding: 0;
 
@@ -60,12 +60,12 @@ $panel-title-height: 48px;
 	}
 }
 
-.fp-block-widget-area__highlight-drop-zone {
-	outline: var(--fp-admin-border-width-focus) solid var(--fp-admin-theme-color);
+.fin-block-widget-area__highlight-drop-zone {
+	outline: var(--fin-admin-border-width-focus) solid var(--fin-admin-theme-color);
 }
 
 // Prevent "dragenter" event from firing when dragging onto the title component.
-body.is-dragging-components-draggable .fp-block[data-type="core/widget-area"] .components-panel__body > .components-panel__body-title {
+body.is-dragging-components-draggable .fin-block[data-type="core/widget-area"] .components-panel__body > .components-panel__body-title {
 	&,
 	* {
 		pointer-events: none;

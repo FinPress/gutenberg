@@ -96,7 +96,7 @@
 		"postinstall": "npm run i18n-cache",
 		"android": "react-native run-android --no-packager",
 		"prefinandroid": "rm -Rf $TMPDIR/gbmobile-finandroidfakernroot && mkdir $TMPDIR/gbmobile-finandroidfakernroot && ln -s $(cd \"$(dirname \"../../../../../\")\"; pwd) $TMPDIR/gbmobile-finandroidfakernroot/android",
-		"finandroid": "npm run android -- --root $TMPDIR/gbmobile-finandroidfakernroot --variant wasabiDebug --appIdSuffix beta --appFolder FinPress --main-activity=ui.FPLaunchActivity",
+		"finandroid": "npm run android -- --root $TMPDIR/gbmobile-finandroidfakernroot --variant wasabiDebug --appIdSuffix beta --appFolder FinPress --main-activity=ui.FINLaunchActivity",
 		"preios": "cd ios && (bundle check > /dev/null || bundle install) && bundle exec pod install --repo-update",
 		"preios:carthage": "cd ../react-native-aztec && npm run install-aztec-ios",
 		"preios:carthage:update": "cd ../react-native-aztec && npm run update-aztec-ios",

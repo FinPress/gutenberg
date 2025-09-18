@@ -12,8 +12,8 @@ import { addFilter } from '@finpress/hooks';
  */
 import { store as editorStore } from '../store';
 
-/** @typedef {import('@finpress/compose').FPHigherOrderComponent} FPHigherOrderComponent */
-/** @typedef {import('@finpress/blocks').FPBlockSettings} FPBlockSettings */
+/** @typedef {import('@finpress/compose').FINHigherOrderComponent} FINHigherOrderComponent */
+/** @typedef {import('@finpress/blocks').FINBlockSettings} FINBlockSettings */
 
 /**
  * Object whose keys are the names of block attributes, where each value
@@ -21,7 +21,7 @@ import { store as editorStore } from '../store';
  *
  * @see https://developer.finpress.org/reference/functions/register_meta/
  *
- * @typedef {Object<string,string>} FPMetaAttributeMapping
+ * @typedef {Object<string,string>} FINMetaAttributeMapping
  */
 
 /**
@@ -30,9 +30,9 @@ import { store as editorStore } from '../store';
  * `attributes` and `setAttributes` props to sync any changes with the edited
  * post's meta keys.
  *
- * @param {FPMetaAttributeMapping} metaAttributes Meta attribute mapping.
+ * @param {FINMetaAttributeMapping} metaAttributes Meta attribute mapping.
  *
- * @return {FPHigherOrderComponent} Higher-order component.
+ * @return {FINHigherOrderComponent} Higher-order component.
  */
 const createWithMetaAttributeSource = ( metaAttributes ) =>
 	createHigherOrderComponent(
@@ -98,12 +98,12 @@ const createWithMetaAttributeSource = ( metaAttributes ) =>
  * Filters a registered block's settings to enhance a block's `edit` component
  * to upgrade meta-sourced attributes to use the post's meta entity property.
  *
- * @param {FPBlockSettings} settings Registered block settings.
+ * @param {FINBlockSettings} settings Registered block settings.
  *
- * @return {FPBlockSettings} Filtered block settings.
+ * @return {FINBlockSettings} Filtered block settings.
  */
 function shimAttributeSource( settings ) {
-	/** @type {FPMetaAttributeMapping} */
+	/** @type {FINMetaAttributeMapping} */
 	const metaAttributes = Object.fromEntries(
 		Object.entries( settings.attributes ?? {} )
 			.filter( ( [ , { source } ] ) => source === 'meta' )

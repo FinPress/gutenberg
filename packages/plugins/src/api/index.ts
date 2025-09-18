@@ -14,7 +14,7 @@ import type { IconType } from '@finpress/components';
 /**
  * Defined behavior of a plugin type.
  */
-export interface FPPlugin {
+export interface FINPlugin {
 	/**
 	 * A string identifying the plugin. Must be unique across all registered plugins.
 	 */
@@ -39,12 +39,12 @@ export interface FPPlugin {
 	scope?: string;
 }
 
-type PluginSettings = Omit< FPPlugin, 'name' >;
+type PluginSettings = Omit< FINPlugin, 'name' >;
 
 /**
  * Plugin definitions keyed by plugin name.
  */
-const plugins = {} as Record< string, FPPlugin >;
+const plugins = {} as Record< string, FINPlugin >;
 
 /**
  * Registers a plugin to the editor.
@@ -209,7 +209,7 @@ export function registerPlugin(
  * @return The previous plugin settings object, if it has been
  *         successfully unregistered; otherwise `undefined`.
  */
-export function unregisterPlugin( name: string ): FPPlugin | undefined {
+export function unregisterPlugin( name: string ): FINPlugin | undefined {
 	if ( ! plugins[ name ] ) {
 		console.error( 'Plugin "' + name + '" is not registered.' );
 		return;
@@ -229,7 +229,7 @@ export function unregisterPlugin( name: string ): FPPlugin | undefined {
  *
  * @return Plugin setting.
  */
-export function getPlugin( name: string ): FPPlugin | undefined {
+export function getPlugin( name: string ): FINPlugin | undefined {
 	return plugins[ name ];
 }
 
@@ -241,7 +241,7 @@ export function getPlugin( name: string ): FPPlugin | undefined {
  *
  * @return The list of plugins without a scope or for a given scope.
  */
-export function getPlugins( scope?: string ): FPPlugin[] {
+export function getPlugins( scope?: string ): FINPlugin[] {
 	return Object.values( plugins ).filter(
 		( plugin ) => plugin.scope === scope
 	);

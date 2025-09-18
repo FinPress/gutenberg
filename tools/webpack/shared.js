@@ -11,7 +11,7 @@ const postcss = require( 'postcss' );
  */
 const ReadableJsAssetsWebpackPlugin = require( '@finpress/readable-js-assets-webpack-plugin' );
 
-const { NODE_ENV: mode = 'development', FP_DEVTOOL: devtool = 'source-map' } =
+const { NODE_ENV: mode = 'development', FIN_DEVTOOL: devtool = 'source-map' } =
 	process.env;
 
 const baseConfig = {
@@ -19,7 +19,7 @@ const baseConfig = {
 	optimization: {
 		// Only concatenate modules in production, when not analyzing bundles.
 		concatenateModules:
-			mode === 'production' && ! process.env.FP_BUNDLE_ANALYZER,
+			mode === 'production' && ! process.env.FIN_BUNDLE_ANALYZER,
 		minimizer: [
 			new TerserPlugin( {
 				parallel: true,
@@ -59,9 +59,9 @@ const baseConfig = {
 };
 
 const plugins = [
-	// The FP_BUNDLE_ANALYZER global variable enables a utility that represents bundle
+	// The FIN_BUNDLE_ANALYZER global variable enables a utility that represents bundle
 	// content as a convenient interactive zoomable treemap.
-	process.env.FP_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
+	process.env.FIN_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
 	new DefinePlugin( {
 		// Inject the `IS_GUTENBERG_PLUGIN` global, used for feature flagging.
 		'globalThis.IS_GUTENBERG_PLUGIN': JSON.stringify(

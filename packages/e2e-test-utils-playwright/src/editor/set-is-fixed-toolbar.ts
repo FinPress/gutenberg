@@ -10,10 +10,10 @@ import type { Editor } from './index';
  * @param isFixed Boolean value true/false for on/off.
  */
 export async function setIsFixedToolbar( this: Editor, isFixed: boolean ) {
-	await this.page.waitForFunction( () => window?.fp?.data );
+	await this.page.waitForFunction( () => window?.fin?.data );
 
 	await this.page.evaluate( ( _isFixed ) => {
-		window.fp.data
+		window.fin.data
 			.dispatch( 'core/preferences' )
 			.set( 'core', 'fixedToolbar', _isFixed );
 	}, isFixed );

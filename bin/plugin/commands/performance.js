@@ -19,17 +19,17 @@ const {
 const config = require( '../config' );
 
 const ARTIFACTS_PATH =
-	process.env.FP_ARTIFACTS_PATH || path.join( process.cwd(), 'artifacts' );
+	process.env.FIN_ARTIFACTS_PATH || path.join( process.cwd(), 'artifacts' );
 const RAW_RESULTS_FILE_SUFFIX = '.performance-results.raw.json';
 const RESULTS_FILE_SUFFIX = '.performance-results.json';
 
 /**
- * @typedef FPPerformanceCommandOptions
+ * @typedef FINPerformanceCommandOptions
  *
  * @property {boolean=} ci          Run on CI.
  * @property {number=}  rounds      Run each test suite this many times for each branch.
  * @property {string=}  testsBranch The branch whose performance test files will be used for testing.
- * @property {string=}  fpVersion   The FinPress version to be used as the base install for testing.
+ * @property {string=}  finVersion   The FinPress version to be used as the base install for testing.
  */
 
 /**
@@ -129,11 +129,11 @@ function stats( values ) {
  * @param {number} value
  */
 function formatValue( metric, value ) {
-	if ( 'fpMemoryUsage' === metric ) {
+	if ( 'finMemoryUsage' === metric ) {
 		return `${ ( value / Math.pow( 10, 6 ) ).toFixed( 2 ) } MB`;
 	}
 
-	if ( 'fpDbQueries' === metric ) {
+	if ( 'finDbQueries' === metric ) {
 		return value.toString();
 	}
 
@@ -164,7 +164,7 @@ async function runTestSuite( testSuite, testRunnerDir, runKey ) {
 		{
 			...process.env,
 			PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1',
-			FP_ARTIFACTS_PATH: ARTIFACTS_PATH,
+			FIN_ARTIFACTS_PATH: ARTIFACTS_PATH,
 			RESULTS_ID: runKey,
 		}
 	);
@@ -229,7 +229,7 @@ function formatAsMarkdownTable( rows ) {
  * Runs the performances tests on an array of branches and output the result.
  *
  * @param {string[]}                    branches Branches to compare
- * @param {FPPerformanceCommandOptions} options  Command options.
+ * @param {FINPerformanceCommandOptions} options  Command options.
  */
 async function runPerformanceTests( branches, options ) {
 	const runningInCI = !! process.env.CI || !! options.ci;
@@ -266,7 +266,7 @@ async function runPerformanceTests( branches, options ) {
 		throw new Error( `Need at least two git refs to run` );
 	}
 
-	const baseDir = path.join( os.tmpdir(), 'fp-performance-tests' );
+	const baseDir = path.join( os.tmpdir(), 'fin-performance-tests' );
 
 	if ( fs.existsSync( baseDir ) ) {
 		logAtIndent( 1, 'Removing existing files' );
@@ -351,16 +351,16 @@ async function runPerformanceTests( branches, options ) {
 	logAtIndent( 2, 'Creating parent directory:', formats.success( envsDir ) );
 	fs.mkdirSync( envsDir );
 
-	let fpZipUrl = null;
-	if ( options.fpVersion ) {
-		// In order to match the topology of ZIP files at fp.org, remap .0
+	let finZipUrl = null;
+	if ( options.finVersion ) {
+		// In order to match the topology of ZIP files at fin.org, remap .0
 		// patch versions to major versions:
 		//
 		//     5.7   -> 5.7   (unchanged)
 		//     5.7.0 -> 5.7   (changed)
 		//     5.7.2 -> 5.7.2 (unchanged)
-		const zipVersion = options.fpVersion.replace( /^(\d+\.\d+).0/, '$1' );
-		fpZipUrl = `https://finpress.org/finpress-${ zipVersion }.zip`;
+		const zipVersion = options.finVersion.replace( /^(\d+\.\d+).0/, '$1' );
+		finZipUrl = `https://finpress.org/finpress-${ zipVersion }.zip`;
 	}
 
 	const branchDirs = {};
@@ -388,45 +388,45 @@ async function runPerformanceTests( branches, options ) {
 			buildDir
 		);
 
-		const fpEnvConfigPath = path.join( envDir, '.fp-env.json' );
+		const finEnvConfigPath = path.join( envDir, '.fin-env.json' );
 
 		logAtIndent(
 			3,
-			'Saving fp-env config to:',
-			formats.success( fpEnvConfigPath )
+			'Saving fin-env config to:',
+			formats.success( finEnvConfigPath )
 		);
 
 		fs.writeFileSync(
-			fpEnvConfigPath,
+			finEnvConfigPath,
 			JSON.stringify(
 				{
 					config: {
-						FP_DEBUG: false,
+						FIN_DEBUG: false,
 						SCRIPT_DEBUG: false,
 					},
-					core: fpZipUrl || 'FinPress/FinPress',
+					core: finZipUrl || 'FinPress/FinPress',
 					plugins: [ buildDir ],
 					themes: [ path.join( testRunnerDir, 'test/emptytheme' ) ],
 					env: {
 						tests: {
 							mappings: {
-								'fp-content/mu-plugins': path.join(
+								'fin-content/mu-plugins': path.join(
 									testRunnerDir,
 									'packages/e2e-tests/mu-plugins'
 								),
-								'fp-content/plugins/gutenberg-test-plugins':
+								'fin-content/plugins/gutenberg-test-plugins':
 									path.join(
 										testRunnerDir,
 										'packages/e2e-tests/plugins'
 									),
-								'fp-content/themes/gutenberg-test-themes':
+								'fin-content/themes/gutenberg-test-themes':
 									path.join(
 										testRunnerDir,
 										'test/gutenberg-test-themes'
 									),
-								'fp-content/themes/gutenberg-test-themes/twentytwentyone':
+								'fin-content/themes/gutenberg-test-themes/twentytwentyone':
 									'https://downloads.finpress.org/theme/twentytwentyone.1.7.zip',
-								'fp-content/themes/gutenberg-test-themes/twentytwentythree':
+								'fin-content/themes/gutenberg-test-themes/twentytwentythree':
 									'https://downloads.finpress.org/theme/twentytwentythree.1.0.zip',
 							},
 						},
@@ -450,17 +450,17 @@ async function runPerformanceTests( branches, options ) {
 
 	logAtIndent( 0, 'Running tests' );
 
-	if ( fpZipUrl ) {
+	if ( finZipUrl ) {
 		logAtIndent(
 			1,
 			'Using:',
-			formats.success( `FinPress v${ options.fpVersion }` )
+			formats.success( `FinPress v${ options.finVersion }` )
 		);
 	} else {
 		logAtIndent( 1, 'Using:', formats.success( 'FinPress trunk' ) );
 	}
 
-	const fpEnvPath = path.join( testRunnerDir, 'node_modules/.bin/fp-env' );
+	const finEnvPath = path.join( testRunnerDir, 'node_modules/.bin/fin-env' );
 
 	for ( const testSuite of testSuites ) {
 		for ( let i = 1; i <= TEST_ROUNDS; i++ ) {
@@ -479,13 +479,13 @@ async function runPerformanceTests( branches, options ) {
 				const envDir = branchDirs[ branch ];
 
 				logAtIndent( 3, 'Starting environment' );
-				await runShellScript( `${ fpEnvPath } start`, envDir );
+				await runShellScript( `${ finEnvPath } start`, envDir );
 
 				logAtIndent( 3, 'Running tests' );
 				await runTestSuite( testSuite, testRunnerDir, runKey );
 
 				logAtIndent( 3, 'Stopping environment' );
-				await runShellScript( `${ fpEnvPath } stop`, envDir );
+				await runShellScript( `${ finEnvPath } stop`, envDir );
 			}
 		}
 	}

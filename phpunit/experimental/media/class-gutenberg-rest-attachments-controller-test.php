@@ -3,13 +3,13 @@
 /**
  * @coversDefaultClass \Gutenberg_REST_Attachments_Controller
  */
-class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_Controller_Testcase {
+class Gutenberg_REST_Attachments_Controller_Test extends FIN_Test_REST_Post_Type_Controller_Testcase {
 	/**
 	 * @var int Administrator ID.
 	 */
 	protected static $admin_id;
 
-	public static function fpSetUpBeforeClass( FP_UnitTest_Factory $factory ) {
+	public static function finSetUpBeforeClass( FIN_UnitTest_Factory $factory ) {
 		self::$admin_id = $factory->user->create(
 			array(
 				'role' => 'administrator',
@@ -34,12 +34,12 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 	 */
 	public function test_register_routes() {
 		$routes = rest_get_server()->get_routes();
-		$this->assertArrayHasKey( '/fp/v2/media', $routes );
-		$this->assertCount( 2, $routes['/fp/v2/media'] );
-		$this->assertArrayHasKey( '/fp/v2/media/(?P<id>[\d]+)', $routes );
-		$this->assertCount( 3, $routes['/fp/v2/media/(?P<id>[\d]+)'] );
-		$this->assertArrayHasKey( '/fp/v2/media/(?P<id>[\d]+)/sideload', $routes );
-		$this->assertCount( 1, $routes['/fp/v2/media/(?P<id>[\d]+)/sideload'] );
+		$this->assertArrayHasKey( '/fin/v2/media', $routes );
+		$this->assertCount( 2, $routes['/fin/v2/media'] );
+		$this->assertArrayHasKey( '/fin/v2/media/(?P<id>[\d]+)', $routes );
+		$this->assertCount( 3, $routes['/fin/v2/media/(?P<id>[\d]+)'] );
+		$this->assertArrayHasKey( '/fin/v2/media/(?P<id>[\d]+)/sideload', $routes );
+		$this->assertCount( 1, $routes['/fin/v2/media/(?P<id>[\d]+)/sideload'] );
 	}
 
 	public function test_get_items() {
@@ -73,9 +73,9 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 	 * @covers ::create_item_permissions_check
 	 */
 	public function test_create_item() {
-		fp_set_current_user( self::$admin_id );
+		fin_set_current_user( self::$admin_id );
 
-		$request = new FP_REST_Request( 'POST', '/fp/v2/media' );
+		$request = new FIN_REST_Request( 'POST', '/fin/v2/media' );
 		$request->set_header( 'Content-Type', 'image/jpeg' );
 		$request->set_header( 'Content-Disposition', 'attachment; filename=canola.jpg' );
 		$request->set_param( 'title', 'My title is very cool' );
@@ -101,9 +101,9 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 	 * @covers ::create_item_permissions_check
 	 */
 	public function test_create_item_insert_additional_metadata() {
-		fp_set_current_user( self::$admin_id );
+		fin_set_current_user( self::$admin_id );
 
-		$request = new FP_REST_Request( 'POST', '/fp/v2/media' );
+		$request = new FIN_REST_Request( 'POST', '/fin/v2/media' );
 		$request->set_header( 'Content-Type', 'image/jpeg' );
 		$request->set_header( 'Content-Disposition', 'attachment; filename=canola.jpg' );
 		$request->set_param( 'title', 'My title is very cool' );
@@ -115,7 +115,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 		$request->set_body( file_get_contents( DIR_TESTDATA . '/images/canola.jpg' ) );
 		$response = rest_get_server()->dispatch( $request );
 
-		remove_filter( 'fp_generate_attachment_metadata', '__return_empty_array', 1 );
+		remove_filter( 'fin_generate_attachment_metadata', '__return_empty_array', 1 );
 
 		$this->assertSame( 201, $response->get_status() );
 
@@ -133,7 +133,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 	 * @covers ::prepare_item_for_response
 	 */
 	public function test_prepare_item_lists_missing_image_sizes_for_pdfs() {
-		fp_set_current_user( self::$admin_id );
+		fin_set_current_user( self::$admin_id );
 
 		$attachment_id = self::factory()->attachment->create_object(
 			DIR_TESTDATA . '/images/test-alpha.pdf',
@@ -144,7 +144,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 			)
 		);
 
-		$request = new FP_REST_Request( 'GET', sprintf( '/fp/v2/media/%d', $attachment_id ) );
+		$request = new FIN_REST_Request( 'GET', sprintf( '/fin/v2/media/%d', $attachment_id ) );
 		$request->set_param( 'context', 'edit' );
 
 		$response = rest_get_server()->dispatch( $request );
@@ -161,7 +161,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 	 * @covers ::sideload_item_permissions_check
 	 */
 	public function test_sideload_item() {
-		fp_set_current_user( self::$admin_id );
+		fin_set_current_user( self::$admin_id );
 
 		$attachment_id = self::factory()->attachment->create_object(
 			DIR_TESTDATA . '/images/canola.jpg',
@@ -172,12 +172,12 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 			)
 		);
 
-		fp_update_attachment_metadata(
+		fin_update_attachment_metadata(
 			$attachment_id,
-			fp_generate_attachment_metadata( $attachment_id, DIR_TESTDATA . '/images/canola.jpg' )
+			fin_generate_attachment_metadata( $attachment_id, DIR_TESTDATA . '/images/canola.jpg' )
 		);
 
-		$request = new FP_REST_Request( 'POST', "/fp/v2/media/$attachment_id/sideload" );
+		$request = new FIN_REST_Request( 'POST', "/fin/v2/media/$attachment_id/sideload" );
 		$request->set_header( 'Content-Type', 'image/jpeg' );
 		$request->set_header( 'Content-Disposition', 'attachment; filename=canola-777x777.jpg' );
 		$request->set_param( 'image_size', 'medium' );
@@ -208,7 +208,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 
 		update_option( 'uploads_use_yearmonth_folders', 1 );
 
-		fp_set_current_user( self::$admin_id );
+		fin_set_current_user( self::$admin_id );
 
 		$published_post = self::factory()->post->create(
 			array(
@@ -218,7 +218,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 			)
 		);
 
-		$request = new FP_REST_Request( 'POST', '/fp/v2/media' );
+		$request = new FIN_REST_Request( 'POST', '/fin/v2/media' );
 		$request->set_header( 'Content-Type', 'image/jpeg' );
 		$request->set_header( 'Content-Disposition', 'attachment; filename=canola-year-month.jpg' );
 		$request->set_param( 'post', $published_post );
@@ -230,7 +230,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 
 		$attachment_id = $data['id'];
 
-		$request = new FP_REST_Request( 'POST', "/fp/v2/media/$attachment_id/sideload" );
+		$request = new FIN_REST_Request( 'POST', "/fin/v2/media/$attachment_id/sideload" );
 		$request->set_header( 'Content-Type', 'image/jpeg' );
 		$request->set_header( 'Content-Disposition', 'attachment; filename=canola-year-month-777x777.jpg' );
 		$request->set_param( 'image_size', 'medium' );
@@ -247,7 +247,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 
 		$this->assertSame( $attachment->post_parent, $data['post'] );
 		$this->assertSame( $attachment->post_parent, $published_post );
-		$this->assertSame( fp_get_attachment_url( $attachment->ID ), $data['source_url'] );
+		$this->assertSame( fin_get_attachment_url( $attachment->ID ), $data['source_url'] );
 		$this->assertStringContainsString( '2017/02', $data['source_url'] );
 	}
 
@@ -262,7 +262,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 
 		update_option( 'uploads_use_yearmonth_folders', 1 );
 
-		fp_set_current_user( self::$admin_id );
+		fin_set_current_user( self::$admin_id );
 
 		$published_post = self::factory()->post->create(
 			array(
@@ -273,7 +273,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 			)
 		);
 
-		$request = new FP_REST_Request( 'POST', '/fp/v2/media' );
+		$request = new FIN_REST_Request( 'POST', '/fin/v2/media' );
 		$request->set_header( 'Content-Type', 'image/jpeg' );
 		$request->set_header( 'Content-Disposition', 'attachment; filename=canola-year-month-page.jpg' );
 		$request->set_param( 'post', $published_post );
@@ -285,7 +285,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 
 		$attachment_id = $data['id'];
 
-		$request = new FP_REST_Request( 'POST', "/fp/v2/media/$attachment_id/sideload" );
+		$request = new FIN_REST_Request( 'POST', "/fin/v2/media/$attachment_id/sideload" );
 		$request->set_header( 'Content-Type', 'image/jpeg' );
 		$request->set_header( 'Content-Disposition', 'attachment; filename=canola-year-month-page-777x777.jpg' );
 		$request->set_param( 'image_size', 'medium' );
@@ -307,7 +307,7 @@ class Gutenberg_REST_Attachments_Controller_Test extends FP_Test_REST_Post_Type_
 
 		$this->assertSame( $attachment->post_parent, $data['post'] );
 		$this->assertSame( $attachment->post_parent, $published_post );
-		$this->assertSame( fp_get_attachment_url( $attachment->ID ), $data['source_url'] );
+		$this->assertSame( fin_get_attachment_url( $attachment->ID ), $data['source_url'] );
 		$this->assertStringNotContainsString( '2017/02', $data['source_url'] );
 		$this->assertStringContainsString( $subdir, $data['source_url'] );
 	}

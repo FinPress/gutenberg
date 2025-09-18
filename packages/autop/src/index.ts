@@ -283,7 +283,7 @@ export function autop( text: string, br: boolean = true ): string {
 	if ( br ) {
 		// Replace newlines that shouldn't be touched with a placeholder.
 		text = text.replace( /<(script|style).*?<\/\\1>/g, ( match ) =>
-			match[ 0 ].replace( /\n/g, '<FPPreserveNewline />' )
+			match[ 0 ].replace( /\n/g, '<FINPreserveNewline />' )
 		);
 
 		// Normalize <br>
@@ -295,7 +295,7 @@ export function autop( text: string, br: boolean = true ): string {
 		);
 
 		// Replace newline placeholders with newlines.
-		text = text.replace( /<FPPreserveNewline \/>/g, '\n' );
+		text = text.replace( /<FINPreserveNewline \/>/g, '\n' );
 	}
 
 	// If a <br /> tag is after an opening or closing block tag, remove it.

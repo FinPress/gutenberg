@@ -201,12 +201,12 @@ export function __experimentalReceiveThemeGlobalStyleVariations(
 /**
  * Returns an action object used in signalling that the index has been received.
  *
- * @deprecated since FP 5.9, this is not useful anymore, use the selector directly.
+ * @deprecated since FIN 5.9, this is not useful anymore, use the selector directly.
  *
  * @return {Object} Action object.
  */
 export function receiveThemeSupports() {
-	deprecated( "fp.data.dispatch( 'core' ).receiveThemeSupports", {
+	deprecated( "fin.data.dispatch( 'core' ).receiveThemeSupports", {
 		since: '5.9',
 	} );
 
@@ -230,10 +230,10 @@ export function receiveThemeSupports() {
  */
 export function receiveThemeGlobalStyleRevisions( currentId, revisions ) {
 	deprecated(
-		"fp.data.dispatch( 'core' ).receiveThemeGlobalStyleRevisions()",
+		"fin.data.dispatch( 'core' ).receiveThemeGlobalStyleRevisions()",
 		{
 			since: '6.5.0',
-			alternative: "fp.data.dispatch( 'core' ).receiveRevisions",
+			alternative: "fin.data.dispatch( 'core' ).receiveRevisions",
 		}
 	);
 	return {
@@ -863,14 +863,14 @@ export const __experimentalSaveSpecifiedEntityEdits =
 /**
  * Returns an action object used in signalling that Upload permissions have been received.
  *
- * @deprecated since FP 5.9, use receiveUserPermission instead.
+ * @deprecated since FIN 5.9, use receiveUserPermission instead.
  *
  * @param {boolean} hasUploadPermissions Does the user have permission to upload files?
  *
  * @return {Object} Action object.
  */
 export function receiveUploadPermissions( hasUploadPermissions ) {
-	deprecated( "fp.data.dispatch( 'core' ).receiveUploadPermissions", {
+	deprecated( "fin.data.dispatch( 'core' ).receiveUploadPermissions", {
 		since: '5.9',
 		alternative: 'receiveUserPermission',
 	} );

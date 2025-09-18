@@ -498,10 +498,10 @@ describe( 'getEntityRecords', () => {
 			'root',
 			'postType'
 		);
-		const fpBlockFirstRecords = getEntityRecords(
+		const finBlockFirstRecords = getEntityRecords(
 			state,
 			'postType',
-			'fp_block'
+			'fin_block'
 		);
 
 		// Simulate update states.
@@ -512,14 +512,14 @@ describe( 'getEntityRecords', () => {
 			'root',
 			'postType'
 		);
-		const fpBlockSecondRecords = getEntityRecords(
+		const finBlockSecondRecords = getEntityRecords(
 			state,
 			'postType',
-			'fp_block'
+			'fin_block'
 		);
 
 		expect( postTypeFirstRecords ).toBe( postTypeSecondRecords );
-		expect( fpBlockFirstRecords ).toBe( fpBlockSecondRecords );
+		expect( finBlockFirstRecords ).toBe( finBlockSecondRecords );
 	} );
 } );
 

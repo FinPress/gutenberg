@@ -16,7 +16,7 @@ export const toWidthPrecision = ( value ) => {
  * Returns an effective width for a given block. An effective width is equal to
  * its attribute value if set, or a computed value assuming equal distribution.
  *
- * @param {FPBlock} block           Block object.
+ * @param {FINBlock} block           Block object.
  * @param {number}  totalBlockCount Total number of blocks in Columns.
  *
  * @return {number} Effective column width.
@@ -29,7 +29,7 @@ export function getEffectiveColumnWidth( block, totalBlockCount ) {
 /**
  * Returns the total width occupied by the given set of column blocks.
  *
- * @param {FPBlock[]} blocks          Block objects.
+ * @param {FINBlock[]} blocks          Block objects.
  * @param {?number}   totalBlockCount Total number of blocks in Columns.
  *                                    Defaults to number of blocks passed.
  *
@@ -49,7 +49,7 @@ export function getTotalColumnsWidth(
 /**
  * Returns an object of `clientId` → `width` of effective column widths.
  *
- * @param {FPBlock[]} blocks          Block objects.
+ * @param {FINBlock[]} blocks          Block objects.
  * @param {?number}   totalBlockCount Total number of blocks in Columns.
  *                                    Defaults to number of blocks passed.
  *
@@ -67,7 +67,7 @@ export function getColumnWidths( blocks, totalBlockCount = blocks.length ) {
  * proportional to their current widths, constrained or expanded to fit within
  * the given available width.
  *
- * @param {FPBlock[]} blocks          Block objects.
+ * @param {FINBlock[]} blocks          Block objects.
  * @param {number}    availableWidth  Maximum width to fit within.
  * @param {?number}   totalBlockCount Total number of blocks in Columns.
  *                                    Defaults to number of blocks passed.
@@ -95,7 +95,7 @@ export function getRedistributedColumnWidths(
  * Returns true if column blocks within the provided set are assigned with
  * explicit widths, or false otherwise.
  *
- * @param {FPBlock[]} blocks Block objects.
+ * @param {FINBlock[]} blocks Block objects.
  *
  * @return {boolean} Whether columns have explicit widths.
  */
@@ -114,10 +114,10 @@ export function hasExplicitPercentColumnWidths( blocks ) {
  * Returns a copy of the given set of blocks with new widths assigned from the
  * provided object of redistributed column widths.
  *
- * @param {FPBlock[]}             blocks Block objects.
+ * @param {FINBlock[]}             blocks Block objects.
  * @param {Object<string,number>} widths Redistributed column widths.
  *
- * @return {FPBlock[]} blocks Mapped block objects.
+ * @return {FINBlock[]} blocks Mapped block objects.
  */
 export function getMappedColumnWidths( blocks, widths ) {
 	return blocks.map( ( block ) => ( {
@@ -132,7 +132,7 @@ export function getMappedColumnWidths( blocks, widths ) {
 /**
  * Returns an array with columns widths values, parsed or no depends on `withParsing` flag.
  *
- * @param {FPBlock[]} blocks      Block objects.
+ * @param {FINBlock[]} blocks      Block objects.
  * @param {?boolean}  withParsing Whether value has to be parsed.
  *
  * @return {Array<number,string>} Column widths.

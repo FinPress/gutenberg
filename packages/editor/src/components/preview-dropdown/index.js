@@ -52,7 +52,7 @@ export default function PreviewDropdown( { forceIsAutosaveable, disabled } ) {
 		return {
 			deviceType: getDeviceType(),
 			homeUrl: getEntityRecord( 'root', '__unstableBase' )?.home,
-			isTemplate: _currentPostType === 'fp_template',
+			isTemplate: _currentPostType === 'fin_template',
 			isViewable: getPostType( _currentPostType )?.viewable ?? false,
 			showIconLabels: get( 'core', 'showIconLabels' ),
 			isTemplateHidden: getRenderingMode() === 'post-only',

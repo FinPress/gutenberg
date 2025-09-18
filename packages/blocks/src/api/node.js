@@ -14,16 +14,16 @@ import * as children from './children';
  * As representing an element node, it is an object of:
  *
  * 1. `type` (string): Tag name.
- * 2. `props` (object): Attributes and children array of FPBlockNode.
+ * 2. `props` (object): Attributes and children array of FINBlockNode.
  *
- * @typedef {string|Object} FPBlockNode
+ * @typedef {string|Object} FINBlockNode
  */
 
 /**
  * Given a single node and a node type (e.g. `'br'`), returns true if the node
  * corresponds to that type, false otherwise.
  *
- * @param {FPBlockNode} node Block node to test
+ * @param {FINBlockNode} node Block node to test
  * @param {string}      type Node to type to test against.
  *
  * @return {boolean} Whether node is of intended type.
@@ -66,7 +66,7 @@ export function getNamedNodeMapAsObject( nodeMap ) {
  *
  * @param {Node} domNode DOM node to convert.
  *
- * @return {FPBlockNode} Block node equivalent to DOM node.
+ * @return {FINBlockNode} Block node equivalent to DOM node.
  */
 export function fromDOM( domNode ) {
 	deprecated( 'fin.blocks.node.fromDOM', {
@@ -99,7 +99,7 @@ export function fromDOM( domNode ) {
 /**
  * Given a block node, returns its HTML string representation.
  *
- * @param {FPBlockNode} node Block node to convert to string.
+ * @param {FINBlockNode} node Block node to convert to string.
  *
  * @return {string} String HTML representation of block node.
  */
@@ -115,7 +115,7 @@ export function toHTML( node ) {
 }
 
 /**
- * Given a selector, returns an hpq matcher generating a FPBlockNode value
+ * Given a selector, returns an hpq matcher generating a FINBlockNode value
  * matching the selector result.
  *
  * @param {string} selector DOM selector.

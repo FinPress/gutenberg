@@ -28,7 +28,7 @@
 	],
 	"main": "index.js",
 	"bin": {
-		"fp-create-block": "./index.js"
+		"fin-create-block": "./index.js"
 	},
 	"dependencies": {
 		"@inquirer/prompts": "^7.2.0",

@@ -23,7 +23,7 @@ import { useSelect } from '@finpress/data';
  */
 import { getPhotoHtml } from './util';
 import EmbedNoPreview from './embed-no-preview';
-import WpEmbedPreview from './fp-embed-preview';
+import WpEmbedPreview from './fin-embed-preview';
 import styles from './styles.scss';
 
 const EmbedPreview = ( {
@@ -89,10 +89,10 @@ const EmbedPreview = ( {
 	const sandboxClassnames = clsx(
 		type,
 		className,
-		'fp-block-embed__wrapper'
+		'fin-block-embed__wrapper'
 	);
 
-	const PreviewContent = 'fp-embed' === type ? WpEmbedPreview : SandBox;
+	const PreviewContent = 'fin-embed' === type ? WpEmbedPreview : SandBox;
 	const embedWrapper = (
 		<>
 			<TouchableWithoutFeedback

@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { FP_USERNAME, FP_PASSWORD } from './shared/config';
+import { FIN_USERNAME, FIN_PASSWORD } from './shared/config';
 import { createURL } from './create-url';
 import { isCurrentURL } from './is-current-url';
 import { pressKeyWithModifier } from './press-key-with-modifier';
@@ -13,8 +13,8 @@ import { pressKeyWithModifier } from './press-key-with-modifier';
  * @param {?string} password String to be used as user credential.
  */
 export async function loginUser(
-	username = FP_USERNAME,
-	password = FP_PASSWORD
+	username = FIN_USERNAME,
+	password = FIN_PASSWORD
 ) {
 	if ( ! isCurrentURL( 'fin-login.php' ) ) {
 		const waitForLoginPageNavigation = page.waitForNavigation();

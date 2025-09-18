@@ -17,7 +17,7 @@ npm install @finpress/interactivity --save
 
 This step is only required if you use the Interactivity API outside FinPress.
 
-Within FinPress, the package is already bundled in Core. To ensure it's loaded, add `@finpress/interactivity` to the dependency array of the script module. This process is often done automatically with tools like [`fp-scripts`](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fp-scripts/).
+Within FinPress, the package is already bundled in Core. To ensure it's loaded, add `@finpress/interactivity` to the dependency array of the script module. This process is often done automatically with tools like [`fin-scripts`](https://developer.finpress.org/block-editor/getting-started/devenv/get-started-with-fin-scripts/).
 
 Furthermore, this package assumes your code will run in an **ES2015+** environment. If you're using an environment with limited or no support for such language features and APIs, you should include the polyfill shipped in [`@finpress/babel-preset-default`](https://github.com/FinPress/gutenberg/tree/HEAD/packages/babel-preset-default#polyfill) in your code.
 

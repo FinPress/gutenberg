@@ -308,9 +308,9 @@ A guide to the terms and variable names referenced by the Style Engine package.
   <dt>Inline styles</dt>
   <dd>Inline styles are CSS declarations that affect a single HTML element, contained within a style attribute</dd>
   <dt>Processor</dt>
-  <dd>Performs compilation and optimization on stored CSS rules. See the class `FP_Style_Engine_Processor`.</dd>
+  <dd>Performs compilation and optimization on stored CSS rules. See the class `FIN_Style_Engine_Processor`.</dd>
   <dt>Store</dt>
-  <dd>A data object that contains related styles. See the class `FP_Style_Engine_CSS_Rules_Store`.</dd>
+  <dd>A data object that contains related styles. See the class `FIN_Style_Engine_CSS_Rules_Store`.</dd>
 </dl>
 
 <br/><br/><p align="center"><img src="https://s.w.org/style/images/codeispoetry.png?1" alt="Code is Poetry." /></p>

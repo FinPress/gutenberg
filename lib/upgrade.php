@@ -37,21 +37,21 @@ function _gutenberg_migrate_database() {
  */
 function _gutenberg_migrate_remove_fse_drafts() {
 	// Delete auto-draft templates and template parts.
-	$delete_query = new FP_Query(
+	$delete_query = new FIN_Query(
 		array(
 			'post_status'    => array( 'auto-draft' ),
-			'post_type'      => array( 'fp_template', 'fp_template_part' ),
+			'post_type'      => array( 'fin_template', 'fin_template_part' ),
 			'posts_per_page' => -1,
 		)
 	);
 	foreach ( $delete_query->posts as $post ) {
-		fp_delete_post( $post->ID, true );
+		fin_delete_post( $post->ID, true );
 	}
 
-	// Delete _fp_file_based term.
-	$term = get_term_by( 'name', '_fp_file_based', 'fp_theme' );
+	// Delete _fin_file_based term.
+	$term = get_term_by( 'name', '_fin_file_based', 'fin_theme' );
 	if ( $term ) {
-		fp_delete_term( $term->term_id, 'fp_theme' );
+		fin_delete_term( $term->term_id, 'fin_theme' );
 	}
 
 	// Delete useless options.
@@ -59,7 +59,7 @@ function _gutenberg_migrate_remove_fse_drafts() {
 	delete_option( 'gutenberg_last_synchronize_theme_template-part_checks' );
 }
 
-// Deletion of the `_fp_file_based` term (in _gutenberg_migrate_remove_fse_drafts) must happen
-// after its taxonomy (`fp_theme`) is registered. This happens in `gutenberg_register_fp_theme_taxonomy`,
+// Deletion of the `_fin_file_based` term (in _gutenberg_migrate_remove_fse_drafts) must happen
+// after its taxonomy (`fin_theme`) is registered. This happens in `gutenberg_register_fin_theme_taxonomy`,
 // which is hooked into `init` (default priority, i.e. 10).
 add_action( 'init', '_gutenberg_migrate_database', 20 );

@@ -28,10 +28,10 @@ const withDeprecatedKeys = ( originalGet ) => ( state, scope, name ) => {
 		[ 'core/edit-post', 'core/edit-site' ].includes( scope )
 	) {
 		deprecated(
-			`fp.data.select( 'core/preferences' ).get( '${ scope }', '${ name }' )`,
+			`fin.data.select( 'core/preferences' ).get( '${ scope }', '${ name }' )`,
 			{
 				since: '6.5',
-				alternative: `fp.data.select( 'core/preferences' ).get( 'core', '${ name }' )`,
+				alternative: `fin.data.select( 'core/preferences' ).get( 'core', '${ name }' )`,
 			}
 		);
 

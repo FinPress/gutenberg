@@ -14,21 +14,21 @@ const { parseConfig, getConfigFilePath } = require( './parse-config' );
 const postProcessConfig = require( './post-process-config' );
 
 /**
- * @typedef {import('./parse-config').FPRootConfig} FPRootConfig
- * @typedef {import('./parse-config').FPEnvironmentConfig} FPEnvironmentConfig
+ * @typedef {import('./parse-config').FINRootConfig} FINRootConfig
+ * @typedef {import('./parse-config').FINEnvironmentConfig} FINEnvironmentConfig
  */
 
 /**
- * fp-env configuration.
+ * fin-env configuration.
  *
- * @typedef FPConfig
+ * @typedef FINConfig
  * @property {string}                               name                    Name of the environment.
- * @property {string}                               configDirectoryPath     Path to the .fp-env.json file.
- * @property {string}                               workDirectoryPath       Path to the work directory located in ~/.fp-env.
+ * @property {string}                               configDirectoryPath     Path to the .fin-env.json file.
+ * @property {string}                               workDirectoryPath       Path to the work directory located in ~/.fin-env.
  * @property {string}                               dockerComposeConfigPath Path to the docker-compose.yml file.
- * @property {boolean}                              detectedLocalConfig     If true, fp-env detected local config and used it.
+ * @property {boolean}                              detectedLocalConfig     If true, fin-env detected local config and used it.
  * @property {Object.<string, string>}              lifecycleScripts        Any lifecycle scripts that we might need to execute.
- * @property {Object.<string, FPEnvironmentConfig>} env                     Specific config for different environments.
+ * @property {Object.<string, FINEnvironmentConfig>} env                     Specific config for different environments.
  * @property {boolean}                              debug                   True if debug mode is enabled.
  */
 
@@ -37,7 +37,7 @@ const postProcessConfig = require( './post-process-config' );
  *
  * @param {string} configDirectoryPath The directory we want to load the config from.
  *
- * @return {Promise<FPConfig>} The config object we've loaded.
+ * @return {Promise<FINConfig>} The config object we've loaded.
  */
 module.exports = async function loadConfig( configDirectoryPath ) {
 	const configFilePath = getConfigFilePath( configDirectoryPath );

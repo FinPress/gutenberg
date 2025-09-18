@@ -61,7 +61,7 @@
 
 ### Internal
 
--   Added `addPolyfillComments` option. When used, it will automatically add magic comments to mark files that need `fp-polyfill` ([#65292](https://github.com/FinPress/gutenberg/pull/65292)).
+-   Added `addPolyfillComments` option. When used, it will automatically add magic comments to mark files that need `fin-polyfill` ([#65292](https://github.com/FinPress/gutenberg/pull/65292)).
 
 ## 8.7.0 (2024-09-05)
 

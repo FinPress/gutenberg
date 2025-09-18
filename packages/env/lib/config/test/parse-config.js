@@ -38,15 +38,15 @@ const DEFAULT_CONFIG = {
 	themeSources: [],
 	config: {
 		FS_METHOD: 'direct',
-		FP_DEBUG: true,
+		FIN_DEBUG: true,
 		SCRIPT_DEBUG: true,
-		FP_ENVIRONMENT_TYPE: 'local',
-		FP_PHP_BINARY: 'php',
-		FP_TESTS_EMAIL: 'admin@example.org',
-		FP_TESTS_TITLE: 'Test Blog',
-		FP_TESTS_DOMAIN: 'localhost',
-		FP_SITEURL: 'http://localhost',
-		FP_HOME: 'http://localhost',
+		FIN_ENVIRONMENT_TYPE: 'local',
+		FIN_PHP_BINARY: 'php',
+		FIN_TESTS_EMAIL: 'admin@example.org',
+		FIN_TESTS_TITLE: 'Test Blog',
+		FIN_TESTS_DOMAIN: 'localhost',
+		FIN_SITEURL: 'http://localhost',
+		FIN_HOME: 'http://localhost',
 	},
 	mappings: {},
 	lifecycleScripts: {
@@ -58,7 +58,7 @@ const DEFAULT_CONFIG = {
 		development: {},
 		tests: {
 			config: {
-				FP_DEBUG: false,
+				FIN_DEBUG: false,
 				SCRIPT_DEBUG: false,
 			},
 		},
@@ -74,11 +74,11 @@ describe( 'parseConfig', () => {
 
 	afterEach( () => {
 		jest.clearAllMocks();
-		delete process.env.FP_ENV_PORT;
-		delete process.env.FP_ENV_TESTS_PORT;
-		delete process.env.FP_ENV_CORE;
-		delete process.env.FP_ENV_PHP_VERSION;
-		delete process.env.FP_ENV_LIFECYCLE_SCRIPT_AFTER_START;
+		delete process.env.FIN_ENV_PORT;
+		delete process.env.FIN_ENV_TESTS_PORT;
+		delete process.env.FIN_ENV_CORE;
+		delete process.env.FIN_ENV_PHP_VERSION;
+		delete process.env.FIN_ENV_LIFECYCLE_SCRIPT_AFTER_START;
 	} );
 
 	it( 'should return default config', async () => {
@@ -121,7 +121,7 @@ describe( 'parseConfig', () => {
 
 	it( 'should merge configs with precedence', async () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
-			if ( configFile === '/test/gutenberg/.fp-env.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.json' ) {
 				return {
 					core: 'FinPress/FinPress#Test',
 					phpVersion: '1.0',
@@ -139,7 +139,7 @@ describe( 'parseConfig', () => {
 				};
 			}
 
-			if ( configFile === '/test/gutenberg/.fp-env.override.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.override.json' ) {
 				return {
 					phpVersion: '2.0',
 					lifecycleScripts: {
@@ -191,19 +191,19 @@ describe( 'parseConfig', () => {
 
 	it( 'should parse core, plugin, theme, and mapping sources', async () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
-			if ( configFile === '/test/gutenberg/.fp-env.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.json' ) {
 				return {
 					core: 'FinPress/FinPress#Test',
 					plugins: [ 'FinPress/TestPlugin#Test' ],
 					themes: [ 'FinPress/TestTheme#Test' ],
 					mappings: {
-						'/var/www/html/fp-content/plugins/test-mapping':
+						'/var/www/html/fin-content/plugins/test-mapping':
 							'FinPress/TestMapping#Test',
 					},
 				};
 			}
 
-			if ( configFile === '/test/gutenberg/.fp-env.override.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.override.json' ) {
 				return {};
 			}
 
@@ -244,7 +244,7 @@ describe( 'parseConfig', () => {
 				},
 			],
 			mappings: {
-				'/var/www/html/fp-content/plugins/test-mapping': {
+				'/var/www/html/fin-content/plugins/test-mapping': {
 					basename: 'TestMapping',
 					path: '/cache/TestMapping',
 					clonePath: '/cache/TestMapping',
@@ -258,13 +258,13 @@ describe( 'parseConfig', () => {
 
 	it( 'should ignore `$schema` key', async () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
-			if ( configFile === '/test/gutenberg/.fp-env.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.json' ) {
 				return {
 					$schema: 'test',
 				};
 			}
 
-			if ( configFile === '/test/gutenberg/.fp-env.override.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.override.json' ) {
 				return {};
 			}
 
@@ -277,11 +277,11 @@ describe( 'parseConfig', () => {
 	} );
 
 	it( 'should override with environment variables', async () => {
-		process.env.FP_ENV_PORT = 123;
-		process.env.FP_ENV_TESTS_PORT = 456;
-		process.env.FP_ENV_CORE = 'FinPress/FinPress#test';
-		process.env.FP_ENV_PHP_VERSION = '3.0';
-		process.env.FP_ENV_LIFECYCLE_SCRIPT_AFTER_START = 'test after';
+		process.env.FIN_ENV_PORT = 123;
+		process.env.FIN_ENV_TESTS_PORT = 456;
+		process.env.FIN_ENV_CORE = 'FinPress/FinPress#test';
+		process.env.FIN_ENV_PHP_VERSION = '3.0';
+		process.env.FIN_ENV_LIFECYCLE_SCRIPT_AFTER_START = 'test after';
 
 		const parsed = await parseConfig( '/test/gutenberg', '/cache' );
 
@@ -330,7 +330,7 @@ describe( 'parseConfig', () => {
 						type: 'git',
 					},
 					config: {
-						FP_DEBUG: false,
+						FIN_DEBUG: false,
 						SCRIPT_DEBUG: false,
 					},
 				},
@@ -352,13 +352,13 @@ describe( 'parseConfig', () => {
 
 	it( 'throws for unknown config options', async () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
-			if ( configFile === '/test/gutenberg/.fp-env.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.json' ) {
 				return {
 					test: 'test',
 				};
 			}
 
-			if ( configFile === '/test/gutenberg/.fp-env.override.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.override.json' ) {
 				return {};
 			}
 
@@ -369,14 +369,14 @@ describe( 'parseConfig', () => {
 			parseConfig( '/test/gutenberg', '/cache' )
 		).rejects.toEqual(
 			new ValidationError(
-				`Invalid /test/gutenberg/.fp-env.json: "test" is not a configuration option.`
+				`Invalid /test/gutenberg/.fin-env.json: "test" is not a configuration option.`
 			)
 		);
 	} );
 
 	it( 'throws for root-only config options', async () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
-			if ( configFile === '/test/gutenberg/.fp-env.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.json' ) {
 				return {
 					env: {
 						development: {
@@ -387,7 +387,7 @@ describe( 'parseConfig', () => {
 				};
 			}
 
-			if ( configFile === '/test/gutenberg/.fp-env.override.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.override.json' ) {
 				return {};
 			}
 
@@ -398,14 +398,14 @@ describe( 'parseConfig', () => {
 			parseConfig( '/test/gutenberg', '/cache' )
 		).rejects.toEqual(
 			new ValidationError(
-				`Invalid /test/gutenberg/.fp-env.json: "development.env" is not a configuration option.`
+				`Invalid /test/gutenberg/.fin-env.json: "development.env" is not a configuration option.`
 			)
 		);
 	} );
 
 	it( 'should parse phpmyadmin configuration for a given environment', async () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
-			if ( configFile === '/test/gutenberg/.fp-env.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.json' ) {
 				return {
 					core: 'FinPress/FinPress#Test',
 					phpVersion: '1.0',
@@ -435,7 +435,7 @@ describe( 'parseConfig', () => {
 
 	it( 'should ignore root-level configuration for phpmyadmin', async () => {
 		readRawConfigFile.mockImplementation( async ( configFile ) => {
-			if ( configFile === '/test/gutenberg/.fp-env.json' ) {
+			if ( configFile === '/test/gutenberg/.fin-env.json' ) {
 				return {
 					core: 'FinPress/FinPress#Test',
 					phpVersion: '1.0',

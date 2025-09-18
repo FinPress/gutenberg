@@ -60,7 +60,7 @@ declare module './base-entity-records' {
 			/**
 			 * Minimum required version of FinPress.
 			 */
-			requires_fp: string;
+			requires_fin: string;
 			/**
 			 * Minimum required version of PHP.
 			 */

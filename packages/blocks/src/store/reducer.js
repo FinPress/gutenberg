@@ -15,7 +15,7 @@ import { __ } from '@finpress/i18n';
 import { omit } from '../api/utils';
 
 /**
- * @typedef {Object} FPBlockCategory
+ * @typedef {Object} FINBlockCategory
  *
  * @property {string} slug  Unique category slug.
  * @property {string} title Category label, for display in user interface.
@@ -24,7 +24,7 @@ import { omit } from '../api/utils';
 /**
  * Default set of categories.
  *
- * @type {FPBlockCategory[]}
+ * @type {FINBlockCategory[]}
  */
 export const DEFAULT_CATEGORIES = [
 	{ slug: 'text', title: __( 'Text' ) },
@@ -320,10 +320,10 @@ export const groupingBlockName = createBlockNameSetterReducer(
 /**
  * Reducer managing the categories
  *
- * @param {FPBlockCategory[]} state  Current state.
+ * @param {FINBlockCategory[]} state  Current state.
  * @param {Object}            action Dispatched action.
  *
- * @return {FPBlockCategory[]} Updated state.
+ * @return {FINBlockCategory[]} Updated state.
  */
 export function categories( state = DEFAULT_CATEGORIES, action ) {
 	switch ( action.type ) {

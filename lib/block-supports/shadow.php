@@ -8,7 +8,7 @@
 /**
  * Registers the style and shadow block attributes for block types that support it.
  *
- * @param FP_Block_Type $block_type Block Type.
+ * @param FIN_Block_Type $block_type Block Type.
  */
 function gutenberg_register_shadow_support( $block_type ) {
 	$has_shadow_support = block_has_support( $block_type, array( 'shadow' ), false );
@@ -39,7 +39,7 @@ function gutenberg_register_shadow_support( $block_type ) {
  * This will be applied to the block markup in
  * the front-end.
  *
- * @param  FP_Block_Type $block_type       Block type.
+ * @param  FIN_Block_Type $block_type       Block type.
  * @param  array         $block_attributes Block attributes.
  *
  * @return array Shadow CSS classes and inline styles.
@@ -49,7 +49,7 @@ function gutenberg_apply_shadow_support( $block_type, $block_attributes ) {
 
 	if (
 		! $has_shadow_support ||
-		fp_should_skip_block_supports_serialization( $block_type, 'shadow' )
+		fin_should_skip_block_supports_serialization( $block_type, 'shadow' )
 	) {
 		return array();
 	}
@@ -70,7 +70,7 @@ function gutenberg_apply_shadow_support( $block_type, $block_attributes ) {
 }
 
 // Register the block support.
-FP_Block_Supports::get_instance()->register(
+FIN_Block_Supports::get_instance()->register(
 	'shadow',
 	array(
 		'register_attribute' => 'gutenberg_register_shadow_support',

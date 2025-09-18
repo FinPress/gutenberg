@@ -165,7 +165,7 @@ function Iframe( {
 				( name ) =>
 					name.startsWith( 'admin-color-' ) ||
 					name.startsWith( 'post-type-' ) ||
-					name === 'fp-embed-responsive'
+					name === 'fin-embed-responsive'
 			)
 		);
 
@@ -374,7 +374,7 @@ function Iframe( {
 					isZoomedOut && 'is-zoomed-out'
 				) }
 				style={ {
-					'--fp-block-editor-iframe-zoom-out-scale-container-width':
+					'--fin-block-editor-iframe-zoom-out-scale-container-width':
 						isZoomedOut && `${ scaleContainerWidth }px`,
 				} }
 			>

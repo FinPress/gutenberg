@@ -1,191 +1,191 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Embed block alignment options sets Align center option 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true,"align":"center"} -->
-<figure class="fp-block-embed aligncenter is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true,"align":"center"} -->
+<figure class="fin-block-embed aligncenter is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block alignment options sets Align left option 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true,"align":"left"} -->
-<figure class="fp-block-embed alignleft is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true,"align":"left"} -->
+<figure class="fin-block-embed alignleft is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block alignment options sets Align right option 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true,"align":"right"} -->
-<figure class="fp-block-embed alignright is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true,"align":"right"} -->
+<figure class="fin-block-embed alignright is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block alignment options sets Full width option 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true,"align":"full"} -->
-<figure class="fp-block-embed alignfull is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true,"align":"full"} -->
+<figure class="fin-block-embed alignfull is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block alignment options sets Wide width option 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true,"align":"wide"} -->
-<figure class="fp-block-embed alignwide is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true,"align":"wide"} -->
+<figure class="fin-block-embed alignwide is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block block settings toggles resize for smaller devices media settings 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","allowResponsive":false,"responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","allowResponsive":false,"responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block create by pasting URL creates embed block when pasting URL in paragraph block 1`] = `
-"<!-- fp:embed {"url":"https://www.youtube.com/watch?v=lXMskKTw3Bc","type":"video","providerNameSlug":"youtube","responsive":true,"className":"fp-embed-aspect-16-9 fp-has-aspect-ratio"} -->
-<figure class="fp-block-embed is-type-video is-provider-youtube fp-block-embed-youtube fp-embed-aspect-16-9 fp-has-aspect-ratio"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://www.youtube.com/watch?v=lXMskKTw3Bc","type":"video","providerNameSlug":"youtube","responsive":true,"className":"fin-embed-aspect-16-9 fin-has-aspect-ratio"} -->
+<figure class="fin-block-embed is-type-video is-provider-youtube fin-block-embed-youtube fin-embed-aspect-16-9 fin-has-aspect-ratio"><div class="fin-block-embed__wrapper">
 https://www.youtube.com/watch?v=lXMskKTw3Bc
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block create by pasting URL creates link when pasting URL in paragraph block 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p><a href="https://www.youtube.com/watch?v=lXMskKTw3Bc">https://www.youtube.com/watch?v=lXMskKTw3Bc</a></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Embed block displays cannot embed on the placeholder if preview data is null 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/testing","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/testing","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/testing
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block edit URL edits URL when edited after setting a bad URL of a provider 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block edit URL keeps the previous URL if an invalid URL is set 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block edit URL keeps the previous URL if no URL is set 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block edit URL replaces URL 1`] = `
-"<!-- fp:embed {"url":"https://www.youtube.com/watch?v=lXMskKTw3Bc","type":"video","providerNameSlug":"youtube","responsive":true,"className":"fp-embed-aspect-16-9 fp-has-aspect-ratio"} -->
-<figure class="fp-block-embed is-type-video is-provider-youtube fp-block-embed-youtube fp-embed-aspect-16-9 fp-has-aspect-ratio"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://www.youtube.com/watch?v=lXMskKTw3Bc","type":"video","providerNameSlug":"youtube","responsive":true,"className":"fin-embed-aspect-16-9 fin-has-aspect-ratio"} -->
+<figure class="fin-block-embed is-type-video is-provider-youtube fin-block-embed-youtube fin-embed-aspect-16-9 fin-has-aspect-ratio"><div class="fin-block-embed__wrapper">
 https://www.youtube.com/watch?v=lXMskKTw3Bc
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
-exports[`Embed block edit URL sets empty state when setting an empty URL 1`] = `"<!-- fp:embed {"url":"","type":"rich","providerNameSlug":"twitter","responsive":true} /-->"`;
+exports[`Embed block edit URL sets empty state when setting an empty URL 1`] = `"<!-- fin:embed {"url":"","type":"rich","providerNameSlug":"twitter","responsive":true} /-->"`;
 
-exports[`Embed block insert via slash inserter insert generic embed block 1`] = `"<!-- fp:embed /-->"`;
+exports[`Embed block insert via slash inserter insert generic embed block 1`] = `"<!-- fin:embed /-->"`;
 
-exports[`Embed block insert via slash inserter inserts Twitter Embed block 1`] = `"<!-- fp:embed {"providerNameSlug":"twitter","responsive":true} /-->"`;
+exports[`Embed block insert via slash inserter inserts Twitter Embed block 1`] = `"<!-- fin:embed {"providerNameSlug":"twitter","responsive":true} /-->"`;
 
-exports[`Embed block insert via slash inserter inserts Vimeo Embed block 1`] = `"<!-- fp:embed {"providerNameSlug":"vimeo","responsive":true} /-->"`;
+exports[`Embed block insert via slash inserter inserts Vimeo Embed block 1`] = `"<!-- fin:embed {"providerNameSlug":"vimeo","responsive":true} /-->"`;
 
-exports[`Embed block insert via slash inserter inserts FinPress Embed block 1`] = `"<!-- fp:embed {"providerNameSlug":"finpress"} /-->"`;
+exports[`Embed block insert via slash inserter inserts FinPress Embed block 1`] = `"<!-- fin:embed {"providerNameSlug":"finpress"} /-->"`;
 
-exports[`Embed block insert via slash inserter inserts YouTube Embed block 1`] = `"<!-- fp:embed {"providerNameSlug":"youtube","responsive":true} /-->"`;
+exports[`Embed block insert via slash inserter inserts YouTube Embed block 1`] = `"<!-- fin:embed {"providerNameSlug":"youtube","responsive":true} /-->"`;
 
-exports[`Embed block insertion inserts Twitter Embed block 1`] = `"<!-- fp:embed {"providerNameSlug":"twitter","responsive":true} /-->"`;
+exports[`Embed block insertion inserts Twitter Embed block 1`] = `"<!-- fin:embed {"providerNameSlug":"twitter","responsive":true} /-->"`;
 
-exports[`Embed block insertion inserts Vimeo Embed block 1`] = `"<!-- fp:embed {"providerNameSlug":"vimeo","responsive":true} /-->"`;
+exports[`Embed block insertion inserts Vimeo Embed block 1`] = `"<!-- fin:embed {"providerNameSlug":"vimeo","responsive":true} /-->"`;
 
-exports[`Embed block insertion inserts FinPress Embed block 1`] = `"<!-- fp:embed {"providerNameSlug":"finpress"} /-->"`;
+exports[`Embed block insertion inserts FinPress Embed block 1`] = `"<!-- fin:embed {"providerNameSlug":"finpress"} /-->"`;
 
-exports[`Embed block insertion inserts YouTube Embed block 1`] = `"<!-- fp:embed {"providerNameSlug":"youtube","responsive":true} /-->"`;
+exports[`Embed block insertion inserts YouTube Embed block 1`] = `"<!-- fin:embed {"providerNameSlug":"youtube","responsive":true} /-->"`;
 
-exports[`Embed block insertion inserts generic embed block 1`] = `"<!-- fp:embed /-->"`;
+exports[`Embed block insertion inserts generic embed block 1`] = `"<!-- fin:embed /-->"`;
 
 exports[`Embed block retry allows editing link if request failed 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter"} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter"} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block retry converts to link if preview request failed 1`] = `
-"<!-- fp:paragraph -->
+"<!-- fin:paragraph -->
 <p><a href="https://twitter.com/notnownikki">https://twitter.com/notnownikki</a></p>
-<!-- /fp:paragraph -->"
+<!-- /fin:paragraph -->"
 `;
 
 exports[`Embed block retry retries loading the preview if initial request failed 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block set URL upon block insertion auto-pastes the URL from clipboard 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block set URL upon block insertion sets a valid URL when dismissing edit URL modal 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
-exports[`Embed block set URL upon block insertion sets empty URL when dismissing edit URL modal 1`] = `"<!-- fp:embed {"url":""} /-->"`;
+exports[`Embed block set URL upon block insertion sets empty URL when dismissing edit URL modal 1`] = `"<!-- fin:embed {"url":""} /-->"`;
 
 exports[`Embed block set URL when empty block auto-pastes the URL from clipboard 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
 exports[`Embed block set URL when empty block sets a valid URL when dismissing edit URL modal 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->"
+<!-- /fin:embed -->"
 `;
 
-exports[`Embed block set URL when empty block sets empty URL when dismissing edit URL modal 1`] = `"<!-- fp:embed {"url":""} /-->"`;
+exports[`Embed block set URL when empty block sets empty URL when dismissing edit URL modal 1`] = `"<!-- fin:embed {"url":""} /-->"`;
 
 exports[`Embed block sets block caption 1`] = `
-"<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+"<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
-</div><figcaption class="fp-element-caption">Caption</figcaption></figure>
-<!-- /fp:embed -->"
+</div><figcaption class="fin-element-caption">Caption</figcaption></figure>
+<!-- /fin:embed -->"
 `;

@@ -13,7 +13,7 @@ describe( 'validateMimeTypeForUser', () => {
 		jest.clearAllMocks();
 	} );
 
-	it( 'should not error if  fpAllowedMimeTypes is null or missing', async () => {
+	it( 'should not error if  finAllowedMimeTypes is null or missing', async () => {
 		expect( () => {
 			validateMimeTypeForUser( imageFile );
 		} ).not.toThrow();

@@ -13,7 +13,7 @@ import {
 	store as blocksStore,
 } from '@finpress/blocks';
 
-/** @typedef {import('@finpress/blocks').FPBlockVariation} FPBlockVariation */
+/** @typedef {import('@finpress/blocks').FINBlockVariation} FINBlockVariation */
 /** @typedef {import('@finpress/components/build-types/query-controls/types').OrderByOption} OrderByOption */
 
 /**
@@ -280,9 +280,9 @@ export function isControlAllowed( allowedControls, key ) {
  * Returns the cloned/transformed blocks and array of existing Query Loop
  * client ids for further manipulation, in order to avoid multiple recursions.
  *
- * @param {FPBlock[]}        blocks               The list of blocks to look through and transform(mutate).
+ * @param {FINBlock[]}        blocks               The list of blocks to look through and transform(mutate).
  * @param {Record<string,*>} queryBlockAttributes The existing Query Loop's attributes.
- * @return {{ newBlocks: FPBlock[], queryClientIds: string[] }} An object with the cloned/transformed blocks and all the Query Loop clients from these blocks.
+ * @return {{ newBlocks: FINBlock[], queryClientIds: string[] }} An object with the cloned/transformed blocks and all the Query Loop clients from these blocks.
  */
 export const getTransformedBlocksFromPattern = (
 	blocks,
@@ -378,7 +378,7 @@ export function useBlockNameForPatterns( clientId, attributes ) {
  * main `inserter` variation.
  *
  * @param {Object} attributes The block's attributes.
- * @return {FPBlockVariation[]} The block variations to be suggested in setup flow, when clicking to `start blank`.
+ * @return {FINBlockVariation[]} The block variations to be suggested in setup flow, when clicking to `start blank`.
  */
 export function useScopedBlockVariations( attributes ) {
 	const { activeVariationName, blockVariations } = useSelect(

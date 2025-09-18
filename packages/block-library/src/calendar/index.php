@@ -166,7 +166,7 @@ if ( ! is_multisite() ) {
 	 *
 	 * @param string  $new_status The status the post is changing to.
 	 * @param string  $old_status The status the post is changing from.
-	 * @param FP_Post $post       Post object.
+	 * @param FIN_Post $post       Post object.
 	 */
 	function block_core_calendar_update_has_published_post_on_transition_post_status( $new_status, $old_status, $post ) {
 		if ( $new_status === $old_status ) {

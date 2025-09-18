@@ -13,7 +13,7 @@ import { store as coreStore } from '@finpress/core-data';
 import PostFormatCheck from './check';
 import { store as editorStore } from '../../store';
 
-// All FP post formats, sorted alphabetically by translated name.
+// All FIN post formats, sorted alphabetically by translated name.
 export const POST_FORMATS = [
 	{ id: 'aside', caption: __( 'Aside' ) },
 	{ id: 'audio', caption: __( 'Audio' ) },

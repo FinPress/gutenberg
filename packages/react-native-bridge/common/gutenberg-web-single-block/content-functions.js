@@ -2,11 +2,11 @@ window.getBlockEditorStore = () => {
 	return {
 		blockEditorSelect:
 			window.fin.data.select( 'core/block-editor' ) ||
-			window.fin.data.select( 'core/editor' ), // For FP v5.0 and v5.1.
+			window.fin.data.select( 'core/editor' ), // For FIN v5.0 and v5.1.
 
 		blockEditorDispatch:
 			window.fin.data.dispatch( 'core/block-editor' ) ||
-			window.fin.data.dispatch( 'core/editor' ), // For FP v5.0 and v5.1.
+			window.fin.data.dispatch( 'core/editor' ), // For FIN v5.0 and v5.1.
 	};
 };
 

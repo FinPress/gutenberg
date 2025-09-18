@@ -246,7 +246,7 @@ test.describe( 'Block template registration', () => {
 		).toBeHidden();
 	} );
 
-	test( 'FP default templates can be overridden by plugins', async ( {
+	test( 'FIN default templates can be overridden by plugins', async ( {
 		page,
 		requestUtils,
 	} ) => {

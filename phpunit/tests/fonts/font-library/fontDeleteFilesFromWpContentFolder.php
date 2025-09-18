@@ -2,7 +2,7 @@
 // @core-merge: Do not include these tests, they are for Gutenberg only.
 
 /**
- * Tests deleting font files from the previous fonts folder default (fp-content/fonts).
+ * Tests deleting font files from the previous fonts folder default (fin-content/fonts).
  *
  * This covers cases where fonts were installed with older versions of Gutenberg, but are then deleted with
  * newer versions of Gutenberg and/or FinPress.
@@ -13,7 +13,7 @@
  * @group fonts
  * @group font-library
  */
-class Tests_Font_Delete_Files_From_Wp_Content_Folder extends FP_UnitTestCase {
+class Tests_Font_Delete_Files_From_Wp_Content_Folder extends FIN_UnitTestCase {
 	/**
 	 * ID of a super admin user.
 	 *
@@ -24,9 +24,9 @@ class Tests_Font_Delete_Files_From_Wp_Content_Folder extends FP_UnitTestCase {
 	/**
 	 * Sets up test class.
 	 *
-	 * @param FP_UnitTest_Factory $factory Unit test factory instance.
+	 * @param FIN_UnitTest_Factory $factory Unit test factory instance.
 	 */
-	public static function fpSetUpBeforeClass( FP_UnitTest_Factory $factory ) {
+	public static function finSetUpBeforeClass( FIN_UnitTest_Factory $factory ) {
 		self::$super_admin_id = $factory->user->create(
 			array(
 				'role' => 'administrator',
@@ -38,20 +38,20 @@ class Tests_Font_Delete_Files_From_Wp_Content_Folder extends FP_UnitTestCase {
 	/**
 	 * Tears down test class.
 	 */
-	public static function fpTearDownAfterClass() {
+	public static function finTearDownAfterClass() {
 		self::delete_user( self::$super_admin_id );
 	}
 
 	/**
-	 * Tests that font files uploaded to fp-content/fonts are deleted when the associated font face post is deleted.
+	 * Tests that font files uploaded to fin-content/fonts are deleted when the associated font face post is deleted.
 	 *
 	 * @covers ::gutenberg_before_delete_font_face
 	 */
-	public function test_uploaded_font_files_are_deleted_from_fp_content_fonts_folder() {
-		fp_set_current_user( self::$super_admin_id );
+	public function test_uploaded_font_files_are_deleted_from_fin_content_fonts_folder() {
+		fin_set_current_user( self::$super_admin_id );
 		$font_family_id = $this->create_font_family();
 
-		// Upload the font file to fp-content/fonts, the previous directory used for fonts.
+		// Upload the font file to fin-content/fonts, the previous directory used for fonts.
 		add_filter( 'font_dir', array( $this, 'filter_font_dir' ) );
 		$response = $this->create_font_face( $font_family_id );
 		remove_filter( 'font_dir', array( $this, 'filter_font_dir' ) );
@@ -59,34 +59,34 @@ class Tests_Font_Delete_Files_From_Wp_Content_Folder extends FP_UnitTestCase {
 		$this->assertSame( 201, $response->get_status(), 'The font face should be created successfully.' );
 
 		$data      = $response->get_data();
-		$font_path = str_replace( content_url(), FP_CONTENT_DIR, $data['font_face_settings']['src'] );
+		$font_path = str_replace( content_url(), FIN_CONTENT_DIR, $data['font_face_settings']['src'] );
 
 		// Ensure the file was uploaded to the correct location.
 		$this->assertFalse( str_contains( $font_path, 'uploads' ), 'The font file should not be in the uploads folder.' );
-		$this->assertTrue( file_exists( $font_path ), 'The font file should exist in the fp-content/fonts folder.' );
+		$this->assertTrue( file_exists( $font_path ), 'The font file should exist in the fin-content/fonts folder.' );
 
 		// Ensure the file is deleted when the font face post is deleted, even when the directory is not filtered.
-		fp_delete_post( $font_family_id, true );
-		$this->assertTrue( str_contains( fp_get_font_dir()['path'], 'uploads' ), 'The font directory should be in uploads.' );
-		$this->assertFalse( file_exists( $font_path ), 'The font file should be deleted from the fp-content/fonts folder.' );
+		fin_delete_post( $font_family_id, true );
+		$this->assertTrue( str_contains( fin_get_font_dir()['path'], 'uploads' ), 'The font directory should be in uploads.' );
+		$this->assertFalse( file_exists( $font_path ), 'The font file should be deleted from the fin-content/fonts folder.' );
 	}
 
 	/**
-	 * Tests that font files uploaded to fp-content/fonts are deleted when the associated font face post is deleted on multisite.
+	 * Tests that font files uploaded to fin-content/fonts are deleted when the associated font face post is deleted on multisite.
 	 *
 	 * @group multisite
 	 * @group ms-required
 	 *
 	 * @covers ::gutenberg_before_delete_font_face
 	 */
-	public function test_uploaded_font_files_are_deleted_from_fp_content_fonts_folder_multisite() {
-		fp_set_current_user( self::$super_admin_id );
+	public function test_uploaded_font_files_are_deleted_from_fin_content_fonts_folder_multisite() {
+		fin_set_current_user( self::$super_admin_id );
 		$blog_id = self::factory()->blog->create();
 
 		switch_to_blog( $blog_id );
 		$font_family_id = $this->create_font_family();
 
-		// Upload the font file to fp-content/fonts, the previous directory used for fonts.
+		// Upload the font file to fin-content/fonts, the previous directory used for fonts.
 		add_filter( 'font_dir', array( $this, 'filter_font_dir' ) );
 		$response = $this->create_font_face( $font_family_id );
 		remove_filter( 'font_dir', array( $this, 'filter_font_dir' ) );
@@ -95,23 +95,23 @@ class Tests_Font_Delete_Files_From_Wp_Content_Folder extends FP_UnitTestCase {
 		$this->assertSame( 201, $response->get_status(), 'The font face should be created successfully.' );
 
 		$data      = $response->get_data();
-		$font_path = str_replace( content_url(), FP_CONTENT_DIR, $data['font_face_settings']['src'] );
+		$font_path = str_replace( content_url(), FIN_CONTENT_DIR, $data['font_face_settings']['src'] );
 
 		// Ensure the file was uploaded to the correct location.
 		$this->assertFalse( str_contains( $font_path, 'uploads' ), 'The font file should not be in the uploads folder.' );
-		$this->assertTrue( file_exists( $font_path ), 'The font file should exist in the fp-content/fonts folder.' );
+		$this->assertTrue( file_exists( $font_path ), 'The font file should exist in the fin-content/fonts folder.' );
 
 		// Ensure the file is deleted when the font face post is deleted, even when the directory is not filtered.
 		switch_to_blog( $blog_id );
-		fp_delete_post( $font_family_id, true );
+		fin_delete_post( $font_family_id, true );
 		restore_current_blog();
 
-		$this->assertTrue( str_contains( fp_get_font_dir()['path'], 'uploads' ), 'The font directory should be in uploads.' );
-		$this->assertFalse( file_exists( $font_path ), 'The font file should be deleted from the fp-content/fonts folder.' );
+		$this->assertTrue( str_contains( fin_get_font_dir()['path'], 'uploads' ), 'The font directory should be in uploads.' );
+		$this->assertFalse( file_exists( $font_path ), 'The font file should be deleted from the fin-content/fonts folder.' );
 	}
 
 	/**
-	 * Sets the font upload directory to fp-content/fonts, the default previously used in Gutenberg.
+	 * Sets the font upload directory to fin-content/fonts, the default previously used in Gutenberg.
 	 *
 	 * @param array $font_dir Font directory settings.
 	 * @return array Filtered font directory settings.
@@ -122,9 +122,9 @@ class Tests_Font_Delete_Files_From_Wp_Content_Folder extends FP_UnitTestCase {
 			$site_path = '/sites/' . get_current_blog_id();
 		}
 
-		$font_dir['path']    = path_join( FP_CONTENT_DIR, 'fonts' ) . $site_path;
+		$font_dir['path']    = path_join( FIN_CONTENT_DIR, 'fonts' ) . $site_path;
 		$font_dir['url']     = untrailingslashit( content_url( 'fonts' ) ) . $site_path;
-		$font_dir['basedir'] = path_join( FP_CONTENT_DIR, 'fonts' ) . $site_path;
+		$font_dir['basedir'] = path_join( FIN_CONTENT_DIR, 'fonts' ) . $site_path;
 		$font_dir['baseurl'] = untrailingslashit( content_url( 'fonts' ) ) . $site_path;
 
 		return $font_dir;
@@ -137,13 +137,13 @@ class Tests_Font_Delete_Files_From_Wp_Content_Folder extends FP_UnitTestCase {
 	 */
 	protected function create_font_family() {
 		return self::factory()->post->create(
-			fp_slash(
+			fin_slash(
 				array(
-					'post_type'    => 'fp_font_family',
+					'post_type'    => 'fin_font_family',
 					'post_status'  => 'publish',
 					'post_title'   => 'Open Sans',
 					'post_name'    => 'open-sans',
-					'post_content' => fp_json_encode(
+					'post_content' => fin_json_encode(
 						array(
 							'fontFamily' => '"Open Sans"',
 						)
@@ -157,12 +157,12 @@ class Tests_Font_Delete_Files_From_Wp_Content_Folder extends FP_UnitTestCase {
 	 * Creates a font face post under the specified font family for testing.
 	 *
 	 * @param int $font_family_id Font family post ID.
-	 * @return FP_REST_Response REST response object for font face creation.
+	 * @return FIN_REST_Response REST response object for font face creation.
 	 */
 	protected function create_font_face( $font_family_id ) {
 		// Create a new font face with a font file upload.
 		$font_file = GUTENBERG_DIR_TESTDATA . '/fonts/OpenSans-Regular.woff2';
-		$font_path = fp_tempnam( 'OpenSans-Regular.woff2' );
+		$font_path = fin_tempnam( 'OpenSans-Regular.woff2' );
 		copy( $font_file, $font_path );
 
 		$files = array(
@@ -176,10 +176,10 @@ class Tests_Font_Delete_Files_From_Wp_Content_Folder extends FP_UnitTestCase {
 			),
 		);
 
-		$request = new FP_REST_Request( 'POST', '/fp/v2/font-families/' . $font_family_id . '/font-faces' );
+		$request = new FIN_REST_Request( 'POST', '/fin/v2/font-families/' . $font_family_id . '/font-faces' );
 		$request->set_param(
 			'font_face_settings',
-			fp_json_encode(
+			fin_json_encode(
 				array(
 					'fontFamily' => '"Open Sans"',
 					'fontWeight' => '200',

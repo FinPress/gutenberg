@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/theme.json",
+	"$schema": "https://schemas.fin.org/trunk/theme.json",
 	"version": 3,
 	"styles": {
 		"variations": {

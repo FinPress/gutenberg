@@ -131,9 +131,9 @@ export function useBlockProps( props = {}, { __unstableIsHtml } = {} ) {
 	const bindingsStyle =
 		hasBlockBindings && canBindBlock( name )
 			? {
-					'--fp-admin-theme-color': 'var(--fp-block-synced-color)',
-					'--fp-admin-theme-color--rgb':
-						'var(--fp-block-synced-color--rgb)',
+					'--fin-admin-theme-color': 'var(--fin-block-synced-color)',
+					'--fin-admin-theme-color--rgb':
+						'var(--fin-block-synced-color--rgb)',
 			  }
 			: {};
 
@@ -170,8 +170,8 @@ export function useBlockProps( props = {}, { __unstableIsHtml } = {} ) {
 		className: clsx(
 			'block-editor-block-list__block',
 			{
-				// The fp-block className is important for editor styles.
-				'fp-block': ! isAligned,
+				// The fin-block className is important for editor styles.
+				'fin-block': ! isAligned,
 				'has-block-overlay': hasOverlay,
 				'is-selected': isSelected,
 				'is-highlighted': isHighlighted,

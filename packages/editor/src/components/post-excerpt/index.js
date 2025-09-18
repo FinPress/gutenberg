@@ -31,11 +31,11 @@ export default function PostExcerpt( {
 			const { getCurrentPostType, getEditedPostAttribute } =
 				select( editorStore );
 			const postType = getCurrentPostType();
-			// This special case is unfortunate, but the REST API of fp_template and fp_template_part
+			// This special case is unfortunate, but the REST API of fin_template and fin_template_part
 			// support the excerpt field through the "description" field rather than "excerpt".
 			const _usedAttribute = [
-				'fp_template',
-				'fp_template_part',
+				'fin_template',
+				'fin_template_part',
 			].includes( postType )
 				? 'description'
 				: 'excerpt';
@@ -43,9 +43,9 @@ export default function PostExcerpt( {
 				excerpt: getEditedPostAttribute( _usedAttribute ),
 				// There are special cases where we want to label the excerpt as a description.
 				shouldUseDescriptionLabel: [
-					'fp_template',
-					'fp_template_part',
-					'fp_block',
+					'fin_template',
+					'fin_template_part',
+					'fin_block',
 				].includes( postType ),
 				usedAttribute: _usedAttribute,
 			};

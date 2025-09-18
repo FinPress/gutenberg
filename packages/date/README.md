@@ -37,7 +37,7 @@ _Returns_
 
 ### dateI18n
 
-Formats a date (like `fp_date()` in PHP), translating it into site's locale.
+Formats a date (like `fin_date()` in PHP), translating it into site's locale.
 
 Backward Compatibility Notice: if `timezone` is set to `true`, the function behaves like `gmdateI18n`.
 
@@ -71,11 +71,11 @@ _Returns_
 
 ### getDate
 
-Create and return a JavaScript Date Object from a date string in the FP timezone.
+Create and return a JavaScript Date Object from a date string in the FIN timezone.
 
 _Parameters_
 
--   _dateString_ `string | null`: Date formatted in the FP timezone.
+-   _dateString_ `string | null`: Date formatted in the FIN timezone.
 
 _Returns_
 
@@ -104,7 +104,7 @@ _Returns_
 
 ### gmdateI18n
 
-Formats a date (like `fp_date()` in PHP), translating it into site's locale and using the UTC timezone.
+Formats a date (like `fin_date()` in PHP), translating it into site's locale and using the UTC timezone.
 
 _Parameters_
 
@@ -121,8 +121,8 @@ Returns a human-readable time difference between two dates, like human_time_diff
 
 _Parameters_
 
--   _from_ `Moment | Date | string | number`: From date, in the FP timezone.
--   _to_ `Moment | Date | string | number`: To date, formatted in the FP timezone.
+-   _from_ `Moment | Date | string | number`: From date, in the FIN timezone.
+-   _to_ `Moment | Date | string | number`: To date, formatted in the FIN timezone.
 
 _Returns_
 
@@ -134,7 +134,7 @@ Check whether a date is considered in the future according to the FinPress setti
 
 _Parameters_
 
--   _dateValue_ `Date | string | number`: Date String or Date object in the Defined FP Timezone.
+-   _dateValue_ `Date | string | number`: Date String or Date object in the Defined FIN Timezone.
 
 _Returns_
 
@@ -142,7 +142,7 @@ _Returns_
 
 ### setSettings
 
-Adds a locale to moment, using the format supplied by `fp_localize_script()`.
+Adds a locale to moment, using the format supplied by `fin_localize_script()`.
 
 _Parameters_
 

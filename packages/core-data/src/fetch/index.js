@@ -13,7 +13,7 @@ export { default as __experimentalFetchUrlData } from './__experimental-fetch-ur
 
 export async function fetchBlockPatterns() {
 	const restPatterns = await apiFetch( {
-		path: '/fp/v2/block-patterns/patterns',
+		path: '/fin/v2/block-patterns/patterns',
 	} );
 	if ( ! restPatterns ) {
 		return [];

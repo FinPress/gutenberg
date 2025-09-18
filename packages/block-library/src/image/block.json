@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/image",
 	"title": "Image",
@@ -132,10 +132,10 @@
 		}
 	},
 	"selectors": {
-		"border": ".fp-block-image img, .fp-block-image .fp-block-image__crop-area, .fp-block-image .components-placeholder",
-		"shadow": ".fp-block-image img, .fp-block-image .fp-block-image__crop-area, .fp-block-image .components-placeholder",
+		"border": ".fin-block-image img, .fin-block-image .fin-block-image__crop-area, .fin-block-image .components-placeholder",
+		"shadow": ".fin-block-image img, .fin-block-image .fin-block-image__crop-area, .fin-block-image .components-placeholder",
 		"filter": {
-			"duotone": ".fp-block-image img, .fp-block-image .components-placeholder"
+			"duotone": ".fin-block-image img, .fin-block-image .components-placeholder"
 		}
 	},
 	"styles": [
@@ -146,6 +146,6 @@
 		},
 		{ "name": "rounded", "label": "Rounded" }
 	],
-	"editorStyle": "fp-block-image-editor",
-	"style": "fp-block-image"
+	"editorStyle": "fin-block-image-editor",
+	"style": "fin-block-image"
 }

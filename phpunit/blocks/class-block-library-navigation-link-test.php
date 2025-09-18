@@ -9,7 +9,7 @@
 /**
  * Tests for various cases in Navigation Link rendering
  */
-class Block_Library_Navigation_Link_Test extends FP_UnitTestCase {
+class Block_Library_Navigation_Link_Test extends FIN_UnitTestCase {
 	private static $category;
 	private static $page;
 	private static $draft;
@@ -23,7 +23,7 @@ class Block_Library_Navigation_Link_Test extends FP_UnitTestCase {
 	 */
 	private $original_block_supports;
 
-	public static function fpSetUpBeforeClass() {
+	public static function finSetUpBeforeClass() {
 
 		self::$draft   = self::factory()->post->create_and_get(
 			array(
@@ -85,40 +85,40 @@ class Block_Library_Navigation_Link_Test extends FP_UnitTestCase {
 		self::$terms[] = self::$category;
 	}
 
-	public static function fpTearDownAfterClass() {
+	public static function finTearDownAfterClass() {
 		foreach ( self::$pages as $page_to_delete ) {
-			fp_delete_post( $page_to_delete->ID );
+			fin_delete_post( $page_to_delete->ID );
 		}
 		foreach ( self::$terms as $term_to_delete ) {
-			fp_delete_term( $term_to_delete->term_id, $term_to_delete->taxonomy );
+			fin_delete_term( $term_to_delete->term_id, $term_to_delete->taxonomy );
 		}
 	}
 
 	public function set_up() {
 		parent::set_up();
 
-		$this->original_block_supports      = FP_Block_Supports::$block_to_render;
-		FP_Block_Supports::$block_to_render = array(
+		$this->original_block_supports      = FIN_Block_Supports::$block_to_render;
+		FIN_Block_Supports::$block_to_render = array(
 			'attrs'     => array(),
 			'blockName' => '',
 		);
 	}
 
 	public function tear_down() {
-		FP_Block_Supports::$block_to_render = $this->original_block_supports;
+		FIN_Block_Supports::$block_to_render = $this->original_block_supports;
 		parent::tear_down();
 	}
 
 	public function test_returns_link_when_post_is_published() {
 		$page_id = self::$page->ID;
-		$url     = 'http://' . FP_TESTS_DOMAIN;
+		$url     = 'http://' . FIN_TESTS_DOMAIN;
 
 		$parsed_blocks = parse_blocks(
-			"<!-- fp:navigation-link {\"label\":\"Sample Page\",\"type\":\"page\",\"id\":{$page_id},\"url\":\"{$url}/?page_id={$page_id}\"} /-->"
+			"<!-- fin:navigation-link {\"label\":\"Sample Page\",\"type\":\"page\",\"id\":{$page_id},\"url\":\"{$url}/?page_id={$page_id}\"} /-->"
 		);
 		$this->assertEquals( 1, count( $parsed_blocks ) );
 
-		$navigation_link_block = new FP_Block( $parsed_blocks[0], array() );
+		$navigation_link_block = new FIN_Block( $parsed_blocks[0], array() );
 		$this->assertEquals(
 			true,
 			strpos(
@@ -134,14 +134,14 @@ class Block_Library_Navigation_Link_Test extends FP_UnitTestCase {
 
 	public function test_returns_empty_when_label_is_missing() {
 		$page_id = self::$page->ID;
-		$url     = 'http://' . FP_TESTS_DOMAIN;
+		$url     = 'http://' . FIN_TESTS_DOMAIN;
 
 		$parsed_blocks = parse_blocks(
-			"<!-- fp:navigation-link {\"type\":\"page\",\"id\":{$page_id},\"url\":\"{$url}/?page_id={$page_id}\"} /-->"
+			"<!-- fin:navigation-link {\"type\":\"page\",\"id\":{$page_id},\"url\":\"{$url}/?page_id={$page_id}\"} /-->"
 		);
 		$this->assertEquals( 1, count( $parsed_blocks ) );
 
-		$navigation_link_block = new FP_Block( $parsed_blocks[0], array() );
+		$navigation_link_block = new FIN_Block( $parsed_blocks[0], array() );
 		$this->assertEquals(
 			'',
 			gutenberg_render_block_core_navigation_link(
@@ -154,14 +154,14 @@ class Block_Library_Navigation_Link_Test extends FP_UnitTestCase {
 
 	public function test_returns_empty_when_draft() {
 		$page_id = self::$draft->ID;
-		$url     = 'http://' . FP_TESTS_DOMAIN;
+		$url     = 'http://' . FIN_TESTS_DOMAIN;
 
 		$parsed_blocks = parse_blocks(
-			"<!-- fp:navigation-link {\"label\":\"Draft Page\",\"type\":\"page\",\"id\":{$page_id},\"url\":\"{$url}/?page_id={$page_id}\"} /-->"
+			"<!-- fin:navigation-link {\"label\":\"Draft Page\",\"type\":\"page\",\"id\":{$page_id},\"url\":\"{$url}/?page_id={$page_id}\"} /-->"
 		);
 		$this->assertEquals( 1, count( $parsed_blocks ) );
 
-		$navigation_link_block = new FP_Block( $parsed_blocks[0], array() );
+		$navigation_link_block = new FIN_Block( $parsed_blocks[0], array() );
 
 		$this->assertEquals(
 			'',
@@ -175,14 +175,14 @@ class Block_Library_Navigation_Link_Test extends FP_UnitTestCase {
 
 	public function test_returns_link_for_category() {
 		$category_id = self::$category->term_id;
-		$url         = 'http://' . FP_TESTS_DOMAIN;
+		$url         = 'http://' . FIN_TESTS_DOMAIN;
 
 		$parsed_blocks = parse_blocks(
-			"<!-- fp:navigation-link {\"label\":\"Cats\",\"type\":\"category\",\"id\":{$category_id},\"url\":\"{$url}/?cat={$category_id}\"} /-->"
+			"<!-- fin:navigation-link {\"label\":\"Cats\",\"type\":\"category\",\"id\":{$category_id},\"url\":\"{$url}/?cat={$category_id}\"} /-->"
 		);
 		$this->assertEquals( 1, count( $parsed_blocks ) );
 
-		$navigation_link_block = new FP_Block( $parsed_blocks[0], array() );
+		$navigation_link_block = new FIN_Block( $parsed_blocks[0], array() );
 		$this->assertEquals(
 			true,
 			strpos(
@@ -198,11 +198,11 @@ class Block_Library_Navigation_Link_Test extends FP_UnitTestCase {
 
 	public function test_returns_link_for_plain_link() {
 		$parsed_blocks = parse_blocks(
-			'<!-- fp:navigation-link {"label":"My Website","url":"https://example.com"} /-->'
+			'<!-- fin:navigation-link {"label":"My Website","url":"https://example.com"} /-->'
 		);
 		$this->assertEquals( 1, count( $parsed_blocks ) );
 
-		$navigation_link_block = new FP_Block( $parsed_blocks[0], array() );
+		$navigation_link_block = new FIN_Block( $parsed_blocks[0], array() );
 		$this->assertEquals(
 			true,
 			strpos(
@@ -233,10 +233,10 @@ class Block_Library_Navigation_Link_Test extends FP_UnitTestCase {
 		);
 
 		foreach ( $urls_before_render as $idx => $link ) {
-				$parsed_blocks = parse_blocks( '<!-- fp:navigation-link {"label":"test label", "url": "' . $link . '"} /-->' );
+				$parsed_blocks = parse_blocks( '<!-- fin:navigation-link {"label":"test label", "url": "' . $link . '"} /-->' );
 			$this->assertEquals( 1, count( $parsed_blocks ) );
 				$block             = $parsed_blocks[0];
-			$navigation_link_block = new FP_Block( $block, array() );
+			$navigation_link_block = new FIN_Block( $block, array() );
 				$this->assertEquals(
 					true,
 					strpos(
@@ -253,14 +253,14 @@ class Block_Library_Navigation_Link_Test extends FP_UnitTestCase {
 
 	public function test_returns_empty_when_custom_post_type_draft() {
 		$page_id = self::$custom_draft->ID;
-		$url     = 'http://' . FP_TESTS_DOMAIN;
+		$url     = 'http://' . FIN_TESTS_DOMAIN;
 
 		$parsed_blocks = parse_blocks(
-			"<!-- fp:navigation-link {\"label\":\"Draft Custom Post Type\",\"type\":\"cats\",\"kind\":\"post-type\",\"id\":{$page_id},\"url\":\"{$url}/?page_id={$page_id}\"} /-->"
+			"<!-- fin:navigation-link {\"label\":\"Draft Custom Post Type\",\"type\":\"cats\",\"kind\":\"post-type\",\"id\":{$page_id},\"url\":\"{$url}/?page_id={$page_id}\"} /-->"
 		);
 		$this->assertEquals( 1, count( $parsed_blocks ) );
 
-		$navigation_link_block = new FP_Block( $parsed_blocks[0], array() );
+		$navigation_link_block = new FIN_Block( $parsed_blocks[0], array() );
 
 		$this->assertEquals(
 			'',
@@ -274,14 +274,14 @@ class Block_Library_Navigation_Link_Test extends FP_UnitTestCase {
 
 	public function test_returns_link_when_custom_post_is_published() {
 		$page_id = self::$custom_post->ID;
-		$url     = 'http://' . FP_TESTS_DOMAIN;
+		$url     = 'http://' . FIN_TESTS_DOMAIN;
 
 		$parsed_blocks = parse_blocks(
-			"<!-- fp:navigation-link {\"label\":\"Metal Dogs\",\"type\":\"dogs\",\"kind\":\"post-type\",\"id\":{$page_id},\"url\":\"{$url}/?page_id={$page_id}\"} /-->"
+			"<!-- fin:navigation-link {\"label\":\"Metal Dogs\",\"type\":\"dogs\",\"kind\":\"post-type\",\"id\":{$page_id},\"url\":\"{$url}/?page_id={$page_id}\"} /-->"
 		);
 		$this->assertEquals( 1, count( $parsed_blocks ) );
 
-		$navigation_link_block = new FP_Block( $parsed_blocks[0], array() );
+		$navigation_link_block = new FIN_Block( $parsed_blocks[0], array() );
 		$this->assertEquals(
 			true,
 			strpos(

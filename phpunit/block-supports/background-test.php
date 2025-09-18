@@ -5,7 +5,7 @@
  *
  * @package Gutenberg
  */
-class FP_Block_Supports_Background_Test extends FP_UnitTestCase {
+class FIN_Block_Supports_Background_Test extends FIN_UnitTestCase {
 	/**
 	 * @var string|null
 	 */
@@ -29,32 +29,32 @@ class FP_Block_Supports_Background_Test extends FP_UnitTestCase {
 		parent::set_up();
 		$this->test_block_name = null;
 		$this->theme_root      = realpath( __DIR__ . '/../data/themedir1' );
-		$this->orig_theme_dir  = $GLOBALS['fp_theme_directories'];
+		$this->orig_theme_dir  = $GLOBALS['fin_theme_directories'];
 
 		// /themes is necessary as theme.php functions assume /themes is the root if there is only one root.
-		$GLOBALS['fp_theme_directories'] = array( FP_CONTENT_DIR . '/themes', $this->theme_root );
+		$GLOBALS['fin_theme_directories'] = array( FIN_CONTENT_DIR . '/themes', $this->theme_root );
 
 		add_filter( 'theme_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'stylesheet_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'template_root', array( $this, 'filter_set_theme_root' ) );
 
 		// Clear caches.
-		fp_clean_themes_cache();
-		unset( $GLOBALS['fp_themes'] );
-		FP_Style_Engine_CSS_Rules_Store::remove_all_stores();
+		fin_clean_themes_cache();
+		unset( $GLOBALS['fin_themes'] );
+		FIN_Style_Engine_CSS_Rules_Store::remove_all_stores();
 	}
 
 	public function tear_down() {
-		$GLOBALS['fp_theme_directories'] = $this->orig_theme_dir;
+		$GLOBALS['fin_theme_directories'] = $this->orig_theme_dir;
 
 		// Clear up the filters to modify the theme root.
 		remove_filter( 'theme_root', array( $this, 'filter_set_theme_root' ) );
 		remove_filter( 'stylesheet_root', array( $this, 'filter_set_theme_root' ) );
 		remove_filter( 'template_root', array( $this, 'filter_set_theme_root' ) );
 
-		fp_clean_themes_cache();
-		unset( $GLOBALS['fp_themes'] );
-		FP_Style_Engine_CSS_Rules_Store::remove_all_stores();
+		fin_clean_themes_cache();
+		unset( $GLOBALS['fin_themes'] );
+		FIN_Style_Engine_CSS_Rules_Store::remove_all_stores();
 		unregister_block_type( $this->test_block_name );
 		$this->test_block_name = null;
 		parent::tear_down();
@@ -176,8 +176,8 @@ class FP_Block_Supports_Background_Test extends FP_UnitTestCase {
 						'url' => 'https://example.com/image.jpg',
 					),
 				),
-				'expected_wrapper'    => '<div class="fp-block-test has-background" style="color: red;background-image:url(&#039;https://example.com/image.jpg&#039;);background-size:cover;">Content</div>',
-				'wrapper'             => '<div class="fp-block-test" style="color: red">Content</div>',
+				'expected_wrapper'    => '<div class="fin-block-test has-background" style="color: red;background-image:url(&#039;https://example.com/image.jpg&#039;);background-size:cover;">Content</div>',
+				'wrapper'             => '<div class="fin-block-test" style="color: red">Content</div>',
 			),
 			'background image style is appended if a style attribute containing multiple styles already exists' => array(
 				'theme_name'          => 'block-theme-child-with-fluid-typography',
@@ -190,8 +190,8 @@ class FP_Block_Supports_Background_Test extends FP_UnitTestCase {
 						'url' => 'https://example.com/image.jpg',
 					),
 				),
-				'expected_wrapper'    => '<div class="fp-block-test has-background" style="color: red;font-size: 15px;background-image:url(&#039;https://example.com/image.jpg&#039;);background-size:cover;">Content</div>',
-				'wrapper'             => '<div class="fp-block-test" style="color: red;font-size: 15px;">Content</div>',
+				'expected_wrapper'    => '<div class="fin-block-test has-background" style="color: red;font-size: 15px;background-image:url(&#039;https://example.com/image.jpg&#039;);background-size:cover;">Content</div>',
+				'wrapper'             => '<div class="fin-block-test" style="color: red;font-size: 15px;">Content</div>',
 			),
 			'background image style is not applied if the block does not support background image' => array(
 				'theme_name'          => 'block-theme-child-with-fluid-typography',

@@ -35,7 +35,7 @@ add_filter( 'font_dir', 'gutenberg_filter_e2e_font_dir' );
  * settings for the current theme so that we can test uploading/installing fonts in a clean environment.
  */
 function gutenberg_delete_installed_fonts() {
-	$font_family_ids = new FP_Query(
+	$font_family_ids = new FIN_Query(
 		array(
 			'post_type'      => 'fin_font_family',
 			'posts_per_page' => -1,
@@ -56,8 +56,8 @@ function gutenberg_delete_installed_fonts() {
 	}
 
 	// Delete any installed fonts from global styles.
-	$global_styles_post_id = FP_Theme_JSON_Resolver_Gutenberg::get_user_global_styles_post_id();
-	$request               = new FP_REST_Request( 'POST', '/fin/v2/global-styles/' . $global_styles_post_id );
+	$global_styles_post_id = FIN_Theme_JSON_Resolver_Gutenberg::get_user_global_styles_post_id();
+	$request               = new FIN_REST_Request( 'POST', '/fin/v2/global-styles/' . $global_styles_post_id );
 	$request->set_body_params( array( 'settings' => array( 'typography' => array( 'fontFamilies' => array() ) ) ) );
 
 	rest_do_request( $request );

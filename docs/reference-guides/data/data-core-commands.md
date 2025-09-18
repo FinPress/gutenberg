@@ -17,7 +17,7 @@ _Parameters_
 
 _Returns_
 
--   `import('./actions').FPCommandLoaderConfig[]`: The list of registered command loaders.
+-   `import('./actions').FINCommandLoaderConfig[]`: The list of registered command loaders.
 
 ### getCommands
 
@@ -30,7 +30,7 @@ _Parameters_
 
 _Returns_
 
--   `import('./actions').FPCommandConfig[]`: The list of registered commands.
+-   `import('./actions').FINCommandConfig[]`: The list of registered commands.
 
 ### getContext
 
@@ -84,7 +84,7 @@ Returns an action object used to register a new command.
 
 _Parameters_
 
--   _config_ `FPCommandConfig`: Command config.
+-   _config_ `FINCommandConfig`: Command config.
 
 _Returns_
 
@@ -96,7 +96,7 @@ Register command loader.
 
 _Parameters_
 
--   _config_ `FPCommandLoaderConfig`: Command loader config.
+-   _config_ `FINCommandLoaderConfig`: Command loader config.
 
 _Returns_
 

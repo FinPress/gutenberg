@@ -92,30 +92,30 @@ const MOCK_BAD_EMBED_PROVIDER_RESPONSE = {
 const EMBED_NULL_RESPONSE = null;
 
 // Embed block HTML examples.
-const EMPTY_EMBED_HTML = '<!-- fp:embed /-->';
-const RICH_TEXT_EMBED_HTML = `<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+const EMPTY_EMBED_HTML = '<!-- fin:embed /-->';
+const RICH_TEXT_EMBED_HTML = `<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->`;
-const RICH_TEXT_ERROR_EMBED_HTML = `<!-- fp:embed {"url":"https://twitter.com/testing","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+<!-- /fin:embed -->`;
+const RICH_TEXT_ERROR_EMBED_HTML = `<!-- fin:embed {"url":"https://twitter.com/testing","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/testing
 </div></figure>
-<!-- /fp:embed -->`;
-const PHOTO_EMBED_HTML = `<!-- fp:embed {"url":"https://cloudup.com/cQFlxqtY4ob","type":"photo","providerNameSlug":"cloudup","responsive":true} -->
-<figure class="fp-block-embed is-type-photo is-provider-cloudup fp-block-embed-cloudup"><div class="fp-block-embed__wrapper">
+<!-- /fin:embed -->`;
+const PHOTO_EMBED_HTML = `<!-- fin:embed {"url":"https://cloudup.com/cQFlxqtY4ob","type":"photo","providerNameSlug":"cloudup","responsive":true} -->
+<figure class="fin-block-embed is-type-photo is-provider-cloudup fin-block-embed-cloudup"><div class="fin-block-embed__wrapper">
 https://cloudup.com/cQFlxqtY4ob
 </div></figure>
-<!-- /fp:embed -->`;
-const FP_EMBED_HTML = `<!-- fp:embed {"url":"https://finpress.org/news/2021/07/tatum/","type":"fp-embed","providerNameSlug":"finpress-news"} -->
-<figure class="fp-block-embed is-type-fp-embed is-provider-finpress-news fp-block-embed-finpress-news"><div class="fp-block-embed__wrapper">
+<!-- /fin:embed -->`;
+const FIN_EMBED_HTML = `<!-- fin:embed {"url":"https://finpress.org/news/2021/07/tatum/","type":"fin-embed","providerNameSlug":"finpress-news"} -->
+<figure class="fin-block-embed is-type-fin-embed is-provider-finpress-news fin-block-embed-finpress-news"><div class="fin-block-embed__wrapper">
 https://finpress.org/news/2021/07/tatum/
 </div></figure>
-<!-- /fp:embed -->`;
+<!-- /fin:embed -->`;
 
 const EMPTY_PARAGRAPH_HTML =
-	'<!-- fp:paragraph --><p></p><!-- /fp:paragraph -->';
+	'<!-- fin:paragraph --><p></p><!-- /fin:paragraph -->';
 
 const MOST_USED_PROVIDERS = embed.settings.variations.filter( ( { name } ) =>
 	[ 'youtube', 'twitter', 'finpress', 'vimeo' ].includes( name )
@@ -137,7 +137,7 @@ const mockEmbedResponses = ( mockedResponses ) => {
 };
 
 async function mockOtherResponses( { path } ) {
-	if ( path.startsWith( '/fp/v2/themes' ) ) {
+	if ( path.startsWith( '/fin/v2/themes' ) ) {
 		return [
 			{
 				stylesheet: 'test-theme',
@@ -146,11 +146,11 @@ async function mockOtherResponses( { path } ) {
 		];
 	}
 
-	if ( path.startsWith( '/fp/v2/block-patterns/patterns' ) ) {
+	if ( path.startsWith( '/fin/v2/block-patterns/patterns' ) ) {
 		return [];
 	}
 
-	if ( path.startsWith( '/fp/v2/block-patterns/categories' ) ) {
+	if ( path.startsWith( '/fin/v2/block-patterns/categories' ) ) {
 		return [];
 	}
 
@@ -784,7 +784,7 @@ describe( 'Embed block', () => {
 				return mockOtherResponses( req );
 			} );
 
-			const editor = await initializeWithEmbedBlock( FP_EMBED_HTML );
+			const editor = await initializeWithEmbedBlock( FIN_EMBED_HTML );
 
 			fireEvent.press( editor.getByText( 'More options' ) );
 			fireEvent.press( editor.getByText( 'Edit link' ) );
@@ -1104,7 +1104,7 @@ describe( 'Embed block', () => {
 		} );
 
 		it( 'does not show media settings panel if responsive is not supported', async () => {
-			const screen = await initializeWithEmbedBlock( FP_EMBED_HTML );
+			const screen = await initializeWithEmbedBlock( FIN_EMBED_HTML );
 
 			// Open Block Settings.
 			fireEvent.press( await screen.findByLabelText( 'Open Settings' ) );

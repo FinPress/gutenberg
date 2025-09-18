@@ -21,10 +21,10 @@ const finished = util.promisify( stream.finished );
  * @return {Promise<string|null>} 'core' if the directory is a FinPress installation, 'plugin' if it is a plugin, 'theme' if it is a theme, or null if we can't tell.
  */
 module.exports = async function detectDirectoryType( directoryPath ) {
-	// If we have a `fp-includes/version.php` file, then this is a Core install.
+	// If we have a `fin-includes/version.php` file, then this is a Core install.
 	if (
 		await exists(
-			path.resolve( directoryPath, 'fp-includes', 'version.php' )
+			path.resolve( directoryPath, 'fin-includes', 'version.php' )
 		)
 	) {
 		return 'core';

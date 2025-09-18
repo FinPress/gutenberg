@@ -60,7 +60,7 @@
 	}
 
 	&:focus {
-		box-shadow: 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
+		box-shadow: 0 0 0 var(--fin-admin-border-width-focus) var(--fin-admin-theme-color);
 
 		// Windows High Contrast mode will show this outline, but not the box-shadow.
 		outline: 2px solid transparent;

@@ -16,15 +16,15 @@ const extractZip = util.promisify( require( 'extract-zip' ) );
 const { rimraf } = require( 'rimraf' );
 
 /**
- * @typedef {import('./config').FPConfig} FPConfig
- * @typedef {import('./config').FPSource} FPSource
+ * @typedef {import('./config').FINConfig} FINConfig
+ * @typedef {import('./config').FINSource} FINSource
  */
 
 /**
  * Download each source for each environment. If the same source is used in
  * multiple environments, it will only be downloaded once.
  *
- * @param {FPConfig} config  The fp-env configuration object.
+ * @param {FINConfig} config  The fin-env configuration object.
  * @param {Object}   spinner The spinner object to show progress.
  * @return {Promise} Returns a promise which resolves when the downloads finish.
  */
@@ -73,7 +73,7 @@ module.exports = function downloadSources( config, spinner ) {
  * Downloads the given source if necessary. The specific action taken depends
  * on the source type. The source is downloaded to source.path.
  *
- * @param {FPSource} source             The source to download.
+ * @param {FINSource} source             The source to download.
  * @param {Object}   options
  * @param {Function} options.onProgress A function called with download progress. Will be invoked with one argument: a number that ranges from 0 to 1 which indicates current download progress for this source.
  * @param {Object}   options.spinner    A CLI spinner which indicates progress.
@@ -91,7 +91,7 @@ async function downloadSource( source, options ) {
  * Clones the git repository at `source.url` into `source.path`. If the
  * repository already exists, it is updated instead.
  *
- * @param {FPSource} source             The source to download.
+ * @param {FINSource} source             The source to download.
  * @param {Object}   options
  * @param {Function} options.onProgress A function called with download progress. Will be invoked with one argument: a number that ranges from 0 to 1 which indicates current download progress for this source.
  * @param {Object}   options.spinner    A CLI spinner which indicates progress.
@@ -141,7 +141,7 @@ async function downloadGitSource( source, { onProgress, spinner, debug } ) {
 /**
  * Downloads and extracts the zip file at `source.url` into `source.path`.
  *
- * @param {FPSource} source             The source to download.
+ * @param {FINSource} source             The source to download.
  * @param {Object}   options
  * @param {Function} options.onProgress A function called with download progress. Will be invoked with one argument: a number that ranges from 0 to 1 which indicates current download progress for this source.
  * @param {Object}   options.spinner    A CLI spinner which indicates progress.

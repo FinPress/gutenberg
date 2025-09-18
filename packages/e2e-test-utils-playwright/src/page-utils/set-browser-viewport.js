@@ -1,13 +1,13 @@
 /**
  * Named viewport options.
  *
- * @typedef {"large"|"medium"|"small"} FPDimensionsName
+ * @typedef {"large"|"medium"|"small"} FINDimensionsName
  */
 
 /**
  * viewport dimensions object.
  *
- * @typedef {Object} FPviewportDimensions
+ * @typedef {Object} FINviewportDimensions
  *
  * @property {number} width  Width, in pixels.
  * @property {number} height Height, in pixels.
@@ -16,9 +16,9 @@
 /**
  * Predefined viewport dimensions to reference by name.
  *
- * @enum {FPviewportDimensions}
+ * @enum {FINviewportDimensions}
  *
- * @type {Record<FPDimensionsName, FPviewportDimensions>}
+ * @type {Record<FINDimensionsName, FINviewportDimensions>}
  */
 const PREDEFINED_DIMENSIONS = {
 	large: { width: 960, height: 700 },
@@ -29,14 +29,14 @@ const PREDEFINED_DIMENSIONS = {
 /**
  * Valid argument argument type from which to derive viewport dimensions.
  *
- * @typedef {FPDimensionsName|FPviewportDimensions} FPviewport
+ * @typedef {FINDimensionsName|FINviewportDimensions} FINviewport
  */
 
 /**
  * Sets browser viewport to specified type.
  *
  * @this {import('./').PageUtils}
- * @param {FPviewport} viewport viewport name or dimensions object to assign.
+ * @param {FINviewport} viewport viewport name or dimensions object to assign.
  */
 export async function setBrowserviewport( viewport ) {
 	const dimensions =

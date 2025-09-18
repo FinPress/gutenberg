@@ -20,7 +20,7 @@ export default function ZoomDropdown() {
 	const { isInProgress, zoom, setZoom } = useImageEditingContext();
 	return (
 		<Dropdown
-			contentClassName="fp-block-image__zoom"
+			contentClassName="fin-block-image__zoom"
 			popoverProps={ POPOVER_PROPS }
 			renderToggle={ ( { isOpen, onToggle } ) => (
 				<ToolbarButton

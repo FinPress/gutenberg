@@ -97,7 +97,7 @@ export type GradientPickerComponentProps = GradientPickerBaseProps & {
 	 * can be safely removed once this happens.)
 	 *
 	 * @default false
-	 * @deprecated Default behavior since FP 6.5. Prop can be safely removed.
+	 * @deprecated Default behavior since FIN 6.5. Prop can be safely removed.
 	 * @ignore
 	 */
 	__nextHasNoMargin?: boolean;

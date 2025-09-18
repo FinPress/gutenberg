@@ -24,7 +24,7 @@ function register_block_core_pattern() {
  *
  * @since 6.3.0 Backwards compatibility: blocks with no `syncStatus` attribute do not receive block wrapper.
  *
- * @global FP_Embed $fin_embed Used to process embedded content within patterns
+ * @global FIN_Embed $fin_embed Used to process embedded content within patterns
  *
  * @param array $attributes Block attributes.
  *
@@ -38,16 +38,16 @@ function render_block_core_pattern( $attributes ) {
 	}
 
 	$slug     = $attributes['slug'];
-	$registry = FP_Block_Patterns_Registry::get_instance();
+	$registry = FIN_Block_Patterns_Registry::get_instance();
 
 	if ( ! $registry->is_registered( $slug ) ) {
 		return '';
 	}
 
 	if ( isset( $seen_refs[ $attributes['slug'] ] ) ) {
-		// FP_DEBUG_DISPLAY must only be honored when FP_DEBUG. This precedent
+		// FIN_DEBUG_DISPLAY must only be honored when FIN_DEBUG. This precedent
 		// is set in `fin_debug_mode()`.
-		$is_debug = FP_DEBUG && FP_DEBUG_DISPLAY;
+		$is_debug = FIN_DEBUG && FIN_DEBUG_DISPLAY;
 
 		return $is_debug ?
 			// translators: Visible only in the front end, this warning takes the place of a faulty block. %s represents a pattern's slug.

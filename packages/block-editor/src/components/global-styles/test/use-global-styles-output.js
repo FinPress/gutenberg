@@ -172,7 +172,7 @@ describe( 'global styles renderer', () => {
 						},
 					},
 					selector:
-						'.my-heading1 a:where(:not(.fp-element-button)), .my-heading2 a:where(:not(.fp-element-button))',
+						'.my-heading1 a:where(:not(.fin-element-button)), .my-heading2 a:where(:not(.fin-element-button))',
 				},
 				{
 					styles: {
@@ -344,7 +344,7 @@ describe( 'global styles renderer', () => {
 			};
 
 			expect( toCustomProperties( tree, blockSelectors ) ).toEqual(
-				':root{--fp--preset--color--white: white;--fp--preset--color--black: black;--fp--preset--color--white-2-black: value;--fp--custom--white-2-black: value;--fp--custom--font-primary: value;--fp--custom--line-height--body: 1.7;--fp--custom--line-height--heading: 1.3;}h1,h2,h3,h4,h5,h6{--fp--preset--font-size--small: 12px;--fp--preset--font-size--medium: 23px;}'
+				':root{--fin--preset--color--white: white;--fin--preset--color--black: black;--fin--preset--color--white-2-black: value;--fin--custom--white-2-black: value;--fin--custom--font-primary: value;--fin--custom--line-height--body: 1.7;--fin--custom--line-height--heading: 1.3;}h1,h2,h3,h4,h5,h6{--fin--preset--font-size--small: 12px;--fin--preset--font-size--medium: 23px;}'
 			);
 		} );
 	} );
@@ -468,21 +468,21 @@ describe( 'global styles renderer', () => {
 
 			const blockSelectors = {
 				'core/group': {
-					selector: '.fp-block-group',
+					selector: '.fin-block-group',
 				},
 				'core/heading': {
 					selector: 'h1,h2,h3,h4,h5,h6',
 				},
 				'core/image': {
-					selector: '.fp-block-image',
+					selector: '.fin-block-image',
 					featureSelectors: {
-						border: '.fp-block-image img, .fp-block-image .fp-crop-area',
+						border: '.fin-block-image img, .fin-block-image .fin-crop-area',
 					},
 				},
 			};
 
 			expect( toStyles( tree, blockSelectors ) ).toEqual(
-				':where(body) {margin: 0;}.is-layout-flow > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-flow > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-flow > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-constrained > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-constrained > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) { max-width: var(--fp--style--global--content-size); margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignwide { max-width: var(--fp--style--global--wide-size); }body .is-layout-flex { display:flex; }.is-layout-flex { flex-wrap: wrap; align-items: center; }.is-layout-flex > :is(*, div) { margin: 0; }body .is-layout-grid { display:grid; }.is-layout-grid > :is(*, div) { margin: 0; }body{background-color: red;margin: 10px;padding: 10px;}a:where(:not(.fp-element-button)){color: blue;}:root :where(a:where(:not(.fp-element-button)):hover){color: orange;}:root :where(a:where(:not(.fp-element-button)):focus){color: orange;}h1{font-size: 42px;}:root :where(.fp-block-group){margin-top: 10px;margin-right: 20px;margin-bottom: 30px;margin-left: 40px;padding-top: 11px;padding-right: 22px;padding-bottom: 33px;padding-left: 44px;}:root :where(h1,h2,h3,h4,h5,h6){color: orange;}:root :where(h1 a:where(:not(.fp-element-button)),h2 a:where(:not(.fp-element-button)),h3 a:where(:not(.fp-element-button)),h4 a:where(:not(.fp-element-button)),h5 a:where(:not(.fp-element-button)),h6 a:where(:not(.fp-element-button))){color: hotpink;}:root :where(h1 a:where(:not(.fp-element-button)):hover,h2 a:where(:not(.fp-element-button)):hover,h3 a:where(:not(.fp-element-button)):hover,h4 a:where(:not(.fp-element-button)):hover,h5 a:where(:not(.fp-element-button)):hover,h6 a:where(:not(.fp-element-button)):hover){color: red;}:root :where(h1 a:where(:not(.fp-element-button)):focus,h2 a:where(:not(.fp-element-button)):focus,h3 a:where(:not(.fp-element-button)):focus,h4 a:where(:not(.fp-element-button)):focus,h5 a:where(:not(.fp-element-button)):focus,h6 a:where(:not(.fp-element-button)):focus){color: red;}:root :where(.fp-block-image img, .fp-block-image .fp-crop-area){border-radius: 9999px;}:root :where(.fp-block-image){color: red;}.fp-site-blocks > .alignleft { float: left; margin-right: 2em; }.fp-site-blocks > .alignright { float: right; margin-left: 2em; }.fp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }.has-white-color{color: var(--fp--preset--color--white) !important;}.has-white-background-color{background-color: var(--fp--preset--color--white) !important;}.has-white-border-color{border-color: var(--fp--preset--color--white) !important;}.has-black-color{color: var(--fp--preset--color--black) !important;}.has-black-background-color{background-color: var(--fp--preset--color--black) !important;}.has-black-border-color{border-color: var(--fp--preset--color--black) !important;}h1.has-blue-color,h2.has-blue-color,h3.has-blue-color,h4.has-blue-color,h5.has-blue-color,h6.has-blue-color{color: var(--fp--preset--color--blue) !important;}h1.has-blue-background-color,h2.has-blue-background-color,h3.has-blue-background-color,h4.has-blue-background-color,h5.has-blue-background-color,h6.has-blue-background-color{background-color: var(--fp--preset--color--blue) !important;}h1.has-blue-border-color,h2.has-blue-border-color,h3.has-blue-border-color,h4.has-blue-border-color,h5.has-blue-border-color,h6.has-blue-border-color{border-color: var(--fp--preset--color--blue) !important;}'
+				':where(body) {margin: 0;}.is-layout-flow > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-flow > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-flow > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-constrained > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-constrained > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) { max-width: var(--fin--style--global--content-size); margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignwide { max-width: var(--fin--style--global--wide-size); }body .is-layout-flex { display:flex; }.is-layout-flex { flex-wrap: wrap; align-items: center; }.is-layout-flex > :is(*, div) { margin: 0; }body .is-layout-grid { display:grid; }.is-layout-grid > :is(*, div) { margin: 0; }body{background-color: red;margin: 10px;padding: 10px;}a:where(:not(.fin-element-button)){color: blue;}:root :where(a:where(:not(.fin-element-button)):hover){color: orange;}:root :where(a:where(:not(.fin-element-button)):focus){color: orange;}h1{font-size: 42px;}:root :where(.fin-block-group){margin-top: 10px;margin-right: 20px;margin-bottom: 30px;margin-left: 40px;padding-top: 11px;padding-right: 22px;padding-bottom: 33px;padding-left: 44px;}:root :where(h1,h2,h3,h4,h5,h6){color: orange;}:root :where(h1 a:where(:not(.fin-element-button)),h2 a:where(:not(.fin-element-button)),h3 a:where(:not(.fin-element-button)),h4 a:where(:not(.fin-element-button)),h5 a:where(:not(.fin-element-button)),h6 a:where(:not(.fin-element-button))){color: hotpink;}:root :where(h1 a:where(:not(.fin-element-button)):hover,h2 a:where(:not(.fin-element-button)):hover,h3 a:where(:not(.fin-element-button)):hover,h4 a:where(:not(.fin-element-button)):hover,h5 a:where(:not(.fin-element-button)):hover,h6 a:where(:not(.fin-element-button)):hover){color: red;}:root :where(h1 a:where(:not(.fin-element-button)):focus,h2 a:where(:not(.fin-element-button)):focus,h3 a:where(:not(.fin-element-button)):focus,h4 a:where(:not(.fin-element-button)):focus,h5 a:where(:not(.fin-element-button)):focus,h6 a:where(:not(.fin-element-button)):focus){color: red;}:root :where(.fin-block-image img, .fin-block-image .fin-crop-area){border-radius: 9999px;}:root :where(.fin-block-image){color: red;}.fin-site-blocks > .alignleft { float: left; margin-right: 2em; }.fin-site-blocks > .alignright { float: right; margin-left: 2em; }.fin-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }.has-white-color{color: var(--fin--preset--color--white) !important;}.has-white-background-color{background-color: var(--fin--preset--color--white) !important;}.has-white-border-color{border-color: var(--fin--preset--color--white) !important;}.has-black-color{color: var(--fin--preset--color--black) !important;}.has-black-background-color{background-color: var(--fin--preset--color--black) !important;}.has-black-border-color{border-color: var(--fin--preset--color--black) !important;}h1.has-blue-color,h2.has-blue-color,h3.has-blue-color,h4.has-blue-color,h5.has-blue-color,h6.has-blue-color{color: var(--fin--preset--color--blue) !important;}h1.has-blue-background-color,h2.has-blue-background-color,h3.has-blue-background-color,h4.has-blue-background-color,h5.has-blue-background-color,h6.has-blue-background-color{background-color: var(--fin--preset--color--blue) !important;}h1.has-blue-border-color,h2.has-blue-border-color,h3.has-blue-border-color,h4.has-blue-border-color,h5.has-blue-border-color,h6.has-blue-border-color{border-color: var(--fin--preset--color--blue) !important;}'
 			);
 		} );
 
@@ -510,19 +510,19 @@ describe( 'global styles renderer', () => {
 
 			const blockSelectors = {
 				'core/image': {
-					selector: '.fp-image',
+					selector: '.fin-image',
 					featureSelectors: {
-						spacing: '.fp-image-spacing',
+						spacing: '.fin-image-spacing',
 						border: {
-							root: '.fp-image-border',
-							color: '.fp-image-border-color',
+							root: '.fin-image-border',
+							color: '.fin-image-border-color',
 						},
 					},
 				},
 			};
 
 			expect( toStyles( Object.freeze( tree ), blockSelectors ) ).toEqual(
-				':where(body) {margin: 0;}.is-layout-flow > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-flow > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-flow > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-constrained > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-constrained > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) { max-width: var(--fp--style--global--content-size); margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignwide { max-width: var(--fp--style--global--wide-size); }body .is-layout-flex { display:flex; }.is-layout-flex { flex-wrap: wrap; align-items: center; }.is-layout-flex > :is(*, div) { margin: 0; }body .is-layout-grid { display:grid; }.is-layout-grid > :is(*, div) { margin: 0; }:root :where(.fp-image-spacing){padding-top: 1px;}:root :where(.fp-image-border-color){border-color: red;}:root :where(.fp-image-border){border-radius: 9999px;}:root :where(.fp-image){color: red;}.fp-site-blocks > .alignleft { float: left; margin-right: 2em; }.fp-site-blocks > .alignright { float: right; margin-left: 2em; }.fp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }'
+				':where(body) {margin: 0;}.is-layout-flow > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-flow > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-flow > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-constrained > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-constrained > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) { max-width: var(--fin--style--global--content-size); margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignwide { max-width: var(--fin--style--global--wide-size); }body .is-layout-flex { display:flex; }.is-layout-flex { flex-wrap: wrap; align-items: center; }.is-layout-flex > :is(*, div) { margin: 0; }body .is-layout-grid { display:grid; }.is-layout-grid > :is(*, div) { margin: 0; }:root :where(.fin-image-spacing){padding-top: 1px;}:root :where(.fin-image-border-color){border-color: red;}:root :where(.fin-image-border){border-radius: 9999px;}:root :where(.fin-image){color: red;}.fin-site-blocks > .alignleft { float: left; margin-right: 2em; }.fin-site-blocks > .alignright { float: right; margin-left: 2em; }.fin-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }'
 			);
 		} );
 
@@ -553,16 +553,16 @@ describe( 'global styles renderer', () => {
 
 			const blockSelectors = {
 				'core/image': {
-					selector: '.fp-image',
+					selector: '.fin-image',
 					featureSelectors: {
-						spacing: '.fp-image-spacing',
+						spacing: '.fin-image-spacing',
 						border: {
-							root: '.fp-image-border',
-							color: '.fp-image-border-color',
+							root: '.fin-image-border',
+							color: '.fin-image-border-color',
 						},
 					},
 					styleVariationSelectors: {
-						foo: '.is-style-foo.fp-image',
+						foo: '.is-style-foo.fin-image',
 					},
 				},
 			};
@@ -604,7 +604,7 @@ describe( 'global styles renderer', () => {
 				styleOptions
 			);
 			expect( withVariations ).toEqual(
-				':root :where(.is-style-foo.fp-image.fp-image-spacing){padding-top: 2px;}:root :where(.is-style-foo.fp-image.fp-image-border-color){border-color: blue;}:root :where(.is-style-foo.fp-image){color: blue;}'
+				':root :where(.is-style-foo.fin-image.fin-image-spacing){padding-top: 2px;}:root :where(.is-style-foo.fin-image.fin-image-border-color){border-color: blue;}:root :where(.is-style-foo.fin-image){color: blue;}'
 			);
 		} );
 
@@ -623,13 +623,13 @@ describe( 'global styles renderer', () => {
 
 			const blockSelectors = {
 				'core/image': {
-					selector: '.fp-image',
-					duotoneSelector: '.fp-image img',
+					selector: '.fin-image',
+					duotoneSelector: '.fin-image img',
 				},
 			};
 
 			expect( toStyles( Object.freeze( tree ), blockSelectors ) ).toEqual(
-				':where(body) {margin: 0;}.is-layout-flow > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-flow > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-flow > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-constrained > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-constrained > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) { max-width: var(--fp--style--global--content-size); margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignwide { max-width: var(--fp--style--global--wide-size); }body .is-layout-flex { display:flex; }.is-layout-flex { flex-wrap: wrap; align-items: center; }.is-layout-flex > :is(*, div) { margin: 0; }body .is-layout-grid { display:grid; }.is-layout-grid > :is(*, div) { margin: 0; }.fp-image img{filter: blur(5px);}.fp-site-blocks > .alignleft { float: left; margin-right: 2em; }.fp-site-blocks > .alignright { float: right; margin-left: 2em; }.fp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }'
+				':where(body) {margin: 0;}.is-layout-flow > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-flow > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-flow > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-constrained > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-constrained > .aligncenter { margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) { max-width: var(--fin--style--global--content-size); margin-left: auto !important; margin-right: auto !important; }.is-layout-constrained > .alignwide { max-width: var(--fin--style--global--wide-size); }body .is-layout-flex { display:flex; }.is-layout-flex { flex-wrap: wrap; align-items: center; }.is-layout-flex > :is(*, div) { margin: 0; }body .is-layout-grid { display:grid; }.is-layout-grid > :is(*, div) { margin: 0; }.fin-image img{filter: blur(5px);}.fin-site-blocks > .alignleft { float: left; margin-right: 2em; }.fin-site-blocks > .alignright { float: right; margin-left: 2em; }.fin-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }'
 			);
 		} );
 
@@ -643,7 +643,7 @@ describe( 'global styles renderer', () => {
 				},
 			};
 			expect( toStyles( Object.freeze( tree ), 'body' ) ).toEqual(
-				':root { --fp--style--global--content-size: 840px; --fp--style--global--wide-size: 1100px;}:where(body) {margin: 0;}.fp-site-blocks > .alignleft { float: left; margin-right: 2em; }.fp-site-blocks > .alignright { float: right; margin-left: 2em; }.fp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }'
+				':root { --fin--style--global--content-size: 840px; --fin--style--global--wide-size: 1100px;}:where(body) {margin: 0;}.fin-site-blocks > .alignleft { float: left; margin-right: 2em; }.fin-site-blocks > .alignright { float: right; margin-left: 2em; }.fin-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }'
 			);
 		} );
 	} );
@@ -763,7 +763,7 @@ describe( 'global styles renderer', () => {
 			} );
 
 			expect( layoutStyles ).toEqual(
-				':root :where(.is-layout-flow) > * { margin-block-start: 0; margin-block-end: 0; }:root :where(.is-layout-flow) > * + * { margin-block-start: 0.5em; margin-block-end: 0; }:root :where(.is-layout-flex) { gap: 0.5em; }:root { --fp--style--block-gap: 0.5em; }.is-layout-flow > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-flow > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-flow > .aligncenter { margin-left: auto !important; margin-right: auto !important; }body .is-layout-flex { display:flex; }.is-layout-flex { flex-wrap: wrap; align-items: center; }.is-layout-flex > * { margin: 0; }'
+				':root :where(.is-layout-flow) > * { margin-block-start: 0; margin-block-end: 0; }:root :where(.is-layout-flow) > * + * { margin-block-start: 0.5em; margin-block-end: 0; }:root :where(.is-layout-flex) { gap: 0.5em; }:root { --fin--style--block-gap: 0.5em; }.is-layout-flow > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-flow > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-flow > .aligncenter { margin-left: auto !important; margin-right: auto !important; }body .is-layout-flex { display:flex; }.is-layout-flex { flex-wrap: wrap; align-items: center; }.is-layout-flex > * { margin: 0; }'
 			);
 		} );
 
@@ -780,7 +780,7 @@ describe( 'global styles renderer', () => {
 			} );
 
 			expect( layoutStyles ).toEqual(
-				':root :where(.is-layout-flow) > * { margin-block-start: 0; margin-block-end: 0; }:root :where(.is-layout-flow) > * + * { margin-block-start: 12px; margin-block-end: 0; }:root :where(.is-layout-flex) { gap: 12px; }:root { --fp--style--block-gap: 12px; }.is-layout-flow > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-flow > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-flow > .aligncenter { margin-left: auto !important; margin-right: auto !important; }body .is-layout-flex { display:flex; }.is-layout-flex { flex-wrap: wrap; align-items: center; }.is-layout-flex > * { margin: 0; }'
+				':root :where(.is-layout-flow) > * { margin-block-start: 0; margin-block-end: 0; }:root :where(.is-layout-flow) > * + * { margin-block-start: 12px; margin-block-end: 0; }:root :where(.is-layout-flex) { gap: 12px; }:root { --fin--style--block-gap: 12px; }.is-layout-flow > .alignleft { float: left; margin-inline-start: 0; margin-inline-end: 2em; }.is-layout-flow > .alignright { float: right; margin-inline-start: 2em; margin-inline-end: 0; }.is-layout-flow > .aligncenter { margin-left: auto !important; margin-right: auto !important; }body .is-layout-flex { display:flex; }.is-layout-flex { flex-wrap: wrap; align-items: center; }.is-layout-flex > * { margin: 0; }'
 			);
 		} );
 
@@ -791,13 +791,13 @@ describe( 'global styles renderer', () => {
 				layoutDefinitions:
 					layoutDefinitionsTree.settings.layout.definitions,
 				style,
-				selector: '.fp-block-group',
+				selector: '.fin-block-group',
 				hasBlockGapSupport: true,
 				hasFallbackGapSupport: true,
 			} );
 
 			expect( layoutStyles ).toEqual(
-				':root :where(.fp-block-group-is-layout-flow) > * { margin-block-start: 0; margin-block-end: 0; }:root :where(.fp-block-group-is-layout-flow) > * + * { margin-block-start: 12px; margin-block-end: 0; }:root :where(.fp-block-group-is-layout-flex) { gap: 12px; }'
+				':root :where(.fin-block-group-is-layout-flow) > * { margin-block-start: 0; margin-block-end: 0; }:root :where(.fin-block-group-is-layout-flow) > * + * { margin-block-start: 12px; margin-block-end: 0; }:root :where(.fin-block-group-is-layout-flex) { gap: 12px; }'
 			);
 		} );
 
@@ -808,14 +808,14 @@ describe( 'global styles renderer', () => {
 				layoutDefinitions:
 					layoutDefinitionsTree.settings.layout.definitions,
 				style,
-				selector: '.fp-block-group',
+				selector: '.fin-block-group',
 				hasBlockGapSupport: false, // This means that the fallback value will be used instead of the "real" one.
 				hasFallbackGapSupport: true,
 				fallbackGapValue: '2em',
 			} );
 
 			expect( layoutStyles ).toEqual(
-				':where(.fp-block-group.is-layout-flex) { gap: 2em; }'
+				':where(.fin-block-group.is-layout-flex) { gap: 2em; }'
 			);
 		} );
 	} );
@@ -906,11 +906,11 @@ describe( 'global styles renderer', () => {
 			expect(
 				getStylesDeclarations( blockStyles, 'body', true )
 			).toEqual( [
-				'--fp--style--root--padding-top: 33px',
-				'--fp--style--root--padding-right: 33px',
-				'--fp--style--root--padding-bottom: 33px',
-				'--fp--style--root--padding-left: 33px',
-				'background-color: var(--fp--preset--color--light-green-cyan)',
+				'--fin--style--root--padding-top: 33px',
+				'--fin--style--root--padding-right: 33px',
+				'--fin--style--root--padding-bottom: 33px',
+				'--fin--style--root--padding-left: 33px',
+				'background-color: var(--fin--preset--color--light-green-cyan)',
 				'font-family: sans-serif',
 				'font-size: 15px',
 			] );
@@ -920,7 +920,7 @@ describe( 'global styles renderer', () => {
 			expect(
 				getStylesDeclarations( blockStyles, 'body', false )
 			).toEqual( [
-				'background-color: var(--fp--preset--color--light-green-cyan)',
+				'background-color: var(--fin--preset--color--light-green-cyan)',
 				'padding-top: 33px',
 				'padding-right: 33px',
 				'padding-bottom: 33px',
@@ -934,11 +934,11 @@ describe( 'global styles renderer', () => {
 			expect(
 				getStylesDeclarations(
 					blockStyles,
-					'.fp-block-button__link',
+					'.fin-block-button__link',
 					true
 				)
 			).toEqual( [
-				'background-color: var(--fp--preset--color--light-green-cyan)',
+				'background-color: var(--fin--preset--color--light-green-cyan)',
 				'padding-top: 33px',
 				'padding-right: 33px',
 				'padding-bottom: 33px',
@@ -952,7 +952,7 @@ describe( 'global styles renderer', () => {
 			expect(
 				getStylesDeclarations(
 					blockStyles,
-					'.fp-block-site-title',
+					'.fin-block-site-title',
 					true,
 					{
 						settings: {
@@ -963,7 +963,7 @@ describe( 'global styles renderer', () => {
 					}
 				)
 			).toEqual( [
-				'background-color: var(--fp--preset--color--light-green-cyan)',
+				'background-color: var(--fin--preset--color--light-green-cyan)',
 				'padding-top: 33px',
 				'padding-right: 33px',
 				'padding-bottom: 33px',
@@ -977,7 +977,7 @@ describe( 'global styles renderer', () => {
 			expect(
 				getStylesDeclarations(
 					blockStyles,
-					'.fp-block-site-title',
+					'.fin-block-site-title',
 					true,
 					{
 						settings: {
@@ -988,7 +988,7 @@ describe( 'global styles renderer', () => {
 					}
 				)
 			).toEqual( [
-				'background-color: var(--fp--preset--color--light-green-cyan)',
+				'background-color: var(--fin--preset--color--light-green-cyan)',
 				'padding-top: 33px',
 				'padding-right: 33px',
 				'padding-bottom: 33px',
@@ -1036,9 +1036,9 @@ describe( 'global styles renderer', () => {
 				},
 			};
 			expect(
-				getStylesDeclarations( stylesWithRef, '.fp-block', false, tree )
+				getStylesDeclarations( stylesWithRef, '.fin-block', false, tree )
 			).toEqual( [
-				'font-size: var(--fp--preset--font-size--xx-large)',
+				'font-size: var(--fin--preset--font-size--xx-large)',
 				'letter-spacing: 2px',
 				"background-image: url( 'http://my-image.org/image.gif' )",
 				'background-size: cover',
@@ -1054,7 +1054,7 @@ describe( 'global styles renderer', () => {
 				},
 			};
 			expect(
-				getStylesDeclarations( backgroundStyles, '.fp-block-group' )
+				getStylesDeclarations( backgroundStyles, '.fin-block-group' )
 			).toEqual( [
 				"background-image: url( 'https://finpress.org/assets/image.jpg' )",
 				'background-size: cover',
@@ -1073,7 +1073,7 @@ describe( 'global styles renderer', () => {
 							backgroundSize: 'contain',
 						},
 					},
-					'.fp-block-group'
+					'.fin-block-group'
 				)
 			).toEqual( [
 				"background-image: url( 'https://finpress.org/assets/image.jpg' )",

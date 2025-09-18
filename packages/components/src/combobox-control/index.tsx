@@ -331,7 +331,7 @@ function ComboboxControl( props: ComboboxControlProps ) {
 		<DetectOutside onFocusOutside={ onFocusOutside }>
 			<BaseControl
 				__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-				__associatedFPComponentName="ComboboxControl"
+				__associatedFINComponentName="ComboboxControl"
 				className={ clsx( className, 'components-combobox-control' ) }
 				label={ label }
 				id={ `components-form-token-input-${ instanceId }` }

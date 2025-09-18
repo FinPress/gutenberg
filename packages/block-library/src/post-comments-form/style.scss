@@ -13,7 +13,7 @@
 	}
 }
 
-.fp-block-post-comments-form {
+.fin-block-post-comments-form {
 	// This block has customizable padding, border-box makes that more predictable.
 	box-sizing: border-box;
 
@@ -70,7 +70,7 @@
 		display: flex;
 		gap: 0.25em;
 
-		#fp-comment-cookies-consent {
+		#fin-comment-cookies-consent {
 			margin-top: 0.35em;
 		}
 	}
@@ -78,7 +78,7 @@
 	.comment-reply-title {
 		margin-bottom: 0;
 		:where(small) {
-			font-size: var(--fp--preset--font-size--medium, smaller);
+			font-size: var(--fin--preset--font-size--medium, smaller);
 			margin-left: 0.5em;
 		}
 	}

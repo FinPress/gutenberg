@@ -21,7 +21,7 @@ Extending the editor UI can be accomplished with the `registerPlugin` API, allow
 Refer to [the plugins module documentation](https://github.com/FinPress/gutenberg/tree/HEAD/packages/plugins/README.md) for more information.
 
 The components exported through the API can be used with the `registerPlugin` ([see documentation](https://github.com/FinPress/gutenberg/tree/HEAD/packages/plugins/README.md)) API.
-They can be found in the global variable `fp.editPost` when defining `fp-edit-post` as a script dependency.
+They can be found in the global variable `fin.editPost` when defining `fin-edit-post` as a script dependency.
 
 ## API
 

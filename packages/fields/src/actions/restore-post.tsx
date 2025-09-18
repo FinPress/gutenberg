@@ -22,7 +22,7 @@ const restorePost: Action< PostWithPermissions > = {
 	isEligible( item ) {
 		return (
 			! isTemplateOrTemplatePart( item ) &&
-			item.type !== 'fp_block' &&
+			item.type !== 'fin_block' &&
 			item.status === 'trash' &&
 			item.permissions?.update
 		);

@@ -30,9 +30,9 @@
 			"import": "./build-module/index.js",
 			"default": "./build/index.js"
 		},
-		"./fp": {
+		"./fin": {
 			"types": "./build-types/index.d.ts",
-			"default": "./build-fp/index.js"
+			"default": "./build-fin/index.js"
 		},
 		"./package.json": {
 			"default": "./package.json"
@@ -40,7 +40,7 @@
 		"./build-style/": "./build-style/"
 	},
 	"react-native": "src/index",
-	"fpScript": true,
+	"finScript": true,
 	"types": "build-types",
 	"sideEffects": false,
 	"dependencies": {
@@ -72,6 +72,6 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build:fp": "node build"
+		"build:fin": "node build"
 	}
 }

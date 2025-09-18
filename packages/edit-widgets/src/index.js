@@ -105,7 +105,7 @@ export function initializeEditor( id, settings ) {
 export const initialize = initializeEditor;
 
 export function reinitializeEditor() {
-	deprecated( 'fp.editWidgets.reinitializeEditor', {
+	deprecated( 'fin.editWidgets.reinitializeEditor', {
 		since: '6.2',
 		version: '6.3',
 	} );

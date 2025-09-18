@@ -21,14 +21,14 @@ const { baseConfig, plugins, stylesTransform } = require( './shared' );
  * the block will still call the core function when updates are back ported.
  */
 const prefixFunctions = [
-	'fp_apply_colors_support',
-	'fp_enqueue_block_support_styles',
-	'fp_get_typography_font_size_value',
-	'fp_style_engine_get_styles',
-	'fp_get_global_settings',
+	'fin_apply_colors_support',
+	'fin_enqueue_block_support_styles',
+	'fin_get_typography_font_size_value',
+	'fin_style_engine_get_styles',
+	'fin_get_global_settings',
 ];
 
-const classesToSuffix = [ 'FP_Navigation_Block_Renderer' ];
+const classesToSuffix = [ 'FIN_Navigation_Block_Renderer' ];
 
 /**
  * Escapes the RegExp special characters.
@@ -139,7 +139,7 @@ module.exports = [
 									),
 									( match ) =>
 										`${ prefix }${ match.replace(
-											/^fp_/,
+											/^fin_/,
 											''
 										) }`
 								);
@@ -168,7 +168,7 @@ module.exports = [
 										.reduce(
 											( result, [ , functionName ] ) => {
 												// Prepend the Gutenberg prefix, substituting any
-												// other core prefix (e.g. "fp_").
+												// other core prefix (e.g. "fin_").
 												return result.replace(
 													new RegExp(
 														functionName +
@@ -178,7 +178,7 @@ module.exports = [
 													( match ) =>
 														prefix +
 														match.replace(
-															/^fp_/,
+															/^fin_/,
 															''
 														)
 												);

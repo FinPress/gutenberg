@@ -36,7 +36,7 @@ function PlaceholderContent( { clientId } ) {
 	return (
 		<>
 			<Placeholder
-				className="fp-block-widget-group__placeholder"
+				className="fin-block-widget-group__placeholder"
 				icon={ <BlockIcon icon={ groupIcon } /> }
 				label={ __( 'Widget Group' ) }
 			>

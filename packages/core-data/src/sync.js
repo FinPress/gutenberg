@@ -16,7 +16,7 @@ export function getSyncProvider() {
 			createWebRTCConnection( {
 				signaling: [
 					//'ws://localhost:4444',
-					window?.fp?.ajax?.settings?.url,
+					window?.fin?.ajax?.settings?.url,
 				],
 				password: window?.__experimentalCollaborativeEditingSecret,
 			} )

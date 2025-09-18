@@ -13,7 +13,7 @@
  *
  * @param array    $attributes The block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  *
  * @return string Returns the categories list/dropdown markup.
  */
@@ -71,7 +71,7 @@ function render_block_core_categories( $attributes, $content, $block ) {
 		$type           = 'list';
 
 		if ( ! empty( $block->context['enhancedPagination'] ) ) {
-			$p = new FP_HTML_Tag_Processor( $items_markup );
+			$p = new FIN_HTML_Tag_Processor( $items_markup );
 			while ( $p->next_tag( 'a' ) ) {
 				$p->set_attribute( 'data-fin-on--click', 'core/query::actions.navigate' );
 			}

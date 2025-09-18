@@ -15,16 +15,16 @@ import { __ } from '@finpress/i18n';
  */
 import { store as blockEditorStore } from '../../store';
 
-/** @typedef {import('@finpress/blocks').FPIcon} FPIcon */
+/** @typedef {import('@finpress/blocks').FINIcon} FINIcon */
 
 /**
  * Contains basic block's information for display reasons.
  *
- * @typedef {Object} FPBlockDisplayInformation
+ * @typedef {Object} FINBlockDisplayInformation
  *
  * @property {boolean} isSynced    True if is a reusable block or template part
  * @property {string}  title       Human-readable block type label.
- * @property {FPIcon}  icon        Block type icon.
+ * @property {FINIcon}  icon        Block type icon.
  * @property {string}  description A detailed block type description.
  * @property {string}  anchor      HTML anchor.
  * @property {name}    name        A custom, human readable name for the block.
@@ -62,7 +62,7 @@ function getPositionTypeLabel( attributes ) {
  * If no blockType is found with the provided clientId, returns null.
  *
  * @param {string} clientId Block's client id.
- * @return {?FPBlockDisplayInformation} Block's display information, or `null` when the block or its type not found.
+ * @return {?FINBlockDisplayInformation} Block's display information, or `null` when the block or its type not found.
  */
 
 export default function useBlockDisplayInformation( clientId ) {

@@ -57,7 +57,7 @@ export default function WidgetAreasBlockEditorProvider( {
 					name: 'attachment',
 				} ) ?? true,
 			reusableBlocks: ALLOW_REUSABLE_BLOCKS
-				? getEntityRecords( 'postType', 'fp_block' )
+				? getEntityRecords( 'postType', 'fin_block' )
 				: EMPTY_ARRAY,
 			isFixedToolbarActive: !! select( preferencesStore ).get(
 				'core/edit-widgets',
@@ -78,7 +78,7 @@ export default function WidgetAreasBlockEditorProvider( {
 		if ( hasUploadPermissions ) {
 			mediaUploadBlockEditor = ( { onError, ...argumentsObject } ) => {
 				uploadMedia( {
-					fpAllowedMimeTypes: blockEditorSettings.allowedMimeTypes,
+					finAllowedMimeTypes: blockEditorSettings.allowedMimeTypes,
 					onError: ( { message } ) => onError( message ),
 					...argumentsObject,
 				} );

@@ -1,4 +1,4 @@
-.fp-block-embed {
+.fin-block-embed {
 	// Remove the left and right margin the figure is born with.
 	margin-left: 0;
 	margin-right: 0;
@@ -12,7 +12,7 @@
 		justify-content: center;
 	}
 
-	.fp-block-embed__placeholder-input {
+	.fin-block-embed__placeholder-input {
 		flex: 1 1 auto;
 	}
 
@@ -22,10 +22,10 @@
 	}
 }
 
-.fp-block-embed__learn-more {
-	@at-root .fp-block-post-content & {
+.fin-block-embed__learn-more {
+	@at-root .fin-block-post-content & {
 		a {
-			color: var(--fp-admin-theme-color);
+			color: var(--fin-admin-theme-color);
 		}
 	}
 }
@@ -39,14 +39,14 @@
 	opacity: 0;
 }
 
-.fp-block[data-align="left"],
-.fp-block[data-align="right"] {
-	> .fp-block-embed {
+.fin-block[data-align="left"],
+.fin-block[data-align="right"] {
+	> .fin-block-embed {
 		max-width: 360px;
 		width: 100%;
 
 		// Unless these have a min-width, they collapse when floated.
-		.fp-block-embed__wrapper {
+		.fin-block-embed__wrapper {
 			min-width: $break-zoomed-in;
 		}
 	}

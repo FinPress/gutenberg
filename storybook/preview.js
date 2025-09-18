@@ -85,7 +85,7 @@ export const globalTypes = {
 			icon: 'outline',
 			items: [
 				{ value: 'none', title: 'None' },
-				{ value: 'finpress-sidebar', title: 'FP Sidebar' },
+				{ value: 'finpress-sidebar', title: 'FIN Sidebar' },
 				{ value: 'small-container', title: 'Small container' },
 				{ value: 'large-container', title: 'Large container' },
 			],

@@ -36,7 +36,7 @@ export interface UserRequestData {
 async function listUsers( this: RequestUtils ) {
 	const response = await this.rest< User[] >( {
 		method: 'GET',
-		path: '/fp/v2/users',
+		path: '/fin/v2/users',
 		params: {
 			per_page: 100,
 		},
@@ -76,7 +76,7 @@ async function createUser( this: RequestUtils, user: UserData ) {
 
 	const response = await this.rest< User >( {
 		method: 'POST',
-		path: '/fp/v2/users',
+		path: '/fin/v2/users',
 		data: userData,
 	} );
 
@@ -93,7 +93,7 @@ async function createUser( this: RequestUtils, user: UserData ) {
 async function deleteUser( this: RequestUtils, userId: number ) {
 	const response = await this.rest( {
 		method: 'DELETE',
-		path: `/fp/v2/users/${ userId }`,
+		path: `/fin/v2/users/${ userId }`,
 		params: { force: true, reassign: 1 },
 	} );
 

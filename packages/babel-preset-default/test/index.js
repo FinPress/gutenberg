@@ -35,11 +35,11 @@ describe( 'Babel preset default', () => {
 			envName: 'production',
 			presets: [ babelPresetDefault ],
 			caller: {
-				name: 'FP_BUILD_MAIN',
+				name: 'FIN_BUILD_MAIN',
 				addPolyfillComments: true,
 			},
 		} );
 
-		expect( output.code ).toContain( '/* fp:polyfill */' );
+		expect( output.code ).toContain( '/* fin:polyfill */' );
 	} );
 } );

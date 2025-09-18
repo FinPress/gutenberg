@@ -1,30 +1,30 @@
-/** @typedef {import('@finpress/keycodes').FPKeycodeModifier} FPKeycodeModifier */
+/** @typedef {import('@finpress/keycodes').FINKeycodeModifier} FINKeycodeModifier */
 
 /**
  * Keyboard key combination.
  *
- * @typedef {Object} FPShortcutKeyCombination
+ * @typedef {Object} FINShortcutKeyCombination
  *
  * @property {string}                      character Character.
- * @property {FPKeycodeModifier|undefined} modifier  Modifier.
+ * @property {FINKeycodeModifier|undefined} modifier  Modifier.
  */
 
 /**
  * Configuration of a registered keyboard shortcut.
  *
- * @typedef {Object} FPShortcutConfig
+ * @typedef {Object} FINShortcutConfig
  *
  * @property {string}                     name           Shortcut name.
  * @property {string}                     category       Shortcut category.
  * @property {string}                     description    Shortcut description.
- * @property {FPShortcutKeyCombination}   keyCombination Shortcut key combination.
- * @property {FPShortcutKeyCombination[]} [aliases]      Shortcut aliases.
+ * @property {FINShortcutKeyCombination}   keyCombination Shortcut key combination.
+ * @property {FINShortcutKeyCombination[]} [aliases]      Shortcut aliases.
  */
 
 /**
  * Returns an action object used to register a new keyboard shortcut.
  *
- * @param {FPShortcutConfig} config Shortcut config.
+ * @param {FINShortcutConfig} config Shortcut config.
  *
  * @example
  *

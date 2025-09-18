@@ -10,17 +10,17 @@ const exclusions = require( './polyfill-exclusions' );
 const replacePolyfills = require( './replace-polyfills' );
 
 module.exports = ( api ) => {
-	let fpBuildOpts = {};
-	const isFPBuild = ( name ) =>
-		[ 'FP_BUILD_MAIN', 'FP_BUILD_MODULE' ].some(
+	let finBuildOpts = {};
+	const isFINBuild = ( name ) =>
+		[ 'FIN_BUILD_MAIN', 'FIN_BUILD_MODULE' ].some(
 			( buildName ) => name === buildName
 		);
 
 	const isTestEnv = api.env() === 'test';
 
 	api.caller( ( caller ) => {
-		if ( caller && isFPBuild( caller.name ) ) {
-			fpBuildOpts = { ...caller };
+		if ( caller && isFINBuild( caller.name ) ) {
+			finBuildOpts = { ...caller };
 			return caller.name;
 		}
 		return undefined;
@@ -33,7 +33,7 @@ module.exports = ( api ) => {
 				'proposal-nullish-coalescing-operator',
 				'proposal-logical-assignment-operators',
 			],
-			...( fpBuildOpts.addPolyfillComments
+			...( finBuildOpts.addPolyfillComments
 				? {
 						useBuiltIns: 'usage',
 						exclude: exclusions,
@@ -57,8 +57,8 @@ module.exports = ( api ) => {
 			};
 		}
 
-		if ( isFPBuild( fpBuildOpts.name ) ) {
-			opts.modules = fpBuildOpts.modules;
+		if ( isFINBuild( finBuildOpts.name ) ) {
+			opts.modules = finBuildOpts.modules;
 		}
 
 		return [ require.resolve( '@babel/preset-env' ), opts ];
@@ -74,8 +74,8 @@ module.exports = ( api ) => {
 			useESModules: false,
 		};
 
-		if ( fpBuildOpts.name === 'FP_BUILD_MODULE' ) {
-			opts.useESModules = fpBuildOpts.useESModules;
+		if ( finBuildOpts.name === 'FIN_BUILD_MODULE' ) {
+			opts.useESModules = finBuildOpts.useESModules;
 		}
 
 		return [ require.resolve( '@babel/plugin-transform-runtime' ), opts ];
@@ -95,7 +95,7 @@ module.exports = ( api ) => {
 				},
 			],
 			maybeGetPluginTransformRuntime(),
-			fpBuildOpts.addPolyfillComments && replacePolyfills,
+			finBuildOpts.addPolyfillComments && replacePolyfills,
 		].filter( Boolean ),
 	};
 };

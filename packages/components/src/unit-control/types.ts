@@ -14,7 +14,7 @@ import type { NumberControlProps } from '../number-control/types';
 
 export type SelectSize = 'default' | 'small';
 
-export type FPUnitControlUnit = {
+export type FINUnitControlUnit = {
 	/**
 	 * The value for the unit, used in a CSS value (e.g `px`).
 	 */
@@ -38,7 +38,7 @@ export type FPUnitControlUnit = {
 };
 
 export type UnitControlOnChangeCallback = InputChangeCallback< {
-	data?: FPUnitControlUnit;
+	data?: FINUnitControlUnit;
 } >;
 
 export type UnitSelectControlProps = {
@@ -65,7 +65,7 @@ export type UnitSelectControlProps = {
 	 *
 	 * @default CSS_UNITS
 	 */
-	units?: FPUnitControlUnit[];
+	units?: FINUnitControlUnit[];
 };
 
 export type UnitControlProps = Pick< InputControlProps, 'size' > &

@@ -17,7 +17,7 @@ import { PluginContextProvider } from '../plugin-context';
 import { PluginErrorBoundary } from '../plugin-error-boundary';
 import { getPlugins } from '../../api';
 import type { PluginContext } from '../plugin-context';
-import type { FPPlugin } from '../../api';
+import type { FINPlugin } from '../../api';
 
 const getPluginContext = memoize(
 	( icon: PluginContext[ 'icon' ], name: PluginContext[ 'name' ] ) => ( {
@@ -68,16 +68,16 @@ function PluginArea( {
 	onError,
 }: {
 	scope?: string;
-	onError?: ( name: FPPlugin[ 'name' ], error: Error ) => void;
+	onError?: ( name: FINPlugin[ 'name' ], error: Error ) => void;
 } ) {
 	const store = useMemo( () => {
-		let lastValue: FPPlugin[] = [];
+		let lastValue: FINPlugin[] = [];
 
 		return {
 			subscribe(
 				listener: (
-					plugin: Omit< FPPlugin, 'name' >,
-					name: FPPlugin[ 'name' ]
+					plugin: Omit< FINPlugin, 'name' >,
+					name: FINPlugin[ 'name' ]
 				) => void
 			) {
 				addAction(

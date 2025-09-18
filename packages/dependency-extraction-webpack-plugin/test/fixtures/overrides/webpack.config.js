@@ -27,7 +27,7 @@ module.exports = {
 			},
 			requestToHandle( request ) {
 				if ( request === 'rxjs' || request === 'rxjs/operators' ) {
-					return 'fp-script-handle-for-rxjs';
+					return 'fin-script-handle-for-rxjs';
 				}
 			},
 		} ),

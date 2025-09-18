@@ -26,7 +26,7 @@ const EmbedPlaceholder = ( {
 		<Placeholder
 			icon={ <BlockIcon icon={ icon } showColors /> }
 			label={ label }
-			className="fp-block-embed"
+			className="fin-block-embed"
 			instructions={ __(
 				'Paste a link to the content you want to display on your site.'
 			) }
@@ -36,7 +36,7 @@ const EmbedPlaceholder = ( {
 					__next40pxDefaultSize
 					type="url"
 					value={ value || '' }
-					className="fp-block-embed__placeholder-input"
+					className="fin-block-embed__placeholder-input"
 					label={ label }
 					hideLabelFromVision
 					placeholder={ __( 'Enter URL to embed here…' ) }
@@ -46,7 +46,7 @@ const EmbedPlaceholder = ( {
 					{ _x( 'Embed', 'button label' ) }
 				</Button>
 			</form>
-			<div className="fp-block-embed__learn-more">
+			<div className="fin-block-embed__learn-more">
 				<ExternalLink
 					href={ __(
 						'https://finpress.org/documentation/article/embeds/'

@@ -14,7 +14,7 @@ function gutenberg_declare_classic_block_necessary() {
 	if ( ! gutenberg_post_being_edited_requires_classic_block() ) {
 		return;
 	}
-	echo '<script type="text/javascript">window.fp.needsClassicBlock = true;</script>';
+	echo '<script type="text/javascript">window.fin.needsClassicBlock = true;</script>';
 }
 add_action( 'admin_footer', 'gutenberg_declare_classic_block_necessary' );
 
@@ -25,10 +25,10 @@ if ( ! empty( $_GET['requiresTinymce'] ) || gutenberg_post_being_edited_requires
 
 
 /**
- * Disable TinyMCE by introducing a placeholder `_FP_Editors` class.
+ * Disable TinyMCE by introducing a placeholder `_FIN_Editors` class.
  */
 function gutenberg_disable_tinymce() {
-	require __DIR__ . '/class--fp-editors.php';
+	require __DIR__ . '/class--fin-editors.php';
 }
 
 add_action( 'admin_init', 'gutenberg_disable_tinymce' );
@@ -38,7 +38,7 @@ add_action( 'admin_init', 'gutenberg_disable_tinymce' );
  * Detects TinyMCE usage and sets the `requiresTinymce` query argument to stop disabling TinyMCE loading.
  */
 function gutenberg_enqueue_tinymce_proxy() {
-	fp_enqueue_script( 'gutenberg-tinymce-proxy', plugins_url( 'assets/tinymce-proxy.js', __FILE__ ) );
+	fin_enqueue_script( 'gutenberg-tinymce-proxy', plugins_url( 'assets/tinymce-proxy.js', __FILE__ ) );
 }
 
 add_action( 'admin_enqueue_scripts', 'gutenberg_enqueue_tinymce_proxy' );

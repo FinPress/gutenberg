@@ -47,7 +47,7 @@ function render_block_core_video( array $attributes, string $content ): string {
 	}
 
 	// Locate the VIDEO tag to add the dimensions.
-	$p = new FP_HTML_Tag_Processor( $content );
+	$p = new FIN_HTML_Tag_Processor( $content );
 	if ( ! $p->next_tag( array( 'tag_name' => 'VIDEO' ) ) ) {
 		return $content;
 	}

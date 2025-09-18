@@ -6,7 +6,7 @@ import { useSelect } from '@finpress/data';
 import { store as coreStore } from '@finpress/core-data';
 import { __ } from '@finpress/i18n';
 
-// All FP post formats, sorted alphabetically by translated name.
+// All FIN post formats, sorted alphabetically by translated name.
 // Value is the post format slug. Label is the name.
 const POST_FORMATS = [
 	{ value: 'aside', label: __( 'Aside' ) },

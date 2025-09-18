@@ -4,7 +4,7 @@
 import type { GetRecordsHttpQuery, State } from './selectors';
 import type * as ET from './entity-types';
 
-export type FPEntityTypes< C extends ET.Context = 'edit' > = {
+export type FINEntityTypes< C extends ET.Context = 'edit' > = {
 	Comment: ET.Comment< C >;
 	GlobalStyles: ET.GlobalStylesRevision< C >;
 	Media: ET.Attachment< C >;
@@ -66,19 +66,19 @@ type SingularizeEntity< T extends string > = T extends 'MediaItems'
 	: T;
 
 export type SingularGetters = {
-	[ Key in `get${ keyof FPEntityTypes }` ]: (
+	[ Key in `get${ keyof FINEntityTypes }` ]: (
 		state: State,
 		id: number | string,
 		query?: GetRecordsHttpQuery
-	) => FPEntityTypes[ Key extends `get${ infer E }` ? E : never ] | undefined;
+	) => FINEntityTypes[ Key extends `get${ infer E }` ? E : never ] | undefined;
 };
 
 export type PluralGetters = {
-	[ Key in `get${ PluralizeEntity< keyof FPEntityTypes > }` ]: (
+	[ Key in `get${ PluralizeEntity< keyof FINEntityTypes > }` ]: (
 		state: State,
 		query?: GetRecordsHttpQuery
 	) => Array<
-		FPEntityTypes[ Key extends `get${ infer E }`
+		FINEntityTypes[ Key extends `get${ infer E }`
 			? SingularizeEntity< E >
 			: never ]
 	> | null;
@@ -91,16 +91,16 @@ type ActionOptions = {
 type DeleteRecordsHttpQuery = Record< string, any >;
 
 export type SaveActions = {
-	[ Key in `save${ keyof FPEntityTypes }` ]: (
+	[ Key in `save${ keyof FINEntityTypes }` ]: (
 		data: Partial<
-			FPEntityTypes[ Key extends `save${ infer E }` ? E : never ]
+			FINEntityTypes[ Key extends `save${ infer E }` ? E : never ]
 		>,
 		options?: ActionOptions
 	) => Promise< void >;
 };
 
 export type DeleteActions = {
-	[ Key in `delete${ keyof FPEntityTypes }` ]: (
+	[ Key in `delete${ keyof FINEntityTypes }` ]: (
 		id: number | string,
 		query?: DeleteRecordsHttpQuery,
 		options?: ActionOptions

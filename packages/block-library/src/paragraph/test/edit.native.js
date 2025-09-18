@@ -208,9 +208,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <strong>quick</strong> brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -233,9 +233,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <em>quick</em> brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -258,9 +258,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <s>quick</s> brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -283,9 +283,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph {"align":"left"} -->
+		"<!-- fin:paragraph {"align":"left"} -->
 		<p class="has-text-align-left">A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -308,9 +308,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph {"align":"center"} -->
+		"<!-- fin:paragraph {"align":"center"} -->
 		<p class="has-text-align-center">A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -333,9 +333,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph {"align":"right"} -->
+		"<!-- fin:paragraph {"align":"right"} -->
 		<p class="has-text-align-right">A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -399,13 +399,13 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph {"align":"center"} -->
+		"<!-- fin:paragraph {"align":"center"} -->
 		<p class="has-text-align-center">A quick brown fox jum</p>
-		<!-- /fp:paragraph -->
+		<!-- /fin:paragraph -->
 
-		<!-- fp:paragraph {"align":"center"} -->
+		<!-- fin:paragraph {"align":"center"} -->
 		<p class="has-text-align-center">ps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -441,9 +441,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p><a href="http://finpress.org">FinPress</a></p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -484,9 +484,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <a href="http://finpress.org">quick</a> brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -520,9 +520,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <a href="https://finpress.org">quick</a> brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 
 		Clipboard.getString.mockReset();
@@ -546,9 +546,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>     <em>some text</em>      </p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 
@@ -588,9 +588,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph {"textColor":"pale-pink"} -->
+		"<!-- fin:paragraph {"textColor":"pale-pink"} -->
 		<p class="has-pale-pink-color has-text-color">A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 		` );
 	} );
 
@@ -626,9 +626,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph {"backgroundColor":"luminous-vivid-orange"} -->
+		"<!-- fin:paragraph {"backgroundColor":"luminous-vivid-orange"} -->
 		<p class="has-luminous-vivid-orange-background-color has-background">A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 		` );
 	} );
 
@@ -673,18 +673,18 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph {"backgroundColor":"luminous-vivid-orange","textColor":"white"} -->
+		"<!-- fin:paragraph {"backgroundColor":"luminous-vivid-orange","textColor":"white"} -->
 		<p class="has-white-color has-luminous-vivid-orange-background-color has-text-color has-background">A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 		` );
 	} );
 
 	it( 'should remove text and background colors', async () => {
 		// Arrange
 		const screen = await initializeEditor( {
-			initialHtml: `<!-- fp:paragraph {"backgroundColor":"luminous-vivid-orange","textColor":"white"} -->
+			initialHtml: `<!-- fin:paragraph {"backgroundColor":"luminous-vivid-orange","textColor":"white"} -->
 			<p class="has-white-color has-luminous-vivid-orange-background-color has-text-color has-background">A quick brown fox jumps over the lazy dog.</p>
-			<!-- /fp:paragraph -->`,
+			<!-- /fin:paragraph -->`,
 		} );
 
 		// Act
@@ -718,9 +718,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 		` );
 	} );
 
@@ -788,18 +788,18 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph {"textColor":"tertiary"} -->
+		"<!-- fin:paragraph {"textColor":"tertiary"} -->
 		<p class="has-tertiary-color has-text-color">A quick brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 		` );
 	} );
 
 	it( 'should show the contrast check warning', async () => {
 		// Arrange
 		const screen = await initializeEditor( {
-			initialHtml: `<!-- fp:paragraph {"backgroundColor":"white","textColor":"white"} -->
+			initialHtml: `<!-- fin:paragraph {"backgroundColor":"white","textColor":"white"} -->
 			<p class="has-white-color has-white-background-color has-text-color has-background">A quick brown fox jumps over the lazy dog.</p>
-			<!-- /fp:paragraph -->`,
+			<!-- /fin:paragraph -->`,
 		} );
 
 		// Act
@@ -844,9 +844,9 @@ describe( 'Paragraph block', () => {
 
 		// Assert
 		expect( getEditorHtml() ).toMatchInlineSnapshot( `
-		"<!-- fp:paragraph -->
+		"<!-- fin:paragraph -->
 		<p>A <mark style="background-color:rgba(0, 0, 0, 0);color:#2411a4" class="has-inline-color has-tertiary-color">quick</mark> brown fox jumps over the lazy dog.</p>
-		<!-- /fp:paragraph -->"
+		<!-- /fin:paragraph -->"
 	` );
 	} );
 

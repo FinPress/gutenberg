@@ -343,14 +343,14 @@ const { state, actions, callbacks } = store(
 				// adding 1 pixel to the container width and height solves the problem,
 				// though this can be removed if the issue is fixed in the future.
 				state.overlayStyles = `
-					--fp--lightbox-initial-top-position: ${ screenPosY }px;
-					--fp--lightbox-initial-left-position: ${ screenPosX }px;
-					--fp--lightbox-container-width: ${ containerWidth + 1 }px;
-					--fp--lightbox-container-height: ${ containerHeight + 1 }px;
-					--fp--lightbox-image-width: ${ lightboxImgWidth }px;
-					--fp--lightbox-image-height: ${ lightboxImgHeight }px;
-					--fp--lightbox-scale: ${ containerScale };
-					--fp--lightbox-scrollbar-width: ${
+					--fin--lightbox-initial-top-position: ${ screenPosY }px;
+					--fin--lightbox-initial-left-position: ${ screenPosX }px;
+					--fin--lightbox-container-width: ${ containerWidth + 1 }px;
+					--fin--lightbox-container-height: ${ containerHeight + 1 }px;
+					--fin--lightbox-image-width: ${ lightboxImgWidth }px;
+					--fin--lightbox-image-height: ${ lightboxImgHeight }px;
+					--fin--lightbox-scale: ${ containerScale };
+					--fin--lightbox-scrollbar-width: ${
 						window.innerWidth - document.documentElement.clientWidth
 					}px;
 				`;

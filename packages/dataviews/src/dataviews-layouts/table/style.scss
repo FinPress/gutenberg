@@ -112,24 +112,24 @@
 		}
 
 		&.is-selected {
-			background-color: rgba(var(--fp-admin-theme-color--rgb), 0.04);
+			background-color: rgba(var(--fin-admin-theme-color--rgb), 0.04);
 			color: $gray-700;
 
 			&,
 			& + tr {
-				border-top: 1px solid rgba(var(--fp-admin-theme-color--rgb), 0.12);
+				border-top: 1px solid rgba(var(--fin-admin-theme-color--rgb), 0.12);
 			}
 
 			&:hover {
-				background-color: rgba(var(--fp-admin-theme-color--rgb), 0.08);
+				background-color: rgba(var(--fin-admin-theme-color--rgb), 0.08);
 			}
 
 			.dataviews-view-table__actions-column--sticky {
-				background-color: color-mix(in srgb, rgb(var(--fp-admin-theme-color--rgb)) 4%, $white);
+				background-color: color-mix(in srgb, rgb(var(--fin-admin-theme-color--rgb)) 4%, $white);
 			}
 
 			&:hover .dataviews-view-table__actions-column--sticky {
-				background-color: color-mix(in srgb, rgb(var(--fp-admin-theme-color--rgb)) 8%, $white);
+				background-color: color-mix(in srgb, rgb(var(--fin-admin-theme-color--rgb)) 8%, $white);
 			}
 		}
 	}

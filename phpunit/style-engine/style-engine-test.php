@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests the Style Engine global functions that interact with the FP_Style_Engine class.
+ * Tests the Style Engine global functions that interact with the FIN_Style_Engine class.
  *
  * @package    Gutenberg
  * @subpackage style-engine
@@ -11,23 +11,23 @@
  *
  * @group style-engine
  */
-class FP_Style_Engine_Test extends FP_UnitTestCase {
+class FIN_Style_Engine_Test extends FIN_UnitTestCase {
 	/**
 	 * Cleans up stores after each test.
 	 */
 	public function tear_down() {
-		FP_Style_Engine_CSS_Rules_Store_Gutenberg::remove_all_stores();
+		FIN_Style_Engine_CSS_Rules_Store_Gutenberg::remove_all_stores();
 		parent::tear_down();
 	}
 
 	/**
 	 * Tests generating block styles and classnames based on various manifestations of the $block_styles argument.
 	 *
-	 * @covers ::fp_style_engine_get_styles
-	 * @covers FP_Style_Engine_Gutenberg::parse_block_styles
-	 * @covers FP_Style_Engine_Gutenberg::compile_css
+	 * @covers ::fin_style_engine_get_styles
+	 * @covers FIN_Style_Engine_Gutenberg::parse_block_styles
+	 * @covers FIN_Style_Engine_Gutenberg::compile_css
 	 *
-	 * @dataProvider data_fp_style_engine_get_styles
+	 * @dataProvider data_fin_style_engine_get_styles
 	 *
 	 * @param array  $block_styles    The incoming block styles object.
 	 * @param array  $options         {
@@ -35,24 +35,24 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 	 *
 	 *     @type string|null $context                    An identifier describing the origin of the style object, e.g., 'block-supports' or 'global-styles'. Default is `null`.
 	 *                                                   When set, the Style Engine will attempt to store the CSS rules, where a selector is also passed.
-	 *     @type bool        $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fp--preset--* ) values. Default `false`.
+	 *     @type bool        $convert_vars_to_classnames Whether to skip converting incoming CSS var patterns, e.g., `var:preset|<PRESET_TYPE>|<PRESET_SLUG>`, to var( --fin--preset--* ) values. Default `false`.
 	 *     @type string      $selector                   Optional. When a selector is passed, the value of `$css` in the return value will comprise a full CSS rule `$selector { ...$css_declarations }`,
 	 *                                                   otherwise, the value will be a concatenated string of CSS declarations.
 	 * }
 	 * @param string $expected_output The expected output.
 	 */
-	public function test_fp_style_engine_get_styles( $block_styles, $options, $expected_output ) {
+	public function test_fin_style_engine_get_styles( $block_styles, $options, $expected_output ) {
 		$generated_styles = gutenberg_style_engine_get_styles( $block_styles, $options );
 
 		$this->assertSame( $expected_output, $generated_styles );
 	}
 
 	/**
-	 * Data provider for test_fp_style_engine_get_styles().
+	 * Data provider for test_fin_style_engine_get_styles().
 	 *
 	 * @return array
 	 */
-	public function data_fp_style_engine_get_styles() {
+	public function data_fin_style_engine_get_styles() {
 		return array(
 			'default_return_value'                         => array(
 				'block_styles'    => array(),
@@ -224,9 +224,9 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 						),
 					),
 				),
-				'options'         => array( 'selector' => '.fp-selector > p' ),
+				'options'         => array( 'selector' => '.fin-selector > p' ),
 				'expected_output' => array(
-					'css'          => '.fp-selector > p{padding-top:42px;padding-left:2%;padding-bottom:44px;padding-right:5rem;}',
+					'css'          => '.fin-selector > p{padding-top:42px;padding-left:2%;padding-bottom:44px;padding-right:5rem;}',
 					'declarations' => array(
 						'padding-top'    => '42px',
 						'padding-left'   => '2%',
@@ -247,14 +247,14 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 					),
 				),
 				'options'         => array(
-					'selector' => '.fp-selector',
+					'selector' => '.fin-selector',
 				),
 				'expected_output' => array(
-					'css'          => '.fp-selector{color:var(--fp--preset--color--my-little-pony);font-size:var(--fp--preset--font-size--cabbage-patch);font-family:var(--fp--preset--font-family--transformers);}',
+					'css'          => '.fin-selector{color:var(--fin--preset--color--my-little-pony);font-size:var(--fin--preset--font-size--cabbage-patch);font-family:var(--fin--preset--font-family--transformers);}',
 					'declarations' => array(
-						'color'       => 'var(--fp--preset--color--my-little-pony)',
-						'font-size'   => 'var(--fp--preset--font-size--cabbage-patch)',
-						'font-family' => 'var(--fp--preset--font-family--transformers)',
+						'color'       => 'var(--fin--preset--color--my-little-pony)',
+						'font-size'   => 'var(--fin--preset--font-size--cabbage-patch)',
+						'font-family' => 'var(--fin--preset--font-family--transformers)',
 
 					),
 					'classnames'   => 'has-text-color has-my-little-pony-color has-cabbage-patch-font-size has-transformers-font-family',
@@ -267,7 +267,7 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 						'text' => 'var:preset|invalid_property|my-little-pony',
 					),
 				),
-				'options'         => array( 'selector' => '.fp-selector' ),
+				'options'         => array( 'selector' => '.fin-selector' ),
 				'expected_output' => array(
 					'classnames' => 'has-text-color',
 				),
@@ -299,9 +299,9 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 				),
 				'options'         => array(),
 				'expected_output' => array(
-					'css'          => 'color:var(--fp--preset--color--teal-independents);',
+					'css'          => 'color:var(--fin--preset--color--teal-independents);',
 					'declarations' => array(
-						'color' => 'var(--fp--preset--color--teal-independents)',
+						'color' => 'var(--fin--preset--color--teal-independents)',
 					),
 					'classnames'   => 'has-text-color has-teal-independents-color',
 				),
@@ -350,10 +350,10 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 				),
 				'options'         => array(),
 				'expected_output' => array(
-					'css'          => 'padding:var(--fp--preset--spacing--20);margin:var(--fp--preset--spacing--10);',
+					'css'          => 'padding:var(--fin--preset--spacing--20);margin:var(--fin--preset--spacing--10);',
 					'declarations' => array(
-						'padding' => 'var(--fp--preset--spacing--20)',
-						'margin'  => 'var(--fp--preset--spacing--10)',
+						'padding' => 'var(--fin--preset--spacing--20)',
+						'margin'  => 'var(--fin--preset--spacing--10)',
 					),
 				),
 			),
@@ -377,14 +377,14 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 				),
 				'options'         => array(),
 				'expected_output' => array(
-					'css'          => 'padding-left:var(--fp--preset--spacing--30);padding-right:var(--fp--preset--spacing--3-xl);padding-top:14px;padding-bottom:14px;margin-left:var(--fp--preset--spacing--10);margin-right:var(--fp--preset--spacing--3-xl);margin-top:1rem;margin-bottom:1rem;',
+					'css'          => 'padding-left:var(--fin--preset--spacing--30);padding-right:var(--fin--preset--spacing--3-xl);padding-top:14px;padding-bottom:14px;margin-left:var(--fin--preset--spacing--10);margin-right:var(--fin--preset--spacing--3-xl);margin-top:1rem;margin-bottom:1rem;',
 					'declarations' => array(
-						'padding-left'   => 'var(--fp--preset--spacing--30)',
-						'padding-right'  => 'var(--fp--preset--spacing--3-xl)',
+						'padding-left'   => 'var(--fin--preset--spacing--30)',
+						'padding-right'  => 'var(--fin--preset--spacing--3-xl)',
 						'padding-top'    => '14px',
 						'padding-bottom' => '14px',
-						'margin-left'    => 'var(--fp--preset--spacing--10)',
-						'margin-right'   => 'var(--fp--preset--spacing--3-xl)',
+						'margin-left'    => 'var(--fin--preset--spacing--10)',
+						'margin-right'   => 'var(--fin--preset--spacing--3-xl)',
 						'margin-top'     => '1rem',
 						'margin-bottom'  => '1rem',
 					),
@@ -453,7 +453,7 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 				),
 				'options'         => array(),
 				'expected_output' => array(
-					'css'          => 'border-top-color:#fe1;border-top-width:1.5rem;border-top-style:dashed;border-right-color:#fe2;border-right-width:1.4rem;border-right-style:solid;border-bottom-color:#fe3;border-bottom-width:1.3rem;border-left-color:var(--fp--preset--color--swampy-yellow);border-left-width:0.5rem;border-left-style:dotted;',
+					'css'          => 'border-top-color:#fe1;border-top-width:1.5rem;border-top-style:dashed;border-right-color:#fe2;border-right-width:1.4rem;border-right-style:solid;border-bottom-color:#fe3;border-bottom-width:1.3rem;border-left-color:var(--fin--preset--color--swampy-yellow);border-left-width:0.5rem;border-left-style:dotted;',
 					'declarations' => array(
 						'border-top-color'    => '#fe1',
 						'border-top-width'    => '1.5rem',
@@ -463,7 +463,7 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 						'border-right-style'  => 'solid',
 						'border-bottom-color' => '#fe3',
 						'border-bottom-width' => '1.3rem',
-						'border-left-color'   => 'var(--fp--preset--color--swampy-yellow)',
+						'border-left-color'   => 'var(--fin--preset--color--swampy-yellow)',
 						'border-left-width'   => '0.5rem',
 						'border-left-style'   => 'dotted',
 					),
@@ -496,9 +496,9 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 				),
 				'options'         => array(),
 				'expected_output' => array(
-					'css'          => 'border-bottom-color:var(--fp--preset--color--terrible-lizard);',
+					'css'          => 'border-bottom-color:var(--fin--preset--color--terrible-lizard);',
 					'declarations' => array(
-						'border-bottom-color' => 'var(--fp--preset--color--terrible-lizard)',
+						'border-bottom-color' => 'var(--fin--preset--color--terrible-lizard)',
 					),
 				),
 			),
@@ -533,8 +533,8 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 	/**
 	 * Tests adding rules to a store and retrieving a generated stylesheet.
 	 *
-	 * @covers ::fp_style_engine_get_styles
-	 * @covers FP_Style_Engine_Gutenberg::store_css_rule
+	 * @covers ::fin_style_engine_get_styles
+	 * @covers FIN_Style_Engine_Gutenberg::store_css_rule
 	 */
 	public function test_should_store_block_styles_using_context() {
 		$block_styles = array(
@@ -555,7 +555,7 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 				'selector' => 'article',
 			)
 		);
-		$store            = FP_Style_Engine_Gutenberg::get_store( 'block-supports' );
+		$store            = FIN_Style_Engine_Gutenberg::get_store( 'block-supports' );
 		$rule             = $store->get_all_rules()['article'];
 
 		$this->assertSame( $generated_styles['css'], $rule->get_css() );
@@ -564,7 +564,7 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 	/**
 	 * Tests that passing no context does not store styles.
 	 *
-	 * @covers ::fp_style_engine_get_styles
+	 * @covers ::fin_style_engine_get_styles
 	 */
 	public function test_should_not_store_block_styles_without_context() {
 		$block_styles = array(
@@ -580,7 +580,7 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 			)
 		);
 
-		$all_stores = FP_Style_Engine_CSS_Rules_Store_Gutenberg::get_stores();
+		$all_stores = FIN_Style_Engine_CSS_Rules_Store_Gutenberg::get_stores();
 
 		$this->assertEmpty( $all_stores );
 	}
@@ -588,7 +588,7 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 	/**
 	 * Tests adding rules to a store and retrieving a generated stylesheet.
 	 *
-	 * @covers ::fp_style_engine_get_stylesheet_from_context
+	 * @covers ::fin_style_engine_get_stylesheet_from_context
 	 */
 	public function test_should_get_stored_stylesheet_from_context() {
 		$css_rules           = array(
@@ -625,7 +625,7 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 	 * Tests returning a generated stylesheet from a set of rules.
 	 *
 	 * @covers ::gutenberg_style_engine_get_stylesheet_from_css_rules
-	 * @covers FP_Style_Engine_Gutenberg::compile_stylesheet_from_css_rules
+	 * @covers FIN_Style_Engine_Gutenberg::compile_stylesheet_from_css_rules
 	 */
 	public function test_should_return_stylesheet_from_css_rules() {
 		$css_rules = array(
@@ -668,8 +668,8 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 	 *
 	 * @ticket 58811
 	 *
-	 * @covers ::fp_style_engine_get_stylesheet_from_css_rules
-	 * @covers FP_Style_Engine_Gutenberg::compile_stylesheet_from_css_rules
+	 * @covers ::fin_style_engine_get_stylesheet_from_css_rules
+	 * @covers FIN_Style_Engine_Gutenberg::compile_stylesheet_from_css_rules
 	 */
 	public function test_should_dedupe_and_merge_css_rules() {
 		$css_rules = array(
@@ -718,25 +718,25 @@ class FP_Style_Engine_Test extends FP_UnitTestCase {
 	 *
 	 * This is testing this fix: https://github.com/FinPress/gutenberg/pull/49004
 	 *
-	 * @covers ::fp_style_engine_get_stylesheet_from_css_rules
-	 * @covers FP_Style_Engine_Gutenberg::compile_stylesheet_from_css_rules
+	 * @covers ::fin_style_engine_get_stylesheet_from_css_rules
+	 * @covers FIN_Style_Engine_Gutenberg::compile_stylesheet_from_css_rules
 	 */
 	public function test_should_return_stylesheet_from_duotone_css_rules() {
 		$css_rules = array(
 			array(
-				'selector'     => '.fp-duotone-ffffff-000000-1',
+				'selector'     => '.fin-duotone-ffffff-000000-1',
 				'declarations' => array(
 					// !important is needed because these styles
 					// render before global styles,
 					// and they should be overriding the duotone
 					// filters set by global styles.
-					'filter' => "url('#fp-duotone-ffffff-000000-1') !important",
+					'filter' => "url('#fin-duotone-ffffff-000000-1') !important",
 				),
 			),
 		);
 
 		$compiled_stylesheet = gutenberg_style_engine_get_stylesheet_from_css_rules( $css_rules, array( 'prettify' => false ) );
-		$this->assertSame( ".fp-duotone-ffffff-000000-1{filter:url('#fp-duotone-ffffff-000000-1') !important;}", $compiled_stylesheet );
+		$this->assertSame( ".fin-duotone-ffffff-000000-1{filter:url('#fin-duotone-ffffff-000000-1') !important;}", $compiled_stylesheet );
 	}
 
 	/**

@@ -9,7 +9,7 @@ import type { APIRequestContext, Cookie } from '@playwright/test';
 /**
  * Internal dependencies
  */
-import { FP_ADMIN_USER, FP_BASE_URL } from '../config';
+import { FIN_ADMIN_USER, FIN_BASE_URL } from '../config';
 import type { User } from './login';
 import { login } from './login';
 import { listMedia, uploadMedia, deleteMedia, deleteAllMedia } from './media';
@@ -57,7 +57,7 @@ class RequestUtils {
 	static async setup( {
 		user,
 		storageStatePath,
-		baseURL = FP_BASE_URL,
+		baseURL = FIN_BASE_URL,
 	}: {
 		user?: User;
 		storageStatePath?: string;
@@ -106,10 +106,10 @@ class RequestUtils {
 	constructor(
 		requestContext: APIRequestContext,
 		{
-			user = FP_ADMIN_USER,
+			user = FIN_ADMIN_USER,
 			storageState,
 			storageStatePath,
-			baseURL = FP_BASE_URL,
+			baseURL = FIN_BASE_URL,
 		}: {
 			user?: User;
 			storageState?: StorageState;

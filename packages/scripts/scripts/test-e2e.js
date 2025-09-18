@@ -67,9 +67,9 @@ if ( hasArgInCLI( '--puppeteer-devtools' ) ) {
 }
 
 const configsMapping = {
-	FP_BASE_URL: '--finpress-base-url',
-	FP_USERNAME: '--finpress-username',
-	FP_PASSWORD: '--finpress-password',
+	FIN_BASE_URL: '--finpress-base-url',
+	FIN_USERNAME: '--finpress-username',
+	FIN_PASSWORD: '--finpress-password',
 };
 
 Object.entries( configsMapping ).forEach( ( [ envKey, argName ] ) => {
@@ -79,8 +79,8 @@ Object.entries( configsMapping ).forEach( ( [ envKey, argName ] ) => {
 } );
 
 // Set the default artifacts path.
-if ( ! process.env.FP_ARTIFACTS_PATH ) {
-	process.env.FP_ARTIFACTS_PATH = path.resolve(
+if ( ! process.env.FIN_ARTIFACTS_PATH ) {
+	process.env.FIN_ARTIFACTS_PATH = path.resolve(
 		process.env.GITHUB_WORKSPACE || process.cwd(),
 		'artifacts'
 	);

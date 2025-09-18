@@ -33,7 +33,7 @@ type SiteSettings = {
  */
 export async function getSiteSettings( this: RequestUtils ) {
 	return await this.rest< SiteSettings >( {
-		path: '/fp/v2/settings',
+		path: '/fin/v2/settings',
 		method: 'GET',
 	} );
 }
@@ -51,7 +51,7 @@ export async function updateSiteSettings(
 	siteSettings: Partial< SiteSettings >
 ) {
 	return await this.rest< SiteSettings >( {
-		path: '/fp/v2/settings',
+		path: '/fin/v2/settings',
 		method: 'POST',
 		data: siteSettings,
 	} );

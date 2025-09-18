@@ -52,9 +52,9 @@ export function useSettings( ...paths ) {
  * ```
  */
 export function useSetting( path ) {
-	deprecated( 'fp.blockEditor.useSetting', {
+	deprecated( 'fin.blockEditor.useSetting', {
 		since: '6.5',
-		alternative: 'fp.blockEditor.useSettings',
+		alternative: 'fin.blockEditor.useSettings',
 		note: 'The new useSettings function can retrieve multiple settings at once, with better performance.',
 	} );
 

@@ -1,11 +1,11 @@
-/** @typedef {import('../store/selectors').FPEditorInserterItem} FPEditorInserterItem */
+/** @typedef {import('../store/selectors').FINEditorInserterItem} FINEditorInserterItem */
 
 /**
  * Helper function to order inserter block items according to a provided array of prioritized blocks.
  *
- * @param {FPEditorInserterItem[]} items    The array of editor inserter block items to be sorted.
+ * @param {FINEditorInserterItem[]} items    The array of editor inserter block items to be sorted.
  * @param {string[]}               priority The array of block names to be prioritized.
- * @return {FPEditorInserterItem[]} The sorted array of editor inserter block items.
+ * @return {FINEditorInserterItem[]} The sorted array of editor inserter block items.
  */
 export const orderInserterBlockItems = ( items, priority ) => {
 	if ( ! priority ) {

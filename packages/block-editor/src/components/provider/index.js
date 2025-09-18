@@ -20,7 +20,7 @@ import { unlock } from '../../lock-unlock';
 import KeyboardShortcuts from '../keyboard-shortcuts';
 import useMediaUploadSettings from './use-media-upload-settings';
 
-/** @typedef {import('@finpress/data').FPDataRegistry} FPDataRegistry */
+/** @typedef {import('@finpress/data').FINDataRegistry} FINDataRegistry */
 
 const noop = () => {};
 
@@ -28,7 +28,7 @@ const noop = () => {};
  * Upload a media file when the file upload button is activated
  * or when adding a file to the editor via drag & drop.
  *
- * @param {FPDataRegistry} registry
+ * @param {FINDataRegistry} registry
  * @param {Object}         $3                Parameters object passed to the function.
  * @param {Array}          $3.allowedTypes   Array with the types of media that can be uploaded, if unset all types are allowed.
  * @param {Object}         $3.additionalData Additional data to include in the request.

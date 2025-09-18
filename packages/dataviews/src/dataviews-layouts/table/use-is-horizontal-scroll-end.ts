@@ -26,7 +26,7 @@ const isScrolledToEnd = ( element: Element ) => {
  * As a result, when the "ref" is updated and attached to a new div, the computation should trigger again.
  * However, this isn't possible in the current setup because the hook is unaware that the ref has changed.
  *
- * See https://github.com/Automattic/fp-calypso/pull/103005#discussion_r2077567912.
+ * See https://github.com/Automattic/fin-calypso/pull/103005#discussion_r2077567912.
  *
  * @param {Object}                                  params                    The parameters for the hook.
  * @param {MutableRefObject<HTMLDivElement | null>} params.scrollContainerRef The ref to the scroll container element.

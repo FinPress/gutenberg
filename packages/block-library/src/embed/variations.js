@@ -30,7 +30,7 @@ import {
 	embedBlueskyIcon,
 } from './icons';
 
-/** @typedef {import('@finpress/blocks').FPBlockVariation} FPBlockVariation */
+/** @typedef {import('@finpress/blocks').FINBlockVariation} FINBlockVariation */
 
 function getTitle( providerName ) {
 	return sprintf(
@@ -43,7 +43,7 @@ function getTitle( providerName ) {
 /**
  * The embed provider services.
  *
- * @type {FPBlockVariation[]}
+ * @type {FINBlockVariation[]}
  */
 const variations = [
 	{

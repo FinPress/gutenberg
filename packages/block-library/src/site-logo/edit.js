@@ -272,7 +272,7 @@ const SiteLogo = ( {
 	}
 
 	// Support the previous location for the Site Icon settings. To be removed
-	// when the required FP core version for Gutenberg is >= 6.5.0.
+	// when the required FIN core version for Gutenberg is >= 6.5.0.
 	const shouldUseNewUrl = ! window?.__experimentalUseCustomizerSiteLogoUrl;
 
 	const siteIconSettingsUrl = shouldUseNewUrl

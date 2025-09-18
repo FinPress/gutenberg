@@ -106,7 +106,7 @@ Example:
 
 -   Required: No
 
-### `units`: `FPUnitControlUnit[]`
+### `units`: `FINUnitControlUnit[]`
 
 Collection of available units.
 

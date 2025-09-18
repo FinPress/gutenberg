@@ -9,7 +9,7 @@ import { store as editorStore } from '@finpress/editor';
 export default function WelcomeGuideMenuItem() {
 	const isEditingTemplate = useSelect(
 		( select ) =>
-			select( editorStore ).getCurrentPostType() === 'fp_template',
+			select( editorStore ).getCurrentPostType() === 'fin_template',
 		[]
 	);
 

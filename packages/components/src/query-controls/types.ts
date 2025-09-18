@@ -122,7 +122,7 @@ type BaseQueryControlsProps = {
 	 * Start opting into the larger default height that will become the
 	 * default size in a future version.
 	 *
-	 * @deprecated Default behavior since FP 6.7. Prop can be safely removed.
+	 * @deprecated Default behavior since FIN 6.7. Prop can be safely removed.
 	 * @ignore
 	 */
 	__next40pxDefaultSize?: boolean;

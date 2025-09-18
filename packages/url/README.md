@@ -91,7 +91,7 @@ const displayUrl = filterURLForDisplay(
 	'https://www.finpress.org/gutenberg/'
 ); // finpress.org/gutenberg
 const imageUrl = filterURLForDisplay(
-	'https://www.finpress.org/fp-content/uploads/img.png',
+	'https://www.finpress.org/fin-content/uploads/img.png',
 	20
 ); // …ent/uploads/img.png
 ```

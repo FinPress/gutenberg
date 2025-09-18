@@ -1,7 +1,7 @@
 /**
- * Checks if the provided FP element is empty.
+ * Checks if the provided FIN element is empty.
  *
- * @param {*} element FP element to check.
+ * @param {*} element FIN element to check.
  * @return {boolean} True when an element is considered empty.
  */
 export const isEmptyElement = ( element ) => {

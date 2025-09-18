@@ -460,7 +460,7 @@ describe( 'selectors', () => {
 				__experimentalGetDirtyEntityRecords() {
 					return [
 						{ kind: 'postType', name: 'post', key: 1 },
-						{ kind: 'postType', name: 'fp_template', key: 1 },
+						{ kind: 'postType', name: 'fin_template', key: 1 },
 					];
 				},
 			};
@@ -2109,7 +2109,7 @@ describe( 'selectors', () => {
 				__experimentalGetEntitiesBeingSaved() {
 					return [
 						{ kind: 'postType', name: 'post', key: 1 },
-						{ kind: 'postType', name: 'fp_template', key: 1 },
+						{ kind: 'postType', name: 'fin_template', key: 1 },
 					];
 				},
 			};
@@ -2372,7 +2372,7 @@ describe( 'selectors', () => {
 
 			const content = getEditedPostContent( state );
 
-			expect( content ).toBe( '<!-- fp:block /-->' );
+			expect( content ).toBe( '<!-- fin:block /-->' );
 		} );
 
 		it( 'returns serialization of blocks', () => {
@@ -2393,7 +2393,7 @@ describe( 'selectors', () => {
 
 			const content = getEditedPostContent( state );
 
-			expect( content ).toBe( '<!-- fp:block /-->' );
+			expect( content ).toBe( '<!-- fin:block /-->' );
 		} );
 
 		it( "returns removep'd serialization of blocks for single unknown", () => {
@@ -2489,7 +2489,7 @@ describe( 'selectors', () => {
 			const content = getEditedPostContent( state );
 
 			expect( content ).toBe(
-				'<!-- fp:test-default {"modified":true} /-->'
+				'<!-- fin:test-default {"modified":true} /-->'
 			);
 		} );
 	} );
@@ -2743,17 +2743,17 @@ describe( 'selectors', () => {
 	} );
 
 	describe( 'canUserUseUnfilteredHTML', () => {
-		it( 'should return true if the _links object contains the property fp:action-unfiltered-html', () => {
+		it( 'should return true if the _links object contains the property fin:action-unfiltered-html', () => {
 			const state = {
 				currentPost: {
 					_links: {
-						'fp:action-unfiltered-html': [],
+						'fin:action-unfiltered-html': [],
 					},
 				},
 			};
 			expect( canUserUseUnfilteredHTML( state ) ).toBe( true );
 		} );
-		it( 'should return false if the _links object doesnt contain the property fp:action-unfiltered-html', () => {
+		it( 'should return false if the _links object doesnt contain the property fin:action-unfiltered-html', () => {
 			const state = {
 				currentPost: {
 					_links: {},

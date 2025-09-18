@@ -68,7 +68,7 @@ describe( 'Theme color algorithms', () => {
 	} );
 
 	describe( 'generateShades', () => {
-		it( 'should generate the default FP shades when the default FP background/foreground colors are given', () => {
+		it( 'should generate the default FIN shades when the default FIN background/foreground colors are given', () => {
 			const shades = generateShades( '#fff', '#1e1e1e' );
 
 			Object.entries( shades ).forEach( ( [ k, color ] ) => {

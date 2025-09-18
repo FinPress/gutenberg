@@ -73,7 +73,7 @@ export default function PostSavedState( { forceIsDirty } ) {
 				isSaveable: isEditedPostSaveable(),
 				isScheduled: isCurrentPostScheduled(),
 				hasPublishAction:
-					getCurrentPost()?._links?.[ 'fp:action-publish' ] ?? false,
+					getCurrentPost()?._links?.[ 'fin:action-publish' ] ?? false,
 				showIconLabels: get( 'core', 'showIconLabels' ),
 				postStatus: getEditedPostAttribute( 'status' ),
 				postStatusHasChanged: !! getPostEdits()?.status,

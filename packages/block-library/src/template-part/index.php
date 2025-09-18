@@ -10,7 +10,7 @@
  *
  * @since 5.9.0
  *
- * @global FP_Embed $fin_embed FinPress Embed object.
+ * @global FIN_Embed $fin_embed FinPress Embed object.
  *
  * @param array $attributes The block attributes.
  *
@@ -21,12 +21,12 @@ function render_block_core_template_part( $attributes ) {
 
 	$template_part_id = null;
 	$content          = null;
-	$area             = FP_TEMPLATE_PART_AREA_UNCATEGORIZED;
+	$area             = FIN_TEMPLATE_PART_AREA_UNCATEGORIZED;
 	$theme            = isset( $attributes['theme'] ) ? $attributes['theme'] : get_stylesheet();
 
 	if ( isset( $attributes['slug'] ) && get_stylesheet() === $theme ) {
 		$template_part_id    = $theme . '//' . $attributes['slug'];
-		$template_part_query = new FP_Query(
+		$template_part_query = new FIN_Query(
 			array(
 				'post_type'           => 'fin_template_part',
 				'post_status'         => 'publish',
@@ -59,7 +59,7 @@ function render_block_core_template_part( $attributes ) {
 			 *
 			 * @param string  $template_part_id   The requested template part namespaced to the theme.
 			 * @param array   $attributes         The block attributes.
-			 * @param FP_Post $template_part_post The template part post object.
+			 * @param FIN_Post $template_part_post The template part post object.
 			 * @param string  $content            The template part content.
 			 */
 			do_action( 'render_block_core_template_part_post', $template_part_id, $attributes, $template_part_post, $content );
@@ -111,9 +111,9 @@ function render_block_core_template_part( $attributes ) {
 		}
 	}
 
-	// FP_DEBUG_DISPLAY must only be honored when FP_DEBUG. This precedent
+	// FIN_DEBUG_DISPLAY must only be honored when FIN_DEBUG. This precedent
 	// is set in `fin_debug_mode()`.
-	$is_debug = FP_DEBUG && FP_DEBUG_DISPLAY;
+	$is_debug = FIN_DEBUG && FIN_DEBUG_DISPLAY;
 
 	if ( is_null( $content ) ) {
 		if ( $is_debug && isset( $attributes['slug'] ) ) {
@@ -146,7 +146,7 @@ function render_block_core_template_part( $attributes ) {
 
 	// If $area is not allowed, set it back to the uncategorized default.
 	if ( ! $area_definition ) {
-		$area = FP_TEMPLATE_PART_AREA_UNCATEGORIZED;
+		$area = FIN_TEMPLATE_PART_AREA_UNCATEGORIZED;
 	}
 
 	// Run through the actions that are typically taken on the_content.

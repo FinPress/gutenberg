@@ -11,13 +11,13 @@ import type { Editor } from './index';
  */
 async function setContent( this: Editor, html: string ) {
 	await this.page.waitForFunction(
-		() => window?.fp?.blocks && window?.fp?.data
+		() => window?.fin?.blocks && window?.fin?.data
 	);
 
 	await this.page.evaluate( ( _html ) => {
-		const blocks = window.fp.blocks.parse( _html );
+		const blocks = window.fin.blocks.parse( _html );
 
-		window.fp.data.dispatch( 'core/block-editor' ).resetBlocks( blocks );
+		window.fin.data.dispatch( 'core/block-editor' ).resetBlocks( blocks );
 	}, html );
 }
 

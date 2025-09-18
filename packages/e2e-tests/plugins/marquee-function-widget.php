@@ -8,7 +8,7 @@
  */
 
 /**
- * Add a non-FP_Widget marquee widget.
+ * Add a non-FIN_Widget marquee widget.
  */
 function marquee_greeting_init() {
 	fin_register_sidebar_widget(

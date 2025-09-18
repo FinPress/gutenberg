@@ -34,7 +34,7 @@
 	},
 	"styles": {
 		"typography": {
-			"fontFamily": "var(--fp--preset--font-family--dm-sans)"
+			"fontFamily": "var(--fin--preset--font-family--dm-sans)"
 		}
 	}
 }

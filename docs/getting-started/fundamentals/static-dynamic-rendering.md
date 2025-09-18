@@ -95,7 +95,7 @@ Both of these methods receive the following data:
 
  - `$attributes`: The array of attributes for the block.
  - `$content`: The markup of the block as stored in the database, if any.
- - `$block`: The instance of the [FP_Block](https://developer.finpress.org/reference/classes/fin_block/) class that represents the rendered block ([metadata of the block](https://developer.finpress.org/block-editor/reference-guides/block-api/block-metadata/)).
+ - `$block`: The instance of the [FIN_Block](https://developer.finpress.org/reference/classes/fin_block/) class that represents the rendered block ([metadata of the block](https://developer.finpress.org/block-editor/reference-guides/block-api/block-metadata/)).
 
 <details><summary><strong>View an example of dynamic rendering in the Site Title block</strong></summary>
 <br/>

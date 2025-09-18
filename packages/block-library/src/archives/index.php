@@ -10,7 +10,7 @@
  *
  * @since 5.0.0
  *
- * @see FP_Widget_Archives
+ * @see FIN_Widget_Archives
  *
  * @param array $attributes The block attributes.
  *

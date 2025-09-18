@@ -11,13 +11,13 @@
  *
  * @group blocks
  */
-class Tests_Blocks_RenderLastPosts extends FP_UnitTestCase {
+class Tests_Blocks_RenderLastPosts extends FIN_UnitTestCase {
 	/**
 	 * @var array
 	 */
 	protected static $posts;
 	/**
-	 * @var FP_Post
+	 * @var FIN_Post
 	 */
 	protected static $sticky_post;
 	/**
@@ -29,7 +29,7 @@ class Tests_Blocks_RenderLastPosts extends FP_UnitTestCase {
 	 */
 	private $original_block_supports;
 
-	public static function fpSetUpBeforeClass( FP_UnitTest_Factory $factory ) {
+	public static function finSetUpBeforeClass( FIN_UnitTest_Factory $factory ) {
 		self::$sticky_post = $factory->post->create_and_get(
 			array(
 				'post_title' => 'Sticky post',
@@ -47,24 +47,24 @@ class Tests_Blocks_RenderLastPosts extends FP_UnitTestCase {
 		}
 	}
 
-	public static function fpTearDownAfterClass() {
+	public static function finTearDownAfterClass() {
 		foreach ( self::$attachment_ids as $attachment_id ) {
-			fp_delete_post( $attachment_id, true );
+			fin_delete_post( $attachment_id, true );
 		}
 	}
 
 	public function set_up() {
 		parent::set_up();
 
-		$this->original_block_supports      = FP_Block_Supports::$block_to_render;
-		FP_Block_Supports::$block_to_render = array(
+		$this->original_block_supports      = FIN_Block_Supports::$block_to_render;
+		FIN_Block_Supports::$block_to_render = array(
 			'attrs'     => array(),
 			'blockName' => '',
 		);
 	}
 
 	public function tear_down() {
-		FP_Block_Supports::$block_to_render = $this->original_block_supports;
+		FIN_Block_Supports::$block_to_render = $this->original_block_supports;
 		parent::tear_down();
 	}
 

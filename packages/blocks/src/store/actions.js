@@ -8,9 +8,9 @@ import deprecated from '@finpress/deprecated';
  */
 import { processBlockType } from './process-block-type';
 
-/** @typedef {import('../api/registration').FPBlockVariation} FPBlockVariation */
-/** @typedef {import('../api/registration').FPBlockType} FPBlockType */
-/** @typedef {import('./reducer').FPBlockCategory} FPBlockCategory */
+/** @typedef {import('../api/registration').FINBlockVariation} FINBlockVariation */
+/** @typedef {import('../api/registration').FINBlockType} FINBlockType */
+/** @typedef {import('./reducer').FINBlockCategory} FINBlockCategory */
 
 /**
  * Returns an action object used in signalling that block types have been added.
@@ -18,7 +18,7 @@ import { processBlockType } from './process-block-type';
  *
  * @ignore
  *
- * @param {FPBlockType|FPBlockType[]} blockTypes Object or array of objects representing blocks to added.
+ * @param {FINBlockType|FINBlockType[]} blockTypes Object or array of objects representing blocks to added.
  *
  *
  * @return {Object} Action object.
@@ -139,7 +139,7 @@ export function removeBlockStyles( blockName, styleNames ) {
  * @ignore
  *
  * @param {string}                              blockName  Block name.
- * @param {FPBlockVariation|FPBlockVariation[]} variations Block variations.
+ * @param {FINBlockVariation|FINBlockVariation[]} variations Block variations.
  *
  * @return {Object} Action object.
  */
@@ -250,7 +250,7 @@ export function setGroupingBlockName( name ) {
  *
  * @ignore
  *
- * @param {FPBlockCategory[]} categories Block categories.
+ * @param {FINBlockCategory[]} categories Block categories.
  *
  * @return {Object} Action object.
  */

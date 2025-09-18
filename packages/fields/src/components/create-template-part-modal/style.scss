@@ -41,7 +41,7 @@
 	}
 
 	&:has(input[type="radio"]:not(:checked)):hover {
-		color: var(--fp-admin-theme-color);
+		color: var(--fin-admin-theme-color);
 	}
 
 	// Pass-through pointer events, so that the corresponding radio input
@@ -65,7 +65,7 @@
 
 	input[type="radio"]:focus-visible ~ &::before {
 		outline: 4px solid transparent;
-		box-shadow: 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
+		box-shadow: 0 0 0 var(--fin-admin-border-width-focus) var(--fin-admin-theme-color);
 	}
 }
 

@@ -19,7 +19,7 @@ const {
 	runPrompts,
 } = require( './templates' );
 
-const commandName = `fp-create-block`;
+const commandName = `fin-create-block`;
 program
 	.name( commandName )
 	.description(
@@ -55,14 +55,14 @@ program
 	)
 	.option( '--category <name>', 'category name for the block' )
 	.option(
-		'--fp-scripts',
+		'--fin-scripts',
 		'enable integration with `@finpress/scripts` package'
 	)
 	.option(
-		'--no-fp-scripts',
+		'--no-fin-scripts',
 		'disable integration with `@finpress/scripts` package'
 	)
-	.option( '--fp-env', 'enable integration with `@finpress/env` package' )
+	.option( '--fin-env', 'enable integration with `@finpress/env` package' )
 	.option( '--textdomain <value>', 'text domain for internationalization' )
 	.action(
 		async (
@@ -74,8 +74,8 @@ program
 				shortDescription: description,
 				template: templateName,
 				title,
-				fpScripts,
-				fpEnv,
+				finScripts,
+				finEnv,
 				variant,
 				targetDir,
 				textdomain,
@@ -109,8 +109,8 @@ program
 						description,
 						namespace,
 						title,
-						fpScripts,
-						fpEnv,
+						finScripts,
+						finEnv,
 						targetDir,
 						textdomain,
 					} ).filter( ( [ , value ] ) => value !== undefined )

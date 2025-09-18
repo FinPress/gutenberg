@@ -51,7 +51,7 @@
 	.fin-block-post-featured-image__placeholder,
 	.components-placeholder,
 	img {
-		// The following is required to overcome FP Core applying styles that clear
+		// The following is required to overcome FIN Core applying styles that clear
 		// img borders with a higher specificity than those added by the border
 		// block support to provide a default border-style of solid when a border
 		// color or width has been set.

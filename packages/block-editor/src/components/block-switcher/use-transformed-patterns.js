@@ -14,8 +14,8 @@ import { getMatchingBlockByName, getRetainedBlockAttributes } from './utils';
  * which block type's attributes to retain and prioritize
  * them in the merging of the attributes.
  *
- * @param {FPBlock} match         The matched block.
- * @param {FPBlock} selectedBlock The selected block.
+ * @param {FINBlock} match         The matched block.
+ * @param {FINBlock} selectedBlock The selected block.
  * @return {void}
  */
 export const transformMatchingBlock = ( match, selectedBlock ) => {
@@ -35,9 +35,9 @@ export const transformMatchingBlock = ( match, selectedBlock ) => {
  * find the matching blocks, transform them and return them.
  * If not all selected blocks are matched, return nothing.
  *
- * @param {FPBlock[]} selectedBlocks The selected blocks.
- * @param {FPBlock[]} patternBlocks  The pattern's blocks.
- * @return {FPBlock[]|void} The transformed pattern's blocks or undefined if not all selected blocks have been matched.
+ * @param {FINBlock[]} selectedBlocks The selected blocks.
+ * @param {FINBlock[]} patternBlocks  The pattern's blocks.
+ * @return {FINBlock[]|void} The transformed pattern's blocks or undefined if not all selected blocks have been matched.
  */
 export const getPatternTransformedBlocks = (
 	selectedBlocks,
@@ -81,7 +81,7 @@ export const getPatternTransformedBlocks = (
 };
 
 /**
- * @typedef {FPBlockPattern & {transformedBlocks: FPBlock[]}} TransformedBlockPattern
+ * @typedef {FINBlockPattern & {transformedBlocks: FINBlock[]}} TransformedBlockPattern
  */
 
 /**
@@ -92,8 +92,8 @@ export const getPatternTransformedBlocks = (
  * The transformed pattern's blocks are set to a new pattern
  * property `transformedBlocks`.
  *
- * @param {FPBlockPattern[]} patterns       Patterns from state.
- * @param {FPBlock[]}        selectedBlocks The currently selected blocks.
+ * @param {FINBlockPattern[]} patterns       Patterns from state.
+ * @param {FINBlock[]}        selectedBlocks The currently selected blocks.
  * @return {TransformedBlockPattern[]} Returns the eligible matched patterns with all the selected blocks.
  */
 const useTransformedPatterns = ( patterns, selectedBlocks ) => {

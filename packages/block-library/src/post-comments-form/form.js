@@ -40,12 +40,12 @@ const CommentsFormPlaceholder = () => {
 						readOnly
 					/>
 				</p>
-				<p className="form-submit fp-block-button">
+				<p className="form-submit fin-block-button">
 					<input
 						name="submit"
 						type="submit"
 						className={ clsx(
-							'fp-block-button__link',
+							'fin-block-button__link',
 							__experimentalGetElementClassName( 'button' )
 						) }
 						label={ __( 'Post Comment' ) }

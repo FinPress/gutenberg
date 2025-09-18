@@ -2,7 +2,7 @@ export const patterns = [
 	{
 		categories: [ 'featured', 'text' ],
 		content:
-			'<!-- fp:heading {"align":"wide","style":{"typography":{"fontSize":"48px","lineHeight":"1.1"}}} -->\n<h2 class="alignwide" id="we-re-a-studio-in-berlin-with-an-international-practice-in-architecture-urban-planning-and-interior-design-we-believe-in-sharing-knowledge-and-promoting-dialogue-to-increase-the-creative-potential-of-collaboration" style="font-size:48px;line-height:1.1">We\'re a studio in Berlin with an international practice in architecture, urban planning and interior design. We believe in sharing knowledge and promoting dialogue to increase the creative potential of collaboration.</h2>\n<!-- /fp:heading -->',
+			'<!-- fin:heading {"align":"wide","style":{"typography":{"fontSize":"48px","lineHeight":"1.1"}}} -->\n<h2 class="alignwide" id="we-re-a-studio-in-berlin-with-an-international-practice-in-architecture-urban-planning-and-interior-design-we-believe-in-sharing-knowledge-and-promoting-dialogue-to-increase-the-creative-potential-of-collaboration" style="font-size:48px;line-height:1.1">We\'re a studio in Berlin with an international practice in architecture, urban planning and interior design. We believe in sharing knowledge and promoting dialogue to increase the creative potential of collaboration.</h2>\n<!-- /fin:heading -->',
 		description: 'Heading text',
 		keywords: [ 'large text', 'title' ],
 		name: 'heading',
@@ -24,7 +24,7 @@ export const patternCategories = [
 export const reusableBlocks = [
 	{
 		content: {
-			raw: '\x3C!-- fp:paragraph -->\n<p>This is reusable</p>\n\x3C!-- /fp:paragraph -->',
+			raw: '\x3C!-- fin:paragraph -->\n<p>This is reusable</p>\n\x3C!-- /fin:paragraph -->',
 			protected: false,
 			block_version: 1,
 		},
@@ -39,6 +39,6 @@ export const reusableBlocks = [
 		status: 'publish',
 		template: '',
 		title: { raw: 'Simple paragraph' },
-		type: 'fp_block',
+		type: 'fin_block',
 	},
 ];

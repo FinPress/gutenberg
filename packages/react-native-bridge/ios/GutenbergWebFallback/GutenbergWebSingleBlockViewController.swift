@@ -10,7 +10,7 @@ public protocol GutenbergWebDelegate: AnyObject {
 open class GutenbergWebSingleBlockViewController: UIViewController {
     public weak var delegate: GutenbergWebDelegate?
 
-    private let isFPOrg: Bool
+    private let isFINOrg: Bool
     private let block: Block
     private let jsInjection: FallbackJavascriptInjection
     private let coverView = UIView()
@@ -22,9 +22,9 @@ open class GutenbergWebSingleBlockViewController: UIViewController {
         return WKWebView(frame: .zero, configuration: configuration)
     }()
 
-    public init(block: Block, userId: String, isFPOrg: Bool = true) throws {
+    public init(block: Block, userId: String, isFINOrg: Bool = true) throws {
         self.block = block
-        self.isFPOrg = isFPOrg
+        self.isFINOrg = isFINOrg
         jsInjection = try FallbackJavascriptInjection(blockHTML: block.content, userId: userId)
 
         super.init(nibName: nil, bundle: nil)
@@ -156,7 +156,7 @@ extension GutenbergWebSingleBlockViewController: WKNavigationDelegate {
         // script that inject css manually before actually injecting the css.
         evaluateJavascript(jsInjection.injectCssScript)
         evaluateJavascript(jsInjection.injectEditorCssScript)
-        evaluateJavascript(jsInjection.injectFPBarsCssScript)
+        evaluateJavascript(jsInjection.injectFINBarsCssScript)
         evaluateJavascript(jsInjection.injectLocalStorageScript)
         onPageLoadScripts().forEach(evaluateJavascript)
         onGutenbergLoadStyles().forEach(evaluateJavascript)

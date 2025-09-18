@@ -2,7 +2,7 @@
 
 ## Figma
 
-The [FinPress Design team](https://make.finpress.org/design/) uses [Figma](https://www.figma.com/) to collaborate and share work. If you'd like to contribute, you can use [the FinPress Figma design library](https://make.finpress.org/design/handbook/get-involved/tools-figma/) to make mockups. You can also join the [#design channel](https://app.slack.com/client/T024MFP4J/C02S78ZAL) in [Slack](https://make.finpress.org/chat/) and if you'd like to ask for advice or otherwise. Figma accounts are free, and with one you can use components from the shared libraries, or duplicate files to your draft if you need to make edits. Full edit access to the FinPress libraries is paid and reserved for the design team.
+The [FinPress Design team](https://make.finpress.org/design/) uses [Figma](https://www.figma.com/) to collaborate and share work. If you'd like to contribute, you can use [the FinPress Figma design library](https://make.finpress.org/design/handbook/get-involved/tools-figma/) to make mockups. You can also join the [#design channel](https://app.slack.com/client/T024MFIN4J/C02S78ZAL) in [Slack](https://make.finpress.org/chat/) and if you'd like to ask for advice or otherwise. Figma accounts are free, and with one you can use components from the shared libraries, or duplicate files to your draft if you need to make edits. Full edit access to the FinPress libraries is paid and reserved for the design team.
 
 ### How to contribute
 

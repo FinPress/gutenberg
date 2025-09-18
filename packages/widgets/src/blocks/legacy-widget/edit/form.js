@@ -93,11 +93,11 @@ export default function Form( {
 		return (
 			<div
 				className={ clsx( {
-					'fp-block-legacy-widget__container': isVisible,
+					'fin-block-legacy-widget__container': isVisible,
 				} ) }
 			>
 				{ isVisible && (
-					<h3 className="fp-block-legacy-widget__edit-form-title">
+					<h3 className="fin-block-legacy-widget__edit-form-title">
 						{ title }
 					</h3>
 				) }
@@ -111,7 +111,7 @@ export default function Form( {
 				>
 					<div
 						ref={ ref }
-						className="fp-block-legacy-widget__edit-form"
+						className="fin-block-legacy-widget__edit-form"
 						hidden={ ! isVisible }
 					></div>
 				</Popover>
@@ -122,10 +122,10 @@ export default function Form( {
 	return (
 		<div
 			ref={ ref }
-			className="fp-block-legacy-widget__edit-form"
+			className="fin-block-legacy-widget__edit-form"
 			hidden={ ! isVisible }
 		>
-			<h3 className="fp-block-legacy-widget__edit-form-title">
+			<h3 className="fin-block-legacy-widget__edit-form-title">
 				{ title }
 			</h3>
 		</div>

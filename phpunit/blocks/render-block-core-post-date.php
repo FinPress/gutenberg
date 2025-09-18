@@ -8,11 +8,11 @@
  * @covers ::gutenberg_render_block_core_post_date
  * @group blocks
  */
-class Test_Render_Block_Core_Post_Date extends FP_UnitTestCase {
+class Test_Render_Block_Core_Post_Date extends FIN_UnitTestCase {
 
 	protected static $post_id;
 
-	public static function fpSetUpBeforeClass( $factory ) {
+	public static function finSetUpBeforeClass( $factory ) {
 		self::$post_id = $factory->post->create(
 			array(
 				'post_type'    => 'post',
@@ -38,7 +38,7 @@ class Test_Render_Block_Core_Post_Date extends FP_UnitTestCase {
 			'datetime' => $expected_date,
 		);
 
-		$block = new FP_Block(
+		$block = new FIN_Block(
 			array(
 				'blockName' => 'core/post-date',
 				'attrs'     => $attributes,
@@ -76,7 +76,7 @@ class Test_Render_Block_Core_Post_Date extends FP_UnitTestCase {
 			),
 		);
 
-		$block = new FP_Block(
+		$block = new FIN_Block(
 			array(
 				'blockName' => 'core/post-date',
 				'attrs'     => $attributes,
@@ -116,7 +116,7 @@ class Test_Render_Block_Core_Post_Date extends FP_UnitTestCase {
 			$attributes['displayType'] = 'modified';
 		}
 
-		$block = new FP_Block(
+		$block = new FIN_Block(
 			array(
 				'blockName' => 'core/post-date',
 				'attrs'     => $attributes,
@@ -144,7 +144,7 @@ class Test_Render_Block_Core_Post_Date extends FP_UnitTestCase {
 			),
 		);
 
-		$block = new FP_Block(
+		$block = new FIN_Block(
 			array(
 				'blockName' => 'core/post-date',
 				'attrs'     => $attributes,

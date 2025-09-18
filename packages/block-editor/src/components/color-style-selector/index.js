@@ -79,7 +79,7 @@ const renderToggleComponent =
 	};
 
 const BlockColorsStyleSelector = ( { children, ...other } ) => {
-	deprecated( `fp.blockEditor.BlockColorsStyleSelector`, {
+	deprecated( `fin.blockEditor.BlockColorsStyleSelector`, {
 		alternative: 'block supports API',
 		since: '6.1',
 		version: '6.3',

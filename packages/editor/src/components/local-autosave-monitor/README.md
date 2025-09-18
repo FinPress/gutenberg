@@ -10,7 +10,7 @@
 
 The interval used for the local autosave can be modified by updating the editor settings
 ```js
-fp.data.dispatch( 'core/editor' ).updateEditorSettings( {
+fin.data.dispatch( 'core/editor' ).updateEditorSettings( {
 	localAutosaveInterval: 100000000000,
 } );
 ```

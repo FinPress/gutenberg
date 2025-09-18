@@ -2,7 +2,7 @@
 
 `npm run other:cherry-pick` automates cherry-picking Pull Requests with a specific label into the **current branch**.
 
-It's especially useful for major FinPress releases as by default the script looks for merged Pull Requests with the `Backport to FP Beta/RC` label.
+It's especially useful for major FinPress releases as by default the script looks for merged Pull Requests with the `Backport to FIN Beta/RC` label.
 
 You can also use it in different scenarios by passing a custom label as the first argument. See the Gutenberg plugin release example at the end of this document.
 
@@ -11,7 +11,7 @@ Running `npm run other:cherry-pick` yields the following prompt:
 ```
 You are on branch "fin/6.2".
 This script will:
-• Cherry-pick the merged PRs labeled as "Backport to FP Beta/RC" to this branch
+• Cherry-pick the merged PRs labeled as "Backport to FIN Beta/RC" to this branch
 • Ask whether you want to push this branch
 • Comment on each PR
 • Remove the label from each PR
@@ -66,7 +66,7 @@ Done!
 
 The commenting part is optional and only possible if you have the [`gh` console utility](https://cli.github.com/) installed.
 
-### Can I use a different label than `Backport to FP Beta/RC`?
+### Can I use a different label than `Backport to FIN Beta/RC`?
 
 Yes! Pass it as the first argument:
 
@@ -90,4 +90,4 @@ In the future, it would be great if the script automatically selected the
 relevant label based on the currently selected branch:
 
 * release/X.Y - plugin release – "Backport to Gutenberg RC"
-* fin/X.Y - FP release – "Backport to FP Beta/RC"
+* fin/X.Y - FIN release – "Backport to FIN Beta/RC"

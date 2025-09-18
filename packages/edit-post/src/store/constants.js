@@ -10,11 +10,11 @@ export const STORE_NAME = 'core/edit-post';
  *
  * @type {string}
  */
-export const VIEW_AS_LINK_SELECTOR = '#fp-admin-bar-view a';
+export const VIEW_AS_LINK_SELECTOR = '#fin-admin-bar-view a';
 
 /**
  * CSS selector string for the admin bar preview post link anchor tag.
  *
  * @type {string}
  */
-export const VIEW_AS_PREVIEW_LINK_SELECTOR = '#fp-admin-bar-preview a';
+export const VIEW_AS_PREVIEW_LINK_SELECTOR = '#fin-admin-bar-preview a';

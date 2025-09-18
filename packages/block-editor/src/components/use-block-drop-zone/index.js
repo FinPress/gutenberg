@@ -29,23 +29,23 @@ const THRESHOLD_DISTANCE = 30;
 const MINIMUM_HEIGHT_FOR_THRESHOLD = 120;
 const MINIMUM_WIDTH_FOR_THRESHOLD = 120;
 
-/** @typedef {import('../../utils/math').FPPoint} FPPoint */
-/** @typedef {import('../use-on-block-drop/types').FPDropOperation} FPDropOperation */
+/** @typedef {import('../../utils/math').FINPoint} FINPoint */
+/** @typedef {import('../use-on-block-drop/types').FINDropOperation} FINDropOperation */
 
 /**
  * The orientation of a block list.
  *
- * @typedef {'horizontal'|'vertical'|undefined} FPBlockListOrientation
+ * @typedef {'horizontal'|'vertical'|undefined} FINBlockListOrientation
  */
 
 /**
  * The insert position when dropping a block.
  *
- * @typedef {'before'|'after'} FPInsertPosition
+ * @typedef {'before'|'after'} FINInsertPosition
  */
 
 /**
- * @typedef {Object} FPBlockData
+ * @typedef {Object} FINBlockData
  * @property {boolean}       isUnmodifiedDefaultBlock Is the block unmodified default block.
  * @property {() => DOMRect} getBoundingClientRect    Get the bounding client rect of the block.
  * @property {number}        blockIndex               The index of the block.
@@ -54,11 +54,11 @@ const MINIMUM_WIDTH_FOR_THRESHOLD = 120;
 /**
  * Get the drop target position from a given drop point and the orientation.
  *
- * @param {FPBlockData[]}          blocksData  The block data list.
- * @param {FPPoint}                position    The position of the item being dragged.
- * @param {FPBlockListOrientation} orientation The orientation of the block list.
+ * @param {FINBlockData[]}          blocksData  The block data list.
+ * @param {FINPoint}                position    The position of the item being dragged.
+ * @param {FINBlockListOrientation} orientation The orientation of the block list.
  * @param {Object}                 options     Additional options.
- * @return {[number, FPDropOperation]} The drop target position.
+ * @return {[number, FINDropOperation]} The drop target position.
  */
 export function getDropTargetPosition(
 	blocksData,
@@ -296,7 +296,7 @@ function isInsertionPoint( targetToCheck, ownerDocument ) {
 }
 
 /**
- * @typedef  {Object} FPBlockDropZoneConfig
+ * @typedef  {Object} FINBlockDropZoneConfig
  * @property {?HTMLElement} dropZoneElement Optional element to be used as the drop zone.
  * @property {string}       rootClientId    The root client id for the block list.
  */
@@ -304,7 +304,7 @@ function isInsertionPoint( targetToCheck, ownerDocument ) {
 /**
  * A React hook that can be used to make a block list handle drag and drop.
  *
- * @param {FPBlockDropZoneConfig} dropZoneConfig configuration data for the drop zone.
+ * @param {FINBlockDropZoneConfig} dropZoneConfig configuration data for the drop zone.
  */
 export default function useBlockDropZone( {
 	dropZoneElement,

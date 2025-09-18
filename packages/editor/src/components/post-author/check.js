@@ -21,7 +21,7 @@ import { store as editorStore } from '../../store';
 export default function PostAuthorCheck( { children } ) {
 	const { hasAssignAuthorAction } = useSelect( ( select ) => {
 		const post = select( editorStore ).getCurrentPost();
-		const canAssignAuthor = post?._links?.[ 'fp:action-assign-author' ]
+		const canAssignAuthor = post?._links?.[ 'fin:action-assign-author' ]
 			? true
 			: false;
 		return {

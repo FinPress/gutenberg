@@ -26,18 +26,18 @@ describe( 'getGlobalStylesChanges and utils', () => {
 				backgroundRepeat: 'no-repeat',
 			},
 			typography: {
-				fontSize: 'var(--fp--preset--font-size--potato)',
+				fontSize: 'var(--fin--preset--font-size--potato)',
 				fontStyle: 'normal',
 				fontWeight: '600',
 				lineHeight: '1.85',
-				fontFamily: 'var(--fp--preset--font-family--asparagus)',
+				fontFamily: 'var(--fin--preset--font-family--asparagus)',
 			},
 			spacing: {
 				padding: {
 					top: '36px',
 					right: '89px',
 					bottom: '133px',
-					left: 'var(--fp--preset--spacing--20)',
+					left: 'var(--fin--preset--spacing--20)',
 				},
 				blockGap: '114px',
 			},
@@ -54,12 +54,12 @@ describe( 'getGlobalStylesChanges and utils', () => {
 				},
 				caption: {
 					color: {
-						text: 'var(--fp--preset--color--pineapple)',
+						text: 'var(--fin--preset--color--pineapple)',
 					},
 				},
 			},
 			color: {
-				text: 'var(--fp--preset--color--tomato)',
+				text: 'var(--fin--preset--color--tomato)',
 			},
 			blocks: {
 				'core/test-fiori-di-zucca': {
@@ -101,18 +101,18 @@ describe( 'getGlobalStylesChanges and utils', () => {
 				backgroundRepeat: 'repeat',
 			},
 			typography: {
-				fontSize: 'var(--fp--preset--font-size--fungus)',
+				fontSize: 'var(--fin--preset--font-size--fungus)',
 				fontStyle: 'normal',
 				fontWeight: '600',
 				lineHeight: '1.85',
-				fontFamily: 'var(--fp--preset--font-family--grapes)',
+				fontFamily: 'var(--fin--preset--font-family--grapes)',
 			},
 			spacing: {
 				padding: {
 					top: '36px',
 					right: '89px',
 					bottom: '133px',
-					left: 'var(--fp--preset--spacing--20)',
+					left: 'var(--fin--preset--spacing--20)',
 				},
 				blockGap: '114px',
 			},
@@ -145,13 +145,13 @@ describe( 'getGlobalStylesChanges and utils', () => {
 						textDecoration: 'line-through',
 					},
 					color: {
-						text: 'var(--fp--preset--color--egg)',
+						text: 'var(--fin--preset--color--egg)',
 					},
 				},
 			},
 			color: {
-				text: 'var(--fp--preset--color--tomato)',
-				background: 'var(--fp--preset--color--pumpkin)',
+				text: 'var(--fin--preset--color--tomato)',
+				background: 'var(--fin--preset--color--pumpkin)',
 			},
 			blocks: {
 				'core/test-fiori-di-zucca': {

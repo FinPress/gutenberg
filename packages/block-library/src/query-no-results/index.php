@@ -10,11 +10,11 @@
  *
  * @since 6.0.0
  *
- * @global FP_Query $fin_query FinPress Query object.
+ * @global FIN_Query $fin_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  *
  * @return string Returns the wrapper for the no results block.
  */
@@ -33,7 +33,7 @@ function render_block_core_query_no_results( $attributes, $content, $block ) {
 		$query = $fin_query;
 	} else {
 		$query_args = build_query_vars_from_query_block( $block, $page );
-		$query      = new FP_Query( $query_args );
+		$query      = new FIN_Query( $query_args );
 	}
 
 	if ( $query->post_count > 0 ) {

@@ -12,7 +12,7 @@
  *
  * @param Array    $attributes The block attributes.
  * @param String   $content    InnerBlocks content of the Block.
- * @param FP_Block $block      Block object.
+ * @param FIN_Block $block      Block object.
  *
  * @return string Rendered HTML of the referenced block.
  */
@@ -62,7 +62,7 @@ function render_block_core_social_link( $attributes, $content, $block ) {
 	$link .= '<span class="fin-block-social-link-label' . ( $show_labels ? '' : ' screen-reader-text' ) . '">' . esc_html( $text ) . '</span>';
 	$link .= '</a></li>';
 
-	$processor = new FP_HTML_Tag_Processor( $link );
+	$processor = new FIN_HTML_Tag_Processor( $link );
 	$processor->next_tag( 'a' );
 	if ( $open_in_new_tab ) {
 		$processor->set_attribute( 'rel', trim( $rel . ' noopener nofollow' ) );

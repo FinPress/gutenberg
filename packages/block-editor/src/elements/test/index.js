@@ -6,7 +6,7 @@ import { __experimentalGetElementClassName } from '@finpress/block-editor';
 describe( 'element class names', () => {
 	it( 'should return the correct class name for button', () => {
 		expect( __experimentalGetElementClassName( 'button' ) ).toEqual(
-			'fp-element-button'
+			'fin-element-button'
 		);
 	} );
 

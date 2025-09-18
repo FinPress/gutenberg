@@ -8,8 +8,8 @@ import './index.js';
  */
 import 'react-native-url-polyfill/auto';
 
-jest.mock( './fixtures/fpt-data.json', () => {
-	const data = jest.requireActual( './fixtures/fpt-data.json' );
+jest.mock( './fixtures/fint-data.json', () => {
+	const data = jest.requireActual( './fixtures/fint-data.json' );
 
 	/**
 	 * Test items to exclude by input. Ideally this should be empty, but are

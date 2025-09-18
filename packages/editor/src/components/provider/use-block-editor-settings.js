@@ -33,7 +33,7 @@ const EMPTY_OBJECT = {};
 function __experimentalReusableBlocksSelect( select ) {
 	const { RECEIVE_INTERMEDIATE_RESULTS } = unlock( coreDataPrivateApis );
 	const { getEntityRecords } = select( coreStore );
-	return getEntityRecords( 'postType', 'fp_block', {
+	return getEntityRecords( 'postType', 'fin_block', {
 		per_page: -1,
 		[ RECEIVE_INTERMEDIATE_RESULTS ]: true,
 	} );
@@ -168,7 +168,7 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 					'postType',
 					postType,
 					postId
-				)?._links?.hasOwnProperty( 'fp:action-unfiltered-html' ),
+				)?._links?.hasOwnProperty( 'fin:action-unfiltered-html' ),
 				focusMode: get( 'core', 'focusMode' ),
 				hasFixedToolbar:
 					get( 'core', 'fixedToolbar' ) || ! isLargeviewport,
@@ -199,11 +199,11 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 	const globalStylesLinksData = mergedGlobalStyles._links ?? EMPTY_OBJECT;
 
 	const settingsBlockPatterns =
-		settings.__experimentalAdditionalBlockPatterns ?? // FP 6.0
-		settings.__experimentalBlockPatterns; // FP 5.9
+		settings.__experimentalAdditionalBlockPatterns ?? // FIN 6.0
+		settings.__experimentalBlockPatterns; // FIN 5.9
 	const settingsBlockPatternCategories =
-		settings.__experimentalAdditionalBlockPatternCategories ?? // FP 6.0
-		settings.__experimentalBlockPatternCategories; // FP 5.9
+		settings.__experimentalAdditionalBlockPatternCategories ?? // FIN 6.0
+		settings.__experimentalBlockPatternCategories; // FIN 5.9
 
 	const blockPatterns = useMemo(
 		() =>
@@ -320,23 +320,23 @@ function useBlockEditorSettings( settings, postType, postId, renderingMode ) {
 			__experimentalUndo: undo,
 			// Check whether we want all site editor frames to have outlines
 			// including the navigation / pattern / parts editors.
-			outlineMode: ! isDistractionFree && postType === 'fp_template',
+			outlineMode: ! isDistractionFree && postType === 'fin_template',
 			// Check these two properties: they were not present in the site editor.
 			__experimentalCreatePageEntity: createPageEntity,
 			__experimentalUserCanCreatePages: userCanCreatePages,
 			pageOnFront,
 			pageForPosts,
-			__experimentalPreferPatternsOnRoot: postType === 'fp_template',
+			__experimentalPreferPatternsOnRoot: postType === 'fin_template',
 			templateLock:
-				postType === 'fp_navigation' ? 'insert' : settings.templateLock,
+				postType === 'fin_navigation' ? 'insert' : settings.templateLock,
 			template:
-				postType === 'fp_navigation'
+				postType === 'fin_navigation'
 					? [ [ 'core/navigation', {}, [] ] ]
 					: settings.template,
 			__experimentalSetIsInserterOpened: setIsInserterOpened,
 			[ sectionRootClientIdKey ]: sectionRootClientId,
 			editorTool:
-				renderingMode === 'post-only' && postType !== 'fp_template'
+				renderingMode === 'post-only' && postType !== 'fin_template'
 					? 'edit'
 					: undefined,
 		};

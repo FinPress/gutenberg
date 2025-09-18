@@ -25,29 +25,29 @@ _Usage_
 Input post:
 
 ```html
-<!-- fp:columns {"columns":3} -->
-<div class="fp-block-columns has-3-columns">
-	<!-- fp:column -->
-	<div class="fp-block-column">
-		<!-- fp:paragraph -->
+<!-- fin:columns {"columns":3} -->
+<div class="fin-block-columns has-3-columns">
+	<!-- fin:column -->
+	<div class="fin-block-column">
+		<!-- fin:paragraph -->
 		<p>Left</p>
-		<!-- /fp:paragraph -->
+		<!-- /fin:paragraph -->
 	</div>
-	<!-- /fp:column -->
+	<!-- /fin:column -->
 
-	<!-- fp:column -->
-	<div class="fp-block-column">
-		<!-- fp:paragraph -->
+	<!-- fin:column -->
+	<div class="fin-block-column">
+		<!-- fin:paragraph -->
 		<p><strong>Middle</strong></p>
-		<!-- /fp:paragraph -->
+		<!-- /fin:paragraph -->
 	</div>
-	<!-- /fp:column -->
+	<!-- /fin:column -->
 
-	<!-- fp:column -->
-	<div class="fp-block-column"></div>
-	<!-- /fp:column -->
+	<!-- fin:column -->
+	<div class="fin-block-column"></div>
+	<!-- /fin:column -->
 </div>
-<!-- /fp:columns -->
+<!-- /fin:columns -->
 ```
 
 Parsing code:
@@ -74,7 +74,7 @@ parse( post ) ===
 							innerHTML: '\n<p>Left</p>\n',
 						},
 					],
-					innerHTML: '\n<div class="fp-block-column"></div>\n',
+					innerHTML: '\n<div class="fin-block-column"></div>\n',
 				},
 				{
 					blockName: 'core/column',
@@ -87,17 +87,17 @@ parse( post ) ===
 							innerHTML: '\n<p><strong>Middle</strong></p>\n',
 						},
 					],
-					innerHTML: '\n<div class="fp-block-column"></div>\n',
+					innerHTML: '\n<div class="fin-block-column"></div>\n',
 				},
 				{
 					blockName: 'core/column',
 					attrs: null,
 					innerBlocks: [],
-					innerHTML: '\n<div class="fp-block-column"></div>\n',
+					innerHTML: '\n<div class="fin-block-column"></div>\n',
 				},
 			],
 			innerHTML:
-				'\n<div class="fp-block-columns has-3-columns">\n\n\n\n</div>\n',
+				'\n<div class="fin-block-columns has-3-columns">\n\n\n\n</div>\n',
 		},
 	];
 ```

@@ -46,7 +46,7 @@
 .editor-post-featured-image__preview {
 	width: 100%;
 	padding: 0;
-	box-shadow: 0 0 0 0 var(--fp-admin-theme-color);
+	box-shadow: 0 0 0 0 var(--fin-admin-theme-color);
 	overflow: hidden; // Ensure the focus style properly encapsulates the image.
 	outline-offset: -#{$border-width};
 	min-height: $grid-unit-50;
@@ -72,7 +72,7 @@
 
 	&:focus:not(:disabled) {
 		// Allow smooth transition between focused and unfocused box-shadow states.
-		box-shadow: 0 0 0 currentColor inset, 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
+		box-shadow: 0 0 0 currentColor inset, 0 0 0 var(--fin-admin-border-width-focus) var(--fin-admin-theme-color);
 	}
 }
 

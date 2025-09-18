@@ -99,7 +99,7 @@ export function useEventHandlers( { clientId, isSelected } ) {
 				} );
 				event.dataTransfer.effectAllowed = 'move'; // remove "+" cursor
 				event.dataTransfer.clearData();
-				event.dataTransfer.setData( 'fp-blocks', data );
+				event.dataTransfer.setData( 'fin-blocks', data );
 				const { ownerDocument } = node;
 				const { defaultView } = ownerDocument;
 				const selection = defaultView.getSelection();

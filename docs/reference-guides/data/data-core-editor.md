@@ -403,7 +403,7 @@ _Parameters_
 
 _Returns_
 
--   `FPBlockSelection`: The selection end.
+-   `FINBlockSelection`: The selection end.
 
 ### getEditorSelectionEnd
 
@@ -417,7 +417,7 @@ _Parameters_
 
 _Returns_
 
--   `FPBlockSelection`: The selection end.
+-   `FINBlockSelection`: The selection end.
 
 ### getEditorSelectionStart
 
@@ -431,7 +431,7 @@ _Parameters_
 
 _Returns_
 
--   `FPBlockSelection`: The selection start.
+-   `FINBlockSelection`: The selection start.
 
 ### getEditorSettings
 

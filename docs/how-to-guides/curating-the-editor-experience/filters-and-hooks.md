@@ -9,7 +9,7 @@ One of the most common ways to modify the Editor is through the [`block_editor_s
 The `block_editor_settings_all` hook passes two parameters to the callback function:
 
 - `$settings` – An array of [configurable settings](https://developer.finpress.org/block-editor/reference-guides/filters/editor-filters/#editor-settings) for the Editor.
-- `$context` – An instance of [`FP_Block_Editor_Context`](https://developer.finpress.org/reference/classes/fin_block_editor_context/), an object that contains information about the current Editor.
+- `$context` – An instance of [`FIN_Block_Editor_Context`](https://developer.finpress.org/reference/classes/fin_block_editor_context/), an object that contains information about the current Editor.
 
 The following example disables the Code Editor for users who cannot activate plugins (Administrators). Add this to a plugin or your theme's `functions.php` file to test it.
 
@@ -77,7 +77,7 @@ function example_filter_theme_json_data_theme( $theme_json ){
 add_filter( 'fin_theme_json_data_theme', 'example_filter_theme_json_data_theme' );
 ```
 
-The filter receives an instance of the `FP_Theme_JSON_Data class` with the data for the respective layer. Then, you pass new data in a valid theme.json-like structure to the `update_with( $new_data )` method. A theme.json version number is required in `$new_data`. 
+The filter receives an instance of the `FIN_Theme_JSON_Data class` with the data for the respective layer. Then, you pass new data in a valid theme.json-like structure to the `update_with( $new_data )` method. A theme.json version number is required in `$new_data`. 
 
 
 ## Client-side (Editor) filters

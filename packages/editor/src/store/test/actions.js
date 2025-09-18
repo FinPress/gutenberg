@@ -20,7 +20,7 @@ const postId = 44;
 const postTypeConfig = {
 	kind: 'postType',
 	name: 'post',
-	baseURL: '/fp/v2/posts',
+	baseURL: '/fin/v2/posts',
 	transientEdits: { blocks: true, selection: true },
 	mergedEdits: { meta: true },
 	rawAttributes: [ 'title', 'excerpt', 'content' ],
@@ -81,14 +81,14 @@ describe( 'Post actions', () => {
 
 				if (
 					method === 'PUT' &&
-					path.startsWith( `/fp/v2/posts/${ postId }` )
+					path.startsWith( `/fin/v2/posts/${ postId }` )
 				) {
 					return { ...post, ...data };
 				} else if (
 					// This URL is requested by the actions dispatched in this test.
 					// They are safe to ignore and are only listed here to avoid triggeringan error.
 					method === 'GET' &&
-					path.startsWith( '/fp/v2/types/post' )
+					path.startsWith( '/fin/v2/types/post' )
 				) {
 					return {
 						json: () => Promise.resolve( {} ),
@@ -162,11 +162,11 @@ describe( 'Post actions', () => {
 
 				if (
 					method === 'GET' &&
-					path.startsWith( '/fp/v2/users/me' )
+					path.startsWith( '/fin/v2/users/me' )
 				) {
 					return { id: 1 };
 				} else if (
-					path.startsWith( `/fp/v2/posts/${ postId }/autosaves` )
+					path.startsWith( `/fin/v2/posts/${ postId }/autosaves` )
 				) {
 					if ( method === 'POST' ) {
 						return { ...post, ...data };
@@ -177,8 +177,8 @@ describe( 'Post actions', () => {
 					// These URLs are requested by the actions dispatched in this test.
 					// They are safe to ignore and are only listed here to avoid triggeringan error.
 					if (
-						path.startsWith( '/fp/v2/types/post' ) ||
-						path.startsWith( `/fp/v2/posts/${ postId }` )
+						path.startsWith( '/fin/v2/types/post' ) ||
+						path.startsWith( `/fin/v2/posts/${ postId }` )
 					) {
 						return {
 							json: () => Promise.resolve( {} ),
@@ -249,7 +249,7 @@ describe( 'Post actions', () => {
 				const method = getMethod( options );
 				const { path, data } = options;
 
-				if ( path.startsWith( `/fp/v2/posts/${ postId }` ) ) {
+				if ( path.startsWith( `/fin/v2/posts/${ postId }` ) ) {
 					if ( method === 'DELETE' ) {
 						gotTrashed = true;
 						return { ...post, status: 'trash' };
@@ -264,7 +264,7 @@ describe( 'Post actions', () => {
 					// They are safe to ignore and are only listed here to avoid triggeringan error.
 				} else if (
 					method === 'GET' &&
-					path.startsWith( '/fp/v2/types/post' )
+					path.startsWith( '/fin/v2/types/post' )
 				) {
 					return {
 						json: () => Promise.resolve( {} ),
@@ -327,7 +327,7 @@ describe( 'Post actions', () => {
 				} ),
 				resolveSelect: () => ( {
 					getPostType: () => ( {
-						rest_namespace: 'fp/v2',
+						rest_namespace: 'fin/v2',
 						rest_base: 'posts',
 					} ),
 				} ),

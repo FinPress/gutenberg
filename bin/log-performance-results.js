@@ -30,7 +30,7 @@ const resultsFiles = [
 const performanceResults = resultsFiles.map( ( { file } ) =>
 	JSON.parse(
 		fs.readFileSync(
-			path.join( process.env.FP_ARTIFACTS_PATH, file ),
+			path.join( process.env.FIN_ARTIFACTS_PATH, file ),
 			'utf8'
 		)
 	)

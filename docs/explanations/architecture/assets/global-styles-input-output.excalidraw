@@ -247,7 +247,7 @@
       "strokeSharpness": "sharp",
       "boundElements": [
         {
-          "id": "ccK0gnrFParTub-zbOTR2",
+          "id": "ccK0gnrFINarTub-zbOTR2",
           "type": "arrow"
         },
         {
@@ -600,12 +600,12 @@
       "updated": 1643633370772,
       "fontSize": 20,
       "fontFamily": 1,
-      "text": "Internal Representation (FP_Theme_JSON object)",
+      "text": "Internal Representation (FIN_Theme_JSON object)",
       "baseline": 18,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Internal Representation (FP_Theme_JSON object)"
+      "originalText": "Internal Representation (FIN_Theme_JSON object)"
     },
     {
       "type": "arrow",

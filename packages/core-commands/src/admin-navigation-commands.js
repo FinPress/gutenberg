@@ -119,7 +119,7 @@ const getAdminBasicNavigationCommands = () =>
 						select( coreStore ).getCurrentTheme()?.is_block_theme,
 					canCreateTemplate: select( coreStore ).canUser( 'create', {
 						kind: 'postType',
-						name: 'fp_template',
+						name: 'fin_template',
 					} ),
 				};
 			},

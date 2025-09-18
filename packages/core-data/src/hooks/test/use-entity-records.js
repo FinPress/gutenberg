@@ -61,7 +61,7 @@ describe( 'useEntityRecords', () => {
 		// Fetch request should have been issued
 		await waitFor( () =>
 			expect( triggerFetch ).toHaveBeenCalledWith( {
-				path: '/fp/v2/widgets?context=edit&status=draft',
+				path: '/fin/v2/widgets?context=edit&status=draft',
 			} )
 		);
 
@@ -89,7 +89,7 @@ describe( 'useEntityRecordsWithPermissions', () => {
 			{
 				name: 'post',
 				kind: 'postType',
-				baseURL: '/fp/v2/posts',
+				baseURL: '/fin/v2/posts',
 				baseURLParams: { context: 'edit' },
 			},
 		] );
@@ -121,7 +121,7 @@ describe( 'useEntityRecordsWithPermissions', () => {
 		// Should inject _links into the _fields parameter
 		await waitFor( () =>
 			expect( triggerFetch ).toHaveBeenCalledWith( {
-				path: `/fp/v2/posts?context=edit&_fields=${ encodeURIComponent(
+				path: `/fin/v2/posts?context=edit&_fields=${ encodeURIComponent(
 					fieldsFromMock + ',_links'
 				) }`,
 			} )
@@ -145,7 +145,7 @@ describe( 'useEntityRecordsWithPermissions', () => {
 		// Should not add _fields when not originally provided
 		await waitFor( () =>
 			expect( triggerFetch ).toHaveBeenCalledWith( {
-				path: '/fp/v2/posts?context=edit',
+				path: '/fin/v2/posts?context=edit',
 			} )
 		);
 	} );
@@ -170,7 +170,7 @@ describe( 'useEntityRecordsWithPermissions', () => {
 		// Should not duplicate _links (deduplication working correctly)
 		await waitFor( () =>
 			expect( triggerFetch ).toHaveBeenCalledWith( {
-				path: `/fp/v2/posts?context=edit&_fields=${ encodeURIComponent(
+				path: `/fin/v2/posts?context=edit&_fields=${ encodeURIComponent(
 					fieldsWithLinks
 				) }`,
 			} )

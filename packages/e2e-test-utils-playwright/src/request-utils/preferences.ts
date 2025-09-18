@@ -10,7 +10,7 @@ import type { RequestUtils } from './index';
  */
 export async function resetPreferences( this: RequestUtils ) {
 	await this.rest( {
-		path: '/fp/v2/users/me',
+		path: '/fin/v2/users/me',
 		method: 'PUT',
 		data: {
 			meta: {

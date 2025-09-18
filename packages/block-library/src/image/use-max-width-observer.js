@@ -11,7 +11,7 @@ function useMaxWidthObserver() {
 	const maxWidthObserver = (
 		<div
 			// Some themes set max-width on blocks.
-			className="fp-block"
+			className="fin-block"
 			aria-hidden="true"
 			style={ {
 				position: 'absolute',

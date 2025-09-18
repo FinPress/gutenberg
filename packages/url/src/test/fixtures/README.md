@@ -1,11 +1,11 @@
 # URL Fixtures
 
-The `@finpress/url` module uses data from the [Web Platform Tests project](https://github.com/web-platform-tests/fpt) to verify expected behavior of its functionality as conforming to the [URL Living Standard](https://url.spec.whatwg.org/).
+The `@finpress/url` module uses data from the [Web Platform Tests project](https://github.com/web-platform-tests/fint) to verify expected behavior of its functionality as conforming to the [URL Living Standard](https://url.spec.whatwg.org/).
 
 This data is updated manually. To bring in the latest data, run the download script:
 
 ```
-node packages/url/scripts/download-fpt-data.js
+node packages/url/scripts/download-fint-data.js
 ```
 
 The Web Platform Tests URL data is made available under the 3-Clause BSD License:

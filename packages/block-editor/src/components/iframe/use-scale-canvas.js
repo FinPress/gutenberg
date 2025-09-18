@@ -229,18 +229,18 @@ export function useScaleCanvas( {
 		const { scrollTop: scrollTopNext } = transitionToRef.current;
 
 		iframeDocument.documentElement.style.setProperty(
-			'--fp-block-editor-iframe-zoom-out-scroll-top',
+			'--fin-block-editor-iframe-zoom-out-scroll-top',
 			`${ scrollTop }px`
 		);
 
 		iframeDocument.documentElement.style.setProperty(
-			'--fp-block-editor-iframe-zoom-out-scroll-top-next',
+			'--fin-block-editor-iframe-zoom-out-scroll-top-next',
 			`${ scrollTopNext }px`
 		);
 
 		// If the container has a scrolllbar, force a scrollbar to prevent the content from shifting while animating.
 		iframeDocument.documentElement.style.setProperty(
-			'--fp-block-editor-iframe-zoom-out-overflow-behavior',
+			'--fin-block-editor-iframe-zoom-out-overflow-behavior',
 			transitionFromRef.current.scrollHeight ===
 				transitionFromRef.current.containerHeight
 				? 'auto'
@@ -276,11 +276,11 @@ export function useScaleCanvas( {
 
 		// Add our final scale and frame size now that the animation is done.
 		iframeDocument.documentElement.style.setProperty(
-			'--fp-block-editor-iframe-zoom-out-scale',
+			'--fin-block-editor-iframe-zoom-out-scale',
 			transitionToRef.current.scaleValue
 		);
 		iframeDocument.documentElement.style.setProperty(
-			'--fp-block-editor-iframe-zoom-out-frame-size',
+			'--fin-block-editor-iframe-zoom-out-frame-size',
 			`${ transitionToRef.current.frameSize }px`
 		);
 
@@ -294,13 +294,13 @@ export function useScaleCanvas( {
 			transitionToRef.current.scrollTop;
 
 		iframeDocument.documentElement.style.removeProperty(
-			'--fp-block-editor-iframe-zoom-out-scroll-top'
+			'--fin-block-editor-iframe-zoom-out-scroll-top'
 		);
 		iframeDocument.documentElement.style.removeProperty(
-			'--fp-block-editor-iframe-zoom-out-scroll-top-next'
+			'--fin-block-editor-iframe-zoom-out-scroll-top-next'
 		);
 		iframeDocument.documentElement.style.removeProperty(
-			'--fp-block-editor-iframe-zoom-out-overflow-behavior'
+			'--fin-block-editor-iframe-zoom-out-overflow-behavior'
 		);
 
 		// Update previous values.
@@ -367,31 +367,31 @@ export function useScaleCanvas( {
 			// animate the transition.
 			if ( ! startAnimationRef.current ) {
 				iframeDocument.documentElement.style.setProperty(
-					'--fp-block-editor-iframe-zoom-out-scale',
+					'--fin-block-editor-iframe-zoom-out-scale',
 					scaleValue
 				);
 				iframeDocument.documentElement.style.setProperty(
-					'--fp-block-editor-iframe-zoom-out-frame-size',
+					'--fin-block-editor-iframe-zoom-out-frame-size',
 					`${ frameSize }px`
 				);
 			}
 
 			iframeDocument.documentElement.style.setProperty(
-				'--fp-block-editor-iframe-zoom-out-content-height',
+				'--fin-block-editor-iframe-zoom-out-content-height',
 				`${ contentHeight }px`
 			);
 
 			iframeDocument.documentElement.style.setProperty(
-				'--fp-block-editor-iframe-zoom-out-inner-height',
+				'--fin-block-editor-iframe-zoom-out-inner-height',
 				`${ containerHeight }px`
 			);
 
 			iframeDocument.documentElement.style.setProperty(
-				'--fp-block-editor-iframe-zoom-out-container-width',
+				'--fin-block-editor-iframe-zoom-out-container-width',
 				`${ containerWidth }px`
 			);
 			iframeDocument.documentElement.style.setProperty(
-				'--fp-block-editor-iframe-zoom-out-scale-container-width',
+				'--fin-block-editor-iframe-zoom-out-scale-container-width',
 				`${ scaleContainerWidth }px`
 			);
 		}

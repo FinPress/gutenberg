@@ -69,11 +69,11 @@ The following configurable variables are used with the template files. Template 
 
 **Project**:
 
--   `fpScripts` (default: `true`) – enables integration with the `@finpress/scripts` package and adds common scripts to the `package.json`.
--   `fpEnv` (default: `false`) – enables integration with the `@finpress/env` package and adds the `env` script to the `package.json`.
+-   `finScripts` (default: `true`) – enables integration with the `@finpress/scripts` package and adds common scripts to the `package.json`.
+-   `finEnv` (default: `false`) – enables integration with the `@finpress/env` package and adds the `env` script to the `package.json`.
 -   `customScripts` (default: {}) – the list of custom scripts to add to `package.json` . It also allows overriding default scripts.
--   `npmDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `fpScripts` is enabled.
--   `npmDevDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install --save-dev`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `fpScripts` is enabled.
+-   `npmDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `finScripts` is enabled.
+-   `npmDevDependencies` (default: `[]`) – the list of remote npm packages to be installed in the project with [`npm install --save-dev`](https://docs.npmjs.com/cli/v8/commands/npm-install) when `finScripts` is enabled.
 -   `customPackageJSON` (no default) - allows definition of additional properties for the generated package.json file.
 
 **Plugin header and readme fields** (learn more about [header requirements](https://developer.finpress.org/plugins/plugin-basics/header-requirements/) and [readmes](https://developer.finpress.org/plugins/finpress-org/how-your-readme-txt-works/)):
@@ -92,7 +92,7 @@ The following configurable variables are used with the template files. Template 
 **Block metadata** ([learn more](https://developer.finpress.org/block-editor/reference-guides/block-api/block-metadata/)):
 
 -   `folderName` (default: `src`) – the location for the `block.json` file and other optional block files generated from block templates included in the folder set with the `blockTemplatesPath` setting.
--   `$schema` (default: `https://schemas.fp.org/trunk/block.json`) – the schema URL used for block validation.
+-   `$schema` (default: `https://schemas.fin.org/trunk/block.json`) – the schema URL used for block validation.
 -   `apiVersion` (default: `2`) – the block API version ([related dev note](https://make.finpress.org/core/2020/11/18/block-api-version-2/)).
 -   `slug` (no default) – the block slug used for identification in the block name.
 -   `namespace` (default: `'create-block'`) – the internal namespace for the block name.

@@ -8,39 +8,39 @@
  *
  * @group blocks
  */
-class Tests_Blocks_RenderQueryBlock extends FP_UnitTestCase {
+class Tests_Blocks_RenderQueryBlock extends FIN_UnitTestCase {
 
 	private static $posts;
 
-	private $original_fp_interactivity;
+	private $original_fin_interactivity;
 
-	public static function fpSetUpBeforeClass( FP_UnitTest_Factory $factory ) {
+	public static function finSetUpBeforeClass( FIN_UnitTest_Factory $factory ) {
 		self::$posts = $factory->post->create_many( 3 );
 
 		register_block_type(
 			'test/plugin-block',
 			array(
 				'render_callback' => static function () {
-					return '<div class="fp-block-test/plugin-block">Test</div>';
+					return '<div class="fin-block-test/plugin-block">Test</div>';
 				},
 			)
 		);
 	}
 
-	public static function fpTearDownAfterClass() {
+	public static function finTearDownAfterClass() {
 		unregister_block_type( 'test/plugin-block' );
 	}
 
 	public function set_up() {
 		parent::set_up();
-		global $fp_interactivity;
-		$this->original_fp_interactivity = $fp_interactivity;
-		$fp_interactivity                = new FP_Interactivity_API();
+		global $fin_interactivity;
+		$this->original_fin_interactivity = $fin_interactivity;
+		$fin_interactivity                = new FIN_Interactivity_API();
 	}
 
 	public function tear_down() {
-		global $fp_interactivity;
-		$fp_interactivity = $this->original_fp_interactivity;
+		global $fin_interactivity;
+		$fin_interactivity = $this->original_fin_interactivity;
 		parent::tear_down();
 	}
 
@@ -50,30 +50,30 @@ class Tests_Blocks_RenderQueryBlock extends FP_UnitTestCase {
 	 * the `enhancedPagination` attribute is set.
 	 */
 	public function test_rendering_query_with_enhanced_pagination() {
-		global $fp_query, $fp_the_query, $paged;
+		global $fin_query, $fin_the_query, $paged;
 
 		$content = <<<HTML
-		<!-- fp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
-		<div class="fp-block-query">
-			<!-- fp:post-template {"align":"wide"} -->
-			<!-- /fp:post-template -->
-			<!-- fp:query-pagination -->
-				<!-- fp:query-pagination-previous /-->
-				<!-- fp:query-pagination-next /-->
-			<!-- /fp:query-pagination -->
+		<!-- fin:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
+		<div class="fin-block-query">
+			<!-- fin:post-template {"align":"wide"} -->
+			<!-- /fin:post-template -->
+			<!-- fin:query-pagination -->
+				<!-- fin:query-pagination-previous /-->
+				<!-- fin:query-pagination-next /-->
+			<!-- /fin:query-pagination -->
 		</div>
-		<!-- /fp:query -->
+		<!-- /fin:query -->
 HTML;
 
 		// Set main query to single post.
-		$fp_query = new FP_Query(
+		$fin_query = new FIN_Query(
 			array(
 				'posts_per_page' => 1,
 				'paged'          => 2,
 			)
 		);
 
-		$fp_the_query = $fp_query;
+		$fin_the_query = $fin_query;
 		$prev_paged   = $paged;
 		$paged        = 2;
 
@@ -81,29 +81,29 @@ HTML;
 
 		$paged = $prev_paged;
 
-		$p = new FP_HTML_Tag_Processor( $output );
+		$p = new FIN_HTML_Tag_Processor( $output );
 
-		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
-		$this->assertSame( '{}', $p->get_attribute( 'data-fp-context' ) );
-		$this->assertSame( 'query-0', $p->get_attribute( 'data-fp-router-region' ) );
-		$this->assertSame( 'core/query', $p->get_attribute( 'data-fp-interactive' ) );
+		$p->next_tag( array( 'class_name' => 'fin-block-query' ) );
+		$this->assertSame( '{}', $p->get_attribute( 'data-fin-context' ) );
+		$this->assertSame( 'query-0', $p->get_attribute( 'data-fin-router-region' ) );
+		$this->assertSame( 'core/query', $p->get_attribute( 'data-fin-interactive' ) );
 
-		$p->next_tag( array( 'class_name' => 'fp-block-post' ) );
-		$this->assertSame( 'post-template-item-' . self::$posts[1], $p->get_attribute( 'data-fp-key' ) );
+		$p->next_tag( array( 'class_name' => 'fin-block-post' ) );
+		$this->assertSame( 'post-template-item-' . self::$posts[1], $p->get_attribute( 'data-fin-key' ) );
 
-		$p->next_tag( array( 'class_name' => 'fp-block-query-pagination-previous' ) );
-		$this->assertSame( 'query-pagination-previous', $p->get_attribute( 'data-fp-key' ) );
-		$this->assertSame( 'core/query::actions.navigate', $p->get_attribute( 'data-fp-on--click' ) );
-		$this->assertSame( 'core/query::actions.prefetch', $p->get_attribute( 'data-fp-on-async--mouseenter' ) );
-		$this->assertSame( 'core/query::callbacks.prefetch', $p->get_attribute( 'data-fp-watch' ) );
+		$p->next_tag( array( 'class_name' => 'fin-block-query-pagination-previous' ) );
+		$this->assertSame( 'query-pagination-previous', $p->get_attribute( 'data-fin-key' ) );
+		$this->assertSame( 'core/query::actions.navigate', $p->get_attribute( 'data-fin-on--click' ) );
+		$this->assertSame( 'core/query::actions.prefetch', $p->get_attribute( 'data-fin-on-async--mouseenter' ) );
+		$this->assertSame( 'core/query::callbacks.prefetch', $p->get_attribute( 'data-fin-watch' ) );
 
-		$p->next_tag( array( 'class_name' => 'fp-block-query-pagination-next' ) );
-		$this->assertSame( 'query-pagination-next', $p->get_attribute( 'data-fp-key' ) );
-		$this->assertSame( 'core/query::actions.navigate', $p->get_attribute( 'data-fp-on--click' ) );
-		$this->assertSame( 'core/query::actions.prefetch', $p->get_attribute( 'data-fp-on-async--mouseenter' ) );
-		$this->assertSame( 'core/query::callbacks.prefetch', $p->get_attribute( 'data-fp-watch' ) );
+		$p->next_tag( array( 'class_name' => 'fin-block-query-pagination-next' ) );
+		$this->assertSame( 'query-pagination-next', $p->get_attribute( 'data-fin-key' ) );
+		$this->assertSame( 'core/query::actions.navigate', $p->get_attribute( 'data-fin-on--click' ) );
+		$this->assertSame( 'core/query::actions.prefetch', $p->get_attribute( 'data-fin-on-async--mouseenter' ) );
+		$this->assertSame( 'core/query::callbacks.prefetch', $p->get_attribute( 'data-fin-watch' ) );
 
-		$router_config = fp_interactivity_config( 'core/router' );
+		$router_config = fin_interactivity_config( 'core/router' );
 		$this->assertEmpty( $router_config );
 	}
 
@@ -113,35 +113,35 @@ HTML;
 	 * when a plugin block is found inside.
 	 */
 	public function test_rendering_query_with_enhanced_pagination_auto_disabled_when_plugins_blocks_are_found() {
-		global $fp_query, $fp_the_query;
+		global $fin_query, $fin_the_query;
 
 		$content = <<<HTML
-		<!-- fp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
-		<div class="fp-block-query">
-			<!-- fp:post-template {"align":"wide"} -->
-				<!-- fp:test/plugin-block /-->
-			<!-- /fp:post-template -->
+		<!-- fin:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
+		<div class="fin-block-query">
+			<!-- fin:post-template {"align":"wide"} -->
+				<!-- fin:test/plugin-block /-->
+			<!-- /fin:post-template -->
 		</div>
-		<!-- /fp:query -->
+		<!-- /fin:query -->
 HTML;
 
 		// Set main query to single post.
-		$fp_query = new FP_Query(
+		$fin_query = new FIN_Query(
 			array(
 				'posts_per_page' => 1,
 			)
 		);
 
-		$fp_the_query = $fp_query;
+		$fin_the_query = $fin_query;
 
 		$output = do_blocks( $content );
 
-		$p = new FP_HTML_Tag_Processor( $output );
+		$p = new FIN_HTML_Tag_Processor( $output );
 
-		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
-		$this->assertSame( 'query-0', $p->get_attribute( 'data-fp-router-region' ) );
+		$p->next_tag( array( 'class_name' => 'fin-block-query' ) );
+		$this->assertSame( 'query-0', $p->get_attribute( 'data-fin-router-region' ) );
 
-		$router_config = fp_interactivity_config( 'core/router' );
+		$router_config = fin_interactivity_config( 'core/router' );
 		$this->assertTrue( $router_config['clientNavigationDisabled'] );
 	}
 
@@ -151,34 +151,34 @@ HTML;
 	 * when a post content block is found inside.
 	 */
 	public function test_rendering_query_with_enhanced_pagination_auto_disabled_when_post_content_block_is_found() {
-		global $fp_query, $fp_the_query;
+		global $fin_query, $fin_the_query;
 
 		$content = <<<HTML
-		<!-- fp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
-		<div class="fp-block-query">
-			<!-- fp:post-template {"align":"wide"} -->
-				<!-- fp:post-content /-->
-			<!-- /fp:post-template -->
+		<!-- fin:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
+		<div class="fin-block-query">
+			<!-- fin:post-template {"align":"wide"} -->
+				<!-- fin:post-content /-->
+			<!-- /fin:post-template -->
 		</div>
-		<!-- /fp:query -->
+		<!-- /fin:query -->
 HTML;
 
 		// Set main query to single post.
-		$fp_query = new FP_Query(
+		$fin_query = new FIN_Query(
 			array(
 				'posts_per_page' => 1,
 			)
 		);
 
-		$fp_the_query = $fp_query;
+		$fin_the_query = $fin_query;
 
 		$output = do_blocks( $content );
 
-		$p = new FP_HTML_Tag_Processor( $output );
+		$p = new FIN_HTML_Tag_Processor( $output );
 
-		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
-		$this->assertSame( 'query-0', $p->get_attribute( 'data-fp-router-region' ) );
-		$router_config = fp_interactivity_config( 'core/router' );
+		$p->next_tag( array( 'class_name' => 'fin-block-query' ) );
+		$this->assertSame( 'query-0', $p->get_attribute( 'data-fin-router-region' ) );
+		$router_config = fin_interactivity_config( 'core/router' );
 		$this->assertTrue( $router_config['clientNavigationDisabled'] );
 	}
 
@@ -188,56 +188,56 @@ HTML;
 	 * is set to `true` in the `core/router` store config.
 	 */
 	public function test_rendering_nested_queries_with_enhanced_pagination_auto_disabled() {
-		global $fp_query, $fp_the_query;
+		global $fin_query, $fin_the_query;
 
 		$content = <<<HTML
-			<!-- fp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
-			<div class="fp-block-query">
-				<!-- fp:post-template {"align":"wide"} -->
-					<!-- fp:query {"queryId":1,"query":{"inherit":true},"enhancedPagination":true} -->
-					<div class="fp-block-query">
-						<!-- fp:post-template {"align":"wide"} -->
-						<!-- /fp:post-template -->
+			<!-- fin:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
+			<div class="fin-block-query">
+				<!-- fin:post-template {"align":"wide"} -->
+					<!-- fin:query {"queryId":1,"query":{"inherit":true},"enhancedPagination":true} -->
+					<div class="fin-block-query">
+						<!-- fin:post-template {"align":"wide"} -->
+						<!-- /fin:post-template -->
 					</div>
-					<!-- /fp:query-pagination -->
-					<!-- fp:query {"queryId":2,"query":{"inherit":true},"enhancedPagination":true} -->
-					<div class="fp-block-query">
-						<!-- fp:post-template {"align":"wide"} -->
-							<!-- fp:test/plugin-block /-->
-						<!-- /fp:post-template -->
+					<!-- /fin:query-pagination -->
+					<!-- fin:query {"queryId":2,"query":{"inherit":true},"enhancedPagination":true} -->
+					<div class="fin-block-query">
+						<!-- fin:post-template {"align":"wide"} -->
+							<!-- fin:test/plugin-block /-->
+						<!-- /fin:post-template -->
 					</div>
-					<!-- /fp:query-pagination -->
-				<!-- /fp:post-template -->
+					<!-- /fin:query-pagination -->
+				<!-- /fin:post-template -->
 			</div>
-			<!-- /fp:query -->
+			<!-- /fin:query -->
 HTML;
 
 		// Set main query to single post.
-		$fp_query = new FP_Query(
+		$fin_query = new FIN_Query(
 			array(
 				'posts_per_page' => 1,
 			)
 		);
 
-		$fp_the_query = $fp_query;
+		$fin_the_query = $fin_query;
 
 		$output = do_blocks( $content );
 
-		$p = new FP_HTML_Tag_Processor( $output );
+		$p = new FIN_HTML_Tag_Processor( $output );
 
 		// Query 0 contains a plugin block inside query-2 -> disabled.
-		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
-		$this->assertSame( 'query-0', $p->get_attribute( 'data-fp-router-region' ) );
+		$p->next_tag( array( 'class_name' => 'fin-block-query' ) );
+		$this->assertSame( 'query-0', $p->get_attribute( 'data-fin-router-region' ) );
 
 		// Query 1 does not contain a plugin block -> enabled.
-		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
-		$this->assertSame( 'query-1', $p->get_attribute( 'data-fp-router-region' ) );
+		$p->next_tag( array( 'class_name' => 'fin-block-query' ) );
+		$this->assertSame( 'query-1', $p->get_attribute( 'data-fin-router-region' ) );
 
 		// Query 2 contains a plugin block -> disabled.
-		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
-		$this->assertSame( 'query-2', $p->get_attribute( 'data-fp-router-region' ) );
+		$p->next_tag( array( 'class_name' => 'fin-block-query' ) );
+		$this->assertSame( 'query-2', $p->get_attribute( 'data-fin-router-region' ) );
 
-		$router_config = fp_interactivity_config( 'core/router' );
+		$router_config = fin_interactivity_config( 'core/router' );
 		$this->assertTrue( $router_config['clientNavigationDisabled'] );
 	}
 
@@ -247,33 +247,33 @@ HTML;
 	 * when a plugin that does not define clientNavigation is found inside.
 	 */
 	public function test_rendering_query_with_enhanced_pagination_auto_disabled_when_there_is_a_non_compatible_block() {
-		global $fp_query, $fp_the_query;
+		global $fin_query, $fin_the_query;
 
 		$content = <<<HTML
-		<!-- fp:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
-		<div class="fp-block-query">
-			<!-- fp:post-content {"align":"wide"} --><!-- /fp:post-content -->
+		<!-- fin:query {"queryId":0,"query":{"inherit":true},"enhancedPagination":true} -->
+		<div class="fin-block-query">
+			<!-- fin:post-content {"align":"wide"} --><!-- /fin:post-content -->
 		</div>
-		<!-- /fp:query -->
+		<!-- /fin:query -->
 HTML;
 
 		// Set main query to single post.
-		$fp_query = new FP_Query(
+		$fin_query = new FIN_Query(
 			array(
 				'posts_per_page' => 1,
 			)
 		);
 
-		$fp_the_query = $fp_query;
+		$fin_the_query = $fin_query;
 
 		$output = do_blocks( $content );
 
-		$p = new FP_HTML_Tag_Processor( $output );
+		$p = new FIN_HTML_Tag_Processor( $output );
 
-		$p->next_tag( array( 'class_name' => 'fp-block-query' ) );
-		$this->assertSame( 'query-0', $p->get_attribute( 'data-fp-router-region' ) );
+		$p->next_tag( array( 'class_name' => 'fin-block-query' ) );
+		$this->assertSame( 'query-0', $p->get_attribute( 'data-fin-router-region' ) );
 
-		$router_config = fp_interactivity_config( 'core/router' );
+		$router_config = fin_interactivity_config( 'core/router' );
 		$this->assertTrue( $router_config['clientNavigationDisabled'] );
 	}
 }

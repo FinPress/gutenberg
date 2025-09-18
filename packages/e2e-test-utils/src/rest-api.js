@@ -12,7 +12,7 @@ import apiFetch from '@finpress/api-fetch';
 /**
  * Internal dependencies
  */
-import { FP_BASE_URL, FP_USERNAME, FP_PASSWORD } from './shared/config';
+import { FIN_BASE_URL, FIN_USERNAME, FIN_PASSWORD } from './shared/config';
 import { createURL } from './create-url';
 
 // `apiFetch` expects `window.fetch` to be available in its default handler.
@@ -22,7 +22,7 @@ global.window.fetch = fetch;
 const setAPIRootURL = ( async () => {
 	// Discover the API root url using link header.
 	// See https://developer.finpress.org/rest-api/using-the-rest-api/discovery/#link-header
-	const res = await fetch( FP_BASE_URL, { method: 'HEAD' } );
+	const res = await fetch( FIN_BASE_URL, { method: 'HEAD' } );
 	const links = res.headers.get( 'link' );
 	const restLink = links.match( /<([^>]+)>; rel="https:\/\/api\.w\.org\/"/ );
 
@@ -37,8 +37,8 @@ Link header: ${ links }` );
 
 async function login( retries = 3 ) {
 	const formData = new FormData();
-	formData.append( 'log', FP_USERNAME );
-	formData.append( 'pwd', FP_PASSWORD );
+	formData.append( 'log', FIN_USERNAME );
+	formData.append( 'pwd', FIN_PASSWORD );
 
 	// Login to admin using fetch.
 	const loginResponse = await fetch( createURL( 'fin-login.php' ), {

@@ -563,7 +563,7 @@ class SinceTagSniff implements Sniff {
 			return static::$cache[ $block_json_filepath ];
 		}
 
-		// phpcs:ignore FinPress.FP.AlternativeFunctions.file_get_contents_file_get_contents -- this Composer package doesn't depend on FinPress.
+		// phpcs:ignore FinPress.FIN.AlternativeFunctions.file_get_contents_file_get_contents -- this Composer package doesn't depend on FinPress.
 		$block_metadata = file_get_contents( $block_json_filepath );
 		if ( false === $block_metadata ) {
 			static::$cache[ $block_json_filepath ] = false;

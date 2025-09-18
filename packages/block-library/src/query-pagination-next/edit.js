@@ -36,7 +36,7 @@ export default function QueryPaginationNextEdit( {
 			) }
 			{ displayArrow && (
 				<span
-					className={ `fp-block-query-pagination-next-arrow is-arrow-${ paginationArrow }` }
+					className={ `fin-block-query-pagination-next-arrow is-arrow-${ paginationArrow }` }
 					aria-hidden
 				>
 					{ displayArrow }

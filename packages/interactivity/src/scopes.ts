@@ -34,7 +34,7 @@ export const resetScope = () => {
 const immutableMap = new WeakMap();
 const immutableError = () => {
 	throw new Error(
-		'Please use `data-fp-bind` to modify the attributes of an element.'
+		'Please use `data-fin-bind` to modify the attributes of an element.'
 	);
 };
 const immutableHandlers: ProxyHandler< object > = {
@@ -103,7 +103,7 @@ export const getElement = () => {
  * server.
  *
  * The object returned is read-only, and includes the context defined in PHP
- * with `fp_interactivity_data_fp_context()`, including the corresponding
+ * with `fin_interactivity_data_fin_context()`, including the corresponding
  * inherited properties. When `actions.navigate()` is called, this object is
  * updated to reflect the changes in the new visited page, without affecting the
  * context returned by `getContext()`. Directives can subscribe to those changes

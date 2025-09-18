@@ -93,7 +93,7 @@ export default function Edit( {
 				// Stale requests will have the `currentPostId` of an older closure.
 				if ( currentPostId === postId ) {
 					setCommentsCount(
-						parseInt( res.headers.get( 'X-FP-Total' ) )
+						parseInt( res.headers.get( 'X-FIN-Total' ) )
 					);
 				}
 			} )

@@ -42,7 +42,7 @@ function getIndex( {
 }
 
 /**
- * @typedef FPInserterConfig
+ * @typedef FINInserterConfig
  *
  * @property {string=}   rootClientId   If set, insertion will be into the
  *                                      block with this ID.
@@ -58,7 +58,7 @@ function getIndex( {
 /**
  * Returns the insertion point state given the inserter config.
  *
- * @param {FPInserterConfig} config Inserter Config.
+ * @param {FINInserterConfig} config Inserter Config.
  * @return {Array} Insertion Point State (rootClientID, onInsertBlocks and onToggle).
  */
 function useInsertionPoint( {

@@ -60,7 +60,7 @@ describe( 'deleteEntityRecord', () => {
 	it( 'triggers a DELETE request for an existing record', async () => {
 		const deletedRecord = { title: 'new post', id: 10 };
 		const configs = [
-			{ name: 'post', kind: 'postType', baseURL: '/fp/v2/posts' },
+			{ name: 'post', kind: 'postType', baseURL: '/fin/v2/posts' },
 		];
 
 		const dispatch = Object.assign( jest.fn(), {
@@ -81,7 +81,7 @@ describe( 'deleteEntityRecord', () => {
 
 		expect( apiFetch ).toHaveBeenCalledTimes( 1 );
 		expect( apiFetch ).toHaveBeenCalledWith( {
-			path: '/fp/v2/posts/10',
+			path: '/fin/v2/posts/10',
 			method: 'DELETE',
 		} );
 
@@ -111,7 +111,7 @@ describe( 'deleteEntityRecord', () => {
 
 	it( 'throws on error when throwOnError is true', async () => {
 		const entities = [
-			{ name: 'post', kind: 'postType', baseURL: '/fp/v2/posts' },
+			{ name: 'post', kind: 'postType', baseURL: '/fin/v2/posts' },
 		];
 
 		const dispatch = Object.assign( jest.fn(), {
@@ -141,7 +141,7 @@ describe( 'deleteEntityRecord', () => {
 
 	it( 'resolves on error when throwOnError is false', async () => {
 		const entities = [
-			{ name: 'post', kind: 'postType', baseURL: '/fp/v2/posts' },
+			{ name: 'post', kind: 'postType', baseURL: '/fin/v2/posts' },
 		];
 
 		const dispatch = Object.assign( jest.fn(), {
@@ -181,7 +181,7 @@ describe( 'saveEditedEntityRecord', () => {
 			{
 				kind: 'root',
 				name: 'menuItem',
-				baseURL: '/fp/v2/menu-items',
+				baseURL: '/fin/v2/menu-items',
 			},
 		];
 		const select = {
@@ -220,7 +220,7 @@ describe( 'saveEditedEntityRecord', () => {
 			{
 				kind: 'root',
 				name: 'menuLocation',
-				baseURL: '/fp/v2/menu-items',
+				baseURL: '/fin/v2/menu-items',
 				key: 'name',
 			},
 		];
@@ -270,7 +270,7 @@ describe( 'saveEntityRecord', () => {
 	it( 'triggers a POST request for a new record', async () => {
 		const post = { title: 'new post' };
 		const configs = [
-			{ name: 'post', kind: 'postType', baseURL: '/fp/v2/posts' },
+			{ name: 'post', kind: 'postType', baseURL: '/fin/v2/posts' },
 		];
 		const select = {
 			getRawEntityRecord: () => post,
@@ -291,7 +291,7 @@ describe( 'saveEntityRecord', () => {
 
 		expect( apiFetch ).toHaveBeenCalledTimes( 1 );
 		expect( apiFetch ).toHaveBeenCalledWith( {
-			path: '/fp/v2/posts',
+			path: '/fin/v2/posts',
 			method: 'POST',
 			data: post,
 		} );
@@ -335,7 +335,7 @@ describe( 'saveEntityRecord', () => {
 	it( 'throws on error when throwOnError is true', async () => {
 		const post = { title: 'new post' };
 		const entities = [
-			{ name: 'post', kind: 'postType', baseURL: '/fp/v2/posts' },
+			{ name: 'post', kind: 'postType', baseURL: '/fin/v2/posts' },
 		];
 		const select = {
 			getRawEntityRecord: () => post,
@@ -357,7 +357,7 @@ describe( 'saveEntityRecord', () => {
 	it( 'resolves on error when throwOnError is false', async () => {
 		const post = { title: 'new post' };
 		const entities = [
-			{ name: 'post', kind: 'postType', baseURL: '/fp/v2/posts' },
+			{ name: 'post', kind: 'postType', baseURL: '/fin/v2/posts' },
 		];
 		const select = {
 			getRawEntityRecord: () => post,
@@ -379,7 +379,7 @@ describe( 'saveEntityRecord', () => {
 	it( 'triggers a PUT request for an existing record', async () => {
 		const post = { id: 10, title: 'new post' };
 		const configs = [
-			{ name: 'post', kind: 'postType', baseURL: '/fp/v2/posts' },
+			{ name: 'post', kind: 'postType', baseURL: '/fin/v2/posts' },
 		];
 		const select = {
 			getRawEntityRecord: () => post,
@@ -400,7 +400,7 @@ describe( 'saveEntityRecord', () => {
 
 		expect( apiFetch ).toHaveBeenCalledTimes( 1 );
 		expect( apiFetch ).toHaveBeenCalledWith( {
-			path: '/fp/v2/posts/10',
+			path: '/fin/v2/posts/10',
 			method: 'PUT',
 			data: post,
 		} );
@@ -447,7 +447,7 @@ describe( 'saveEntityRecord', () => {
 			{
 				name: 'postType',
 				kind: 'root',
-				baseURL: '/fp/v2/types',
+				baseURL: '/fin/v2/types',
 				key: 'slug',
 			},
 		];
@@ -467,7 +467,7 @@ describe( 'saveEntityRecord', () => {
 
 		expect( apiFetch ).toHaveBeenCalledTimes( 1 );
 		expect( apiFetch ).toHaveBeenCalledWith( {
-			path: '/fp/v2/types/page',
+			path: '/fin/v2/types/page',
 			method: 'PUT',
 			data: postType,
 		} );

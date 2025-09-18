@@ -59,7 +59,7 @@ _Parameters_
 
 _Returns_
 
--   `FPShortcutKeyCombination[]`: Key combinations.
+-   `FINShortcutKeyCombination[]`: Key combinations.
 
 ### getAllShortcutRawKeyCombinations
 
@@ -203,7 +203,7 @@ _Parameters_
 
 _Returns_
 
--   `FPShortcutKeyCombination[]`: Key combinations.
+-   `FINShortcutKeyCombination[]`: Key combinations.
 
 ### getShortcutDescription
 
@@ -285,7 +285,7 @@ _Parameters_
 
 _Returns_
 
--   `FPShortcutKeyCombination?`: Key combination.
+-   `FINShortcutKeyCombination?`: Key combination.
 
 ### getShortcutRepresentation
 
@@ -388,7 +388,7 @@ const ExampleComponent = () => {
 
 _Parameters_
 
--   _config_ `FPShortcutConfig`: Shortcut config.
+-   _config_ `FINShortcutConfig`: Shortcut config.
 
 _Returns_
 

@@ -1,6 +1,6 @@
 .block-editor-block-variation-picker__variations,
 .block-editor-block-variation-picker__skip,
-.fp-block-group-placeholder__variations {
+.fin-block-group-placeholder__variations {
 	list-style: none;
 	display: flex;
 	justify-content: flex-start;
@@ -25,7 +25,7 @@
 	}
 
 	.components-button:hover svg {
-		fill: var(--fp-admin-theme-color) !important;
+		fill: var(--fin-admin-theme-color) !important;
 	}
 
 	& > li {

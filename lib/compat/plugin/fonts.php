@@ -7,19 +7,19 @@
  * @package gutenberg
  */
 
-// @core-merge: Do not merge this function, it is for deleting fonts from the fp-content/fonts directory only used in Gutenberg.
+// @core-merge: Do not merge this function, it is for deleting fonts from the fin-content/fonts directory only used in Gutenberg.
 /**
- * Deletes associated font files from fp-content/fonts, when a font face is deleted.
+ * Deletes associated font files from fin-content/fonts, when a font face is deleted.
  *
  * @param int     $post_id Post ID.
- * @param FP_Post $post    Post object.
+ * @param FIN_Post $post    Post object.
  */
 function gutenberg_before_delete_font_face( $post_id, $post ) {
-	if ( 'fp_font_face' !== $post->post_type ) {
+	if ( 'fin_font_face' !== $post->post_type ) {
 		return;
 	}
 
-	$font_files = get_post_meta( $post_id, '_fp_font_face_file', false );
+	$font_files = get_post_meta( $post_id, '_fin_font_face_file', false );
 
 	if ( empty( $font_files ) ) {
 		return;
@@ -30,13 +30,13 @@ function gutenberg_before_delete_font_face( $post_id, $post ) {
 		$site_path = '/sites/' . get_current_blog_id();
 	}
 
-	$font_dir = path_join( FP_CONTENT_DIR, 'fonts' ) . $site_path;
+	$font_dir = path_join( FIN_CONTENT_DIR, 'fonts' ) . $site_path;
 
 	foreach ( $font_files as $font_file ) {
 		$font_path = $font_dir . '/' . $font_file;
 
 		if ( file_exists( $font_path ) ) {
-			fp_delete_file( $font_path );
+			fin_delete_file( $font_path );
 		}
 	}
 }

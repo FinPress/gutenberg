@@ -24,7 +24,7 @@ function getEntityDescription( entity, count ) {
 			return 1 === count
 				? __( 'This change will affect your whole site.' )
 				: __( 'These changes will affect your whole site.' );
-		case 'fp_template':
+		case 'fin_template':
 			return __(
 				'This change will affect other parts of your site that use this template.'
 			);
@@ -88,7 +88,7 @@ export default function EntityTypeList( {
 	);
 
 	let entityLabel = entityConfig.label;
-	if ( firstRecord?.name === 'fp_template_part' ) {
+	if ( firstRecord?.name === 'fin_template_part' ) {
 		entityLabel =
 			1 === count ? __( 'Template Part' ) : __( 'Template Parts' );
 	}

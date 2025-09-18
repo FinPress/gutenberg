@@ -19,7 +19,7 @@ export function validateMimeTypeForUser(
 	file: File,
 	finAllowedMimeTypes?: Record< string, string > | null
 ) {
-	// Allowed types for the current FP_User.
+	// Allowed types for the current FIN_User.
 	const allowedMimeTypesForUser = getMimeTypesArray( finAllowedMimeTypes );
 
 	if ( ! allowedMimeTypesForUser ) {

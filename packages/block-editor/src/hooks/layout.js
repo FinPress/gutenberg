@@ -68,7 +68,7 @@ export function useLayoutClasses( blockAttributes = {}, blockName = '' ) {
 			splitBlockName[ 0 ] === 'core'
 				? splitBlockName.pop()
 				: splitBlockName.join( '-' );
-		const compoundClassName = `fp-block-${ fullBlockName }-${ baseClassName }`;
+		const compoundClassName = `fin-block-${ fullBlockName }-${ baseClassName }`;
 		layoutClassnames.push( baseClassName, compoundClassName );
 	}
 
@@ -377,7 +377,7 @@ function BlockWithLayoutStyles( {
 			? { ...layout, type: 'constrained' }
 			: layout || defaultBlockLayout || {};
 
-	const selectorPrefix = `fp-container-${ kebabCase( name ) }-is-layout-`;
+	const selectorPrefix = `fin-container-${ kebabCase( name ) }-is-layout-`;
 	// Higher specificity to override defaults from theme.json.
 	const selector = `.${ selectorPrefix }${ id }`;
 	const hasBlockGapSupport = blockGapSupport !== null;
@@ -393,7 +393,7 @@ function BlockWithLayoutStyles( {
 		hasBlockGapSupport,
 	} );
 
-	// Attach a `fp-container-` id-based class name as well as a layout class name such as `is-layout-flex`.
+	// Attach a `fin-container-` id-based class name as well as a layout class name such as `is-layout-flex`.
 	const layoutClassNames = clsx(
 		{
 			[ `${ selectorPrefix }${ id }` ]: !! css, // Only attach a container class if there is generated CSS to be attached.

@@ -8,11 +8,11 @@
  * @covers ::gutenberg_render_block_core_post_title
  * @group blocks
  */
-class Tests_Blocks_RenderBlockCorePostTitle extends FP_UnitTestCase {
+class Tests_Blocks_RenderBlockCorePostTitle extends FIN_UnitTestCase {
 	/**
 	 * Post object.
 	 *
-	 * @var FP_Post
+	 * @var FIN_Post
 	 */
 	protected static $post;
 
@@ -26,16 +26,16 @@ class Tests_Blocks_RenderBlockCorePostTitle extends FP_UnitTestCase {
 	/**
 	 * Block object.
 	 *
-	 * @var FP_Block
+	 * @var FIN_Block
 	 */
 	protected static $block;
 
 	/**
 	 * Setup method.
 	 *
-	 * @param FP_UnitTest_Factory $factory Helper that lets us create fake data.
+	 * @param FIN_UnitTest_Factory $factory Helper that lets us create fake data.
 	 */
-	public static function fpSetUpBeforeClass( FP_UnitTest_Factory $factory ) {
+	public static function finSetUpBeforeClass( FIN_UnitTest_Factory $factory ) {
 		self::$post = $factory->post->create_and_get( array( 'post_title' => 'Post title block Unit Test' ) );
 
 		self::$attributes = array(
@@ -58,15 +58,15 @@ class Tests_Blocks_RenderBlockCorePostTitle extends FP_UnitTestCase {
 			'innerHTML'    => array(),
 		);
 
-		FP_Block_Supports::init();
-		FP_Block_Supports::$block_to_render = $block_args;
+		FIN_Block_Supports::init();
+		FIN_Block_Supports::$block_to_render = $block_args;
 	}
 
 	/**
 	 * Tear down method.
 	 */
-	public static function fpTearDownAfterClass() {
-		fp_delete_post( self::$post->ID, true );
+	public static function finTearDownAfterClass() {
+		fin_delete_post( self::$post->ID, true );
 	}
 
 	/**

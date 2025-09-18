@@ -1,7 +1,7 @@
-.fp-block-embed :where(figcaption) {
+.fin-block-embed :where(figcaption) {
 	@include caption-style-theme();
 }
 
-.fp-block-embed {
+.fin-block-embed {
 	margin: 0 0 1em 0;
 }

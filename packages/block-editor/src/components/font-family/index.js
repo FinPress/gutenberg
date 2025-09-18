@@ -49,7 +49,7 @@ export default function FontFamilyControl( {
 
 	if ( ! __nextHasNoMarginBottom ) {
 		deprecated(
-			'Bottom margin styles for fp.blockEditor.FontFamilyControl',
+			'Bottom margin styles for fin.blockEditor.FontFamilyControl',
 			{
 				since: '6.7',
 				version: '7.0',
@@ -63,7 +63,7 @@ export default function FontFamilyControl( {
 		( props.size === undefined || props.size === 'default' )
 	) {
 		deprecated(
-			`36px default size for fp.blockEditor.__experimentalFontFamilyControl`,
+			`36px default size for fin.blockEditor.__experimentalFontFamilyControl`,
 			{
 				since: '6.8',
 				version: '7.1',

@@ -3,7 +3,7 @@
 /**
  * Tests for experimental client-side media processing.
  */
-class Media_Processing_Test extends FP_UnitTestCase {
+class Media_Processing_Test extends FIN_UnitTestCase {
 	/**
 	 * @var int Administrator ID.
 	 */
@@ -14,7 +14,7 @@ class Media_Processing_Test extends FP_UnitTestCase {
 	 */
 	private static $image_file;
 
-	public static function fpSetUpBeforeClass( FP_UnitTest_Factory $factory ) {
+	public static function finSetUpBeforeClass( FIN_UnitTest_Factory $factory ) {
 		self::$admin_id = $factory->user->create(
 			array(
 				'role' => 'administrator',
@@ -80,7 +80,7 @@ class Media_Processing_Test extends FP_UnitTestCase {
 			)
 		);
 
-		$this->assertSame( fp_filesize( self::$image_file ), gutenberg_rest_get_attachment_filesize( array( 'id' => $attachment_id ) ) );
+		$this->assertSame( fin_filesize( self::$image_file ), gutenberg_rest_get_attachment_filesize( array( 'id' => $attachment_id ) ) );
 	}
 
 	/**
@@ -103,9 +103,9 @@ class Media_Processing_Test extends FP_UnitTestCase {
 	 * @covers ::gutenberg_media_processing_filter_rest_index
 	 */
 	public function test_get_rest_index_should_return_additional_settings() {
-		$server = new FP_REST_Server();
+		$server = new FIN_REST_Server();
 
-		$request = new FP_REST_Request( 'GET', '/' );
+		$request = new FIN_REST_Request( 'GET', '/' );
 		$index   = $server->dispatch( $request );
 		$data    = $index->get_data();
 
@@ -121,11 +121,11 @@ class Media_Processing_Test extends FP_UnitTestCase {
 	 * @covers ::gutenberg_media_processing_filter_rest_index
 	 */
 	public function test_get_rest_index_should_return_additional_settings_can_upload_files() {
-		fp_set_current_user( self::$admin_id );
+		fin_set_current_user( self::$admin_id );
 
-		$server = new FP_REST_Server();
+		$server = new FIN_REST_Server();
 
-		$request = new FP_REST_Request( 'GET', '/' );
+		$request = new FIN_REST_Request( 'GET', '/' );
 		$index   = $server->dispatch( $request );
 		$data    = $index->get_data();
 
@@ -180,8 +180,8 @@ HTML;
 	 * @covers ::gutenberg_override_media_templates
 	 */
 	public function test_gutenberg_override_media_templates(): void {
-		if ( ! function_exists( '\fp_print_media_templates' ) ) {
-			require_once ABSPATH . FPINC . '/media-template.php';
+		if ( ! function_exists( '\fin_print_media_templates' ) ) {
+			require_once ABSPATH . FININC . '/media-template.php';
 		}
 
 		gutenberg_override_media_templates();

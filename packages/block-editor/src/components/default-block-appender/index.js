@@ -75,7 +75,7 @@ export default function DefaultBlockAppender( { rootClientId } ) {
 				// eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
 				role="button"
 				aria-label={ __( 'Add default block' ) }
-				// A wrapping container for this one already has the fp-block className.
+				// A wrapping container for this one already has the fin-block className.
 				className="block-editor-default-block-appender__content"
 				onKeyDown={ ( event ) => {
 					if ( ENTER === event.keyCode || SPACE === event.keyCode ) {

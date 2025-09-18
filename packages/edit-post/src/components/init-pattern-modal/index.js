@@ -28,10 +28,10 @@ export default function InitPatternModal() {
 		};
 	}, [] );
 	const [ isModalOpen, setIsModalOpen ] = useState(
-		() => isNewPost && postType === 'fp_block'
+		() => isNewPost && postType === 'fin_block'
 	);
 
-	if ( postType !== 'fp_block' || ! isNewPost ) {
+	if ( postType !== 'fin_block' || ! isNewPost ) {
 		return null;
 	}
 
@@ -52,7 +52,7 @@ export default function InitPatternModal() {
 							editPost( {
 								title,
 								meta: {
-									fp_pattern_sync_status: syncType,
+									fin_pattern_sync_status: syncType,
 								},
 							} );
 						} }

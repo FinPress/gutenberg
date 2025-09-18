@@ -46,9 +46,9 @@ if ( ! browserslist.findConfig( '.' ) ) {
 	target += ':' + fromConfigRoot( '.browserslistrc' );
 }
 const hasReactFastRefresh = hasArgInCLI( '--hot' ) && ! isProduction;
-const hasBlocksManifest = getAsBooleanFromENV( 'FP_BLOCKS_MANIFEST' );
+const hasBlocksManifest = getAsBooleanFromENV( 'FIN_BLOCKS_MANIFEST' );
 const hasExperimentalModulesFlag = getAsBooleanFromENV(
-	'FP_EXPERIMENTAL_MODULES'
+	'FIN_EXPERIMENTAL_MODULES'
 );
 
 const cssLoaders = [
@@ -124,7 +124,7 @@ const baseConfig = {
 	},
 	optimization: {
 		// Only concatenate modules in production, when not analyzing bundles.
-		concatenateModules: isProduction && ! process.env.FP_BUNDLE_ANALYZER,
+		concatenateModules: isProduction && ! process.env.FIN_BUNDLE_ANALYZER,
 		runtimeChunk: hasReactFastRefresh && 'single',
 		splitChunks: {
 			cacheGroups: {
@@ -249,14 +249,14 @@ const baseConfig = {
 	},
 };
 
-// FP_DEVTOOL global variable controls how source maps are generated.
+// FIN_DEVTOOL global variable controls how source maps are generated.
 // See: https://webpack.js.org/configuration/devtool/#devtool.
-if ( process.env.FP_DEVTOOL ) {
-	baseConfig.devtool = process.env.FP_DEVTOOL;
+if ( process.env.FIN_DEVTOOL ) {
+	baseConfig.devtool = process.env.FIN_DEVTOOL;
 }
 
 if ( ! isProduction ) {
-	// Set default sourcemap mode if it wasn't set by FP_DEVTOOL.
+	// Set default sourcemap mode if it wasn't set by FIN_DEVTOOL.
 	baseConfig.devtool = baseConfig.devtool || 'source-map';
 }
 
@@ -399,7 +399,7 @@ const scriptConfig = {
 					noErrorOnMissing: true,
 					filter: ( filepath ) => {
 						return (
-							process.env.FP_COPY_PHP_FILES_TO_DIST ||
+							process.env.FIN_COPY_PHP_FILES_TO_DIST ||
 							PhpFilePathsPlugin.paths.includes(
 								realpathSync( filepath ).replace( /\\/g, '/' )
 							)
@@ -408,9 +408,9 @@ const scriptConfig = {
 				},
 			],
 		} ),
-		// The FP_BUNDLE_ANALYZER global variable enables a utility that represents
+		// The FIN_BUNDLE_ANALYZER global variable enables a utility that represents
 		// bundle content as a convenient interactive zoomable treemap.
-		process.env.FP_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
+		process.env.FIN_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
 		new MiniCSSExtractPlugin( {
 			filename: '[name].css',
@@ -421,9 +421,9 @@ const scriptConfig = {
 		hasBlocksManifest && new BlocksManifestPlugin(),
 		// React Fast Refresh.
 		hasReactFastRefresh && new ReactRefreshWebpackPlugin(),
-		// FP_NO_EXTERNALS global variable controls whether scripts' assets get
+		// FIN_NO_EXTERNALS global variable controls whether scripts' assets get
 		// generated, and the default externals set.
-		! process.env.FP_NO_EXTERNALS &&
+		! process.env.FIN_NO_EXTERNALS &&
 			new DependencyExtractionWebpackPlugin(),
 	].filter( Boolean ),
 };
@@ -491,14 +491,14 @@ if ( hasExperimentalModulesFlag ) {
 				'globalThis.SCRIPT_DEBUG': JSON.stringify( ! isProduction ),
 				SCRIPT_DEBUG: JSON.stringify( ! isProduction ),
 			} ),
-			// The FP_BUNDLE_ANALYZER global variable enables a utility that represents
+			// The FIN_BUNDLE_ANALYZER global variable enables a utility that represents
 			// bundle content as a convenient interactive zoomable treemap.
-			process.env.FP_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
+			process.env.FIN_BUNDLE_ANALYZER && new BundleAnalyzerPlugin(),
 			// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
 			new MiniCSSExtractPlugin( { filename: '[name].css' } ),
-			// FP_NO_EXTERNALS global variable controls whether scripts' assets get
+			// FIN_NO_EXTERNALS global variable controls whether scripts' assets get
 			// generated, and the default externals set.
-			! process.env.FP_NO_EXTERNALS &&
+			! process.env.FIN_NO_EXTERNALS &&
 				new DependencyExtractionWebpackPlugin(),
 			new BlockJsonDependenciesPlugin(),
 		].filter( Boolean ),

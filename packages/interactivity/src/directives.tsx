@@ -200,7 +200,7 @@ const getGlobalAsyncEventDirective = (
 };
 
 export default () => {
-	// data-fp-context
+	// data-fin-context
 	directive(
 		'context',
 		( {
@@ -228,7 +228,7 @@ export default () => {
 					// Check that the value is a JSON object. Send a console warning if not.
 					if ( ! isPlainObject( value ) ) {
 						warn(
-							`The value of data-fp-context in "${ namespace }" store must be a valid stringified JSON object.`
+							`The value of data-fin-context in "${ namespace }" store must be a valid stringified JSON object.`
 						);
 					}
 					deepMerge(
@@ -254,7 +254,7 @@ export default () => {
 		{ priority: 5 }
 	);
 
-	// data-fp-watch--[name]
+	// data-fin-watch--[name]
 	directive( 'watch', ( { directives: { watch }, evaluate } ) => {
 		watch.forEach( ( entry ) => {
 			useWatch( () => {
@@ -290,7 +290,7 @@ export default () => {
 		} );
 	} );
 
-	// data-fp-init--[name]
+	// data-fin-init--[name]
 	directive( 'init', ( { directives: { init }, evaluate } ) => {
 		init.forEach( ( entry ) => {
 			// TODO: Replace with useEffect to prevent unneeded scopes.
@@ -327,7 +327,7 @@ export default () => {
 		} );
 	} );
 
-	// data-fp-on--[event]
+	// data-fin-on--[event]
 	directive( 'on', ( { directives: { on }, element, evaluate } ) => {
 		const events = new Map< string, Set< DirectiveEntry > >();
 		on.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
@@ -380,7 +380,7 @@ export default () => {
 		} );
 	} );
 
-	// data-fp-on-async--[event]
+	// data-fin-on-async--[event]
 	directive(
 		'on-async',
 		( { directives: { 'on-async': onAsync }, element, evaluate } ) => {
@@ -413,20 +413,20 @@ export default () => {
 		}
 	);
 
-	// data-fp-on-window--[event]
+	// data-fin-on-window--[event]
 	directive( 'on-window', getGlobalEventDirective( 'window' ) );
-	// data-fp-on-document--[event]
+	// data-fin-on-document--[event]
 	directive( 'on-document', getGlobalEventDirective( 'document' ) );
 
-	// data-fp-on-async-window--[event]
+	// data-fin-on-async-window--[event]
 	directive( 'on-async-window', getGlobalAsyncEventDirective( 'window' ) );
-	// data-fp-on-async-document--[event]
+	// data-fin-on-async-document--[event]
 	directive(
 		'on-async-document',
 		getGlobalAsyncEventDirective( 'document' )
 	);
 
-	// data-fp-class--[classname]
+	// data-fin-class--[classname]
 	directive(
 		'class',
 		( { directives: { class: classNames }, element, evaluate } ) => {
@@ -473,7 +473,7 @@ export default () => {
 		}
 	);
 
-	// data-fp-style--[style-prop]
+	// data-fin-style--[style-prop]
 	directive( 'style', ( { directives: { style }, element, evaluate } ) => {
 		style.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
 			const styleProp = entry.suffix;
@@ -510,7 +510,7 @@ export default () => {
 		} );
 	} );
 
-	// data-fp-bind--[attribute]
+	// data-fin-bind--[attribute]
 	directive( 'bind', ( { directives: { bind }, element, evaluate } ) => {
 		bind.filter( isNonDefaultDirectiveSuffix ).forEach( ( entry ) => {
 			const attribute = entry.suffix;
@@ -589,7 +589,7 @@ export default () => {
 		} );
 	} );
 
-	// data-fp-ignore
+	// data-fin-ignore
 	directive(
 		'ignore',
 		( {
@@ -602,7 +602,7 @@ export default () => {
 		} ) => {
 			// Shown deprecation warning
 			warn(
-				'The "data-fp-ignore" directive of the Interactivity API is deprecated since version 6.9 and will be removed in version 7.0.'
+				'The "data-fin-ignore" directive of the Interactivity API is deprecated since version 6.9 and will be removed in version 7.0.'
 			);
 
 			// Preserve the initial inner HTML
@@ -614,7 +614,7 @@ export default () => {
 		}
 	);
 
-	// data-fp-text
+	// data-fin-text
 	directive( 'text', ( { directives: { text }, element, evaluate } ) => {
 		const entry = text.find( isDefaultDirectiveSuffix );
 		if ( ! entry ) {
@@ -634,7 +634,7 @@ export default () => {
 		}
 	} );
 
-	// data-fp-run
+	// data-fin-run
 	directive( 'run', ( { directives: { run }, evaluate } ) => {
 		run.forEach( ( entry ) => {
 			let result = evaluate( entry );
@@ -645,7 +645,7 @@ export default () => {
 		} );
 	} );
 
-	// data-fp-each--[item]
+	// data-fin-each--[item]
 	directive(
 		'each',
 		( {

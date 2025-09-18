@@ -20,7 +20,7 @@
 
 // Images are draggable by default, so disable drag for them if not explicitly
 // set. This is done so that the block can capture the drag event instead.
-.fp-block img:not([draggable]),
-.fp-block svg:not([draggable]) {
+.fin-block img:not([draggable]),
+.fin-block svg:not([draggable]) {
 	pointer-events: none;
 }

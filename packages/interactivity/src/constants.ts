@@ -1,1 +1,1 @@
-export const directivePrefix: string = 'fp';
+export const directivePrefix: string = 'fin';

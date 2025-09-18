@@ -1,7 +1,7 @@
-.fp-block-widget-group {
+.fin-block-widget-group {
 	&.has-child-selected::after {
 		border-radius: $radius-small;
-		border: $border-width solid var(--fp-admin-theme-color);
+		border: $border-width solid var(--fin-admin-theme-color);
 		bottom: 0;
 		content: "";
 		left: 0;
@@ -17,7 +17,7 @@
 	}
 }
 
-.fp-block-widget-group__placeholder {
+.fin-block-widget-group__placeholder {
 	.block-editor-inserter {
 		width: 100%;
 	}
@@ -25,7 +25,7 @@
 
 // Force the appender to always have "light mode" styling as it appears in a
 // light colored placeholder.
-.is-dark-theme .fp-block-widget-group__placeholder .block-editor-button-block-appender {
+.is-dark-theme .fin-block-widget-group__placeholder .block-editor-button-block-appender {
 	box-shadow: inset 0 0 0 $border-width $gray-900;
 	color: $gray-900;
 }

@@ -195,7 +195,7 @@ function NewTemplateModal( { onClose } ) {
 		}
 	}, [ modalContent ] );
 
-	async function createTemplate( template, isFPSuggestion = true ) {
+	async function createTemplate( template, isFINSuggestion = true ) {
 		if ( isSubmitting ) {
 			return;
 		}
@@ -212,7 +212,7 @@ function NewTemplateModal( { onClose } ) {
 					status: 'publish',
 					title,
 					// This adds a post meta field in template that is part of `is_custom` value calculation.
-					is_fin_suggestion: isFPSuggestion,
+					is_fin_suggestion: isFINSuggestion,
 				},
 				{ throwOnError: true }
 			);

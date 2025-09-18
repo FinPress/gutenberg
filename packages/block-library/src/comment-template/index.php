@@ -12,8 +12,8 @@
  *
  * @global int $comment_depth
  *
- * @param FP_Comment[] $comments        The array of comments.
- * @param FP_Block     $block           Block instance.
+ * @param FIN_Comment[] $comments        The array of comments.
+ * @param FIN_Block     $block           Block instance.
  * @return string
  */
 function block_core_comment_template_render_comments( $comments, $block ) {
@@ -44,10 +44,10 @@ function block_core_comment_template_render_comments( $comments, $block ) {
 		add_filter( 'render_block_context', $filter_block_context, 1 );
 
 		/*
-		 * We construct a new FP_Block instance from the parsed block so that
+		 * We construct a new FIN_Block instance from the parsed block so that
 		 * it'll receive any changes made by the `render_block_data` filter.
 		 */
-		$block_content = ( new FP_Block( $block->parsed_block ) )->render( array( 'dynamic' => false ) );
+		$block_content = ( new FIN_Block( $block->parsed_block ) )->render( array( 'dynamic' => false ) );
 
 		remove_filter( 'render_block_context', $filter_block_context, 1 );
 
@@ -96,7 +96,7 @@ function block_core_comment_template_render_comments( $comments, $block ) {
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  *
  * @return string Returns the HTML representing the comments using the layout
  * defined by the block's inner blocks.
@@ -111,7 +111,7 @@ function render_block_core_comment_template( $attributes, $content, $block ) {
 		return;
 	}
 
-	$comment_query = new FP_Comment_Query(
+	$comment_query = new FIN_Comment_Query(
 		build_comment_query_vars_from_block( $block )
 	);
 

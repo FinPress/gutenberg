@@ -36,7 +36,7 @@ import {
 	privateRemoveBlocks,
 } from './private-actions';
 
-/** @typedef {import('../components/use-on-block-drop/types').FPDropOperation} FPDropOperation */
+/** @typedef {import('../components/use-on-block-drop/types').FINDropOperation} FINDropOperation */
 
 const castArray = ( maybeArray ) =>
 	Array.isArray( maybeArray ) ? maybeArray : [ maybeArray ];
@@ -87,21 +87,21 @@ export const validateBlocksToTemplate =
 /**
  * A block selection object.
  *
- * @typedef {Object} FPBlockSelection
+ * @typedef {Object} FINBlockSelection
  *
  * @property {string} clientId     A block client ID.
  * @property {string} attributeKey A block attribute key.
  * @property {number} offset       An attribute value offset, based on the rich
- *                                 text value. See `fp.richText.create`.
+ *                                 text value. See `fin.richText.create`.
  */
 
 /**
  * A selection object.
  *
- * @typedef {Object} FPSelection
+ * @typedef {Object} FINSelection
  *
- * @property {FPBlockSelection} start The selection start.
- * @property {FPBlockSelection} end   The selection end.
+ * @property {FINBlockSelection} start The selection start.
+ * @property {FINBlockSelection} end   The selection end.
  */
 
 /* eslint-disable jsdoc/valid-types */
@@ -109,8 +109,8 @@ export const validateBlocksToTemplate =
  * Returns an action object used in signalling that selection state should be
  * reset to the specified selection.
  *
- * @param {FPBlockSelection} selectionStart  The selection start.
- * @param {FPBlockSelection} selectionEnd    The selection end.
+ * @param {FINBlockSelection} selectionStart  The selection start.
+ * @param {FINBlockSelection} selectionEnd    The selection end.
  * @param {0|-1|null}        initialPosition Initial block position.
  *
  * @return {Object} Action object.
@@ -141,7 +141,7 @@ export function resetSelection(
  * @return {Object} Action object.
  */
 export function receiveBlocks( blocks ) {
-	deprecated( 'fp.data.dispatch( "core/block-editor" ).receiveBlocks', {
+	deprecated( 'fin.data.dispatch( "core/block-editor" ).receiveBlocks', {
 		since: '5.9',
 		alternative: 'resetBlocks or insertBlocks',
 	} );
@@ -223,7 +223,7 @@ export function selectBlock( clientId, initialPosition = 0 ) {
  * @deprecated
  */
 export function hoverBlock() {
-	deprecated( 'fp.data.dispatch( "core/block-editor" ).hoverBlock', {
+	deprecated( 'fin.data.dispatch( "core/block-editor" ).hoverBlock', {
 		since: '6.9',
 		version: '7.1',
 	} );
@@ -571,7 +571,7 @@ export const insertBlocks =
 			meta = initialPosition;
 			initialPosition = 0;
 			deprecated(
-				"meta argument in fp.data.dispatch('core/block-editor')",
+				"meta argument in fin.data.dispatch('core/block-editor')",
 				{
 					since: '5.8',
 					hint: 'The meta argument is now the 6th argument of the function',
@@ -612,7 +612,7 @@ export const insertBlocks =
  * @param    {?number}         index                  Index at which block should be inserted.
  * @param    {?Object}         __unstableOptions      Additional options.
  * @property {boolean}         __unstableWithInserter Whether or not to show an inserter button.
- * @property {FPDropOperation} operation              The operation to perform when applied,
+ * @property {FINDropOperation} operation              The operation to perform when applied,
  *                                                    either 'insert' or 'replace' for now.
  *
  * @return {Object} Action object.
@@ -1498,7 +1498,7 @@ export function stopDraggingBlocks() {
  * @return {Object} Action object.
  */
 export function enterFormattedText() {
-	deprecated( 'fp.data.dispatch( "core/block-editor" ).enterFormattedText', {
+	deprecated( 'fin.data.dispatch( "core/block-editor" ).enterFormattedText', {
 		since: '6.1',
 		version: '6.3',
 	} );
@@ -1515,7 +1515,7 @@ export function enterFormattedText() {
  * @return {Object} Action object.
  */
 export function exitFormattedText() {
-	deprecated( 'fp.data.dispatch( "core/block-editor" ).exitFormattedText', {
+	deprecated( 'fin.data.dispatch( "core/block-editor" ).exitFormattedText', {
 		since: '6.1',
 		version: '6.3',
 	} );
@@ -1527,7 +1527,7 @@ export function exitFormattedText() {
 /**
  * Action that changes the position of the user caret.
  *
- * @param {string|FPSelection} clientId     The selected block client ID.
+ * @param {string|FINSelection} clientId     The selected block client ID.
  * @param {string}             attributeKey The selected block attribute key.
  * @param {number}             startOffset  The start offset.
  * @param {number}             endOffset    The end offset.
@@ -1704,7 +1704,7 @@ export const __unstableSetEditorMode =
  */
 export function setBlockMovingClientId() {
 	deprecated(
-		'fp.data.dispatch( "core/block-editor" ).setBlockMovingClientId',
+		'fin.data.dispatch( "core/block-editor" ).setBlockMovingClientId',
 		{
 			since: '6.7',
 			hint: 'Block moving mode feature has been removed',
@@ -1994,7 +1994,7 @@ export function __unstableSetTemporarilyEditingAsBlocks(
  * @example
  * ```js
  *
- * fp.data.dispatch('core/block-editor').registerInserterMediaCategory( {
+ * fin.data.dispatch('core/block-editor').registerInserterMediaCategory( {
  * 	 name: 'openverse',
  * 	 labels: {
  * 	 	name: 'Openverse',

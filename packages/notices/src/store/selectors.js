@@ -3,7 +3,7 @@
  */
 import { DEFAULT_CONTEXT } from './constants';
 
-/** @typedef {import('./actions').FPNoticeAction} FPNoticeAction */
+/** @typedef {import('./actions').FINNoticeAction} FINNoticeAction */
 
 /**
  * The default empty set of notices to return when there are no notices
@@ -17,7 +17,7 @@ import { DEFAULT_CONTEXT } from './constants';
 const DEFAULT_NOTICES = [];
 
 /**
- * @typedef {Object} FPNotice Notice object.
+ * @typedef {Object} FINNotice Notice object.
  *
  * @property {string}           id             Unique identifier of notice.
  * @property {string}           status         Status of notice, one of `success`,
@@ -38,7 +38,7 @@ const DEFAULT_NOTICES = [];
  * @property {boolean}          speak          Whether the notice content should be
  *                                             announced to screen readers. Defaults to
  *                                             `true`.
- * @property {FPNoticeAction[]} actions        User actions to present with notice.
+ * @property {FINNoticeAction[]} actions        User actions to present with notice.
  */
 
 /**
@@ -66,7 +66,7 @@ const DEFAULT_NOTICES = [];
  * };
  *```
  *
- * @return {FPNotice[]} Array of notices.
+ * @return {FINNotice[]} Array of notices.
  */
 export function getNotices( state, context = DEFAULT_CONTEXT ) {
 	return state[ context ] || DEFAULT_NOTICES;

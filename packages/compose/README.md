@@ -422,7 +422,7 @@ _Parameters_
 
 -   _shortcuts_ `string[]|string`: Keyboard Shortcuts.
 -   _callback_ `(e: import('mousetrap').ExtendedKeyboardEvent, combo: string) => void`: Shortcut callback.
--   _options_ `FPKeyboardShortcutConfig`: Shortcut options.
+-   _options_ `FINKeyboardShortcutConfig`: Shortcut options.
 
 ### useMediaQuery
 
@@ -590,8 +590,8 @@ useviewportMatch( 'medium' );
 
 _Parameters_
 
--   _breakpoint_ `FPBreakpoint`: Breakpoint size name.
--   _operator_ `[FPviewportOperator]`: viewport operator.
+-   _breakpoint_ `FINBreakpoint`: Breakpoint size name.
+-   _operator_ `[FINviewportOperator]`: viewport operator.
 
 _Returns_
 

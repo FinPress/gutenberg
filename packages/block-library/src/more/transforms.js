@@ -8,7 +8,7 @@ const transforms = {
 		{
 			type: 'raw',
 			schema: {
-				'fp-block': { attributes: [ 'data-block' ] },
+				'fin-block': { attributes: [ 'data-block' ] },
 			},
 			isMatch: ( node ) =>
 				node.dataset && node.dataset.block === 'core/more',

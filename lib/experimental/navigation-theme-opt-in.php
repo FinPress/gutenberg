@@ -6,49 +6,49 @@
  */
 
 /**
- * Shim that hooks into `fp_update_nav_menu_item` and makes it so that nav menu
+ * Shim that hooks into `fin_update_nav_menu_item` and makes it so that nav menu
  * items support a 'content' field. This field contains HTML and is used by nav
  * menu items with `type` set to `'block'`.
  *
  * Specifically, this shim makes it so that:
  *
- * 1) The `fp_update_nav_menu_item()` function supports setting
+ * 1) The `fin_update_nav_menu_item()` function supports setting
  * `'menu-item-content'` on a menu item. When merged to Core, this functionality
- * should exist in `fp_update_nav_menu_item()`.
+ * should exist in `fin_update_nav_menu_item()`.
  *
  * 2) Updating a menu via nav-menus.php supports setting `'menu-item-content'`
  * on a menu item. When merged to Core, this functionality should exist in
- * `fp_nav_menu_update_menu_items()`.
+ * `fin_nav_menu_update_menu_items()`.
  *
  * 3) The `customize_save` ajax action supports setting `'content'` on a nav
  * menu item. When merged to Core, this functionality should exist in
- * `FP_Customize_Manager::save()`.
+ * `FIN_Customize_Manager::save()`.
  *
  * This shim can be removed when the Gutenberg plugin requires a FinPress
  * version that has the ticket below.
  *
  * @see https://core.trac.finpress.org/ticket/50544
  *
- * @global FP_Customize_Manager $fp_customize
+ * @global FIN_Customize_Manager $fin_customize
  *
  * @param int   $menu_id         ID of the updated menu.
  * @param int   $menu_item_db_id ID of the new menu item.
  * @param array $args            An array of arguments used to update/add the menu item.
  */
 function gutenberg_update_nav_menu_item_content( $menu_id, $menu_item_db_id, $args ) {
-	global $fp_customize;
+	global $fin_customize;
 
 	// Support setting content in nav-menus.php by grabbing the value from
-	// $_POST. This belongs in `fp_nav_menu_update_menu_items()`.
+	// $_POST. This belongs in `fin_nav_menu_update_menu_items()`.
 	if ( isset( $_POST['menu-item-content'][ $menu_item_db_id ] ) ) {
-		$args['menu-item-content'] = fp_unslash( $_POST['menu-item-content'][ $menu_item_db_id ] );
+		$args['menu-item-content'] = fin_unslash( $_POST['menu-item-content'][ $menu_item_db_id ] );
 	}
 
 	// Support setting content in customize_save admin-ajax.php requests by
 	// grabbing the unsanitized $_POST values. This belongs in
-	// `FP_Customize_Manager::save()`.
-	if ( isset( $fp_customize ) ) {
-		$values = $fp_customize->unsanitized_post_values();
+	// `FIN_Customize_Manager::save()`.
+	if ( isset( $fin_customize ) ) {
+		$values = $fin_customize->unsanitized_post_values();
 		if ( isset( $values[ "nav_menu_item[$menu_item_db_id]" ]['content'] ) ) {
 			if ( is_string( $values[ "nav_menu_item[$menu_item_db_id]" ]['content'] ) ) {
 				$args['menu-item-content'] = $values[ "nav_menu_item[$menu_item_db_id]" ]['content'];
@@ -58,26 +58,26 @@ function gutenberg_update_nav_menu_item_content( $menu_id, $menu_item_db_id, $ar
 		}
 	}
 
-	// Everything else belongs in `fp_update_nav_menu_item()`.
+	// Everything else belongs in `fin_update_nav_menu_item()`.
 
 	$defaults = array(
 		'menu-item-content' => '',
 	);
 
-	$args = fp_parse_args( $args, $defaults );
+	$args = fin_parse_args( $args, $defaults );
 
-	update_post_meta( $menu_item_db_id, '_menu_item_content', fp_slash( $args['menu-item-content'] ) );
+	update_post_meta( $menu_item_db_id, '_menu_item_content', fin_slash( $args['menu-item-content'] ) );
 }
-add_action( 'fp_update_nav_menu_item', 'gutenberg_update_nav_menu_item_content', 10, 3 );
+add_action( 'fin_update_nav_menu_item', 'gutenberg_update_nav_menu_item_content', 10, 3 );
 
 /**
- * Shim that hooks into `fp_setup_nav_menu_items` and makes it so that nav menu
+ * Shim that hooks into `fin_setup_nav_menu_items` and makes it so that nav menu
  * items have a 'content' field. This field contains HTML and is used by nav
  * menu items with `type` set to `'block'`.
  *
- * Specifically, this shim makes it so that the `fp_setup_nav_menu_item()`
+ * Specifically, this shim makes it so that the `fin_setup_nav_menu_item()`
  * function sets `content` on the returned menu item. When merged to Core, this
- * functionality should exist in `fp_setup_nav_menu_item()`.
+ * functionality should exist in `fin_setup_nav_menu_item()`.
  *
  * This shim can be removed when the Gutenberg plugin requires a FinPress
  * version that has the ticket below.
@@ -100,7 +100,7 @@ function gutenberg_setup_block_nav_menu_item( $menu_item ) {
 
 	return $menu_item;
 }
-add_filter( 'fp_setup_nav_menu_item', 'gutenberg_setup_block_nav_menu_item' );
+add_filter( 'fin_setup_nav_menu_item', 'gutenberg_setup_block_nav_menu_item' );
 
 /**
  * Shim that hooks into `walker_nav_menu_start_el` and makes it so that the
@@ -118,16 +118,16 @@ add_filter( 'fp_setup_nav_menu_item', 'gutenberg_setup_block_nav_menu_item' );
  * @see https://core.trac.finpress.org/ticket/50544
  *
  * @param string   $item_output The menu item's starting HTML output.
- * @param FP_Post  $item        Menu item data object.
+ * @param FIN_Post  $item        Menu item data object.
  * @param int      $depth       Depth of menu item. Used for padding.
- * @param stdClass $args        An object of fp_nav_menu() arguments.
+ * @param stdClass $args        An object of fin_nav_menu() arguments.
  *
  * @return string The menu item's updated HTML output.
  */
 function gutenberg_output_block_nav_menu_item( $item_output, $item, $depth, $args ) {
 	if ( 'block' === $item->type ) {
 		$item_output = $args->before;
-		/** This filter is documented in fp-includes/post-template.php */
+		/** This filter is documented in fin-includes/post-template.php */
 		$item_output .= apply_filters( 'the_content', $item->content );
 		$item_output .= $args->after;
 	}
@@ -140,9 +140,9 @@ add_filter( 'walker_nav_menu_start_el', 'gutenberg_output_block_nav_menu_item', 
  * Shim that prevents menu items with type `'block'` from being rendered in the
  * frontend when the theme does not support block menus.
  *
- * Specifically, this shim makes it so that `fp_nav_menu()` will remove any menu
+ * Specifically, this shim makes it so that `fin_nav_menu()` will remove any menu
  * items that have a `type` of `'block'` from `$sorted_menu_items`. When merged
- * to Core, this functionality should exist in `fp_nav_menu()`.
+ * to Core, this functionality should exist in `fin_nav_menu()`.
  *
  * This shim can be removed when the Gutenberg plugin requires a FinPress
  * version that has the ticket below.
@@ -168,7 +168,7 @@ function gutenberg_remove_block_nav_menu_items( $menu_items ) {
 		}
 	);
 }
-add_filter( 'fp_nav_menu_objects', 'gutenberg_remove_block_nav_menu_items', 10 );
+add_filter( 'fin_nav_menu_objects', 'gutenberg_remove_block_nav_menu_items', 10 );
 
 /**
  * Recursively converts a list of menu items into a list of blocks. This is a
@@ -230,14 +230,14 @@ function gutenberg_convert_menu_items_to_blocks(
 }
 
 /**
- * Shim that causes `fp_nav_menu()` to output a Navigation block instead of a
+ * Shim that causes `fin_nav_menu()` to output a Navigation block instead of a
  * nav menu when the theme supports block menus. The Navigation block is
  * constructed by transforming the stored tree of menu items into a tree of
  * blocks.
  *
- * Specifically, this shim makes it so that `fp_nav_menu()` returns early when
+ * Specifically, this shim makes it so that `fin_nav_menu()` returns early when
  * the theme supports block menus. When merged to Core, this functionality
- * should exist in `fp_nav_menu()` after `$sorted_menu_items` is set. The
+ * should exist in `fin_nav_menu()` after `$sorted_menu_items` is set. The
  * duplicated code (marked using BEGIN and END) can be deleted.
  *
  * This shim can be removed when the Gutenberg plugin requires a FinPress
@@ -246,7 +246,7 @@ function gutenberg_convert_menu_items_to_blocks(
  * @see https://core.trac.finpress.org/ticket/50544
  *
  * @param string|null $output Nav menu output to short-circuit with. Default null.
- * @param stdClass    $args   An object containing fp_nav_menu() arguments.
+ * @param stdClass    $args   An object containing fin_nav_menu() arguments.
  *
  * @return string|null Nav menu output to short-circuit with.
  */
@@ -258,22 +258,22 @@ function gutenberg_output_block_nav_menu( $output, $args ) {
 		return null;
 	}
 
-	// BEGIN: Code that already exists in fp_nav_menu().
+	// BEGIN: Code that already exists in fin_nav_menu().
 
 	// Get the nav menu based on the requested menu.
-	$menu = fp_get_nav_menu_object( $args->menu );
+	$menu = fin_get_nav_menu_object( $args->menu );
 
 	// Get the nav menu based on the theme_location.
 	$locations = get_nav_menu_locations();
 	if ( ! $menu && $args->theme_location && $locations && isset( $locations[ $args->theme_location ] ) ) {
-		$menu = fp_get_nav_menu_object( $locations[ $args->theme_location ] );
+		$menu = fin_get_nav_menu_object( $locations[ $args->theme_location ] );
 	}
 
 	// Get the first menu that has items if we still can't find a menu.
 	if ( ! $menu && ! $args->theme_location ) {
-		$menus = fp_get_nav_menus();
+		$menus = fin_get_nav_menus();
 		foreach ( $menus as $menu_maybe ) {
-			$menu_items = fp_get_nav_menu_items( $menu_maybe->term_id, array( 'update_post_term_cache' => false ) );
+			$menu_items = fin_get_nav_menu_items( $menu_maybe->term_id, array( 'update_post_term_cache' => false ) );
 			if ( $menu_items ) {
 				$menu = $menu_maybe;
 				break;
@@ -286,12 +286,12 @@ function gutenberg_output_block_nav_menu( $output, $args ) {
 	}
 
 	// If the menu exists, get its items.
-	if ( $menu && ! is_fp_error( $menu ) && ! isset( $menu_items ) ) {
-		$menu_items = fp_get_nav_menu_items( $menu->term_id, array( 'update_post_term_cache' => false ) );
+	if ( $menu && ! is_fin_error( $menu ) && ! isset( $menu_items ) ) {
+		$menu_items = fin_get_nav_menu_items( $menu->term_id, array( 'update_post_term_cache' => false ) );
 	}
 
 	// Set up the $menu_item variables.
-	_fp_menu_item_classes_by_context( $menu_items );
+	_fin_menu_item_classes_by_context( $menu_items );
 
 	$sorted_menu_items = array();
 	foreach ( (array) $menu_items as $menu_item ) {
@@ -300,7 +300,7 @@ function gutenberg_output_block_nav_menu( $output, $args ) {
 
 	unset( $menu_items, $menu_item );
 
-	// END: Code that already exists in fp_nav_menu().
+	// END: Code that already exists in fin_nav_menu().
 
 	$menu_items_by_parent_id = array();
 	foreach ( $sorted_menu_items as $menu_item ) {
@@ -325,7 +325,7 @@ function gutenberg_output_block_nav_menu( $output, $args ) {
 
 	return render_block( $navigation_block );
 }
-add_filter( 'pre_fp_nav_menu', 'gutenberg_output_block_nav_menu', 10, 2 );
+add_filter( 'pre_fin_nav_menu', 'gutenberg_output_block_nav_menu', 10, 2 );
 
 /**
  * Shim that makes nav-menus.php nicely display a menu item with its `type` set to
@@ -341,7 +341,7 @@ add_filter( 'pre_fp_nav_menu', 'gutenberg_output_block_nav_menu', 10, 2 );
  * @see https://core.trac.finpress.org/ticket/50544
  *
  * @param int     $item_id Menu item ID.
- * @param FP_Post $item    Menu item data object.
+ * @param FIN_Post $item    Menu item data object.
  */
 function gutenberg_output_block_menu_item_custom_fields( $item_id, $item ) {
 	if ( 'block' === $item->type ) {
@@ -355,7 +355,7 @@ function gutenberg_output_block_menu_item_custom_fields( $item_id, $item ) {
 		<?php
 	}
 }
-add_action( 'fp_nav_menu_item_custom_fields', 'gutenberg_output_block_menu_item_custom_fields', 10, 2 );
+add_action( 'fin_nav_menu_item_custom_fields', 'gutenberg_output_block_menu_item_custom_fields', 10, 2 );
 
 /**
  * Shim that adds extra styling to nav-menus.php. This lets us style menu items
@@ -382,7 +382,7 @@ function gutenberg_add_block_menu_item_styles_to_nav_menus( $hook ) {
 				display: none;
 			}
 CSS;
-		fp_add_inline_style( 'nav-menus', $css );
+		fin_add_inline_style( 'nav-menus', $css );
 	}
 }
 add_action( 'admin_enqueue_scripts', 'gutenberg_add_block_menu_item_styles_to_nav_menus' );

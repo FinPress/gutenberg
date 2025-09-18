@@ -87,15 +87,15 @@ const shouldSeverEntityLink = ( originalUrl, newUrl ) => {
 };
 
 /**
- * @typedef {'post-type'|'custom'|'taxonomy'|'post-type-archive'} FPNavigationLinkKind
+ * @typedef {'post-type'|'custom'|'taxonomy'|'post-type-archive'} FINNavigationLinkKind
  */
 /**
  * Navigation Link Block Attributes
  *
- * @typedef {Object} FPNavigationLinkBlockAttributes
+ * @typedef {Object} FINNavigationLinkBlockAttributes
  *
  * @property {string}               [label]         Link text.
- * @property {FPNavigationLinkKind} [kind]          Kind is used to differentiate between term and post ids to check post draft status.
+ * @property {FINNavigationLinkKind} [kind]          Kind is used to differentiate between term and post ids to check post draft status.
  * @property {string}               [type]          The type such as post, page, tag, category and other custom types.
  * @property {string}               [rel]           The relationship of the linked URL.
  * @property {number}               [id]            A post or term id.
@@ -108,7 +108,7 @@ const shouldSeverEntityLink = ( originalUrl, newUrl ) => {
  *
  * @param {Object}                          updatedValue    New block attributes to update.
  * @param {Function}                        setAttributes   Block attribute update function.
- * @param {FPNavigationLinkBlockAttributes} blockAttributes Current block attributes.
+ * @param {FINNavigationLinkBlockAttributes} blockAttributes Current block attributes.
  */
 
 export const updateAttributes = (

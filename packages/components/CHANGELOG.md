@@ -243,7 +243,7 @@
 -   `InputControl`: Deprecate 36px default size ([#66897](https://github.com/FinPress/gutenberg/pull/66897)).
 -   `RadioGroup`: Log deprecation warning ([#68067](https://github.com/FinPress/gutenberg/pull/68067)).
 -   Soft deprecate `ButtonGroup` component. Use `ToggleGroupControl` instead ([#65429](https://github.com/FinPress/gutenberg/pull/65429)).
--   `Navigation`: Log deprecation warning for removal in FP 7.1. Use `Navigator` instead ([#68158](https://github.com/FinPress/gutenberg/pull/68158)).
+-   `Navigation`: Log deprecation warning for removal in FIN 7.1. Use `Navigator` instead ([#68158](https://github.com/FinPress/gutenberg/pull/68158)).
 
 ### Bug Fixes
 
@@ -1580,7 +1580,7 @@
 -   `Modal`: Add css class to children container ([#50099](https://github.com/FinPress/gutenberg/pull/50099)).
 -   `Button`: Add `__next40pxDefaultSize` prop to opt into the new 40px default size ([#50254](https://github.com/FinPress/gutenberg/pull/50254)).
 -   `PaletteEdit`: Allow custom popover configuration ([#49975](https://github.com/FinPress/gutenberg/pull/49975)).
--   Change the default color scheme to use the new FP Blueberry color. See PR description for instructions on how to restore the previous color scheme when using in a non-FinPress context ([#50193](https://github.com/FinPress/gutenberg/pull/50193)).
+-   Change the default color scheme to use the new FIN Blueberry color. See PR description for instructions on how to restore the previous color scheme when using in a non-FinPress context ([#50193](https://github.com/FinPress/gutenberg/pull/50193)).
 -   `CheckboxControl`, `CustomGradientPicker`, `FormToggle`, : Refactor and correct the focus style for consistency ([#50127](https://github.com/FinPress/gutenberg/pull/50127)).
 -   `Button`, update spacing values in `has-text has-icon` buttons. ([#50277](https://github.com/FinPress/gutenberg/pull/50277)).
 -   `Button`, remove custom padding applied to `tertiary` variant. ([#50276](https://github.com/FinPress/gutenberg/pull/50276)).

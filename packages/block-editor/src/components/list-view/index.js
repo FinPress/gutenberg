@@ -105,7 +105,7 @@ function ListViewComponent(
 	// This can be removed once we no longer need to support the blocks prop.
 	if ( blocks ) {
 		deprecated(
-			'`blocks` property in `fp.blockEditor.__experimentalListView`',
+			'`blocks` property in `fin.blockEditor.__experimentalListView`',
 			{
 				since: '6.3',
 				alternative: '`rootClientId` property',
@@ -374,7 +374,7 @@ function ListViewComponent(
 				applicationAriaLabel={ __( 'Block navigation structure' ) }
 				aria-describedby={ describedById }
 				style={ {
-					'--fp-admin--list-view-dragged-items-height':
+					'--fin-admin--list-view-dragged-items-height':
 						draggedClientIds?.length
 							? `${
 									BLOCK_LIST_ITEM_HEIGHT *

@@ -165,7 +165,7 @@ function block_core_navigation_link_maybe_urldecode( $url ) {
  *
  * @param array    $attributes The block attributes.
  * @param string   $content    The saved content.
- * @param FP_Block $block      The parsed block.
+ * @param FIN_Block $block      The parsed block.
  *
  * @return string Returns the post content with the legacy widget added.
  */
@@ -184,7 +184,7 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
 		 *
 		 * @param array $post_status
 		 * @param array $attributes
-		 * @param FP_Block $block
+		 * @param FIN_Block $block
 		 */
 		$allowed_post_status = (array) apply_filters(
 			'render_block_core_navigation_link_allowed_post_status',
@@ -303,7 +303,7 @@ function render_block_core_navigation_link( $attributes, $content, $block ) {
  *
  * @since 5.9.0
  *
- * @param FP_Taxonomy|FP_Post_Type $entity post type or taxonomy entity.
+ * @param FIN_Taxonomy|FIN_Post_Type $entity post type or taxonomy entity.
  * @param string                   $kind string of value 'taxonomy' or 'post-type'.
  *
  * @return array
@@ -367,7 +367,7 @@ function build_variation_for_navigation_link( $entity, $kind ) {
  * @since 6.5.0
  *
  * @param array         $variations Array of registered variations for a block type.
- * @param FP_Block_Type $block_type The full block type object.
+ * @param FIN_Block_Type $block_type The full block type object.
  */
 function block_core_navigation_link_filter_variations( $variations, $block_type ) {
 	if ( 'core/navigation-link' !== $block_type->name ) {
@@ -428,7 +428,7 @@ function block_core_navigation_link_build_variations() {
  * @since 5.9.0
  *
  * @uses render_block_core_navigation_link()
- * @throws FP_Error An FP_Error exception parsing the block definition.
+ * @throws FIN_Error An FIN_Error exception parsing the block definition.
  */
 function register_block_core_navigation_link() {
 	register_block_type_from_metadata(

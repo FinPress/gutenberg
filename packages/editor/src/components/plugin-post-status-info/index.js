@@ -21,8 +21,8 @@ const { Fill, Slot } = createSlotFill( 'PluginPostStatusInfo' );
  * @example
  * ```js
  * // Using ES5 syntax
- * var __ = fp.i18n.__;
- * var PluginPostStatusInfo = fp.editor.PluginPostStatusInfo;
+ * var __ = fin.i18n.__;
+ * var PluginPostStatusInfo = fin.editor.PluginPostStatusInfo;
  *
  * function MyPluginPostStatusInfo() {
  * 	return React.createElement(

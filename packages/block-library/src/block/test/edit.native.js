@@ -24,28 +24,28 @@ import { registerCoreBlocks } from '../..';
 const getMockedReusableBlock = ( id ) => ( {
 	content: {
 		raw: `
-    <!-- fp:heading -->
-    <h2 class="fp-block-heading">First Reusable block</h2>
-    <!-- /fp:heading -->
+    <!-- fin:heading -->
+    <h2 class="fin-block-heading">First Reusable block</h2>
+    <!-- /fin:heading -->
 
-    <!-- fp:paragraph -->
+    <!-- fin:paragraph -->
     <p><strong>Bold</strong> <em>Italic</em> <s>Striked</s> Superscript<sup>(1)</sup> Subscript<sub>(2)</sub> <a href="http://www.finpress.org" target="_blank" rel="noreferrer noopener">Link</a></p>
-    <!-- /fp:paragraph -->
+    <!-- /fin:paragraph -->
 
-    !-- fp:heading {"level":4} -->
+    !-- fin:heading {"level":4} -->
     <h4>List</h4>
-    <!-- /fp:heading -->
+    <!-- /fin:heading -->
 
-    <!-- fp:list -->
+    <!-- fin:list -->
     <ul><li>First Item</li><li>Second Item</li><li>Third Item</li></ul>
-    <!-- /fp:list -->
+    <!-- /fin:list -->
 `,
 	},
 	id,
 	title: { raw: `Reusable block - ${ id }` },
-	type: 'fp_block',
+	type: 'fin_block',
 	meta: { footnotes: '' },
-	fp_pattern_category: [],
+	fin_pattern_category: [],
 } );
 
 beforeAll( () => {
@@ -69,12 +69,12 @@ describe( 'Synced patterns', () => {
 		// Return mocked responses for the block endpoints.
 		fetchRequest.mockImplementation( ( { path } ) => {
 			let response = {};
-			if ( path.startsWith( '/fp/v2/blocks?' ) ) {
+			if ( path.startsWith( '/fin/v2/blocks?' ) ) {
 				response = [ reusableBlockMock1, reusableBlockMock2 ];
-			} else if ( path.startsWith( '/fp/v2/blocks/1' ) ) {
+			} else if ( path.startsWith( '/fin/v2/blocks/1' ) ) {
 				response = reusableBlockMock1;
 			} else if (
-				path.startsWith( '/fp/v2/block-patterns/categories' )
+				path.startsWith( '/fin/v2/block-patterns/categories' )
 			) {
 				response = [];
 			}
@@ -122,13 +122,13 @@ describe( 'Synced patterns', () => {
 		);
 
 		expect( reusableBlock ).toBeDefined();
-		expect( getEditorHtml() ).toBe( '<!-- fp:block {"ref":1} /-->' );
+		expect( getEditorHtml() ).toBe( '<!-- fin:block {"ref":1} /-->' );
 	} );
 
 	it( 'renders warning when the block does not exist', async () => {
 		// We have to use different ids because entities are cached in memory.
 		const id = 3;
-		const initialHtml = `<!-- fp:block {"ref":${ id }} /-->`;
+		const initialHtml = `<!-- fin:block {"ref":${ id }} /-->`;
 
 		const screen = await initializeEditor( {
 			initialHtml,
@@ -149,8 +149,8 @@ describe( 'Synced patterns', () => {
 	it( 'renders block content', async () => {
 		// We have to use different ids because entities are cached in memory.
 		const id = 4;
-		const initialHtml = `<!-- fp:block {"ref":${ id }} /-->`;
-		const endpoint = `/fp/v2/blocks/${ id }`;
+		const initialHtml = `<!-- fin:block {"ref":${ id }} /-->`;
+		const endpoint = `/fin/v2/blocks/${ id }`;
 
 		// Return mocked response for the block endpoint.
 		fetchRequest.mockImplementation( ( { path } ) => {
@@ -197,11 +197,11 @@ describe( 'Synced patterns', () => {
 	it( 'renders block after content is updated due to a side effect', async () => {
 		// We have to use different ids because entities are cached in memory.
 		const id = 5;
-		const initialHtml = `<!-- fp:block {"ref":${ id }} /-->`;
-		const endpoint = `/fp/v2/blocks/${ id }`;
+		const initialHtml = `<!-- fin:block {"ref":${ id }} /-->`;
+		const endpoint = `/fin/v2/blocks/${ id }`;
 		const fetchMedia = {
 			request: {
-				path: `/fp/v2/media/1?context=edit`,
+				path: `/fin/v2/media/1?context=edit`,
 			},
 			response: {
 				source_url: 'https://cldup.com/cXyG__fTLN.jpg',
@@ -228,9 +228,9 @@ describe( 'Synced patterns', () => {
 			// The side effect will be produced when the `source` attribute is replaced
 			// with an URL that includes the width query parameter:
 			// https://cldup.com/cXyG__fTLN.jpg => https://cldup.com/cXyG__fTLN.jpg?w=500
-			response.content.raw = `<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fp-image-1"/></figure>
-<!-- /fp:image -->`;
+			response.content.raw = `<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://cldup.com/cXyG__fTLN.jpg" alt="" class="fin-image-1"/></figure>
+<!-- /fin:image -->`;
 			return Promise.resolve( {
 				json: () => Promise.resolve( response ),
 			} );

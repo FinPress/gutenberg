@@ -48,11 +48,11 @@ _Parameters_
 -   _state_ `Object`: Data state.
 -   _blockName_ `string`: Name of block (example: “core/columns”).
 -   _attributes_ `Object`: Block attributes used to determine active variation.
--   _scope_ `[FPBlockVariationScope]`: Block variation scope name.
+-   _scope_ `[FINBlockVariationScope]`: Block variation scope name.
 
 _Returns_
 
--   `(FPBlockVariation|undefined)`: Active block variation.
+-   `(FINBlockVariation|undefined)`: Active block variation.
 
 ### getBlockStyles
 
@@ -240,11 +240,11 @@ _Parameters_
 
 -   _state_ `Object`: Data state.
 -   _blockName_ `string`: Block type name.
--   _scope_ `[FPBlockVariationScope]`: Block variation scope name.
+-   _scope_ `[FINBlockVariationScope]`: Block variation scope name.
 
 _Returns_
 
--   `(FPBlockVariation[]|void)`: Block variations.
+-   `(FINBlockVariation[]|void)`: Block variations.
 
 ### getCategories
 
@@ -278,7 +278,7 @@ _Parameters_
 
 _Returns_
 
--   `FPBlockCategory[]`: Categories list.
+-   `FINBlockCategory[]`: Categories list.
 
 ### getChildBlockNames
 
@@ -422,11 +422,11 @@ _Parameters_
 
 -   _state_ `Object`: Data state.
 -   _blockName_ `string`: Block type name.
--   _scope_ `[FPBlockVariationScope]`: Block variation scope name.
+-   _scope_ `[FINBlockVariationScope]`: Block variation scope name.
 
 _Returns_
 
--   `?FPBlockVariation`: The default block variation.
+-   `?FINBlockVariation`: The default block variation.
 
 ### getFreeformFallbackBlockName
 

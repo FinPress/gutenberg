@@ -61,7 +61,7 @@ export const installBlockType =
 		try {
 			dispatch.setIsInstalling( id, true );
 
-			// If we have a fp:plugin link, the plugin is installed but inactive.
+			// If we have a fin:plugin link, the plugin is installed but inactive.
 			const url = getPluginUrl( block );
 			let links = {};
 			if ( url ) {
@@ -73,7 +73,7 @@ export const installBlockType =
 			} else {
 				const response = await apiFetch( {
 					method: 'POST',
-					path: 'fp/v2/plugins',
+					path: 'fin/v2/plugins',
 					data: { slug: id, status: 'active' },
 				} );
 				// Add the `self` link for newly-installed blocks.
@@ -107,7 +107,7 @@ export const installBlockType =
 				'block_hooks',
 			];
 			await apiFetch( {
-				path: addQueryArgs( `/fp/v2/block-types/${ name }`, {
+				path: addQueryArgs( `/fin/v2/block-types/${ name }`, {
 					_fields: metadataFields,
 				} ),
 			} )

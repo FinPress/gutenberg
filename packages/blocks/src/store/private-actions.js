@@ -3,7 +3,7 @@
  */
 import { processBlockType } from './process-block-type';
 
-/** @typedef {import('../api/registration').FPBlockType} FPBlockType */
+/** @typedef {import('../api/registration').FINBlockType} FINBlockType */
 
 /**
  * Add bootstrapped block type metadata to the store. These metadata usually come from
@@ -11,7 +11,7 @@ import { processBlockType } from './process-block-type';
  * passed as the `metadata` parameter to the `registerBlockType` function.
  *
  * @param {string}      name      Block name.
- * @param {FPBlockType} blockType Block type metadata.
+ * @param {FINBlockType} blockType Block type metadata.
  */
 export function addBootstrappedBlockType( name, blockType ) {
 	return {
@@ -26,7 +26,7 @@ export function addBootstrappedBlockType( name, blockType ) {
  * `settings` parameter to the client-side `registerBlockType` function.
  *
  * @param {string}      name      Block name.
- * @param {FPBlockType} blockType Unprocessed block type settings.
+ * @param {FINBlockType} blockType Unprocessed block type settings.
  */
 export function addUnprocessedBlockType( name, blockType ) {
 	return ( { dispatch } ) => {

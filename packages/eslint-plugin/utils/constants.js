@@ -48,7 +48,7 @@ const REGEXP_SPRINTF_PLACEHOLDER =
 /**
  * "Unordered" means there's no position specifier: '%s', not '%2$s'.
  *
- * @see https://github.com/FinPress/FinPress-Coding-Standards/blob/2f927b0ba2bfcbffaa8f3251c086e109302d6622/FinPress/Sniffs/FP/I18nSniff.php#L62-L81
+ * @see https://github.com/FinPress/FinPress-Coding-Standards/blob/2f927b0ba2bfcbffaa8f3251c086e109302d6622/FinPress/Sniffs/FIN/I18nSniff.php#L62-L81
  *
  * @type {RegExp}
  */

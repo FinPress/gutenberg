@@ -16,7 +16,7 @@ should copy only partial selection of text blocks
 <br/>
 <!-- __TEST_RESULT__ --><time datetime="2022-04-18T09:51:38.785Z"><code>[2022-04-18T09:51:38.785Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2183265588"><code>update/post-featured-image-component</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-04-18T10:53:30.411Z"><code>[2022-04-18T10:53:30.411Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2183485173"><code>add/fp-env/fp-env-core-env</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-04-18T10:53:30.411Z"><code>[2022-04-18T10:53:30.411Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2183485173"><code>add/fin-env/fin-env-core-env</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
 <!-- __TEST_RESULT__ --><time datetime="2022-04-18T12:20:51.800Z"><code>[2022-04-18T12:20:51.800Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2183790777"><code>fix/e2e-test</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
@@ -62,15 +62,15 @@ should copy only partial selection of text blocks
 <br/>
 <!-- __TEST_RESULT__ --><time datetime="2022-04-23T16:41:35.814Z"><code>[2022-04-23T16:41:35.814Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2212870284"><code>fix/flaky-test-reporter</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:20:09.628Z"><code>[2022-05-10T13:20:09.628Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300794825"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:20:09.628Z"><code>[2022-05-10T13:20:09.628Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300794825"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:33:14.282Z"><code>[2022-05-10T13:33:14.282Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300911722"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:33:14.282Z"><code>[2022-05-10T13:33:14.282Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300911722"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:40:06.465Z"><code>[2022-05-10T13:40:06.465Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300960655"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:40:06.465Z"><code>[2022-05-10T13:40:06.465Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300960655"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-10T15:45:55.917Z"><code>[2022-05-10T15:45:55.917Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2301711710"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-10T15:45:55.917Z"><code>[2022-05-10T15:45:55.917Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2301711710"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-10T15:54:10.994Z"><code>[2022-05-10T15:54:10.994Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2301740850"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-10T15:54:10.994Z"><code>[2022-05-10T15:54:10.994Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2301740850"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
 <!-- __TEST_RESULT__ --><time datetime="2022-05-10T18:58:47.148Z"><code>[2022-05-10T18:58:47.148Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2302689513"><code>fix/input-field-reset-behavior-moar</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
@@ -78,11 +78,11 @@ should copy only partial selection of text blocks
 <br/>
 <!-- __TEST_RESULT__ --><time datetime="2022-05-16T07:50:53.486Z"><code>[2022-05-16T07:50:53.486Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2330425165"><code>refactor/range-control-to-typescript</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-16T09:51:42.310Z"><code>[2022-05-16T09:51:42.310Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2331036710"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-16T09:51:42.310Z"><code>[2022-05-16T09:51:42.310Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2331036710"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-16T10:08:17.403Z"><code>[2022-05-16T10:08:17.403Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2331126515"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-16T10:08:17.403Z"><code>[2022-05-16T10:08:17.403Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2331126515"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-17T12:57:57.490Z"><code>[2022-05-17T12:57:57.490Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2338696807"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-17T12:57:57.490Z"><code>[2022-05-17T12:57:57.490Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2338696807"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
 <!-- __TEST_RESULT__ --><details>
 <summary>
@@ -92,25 +92,25 @@ should copy only partial selection of text blocks
 \`\`\`
 Error: Snapshot comparison failed:
 
-  <!-- fp:paragraph -->
+  <!-- fin:paragraph -->
   <p>block</p>
-  <!-- /fp:paragraph -->
+  <!-- /fin:paragraph -->
 
-  <!-- fp:paragraph -->
+  <!-- fin:paragraph -->
   <p>B </p>
-  <!-- /fp:paragraph -->
+  <!-- /fin:paragraph -->
 
-  <!-- fp:paragraph -->
+  <!-- fin:paragraph -->
   <p>A block</p>
-  <!-- /fp:paragraph -->
+  <!-- /fin:paragraph -->
 
-  <!-- fp:paragraph -->
+  <!-- fin:paragraph -->
   <p></p>
-  <!-- /fp:paragraph -->
+  <!-- /fin:paragraph -->
 
-  <!-- fp:paragraph -->
+  <!-- fin:paragraph -->
   <p>B block</p>
-  <!-- /fp:paragraph -->
+  <!-- /fin:paragraph -->
 
 Expected: /home/runner/work/gutenberg/gutenberg/artifacts/test-results/editor-various-copy-cut-paste-Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-chromium/Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-2-expected.txt
 Received: /home/runner/work/gutenberg/gutenberg/artifacts/test-results/editor-various-copy-cut-paste-Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-chromium/Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-2-actual.txt
@@ -146,16 +146,16 @@ Should insert new template part on creation
     Expected mock function not to be called but it was called with:
     ["TypeError: Cannot read properties of null (reading 'frameElement')
 
-      at Vo (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/block-editor/index.min.js?ver=dfd3a79ce1dc54c31b6ed591bcb0d55a:3:21925)
-      at ft (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:43451)
-      at Wt (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:50270)
-      at ts (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:112276)
-      at Fr (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77758)
-      at Dr (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77686)
-      at Rr (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77549)
-      at Nr (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:74544)
-      at ../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:30170
-      at unstable_runWithPriority (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react.min.js?ver=6.1-alpha-53362:1:7430)"]
+      at Vo (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/block-editor/index.min.js?ver=dfd3a79ce1dc54c31b6ed591bcb0d55a:3:21925)
+      at ft (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:43451)
+      at Wt (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:50270)
+      at ts (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:112276)
+      at Fr (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77758)
+      at Dr (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77686)
+      at Rr (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77549)
+      at Nr (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:74544)
+      at ../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:30170
+      at unstable_runWithPriority (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react.min.js?ver=6.1-alpha-53362:1:7430)"]
           at runMicrotasks (<anonymous>)
 
   ● Template Part › Template part block › Template part placeholder › Should insert new template part on creation
@@ -165,16 +165,16 @@ Should insert new template part on creation
     Expected mock function not to be called but it was called with:
     ["TypeError: Cannot read properties of null (reading 'frameElement')
 
-      at Vo (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/block-editor/index.min.js?ver=dfd3a79ce1dc54c31b6ed591bcb0d55a:3:21925)
-      at ft (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:43451)
-      at Wt (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:50270)
-      at ts (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:112276)
-      at Fr (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77758)
-      at Dr (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77686)
-      at Rr (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77549)
-      at Nr (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:74544)
-      at ../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:30170
-      at unstable_runWithPriority (../../http:/localhost:8889/fp-content/plugins/gutenberg/build/vendors/react.min.js?ver=6.1-alpha-53362:1:7430)"]
+      at Vo (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/block-editor/index.min.js?ver=dfd3a79ce1dc54c31b6ed591bcb0d55a:3:21925)
+      at ft (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:43451)
+      at Wt (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:50270)
+      at ts (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:112276)
+      at Fr (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77758)
+      at Dr (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77686)
+      at Rr (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:77549)
+      at Nr (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:74544)
+      at ../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react-dom.min.js?ver=6.1-alpha-53362:1:30170
+      at unstable_runWithPriority (../../http:/localhost:8889/fin-content/plugins/gutenberg/build/vendors/react.min.js?ver=6.1-alpha-53362:1:7430)"]
           at runMicrotasks (<anonymous>)
 
 \`\`\`
@@ -199,7 +199,7 @@ should copy only partial selection of text blocks
 <br/>
 <!-- __TEST_RESULT__ --><time datetime="2022-04-18T09:51:38.785Z"><code>[2022-04-18T09:51:38.785Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2183265588"><code>update/post-featured-image-component</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-04-18T10:53:30.411Z"><code>[2022-04-18T10:53:30.411Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2183485173"><code>add/fp-env/fp-env-core-env</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-04-18T10:53:30.411Z"><code>[2022-04-18T10:53:30.411Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2183485173"><code>add/fin-env/fin-env-core-env</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
 <!-- __TEST_RESULT__ --><time datetime="2022-04-18T12:20:51.800Z"><code>[2022-04-18T12:20:51.800Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2183790777"><code>fix/e2e-test</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
@@ -245,15 +245,15 @@ should copy only partial selection of text blocks
 <br/>
 <!-- __TEST_RESULT__ --><time datetime="2022-04-23T16:41:35.814Z"><code>[2022-04-23T16:41:35.814Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2212870284"><code>fix/flaky-test-reporter</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:20:09.628Z"><code>[2022-05-10T13:20:09.628Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300794825"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:20:09.628Z"><code>[2022-05-10T13:20:09.628Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300794825"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:33:14.282Z"><code>[2022-05-10T13:33:14.282Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300911722"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:33:14.282Z"><code>[2022-05-10T13:33:14.282Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300911722"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:40:06.465Z"><code>[2022-05-10T13:40:06.465Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300960655"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-10T13:40:06.465Z"><code>[2022-05-10T13:40:06.465Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2300960655"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-10T15:45:55.917Z"><code>[2022-05-10T15:45:55.917Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2301711710"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-10T15:45:55.917Z"><code>[2022-05-10T15:45:55.917Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2301711710"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-10T15:54:10.994Z"><code>[2022-05-10T15:54:10.994Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2301740850"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-10T15:54:10.994Z"><code>[2022-05-10T15:54:10.994Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2301740850"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
 <!-- __TEST_RESULT__ --><time datetime="2022-05-10T18:58:47.148Z"><code>[2022-05-10T18:58:47.148Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2302689513"><code>fix/input-field-reset-behavior-moar</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
@@ -261,11 +261,11 @@ should copy only partial selection of text blocks
 <br/>
 <!-- __TEST_RESULT__ --><time datetime="2022-05-16T07:50:53.486Z"><code>[2022-05-16T07:50:53.486Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2330425165"><code>refactor/range-control-to-typescript</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-16T09:51:42.310Z"><code>[2022-05-16T09:51:42.310Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2331036710"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-16T09:51:42.310Z"><code>[2022-05-16T09:51:42.310Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2331036710"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-16T10:08:17.403Z"><code>[2022-05-16T10:08:17.403Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2331126515"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-16T10:08:17.403Z"><code>[2022-05-16T10:08:17.403Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2331126515"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
-<!-- __TEST_RESULT__ --><time datetime="2022-05-17T12:57:57.490Z"><code>[2022-05-17T12:57:57.490Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2338696807"><code>fp/6.0</code></a>.<!-- /__TEST_RESULT__ -->
+<!-- __TEST_RESULT__ --><time datetime="2022-05-17T12:57:57.490Z"><code>[2022-05-17T12:57:57.490Z]</code></time> Test passed after 1 failed attempt on <a href="https://github.com/FinPress/gutenberg/actions/runs/2338696807"><code>fin/6.0</code></a>.<!-- /__TEST_RESULT__ -->
 <br/>
 <!-- __TEST_RESULT__ --><details>
 <summary>
@@ -275,25 +275,25 @@ should copy only partial selection of text blocks
 \`\`\`
 Error: Snapshot comparison failed:
 
-  <!-- fp:paragraph -->
+  <!-- fin:paragraph -->
   <p>block</p>
-  <!-- /fp:paragraph -->
+  <!-- /fin:paragraph -->
 
-  <!-- fp:paragraph -->
+  <!-- fin:paragraph -->
   <p>B </p>
-  <!-- /fp:paragraph -->
+  <!-- /fin:paragraph -->
 
-  <!-- fp:paragraph -->
+  <!-- fin:paragraph -->
   <p>A block</p>
-  <!-- /fp:paragraph -->
+  <!-- /fin:paragraph -->
 
-  <!-- fp:paragraph -->
+  <!-- fin:paragraph -->
   <p></p>
-  <!-- /fp:paragraph -->
+  <!-- /fin:paragraph -->
 
-  <!-- fp:paragraph -->
+  <!-- fin:paragraph -->
   <p>B block</p>
-  <!-- /fp:paragraph -->
+  <!-- /fin:paragraph -->
 
 Expected: /home/runner/work/gutenberg/gutenberg/artifacts/test-results/editor-various-copy-cut-paste-Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-chromium/Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-2-expected.txt
 Received: /home/runner/work/gutenberg/gutenberg/artifacts/test-results/editor-various-copy-cut-paste-Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-chromium/Copy-cut-paste-should-copy-only-partial-selection-of-text-blocks-2-actual.txt

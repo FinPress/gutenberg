@@ -7,7 +7,7 @@ This SlotFill allows registering a UI to edit Document settings.
 -   **name** `string`: A string identifying the panel.
 -   **className** `string`: An optional class name added to the sidebar body.
 -   **title** `string`: Title displayed at the top of the sidebar.
--   **icon** `(string|Element)`: The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FP element.
+-   **icon** `(string|Element)`: The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FIN element.
 
 ## Example
 

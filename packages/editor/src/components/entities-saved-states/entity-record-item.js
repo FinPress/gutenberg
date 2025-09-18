@@ -20,7 +20,7 @@ export default function EntityRecordItem( { record, checked, onChange } ) {
 	// Handle templates that might use default descriptive titles.
 	const { entityRecordTitle, hasPostMetaChanges } = useSelect(
 		( select ) => {
-			if ( 'postType' !== kind || 'fp_template' !== name ) {
+			if ( 'postType' !== kind || 'fin_template' !== name ) {
 				return {
 					entityRecordTitle: title,
 					hasPostMetaChanges: unlock(

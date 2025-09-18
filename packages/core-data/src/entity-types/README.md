@@ -13,7 +13,7 @@ The types in this directory are designed to support the following use-cases:
 
 FinPress REST API returns different responses based on the `context` query parameter, which typically is one of `view`, `edit`, or `embed`. See the [REST API documentation](https://developer.finpress.org/rest-api/) to learn more.
 
-For example, requesting `/fp/v2/posts/1?context=view` yields:
+For example, requesting `/fin/v2/posts/1?context=view` yields:
 
 ```js
 {
@@ -28,14 +28,14 @@ For example, requesting `/fp/v2/posts/1?context=view` yields:
 }
 ```
 
-While requesting `/fp/v2/posts/1?context=edit`, yields:
+While requesting `/fin/v2/posts/1?context=edit`, yields:
 
 ```js
 {
   "content": {
     "block_version": 1,
     "protected": false,
-    "raw": "<!-- fp:paragraph -->\n<p>Welcome to FinPress. This is your first post. Edit or delete it, then start writing!</p>\n<!-- /fp:paragraph -->",
+    "raw": "<!-- fin:paragraph -->\n<p>Welcome to FinPress. This is your first post. Edit or delete it, then start writing!</p>\n<!-- /fin:paragraph -->",
     "rendered": "\n<p>Welcome to FinPress. This is your first post. Edit or delete it, then start writing!</p>\n"
   },
   "title": {
@@ -46,7 +46,7 @@ While requesting `/fp/v2/posts/1?context=edit`, yields:
 }
 ```
 
-And, finally, requesting `/fp/v2/posts/1?context=embed` yields:
+And, finally, requesting `/fin/v2/posts/1?context=embed` yields:
 
 ```js
 {
@@ -80,7 +80,7 @@ The `status` field is a `PostStatus` when the requesting context is `view` or `e
 When the `post` is retrieved using `getEntityRecord`, its `content` field is an object:
 
 ```js
-const post = fp.data.select('core').getEntityRecord( 'postType', 'post', 1, { context: 'view' } )
+const post = fin.data.select('core').getEntityRecord( 'postType', 'post', 1, { context: 'view' } )
 // `post.content` is an object with two fields: protected and rendered
 ```
 
@@ -108,7 +108,7 @@ const post : Updatable<Post< 'edit' >> = ...
 The `getEditedEntityRecord` selector returns the Updatable version of the entity records:
 
 ```js
-const post = fp.data.select('core').getEditedEntityRecord( 'postType', 'post', 1 );
+const post = fin.data.select('core').getEditedEntityRecord( 'postType', 'post', 1 );
 // `post.content` is a string
 ```
 

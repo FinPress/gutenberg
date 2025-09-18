@@ -1,11 +1,11 @@
 /**
  * A media attachment object in a REST API context.
  *
- * Simplified version of what's defined in the fp-types package.
+ * Simplified version of what's defined in the fin-types package.
  *
- * @see https://www.npmjs.com/package/fp-types
+ * @see https://www.npmjs.com/package/fin-types
  */
-interface FP_REST_API_Attachment {
+interface FIN_REST_API_Attachment {
 	/**
 	 * Unique identifier for the attachment.
 	 */
@@ -169,7 +169,7 @@ interface FP_REST_API_Attachment {
 		/**
 		 * The featured image post.
 		 */
-		'fp:featuredmedia'?: FP_REST_API_Attachment[];
+		'fin:featuredmedia'?: FIN_REST_API_Attachment[];
 		[ k: string ]: unknown;
 	};
 	[ k: string ]: unknown;
@@ -178,7 +178,7 @@ interface FP_REST_API_Attachment {
 /**
  * REST API attachment object with additional fields added by this project.
  */
-export interface RestAttachment extends FP_REST_API_Attachment {}
+export interface RestAttachment extends FIN_REST_API_Attachment {}
 
 type BetterOmit< T, K extends PropertyKey > = {
 	[ P in keyof T as P extends K ? never : P ]: T[ P ];
@@ -191,11 +191,11 @@ export type Attachment = BetterOmit<
 	RestAttachment,
 	'alt_text' | 'source_url' | 'caption' | 'title'
 > & {
-	alt: FP_REST_API_Attachment[ 'alt_text' ];
-	caption: FP_REST_API_Attachment[ 'caption' ][ 'raw' ] & string;
-	title: FP_REST_API_Attachment[ 'title' ][ 'raw' ];
-	url: FP_REST_API_Attachment[ 'source_url' ];
-	poster?: FP_REST_API_Attachment[ 'source_url' ];
+	alt: FIN_REST_API_Attachment[ 'alt_text' ];
+	caption: FIN_REST_API_Attachment[ 'caption' ][ 'raw' ] & string;
+	title: FIN_REST_API_Attachment[ 'title' ][ 'raw' ];
+	url: FIN_REST_API_Attachment[ 'source_url' ];
+	poster?: FIN_REST_API_Attachment[ 'source_url' ];
 };
 
 export type OnChangeHandler = ( attachments: Partial< Attachment >[] ) => void;

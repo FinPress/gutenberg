@@ -382,7 +382,7 @@ const STYLE_BLOCK_PROPS_REFERENCE = {};
 function useBlockProps( { name, style } ) {
 	const blockElementsContainerIdentifier = useInstanceId(
 		STYLE_BLOCK_PROPS_REFERENCE,
-		'fp-elements'
+		'fin-elements'
 	);
 
 	const baseElementSelector = `.${ blockElementsContainerIdentifier }`;

@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  * @return string Returns the featured image for the current post.
  */
 function render_block_core_post_featured_image( $attributes, $content, $block ) {
@@ -69,7 +69,7 @@ function render_block_core_post_featured_image( $attributes, $content, $block ) 
 	if ( $attributes['useFirstImageFromPost'] && ! $featured_image ) {
 		$content_post = get_post( $post_ID );
 		$content      = $content_post->post_content;
-		$processor    = new FP_HTML_Tag_Processor( $content );
+		$processor    = new FIN_HTML_Tag_Processor( $content );
 
 		/*
 		 * Transfer the image tag from the post into a new text snippet.
@@ -85,7 +85,7 @@ function render_block_core_post_featured_image( $attributes, $content, $block ) 
 		 * code with that canonical code.
 		 */
 		if ( $processor->next_tag( 'img' ) ) {
-			$tag_html = new FP_HTML_Tag_Processor( '<img>' );
+			$tag_html = new FIN_HTML_Tag_Processor( '<img>' );
 			$tag_html->next_tag();
 			foreach ( $processor->get_attribute_names_with_prefix( '' ) as $name ) {
 				$tag_html->set_attribute( $name, $processor->get_attribute( $name ) );

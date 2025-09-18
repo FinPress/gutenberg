@@ -16,8 +16,8 @@ function gutenberg_test_plugin_activate_rtl_set_direction() {
 	global $fin_locale, $fin_styles;
 
 	$fin_locale->text_direction = 'rtl';
-	if ( ! is_a( $fin_styles, 'FP_Styles' ) ) {
-		$fin_styles = new FP_Styles();
+	if ( ! is_a( $fin_styles, 'FIN_Styles' ) ) {
+		$fin_styles = new FIN_Styles();
 	}
 	$fin_styles->text_direction = 'rtl';
 }

@@ -46,9 +46,9 @@ import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergBridgeJS2Parent.R
 import org.finpress.mobile.ReactNativeGutenbergBridge.GutenbergWebViewActivity
 import org.finpress.mobile.ReactNativeGutenbergBridge.RNMedia
 import org.finpress.mobile.ReactNativeGutenbergBridge.RNReactNativeGutenbergBridgePackage
-import org.finpress.mobile.FPAndroidGlue.GutenbergJsException
-import org.finpress.mobile.FPAndroidGlue.Media
-import org.finpress.mobile.FPAndroidGlue.MediaOption
+import org.finpress.mobile.FINAndroidGlue.GutenbergJsException
+import org.finpress.mobile.FINAndroidGlue.Media
+import org.finpress.mobile.FINAndroidGlue.MediaOption
 
 class MainApplication : Application(), ReactApplication, GutenbergBridgeInterface {
     private var mRnReactNativeGutenbergBridgePackage: RNReactNativeGutenbergBridgePackage? = null

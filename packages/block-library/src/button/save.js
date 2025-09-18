@@ -41,7 +41,7 @@ export default function save( { attributes, className } ) {
 	const shadowProps = getShadowClassesAndStyles( attributes );
 	const typographyProps = getTypographyClassesAndStyles( attributes );
 	const buttonClasses = clsx(
-		'fp-block-button__link',
+		'fin-block-button__link',
 		colorProps.className,
 		borderProps.className,
 		typographyProps.className,
@@ -68,7 +68,7 @@ export default function save( { attributes, className } ) {
 	// A title will no longer be assigned for new or updated button block links.
 
 	const wrapperClasses = clsx( className, {
-		[ `has-custom-width fp-block-button__width-${ width }` ]: width,
+		[ `has-custom-width fin-block-button__width-${ width }` ]: width,
 	} );
 
 	return (

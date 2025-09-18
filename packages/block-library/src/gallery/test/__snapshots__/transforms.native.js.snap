@@ -1,53 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Gallery block transformations to Columns block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
-<div class="fp-block-column" style="flex-basis:100%"><!-- fp:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
-<figure class="fp-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon.png" alt=""/><figcaption class="fp-element-caption">Paragraph</figcaption></figure>
-<!-- /fp:image -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"100%"} -->
+<div class="fin-block-column" style="flex-basis:100%"><!-- fin:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
+<figure class="fin-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon.png" alt=""/><figcaption class="fin-element-caption">Paragraph</figcaption></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Heading.png" alt=""/><figcaption class="fp-element-caption">Heading</figcaption></figure>
-<!-- /fp:image -->
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Heading.png" alt=""/><figcaption class="fin-element-caption">Heading</figcaption></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Subheading.png" alt=""/><figcaption class="fp-element-caption">Subheading</figcaption></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Subheading.png" alt=""/><figcaption class="fin-element-caption">Subheading</figcaption></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Gallery block transformations to Group block 1`] = `
-"<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
-<figure class="fp-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon.png" alt=""/><figcaption class="fp-element-caption">Paragraph</figcaption></figure>
-<!-- /fp:image -->
+"<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:gallery {"columns":8,"linkTo":"none","className":"alignfull"} -->
+<figure class="fin-block-gallery has-nested-images columns-8 is-cropped alignfull"><!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon.png" alt=""/><figcaption class="fin-element-caption">Paragraph</figcaption></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Heading.png" alt=""/><figcaption class="fp-element-caption">Heading</figcaption></figure>
-<!-- /fp:image -->
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Heading.png" alt=""/><figcaption class="fin-element-caption">Heading</figcaption></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Subheading.png" alt=""/><figcaption class="fp-element-caption">Subheading</figcaption></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery --></div>
-<!-- /fp:group -->"
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Subheading.png" alt=""/><figcaption class="fin-element-caption">Subheading</figcaption></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery --></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Gallery block transformations to Image block 1`] = `
-"<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon.png" alt=""/><figcaption class="fp-element-caption">Paragraph</figcaption></figure>
-<!-- /fp:image -->
+"<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon.png" alt=""/><figcaption class="fin-element-caption">Paragraph</figcaption></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Heading.png" alt=""/><figcaption class="fp-element-caption">Heading</figcaption></figure>
-<!-- /fp:image -->
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Heading.png" alt=""/><figcaption class="fin-element-caption">Heading</figcaption></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Subheading.png" alt=""/><figcaption class="fp-element-caption">Subheading</figcaption></figure>
-<!-- /fp:image -->"
+<!-- fin:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://finpress.org/gutenberg/files/2018/07/Block-Icon-Subheading.png" alt=""/><figcaption class="fin-element-caption">Subheading</figcaption></figure>
+<!-- /fin:image -->"
 `;

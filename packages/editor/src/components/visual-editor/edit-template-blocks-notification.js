@@ -42,7 +42,7 @@ export default function EditTemplateBlocksNotification( { contentRef } ) {
 		( select ) =>
 			!! select( coreStore ).canUser( 'create', {
 				kind: 'postType',
-				name: 'fp_template',
+				name: 'fin_template',
 			} ),
 		[]
 	);
@@ -87,7 +87,7 @@ export default function EditTemplateBlocksNotification( { contentRef } ) {
 				setIsDialogOpen( false );
 				onNavigateToEntityRecord( {
 					postId: templateId,
-					postType: 'fp_template',
+					postType: 'fin_template',
 				} );
 			} }
 			onCancel={ () => setIsDialogOpen( false ) }

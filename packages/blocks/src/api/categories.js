@@ -8,7 +8,7 @@ import { dispatch, select } from '@finpress/data';
  */
 import { store as blocksStore } from '../store';
 
-/** @typedef {import('../store/reducer').FPBlockCategory} FPBlockCategory */
+/** @typedef {import('../store/reducer').FINBlockCategory} FINBlockCategory */
 
 /**
  * Returns all the block categories.
@@ -16,7 +16,7 @@ import { store as blocksStore } from '../store';
  *
  * @ignore
  *
- * @return {FPBlockCategory[]} Block categories.
+ * @return {FINBlockCategory[]} Block categories.
  */
 export function getCategories() {
 	return select( blocksStore ).getCategories();
@@ -25,7 +25,7 @@ export function getCategories() {
 /**
  * Sets the block categories.
  *
- * @param {FPBlockCategory[]} categories Block categories.
+ * @param {FINBlockCategory[]} categories Block categories.
  *
  * @example
  * ```js
@@ -65,7 +65,7 @@ export function setCategories( categories ) {
  * Updates a category.
  *
  * @param {string}          slug     Block category slug.
- * @param {FPBlockCategory} category Object containing the category properties
+ * @param {FINBlockCategory} category Object containing the category properties
  *                                   that should be updated.
  *
  * @example

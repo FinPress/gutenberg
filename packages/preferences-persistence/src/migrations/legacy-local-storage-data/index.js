@@ -15,7 +15,7 @@ import convertEditPostPanels from './convert-edit-post-panels';
  * @return {Object | null} The local storage data.
  */
 function getLegacyData( userId ) {
-	const key = `FP_DATA_USER_${ userId }`;
+	const key = `FIN_DATA_USER_${ userId }`;
 	const unparsedData = window.localStorage.getItem( key );
 	return JSON.parse( unparsedData );
 }

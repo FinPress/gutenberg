@@ -5,7 +5,7 @@
  * @package gutenberg
  */
 
-if ( ! function_exists( 'fp_enqueue_block_view_script' ) ) {
+if ( ! function_exists( 'fin_enqueue_block_view_script' ) ) {
 	/**
 	 * Enqueues a frontend script for a specific block.
 	 *
@@ -19,8 +19,8 @@ if ( ! function_exists( 'fp_enqueue_block_view_script' ) ) {
 	 *
 	 * @return void
 	 */
-	function fp_enqueue_block_view_script( $block_name, $args ) {
-		$args = fp_parse_args(
+	function fin_enqueue_block_view_script( $block_name, $args ) {
+		$args = fin_parse_args(
 			$args,
 			array(
 				'handle'     => '',
@@ -51,15 +51,15 @@ if ( ! function_exists( 'fp_enqueue_block_view_script' ) ) {
 
 			// Register the stylesheet.
 			if ( ! empty( $args['src'] ) ) {
-				fp_register_script( $args['handle'], $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
+				fin_register_script( $args['handle'], $args['src'], $args['deps'], $args['ver'], $args['in_footer'] );
 			}
 
 			// Enqueue the stylesheet.
-			fp_enqueue_script( $args['handle'] );
+			fin_enqueue_script( $args['handle'] );
 
 			// If a textdomain is defined, use it to set the script translations.
-			if ( ! empty( $args['textdomain'] ) && in_array( 'fp-i18n', $args['deps'], true ) ) {
-				fp_set_script_translations( $args['handle'], $args['textdomain'], $args['domainpath'] );
+			if ( ! empty( $args['textdomain'] ) && in_array( 'fin-i18n', $args['deps'], true ) ) {
+				fin_set_script_translations( $args['handle'], $args['textdomain'], $args['domainpath'] );
 			}
 
 			return $content;
@@ -81,7 +81,7 @@ if ( ! function_exists( 'fp_enqueue_block_view_script' ) ) {
 /**
  * Registers a new block style for one or more block types.
  *
- * FP_Block_Styles_Registry was marked as `final` in core so it cannot be
+ * FIN_Block_Styles_Registry was marked as `final` in core so it cannot be
  * updated via Gutenberg to allow registration of a style across multiple
  * block types as well as with an optional style object. This function will
  * support the desired functionality until the styles registry can be updated
@@ -110,7 +110,7 @@ function gutenberg_register_block_style( $block_name, $style_properties ) {
 	$result      = true;
 
 	foreach ( $block_names as $name ) {
-		if ( ! FP_Block_Styles_Registry::get_instance()->register( $name, $style_properties ) ) {
+		if ( ! FIN_Block_Styles_Registry::get_instance()->register( $name, $style_properties ) ) {
 			$result = false;
 		}
 	}
@@ -126,9 +126,9 @@ function gutenberg_block_core_form_view_script_module( $data ) {
 		return $data;
 	}
 
-	$data['nonce']   = fp_create_nonce( 'fp-block-form' );
+	$data['nonce']   = fin_create_nonce( 'fin-block-form' );
 	$data['ajaxUrl'] = admin_url( 'admin-ajax.php' );
-	$data['action']  = 'fp_block_form_email_submit';
+	$data['action']  = 'fin_block_form_email_submit';
 
 	return $data;
 }

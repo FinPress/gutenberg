@@ -250,7 +250,7 @@ describe( 'apiFetch', () => {
 
 		globalThis.fetch.mockImplementation( async ( path, options ) => {
 			if ( path.startsWith( '/random' ) ) {
-				if ( options?.headers[ 'X-FP-Nonce' ] === 'new-nonce' ) {
+				if ( options?.headers[ 'X-FIN-Nonce' ] === 'new-nonce' ) {
 					return {
 						ok: true,
 						status: 200,
@@ -293,7 +293,7 @@ describe( 'apiFetch', () => {
 
 		globalThis.fetch.mockImplementation( async ( path, options ) => {
 			if ( path.startsWith( '/random' ) ) {
-				if ( options?.headers[ 'X-FP-Nonce' ] === 'new-nonce' ) {
+				if ( options?.headers[ 'X-FIN-Nonce' ] === 'new-nonce' ) {
 					return {
 						ok: true,
 						status: 200,

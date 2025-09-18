@@ -37,10 +37,10 @@ export const getWidgetAreas =
 
 		const widgetAreaBlocks = [];
 		const sortedWidgetAreas = widgetAreas.sort( ( a, b ) => {
-			if ( a.id === 'fp_inactive_widgets' ) {
+			if ( a.id === 'fin_inactive_widgets' ) {
 				return 1;
 			}
-			if ( b.id === 'fp_inactive_widgets' ) {
+			if ( b.id === 'fin_inactive_widgets' ) {
 				return -1;
 			}
 			return 0;

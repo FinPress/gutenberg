@@ -4,7 +4,7 @@
 
 ## Setup
 
-It includes a `fp.hooks` filter `editor.PostFeaturedImage` that enables developers to replace or extend it.
+It includes a `fin.hooks` filter `editor.PostFeaturedImage` that enables developers to replace or extend it.
 
 _Examples:_
 
@@ -21,7 +21,7 @@ function replacePostFeaturedImage() {
 	};
 }
 
-fp.hooks.addFilter(
+fin.hooks.addFilter(
 	'editor.PostFeaturedImage',
 	'my-plugin/replace-post-featured-image',
 	replacePostFeaturedImage
@@ -45,7 +45,7 @@ function wrapPostFeaturedImage( OriginalComponent ) {
 	};
 }
 
-fp.hooks.addFilter(
+fin.hooks.addFilter(
 	'editor.PostFeaturedImage',
 	'my-plugin/wrap-post-featured-image',
 	wrapPostFeaturedImage

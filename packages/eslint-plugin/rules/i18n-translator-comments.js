@@ -116,7 +116,7 @@ module.exports = {
 				 *
 				 * This way we can gather comments that are not directly preceding the translation
 				 * function call, but are just on the line above it. This case is commonly supported
-				 * by string extraction tools like FP-CLI's i18n command.
+				 * by string extraction tools like FIN-CLI's i18n command.
 				 */
 				while (
 					parentNode &&

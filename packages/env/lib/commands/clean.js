@@ -12,15 +12,15 @@ const { configureFinPress, resetDatabase } = require( '../finpress' );
 const { executeLifecycleScript } = require( '../execute-lifecycle-script' );
 
 /**
- * @typedef {import('../finpress').FPEnvironment} FPEnvironment
- * @typedef {import('../finpress').FPEnvironmentSelection} FPEnvironmentSelection
+ * @typedef {import('../finpress').FINEnvironment} FINEnvironment
+ * @typedef {import('../finpress').FINEnvironmentSelection} FINEnvironmentSelection
  */
 
 /**
  * Wipes the development server's database, the tests server's database, or both.
  *
  * @param {Object}                 options
- * @param {FPEnvironmentSelection} options.environment The environment to clean. Either 'development', 'tests', or 'all'.
+ * @param {FINEnvironmentSelection} options.environment The environment to clean. Either 'development', 'tests', or 'all'.
  * @param {Object}                 options.spinner     A CLI spinner which indicates progress.
  * @param {boolean}                options.scripts     Indicates whether or not lifecycle scripts should be executed.
  * @param {boolean}                options.debug       True if debug mode is enabled.

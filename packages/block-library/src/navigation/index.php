@@ -10,7 +10,7 @@
  *
  * @since 6.5.0
  */
-class FP_Navigation_Block_Renderer {
+class FIN_Navigation_Block_Renderer {
 
 	/**
 	 * Used to determine whether or not a navigation has submenus.
@@ -63,7 +63,7 @@ class FP_Navigation_Block_Renderer {
 	 *
 	 * @since 6.5.0
 	 *
-	 * @param FP_Block_List $inner_blocks The list of inner blocks.
+	 * @param FIN_Block_List $inner_blocks The list of inner blocks.
 	 * @return bool Returns whether or not a navigation has a submenu and also sets the member variable.
 	 */
 	private static function has_submenus( $inner_blocks ) {
@@ -103,7 +103,7 @@ class FP_Navigation_Block_Renderer {
 	 * @since 6.5.0
 	 *
 	 * @param array         $attributes   The block attributes.
-	 * @param FP_Block_List $inner_blocks The list of inner blocks.
+	 * @param FIN_Block_List $inner_blocks The list of inner blocks.
 	 * @return bool Returns whether or not to load the view script.
 	 */
 	private static function is_interactive( $attributes, $inner_blocks ) {
@@ -117,7 +117,7 @@ class FP_Navigation_Block_Renderer {
 	 *
 	 * @since 6.5.0
 	 *
-	 * @param FP_Block $block The block.
+	 * @param FIN_Block $block The block.
 	 * @return bool Returns whether or not a block needs a list item wrapper.
 	 */
 	private static function does_block_need_a_list_item_wrapper( $block ) {
@@ -144,7 +144,7 @@ class FP_Navigation_Block_Renderer {
 	 *
 	 * @since 6.5.0
 	 *
-	 * @param FP_Block $inner_block The inner block.
+	 * @param FIN_Block $inner_block The inner block.
 	 * @return string Returns the markup for a single inner block.
 	 */
 	private static function get_markup_for_inner_block( $inner_block ) {
@@ -164,7 +164,7 @@ class FP_Navigation_Block_Renderer {
 	 * @since 6.5.0
 	 *
 	 * @param array         $attributes   The block attributes.
-	 * @param FP_Block_List $inner_blocks The list of inner blocks.
+	 * @param FIN_Block_List $inner_blocks The list of inner blocks.
 	 * @return string Returns the html for the inner blocks of the navigation block.
 	 */
 	private static function get_inner_blocks_html( $attributes, $inner_blocks ) {
@@ -185,7 +185,7 @@ class FP_Navigation_Block_Renderer {
 
 		foreach ( $inner_blocks as $inner_block ) {
 			$inner_block_markup = static::get_markup_for_inner_block( $inner_block );
-			$p                  = new FP_HTML_Tag_Processor( $inner_block_markup );
+			$p                  = new FIN_HTML_Tag_Processor( $inner_block_markup );
 			$is_list_item       = $p->next_tag( 'LI' );
 
 			if ( $is_list_item && ! $is_list_open ) {
@@ -210,7 +210,7 @@ class FP_Navigation_Block_Renderer {
 
 		// Add directives to the submenu if needed.
 		if ( $has_submenus && $is_interactive ) {
-			$tags              = new FP_HTML_Tag_Processor( $inner_blocks_html );
+			$tags              = new FIN_HTML_Tag_Processor( $inner_blocks_html );
 			$inner_blocks_html = block_core_navigation_add_directives_to_submenu( $tags, $attributes );
 		}
 
@@ -223,12 +223,12 @@ class FP_Navigation_Block_Renderer {
 	 * @since 6.5.0
 	 *
 	 * @param array $attributes The block attributes.
-	 * @return FP_Block_List Returns the inner blocks for the navigation block.
+	 * @return FIN_Block_List Returns the inner blocks for the navigation block.
 	 */
 	private static function get_inner_blocks_from_navigation_post( $attributes ) {
 		$navigation_post = get_post( $attributes['ref'] );
 		if ( ! isset( $navigation_post ) ) {
-			return new FP_Block_List( array(), $attributes );
+			return new FIN_Block_List( array(), $attributes );
 		}
 
 		// Only published posts are valid. If this is changed then a corresponding change
@@ -249,7 +249,7 @@ class FP_Navigation_Block_Renderer {
 
 			// TODO - this uses the full navigation block attributes for the
 			// context which could be refined.
-			return new FP_Block_List( $blocks, $attributes );
+			return new FIN_Block_List( $blocks, $attributes );
 		}
 	}
 
@@ -259,17 +259,17 @@ class FP_Navigation_Block_Renderer {
 	 * @since 6.5.0
 	 *
 	 * @param array $attributes The block attributes.
-	 * @return FP_Block_List Returns the inner blocks for the navigation block.
+	 * @return FIN_Block_List Returns the inner blocks for the navigation block.
 	 */
 	private static function get_inner_blocks_from_fallback( $attributes ) {
 		$fallback_blocks = block_core_navigation_get_fallback_blocks();
 
 		// Fallback my have been filtered so do basic test for validity.
 		if ( empty( $fallback_blocks ) || ! is_array( $fallback_blocks ) ) {
-			return new FP_Block_List( array(), $attributes );
+			return new FIN_Block_List( array(), $attributes );
 		}
 
-		return new FP_Block_List( $fallback_blocks, $attributes );
+		return new FIN_Block_List( $fallback_blocks, $attributes );
 	}
 
 	/**
@@ -278,8 +278,8 @@ class FP_Navigation_Block_Renderer {
 	 * @since 6.5.0
 	 *
 	 * @param array    $attributes The block attributes.
-	 * @param FP_Block $block The parsed block.
-	 * @return FP_Block_List Returns the inner blocks for the navigation block.
+	 * @param FIN_Block $block The parsed block.
+	 * @return FIN_Block_List Returns the inner blocks for the navigation block.
 	 */
 	private static function get_inner_blocks( $attributes, $block ) {
 		$inner_blocks = $block->inner_blocks;
@@ -320,7 +320,7 @@ class FP_Navigation_Block_Renderer {
 		 *
 		 * @since 6.1.0
 		 *
-		 * @param \FP_Block_List $inner_blocks
+		 * @param \FIN_Block_List $inner_blocks
 		 */
 		$inner_blocks = apply_filters( 'block_core_navigation_render_inner_blocks', $inner_blocks );
 
@@ -456,7 +456,7 @@ class FP_Navigation_Block_Renderer {
 	 * @since 6.5.0
 	 *
 	 * @param array         $attributes The block attributes.
-	 * @param FP_Block_List $inner_blocks The list of inner blocks.
+	 * @param FIN_Block_List $inner_blocks The list of inner blocks.
 	 * @param string        $inner_blocks_html The markup for the inner blocks.
 	 * @return string Returns the container markup.
 	 */
@@ -558,7 +558,7 @@ class FP_Navigation_Block_Renderer {
 	 * @since 6.5.0
 	 *
 	 * @param array         $attributes    The block attributes.
-	 * @param FP_Block_List $inner_blocks  A list of inner blocks.
+	 * @param FIN_Block_List $inner_blocks  A list of inner blocks.
 	 * @return string Returns the navigation block markup.
 	 */
 	private static function get_nav_wrapper_attributes( $attributes, $inner_blocks ) {
@@ -622,8 +622,8 @@ class FP_Navigation_Block_Renderer {
 	 * @since 6.5.0
 	 *
 	 * @param array         $attributes   The block attributes.
-	 * @param FP_Block      $block        The parsed block.
-	 * @param FP_Block_List $inner_blocks The list of inner blocks.
+	 * @param FIN_Block      $block        The parsed block.
+	 * @param FIN_Block_List $inner_blocks The list of inner blocks.
 	 */
 	private static function handle_view_script_module_loading( $attributes, $block, $inner_blocks ) {
 		if ( static::is_interactive( $attributes, $inner_blocks ) ) {
@@ -637,7 +637,7 @@ class FP_Navigation_Block_Renderer {
 	 * @since 6.5.0
 	 *
 	 * @param array         $attributes The block attributes.
-	 * @param FP_Block_List $inner_blocks The list of inner blocks.
+	 * @param FIN_Block_List $inner_blocks The list of inner blocks.
 	 * @return string Returns the navigation wrapper markup.
 	 */
 	private static function get_wrapper_markup( $attributes, $inner_blocks ) {
@@ -676,7 +676,7 @@ class FP_Navigation_Block_Renderer {
 	 *
 	 * @param array    $attributes The block attributes.
 	 * @param string   $content    The saved content.
-	 * @param FP_Block $block      The parsed block.
+	 * @param FIN_Block $block      The parsed block.
 	 * @return string Returns the navigation block markup.
 	 */
 	public static function render( $attributes, $content, $block ) {
@@ -784,17 +784,17 @@ if ( defined( 'IS_GUTENBERG_PLUGIN' ) && IS_GUTENBERG_PLUGIN ) {
 	 * @since 6.5.0
 	 *
 	 * @param array $attributes The block attributes.
-	 * @return FP_Block_List Returns the inner blocks for the navigation block.
+	 * @return FIN_Block_List Returns the inner blocks for the navigation block.
 	 */
 	function block_core_navigation_get_inner_blocks_from_unstable_location( $attributes ) {
 		$menu_items = block_core_navigation_get_menu_items_at_location( $attributes['__unstableLocation'] );
 		if ( empty( $menu_items ) ) {
-			return new FP_Block_List( array(), $attributes );
+			return new FIN_Block_List( array(), $attributes );
 		}
 
 		$menu_items_by_parent_id = block_core_navigation_sort_menu_items_by_parent_id( $menu_items );
 		$parsed_blocks           = block_core_navigation_parse_blocks_from_menu_items( $menu_items_by_parent_id[0], $menu_items_by_parent_id );
-		return new FP_Block_List( $parsed_blocks, $attributes );
+		return new FIN_Block_List( $parsed_blocks, $attributes );
 	}
 }
 
@@ -804,7 +804,7 @@ if ( defined( 'IS_GUTENBERG_PLUGIN' ) && IS_GUTENBERG_PLUGIN ) {
  *
  * @since 6.3.0
  *
- * @param FP_HTML_Tag_Processor $tags             Markup of the navigation block.
+ * @param FIN_HTML_Tag_Processor $tags             Markup of the navigation block.
  * @param array                 $block_attributes Block attributes.
  *
  * @return string Submenu markup with the directives injected.
@@ -1024,7 +1024,7 @@ function block_core_navigation_filter_out_empty_blocks( $parsed_blocks ) {
  *
  * @since 6.2.0
  *
- * @param FP_Block_List $inner_blocks Inner block instance to be normalized.
+ * @param FIN_Block_List $inner_blocks Inner block instance to be normalized.
  * @return bool true if the navigation block contains a nested navigation block.
  */
 function block_core_navigation_block_contains_core_navigation( $inner_blocks ) {
@@ -1060,11 +1060,11 @@ function block_core_navigation_get_fallback_blocks() {
 		),
 	);
 
-	$registry = FP_Block_Type_Registry::get_instance();
+	$registry = FIN_Block_Type_Registry::get_instance();
 
 	// If `core/page-list` is not registered then return empty blocks.
 	$fallback_blocks = $registry->is_registered( 'core/page-list' ) ? $page_list_fallback : array();
-	$navigation_post = FP_Navigation_Fallback::get_fallback();
+	$navigation_post = FIN_Navigation_Fallback::get_fallback();
 
 	// Use the first non-empty Navigation as fallback if available.
 	if ( $navigation_post ) {
@@ -1103,7 +1103,7 @@ function block_core_navigation_get_fallback_blocks() {
  *
  * @since 6.0.0
  *
- * @param FP_Block_List $inner_blocks Block list class instance.
+ * @param FIN_Block_List $inner_blocks Block list class instance.
  *
  * @return array Array of post IDs.
  */
@@ -1117,7 +1117,7 @@ function block_core_navigation_get_post_ids( $inner_blocks ) {
  *
  * @since 6.0.0
  *
- * @param FP_Block $block Instance of a block.
+ * @param FIN_Block $block Instance of a block.
  *
  * @return array Array of post IDs.
  */
@@ -1144,12 +1144,12 @@ function block_core_navigation_from_block_get_post_ids( $block ) {
  *
  * @param array    $attributes The block attributes.
  * @param string   $content    The saved content.
- * @param FP_Block $block      The parsed block.
+ * @param FIN_Block $block      The parsed block.
  *
  * @return string Returns the navigation block markup.
  */
 function render_block_core_navigation( $attributes, $content, $block ) {
-	return FP_Navigation_Block_Renderer::render( $attributes, $content, $block );
+	return FIN_Navigation_Block_Renderer::render( $attributes, $content, $block );
 }
 
 /**
@@ -1158,7 +1158,7 @@ function render_block_core_navigation( $attributes, $content, $block ) {
  * @since 5.9.0
  *
  * @uses render_block_core_navigation()
- * @throws FP_Error An FP_Error exception parsing the block definition.
+ * @throws FIN_Error An FIN_Error exception parsing the block definition.
  */
 function register_block_core_navigation() {
 	register_block_type_from_metadata(
@@ -1212,7 +1212,7 @@ add_filter( 'render_block_data', 'block_core_navigation_typographic_presets_back
  *
  * @since 5.9.0
  *
- * @deprecated 6.3.0 Use FP_Navigation_Fallback::parse_blocks_from_menu_items() instead.
+ * @deprecated 6.3.0 Use FIN_Navigation_Fallback::parse_blocks_from_menu_items() instead.
  *
  * @param array $menu_items               An array of menu items that represent
  *                                        an individual level of a menu.
@@ -1224,7 +1224,7 @@ add_filter( 'render_block_data', 'block_core_navigation_typographic_presets_back
  */
 function block_core_navigation_parse_blocks_from_menu_items( $menu_items, $menu_items_by_parent_id ) {
 
-	_deprecated_function( __FUNCTION__, '6.3.0', 'FP_Navigation_Fallback::parse_blocks_from_menu_items' );
+	_deprecated_function( __FUNCTION__, '6.3.0', 'FIN_Navigation_Fallback::parse_blocks_from_menu_items' );
 
 	if ( empty( $menu_items ) ) {
 		return array();
@@ -1271,13 +1271,13 @@ function block_core_navigation_parse_blocks_from_menu_items( $menu_items, $menu_
  *
  * @since 6.2.0
  *
- * @deprecated 6.3.0 Use FP_Navigation_Fallback::get_classic_menu_fallback() instead.
+ * @deprecated 6.3.0 Use FIN_Navigation_Fallback::get_classic_menu_fallback() instead.
  *
- * @return object FP_Term The classic navigation.
+ * @return object FIN_Term The classic navigation.
  */
 function block_core_navigation_get_classic_menu_fallback() {
 
-	_deprecated_function( __FUNCTION__, '6.3.0', 'FP_Navigation_Fallback::get_classic_menu_fallback' );
+	_deprecated_function( __FUNCTION__, '6.3.0', 'FIN_Navigation_Fallback::get_classic_menu_fallback' );
 
 	$classic_nav_menus = fin_get_nav_menus();
 
@@ -1317,14 +1317,14 @@ function block_core_navigation_get_classic_menu_fallback() {
  *
  * @since 6.2.0
  *
- * @deprecated 6.3.0 Use FP_Navigation_Fallback::get_classic_menu_fallback_blocks() instead.
+ * @deprecated 6.3.0 Use FIN_Navigation_Fallback::get_classic_menu_fallback_blocks() instead.
  *
- * @param  object $classic_nav_menu FP_Term The classic navigation object to convert.
+ * @param  object $classic_nav_menu FIN_Term The classic navigation object to convert.
  * @return array the normalized parsed blocks.
  */
 function block_core_navigation_get_classic_menu_fallback_blocks( $classic_nav_menu ) {
 
-	_deprecated_function( __FUNCTION__, '6.3.0', 'FP_Navigation_Fallback::get_classic_menu_fallback_blocks' );
+	_deprecated_function( __FUNCTION__, '6.3.0', 'FIN_Navigation_Fallback::get_classic_menu_fallback_blocks' );
 
 	// BEGIN: Code that already exists in fin_nav_menu().
 	$menu_items = fin_get_nav_menu_items( $classic_nav_menu->term_id, array( 'update_post_term_cache' => false ) );
@@ -1361,13 +1361,13 @@ function block_core_navigation_get_classic_menu_fallback_blocks( $classic_nav_me
  *
  * @since 6.2.0
  *
- * @deprecated 6.3.0 Use FP_Navigation_Fallback::create_classic_menu_fallback() instead.
+ * @deprecated 6.3.0 Use FIN_Navigation_Fallback::create_classic_menu_fallback() instead.
  *
  * @return array the normalized parsed blocks.
  */
 function block_core_navigation_maybe_use_classic_menu_fallback() {
 
-	_deprecated_function( __FUNCTION__, '6.3.0', 'FP_Navigation_Fallback::create_classic_menu_fallback' );
+	_deprecated_function( __FUNCTION__, '6.3.0', 'FIN_Navigation_Fallback::create_classic_menu_fallback' );
 
 	// See if we have a classic menu.
 	$classic_nav_menu = block_core_navigation_get_classic_menu_fallback();
@@ -1408,13 +1408,13 @@ function block_core_navigation_maybe_use_classic_menu_fallback() {
  *
  * @since 6.1.0
  *
- * @deprecated 6.3.0 Use FP_Navigation_Fallback::get_most_recently_published_navigation() instead.
+ * @deprecated 6.3.0 Use FIN_Navigation_Fallback::get_most_recently_published_navigation() instead.
  *
- * @return FP_Post|null the first non-empty Navigation or null.
+ * @return FIN_Post|null the first non-empty Navigation or null.
  */
 function block_core_navigation_get_most_recently_published_navigation() {
 
-	_deprecated_function( __FUNCTION__, '6.3.0', 'FP_Navigation_Fallback::get_most_recently_published_navigation' );
+	_deprecated_function( __FUNCTION__, '6.3.0', 'FIN_Navigation_Fallback::get_most_recently_published_navigation' );
 
 	// Default to the most recently created menu.
 	$parsed_args = array(
@@ -1428,7 +1428,7 @@ function block_core_navigation_get_most_recently_published_navigation() {
 		'posts_per_page'         => 1, // get only the most recent.
 	);
 
-	$navigation_post = new FP_Query( $parsed_args );
+	$navigation_post = new FIN_Query( $parsed_args );
 	if ( count( $navigation_post->posts ) > 0 ) {
 		return $navigation_post->posts[0];
 	}

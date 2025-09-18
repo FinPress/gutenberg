@@ -29,7 +29,7 @@ export async function deletePage( this: RequestUtils, id: number ) {
 	// https://developer.finpress.org/rest-api/reference/pages/#delete-a-page
 	return await this.rest( {
 		method: 'DELETE',
-		path: `/fp/v2/pages/${ id }`,
+		path: `/fin/v2/pages/${ id }`,
 		params: {
 			force: true,
 		},
@@ -45,7 +45,7 @@ export async function deleteAllPages( this: RequestUtils ) {
 	// List all pages.
 	// https://developer.finpress.org/rest-api/reference/pages/#list-pages
 	const pages = await this.rest< Page[] >( {
-		path: '/fp/v2/pages',
+		path: '/fin/v2/pages',
 		params: {
 			per_page: 100,
 
@@ -54,7 +54,7 @@ export async function deleteAllPages( this: RequestUtils ) {
 	} );
 
 	// Delete all pages one by one.
-	// "/fp/v2/pages" not yet supports batch requests.
+	// "/fin/v2/pages" not yet supports batch requests.
 	await Promise.all(
 		pages.map( ( page ) => deletePage.call( this, page.id ) )
 	);
@@ -73,7 +73,7 @@ export async function createPage(
 	// https://developer.finpress.org/rest-api/reference/pages/#create-a-page
 	const page = await this.rest< Page >( {
 		method: 'POST',
-		path: `/fp/v2/pages`,
+		path: `/fin/v2/pages`,
 		data: { ...payload },
 	} );
 

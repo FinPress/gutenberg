@@ -1,7 +1,7 @@
 <?php
 /**
  * Backwards compatibility handling for routes used by the plugin consumers.
- * This doesn't need to be back ported to core and will be removed after FP 6.1,
+ * This doesn't need to be back ported to core and will be removed after FIN 6.1,
  * to ensure that the plugin consumers have enough time to migrate to the core's
  * route (`site-editor.php`).
  *
@@ -24,10 +24,10 @@
  * Allows the old routes. Without this, trying to access the old Site Editor
  * routes results in a HTTP 403 error.
  *
- * Allowing the route is done by adding an fp-admin submenu page that won't be rendered.
+ * Allowing the route is done by adding an fin-admin submenu page that won't be rendered.
  */
 function gutenberg_site_editor_menu() {
-	if ( fp_is_block_theme() ) {
+	if ( fin_is_block_theme() ) {
 		add_submenu_page( '', '', '', 'edit_theme_options', 'gutenberg-edit-site', '__return_empty_string' );
 	}
 }
@@ -37,7 +37,7 @@ add_action( 'admin_menu', 'gutenberg_site_editor_menu', 9 );
  * Does the actual redirect to the new route upon triggering of the `load-appearance_page_gutenberg-edit-site` action.
  */
 function gutenberg_redirect_deprecated_to_new_site_editor_page() {
-		fp_safe_redirect( 'site-editor.php' );
+		fin_safe_redirect( 'site-editor.php' );
 		exit;
 }
 add_action( 'load-appearance_page_gutenberg-edit-site', 'gutenberg_redirect_deprecated_to_new_site_editor_page' );

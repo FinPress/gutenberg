@@ -30,7 +30,7 @@ If the action is executed successfully by the server, the server will respond wi
 
 ```js
 await (
-	await fetch( window.fp.ajax.settings.url, {
+	await fetch( window.fin.ajax.settings.url, {
 		body: new URLSearchParams( {
 			subscriber_id: '1',
 			action: 'gutenberg_signaling_server',
@@ -60,7 +60,7 @@ If the action is executed successfully by the server, the server will respond wi
 
 ```js
 await (
-	await fetch( window.fp.ajax.settings.url, {
+	await fetch( window.fin.ajax.settings.url, {
 		body: new URLSearchParams( {
 			subscriber_id: '1',
 			action: 'gutenberg_signaling_server',
@@ -91,7 +91,7 @@ If the action is executed successfully by the server, the server will respond wi
 
 ```js
 await (
-	await fetch( window.fp.ajax.settings.url, {
+	await fetch( window.fin.ajax.settings.url, {
 		body: new URLSearchParams( {
 			subscriber_id: '1',
 			action: 'gutenberg_signaling_server',
@@ -129,7 +129,7 @@ If there are no pending messages, the server's response only contains the `retry
 ```js
 await (
 	await fetch(
-		window.fp.url.addQueryArgs( window.fp.ajax.settings.url, {
+		window.fin.url.addQueryArgs( window.fin.ajax.settings.url, {
 			subscriber_id: '1',
 			action: 'gutenberg_signaling_server',
 		} )
@@ -169,7 +169,7 @@ If the action is executed successfully by the server, the server will respond wi
 
 ```js
 await (
-	await fetch( window.fp.ajax.settings.url, {
+	await fetch( window.fin.ajax.settings.url, {
 		body: new URLSearchParams( {
 			subscriber_id: '1',
 			action: 'gutenberg_signaling_server',

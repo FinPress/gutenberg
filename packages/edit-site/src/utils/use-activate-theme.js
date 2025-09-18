@@ -33,7 +33,7 @@ export function useActivateTheme() {
 				'themes.php?action=activate&stylesheet=' +
 				currentlyPreviewingTheme() +
 				'&_finnonce=' +
-				window.FP_BLOCK_THEME_ACTIVATE_NONCE;
+				window.FIN_BLOCK_THEME_ACTIVATE_NONCE;
 			startResolution( 'activateTheme' );
 			await window.fetch( activationURL );
 			finishResolution( 'activateTheme' );

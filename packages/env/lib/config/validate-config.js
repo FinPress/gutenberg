@@ -1,12 +1,12 @@
 'use strict';
 
 /**
- * @typedef {import('./parse-source-string').FPSource} FPSource
+ * @typedef {import('./parse-source-string').FINSource} FINSource
  */
 
 /**
  * Error subtype which indicates that an expected validation error occurred
- * while reading fp-env configuration.
+ * while reading fin-env configuration.
  */
 class ValidationError extends Error {}
 

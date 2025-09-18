@@ -1,65 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Paragraph block transforms to Code block 1`] = `
-"<!-- fp:code -->
-<pre class="fp-block-code"><code>Example text</code></pre>
-<!-- /fp:code -->"
+"<!-- fin:code -->
+<pre class="fin-block-code"><code>Example text</code></pre>
+<!-- /fin:code -->"
 `;
 
 exports[`Paragraph block transforms to Columns block 1`] = `
-"<!-- fp:columns -->
-<div class="fp-block-columns"><!-- fp:column {"width":"100%"} -->
-<div class="fp-block-column" style="flex-basis:100%"><!-- fp:paragraph -->
+"<!-- fin:columns -->
+<div class="fin-block-columns"><!-- fin:column {"width":"100%"} -->
+<div class="fin-block-column" style="flex-basis:100%"><!-- fin:paragraph -->
 <p>Example text</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:column --></div>
-<!-- /fp:columns -->"
+<!-- /fin:paragraph --></div>
+<!-- /fin:column --></div>
+<!-- /fin:columns -->"
 `;
 
 exports[`Paragraph block transforms to Group block 1`] = `
-"<!-- fp:group {"layout":{"type":"constrained"}} -->
-<div class="fp-block-group"><!-- fp:paragraph -->
+"<!-- fin:group {"layout":{"type":"constrained"}} -->
+<div class="fin-block-group"><!-- fin:paragraph -->
 <p>Example text</p>
-<!-- /fp:paragraph --></div>
-<!-- /fp:group -->"
+<!-- /fin:paragraph --></div>
+<!-- /fin:group -->"
 `;
 
 exports[`Paragraph block transforms to Heading block 1`] = `
-"<!-- fp:heading -->
-<h2 class="fp-block-heading">Example text</h2>
-<!-- /fp:heading -->"
+"<!-- fin:heading -->
+<h2 class="fin-block-heading">Example text</h2>
+<!-- /fin:heading -->"
 `;
 
 exports[`Paragraph block transforms to List block 1`] = `
-"<!-- fp:list -->
-<ul class="fp-block-list"><!-- fp:list-item -->
+"<!-- fin:list -->
+<ul class="fin-block-list"><!-- fin:list-item -->
 <li>Example text</li>
-<!-- /fp:list-item --></ul>
-<!-- /fp:list -->"
+<!-- /fin:list-item --></ul>
+<!-- /fin:list -->"
 `;
 
 exports[`Paragraph block transforms to Preformatted block 1`] = `
-"<!-- fp:preformatted -->
-<pre class="fp-block-preformatted">Example text</pre>
-<!-- /fp:preformatted -->"
+"<!-- fin:preformatted -->
+<pre class="fin-block-preformatted">Example text</pre>
+<!-- /fin:preformatted -->"
 `;
 
 exports[`Paragraph block transforms to Pullquote block 1`] = `
-"<!-- fp:pullquote -->
-<figure class="fp-block-pullquote"><blockquote><p>Example text</p></blockquote></figure>
-<!-- /fp:pullquote -->"
+"<!-- fin:pullquote -->
+<figure class="fin-block-pullquote"><blockquote><p>Example text</p></blockquote></figure>
+<!-- /fin:pullquote -->"
 `;
 
 exports[`Paragraph block transforms to Quote block 1`] = `
-"<!-- fp:quote -->
-<blockquote class="fp-block-quote"><!-- fp:paragraph -->
+"<!-- fin:quote -->
+<blockquote class="fin-block-quote"><!-- fin:paragraph -->
 <p>Example text</p>
-<!-- /fp:paragraph --></blockquote>
-<!-- /fp:quote -->"
+<!-- /fin:paragraph --></blockquote>
+<!-- /fin:quote -->"
 `;
 
 exports[`Paragraph block transforms to Verse block 1`] = `
-"<!-- fp:verse -->
-<pre class="fp-block-verse">Example text</pre>
-<!-- /fp:verse -->"
+"<!-- fin:verse -->
+<pre class="fin-block-verse">Example text</pre>
+<!-- /fin:verse -->"
 `;

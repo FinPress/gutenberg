@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/paragraph",
 	"title": "Paragraph",
@@ -75,6 +75,6 @@
 			"clientNavigation": true
 		}
 	},
-	"editorStyle": "fp-block-paragraph-editor",
-	"style": "fp-block-paragraph"
+	"editorStyle": "fin-block-paragraph-editor",
+	"style": "fin-block-paragraph"
 }

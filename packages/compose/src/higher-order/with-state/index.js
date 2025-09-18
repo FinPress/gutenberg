@@ -20,9 +20,9 @@ import { createHigherOrderComponent } from '../../utils/create-higher-order-comp
  * @return {any} A higher order component wrapper accepting a component that takes the state props + its own props + `setState` and returning a component that only accepts the own props.
  */
 export default function withState( initialState = {} ) {
-	deprecated( 'fp.compose.withState', {
+	deprecated( 'fin.compose.withState', {
 		since: '5.8',
-		alternative: 'fp.element.useState',
+		alternative: 'fin.element.useState',
 	} );
 
 	return createHigherOrderComponent( ( OriginalComponent ) => {

@@ -26,7 +26,7 @@ const UNKNOWN_FEATURE_FALLBACK_NAME = 'Uncategorized';
 /** @typedef {import('@octokit/rest').ReposListReleasesResponseItem} ReposListReleasesResponseItem */
 
 /**
- * @typedef FPChangelogCommandOptions
+ * @typedef FINChangelogCommandOptions
  *
  * @property {string=}  milestone  Optional Milestone title.
  * @property {string=}  token      Optional personal access token.
@@ -34,7 +34,7 @@ const UNKNOWN_FEATURE_FALLBACK_NAME = 'Uncategorized';
  */
 
 /**
- * @typedef FPChangelogSettings
+ * @typedef FINChangelogSettings
  *
  * @property {string}   owner      Repository owner.
  * @property {string}   repo       Repository name.
@@ -47,7 +47,7 @@ const UNKNOWN_FEATURE_FALLBACK_NAME = 'Uncategorized';
  * Changelog normalization function, returning a string to use as title, or
  * undefined if entry should be omitted.
  *
- * @typedef {(text:string,issue:IssuesListForRepoResponseItem)=>string|undefined} FPChangelogNormalization
+ * @typedef {(text:string,issue:IssuesListForRepoResponseItem)=>string|undefined} FINChangelogNormalization
  */
 
 /**
@@ -471,7 +471,7 @@ function capitalizeAfterColonSeparatedPrefix( text ) {
  * @param {string[]} prefixes Prefixes from which to determine if given entry
  *                            should be omitted.
  *
- * @return {FPChangelogNormalization} Normalization function.
+ * @return {FINChangelogNormalization} Normalization function.
  */
 const createOmitByTitlePrefix = ( prefixes ) => ( title ) =>
 	prefixes.some( ( prefix ) =>
@@ -487,7 +487,7 @@ const createOmitByTitlePrefix = ( prefixes ) => ( title ) =>
  * @param {string[]} labels Label names from which to determine if given entry
  *                          should be omitted.
  *
- * @return {FPChangelogNormalization} Normalization function.
+ * @return {FINChangelogNormalization} Normalization function.
  */
 const createOmitByLabel = ( labels ) => ( text, issue ) =>
 	issue.labels.some( ( label ) => labels.includes( label.name ) )
@@ -501,7 +501,7 @@ const createOmitByLabel = ( labels ) => ( text, issue ) =>
  * @param {string[]} prefixes Label prefixes from which to determine if given entry
  *                            should be omitted.
  *
- * @return {FPChangelogNormalization} Normalization function.
+ * @return {FINChangelogNormalization} Normalization function.
  */
 const createOmitByLabelPrefix = ( prefixes ) => ( text, issue ) =>
 	issue.labels.some( ( label ) =>
@@ -514,7 +514,7 @@ const createOmitByLabelPrefix = ( prefixes ) => ( text, issue ) =>
  * type details removed. The prefix is redundant since it would already be clear
  * enough by group assignment that the prefix would be inferred.
  *
- * @type {FPChangelogNormalization}
+ * @type {FINChangelogNormalization}
  *
  * @return {string} Title with redundant grouping type details removed.
  */
@@ -550,7 +550,7 @@ function removeFeaturePrefix( text ) {
  * Array of normalizations applying to title, each returning a new string, or
  * undefined to indicate an entry which should be omitted.
  *
- * @type {Array<FPChangelogNormalization>}
+ * @type {Array<FINChangelogNormalization>}
  */
 const TITLE_NORMALIZATIONS = [
 	createOmitByLabelPrefix( [ 'Mobile App' ] ),
@@ -680,7 +680,7 @@ async function getLatestReleaseInSeries( octokit, owner, repo, series ) {
  * changelog settings object.
  *
  * @param {GitHub}              octokit  GitHub REST client.
- * @param {FPChangelogSettings} settings Changelog settings.
+ * @param {FINChangelogSettings} settings Changelog settings.
  *
  * @return {Promise<IssuesListForRepoResponseItem[]>} Promise resolving to array of
  *                                            pull requests.
@@ -1012,7 +1012,7 @@ function getContributorsList( pullRequests ) {
 /**
  * Generates and logs changelog for a milestone.
  *
- * @param {FPChangelogSettings} settings Changelog settings.
+ * @param {FINChangelogSettings} settings Changelog settings.
  */
 async function createChangelog( settings ) {
 	log(
@@ -1051,7 +1051,7 @@ async function createChangelog( settings ) {
 /**
  * Command that generates the release changelog.
  *
- * @param {FPChangelogCommandOptions} options
+ * @param {FINChangelogCommandOptions} options
  */
 async function getReleaseChangelog( options ) {
 	await createChangelog( {

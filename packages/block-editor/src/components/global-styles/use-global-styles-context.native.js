@@ -225,10 +225,10 @@ export function parseStylesVariables( styles, mappedValues, customValues ) {
 
 	variables.forEach( ( variable ) => {
 		// Examples
-		// var(--fp--preset--color--gray)
-		// var(--fp--custom--body--typography--font-family)
+		// var(--fin--preset--color--gray)
+		// var(--fin--custom--body--typography--font-family)
 		// var:preset|color|custom-color-2
-		const regex = new RegExp( `var\\(--fp--${ variable }--(.*?)\\)`, 'g' );
+		const regex = new RegExp( `var\\(--fin--${ variable }--(.*?)\\)`, 'g' );
 		const varRegex = /\"var:preset\|color\|(.*?)\"/gm;
 		const fontSizeRegex = /"fontSize":"(.*?)"/gm;
 
@@ -250,7 +250,7 @@ export function parseStylesVariables( styles, mappedValues, customValues ) {
 			stylesBase = stylesBase.replace( regex, ( _$1, $2 ) => {
 				const path = $2.split( '--' );
 
-				// Supports cases for variables like var(--fp--custom--color--background)
+				// Supports cases for variables like var(--fin--custom--color--background)
 				if ( path[ 0 ] === 'color' ) {
 					const colorKey = path[ path.length - 1 ];
 					if ( mappedValues?.color ) {

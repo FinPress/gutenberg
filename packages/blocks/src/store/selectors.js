@@ -16,9 +16,9 @@ import deprecated from '@finpress/deprecated';
 import { getValueFromObjectPath, matchesAttributes } from './utils';
 import { hasContentRoleAttribute as privateHasContentRoleAttribute } from './private-selectors';
 
-/** @typedef {import('../api/registration').FPBlockVariation} FPBlockVariation */
-/** @typedef {import('../api/registration').FPBlockVariationScope} FPBlockVariationScope */
-/** @typedef {import('./reducer').FPBlockCategory} FPBlockCategory */
+/** @typedef {import('../api/registration').FINBlockVariation} FINBlockVariation */
+/** @typedef {import('../api/registration').FINBlockVariationScope} FINBlockVariationScope */
+/** @typedef {import('./reducer').FINBlockCategory} FINBlockCategory */
 
 /**
  * Given a block name or block type object, returns the corresponding
@@ -147,7 +147,7 @@ export function getBlockStyles( state, name ) {
  *
  * @param {Object}                state     Data state.
  * @param {string}                blockName Block type name.
- * @param {FPBlockVariationScope} [scope]   Block variation scope name.
+ * @param {FINBlockVariationScope} [scope]   Block variation scope name.
  *
  * @example
  * ```js
@@ -171,7 +171,7 @@ export function getBlockStyles( state, name ) {
  * };
  * ```
  *
- * @return {(FPBlockVariation[]|void)} Block variations.
+ * @return {(FINBlockVariation[]|void)} Block variations.
  */
 export const getBlockVariations = createSelector(
 	( state, blockName, scope ) => {
@@ -205,7 +205,7 @@ export const getBlockVariations = createSelector(
  * @param {Object}                state      Data state.
  * @param {string}                blockName  Name of block (example: “core/columns”).
  * @param {Object}                attributes Block attributes used to determine active variation.
- * @param {FPBlockVariationScope} [scope]    Block variation scope name.
+ * @param {FINBlockVariationScope} [scope]    Block variation scope name.
  *
  * @example
  * ```js
@@ -235,7 +235,7 @@ export const getBlockVariations = createSelector(
  * };
  * ```
  *
- * @return {(FPBlockVariation|undefined)} Active block variation.
+ * @return {(FINBlockVariation|undefined)} Active block variation.
  */
 export function getActiveBlockVariation( state, blockName, attributes, scope ) {
 	const variations = getBlockVariations( state, blockName, scope );
@@ -306,7 +306,7 @@ export function getActiveBlockVariation( state, blockName, attributes, scope ) {
  *
  * @param {Object}                state     Data state.
  * @param {string}                blockName Block type name.
- * @param {FPBlockVariationScope} [scope]   Block variation scope name.
+ * @param {FINBlockVariationScope} [scope]   Block variation scope name.
  *
  * @example
  * ```js
@@ -333,7 +333,7 @@ export function getActiveBlockVariation( state, blockName, attributes, scope ) {
  * };
  * ```
  *
- * @return {?FPBlockVariation} The default block variation.
+ * @return {?FINBlockVariation} The default block variation.
  */
 export function getDefaultBlockVariation( state, blockName, scope ) {
 	const variations = getBlockVariations( state, blockName, scope );
@@ -371,7 +371,7 @@ export function getDefaultBlockVariation( state, blockName, scope ) {
  * };
  * ```
  *
- * @return {FPBlockCategory[]} Categories list.
+ * @return {FINBlockCategory[]} Categories list.
  */
 export function getCategories( state ) {
 	return state.categories;

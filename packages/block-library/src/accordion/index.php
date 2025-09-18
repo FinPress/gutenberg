@@ -29,7 +29,7 @@ function render_block_core_accordion( $attributes, $content ) {
 
 	fin_enqueue_script_module( '@finpress/block-library/accordion' );
 
-	$p             = new FP_HTML_Tag_Processor( $content );
+	$p             = new FIN_HTML_Tag_Processor( $content );
 	$autoclose     = $attributes['autoclose'] ? 'true' : 'false';
 	$icon          = $attributes['icon'] ?? 'plus';
 	$icon_position = $attributes['iconPosition'] ?? 'right';

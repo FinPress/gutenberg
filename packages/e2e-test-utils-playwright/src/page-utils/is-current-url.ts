@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { FP_BASE_URL } from '../config';
+import { FIN_BASE_URL } from '../config';
 import type { PageUtils } from './';
 
 /**
@@ -14,7 +14,7 @@ import type { PageUtils } from './';
  */
 export function isCurrentURL( this: PageUtils, path: string ) {
 	const currentURL = new URL( this.page.url() );
-	const expectedURL = new URL( path, FP_BASE_URL );
+	const expectedURL = new URL( path, FIN_BASE_URL );
 
 	return expectedURL.pathname === currentURL.pathname;
 }

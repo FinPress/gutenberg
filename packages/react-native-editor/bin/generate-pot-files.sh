@@ -32,14 +32,14 @@ while test $# -gt 0; do
     -h|--help)
       echo "options:"
       echo "-h, --help                              show brief help"
-      echo "-w, --skip-upgrade-fin-cli               skip FP-CLI upgrade"
+      echo "-w, --skip-upgrade-fin-cli               skip FIN-CLI upgrade"
       echo "-p, --path                              use local path for generating files"
       echo "-d, --debug                             print extra info for debugging"
       exit 0
       ;;
     -w|--skip-upgrade-fin-cli*)
       shift
-      SKIP_UPGRADE_FP_CLI='true'
+      SKIP_UPGRADE_FIN_CLI='true'
       ;;
     -p|--path*)
       shift
@@ -67,18 +67,18 @@ function error() {
 function setup_fin_cli() {
   local cli_path="$SCRIPT_DIR/fin-cli.phar"
 
-  # Install FP-CLI command
+  # Install FIN-CLI command
   if [[ ! -f "$cli_path" ]]; then
-    echo -e "\n\033[1mInstalling FP-CLI\033[0m"
+    echo -e "\n\033[1mInstalling FIN-CLI\033[0m"
     curl -Ls https://raw.githubusercontent.com/fin-cli/builds/gh-pages/phar/fin-cli.phar -o $cli_path
     chmod +x $cli_path
   fi
 
-  # Upgrade FP-CLI command
-  if [[ -z "${SKIP_UPGRADE_FP_CLI:-}" ]]; then
-    echo -e "\n\033[1mUpgrading FP-CLI\033[0m"
-    $FP_CLI cli update --nightly --yes
-    $FP_CLI --info
+  # Upgrade FIN-CLI command
+  if [[ -z "${SKIP_UPGRADE_FIN_CLI:-}" ]]; then
+    echo -e "\n\033[1mUpgrading FIN-CLI\033[0m"
+    $FIN_CLI cli update --nightly --yes
+    $FIN_CLI --info
   fi
 }
 
@@ -109,7 +109,7 @@ function extract_source_from_sourcemap_file() {
 function make_pot () {
   local source=$1
   local arguments=$2
-  local makepot_command="$FP_CLI i18n make-pot"
+  local makepot_command="$FIN_CLI i18n make-pot"
 
   # In order to detect parse errors, we need to use the "--debug" option, otherwise "make-pot" command doesn't output errors.
   local full_command="$makepot_command $source --debug $arguments"
@@ -191,7 +191,7 @@ fi
 # Define constants
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 GUTENBERG_SOURCE_CODE_DIR="$SCRIPT_DIR/../../.."
-FP_CLI="php -d memory_limit=4G -d error_reporting=E_ALL&~E_DEPRECATED $SCRIPT_DIR/fin-cli.phar"
+FIN_CLI="php -d memory_limit=4G -d error_reporting=E_ALL&~E_DEPRECATED $SCRIPT_DIR/fin-cli.phar"
 BUNDLE_CLI="$GUTENBERG_SOURCE_CODE_DIR/node_modules/.bin/react-native bundle --config ${METRO_CONFIG:-metro.config.js}"
 
 # Set target path
@@ -231,7 +231,7 @@ IOS_EXTRACT_SOURCE_FILES_PATH="$EXTRACT_SOURCE_FILES_DIR/ios"
 
 echo -e "\n\033[1m== Generating POT files in \"$TARGET_PATH\" ==\033[0m"
 
-# Setup FP cli
+# Setup FIN cli
 setup_fin_cli
 
 # Generate JS bundle

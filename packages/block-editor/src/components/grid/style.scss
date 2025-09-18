@@ -52,7 +52,7 @@
 	&.is-highlighted {
 		.block-editor-inserter,
 		.block-editor-grid-visualizer__drop-zone {
-			background: var(--fp-admin-theme-color);
+			background: var(--fin-admin-theme-color);
 		}
 	}
 
@@ -87,7 +87,7 @@
 }
 
 .block-editor-grid-item-resizer__box {
-	border: $border-width solid var(--fp-admin-theme-color);
+	border: $border-width solid var(--fin-admin-theme-color);
 
 	.components-resizable-box__handle {
 		// Specificity to override the pointer-events set by .components-popover.

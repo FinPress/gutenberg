@@ -11,7 +11,7 @@
  *
  * @group blocks
  */
-class Render_Block_Heading_Test extends FP_UnitTestCase {
+class Render_Block_Heading_Test extends FIN_UnitTestCase {
 
 
 	/**
@@ -27,7 +27,7 @@ class Render_Block_Heading_Test extends FP_UnitTestCase {
 		return array(
 			'should add a class name to a vanilla h2 element' => array(
 				'<h2>Hello World</h2>',
-				'<h2 class="fp-block-heading">Hello World</h2>',
+				'<h2 class="fin-block-heading">Hello World</h2>',
 			),
 			'should not add a class name to a header element' => array(
 				'<header>Hello World</header>',
@@ -43,43 +43,43 @@ class Render_Block_Heading_Test extends FP_UnitTestCase {
 			),
 			'should add a class name even when the class attribute is already defined' => array(
 				'<h2 class="is-align-right">Hello World</h2>',
-				'<h2 class="is-align-right fp-block-heading">Hello World</h2>',
+				'<h2 class="is-align-right fin-block-heading">Hello World</h2>',
 			),
 			'should handle single quotes'                => array(
 				"<h2 class='is-align-right'>Hello World</h2>",
-				'<h2 class="is-align-right fp-block-heading">Hello World</h2>',
+				'<h2 class="is-align-right fin-block-heading">Hello World</h2>',
 			),
 			'should handle single quotes with double quotes inside' => array(
 				"<h2 class='\" is-align-right'>Hello World</h2>",
-				'<h2 class="&quot; is-align-right fp-block-heading">Hello World</h2>',
+				'<h2 class="&quot; is-align-right fin-block-heading">Hello World</h2>',
 			),
 			'should not add a class name even when it is already defined' => array(
-				'<h2 class="is-align-right fp-block-heading">Hello World</h2>',
-				'<h2 class="is-align-right fp-block-heading">Hello World</h2>',
+				'<h2 class="is-align-right fin-block-heading">Hello World</h2>',
+				'<h2 class="is-align-right fin-block-heading">Hello World</h2>',
 			),
 			'should add a class name even when there are other HTML attributes present' => array(
 				'<h2 style="display: block">Hello World</h2>',
-				'<h2 class="fp-block-heading" style="display: block">Hello World</h2>',
+				'<h2 class="fin-block-heading" style="display: block">Hello World</h2>',
 			),
 			'should add a class name even when the class attribute is already defined and has many entries' => array(
 				'<h2 class="is-align-right custom   classes">Hello World</h2>',
-				'<h2 class="is-align-right custom   classes fp-block-heading">Hello World</h2>',
+				'<h2 class="is-align-right custom   classes fin-block-heading">Hello World</h2>',
 			),
 			'should not add a class name to a nested h2' => array(
 				'<h2 class="is-align-right custom classes"><h2>Hello World</h2></h2>',
-				'<h2 class="is-align-right custom classes fp-block-heading"><h2>Hello World</h2></h2>',
+				'<h2 class="is-align-right custom classes fin-block-heading"><h2>Hello World</h2></h2>',
 			),
 			'should not add a class name to a nested h2 when the parent has another attribute' => array(
 				'<h2 style="display: block" class="is-align-right"><h2>Hello World</h2></h2>',
-				'<h2 style="display: block" class="is-align-right fp-block-heading"><h2>Hello World</h2></h2>',
+				'<h2 style="display: block" class="is-align-right fin-block-heading"><h2>Hello World</h2></h2>',
 			),
 			'should add a class name even when the class attribute is surrounded by other attributes' => array(
 				'<h2 style="display: block" class="is-align-right" data-class="corner case!"><h2>Hello World</h2></h2>',
-				'<h2 style="display: block" class="is-align-right fp-block-heading" data-class="corner case!"><h2>Hello World</h2></h2>',
+				'<h2 style="display: block" class="is-align-right fin-block-heading" data-class="corner case!"><h2>Hello World</h2></h2>',
 			),
 			'should add a class name without getting confused when there is a tricky data-class attribute present' => array(
 				'<h2 data-class="corner case!" style="display: block" class="is-align-right"><h2>Hello World</h2></h2>',
-				'<h2 data-class="corner case!" style="display: block" class="is-align-right fp-block-heading"><h2>Hello World</h2></h2>',
+				'<h2 data-class="corner case!" style="display: block" class="is-align-right fin-block-heading"><h2>Hello World</h2></h2>',
 			),
 		);
 	}

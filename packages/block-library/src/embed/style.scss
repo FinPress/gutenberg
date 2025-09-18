@@ -1,25 +1,25 @@
 // Apply max-width to floated items that have no intrinsic width
-.fp-block[data-align="left"] > [data-type="core/embed"],
-.fp-block[data-align="right"] > [data-type="core/embed"],
-.fp-block-embed.alignleft,
-.fp-block-embed.alignright {
+.fin-block[data-align="left"] > [data-type="core/embed"],
+.fin-block[data-align="right"] > [data-type="core/embed"],
+.fin-block-embed.alignleft,
+.fin-block-embed.alignright {
 	// Instagram widgets have a min-width of 326px, so go a bit beyond that.
 	max-width: 360px;
 	width: 100%;
 
 	// Unless these have a min-width, they collapse when floated.
-	.fp-block-embed__wrapper {
+	.fin-block-embed__wrapper {
 		min-width: $break-zoomed-in;
 	}
 }
 
 // Supply a min-width when inside a cover block, to prevent it from collapsing.
-.fp-block-cover .fp-block-embed {
+.fin-block-cover .fin-block-embed {
 	min-width: 320px;
 	min-height: 240px;
 }
 
-.fp-block-embed {
+.fin-block-embed {
 	overflow-wrap: break-word; // Break long strings of text without spaces so they don't overflow the block.
 
 	// Supply caption styles to embeds, even if the theme hasn't opted in.
@@ -35,13 +35,13 @@
 	}
 }
 
-.fp-block-embed__wrapper {
+.fin-block-embed__wrapper {
 	position: relative;
 }
 
 // Add responsiveness to embeds with aspect ratios.
-.fp-embed-responsive .fp-has-aspect-ratio {
-	.fp-block-embed__wrapper::before {
+.fin-embed-responsive .fin-has-aspect-ratio {
+	.fin-block-embed__wrapper::before {
 		content: "";
 		display: block;
 		padding-top: 50%; // Default to 2:1 aspect ratio.
@@ -58,32 +58,32 @@
 	}
 }
 
-.fp-embed-responsive {
-	.fp-embed-aspect-21-9 .fp-block-embed__wrapper::before {
+.fin-embed-responsive {
+	.fin-embed-aspect-21-9 .fin-block-embed__wrapper::before {
 		padding-top: 42.85%; // 9 / 21 * 100
 	}
 
-	.fp-embed-aspect-18-9 .fp-block-embed__wrapper::before {
+	.fin-embed-aspect-18-9 .fin-block-embed__wrapper::before {
 		padding-top: 50%; // 9 / 18 * 100
 	}
 
-	.fp-embed-aspect-16-9 .fp-block-embed__wrapper::before {
+	.fin-embed-aspect-16-9 .fin-block-embed__wrapper::before {
 		padding-top: 56.25%; // 9 / 16 * 100
 	}
 
-	.fp-embed-aspect-4-3 .fp-block-embed__wrapper::before {
+	.fin-embed-aspect-4-3 .fin-block-embed__wrapper::before {
 		padding-top: 75%; // 3 / 4 * 100
 	}
 
-	.fp-embed-aspect-1-1 .fp-block-embed__wrapper::before {
+	.fin-embed-aspect-1-1 .fin-block-embed__wrapper::before {
 		padding-top: 100%; // 1 / 1 * 100
 	}
 
-	.fp-embed-aspect-9-16 .fp-block-embed__wrapper::before {
+	.fin-embed-aspect-9-16 .fin-block-embed__wrapper::before {
 		padding-top: 177.77%; // 16 / 9 * 100
 	}
 
-	.fp-embed-aspect-1-2 .fp-block-embed__wrapper::before {
+	.fin-embed-aspect-1-2 .fin-block-embed__wrapper::before {
 		padding-top: 200%; // 2 / 1 * 100
 	}
 }

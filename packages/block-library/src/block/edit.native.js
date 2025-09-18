@@ -82,12 +82,12 @@ export default function ReusableBlockEdit( {
 		( select ) => {
 			const persistedBlock = select( coreStore ).getEntityRecord(
 				'postType',
-				'fp_block',
+				'fin_block',
 				ref
 			);
 			const hasResolvedBlock = select( coreStore ).hasFinishedResolution(
 				'getEntityRecord',
-				[ 'postType', 'fp_block', ref ]
+				[ 'postType', 'fin_block', ref ]
 			);
 
 			const { getBlockCount } = select( blockEditorStore );
@@ -117,11 +117,11 @@ export default function ReusableBlockEdit( {
 
 	const [ blocks, onInput, onChange ] = useEntityBlockEditor(
 		'postType',
-		'fp_block',
+		'fin_block',
 		{ id: ref }
 	);
 
-	const [ title ] = useEntityProp( 'postType', 'fp_block', 'title', ref );
+	const [ title ] = useEntityProp( 'postType', 'fin_block', 'title', ref );
 
 	function openSheet() {
 		setShowHelp( true );

@@ -32,7 +32,7 @@ describe( 'getIsResolving', () => {
 	} );
 
 	const DEPRECATION_MESSAGE =
-		'fp.data.select( store ).getIsResolving is deprecated since version 6.6 and will be removed in version 6.8. Please use fp.data.select( store ).getResolutionState instead.';
+		'fin.data.select( store ).getIsResolving is deprecated since version 6.6 and will be removed in version 6.8. Please use fin.data.select( store ).getResolutionState instead.';
 
 	it( 'should return undefined if no state by reducerKey, selectorName', () => {
 		const result = registry

@@ -48,7 +48,7 @@ export default function ImageCropper( {
 	const area = (
 		<div
 			className={ clsx(
-				'fp-block-image__crop-area',
+				'fin-block-image__crop-area',
 				borderProps?.className,
 				{
 					'is-applying': isInProgress,

@@ -26,9 +26,9 @@ const isSiteEditor = getPath( window.location.href )?.includes(
 );
 
 const deprecateSlot = ( name ) => {
-	deprecated( `fp.editPost.${ name }`, {
+	deprecated( `fin.editPost.${ name }`, {
 		since: '6.6',
-		alternative: `fp.editor.${ name }`,
+		alternative: `fin.editor.${ name }`,
 	} );
 };
 
@@ -128,7 +128,7 @@ export function __experimentalPluginPostExcerpt() {
 	if ( isSiteEditor ) {
 		return null;
 	}
-	deprecated( 'fp.editPost.__experimentalPluginPostExcerpt', {
+	deprecated( 'fin.editPost.__experimentalPluginPostExcerpt', {
 		since: '6.6',
 		hint: 'Core and custom panels can be access programmatically using their panel name.',
 		link: 'https://developer.finpress.org/block-editor/reference-guides/slotfills/plugin-document-setting-panel/#accessing-a-panel-programmatically',

@@ -1,7 +1,7 @@
-:root :where(.fp-block-image figcaption) {
+:root :where(.fin-block-image figcaption) {
 	@include caption-style-theme();
 }
 
-.fp-block-image {
+.fin-block-image {
 	margin: 0 0 1em 0;
 }

@@ -23,7 +23,7 @@ async function insertBlock(
 	{ clientId }: { clientId?: string } = {}
 ) {
 	await this.page.waitForFunction(
-		() => window?.fp?.blocks && window?.fp?.data
+		() => window?.fin?.blocks && window?.fin?.data
 	);
 
 	await this.page.evaluate(
@@ -33,7 +33,7 @@ async function insertBlock(
 				attributes = {},
 				innerBlocks = [],
 			}: BlockRepresentation ): Object {
-				return window.fp.blocks.createBlock(
+				return window.fin.blocks.createBlock(
 					name,
 					attributes,
 					innerBlocks.map( ( innerBlock ) =>
@@ -43,7 +43,7 @@ async function insertBlock(
 			}
 			const block = recursiveCreateBlock( _blockRepresentation );
 
-			window.fp.data
+			window.fin.data
 				.dispatch( 'core/block-editor' )
 				.insertBlock( block, undefined, _clientId );
 		},

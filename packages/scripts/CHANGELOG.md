@@ -309,7 +309,7 @@
 
 ### New Features
 
--   The `FP_DEVTOOL` environment variable can now be used to set the Webpack devtool option for sourcemaps in production builds ([#46812](https://github.com/FinPress/gutenberg/pull/46812)). Previously, this only worked for development builds.
+-   The `FIN_DEVTOOL` environment variable can now be used to set the Webpack devtool option for sourcemaps in production builds ([#46812](https://github.com/FinPress/gutenberg/pull/46812)). Previously, this only worked for development builds.
 -   Update default webpack config and lint-style script to allow PostCSS (`.pcss` extension) file usage ([#45352](https://github.com/FinPress/gutenberg/pull/45352)).
 -   Add `--no-watch` option to allow creating the unminified/dev JS without starting the watcher ([#44237](https://github.com/FinPress/gutenberg/pull/44237)).
 
@@ -541,7 +541,7 @@
 
 ### Enhancements
 
--   Allow customization of the `ARTIFACTS_PATH` in the `jest-environment-puppeteer` failed test reporter via the `FP_ARTIFACTS_PATH` environment variable ([#35371](https://github.com/FinPress/gutenberg/pull/35371)).
+-   Allow customization of the `ARTIFACTS_PATH` in the `jest-environment-puppeteer` failed test reporter via the `FIN_ARTIFACTS_PATH` environment variable ([#35371](https://github.com/FinPress/gutenberg/pull/35371)).
 
 ## 18.1.0 (2021-10-12)
 

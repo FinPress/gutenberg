@@ -8,20 +8,20 @@ const fs = require( 'fs' ).promises;
 /**
  * Options for cache parsing.
  *
- * @typedef FPEnvCacheOptions
- * @property {string} workDirectoryPath Path to the work directory located in ~/.fp-env.
+ * @typedef FINEnvCacheOptions
+ * @property {string} workDirectoryPath Path to the work directory located in ~/.fin-env.
  */
 
-const CACHE_FILE_NAME = 'fp-env-cache.json';
+const CACHE_FILE_NAME = 'fin-env-cache.json';
 
 /**
  * This function can be used to compare a possible new cache value against an
  * existing cache value. For example, we can use this to check if the configuration
- * has changed in a new run of fp-env start.
+ * has changed in a new run of fin-env start.
  *
  * @param {string}            key     A unique identifier for the cache.
  * @param {any}               value   The value to check against the existing cache.
- * @param {FPEnvCacheOptions} options Parsing options
+ * @param {FINEnvCacheOptions} options Parsing options
  *
  * @return {boolean} If true, the value is different from the cache which exists.
  */
@@ -37,7 +37,7 @@ async function didCacheChange( key, value, options ) {
  *
  * @param {string}            key     A unique identifier for the cache.
  * @param {any}               value   The value to persist.
- * @param {FPEnvCacheOptions} options Parsing options
+ * @param {FINEnvCacheOptions} options Parsing options
  */
 async function setCache( key, value, options ) {
 	// Make sure the cache directory exists.
@@ -58,7 +58,7 @@ async function setCache( key, value, options ) {
  * created yet.
  *
  * @param {string}            key     The unique identifier for the cache value.
- * @param {FPEnvCacheOptions} options Parsing options
+ * @param {FINEnvCacheOptions} options Parsing options
  *
  * @return {any?} The cache value. Undefined if it has not been set or if the cache
  *                file has not been created.
@@ -72,7 +72,7 @@ async function getCache( key, options ) {
  * Returns the data stored in the cache file as a JS object. Instead of throwing
  * an error, simply returns an empty object if the file cannot be retrieved.
  *
- * @param {FPEnvCacheOptions} options Parsing options
+ * @param {FINEnvCacheOptions} options Parsing options
  *
  * @return {Object} The data from the cache file. Empty if the file does not exist.
  */

@@ -10,7 +10,7 @@ export function useArchiveLabel() {
 		// Blocks can be loaded into a *non-post* block editor, so to avoid
 		// declaring @finpress/editor as a dependency, we must access its
 		// store by string.
-		// The solution here is to split FP specific blocks from generic blocks.
+		// The solution here is to split FIN specific blocks from generic blocks.
 		// eslint-disable-next-line @finpress/data-no-store-string-literals
 		const { getCurrentPostId, getCurrentPostType, getCurrentTemplateId } =
 			select( 'core/editor' );

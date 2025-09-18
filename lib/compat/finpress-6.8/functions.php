@@ -4,7 +4,7 @@
  * Adds the x-wav mime type to the list of mime types.
  * This is necessary for Firefox as it uses the identifier for uploaded .wav files.
  * Core backport should add the following to the default mime_types filters in
- * `fp_get_mime_types()` in fp-includes/functions.php:
+ * `fin_get_mime_types()` in fin-includes/functions.php:
  *
  * `'wav|x-wav' => 'audio/wav'`
  *

@@ -8,7 +8,7 @@ import {
 	getUnitsWithCurrentUnit,
 	parseQuantityAndUnitFromRawValue,
 } from '../utils';
-import type { FPUnitControlUnit } from '../types';
+import type { FINUnitControlUnit } from '../types';
 
 describe( 'UnitControl utils', () => {
 	describe( 'useCustomUnits', () => {
@@ -154,7 +154,7 @@ describe( 'UnitControl utils', () => {
 
 		it( 'should return empty array where available units is set to an empty array', () => {
 			const preferredUnits = [ '%', 'px' ];
-			const availableUnits: FPUnitControlUnit[] = [];
+			const availableUnits: FINUnitControlUnit[] = [];
 
 			expect(
 				filterUnitsWithSettings( preferredUnits, availableUnits )

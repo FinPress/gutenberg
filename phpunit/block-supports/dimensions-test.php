@@ -6,7 +6,7 @@
  * @package Gutenberg
  */
 
-class FP_Block_Supports_Dimensions_Test extends FP_UnitTestCase {
+class FIN_Block_Supports_Dimensions_Test extends FIN_UnitTestCase {
 	/**
 	 * @var string|null
 	 */
@@ -41,7 +41,7 @@ class FP_Block_Supports_Dimensions_Test extends FP_UnitTestCase {
 				),
 			)
 		);
-		$registry    = FP_Block_Type_Registry::get_instance();
+		$registry    = FIN_Block_Type_Registry::get_instance();
 		$block_type  = $registry->get_registered( $this->test_block_name );
 		$block_attrs = array(
 			'style' => array(
@@ -78,7 +78,7 @@ class FP_Block_Supports_Dimensions_Test extends FP_UnitTestCase {
 				),
 			)
 		);
-		$registry    = FP_Block_Type_Registry::get_instance();
+		$registry    = FIN_Block_Type_Registry::get_instance();
 		$block_type  = $registry->get_registered( $this->test_block_name );
 		$block_attrs = array(
 			'style' => array(
@@ -113,7 +113,7 @@ class FP_Block_Supports_Dimensions_Test extends FP_UnitTestCase {
 				),
 			)
 		);
-		$registry    = FP_Block_Type_Registry::get_instance();
+		$registry    = FIN_Block_Type_Registry::get_instance();
 		$block_type  = $registry->get_registered( $this->test_block_name );
 		$block_attrs = array(
 			'style' => array(

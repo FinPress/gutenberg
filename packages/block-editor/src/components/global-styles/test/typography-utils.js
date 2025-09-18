@@ -759,7 +759,7 @@ describe( 'typography utils', () => {
 									fontFamily: 'ABeeZee, sans-serif',
 									fontFace: [
 										{
-											src: 'http://www.finpress.org/fp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
+											src: 'http://www.finpress.org/fin-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
 											fontWeight: '400',
 											fontStyle: 'italic',
 											fontFamily: 'ABeeZee',
@@ -779,7 +779,7 @@ describe( 'typography utils', () => {
 									fontFamily: 'ABeeZee',
 									fontStyle: 'italic',
 									fontWeight: '400',
-									src: 'http://www.finpress.org/fp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
+									src: 'http://www.finpress.org/fin-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
 								},
 							],
 							fontFamily: 'ABeeZee, sans-serif',
@@ -845,7 +845,7 @@ describe( 'typography utils', () => {
 									fontFamily: 'ABeeZee, sans-serif',
 									fontFace: [
 										{
-											src: 'http://www.finpress.org/fp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
+											src: 'http://www.finpress.org/fin-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
 											fontWeight: '400',
 											fontStyle: 'italic',
 											fontFamily: 'ABeeZee',
@@ -863,7 +863,7 @@ describe( 'typography utils', () => {
 							fontFamily: 'ABeeZee',
 							fontStyle: 'italic',
 							fontWeight: '400',
-							src: 'http://www.finpress.org/fp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
+							src: 'http://www.finpress.org/fin-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
 						},
 					],
 					fontFamilies: [
@@ -912,7 +912,7 @@ describe( 'typography utils', () => {
 									fontFamily: 'ABeeZee',
 									fontStyle: 'italic',
 									fontWeight: '400',
-									src: 'http://www.finpress.org/fp-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
+									src: 'http://www.finpress.org/fin-content/uploads/fonts/esDT31xSG-6AGleN2tCkkJUCGpG-GQ.woff2',
 								},
 							],
 							fontFamily: 'ABeeZee, sans-serif',

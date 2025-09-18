@@ -36,7 +36,7 @@ const FINPRESS_NAMESPACE = '@finpress/';
 // !!
 const BUNDLED_PACKAGES = [
 	'@finpress/dataviews',
-	'@finpress/dataviews/fp',
+	'@finpress/dataviews/fin',
 	'@finpress/icons',
 	'@finpress/interface',
 	'@finpress/sync',
@@ -51,11 +51,11 @@ const bundledPackagesPhpConfig = [
 		from: './packages/style-engine/',
 		to: 'build/style-engine/',
 		replaceClasses: [
-			'FP_Style_Engine_CSS_Declarations',
-			'FP_Style_Engine_CSS_Rules_Store',
-			'FP_Style_Engine_CSS_Rule',
-			'FP_Style_Engine_Processor',
-			'FP_Style_Engine',
+			'FIN_Style_Engine_CSS_Declarations',
+			'FIN_Style_Engine_CSS_Rules_Store',
+			'FIN_Style_Engine_CSS_Rule',
+			'FIN_Style_Engine_Processor',
+			'FIN_Style_Engine',
 		],
 	},
 ].map( ( { from, to, replaceClasses } ) => ( {
@@ -80,10 +80,10 @@ const bundledPackagesPhpConfig = [
 			content.matchAll( /^\s*function ([^\(]+)/gm )
 		).reduce( ( result, [ , functionName ] ) => {
 			// Prepend the Gutenberg prefix, substituting any
-			// other core prefix (e.g. "fp_").
+			// other core prefix (e.g. "fin_").
 			return result.replace(
 				new RegExp( functionName, 'g' ),
-				( match ) => functionPrefix + match.replace( /^fp_/, '' )
+				( match ) => functionPrefix + match.replace( /^fin_/, '' )
 			);
 		}, content );
 		return content;
@@ -97,7 +97,7 @@ for ( const packageDir of packageDirs ) {
 		`${ FINPRESS_NAMESPACE }${ packageDir }/package.json`
 	);
 
-	if ( ! packageJson.fpScript ) {
+	if ( ! packageJson.finScript ) {
 		continue;
 	}
 
@@ -135,7 +135,7 @@ module.exports = {
 			{
 				import: `./packages/${ packageName }`,
 				library: {
-					name: [ 'fp', camelCaseDash( packageName ) ],
+					name: [ 'fin', camelCaseDash( packageName ) ],
 					type: 'window',
 					export: exportDefaultPackages.includes( packageName )
 						? 'default'
@@ -145,7 +145,7 @@ module.exports = {
 		] )
 	),
 	output: {
-		devtoolNamespace: 'fp',
+		devtoolNamespace: 'fin',
 		filename: './build/[name]/index.min.js',
 		path: join( __dirname, '..', '..' ),
 		devtoolModuleFilenameTemplate: ( info ) => {

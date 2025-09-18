@@ -423,7 +423,7 @@
 
 /**
  * Reset default styles for JavaScript UI based pages.
- * This is a FP-admin agnostic reset
+ * This is a FIN-admin agnostic reset
  */
 
 @mixin reset {
@@ -470,7 +470,7 @@
 }
 
 /**
- * Reset the FP Admin page styles for Gutenberg-like pages.
+ * Reset the FIN Admin page styles for Gutenberg-like pages.
  */
 
 @mixin fin-admin-reset( $content-container ) {
@@ -589,7 +589,7 @@
 @mixin gradient-colors-deprecated() {
 	// Our classes uses the same values we set for gradient value attributes.
 
-	/* stylelint-disable @stylistic/function-comma-space-after -- We can not use spacing because of FP multi site kses rule. */
+	/* stylelint-disable @stylistic/function-comma-space-after -- We can not use spacing because of FIN multi site kses rule. */
 	.has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background {
 		background: linear-gradient(135deg,rgba(0,208,132,1) 0%,rgba(6,147,227,1) 100%);
 	}

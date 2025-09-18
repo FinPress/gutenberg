@@ -81,7 +81,7 @@ export const setupEditor =
  */
 export function __experimentalTearDownEditor() {
 	deprecated(
-		"fp.data.dispatch( 'core/editor' ).__experimentalTearDownEditor",
+		"fin.data.dispatch( 'core/editor' ).__experimentalTearDownEditor",
 		{
 			since: '6.5',
 		}
@@ -96,7 +96,7 @@ export function __experimentalTearDownEditor() {
  * @deprecated Since FinPress 6.0.
  */
 export function resetPost() {
-	deprecated( "fp.data.dispatch( 'core/editor' ).resetPost", {
+	deprecated( "fin.data.dispatch( 'core/editor' ).resetPost", {
 		since: '6.0',
 		version: '6.3',
 		alternative: 'Initialize the editor with the setupEditorState action',
@@ -112,7 +112,7 @@ export function resetPost() {
  * @deprecated since Gutenberg 9.7.0.
  */
 export function updatePost() {
-	deprecated( "fp.data.dispatch( 'core/editor' ).updatePost", {
+	deprecated( "fin.data.dispatch( 'core/editor' ).updatePost", {
 		since: '5.7',
 		alternative: 'Use the core entities store instead',
 	} );
@@ -129,9 +129,9 @@ export function updatePost() {
  * @param {Object} post Post object.
  */
 export function setupEditorState( post ) {
-	deprecated( "fp.data.dispatch( 'core/editor' ).setupEditorState", {
+	deprecated( "fin.data.dispatch( 'core/editor' ).setupEditorState", {
 		since: '6.5',
-		alternative: "fp.data.dispatch( 'core/editor' ).setEditedPost",
+		alternative: "fin.data.dispatch( 'core/editor' ).setEditedPost",
 	} );
 	return setEditedPost( post.type, post.id );
 }
@@ -162,7 +162,7 @@ export function setEditedPost( postType, postId ) {
  * @example
  * ```js
  * // Update the post title
- * fp.data.dispatch( 'core/editor' ).editPost( { title: `${ newTitle }` } );
+ * fin.data.dispatch( 'core/editor' ).editPost( { title: `${ newTitle }` } );
  * ```
  *
  * @return {Object} Action object
@@ -313,7 +313,7 @@ export const savePost =
  * @deprecated Since FinPress 6.0.
  */
 export function refreshPost() {
-	deprecated( "fp.data.dispatch( 'core/editor' ).refreshPost", {
+	deprecated( "fin.data.dispatch( 'core/editor' ).refreshPost", {
 		since: '6.0',
 		version: '6.3',
 		alternative: 'Use the core entities store instead',
@@ -331,7 +331,7 @@ export const trashPost =
 		const postType = await registry
 			.resolveSelect( coreStore )
 			.getPostType( postTypeSlug );
-		const { rest_base: restBase, rest_namespace: restNamespace = 'fp/v2' } =
+		const { rest_base: restBase, rest_namespace: restNamespace = 'fin/v2' } =
 			postType;
 		dispatch( { type: 'REQUEST_POST_DELETE_START' } );
 		try {
@@ -367,7 +367,7 @@ export const autosave =
 		const post = select.getCurrentPost();
 
 		// Currently template autosaving is not supported.
-		if ( post.type === 'fp_template' ) {
+		if ( post.type === 'fin_template' ) {
 			return;
 		}
 
@@ -426,7 +426,7 @@ export const undo =
  * @deprecated Since FinPress 6.0
  */
 export function createUndoLevel() {
-	deprecated( "fp.data.dispatch( 'core/editor' ).createUndoLevel", {
+	deprecated( "fin.data.dispatch( 'core/editor' ).createUndoLevel", {
 		since: '6.0',
 		version: '6.3',
 		alternative: 'Use the core entities store instead',
@@ -476,9 +476,9 @@ export const disablePublishSidebar =
  *
  * @example
  * ```
- * const { subscribe } = fp.data;
+ * const { subscribe } = fin.data;
  *
- * const initialPostStatus = fp.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
+ * const initialPostStatus = fin.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
  *
  * // Only allow publishing posts that are set to a future date.
  * if ( 'publish' !== initialPostStatus ) {
@@ -488,21 +488,21 @@ export const disablePublishSidebar =
  *
  * 	// Watch for the publish event.
  * 	let unssubscribe = subscribe( () => {
- * 		const currentPostStatus = fp.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
+ * 		const currentPostStatus = fin.data.select( 'core/editor' ).getEditedPostAttribute( 'status' );
  * 		if ( 'publish' !== currentPostStatus ) {
  *
  * 			// Compare the post date to the current date, lock the post if the date isn't in the future.
- * 			const postDate = new Date( fp.data.select( 'core/editor' ).getEditedPostAttribute( 'date' ) );
+ * 			const postDate = new Date( fin.data.select( 'core/editor' ).getEditedPostAttribute( 'date' ) );
  * 			const currentDate = new Date();
  * 			if ( postDate.getTime() <= currentDate.getTime() ) {
  * 				if ( ! locked ) {
  * 					locked = true;
- * 					fp.data.dispatch( 'core/editor' ).lockPostSaving( 'futurelock' );
+ * 					fin.data.dispatch( 'core/editor' ).lockPostSaving( 'futurelock' );
  * 				}
  * 			} else {
  * 				if ( locked ) {
  * 					locked = false;
- * 					fp.data.dispatch( 'core/editor' ).unlockPostSaving( 'futurelock' );
+ * 					fin.data.dispatch( 'core/editor' ).unlockPostSaving( 'futurelock' );
  * 				}
  * 			}
  * 		}
@@ -527,7 +527,7 @@ export function lockPostSaving( lockName ) {
  * @example
  * ```
  * // Unlock post saving with the lock key `mylock`:
- * fp.data.dispatch( 'core/editor' ).unlockPostSaving( 'mylock' );
+ * fin.data.dispatch( 'core/editor' ).unlockPostSaving( 'mylock' );
  * ```
  *
  * @return {Object} Action object
@@ -547,7 +547,7 @@ export function unlockPostSaving( lockName ) {
  * @example
  * ```
  * // Lock post autosaving with the lock key `mylock`:
- * fp.data.dispatch( 'core/editor' ).lockPostAutosaving( 'mylock' );
+ * fin.data.dispatch( 'core/editor' ).lockPostAutosaving( 'mylock' );
  * ```
  *
  * @return {Object} Action object
@@ -567,7 +567,7 @@ export function lockPostAutosaving( lockName ) {
  * @example
  * ```
  * // Unlock post saving with the lock key `mylock`:
- * fp.data.dispatch( 'core/editor' ).unlockPostAutosaving( 'mylock' );
+ * fin.data.dispatch( 'core/editor' ).unlockPostAutosaving( 'mylock' );
  * ```
  *
  * @return {Object} Action object
@@ -1010,10 +1010,10 @@ const getBlockEditorAction =
 	( name ) =>
 	( ...args ) =>
 	( { registry } ) => {
-		deprecated( "`fp.data.dispatch( 'core/editor' )." + name + '`', {
+		deprecated( "`fin.data.dispatch( 'core/editor' )." + name + '`', {
 			since: '5.3',
 			alternative:
-				"`fp.data.dispatch( 'core/block-editor' )." + name + '`',
+				"`fin.data.dispatch( 'core/block-editor' )." + name + '`',
 			version: '6.2',
 		} );
 		registry.dispatch( blockEditorStore )[ name ]( ...args );

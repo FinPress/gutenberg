@@ -10,11 +10,11 @@
  *
  * @since 5.8.0
  *
- * @global FP_Query $fin_query FinPress Query object.
+ * @global FIN_Query $fin_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  *
  * @return string Returns the pagination numbers for the Query.
  */
@@ -41,7 +41,7 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 		}
 		$content = paginate_links( $paginate_args );
 	} else {
-		$block_query = new FP_Query( build_query_vars_from_query_block( $block, $page ) );
+		$block_query = new FIN_Query( build_query_vars_from_query_block( $block, $page ) );
 		// `paginate_links` works with the global $fin_query, so we have to
 		// temporarily switch it with our custom query.
 		$prev_fin_query = $fin_query;
@@ -74,7 +74,7 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 			 * The proper fix of this should be in core. Track Ticket:
 			 * @see https://core.trac.finpress.org/ticket/53868
 			 *
-			 * TODO: After two FP versions (starting from the FP version the core patch landed),
+			 * TODO: After two FIN versions (starting from the FIN version the core patch landed),
 			 * we should remove this and call `paginate_links` with the proper new arg.
 			 */
 			$paginate_args['add_args'] = array( 'cst' => '' );
@@ -95,7 +95,7 @@ function render_block_core_query_pagination_numbers( $attributes, $content, $blo
 	}
 
 	if ( $enhanced_pagination ) {
-		$p         = new FP_HTML_Tag_Processor( $content );
+		$p         = new FIN_HTML_Tag_Processor( $content );
 		$tag_index = 0;
 		while ( $p->next_tag(
 			array( 'class_name' => 'page-numbers' )

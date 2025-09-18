@@ -553,7 +553,7 @@ ln -s gutenberg/packages/e2e-tests/plugins/* .
 Then to run the tests, specify the base URL, username, and passwords for your site. For example, if your test site is at `http://fin.test`, use:
 
 ```bash
-FP_BASE_URL=http://fin.test npm run test:e2e -- --finpress-username=admin --finpress-password=password
+FIN_BASE_URL=http://fin.test npm run test:e2e -- --finpress-username=admin --finpress-password=password
 ```
 
 ### Scenario testing

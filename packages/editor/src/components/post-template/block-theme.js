@@ -49,7 +49,7 @@ export default function BlockThemeControl( { id } ) {
 
 	const { editedRecord: template, hasResolved } = useEntityRecord(
 		'postType',
-		'fp_template',
+		'fin_template',
 		id
 	);
 	const { createSuccessNotice } = useDispatch( noticesStore );
@@ -61,7 +61,7 @@ export default function BlockThemeControl( { id } ) {
 		( select ) =>
 			!! select( coreStore ).canUser( 'create', {
 				kind: 'postType',
-				name: 'fp_template',
+				name: 'fin_template',
 			} ),
 		[]
 	);
@@ -129,7 +129,7 @@ export default function BlockThemeControl( { id } ) {
 									onClick={ () => {
 										onNavigateToEntityRecord( {
 											postId: template.id,
-											postType: 'fp_template',
+											postType: 'fin_template',
 										} );
 										onClose();
 										mayShowTemplateEditNotice();

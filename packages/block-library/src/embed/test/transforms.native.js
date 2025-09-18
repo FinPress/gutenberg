@@ -11,11 +11,11 @@ import {
 
 const block = 'Embed';
 const initialHtml = `
-<!-- fp:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
-<figure class="fp-block-embed is-type-rich is-provider-twitter fp-block-embed-twitter"><div class="fp-block-embed__wrapper">
+<!-- fin:embed {"url":"https://twitter.com/notnownikki","type":"rich","providerNameSlug":"twitter","responsive":true} -->
+<figure class="fin-block-embed is-type-rich is-provider-twitter fin-block-embed-twitter"><div class="fin-block-embed__wrapper">
 https://twitter.com/notnownikki
 </div></figure>
-<!-- /fp:embed -->`;
+<!-- /fin:embed -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

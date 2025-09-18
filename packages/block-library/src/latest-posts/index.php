@@ -33,7 +33,7 @@ function block_core_latest_posts_get_excerpt_length() {
  *
  * @since 5.0.0
  *
- * @global FP_Post $post                                   Global post object.
+ * @global FIN_Post $post                                   Global post object.
  * @global int     $block_core_latest_posts_excerpt_length Excerpt length set by the Latest Posts core block.
  *
  * @param array $attributes The block attributes.
@@ -62,7 +62,7 @@ function render_block_core_latest_posts( $attributes ) {
 		$args['author'] = $attributes['selectedAuthor'];
 	}
 
-	$query        = new FP_Query();
+	$query        = new FIN_Query();
 	$recent_posts = $query->query( $args );
 
 	if ( isset( $attributes['displayFeaturedImage'] ) && $attributes['displayFeaturedImage'] ) {

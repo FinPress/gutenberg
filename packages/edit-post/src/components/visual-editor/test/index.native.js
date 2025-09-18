@@ -29,13 +29,13 @@ const MEDIA_OPTIONS = [
 ];
 
 const initialHtml = `
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>First example paragraph.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 
-<!-- fp:paragraph -->
+<!-- fin:paragraph -->
 <p>Second example paragraph.</p>
-<!-- /fp:paragraph -->
+<!-- /fin:paragraph -->
 `;
 
 describe( 'when title is focused', () => {

@@ -6,7 +6,7 @@ import { render } from '@testing-library/react';
 /**
  * FinPress dependencies
  */
-import * as fpHooks from '@finpress/hooks';
+import * as finHooks from '@finpress/hooks';
 
 /**
  * Internal dependencies
@@ -22,7 +22,7 @@ const ChildComponent = () => {
 describe( 'Error Boundary', () => {
 	describe( 'when error is thrown from a Child component', () => {
 		it( 'calls the `editor.ErrorBoundary.errorLogged` hook action with the error object', () => {
-			const doAction = jest.spyOn( fpHooks, 'doAction' );
+			const doAction = jest.spyOn( finHooks, 'doAction' );
 
 			render(
 				<ErrorBoundary>

@@ -55,20 +55,20 @@ describe( 'selectors', () => {
 					{
 						name: 'pattern-a',
 						title: 'pattern with a',
-						content: `<!-- fp:test-block-a --><!-- /fp:test-block-a -->`,
+						content: `<!-- fin:test-block-a --><!-- /fin:test-block-a -->`,
 					},
 					{
 						name: 'pattern-b',
 						title: 'pattern with b',
 						content:
-							'<!-- fp:test-block-b --><!-- /fp:test-block-b -->',
+							'<!-- fin:test-block-b --><!-- /fin:test-block-b -->',
 					},
 					{
 						name: 'pattern-c',
 						title: 'pattern hidden from UI',
 						inserter: false,
 						content:
-							'<!-- fp:test-block-a --><!-- /fp:test-block-a -->',
+							'<!-- fin:test-block-a --><!-- /fin:test-block-a -->',
 					},
 				],
 			} );
@@ -110,7 +110,7 @@ describe( 'selectors', () => {
 								title: 'pattern hidden from UI',
 								inserter: false,
 								content:
-									'<!-- fp:test-block-a --><!-- /fp:test-block-a -->',
+									'<!-- fin:test-block-a --><!-- /fin:test-block-a -->',
 							},
 						],
 					},
@@ -126,14 +126,14 @@ describe( 'selectors', () => {
 					{
 						name: 'pattern-a',
 						title: 'pattern with a',
-						content: `<!-- fp:test-block-a --><!-- /fp:test-block-a -->`,
+						content: `<!-- fin:test-block-a --><!-- /fin:test-block-a -->`,
 					},
 					{
 						name: 'pattern-hidden-from-ui',
 						title: 'pattern hidden from UI',
 						inserter: false,
 						content:
-							'<!-- fp:test-block-a --><!-- /fp:test-block-a --><!-- fp:test-block-b --><!-- /fp:test-block-b -->',
+							'<!-- fin:test-block-a --><!-- /fin:test-block-a --><!-- fin:test-block-b --><!-- /fin:test-block-b -->',
 					},
 				],
 			} );
@@ -192,20 +192,20 @@ describe( 'selectors', () => {
 						blockTypes: [ 'test/block-a' ],
 						title: 'pattern a',
 						content:
-							'<!-- fp:test-block-a --><!-- /fp:test-block-a -->',
+							'<!-- fin:test-block-a --><!-- /fin:test-block-a -->',
 					},
 					{
 						name: 'pattern-b',
 						blockTypes: [ 'test/block-b' ],
 						title: 'pattern b',
 						content:
-							'<!-- fp:test-block-b --><!-- /fp:test-block-b -->',
+							'<!-- fin:test-block-b --><!-- /fin:test-block-b -->',
 					},
 					{
 						title: 'pattern c',
 						blockTypes: [ 'test/block-a' ],
 						content:
-							'<!-- fp:test-block-b --><!-- /fp:test-block-b -->',
+							'<!-- fin:test-block-b --><!-- /fin:test-block-b -->',
 					},
 				],
 			} );
@@ -286,21 +286,21 @@ describe( 'selectors', () => {
 						blockTypes: [ 'test/block-a' ],
 						title: 'pattern a',
 						content:
-							'<!-- fp:test-block-a --><!-- /fp:test-block-a -->',
+							'<!-- fin:test-block-a --><!-- /fin:test-block-a -->',
 					},
 					{
 						name: 'pattern-b',
 						blockTypes: [ 'test/block-b' ],
 						title: 'pattern b',
 						content:
-							'<!-- fp:test-block-b --><!-- /fp:test-block-b -->',
+							'<!-- fin:test-block-b --><!-- /fin:test-block-b -->',
 					},
 					{
 						name: 'pattern-c',
 						title: 'pattern c',
 						blockTypes: [ 'test/block-a' ],
 						content:
-							'<!-- fp:test-block-b --><!-- /fp:test-block-b -->',
+							'<!-- fin:test-block-b --><!-- /fin:test-block-b -->',
 					},
 					{
 						name: 'pattern-mix',
@@ -310,7 +310,7 @@ describe( 'selectors', () => {
 							'core/test-block-b',
 						],
 						content:
-							'<!-- fp:test-block-b --><!-- /fp:test-block-b -->',
+							'<!-- fin:test-block-b --><!-- /fin:test-block-b -->',
 					},
 				],
 			} );

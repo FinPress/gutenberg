@@ -25,13 +25,13 @@ const IGNORED_PATHS = [
 	'lib/load.php', // plugin specific code.
 	'lib/experiments-page.php', // experiments are plugin specific.
 	'packages/e2e-tests/plugins', // PHP files related to e2e tests only.
-	'packages/block-library', // packages are synced to FP Core via npm packages.
+	'packages/block-library', // packages are synced to FIN Core via npm packages.
 ];
 
 // PRs containing the following labels will be ignored when generating the issue content.
 const LABELS_TO_IGNORE = [
 	'Backport from FinPress Core', // PRs made "upstream" in Core that were synced back into Gutenberg.
-	'Backported to FP Core', // PRs that were synced into Core during a previous release.
+	'Backported to FIN Core', // PRs that were synced into Core during a previous release.
 ];
 
 const MAX_NESTING_LEVEL = 3;
@@ -40,7 +40,7 @@ const __filename = fileURLToPath( import.meta.url );
 const __dirname = dirname( __filename );
 
 const authToken = getArg( 'token' );
-const stableFPRelease = getArg( 'fpstable' );
+const stableFINRelease = getArg( 'finstable' );
 
 async function main() {
 	if ( ! authToken ) {
@@ -50,9 +50,9 @@ async function main() {
 		process.exit( 1 );
 	}
 
-	if ( ! stableFPRelease ) {
+	if ( ! stableFINRelease ) {
 		console.error(
-			'Error. The --fpstable argument is required. It should be the current stable FinPress release (e.g. 6.4).'
+			'Error. The --finstable argument is required. It should be the current stable FinPress release (e.g. 6.4).'
 		);
 		process.exit( 1 );
 	}
@@ -71,7 +71,7 @@ async function main() {
 		}
 	} else {
 		console.error(
-			`Error. The --since argument is required (e.g. YYYY-MM-DD). This should be the date of the final Gutenberg release that was included in the last stable FP Core release (see https://developer.finpress.org/block-editor/contributors/versions-in-finpress/).`
+			`Error. The --since argument is required (e.g. YYYY-MM-DD). This should be the date of the final Gutenberg release that was included in the last stable FIN Core release (see https://developer.finpress.org/block-editor/contributors/versions-in-finpress/).`
 		);
 		process.exit( 1 );
 	}
@@ -327,9 +327,9 @@ function processCommits( commits ) {
 
 	// This dir sholud be ignored, since whatever is in there is already in core.
 	// It exists to provide compatibility for older releases, because we have to
-	// support the current and the previous FP versions.
+	// support the current and the previous FIN versions.
 	// See: https://github.com/FinPress/gutenberg/pull/57890#pullrequestreview-1828994247.
-	const prevReleaseCompatDirToIgnore = `lib/compat/finpress-${ stableFPRelease }`;
+	const prevReleaseCompatDirToIgnore = `lib/compat/finpress-${ stableFINRelease }`;
 
 	commits.forEach( ( commit ) => {
 		// Skip commits without an associated pull request

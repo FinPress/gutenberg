@@ -91,8 +91,8 @@ export function getInserterSidebarToggleRef( state ) {
 	return state.inserterSidebarToggleRef;
 }
 const CARD_ICONS = {
-	fp_block: symbol,
-	fp_navigation: navigation,
+	fin_block: symbol,
+	fin_navigation: navigation,
 	page: pageIcon,
 	post: verse,
 };
@@ -101,8 +101,8 @@ export const getPostIcon = createRegistrySelector(
 	( select ) => ( state, postType, options ) => {
 		{
 			if (
-				postType === 'fp_template_part' ||
-				postType === 'fp_template'
+				postType === 'fin_template_part' ||
+				postType === 'fin_template'
 			) {
 				const templateAreas =
 					select( coreStore ).getCurrentTheme()

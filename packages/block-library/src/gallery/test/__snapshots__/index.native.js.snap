@@ -1,177 +1,177 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Gallery block Columns setting decrements columns 1`] = `
-"<!-- fp:gallery {"columns":2,"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-2 is-cropped"><!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/></figure>
-<!-- /fp:image -->
+"<!-- fin:gallery {"columns":2,"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-2 is-cropped"><!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2001} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fp-image-2001"/></figure>
-<!-- /fp:image -->
+<!-- fin:image {"id":2001} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fin-image-2001"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2002} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-3.jpeg" alt="" class="fp-image-2002"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+<!-- fin:image {"id":2002} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-3.jpeg" alt="" class="fin-image-2002"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block Columns setting does not increment due to maximum value 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/></figure>
-<!-- /fp:image -->
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2001} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fp-image-2001"/></figure>
-<!-- /fp:image -->
+<!-- fin:image {"id":2001} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fin-image-2001"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2002} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-3.jpeg" alt="" class="fp-image-2002"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+<!-- fin:image {"id":2002} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-3.jpeg" alt="" class="fin-image-2002"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block cancels uploads 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":null} -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image -->
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":null} -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":null} -->
-<figure class="fp-block-image"><img alt=""/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+<!-- fin:image {"id":null} -->
+<figure class="fin-block-image"><img alt=""/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block disables crop images setting 1`] = `
-"<!-- fp:gallery {"imageCrop":false,"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default"><!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+"<!-- fin:gallery {"imageCrop":false,"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default"><!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block finishes pending uploads upon opening the editor 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/></figure>
-<!-- /fp:image -->
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2001} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fp-image-2001"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+<!-- fin:image {"id":2001} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fin-image-2001"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block handles failed uploads 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":1} -->
-<figure class="fp-block-image"><img src="file:///local-image-1.jpeg" alt="" class="fp-image-1"/></figure>
-<!-- /fp:image -->
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":1} -->
+<figure class="fin-block-image"><img src="file:///local-image-1.jpeg" alt="" class="fin-image-1"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2} -->
-<figure class="fp-block-image"><img src="file:///local-image-2.jpeg" alt="" class="fp-image-2"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+<!-- fin:image {"id":2} -->
+<figure class="fin-block-image"><img src="file:///local-image-2.jpeg" alt="" class="fin-image-2"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block inserts block 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"></figure>
-<!-- /fp:gallery -->"
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block overrides "Link" setting of gallery items 1`] = `
-"<!-- fp:gallery {"linkTo":"media"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":1,"linkDestination":"media"} -->
-<figure class="fp-block-image"><img src="file:///local-image-1.jpeg" alt="" class="fp-image-1"/></figure>
-<!-- /fp:image -->
+"<!-- fin:gallery {"linkTo":"media"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":1,"linkDestination":"media"} -->
+<figure class="fin-block-image"><img src="file:///local-image-1.jpeg" alt="" class="fin-image-1"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2,"linkDestination":"media"} -->
-<figure class="fp-block-image"><img src="file:///local-image-2.jpeg" alt="" class="fp-image-2"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+<!-- fin:image {"id":2,"linkDestination":"media"} -->
+<figure class="fin-block-image"><img src="file:///local-image-2.jpeg" alt="" class="fin-image-2"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block rearranges gallery items 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":2002} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-3.jpeg" alt="" class="fp-image-2002"/></figure>
-<!-- /fp:image -->
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":2002} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-3.jpeg" alt="" class="fin-image-2002"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/></figure>
-<!-- /fp:image -->
+<!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2001} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fp-image-2001"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+<!-- fin:image {"id":2001} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fin-image-2001"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block renders gallery block placeholder correctly if the block doesn't have inner blocks 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"></figure>
-<!-- /fp:gallery -->"
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block sets caption to gallery 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/></figure>
-<!-- /fp:image --><figcaption class="blocks-gallery-caption fp-element-caption"><strong>Bold</strong> <em>italic</em> <s>strikethrough</s> gallery caption</figcaption></figure>
-<!-- /fp:gallery -->"
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/></figure>
+<!-- /fin:image --><figcaption class="blocks-gallery-caption fin-element-caption"><strong>Bold</strong> <em>italic</em> <s>strikethrough</s> gallery caption</figcaption></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block sets caption to gallery items 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/><figcaption class="fp-element-caption"><strong>Bold</strong> <em>italic</em> <s>strikethrough</s> image caption</figcaption></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/><figcaption class="fin-element-caption"><strong>Bold</strong> <em>italic</em> <s>strikethrough</s> image caption</figcaption></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block successfully uploads items 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/></figure>
-<!-- /fp:image -->
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2001} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fp-image-2001"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+<!-- fin:image {"id":2001} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fin-image-2001"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block takes a photo 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block uploads from free photo library 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/></figure>
-<!-- /fp:image -->
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2001} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fp-image-2001"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+<!-- fin:image {"id":2001} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fin-image-2001"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;
 
 exports[`Gallery block uploads from other apps 1`] = `
-"<!-- fp:gallery {"linkTo":"none"} -->
-<figure class="fp-block-gallery has-nested-images columns-default is-cropped"><!-- fp:image {"id":2000} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-2000"/></figure>
-<!-- /fp:image -->
+"<!-- fin:gallery {"linkTo":"none"} -->
+<figure class="fin-block-gallery has-nested-images columns-default is-cropped"><!-- fin:image {"id":2000} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-2000"/></figure>
+<!-- /fin:image -->
 
-<!-- fp:image {"id":2001} -->
-<figure class="fp-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fp-image-2001"/></figure>
-<!-- /fp:image --></figure>
-<!-- /fp:gallery -->"
+<!-- fin:image {"id":2001} -->
+<figure class="fin-block-image"><img src="https://test-site.files.finpress.com/local-image-2.jpeg" alt="" class="fin-image-2001"/></figure>
+<!-- /fin:image --></figure>
+<!-- /fin:gallery -->"
 `;

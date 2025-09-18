@@ -27,7 +27,7 @@ export function settingIdToWidgetId( settingId ) {
 /**
  * Transform a block to a customizable widget.
  *
- * @param {FPBlock} block          The block to be transformed from.
+ * @param {FINBlock} block          The block to be transformed from.
  * @param {Object}  existingWidget The widget to be extended from.
  * @return {Object} The transformed widget.
  */
@@ -40,14 +40,14 @@ export function blockToWidget( block, existingWidget = null ) {
 
 	if ( isValidLegacyWidgetBlock ) {
 		if ( block.attributes.id ) {
-			// Widget that does not extend FP_Widget.
+			// Widget that does not extend FIN_Widget.
 			widget = {
 				id: block.attributes.id,
 			};
 		} else {
 			const { encoded, hash, raw, ...rest } = block.attributes.instance;
 
-			// Widget that extends FP_Widget.
+			// Widget that extends FIN_Widget.
 			widget = {
 				idBase: block.attributes.idBase,
 				instance: {
@@ -67,7 +67,7 @@ export function blockToWidget( block, existingWidget = null ) {
 		};
 		widget = {
 			idBase: 'block',
-			widgetClass: 'FP_Widget_Block',
+			widgetClass: 'FIN_Widget_Block',
 			instance: {
 				raw_instance: instance,
 			},
@@ -90,7 +90,7 @@ export function blockToWidget( block, existingWidget = null ) {
  * @param {string} widget.idBase   The id base of the widget.
  * @param {number} widget.number   The number/index of the widget.
  * @param {Object} widget.instance The instance of the widget.
- * @return {FPBlock} The transformed block.
+ * @return {FINBlock} The transformed block.
  */
 export function widgetToBlock( { id, idBase, number, instance } ) {
 	let block;
@@ -110,7 +110,7 @@ export function widgetToBlock( { id, idBase, number, instance } ) {
 			? parsedBlocks[ 0 ]
 			: createBlock( 'core/paragraph', {} );
 	} else if ( number ) {
-		// Widget that extends FP_Widget.
+		// Widget that extends FIN_Widget.
 		block = createBlock( 'core/legacy-widget', {
 			idBase,
 			instance: {
@@ -121,7 +121,7 @@ export function widgetToBlock( { id, idBase, number, instance } ) {
 			},
 		} );
 	} else {
-		// Widget that does not extend FP_Widget.
+		// Widget that does not extend FIN_Widget.
 		block = createBlock( 'core/legacy-widget', {
 			id,
 		} );

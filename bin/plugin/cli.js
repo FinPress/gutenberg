@@ -58,12 +58,12 @@ program
 
 program
 	.command( 'publish-npm-packages-finpress-core' )
-	.alias( 'npm-fp' )
-	.requiredOption( '--fp-version <fpVersion>', 'FinPress version' )
+	.alias( 'npm-fin' )
+	.requiredOption( '--fin-version <finVersion>', 'FinPress version' )
 	.option( ...ciOption )
 	.option( ...repositoryPathOption )
 	.description(
-		'Publishes to npm bugfixes targeting FinPress core (fp-X.Y dist-tag, production version)'
+		'Publishes to npm bugfixes targeting FinPress core (fin-X.Y dist-tag, production version)'
 	)
 	.action( catchException( publishNpmBugfixFinPressCore ) );
 
@@ -103,7 +103,7 @@ program
 		"Use this branch's performance test files"
 	)
 	.option(
-		'--fp-version <version>',
+		'--fin-version <version>',
 		'Specify a FinPress version on which to test all branches'
 	)
 	.description(

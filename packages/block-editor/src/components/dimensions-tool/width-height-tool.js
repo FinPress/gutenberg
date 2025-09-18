@@ -17,7 +17,7 @@ const SingleColumnToolsPanelItem = styled( ToolsPanelItem )`
 `;
 
 /**
- * @typedef {import('@finpress/components/build-types/unit-control/types').FPUnitControlUnit} FPUnitControlUnit
+ * @typedef {import('@finpress/components/build-types/unit-control/types').FINUnitControlUnit} FINUnitControlUnit
  */
 
 /**
@@ -37,7 +37,7 @@ const SingleColumnToolsPanelItem = styled( ToolsPanelItem )`
  * @property {string}                  [panelId]          ID of the panel that contains the controls.
  * @property {WidthHeightToolValue}    [value]            Current dimensions values.
  * @property {WidthHeightToolOnChange} [onChange]         Callback to update the dimensions values.
- * @property {FPUnitControlUnit[]}     [units]            Units options.
+ * @property {FINUnitControlUnit[]}     [units]            Units options.
  * @property {boolean}                 [isShownByDefault] Whether the panel is shown by default.
  */
 

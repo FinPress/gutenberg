@@ -131,7 +131,7 @@ export function template( state = { isValid: true }, action ) {
 
 /**
  * Reducer returning current network request state (whether a request to
- * the FP REST API is in progress, successful, or failed).
+ * the FIN REST API is in progress, successful, or failed).
  *
  * @param {Object} state  Current state.
  * @param {Object} action Dispatched action.

@@ -96,7 +96,7 @@ A sidebar region containing metadata fields for the post, including scheduling, 
 
 ## Query Block
 
-A block that replicates the classic FP_Query and allows for further customization with additional functionality.
+A block that replicates the classic FIN_Query and allows for further customization with additional functionality.
 
 ## Reusable block
 

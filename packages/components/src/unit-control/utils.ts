@@ -7,11 +7,11 @@ import { Platform } from '@finpress/element';
 /**
  * Internal dependencies
  */
-import type { FPUnitControlUnit } from './types';
+import type { FINUnitControlUnit } from './types';
 
 const isWeb = Platform.OS === 'web';
 
-const allUnits: Record< string, FPUnitControlUnit > = {
+const allUnits: Record< string, FINUnitControlUnit > = {
 	px: {
 		value: 'px',
 		label: isWeb ? 'px' : __( 'Pixels (px)' ),
@@ -264,7 +264,7 @@ export const DEFAULT_UNIT = allUnits.px;
 export function getParsedQuantityAndUnit(
 	rawValue?: string | number,
 	fallbackUnit?: string,
-	allowedUnits?: FPUnitControlUnit[]
+	allowedUnits?: FINUnitControlUnit[]
 ): [ number | undefined, string | undefined ] {
 	const initialValue = fallbackUnit
 		? `${ rawValue ?? '' }${ fallbackUnit }`
@@ -280,8 +280,8 @@ export function getParsedQuantityAndUnit(
  * @return Whether the list actually contains any units.
  */
 export function hasUnits(
-	units?: FPUnitControlUnit[]
-): units is FPUnitControlUnit[] {
+	units?: FINUnitControlUnit[]
+): units is FINUnitControlUnit[] {
 	// Although the `isArray` check shouldn't be necessary (given the signature of
 	// this typed function), it's better to stay on the side of caution, since
 	// this function may be called from un-typed environments.
@@ -300,7 +300,7 @@ export function hasUnits(
  */
 export function parseQuantityAndUnitFromRawValue(
 	rawValue?: string | number,
-	allowedUnits: FPUnitControlUnit[] = ALL_CSS_UNITS
+	allowedUnits: FINUnitControlUnit[] = ALL_CSS_UNITS
 ): [ number | undefined, string | undefined ] {
 	let trimmedValue;
 	let quantityToReturn;
@@ -344,7 +344,7 @@ export function parseQuantityAndUnitFromRawValue(
  */
 export function getValidParsedQuantityAndUnit(
 	rawValue: string | number,
-	allowedUnits?: FPUnitControlUnit[],
+	allowedUnits?: FINUnitControlUnit[],
 	fallbackQuantity?: number,
 	fallbackUnit?: string
 ): [ number | undefined, string | undefined ] {
@@ -389,8 +389,8 @@ export function getAccessibleLabelForUnit( unit: string ): string | undefined {
  */
 export function filterUnitsWithSettings(
 	allowedUnitValues: string[] = [],
-	availableUnits: FPUnitControlUnit[]
-): FPUnitControlUnit[] {
+	availableUnits: FINUnitControlUnit[]
+): FINUnitControlUnit[] {
 	// Although the `isArray` check shouldn't be necessary (given the signature of
 	// this typed function), it's better to stay on the side of caution, since
 	// this function may be called from un-typed environments.
@@ -419,10 +419,10 @@ export const useCustomUnits = ( {
 	availableUnits = [],
 	defaultValues,
 }: {
-	units?: FPUnitControlUnit[];
+	units?: FINUnitControlUnit[];
 	availableUnits?: string[];
 	defaultValues?: Record< string, number >;
-} ): FPUnitControlUnit[] => {
+} ): FINUnitControlUnit[] => {
 	const customUnitsToReturn = filterUnitsWithSettings(
 		availableUnits,
 		units
@@ -457,8 +457,8 @@ export const useCustomUnits = ( {
 export function getUnitsWithCurrentUnit(
 	rawValue?: string | number,
 	legacyUnit?: string,
-	units: FPUnitControlUnit[] = ALL_CSS_UNITS
-): FPUnitControlUnit[] {
+	units: FINUnitControlUnit[] = ALL_CSS_UNITS
+): FINUnitControlUnit[] {
 	const unitsToReturn = Array.isArray( units ) ? [ ...units ] : [];
 	const [ , currentUnit ] = getParsedQuantityAndUnit(
 		rawValue,

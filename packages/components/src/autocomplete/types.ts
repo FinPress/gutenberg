@@ -33,7 +33,7 @@ export type KeyedOption = {
 	isDisabled: boolean;
 };
 
-export type FPCompleter< TCompleterOption = any > = {
+export type FINCompleter< TCompleterOption = any > = {
 	/**
 	 * The name of the completer. Useful for identifying a specific completer to
 	 * be overridden via extensibility hooks.
@@ -184,7 +184,7 @@ export type UseAutocompleteProps = {
 	/**
 	 * An array of all of the completers to apply to the current element.
 	 */
-	completers: Array< FPCompleter >;
+	completers: Array< FINCompleter >;
 	/**
 	 * A ref containing the editable element that will serve as the anchor for
 	 * `Autocomplete`'s `Popover`.

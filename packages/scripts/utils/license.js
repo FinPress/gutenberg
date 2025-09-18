@@ -77,7 +77,7 @@ const gpl2CompatibleLicenses = [
 	'Public Domain',
 	'Unlicense',
 	'W3C-20150513',
-	'WTFPL',
+	'WTFINL',
 	'Zlib',
 ];
 

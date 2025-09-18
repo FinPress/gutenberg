@@ -63,7 +63,7 @@ describe( 'isPathSupported', () => {
 		} );
 	} );
 
-	it( 'checks supported endpoints provided by FP hook', () => {
+	it( 'checks supported endpoints provided by FIN hook', () => {
 		addFilter(
 			'native.supported_endpoints',
 			'gutenberg-mobile',

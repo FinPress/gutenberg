@@ -78,8 +78,8 @@ exports[`MetaBoxesSection renders a Custom Fields option 1`] = `
         >
           <div
             class="components-flex components-h-stack emotion-4 emotion-5"
-            data-fp-c16t="true"
-            data-fp-component="HStack"
+            data-fin-c16t="true"
+            data-fin-component="HStack"
           >
             <span
               class="components-form-toggle"
@@ -98,8 +98,8 @@ exports[`MetaBoxesSection renders a Custom Fields option 1`] = `
             </span>
             <label
               class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-              data-fp-c16t="true"
-              data-fp-component="FlexBlock"
+              data-fin-c16t="true"
+              data-fin-component="FlexBlock"
               for="inspector-toggle-control-0"
             >
               Custom fields
@@ -190,8 +190,8 @@ exports[`MetaBoxesSection renders a Custom Fields option and meta box options 1`
         >
           <div
             class="components-flex components-h-stack emotion-4 emotion-5"
-            data-fp-c16t="true"
-            data-fp-component="HStack"
+            data-fin-c16t="true"
+            data-fin-component="HStack"
           >
             <span
               class="components-form-toggle"
@@ -210,8 +210,8 @@ exports[`MetaBoxesSection renders a Custom Fields option and meta box options 1`
             </span>
             <label
               class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-              data-fp-c16t="true"
-              data-fp-component="FlexBlock"
+              data-fin-c16t="true"
+              data-fin-component="FlexBlock"
               for="inspector-toggle-control-3"
             >
               Custom fields
@@ -231,8 +231,8 @@ exports[`MetaBoxesSection renders a Custom Fields option and meta box options 1`
         >
           <div
             class="components-flex components-h-stack emotion-4 emotion-5"
-            data-fp-c16t="true"
-            data-fp-component="HStack"
+            data-fin-c16t="true"
+            data-fin-component="HStack"
           >
             <span
               class="components-form-toggle is-checked"
@@ -252,8 +252,8 @@ exports[`MetaBoxesSection renders a Custom Fields option and meta box options 1`
             </span>
             <label
               class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-              data-fp-c16t="true"
-              data-fp-component="FlexBlock"
+              data-fin-c16t="true"
+              data-fin-component="FlexBlock"
               for="inspector-toggle-control-4"
             >
               Meta Box 1
@@ -273,8 +273,8 @@ exports[`MetaBoxesSection renders a Custom Fields option and meta box options 1`
         >
           <div
             class="components-flex components-h-stack emotion-4 emotion-5"
-            data-fp-c16t="true"
-            data-fp-component="HStack"
+            data-fin-c16t="true"
+            data-fin-component="HStack"
           >
             <span
               class="components-form-toggle is-checked"
@@ -294,8 +294,8 @@ exports[`MetaBoxesSection renders a Custom Fields option and meta box options 1`
             </span>
             <label
               class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-              data-fp-c16t="true"
-              data-fp-component="FlexBlock"
+              data-fin-c16t="true"
+              data-fin-component="FlexBlock"
               for="inspector-toggle-control-5"
             >
               Meta Box 2
@@ -386,8 +386,8 @@ exports[`MetaBoxesSection renders meta box options 1`] = `
         >
           <div
             class="components-flex components-h-stack emotion-4 emotion-5"
-            data-fp-c16t="true"
-            data-fp-component="HStack"
+            data-fin-c16t="true"
+            data-fin-component="HStack"
           >
             <span
               class="components-form-toggle is-checked"
@@ -407,8 +407,8 @@ exports[`MetaBoxesSection renders meta box options 1`] = `
             </span>
             <label
               class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-              data-fp-c16t="true"
-              data-fp-component="FlexBlock"
+              data-fin-c16t="true"
+              data-fin-component="FlexBlock"
               for="inspector-toggle-control-1"
             >
               Meta Box 1
@@ -428,8 +428,8 @@ exports[`MetaBoxesSection renders meta box options 1`] = `
         >
           <div
             class="components-flex components-h-stack emotion-4 emotion-5"
-            data-fp-c16t="true"
-            data-fp-component="HStack"
+            data-fin-c16t="true"
+            data-fin-component="HStack"
           >
             <span
               class="components-form-toggle is-checked"
@@ -449,8 +449,8 @@ exports[`MetaBoxesSection renders meta box options 1`] = `
             </span>
             <label
               class="components-flex-item components-flex-block components-toggle-control__label emotion-6 emotion-5"
-              data-fp-c16t="true"
-              data-fp-component="FlexBlock"
+              data-fin-c16t="true"
+              data-fin-component="FlexBlock"
               for="inspector-toggle-control-2"
             >
               Meta Box 2

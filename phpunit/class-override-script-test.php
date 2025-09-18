@@ -5,11 +5,11 @@
  * @package Gutenberg
  */
 
-class Override_Script_Test extends FP_UnitTestCase {
+class Override_Script_Test extends FIN_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 
-		fp_register_script(
+		fin_register_script(
 			'gutenberg-dummy-script',
 			'https://example.com/original',
 			array( 'original-dependency' ),
@@ -21,17 +21,17 @@ class Override_Script_Test extends FP_UnitTestCase {
 	public function tear_down() {
 		parent::tear_down();
 
-		fp_deregister_script( 'gutenberg-dummy-script' );
+		fin_deregister_script( 'gutenberg-dummy-script' );
 	}
 
 	/**
 	 * Tests that script is localized.
 	 */
 	public function test_localizes_script() {
-		global $fp_scripts;
+		global $fin_scripts;
 
 		gutenberg_override_script(
-			$fp_scripts,
+			$fin_scripts,
 			'gutenberg-dummy-script',
 			'https://example.com/',
 			array( 'dependency' ),
@@ -39,7 +39,7 @@ class Override_Script_Test extends FP_UnitTestCase {
 			false
 		);
 
-		$script = $fp_scripts->query( 'gutenberg-dummy-script', 'registered' );
+		$script = $fin_scripts->query( 'gutenberg-dummy-script', 'registered' );
 		$this->assertEquals( array( 'dependency' ), $script->deps );
 	}
 
@@ -47,10 +47,10 @@ class Override_Script_Test extends FP_UnitTestCase {
 	 * Tests that script properties are overridden.
 	 */
 	public function test_replaces_registered_properties() {
-		global $fp_scripts;
+		global $fin_scripts;
 
 		gutenberg_override_script(
-			$fp_scripts,
+			$fin_scripts,
 			'gutenberg-dummy-script',
 			'https://example.com/updated',
 			array( 'updated-dependency' ),
@@ -58,7 +58,7 @@ class Override_Script_Test extends FP_UnitTestCase {
 			true
 		);
 
-		$script = $fp_scripts->query( 'gutenberg-dummy-script', 'registered' );
+		$script = $fin_scripts->query( 'gutenberg-dummy-script', 'registered' );
 		$this->assertEquals( 'https://example.com/updated', $script->src );
 		$this->assertEquals( array( 'updated-dependency' ), $script->deps );
 		$this->assertEquals( 'updated-version', $script->ver );
@@ -69,10 +69,10 @@ class Override_Script_Test extends FP_UnitTestCase {
 	 * Tests that new script registers normally if no handle by the name.
 	 */
 	public function test_registers_new_script() {
-		global $fp_scripts;
+		global $fin_scripts;
 
 		gutenberg_override_script(
-			$fp_scripts,
+			$fin_scripts,
 			'gutenberg-second-dummy-script',
 			'https://example.com/',
 			array( 'dependency' ),
@@ -80,7 +80,7 @@ class Override_Script_Test extends FP_UnitTestCase {
 			true
 		);
 
-		$script = $fp_scripts->query( 'gutenberg-second-dummy-script', 'registered' );
+		$script = $fin_scripts->query( 'gutenberg-second-dummy-script', 'registered' );
 		$this->assertEquals( 'https://example.com/', $script->src );
 		$this->assertEquals( array( 'dependency' ), $script->deps );
 		$this->assertEquals( 'version', $script->ver );

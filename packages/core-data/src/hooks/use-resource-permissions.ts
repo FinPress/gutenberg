@@ -213,8 +213,8 @@ export function __experimentalUseResourcePermissions(
 	resource: string,
 	id?: unknown
 ) {
-	deprecated( `fp.data.__experimentalUseResourcePermissions`, {
-		alternative: 'fp.data.useResourcePermissions',
+	deprecated( `fin.data.__experimentalUseResourcePermissions`, {
+		alternative: 'fin.data.useResourcePermissions',
 		since: '6.1',
 	} );
 	return useResourcePermissions( resource, id );

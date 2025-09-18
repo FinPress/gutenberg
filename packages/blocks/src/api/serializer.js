@@ -23,10 +23,10 @@ import {
 import { serializeRawBlock } from './parser/serialize-raw-block';
 import { isUnmodifiedDefaultBlock, normalizeBlockType } from './utils';
 
-/** @typedef {import('./parser').FPBlock} FPBlock */
+/** @typedef {import('./parser').FINBlock} FINBlock */
 
 /**
- * @typedef {Object} FPBlockSerializationOptions Serialization Options.
+ * @typedef {Object} FINBlockSerializationOptions Serialization Options.
  *
  * @property {boolean} isInnerBlocks Whether we are serializing inner blocks.
  */
@@ -159,7 +159,7 @@ export function getSaveElement(
 		 * Filters the props applied to the block save result element.
 		 *
 		 * @param {Object}  props      Props applied to save element.
-		 * @param {FPBlock} blockType  Block type definition.
+		 * @param {FINBlock} blockType  Block type definition.
 		 * @param {Object}  attributes Block attributes.
 		 */
 		const props = applyFilters(
@@ -178,7 +178,7 @@ export function getSaveElement(
 	 * Filters the save result of a block during serialization.
 	 *
 	 * @param {Element} element    Block save result.
-	 * @param {FPBlock} blockType  Block type definition.
+	 * @param {FINBlock} blockType  Block type definition.
 	 * @param {Object}  attributes Block attributes.
 	 */
 	return applyFilters(
@@ -365,8 +365,8 @@ export function getCommentDelimitedContent(
  * Returns the content of a block, including comment delimiters, determining
  * serialized attributes and content form from the current state of the block.
  *
- * @param {FPBlock}                     block   Block instance.
- * @param {FPBlockSerializationOptions} options Serialization options.
+ * @param {FINBlock}                     block   Block instance.
+ * @param {FINBlockSerializationOptions} options Serialization options.
  *
  * @return {string} Serialized block.
  */
@@ -421,7 +421,7 @@ export function __unstableSerializeAndClean( blocks ) {
  * Takes a block or set of blocks and returns the serialized post content.
  *
  * @param {Array}                       blocks  Block(s) to serialize.
- * @param {FPBlockSerializationOptions} options Serialization options.
+ * @param {FINBlockSerializationOptions} options Serialization options.
  *
  * @return {string} The post content.
  */

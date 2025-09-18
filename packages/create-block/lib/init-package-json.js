@@ -17,8 +17,8 @@ module.exports = async ( {
 	pluginURI,
 	slug,
 	version,
-	fpEnv,
-	fpScripts,
+	finEnv,
+	finScripts,
 	npmDependencies,
 	npmDevDependencies,
 	customScripts,
@@ -88,24 +88,24 @@ module.exports = async ( {
 				author,
 				license,
 				homepage: pluginURI,
-				main: fpScripts && 'build/index.js',
+				main: finScripts && 'build/index.js',
 				scripts: {
-					...( fpScripts && {
+					...( finScripts && {
 						build:
 							( isDynamicVariant
-								? 'fp-scripts build --webpack-copy-php'
-								: 'fp-scripts build' ) + ' --blocks-manifest',
-						format: 'fp-scripts format',
-						'lint:css': 'fp-scripts lint-style',
-						'lint:js': 'fp-scripts lint-js',
-						'packages-update': 'fp-scripts packages-update',
-						'plugin-zip': 'fp-scripts plugin-zip',
+								? 'fin-scripts build --webpack-copy-php'
+								: 'fin-scripts build' ) + ' --blocks-manifest',
+						format: 'fin-scripts format',
+						'lint:css': 'fin-scripts lint-style',
+						'lint:js': 'fin-scripts lint-js',
+						'packages-update': 'fin-scripts packages-update',
+						'plugin-zip': 'fin-scripts plugin-zip',
 						start:
 							( isDynamicVariant
-								? 'fp-scripts start --webpack-copy-php'
-								: 'fp-scripts start' ) + ' --blocks-manifest',
+								? 'fin-scripts start --webpack-copy-php'
+								: 'fin-scripts start' ) + ' --blocks-manifest',
 					} ),
-					...( fpEnv && { env: 'fp-env' } ),
+					...( finEnv && { env: 'fin-env' } ),
 					...customScripts,
 				},
 				dependencies:
@@ -121,7 +121,7 @@ module.exports = async ( {
 		)
 	);
 
-	if ( fpScripts ) {
+	if ( finScripts ) {
 		if (
 			Object.keys( dependencies ).length > 0 ||
 			Object.keys( devDependencies ).length > 0

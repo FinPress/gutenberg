@@ -43,7 +43,7 @@ register( store );
 // This middleware prevents any network requests related to these types as they are
 // bound to fail anyway.
 apiFetch.use( function ( options, next ) {
-	if ( options.path?.indexOf( '/fp/v2/types/widget-area' ) === 0 ) {
+	if ( options.path?.indexOf( '/fin/v2/types/widget-area' ) === 0 ) {
 		return Promise.resolve( {} );
 	}
 

@@ -19,15 +19,15 @@ export default function save( { attributes } ) {
 		return null;
 	}
 
-	const className = clsx( 'fp-block-embed', {
+	const className = clsx( 'fin-block-embed', {
 		[ `is-type-${ type }` ]: type,
 		[ `is-provider-${ providerNameSlug }` ]: providerNameSlug,
-		[ `fp-block-embed-${ providerNameSlug }` ]: providerNameSlug,
+		[ `fin-block-embed-${ providerNameSlug }` ]: providerNameSlug,
 	} );
 
 	return (
 		<figure { ...useBlockProps.save( { className } ) }>
-			<div className="fp-block-embed__wrapper">
+			<div className="fin-block-embed__wrapper">
 				{ `\n${ url }\n` /* URL needs to be on its own line. */ }
 			</div>
 			{ ! RichText.isEmpty( caption ) && (

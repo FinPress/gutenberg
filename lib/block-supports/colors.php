@@ -8,11 +8,11 @@
 /**
  * Registers the style and colors block attributes for block types that support it.
  *
- * @param FP_Block_Type $block_type Block Type.
+ * @param FIN_Block_Type $block_type Block Type.
  */
 function gutenberg_register_colors_support( $block_type ) {
 	$color_support = false;
-	if ( $block_type instanceof FP_Block_Type ) {
+	if ( $block_type instanceof FIN_Block_Type ) {
 		$color_support = $block_type->supports['color'] ?? false;
 	}
 	$has_text_colors_support       = true === $color_support ||
@@ -66,7 +66,7 @@ function gutenberg_register_colors_support( $block_type ) {
  * Add CSS classes and inline styles for colors to the incoming attributes array.
  * This will be applied to the block markup in the front-end.
  *
- * @param  FP_Block_Type $block_type       Block type.
+ * @param  FIN_Block_Type $block_type       Block type.
  * @param  array         $block_attributes Block attributes.
  *
  * @return array Colors CSS classes and inline styles.
@@ -76,7 +76,7 @@ function gutenberg_apply_colors_support( $block_type, $block_attributes ) {
 
 	if (
 		is_array( $color_support ) &&
-		fp_should_skip_block_supports_serialization( $block_type, 'color' )
+		fin_should_skip_block_supports_serialization( $block_type, 'color' )
 	) {
 		return array();
 	}
@@ -92,14 +92,14 @@ function gutenberg_apply_colors_support( $block_type, $block_attributes ) {
 
 	// Text colors.
 	// Check support for text colors.
-	if ( $has_text_colors_support && ! fp_should_skip_block_supports_serialization( $block_type, 'color', 'text' ) ) {
+	if ( $has_text_colors_support && ! fin_should_skip_block_supports_serialization( $block_type, 'color', 'text' ) ) {
 		$preset_text_color          = array_key_exists( 'textColor', $block_attributes ) ? "var:preset|color|{$block_attributes['textColor']}" : null;
 		$custom_text_color          = $block_attributes['style']['color']['text'] ?? null;
 		$color_block_styles['text'] = $preset_text_color ? $preset_text_color : $custom_text_color;
 	}
 
 	// Background colors.
-	if ( $has_background_colors_support && ! fp_should_skip_block_supports_serialization( $block_type, 'color', 'background' ) ) {
+	if ( $has_background_colors_support && ! fin_should_skip_block_supports_serialization( $block_type, 'color', 'background' ) ) {
 		$preset_background_color          = array_key_exists( 'backgroundColor', $block_attributes ) ? "var:preset|color|{$block_attributes['backgroundColor']}" : null;
 		$custom_background_color          = $block_attributes['style']['color']['background'] ?? null;
 		$color_block_styles['background'] = $preset_background_color ? $preset_background_color : $custom_background_color;
@@ -107,7 +107,7 @@ function gutenberg_apply_colors_support( $block_type, $block_attributes ) {
 
 	// Gradients.
 
-	if ( $has_gradients_support && ! fp_should_skip_block_supports_serialization( $block_type, 'color', 'gradients' ) ) {
+	if ( $has_gradients_support && ! fin_should_skip_block_supports_serialization( $block_type, 'color', 'gradients' ) ) {
 		$preset_gradient_color          = array_key_exists( 'gradient', $block_attributes ) ? "var:preset|gradient|{$block_attributes['gradient']}" : null;
 		$custom_gradient_color          = $block_attributes['style']['color']['gradient'] ?? null;
 		$color_block_styles['gradient'] = $preset_gradient_color ? $preset_gradient_color : $custom_gradient_color;
@@ -128,7 +128,7 @@ function gutenberg_apply_colors_support( $block_type, $block_attributes ) {
 }
 
 // Register the block support.
-FP_Block_Supports::get_instance()->register(
+FIN_Block_Supports::get_instance()->register(
 	'colors',
 	array(
 		'register_attribute' => 'gutenberg_register_colors_support',

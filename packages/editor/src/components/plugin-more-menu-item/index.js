@@ -12,23 +12,23 @@ import { ActionItem } from '@finpress/interface';
  * @param {Object}                props                                 Component properties.
  * @param {React.ReactNode}       [props.children]                      Children to be rendered.
  * @param {string}                [props.href]                          When `href` is provided then the menu item is represented as an anchor rather than button. It corresponds to the `href` attribute of the anchor.
- * @param {FPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FP element, to be rendered to the left of the menu item label.
+ * @param {FINBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FIN element, to be rendered to the left of the menu item label.
  * @param {Function}              [props.onClick=noop]                  The callback function to be executed when the user clicks the menu item.
  * @param {...*}                  [props.other]                         Any additional props are passed through to the underlying [Button](/packages/components/src/button/README.md) component.
  *
  * @example
  * ```js
  * // Using ES5 syntax
- * var __ = fp.i18n.__;
- * var PluginMoreMenuItem = fp.editor.PluginMoreMenuItem;
- * var moreIcon = fp.element.createElement( 'svg' ); //... svg element.
+ * var __ = fin.i18n.__;
+ * var PluginMoreMenuItem = fin.editor.PluginMoreMenuItem;
+ * var moreIcon = fin.element.createElement( 'svg' ); //... svg element.
  *
  * function onButtonClick() {
  * 	alert( 'Button clicked.' );
  * }
  *
  * function MyButtonMoreMenuItem() {
- * 	return fp.element.createElement(
+ * 	return fin.element.createElement(
  * 		PluginMoreMenuItem,
  * 		{
  * 			icon: moreIcon,

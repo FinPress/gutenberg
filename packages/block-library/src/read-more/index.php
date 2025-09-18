@@ -12,7 +12,7 @@
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  * @return string  Returns the post link.
  */
 function render_block_core_read_more( $attributes, $content, $block ) {

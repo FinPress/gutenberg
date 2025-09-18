@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/widget-group",
 	"title": "Widget Group",
@@ -15,6 +15,6 @@
 		"customClassName": true,
 		"reusable": false
 	},
-	"editorStyle": "fp-block-widget-group-editor",
-	"style": "fp-block-widget-group"
+	"editorStyle": "fin-block-widget-group-editor",
+	"style": "fin-block-widget-group"
 }

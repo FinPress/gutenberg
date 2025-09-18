@@ -1,6 +1,6 @@
 const ELEMENT_CLASS_NAMES = {
-	button: 'fp-element-button',
-	caption: 'fp-element-caption',
+	button: 'fin-element-button',
+	caption: 'fin-element-caption',
 };
 
 export const __experimentalGetElementClassName = ( element ) => {

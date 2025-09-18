@@ -11,7 +11,7 @@
  *
  * @group blocks
  */
-class Tests_Blocks_Render_Rss extends FP_UnitTestCase {
+class Tests_Blocks_Render_Rss extends FIN_UnitTestCase {
 
 	/**
 	 * Set up before each test.
@@ -19,7 +19,7 @@ class Tests_Blocks_Render_Rss extends FP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 
-		add_filter( 'fp_feed_cache_transient_lifetime', '__return_zero' );
+		add_filter( 'fin_feed_cache_transient_lifetime', '__return_zero' );
 		add_filter( 'pre_http_request', array( $this, 'mock_http_request' ), 10, 3 );
 	}
 
@@ -40,7 +40,7 @@ class Tests_Blocks_Render_Rss extends FP_UnitTestCase {
 			'headers'  => array(
 				'content-type' => 'application/rss+xml; charset=UTF-8',
 			),
-			// phpcs:ignore FinPress.FP.AlternativeFunctions.file_get_contents_file_get_contents
+			// phpcs:ignore FinPress.FIN.AlternativeFunctions.file_get_contents_file_get_contents
 			'body'     => file_get_contents( GUTENBERG_DIR_TESTDATA . 'feed/feed-with-gmt-offset.xml' ),
 			'response' => array(
 				'code'    => 200,
@@ -53,7 +53,7 @@ class Tests_Blocks_Render_Rss extends FP_UnitTestCase {
 
 	/**
 	 * Sets up the "core/rss" block context for testing.
-	 * This is needed to avoid null access in FP_Block_Supports::apply_block_supports().
+	 * This is needed to avoid null access in FIN_Block_Supports::apply_block_supports().
 	 */
 	private function setup_block_context() {
 		$block = array(
@@ -61,11 +61,11 @@ class Tests_Blocks_Render_Rss extends FP_UnitTestCase {
 			'attrs'     => array(),
 		);
 
-		$fp_block_supports = FP_Block_Supports::get_instance();
-		$reflection        = new ReflectionClass( $fp_block_supports );
+		$fin_block_supports = FIN_Block_Supports::get_instance();
+		$reflection        = new ReflectionClass( $fin_block_supports );
 		$property          = $reflection->getProperty( 'block_to_render' );
 		$property->setAccessible( true );
-		$property->setValue( $fp_block_supports, $block );
+		$property->setValue( $fin_block_supports, $block );
 	}
 
 	/**

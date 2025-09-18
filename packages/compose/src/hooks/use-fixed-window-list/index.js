@@ -13,7 +13,7 @@ import { debounce } from '../../utils/debounce';
 const DEFAULT_INIT_WINDOW_SIZE = 30;
 
 /**
- * @typedef {Object} FPFixedWindowList
+ * @typedef {Object} FINFixedWindowList
  *
  * @property {number}                  visibleItems Items visible in the current viewport
  * @property {number}                  start        Start index of the window
@@ -22,7 +22,7 @@ const DEFAULT_INIT_WINDOW_SIZE = 30;
  */
 
 /**
- * @typedef {Object} FPFixedWindowListOptions
+ * @typedef {Object} FINFixedWindowListOptions
  *
  * @property {number}  [windowOverscan] Renders windowOverscan number of items before and after the calculated visible window.
  * @property {boolean} [useWindowing]   When false avoids calculating the window size
@@ -35,8 +35,8 @@ const DEFAULT_INIT_WINDOW_SIZE = 30;
  * @param {import('react').RefObject<HTMLElement>} elementRef Used to find the closest scroll container that contains element.
  * @param { number }                               itemHeight Fixed item height in pixels
  * @param { number }                               totalItems Total items in list
- * @param { FPFixedWindowListOptions }             [options]  Options object
- * @return {[ FPFixedWindowList, setFixedListWindow:(nextWindow:FPFixedWindowList)=>void]} Array with the fixed window list and setter
+ * @param { FINFixedWindowListOptions }             [options]  Options object
+ * @return {[ FINFixedWindowList, setFixedListWindow:(nextWindow:FINFixedWindowList)=>void]} Array with the fixed window list and setter
  */
 export default function useFixedWindowList(
 	elementRef,

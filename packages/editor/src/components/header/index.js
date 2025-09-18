@@ -92,7 +92,7 @@ function Header( {
 	}, [] );
 
 	const canBeZoomedOut =
-		[ 'post', 'page', 'fp_template' ].includes( postType ) &&
+		[ 'post', 'page', 'fin_template' ].includes( postType ) &&
 		hasSectionRootClientId;
 
 	const disablePreviewOption =

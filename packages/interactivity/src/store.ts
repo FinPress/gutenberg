@@ -27,7 +27,7 @@ export const getConfig = ( namespace?: string ) =>
  * Gets the part of the state defined and updated from the server.
  *
  * The object returned is read-only, and includes the state defined in PHP with
- * `fp_interactivity_state()`. When using `actions.navigate()`, this object is
+ * `fin_interactivity_state()`. When using `actions.navigate()`, this object is
  * updated to reflect the changes in its properties, without affecting the state
  * returned by `store()`. Directives can subscribe to those changes to update
  * the state if needed.
@@ -156,10 +156,10 @@ export const universalUnlock =
  * the store by using directives in the HTML, e.g.:
  *
  * ```html
- * <div data-fp-interactive="counter">
+ * <div data-fin-interactive="counter">
  *   <button
- *     data-fp-text="state.double"
- *     data-fp-on--click="actions.increment"
+ *     data-fin-text="state.double"
+ *     data-fin-on--click="actions.increment"
  *   >
  *     0
  *   </button>
@@ -257,10 +257,10 @@ export const parseServerData = ( dom = document ) => {
 	const jsonDataScriptTag =
 		// Preferred Script Module data passing form
 		dom.getElementById(
-			'fp-script-module-data-@finpress/interactivity'
+			'fin-script-module-data-@finpress/interactivity'
 		) ??
 		// Legacy form
-		dom.getElementById( 'fp-interactivity-data' );
+		dom.getElementById( 'fin-interactivity-data' );
 	if ( jsonDataScriptTag?.textContent ) {
 		try {
 			return JSON.parse( jsonDataScriptTag.textContent );

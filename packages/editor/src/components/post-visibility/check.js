@@ -21,7 +21,7 @@ export default function PostVisibilityCheck( { render } ) {
 	const canEdit = useSelect( ( select ) => {
 		return (
 			select( editorStore ).getCurrentPost()._links?.[
-				'fp:action-publish'
+				'fin:action-publish'
 			] ?? false
 		);
 	} );

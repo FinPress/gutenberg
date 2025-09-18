@@ -33,7 +33,7 @@
 	],
 	"main": "lib/env.js",
 	"bin": {
-		"fp-env": "bin/fp-env"
+		"fin-env": "bin/fin-env"
 	},
 	"dependencies": {
 		"@inquirer/prompts": "^7.2.0",

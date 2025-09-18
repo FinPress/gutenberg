@@ -10,7 +10,7 @@ import deprecated from '@finpress/deprecated';
  * @deprecated
  */
 export function MultiSelectScrollIntoView() {
-	deprecated( 'fp.blockEditor.MultiSelectScrollIntoView', {
+	deprecated( 'fin.blockEditor.MultiSelectScrollIntoView', {
 		hint: 'This behaviour is now built-in.',
 		since: '5.8',
 	} );

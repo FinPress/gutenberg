@@ -15,18 +15,18 @@ export const PERMALINK_POSTNAME_REGEX = /%(?:postname|pagename)%/;
 export const ONE_MINUTE_IN_MS = 60 * 1000;
 export const AUTOSAVE_PROPERTIES = [ 'title', 'excerpt', 'content' ];
 export const TEMPLATE_PART_AREA_DEFAULT_CATEGORY = 'uncategorized';
-export const TEMPLATE_POST_TYPE = 'fp_template';
-export const TEMPLATE_PART_POST_TYPE = 'fp_template_part';
-export const PATTERN_POST_TYPE = 'fp_block';
-export const NAVIGATION_POST_TYPE = 'fp_navigation';
+export const TEMPLATE_POST_TYPE = 'fin_template';
+export const TEMPLATE_PART_POST_TYPE = 'fin_template_part';
+export const PATTERN_POST_TYPE = 'fin_block';
+export const NAVIGATION_POST_TYPE = 'fin_navigation';
 export const TEMPLATE_ORIGINS = {
 	custom: 'custom',
 	theme: 'theme',
 	plugin: 'plugin',
 };
-export const TEMPLATE_POST_TYPES = [ 'fp_template', 'fp_template_part' ];
+export const TEMPLATE_POST_TYPES = [ 'fin_template', 'fin_template_part' ];
 export const GLOBAL_POST_TYPES = [
 	...TEMPLATE_POST_TYPES,
-	'fp_block',
-	'fp_navigation',
+	'fin_block',
+	'fin_navigation',
 ];

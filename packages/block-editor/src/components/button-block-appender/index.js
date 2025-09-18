@@ -87,8 +87,8 @@ function ButtonBlockAppender(
  * @deprecated
  */
 export const ButtonBlockerAppender = forwardRef( ( props, ref ) => {
-	deprecated( `fp.blockEditor.ButtonBlockerAppender`, {
-		alternative: 'fp.blockEditor.ButtonBlockAppender',
+	deprecated( `fin.blockEditor.ButtonBlockerAppender`, {
+		alternative: 'fin.blockEditor.ButtonBlockAppender',
 		since: '5.9',
 	} );
 

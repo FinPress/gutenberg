@@ -3375,7 +3375,7 @@ describe( 'selectors', () => {
 						isTemporary: false,
 						clientId: 'block1',
 						title: { raw: 'Reusable Block 1' },
-						content: { raw: '<!-- /fp:test-block-a -->' },
+						content: { raw: '<!-- /fin:test-block-a -->' },
 					},
 				],
 			} );
@@ -3403,11 +3403,11 @@ describe( 'selectors', () => {
 			);
 			expect( reusableBlockItem ).toEqual( {
 				category: 'reusable',
-				content: '<!-- /fp:test-block-a -->',
+				content: '<!-- /fin:test-block-a -->',
 				frecency: 0,
 				icon: {
 					src: symbol,
-					foreground: 'var(--fp-block-synced-color)',
+					foreground: 'var(--fin-block-synced-color)',
 				},
 				id: 'core/block/1',
 				initialAttributes: { ref: 1 },
@@ -3428,14 +3428,14 @@ describe( 'selectors', () => {
 						isTemporary: false,
 						clientId: 'block1',
 						title: { raw: 'Reusable Block 1' },
-						content: { raw: '<!-- /fp:test-block-a -->' },
+						content: { raw: '<!-- /fin:test-block-a -->' },
 					},
 					{
 						id: 2,
 						isTemporary: false,
 						clientId: 'block2',
 						title: { raw: 'Reusable Block 2' },
-						content: { raw: '<!-- /fp:test-block-b -->' },
+						content: { raw: '<!-- /fin:test-block-b -->' },
 					},
 				],
 			} );

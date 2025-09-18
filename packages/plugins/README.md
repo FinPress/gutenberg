@@ -26,7 +26,7 @@ _Parameters_
 
 _Returns_
 
--   `FPPlugin | undefined`: Plugin setting.
+-   `FINPlugin | undefined`: Plugin setting.
 
 #### getPlugins
 
@@ -38,7 +38,7 @@ _Parameters_
 
 _Returns_
 
--   `FPPlugin[]`: The list of plugins without a scope or for a given scope.
+-   `FINPlugin[]`: The list of plugins without a scope or for a given scope.
 
 #### PluginArea
 
@@ -70,9 +70,9 @@ const Layout = () => (
 
 _Parameters_
 
--   _props_ `{ scope?: string; onError?: ( name: FPPlugin[ 'name' ], error: Error ) => void; }`:
+-   _props_ `{ scope?: string; onError?: ( name: FINPlugin[ 'name' ], error: Error ) => void; }`:
 -   _props.scope_ `string`:
--   _props.onError_ `( name: FPPlugin[ 'name' ], error: Error ) => void`:
+-   _props.onError_ `( name: FINPlugin[ 'name' ], error: Error ) => void`:
 
 _Returns_
 
@@ -180,7 +180,7 @@ _Parameters_
 
 _Returns_
 
--   `FPPlugin | undefined`: The previous plugin settings object, if it has been successfully unregistered; otherwise `undefined`.
+-   `FINPlugin | undefined`: The previous plugin settings object, if it has been successfully unregistered; otherwise `undefined`.
 
 #### usePluginContext
 

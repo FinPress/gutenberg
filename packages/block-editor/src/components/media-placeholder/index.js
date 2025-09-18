@@ -144,7 +144,7 @@ export function MediaPlaceholder( {
 	style,
 } ) {
 	if ( deprecatedOnHTMLDrop ) {
-		deprecated( 'fp.blockEditor.MediaPlaceholder onHTMLDrop prop', {
+		deprecated( 'fin.blockEditor.MediaPlaceholder onHTMLDrop prop', {
 			since: '6.2',
 			version: '6.4',
 		} );
@@ -370,7 +370,7 @@ export function MediaPlaceholder( {
 				onFilesDrop={ onFilesUpload }
 				onDrop={ handleBlocksDrop }
 				isEligible={ ( dataTransfer ) => {
-					const prefix = 'fp-block:core/';
+					const prefix = 'fin-block:core/';
 					const types = [];
 					for ( const type of dataTransfer.types ) {
 						if ( type.startsWith( prefix ) ) {

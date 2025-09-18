@@ -1,1 +1,1 @@
-export type FPDropOperation = 'insert' | 'replace';
+export type FINDropOperation = 'insert' | 'replace';

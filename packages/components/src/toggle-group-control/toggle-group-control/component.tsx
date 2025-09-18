@@ -94,7 +94,7 @@ function UnconnectedToggleGroupControl(
 		<BaseControl
 			help={ help }
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-			__associatedFPComponentName="ToggleGroupControl"
+			__associatedFINComponentName="ToggleGroupControl"
 		>
 			{ ! hideLabelFromVision && (
 				<VisualLabelWrapper>

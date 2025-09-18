@@ -59,7 +59,7 @@ describe( 'utils', () => {
 	describe( 'getClassNames', () => {
 		it( 'should return aspect ratio class names for iframes with width and height', () => {
 			const html = '<iframe height="9" width="16"></iframe>';
-			const expected = 'fp-embed-aspect-16-9 fp-has-aspect-ratio';
+			const expected = 'fin-embed-aspect-16-9 fin-has-aspect-ratio';
 			expect( getClassNames( html ) ).toEqual( expected );
 		} );
 
@@ -75,7 +75,7 @@ describe( 'utils', () => {
 			expect(
 				getClassNames(
 					html,
-					'lovely fp-embed-aspect-16-9 fp-has-aspect-ratio',
+					'lovely fin-embed-aspect-16-9 fin-has-aspect-ratio',
 					false
 				)
 			).toEqual( expected );
@@ -92,11 +92,11 @@ describe( 'utils', () => {
 		it( 'should preserve existing classes and replace aspect ratio related classes with the current embed preview', () => {
 			const html = '<iframe height="3" width="4"></iframe>';
 			const expected =
-				'fp-block-embed fp-embed-aspect-4-3 fp-has-aspect-ratio';
+				'fin-block-embed fin-embed-aspect-4-3 fin-has-aspect-ratio';
 			expect(
 				getClassNames(
 					html,
-					'fp-block-embed fp-embed-aspect-16-9 fp-has-aspect-ratio',
+					'fin-block-embed fin-embed-aspect-16-9 fin-has-aspect-ratio',
 					true
 				)
 			).toEqual( expected );
@@ -104,12 +104,12 @@ describe( 'utils', () => {
 	} );
 	describe( 'hasAspectRatioClass', () => {
 		it( 'should return false if an aspect ratio class does not exist', () => {
-			const existingClassNames = 'fp-block-embed is-type-video';
+			const existingClassNames = 'fin-block-embed is-type-video';
 			expect( hasAspectRatioClass( existingClassNames ) ).toBe( false );
 		} );
 		it( 'should return true if an aspect ratio class exists', () => {
 			const existingClassNames =
-				'fp-block-embed is-type-video fp-embed-aspect-16-9 fp-has-aspect-ratio';
+				'fin-block-embed is-type-video fin-embed-aspect-16-9 fin-has-aspect-ratio';
 			expect( hasAspectRatioClass( existingClassNames ) ).toBe( true );
 		} );
 	} );
@@ -121,16 +121,16 @@ describe( 'utils', () => {
 			);
 		} );
 		it( 'should preserve existing classes, if no aspect ratio classes exist', () => {
-			const existingClassNames = 'fp-block-embed is-type-video';
+			const existingClassNames = 'fin-block-embed is-type-video';
 			expect( removeAspectRatioClasses( existingClassNames ) ).toEqual(
 				existingClassNames
 			);
 		} );
 		it( 'should remove the aspect ratio classes', () => {
 			const existingClassNames =
-				'fp-block-embed is-type-video fp-embed-aspect-16-9 fp-has-aspect-ratio';
+				'fin-block-embed is-type-video fin-embed-aspect-16-9 fin-has-aspect-ratio';
 			expect( removeAspectRatioClasses( existingClassNames ) ).toEqual(
-				'fp-block-embed is-type-video'
+				'fin-block-embed is-type-video'
 			);
 		} );
 	} );

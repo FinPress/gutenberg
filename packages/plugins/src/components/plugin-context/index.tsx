@@ -8,11 +8,11 @@ import deprecated from '@finpress/deprecated';
 /**
  * Internal dependencies
  */
-import type { FPPlugin } from '../../api';
+import type { FINPlugin } from '../../api';
 
 export interface PluginContext {
-	name: null | FPPlugin[ 'name' ];
-	icon: null | FPPlugin[ 'icon' ];
+	name: null | FINPlugin[ 'name' ];
+	icon: null | FINPlugin[ 'icon' ];
 }
 
 const Context = createContext< PluginContext >( {

@@ -8,7 +8,7 @@
  *
  * @group blocks
  */
-class Tests_Blocks_RenderPostTemplateBlock extends FP_UnitTestCase {
+class Tests_Blocks_RenderPostTemplateBlock extends FIN_UnitTestCase {
 
 	private static $post;
 	private static $other_post;
@@ -41,26 +41,26 @@ class Tests_Blocks_RenderPostTemplateBlock extends FP_UnitTestCase {
 
 	public function test_rendering_post_template() {
 		$parsed_blocks = parse_blocks(
-			'<!-- fp:post-template --><!-- fp:post-title /--><!-- fp:post-excerpt /--><!-- /fp:post-template -->'
+			'<!-- fin:post-template --><!-- fin:post-title /--><!-- fin:post-excerpt /--><!-- /fin:post-template -->'
 		);
-		$block         = new FP_Block( $parsed_blocks[0] );
+		$block         = new FIN_Block( $parsed_blocks[0] );
 		$markup        = $block->render();
 
 		$post_id       = self::$post->ID;
 		$other_post_id = self::$other_post->ID;
 
 		$expected = <<<END
-<ul class="fp-block-post-template is-layout-flow fp-block-post-template-is-layout-flow">
-	<li class="fp-block-post post-$other_post_id post type-post status-publish format-standard hentry category-uncategorized">
-		<h2 class="fp-block-post-title">Ceiling Cat</h2>
-		<div class="fp-block-post-excerpt">
-			<p class="fp-block-post-excerpt__excerpt">Ceiling Cat </p>
+<ul class="fin-block-post-template is-layout-flow fin-block-post-template-is-layout-flow">
+	<li class="fin-block-post post-$other_post_id post type-post status-publish format-standard hentry category-uncategorized">
+		<h2 class="fin-block-post-title">Ceiling Cat</h2>
+		<div class="fin-block-post-excerpt">
+			<p class="fin-block-post-excerpt__excerpt">Ceiling Cat </p>
 		</div>
 	</li>
-	<li class="fp-block-post post-$post_id post type-post status-publish format-standard hentry category-uncategorized">
-		<h2 class="fp-block-post-title">Metal Dog</h2>
-		<div class="fp-block-post-excerpt">
-			<p class="fp-block-post-excerpt__excerpt">Metal Dog </p>
+	<li class="fin-block-post post-$post_id post type-post status-publish format-standard hentry category-uncategorized">
+		<h2 class="fin-block-post-title">Metal Dog</h2>
+		<div class="fin-block-post-excerpt">
+			<p class="fin-block-post-excerpt__excerpt">Metal Dog </p>
 		</div>
 	</li>
 </ul>
@@ -76,24 +76,24 @@ END;
 	 * `core/query` block.
 	 */
 	public function test_rendering_post_template_with_main_query_loop() {
-		global $fp_query, $fp_the_query;
+		global $fin_query, $fin_the_query;
 
 		// Query block with post template block.
-		$content  = '<!-- fp:query {"query":{"inherit":true}} -->';
-		$content .= '<!-- fp:post-template {"align":"wide"} -->';
-		$content .= '<!-- fp:post-title /--><!-- fp:test/in-the-loop-logger /-->';
-		$content .= '<!-- /fp:post-template -->';
-		$content .= '<!-- /fp:query -->';
+		$content  = '<!-- fin:query {"query":{"inherit":true}} -->';
+		$content .= '<!-- fin:post-template {"align":"wide"} -->';
+		$content .= '<!-- fin:post-title /--><!-- fin:test/in-the-loop-logger /-->';
+		$content .= '<!-- /fin:post-template -->';
+		$content .= '<!-- /fin:query -->';
 
-		$expected  = '<ul class="alignwide fp-block-post-template is-layout-flow fp-block-post-template-is-layout-flow fp-block-query-is-layout-flow">';
-		$expected .= '<li class="fp-block-post post-' . self::$post->ID . ' post type-post status-publish format-standard hentry category-uncategorized">';
-		$expected .= '<h2 class="fp-block-post-title">' . self::$post->post_title . '</h2>';
+		$expected  = '<ul class="alignwide fin-block-post-template is-layout-flow fin-block-post-template-is-layout-flow fin-block-query-is-layout-flow">';
+		$expected .= '<li class="fin-block-post post-' . self::$post->ID . ' post type-post status-publish format-standard hentry category-uncategorized">';
+		$expected .= '<h2 class="fin-block-post-title">' . self::$post->post_title . '</h2>';
 		$expected .= '</li>';
 		$expected .= '</ul>';
 
 		// Set main query to single post.
-		$fp_query     = new FP_Query( array( 'p' => self::$post->ID ) );
-		$fp_the_query = $fp_query;
+		$fin_query     = new FIN_Query( array( 'p' => self::$post->ID ) );
+		$fin_the_query = $fin_query;
 
 		// Register test block to log `in_the_loop()` results.
 		$in_the_loop_logs = array();
@@ -119,31 +119,31 @@ END;
 	 * Also tests that the default query returns posts of the 'post' post type when in a single post of any post type.
 	 */
 	public function test_rendering_post_template_with_main_query_loop_already_started() {
-		global $fp_query, $fp_the_query;
+		global $fin_query, $fin_the_query;
 
 		// Query block with post template block.
-		$content  = '<!-- fp:query {"query":{"inherit":false}} -->';
-		$content .= '<!-- fp:post-template {"align":"wide"} -->';
-		$content .= '<!-- fp:post-title /-->';
-		$content .= '<!-- /fp:post-template -->';
-		$content .= '<!-- /fp:query -->';
+		$content  = '<!-- fin:query {"query":{"inherit":false}} -->';
+		$content .= '<!-- fin:post-template {"align":"wide"} -->';
+		$content .= '<!-- fin:post-title /-->';
+		$content .= '<!-- /fin:post-template -->';
+		$content .= '<!-- /fin:query -->';
 
-		$expected = '<ul class="alignwide fp-block-post-template is-layout-flow fp-block-post-template-is-layout-flow fp-block-query-is-layout-flow">';
+		$expected = '<ul class="alignwide fin-block-post-template is-layout-flow fin-block-post-template-is-layout-flow fin-block-query-is-layout-flow">';
 
 		// Find all the posts of the 'post' post type.
-		$fp_query_posts = new FP_Query( array( 'post_type' => 'post' ) );
+		$fin_query_posts = new FIN_Query( array( 'post_type' => 'post' ) );
 
-		while ( $fp_query_posts->have_posts() ) {
-			$fp_query_posts->the_post();
-			$expected .= '<li class="fp-block-post post-' . get_the_ID() . ' post type-post status-publish format-standard hentry category-uncategorized">';
-			$expected .= '<h2 class="fp-block-post-title">' . get_the_title() . '</h2>';
+		while ( $fin_query_posts->have_posts() ) {
+			$fin_query_posts->the_post();
+			$expected .= '<li class="fin-block-post post-' . get_the_ID() . ' post type-post status-publish format-standard hentry category-uncategorized">';
+			$expected .= '<h2 class="fin-block-post-title">' . get_the_title() . '</h2>';
 			$expected .= '</li>';
 		}
 
 		$expected .= '</ul>';
 
 		// Update the post's content to have a query block for the same query as the main query.
-		fp_update_post(
+		fin_update_post(
 			array(
 				'ID'                    => self::$post->ID,
 				'post_content'          => $content,
@@ -152,13 +152,13 @@ END;
 		);
 
 		// Set main query to single post.
-		$fp_query     = new FP_Query( array( 'p' => self::$post->ID ) );
-		$fp_the_query = $fp_query;
+		$fin_query     = new FIN_Query( array( 'p' => self::$post->ID ) );
+		$fin_the_query = $fin_query;
 
 		// Get post content within main query loop.
 		$output = '';
-		while ( $fp_query->have_posts() ) {
-			$fp_query->the_post();
+		while ( $fin_query->have_posts() ) {
+			$fin_query->the_post();
 
 			$output = get_echo( 'the_content' );
 		}
@@ -170,31 +170,31 @@ END;
 	 * Tests that the `core/post-template` block rewinds the default query when not in a single post of any post type.
 	 */
 	public function test_rendering_post_template_with_main_query_loop_not_single_post() {
-		global $fp_query, $fp_the_query;
+		global $fin_query, $fin_the_query;
 
 		// Query block with post template block.
-		$content  = '<!-- fp:query {"query":{"inherit":true}} -->';
-		$content .= '<!-- fp:post-template {"align":"wide"} -->';
-		$content .= '<!-- fp:post-title /-->';
-		$content .= '<!-- /fp:post-template -->';
-		$content .= '<!-- /fp:query -->';
+		$content  = '<!-- fin:query {"query":{"inherit":true}} -->';
+		$content .= '<!-- fin:post-template {"align":"wide"} -->';
+		$content .= '<!-- fin:post-title /-->';
+		$content .= '<!-- /fin:post-template -->';
+		$content .= '<!-- /fin:query -->';
 
-		$expected = '<ul class="alignwide fp-block-post-template is-layout-flow fp-block-post-template-is-layout-flow fp-block-query-is-layout-flow">';
+		$expected = '<ul class="alignwide fin-block-post-template is-layout-flow fin-block-post-template-is-layout-flow fin-block-query-is-layout-flow">';
 
 		// Find all the posts of the 'post' post type.
-		$fp_query_posts = new FP_Query( array( 'post_type' => 'post' ) );
+		$fin_query_posts = new FIN_Query( array( 'post_type' => 'post' ) );
 
-		while ( $fp_query_posts->have_posts() ) {
-			$fp_query_posts->the_post();
-			$expected .= '<li class="fp-block-post post-' . get_the_ID() . ' post type-post status-publish format-standard hentry category-uncategorized">';
-			$expected .= '<h2 class="fp-block-post-title">' . get_the_title() . '</h2>';
+		while ( $fin_query_posts->have_posts() ) {
+			$fin_query_posts->the_post();
+			$expected .= '<li class="fin-block-post post-' . get_the_ID() . ' post type-post status-publish format-standard hentry category-uncategorized">';
+			$expected .= '<h2 class="fin-block-post-title">' . get_the_title() . '</h2>';
 			$expected .= '</li>';
 		}
 
 		$expected .= '</ul>';
 
 		// Update the post's content to have a query block for the same query as the main query.
-		fp_update_post(
+		fin_update_post(
 			array(
 				'ID'                    => self::$post->ID,
 				'post_content'          => $content,
@@ -203,13 +203,13 @@ END;
 		);
 
 		// Set main query to all posts.
-		$fp_query     = new FP_Query( array( 'post_type' => 'post' ) );
-		$fp_the_query = $fp_query;
+		$fin_query     = new FIN_Query( array( 'post_type' => 'post' ) );
+		$fin_the_query = $fin_query;
 
 		// Get post content within main query loop.
 		$output = '';
-		while ( $fp_query->have_posts() ) {
-			$fp_query->the_post();
+		while ( $fin_query->have_posts() ) {
+			$fin_query->the_post();
 
 			$output = get_echo( 'the_content' );
 		}

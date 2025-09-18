@@ -16,7 +16,7 @@ import { store as blockEditorStore } from '../../store';
  * @property {string[]}  clientIds         An array of the selected client ids.
  * @property {boolean}   isGroupable       Indicates if the selected blocks can be grouped.
  * @property {boolean}   isUngroupable     Indicates if the selected blocks can be ungrouped.
- * @property {FPBlock[]} blocksSelection   An array of the selected blocks.
+ * @property {FINBlock[]} blocksSelection   An array of the selected blocks.
  * @property {string}    groupingBlockName The name of block used for handling grouping interactions.
  */
 

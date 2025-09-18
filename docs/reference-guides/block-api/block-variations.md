@@ -36,7 +36,7 @@ A block variation is defined by an object that can contain the following fields:
 -   `attributes` (optional, type `Object`) – Values that override block attributes.
 -   `innerBlocks` (optional, type `Array[]`) – Initial configuration of nested blocks.
 -   `example` (optional, type `Object`) – Provides structured data for the block preview. Set to `undefined` to disable the preview. See the [Block Registration API](/docs/reference-guides/block-api/block-registration.md#example-optional) for more details.
--   `scope` (optional, type `FPBlockVariationScope[]`) - Defaults to `block` and `inserter`. The list of scopes where the variation is applicable. Available options include:
+-   `scope` (optional, type `FINBlockVariationScope[]`) - Defaults to `block` and `inserter`. The list of scopes where the variation is applicable. Available options include:
     -   `block` - Used by blocks to filter specific block variations. `Columns` and `Query` blocks have such variations, which are passed to the [experimental BlockVariationPicker](https://github.com/FinPress/gutenberg/blob/HEAD/packages/block-editor/src/components/block-variation-picker/README.md) component. This component handles displaying the variations and allows users to choose one of them.
     -   `inserter` - Block variation is shown on the inserter.
     -   `transform` - Block variation is shown in the component for variation transformations.

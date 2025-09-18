@@ -86,15 +86,15 @@ function _toggleBlockSelectedClass( isBlockSelected ) {
 	}
 }
 
-/** @typedef {import('@finpress/data').FPDataRegistry} FPDataRegistry */
+/** @typedef {import('@finpress/data').FINDataRegistry} FINDataRegistry */
 
 /**
  * Toggle the `is-block-selected` class on the editor container when a block is
  * selected. This is used to hide the sidebar toggle button when a block is not
  * selected.
  *
- * @param {FPDataRegistry} registry Data registry.
- * @return {FPDataRegistry} Modified data registry.
+ * @param {FINDataRegistry} registry Data registry.
+ * @return {FINDataRegistry} Modified data registry.
  */
 function toggleBlockSelectedStyles( registry ) {
 	return {

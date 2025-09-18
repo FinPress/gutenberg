@@ -102,7 +102,7 @@
 
 ### Breaking Changes
 
--   Remove the FPElement, FPComponent, and FPSyntheticEvent types.
+-   Remove the FINElement, FINComponent, and FINSyntheticEvent types.
 
 ## 5.19.0 (2023-09-20)
 

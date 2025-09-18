@@ -38,7 +38,7 @@ For features included in the Gutenberg plugin, the deprecation policy is intende
 ## 5.5.0
 
 -   The PHP function `gutenberg_init` has been removed.
--   The PHP function `is_gutenberg_page` has been removed. Use [`FP_Screen::is_block_editor`](https://developer.finpress.org/reference/classes/fin_screen/is_block_editor/) instead.
+-   The PHP function `is_gutenberg_page` has been removed. Use [`FIN_Screen::is_block_editor`](https://developer.finpress.org/reference/classes/fin_screen/is_block_editor/) instead.
 -   The PHP function `the_gutenberg_project` has been removed.
 -   The PHP function `gutenberg_default_post_format_template` has been removed.
 -   The PHP function `gutenberg_get_available_image_sizes` has been removed.

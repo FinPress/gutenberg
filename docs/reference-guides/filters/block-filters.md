@@ -145,7 +145,7 @@ The callback function for this filter receives three parameters:
 
 - `$block_content` (`string`): The block content.
 - `$block` (`array`): The full block, including name and attributes.
-- `$instance` (`FP_Block`): The block instance.
+- `$instance` (`FIN_Block`): The block instance.
 
 In the following example, the class `example-class` is added to all Paragraph blocks on the front end. Here the [HTML API](https://make.finpress.org/core/2023/03/07/introducing-the-html-api-in-finpress-6-2/) is used to easily add the class instead of relying on regex.
 
@@ -156,7 +156,7 @@ function example_add_custom_class_to_paragraph_block( $block_content, $block ) {
 	if ( 'core/paragraph' === $block['blockName'] ) {
 	   
 		// Add the custom class to the block content using the HTML API.
-		$processor = new FP_HTML_Tag_Processor( $block_content );
+		$processor = new FIN_HTML_Tag_Processor( $block_content );
 		
 		if ( $processor->next_tag( 'p' ) ) {
 			$processor->add_class( 'example-class' );
@@ -178,7 +178,7 @@ The callback function for this filter receives three parameters:
 
 - `$block_content` (`string`): The block content.
 - `$block` (`array`): The full block, including name and attributes.
-- `$instance` (`FP_Block`): The block instance.
+- `$instance` (`FIN_Block`): The block instance.
 
 In the following example, the class `example-class` is added to all Paragraph blocks on the front end. Notice that compared to the `render_block` example above, you no longer need to check the block type before modifying the content. Again, the [HTML API](https://make.finpress.org/core/2023/03/07/introducing-the-html-api-in-finpress-6-2/) is used instead of regex.
 
@@ -186,7 +186,7 @@ In the following example, the class `example-class` is added to all Paragraph bl
 function example_add_custom_class_to_paragraph_block( $block_content, $block ) {
 	   
 	// Add the custom class to the block content using the HTML API.
-	$processor = new FP_HTML_Tag_Processor( $block_content );
+	$processor = new FIN_HTML_Tag_Processor( $block_content );
 	
 	if ( $processor->next_tag( 'p' ) ) {
 		$processor->add_class( 'example-class' );
@@ -239,7 +239,7 @@ fin.hooks.addFilter(
 
 ### `blocks.getSaveContent.extraProps`
 
-A filter that applies to all blocks returning a FP Element in the `save` function. This filter is used to add extra props to the root element of the `save` function. For example, you could add a className, an id, or any valid prop for this element.
+A filter that applies to all blocks returning a FIN Element in the `save` function. This filter is used to add extra props to the root element of the `save` function. For example, you could add a className, an id, or any valid prop for this element.
 
 The callback function for this filter receives three parameters:
 
@@ -508,7 +508,7 @@ fin.blocks.getBlockTypes().forEach( function ( blockType ) {
 ### `allowed_block_types_all`
 
 <div class="callout callout-warning">
-	Before FinPress 5.8, this hook was known as <code>allowed_block_types</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>allowed_block_types</code> is safe to use by seeing if the <code>FP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
+	Before FinPress 5.8, this hook was known as <code>allowed_block_types</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>allowed_block_types</code> is safe to use by seeing if the <code>FIN_Block_Editor_Context</code> class exists, which was introduced in 5.8.
 </div>
 
 On the server, you can filter the list of blocks shown in the inserter using the `allowed_block_types_all` filter. You can return either true (all block types supported), false (no block types supported), or an array of block type names to allow. You can also use the second provided parameter `$editor_context` to filter block types based on their content.
@@ -530,7 +530,7 @@ add_filter( 'allowed_block_types_all', 'example_filter_allowed_block_types_when_
 ### `block_categories_all`
 
 <div class="callout callout-warning">
-	Before FinPress 5.8, this hook was known as <code>block_categories</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>block_categories</code> is safe to use by seeing if the <code>FP_Block_Editor_Context</code> class exists, which was introduced in 5.8.
+	Before FinPress 5.8, this hook was known as <code>block_categories</code>, which is now deprecated. If you need to support older versions of FinPress, you might need a way to detect which filter should be used. You can check if <code>block_categories</code> is safe to use by seeing if the <code>FIN_Block_Editor_Context</code> class exists, which was introduced in 5.8.
 </div>
 
 It is possible to filter the list of default block categories using the `block_categories_all` filter. You can do it on the server by implementing a function which returns a list of categories. It is going to be used during block registration and to group blocks in the inserter. You can also use the second provided parameter `$editor_context` to filter the based on its content.

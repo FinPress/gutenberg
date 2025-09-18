@@ -176,8 +176,8 @@
 
 ### New Features
 
--   Add a FP_Style_Engine_Processor object ([#42463](https://github.com/FinPress/gutenberg/pull/42463)).
--   Add a FP_Style_Engine_CSS_Declarations object ([#42043](https://github.com/FinPress/gutenberg/pull/42043)).
+-   Add a FIN_Style_Engine_Processor object ([#42463](https://github.com/FinPress/gutenberg/pull/42463)).
+-   Add a FIN_Style_Engine_CSS_Declarations object ([#42043](https://github.com/FinPress/gutenberg/pull/42043)).
 -   Add Rules and Store objects ([#42222](https://github.com/FinPress/gutenberg/pull/42222)).
 -   Add elements styles support ([#41732](https://github.com/FinPress/gutenberg/pull/41732)) and ([#40987](https://github.com/FinPress/gutenberg/pull/40987)).
 -   Add typography and color support ([#40665](https://github.com/FinPress/gutenberg/pull/40987)) and ([#40332](https://github.com/FinPress/gutenberg/pull/40332)).

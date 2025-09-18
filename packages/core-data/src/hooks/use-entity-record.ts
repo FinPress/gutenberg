@@ -229,8 +229,8 @@ export function __experimentalUseEntityRecord(
 	recordId: any,
 	options: any
 ) {
-	deprecated( `fp.data.__experimentalUseEntityRecord`, {
-		alternative: 'fp.data.useEntityRecord',
+	deprecated( `fin.data.__experimentalUseEntityRecord`, {
+		alternative: 'fin.data.useEntityRecord',
 		since: '6.1',
 	} );
 	return useEntityRecord( kind, name, recordId, options );

@@ -10,12 +10,12 @@ import deepmerge from 'deepmerge';
 import defaultStorage from './storage/default';
 import { combineReducers } from '../../';
 
-/** @typedef {import('../../registry').FPDataRegistry} FPDataRegistry */
+/** @typedef {import('../../registry').FINDataRegistry} FINDataRegistry */
 
-/** @typedef {import('../../registry').FPDataPlugin} FPDataPlugin */
+/** @typedef {import('../../registry').FINDataPlugin} FINDataPlugin */
 
 /**
- * @typedef {Object} FPDataPersistencePluginOptions Persistence plugin options.
+ * @typedef {Object} FINDataPersistencePluginOptions Persistence plugin options.
  *
  * @property {Storage} storage    Persistent storage implementation. This must
  *                                at least implement `getItem` and `setItem` of
@@ -35,7 +35,7 @@ const DEFAULT_STORAGE = defaultStorage;
  *
  * @type {string}
  */
-const DEFAULT_STORAGE_KEY = 'FP_DATA';
+const DEFAULT_STORAGE_KEY = 'FIN_DATA';
 
 /**
  * Higher-order reducer which invokes the original reducer only if state is
@@ -58,7 +58,7 @@ export const withLazySameState = ( reducer ) => ( state, action ) => {
  * Creates a persistence interface, exposing getter and setter methods (`get`
  * and `set` respectively).
  *
- * @param {FPDataPersistencePluginOptions} options Plugin options.
+ * @param {FINDataPersistencePluginOptions} options Plugin options.
  *
  * @return {Object} Persistence interface.
  */
@@ -114,10 +114,10 @@ export function createPersistenceInterface( options ) {
 /**
  * Data plugin to persist store state into a single storage key.
  *
- * @param {FPDataRegistry}                  registry      Data registry.
- * @param {?FPDataPersistencePluginOptions} pluginOptions Plugin options.
+ * @param {FINDataRegistry}                  registry      Data registry.
+ * @param {?FINDataPersistencePluginOptions} pluginOptions Plugin options.
  *
- * @return {FPDataPlugin} Data plugin.
+ * @return {FINDataPlugin} Data plugin.
  */
 function persistencePlugin( registry, pluginOptions ) {
 	const persistence = createPersistenceInterface( pluginOptions );
@@ -180,7 +180,7 @@ function persistencePlugin( registry, pluginOptions ) {
 			const persistedState = persistence.get()[ storeName ];
 			if ( persistedState !== undefined ) {
 				let initialState = options.reducer( options.initialState, {
-					type: '@@FP/PERSISTENCE_RESTORE',
+					type: '@@FIN/PERSISTENCE_RESTORE',
 				} );
 
 				if (

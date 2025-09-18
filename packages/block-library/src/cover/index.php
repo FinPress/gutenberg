@@ -47,7 +47,7 @@ function render_block_core_cover( $attributes, $content ) {
 
 		$current_thumbnail_id = get_post_thumbnail_id();
 
-		$processor = new FP_HTML_Tag_Processor( '<div></div>' );
+		$processor = new FIN_HTML_Tag_Processor( '<div></div>' );
 		$processor->next_tag();
 
 		$current_alt = trim( strip_tags( get_post_meta( $current_thumbnail_id, '_fin_attachment_image_alt', true ) ) );

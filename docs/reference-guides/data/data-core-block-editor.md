@@ -403,7 +403,7 @@ _Parameters_
 
 _Returns_
 
--   `FPBlock[]`: Block objects.
+-   `FINBlock[]`: Block objects.
 
 ### getBlocksByName
 
@@ -460,11 +460,11 @@ _Parameters_
 
 _Returns_
 
--   `FPEditorTransformItem[]`: Items that appear in inserter.
+-   `FINEditorTransformItem[]`: Items that appear in inserter.
 
 _Type Definition_
 
--   _FPEditorTransformItem_ `Object`
+-   _FINEditorTransformItem_ `Object`
 
 _Properties_
 
@@ -511,11 +511,11 @@ _Parameters_
 
 _Returns_
 
--   `FPDirectInsertBlock|undefined`: The block type to be directly inserted.
+-   `FINDirectInsertBlock|undefined`: The block type to be directly inserted.
 
 _Type Definition_
 
--   _FPDirectInsertBlock_ `Object`
+-   _FINDirectInsertBlock_ `Object`
 
 _Properties_
 
@@ -585,11 +585,11 @@ _Parameters_
 
 _Returns_
 
--   `FPEditorInserterItem[]`: Items that appear in inserter.
+-   `FINEditorInserterItem[]`: Items that appear in inserter.
 
 _Type Definition_
 
--   _FPEditorInserterItem_ `Object`
+-   _FINEditorInserterItem_ `Object`
 
 _Properties_
 
@@ -831,7 +831,7 @@ _Parameters_
 
 _Returns_
 
--   `FPBlockSelection`: Selection end information.
+-   `FINBlockSelection`: Selection end information.
 
 ### getSelectionStart
 
@@ -843,7 +843,7 @@ _Parameters_
 
 _Returns_
 
--   `FPBlockSelection`: Selection start information.
+-   `FINBlockSelection`: Selection start information.
 
 ### getSettings
 
@@ -1604,8 +1604,8 @@ Returns an action object used in signalling that selection state should be reset
 
 _Parameters_
 
--   _selectionStart_ `FPBlockSelection`: The selection start.
--   _selectionEnd_ `FPBlockSelection`: The selection end.
+-   _selectionStart_ `FINBlockSelection`: The selection start.
+-   _selectionEnd_ `FINBlockSelection`: The selection end.
 -   _initialPosition_ `0|-1|null`: Initial block position.
 
 _Returns_
@@ -1631,7 +1631,7 @@ Action that changes the position of the user caret.
 
 _Parameters_
 
--   _clientId_ `string|FPSelection`: The selected block client ID.
+-   _clientId_ `string|FINSelection`: The selected block client ID.
 -   _attributeKey_ `string`: The selected block attribute key.
 -   _startOffset_ `number`: The start offset.
 -   _endOffset_ `number`: The end offset.
@@ -1738,7 +1738,7 @@ _Returns_
 _Properties_
 
 -   _\_\_unstableWithInserter_ `boolean`: Whether or not to show an inserter button.
--   _operation_ `FPDropOperation`: The operation to perform when applied, either 'insert' or 'replace' for now.
+-   _operation_ `FINDropOperation`: The operation to perform when applied, either 'insert' or 'replace' for now.
 
 ### startDraggingBlocks
 

@@ -7,23 +7,23 @@ const addOrReplacePort = require( './add-or-replace-port' );
 const { ValidationError } = require( './validate-config' );
 
 /**
- * @typedef {import('./parse-config').FPRootConfig} FPRootConfig
- * @typedef {import('./parse-config').FPEnvironmentConfig} FPEnvironmentConfig
+ * @typedef {import('./parse-config').FINRootConfig} FINRootConfig
+ * @typedef {import('./parse-config').FINEnvironmentConfig} FINEnvironmentConfig
  */
 
 /**
  * Performs any additional post-processing on the config object.
  *
- * @param {FPEnvironmentConfig} config The config to process.
+ * @param {FINEnvironmentConfig} config The config to process.
  *
- * @return {FPEnvironmentConfig} The config after post-processing.
+ * @return {FINEnvironmentConfig} The config after post-processing.
  */
 module.exports = function postProcessConfig( config ) {
 	// Make sure that we're operating on a config object that has
 	// complete environment configs for convenience.
 	config = mergeRootToEnvironments( config );
 
-	config = appendPortToFPConfigs( config );
+	config = appendPortToFINConfigs( config );
 
 	validate( config );
 	return config;
@@ -34,9 +34,9 @@ module.exports = function postProcessConfig( config ) {
  * a full config object to work with internally. This makes it easier than having to try and
  * resolve the full config options every time we want to use them for something.
  *
- * @param {FPEnvironmentConfig} config The config to process.
+ * @param {FINEnvironmentConfig} config The config to process.
  *
- * @return {FPRootConfig} The config object with the root options merged together with the environment-specific options.
+ * @return {FINRootConfig} The config object with the root options merged together with the environment-specific options.
  */
 function mergeRootToEnvironments( config ) {
 	// Some root-level options need to be handled early because they have a special
@@ -82,20 +82,20 @@ function mergeRootToEnvironments( config ) {
 }
 
 /**
- * Appends the configured port to certain fp-config options.
+ * Appends the configured port to certain fin-config options.
  *
- * @param {FPRootConfig} config The config to process.
+ * @param {FINRootConfig} config The config to process.
  *
- * @return {FPRootConfig} The config after post-processing.
+ * @return {FINRootConfig} The config after post-processing.
  */
-function appendPortToFPConfigs( config ) {
-	const options = [ 'FP_TESTS_DOMAIN', 'FP_SITEURL', 'FP_HOME' ];
+function appendPortToFINConfigs( config ) {
+	const options = [ 'FIN_TESTS_DOMAIN', 'FIN_SITEURL', 'FIN_HOME' ];
 
 	// We are only interested in editing the config options for environment-specific configs.
 	// If we made this change to the root config it would cause problems since they would
 	// be mapped to all environments even though the ports will be different.
 	for ( const env in config.env ) {
-		// There's nothing to do without any fp-config options set.
+		// There's nothing to do without any fin-config options set.
 		if ( config.env[ env ].config === undefined ) {
 			continue;
 		}
@@ -113,8 +113,8 @@ function appendPortToFPConfigs( config ) {
 			config.env[ env ].config[ option ] = addOrReplacePort(
 				config.env[ env ].config[ option ],
 				config.env[ env ].port,
-				// Don't replace the port if one is already set on FP_HOME.
-				option !== 'FP_HOME'
+				// Don't replace the port if one is already set on FIN_HOME.
+				option !== 'FIN_HOME'
 			);
 		}
 	}
@@ -125,7 +125,7 @@ function appendPortToFPConfigs( config ) {
 /**
  * Examines the config to make sure that none of the environments share the same port.
  *
- * @param {FPRootConfig} config The config to process.
+ * @param {FINRootConfig} config The config to process.
  */
 function validatePortUniqueness( config ) {
 	// We're going to build a map of the environments and their port
@@ -164,7 +164,7 @@ function validatePortUniqueness( config ) {
 /**
  * Perform any validation that can only happen after post-processing has occurred.
  *
- * @param {FPRootConfig} config The config to validate.
+ * @param {FINRootConfig} config The config to validate.
  */
 function validate( config ) {
 	validatePortUniqueness( config );
@@ -174,9 +174,9 @@ function validate( config ) {
  * Creates a deep copy of the root options in the config object that we can use to avoid
  * accidentally sharing object state between different environments.
  *
- * @param {FPRootConfig} config The root config object to copy.
+ * @param {FINRootConfig} config The root config object to copy.
  *
- * @return {FPRootConfig} A deep copy of the root config object.
+ * @return {FINRootConfig} A deep copy of the root config object.
  */
 function deepCopyRootOptions( config ) {
 	// Create a shallow clone of the object first so we can operate on it safely.

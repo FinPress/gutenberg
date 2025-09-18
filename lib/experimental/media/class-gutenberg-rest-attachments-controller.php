@@ -8,7 +8,7 @@
 /**
  * Class Gutenberg_REST_Attachments_Controller.
  */
-class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controller {
+class Gutenberg_REST_Attachments_Controller extends FIN_REST_Attachments_Controller {
 	/**
 	 * Registers the routes for attachments.
 	 *
@@ -17,7 +17,7 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 	public function register_routes(): void {
 		parent::register_routes();
 
-		$valid_image_sizes = array_keys( fp_get_registered_image_subsizes() );
+		$valid_image_sizes = array_keys( fin_get_registered_image_subsizes() );
 
 		// Special case to set 'original_image' in attachment metadata.
 		$valid_image_sizes[] = 'original';
@@ -29,7 +29,7 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 			'/' . $this->rest_base . '/(?P<id>[\d]+)/sideload',
 			array(
 				array(
-					'methods'             => FP_REST_Server::CREATABLE,
+					'methods'             => FIN_REST_Server::CREATABLE,
 					'callback'            => array( $this, 'sideload_item' ),
 					'permission_callback' => array( $this, 'sideload_item_permissions_check' ),
 					'args'                => array(
@@ -56,13 +56,13 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 	 *
 	 * @param string $method Optional. HTTP method of the request. The arguments for `CREATABLE` requests are
 	 *                       checked for required values and may fall-back to a given default, this is not done
-	 *                       on `EDITABLE` requests. Default FP_REST_Server::CREATABLE.
+	 *                       on `EDITABLE` requests. Default FIN_REST_Server::CREATABLE.
 	 * @return array Endpoint arguments.
 	 */
-	public function get_endpoint_args_for_item_schema( $method = FP_REST_Server::CREATABLE ) {
+	public function get_endpoint_args_for_item_schema( $method = FIN_REST_Server::CREATABLE ) {
 		$args = rest_get_endpoint_args_for_schema( $this->get_item_schema(), $method );
 
-		if ( FP_REST_Server::CREATABLE === $method ) {
+		if ( FIN_REST_Server::CREATABLE === $method ) {
 			$args['generate_sub_sizes'] = array(
 				'type'        => 'boolean',
 				'default'     => true,
@@ -83,11 +83,11 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 	 *
 	 * Ensures 'missing_image_sizes' is set for PDFs and not just images.
 	 *
-	 * @param FP_Post         $item    Attachment object.
-	 * @param FP_REST_Request $request Request object.
-	 * @return FP_REST_Response Response object.
+	 * @param FIN_Post         $item    Attachment object.
+	 * @param FIN_REST_Request $request Request object.
+	 * @return FIN_REST_Response Response object.
 	 */
-	public function prepare_item_for_response( $item, $request ): FP_REST_Response {
+	public function prepare_item_for_response( $item, $request ): FIN_REST_Response {
 		$response = parent::prepare_item_for_response( $item, $request );
 
 		$data = $response->get_data();
@@ -103,7 +103,7 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 			$mime_type = get_post_mime_type( $item );
 
 			if ( 'application/pdf' === $mime_type ) {
-				$metadata = fp_get_attachment_metadata( $item->ID, true );
+				$metadata = fin_get_attachment_metadata( $item->ID, true );
 
 				if ( ! is_array( $metadata ) ) {
 					$metadata = array();
@@ -120,10 +120,10 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 				// The filter might have been added by ::create_item().
 				remove_filter( 'fallback_intermediate_image_sizes', '__return_empty_array', 100 );
 
-				/** This filter is documented in fp-admin/includes/image.php */
+				/** This filter is documented in fin-admin/includes/image.php */
 				$fallback_sizes = apply_filters( 'fallback_intermediate_image_sizes', $fallback_sizes, $metadata ); // phpcs:ignore FinPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-				$registered_sizes = fp_get_registered_image_subsizes();
+				$registered_sizes = fin_get_registered_image_subsizes();
 				$merged_sizes     = array_keys( array_intersect_key( $registered_sizes, array_flip( $fallback_sizes ) ) );
 
 				$missing_image_sizes         = array_diff( $merged_sizes, array_keys( $metadata['sizes'] ) );
@@ -151,8 +151,8 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 	/**
 	 * Creates a single attachment.
 	 *
-	 * @param FP_REST_Request $request Full details about the request.
-	 * @return FP_REST_Response|FP_Error Response object on success, FP_Error object on failure.
+	 * @param FIN_REST_Request $request Full details about the request.
+	 * @return FIN_REST_Response|FIN_Error Response object on success, FIN_Error object on failure.
 	 */
 	public function create_item( $request ) {
 		if ( ! $request['generate_sub_sizes'] ) {
@@ -181,17 +181,17 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 	 * Sideloading a file for an existing attachment
 	 * requires both update and create permissions.
 	 *
-	 * @param FP_REST_Request $request Full details about the request.
-	 * @return true|FP_Error True if the request has access to update the item, FP_Error object otherwise.
+	 * @param FIN_REST_Request $request Full details about the request.
+	 * @return true|FIN_Error True if the request has access to update the item, FIN_Error object otherwise.
 	 */
 	public function sideload_item_permissions_check( $request ) {
 		return $this->edit_media_item_permissions_check( $request );
 	}
 
 	/**
-	 * Filters {@see 'fp_unique_filename'} during sideloads.
+	 * Filters {@see 'fin_unique_filename'} during sideloads.
 	 *
-	 * {@see fp_unique_filename()} will always add numeric suffix if the name looks like a sub-size to avoid conflicts.
+	 * {@see fin_unique_filename()} will always add numeric suffix if the name looks like a sub-size to avoid conflicts.
 	 *
 	 * Adding this closure to the filter helps work around this safeguard.
 	 *
@@ -200,7 +200,7 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 	 * However, here it is desired not to add the suffix in order to maintain the same
 	 * naming convention as if the file was uploaded regularly.
 	 *
-	 * @link https://github.com/FinPress/finpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/fp-includes/functions.php#L2576-L2582
+	 * @link https://github.com/FinPress/finpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/fin-includes/functions.php#L2576-L2582
 	 *
 	 * @param string        $filename                 Unique file name.
 	 * @param string        $ext                      File extension. Example: ".png".
@@ -211,7 +211,7 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 	 *                                                or an empty string if unused.
 	 * @return string Filtered file name.
 	 */
-	private function filter_fp_unique_filename( $filename, $ext, $dir, $unique_filename_callback, $alt_filenames, $number, $attachment_filename ) {
+	private function filter_fin_unique_filename( $filename, $ext, $dir, $unique_filename_callback, $alt_filenames, $number, $attachment_filename ) {
 		if ( empty( $number ) || ! $attachment_filename ) {
 			return $filename;
 		}
@@ -238,23 +238,23 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 	/**
 	 * Side-loads a media file without creating an attachment.
 	 *
-	 * @param FP_REST_Request $request Full details about the request.
-	 * @return FP_REST_Response|FP_Error Response object on success, FP_Error object on failure.
+	 * @param FIN_REST_Request $request Full details about the request.
+	 * @return FIN_REST_Response|FIN_Error Response object on success, FIN_Error object on failure.
 	 */
-	public function sideload_item( FP_REST_Request $request ) {
+	public function sideload_item( FIN_REST_Request $request ) {
 		$attachment_id = $request['id'];
 
 		$post = $this->get_post( $attachment_id );
 
-		if ( is_fp_error( $post ) ) {
+		if ( is_fin_error( $post ) ) {
 			return $post;
 		}
 
 		if (
-			! fp_attachment_is_image( $post ) &&
-			! fp_attachment_is( 'pdf', $post )
+			! fin_attachment_is_image( $post ) &&
+			! fin_attachment_is( 'pdf', $post )
 		) {
-			return new FP_Error(
+			return new FIN_Error(
 				'rest_post_invalid_id',
 				__( 'Invalid post ID, only images and PDFs can be sideloaded.', 'gutenberg' ),
 				array( 'status' => 400 )
@@ -271,13 +271,13 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 		$headers = $request->get_headers();
 
 		/*
-		 * fp_unique_filename() will always add numeric suffix if the name looks like a sub-size to avoid conflicts.
-		 * See https://github.com/FinPress/finpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/fp-includes/functions.php#L2576-L2582
+		 * fin_unique_filename() will always add numeric suffix if the name looks like a sub-size to avoid conflicts.
+		 * See https://github.com/FinPress/finpress-develop/blob/30954f7ac0840cfdad464928021d7f380940c347/src/fin-includes/functions.php#L2576-L2582
 		 * With the following filter we can work around this safeguard.
 		 */
 
 		$attachment_filename = get_attached_file( $attachment_id, true );
-		$attachment_filename = $attachment_filename ? fp_basename( $attachment_filename ) : null;
+		$attachment_filename = $attachment_filename ? fin_basename( $attachment_filename ) : null;
 
 		/**
 		 * @param string        $filename                 Unique file name.
@@ -290,10 +290,10 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 		 * @return string Filtered file name.
 		 */
 		$filter_filename = function ( $filename, $ext, $dir, $unique_filename_callback, $alt_filenames, $number ) use ( $attachment_filename ) {
-			return $this->filter_fp_unique_filename( $filename, $ext, $dir, $unique_filename_callback, $alt_filenames, $number, $attachment_filename );
+			return $this->filter_fin_unique_filename( $filename, $ext, $dir, $unique_filename_callback, $alt_filenames, $number, $attachment_filename );
 		};
 
-		add_filter( 'fp_unique_filename', $filter_filename, 10, 6 );
+		add_filter( 'fin_unique_filename', $filter_filename, 10, 6 );
 
 		$parent_post = get_post_parent( $attachment_id );
 
@@ -311,10 +311,10 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 			$file = $this->upload_from_data( $request->get_body(), $headers, $time );
 		}
 
-		remove_filter( 'fp_unique_filename', $filter_filename );
+		remove_filter( 'fin_unique_filename', $filter_filename );
 		remove_filter( 'image_editor_output_format', '__return_empty_array', 100 );
 
-		if ( is_fp_error( $file ) ) {
+		if ( is_fin_error( $file ) ) {
 			return $file;
 		}
 
@@ -323,32 +323,32 @@ class Gutenberg_REST_Attachments_Controller extends FP_REST_Attachments_Controll
 
 		$image_size = $request['image_size'];
 
-		$metadata = fp_get_attachment_metadata( $attachment_id, true );
+		$metadata = fin_get_attachment_metadata( $attachment_id, true );
 
 		if ( ! $metadata ) {
 			$metadata = array();
 		}
 
 		if ( 'original' === $image_size ) {
-			$metadata['original_image'] = fp_basename( $path );
+			$metadata['original_image'] = fin_basename( $path );
 		} else {
 			$metadata['sizes'] = $metadata['sizes'] ?? array();
 
-			$size = fp_getimagesize( $path );
+			$size = fin_getimagesize( $path );
 
 			$metadata['sizes'][ $image_size ] = array(
 				'width'     => $size ? $size[0] : 0,
 				'height'    => $size ? $size[1] : 0,
-				'file'      => fp_basename( $path ),
+				'file'      => fin_basename( $path ),
 				'mime-type' => $type,
-				'filesize'  => fp_filesize( $path ),
+				'filesize'  => fin_filesize( $path ),
 			);
 		}
 
-		fp_update_attachment_metadata( $attachment_id, $metadata );
+		fin_update_attachment_metadata( $attachment_id, $metadata );
 
-		$response_request = new FP_REST_Request(
-			FP_REST_Server::READABLE,
+		$response_request = new FIN_REST_Request(
+			FIN_REST_Server::READABLE,
 			rest_get_route_for_post( $attachment_id )
 		);
 

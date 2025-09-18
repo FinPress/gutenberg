@@ -138,8 +138,8 @@ exports[`ColorPaletteControl matches the snapshot 1`] = `
       >
         <div
           class="components-flex components-h-stack components-v-stack emotion-4 emotion-5"
-          data-fp-c16t="true"
-          data-fp-component="VStack"
+          data-fin-c16t="true"
+          data-fin-component="VStack"
         >
           <legend>
             <div
@@ -157,8 +157,8 @@ exports[`ColorPaletteControl matches the snapshot 1`] = `
           >
             <div
               class="components-flex components-h-stack components-v-stack emotion-8 emotion-5"
-              data-fp-c16t="true"
-              data-fp-component="VStack"
+              data-fin-c16t="true"
+              data-fin-component="VStack"
             >
               <div
                 class="components-dropdown"
@@ -166,8 +166,8 @@ exports[`ColorPaletteControl matches the snapshot 1`] = `
               >
                 <div
                   class="components-flex components-h-stack components-v-stack components-color-palette__custom-color-wrapper emotion-10 emotion-5"
-                  data-fp-c16t="true"
-                  data-fp-component="VStack"
+                  data-fin-c16t="true"
+                  data-fin-component="VStack"
                 >
                   <button
                     aria-expanded="false"
@@ -179,20 +179,20 @@ exports[`ColorPaletteControl matches the snapshot 1`] = `
                   />
                   <div
                     class="components-flex components-h-stack components-v-stack components-color-palette__custom-color-text-wrapper emotion-12 emotion-5"
-                    data-fp-c16t="true"
-                    data-fp-component="VStack"
+                    data-fin-c16t="true"
+                    data-fin-component="VStack"
                   >
                     <span
                       class="components-truncate components-color-palette__custom-color-name emotion-14 emotion-5"
-                      data-fp-c16t="true"
-                      data-fp-component="Truncate"
+                      data-fin-c16t="true"
+                      data-fin-component="Truncate"
                     >
                       red
                     </span>
                     <span
                       class="components-truncate components-color-palette__custom-color-value components-color-palette__custom-color-value--is-hex emotion-14 emotion-5"
-                      data-fp-c16t="true"
-                      data-fp-component="Truncate"
+                      data-fin-c16t="true"
+                      data-fin-component="Truncate"
                     >
                       #f00
                     </span>

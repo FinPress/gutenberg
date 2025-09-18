@@ -10,6 +10,6 @@
 // Include the default parser.
 require_once __DIR__ . '/../parser.php';
 
-$parser = new FP_Block_Parser();
+$parser = new FIN_Block_Parser();
 
 echo json_encode( $parser->parse( file_get_contents( 'php://stdin' ) ) );

@@ -7,7 +7,7 @@
  * and if so, updates the 'comment_type' and 'comment_approved' properties of the prepared comment.
  *
  * @param array $prepared_comment The prepared comment data.
- * @param FP_REST_Request $request The REST API request object.
+ * @param FIN_REST_Request $request The REST API request object.
  * @return array The updated prepared comment data.
  */
 if ( ! function_exists( 'update_comment_type_in_rest_api_6_8' ) ) {
@@ -45,9 +45,9 @@ if ( ! function_exists( 'update_get_avatar_comment_type' ) ) {
  * This function modifies the comments query to exclude comments of type 'block_comment'
  * when the query is for comments in the FinPress admin.
  *
- * @global fpdb $fpdb FinPress database abstraction object.
+ * @global findb $findb FinPress database abstraction object.
  *
- * @param FP_Comment_Query $query The current comments query.
+ * @param FIN_Comment_Query $query The current comments query.
  *
  * @return void
  */
@@ -60,9 +60,9 @@ if ( ! function_exists( 'exclude_block_comments_from_admin' ) ) {
 			add_filter(
 				'comments_clauses',
 				function ( $clauses ) {
-					global $fpdb;
+					global $findb;
 					// Exclude comments of type 'block_comment'
-					$clauses['where'] .= " AND {$fpdb->comments}.comment_type != 'block_comment'";
+					$clauses['where'] .= " AND {$findb->comments}.comment_type != 'block_comment'";
 					return $clauses;
 				}
 			);

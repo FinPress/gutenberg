@@ -48,7 +48,7 @@ function UnforwardedTextControl(
 	return (
 		<BaseControl
 			__nextHasNoMarginBottom={ __nextHasNoMarginBottom }
-			__associatedFPComponentName="TextControl"
+			__associatedFINComponentName="TextControl"
 			label={ label }
 			hideLabelFromVision={ hideLabelFromVision }
 			id={ id }

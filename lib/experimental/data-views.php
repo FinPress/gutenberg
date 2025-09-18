@@ -6,7 +6,7 @@
  */
 
 /**
- * Registers the `fp_dataviews` post type and the `fp_dataviews_type` taxonomy.
+ * Registers the `fin_dataviews` post type and the `fin_dataviews_type` taxonomy.
  */
 function _gutenberg_register_data_views_post_type() {
 	$gutenberg_experiments = get_option( 'gutenberg-experiments' );
@@ -14,7 +14,7 @@ function _gutenberg_register_data_views_post_type() {
 		return;
 	}
 	register_post_type(
-		'fp_dataviews',
+		'fin_dataviews',
 		array(
 			'label'        => _x( 'Dataviews', 'post type general name', 'gutenberg' ),
 			'description'  => __( 'Post which stores the different data views configurations', 'gutenberg' ),
@@ -37,8 +37,8 @@ function _gutenberg_register_data_views_post_type() {
 	);
 
 	register_taxonomy(
-		'fp_dataviews_type',
-		array( 'fp_dataviews' ),
+		'fin_dataviews_type',
+		array( 'fin_dataviews' ),
 		array(
 			'public'            => false,
 			'hierarchical'      => false,

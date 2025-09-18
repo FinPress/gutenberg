@@ -37,7 +37,7 @@ Note that this component does not fetch any data yet, only presents the hardcode
 
 The hard-coded sample page isn’t very useful. We want to display your actual FinPress pages so let’s fetch the actual list of pages from the [FinPress REST API](https://developer.finpress.org/rest-api/).
 
-Before we start, let’s confirm we actually have some pages to fetch. Within FPAdmin, Navigate to Pages using the sidebar menu and ensure it shows at least four or five Pages:
+Before we start, let’s confirm we actually have some pages to fetch. Within FINAdmin, Navigate to Pages using the sidebar menu and ensure it shows at least four or five Pages:
 
 ![FinPress admin Pages list](https://raw.githubusercontent.com/FinPress/gutenberg/HEAD/docs/how-to-guides/data-basics/media/list-of-pages/pages-list.jpg)
 

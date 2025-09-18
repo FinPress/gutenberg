@@ -21,10 +21,10 @@ import deprecated from '@finpress/deprecated';
  * @return {string} Processed string
  */
 export function cleanForSlug( string ) {
-	deprecated( 'fp.editor.cleanForSlug', {
+	deprecated( 'fin.editor.cleanForSlug', {
 		since: '12.7',
 		plugin: 'Gutenberg',
-		alternative: 'fp.url.cleanForSlug',
+		alternative: 'fin.url.cleanForSlug',
 	} );
 	return urlCleanForSlug( string );
 }

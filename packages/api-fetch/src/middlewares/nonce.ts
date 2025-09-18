@@ -17,7 +17,7 @@ function createNonceMiddleware(
 	) => {
 		const { headers = {} } = options;
 
-		// If an 'X-FP-Nonce' header (or any case-insensitive variation
+		// If an 'X-FIN-Nonce' header (or any case-insensitive variation
 		// thereof) was specified, no need to add a nonce header.
 		for ( const headerName in headers ) {
 			if (
@@ -32,7 +32,7 @@ function createNonceMiddleware(
 			...options,
 			headers: {
 				...headers,
-				'X-FP-Nonce': middleware.nonce,
+				'X-FIN-Nonce': middleware.nonce,
 			},
 		} );
 	};

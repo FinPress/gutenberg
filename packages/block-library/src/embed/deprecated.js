@@ -15,7 +15,7 @@ import { RichText, useBlockProps } from '@finpress/block-editor';
 
 const { attributes: blockAttributes } = metadata;
 
-// In #41140 support was added to global styles for caption elements which added a `fp-element-caption` classname
+// In #41140 support was added to global styles for caption elements which added a `fin-element-caption` classname
 // to the embed figcaption element.
 const v2 = {
 	attributes: blockAttributes,
@@ -26,15 +26,15 @@ const v2 = {
 			return null;
 		}
 
-		const className = clsx( 'fp-block-embed', {
+		const className = clsx( 'fin-block-embed', {
 			[ `is-type-${ type }` ]: type,
 			[ `is-provider-${ providerNameSlug }` ]: providerNameSlug,
-			[ `fp-block-embed-${ providerNameSlug }` ]: providerNameSlug,
+			[ `fin-block-embed-${ providerNameSlug }` ]: providerNameSlug,
 		} );
 
 		return (
 			<figure { ...useBlockProps.save( { className } ) }>
-				<div className="fp-block-embed__wrapper">
+				<div className="fin-block-embed__wrapper">
 					{ `\n${ url }\n` /* URL needs to be on its own line. */ }
 				</div>
 				{ ! RichText.isEmpty( caption ) && (
@@ -52,7 +52,7 @@ const v1 = {
 			return null;
 		}
 
-		const embedClassName = clsx( 'fp-block-embed', {
+		const embedClassName = clsx( 'fin-block-embed', {
 			[ `is-type-${ type }` ]: type,
 			[ `is-provider-${ providerNameSlug }` ]: providerNameSlug,
 		} );

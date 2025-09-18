@@ -53,9 +53,9 @@ function ExcerptPanel() {
 
 	// There are special cases where we want to label the excerpt as a description.
 	const shouldUseDescriptionLabel = [
-		'fp_template',
-		'fp_template_part',
-		'fp_block',
+		'fin_template',
+		'fin_template_part',
+		'fin_block',
 	].includes( postType );
 
 	return (
@@ -112,10 +112,10 @@ function PrivateExcerpt() {
 			} = select( editorStore );
 			const postType = getCurrentPostType();
 			const isTemplateOrTemplatePart = [
-				'fp_template',
-				'fp_template_part',
+				'fin_template',
+				'fin_template_part',
 			].includes( postType );
-			const isPattern = postType === 'fp_block';
+			const isPattern = postType === 'fin_block';
 			// These post types use the `excerpt` field as a description semantically, so we need to
 			// handle proper labeling and some flows where we should always render them as text.
 			const _shouldBeUsedAsDescription =

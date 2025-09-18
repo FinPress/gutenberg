@@ -39,7 +39,7 @@ public class GutenbergWebViewActivity extends AppCompatActivity {
     public static final String ARG_BLOCK_NAME = "block_name";
     public static final String ARG_BLOCK_CONTENT = "block_content";
 
-    private static final String INJECT_LOCAL_STORAGE_SCRIPT_TEMPLATE = "localStorage.setItem('FP_DATA_USER_%d','%s')";
+    private static final String INJECT_LOCAL_STORAGE_SCRIPT_TEMPLATE = "localStorage.setItem('FIN_DATA_USER_%d','%s')";
     private static final String INJECT_CSS_SCRIPT_TEMPLATE = "window.injectCss('%s', '%s')";
     private static final String INJECT_GET_HTML_POST_CONTENT_SCRIPT = "window.getHTMLPostContent();";
     private static final String INJECT_ON_SHOW_CONTEXT_MENU_SCRIPT = "window.onShowContextMenu();";
@@ -129,7 +129,7 @@ public class GutenbergWebViewActivity extends AppCompatActivity {
         cookieManager.setAcceptThirdPartyCookies(mWebView, true);
 
         // Add javascript interface
-        mWebView.addJavascriptInterface(new FPWebKit(), JAVA_SCRIPT_INTERFACE_NAME);
+        mWebView.addJavascriptInterface(new FINWebKit(), JAVA_SCRIPT_INTERFACE_NAME);
 
         // Setup WebView client
         setupWebViewClient();
@@ -330,9 +330,9 @@ public class GutenbergWebViewActivity extends AppCompatActivity {
                 editorStyle = removeNewLines(editorStyle);
                 evaluateJavaScript(String.format(INJECT_CSS_SCRIPT_TEMPLATE, editorStyle, "editor-style-overrides"));
 
-                String injectFPBarsCssScript = getFileContentFromAssets("gutenberg-web-single-block/fin-bar-override.css");
-                injectFPBarsCssScript = removeWhiteSpace(removeNewLines(injectFPBarsCssScript));
-                evaluateJavaScript(String.format(INJECT_CSS_SCRIPT_TEMPLATE, injectFPBarsCssScript, "fin-bar-override"));
+                String injectFINBarsCssScript = getFileContentFromAssets("gutenberg-web-single-block/fin-bar-override.css");
+                injectFINBarsCssScript = removeWhiteSpace(removeNewLines(injectFINBarsCssScript));
+                evaluateJavaScript(String.format(INJECT_CSS_SCRIPT_TEMPLATE, injectFINBarsCssScript, "fin-bar-override"));
 
                 String injectExternalCssScript = getOnGutenbergReadyExternalStyles();
                 injectExternalCssScript = removeWhiteSpace(removeNewLines(injectExternalCssScript));
@@ -421,7 +421,7 @@ public class GutenbergWebViewActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public class FPWebKit {
+    public class FINWebKit {
         @JavascriptInterface
         public void postMessage(String content) {
             if (content != null && content.length() > 0) {

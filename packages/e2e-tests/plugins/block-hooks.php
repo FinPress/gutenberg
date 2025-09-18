@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 function gutenberg_test_insert_hooked_blocks( $hooked_blocks, $position, $anchor_block, $context ) {
-	if ( ! $context instanceof FP_Post ) {
+	if ( ! $context instanceof FIN_Post ) {
 		return $hooked_blocks;
 	}
 

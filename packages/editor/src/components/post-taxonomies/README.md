@@ -31,7 +31,7 @@ function customizeProductTypeSelector( OriginalComponent ) {
 	};
 }
 
-fp.hooks.addFilter(
+fin.hooks.addFilter(
 	'editor.PostTaxonomyType',
 	'my-plugin/set-custom-term-selector',
 	customizeProductTypeSelector
@@ -43,7 +43,7 @@ you can set the `HierarchicalTermSelector` component as shown below.
 
 ```js
 const el = React.createElement;
-const HierarchicalTermSelector = fp.editor.PostTaxonomiesHierarchicalTermSelector;
+const HierarchicalTermSelector = fin.editor.PostTaxonomiesHierarchicalTermSelector;
 
 function customizeTrackSelector( OriginalComponent ) {
 	return function ( props ) {
@@ -55,7 +55,7 @@ function customizeTrackSelector( OriginalComponent ) {
 	};
 }
 
-fp.hooks.addFilter(
+fin.hooks.addFilter(
 	'editor.PostTaxonomyType',
 	'my-plugin/set-hierarchical-term-selector',
 	customizeTrackSelector

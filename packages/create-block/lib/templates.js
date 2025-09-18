@@ -30,7 +30,7 @@ const predefinedPluginTemplates = {
 			supports: {
 				html: false,
 			},
-			fpScripts: false,
+			finScripts: false,
 			editorScript: null,
 			editorStyle: null,
 			style: null,
@@ -197,7 +197,7 @@ const getProjectTemplate = async ( templateName ) => {
 		info( '' );
 		info( 'Downloading template files. It might take some time...' );
 
-		tempCwd = await mkdtemp( join( tmpdir(), 'fp-create-block-' ) );
+		tempCwd = await mkdtemp( join( tmpdir(), 'fin-create-block-' ) );
 
 		await command( `npm install ${ templateName } --no-save`, {
 			cwd: tempCwd,
@@ -228,7 +228,7 @@ const getProjectTemplate = async ( templateName ) => {
 
 const getDefaultValues = ( projectTemplate, variant ) => {
 	return {
-		$schema: 'https://schemas.fp.org/trunk/block.json',
+		$schema: 'https://schemas.fin.org/trunk/block.json',
 		apiVersion: 3,
 		namespace: 'create-block',
 		category: 'widgets',
@@ -240,9 +240,9 @@ const getDefaultValues = ( projectTemplate, variant ) => {
 		requiresAtLeast: '6.7',
 		requiresPHP: '7.4',
 		testedUpTo: '6.7',
-		fpScripts: true,
+		finScripts: true,
 		customScripts: {},
-		fpEnv: false,
+		finEnv: false,
 		npmDependencies: [],
 		folderName: './src',
 		editorScript: 'file:./index.js',

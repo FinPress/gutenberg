@@ -40,16 +40,16 @@ const pluginConfig = require( '../config' );
  */
 
 /**
- * @typedef FPPackagesCommandOptions
+ * @typedef FINPackagesCommandOptions
  *
  * @property {boolean} [ci]             Disables interactive mode when executed in CI mode.
  * @property {string}  [repositoryPath] Relative path to the git repository.
  * @property {SemVer}  [semver]         The selected semantic versioning. Defaults to `patch`.
- * @property {string}  [fpVersion]      The major FinPress version number, example: `6.0`.
+ * @property {string}  [finVersion]      The major FinPress version number, example: `6.0`.
  */
 
 /**
- * @typedef FPPackagesConfig
+ * @typedef FINPackagesConfig
  *
  * @property {string}      abortMessage            Abort Message.
  * @property {string}      distTag                 The dist-tag used for npm publishing.
@@ -63,7 +63,7 @@ const pluginConfig = require( '../config' );
 /**
  * Checks out the npm release branch.
  *
- * @param {FPPackagesConfig} options The config object.
+ * @param {FINPackagesConfig} options The config object.
  */
 async function checkoutNpmReleaseBranch( {
 	gitWorkingDirectoryPath,
@@ -93,7 +93,7 @@ async function checkoutNpmReleaseBranch( {
  * the last plugin release.
  *
  * @param {string}           pluginReleaseBranch The plugin release branch name.
- * @param {FPPackagesConfig} config              The config object.
+ * @param {FINPackagesConfig} config              The config object.
  *
  * @return {?string}   The optional commit's hash when branch synced.
  */
@@ -152,7 +152,7 @@ async function runNpmReleaseBranchSyncStep( pluginReleaseBranch, config ) {
  * Update CHANGELOG files with the new version number for those packages that
  * contain new entries.
  *
- * @param {FPPackagesConfig} config Command config.
+ * @param {FINPackagesConfig} config Command config.
  *
  * @return {?string}   The optional commit's hash when changelog files updated.
  */
@@ -165,7 +165,7 @@ async function updatePackages( config ) {
 		releaseType,
 	} = config;
 
-	if ( releaseType === 'fp' ) {
+	if ( releaseType === 'fin' ) {
 		log(
 			'>> Skipping CHANGELOG files processing when targeting FinPress core.'
 		);
@@ -314,7 +314,7 @@ async function updatePackages( config ) {
 /**
  * Push the local Git Changes the remote repository.
  *
- * @param {FPPackagesConfig} config Command config.
+ * @param {FINPackagesConfig} config Command config.
  */
 async function runPushGitChangesStep( {
 	gitWorkingDirectoryPath,
@@ -340,7 +340,7 @@ async function runPushGitChangesStep( {
 /**
  * Publishes all changed packages to npm.
  *
- * @param {FPPackagesConfig} config Command config.
+ * @param {FINPackagesConfig} config Command config.
  *
  * @return {?string} The optional commit's hash when packages published to npm.
  */
@@ -389,7 +389,7 @@ async function publishPackagesToNpm( {
 				stdio: 'inherit',
 			}
 		);
-	} else if ( [ 'bugfix', 'fp' ].includes( releaseType ) ) {
+	} else if ( [ 'bugfix', 'fin' ].includes( releaseType ) ) {
 		log( '>> Publishing modified packages to npm.' );
 		try {
 			await command(
@@ -463,7 +463,7 @@ async function publishPackagesToNpm( {
  *
  * @param {string}           branchName Selected branch name.
  * @param {string[]}         commits    The list of commits to backport.
- * @param {FPPackagesConfig} config     Command config.
+ * @param {FINPackagesConfig} config     Command config.
  */
 async function backportCommitsToBranch(
 	branchName,
@@ -508,7 +508,7 @@ async function backportCommitsToBranch(
 /**
  * Runs FinPress packages release.
  *
- * @param {FPPackagesConfig} config         Command config.
+ * @param {FINPackagesConfig} config         Command config.
  * @param {string[]}         customMessages Custom messages to print in the terminal.
  *
  * @return {Promise<Object>} GitHub release object.
@@ -602,22 +602,22 @@ async function runPackagesRelease( config, customMessages ) {
  * Gets config object.
  *
  * @param {ReleaseType}              releaseType The selected release type.
- * @param {FPPackagesCommandOptions} options     Command options.
+ * @param {FINPackagesCommandOptions} options     Command options.
  *
- * @return {FPPackagesConfig} The config object.
+ * @return {FINPackagesConfig} The config object.
  */
 function getConfig(
 	releaseType,
-	{ ci, repositoryPath, semver = 'patch', fpVersion }
+	{ ci, repositoryPath, semver = 'patch', finVersion }
 ) {
 	let distTag = 'latest';
-	let npmReleaseBranch = 'fp/latest';
+	let npmReleaseBranch = 'fin/latest';
 	if ( releaseType === 'next' ) {
 		distTag = 'next';
-		npmReleaseBranch = 'fp/next';
-	} else if ( releaseType === 'fp' ) {
-		distTag = `fp-${ fpVersion }`;
-		npmReleaseBranch = `fp/${ fpVersion }`;
+		npmReleaseBranch = 'fin/next';
+	} else if ( releaseType === 'fin' ) {
+		distTag = `fin-${ finVersion }`;
+		npmReleaseBranch = `fin/${ finVersion }`;
 	}
 
 	return {
@@ -635,7 +635,7 @@ function getConfig(
 /**
  * Publishes to npm packages synced from the Gutenberg plugin (latest dist-tag, production version).
  *
- * @param {FPPackagesCommandOptions} options Command options.
+ * @param {FINPackagesCommandOptions} options Command options.
  */
 async function publishNpmGutenbergPlugin( options ) {
 	await runPackagesRelease( getConfig( 'latest', options ), [
@@ -646,31 +646,31 @@ async function publishNpmGutenbergPlugin( options ) {
 /**
  * Publishes to npm bugfixes for packages (latest dist-tag, production version).
  *
- * @param {FPPackagesCommandOptions} options Command options.
+ * @param {FINPackagesCommandOptions} options Command options.
  */
 async function publishNpmBugfixLatest( options ) {
 	await runPackagesRelease( getConfig( 'bugfix', options ), [
 		'Welcome! This tool helps with npm publishing a new bugfix version of FinPress packages.\n',
-		'Make sure that all required changes have been already cherry-picked to the `fp/latest` release branch.\n',
+		'Make sure that all required changes have been already cherry-picked to the `fin/latest` release branch.\n',
 	] );
 }
 
 /**
- * Publishes to npm bugfixes targeting FinPress core (fp-X.Y dist-tag, production version).
+ * Publishes to npm bugfixes targeting FinPress core (fin-X.Y dist-tag, production version).
  *
- * @param {FPPackagesCommandOptions} options Command options.
+ * @param {FINPackagesCommandOptions} options Command options.
  */
 async function publishNpmBugfixFinPressCore( options ) {
-	await runPackagesRelease( getConfig( 'fp', options ), [
+	await runPackagesRelease( getConfig( 'fin', options ), [
 		'Welcome! This tool helps with npm publishing a new bugfix version of FinPress packages targeting FinPress core.\n',
-		'Make sure that all required changes have been already cherry-picked to the `fp/X.Y` release branch.\n',
+		'Make sure that all required changes have been already cherry-picked to the `fin/X.Y` release branch.\n',
 	] );
 }
 
 /**
  * Publishes to npm development version of packages (next dist-tag, prerelease version).
  *
- * @param {FPPackagesCommandOptions} options Command options.
+ * @param {FINPackagesCommandOptions} options Command options.
  */
 async function publishNpmNext( options ) {
 	await runPackagesRelease( getConfig( 'next', options ), [

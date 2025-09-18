@@ -18,7 +18,7 @@ import {
 const CACHE = new Map();
 
 /**
- * @typedef FPRemoteUrlData
+ * @typedef FINRemoteUrlData
  *
  * @property {string} title contents of the remote URL's `<title>` tag.
  */
@@ -42,10 +42,10 @@ const CACHE = new Map();
  * url
  * ) => fetchUrlData( url );
  * ```
- * @return {Promise< FPRemoteUrlData[] >} Remote URL data.
+ * @return {Promise< FINRemoteUrlData[] >} Remote URL data.
  */
 const fetchUrlData = async ( url, options = {} ) => {
-	const endpoint = '/fp-block-editor/v1/url-details';
+	const endpoint = '/fin-block-editor/v1/url-details';
 
 	const args = {
 		url: prependHTTP( url ),

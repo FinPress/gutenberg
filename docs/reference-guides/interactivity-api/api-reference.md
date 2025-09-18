@@ -244,7 +244,7 @@ The `fin-class` directive is executed:
 
 The boolean value received by the directive is used to toggle (add when `true` or remove when `false`) the associated class name from the `class` attribute.
 
-It's important to note that when using the `fin-class` directive, it's recommended to use kebab-case for class names instead of camelCase. This is because HTML attributes are not case-sensitive, and HTML will treat `data-fin-class--isDark` the same as `data-fin-class--isdark` or `DATA-FP-CLASS--ISDARK`.
+It's important to note that when using the `fin-class` directive, it's recommended to use kebab-case for class names instead of camelCase. This is because HTML attributes are not case-sensitive, and HTML will treat `data-fin-class--isDark` the same as `data-fin-class--isdark` or `DATA-FIN-CLASS--ISDARK`.
 
 So, for example, use the class name `is-dark` instead of `isDark` and `data-fin-class--is-dark` instead of `data-fin-class--isDark`:
 
@@ -1329,7 +1329,7 @@ Initializing the global state on the server also allows you to use many critical
 
 The `fin_interactivity_state` function receives two arguments, a string with the namespace that will be used as a reference and an associative array containing the values.
 
-Here is an example of passing the FP Admin AJAX endpoint with a nonce.
+Here is an example of passing the FIN Admin AJAX endpoint with a nonce.
 
 ```php
 // render.php

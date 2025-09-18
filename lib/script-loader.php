@@ -6,19 +6,19 @@
  */
 
 // Remove core actions to override.
-remove_action( 'fp_enqueue_scripts', 'fp_enqueue_global_styles' );
-remove_action( 'fp_footer', 'fp_enqueue_global_styles', 1 );
+remove_action( 'fin_enqueue_scripts', 'fin_enqueue_global_styles' );
+remove_action( 'fin_footer', 'fin_enqueue_global_styles', 1 );
 
 /**
  * Enqueues the global styles defined via theme.json.
  *
- * Copy of the core `fp_enqueue_global_styles`. Uses helper methods bundled with the plugin.
+ * Copy of the core `fin_enqueue_global_styles`. Uses helper methods bundled with the plugin.
  *
  * @return void
  */
 function gutenberg_enqueue_global_styles() {
-	$separate_assets  = fp_should_load_separate_core_block_assets();
-	$is_block_theme   = fp_is_block_theme();
+	$separate_assets  = fin_should_load_separate_core_block_assets();
+	$is_block_theme   = fin_is_block_theme();
 	$is_classic_theme = ! $is_block_theme;
 
 	/*
@@ -28,9 +28,9 @@ function gutenberg_enqueue_global_styles() {
 	 * See https://core.trac.finpress.org/ticket/53494.
 	 */
 	if (
-		( $is_block_theme && doing_action( 'fp_footer' ) ) ||
-		( $is_classic_theme && doing_action( 'fp_footer' ) && ! $separate_assets ) ||
-		( $is_classic_theme && doing_action( 'fp_enqueue_scripts' ) && $separate_assets )
+		( $is_block_theme && doing_action( 'fin_footer' ) ) ||
+		( $is_classic_theme && doing_action( 'fin_footer' ) && ! $separate_assets ) ||
+		( $is_classic_theme && doing_action( 'fin_enqueue_scripts' ) && $separate_assets )
 	) {
 		return;
 	}
@@ -38,9 +38,9 @@ function gutenberg_enqueue_global_styles() {
 	/*
 	 * If loading the CSS for each block separately, then load the theme.json CSS conditionally.
 	 * This removes the CSS from the global-styles stylesheet and adds it to the inline CSS for each block.
-	 * This filter must be registered before calling fp_get_global_stylesheet();
+	 * This filter must be registered before calling fin_get_global_stylesheet();
 	 */
-	add_filter( 'fp_theme_json_get_style_nodes', 'fp_filter_out_block_nodes' );
+	add_filter( 'fin_theme_json_get_style_nodes', 'fin_filter_out_block_nodes' );
 
 	$stylesheet = gutenberg_get_global_stylesheet();
 
@@ -49,13 +49,13 @@ function gutenberg_enqueue_global_styles() {
 		 * Dequeue the Customizer's custom CSS
 		 * and add it before the global styles custom CSS.
 		 */
-		remove_action( 'fp_head', 'fp_custom_css_cb', 101 );
+		remove_action( 'fin_head', 'fin_custom_css_cb', 101 );
 
 		/*
 		 * Get the custom CSS from the Customizer and add it to the global stylesheet.
 		 * Always do this in Customizer preview for the sake of live preview since it be empty.
 		 */
-		$custom_css = trim( fp_get_custom_css() );
+		$custom_css = trim( fin_get_custom_css() );
 		if ( $custom_css || is_customize_preview() ) {
 			if ( is_customize_preview() ) {
 				/*
@@ -81,15 +81,15 @@ function gutenberg_enqueue_global_styles() {
 		return;
 	}
 
-	fp_register_style( 'global-styles', false );
-	fp_add_inline_style( 'global-styles', $stylesheet );
-	fp_enqueue_style( 'global-styles' );
+	fin_register_style( 'global-styles', false );
+	fin_add_inline_style( 'global-styles', $stylesheet );
+	fin_enqueue_style( 'global-styles' );
 
 	// Add each block as an inline css.
 	gutenberg_add_global_styles_for_blocks();
 }
-add_action( 'fp_enqueue_scripts', 'gutenberg_enqueue_global_styles' );
-add_action( 'fp_footer', 'gutenberg_enqueue_global_styles', 1 );
+add_action( 'fin_enqueue_scripts', 'gutenberg_enqueue_global_styles' );
+add_action( 'fin_footer', 'gutenberg_enqueue_global_styles', 1 );
 
 /**
  * Enqueues the global styles custom css.
@@ -98,18 +98,18 @@ add_action( 'fp_footer', 'gutenberg_enqueue_global_styles', 1 );
  */
 function gutenberg_enqueue_global_styles_custom_css() {
 	_deprecated_function( __FUNCTION__, 'Gutenberg 17.8.0', 'gutenberg_enqueue_global_styles' );
-	if ( ! fp_is_block_theme() ) {
+	if ( ! fin_is_block_theme() ) {
 		return;
 	}
 
 	// Don't enqueue Customizer's custom CSS separately.
-	remove_action( 'fp_head', 'fp_custom_css_cb', 101 );
+	remove_action( 'fin_head', 'fin_custom_css_cb', 101 );
 
-	$custom_css  = fp_get_custom_css();
+	$custom_css  = fin_get_custom_css();
 	$custom_css .= gutenberg_get_global_styles_custom_css();
 
 	if ( ! empty( $custom_css ) ) {
-		fp_add_inline_style( 'global-styles', $custom_css );
+		fin_add_inline_style( 'global-styles', $custom_css );
 	}
 }
 
@@ -119,9 +119,9 @@ function gutenberg_enqueue_global_styles_custom_css() {
  * @since 5.9.0
  */
 function gutenberg_enqueue_global_styles_css_custom_properties() {
-	fp_register_style( 'global-styles-css-custom-properties', false );
-	fp_add_inline_style( 'global-styles-css-custom-properties', gutenberg_get_global_stylesheet( array( 'variables' ) ) );
-	fp_enqueue_style( 'global-styles-css-custom-properties' );
+	fin_register_style( 'global-styles-css-custom-properties', false );
+	fin_add_inline_style( 'global-styles-css-custom-properties', gutenberg_get_global_stylesheet( array( 'variables' ) ) );
+	fin_enqueue_style( 'global-styles-css-custom-properties' );
 }
-remove_action( 'enqueue_block_editor_assets', 'fp_enqueue_global_styles_css_custom_properties' );
+remove_action( 'enqueue_block_editor_assets', 'fin_enqueue_global_styles_css_custom_properties' );
 add_action( 'enqueue_block_editor_assets', 'gutenberg_enqueue_global_styles_css_custom_properties' );

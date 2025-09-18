@@ -15,20 +15,20 @@ class Gutenberg_HTTP_Signaling_Server {
 
 
 	/**
-	 * Adds a fp_ajax action to handle the signaling server requests.
+	 * Adds a fin_ajax action to handle the signaling server requests.
 	 */
 	public static function init() {
 		$gutenberg_experiments = get_option( 'gutenberg-experiments' );
 		if ( ! $gutenberg_experiments || ! array_key_exists( 'gutenberg-sync-collaboration', $gutenberg_experiments ) ) {
 			return;
 		}
-		add_action( 'fp_ajax_gutenberg_signaling_server', array( __CLASS__, 'do_fp_ajax_action' ) );
+		add_action( 'fin_ajax_gutenberg_signaling_server', array( __CLASS__, 'do_fin_ajax_action' ) );
 	}
 
 	/**
-	 * Handles a fp_ajax signaling server request.
+	 * Handles a fin_ajax signaling server request.
 	 */
-	public static function do_fp_ajax_action() {
+	public static function do_fin_ajax_action() {
 		if ( empty( $_REQUEST ) || empty( $_REQUEST['subscriber_id'] ) ) {
 			die( 'no identifier' );
 		}
@@ -48,7 +48,7 @@ class Gutenberg_HTTP_Signaling_Server {
 			if ( empty( $_POST ) || empty( $_POST['message'] ) ) {
 				die( 'no message' );
 			}
-			$message = json_decode( fp_unslash( $_POST['message'] ), true );
+			$message = json_decode( fin_unslash( $_POST['message'] ), true );
 			if ( ! $message ) {
 				die( 'no message' );
 			}
@@ -67,7 +67,7 @@ class Gutenberg_HTTP_Signaling_Server {
 					static::handle_ping( $subscriber_to_messages_path, $subscriber_id );
 					break;
 			}
-			echo fp_json_encode( array( 'result' => 'ok' ) ), PHP_EOL, PHP_EOL;
+			echo fin_json_encode( array( 'result' => 'ok' ) ), PHP_EOL, PHP_EOL;
 		}
 
 		static::clean_up_old_connections( $topics_to_subscribers_path, $subscriber_to_messages_path, $subscriber_id );
@@ -147,7 +147,7 @@ class Gutenberg_HTTP_Signaling_Server {
 	}
 
 	/**
-	 * Handles a fp_ajax signaling server request of client that wants to retrieve its messages.
+	 * Handles a fin_ajax signaling server request of client that wants to retrieve its messages.
 	 *
 	 * It returns the client a response following the
 	 * {@link https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format Event stream format}.
@@ -190,7 +190,7 @@ class Gutenberg_HTTP_Signaling_Server {
 		if ( isset( $subscriber_to_messages[ $subscriber_id ] ) && count( $subscriber_to_messages[ $subscriber_id ] ) > 0 ) {
 			echo 'id: ' . time() . PHP_EOL;
 			echo 'event: message' . PHP_EOL;
-			echo 'data: ' . fp_json_encode( $subscriber_to_messages[ $subscriber_id ] ) . PHP_EOL . PHP_EOL;
+			echo 'data: ' . fin_json_encode( $subscriber_to_messages[ $subscriber_id ] ) . PHP_EOL . PHP_EOL;
 			$subscriber_to_messages[ $subscriber_id ] = array();
 			static::save_contents_to_file_descriptor( $fd, $subscriber_to_messages );
 		} else {
@@ -201,7 +201,7 @@ class Gutenberg_HTTP_Signaling_Server {
 	}
 
 	/**
-	 * Handles a fp_ajax signaling server request of client that wants to subscribe to a set of topics its messages.
+	 * Handles a fin_ajax signaling server request of client that wants to subscribe to a set of topics its messages.
 	 *
 	 * @access private
 	 * @internal
@@ -226,7 +226,7 @@ class Gutenberg_HTTP_Signaling_Server {
 	}
 
 	/**
-	 * Handles a fp_ajax signaling server request of client that wants to unsubscribe from a set of topics its messages.
+	 * Handles a fin_ajax signaling server request of client that wants to unsubscribe from a set of topics its messages.
 	 *
 	 * @access private
 	 * @internal
@@ -249,7 +249,7 @@ class Gutenberg_HTTP_Signaling_Server {
 	}
 
 	/**
-	 * Handles a fp_ajax signaling server request of client that wants to publish a message.
+	 * Handles a fin_ajax signaling server request of client that wants to publish a message.
 	 *
 	 * @access private
 	 * @internal
@@ -284,7 +284,7 @@ class Gutenberg_HTTP_Signaling_Server {
 	}
 
 	/**
-	 * Handles a fp_ajax signaling server request for the ping of a client.
+	 * Handles a fin_ajax signaling server request for the ping of a client.
 	 *
 	 * @access private
 	 * @internal

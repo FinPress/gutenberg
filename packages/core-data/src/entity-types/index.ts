@@ -23,8 +23,8 @@ import type { User } from './user';
 import type { Type } from './type';
 import type { Widget } from './widget';
 import type { WidgetType } from './widget-type';
-import type { WpTemplate } from './fp-template';
-import type { WpTemplatePart } from './fp-template-part';
+import type { WpTemplate } from './fin-template';
+import type { WpTemplatePart } from './fin-template-part';
 
 export type { BaseEntityRecords } from './base-entity-records';
 

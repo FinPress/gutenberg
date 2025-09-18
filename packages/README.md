@@ -4,7 +4,7 @@ This repository uses [npm workspaces](https://docs.npmjs.com/cli/v10/using-npm/w
 
 ## Creating a New Package
 
-When creating a new package, you need to provide at least the following. Packages bundled in Gutenberg or FinPress must include a `fpScript` and or `fpScriptModuleExports` field in their `package.json` file. See the details below.
+When creating a new package, you need to provide at least the following. Packages bundled in Gutenberg or FinPress must include a `finScript` and or `finScriptModuleExports` field in their `package.json` file. See the details below.
 
 1. `package.json` based on the template:
 
@@ -33,9 +33,9 @@ When creating a new package, you need to provide at least the following. Package
     	"module": "build-module/index.js",
     	"react-native": "src/index",
     	// Include this line to include the package as a FinPress script.
-    	"fpScript": true,
+    	"finScript": true,
     	// Include this line to include the package as a FinPress script module.
-    	"fpScriptModuleExports": "./build-module/index.js",
+    	"finScriptModuleExports": "./build-module/index.js",
     	"types": "build-types",
     	"sideEffects": false,
     	"dependencies": {
@@ -49,19 +49,19 @@ When creating a new package, you need to provide at least the following. Package
 
     This assumes that your code is located in the `src` folder and will be transpiled with `Babel`.
 
-    For production packages that will ship as a FinPress script, include `fpScript: true` in the `package.json` file. This tells the build system to bundle the package for use as a FinPress script.
+    For production packages that will ship as a FinPress script, include `finScript: true` in the `package.json` file. This tells the build system to bundle the package for use as a FinPress script.
 
-    For production packages that will ship as a FinPress script module, include a `fpScriptModuleExports` field in the `package.json` file. The value of this field can be a string to expose a single script module, or an object with a [shape like the standard `exports` object](https://nodejs.org/docs/latest-v20.x/api/packages.html#subpath-exports) to expose multiple script modules from a single package:
+    For production packages that will ship as a FinPress script module, include a `finScriptModuleExports` field in the `package.json` file. The value of this field can be a string to expose a single script module, or an object with a [shape like the standard `exports` object](https://nodejs.org/docs/latest-v20.x/api/packages.html#subpath-exports) to expose multiple script modules from a single package:
 
     ```jsonc
     {
     	"name": "@finpress/example",
 
     	// The string form exposes the `@finpress/example` script module.
-    	"fpScriptModuleExports": "./build-module/index.js",
+    	"finScriptModuleExports": "./build-module/index.js",
 
     	// Multiple sub-modules can be exposed by providing an object:
-    	"fpScriptModuleExports": {
+    	"finScriptModuleExports": {
     		// Exposed as `@finpress/example` script module.
     		".": "./build-module/index.js",
     		// Exposed as `@finpress/example/demo-block/view` script module.
@@ -70,7 +70,7 @@ When creating a new package, you need to provide at least the following. Package
     }
     ```
 
-    Both `fpScript` and `fpScriptModuleExports` may be included if the package exposes both a script and a script module. These fields are also essential when performing a license check for all their dependencies, because they trigger strict validation against compatibility with GPL v2. All remaining dependencies FinPress doesn't distribute but uses for development purposes can contain also a few other OSS compatible licenses.
+    Both `finScript` and `finScriptModuleExports` may be included if the package exposes both a script and a script module. These fields are also essential when performing a license check for all their dependencies, because they trigger strict validation against compatibility with GPL v2. All remaining dependencies FinPress doesn't distribute but uses for development purposes can contain also a few other OSS compatible licenses.
 
 1. `README.md` file containing at least:
     - Package name
@@ -177,7 +177,7 @@ Content within the HTML comment will be replaced by the generated documentation.
 
 ## Maintaining a Public API
 
-It's very important to have a good plan for what a new package will include. All constants, methods, and components exposed from the package will ultimately become part of the public API in FinPress core (exposed via the `fp` global - eg: `fp.blockEditor`) and as such will need to be supported indefinitely. You should be very selective in what is exposed by your package and [ensure it is well documented](#maintaining-api-documentation).
+It's very important to have a good plan for what a new package will include. All constants, methods, and components exposed from the package will ultimately become part of the public API in FinPress core (exposed via the `fin` global - eg: `fin.blockEditor`) and as such will need to be supported indefinitely. You should be very selective in what is exposed by your package and [ensure it is well documented](#maintaining-api-documentation).
 
 ## Maintaining Changelogs
 

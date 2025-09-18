@@ -164,7 +164,7 @@ const LinkControlSearchInput = forwardRef(
 export default LinkControlSearchInput;
 
 export const __experimentalLinkControlSearchInput = ( props ) => {
-	deprecated( 'fp.blockEditor.__experimentalLinkControlSearchInput', {
+	deprecated( 'fin.blockEditor.__experimentalLinkControlSearchInput', {
 		since: '6.8',
 	} );
 

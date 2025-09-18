@@ -21,8 +21,8 @@ import {
 } from '../registration';
 import { normalizeBlockType } from '../utils';
 
-/** @typedef {import('../parser').FPBlock} FPBlock */
-/** @typedef {import('../registration').FPBlockType} FPBlockType */
+/** @typedef {import('../parser').FINBlock} FINBlock */
+/** @typedef {import('../registration').FINBlockType} FINBlockType */
 /** @typedef {import('./logger').LoggerItem} LoggerItem */
 
 const identity = ( x ) => x;
@@ -716,8 +716,8 @@ export function isEquivalentHTML( actual, expected, logger = createLogger() ) {
  * with assumed attributes, the content matches the original value. If block is
  * invalid, this function returns all validations issues as well.
  *
- * @param {FPBlock}            block                          block object.
- * @param {FPBlockType|string} [blockTypeOrName = block.name] Block type or name, inferred from block if not given.
+ * @param {FINBlock}            block                          block object.
+ * @param {FINBlockType|string} [blockTypeOrName = block.name] Block type or name, inferred from block if not given.
  *
  * @return {[boolean,Array<LoggerItem>]} validation results.
  */

@@ -552,7 +552,7 @@ public class ReactAztecManager extends BaseViewManager<ReactAztecText, LayoutSha
      * This property/method is used to disable the Gutenberg compatibility mode on AztecRN.
      *
      * Aztec comes along with some nice plugins that are able to show preview of Pictures/Videos/shortcodes,
-     * and FP specific features, in the visual editor.
+     * and FIN specific features, in the visual editor.
      *
      * We don't need those improvements in Gutenberg mobile, so this RN wrapper around Aztec
      * that's only used in GB-mobile at the moment, does have them OFF by default.

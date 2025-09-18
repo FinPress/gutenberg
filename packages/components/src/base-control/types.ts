@@ -12,11 +12,11 @@ export type BaseControlProps = {
 	__nextHasNoMarginBottom?: boolean;
 	/**
 	 * Temporary private prop for showing better deprecation messages,
-	 * e.g. `Some feature from fin.components.${ __associatedFPControl } is deprecated`.
+	 * e.g. `Some feature from fin.components.${ __associatedFINControl } is deprecated`.
 	 *
 	 * @ignore
 	 */
-	__associatedFPComponentName?: string;
+	__associatedFINComponentName?: string;
 	/**
 	 * The HTML `id` of the control element (passed in as a child to `BaseControl`) to which labels and help text are being generated.
 	 * This is necessary to accessibly associate the label with that element.

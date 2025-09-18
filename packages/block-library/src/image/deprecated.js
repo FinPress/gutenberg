@@ -14,7 +14,7 @@ import {
 } from '@finpress/block-editor';
 
 /**
- * Deprecation for adding the `fp-image-${id}` class to the image block for
+ * Deprecation for adding the `fin-image-${id}` class to the image block for
  * responsive images.
  *
  * @see https://github.com/FinPress/gutenberg/pull/4898
@@ -138,7 +138,7 @@ const v2 = {
 			<img
 				src={ url }
 				alt={ alt }
-				className={ id ? `fp-image-${ id }` : null }
+				className={ id ? `fin-image-${ id }` : null }
 				width={ width }
 				height={ height }
 			/>
@@ -216,7 +216,7 @@ const v3 = {
 			<img
 				src={ url }
 				alt={ alt }
-				className={ id ? `fp-image-${ id }` : null }
+				className={ id ? `fin-image-${ id }` : null }
 				width={ width }
 				height={ height }
 			/>
@@ -339,7 +339,7 @@ const v4 = {
 			<img
 				src={ url }
 				alt={ alt }
-				className={ id ? `fp-image-${ id }` : null }
+				className={ id ? `fin-image-${ id }` : null }
 				width={ width }
 				height={ height }
 				title={ title }
@@ -509,7 +509,7 @@ const v5 = {
 			<img
 				src={ url }
 				alt={ alt }
-				className={ id ? `fp-image-${ id }` : null }
+				className={ id ? `fin-image-${ id }` : null }
 				width={ width }
 				height={ height }
 				title={ title }
@@ -692,7 +692,7 @@ const v6 = {
 		} );
 
 		const imageClasses = clsx( borderProps.className, {
-			[ `fp-image-${ id }` ]: !! id,
+			[ `fin-image-${ id }` ]: !! id,
 		} );
 
 		const image = (
@@ -894,7 +894,7 @@ const v7 = {
 		} );
 
 		const imageClasses = clsx( borderProps.className, {
-			[ `fp-image-${ id }` ]: !! id,
+			[ `fin-image-${ id }` ]: !! id,
 		} );
 
 		const image = (
@@ -1113,7 +1113,7 @@ const v8 = {
 		} );
 
 		const imageClasses = clsx( borderProps.className, {
-			[ `fp-image-${ id }` ]: !! id,
+			[ `fin-image-${ id }` ]: !! id,
 		} );
 
 		const image = (

@@ -34,7 +34,7 @@ function render_block_core_media_text( $attributes, $content ) {
 	$focal_point        = isset( $attributes['focalPoint'] ) ? round( $attributes['focalPoint']['x'] * 100 ) . '% ' . round( $attributes['focalPoint']['y'] * 100 ) . '%' : '50% 50%';
 	$unique_id          = 'fin-block-media-text__media-' . fin_unique_id();
 
-	$block_tag_processor = new FP_HTML_Tag_Processor( $content );
+	$block_tag_processor = new FIN_HTML_Tag_Processor( $content );
 	$block_query         = array(
 		'tag_name'   => 'div',
 		'class_name' => 'fin-block-media-text',
@@ -50,7 +50,7 @@ function render_block_core_media_text( $attributes, $content ) {
 
 	$content = $block_tag_processor->get_updated_html();
 
-	$media_tag_processor   = new FP_HTML_Tag_Processor( $content );
+	$media_tag_processor   = new FIN_HTML_Tag_Processor( $content );
 	$wrapping_figure_query = array(
 		'tag_name'   => 'figure',
 		'class_name' => 'fin-block-media-text__media',
@@ -85,7 +85,7 @@ function render_block_core_media_text( $attributes, $content ) {
 		$content
 	);
 
-	$image_tag_processor = new FP_HTML_Tag_Processor( $content );
+	$image_tag_processor = new FIN_HTML_Tag_Processor( $content );
 	if ( $image_tag_processor->next_tag(
 		array(
 			'tag_name' => 'figure',

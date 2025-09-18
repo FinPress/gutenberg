@@ -8,7 +8,7 @@
  * @package Gutenberg
  */
 
-class FP_Block_Supports_Block_Style_Variations_Test extends FP_UnitTestCase {
+class FIN_Block_Supports_Block_Style_Variations_Test extends FIN_UnitTestCase {
 	/**
 	 * Administrator ID.
 	 *
@@ -17,30 +17,30 @@ class FP_Block_Supports_Block_Style_Variations_Test extends FP_UnitTestCase {
 	protected static $administrator_id;
 
 	/**
-	 * FP_Theme_JSON_Resolver_Gutenberg::$blocks_cache property.
+	 * FIN_Theme_JSON_Resolver_Gutenberg::$blocks_cache property.
 	 *
 	 * @var ReflectionProperty
 	 */
 	private static $property_blocks_cache;
 
 	/**
-	 * Original value of the FP_Theme_JSON_Resolver_Gutenberg::$blocks_cache property.
+	 * Original value of the FIN_Theme_JSON_Resolver_Gutenberg::$blocks_cache property.
 	 *
 	 * @var array
 	 */
 	private static $property_blocks_cache_orig_value;
 
 	/**
-	 * FP_Theme_JSON_Resolver_Gutenberg::$core property.
+	 * FIN_Theme_JSON_Resolver_Gutenberg::$core property.
 	 *
 	 * @var ReflectionProperty
 	 */
 	private static $property_core;
 
 	/**
-	 * Original value of the FP_Theme_JSON_Resolver_Gutenberg::$core property.
+	 * Original value of the FIN_Theme_JSON_Resolver_Gutenberg::$core property.
 	 *
-	 * @var FP_Theme_JSON_Gutenberg
+	 * @var FIN_Theme_JSON_Gutenberg
 	 */
 	private static $property_core_orig_value;
 
@@ -62,24 +62,24 @@ class FP_Block_Supports_Block_Style_Variations_Test extends FP_UnitTestCase {
 		parent::set_up();
 		$this->theme_root = realpath( dirname( __DIR__ ) . '/data/themedir1' );
 
-		$this->orig_theme_dir = $GLOBALS['fp_theme_directories'];
+		$this->orig_theme_dir = $GLOBALS['fin_theme_directories'];
 
 		// /themes is necessary as theme.php functions assume /themes is the root if there is only one root.
-		$GLOBALS['fp_theme_directories'] = array( FP_CONTENT_DIR . '/themes', $this->theme_root );
+		$GLOBALS['fin_theme_directories'] = array( FIN_CONTENT_DIR . '/themes', $this->theme_root );
 
 		add_filter( 'theme_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'stylesheet_root', array( $this, 'filter_set_theme_root' ) );
 		add_filter( 'template_root', array( $this, 'filter_set_theme_root' ) );
 
 		// Clear caches.
-		fp_clean_themes_cache();
-		unset( $GLOBALS['fp_themes'] );
+		fin_clean_themes_cache();
+		unset( $GLOBALS['fin_themes'] );
 	}
 
 	public function tear_down() {
-		$GLOBALS['fp_theme_directories'] = $this->orig_theme_dir;
-		fp_clean_themes_cache();
-		unset( $GLOBALS['fp_themes'] );
+		$GLOBALS['fin_theme_directories'] = $this->orig_theme_dir;
+		fin_clean_themes_cache();
+		unset( $GLOBALS['fin_themes'] );
 
 		// Reset data between tests.
 		_gutenberg_clean_theme_json_caches();
@@ -148,7 +148,7 @@ class FP_Block_Supports_Block_Style_Variations_Test extends FP_UnitTestCase {
 			)
 		);
 
-		$theme_json   = FP_Theme_JSON_Resolver_Gutenberg::get_theme_data()->get_raw_data();
+		$theme_json   = FIN_Theme_JSON_Resolver_Gutenberg::get_theme_data()->get_raw_data();
 		$group_styles = $theme_json['styles']['blocks']['core/group'] ?? array();
 		$expected     = array(
 			'variations' => array(
@@ -238,7 +238,7 @@ class FP_Block_Supports_Block_Style_Variations_Test extends FP_UnitTestCase {
 			),
 		);
 
-		$theme_json = FP_Theme_JSON_Resolver_Gutenberg::get_theme_data()->get_raw_data();
+		$theme_json = FIN_Theme_JSON_Resolver_Gutenberg::get_theme_data()->get_raw_data();
 
 		gutenberg_resolve_block_style_variation_ref_values( $variation_data, $theme_json );
 

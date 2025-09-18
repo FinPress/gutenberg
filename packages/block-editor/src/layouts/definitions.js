@@ -86,7 +86,7 @@ export const LAYOUT_DEFINITIONS = {
 				selector:
 					' > :where(:not(.alignleft):not(.alignright):not(.alignfull))',
 				rules: {
-					'max-width': 'var(--fp--style--global--content-size)',
+					'max-width': 'var(--fin--style--global--content-size)',
 					'margin-left': 'auto !important',
 					'margin-right': 'auto !important',
 				},
@@ -94,7 +94,7 @@ export const LAYOUT_DEFINITIONS = {
 			{
 				selector: ' > .alignwide',
 				rules: {
-					'max-width': 'var(--fp--style--global--wide-size)',
+					'max-width': 'var(--fin--style--global--wide-size)',
 				},
 			},
 		],

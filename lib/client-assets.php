@@ -35,14 +35,14 @@ function gutenberg_url( $path ) {
 }
 
 /**
- * Registers a script according to `fp_register_script`. Honors this request by
+ * Registers a script according to `fin_register_script`. Honors this request by
  * reassigning internal dependency properties of any script handle already
  * registered by that name. It does not deregister the original script, to
  * avoid losing inline scripts which may have been attached.
  *
  * @since 4.1.0
  *
- * @param FP_Scripts       $scripts   FP_Scripts instance.
+ * @param FIN_Scripts       $scripts   FIN_Scripts instance.
  * @param string           $handle    Name of the script. Should be unique.
  * @param string           $src       Full URL of the script, or path of the script relative to the FinPress root directory.
  * @param array            $deps      Optional. An array of registered script handles this script depends on. Default empty array.
@@ -55,20 +55,20 @@ function gutenberg_url( $path ) {
  */
 function gutenberg_override_script( $scripts, $handle, $src, $deps = array(), $ver = false, $in_footer = false ) {
 	/*
-	 * Force `fp-i18n` script to be registered in the <head> as a
+	 * Force `fin-i18n` script to be registered in the <head> as a
 	 * temporary workaround for https://meta.trac.finpress.org/ticket/6195.
 	 */
-	$in_footer = 'fp-i18n' === $handle ? false : $in_footer;
+	$in_footer = 'fin-i18n' === $handle ? false : $in_footer;
 
 	$script = $scripts->query( $handle, 'registered' );
 	if ( $script ) {
 		/*
-		 * In many ways, this is a reimplementation of `fp_register_script` but
+		 * In many ways, this is a reimplementation of `fin_register_script` but
 		 * bypassing consideration of whether a script by the given handle had
 		 * already been registered.
 		 */
 
-		// See: `_FP_Dependency::__construct` .
+		// See: `_FIN_Dependency::__construct` .
 		$script->src  = $src;
 		$script->deps = $deps;
 		$script->ver  = $ver;
@@ -77,20 +77,20 @@ function gutenberg_override_script( $scripts, $handle, $src, $deps = array(), $v
 		$scripts->add( $handle, $src, $deps, $ver, ( $in_footer ? 1 : null ) );
 	}
 
-	if ( in_array( 'fp-i18n', $deps, true ) ) {
+	if ( in_array( 'fin-i18n', $deps, true ) ) {
 		$scripts->set_translations( $handle );
 	}
 
 	/*
-	 * Wp-editor module is exposed as window.fp.editor.
-	 * Problem: there is quite some code expecting window.fp.oldEditor object available under window.fp.editor.
+	 * Fin-editor module is exposed as window.fin.editor.
+	 * Problem: there is quite some code expecting window.fin.oldEditor object available under window.fin.editor.
 	 * Solution: fuse the two objects together to maintain backward compatibility.
 	 * For more context, see https://github.com/FinPress/gutenberg/issues/33203
 	 */
-	if ( 'fp-editor' === $handle ) {
+	if ( 'fin-editor' === $handle ) {
 		$scripts->add_inline_script(
-			'fp-editor',
-			'Object.assign( window.fp.editor, window.fp.oldEditor );',
+			'fin-editor',
+			'Object.assign( window.fin.editor, window.fin.oldEditor );',
 			'after'
 		);
 	}
@@ -113,8 +113,8 @@ function gutenberg_override_translation_file( $file, $handle ) {
 		return $file;
 	}
 
-	// Ignore scripts whose handle does not have the "fp-" prefix.
-	if ( ! str_starts_with( $handle, 'fp-' ) ) {
+	// Ignore scripts whose handle does not have the "fin-" prefix.
+	if ( ! str_starts_with( $handle, 'fin-' ) ) {
 		return $file;
 	}
 
@@ -128,7 +128,7 @@ function gutenberg_override_translation_file( $file, $handle ) {
 	 * The default file will be in the plugins language directory, omitting the
 	 * domain since Gutenberg assigns the script translations as the default.
 	 *
-	 * Example: /www/fp-content/languages/plugins/de_DE-07d88e6a803e01276b9bfcc1203e862e.json
+	 * Example: /www/fin-content/languages/plugins/de_DE-07d88e6a803e01276b9bfcc1203e862e.json
 	 *
 	 * The logic of `load_script_textdomain` is such that it will assume to
 	 * search in the plugins language directory, since the assigned source of
@@ -149,12 +149,12 @@ function gutenberg_override_translation_file( $file, $handle ) {
 add_filter( 'load_script_translation_file', 'gutenberg_override_translation_file', 10, 2 );
 
 /**
- * Registers a style according to `fp_register_style`. Honors this request by
+ * Registers a style according to `fin_register_style`. Honors this request by
  * deregistering any style by the same handler before registration.
  *
  * @since 4.1.0
  *
- * @param FP_Styles        $styles FP_Styles instance.
+ * @param FIN_Styles        $styles FIN_Styles instance.
  * @param string           $handle Name of the stylesheet. Should be unique.
  * @param string           $src    Full URL of the stylesheet, or path of the stylesheet relative to the FinPress root directory.
  * @param array            $deps   Optional. An array of registered stylesheet handles this stylesheet depends on. Default empty array.
@@ -180,7 +180,7 @@ function gutenberg_override_style( $styles, $handle, $src, $deps = array(), $ver
  *
  * @since 4.5.0
  *
- * @param FP_Scripts $scripts FP_Scripts instance.
+ * @param FIN_Scripts $scripts FIN_Scripts instance.
  */
 function gutenberg_register_packages_scripts( $scripts ) {
 	// When in production, use the plugin's version as the default asset version;
@@ -188,9 +188,9 @@ function gutenberg_register_packages_scripts( $scripts ) {
 	$default_version = defined( 'GUTENBERG_VERSION' ) && ! SCRIPT_DEBUG ? GUTENBERG_VERSION : time();
 
 	foreach ( glob( gutenberg_dir_path() . 'build/*/index.min.js' ) as $path ) {
-		// Prefix `fp-` to package directory to get script handle.
-		// For example, `…/build/a11y/index.min.js` becomes `fp-a11y`.
-		$handle = 'fp-' . basename( dirname( $path ) );
+		// Prefix `fin-` to package directory to get script handle.
+		// For example, `…/build/a11y/index.min.js` becomes `fin-a11y`.
+		$handle = 'fin-' . basename( dirname( $path ) );
 
 		// Replace extension with `.asset.php` to find the generated dependencies file.
 		$asset_file   = substr( $path, 0, -( strlen( '.js' ) ) ) . '.asset.php';
@@ -202,7 +202,7 @@ function gutenberg_register_packages_scripts( $scripts ) {
 
 		// Add dependencies that cannot be detected and generated by build tools.
 		switch ( $handle ) {
-			case 'fp-block-library':
+			case 'fin-block-library':
 				if (
 					! gutenberg_is_experiment_enabled( 'gutenberg-no-tinymce' ) ||
 					! empty( $_GET['requiresTinymce'] ) ||
@@ -212,15 +212,15 @@ function gutenberg_register_packages_scripts( $scripts ) {
 				}
 				break;
 
-			case 'fp-edit-post':
+			case 'fin-edit-post':
 				array_push( $dependencies, 'media-models', 'media-views', 'postbox' );
 				break;
 
-			case 'fp-edit-site':
-				array_push( $dependencies, 'fp-dom-ready' );
+			case 'fin-edit-site':
+				array_push( $dependencies, 'fin-dom-ready' );
 				break;
-			case 'fp-preferences':
-				array_push( $dependencies, 'fp-preferences-persistence' );
+			case 'fin-preferences':
+				array_push( $dependencies, 'fin-preferences-persistence' );
 				break;
 		}
 
@@ -237,7 +237,7 @@ function gutenberg_register_packages_scripts( $scripts ) {
 		);
 	}
 }
-add_action( 'fp_default_scripts', 'gutenberg_register_packages_scripts' );
+add_action( 'fin_default_scripts', 'gutenberg_register_packages_scripts' );
 
 /**
  * Registers all the FinPress packages styles that are in the standardized
@@ -247,7 +247,7 @@ add_action( 'fp_default_scripts', 'gutenberg_register_packages_scripts' );
  *
  * @global array $editor_styles
  *
- * @param FP_Styles $styles FP_Styles instance.
+ * @param FIN_Styles $styles FIN_Styles instance.
  */
 function gutenberg_register_packages_styles( $styles ) {
 	// When in production, use the plugin's version as the asset version;
@@ -256,237 +256,237 @@ function gutenberg_register_packages_styles( $styles ) {
 
 	gutenberg_override_style(
 		$styles,
-		'fp-block-editor-content',
+		'fin-block-editor-content',
 		gutenberg_url( 'build/block-editor/content.css' ),
-		array( 'fp-components' ),
+		array( 'fin-components' ),
 		$version
 	);
-	$styles->add_data( 'fp-block-editor-content', 'rtl', 'replace' );
+	$styles->add_data( 'fin-block-editor-content', 'rtl', 'replace' );
 
 	// Editor Styles.
 	gutenberg_override_style(
 		$styles,
-		'fp-block-editor',
+		'fin-block-editor',
 		gutenberg_url( 'build/block-editor/style.css' ),
-		array( 'fp-components', 'fp-preferences' ),
+		array( 'fin-components', 'fin-preferences' ),
 		$version
 	);
-	$styles->add_data( 'fp-block-editor', 'rtl', 'replace' );
+	$styles->add_data( 'fin-block-editor', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-editor',
+		'fin-editor',
 		gutenberg_url( 'build/editor/style.css' ),
-		array( 'fp-components', 'fp-block-editor', 'fp-patterns', 'fp-reusable-blocks', 'fp-preferences' ),
+		array( 'fin-components', 'fin-block-editor', 'fin-patterns', 'fin-reusable-blocks', 'fin-preferences' ),
 		$version
 	);
-	$styles->add_data( 'fp-editor', 'rtl', 'replace' );
+	$styles->add_data( 'fin-editor', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-edit-post',
+		'fin-edit-post',
 		gutenberg_url( 'build/edit-post/style.css' ),
-		array( 'fp-components', 'fp-block-editor', 'fp-editor', 'fp-edit-blocks', 'fp-block-library', 'fp-commands', 'fp-preferences' ),
+		array( 'fin-components', 'fin-block-editor', 'fin-editor', 'fin-edit-blocks', 'fin-block-library', 'fin-commands', 'fin-preferences' ),
 		$version
 	);
-	$styles->add_data( 'fp-edit-post', 'rtl', 'replace' );
+	$styles->add_data( 'fin-edit-post', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-components',
+		'fin-components',
 		gutenberg_url( 'build/components/style.css' ),
 		array( 'dashicons' ),
 		$version
 	);
-	$styles->add_data( 'fp-components', 'rtl', 'replace' );
+	$styles->add_data( 'fin-components', 'rtl', 'replace' );
 
-	$block_library_filename = fp_should_load_separate_core_block_assets() ? 'common' : 'style';
+	$block_library_filename = fin_should_load_separate_core_block_assets() ? 'common' : 'style';
 	gutenberg_override_style(
 		$styles,
-		'fp-block-library',
+		'fin-block-library',
 		gutenberg_url( 'build/block-library/' . $block_library_filename . '.css' ),
 		array(),
 		$version
 	);
-	$styles->add_data( 'fp-block-library', 'rtl', 'replace' );
-	$styles->add_data( 'fp-block-library', 'path', gutenberg_dir_path() . 'build/block-library/' . $block_library_filename . '.css' );
+	$styles->add_data( 'fin-block-library', 'rtl', 'replace' );
+	$styles->add_data( 'fin-block-library', 'path', gutenberg_dir_path() . 'build/block-library/' . $block_library_filename . '.css' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-format-library',
+		'fin-format-library',
 		gutenberg_url( 'build/format-library/style.css' ),
-		array( 'fp-block-editor', 'fp-components' ),
+		array( 'fin-block-editor', 'fin-components' ),
 		$version
 	);
-	$styles->add_data( 'fp-format-library', 'rtl', 'replace' );
+	$styles->add_data( 'fin-format-library', 'rtl', 'replace' );
 
 	// Only add CONTENT styles here that should be enqueued in the iframe!
-	$fp_edit_blocks_dependencies = array(
-		'fp-components',
+	$fin_edit_blocks_dependencies = array(
+		'fin-components',
 		// This need to be added before the block library styles,
 		// The block library styles override the "reset" styles.
-		'fp-reset-editor-styles',
-		'fp-block-library',
+		'fin-reset-editor-styles',
+		'fin-block-library',
 		// Until #37466, we can't specifically add them as editor styles yet,
 		// so we must hard-code it here as a dependency.
-		'fp-block-editor-content',
+		'fin-block-editor-content',
 	);
 
 	// Only load the default layout and margin styles for themes without theme.json file.
-	if ( ! fp_theme_has_theme_json() ) {
-		$fp_edit_blocks_dependencies[] = 'fp-editor-classic-layout-styles';
+	if ( ! fin_theme_has_theme_json() ) {
+		$fin_edit_blocks_dependencies[] = 'fin-editor-classic-layout-styles';
 	}
 
 	global $editor_styles;
-	if ( current_theme_supports( 'fp-block-styles' ) && ( ! is_array( $editor_styles ) || count( $editor_styles ) === 0 ) ) {
+	if ( current_theme_supports( 'fin-block-styles' ) && ( ! is_array( $editor_styles ) || count( $editor_styles ) === 0 ) ) {
 		// Include opinionated block styles if the theme supports block styles and no $editor_styles are declared, so the editor never appears broken.
-		$fp_edit_blocks_dependencies[] = 'fp-block-library-theme';
+		$fin_edit_blocks_dependencies[] = 'fin-block-library-theme';
 	}
 
 	gutenberg_override_style(
 		$styles,
-		'fp-reset-editor-styles',
+		'fin-reset-editor-styles',
 		gutenberg_url( 'build/block-library/reset.css' ),
-		array( 'common', 'forms' ), // Make sure the reset is loaded after the default FP Admin styles.
+		array( 'common', 'forms' ), // Make sure the reset is loaded after the default FIN Admin styles.
 		$version
 	);
-	$styles->add_data( 'fp-reset-editor-styles', 'rtl', 'replace' );
+	$styles->add_data( 'fin-reset-editor-styles', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-editor-classic-layout-styles',
+		'fin-editor-classic-layout-styles',
 		gutenberg_url( 'build/edit-post/classic.css' ),
 		array(),
 		$version
 	);
-	$styles->add_data( 'fp-editor-classic-layout-styles', 'rtl', 'replace' );
+	$styles->add_data( 'fin-editor-classic-layout-styles', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-block-library-editor',
+		'fin-block-library-editor',
 		gutenberg_url( 'build/block-library/editor.css' ),
 		array(),
 		$version
 	);
-	$styles->add_data( 'fp-block-library-editor', 'rtl', 'replace' );
+	$styles->add_data( 'fin-block-library-editor', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-edit-blocks',
+		'fin-edit-blocks',
 		gutenberg_url( 'build/block-library/editor.css' ),
-		$fp_edit_blocks_dependencies,
+		$fin_edit_blocks_dependencies,
 		$version
 	);
-	$styles->add_data( 'fp-edit-blocks', 'rtl', 'replace' );
+	$styles->add_data( 'fin-edit-blocks', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-nux',
+		'fin-nux',
 		gutenberg_url( 'build/nux/style.css' ),
-		array( 'fp-components' ),
+		array( 'fin-components' ),
 		$version
 	);
-	$styles->add_data( 'fp-nux', 'rtl', 'replace' );
+	$styles->add_data( 'fin-nux', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-block-library-theme',
+		'fin-block-library-theme',
 		gutenberg_url( 'build/block-library/theme.css' ),
 		array(),
 		$version
 	);
-	$styles->add_data( 'fp-block-library-theme', 'rtl', 'replace' );
+	$styles->add_data( 'fin-block-library-theme', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-list-reusable-blocks',
+		'fin-list-reusable-blocks',
 		gutenberg_url( 'build/list-reusable-blocks/style.css' ),
-		array( 'fp-components' ),
+		array( 'fin-components' ),
 		$version
 	);
-	$styles->add_data( 'fp-list-reusable-blocks', 'rtl', 'replace' );
+	$styles->add_data( 'fin-list-reusable-blocks', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-commands',
+		'fin-commands',
 		gutenberg_url( 'build/commands/style.css' ),
-		array( 'fp-components' ),
+		array( 'fin-components' ),
 		$version
 	);
-	$styles->add_data( 'fp-commands', 'rtl', 'replace' );
+	$styles->add_data( 'fin-commands', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-edit-site',
+		'fin-edit-site',
 		gutenberg_url( 'build/edit-site/style.css' ),
-		array( 'fp-components', 'fp-block-editor', 'fp-editor', 'fp-block-library-editor', 'common', 'forms', 'fp-commands', 'fp-preferences' ),
+		array( 'fin-components', 'fin-block-editor', 'fin-editor', 'fin-block-library-editor', 'common', 'forms', 'fin-commands', 'fin-preferences' ),
 		$version
 	);
-	$styles->add_data( 'fp-edit-site', 'rtl', 'replace' );
+	$styles->add_data( 'fin-edit-site', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-edit-widgets',
+		'fin-edit-widgets',
 		gutenberg_url( 'build/edit-widgets/style.css' ),
-		array( 'fp-components', 'fp-block-editor', 'fp-editor', 'fp-edit-blocks', 'fp-patterns', 'fp-widgets', 'fp-preferences' ),
+		array( 'fin-components', 'fin-block-editor', 'fin-editor', 'fin-edit-blocks', 'fin-patterns', 'fin-widgets', 'fin-preferences' ),
 		$version
 	);
-	$styles->add_data( 'fp-edit-widgets', 'rtl', 'replace' );
+	$styles->add_data( 'fin-edit-widgets', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-block-directory',
+		'fin-block-directory',
 		gutenberg_url( 'build/block-directory/style.css' ),
-		array( 'fp-block-editor', 'fp-components' ),
+		array( 'fin-block-editor', 'fin-components' ),
 		$version
 	);
-	$styles->add_data( 'fp-block-directory', 'rtl', 'replace' );
+	$styles->add_data( 'fin-block-directory', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-customize-widgets',
+		'fin-customize-widgets',
 		gutenberg_url( 'build/customize-widgets/style.css' ),
-		array( 'fp-components', 'fp-block-editor', 'fp-editor', 'fp-edit-blocks', 'fp-widgets', 'fp-preferences' ),
+		array( 'fin-components', 'fin-block-editor', 'fin-editor', 'fin-edit-blocks', 'fin-widgets', 'fin-preferences' ),
 		$version
 	);
-	$styles->add_data( 'fp-customize-widgets', 'rtl', 'replace' );
+	$styles->add_data( 'fin-customize-widgets', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-patterns',
+		'fin-patterns',
 		gutenberg_url( 'build/patterns/style.css' ),
-		array( 'fp-components' ),
+		array( 'fin-components' ),
 		$version
 	);
-	$styles->add_data( 'fp-patterns', 'rtl', 'replace' );
+	$styles->add_data( 'fin-patterns', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-reusable-blocks',
+		'fin-reusable-blocks',
 		gutenberg_url( 'build/reusable-blocks/style.css' ),
-		array( 'fp-components' ),
+		array( 'fin-components' ),
 		$version
 	);
-	$styles->add_data( 'fp-reusable-blocks', 'rtl', 'replace' );
+	$styles->add_data( 'fin-reusable-blocks', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-widgets',
+		'fin-widgets',
 		gutenberg_url( 'build/widgets/style.css' ),
-		array( 'fp-components' )
+		array( 'fin-components' )
 	);
-	$styles->add_data( 'fp-widgets', 'rtl', 'replace' );
+	$styles->add_data( 'fin-widgets', 'rtl', 'replace' );
 
 	gutenberg_override_style(
 		$styles,
-		'fp-preferences',
+		'fin-preferences',
 		gutenberg_url( 'build/preferences/style.css' ),
-		array( 'fp-components' ),
+		array( 'fin-components' ),
 		$version
 	);
-	$styles->add_data( 'fp-preferences', 'rtl', 'replace' );
+	$styles->add_data( 'fin-preferences', 'rtl', 'replace' );
 }
-add_action( 'fp_default_styles', 'gutenberg_register_packages_styles' );
+add_action( 'fin_default_styles', 'gutenberg_register_packages_styles' );
 
 /**
  * Fetches, processes and compiles stored core styles, then combines and renders them to the page.
@@ -509,7 +509,7 @@ add_action( 'fp_default_styles', 'gutenberg_register_packages_styles' );
  * @return void
  */
 function gutenberg_enqueue_stored_styles( $options = array() ) {
-	$is_block_theme   = fp_is_block_theme();
+	$is_block_theme   = fin_is_block_theme();
 	$is_classic_theme = ! $is_block_theme;
 
 	/*
@@ -517,8 +517,8 @@ function gutenberg_enqueue_stored_styles( $options = array() ) {
 	 * For classic themes, in the footer.
 	 */
 	if (
-		( $is_block_theme && doing_action( 'fp_footer' ) ) ||
-		( $is_classic_theme && doing_action( 'fp_enqueue_scripts' ) )
+		( $is_block_theme && doing_action( 'fin_footer' ) ) ||
+		( $is_classic_theme && doing_action( 'fin_enqueue_scripts' ) )
 	) {
 		return;
 	}
@@ -539,20 +539,20 @@ function gutenberg_enqueue_stored_styles( $options = array() ) {
 
 	// Combines Core styles.
 	if ( ! empty( $compiled_core_stylesheet ) ) {
-		fp_register_style( $style_tag_id, false, array(), true );
-		fp_add_inline_style( $style_tag_id, $compiled_core_stylesheet );
-		fp_enqueue_style( $style_tag_id );
+		fin_register_style( $style_tag_id, false, array(), true );
+		fin_add_inline_style( $style_tag_id, $compiled_core_stylesheet );
+		fin_enqueue_style( $style_tag_id );
 	}
 
 	// If there are any other stores registered by themes etc., print them out.
-	$additional_stores = FP_Style_Engine_CSS_Rules_Store_Gutenberg::get_stores();
+	$additional_stores = FIN_Style_Engine_CSS_Rules_Store_Gutenberg::get_stores();
 
 	/*
 	 * Since the corresponding action hook in Core is removed below,
 	 * this function should still honour any styles stored using the Core Style Engine store.
 	 */
-	if ( class_exists( 'FP_Style_Engine_CSS_Rules_Store' ) ) {
-		$additional_stores = array_merge( $additional_stores, FP_Style_Engine_CSS_Rules_Store::get_stores() );
+	if ( class_exists( 'FIN_Style_Engine_CSS_Rules_Store' ) ) {
+		$additional_stores = array_merge( $additional_stores, FIN_Style_Engine_CSS_Rules_Store::get_stores() );
 	}
 
 	foreach ( array_keys( $additional_stores ) as $store_name ) {
@@ -561,10 +561,10 @@ function gutenberg_enqueue_stored_styles( $options = array() ) {
 		}
 		$styles = gutenberg_style_engine_get_stylesheet_from_context( $store_name, $options );
 		if ( ! empty( $styles ) ) {
-			$key = "fp-style-engine-$store_name";
-			fp_register_style( $key, false, array(), true );
-			fp_add_inline_style( $key, $styles );
-			fp_enqueue_style( $key );
+			$key = "fin-style-engine-$store_name";
+			fin_register_style( $key, false, array(), true );
+			fin_add_inline_style( $key, $styles );
+			fin_enqueue_style( $key );
 		}
 	}
 }
@@ -578,7 +578,7 @@ function gutenberg_enqueue_stored_styles( $options = array() ) {
  *
  * @since 13.0
  *
- * @param FP_Scripts $scripts FP_Scripts instance.
+ * @param FIN_Scripts $scripts FIN_Scripts instance.
  */
 function gutenberg_register_vendor_scripts( $scripts ) {
 	$extension = SCRIPT_DEBUG ? '.js' : '.min.js';
@@ -588,7 +588,7 @@ function gutenberg_register_vendor_scripts( $scripts ) {
 		'react',
 		gutenberg_url( 'build/vendors/react' . $extension ),
 		// See https://github.com/pmmmwh/react-refresh-webpack-plugin/blob/main/docs/TROUBLESHOOTING.md#externalising-react.
-		SCRIPT_DEBUG ? array( 'fp-react-refresh-entry', 'fp-polyfill' ) : array( 'fp-polyfill' ),
+		SCRIPT_DEBUG ? array( 'fin-react-refresh-entry', 'fin-polyfill' ) : array( 'fin-polyfill' ),
 		'18'
 	);
 	gutenberg_override_script(
@@ -607,7 +607,7 @@ function gutenberg_register_vendor_scripts( $scripts ) {
 		'18'
 	);
 }
-add_action( 'fp_default_scripts', 'gutenberg_register_vendor_scripts' );
+add_action( 'fin_default_scripts', 'gutenberg_register_vendor_scripts' );
 
 /**
  * Registers or re-registers Gutenberg Script Modules.
@@ -654,20 +654,20 @@ function gutenberg_default_script_modules() {
 		}
 
 		$path = gutenberg_url( "build-module/{$file_name}" );
-		fp_register_script_module( $script_module_id, $path, $script_module_data['dependencies'], $script_module_data['version'] );
+		fin_register_script_module( $script_module_id, $path, $script_module_data['dependencies'], $script_module_data['version'] );
 	}
 }
-remove_action( 'fp_default_scripts', 'fp_default_script_modules' );
-add_action( 'fp_default_scripts', 'gutenberg_default_script_modules' );
+remove_action( 'fin_default_scripts', 'fin_default_script_modules' );
+add_action( 'fin_default_scripts', 'gutenberg_default_script_modules' );
 
 /*
  * Always remove the Core action hook while gutenberg_enqueue_stored_styles() exists to avoid styles being printed twice.
  * This is also because gutenberg_enqueue_stored_styles uses the Style Engine's `gutenberg_*` functions and `_Gutenberg` classes,
  * which are in continuous development and generally ahead of Core.
  */
-remove_action( 'fp_enqueue_scripts', 'fp_enqueue_stored_styles' );
-remove_action( 'fp_footer', 'fp_enqueue_stored_styles', 1 );
+remove_action( 'fin_enqueue_scripts', 'fin_enqueue_stored_styles' );
+remove_action( 'fin_footer', 'fin_enqueue_stored_styles', 1 );
 
 // Enqueue stored styles.
-add_action( 'fp_enqueue_scripts', 'gutenberg_enqueue_stored_styles' );
-add_action( 'fp_footer', 'gutenberg_enqueue_stored_styles', 1 );
+add_action( 'fin_enqueue_scripts', 'gutenberg_enqueue_stored_styles' );
+add_action( 'fin_footer', 'gutenberg_enqueue_stored_styles', 1 );

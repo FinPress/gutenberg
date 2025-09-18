@@ -10,7 +10,7 @@
  *
  * @since 6.0.0
  *
- * @param FP_Block_List $inner_blocks Inner block instance.
+ * @param FIN_Block_List $inner_blocks Inner block instance.
  *
  * @return bool Whether the block list contains a block that uses the featured image.
  */
@@ -38,11 +38,11 @@ function block_core_post_template_uses_featured_image( $inner_blocks ) {
  *
  * @since 6.3.0 Changed render_block_context priority to `1`.
  *
- * @global FP_Query $fin_query FinPress Query object.
+ * @global FIN_Query $fin_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  *
  * @return string Returns the output of the query, structured using the layout defined by the block's inner blocks.
  */
@@ -69,7 +69,7 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 		}
 	} else {
 		$query_args = build_query_vars_from_query_block( $block, $page );
-		$query      = new FP_Query( $query_args );
+		$query      = new FIN_Query( $query_args );
 	}
 
 	if ( ! $query->have_posts() ) {
@@ -120,7 +120,7 @@ function render_block_core_post_template( $attributes, $content, $block ) {
 		add_filter( 'render_block_context', $filter_block_context, 1 );
 		// Render the inner blocks of the Post Template block with `dynamic` set to `false` to prevent calling
 		// `render_callback` and ensure that no wrapper markup is included.
-		$block_content = ( new FP_Block( $block_instance ) )->render( array( 'dynamic' => false ) );
+		$block_content = ( new FIN_Block( $block_instance ) )->render( array( 'dynamic' => false ) );
 		remove_filter( 'render_block_context', $filter_block_context, 1 );
 
 		// Wrap the render inner blocks in a `li` element with the appropriate post classes.

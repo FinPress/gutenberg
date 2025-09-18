@@ -29,10 +29,10 @@ import {
 	removeQueryArgs,
 	safeDecodeURI,
 } from '../';
-import fptData from './fixtures/fpt-data';
+import fintData from './fixtures/fint-data';
 
 describe( 'isURL', () => {
-	it.each( fptData.map( ( { input, failure } ) => [ input, !! failure ] ) )(
+	it.each( fintData.map( ( { input, failure } ) => [ input, !! failure ] ) )(
 		'%s',
 		( input, isFailure ) => {
 			expect( isURL( input ) ).toBe( ! isFailure );
@@ -374,11 +374,11 @@ describe( 'getQueryString', () => {
 	} );
 
 	it( 'returns the query string of a path', () => {
-		expect( getQueryString( '/fp-json/fp/v2/posts?type=page' ) ).toBe(
+		expect( getQueryString( '/fin-json/fin/v2/posts?type=page' ) ).toBe(
 			'type=page'
 		);
 
-		expect( getQueryString( '/fp-json/fp/v2/posts' ) ).toBeUndefined();
+		expect( getQueryString( '/fin-json/fin/v2/posts' ) ).toBeUndefined();
 	} );
 
 	it( 'returns undefined when the provided does not contain a url query string', () => {
@@ -1115,9 +1115,9 @@ describe( 'filterURLForDisplay', () => {
 	} );
 	it( 'should preserve the original url if no argument max length', () => {
 		const url = filterURLForDisplay(
-			'http://www.finpress.org/fp-content/uploads/myimage.jpg'
+			'http://www.finpress.org/fin-content/uploads/myimage.jpg'
 		);
-		expect( url ).toBe( 'finpress.org/fp-content/uploads/myimage.jpg' );
+		expect( url ).toBe( 'finpress.org/fin-content/uploads/myimage.jpg' );
 	} );
 	it( 'should preserve the original url if the url is short enough', () => {
 		const url = filterURLForDisplay(
@@ -1128,35 +1128,35 @@ describe( 'filterURLForDisplay', () => {
 	} );
 	it( 'should return ellipsis, upper level pieces url, and filename when the url is long enough but filename is short enough', () => {
 		const url = filterURLForDisplay(
-			'http://www.finpress.org/fp-content/uploads/myimage.jpg',
+			'http://www.finpress.org/fin-content/uploads/myimage.jpg',
 			20
 		);
 		expect( url ).toBe( '…/uploads/myimage.jpg' );
 	} );
 	it( 'should return filename split by ellipsis plus three characters when filename is long enough', () => {
 		const url = filterURLForDisplay(
-			'http://www.finpress.org/fp-content/uploads/superlongtitlewithextension.jpeg',
+			'http://www.finpress.org/fin-content/uploads/superlongtitlewithextension.jpeg',
 			20
 		);
 		expect( url ).toBe( 'superlongti…ion.jpeg' );
 	} );
 	it( 'should remove query arguments', () => {
 		const url = filterURLForDisplay(
-			'http://www.finpress.org/fp-content/uploads/myimage.jpeg?query_args=a',
+			'http://www.finpress.org/fin-content/uploads/myimage.jpeg?query_args=a',
 			20
 		);
 		expect( url ).toBe( '…uploads/myimage.jpeg' );
 	} );
 	it( 'should preserve the original url when it is not a file', () => {
 		const url = filterURLForDisplay(
-			'http://www.finpress.org/fp-content/url/',
+			'http://www.finpress.org/fin-content/url/',
 			20
 		);
-		expect( url ).toBe( 'finpress.org/fp-content/url/' );
+		expect( url ).toBe( 'finpress.org/fin-content/url/' );
 	} );
 	it( 'should return file split by ellipsis when the file name has multiple periods', () => {
 		const url = filterURLForDisplay(
-			'http://www.finpress.org/fp-content/uploads/filename.2020.12.20.png',
+			'http://www.finpress.org/fin-content/uploads/filename.2020.12.20.png',
 			20
 		);
 		expect( url ).toBe( 'filename.202….20.png' );

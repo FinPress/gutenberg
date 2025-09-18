@@ -21,16 +21,16 @@ const { Fill, Slot } = createSlotFill( 'PluginDocumentSettingPanel' );
  * @param {string}                props.name                            Required. A machine-friendly name for the panel.
  * @param {string}                [props.className]                     An optional class name added to the row.
  * @param {string}                [props.title]                         The title of the panel
- * @param {FPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FP element, to be rendered when the sidebar is pinned to toolbar.
+ * @param {FINBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.finpress.org/resource/dashicons/) icon slug string, or an SVG FIN element, to be rendered when the sidebar is pinned to toolbar.
  * @param {React.ReactNode}       props.children                        Children to be rendered
  *
  * @example
  * ```js
  * // Using ES5 syntax
  * var el = React.createElement;
- * var __ = fp.i18n.__;
- * var registerPlugin = fp.plugins.registerPlugin;
- * var PluginDocumentSettingPanel = fp.editor.PluginDocumentSettingPanel;
+ * var __ = fin.i18n.__;
+ * var registerPlugin = fin.plugins.registerPlugin;
+ * var PluginDocumentSettingPanel = fin.editor.PluginDocumentSettingPanel;
  *
  * function MyDocumentSettingPlugin() {
  * 	return el(

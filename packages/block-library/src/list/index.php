@@ -24,7 +24,7 @@ function block_core_list_render( $attributes, $content ) {
 		return $content;
 	}
 
-	$processor = new FP_HTML_Tag_Processor( $content );
+	$processor = new FIN_HTML_Tag_Processor( $content );
 
 	$list_tags = array( 'OL', 'UL' );
 	while ( $processor->next_tag() ) {

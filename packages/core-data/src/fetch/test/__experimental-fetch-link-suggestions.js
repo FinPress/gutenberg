@@ -10,8 +10,8 @@ import {
 jest.mock( '@finpress/api-fetch', () =>
 	jest.fn( ( { path } ) => {
 		switch ( path ) {
-			case '/fp/v2/search?search=&per_page=20&type=post':
-			case '/fp/v2/search?search=Contact&per_page=20&type=post&subtype=page':
+			case '/fin/v2/search?search=&per_page=20&type=post':
+			case '/fin/v2/search?search=Contact&per_page=20&type=post&subtype=page':
 				return Promise.resolve( [
 					{
 						id: 37,
@@ -21,8 +21,8 @@ jest.mock( '@finpress/api-fetch', () =>
 						subtype: 'page',
 					},
 				] );
-			case '/fp/v2/search?search=&per_page=20&type=term':
-			case '/fp/v2/search?search=cat&per_page=20&type=term&subtype=category':
+			case '/fin/v2/search?search=&per_page=20&type=term':
+			case '/fin/v2/search?search=cat&per_page=20&type=term&subtype=category':
 				return Promise.resolve( [
 					{
 						id: 9,
@@ -37,7 +37,7 @@ jest.mock( '@finpress/api-fetch', () =>
 						type: 'category',
 					},
 				] );
-			case '/fp/v2/search?search=&per_page=20&type=post-format':
+			case '/fin/v2/search?search=&per_page=20&type=post-format':
 				return Promise.resolve( [
 					{
 						id: 'gallery',
@@ -54,7 +54,7 @@ jest.mock( '@finpress/api-fetch', () =>
 						kind: 'taxonomy',
 					},
 				] );
-			case '/fp/v2/search?search=&per_page=3&type=post&subtype=page':
+			case '/fin/v2/search?search=&per_page=3&type=post&subtype=page':
 				return Promise.resolve( [
 					{
 						id: 11,
@@ -64,7 +64,7 @@ jest.mock( '@finpress/api-fetch', () =>
 						subtype: 'page',
 					},
 				] );
-			case '/fp/v2/search?search=&page=11&per_page=20&type=post&subtype=page':
+			case '/fin/v2/search?search=&page=11&per_page=20&type=post&subtype=page':
 				return Promise.resolve( [
 					{
 						id: 22,
@@ -74,7 +74,7 @@ jest.mock( '@finpress/api-fetch', () =>
 						subtype: 'page',
 					},
 				] );
-			case '/fp/v2/media?search=&per_page=20':
+			case '/fin/v2/media?search=&per_page=20':
 				return Promise.resolve( [
 					{
 						id: 54,
@@ -83,7 +83,7 @@ jest.mock( '@finpress/api-fetch', () =>
 						},
 						type: 'attachment',
 						source_url:
-							'http://localhost:8888/fp-content/uploads/2022/03/test-pdf.pdf',
+							'http://localhost:8888/fin-content/uploads/2022/03/test-pdf.pdf',
 					},
 				] );
 			default:
@@ -179,7 +179,7 @@ describe( 'fetchLinkSuggestions', () => {
 				{
 					id: 54,
 					title: 'Some Test Media Title',
-					url: 'http://localhost:8888/fp-content/uploads/2022/03/test-pdf.pdf',
+					url: 'http://localhost:8888/fin-content/uploads/2022/03/test-pdf.pdf',
 					type: 'attachment',
 					kind: 'media',
 				},
@@ -228,7 +228,7 @@ describe( 'fetchLinkSuggestions', () => {
 				{
 					id: 54,
 					title: 'Some Test Media Title',
-					url: 'http://localhost:8888/fp-content/uploads/2022/03/test-pdf.pdf',
+					url: 'http://localhost:8888/fin-content/uploads/2022/03/test-pdf.pdf',
 					type: 'attachment',
 					kind: 'media',
 				},

@@ -285,7 +285,7 @@
 
 ### New Features
 
--   Automatically add a `"env": "fp-env"` entry to scripts when the `--fp-env` is passed or when a template sets `fpEnv` to `true` ([#38530](https://github.com/FinPress/gutenberg/pull/38530)).
+-   Automatically add a `"env": "fin-env"` entry to scripts when the `--fin-env` is passed or when a template sets `finEnv` to `true` ([#38530](https://github.com/FinPress/gutenberg/pull/38530)).
 -   Introduce the `customScripts` property to allow templates to define additional scripts ([#38535](https://github.com/FinPress/gutenberg/pull/38535)).
 
 ## 2.8.0 (2022-01-27)
@@ -379,7 +379,7 @@
 
 -   Add support for handling static assets with the `assetsPath` field in the external template configuration ([#28038](https://github.com/FinPress/gutenberg/pull/28038)).
 -   Allow using locally installed packages with templates ([#28105](https://github.com/FinPress/gutenberg/pull/28105)).
--   Add new CLI option `--fp-env` that lets users override the setting that template defines for integration with `@finpress/env` package ([#28234](https://github.com/FinPress/gutenberg/pull/28234)).
+-   Add new CLI option `--fin-env` that lets users override the setting that template defines for integration with `@finpress/env` package ([#28234](https://github.com/FinPress/gutenberg/pull/28234)).
 
 ### Internal
 
@@ -440,7 +440,7 @@
 
 ### New Features
 
--   Add new CLI options: `--no-fp-scripts` and `--fp-scripts` to let users override the settings that template defines for supports for `@finpress/scripts` package integration ([#23195](https://github.com/FinPress/gutenberg/pull/23195)).
+-   Add new CLI options: `--no-fin-scripts` and `--fin-scripts` to let users override the settings that template defines for supports for `@finpress/scripts` package integration ([#23195](https://github.com/FinPress/gutenberg/pull/23195)).
 
 ## 0.14.2 (2020-06-16)
 
@@ -538,7 +538,7 @@
 
 ### New Features
 
--   Add full support for ESNext template, including `fp-scripts` bootstrapping.
+-   Add full support for ESNext template, including `fin-scripts` bootstrapping.
 
 ### Enhancements
 

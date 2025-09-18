@@ -10,11 +10,11 @@
  *
  * @since 5.8.0
  *
- * @global FP_Query $fp_query FinPress Query object.
+ * @global FIN_Query $fin_query FinPress Query object.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
- * @param FP_Block $block      Block instance.
+ * @param FIN_Block $block      Block instance.
  *
  * @return string Returns the next posts link for the query pagination.
  */
@@ -47,14 +47,14 @@ function render_block_core_query_pagination_next( $attributes, $content, $block 
 		add_filter( 'next_posts_link_attributes', $filter_link_attributes );
 		// Take into account if we have set a bigger `max page`
 		// than what the query has.
-		global $fp_query;
-		if ( $max_page > $fp_query->max_num_pages ) {
-			$max_page = $fp_query->max_num_pages;
+		global $fin_query;
+		if ( $max_page > $fin_query->max_num_pages ) {
+			$max_page = $fin_query->max_num_pages;
 		}
 		$content = get_next_posts_link( $label, $max_page );
 		remove_filter( 'next_posts_link_attributes', $filter_link_attributes );
 	} elseif ( ! $max_page || $max_page > $page ) {
-		$custom_query           = new FP_Query( build_query_vars_from_query_block( $block, $page ) );
+		$custom_query           = new FIN_Query( build_query_vars_from_query_block( $block, $page ) );
 		$custom_query_max_pages = (int) $custom_query->max_num_pages;
 		if ( $custom_query_max_pages && $custom_query_max_pages !== $page ) {
 			$content = sprintf(
@@ -64,21 +64,21 @@ function render_block_core_query_pagination_next( $attributes, $content, $block 
 				$label
 			);
 		}
-		fp_reset_postdata(); // Restore original Post Data.
+		fin_reset_postdata(); // Restore original Post Data.
 	}
 
 	if ( $enhanced_pagination && isset( $content ) ) {
-		$p = new FP_HTML_Tag_Processor( $content );
+		$p = new FIN_HTML_Tag_Processor( $content );
 		if ( $p->next_tag(
 			array(
 				'tag_name'   => 'a',
-				'class_name' => 'fp-block-query-pagination-next',
+				'class_name' => 'fin-block-query-pagination-next',
 			)
 		) ) {
-			$p->set_attribute( 'data-fp-key', 'query-pagination-next' );
-			$p->set_attribute( 'data-fp-on--click', 'core/query::actions.navigate' );
-			$p->set_attribute( 'data-fp-on-async--mouseenter', 'core/query::actions.prefetch' );
-			$p->set_attribute( 'data-fp-watch', 'core/query::callbacks.prefetch' );
+			$p->set_attribute( 'data-fin-key', 'query-pagination-next' );
+			$p->set_attribute( 'data-fin-on--click', 'core/query::actions.navigate' );
+			$p->set_attribute( 'data-fin-on-async--mouseenter', 'core/query::actions.prefetch' );
+			$p->set_attribute( 'data-fin-watch', 'core/query::callbacks.prefetch' );
 			$content = $p->get_updated_html();
 		}
 	}

@@ -11,9 +11,9 @@ import {
 
 const block = 'Page Break';
 const initialHtml = `
-<!-- fp:nextpage -->
+<!-- fin:nextpage -->
 <!--nextpage-->
-<!-- /fp:nextpage -->`;
+<!-- /fin:nextpage -->`;
 
 const transformsWithInnerBlocks = [ 'Columns', 'Group' ];
 const blockTransforms = [ ...transformsWithInnerBlocks ];

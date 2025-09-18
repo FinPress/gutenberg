@@ -1,3 +1,3 @@
-/* fp:polyfill */
+/* fin:polyfill */
 
 // Nothing else, really.

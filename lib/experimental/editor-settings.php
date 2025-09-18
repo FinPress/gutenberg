@@ -11,31 +11,31 @@
 function gutenberg_enable_experiments() {
 	$gutenberg_experiments = get_option( 'gutenberg-experiments' );
 	if ( $gutenberg_experiments && array_key_exists( 'gutenberg-sync-collaboration', $gutenberg_experiments ) ) {
-		fp_add_inline_script( 'fp-block-editor', 'window.__experimentalEnableSync = true', 'before' );
+		fin_add_inline_script( 'fin-block-editor', 'window.__experimentalEnableSync = true', 'before' );
 	}
 	if ( $gutenberg_experiments && array_key_exists( 'gutenberg-custom-dataviews', $gutenberg_experiments ) ) {
-		fp_add_inline_script( 'fp-block-editor', 'window.__experimentalCustomViews = true', 'before' );
+		fin_add_inline_script( 'fin-block-editor', 'window.__experimentalCustomViews = true', 'before' );
 	}
 	if ( $gutenberg_experiments && array_key_exists( 'gutenberg-color-randomizer', $gutenberg_experiments ) ) {
-		fp_add_inline_script( 'fp-block-editor', 'window.__experimentalEnableColorRandomizer = true', 'before' );
+		fin_add_inline_script( 'fin-block-editor', 'window.__experimentalEnableColorRandomizer = true', 'before' );
 	}
 	if ( $gutenberg_experiments && array_key_exists( 'gutenberg-grid-interactivity', $gutenberg_experiments ) ) {
-		fp_add_inline_script( 'fp-block-editor', 'window.__experimentalEnableGridInteractivity = true', 'before' );
+		fin_add_inline_script( 'fin-block-editor', 'window.__experimentalEnableGridInteractivity = true', 'before' );
 	}
 	if ( gutenberg_is_experiment_enabled( 'gutenberg-no-tinymce' ) ) {
-		fp_add_inline_script( 'fp-block-library', 'window.__experimentalDisableTinymce = true', 'before' );
+		fin_add_inline_script( 'fin-block-library', 'window.__experimentalDisableTinymce = true', 'before' );
 	}
 	if ( $gutenberg_experiments && array_key_exists( 'gutenberg-block-comment', $gutenberg_experiments ) ) {
-		fp_add_inline_script( 'fp-block-editor', 'window.__experimentalEnableBlockComment = true', 'before' );
+		fin_add_inline_script( 'fin-block-editor', 'window.__experimentalEnableBlockComment = true', 'before' );
 	}
 	if ( $gutenberg_experiments && array_key_exists( 'gutenberg-quick-edit-dataviews', $gutenberg_experiments ) ) {
-		fp_add_inline_script( 'fp-block-editor', 'window.__experimentalQuickEditDataViews = true', 'before' );
+		fin_add_inline_script( 'fin-block-editor', 'window.__experimentalQuickEditDataViews = true', 'before' );
 	}
 	if ( $gutenberg_experiments && array_key_exists( 'gutenberg-media-processing', $gutenberg_experiments ) ) {
-		fp_add_inline_script( 'fp-block-editor', 'window.__experimentalMediaProcessing = true', 'before' );
+		fin_add_inline_script( 'fin-block-editor', 'window.__experimentalMediaProcessing = true', 'before' );
 	}
 	if ( $gutenberg_experiments && array_key_exists( 'gutenberg-editor-write-mode', $gutenberg_experiments ) ) {
-		fp_add_inline_script( 'fp-block-editor', 'window.__experimentalEditorWriteMode = true', 'before' );
+		fin_add_inline_script( 'fin-block-editor', 'window.__experimentalEditorWriteMode = true', 'before' );
 	}
 }
 
@@ -58,12 +58,12 @@ function gutenberg_enable_block_experiments() {
 
 	// Experimental form blocks.
 	if ( $gutenberg_experiments && array_key_exists( 'gutenberg-form-blocks', $gutenberg_experiments ) ) {
-		fp_add_inline_script( 'fp-block-editor', 'window.__experimentalEnableFormBlocks = true', 'before' );
+		fin_add_inline_script( 'fin-block-editor', 'window.__experimentalEnableFormBlocks = true', 'before' );
 	}
 
 	// General experimental blocks that are not in the default block library.
 	if ( $gutenberg_experiments && array_key_exists( 'gutenberg-block-experiments', $gutenberg_experiments ) ) {
-		fp_add_inline_script( 'fp-block-editor', 'window.__experimentalEnableBlockExperiments = true', 'before' );
+		fin_add_inline_script( 'fin-block-editor', 'window.__experimentalEnableBlockExperiments = true', 'before' );
 	}
 }
 

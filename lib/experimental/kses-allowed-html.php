@@ -1,6 +1,6 @@
 <?php
 /**
- * Modifies the fp_kses_allowed_html array.
+ * Modifies the fin_kses_allowed_html array.
  *
  * @package gutenberg
  */
@@ -40,4 +40,4 @@ function gutenberg_kses_allowed_html( $allowedtags ) {
 	);
 	return $allowedtags;
 }
-add_filter( 'fp_kses_allowed_html', 'gutenberg_kses_allowed_html' );
+add_filter( 'fin_kses_allowed_html', 'gutenberg_kses_allowed_html' );

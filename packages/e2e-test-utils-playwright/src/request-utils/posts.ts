@@ -27,7 +27,7 @@ export async function deleteAllPosts( this: RequestUtils ) {
 	// List all posts.
 	// https://developer.finpress.org/rest-api/reference/posts/#list-posts
 	const posts = await this.rest< Post[] >( {
-		path: '/fp/v2/posts',
+		path: '/fin/v2/posts',
 		params: {
 			per_page: 100,
 			// All possible statuses.
@@ -37,12 +37,12 @@ export async function deleteAllPosts( this: RequestUtils ) {
 
 	// Delete all posts one by one.
 	// https://developer.finpress.org/rest-api/reference/posts/#delete-a-post
-	// "/fp/v2/posts" not yet supports batch requests.
+	// "/fin/v2/posts" not yet supports batch requests.
 	await Promise.all(
 		posts.map( ( post ) =>
 			this.rest( {
 				method: 'DELETE',
-				path: `/fp/v2/posts/${ post.id }`,
+				path: `/fin/v2/posts/${ post.id }`,
 				params: {
 					force: true,
 				},
@@ -63,7 +63,7 @@ export async function createPost(
 ) {
 	const post = await this.rest< Post >( {
 		method: 'POST',
-		path: `/fp/v2/posts`,
+		path: `/fin/v2/posts`,
 		data: { ...payload },
 	} );
 

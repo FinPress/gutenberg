@@ -12,7 +12,7 @@ import { store as commandsStore } from '../store';
 /**
  * Attach a command loader to the command palette. Used for dynamic commands.
  *
- * @param {import('../store/actions').FPCommandLoaderConfig} loader command loader config.
+ * @param {import('../store/actions').FINCommandLoaderConfig} loader command loader config.
  *
  * @example
  * ```js

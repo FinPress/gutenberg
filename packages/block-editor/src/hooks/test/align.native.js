@@ -16,9 +16,9 @@ import {
 import { getBlockTypes, unregisterBlockType } from '@finpress/blocks';
 import { registerCoreBlocks } from '@finpress/block-library';
 
-const imageHTML = `<!-- fp:image {"id":1,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="fp-block-image size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fp-image-1"/></figure>
-<!-- /fp:image -->`;
+const imageHTML = `<!-- fin:image {"id":1,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="fin-block-image size-large"><img src="https://test-site.files.finpress.com/local-image-1.jpeg" alt="" class="fin-image-1"/></figure>
+<!-- /fin:image -->`;
 
 beforeAll( () => {
 	// Register all core blocks

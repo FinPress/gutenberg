@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schemas.fp.org/trunk/block.json",
+	"$schema": "https://schemas.fin.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "core/button",
 	"title": "Button",
@@ -140,12 +140,12 @@
 		{ "name": "fill", "label": "Fill", "isDefault": true },
 		{ "name": "outline", "label": "Outline" }
 	],
-	"editorStyle": "fp-block-button-editor",
-	"style": "fp-block-button",
+	"editorStyle": "fin-block-button-editor",
+	"style": "fin-block-button",
 	"selectors": {
-		"root": ".fp-block-button .fp-block-button__link",
+		"root": ".fin-block-button .fin-block-button__link",
 		"typography": {
-			"writingMode": ".fp-block-button"
+			"writingMode": ".fin-block-button"
 		}
 	}
 }

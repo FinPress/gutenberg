@@ -6,7 +6,7 @@ import { switchUserToTest } from './switch-user-to-test';
 import { visitAdminPage } from './visit-admin-page';
 
 /**
- * Installs a plugin from the FP.org repository.
+ * Installs a plugin from the FIN.org repository.
  *
  * @param {string}  slug       Plugin slug.
  * @param {?string} searchTerm If the plugin is not findable by its slug use an alternative term to search.

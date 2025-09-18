@@ -8,14 +8,14 @@ import { select, dispatch } from '@finpress/data';
  */
 import { store as richTextStore } from './store';
 
-/** @typedef {import('./register-format-type').FPFormat} FPFormat */
+/** @typedef {import('./register-format-type').FINFormat} FINFormat */
 
 /**
  * Unregisters a format.
  *
  * @param {string} name Format name.
  *
- * @return {FPFormat|undefined} The previous format value, if it has
+ * @return {FINFormat|undefined} The previous format value, if it has
  *                                        been successfully unregistered;
  *                                        otherwise `undefined`.
  */

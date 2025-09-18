@@ -24,13 +24,13 @@ import { isAppleOS } from './platform';
  */
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 
-export type FPModifierPart =
+export type FINModifierPart =
 	| typeof ALT
 	| typeof CTRL
 	| typeof COMMAND
 	| typeof SHIFT;
 
-export type FPKeycodeModifier =
+export type FINKeycodeModifier =
 	| 'primary'
 	| 'primaryShift'
 	| 'primaryAlt'
@@ -47,20 +47,20 @@ export type FPKeycodeModifier =
  * An object of handler functions for each of the possible modifier
  * combinations. A handler will return a value for a given key.
  */
-export type FPModifierHandler< T > = Record< FPKeycodeModifier, T >;
+export type FINModifierHandler< T > = Record< FINKeycodeModifier, T >;
 
-export type FPKeyHandler< T > = (
+export type FINKeyHandler< T > = (
 	character: string,
 	isApple?: () => boolean
 ) => T;
 
-export type FPEventKeyHandler = (
+export type FINEventKeyHandler = (
 	event: ReactKeyboardEvent< HTMLElement > | KeyboardEvent,
 	character: string,
 	isApple?: () => boolean
 ) => boolean;
 
-export type FPModifier = ( isApple: () => boolean ) => FPModifierPart[];
+export type FINModifier = ( isApple: () => boolean ) => FINModifierPart[];
 
 /**
  * Keycode for BACKSPACE key.
@@ -201,7 +201,7 @@ function mapValues< T extends Record< string, any >, R >(
  * Object that contains functions that return the available modifier
  * depending on platform.
  */
-export const modifiers: FPModifierHandler< FPModifier > = {
+export const modifiers: FINModifierHandler< FINModifier > = {
 	primary: ( _isApple ) => ( _isApple() ? [ COMMAND ] : [ CTRL ] ),
 	primaryShift: ( _isApple ) =>
 		_isApple() ? [ SHIFT, COMMAND ] : [ CTRL, SHIFT ],
@@ -230,9 +230,9 @@ export const modifiers: FPModifierHandler< FPModifier > = {
  * // "meta+m""
  * ```
  */
-export const rawShortcut: FPModifierHandler< FPKeyHandler< string > > =
+export const rawShortcut: FINModifierHandler< FINKeyHandler< string > > =
 	/* @__PURE__ */
-	mapValues( modifiers, ( modifier: FPModifier ) => {
+	mapValues( modifiers, ( modifier: FINModifier ) => {
 		return ( character: string, _isApple = isAppleOS ) => {
 			return [ ...modifier( _isApple ), character.toLowerCase() ].join(
 				'+'
@@ -252,13 +252,13 @@ export const rawShortcut: FPModifierHandler< FPKeyHandler< string > > =
  *
  * Keyed map of functions to shortcut sequences.
  */
-export const displayShortcutList: FPModifierHandler<
-	FPKeyHandler< string[] >
+export const displayShortcutList: FINModifierHandler<
+	FINKeyHandler< string[] >
 > =
 	/* @__PURE__ */
 	mapValues(
 		modifiers,
-		( modifier: FPModifier ): FPKeyHandler< string[] > => {
+		( modifier: FINModifier ): FINKeyHandler< string[] > => {
 			return ( character: string, _isApple = isAppleOS ) => {
 				const isApple = _isApple();
 				const replacementKeyMap = {
@@ -301,11 +301,11 @@ export const displayShortcutList: FPModifierHandler<
  *
  * Keyed map of functions to display shortcuts.
  */
-export const displayShortcut: FPModifierHandler< FPKeyHandler< string > > =
+export const displayShortcut: FINModifierHandler< FINKeyHandler< string > > =
 	/* @__PURE__ */
 	mapValues(
 		displayShortcutList,
-		( shortcutList: FPKeyHandler< string[] > ): FPKeyHandler< string > => {
+		( shortcutList: FINKeyHandler< string[] > ): FINKeyHandler< string > => {
 			return ( character: string, _isApple = isAppleOS ) =>
 				shortcutList( character, _isApple ).join( '' );
 		}
@@ -324,9 +324,9 @@ export const displayShortcut: FPModifierHandler< FPKeyHandler< string > > =
  *
  * Keyed map of functions to shortcut ARIA labels.
  */
-export const shortcutAriaLabel: FPModifierHandler< FPKeyHandler< string > > =
+export const shortcutAriaLabel: FINModifierHandler< FINKeyHandler< string > > =
 	/* @__PURE__ */
-	mapValues( modifiers, ( modifier: FPModifier ): FPKeyHandler< string > => {
+	mapValues( modifiers, ( modifier: FINModifier ): FINKeyHandler< string > => {
 		return ( character: string, _isApple = isAppleOS ) => {
 			const isApple = _isApple();
 			const replacementKeyMap: Record< string, string > = {
@@ -362,7 +362,7 @@ export const shortcutAriaLabel: FPModifierHandler< FPKeyHandler< string > > =
  */
 function getEventModifiers(
 	event: ReactKeyboardEvent< HTMLElement > | KeyboardEvent
-): FPModifierPart[] {
+): FINModifierPart[] {
 	return ( [ ALT, CTRL, COMMAND, SHIFT ] as const ).filter(
 		( key ) =>
 			( event as KeyboardEvent )[
@@ -384,9 +384,9 @@ function getEventModifiers(
  *
  * Keyed map of functions to match events.
  */
-export const isKeyboardEvent: FPModifierHandler< FPEventKeyHandler > =
+export const isKeyboardEvent: FINModifierHandler< FINEventKeyHandler > =
 	/* @__PURE__ */
-	mapValues( modifiers, ( getModifiers: FPModifier ): FPEventKeyHandler => {
+	mapValues( modifiers, ( getModifiers: FINModifier ): FINEventKeyHandler => {
 		return ( event, character, _isApple = isAppleOS ) => {
 			const mods = getModifiers( _isApple );
 			const eventMods = getEventModifiers( event );
@@ -413,7 +413,7 @@ export const isKeyboardEvent: FPModifierHandler< FPEventKeyHandler > =
 			let key = event.key.toLowerCase();
 
 			if ( ! character ) {
-				return mods.includes( key as FPModifierPart );
+				return mods.includes( key as FINModifierPart );
 			}
 
 			if ( event.altKey && character.length === 1 ) {

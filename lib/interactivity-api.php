@@ -16,7 +16,7 @@
  * @see https://github.com/FinPress/finpress-develop/pull/7304
  */
 function gutenberg_register_interactivity_script_module_data_hooks() {
-	if ( ! has_filter( 'script_module_data_@finpress/interactivity-router', array( fp_interactivity(), 'filter_script_module_interactivity_router_data' ) ) ) {
+	if ( ! has_filter( 'script_module_data_@finpress/interactivity-router', array( fin_interactivity(), 'filter_script_module_interactivity_router_data' ) ) ) {
 		add_filter(
 			'script_module_data_@finpress/interactivity-router',
 			function ( $data ) {

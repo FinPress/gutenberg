@@ -9,15 +9,15 @@
 /**
  * Adds export theme link relation to the block theme responses.
  *
- * @param FP_REST_Response $response The response object.
- * @param FP_Theme         $theme    Theme object used to create response.
- * @return FP_REST_Response Modified response object.
+ * @param FIN_REST_Response $response The response object.
+ * @param FIN_Theme         $theme    Theme object used to create response.
+ * @return FIN_REST_Response Modified response object.
  */
 function gutenberg_rest_theme_export_link_rel( $response, $theme ) {
 	if ( ! empty( $response->get_links() ) && $theme->is_block_theme() ) {
 		$response->add_link(
 			'https://api.w.org/export-theme',
-			rest_url( 'fp-block-editor/v1/export' ),
+			rest_url( 'fin-block-editor/v1/export' ),
 			array(
 				'targetHints' => array(
 					'allow' => current_user_can( 'export' ) ? array( 'GET' ) : array(),

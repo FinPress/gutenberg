@@ -6,16 +6,16 @@ const prettierPackage = require( require.resolve( 'prettier/package.json' ) );
 /** @typedef {import('prettier').Config} PrettierConfig */
 
 /**
- * @typedef FPPrettierOptions
+ * @typedef FINPrettierOptions
  *
  * @property {boolean} [parenSpacing=true] Insert spaces inside parentheses.
  */
 
-const isFPPrettier = prettierPackage.name === 'fin-prettier';
-const customOptions = isFPPrettier ? { parenSpacing: true } : {};
-const customStyleOptions = isFPPrettier ? { parenSpacing: false } : {};
+const isFINPrettier = prettierPackage.name === 'fin-prettier';
+const customOptions = isFINPrettier ? { parenSpacing: true } : {};
+const customStyleOptions = isFINPrettier ? { parenSpacing: false } : {};
 
-/** @type {PrettierConfig & FPPrettierOptions} */
+/** @type {PrettierConfig & FINPrettierOptions} */
 const config = {
 	useTabs: true,
 	tabWidth: 4,

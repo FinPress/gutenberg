@@ -13,7 +13,7 @@ import { useLayoutEffect, useState } from '@finpress/element';
  * Internal dependencies
  */
 import { escapeRegExp } from '../utils/strings';
-import type { CancelablePromise, KeyedOption, FPCompleter } from './types';
+import type { CancelablePromise, KeyedOption, FINCompleter } from './types';
 
 function filterOptions(
 	search: RegExp,
@@ -48,7 +48,7 @@ function filterOptions(
 	return filtered;
 }
 
-export default function getDefaultUseItems( autocompleter: FPCompleter ) {
+export default function getDefaultUseItems( autocompleter: FINCompleter ) {
 	return ( filterValue: string ) => {
 		const [ items, setItems ] = useState< Array< KeyedOption > >( [] );
 		/*

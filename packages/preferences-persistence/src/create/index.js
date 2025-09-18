@@ -30,7 +30,7 @@ const localStorage = window.localStorage;
  */
 export default function create( {
 	preloadedData,
-	localStorageRestoreKey = 'FP_PREFERENCES_RESTORE_DATA',
+	localStorageRestoreKey = 'FIN_PREFERENCES_RESTORE_DATA',
 	requestDebounceMS = 2500,
 } = {} ) {
 	let cache = preloadedData;

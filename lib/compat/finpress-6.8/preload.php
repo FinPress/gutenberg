@@ -4,7 +4,7 @@
  * Preload necessary resources for the editors.
  *
  * @param array                   $paths   REST API paths to preload.
- * @param FP_Block_Editor_Context $context Current block editor context
+ * @param FIN_Block_Editor_Context $context Current block editor context
  *
  * @return array Filtered preload paths.
  */
@@ -22,39 +22,39 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 			$route_for_post = rest_get_route_for_post( $post );
 			if ( $route_for_post ) {
 				$paths[] = add_query_arg( 'context', 'edit', $route_for_post );
-				$paths[] = add_query_arg( 'context', 'edit', '/fp/v2/types/' . $post->post_type );
+				$paths[] = add_query_arg( 'context', 'edit', '/fin/v2/types/' . $post->post_type );
 				if ( 'page' === $post->post_type ) {
 					$paths[] = add_query_arg(
 						'slug',
 						// @see https://github.com/FinPress/gutenberg/blob/e093fefd041eb6cc4a4e7f67b92ab54fd75c8858/packages/core-data/src/private-selectors.ts#L244-L254
 						empty( $post->post_name ) ? 'page' : 'page-' . $post->post_name,
-						'/fp/v2/templates/lookup'
+						'/fin/v2/templates/lookup'
 					);
 				}
 			}
 		}
 
-		$paths[] = '/fp/v2/settings';
-		$paths[] = array( '/fp/v2/settings', 'OPTIONS' );
-		$paths[] = '/fp/v2/templates/lookup?slug=front-page';
-		$paths[] = '/fp/v2/templates/lookup?slug=home';
+		$paths[] = '/fin/v2/settings';
+		$paths[] = array( '/fin/v2/settings', 'OPTIONS' );
+		$paths[] = '/fin/v2/templates/lookup?slug=front-page';
+		$paths[] = '/fin/v2/templates/lookup?slug=home';
 	}
 
 	// Preload theme and global styles paths.
 	if ( 'core/edit-site' === $context->name || 'core/edit-post' === $context->name ) {
-		$global_styles_id = FP_Theme_JSON_Resolver_Gutenberg::get_user_global_styles_post_id();
+		$global_styles_id = FIN_Theme_JSON_Resolver_Gutenberg::get_user_global_styles_post_id();
 		$excluded_paths   = array();
 		/*
 		 * Removes any edit or view context paths originating from Core,
 		 * or elsewhere, e.g., gutenberg_block_editor_preload_paths_6_6().
 		 * Aside from not preloading unnecessary contexts, it also ensures there no duplicates,
 		 * leading to a small optimization: block_editor_rest_api_preload() does not dedupe,
-		 * and will fire off a FP_REST_Request for every path. In the case of
-		 * `/fp/v2/global-styles/*` this will create a new FP_Theme_JSON() instance.
+		 * and will fire off a FIN_REST_Request for every path. In the case of
+		 * `/fin/v2/global-styles/*` this will create a new FIN_Theme_JSON() instance.
 		 */
-		$excluded_paths[] = '/fp/v2/global-styles/' . $global_styles_id . '?context=view';
+		$excluded_paths[] = '/fin/v2/global-styles/' . $global_styles_id . '?context=view';
 		// Removes any edit context path originating from gutenberg_block_editor_preload_paths_6_6().
-		$excluded_paths[] = '/fp/v2/global-styles/' . $global_styles_id . '?context=edit';
+		$excluded_paths[] = '/fin/v2/global-styles/' . $global_styles_id . '?context=edit';
 		foreach ( $paths as $key => $path ) {
 			if ( in_array( $path, $excluded_paths, true ) ) {
 				unset( $paths[ $key ] );
@@ -69,10 +69,10 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 		 * Please ensure that the equivalent check is kept in sync with this preload path.
 		 */
 		$rest_context = current_user_can( 'edit_theme_options' ) ? 'edit' : 'view';
-		$paths[]      = "/fp/v2/global-styles/$global_styles_id?context=$rest_context";
+		$paths[]      = "/fin/v2/global-styles/$global_styles_id?context=$rest_context";
 
 		// Used by getBlockPatternCategories in useBlockEditorSettings.
-		$paths[] = '/fp/v2/block-patterns/categories';
+		$paths[] = '/fin/v2/block-patterns/categories';
 		$paths[] = '/?_fields=' . implode(
 			',',
 			// @see packages/core-data/src/entities.js
@@ -103,7 +103,7 @@ function gutenberg_block_editor_preload_paths_6_8( $paths, $context ) {
 			'slug',
 			// @see https://github.com/FinPress/gutenberg/blob/e093fefd041eb6cc4a4e7f67b92ab54fd75c8858/packages/core-data/src/private-selectors.ts#L244-L254
 			$slug,
-			'/fp/v2/templates/lookup'
+			'/fin/v2/templates/lookup'
 		);
 	}
 

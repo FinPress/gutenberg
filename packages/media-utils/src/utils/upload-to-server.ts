@@ -29,7 +29,7 @@ export async function uploadToServer(
 	return transformAttachment(
 		await apiFetch< RestAttachment >( {
 			// This allows the video block to directly get a video's poster image.
-			path: '/fp/v2/media?_embed=fp:featuredmedia',
+			path: '/fin/v2/media?_embed=fin:featuredmedia',
 			body: data,
 			method: 'POST',
 			signal,

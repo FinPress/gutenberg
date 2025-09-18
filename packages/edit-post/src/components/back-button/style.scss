@@ -35,12 +35,12 @@
 			bottom: $grid-unit-10 + $border-width;
 			left: $grid-unit-10 + $border-width;
 			border-radius: $radius-small + $border-width + $border-width;
-			box-shadow: inset 0 0 0 var(--fp-admin-border-width-focus) $gray-900;
+			box-shadow: inset 0 0 0 var(--fin-admin-border-width-focus) $gray-900;
 		}
 
 		// Hover color.
 		&:hover::before {
-			box-shadow: inset 0 0 0 var(--fp-admin-border-width-focus) $gray-700;
+			box-shadow: inset 0 0 0 var(--fin-admin-border-width-focus) $gray-700;
 		}
 
 		&.has-icon:hover::before {
@@ -49,7 +49,7 @@
 
 		// Lightened spot color focus.
 		&:focus::before {
-			box-shadow: inset 0 0 0 var(--fp-admin-border-width-focus) rgba($white, 0.1), inset 0 0 0 var(--fp-admin-border-width-focus) var(--fp-admin-theme-color);
+			box-shadow: inset 0 0 0 var(--fin-admin-border-width-focus) rgba($white, 0.1), inset 0 0 0 var(--fin-admin-border-width-focus) var(--fin-admin-theme-color);
 		}
 	}
 
